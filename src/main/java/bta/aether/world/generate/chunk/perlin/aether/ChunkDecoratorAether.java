@@ -62,7 +62,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k4 = x + rand.nextInt(16);
             l7 = rand.nextInt(32);
             k17 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(Aether.aercloudWhite.id, 64, false)).generate(this.world, rand, k4, l7, k17);
+            (new WorldFeatureClouds(Aether.aercloudWhite.id, 64, true)).generate(this.world, rand, k4, l7, k17);
         }
     }
 }
