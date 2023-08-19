@@ -2,6 +2,7 @@ package bta.aether.world.generate.chunk.perlin.aether;
 
 import bta.aether.Aether;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
+import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
 import net.minecraft.core.block.BlockSand;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
@@ -63,6 +64,21 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             l7 = rand.nextInt(32);
             k17 = z + rand.nextInt(16);
             (new WorldFeatureClouds(Aether.aercloudWhite.id, 64, true)).generate(this.world, rand, k4, l7, k17);
+        }
+
+        if (rand.nextInt(5) == 0) {
+            for(k4 = x; k4 < x + 16; ++k4) {
+                for(l7 = z; l7 < z + 16; ++l7) {
+                    for(k17 = 0; k17 < 48; ++k17) {
+                        if (this.world.getBlockId(k4, k17, l7) == 0
+                                && this.world.getBlockId(k4, k17 + 1, l7) == Aether.grassAether.id
+                                && this.world.getBlockId(k4, k17 + 2, l7) == 0) {
+                            (new WorldFeatureQuicksoil(Aether.quicksoil.id)).generate(this.world, rand, k4, k17, l7);
+                            k17 = 128;
+                        }
+                    }
+                }
+            }
         }
     }
 }
