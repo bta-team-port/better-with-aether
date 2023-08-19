@@ -44,25 +44,25 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k4 = x + rand.nextInt(16);
             l7 = rand.nextInt(32) + 96;
             k17 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(Aether.AercloudGoldAether.id, 4, false)).generate(this.world, rand, k4, l7, k17);
+            (new WorldFeatureClouds(Aether.aercloudGold.id, 4, false)).generate(this.world, rand, k4, l7, k17);
         }
         if (rand.nextInt(50) == 0) {
             k4 = x + rand.nextInt(16);
             l7 = rand.nextInt(64) + 32;
             k17 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(Aether.AercloudBlueAether.id, 8, false)).generate(this.world, rand, k4, l7, k17);
+            (new WorldFeatureClouds(Aether.aercloudBlue.id, 8, false)).generate(this.world, rand, k4, l7, k17);
         }
         if (rand.nextInt(50) == 0) {
             k4 = x + rand.nextInt(16);
             l7 = rand.nextInt(64) + 32;
             k17 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(Aether.AercloudWhiteAether.id, 16, false)).generate(this.world, rand, k4, l7, k17);
+            (new WorldFeatureClouds(Aether.aercloudWhite.id, 16, false)).generate(this.world, rand, k4, l7, k17);
         }
         if (rand.nextInt(50) == 0) {
             k4 = x + rand.nextInt(16);
             l7 = rand.nextInt(32);
             k17 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(Aether.AercloudWhiteAether.id, 64, false)).generate(this.world, rand, k4, l7, k17);
+            (new WorldFeatureClouds(Aether.aercloudWhite.id, 64, false)).generate(this.world, rand, k4, l7, k17);
         }
     }
 }
