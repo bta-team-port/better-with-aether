@@ -1,13 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
-  "version": "${version}",
+  "id": "aether",
+  "version": "1.0.0",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "Aether",
+  "description": "Adds in a plethora of new and useful blocks",
   "authors": [
-    "Turnip Labs"
+    "LukeisStuff, jonkadelic, mak"
   ],
+  "icon": "icon.png",
   "contact": {
     "homepage": "",
     "sources": ""
@@ -18,11 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-        "turniplabs.examplemod.ExampleMod"
+      "bta.aether.Aether"
     ]
   },
   "mixins": [
-      "examplemod.mixins.json"
   ],
 
   "depends": {

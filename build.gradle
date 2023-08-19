@@ -65,16 +65,20 @@ repositories {
 	}
 }
 
+repositories {
+	maven { url = "https://jitpack.io" }
+}
+
+dependencies {
+	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
+}
+
 dependencies {
 	minecraft "bta-download-repo:bta:${project.bta_version}"
 	mappings loom.layered() {}
 
 	modRuntimeOnly "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
 	modImplementation "fabric-loader:fabric-loader:${project.loader_version}"
-
-	// Helper library
-	// If you do not need Halplibe you can comment this line out or delete this line
-	modImplementation "bta-halplibe:halplibe:${project.halplibe_version}"
 
 	modImplementation "ModMenu:ModMenu:2.0.0"
 
