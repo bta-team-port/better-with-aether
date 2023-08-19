@@ -1,4 +1,4 @@
-package bta.aether;
+package bta.aether.block;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockTransparent;
