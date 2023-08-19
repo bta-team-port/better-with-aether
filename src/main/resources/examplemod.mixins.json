@@ -1,7 +1,7 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "turniplabs.examplemod.mixin",
+    "package": "aether.bonusblocks.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
     ],
@@ -9,5 +9,5 @@
     ],
     "injectors": {
         "defaultRequire": 1
-  }
+    }
 }
