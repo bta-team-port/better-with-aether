@@ -1,5 +1,7 @@
 package bta.aether;
 
+import bta.aether.world.BiomeAether;
+import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
@@ -14,6 +16,11 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.biome.BiomeRainforest;
+import net.minecraft.core.world.biome.Biomes;
+import net.minecraft.core.world.type.WorldType;
+import net.minecraft.core.world.type.WorldTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.*;
@@ -27,9 +34,6 @@ import static net.minecraft.core.block.Block.*;
 public class Aether implements ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    //Dimension dim = new Dimension(Dimension.aether, Dimension.overworld, 3, Aether.portalAether.id).setDefaultWorldType(1);
-        //Dimension.registerDimension(3, Aether);
 
     // Blocks
     public static final Block portalAether = new BlockBuilder(MOD_ID)
@@ -396,7 +400,6 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.BROKEN_BY_FLUIDS)
             .build(new BlockFlower("flower.purple.aether", 1040));
 
-
     //Items
     public static final Item VictoryMedal = ItemHelper.createItem(MOD_ID, new Item(17000), "victorymedal", "VictoryMedal.png");
     public static final Item BronzeKey = ItemHelper.createItem(MOD_ID, new Item(17001), "key.bronze", "BronzeKey.png");
@@ -551,6 +554,23 @@ public class Aether implements ModInitializer {
 
     public static final Item lifeShard = ItemHelper.createItem(MOD_ID, new Item(17111), "food.lifeshard", "LifeShard.png");
 
+    // Biomes
+    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether());
+    static
+    {
+        biomeAether.topBlock = (short) GrassAether.id;
+        biomeAether.fillerBlock = (short) dirtAether.id;
+    }
+
+    // World types
+    public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
+
+    // Dimensions
+    public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, Aether.portalAether.id).setDefaultWorldType(worldTypeAether);
+    static
+    {
+        Dimension.registerDimension(3, dimensionAether);
+    }
 
 
 
