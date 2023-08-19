@@ -593,6 +593,8 @@ public class Aether implements ModInitializer {
         RecipeHelper.Crafting.createRecipe(Block.workbench, 1, new Object[]{"PP", "PP", 'P' , Aether.planksSkyroot});
         RecipeHelper.Crafting.createRecipe(Aether.incubator, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.planksSkyroot, 'T', Aether.torchAmbrosium});
         RecipeHelper.Crafting.createRecipe(Aether.freezer, 1, new Object[]{"PPP", "PTP", "XXX", 'P' , Aether.planksSkyroot, 'T', Aether.icestone, 'X', Aether.planksSkyroot});
+        RecipeHelper.Crafting.createRecipe(Aether.EnchanterAether, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.holystone, 'T', Aether.gemZanite});
+
         RecipeHelper.Crafting.createRecipe(chestPlanksOak, 1, new Object[]{"PPP", "P P", "PPP", 'P' , Aether.planksSkyroot});
 
         ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(Item.dye, 2, 7), new Object[]{"P", 'P' , Aether.flowerWhite});
@@ -607,6 +609,12 @@ public class Aether implements ModInitializer {
 
         //Crafting Recipes Items
 
+        RecipeHelper.Crafting.createRecipe(Item.doorOak, 1, new Object[]{"SS ", "SS ", "SS ", 'S', Aether.planksSkyroot});
+        RecipeHelper.Crafting.createRecipe(ladderOak, 4, new Object[]{"S S", "SSS", "S S", 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(fencePlanksOak, 6, new Object[]{"PSP", "PSP", 'P', Aether.planksSkyroot, 'S', stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(fencegatePlanksOak, 3, new Object[]{"PSP", "PSP", 'S', Aether.planksSkyroot, 'P', stickSkyroot});
+
+
         RecipeHelper.Crafting.createRecipe(Aether.stickSkyroot, 4, new Object[]{" P ", " P ", 'P' , Aether.planksSkyroot});
         RecipeHelper.Crafting.createRecipe(Aether.torchAmbrosium, 2, new Object[]{" A ", " P ", 'P' , Aether.stickSkyroot, 'A', ambrosium});
 
@@ -614,6 +622,8 @@ public class Aether implements ModInitializer {
         RecipeHelper.Crafting.createRecipe(Aether.dartPoison, 8, new Object[]{"GGG", "GBG", "GGG", 'G' , Aether.dartGolden, 'B', Aether.bucketSkyrootPoison});
 
         RecipeHelper.Crafting.createRecipe(Aether.dartshooter, 1, new Object[]{"P  ", "P  ", "Z  ", 'P' , Aether.planksSkyroot, 'Z', gemZanite});
+        RecipeHelper.Crafting.createRecipe(Aether.dartshooterPoison, 1, new Object[]{"DP ", 'D' , Aether.dartshooter, 'P', petalAechor});
+
 
 
         RecipeHelper.Crafting.createRecipe(Aether.gemZanite, 4, new Object[]{"P", 'P' , Aether.blockZanite});
@@ -654,6 +664,32 @@ public class Aether implements ModInitializer {
         RecipeHelper.Crafting.createRecipe(toolShovelGravitite, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
         RecipeHelper.Crafting.createRecipe(toolSwordGravitite, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
 
+        RecipeHelper.Crafting.createRecipe(armorHelmetZanite, 1, new Object[]{"GGG", "G G", 'G' , Aether.gemZanite});
+        RecipeHelper.Crafting.createRecipe(armorChestplateZanite, 1, new Object[]{"G G", "GGG", "GGG", 'G' , Aether.gemZanite});
+        RecipeHelper.Crafting.createRecipe(armorLeggingsZanite, 1, new Object[]{"GGG", "G G", "G G", 'G' , Aether.gemZanite});
+        RecipeHelper.Crafting.createRecipe(armorBootsZanite, 1, new Object[]{"G G", "G G", 'G' , Aether.gemZanite});
+
+        RecipeHelper.Crafting.createRecipe(armorHelmetGravitite, 1, new Object[]{"GGG", "G G", 'G' , Aether.gravititeEnchanted});
+        RecipeHelper.Crafting.createRecipe(armorChestplateGravitite, 1, new Object[]{"G G", "GGG", "GGG", 'G' , Aether.gravititeEnchanted});
+        RecipeHelper.Crafting.createRecipe(armorLeggingsGravitite, 1, new Object[]{"GGG", "G G", "G G", 'G' , Aether.gravititeEnchanted});
+        RecipeHelper.Crafting.createRecipe(armorBootsGravitite, 1, new Object[]{"G G", "G G", 'G' , Aether.gravititeEnchanted});
+
+        RecipeHelper.Crafting.createRecipe(armorGlovesLeather, 1, new Object[]{"G G", 'G' , Item.leather});
+        RecipeHelper.Crafting.createRecipe(armorGlovesIron, 1, new Object[]{"G G", 'G' , Item.ingotIron});
+        RecipeHelper.Crafting.createRecipe(armorGlovesGold, 1, new Object[]{"G G", 'G' , Item.ingotGold});
+        RecipeHelper.Crafting.createRecipe(armorGlovesDiamond, 1, new Object[]{"G G", 'G' , Item.diamond});
+        RecipeHelper.Crafting.createRecipe(armorGlovesZanite, 1, new Object[]{"G G", 'G' , Aether.gemZanite});
+        RecipeHelper.Crafting.createRecipe(armorGlovesGravitite, 1, new Object[]{"G G", 'G' , Aether.gravititeEnchanted});
+
+        RecipeHelper.Crafting.createRecipe(armorRingIron, 1, new Object[]{" G ", "G G", " G ", 'G' , Item.ingotIron});
+        RecipeHelper.Crafting.createRecipe(armorRingGold, 1, new Object[]{" G ", "G G", " G ", 'G' , Item.ingotGold});
+        RecipeHelper.Crafting.createRecipe(armorRingZanite, 1, new Object[]{" G ", "G G", " G ", 'G' , Aether.gemZanite});
+
+        RecipeHelper.Crafting.createRecipe(armorPendantIron, 1, new Object[]{"SSS", "S S", " G ", 'S', Item.string, 'G' , Item.ingotIron});
+        RecipeHelper.Crafting.createRecipe(armorPendantGold, 1, new Object[]{"SSS", "S S", " G ", 'S', Item.string, 'G' , Item.ingotGold});
+        RecipeHelper.Crafting.createRecipe(armorPendantZanite, 1, new Object[]{"SSS", "S S", " G ", 'S', Item.string, 'G' , Aether.gemZanite});
+
+
 
         //Furnace Recipes
 
@@ -665,6 +701,12 @@ public class Aether implements ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(Aether.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(Aether.logOakGolden.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(Aether.planksSkyroot.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.stickSkyroot.id, 150);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.toolPickaxeSkyroot.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.toolShovelSkyroot.id, 600);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.toolAxeSkyroot.id, 600);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.toolSwordSkyroot.id, 600);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.bucketSkyroot.id, 600);
 
     }
 }
