@@ -1,6 +1,7 @@
 package bta.aether.world;
 
 import bta.aether.Aether;
+import bta.aether.world.generate.chunk.perlin.aether.ChunkGeneratorAether;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
@@ -9,7 +10,6 @@ import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.biome.provider.BiomeProviderSingleBiome;
 import net.minecraft.core.world.config.season.SeasonConfig;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
-import net.minecraft.core.world.generate.chunk.perlin.paradise.ChunkGeneratorParadise;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.wind.WindManager;
@@ -63,7 +63,7 @@ public abstract class WorldTypeAether
 
     @Override
     public ChunkGenerator createChunkGenerator(World world) {
-        return new ChunkGeneratorParadise(world);
+        return new ChunkGeneratorAether(world);
     }
 
     @Override
