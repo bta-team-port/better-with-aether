@@ -1,5 +1,6 @@
 package bta.aether;
 
+import bta.aether.block.*;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
@@ -15,9 +16,7 @@ import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.Dimension;
-import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
-import net.minecraft.core.world.biome.BiomeRainforest;
 import net.minecraft.core.world.biome.Biomes;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
@@ -25,8 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.*;
 import turniplabs.halplibe.mixin.accessors.CraftingManagerAccessor;
-
-import java.util.Random;
 
 import static net.minecraft.core.block.Block.*;
 
@@ -52,7 +49,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE, BlockTags.GROWS_TREES)
             .build(new Block("dirt.aether", 1001, Material.dirt));
 
-    public static final Block GrassAether = new BlockBuilder(MOD_ID)
+    public static final Block grassAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.6f)
             .setResistance(0.6f)
@@ -62,7 +59,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE, BlockTags.GROWS_TREES)
             .build(new Block("grass.aether", 1002, Material.grass));
 
-    public static final Block HolystoneAether = new BlockBuilder(MOD_ID)
+    public static final Block holystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.8f)
             .setResistance(0.8f)
@@ -70,7 +67,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("holystone.aether", 1003, Material.stone));
 
-    public static final Block MossyHolystoneAether = new BlockBuilder(MOD_ID)
+    public static final Block holystoneMossy = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.8f)
             .setResistance(0.8f)
@@ -78,7 +75,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("holystone.mossy.aether", 1004, Material.stone));
 
-    public static final Block IcestoneAether = new BlockBuilder(MOD_ID)
+    public static final Block icestone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
@@ -86,21 +83,21 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("icestone.aether", 1005, Material.stone));
 
-    public static final Block AercloudWhiteAether = new BlockBuilder(MOD_ID)
+    public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.1f)
             .setResistance(0.1f)
             .setTextures("Aercloud.png")
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBase("aercloud.white.aether", 1006, Material.cloth));
-    public static final Block AercloudBlueAether = new BlockBuilder(MOD_ID)
+    public static final Block aercloudBlue = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.1f)
             .setResistance(0.1f)
             .setTextures("BlueAercloud.png")
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBlue("aercloud.blue.aether", 1007, Material.cloth));
-    public static final Block AercloudGoldAether = new BlockBuilder(MOD_ID)
+    public static final Block aercloudGold = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.1f)
             .setResistance(0.1f)
@@ -108,7 +105,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBase("aercloud.gold.aether", 1008, Material.cloth));
 
-    public static final Block AerogelAether = new BlockBuilder(MOD_ID)
+    public static final Block aerogel = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(10.0f)
@@ -124,7 +121,7 @@ public class Aether implements ModInitializer {
             .setTopBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("enchanter.aether", 1010, Material.wood));
-    public static final Block FreezerAether = new BlockBuilder(MOD_ID)
+    public static final Block freezer = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -133,7 +130,7 @@ public class Aether implements ModInitializer {
             .setBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("freezer.aether", 1011, Material.wood));
-    public static final Block IncubatorAether = new BlockBuilder(MOD_ID)
+    public static final Block incubator = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -143,7 +140,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("incubator.aether", 1012, Material.wood));
 
-    public static final Block SkyrootLogAether = new BlockBuilder(MOD_ID)
+    public static final Block logSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
@@ -152,7 +149,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_AXE)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockLog("skyroot.log.aether", 1013));
-    public static final Block GoldenOakLogAether = new BlockBuilder(MOD_ID)
+    public static final Block logOakGolden = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
@@ -162,7 +159,7 @@ public class Aether implements ModInitializer {
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockLog("goldenoak.log.aether", 1014));
 
-    public static final Block SkyrootPlanksAether = new BlockBuilder(MOD_ID)
+    public static final Block planksSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -170,7 +167,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_AXE)
             .build(new Block("skyroot.planks.aether", 1015, Material.wood));
 
-    public static final Block SkyrootLeavesAether = new BlockBuilder(MOD_ID)
+    public static final Block leavesSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -180,10 +177,10 @@ public class Aether implements ModInitializer {
             .build(new BlockLeavesBase("skyroot.leaves.aether", 1016, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
-                    return Aether.SkyrootSaplingAether;
+                    return Aether.saplingSkyroot;
                 }
             });
-    public static final Block GoldenOakLeavesAether = new BlockBuilder(MOD_ID)
+    public static final Block leavesOakGolden = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -193,11 +190,11 @@ public class Aether implements ModInitializer {
             .build(new BlockLeavesBase("goldenoak.leaves.aether", 1017, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
-                    return Aether.GoldenOakSaplingAether;
+                    return Aether.saplingOakGolden;
                 }
             });
 
-    public static final Block SkyrootSaplingAether = new BlockBuilder(MOD_ID)
+    public static final Block saplingSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
@@ -206,7 +203,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.BROKEN_BY_FLUIDS)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingSkyroot("skyroot.sapling.aether", 1018));
-    public static final Block GoldenOakSaplingAether = new BlockBuilder(MOD_ID)
+    public static final Block saplingOakGolden = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
@@ -216,21 +213,21 @@ public class Aether implements ModInitializer {
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingGoldenOak("goldenoak.sapling.aether", 1019));
 
-    public static final Block AmbrosiumOreAether = new BlockBuilder(MOD_ID)
+    public static final Block oreAmbrosiumHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("AmbrosiumOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("ore.ambrosium.aether", 1020, Material.stone));
-    public static final Block ZaniteOreAether = new BlockBuilder(MOD_ID)
+    public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("ZaniteOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("ore.zanite.aether", 1021, Material.stone));
-    public static final Block GravititeOreAether = new BlockBuilder(MOD_ID)
+    public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -238,7 +235,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("ore.gravitite.aether", 1022, Material.stone));
 
-    public static final Block AmbrosiumTorchAether = new BlockBuilder(MOD_ID)
+    public static final Block torchAmbrosium = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -247,7 +244,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockAmbrosiumTorch("torch.ambrosium.aether", 1023));
 
-    public static final Block EnchantedGravitite = new BlockBuilder(MOD_ID)
+    public static final Block gravititeEnchanted = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -256,7 +253,7 @@ public class Aether implements ModInitializer {
             .setBottomTexture("GravititeBlockBottom.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("block.gravitite.aether", 1024, Material.metal));
-    public static final Block ZaniteBlock = new BlockBuilder(MOD_ID)
+    public static final Block blockZanite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -267,7 +264,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("block.zanite.aether", 1025, Material.metal));
 
-    public static final Block TrapAether = new BlockBuilder(MOD_ID)
+    public static final Block trap = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
@@ -275,7 +272,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new Block("trap.aether", 1026, Material.stone));
 
-    public static final Block MimicChestAether = new BlockBuilder(MOD_ID)
+    public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
@@ -285,7 +282,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new Block("chest.mimic.aether", 1027, Material.wood));
 
-    public static final Block TreasureChestAether = new BlockBuilder(MOD_ID)
+    public static final Block chestTreasure = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
@@ -297,21 +294,21 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new Block("chest.treasure.aether", 1028, Material.stone));
 
-    public static final Block CarvedStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("carved.aether", 1029, Material.stone));
-    public static final Block AngelicStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("angelic.aether", 1030, Material.stone));
-    public static final Block HellfireStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneHellfire = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -319,7 +316,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("hellfire.aether", 1031, Material.stone));
 
-    public static final Block LightCarvedStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneCarvedLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -327,7 +324,7 @@ public class Aether implements ModInitializer {
             .setTextures("LightCarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("carved.light.aether", 1032, Material.stone));
-    public static final Block LightAngelicStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneAngelicLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -335,7 +332,7 @@ public class Aether implements ModInitializer {
             .setTextures("LightAngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("angelic.light.aether", 1033, Material.stone));
-    public static final Block LightHellfireStoneAether = new BlockBuilder(MOD_ID)
+    public static final Block stoneHellfireLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -344,7 +341,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("hellfire.light.aether", 1034, Material.stone));
 
-    public static final Block PillarAether = new BlockBuilder(MOD_ID)
+    public static final Block pillar = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -353,7 +350,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockAxisAligned("pillar.aether", 1035, Material.stone));
-    public static final Block PillarTopAether = new BlockBuilder(MOD_ID)
+    public static final Block pillarTop = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -363,7 +360,7 @@ public class Aether implements ModInitializer {
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockAxisAligned("pillar.top.aether", 1036, Material.stone));
 
-    public static final Block QuickSoilAether = new BlockBuilder(MOD_ID)
+    public static final Block quicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.sand", "step.gravel", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setResistance(0.5f)
@@ -371,7 +368,7 @@ public class Aether implements ModInitializer {
             .setSlipperiness(1.2f)
             .setTags(BlockTags.MINEABLE_BY_SHOVEL)
             .build(new Block("quicksoil.aether", 1038, Material.sand));
-    public static final Block QuicksoilGlassAether = new BlockBuilder(MOD_ID)
+    public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setResistance(0.3f)
@@ -382,7 +379,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockGlassAmbrosium("glass.quicksoil.aether", 1037, Material.glass, true));
 
-    public static final Block WhiteFlower = new BlockBuilder(MOD_ID)
+    public static final Block flowerWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
@@ -391,7 +388,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.BROKEN_BY_FLUIDS)
             .build(new BlockFlower("flower.white.aether", 1039));
 
-    public static final Block PurpleFlower = new BlockBuilder(MOD_ID)
+    public static final Block flowerPurple = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
@@ -401,36 +398,36 @@ public class Aether implements ModInitializer {
             .build(new BlockFlower("flower.purple.aether", 1040));
 
     //Items
-    public static final Item VictoryMedal = ItemHelper.createItem(MOD_ID, new Item(17000), "victorymedal", "VictoryMedal.png");
-    public static final Item BronzeKey = ItemHelper.createItem(MOD_ID, new Item(17001), "key.bronze", "BronzeKey.png");
-    public static final Item SilverKey = ItemHelper.createItem(MOD_ID, new Item(17002), "key.silver", "SilverKey.png");
-    public static final Item GoldKey = ItemHelper.createItem(MOD_ID, new Item(17003), "key.gold", "GoldKey.png");
+    public static final Item victorymedal = ItemHelper.createItem(MOD_ID, new Item(17000), "victorymedal", "VictoryMedal.png");
+    public static final Item keyBronze = ItemHelper.createItem(MOD_ID, new Item(17001), "key.bronze", "BronzeKey.png");
+    public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(17002), "key.silver", "SilverKey.png");
+    public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(17003), "key.gold", "GoldKey.png");
 
-    public static final Item BookofLore1 = ItemHelper.createItem(MOD_ID, new Item(17004), "book.lore1", "OverworldBook.png");
-    public static final Item BookofLore2 = ItemHelper.createItem(MOD_ID, new Item(17005), "book.lore2", "NetherBook.png");
-    public static final Item BookofLore3 = ItemHelper.createItem(MOD_ID, new Item(17006), "book.lore3", "AetherBook.png");
-    public static final Item BookofLore4 = ItemHelper.createItem(MOD_ID, new Item(17112), "book.lore4", "ParadiseBook.png");
+    public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(17004), "book.lore1", "OverworldBook.png");
+    public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(17005), "book.lore2", "NetherBook.png");
+    public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new Item(17006), "book.lore3", "AetherBook.png");
+    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new Item(17112), "book.lore4", "ParadiseBook.png");
 
-    public static final Item BlueMoaEgg = ItemHelper.createItem(MOD_ID, new Item(17007), "egg.moa.blue", "BlueMoaEgg.png");
-    public static final Item BlackMoaEgg = ItemHelper.createItem(MOD_ID, new Item(17008), "egg.moa.black", "BlackMoaEgg.png");
-    public static final Item WhiteMoaEgg = ItemHelper.createItem(MOD_ID, new Item(17009), "egg.moa.white", "WhiteMoaEgg.png");
+    public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(17007), "egg.moa.blue", "BlueMoaEgg.png");
+    public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(17008), "egg.moa.black", "BlackMoaEgg.png");
+    public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(17009), "egg.moa.white", "WhiteMoaEgg.png");
 
     public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new Item(17010), "record.blue", "BlueMusicDisk.png");
 
-    public static final Item goldenAmber = ItemHelper.createItem(MOD_ID, new Item(17011), "goldenamber", "GoldenAmber.png");
-    public static final Item aechorPetal = ItemHelper.createItem(MOD_ID, new Item(17012), "aechorpetal", "AechorPetal.png");
+    public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item(17011), "goldenamber", "GoldenAmber.png");
+    public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item(17012), "aechorpetal", "AechorPetal.png");
     public static final Item stickSkyroot = ItemHelper.createItem(MOD_ID, new Item(17013), "stick.skyroot", "Stick.png");
 
     public static final Item dartGolden = ItemHelper.createItem(MOD_ID, new Item(17014), "ammo.dart.gold", "DartGolden.png");
     public static final Item dartPoison = ItemHelper.createItem(MOD_ID, new Item(17015), "ammo.dart.poison", "DartPoison.png");
     public static final Item dartEnchanted = ItemHelper.createItem(MOD_ID, new Item(17016), "ammo.dart.enchanted", "DartEnchanted.png");
 
-    public static final Item dartShooter = ItemHelper.createItem(MOD_ID, new Item(17018), "tool.dart.shooter", "DartShooter.png");
-    public static final Item dartShooterPoison = ItemHelper.createItem(MOD_ID, new Item(17019), "tool.dart.shooter.poison", "DartShooterPoison.png");
-    public static final Item dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new Item(17020), "tool.dart.shooter.enchanted", "DartShooterEnchanted.png");
+    public static final Item dartshooter = ItemHelper.createItem(MOD_ID, new Item(17018), "tool.dart.shooter", "DartShooter.png");
+    public static final Item dartshooterPoison = ItemHelper.createItem(MOD_ID, new Item(17019), "tool.dart.shooter.poison", "DartShooterPoison.png");
+    public static final Item dartshooterEnchanted = ItemHelper.createItem(MOD_ID, new Item(17020), "tool.dart.shooter.enchanted", "DartShooterEnchanted.png");
 
     public static final Item ambrosium = ItemHelper.createItem(MOD_ID, new Item(17021), "ambrosium", "AmbrosiumShard.png");
-    public static final Item zanitegem = ItemHelper.createItem(MOD_ID, new Item(17022), "zanite", "Zanite.png");
+    public static final Item gemZanite = ItemHelper.createItem(MOD_ID, new Item(17022), "zanite", "Zanite.png");
 
     public static final Item bucketSkyroot = ItemHelper.createItem(MOD_ID, new Item(17023), "bucket.skyroot", "Bucket.png");
     public static final Item bucketSkyrootWater = ItemHelper.createItem(MOD_ID, new Item(17024), "bucket.skyroot.water", "BucketWater.png");
@@ -438,7 +435,7 @@ public class Aether implements ModInitializer {
     public static final Item bucketSkyrootPoison = ItemHelper.createItem(MOD_ID, new Item(17026), "bucket.skyroot.poison", "BucketPoison.png");
     public static final Item bucketSkyrootRemedy = ItemHelper.createItem(MOD_ID, new Item(17027), "bucket.skyroot.remedy", "BucketRemedy.png");
 
-    public static final Item healingStone = ItemHelper.createItem(MOD_ID, new Item(17028), "food.healingstone", "HealingStone.png");
+    public static final Item healingstone = ItemHelper.createItem(MOD_ID, new Item(17028), "food.healingstone", "HealingStone.png");
 
     public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new Item(17029), "tool.pickaxe.skyroot", "PickSkyroot.png");
     public static final Item toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new Item(17030), "tool.shovel.skyroot", "ShovelSkyroot.png");
@@ -538,7 +535,7 @@ public class Aether implements ModInitializer {
     public static final Item armorShieldRepulsion = ItemHelper.createItem(MOD_ID, new Item(17099), "armor.shield.repulsion", "RepulsionShield.png");
 
     public static final Item armorCapeSwet = ItemHelper.createItem(MOD_ID, new Item(17100), "armor.cape.swet", "AetherCape.png");
-    public static final Item armorCapeInvisiblity = ItemHelper.createItem(MOD_ID, new Item(17101), "armor.cape.invisibility", "InvisibilityCloak.png");
+    public static final Item armorCapeInvisibility = ItemHelper.createItem(MOD_ID, new Item(17101), "armor.cape.invisibility", "InvisibilityCloak.png");
     public static final Item armorCapeAgility = ItemHelper.createItem(MOD_ID, new Item(17102), "armor.cape.agility", "AgilityCape.png");
 
     public static final Item armorCapeWhite = ItemHelper.createItem(MOD_ID, new Item(17103), "armor.cape.white", "Cape.png");
@@ -549,16 +546,16 @@ public class Aether implements ModInitializer {
     public static final Item foodGummyBlue = ItemHelper.createItem(MOD_ID, new Item(17107), "food.gummy.blue", "BlueGummy.png");
     public static final Item foodGummyGold = ItemHelper.createItem(MOD_ID, new Item(17108), "food.gummy.gold", "GoldGummy.png");
 
-    public static final Item cloudParachute = ItemHelper.createItem(MOD_ID, new Item(17109), "cloud.parachute", "CloudParachute.png");
-    public static final Item cloudParachuteGold = ItemHelper.createItem(MOD_ID, new Item(17110), "cloud.parachute.gold", "GoldenParachute.png");
+    public static final Item cloudparachute = ItemHelper.createItem(MOD_ID, new Item(17109), "cloud.parachute", "CloudParachute.png");
+    public static final Item cloudparachuteGold = ItemHelper.createItem(MOD_ID, new Item(17110), "cloud.parachute.gold", "GoldenParachute.png");
 
-    public static final Item lifeShard = ItemHelper.createItem(MOD_ID, new Item(17111), "food.lifeshard", "LifeShard.png");
+    public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new Item(17111), "food.lifeshard", "LifeShard.png");
 
     // Biomes
     public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether());
     static
     {
-        biomeAether.topBlock = (short) GrassAether.id;
+        biomeAether.topBlock = (short) grassAether.id;
         biomeAether.fillerBlock = (short) dirtAether.id;
     }
 
@@ -593,38 +590,38 @@ public class Aether implements ModInitializer {
 
         //Crafting Recipes Blocks
 
-        RecipeHelper.Crafting.createRecipe(Block.workbench, 1, new Object[]{"PP", "PP", 'P' , Aether.SkyrootPlanksAether});
-        RecipeHelper.Crafting.createRecipe(Aether.IncubatorAether, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.SkyrootPlanksAether, 'T', Aether.AmbrosiumTorchAether});
-        RecipeHelper.Crafting.createRecipe(Aether.FreezerAether, 1, new Object[]{"PPP", "PTP", "XXX", 'P' , Aether.SkyrootPlanksAether, 'T', Aether.IcestoneAether, 'X', Aether.SkyrootPlanksAether});
-        RecipeHelper.Crafting.createRecipe(chestPlanksOak, 1, new Object[]{"PPP", "P P", "PPP", 'P' , Aether.SkyrootPlanksAether});
+        RecipeHelper.Crafting.createRecipe(Block.workbench, 1, new Object[]{"PP", "PP", 'P' , Aether.planksSkyroot});
+        RecipeHelper.Crafting.createRecipe(Aether.incubator, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.planksSkyroot, 'T', Aether.torchAmbrosium});
+        RecipeHelper.Crafting.createRecipe(Aether.freezer, 1, new Object[]{"PPP", "PTP", "XXX", 'P' , Aether.planksSkyroot, 'T', Aether.icestone, 'X', Aether.planksSkyroot});
+        RecipeHelper.Crafting.createRecipe(chestPlanksOak, 1, new Object[]{"PPP", "P P", "PPP", 'P' , Aether.planksSkyroot});
 
-        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(Item.dye, 2, 7), new Object[]{"P", 'P' , Aether.WhiteFlower});
-        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(Item.dye, 2, 5), new Object[]{"P", 'P' , Aether.PurpleFlower});
+        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(Item.dye, 2, 7), new Object[]{"P", 'P' , Aether.flowerWhite});
+        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(Item.dye, 2, 5), new Object[]{"P", 'P' , Aether.flowerPurple});
 
-        RecipeHelper.Crafting.createRecipe(Aether.SkyrootPlanksAether, 4, new Object[]{"P", 'P' , Aether.SkyrootLogAether});
-        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(planksOakPainted, 4, 4), new Object[]{"P", 'P' , Aether.GoldenOakLogAether});
+        RecipeHelper.Crafting.createRecipe(Aether.planksSkyroot, 4, new Object[]{"P", 'P' , Aether.logSkyroot});
+        ((CraftingManagerAccessor) RecipeHelper.craftingManager).callAddRecipe(new ItemStack(planksOakPainted, 4, 4), new Object[]{"P", 'P' , Aether.logOakGolden});
 
-        RecipeHelper.Crafting.createRecipe(Aether.ZaniteBlock, 1, new Object[]{"PP ", "PP ", 'P' , Aether.zanitegem});
+        RecipeHelper.Crafting.createRecipe(Aether.blockZanite, 1, new Object[]{"PP ", "PP ", 'P' , Aether.gemZanite});
 
-        RecipeHelper.Crafting.createRecipe(jukebox, 1, new Object[]{"PPP", "PGP", "PPP", 'P' , Aether.SkyrootPlanksAether, 'G', EnchantedGravitite});
+        RecipeHelper.Crafting.createRecipe(jukebox, 1, new Object[]{"PPP", "PGP", "PPP", 'P' , Aether.planksSkyroot, 'G', gravititeEnchanted});
 
         //Crafting Recipes Items
 
-        RecipeHelper.Crafting.createRecipe(Aether.stickSkyroot, 4, new Object[]{" P ", " P ", 'P' , Aether.SkyrootPlanksAether});
-        RecipeHelper.Crafting.createRecipe(Aether.AmbrosiumTorchAether, 2, new Object[]{" A ", " P ", 'P' , Aether.stickSkyroot, 'A', ambrosium});
+        RecipeHelper.Crafting.createRecipe(Aether.stickSkyroot, 4, new Object[]{" P ", " P ", 'P' , Aether.planksSkyroot});
+        RecipeHelper.Crafting.createRecipe(Aether.torchAmbrosium, 2, new Object[]{" A ", " P ", 'P' , Aether.stickSkyroot, 'A', ambrosium});
 
-        RecipeHelper.Crafting.createRecipe(Aether.dartGolden, 1, new Object[]{" G ", " P ", " F ", 'P' , Aether.stickSkyroot, 'G', Aether.goldenAmber, 'F', Item.featherChicken});
+        RecipeHelper.Crafting.createRecipe(Aether.dartGolden, 1, new Object[]{" G ", " P ", " F ", 'P' , Aether.stickSkyroot, 'G', Aether.amberGolden, 'F', Item.featherChicken});
         RecipeHelper.Crafting.createRecipe(Aether.dartPoison, 8, new Object[]{"GGG", "GBG", "GGG", 'G' , Aether.dartGolden, 'B', Aether.bucketSkyrootPoison});
 
-        RecipeHelper.Crafting.createRecipe(Aether.dartShooter, 1, new Object[]{"P  ", "P  ", "Z  ", 'P' , Aether.SkyrootPlanksAether, 'Z', zanitegem});
+        RecipeHelper.Crafting.createRecipe(Aether.dartshooter, 1, new Object[]{"P  ", "P  ", "Z  ", 'P' , Aether.planksSkyroot, 'Z', gemZanite});
 
 
-        RecipeHelper.Crafting.createRecipe(Aether.zanitegem, 4, new Object[]{"P", 'P' , Aether.ZaniteBlock});
+        RecipeHelper.Crafting.createRecipe(Aether.gemZanite, 4, new Object[]{"P", 'P' , Aether.blockZanite});
 
-        RecipeHelper.Crafting.createRecipe(Aether.toolStaffNature, 1, new Object[]{"Z ", "S ", 'S' , Aether.stickSkyroot, 'Z', zanitegem});
+        RecipeHelper.Crafting.createRecipe(Aether.toolStaffNature, 1, new Object[]{"Z ", "S ", 'S' , Aether.stickSkyroot, 'Z', gemZanite});
 
-        RecipeHelper.Crafting.createRecipe(Aether.cloudParachute, 1, new Object[]{"PP ", "PP ", 'P' , Aether.AercloudWhiteAether});
-        RecipeHelper.Crafting.createRecipe(Aether.cloudParachuteGold, 1, new Object[]{"PP ", "PP ", 'P' , Aether.AercloudGoldAether});
+        RecipeHelper.Crafting.createRecipe(Aether.cloudparachute, 1, new Object[]{"PP ", "PP ", 'P' , Aether.aercloudWhite});
+        RecipeHelper.Crafting.createRecipe(Aether.cloudparachuteGold, 1, new Object[]{"PP ", "PP ", 'P' , Aether.aercloudGold});
 
         RecipeHelper.Crafting.createRecipe(Item.saddle, 1, new Object[]{"LLL", "LSL", 'L' , Item.leather, 'S', Item.string});
 
@@ -635,39 +632,39 @@ public class Aether implements ModInitializer {
         RecipeHelper.Crafting.createRecipe(Aether.armorCapeBlue, 1, new Object[]{"WW ", "WW ", "WW ", 'W' , (new ItemStack(Block.wool, 1, 3))});
         RecipeHelper.Crafting.createRecipe(Aether.armorCapeBlue, 1, new Object[]{"WW ", "WW ", "WW ", 'W' , (new ItemStack(Block.wool, 1, 9))});
 
-        RecipeHelper.Crafting.createRecipe(Aether.bucketSkyroot, 1, new Object[]{"P P", " P ", 'P' , Aether.SkyrootPlanksAether});
+        RecipeHelper.Crafting.createRecipe(Aether.bucketSkyroot, 1, new Object[]{"P P", " P ", 'P' , Aether.planksSkyroot});
 
-        RecipeHelper.Crafting.createRecipe(toolAxeSkyroot, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.SkyrootPlanksAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolPickaxeSkyroot, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.SkyrootPlanksAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolShovelSkyroot, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.SkyrootPlanksAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolSwordSkyroot, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.SkyrootPlanksAether, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolAxeSkyroot, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.planksSkyroot, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolPickaxeSkyroot, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.planksSkyroot, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolShovelSkyroot, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.planksSkyroot, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolSwordSkyroot, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.planksSkyroot, 'S', Aether.stickSkyroot});
 
-        RecipeHelper.Crafting.createRecipe(toolAxeHolystone, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.HolystoneAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolPickaxeHolystone, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.HolystoneAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolShovelHolystone, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.HolystoneAether, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolSwordHolystone, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.HolystoneAether, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolAxeHolystone, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.holystone, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolPickaxeHolystone, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.holystone, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolShovelHolystone, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.holystone, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolSwordHolystone, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.holystone, 'S', Aether.stickSkyroot});
 
-        RecipeHelper.Crafting.createRecipe(toolAxeZanite, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.zanitegem, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolPickaxeZanite, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.zanitegem, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolShovelZanite, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.zanitegem, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolSwordZanite, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.zanitegem, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolAxeZanite, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.gemZanite, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolPickaxeZanite, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.gemZanite, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolShovelZanite, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.gemZanite, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolSwordZanite, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.gemZanite, 'S', Aether.stickSkyroot});
 
-        RecipeHelper.Crafting.createRecipe(toolAxeGravitite, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.EnchantedGravitite, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolPickaxeGravitite, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.EnchantedGravitite, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolShovelGravitite, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.EnchantedGravitite, 'S', Aether.stickSkyroot});
-        RecipeHelper.Crafting.createRecipe(toolSwordGravitite, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.EnchantedGravitite, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolAxeGravitite, 1, new Object[]{"PP ", "PS ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolPickaxeGravitite, 1, new Object[]{"PPP", " S ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolShovelGravitite, 1, new Object[]{" P ", " S ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
+        RecipeHelper.Crafting.createRecipe(toolSwordGravitite, 1, new Object[]{" P ", " P ", " S ", 'P' , Aether.gravititeEnchanted, 'S', Aether.stickSkyroot});
 
 
         //Furnace Recipes
 
-        RecipeHelper.smeltingManager.addSmelting(Aether.SkyrootLogAether.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.smeltingManager.addSmelting(Aether.GoldenOakLogAether.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.blastingManager.addSmelting(Aether.SkyrootLogAether.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.blastingManager.addSmelting(Aether.GoldenOakLogAether.id, new ItemStack(Item.coal, 1, 1));
+        RecipeHelper.smeltingManager.addSmelting(Aether.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
+        RecipeHelper.smeltingManager.addSmelting(Aether.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
+        RecipeHelper.blastingManager.addSmelting(Aether.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
+        RecipeHelper.blastingManager.addSmelting(Aether.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
 
-        LookupFuelFurnace.instance.addFuelEntry(Aether.SkyrootLogAether.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(Aether.GoldenOakLogAether.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(Aether.SkyrootPlanksAether.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.logSkyroot.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.logOakGolden.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(Aether.planksSkyroot.id, 300);
 
     }
 }

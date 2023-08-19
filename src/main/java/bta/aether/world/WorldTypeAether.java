@@ -53,7 +53,7 @@ public abstract class WorldTypeAether
 
     @Override
     public int getFillerBlock() {
-        return Aether.HolystoneAether.id;
+        return Aether.holystone.id;
     }
 
     @Override

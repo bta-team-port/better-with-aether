@@ -1,6 +1,5 @@
-package bta.aether;
+package bta.aether.block;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;

@@ -1,4 +1,4 @@
-package bta.aether;
+package bta.aether.block;
 
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
