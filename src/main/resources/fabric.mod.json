@@ -23,6 +23,7 @@
     ]
   },
   "mixins": [
+    "aether.mixins.json"
   ],
 
   "depends": {
