@@ -1,17 +1,15 @@
 package bta.aether.tile.recipes;
 
 import bta.aether.Aether;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class EnchanterRecipes {
+public class FreezerRecipes {
     protected static final HashMap<ItemStack, Pair<ItemStack,Integer>> recipeList = new HashMap<>();
 
     public static HashMap<ItemStack, Pair<ItemStack,Integer>> getRecipeList() {
@@ -45,6 +43,13 @@ public class EnchanterRecipes {
     }
 
     static {
-        addRecipe(new ItemStack(Aether.oreGravititeHolystone,1),new ItemStack(Aether.gravititeEnchanted),1000);
+        addRecipe(new ItemStack(Item.bucketWater,1),new ItemStack(Block.ice,5),500);
+        addRecipe(new ItemStack(Aether.bucketSkyrootWater,1),new ItemStack(Block.ice,5),500);
+        addRecipe(new ItemStack(Item.bucketLava,1),new ItemStack(Block.obsidian,2),500);
+        addRecipe(new ItemStack(Aether.aercloudWhite,1),new ItemStack(Aether.aercloudBlue,1),50);
+        addRecipe(new ItemStack(Aether.armorPendantGold,1),new ItemStack(Aether.armorPendantIce,1),2500);
+        addRecipe(new ItemStack(Aether.armorRingGold,1),new ItemStack(Aether.armorRingIce,1),1500);
+        addRecipe(new ItemStack(Aether.armorRingIron,1),new ItemStack(Aether.armorPendantIce,1),1500);
+        addRecipe(new ItemStack(Aether.armorPendantIron,1),new ItemStack(Aether.armorPendantIce,1),2500);
     }
 }
