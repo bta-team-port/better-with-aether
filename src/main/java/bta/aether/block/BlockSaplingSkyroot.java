@@ -1,6 +1,7 @@
 package bta.aether.block;
 
 import bta.aether.Aether;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockSaplingBase;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -11,6 +12,10 @@ import java.util.Random;
 public class BlockSaplingSkyroot extends BlockSaplingBase {
     public BlockSaplingSkyroot(String key, int id) {
         super(key, id);
+    }
+
+    public boolean canThisPlantGrowOnThisBlockID(int i) {
+        return i == Aether.grassAether.id;
     }
 
     public void growTree(World world, int i, int j, int k, Random random) {

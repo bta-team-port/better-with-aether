@@ -1,5 +1,6 @@
 package bta.aether.block;
 
+import bta.aether.Aether;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
@@ -20,7 +21,7 @@ public class BlockAmbrosiumTorch extends Block {
     }
 
     public int getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        return side == Side.TOP ? Block.wireRedstone.getBlockTextureFromSideAndMetadata(side, meta) : super.getBlockTextureFromSideAndMetadata(side, meta);
+        return side == Side.TOP ? Aether.torchAmbrosium.getBlockTextureFromSideAndMetadata(side, meta) : super.getBlockTextureFromSideAndMetadata(side, meta);
     }
 
     public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
