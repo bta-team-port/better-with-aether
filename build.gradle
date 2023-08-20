@@ -15,6 +15,7 @@ loom {
 
 repositories {
 	mavenCentral()
+	maven { url = "https://jitpack.io" }
 	maven {
 		name = 'Babric'
 		url = 'https://maven.glass-launcher.net/babric'
@@ -65,14 +66,6 @@ repositories {
 	}
 }
 
-repositories {
-	maven { url = "https://jitpack.io" }
-}
-
-dependencies {
-	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
-}
-
 dependencies {
 	minecraft "bta-download-repo:bta:${project.bta_version}"
 	mappings loom.layered() {}
@@ -83,6 +76,7 @@ dependencies {
 	modImplementation "ModMenu:ModMenu:2.0.0"
 	modImplementation "guidebookpp:guidebookpp:1.5.5"
 	modImplementation "nocrashes:nocrashes:1.0.4"
+	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
