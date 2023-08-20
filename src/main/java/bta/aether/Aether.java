@@ -4,6 +4,7 @@ import bta.aether.block.*;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
+import bta.aether.item.*;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
@@ -14,10 +15,14 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.entity.monster.EntityArmoredZombie;
+import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
+import net.minecraft.core.item.material.ToolMaterial;
+import net.minecraft.core.item.tool.ItemToolAxe;
+import net.minecraft.core.item.tool.ItemToolPickaxe;
+import net.minecraft.core.item.tool.ItemToolShovel;
+import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -49,7 +54,7 @@ public class Aether implements ModInitializer {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE, BlockTags.GROWS_TREES)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
             .build(new Block("dirt.aether", 1001, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -59,8 +64,8 @@ public class Aether implements ModInitializer {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE, BlockTags.GROWS_TREES)
-            .build(new Block("grass.aether", 1002, Material.grass));
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .build(new BlockAetherGrass("grass.aether", 1002, Material.grass));
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -116,7 +121,7 @@ public class Aether implements ModInitializer {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockAerogel("aerogel.aether", 1009, Material.stone));
 
-    public static final Block EnchanterAether = new BlockBuilder(MOD_ID)
+    public static final Block enchanter = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
@@ -222,21 +227,21 @@ public class Aether implements ModInitializer {
             .setResistance(1.0f)
             .setTextures("AmbrosiumOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("ore.ambrosium.aether", 1020, Material.stone));
+            .build(new BlockOreAmbrosium("ore.ambrosium.aether", 1020, Material.stone));
     public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("ZaniteOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("ore.zanite.aether", 1021, Material.stone));
+            .build(new BlockOreZanite("ore.zanite.aether", 1021, Material.stone));
     public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("GravititeOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("ore.gravitite.aether", 1022, Material.stone));
+            .build(new BlockOreGravitite("ore.gravitite.aether", 1022, Material.stone));
 
     public static final Block torchAmbrosium = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -389,7 +394,7 @@ public class Aether implements ModInitializer {
             .setTextures("WhiteFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
             .setTags(BlockTags.BROKEN_BY_FLUIDS)
-            .build(new BlockFlower("flower.white.aether", 1039));
+            .build(new BlockAetherFlower("flower.white.aether", 1039));
 
     public static final Block flowerPurple = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -398,13 +403,13 @@ public class Aether implements ModInitializer {
             .setTextures("PurpleFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
             .setTags(BlockTags.BROKEN_BY_FLUIDS)
-            .build(new BlockFlower("flower.purple.aether", 1040));
+            .build(new BlockAetherFlower("flower.purple.aether", 1040));
 
     //Items
-    public static final Item victorymedal = ItemHelper.createItem(MOD_ID, new Item(17000), "victorymedal", "VictoryMedal.png");
-    public static final Item keyBronze = ItemHelper.createItem(MOD_ID, new Item(17001), "key.bronze", "BronzeKey.png");
-    public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(17002), "key.silver", "SilverKey.png");
-    public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(17003), "key.gold", "GoldKey.png");
+    public static final Item victorymedal = ItemHelper.createItem(MOD_ID, new Item(17000), "victorymedal", "VictoryMedal.png").setMaxStackSize(10);
+    public static final Item keyBronze = ItemHelper.createItem(MOD_ID, new Item(17001), "key.bronze", "BronzeKey.png").setMaxStackSize(1);
+    public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(17002), "key.silver", "SilverKey.png").setMaxStackSize(1);
+    public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(17003), "key.gold", "GoldKey.png").setMaxStackSize(1);
 
     public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(17004), "book.lore1", "OverworldBook.png");
     public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(17005), "book.lore2", "NetherBook.png");
@@ -415,7 +420,7 @@ public class Aether implements ModInitializer {
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(17008), "egg.moa.black", "BlackMoaEgg.png");
     public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(17009), "egg.moa.white", "WhiteMoaEgg.png");
 
-    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new Item(17010), "record.blue", "BlueMusicDisk.png");
+    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new Item(18400), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
 
     public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item(17011), "goldenamber", "GoldenAmber.png");
     public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item(17012), "aechorpetal", "AechorPetal.png");
@@ -425,77 +430,82 @@ public class Aether implements ModInitializer {
     public static final Item dartPoison = ItemHelper.createItem(MOD_ID, new Item(17015), "ammo.dart.poison", "DartPoison.png");
     public static final Item dartEnchanted = ItemHelper.createItem(MOD_ID, new Item(17016), "ammo.dart.enchanted", "DartEnchanted.png");
 
-    public static final Item dartshooter = ItemHelper.createItem(MOD_ID, new Item(17018), "tool.dart.shooter", "DartShooter.png");
+    public static final Item dartshooter = ItemHelper.createItem(MOD_ID, new ItemShooter(17018), "tool.dart.shooter", "DartShooter.png");
     public static final Item dartshooterPoison = ItemHelper.createItem(MOD_ID, new Item(17019), "tool.dart.shooter.poison", "DartShooterPoison.png");
     public static final Item dartshooterEnchanted = ItemHelper.createItem(MOD_ID, new Item(17020), "tool.dart.shooter.enchanted", "DartShooterEnchanted.png");
 
-    public static final Item ambrosium = ItemHelper.createItem(MOD_ID, new Item(17021), "ambrosium", "AmbrosiumShard.png");
+    public static final Item ambrosium = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("ambrosium", 17021, 1, false, 64), "ambrosium", "AmbrosiumShard.png");
     public static final Item gemZanite = ItemHelper.createItem(MOD_ID, new Item(17022), "zanite", "Zanite.png");
 
-    public static final Item bucketSkyroot = ItemHelper.createItem(MOD_ID, new Item(17023), "bucket.skyroot", "Bucket.png");
-    public static final Item bucketSkyrootWater = ItemHelper.createItem(MOD_ID, new Item(17024), "bucket.skyroot.water", "BucketWater.png");
-    public static final Item bucketSkyrootMilk = ItemHelper.createItem(MOD_ID, new Item(17025), "bucket.skyroot.milk", "BucketMilk.png");
-    public static final Item bucketSkyrootPoison = ItemHelper.createItem(MOD_ID, new Item(17026), "bucket.skyroot.poison", "BucketPoison.png");
-    public static final Item bucketSkyrootRemedy = ItemHelper.createItem(MOD_ID, new Item(17027), "bucket.skyroot.remedy", "BucketRemedy.png");
+    public static final Item bucketSkyroot = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucketEmpty(17023), "bucket.skyroot", "Bucket.png");
+    public static final Item bucketSkyrootWater = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(17024, fluidWaterFlowing), "bucket.skyroot.water", "BucketWater.png");
+    public static final Item bucketSkyrootMilk = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(17025, null), "bucket.skyroot.milk", "BucketMilk.png");
+    public static final Item bucketSkyrootPoison = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(17026, null), "bucket.skyroot.poison", "BucketPoison.png");
+    public static final Item bucketSkyrootRemedy = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(17027, null), "bucket.skyroot.remedy", "BucketRemedy.png");
 
-    public static final Item healingstone = ItemHelper.createItem(MOD_ID, new Item(17028), "food.healingstone", "HealingStone.png");
+    public static final Item healingstone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", 17028, 4, false), "food.healingstone", "HealingStone.png");
 
-    public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new Item(17029), "tool.pickaxe.skyroot", "PickSkyroot.png");
-    public static final Item toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new Item(17030), "tool.shovel.skyroot", "ShovelSkyroot.png");
-    public static final Item toolAxeSkyroot = ItemHelper.createItem(MOD_ID, new Item(17031), "tool.axe.skyroot", "AxeSkyroot.png");
-    public static final Item toolSwordSkyroot = ItemHelper.createItem(MOD_ID, new Item(17032), "tool.sword.skyroot", "SwordSkyroot.png");
+    public static final ToolMaterial toolskyroot = new ToolMaterial().setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
+    public static final ToolMaterial toolholystone = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1).setBlockHitDelay(0);
+    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 8.0F).setMiningLevel(2).setBlockHitDelay(0);
+    public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(8.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
+    public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(10.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
 
-    public static final Item toolPickaxeHolystone = ItemHelper.createItem(MOD_ID, new Item(17033), "tool.pickaxe.holystone", "PickHolystone.png");
-    public static final Item toolShovelHolystone = ItemHelper.createItem(MOD_ID, new Item(17034), "tool.shovel.holystone", "ShovelHolystone.png");
-    public static final Item toolAxeHolystone = ItemHelper.createItem(MOD_ID, new Item(17035), "tool.axe.holystone", "AxeHolystone.png");
-    public static final Item toolSwordHolystone = ItemHelper.createItem(MOD_ID, new Item(17036), "tool.sword.holystone", "SwordHolystone.png");
+    public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.skyroot",17029, toolskyroot), "tool.pickaxe.skyroot", "PickSkyroot.png");
+    public static final Item toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolSkyrootShovel("tool.shovel.skyroot",17030, toolskyroot), "tool.shovel.skyroot", "ShovelSkyroot.png");
+    public static final Item toolAxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.skyroot", 17031, toolskyroot), "tool.axe.skyroot", "AxeSkyroot.png");
+    public static final Item toolSwordSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.skyroot", 17032, toolskyroot), "tool.sword.skyroot", "SwordSkyroot.png");
 
-    public static final Item toolPickaxeZanite = ItemHelper.createItem(MOD_ID, new Item(17037), "tool.pickaxe.zanite", "PickZanite.png");
-    public static final Item toolShovelZanite = ItemHelper.createItem(MOD_ID, new Item(17038), "tool.shovel.zanite", "ShovelZanite.png");
-    public static final Item toolAxeZanite = ItemHelper.createItem(MOD_ID, new Item(17039), "tool.axe.zanite", "AxeZanite.png");
-    public static final Item toolSwordZanite = ItemHelper.createItem(MOD_ID, new Item(17040), "tool.sword.zanite", "SwordZanite.png");
+    public static final Item toolPickaxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.holystone",17033, toolholystone), "tool.pickaxe.holystone", "PickHolystone.png");
+    public static final Item toolShovelHolystone = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.holystone",17034, toolholystone), "tool.shovel.holystone", "ShovelHolystone.png");
+    public static final Item toolAxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.holystone",17035, toolholystone), "tool.axe.holystone", "AxeHolystone.png");
+    public static final Item toolSwordHolystone = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.holystone", 17036, toolholystone), "tool.sword.holystone", "SwordHolystone.png");
 
-    public static final Item toolPickaxeGravitite = ItemHelper.createItem(MOD_ID, new Item(17041), "tool.pickaxe.gravitite", "PickGravitite.png");
-    public static final Item toolShovelGravitite = ItemHelper.createItem(MOD_ID, new Item(17042), "tool.shovel.gravitite", "ShovelGravitite.png");
-    public static final Item toolAxeGravitite = ItemHelper.createItem(MOD_ID, new Item(17043), "tool.axe.gravitite", "AxeGravitite.png");
-    public static final Item toolSwordGravitite = ItemHelper.createItem(MOD_ID, new Item(17044), "tool.sword.gravitite", "SwordGravitite.png");
+    public static final Item toolPickaxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.zanite", 17037, toolzanite), "tool.pickaxe.zanite", "PickZanite.png");
+    public static final Item toolShovelZanite = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.zanite", 17038, toolzanite), "tool.shovel.zanite", "ShovelZanite.png");
+    public static final Item toolAxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.zanite", 17039, toolzanite), "tool.axe.zanite", "AxeZanite.png");
+    public static final Item toolSwordZanite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.zanite", 17040, toolzanite), "tool.sword.zanite", "SwordZanite.png");
 
-    public static final Item toolPickaxeValkyrie = ItemHelper.createItem(MOD_ID, new Item(17045), "tool.pickaxe.valkyrie", "ValkyriePickaxe.png");
-    public static final Item toolShovelValkyrie = ItemHelper.createItem(MOD_ID, new Item(17046), "tool.shovel.valkyrie", "ValkyrieShovel.png");
-    public static final Item toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new Item(17047), "tool.axe.valkyrie", "ValkyrieAxe.png");
-    public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new Item(17048), "tool.sword.valkyrie", "Lance.png");
+    public static final Item toolPickaxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.gravitite", 17041, toolgravitite), "tool.pickaxe.gravitite", "PickGravitite.png");
+    public static final Item toolShovelGravitite = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.gravitite", 17042, toolgravitite), "tool.shovel.gravitite", "ShovelGravitite.png");
+    public static final Item toolAxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.gravitite", 17043, toolgravitite), "tool.axe.gravitite", "AxeGravitite.png");
+    public static final Item toolSwordGravitite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.gravitite", 17044, toolgravitite), "tool.sword.gravitite", "SwordGravitite.png");
+
+    public static final Item toolPickaxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.valkyrie", 17045, toolvalkyrie), "tool.pickaxe.valkyrie", "ValkyriePickaxe.png");
+    public static final Item toolShovelValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.valkyrie", 17046, toolvalkyrie), "tool.shovel.valkyrie", "ValkyrieShovel.png");
+    public static final Item toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.valkyrie", 17047, toolvalkyrie), "tool.axe.valkyrie", "ValkyrieAxe.png");
+    public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", 17048, toolvalkyrie), "tool.sword.valkyrie", "Lance.png");
 
     //Armor
-    public static final ArmorMaterial zanite = ArmorHelper.createArmorMaterial("Zanite_1", 200, 0.0f, 200.0f, 0.0f, 200.0f);
-    public static final ArmorMaterial gravitite = ArmorHelper.createArmorMaterial("gravitite", 800, 0.0f, 200.0f, 0.0f, 200.0f);
-    public static final ArmorMaterial phoenix = ArmorHelper.createArmorMaterial("phoenix", 800, 0.0f, 200.0f, 0.0f, 200.0f);
-    public static final ArmorMaterial obsidian = ArmorHelper.createArmorMaterial("obsidian", 1200, 0.0f, 200.0f, 0.0f, 200.0f);
-    public static final ArmorMaterial neptune = ArmorHelper.createArmorMaterial("neptune", 800, 0.0f, 200.0f, 0.0f, 200.0f);
+    public static final ArmorMaterial armorzanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0.0f, 200.0f, 0.0f, 200.0f);
+    public static final ArmorMaterial armorgravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 0.0f, 0.0f, 0.0f, 150.0f);
+    public static final ArmorMaterial armorphoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 0.0f, 0.0f, 150.0f, 0.0f);
+    public static final ArmorMaterial armorobsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0.0f, 150.0f, 50.0f, 0.0f);
+    public static final ArmorMaterial armorneptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150.0f, 0.0f, 0.0f, 0.0f);
 
-    public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Helmet", 17049, zanite, 0), "armor.helmet.zanite", "ZaniteHelmet.png");
-    public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Chestplate", 17050, zanite, 1), "armor.chestplate.zanite", "ZaniteChestplate.png");
-    public static final Item armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Leggings", 17051, zanite, 2), "armor.leggings.zanite", "ZaniteLeggings.png");
-    public static final Item armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Boots", 17052, zanite, 3), "armor.boots.zanite", "ZaniteBoots.png");
+    public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Helmet", 17049, armorzanite, 0), "armor.helmet.zanite", "ZaniteHelmet.png");
+    public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Chestplate", 17050, armorzanite, 1), "armor.chestplate.zanite", "ZaniteChestplate.png");
+    public static final Item armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Leggings", 17051, armorzanite, 2), "armor.leggings.zanite", "ZaniteLeggings.png");
+    public static final Item armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Boots", 17052, armorzanite, 3), "armor.boots.zanite", "ZaniteBoots.png");
+    public static final Item armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Helmet", 17053, armorgravitite, 0), "armor.helmet.gravitite", "GravititeHelmet.png");
+    public static final Item armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Chestplate", 17054, armorgravitite, 1), "armor.chestplate.gravitite", "GravititeChestplate.png");
+    public static final Item armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Leggings", 17055, armorgravitite, 2), "armor.leggings.gravitite", "GravititeLeggings.png");
+    public static final Item armorBootsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Boots", 17056, armorgravitite, 3), "armor.boots.gravitite", "GravititeBoots.png");
 
-    public static final Item armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Helmet", 17053, gravitite, 0), "armor.helmet.gravitite", "GravititeHelmet.png");
-    public static final Item armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Chestplate", 17054, gravitite, 1), "armor.chestplate.gravitite", "GravititeChestplate.png");
-    public static final Item armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Leggings", 17055, gravitite, 2), "armor.leggings.gravitite", "GravititeLeggings.png");
-    public static final Item armorBootsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Boots", 17056, gravitite, 3), "armor.boots.gravitite", "GravititeBoots.png");
+    public static final Item armorHelmetPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Helmet", 17057, armorphoenix, 0), "armor.helmet.phoenix", "PhoenixHelmet.png");
+    public static final Item armorChestplatePhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Chestplate", 17058, armorphoenix, 1), "armor.chestplate.phoenix", "PhoenixChestplate.png");
+    public static final Item armorLeggingsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Leggings", 17059, armorphoenix, 2), "armor.leggings.phoenix", "PhoenixLeggings.png");
+    public static final Item armorBootsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Boots", 17060, armorphoenix, 3), "armor.boots.phoenix", "PhoenixBoots.png");
 
-    public static final Item armorHelmetPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Helmet", 17057, phoenix, 0), "armor.helmet.phoenix", "PhoenixHelmet.png");
-    public static final Item armorChestplatePhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Chestplate", 17058, phoenix, 1), "armor.chestplate.phoenix", "PhoenixChestplate.png");
-    public static final Item armorLeggingsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Leggings", 17059, phoenix, 2), "armor.leggings.phoenix", "PhoenixLeggings.png");
-    public static final Item armorBootsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("Phoenix Boots", 17060, phoenix, 3), "armor.boots.phoenix", "PhoenixBoots.png");
+    public static final Item armorHelmetObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Helmet", 17061, armorobsidian, 0), "armor.helmet.obsidian", "ObsidianHelmet.png");
+    public static final Item armorChestplateObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Chestplate", 17062, armorobsidian, 1), "armor.chestplate.obsidian", "ObsidianChestplate.png");
+    public static final Item armorLeggingsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Leggings", 17063, armorobsidian, 2), "armor.leggings.obsidian", "ObsidianLeggings.png");
+    public static final Item armorBootsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Boots", 17064, armorobsidian, 3), "armor.boots.obsidian", "ObsidianBoots.png");
 
-    public static final Item armorHelmetObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Helmet", 17061, obsidian, 0), "armor.helmet.obsidian", "ObsidianHelmet.png");
-    public static final Item armorChestplateObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Chestplate", 17062, obsidian, 1), "armor.chestplate.obsidian", "ObsidianChestplate.png");
-    public static final Item armorLeggingsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Leggings", 17063, obsidian, 2), "armor.leggings.obsidian", "ObsidianLeggings.png");
-    public static final Item armorBootsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("Obsidian Boots", 17064, obsidian, 3), "armor.boots.obsidian", "ObsidianBoots.png");
-
-    public static final Item armorHelmetNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Helmet", 17065, neptune, 0), "armor.helmet.neptune", "NeptuneHelmet.png");
-    public static final Item armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Chestplate", 17066, neptune, 0), "armor.chestplate.neptune", "NeptuneChestplate.png");
-    public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Leggings", 17067, neptune, 0), "armor.leggings.neptune", "NeptuneLeggings.png");
-    public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Boots", 17068, neptune, 0), "armor.boots.neptune", "NeptuneBoots.png");
+    public static final Item armorHelmetNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Helmet", 17065,armorneptune, 0), "armor.helmet.neptune", "NeptuneHelmet.png");
+    public static final Item armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Chestplate", 17066, armorneptune, 1), "armor.chestplate.neptune", "NeptuneChestplate.png");
+    public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Leggings", 17067, armorneptune, 2), "armor.leggings.neptune", "NeptuneLeggings.png");
+    public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Boots", 17068, armorneptune, 3), "armor.boots.neptune", "NeptuneBoots.png");
 
     public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new Item(17069), "tool.sword.pig", "PigSlayer.png");
     public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new Item(17070), "tool.sword.vampire", "VampireBlade.png");
@@ -507,9 +517,9 @@ public class Aether implements ModInitializer {
     public static final Item toolStaffNature = ItemHelper.createItem(MOD_ID, new Item(17074), "tool.staff.nature", "NatureStaff.png");
     public static final Item toolStaffCloud = ItemHelper.createItem(MOD_ID, new Item(17075), "tool.staff.cloud", "CloudStaff.png");
 
-    public static final Item toolKnifeLightning = ItemHelper.createItem(MOD_ID, new Item(17076), "tool.knife.lightning", "LightningKnife.png");
+    public static final Item toolKnifeLightning = ItemHelper.createItem(MOD_ID, new ItemLightningKnife(17076), "tool.knife.lightning", "LightningKnife.png");
     public static final Item toolHammerMajonk = ItemHelper.createItem(MOD_ID, new Item(17077), "tool.hammer.majonk", "HammerNotch.png");
-    public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new Item(17078), "tool.bow.phoenix", "PhoenixBow.png");
+    public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow(17078), "tool.bow.phoenix", "PhoenixBow.png");
 
     public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new Item(17079), "armor.gloves.leather", "LeatherGloves.png");
     public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new Item(17080), "armor.gloves.iron", "IronGloves.png");
@@ -546,8 +556,8 @@ public class Aether implements ModInitializer {
     public static final Item armorCapeYellow = ItemHelper.createItem(MOD_ID, new Item(17105), "armor.cape.yellow", "YellowCape.png");
     public static final Item armorCapeBlue = ItemHelper.createItem(MOD_ID, new Item(17106), "armor.cape.blue", "BlueCape.png");
 
-    public static final Item foodGummyBlue = ItemHelper.createItem(MOD_ID, new Item(17107), "food.gummy.blue", "BlueGummy.png");
-    public static final Item foodGummyGold = ItemHelper.createItem(MOD_ID, new Item(17108), "food.gummy.gold", "GoldGummy.png");
+    public static final Item foodGummyBlue = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("food.gummy.blue", 17107, 20, false, 64), "food.gummy.blue", "BlueGummy.png");
+    public static final Item foodGummyGold = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("food.gummy.gold", 17108, 20, false, 64), "food.gummy.gold", "GoldGummy.png");
 
     public static final Item cloudparachute = ItemHelper.createItem(MOD_ID, new Item(17109), "cloud.parachute", "CloudParachute.png");
     public static final Item cloudparachuteGold = ItemHelper.createItem(MOD_ID, new Item(17110), "cloud.parachute.gold", "GoldenParachute.png");
@@ -602,7 +612,7 @@ public class Aether implements ModInitializer {
         RecipeHelper.Crafting.createRecipe(Block.workbench, 1, new Object[]{"PP", "PP", 'P' , Aether.planksSkyroot});
         RecipeHelper.Crafting.createRecipe(Aether.incubator, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.planksSkyroot, 'T', Aether.torchAmbrosium});
         RecipeHelper.Crafting.createRecipe(Aether.freezer, 1, new Object[]{"PPP", "PTP", "XXX", 'P' , Aether.planksSkyroot, 'T', Aether.icestone, 'X', Aether.planksSkyroot});
-        RecipeHelper.Crafting.createRecipe(Aether.EnchanterAether, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.holystone, 'T', Aether.gemZanite});
+        RecipeHelper.Crafting.createRecipe(Aether.enchanter, 1, new Object[]{"PPP", "PTP", "PPP", 'P' , Aether.holystone, 'T', Aether.gemZanite});
 
         RecipeHelper.Crafting.createRecipe(chestPlanksOak, 1, new Object[]{"PPP", "P P", "PPP", 'P' , Aether.planksSkyroot});
 
