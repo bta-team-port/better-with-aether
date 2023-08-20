@@ -1,6 +1,9 @@
 package bta.aether;
 
 import bta.aether.block.*;
+import bta.aether.tile.TileEntityEnchanter;
+import bta.aether.tile.TileEntityFreezer;
+import bta.aether.tile.TileEntityIncubator;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
@@ -120,7 +123,7 @@ public class Aether implements ModInitializer {
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("enchanter.aether", 1010, Material.wood));
+            .build(new BlockEnchanter("enchanter.aether", 1010, Material.wood));
     public static final Block freezer = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
@@ -505,7 +508,7 @@ public class Aether implements ModInitializer {
     public static final Item toolStaffCloud = ItemHelper.createItem(MOD_ID, new Item(17075), "tool.staff.cloud", "CloudStaff.png");
 
     public static final Item toolKnifeLightning = ItemHelper.createItem(MOD_ID, new Item(17076), "tool.knife.lightning", "LightningKnife.png");
-    public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new Item(17077), "tool.hammer.notch", "HammerNotch.png");
+    public static final Item toolHammerMajonk = ItemHelper.createItem(MOD_ID, new Item(17077), "tool.hammer.majonk", "HammerNotch.png");
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new Item(17078), "tool.bow.phoenix", "PhoenixBow.png");
 
     public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new Item(17079), "armor.gloves.leather", "LeatherGloves.png");
@@ -587,6 +590,12 @@ public class Aether implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Aether initialized.");
+
+        //Tiles
+
+        EntityHelper.createTileEntity(TileEntityEnchanter.class,"Enchanter");
+        EntityHelper.createTileEntity(TileEntityFreezer.class,"Freezer");
+        EntityHelper.createTileEntity(TileEntityIncubator.class,"Incubator");
 
         //Crafting Recipes Blocks
 

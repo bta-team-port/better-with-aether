@@ -1,14 +1,15 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "bta.aether.mixin",
-    "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "BlockFluidPortalMixin"
-    ],
-    "client": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "bta.aether.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockFluidPortalMixin",
+    "MinecraftMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
