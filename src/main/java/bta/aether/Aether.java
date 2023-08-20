@@ -1,6 +1,9 @@
 package bta.aether;
 
 import bta.aether.block.*;
+import bta.aether.tile.TileEntityEnchanter;
+import bta.aether.tile.TileEntityFreezer;
+import bta.aether.tile.TileEntityIncubator;
 import bta.aether.item.*;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
@@ -125,7 +128,7 @@ public class Aether implements ModInitializer {
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("enchanter.aether", 1010, Material.wood));
+            .build(new BlockEnchanter("enchanter.aether", 1010, Material.wood));
     public static final Block freezer = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
@@ -134,7 +137,7 @@ public class Aether implements ModInitializer {
             .setTopTexture("FreezerTop.png")
             .setBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("freezer.aether", 1011, Material.wood));
+            .build(new BlockFreezer("freezer.aether", 1011, Material.wood));
     public static final Block incubator = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
@@ -474,7 +477,7 @@ public class Aether implements ModInitializer {
     public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", 17048, toolvalkyrie), "tool.sword.valkyrie", "Lance.png");
 
     //Armor
-    public static final ArmorMaterial armorzanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0.0f, 200.0f, 0.0f, 200.0f);
+    public static final ArmorMaterial armorzanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0.0f, 0.0f, 0.0f, 0.0f); // all zeros are intended, uses custom protection values
     public static final ArmorMaterial armorgravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 0.0f, 0.0f, 0.0f, 150.0f);
     public static final ArmorMaterial armorphoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 0.0f, 0.0f, 150.0f, 0.0f);
     public static final ArmorMaterial armorobsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0.0f, 150.0f, 50.0f, 0.0f);
@@ -515,7 +518,7 @@ public class Aether implements ModInitializer {
     public static final Item toolStaffCloud = ItemHelper.createItem(MOD_ID, new Item(17075), "tool.staff.cloud", "CloudStaff.png");
 
     public static final Item toolKnifeLightning = ItemHelper.createItem(MOD_ID, new ItemLightningKnife(17076), "tool.knife.lightning", "LightningKnife.png");
-    public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new Item(17077), "tool.hammer.notch", "HammerNotch.png");
+    public static final Item toolHammerMajonk = ItemHelper.createItem(MOD_ID, new Item(17077), "tool.hammer.majonk", "HammerNotch.png");
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow(17078), "tool.bow.phoenix", "PhoenixBow.png");
 
     public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new Item(17079), "armor.gloves.leather", "LeatherGloves.png");
@@ -597,6 +600,12 @@ public class Aether implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Aether initialized.");
+
+        //Tiles
+
+        EntityHelper.createTileEntity(TileEntityEnchanter.class,"Enchanter");
+        EntityHelper.createTileEntity(TileEntityFreezer.class,"Freezer");
+        EntityHelper.createTileEntity(TileEntityIncubator.class,"Incubator");
 
         //Crafting Recipes Blocks
 

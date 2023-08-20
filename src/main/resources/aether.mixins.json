@@ -4,11 +4,13 @@
     "package": "bta.aether.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "BlockFluidPortalMixin"
+        "BlockFluidPortalMixin",
+        "InventoryPlayerMixin",
+        "MinecraftMixin"
     ],
     "client": [
     ],
     "injectors": {
         "defaultRequire": 1
-    }
+  }
 }
