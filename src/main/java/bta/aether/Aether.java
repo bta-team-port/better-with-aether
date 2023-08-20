@@ -477,7 +477,7 @@ public class Aether implements ModInitializer {
     public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", 17048, toolvalkyrie), "tool.sword.valkyrie", "Lance.png");
 
     //Armor
-    public static final ArmorMaterial armorzanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0.0f, 200.0f, 0.0f, 200.0f);
+    public static final ArmorMaterial armorzanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0.0f, 0.0f, 0.0f, 0.0f); // all zeros are intended, uses custom protection values
     public static final ArmorMaterial armorgravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 0.0f, 0.0f, 0.0f, 150.0f);
     public static final ArmorMaterial armorphoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 0.0f, 0.0f, 150.0f, 0.0f);
     public static final ArmorMaterial armorobsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0.0f, 150.0f, 50.0f, 0.0f);

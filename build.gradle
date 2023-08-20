@@ -78,6 +78,9 @@ dependencies {
 	modImplementation "nocrashes:nocrashes:1.0.4"
 	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
 
+	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
+	include(implementation('org.apache.commons:commons-lang3:3.13.0')) // for MixinExtras
+
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
 
