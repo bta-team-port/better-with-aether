@@ -137,7 +137,7 @@ public class Aether implements ModInitializer {
             .setTopTexture("FreezerTop.png")
             .setBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("freezer.aether", 1011, Material.wood));
+            .build(new BlockFreezer("freezer.aether", 1011, Material.wood));
     public static final Block incubator = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(1.0f)
