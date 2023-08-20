@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "bta.aether.Aether"
+    ],
+    "guidebookpp": [
+      "bta.aether.api.impl.guidebookpp.AetherGuidebookPlugin"
     ]
   },
   "mixins": [
