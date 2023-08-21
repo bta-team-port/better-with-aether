@@ -51,5 +51,6 @@ public class FreezerRecipes {
         addRecipe(new ItemStack(Aether.armorRingGold,1),new ItemStack(Aether.armorRingIce,1),1500);
         addRecipe(new ItemStack(Aether.armorRingIron,1),new ItemStack(Aether.armorPendantIce,1),1500);
         addRecipe(new ItemStack(Aether.armorPendantIron,1),new ItemStack(Aether.armorPendantIce,1),2500);
+        addRecipe(new ItemStack(Block.stone,1),new ItemStack(Block.permafrost,1),500);
     }
 }

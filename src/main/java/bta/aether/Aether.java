@@ -5,6 +5,7 @@ import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import bta.aether.item.*;
+import bta.aether.tile.TileEntityTreasureChest;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
@@ -300,7 +301,7 @@ public class Aether implements ModInitializer {
             .setWestTexture("LockedChestSide.png")
             .setSouthTexture("LockedChestSide.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("chest.treasure.aether", 1028, Material.stone));
+            .build(new BlockChestTreasure("chest.treasure.aether", 1028, Material.stone));
 
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -572,6 +573,7 @@ public class Aether implements ModInitializer {
         biomeAether.fillerBlock = (short) dirtAether.id;
     }
 
+
     // World types
     public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
 
@@ -606,6 +608,8 @@ public class Aether implements ModInitializer {
         EntityHelper.createTileEntity(TileEntityEnchanter.class,"Enchanter");
         EntityHelper.createTileEntity(TileEntityFreezer.class,"Freezer");
         EntityHelper.createTileEntity(TileEntityIncubator.class,"Incubator");
+        EntityHelper.createTileEntity(TileEntityTreasureChest.class,"Treasure Chest");
+
 
         //Crafting Recipes Blocks
 
