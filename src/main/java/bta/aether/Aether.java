@@ -415,11 +415,11 @@ public class Aether implements ModInitializer {
     public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(17004), "book.lore1", "OverworldBook.png");
     public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(17005), "book.lore2", "NetherBook.png");
     public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new Item(17006), "book.lore3", "AetherBook.png");
-    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new Item(17112), "book.lore4", "ParadiseBook.png");
+    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new Item(17107), "book.lore4", "ParadiseBook.png");
 
-    public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(17007), "egg.moa.blue", "BlueMoaEgg.png");
-    public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(17008), "egg.moa.black", "BlackMoaEgg.png");
-    public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(17009), "egg.moa.white", "WhiteMoaEgg.png");
+    public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(17008), "egg.moa.blue", "BlueMoaEgg.png");
+    public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(17009), "egg.moa.black", "BlackMoaEgg.png");
+    public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(17010), "egg.moa.white", "WhiteMoaEgg.png");
 
     public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new Item(18400), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
 

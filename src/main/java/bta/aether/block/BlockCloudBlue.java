@@ -4,7 +4,10 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
+
+import java.util.ArrayList;
 
 public class BlockCloudBlue extends BlockCloudBase {
     public BlockCloudBlue(String key, int id, Material material) {
@@ -17,6 +20,14 @@ public class BlockCloudBlue extends BlockCloudBase {
             entity.fallDistance = 0.0F;
             entity.push(0.0D, 2.0D, 0.0D);
         }
+    }
+
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        return world.canPlaceInsideBlock(x, y, z);
+    }
+
+    public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        return AABB.getBoundingBoxFromPool((double)(x * 0), (double)(y), (double)(z * 0), (double)(x * 0), (double)y, (double)(z * 0));
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
