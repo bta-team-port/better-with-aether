@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class BlockGlassAmbrosium extends BlockTransparent {
     public BlockGlassAmbrosium(String key, int id, Material material, boolean renderInside) {
-        super(key, id, material, renderInside);
+        super(key, id, material.glass, false);
     }
     public int quantityDropped(int meta, Random rand) {
         return 0;

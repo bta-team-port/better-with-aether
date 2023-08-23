@@ -52,15 +52,15 @@ public class Aether implements ModInitializer {
 
     public static final Block dirtAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.gravel", "step.gravel", 1.0f, 1.0f))
-            .setHardness(0.5f)
-            .setResistance(0.5f)
+            .setHardness(0.2f)
+            .setResistance(0.2f)
             .setTextures("Dirt.png")
             .setTags(BlockTags.MINEABLE_BY_SHOVEL)
             .build(new Block("dirt.aether", 1001, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-            .setHardness(0.6f)
+            .setHardness(0.3f)
             .setResistance(0.6f)
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
@@ -70,7 +70,7 @@ public class Aether implements ModInitializer {
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.8f)
+            .setHardness(0.5f)
             .setResistance(0.8f)
             .setTextures("Holystone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
@@ -78,7 +78,7 @@ public class Aether implements ModInitializer {
 
     public static final Block holystoneMossy = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.8f)
+            .setHardness(0.5f)
             .setResistance(0.8f)
             .setTextures("MossyHolystone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
@@ -86,37 +86,37 @@ public class Aether implements ModInitializer {
 
     public static final Block icestone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
-            .setHardness(2.0f)
-            .setResistance(2.0f)
+            .setHardness(3.0f)
+            .setResistance(3.0f)
             .setTextures("Icestone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("icestone.aether", 1005, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
-            .setHardness(0.1f)
-            .setResistance(0.1f)
+            .setHardness(0.2f)
+            .setResistance(0.2f)
             .setTextures("Aercloud.png")
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBase("aercloud.white.aether", 1006, Material.cloth));
     public static final Block aercloudBlue = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
-            .setHardness(0.1f)
-            .setResistance(0.1f)
+            .setHardness(0.2f)
+            .setResistance(0.2f)
             .setTextures("BlueAercloud.png")
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBlue("aercloud.blue.aether", 1007, Material.cloth));
     public static final Block aercloudGold = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
-            .setHardness(0.1f)
-            .setResistance(0.1f)
+            .setHardness(0.2f)
+            .setResistance(0.2f)
             .setTextures("GoldAercloud.png")
             .setTags(BlockTags.MINEABLE_BY_SWORD)
             .build(new BlockCloudBase("aercloud.gold.aether", 1008, Material.cloth));
 
     public static final Block aerogel = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(2.0f)
+            .setHardness(1.0f)
             .setResistance(10.0f)
             .setTextures("Aerogel.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
@@ -124,16 +124,16 @@ public class Aether implements ModInitializer {
 
     public static final Block enchanter = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(2.0f)
+            .setResistance(2.0f)
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockEnchanter("enchanter.aether", 1010, Material.wood));
     public static final Block freezer = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(2.0f)
+            .setResistance(2.0f)
             .setSideTextures("FreezerSide.png")
             .setTopTexture("FreezerTop.png")
             .setBottomTexture("EnchanterTop.png")
@@ -141,8 +141,8 @@ public class Aether implements ModInitializer {
             .build(new BlockFreezer("freezer.aether", 1011, Material.wood));
     public static final Block incubator = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(2.0f)
+            .setResistance(2.0f)
             .setSideTextures("IncubatorSide.png")
             .setTopTexture("IncubatorTop.png")
             .setBottomTexture("EnchanterTop.png")
@@ -224,25 +224,25 @@ public class Aether implements ModInitializer {
 
     public static final Block oreAmbrosiumHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(3.0f)
+            .setResistance(3.0f)
             .setTextures("AmbrosiumOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreAmbrosium("ore.ambrosium.aether", 1020, Material.stone));
     public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(3.0f)
+            .setResistance(3.0f)
             .setTextures("ZaniteOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreZanite("ore.zanite.aether", 1021, Material.stone));
     public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(3.0f)
+            .setResistance(3.0f)
             .setTextures("GravititeOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockOreGravitite("ore.gravitite.aether", 1022, Material.stone));
+            .build(new BlockOreGravitite("ore.gravitite.aether", 1022));
 
     public static final Block torchAmbrosium = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -305,21 +305,21 @@ public class Aether implements ModInitializer {
 
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("carved.aether", 1029, Material.stone));
     public static final Block stoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("angelic.aether", 1030, Material.stone));
     public static final Block stoneHellfire = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("HellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
@@ -327,7 +327,7 @@ public class Aether implements ModInitializer {
 
     public static final Block stoneCarvedLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightCarvedStone.png")
@@ -335,7 +335,7 @@ public class Aether implements ModInitializer {
             .build(new Block("carved.light.aether", 1032, Material.stone));
     public static final Block stoneAngelicLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightAngelicStone.png")
@@ -343,7 +343,7 @@ public class Aether implements ModInitializer {
             .build(new Block("angelic.light.aether", 1033, Material.stone));
     public static final Block stoneHellfireLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightHellfireStone.png")
@@ -352,7 +352,7 @@ public class Aether implements ModInitializer {
 
     public static final Block pillar = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setTopBottomTexture("PillarTop.png")
             .setSideTextures("PillarSide.png")
@@ -361,7 +361,7 @@ public class Aether implements ModInitializer {
             .build(new BlockAxisAligned("pillar.aether", 1035, Material.stone));
     public static final Block pillarTop = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(1.0f)
+            .setHardness(0.5f)
             .setResistance(1.0f)
             .setTopBottomTexture("PillarTop.png")
             .setSideTextures("PillarCarved.png")
@@ -386,7 +386,7 @@ public class Aether implements ModInitializer {
             .setTextures("QuicksoilGlass.png")
             .setSlipperiness(1.1f)
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockGlassAmbrosium("glass.quicksoil.aether", 1037, Material.glass, true));
+            .build(new BlockGlassAmbrosium("glass.quicksoil.aether", 1037, Material.glass, false));
 
     public static final Block flowerWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
