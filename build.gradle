@@ -72,6 +72,22 @@ repositories {
 		}
 		metadataSources { artifact() }
 	}
+	ivy {
+		url = "https://github.com/UselessBullets"
+		patternLayout {
+			artifact "[organisation]/releases/download/r[revision]/[module]-[revision].jar"
+			m2compatible = true
+		}
+		metadataSources { artifact() }
+	}
+	ivy {
+		url = "https://github.com/UselessBullets"
+		patternLayout {
+			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
+			m2compatible = true
+		}
+		metadataSources { artifact() }
+	}
 }
 
 dependencies {
@@ -84,6 +100,7 @@ dependencies {
 	// Helper library
 	// If you do not need Halplibe you can comment this line out or delete this line
 	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
+	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
 
 	modImplementation "ModMenu:ModMenu:2.0.3"
 
@@ -92,10 +109,12 @@ dependencies {
 
 	implementation 'com.google.guava:guava:30.0-jre'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
 	var log4jVersion = "2.20.0"
 	implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
 	implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
 	implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion}")
+	include(implementation("org.apache.commons:commons-lang3:3.12.0"))
 }
 
 java {

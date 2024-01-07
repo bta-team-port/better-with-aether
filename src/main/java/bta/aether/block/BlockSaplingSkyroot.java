@@ -15,11 +15,11 @@ public class BlockSaplingSkyroot extends BlockSaplingBase {
     }
 
     public boolean canThisPlantGrowOnThisBlockID(int i) {
-        return i == Aether.grassAether.id;
+        return i == AetherBlocks.grassAether.id;
     }
 
     public void growTree(World world, int i, int j, int k, Random random) {
-        Object treeSmall = new WorldFeatureTree(Aether.leavesSkyroot.id, Aether.logSkyroot.id, 4);
+        Object treeSmall = new WorldFeatureTree(AetherBlocks.leavesSkyroot.id, AetherBlocks.logSkyroot.id, 4);
         world.setBlock(i, j, k, 0);
         if (!((WorldFeature)treeSmall).generate(world, random, i, j, k)){
             world.setBlock(i, j, k, this.id);

@@ -1,6 +1,7 @@
 package bta.aether.api.impl.guidebookpp.container;
 
 import bta.aether.Aether;
+import bta.aether.item.AetherItems;
 import bta.aether.tile.recipes.EnchanterRecipes;
 import net.minecraft.client.gui.GuiGuidebook;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
@@ -26,7 +27,7 @@ public class ContainerGuidebookEnchanterRecipe extends ContainerGuidebookRecipeB
         machine = stack;
         this.addSlot(new SlotGuidebook(0, 9, 1, recipe.input, false));
         this.addSlot(new SlotGuidebook(1, 69, 19, recipe.output, false));
-        this.addSlot(new SlotGuidebook(2, 9, 37, new ItemStack(Aether.ambrosium, Math.max(EnchanterRecipes.getTime(recipe.input)/500,1)), false));
+        this.addSlot(new SlotGuidebook(2, 9, 37, new ItemStack(AetherItems.ambrosium, Math.max(EnchanterRecipes.getTime(recipe.input)/500,1)), false));
         this.addSlot(new SlotGuidebook(3,36,18,stack,true));
     }
 

@@ -17,7 +17,7 @@ import java.util.Random;
 public class BlockAmbrosiumTorch extends Block {
     public BlockAmbrosiumTorch(String key, int id) {
         super(key, id, Material.decoration);
-        this.setTickOnLoad(true);
+        this.setTicking(true);
     }
 
     public int getBlockTextureFromSideAndMetadata(Side side, int meta) {

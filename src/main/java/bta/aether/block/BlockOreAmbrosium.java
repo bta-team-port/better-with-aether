@@ -1,6 +1,7 @@
 package bta.aether.block;
 
 import bta.aether.Aether;
+import bta.aether.item.AetherItems;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
@@ -20,7 +21,7 @@ public class BlockOreAmbrosium extends Block {
                 case PICK_BLOCK:
                     return new ItemStack[]{new ItemStack(this)};
                 case PROPER_TOOL:
-                    return new ItemStack[]{new ItemStack(Aether.ambrosium)};
+                    return new ItemStack[]{new ItemStack(AetherItems.ambrosium)};
                 default:
                     return null;
             }

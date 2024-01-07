@@ -14,7 +14,7 @@ public class BlockAetherFlower extends Block {
     public boolean killedByWeather = false;
     public BlockAetherFlower(String key, int id) {
         super(key, id, Material.plant);
-        this.setTickOnLoad(true);
+        this.setTicking(true);
         float f = 0.2F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 3.0F, 0.5F + f);
     }

@@ -4,6 +4,7 @@ import bta.aether.Aether;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
@@ -30,14 +31,14 @@ public class ItemSkyrootBucket extends Item {
 
     }
 
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         float f = 1.0F;
-        float f1 = player.xRotO + (player.xRot - player.xRotO) * f;
-        float f2 = player.yRotO + (player.yRot - player.yRotO) * f;
-        double posX = player.xo + (player.x - player.xo) * (double)f;
-        double posY = player.yo + (player.y - player.yo) * (double)f + 1.62 - (double)player.heightOffset;
-        double posZ = player.zo + (player.z - player.zo) * (double)f;
-        Vec3d vec3d = Vec3d.createVector(posX, posY, posZ);
+        float f1 = entityplayer.xRotO + (entityplayer.xRot - entityplayer.xRotO) * f;
+        float f2 = entityplayer.yRotO + (entityplayer.yRot - entityplayer.yRotO) * f;
+        double d = entityplayer.xo + (entityplayer.x - entityplayer.xo) * (double)f;
+        double d1 = entityplayer.yo + (entityplayer.y - entityplayer.yo) * (double)f + 1.62 - (double)entityplayer.heightOffset;
+        double d2 = entityplayer.zo + (entityplayer.z - entityplayer.zo) * (double)f;
+        Vec3d vec3d = Vec3d.createVector(d, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.01745329F - 3.141593F);
         float f4 = MathHelper.sin(-f2 * 0.01745329F - 3.141593F);
         float f5 = -MathHelper.cos(-f1 * 0.01745329F);
@@ -46,58 +47,44 @@ public class ItemSkyrootBucket extends Item {
         float f9 = f3 * f5;
         double d3 = 5.0;
         Vec3d vec3d1 = vec3d.addVector((double)f7 * d3, (double)f6 * d3, (double)f9 * d3);
-        HitResult rayTraceResult = world.checkBlockCollisionBetweenPoints(vec3d, vec3d1, this.idToPlace == 0);
-        if (rayTraceResult != null && rayTraceResult.hitType == HitResult.HitType.TILE) {
-            int x = rayTraceResult.x;
-            int y = rayTraceResult.y;
-            int z = rayTraceResult.z;
-            if (!world.canMineBlock(player, x, y, z)) {
-                return stack;
-            } else if (this.idToPlace < 0) {
-                return new ItemStack(Aether.bucketSkyroot);
-            } else {
-                Block block = world.getBlock(x, y, z);
-                if (block != null && !block.hasTag(BlockTags.PLACE_OVERWRITES) && !block.hasTag(BlockTags.BROKEN_BY_FLUIDS)) {
-                    Side side = rayTraceResult.side;
-                    x += side.getOffsetX();
-                    y += side.getOffsetY();
-                    z += side.getOffsetZ();
+        HitResult movingobjectposition = world.checkBlockCollisionBetweenPoints(vec3d, vec3d1, true);
+        if (movingobjectposition == null) {
+            return itemstack;
+        } else {
+            if (movingobjectposition.hitType == HitResult.HitType.TILE) {
+                int i = movingobjectposition.x;
+                int j = movingobjectposition.y;
+                int k = movingobjectposition.z;
+                if (!world.canMineBlock(entityplayer, i, j, k)) {
+                    return itemstack;
                 }
 
-                if (y >= 0 && y < world.getHeightBlocks()) {
-                    if (world.isAirBlock(x, y, z) || !world.getBlockMaterial(x, y, z).isSolid()) {
-                        if (world.dimension == Dimension.nether && this.idToPlace == Block.fluidWaterFlowing.id) {
-                            world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)z + 0.5, (double)y + 0.5, (double)x + 0.5, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-
-                            for(int l = 0; l < 8; ++l) {
-                                world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + Math.random(), (double)z + Math.random(), 0.0, 0.0, 0.0);
-                            }
-                        } else {
-                            if (this.idToPlace == Block.fluidWaterFlowing.id) {
-                                world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), "liquid.splash", 0.5F, 1.0F);
-                            }
-
-                            player.swingItem();
-                            Block block1 = world.getBlock(x, y, z);
-                            if (block1 != null) {
-                                block1.dropBlockWithCause(world, EnumDropCause.WORLD, x, y, z, world.getBlockMetadata(x, y, z), (TileEntity)null);
-                            }
-
-                            world.setBlockAndMetadataWithNotify(x, y, z, this.idToPlace, 0);
-                        }
-
-                        if (player.getGamemode().consumeBlocks) {
-                            return new ItemStack(Aether.bucketSkyroot);
-                        }
+                if (world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0) {
+                    if (useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyrootWater))) {
+                        world.setBlockWithNotify(i, j, k, 0);
+                        entityplayer.swingItem();
                     }
-
-                    return stack;
-                } else {
-                    return stack;
+                    world.setBlockWithNotify(i, j, k, 0);
+                    entityplayer.swingItem();
                 }
             }
+
+            return itemstack;
+        }
+    }
+
+    public static boolean useBucket(EntityPlayer player, ItemStack itemToGive) {
+        if (player.inventory.getCurrentItem().stackSize <= 1) {
+            player.inventory.setInventorySlotContents(player.inventory.currentItem, itemToGive);
+            return true;
         } else {
-            return stack;
+            player.inventory.insertItem(itemToGive, true);
+            if (itemToGive.stackSize < 1) {
+                player.inventory.getCurrentItem().consumeItem(player);
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
