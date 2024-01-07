@@ -13,13 +13,13 @@ import java.util.Random;
 public class BlockAetherGrass extends Block {
     public BlockAetherGrass(String key, int id, Material material) {
         super(key, id, material);
-        this.setTickOnLoad(true);
+        this.setTicking(true);
     }
 
 
         public void updateTick(World world, int x, int y, int z, Random rand) {
             if (!world.isClientSide) {
-                if (world.getBlockLightValue(x, y + 1, z) < 4 && Block.lightOpacity[world.getBlockId(x, y + 1, z)] > 2) {
+                if (world.getBlockLightValue(x, y + 1, z) < 4 && Block.lightBlock[world.getBlockId(x, y + 1, z)] > 2) {
                     if (rand.nextInt(4) != 0) {
                         return;
                     }
@@ -30,7 +30,7 @@ public class BlockAetherGrass extends Block {
                     int i1 = y + rand.nextInt(5) - 3;
                     int j1 = z + rand.nextInt(3) - 1;
                     int k1 = world.getBlockId(l, i1 + 1, j1);
-                    if (world.getBlockId(l, i1, j1) == Aether.dirtAether.id && world.getBlockLightValue(l, i1 + 1, j1) >= 4 && Block.lightOpacity[k1] <= 2) {
+                    if (world.getBlockId(l, i1, j1) == Block.dirt.id && world.getBlockLightValue(l, i1 + 1, j1) >= 4 && Block.lightBlock[k1] <= 2) {
                         world.setBlockWithNotify(l, i1, j1, this.id);
                     }
                 }

@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.item.AetherItems;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
@@ -33,6 +34,7 @@ public class EntityGoldenDart extends Entity {
         protected float arrowGravity;
         protected int arrowDamage;
         protected int arrowType;
+    protected ItemStack stack;
 
     public EntityGoldenDart(World world) {
             this(world, 0);
@@ -40,6 +42,7 @@ public class EntityGoldenDart extends Entity {
 
     public EntityGoldenDart(World world, int arrowType) {
             super(world);
+        this.stack = new ItemStack(AetherItems.dartGolden);
             this.xTile = -1;
             this.yTile = -1;
             this.zTile = -1;
@@ -55,6 +58,7 @@ public class EntityGoldenDart extends Entity {
 
     public EntityGoldenDart(World world, double d, double d1, double d2, int arrowType) {
             super(world);
+        this.stack = new ItemStack(AetherItems.dartGolden);
             this.xTile = -1;
             this.yTile = -1;
             this.zTile = -1;
@@ -72,6 +76,7 @@ public class EntityGoldenDart extends Entity {
 
     public EntityGoldenDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer, int arrowType) {
             super(world);
+        this.stack = new ItemStack(AetherItems.dartGolden);
             this.xTile = -1;
             this.yTile = -1;
             this.zTile = -1;
@@ -332,16 +337,19 @@ public class EntityGoldenDart extends Entity {
             this.doesArrowBelongToPlayer = tag.getBoolean("player");
         }
 
-        public void playerTouch(EntityPlayer player) {
-            if (!this.world.isClientSide) {
-                if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0 && player.inventory.addItemStackToInventory(new ItemStack(Item.ammoArrow, 1))) {
+    public void playerTouch(EntityPlayer player) {
+        if (!this.world.isClientSide) {
+            if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0) {
+                player.inventory.insertItem(this.stack, true);
+                if (this.stack.stackSize <= 0) {
                     this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                    player.onItemPickup(this, Item.ammoArrow.id);
+                    player.onItemPickup(this, AetherItems.dartGolden.id);
                     this.remove();
                 }
-
             }
+
         }
+    }
 
         public float getShadowHeightOffs() {
             return 0.0F;

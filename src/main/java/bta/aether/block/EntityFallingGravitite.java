@@ -129,11 +129,11 @@ public class EntityFallingGravitite extends Entity {
         }
     }
 
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         tag.putShort("Tile", (short)this.blockID);
     }
 
-    protected void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(CompoundTag tag) {
         this.blockID = tag.getShort("Tile") & 16383;
     }
 
