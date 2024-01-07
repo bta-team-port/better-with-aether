@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
@@ -30,10 +31,13 @@ public class EntityPoisonDart extends EntityGoldenDart {
 
     public void playerTouch(EntityPlayer player) {
         if (!this.world.isClientSide) {
-            if (this.inGround && this.arrowShake <= 0 && player.inventory.addItemStackToInventory(new ItemStack(Item.ammoArrowGold, 1))) {
-                this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                player.onItemPickup(this, Item.ammoArrowGold.id);
-                this.remove();
+            if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0) {
+                player.inventory.insertItem(this.stack, true);
+                if (this.stack.stackSize <= 0) {
+                    this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    player.onItemPickup(this, AetherItems.dartPoison.id);
+                    this.remove();
+                }
             }
 
         }

@@ -45,7 +45,7 @@ public class ItemSkyrootBucketEmpty extends Item {
                 }
 
                 if (world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0) {
-                    if (UseBucket(entityplayer, new ItemStack(Aether.bucketSkyrootWater))) {
+                    if (UseBucket(entityplayer, new ItemStack(AetherItems.bucketSkyrootWater))) {
                         world.setBlockWithNotify(i, j, k, 0);
                         entityplayer.swingItem();
                     }

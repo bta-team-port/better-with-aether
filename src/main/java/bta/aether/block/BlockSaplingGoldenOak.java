@@ -14,7 +14,7 @@ public class BlockSaplingGoldenOak extends BlockSaplingBase {
     }
 
     public void growTree(World world, int i, int j, int k, Random random) {
-        Object treeBig = new WorldFeatureTreeFancy(Aether.leavesOakGolden.id, Aether.logOakGolden.id);
+        Object treeBig = new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id);
         world.setBlock(i, j, k, 0);
         if (!((WorldFeature)treeBig).generate(world, random, i, j, k)){
             world.setBlock(i, j, k, this.id);
