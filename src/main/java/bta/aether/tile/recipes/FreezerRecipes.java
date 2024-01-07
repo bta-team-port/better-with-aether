@@ -1,6 +1,8 @@
 package bta.aether.tile.recipes;
 
 import bta.aether.Aether;
+import bta.aether.block.AetherBlocks;
+import bta.aether.item.AetherItems;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -44,13 +46,13 @@ public class FreezerRecipes {
 
     static {
         addRecipe(new ItemStack(Item.bucketWater,1),new ItemStack(Block.ice,5),500);
-        addRecipe(new ItemStack(Aether.bucketSkyrootWater,1),new ItemStack(Block.ice,5),500);
+        addRecipe(new ItemStack(AetherItems.bucketSkyrootWater,1),new ItemStack(Block.ice,5),500);
         addRecipe(new ItemStack(Item.bucketLava,1),new ItemStack(Block.obsidian,2),500);
-        addRecipe(new ItemStack(Aether.aercloudWhite,1),new ItemStack(Aether.aercloudBlue,1),50);
-        addRecipe(new ItemStack(Aether.armorPendantGold,1),new ItemStack(Aether.armorPendantIce,1),2500);
-        addRecipe(new ItemStack(Aether.armorRingGold,1),new ItemStack(Aether.armorRingIce,1),1500);
-        addRecipe(new ItemStack(Aether.armorRingIron,1),new ItemStack(Aether.armorPendantIce,1),1500);
-        addRecipe(new ItemStack(Aether.armorPendantIron,1),new ItemStack(Aether.armorPendantIce,1),2500);
+        addRecipe(new ItemStack(AetherBlocks.aercloudWhite,1),new ItemStack(AetherBlocks.aercloudBlue,1),50);
+        addRecipe(new ItemStack(AetherItems.armorPendantGold,1),new ItemStack(AetherItems.armorPendantIce,1),2500);
+        addRecipe(new ItemStack(AetherItems.armorRingGold,1),new ItemStack(AetherItems.armorRingIce,1),1500);
+        addRecipe(new ItemStack(AetherItems.armorRingIron,1),new ItemStack(AetherItems.armorPendantIce,1),1500);
+        addRecipe(new ItemStack(AetherItems.armorPendantIron,1),new ItemStack(AetherItems.armorPendantIce,1),2500);
         addRecipe(new ItemStack(Block.stone,1),new ItemStack(Block.permafrost,1),500);
     }
 }

@@ -1,6 +1,8 @@
 package bta.aether.tile.recipes;
 
 import bta.aether.Aether;
+import bta.aether.block.AetherBlocks;
+import bta.aether.item.AetherItems;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemRecord;
 import net.minecraft.core.item.ItemStack;
@@ -46,34 +48,34 @@ public class EnchanterRecipes {
     }
 
     static {
-        addRecipe(new ItemStack(Aether.oreGravititeHolystone,1),new ItemStack(Aether.gravititeEnchanted),1000);
-        addRecipe(new ItemStack(Aether.dartGolden,1),new ItemStack(Aether.dartEnchanted),500);
-        addRecipe(new ItemStack(Aether.dartPoison,1),new ItemStack(Aether.dartEnchanted),500);
-        addRecipe(new ItemStack(Aether.bucketSkyrootPoison,1),new ItemStack(Aether.bucketSkyrootRemedy),1000);
-        addRecipe(new ItemStack(Aether.quicksoil, 1),new ItemStack(Aether.glassQuicksoil),500);
-        addRecipe(new ItemStack(Aether.holystone,1),new ItemStack(Aether.healingstone),1000);
-        addRecipe(new ItemStack(Aether.dartshooter,1),new ItemStack(Aether.dartEnchanted),2000);
-        addRecipe(new ItemStack(Aether.dartshooterPoison,1),new ItemStack(Aether.dartEnchanted),2000);
+        addRecipe(new ItemStack(AetherBlocks.oreGravititeHolystone,1),new ItemStack(AetherBlocks.gravititeEnchanted),1000);
+        addRecipe(new ItemStack(AetherItems.dartGolden,1),new ItemStack(AetherItems.dartEnchanted),500);
+        addRecipe(new ItemStack(AetherItems.dartPoison,1),new ItemStack(AetherItems.dartEnchanted),500);
+        addRecipe(new ItemStack(AetherItems.bucketSkyrootPoison,1),new ItemStack(AetherItems.bucketSkyrootRemedy),1000);
+        addRecipe(new ItemStack(AetherBlocks.quicksoil, 1),new ItemStack(AetherBlocks.glassQuicksoil),500);
+        addRecipe(new ItemStack(AetherBlocks.holystone,1),new ItemStack(AetherItems.healingstone),1000);
+        addRecipe(new ItemStack(AetherItems.dartshooter,1),new ItemStack(AetherItems.dartEnchanted),2000);
+        addRecipe(new ItemStack(AetherItems.dartshooterPoison,1),new ItemStack(AetherItems.dartEnchanted),2000);
 
-        addRecipe(new ItemStack(Aether.toolSwordSkyroot,1),new ItemStack(Aether.toolSwordSkyroot),500);
-        addRecipe(new ItemStack(Aether.toolPickaxeSkyroot,1),new ItemStack(Aether.toolPickaxeSkyroot),500);
-        addRecipe(new ItemStack(Aether.toolShovelSkyroot,1),new ItemStack(Aether.toolShovelSkyroot),500);
-        addRecipe(new ItemStack(Aether.toolAxeSkyroot,1),new ItemStack(Aether.toolAxeSkyroot),500);
+        addRecipe(new ItemStack(AetherItems.toolSwordSkyroot,1),new ItemStack(AetherItems.toolSwordSkyroot),500);
+        addRecipe(new ItemStack(AetherItems.toolPickaxeSkyroot,1),new ItemStack(AetherItems.toolPickaxeSkyroot),500);
+        addRecipe(new ItemStack(AetherItems.toolShovelSkyroot,1),new ItemStack(AetherItems.toolShovelSkyroot),500);
+        addRecipe(new ItemStack(AetherItems.toolAxeSkyroot,1),new ItemStack(AetherItems.toolAxeSkyroot),500);
 
-        addRecipe(new ItemStack(Aether.toolSwordHolystone,1),new ItemStack(Aether.toolSwordHolystone),1000);
-        addRecipe(new ItemStack(Aether.toolPickaxeHolystone,1),new ItemStack(Aether.toolPickaxeHolystone),1000);
-        addRecipe(new ItemStack(Aether.toolShovelHolystone,1),new ItemStack(Aether.toolShovelHolystone),1000);
-        addRecipe(new ItemStack(Aether.toolAxeHolystone,1),new ItemStack(Aether.toolAxeHolystone),1000);
+        addRecipe(new ItemStack(AetherItems.toolSwordHolystone,1),new ItemStack(AetherItems.toolSwordHolystone),1000);
+        addRecipe(new ItemStack(AetherItems.toolPickaxeHolystone,1),new ItemStack(AetherItems.toolPickaxeHolystone),1000);
+        addRecipe(new ItemStack(AetherItems.toolShovelHolystone,1),new ItemStack(AetherItems.toolShovelHolystone),1000);
+        addRecipe(new ItemStack(AetherItems.toolAxeHolystone,1),new ItemStack(AetherItems.toolAxeHolystone),1000);
 
-        addRecipe(new ItemStack(Aether.toolSwordZanite,1),new ItemStack(Aether.toolSwordZanite),2000);
-        addRecipe(new ItemStack(Aether.toolPickaxeZanite,1),new ItemStack(Aether.toolPickaxeZanite),2000);
-        addRecipe(new ItemStack(Aether.toolShovelZanite,1),new ItemStack(Aether.toolShovelZanite),2000);
-        addRecipe(new ItemStack(Aether.toolAxeZanite,1),new ItemStack(Aether.toolAxeZanite),2000);
+        addRecipe(new ItemStack(AetherItems.toolSwordZanite,1),new ItemStack(AetherItems.toolSwordZanite),2000);
+        addRecipe(new ItemStack(AetherItems.toolPickaxeZanite,1),new ItemStack(AetherItems.toolPickaxeZanite),2000);
+        addRecipe(new ItemStack(AetherItems.toolShovelZanite,1),new ItemStack(AetherItems.toolShovelZanite),2000);
+        addRecipe(new ItemStack(AetherItems.toolAxeZanite,1),new ItemStack(AetherItems.toolAxeZanite),2000);
 
-        addRecipe(new ItemStack(Aether.toolSwordGravitite,1),new ItemStack(Aether.toolSwordGravitite),6000);
-        addRecipe(new ItemStack(Aether.toolPickaxeGravitite,1),new ItemStack(Aether.toolPickaxeGravitite),6000);
-        addRecipe(new ItemStack(Aether.toolShovelGravitite,1),new ItemStack(Aether.toolShovelGravitite),6000);
-        addRecipe(new ItemStack(Aether.toolAxeGravitite,1),new ItemStack(Aether.toolAxeGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.toolSwordGravitite,1),new ItemStack(AetherItems.toolSwordGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.toolPickaxeGravitite,1),new ItemStack(AetherItems.toolPickaxeGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.toolShovelGravitite,1),new ItemStack(AetherItems.toolShovelGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.toolAxeGravitite,1),new ItemStack(AetherItems.toolAxeGravitite),6000);
 
         addRecipe(new ItemStack(Item.toolSwordWood,1),new ItemStack(Item.toolSwordWood),500);
         addRecipe(new ItemStack(Item.toolPickaxeWood,1),new ItemStack(Item.toolPickaxeWood),500);
@@ -148,32 +150,33 @@ public class EnchanterRecipes {
         addRecipe(new ItemStack(Item.armorLeggingsSteel,1),new ItemStack(Item.armorLeggingsSteel),16000);
         addRecipe(new ItemStack(Item.armorBootsSteel,1),new ItemStack(Item.armorBootsSteel),16000);
 
-        addRecipe(new ItemStack(Aether.armorHelmetZanite,1),new ItemStack(Aether.armorHelmetZanite),2000);
-        addRecipe(new ItemStack(Aether.armorChestplateZanite,1),new ItemStack(Aether.armorChestplateZanite),2000);
-        addRecipe(new ItemStack(Aether.armorLeggingsZanite,1),new ItemStack(Aether.armorLeggingsZanite),2000);
-        addRecipe(new ItemStack(Aether.armorBootsZanite,1),new ItemStack(Aether.armorBootsZanite),2000);
+        addRecipe(new ItemStack(AetherItems.armorHelmetZanite,1),new ItemStack(AetherItems.armorHelmetZanite),2000);
+        addRecipe(new ItemStack(AetherItems.armorChestplateZanite,1),new ItemStack(AetherItems.armorChestplateZanite),2000);
+        addRecipe(new ItemStack(AetherItems.armorLeggingsZanite,1),new ItemStack(AetherItems.armorLeggingsZanite),2000);
+        addRecipe(new ItemStack(AetherItems.armorBootsZanite,1),new ItemStack(AetherItems.armorBootsZanite),2000);
 
-        addRecipe(new ItemStack(Aether.armorHelmetGravitite,1),new ItemStack(Aether.armorHelmetGravitite),6000);
-        addRecipe(new ItemStack(Aether.armorChestplateGravitite,1),new ItemStack(Aether.armorChestplateGravitite),6000);
-        addRecipe(new ItemStack(Aether.armorLeggingsGravitite,1),new ItemStack(Aether.armorLeggingsGravitite),6000);
-        addRecipe(new ItemStack(Aether.armorBootsGravitite,1),new ItemStack(Aether.armorBootsGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.armorHelmetGravitite,1),new ItemStack(AetherItems.armorHelmetGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.armorChestplateGravitite,1),new ItemStack(AetherItems.armorChestplateGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.armorLeggingsGravitite,1),new ItemStack(AetherItems.armorLeggingsGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
 
-        addRecipe(new ItemStack(Aether.armorBootsGravitite,1),new ItemStack(Aether.armorBootsGravitite),6000);
+        addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
 
 
 
-        addRecipe(new ItemStack(Item.record13, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordBlocks, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordCat, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordChirp, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordDog, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordFar, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordMall, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordMellohi, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordStal, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordStrad, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordWait, 1),new ItemStack(Aether.recordBlue),1000);
-        addRecipe(new ItemStack(Item.recordWard, 1),new ItemStack(Aether.recordBlue),1000);
+        addRecipe(new ItemStack(Item.record13, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordBlocks, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordCat, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordChirp, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordDog, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordFar, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordMall, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordMellohi, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordStal, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordStrad, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordWait, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordWard, 1),new ItemStack(AetherItems.recordBlue),1000);
+        addRecipe(new ItemStack(Item.recordDog, 1),new ItemStack(AetherItems.recordBlue),1000);
 
     }
 }
