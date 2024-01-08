@@ -21,6 +21,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         AETHER.register("workbench", WORKBENCH);
         AETHER.register("furnace", FURNACE);
         Registries.RECIPES.register("aether", AETHER);
+        Registries.ITEM_GROUPS.register("aether:blue_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 11), new ItemStack(Block.wool, 1, 3), new ItemStack(Block.wool, 1, 9)));
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logSkyroot.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logOakGolden.getDefaultStack());
         DataLoader.loadRecipes("/assets/aether/recipes/workbench.json");
