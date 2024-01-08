@@ -8,20 +8,25 @@ import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryCrafting;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryFurnace;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
 public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeNamespace AETHER = new RecipeNamespace();
     public static final RecipeGroup<RecipeEntryCrafting<?, ?>> WORKBENCH = new RecipeGroup<>(new RecipeSymbol(new ItemStack(Block.workbench)));
+    public static final RecipeGroup<RecipeEntryFurnace> FURNACE = new RecipeGroup<>(new RecipeSymbol(new ItemStack(Block.furnaceStoneIdle)));
     @Override
     public void onRecipesReady() {
         AETHER.register("workbench", WORKBENCH);
+        AETHER.register("furnace", FURNACE);
         Registries.RECIPES.register("aether", AETHER);
-//        Registries.ITEM_GROUPS.getItem("minecraft:planks").add(AetherBlocks.planksSkyroot.getDefaultStack()); Changes Recipes too much
+        Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logSkyroot.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logOakGolden.getDefaultStack());
         DataLoader.loadRecipes("/assets/aether/recipes/workbench.json");
         DataLoader.loadRecipes("/assets/aether/recipes/workbench-shapeless.json");
         DataLoader.loadRecipes("/assets/aether/recipes/workbench-tools.json");
         DataLoader.loadRecipes("/assets/aether/recipes/workbench-armor.json");
+        DataLoader.loadRecipes("/assets/aether/recipes/furnace.json");
     }
 }
