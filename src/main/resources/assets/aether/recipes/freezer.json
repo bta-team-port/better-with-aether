@@ -1,0 +1,19 @@
+[
+  {
+    "name": "aether:freezer/ice",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": 16454,
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": 730,
+      "amount": 5,
+      "meta": 0
+    }
+  }
+]

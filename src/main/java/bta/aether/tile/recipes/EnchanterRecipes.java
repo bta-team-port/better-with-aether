@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Deprecated
 public class EnchanterRecipes {
     protected static final HashMap<ItemStack, Pair<ItemStack,Integer>> recipeList = new HashMap<>();
 
