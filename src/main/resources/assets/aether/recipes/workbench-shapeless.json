@@ -1,0 +1,92 @@
+[
+  {
+    "name": "aether:workbench/flower_white_to_dye",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.flower.white",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.dye",
+      "amount": 2,
+      "meta": 7
+    }
+  },
+  {
+    "name": "aether:workbench/flower_purple_to_dye",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.flower.purple",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.dye",
+      "amount": 2,
+      "meta": 5
+    }
+  },
+  {
+    "name": "aether:workbench/skyroot_planks",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.skyroot.log",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.skyroot.planks",
+      "amount": 4,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:workbench/golden_planks",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.goldenoak.log",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.planks.oak.painted",
+      "amount": 4,
+      "meta": 4
+    }
+  },
+  {
+    "name": "aether:workbench/decompress_zanite",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.block.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.zanite",
+      "amount": 4,
+      "meta": 0
+    }
+  }
+]

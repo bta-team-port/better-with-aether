@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "bta.aether.Aether"
+    ],
+    "recipesReady": [
+      "bta.aether.crafting.AetherRecipes"
     ]
   },
   "mixins": [
