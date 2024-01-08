@@ -1,0 +1,664 @@
+[
+  {
+    "name": "aether:workbench/workbench_planks_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.workbench",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/incubator",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      "PTP",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "T",
+        "stack": {
+          "key": "tile.aether.torch.ambrosium",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.incubator",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/freezer",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "HHH",
+      "HTH",
+      "XXX"
+    ],
+    "symbols": [
+      {
+        "symbol": "H",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "T",
+        "stack": {
+          "key": "tile.aether.icestone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "X",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.freezer",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/enchanter",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      "PTP",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "T",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.enchanter",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/block_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.block.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/chest_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      "P P",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.chest.planks.oak",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/door_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PP",
+      "PP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.door.oak",
+      "amount": 2,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/jukebox_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      "PGP",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.jukebox",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/sticks_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.stick.skyroot",
+      "amount": 4,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/fence_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PSP",
+      "PSP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.fence.planks.oak",
+      "amount": 6,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/fencegate_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "SPS",
+      "SPS"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.fencegate.planks.oak",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/torch_ambrosium",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "A",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.aether.ambrosium",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.torch.ambrosium",
+      "amount": 2,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/dart_golden",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G",
+      "S",
+      "F"
+    ],
+    "symbols": [
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.goldenamber",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "F",
+        "stack": {
+          "key": "item.feather.chicken",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.ammo.dart.gold",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/dart_poison",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "GGG",
+      "GBG",
+      "GGG"
+    ],
+    "symbols": [
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.aether.bucket.skyroot.poison",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.ammo.dart.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.ammo.dart.poison",
+      "amount": 8,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/cloud_parachute",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.aercloud.white",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.cloud.parachute",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/cloud_parachute_gold",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.aercloud.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.cloud.parachute.gold",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/saddle",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "LLL",
+      "LSL"
+    ],
+    "symbols": [
+      {
+        "symbol": "L",
+        "stack": {
+          "key": "item.leather",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.string",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.saddle",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_white",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.white",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_red",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 14
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.red",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_yellow",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 4
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.yellow",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_blue1",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 11
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.blue",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_blue2",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 3
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.blue",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_blue3",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 9
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.blue",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  }
+]
