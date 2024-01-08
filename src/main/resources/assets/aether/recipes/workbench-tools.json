@@ -1,0 +1,650 @@
+[
+  {
+    "name": "aether:workbench/dart_shooter",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P",
+      "Z"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "Z",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.dart.shooter",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/dart_shooter_poison",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "DP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.aechorpetal",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "D",
+        "stack": {
+          "key": "item.aether.tool.dart.shooter",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.dart.shooter.poison",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/tool_staff_nature",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "Z",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "Z",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.staff.nature",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/bucket_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P P",
+      " P "
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.bucket.skyroot",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/axe_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PS",
+      " S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.axe.skyroot",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pickaxe_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      " S ",
+      " S "
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.pickaxe.skyroot",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/shovel_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "S",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.shovel.skyroot",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/sword_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.skyroot.planks",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.sword.skyroot",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/axe_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PS",
+      " S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.axe.holystone",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pickaxe_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      " S ",
+      " S "
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.pickaxe.holystone",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/shovel_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "S",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.shovel.holystone",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/sword_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.sword.holystone",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/axe_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PS",
+      " S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.axe.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pickaxe_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      " S ",
+      " S "
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.pickaxe.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/shovel_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "S",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.shovel.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/sword_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.sword.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/axe_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PP",
+      "PS",
+      " S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.axe.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pickaxe_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      " S ",
+      " S "
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.pickaxe.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/shovel_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "S",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.shovel.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/sword_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P",
+      "P",
+      "S"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.aether.stick.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.tool.sword.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  }
+]

@@ -1,0 +1,510 @@
+[
+  {
+    "name": "aether:workbench/helmet_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "GGG",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.helmet.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/chestplate_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G",
+      "GGG",
+      "GGG"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.chestplate.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/leggings_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "GGG",
+      "G G",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.leggings.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/boots_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.boots.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/helmet_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "GGG",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.helmet.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/chestplate_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G",
+      "GGG",
+      "GGG"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.chestplate.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/leggings_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "GGG",
+      "G G",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.leggings.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/boots_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G",
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.boots.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_leather",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.leather",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.leather",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_iron",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.iron",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_gold",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.gold",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_diamond",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.diamond",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.diamond",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/gloves_gravitite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "G G"
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "tile.aether.block.gravitite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.gloves.gravitite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/ring_iron",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " G ",
+      "G G",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.ring.iron",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/ring_gold",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " G ",
+      "G G",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.ring.gold",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/ring_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " G ",
+      "G G",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.ring.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pendant_iron",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "SSS",
+      "S S",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.string",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.pendant.iron",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pendant_gold",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "SSS",
+      "S S",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.string",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.ingot.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.pendant.gold",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/pendant_zanite",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "SSS",
+      "S S",
+      " G "
+    ],
+    "symbols": [
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.string",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.aether.zanite",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.pendant.zanite",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  }
+]
