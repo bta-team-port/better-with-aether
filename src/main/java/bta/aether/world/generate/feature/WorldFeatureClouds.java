@@ -1,6 +1,6 @@
 package bta.aether.world.generate.feature;
 
-import bta.aether.Aether;
+import bta.aether.block.AetherBlocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 
@@ -26,7 +26,7 @@ public class WorldFeatureClouds extends WorldFeature {
                 for(int z1 = zOffset - sizeZ; z1 < zOffset + sizeZ; z1++ ){
 
                     for(int y1 = j - sizeY; y1 < j + sizeY; y1++ ) {
-                        world.setBlock(x1, y1, z1, Aether.aercloudWhite.id);
+                        world.setBlock(x1, y1, z1, AetherBlocks.aercloudWhite.id);
                     }
                 }
             }

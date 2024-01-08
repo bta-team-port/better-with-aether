@@ -1,7 +1,6 @@
 package bta.aether.mixin;
 
-import bta.aether.Aether;
-import com.llamalad7.mixinextras.sugar.Local;
+import bta.aether.item.AetherItems;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
@@ -12,6 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import com.llamalad7.mixinextras.sugar.Local;
 
 @Mixin(value = InventoryPlayer.class, remap = false)
 public abstract class InventoryPlayerMixin {
@@ -26,10 +26,10 @@ public abstract class InventoryPlayerMixin {
             )
     )
     private float changeProtection(ArmorMaterial instance, DamageType damageType, @Local(ordinal = 0) ItemArmor armor, @Local(ordinal = 0) int i) {
-        if (instance == Aether.armorzanite) {
+        if (instance == AetherItems.armorzanite) {
             float durability = (float) armorInventory[i].getMetadata() / ((float) armor.getMaxDamage() * 0.8f);
             durability = MathHelper.clamp(durability, 0.0f, 1.0f);
-            return MathHelper.lerp(ArmorMaterial.iron.getProtection(damageType), ArmorMaterial.gold.getProtection(damageType), durability);
+            return MathHelper.lerp(ArmorMaterial.IRON.getProtection(damageType), ArmorMaterial.GOLD.getProtection(damageType), durability);
         } else {
             return instance.getProtection(damageType);
         }

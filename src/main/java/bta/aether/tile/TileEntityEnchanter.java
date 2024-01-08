@@ -13,8 +13,8 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
 
     private Random random = new Random();
     @Override
-    public void updateEntity() {
-        super.updateEntity();
+    public void tick() {
+        super.tick();
         work();
     }
 
@@ -32,8 +32,8 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
             }
             if(isBurning() && canProcess()){
                 if(progressTicks % 5 == 0){
-                    worldObj.spawnParticle("flame",xCoord+0.5,yCoord+1+Math.min(random.nextFloat(),0.2),zCoord+0.5,0,0,0,3);
-                    worldObj.spawnParticle("smoke",xCoord+0.5,yCoord+1+Math.min(random.nextFloat(),0.2),zCoord+0.5,0,0.01,0,5);
+                    worldObj.spawnParticle("flame",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0,0,3);
+                    worldObj.spawnParticle("smoke",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0.01,0,5);
                 }
                 progressTicks++;
                 if(progressTicks >= progressMaxTicks){
