@@ -19,19 +19,19 @@ public class BlockAmbrosiumTorch extends Block {
         super(key, id, Material.decoration);
         this.setTicking(true);
     }
-
+    @Override
     public int getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        return side == Side.TOP ? Aether.torchAmbrosium.getBlockTextureFromSideAndMetadata(side, meta) : super.getBlockTextureFromSideAndMetadata(side, meta);
+        return side == Side.TOP ? AetherBlocks.torchAmbrosium.getBlockTextureFromSideAndMetadata(side, meta) : super.getBlockTextureFromSideAndMetadata(side, meta);
     }
-
+    @Override
     public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         return null;
     }
-
-    public boolean isOpaqueCube() {
+    @Override
+    public boolean isSolidRender() {
         return false;
     }
-
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
@@ -40,7 +40,7 @@ public class BlockAmbrosiumTorch extends Block {
         int id = world.getBlockId(i, j, k);
         return world.isBlockNormalCube(i, j, k) || id == Block.fencePlanksOak.id || id == Block.fencePlanksOakPainted.id;
     }
-
+    @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         if (world.isBlockNormalCube(x - 1, y, z)) {
             return true;
@@ -49,10 +49,10 @@ public class BlockAmbrosiumTorch extends Block {
         } else if (world.isBlockNormalCube(x, y, z - 1)) {
             return true;
         } else {
-            return world.isBlockNormalCube(x, y, z + 1) ? true : world.canPlaceOnSurfaceOfBlock(x, y - 1, z);
+            return world.isBlockNormalCube(x, y, z + 1) || world.canPlaceOnSurfaceOfBlock(x, y - 1, z);
         }
     }
-
+    @Override
     public void onBlockPlaced(World world, int x, int y, int z, Side side, EntityLiving entity, double sideHeight) {
         int l = side.getId();
         int i1 = world.getBlockMetadata(x, y, z);
@@ -78,7 +78,7 @@ public class BlockAmbrosiumTorch extends Block {
 
         world.setBlockMetadataWithNotify(x, y, z, i1);
     }
-
+    @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
         super.updateTick(world, x, y, z, rand);
         if (world.getBlockMetadata(x, y, z) == 0) {
@@ -86,7 +86,7 @@ public class BlockAmbrosiumTorch extends Block {
         }
 
     }
-
+    @Override
     public void onBlockAdded(World world, int i, int j, int k) {
         if (world.isBlockNormalCube(i - 1, j, k)) {
             world.setBlockMetadataWithNotify(i, j, k, 1);
@@ -102,14 +102,11 @@ public class BlockAmbrosiumTorch extends Block {
 
         this.dropTorchIfCantStay(world, i, j, k);
     }
-
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
         if (this.dropTorchIfCantStay(world, x, y, z)) {
             int i1 = world.getBlockMetadata(x, y, z);
-            boolean flag = false;
-            if (!world.isBlockNormalCube(x - 1, y, z) && i1 == 1) {
-                flag = true;
-            }
+            boolean flag = !world.isBlockNormalCube(x - 1, y, z) && i1 == 1;
 
             if (!world.isBlockNormalCube(x + 1, y, z) && i1 == 2) {
                 flag = true;
@@ -128,7 +125,7 @@ public class BlockAmbrosiumTorch extends Block {
             }
 
             if (flag) {
-                this.dropBlockWithCause(world, EnumDropCause.WORLD, x, y, z, i1, (TileEntity)null);
+                this.dropBlockWithCause(world, EnumDropCause.WORLD, x, y, z, i1, null);
                 world.setBlockWithNotify(x, y, z, 0);
             }
         }
@@ -137,14 +134,14 @@ public class BlockAmbrosiumTorch extends Block {
 
     private boolean dropTorchIfCantStay(World world, int i, int j, int k) {
         if (!this.canPlaceBlockAt(world, i, j, k)) {
-            this.dropBlockWithCause(world, EnumDropCause.WORLD, i, j, k, world.getBlockMetadata(i, j, k), (TileEntity)null);
+            this.dropBlockWithCause(world, EnumDropCause.WORLD, i, j, k, world.getBlockMetadata(i, j, k), null);
             world.setBlockWithNotify(i, j, k, 0);
             return false;
         } else {
             return true;
         }
     }
-
+    @Override
     public HitResult collisionRayTrace(World world, int x, int y, int z, Vec3d start, Vec3d end) {
         int l = world.getBlockMetadata(x, y, z) & 7;
         float f = 0.15F;
@@ -163,12 +160,12 @@ public class BlockAmbrosiumTorch extends Block {
 
         return super.collisionRayTrace(world, x, y, z, start, end);
     }
-
+    @Override
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         int l = world.getBlockMetadata(x, y, z);
-        double d = (double)((float)x + 0.5F);
-        double d1 = (double)((float)y + 0.7F);
-        double d2 = (double)((float)z + 0.5F);
+        double d = (float)x + 0.5F;
+        double d1 = (float)y + 0.7F;
+        double d2 = (float)z + 0.5F;
         double d3 = 0.22;
         double d4 = 0.27;
         if (l == 1) {

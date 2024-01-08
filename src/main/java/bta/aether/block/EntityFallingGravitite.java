@@ -33,7 +33,7 @@ public class EntityFallingGravitite extends Entity {
     public EntityFallingGravitite(World world, double d, double d1, double d2, int i) {
         super(world);
         this.fallTime = 0;
-        this.blockID = Aether.oreGravititeHolystone.id;
+        this.blockID = AetherBlocks.oreGravititeHolystone.id;
         this.blocksBuilding = true;
         this.setSize(0.98F, 0.98F);
         this.heightOffset = this.bbHeight / 2.0F;
@@ -125,7 +125,7 @@ public class EntityFallingGravitite extends Entity {
         } else if (blockId == Block.fire.id) {
             return true;
         } else {
-            return Block.hasTag(blockId, BlockTags.IS_WATER) ? true : Block.hasTag(blockId, BlockTags.IS_LAVA);
+            return Block.hasTag(blockId, BlockTags.IS_WATER) || Block.hasTag(blockId, BlockTags.IS_LAVA);
         }
     }
 

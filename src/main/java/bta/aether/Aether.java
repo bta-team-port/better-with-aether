@@ -194,20 +194,20 @@ public class Aether implements ModInitializer {
 
         //Furnace Recipes
 
-        RecipeHelper.smeltingManager.addSmelting(AetherBlocks.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.smeltingManager.addSmelting(AetherBlocks.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.blastingManager.addSmelting(AetherBlocks.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
-        RecipeHelper.blastingManager.addSmelting(AetherBlocks.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
-
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.planksSkyroot.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.stickSkyroot.id, 150);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolPickaxeSkyroot.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolShovelSkyroot.id, 600);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolAxeSkyroot.id, 600);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolSwordSkyroot.id, 600);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
+//        RecipeHelper.smeltingManager.addSmelting(AetherBlocks.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
+//        RecipeHelper.smeltingManager.addSmelting(AetherBlocks.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
+//        RecipeHelper.blastingManager.addSmelting(AetherBlocks.logSkyroot.id, new ItemStack(Item.coal, 1, 1));
+//        RecipeHelper.blastingManager.addSmelting(AetherBlocks.logOakGolden.id, new ItemStack(Item.coal, 1, 1));
+//
+//        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.planksSkyroot.id, 300);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.stickSkyroot.id, 150);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolPickaxeSkyroot.id, 300);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolShovelSkyroot.id, 600);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolAxeSkyroot.id, 600);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolSwordSkyroot.id, 600);
+//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
     }
 }

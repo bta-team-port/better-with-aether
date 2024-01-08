@@ -1,10 +1,10 @@
 package bta.aether.item;
 
-import bta.aether.Aether;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
@@ -45,7 +45,7 @@ public class ItemSkyrootBucketEmpty extends Item {
                 }
 
                 if (world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0) {
-                    if (UseBucket(entityplayer, new ItemStack(AetherItems.bucketSkyrootWater))) {
+                    if (ItemBucketEmpty.useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyrootWater))) {
                         world.setBlockWithNotify(i, j, k, 0);
                         entityplayer.swingItem();
                     }
@@ -53,18 +53,6 @@ public class ItemSkyrootBucketEmpty extends Item {
             }
 
             return itemstack;
-        }
-    }
-
-    public static boolean UseBucket(EntityPlayer entityPlayer, ItemStack ItemToGive) {
-        if (entityPlayer.inventory.getCurrentItem().stackSize <= 1) {
-            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, ItemToGive);
-            return true;
-        } else if (entityPlayer.inventory.addItemStackToInventory(ItemToGive)) {
-            entityPlayer.inventory.getCurrentItem().consumeItem(entityPlayer);
-            return true;
-        } else {
-            return false;
         }
     }
 }
