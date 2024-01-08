@@ -30,7 +30,7 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
             .build(new Block("dirt", blockID++, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -40,7 +40,7 @@ public class AetherBlocks {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass));
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
