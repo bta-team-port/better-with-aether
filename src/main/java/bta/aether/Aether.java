@@ -10,6 +10,8 @@ import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -38,6 +40,13 @@ public class Aether implements ModInitializer {
     public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
     static
     {
+
+        Item.itemsList[AetherBlocks.slabHolystone.id] = new ItemBlockSlab(AetherBlocks.slabHolystone);
+        Item.itemsList[AetherBlocks.slabPlanksSkyroot.id] = new ItemBlockSlab(AetherBlocks.slabPlanksSkyroot);
+        Item.itemsList[AetherBlocks.slabStoneCarved.id] = new ItemBlockSlab(AetherBlocks.slabStoneCarved);
+        Item.itemsList[AetherBlocks.slabStoneAngelic.id] = new ItemBlockSlab(AetherBlocks.slabStoneAngelic);
+        Item.itemsList[AetherBlocks.slabStoneHellfire.id] = new ItemBlockSlab(AetherBlocks.slabStoneHellfire);
+
         Dimension.registerDimension(3, dimensionAether);
     }
 
