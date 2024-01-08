@@ -2,6 +2,7 @@ package bta.aether.tile;
 
 import bta.aether.Aether;
 import bta.aether.item.AetherItems;
+import bta.aether.recipe.AetherRecipes;
 import bta.aether.tile.recipes.EnchanterRecipes;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -24,7 +25,7 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
             fuelBurnTicks--;
         }
         if(canProcess()){
-            progressMaxTicks = EnchanterRecipes.getTime(contents[0]);
+            progressMaxTicks = AetherRecipes.ENCHANTER.findRecipe(contents[0]).getData();
         }
         if(!worldObj.isClientSide){
             if(progressTicks == 0 && canProcess()){
@@ -69,7 +70,7 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
 
     private void processItem(){
         if(canProcess()){
-            ItemStack stack = EnchanterRecipes.getResult(this.contents[0]);
+            ItemStack stack = AetherRecipes.ENCHANTER.findOutput(contents[0]);
             if(stack != null){
                 if(contents[2] == null){
                     setInventorySlotContents(2, stack);
@@ -92,7 +93,7 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
         if(contents[0] == null) {
             return false;
         } else {
-            ItemStack stack = EnchanterRecipes.getResult(contents[0]);
+            ItemStack stack = AetherRecipes.ENCHANTER.findOutput(contents[0]);
             return stack != null && (contents[2] == null
                     || (contents[2].isItemEqual(stack)
                     && (contents[2].stackSize < getInventoryStackLimit()
