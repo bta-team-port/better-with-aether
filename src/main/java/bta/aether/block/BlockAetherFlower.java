@@ -30,7 +30,7 @@ public class BlockAetherFlower extends Block {
     }
 
     protected boolean canThisPlantGrowOnThisBlockID(int i) {
-        return i == Aether.grassAether.id;
+        return i == AetherBlocks.grassAether.id;
     }
 
 
@@ -49,7 +49,7 @@ public class BlockAetherFlower extends Block {
 
     protected final void func_268_h(World world, int i, int j, int k) {
         if (!this.canBlockStay(world, i, j, k)) {
-            this.dropBlockWithCause(world, EnumDropCause.WORLD, i, j, k, world.getBlockMetadata(i, j, k), (TileEntity)null);
+            this.dropBlockWithCause(world, EnumDropCause.WORLD, i, j, k, world.getBlockMetadata(i, j, k), null);
             world.setBlockWithNotify(i, j, k, 0);
         }
 
