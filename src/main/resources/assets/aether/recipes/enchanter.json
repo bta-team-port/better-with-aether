@@ -1,0 +1,19 @@
+[
+  {
+    "name": "aether:enchanter/enchanted_gravitite",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "tile.aether.ore.gravitite",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.aether.block.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  }
+]
