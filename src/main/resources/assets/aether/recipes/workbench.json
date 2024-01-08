@@ -10,7 +10,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -35,7 +35,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -84,7 +84,7 @@
       {
         "symbol": "X",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -166,7 +166,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -191,7 +191,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -216,7 +216,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -248,7 +248,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -272,7 +272,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }
@@ -304,7 +304,7 @@
       {
         "symbol": "P",
         "stack": {
-          "key": "tile.aether.skyroot.planks",
+          "key": "tile.aether.planks.skyroot",
           "amount": 1,
           "meta": 0
         }

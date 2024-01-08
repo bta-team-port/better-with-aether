@@ -169,7 +169,7 @@ public class AetherBlocks {
             .setResistance(5.0f)
             .setTextures("Plank.png")
             .setTags(BlockTags.MINEABLE_BY_AXE)
-            .build(new Block("skyroot.planks", blockID++, Material.wood));
+            .build(new Block("planks.skyroot", blockID++, Material.wood));
 
     public static final Block slabPlanksSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -190,6 +190,28 @@ public class AetherBlocks {
             .setBlockModel(new BlockModelRenderBlocks(10))
             .setTags(BlockTags.MINEABLE_BY_AXE)
             .build(new BlockStairs(planksSkyroot, blockID++));
+
+    public static final Block fencePlanksSkyroot = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(2.0F)
+            .setResistance(5.0f)
+            .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setTextures("Plank.png")
+            .setBlockModel(new BlockModelRenderBlocks(11))
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .build(new BlockFence("fence.planks.skyroot", blockID++));
+
+    public static final Block fenceGatePlanksSkyroot = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(2.0F)
+            .setResistance(5.0f)
+            .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setTextures("Plank.png")
+            .setBlockModel(new BlockModelRenderBlocks(18))
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .build(new BlockFenceGate("fencegate.planks.skyroot", blockID++));
 
     public static final Block leavesSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -470,7 +492,8 @@ public class AetherBlocks {
             .setTextures("QuicksoilGlass.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockTrapDoor("trapdoor.glass.quicksoil", blockID++, Material.glass, false));
+            .setSlipperiness(1.1f)
+            .build(new BlockTrapdoorAmbrosium("trapdoor.glass.quicksoil", blockID++, Material.glass, false));
 
     public static final Block flowerWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
