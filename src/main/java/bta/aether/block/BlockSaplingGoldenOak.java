@@ -13,6 +13,10 @@ public class BlockSaplingGoldenOak extends BlockSaplingBase {
         super(key, id);
     }
 
+    public boolean canThisPlantGrowOnThisBlockID(int i) {
+        return i == AetherBlocks.grassAether.id || i == AetherBlocks.dirtAether.id;
+    }
+
     public void growTree(World world, int i, int j, int k, Random random) {
         Object treeBig = new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id);
         world.setBlock(i, j, k, 0);
