@@ -1,6 +1,7 @@
 package bta.aether.world;
 
 import bta.aether.Aether;
+import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.chunk.perlin.aether.ChunkGeneratorAether;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
@@ -53,7 +54,7 @@ public abstract class WorldTypeAether
 
     @Override
     public int getFillerBlock() {
-        return Aether.holystone.id;
+        return AetherBlocks.holystone.id;
     }
 
     @Override

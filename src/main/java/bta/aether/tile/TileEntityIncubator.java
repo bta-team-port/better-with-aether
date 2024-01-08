@@ -5,12 +5,13 @@ import net.minecraft.core.entity.player.EntityPlayer;
 
 public class TileEntityIncubator extends TileEntity {
 
+    // TODO this is an IINVENTORY method, yet this class does not implement IINVENTORY
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
-        if(worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this)
+        if(worldObj.getBlockTileEntity(x, y, z) != this)
         {
             return false;
         }
-        return entityplayer.distanceToSqr((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64D;
+        return entityplayer.distanceToSqr((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D) <= 64D;
     }
 }

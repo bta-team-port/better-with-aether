@@ -24,7 +24,7 @@ public class BlockAetherGrass extends Block {
                         return;
                     }
 
-                    world.setBlockWithNotify(x, y, z, Aether.dirtAether.id);
+                    world.setBlockWithNotify(x, y, z, AetherBlocks.dirtAether.id);
                 } else if (world.getBlockLightValue(x, y + 1, z) >= 9) {
                     int l = x + rand.nextInt(3) - 1;
                     int i1 = y + rand.nextInt(5) - 3;
@@ -43,7 +43,7 @@ public class BlockAetherGrass extends Block {
                 case PICK_BLOCK:
                     return new ItemStack[]{new ItemStack(this)};
                 default:
-                    return new ItemStack[]{new ItemStack(Aether.dirtAether)};
+                    return new ItemStack[]{new ItemStack(AetherBlocks.dirtAether)};
             }
         }
     }

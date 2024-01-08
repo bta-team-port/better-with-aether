@@ -5,8 +5,7 @@
     "compatibilityLevel": "JAVA_8",
     "mixins": [
         "BlockFluidPortalMixin",
-        "InventoryPlayerMixin",
-        "MinecraftMixin"
+        "InventoryPlayerMixin"
     ],
     "client": [
     ],

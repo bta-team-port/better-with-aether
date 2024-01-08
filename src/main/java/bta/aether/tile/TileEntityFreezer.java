@@ -1,6 +1,7 @@
 package bta.aether.tile;
 
 import bta.aether.Aether;
+import bta.aether.block.AetherBlocks;
 import bta.aether.tile.recipes.FreezerRecipes;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -12,8 +13,8 @@ public class TileEntityFreezer extends TileEntityAetherMachine {
 
     private Random random = new Random();
     @Override
-    public void updateEntity() {
-        super.updateEntity();
+    public void tick() {
+        super.tick();
         work();
     }
 
@@ -31,8 +32,8 @@ public class TileEntityFreezer extends TileEntityAetherMachine {
             }
             if(isBurning() && canProcess()){
                 if(progressTicks % 5 == 0){
-                    worldObj.spawnParticle("snowshovel",xCoord+0.5,yCoord+1.3,zCoord+0.5,0,0,0,3);
-                    worldObj.spawnParticle("largesmoke",xCoord+0.5,yCoord+1+Math.min(random.nextFloat(),0.2),zCoord+0.5,0,0.01,0,5);
+                    worldObj.spawnParticle("snowshovel",x+0.5,y+1.3,z+0.5,0,0,0,3);
+                    worldObj.spawnParticle("largesmoke",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0.01,0,5);
                 }
                 progressTicks++;
                 if(progressTicks >= progressMaxTicks){
@@ -54,7 +55,7 @@ public class TileEntityFreezer extends TileEntityAetherMachine {
     }
 
     private boolean fuel(){
-        int fuel = (contents[1] != null && contents[1].getItem() == Aether.icestone.asItem()) ? 500 : 0;
+        int fuel = (contents[1] != null && contents[1].getItem() == AetherBlocks.icestone.asItem()) ? 500 : 0;
         if(fuel > 0 && canProcess()){
             fuelMaxBurnTicks = fuelBurnTicks = fuel;
             contents[1].stackSize--;

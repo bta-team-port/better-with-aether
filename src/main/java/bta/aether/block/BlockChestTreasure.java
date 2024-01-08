@@ -1,6 +1,5 @@
 package bta.aether.block;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockChest;
 import net.minecraft.core.block.material.Material;
 
