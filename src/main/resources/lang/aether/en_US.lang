@@ -1,3 +1,6 @@
+worldType.aether.default.name=The Aether
+worldType.aether.default.desc=Welcome to a hostile paradise.
+
 tile.aether.portal.name=Aether Portal
 tile.aether.portal.desc=A portal to the Aether.
 tile.aether.dirt.name=Aether Dirt
@@ -6,10 +9,19 @@ tile.aether.grass.name=Aether Grass
 tile.aether.grass.desc=Pale grass from a lost paradise.
 tile.aether.quicksoil.name=Quicksoil
 tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.
+
 tile.aether.glass.quicksoil.name=Quicksoil Glass
 tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.
+tile.aether.trapdoor.glass.quicksoil.name=Quicksoil Glass Trapdoor
+tile.aether.trapdoor.glass.quicksoil.desc=Still useless at its job.
+
 tile.aether.holystone.name=Holystone
 tile.aether.holystone.desc=A block of solid Holystone.
+tile.aether.slab.holystone.name=Holystone Slab
+tile.aether.slab.holystone.desc=A slab of holystone.
+tile.aether.stairs.holystone.name=Holystone Stairs
+tile.aether.stairs.holystone.desc=Holystone block used for rapid vertical movement.
+
 tile.aether.holystone.mossy.name=Mossy Holystone
 tile.aether.holystone.mossy.desc=Holystone with added greenery.
 tile.aether.icestone.name=Icestone
@@ -32,8 +44,18 @@ tile.aether.skyroot.log.name=Skyroot Log
 tile.aether.skyroot.log.desc=A log from a skyroot tree.
 tile.aether.goldenoak.log.name=Golden Oak Log
 tile.aether.goldenoak.log.desc=A log from a golden oak tree.
-tile.aether.skyroot.planks.name=Skyroot Planks
-tile.aether.skyroot.planks.desc=Processed skyroot logs.
+
+tile.aether.planks.skyroot.name=Skyroot Planks
+tile.aether.planks.skyroot.desc=Processed skyroot logs.
+tile.aether.slab.planks.skyroot.name=Skyroot Slab
+tile.aether.slab.planks.skyroot.desc=A slab of skyroot planks.
+tile.aether.stairs.planks.skyroot.name=Skyroot Stairs
+tile.aether.stairs.planks.skyroot.desc=Skyroot plank block used for rapid vertical movement.
+tile.aether.fence.planks.skyroot.name=Skyroot Fence
+tile.aether.fence.planks.skyroot.desc=Still too tall to jump over.
+tile.aether.fencegate.planks.skyroot.name=Skyroot Fence Gate
+tile.aether.fencegate.planks.skyroot.desc=Like a trapdoor but for fences.
+
 tile.aether.skyroot.leaves.name=Skyroot Leaves
 tile.aether.skyroot.leaves.desc=Leaves from a skyroot tree.
 tile.aether.goldenoak.leaves.name=Golden Oak Leaves
@@ -60,12 +82,28 @@ tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
 tile.aether.chest.treasure.name=Treasure Chest
 tile.aether.chest.treasure.desc=A chest filled with mysterious loot.
+
 tile.aether.carved.name=Carved Stone
 tile.aether.carved.desc=Decorative bronze dungeon block.
+tile.aether.slab.carved.name=Carved Slab
+tile.aether.slab.carved.desc=A slab of carved stone.
+tile.aether.stairs.carved.name=Carved Stone Stairs
+tile.aether.stairs.carved.desc=Carved stone block used for rapid vertical movement.
+
 tile.aether.angelic.name=Angelic Stone
 tile.aether.angelic.desc=Decorative silver dungeon block.
+tile.aether.slab.angelic.name=Angelic Stone Slab
+tile.aether.slab.angelic.desc=A slab of angelic stone.
+tile.aether.stairs.angelic.name=Angelic Stone Stairs
+tile.aether.stairs.angelic.desc=Angelic stone block used for rapid vertical movement.
+
 tile.aether.hellfire.name=Hellfire Stone
 tile.aether.hellfire.desc=Decorative gold dungeon block.
+tile.aether.slab.hellfire.name=Hellfire Stone Slab
+tile.aether.slab.hellfire.desc=A slab of hellfire stone.
+tile.aether.stairs.hellfire.name=Hellfire Stone Stairs
+tile.aether.stairs.hellfire.desc=Hellfire stone block used for rapid vertical movement.
+
 tile.aether.carved.light.name=Light Carved Stone
 tile.aether.carved.light.desc=Decorative bronze dungeon block that glows with an ethereal light.
 tile.aether.angelic.light.name=Light Angelic Stone
