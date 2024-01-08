@@ -120,7 +120,7 @@ public class AetherItems {
     public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Leggings", itemID++, armorneptune, 2), "armor.leggings.neptune", "NeptuneLeggings.png");
     public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Boots", itemID++, armorneptune, 3), "armor.boots.neptune", "NeptuneBoots.png");
 
-    public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.pig", "PigSlayer.png");
+    public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer(itemID++), "tool.sword.pig", "PigSlayer.png");
     public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.vampire", "VampireBlade.png");
 
     public static final Item toolSwordFlaming = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.flaming", "FlameSword.png");
