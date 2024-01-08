@@ -506,5 +506,101 @@
       "meta": 0
     },
     "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_white",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.white",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_red",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 14
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.red",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_yellow",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "stack": {
+          "key": "tile.wool",
+          "amount": 1,
+          "meta": 4
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.yellow",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/armor_cape_blue",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "WW",
+      "WW",
+      "WW"
+    ],
+    "symbols": [
+      {
+        "symbol": "W",
+        "group": "aether:blue_wool"
+      }
+    ],
+    "result": {
+      "key": "item.aether.armor.cape.blue",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
   }
 ]
