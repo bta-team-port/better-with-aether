@@ -22,7 +22,7 @@
       "bta.aether.Aether"
     ],
     "recipesReady": [
-      "bta.aether.crafting.AetherRecipes"
+      "bta.aether.recipe.AetherRecipes"
     ]
   },
   "mixins": [
