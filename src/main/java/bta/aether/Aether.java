@@ -20,9 +20,10 @@ import net.minecraft.core.world.type.WorldTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.util.GameStartEntrypoint;
 
 
-public class Aether implements ModInitializer {
+public class Aether implements GameStartEntrypoint {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -49,9 +50,8 @@ public class Aether implements ModInitializer {
 
         Dimension.registerDimension(3, dimensionAether);
     }
-
     @Override
-    public void onInitialize() {
+    public void beforeGameStart() {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
 
@@ -72,5 +72,10 @@ public class Aether implements ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
+    }
+
+    @Override
+    public void afterGameStart() {
+
     }
 }
