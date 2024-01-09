@@ -23,6 +23,9 @@
     ],
     "recipesReady": [
       "bta.aether.recipe.AetherRecipes"
+    ],
+    "terrain-api": [
+      "bta.aether.compat.terrainapi.TerrainAPIPlugin"
     ]
   },
   "mixins": [

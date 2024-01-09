@@ -9,18 +9,12 @@ import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 
 import java.util.Random;
 
-public class BiomeAether
-    extends Biome
-{
-    @Override
-    public WorldFeature getRandomWorldGenForTrees(Random random)
-    {
+public class BiomeAether extends Biome {
 
-        if(random.nextInt(10) == 0)
-        {
-            return new WorldFeatureTreeFancy(AetherBlocks.leavesSkyroot.id, AetherBlocks.logSkyroot.id);
-        } else
-            return new WorldFeatureTree(AetherBlocks.leavesSkyroot.id, AetherBlocks.logSkyroot.id, 5);
-
+    public BiomeAether() {
+        spawnableAmbientCreatureList.clear();
+        spawnableCreatureList.clear();
+        spawnableWaterCreatureList.clear();
+        spawnableMonsterList.clear();
     }
 }
