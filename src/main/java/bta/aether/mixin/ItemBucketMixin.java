@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = ItemBucket.class, remap = false)
 public class ItemBucketMixin {
 
-    private int idToPlace;
+    private final int idToPlace;
     public ItemBucketMixin(int idToPlace) {
         this.idToPlace = idToPlace;
     }
