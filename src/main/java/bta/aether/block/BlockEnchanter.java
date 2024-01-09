@@ -16,18 +16,14 @@ public class BlockEnchanter extends BlockTileEntity {
 
     @Override
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
-        if(world.isClientSide)
-        {
-            return true;
-        } else
-        {
+        if (!world.isClientSide) {
             TileEntityEnchanter tile = (TileEntityEnchanter) world.getBlockTileEntity(x, y, z);
-            if(tile != null) {
+            if (tile != null) {
                 //TODO: mp eventually -martin
-                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiEnchanter(player.inventory,tile));
+                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiEnchanter(player.inventory, tile));
             }
-            return true;
         }
+        return true;
     }
 
     @Override

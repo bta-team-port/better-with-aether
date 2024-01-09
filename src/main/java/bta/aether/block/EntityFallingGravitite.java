@@ -5,12 +5,7 @@
 
 package bta.aether.block;
 
-import bta.aether.Aether;
-import bta.aether.block.BlockOreGravitite;
 import com.mojang.nbt.CompoundTag;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockSand;
-import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
@@ -47,15 +42,15 @@ public class EntityFallingGravitite extends Entity {
     }
 
     private void tryToFall(World world, int i, int j, int k) {
-        if (canFallAbove(world, i, j + 1, k) && j < 256) {
+        if (BlockOreGravitite.canFallTo(world, i, j + 1, k) && j < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(i - byte0, j - byte0, k - byte0, i + byte0, j + byte0, k + byte0)) {
-                EntityFallingGravitite floating = new EntityFallingGravitite(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), this.id);
+                EntityFallingGravitite floating = new EntityFallingGravitite(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, this.id);
                 world.entityJoinedWorld(floating);
             } else {
                 world.setBlockWithNotify(i, j, k, 0);
 
-                while(canFallAbove(world, i, j + 1, k) && j < 256) {
+                while(BlockOreGravitite.canFallTo(world, i, j + 1, k) && j < 256) {
                     ++j;
                 }
 
@@ -66,18 +61,18 @@ public class EntityFallingGravitite extends Entity {
         }
 
     }
-
+    @Override
     protected boolean makeStepSound() {
         return false;
     }
-
+    @Override
     protected void init() {
     }
-
+    @Override
     public boolean isPickable() {
         return !this.removed;
     }
-
+    @Override
     public void tick() {
         if (this.blockID == 0) {
             this.remove();
@@ -104,7 +99,7 @@ public class EntityFallingGravitite extends Entity {
                 this.zd /= 0.699999988079071;
                 this.yd *= +0.5;
                 this.remove();
-                if ((!this.world.canBlockBePlacedAt(this.blockID, i, j, k, true, Side.TOP) || BlockOreGravitite.canFallBelow(this.world, i, j + 1, k) || !this.world.setBlockWithNotify(i, j, k, this.blockID)) && !this.world.isClientSide && this.hasRemovedBlock) {
+                if ((!this.world.canBlockBePlacedAt(this.blockID, i, j, k, true, Side.TOP) || BlockOreGravitite.canFallTo(this.world, i, j + 1, k) || !this.world.setBlockWithNotify(i, j, k, this.blockID)) && !this.world.isClientSide && this.hasRemovedBlock) {
                     this.spawnAtLocation(this.blockID, 1);
                 }
             } else if (this.fallTime > 100 && !this.world.isClientSide) {
@@ -117,34 +112,19 @@ public class EntityFallingGravitite extends Entity {
 
         }
     }
-
-    public static boolean canFallAbove(World world, int i, int j, int k) {
-        int blockId = world.getBlockId(i, j, k);
-        if (blockId == 0) {
-            return true;
-        } else if (blockId == Block.fire.id) {
-            return true;
-        } else {
-            return Block.hasTag(blockId, BlockTags.IS_WATER) || Block.hasTag(blockId, BlockTags.IS_LAVA);
-        }
-    }
-
+    @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         tag.putShort("Tile", (short)this.blockID);
     }
-
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         this.blockID = tag.getShort("Tile") & 16383;
     }
-
+    @Override
     public float getShadowHeightOffs() {
         return 0.0F;
     }
-
-    public World getWorld() {
-        return this.world;
-    }
-
+    @Override
     public boolean showBoundingBoxOnHover() {
         return false;
     }

@@ -1,6 +1,5 @@
 package bta.aether.container;
 
-import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.EntityPlayer;
