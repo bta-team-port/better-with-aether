@@ -1,6 +1,5 @@
 package bta.aether.block;
 
-
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;
@@ -36,6 +35,11 @@ public class EntityFallingGravitite extends Entity {
         this.xo = d;
         this.yo = d1;
         this.zo = d2;
+    }
+
+    @Override
+    public String getEntityTexture() {
+        return "/assets/aether/block/GravititeOre.png";
     }
 
     protected boolean makeStepSound() {
