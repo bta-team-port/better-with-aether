@@ -18,18 +18,14 @@ public class BlockFreezer extends BlockTileEntity {
 
     @Override
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
-        if(world.isClientSide)
-        {
-            return true;
-        } else
-        {
+        if (!world.isClientSide) {
             TileEntityFreezer tile = (TileEntityFreezer) world.getBlockTileEntity(x, y, z);
-            if(tile != null) {
+            if (tile != null) {
                 //TODO: mp eventually -martin
-                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiFreezer(player.inventory,tile));
+                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiFreezer(player.inventory, tile));
             }
-            return true;
         }
+        return true;
     }
 
     @Override

@@ -106,24 +106,19 @@ public class TileEntityAetherMachine extends TileEntity implements IInventory {
         progressMaxTicks = nbttagcompound.getInteger("MaxProcessTime");
         fuelMaxBurnTicks = nbttagcompound.getShort("MaxBurnTime");
     }
-
     public int getProgressScaled(int paramInt) {
         return this.progressTicks * paramInt / progressMaxTicks;
     }
-
     public int getBurnTimeRemainingScaled(int paramInt) {
         if(this.fuelMaxBurnTicks == 0) {
             this.fuelMaxBurnTicks = 200;
         }
         return this.fuelBurnTicks * paramInt / this.fuelMaxBurnTicks;
     }
-
-
-
     public boolean isBurning(){
         return fuelBurnTicks > 0;
     }
-
+    @Override
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
         if(worldObj.getBlockTileEntity(x, y, z) != this)

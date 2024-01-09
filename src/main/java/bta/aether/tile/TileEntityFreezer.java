@@ -1,18 +1,14 @@
 package bta.aether.tile;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.recipe.AetherRecipes;
-import bta.aether.tile.recipes.FreezerRecipes;
-import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
 import java.util.Random;
 
 public class TileEntityFreezer extends TileEntityAetherMachine {
 
-    private Random random = new Random();
+    private final Random random = new Random();
     @Override
     public void tick() {
         super.tick();

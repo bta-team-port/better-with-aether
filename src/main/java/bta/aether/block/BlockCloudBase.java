@@ -13,20 +13,25 @@ public class BlockCloudBase extends BlockTransparent {
         super(key, id, material, false);
     }
 
+    @Override
     public int getRenderBlockPass() {
         return 1;
     }
 
+    @Override
     public boolean shouldSideBeRendered(WorldSource blockAccess, int x, int y, int z, int side) {
         return super.shouldSideBeRendered(blockAccess, x, y, z, 1 - side);
     }
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
-    public int getMobilityFlag() {
+    @Override // Was previously getMobilityFlag
+    public int getPistonPushReaction() {
         return 1;
     }
-    public boolean isOpaqueCube() {
+    @Override
+    public boolean isSolidRender() {
         return false;
     }
 
