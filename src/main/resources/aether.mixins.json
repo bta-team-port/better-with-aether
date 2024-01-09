@@ -7,9 +7,11 @@
     "BlockFluidPortalMixin",
     "BlockMixin",
     "BucketMixin",
+    "EntityLivingMixin",
     "EntityMixin",
     "InventoryPlayerMixin",
-    "ItemFirestrikerMixin"
+    "ItemFirestrikerMixin",
+    "accessors.ItemToolSwordAccessor"
   ],
   "client": [
   ],
