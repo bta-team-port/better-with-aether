@@ -3,7 +3,6 @@ package bta.aether.gui;
 import bta.aether.container.ContainerEnchanter;
 import bta.aether.tile.TileEntityEnchanter;
 import net.minecraft.client.gui.GuiContainer;
-import net.minecraft.core.player.inventory.Container;
 import net.minecraft.core.player.inventory.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
@@ -33,7 +32,7 @@ public class GuiEnchanter extends GuiContainer {
         this.drawTexturedModalRect(j + 79, k + 34, 176, 14, i1 + 1, 16);
 
     }
-
+    @Override
     protected void drawGuiContainerForegroundLayer()
     {
         super.drawGuiContainerForegroundLayer();

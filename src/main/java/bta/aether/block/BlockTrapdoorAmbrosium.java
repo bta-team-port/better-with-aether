@@ -8,10 +8,12 @@ public class BlockTrapdoorAmbrosium extends BlockTrapDoor {
         super(key, id, material, isIron);
     }
 
+    @Override
     public int getRenderBlockPass() {
         return 1;
     }
-    public boolean isOpaqueCube() {
+    @Override
+    public boolean isSolidRender() {
         return false;
     }
 

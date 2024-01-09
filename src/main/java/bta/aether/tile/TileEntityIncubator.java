@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.EntityPlayer;
 
 public class TileEntityIncubator extends TileEntity {
 
-    // TODO this is an IINVENTORY method, yet this class does not implement IINVENTORY
+    // TODO this is an IINVENTORY method, yet this class does not implement IINVENTORY -Useless
     public boolean canInteractWith(EntityPlayer entityplayer)
     {
         if(worldObj.getBlockTileEntity(x, y, z) != this)
