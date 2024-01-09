@@ -1,28 +1,22 @@
 package bta.aether.block;
 
-import net.minecraft.core.block.BlockGlass;
 import net.minecraft.core.block.BlockTransparent;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.WorldSource;
-
-import java.util.Random;
 
 public class BlockGlassAmbrosium extends BlockTransparent {
-    public BlockGlassAmbrosium(String key, int id, Material material, boolean renderInside) {
-        super(key, id, material.glass, false);
+    public BlockGlassAmbrosium(String key, int id) {
+        super(key, id, Material.glass, false);
     }
-    public int quantityDropped(int meta, Random rand) {
-        return 0;
-    }
-
+    @Override
     public int getRenderBlockPass() {
         return 1;
     }
-    public boolean isOpaqueCube() {
+    @Override
+    public boolean isSolidRender() {
         return false;
     }
 

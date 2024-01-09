@@ -12,7 +12,7 @@ public class BlockOreZanite extends Block {
     public BlockOreZanite(String key, int id, Material stone) {
         super(key, id, Material.stone);
     }
-
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

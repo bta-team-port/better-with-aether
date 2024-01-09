@@ -1,7 +1,5 @@
 package bta.aether.world.generate.feature;
 
-import bta.aether.Aether;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 

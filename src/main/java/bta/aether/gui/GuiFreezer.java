@@ -1,8 +1,6 @@
 package bta.aether.gui;
 
-import bta.aether.container.ContainerEnchanter;
 import bta.aether.container.ContainerFreezer;
-import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import net.minecraft.client.gui.GuiContainer;
 import net.minecraft.core.player.inventory.InventoryPlayer;
@@ -34,7 +32,7 @@ public class GuiFreezer extends GuiContainer {
         this.drawTexturedModalRect(j + 79, k + 34, 176, 14, i1 + 1, 16);
 
     }
-
+    @Override
     protected void drawGuiContainerForegroundLayer()
     {
         super.drawGuiContainerForegroundLayer();

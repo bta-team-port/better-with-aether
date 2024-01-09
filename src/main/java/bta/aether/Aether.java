@@ -1,6 +1,9 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.EntityFallingGravitite;
+import bta.aether.entity.ArrowFlamingRenderer;
+import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
@@ -8,10 +11,8 @@ import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
-import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -20,9 +21,11 @@ import net.minecraft.core.world.type.WorldTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.util.ClientStartEntrypoint;
+import turniplabs.halplibe.util.GameStartEntrypoint;
 
 
-public class Aether implements ModInitializer {
+public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -40,18 +43,10 @@ public class Aether implements ModInitializer {
     public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
     static
     {
-
-        Item.itemsList[AetherBlocks.slabHolystone.id] = new ItemBlockSlab(AetherBlocks.slabHolystone);
-        Item.itemsList[AetherBlocks.slabPlanksSkyroot.id] = new ItemBlockSlab(AetherBlocks.slabPlanksSkyroot);
-        Item.itemsList[AetherBlocks.slabStoneCarved.id] = new ItemBlockSlab(AetherBlocks.slabStoneCarved);
-        Item.itemsList[AetherBlocks.slabStoneAngelic.id] = new ItemBlockSlab(AetherBlocks.slabStoneAngelic);
-        Item.itemsList[AetherBlocks.slabStoneHellfire.id] = new ItemBlockSlab(AetherBlocks.slabStoneHellfire);
-
         Dimension.registerDimension(3, dimensionAether);
     }
-
     @Override
-    public void onInitialize() {
+    public void beforeGameStart() {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
 
@@ -72,5 +67,21 @@ public class Aether implements ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
+    }
+
+    @Override
+    public void afterGameStart() {
+
+    }
+
+    @Override
+    public void beforeClientStart() {
+        EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
+    }
+
+    @Override
+    public void afterClientStart() {
+
     }
 }

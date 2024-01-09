@@ -6,6 +6,7 @@ import net.minecraft.client.sound.block.BlockSound;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.item.block.ItemBlockSlab;
 import turniplabs.halplibe.helper.BlockBuilder;
 
 import static net.minecraft.core.block.Block.fluidWaterStill;
@@ -58,6 +59,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Holystone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(holystone, blockID++));
 
     public static final Block stairsHolystone = new BlockBuilder(MOD_ID)
@@ -83,7 +85,7 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(3.0f)
             .setTextures("Icestone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE)
             .build(new Block("icestone", blockID++, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
@@ -178,6 +180,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
             .setTags(BlockTags.MINEABLE_BY_AXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(planksSkyroot, blockID++));
 
     public static final Block stairsPlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -347,6 +350,14 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("carved", blockID++, Material.stone));
 
+    public static final Block stoneCarvedTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("CarvedStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("carved.trap", blockID++, Material.stone));
+
     public static final Block slabStoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -355,6 +366,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneCarved, blockID++));
 
     public static final Block stairsStoneCarved = new BlockBuilder(MOD_ID)
@@ -374,6 +386,14 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("angelic", blockID++, Material.stone));
 
+    public static final Block stoneAngelicTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("AngelicStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("angelic.trap", blockID++, Material.stone));
+
     public static final Block slabStoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -382,6 +402,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneAngelic, blockID++));
 
     public static final Block stairsStoneCAngelic = new BlockBuilder(MOD_ID)
@@ -401,6 +422,14 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("hellfire", blockID++, Material.stone));
 
+    public static final Block stoneHellfireTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("HellfireStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("hellfire.trap", blockID++, Material.stone));
+
     public static final Block slabStoneHellfire = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -409,6 +438,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("HellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneHellfire, blockID++));
 
     public static final Block stairsStoneHellfire = new BlockBuilder(MOD_ID)
@@ -429,6 +459,14 @@ public class AetherBlocks {
             .setTextures("LightCarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("carved.light", blockID++, Material.stone));
+    public static final Block stoneCarvedLightTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("LightCarvedStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("carved.light.trap", blockID++, Material.stone));
+
     public static final Block stoneAngelicLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -437,6 +475,14 @@ public class AetherBlocks {
             .setTextures("LightAngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("angelic.light", blockID++, Material.stone));
+    public static final Block stoneAngelicLightTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("LightAngelicStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("angelic.light.trap", blockID++, Material.stone));
+
     public static final Block stoneHellfireLight = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -445,6 +491,13 @@ public class AetherBlocks {
             .setTextures("LightHellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("hellfire.light", blockID++, Material.stone));
+    public static final Block stoneHellfireLightTrap = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("LightHellfireStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("hellfire.light.trap", blockID++, Material.stone));
 
     public static final Block pillar = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -488,6 +541,8 @@ public class AetherBlocks {
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setResistance(0.3f)
+            .setLuminance(7)
+            .setLightOpacity(0)
             .setTextures("QuicksoilGlass.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
