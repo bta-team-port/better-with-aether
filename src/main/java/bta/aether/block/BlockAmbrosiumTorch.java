@@ -169,19 +169,19 @@ public class BlockAmbrosiumTorch extends Block {
         double d3 = 0.22;
         double d4 = 0.27;
         if (l == 1) {
-            world.spawnParticle("smoke", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+//            world.spawnParticle("smoke", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
             world.spawnParticle("flame", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
         } else if (l == 2) {
-            world.spawnParticle("smoke", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+//            world.spawnParticle("smoke", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
             world.spawnParticle("flame", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
         } else if (l == 3) {
-            world.spawnParticle("smoke", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
+//            world.spawnParticle("smoke", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
             world.spawnParticle("flame", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
         } else if (l == 4) {
-            world.spawnParticle("smoke", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
+//            world.spawnParticle("smoke", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
             world.spawnParticle("flame", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
         } else {
-            world.spawnParticle("smoke", d, d1, d2, 0.0, 0.0, 0.0);
+//            world.spawnParticle("smoke", d, d1, d2, 0.0, 0.0, 0.0);
             world.spawnParticle("flame", d, d1, d2, 0.0, 0.0, 0.0);
         }
 
