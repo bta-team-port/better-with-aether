@@ -1,16 +1,17 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "bta.aether.mixin",
-    "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "BlockFluidPortalMixin",
-        "InventoryPlayerMixin",
-        "EntityMixin"
-    ],
-    "client": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "bta.aether.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockFluidPortalMixin",
+    "EntityMixin",
+    "ExplosionCannonballMixin",
+    "InventoryPlayerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }

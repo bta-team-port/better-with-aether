@@ -1,6 +1,7 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.AetherEntities;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
@@ -54,6 +55,7 @@ public class Aether implements ModInitializer {
     public void onInitialize() {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
+        new AetherEntities().initializeEntities();
 
         //Tiles
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
