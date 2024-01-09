@@ -6,10 +6,10 @@
   "mixins": [
     "BlockFluidPortalMixin",
     "BlockMixin",
-    "BucketMixin",
     "EntityLivingMixin",
     "EntityMixin",
     "InventoryPlayerMixin",
+    "ItemBucketMixin",
     "ItemFirestrikerMixin",
     "accessors.ItemToolSwordAccessor"
   ],
