@@ -13,7 +13,7 @@ public class BlockCloudBlue extends BlockCloudBase {
     public BlockCloudBlue(String key, int id, Material material) {
         super(key, id, material);
     }
-
+    
     public void jump(Entity entity) {
         if ((entity instanceof EntityLiving || entity instanceof EntityItem) && entity.yd < 1.0D) {
             entity.yd = 0.0D;
@@ -22,14 +22,17 @@ public class BlockCloudBlue extends BlockCloudBase {
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         return world.canPlaceInsideBlock(x, y, z);
     }
 
+    @Override
     public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AABB.getBoundingBoxFromPool((double)(x * 0), (double)(y), (double)(z * 0), (double)(x * 0), (double)y, (double)(z * 0));
+        return AABB.getBoundingBoxFromPool(0, y, 0, 0, y, 0);
     }
 
+    @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         this.jump(entity);
     }
