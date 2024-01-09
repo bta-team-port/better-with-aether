@@ -4,6 +4,7 @@ import bta.aether.item.AetherItems;
 import bta.aether.item.ItemPigSlayer;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityPig;
+import net.minecraft.core.entity.monster.EntityPigZombie;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
@@ -60,6 +61,20 @@ public abstract class InventoryPlayerMixin {
                 player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ);
             }
             ((EntityPig) entity).onDeath(player);
+            entity.remove();
+        }
+        else if (entity instanceof EntityPigZombie && equippedItem != null && equippedItem.getItem() instanceof ItemPigSlayer) {
+            for (int i = 0; i < 20; i++) {
+                Random random = new Random();
+                double dx = entity.x + (random.nextDouble() * 0.5) - 0.25;
+                double dy = entity.y + 0.5 + (random.nextDouble() * 0.5) - 0.25;
+                double dz = entity.z + (random.nextDouble() * 0.5) - 0.25;
+                double motionX = (random.nextDouble() * 0.1) - 0.05;
+                double motionY = (random.nextDouble() * 0.1) - 0.05;
+                double motionZ = (random.nextDouble() * 0.1) - 0.05;
+                player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ);
+            }
+            ((EntityPigZombie) entity).onDeath(player);
             entity.remove();
         }
     }

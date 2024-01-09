@@ -161,8 +161,6 @@ public class EnchanterRecipes {
         addRecipe(new ItemStack(AetherItems.armorLeggingsGravitite,1),new ItemStack(AetherItems.armorLeggingsGravitite),6000);
         addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
 
-        addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
-
 
 
         addRecipe(new ItemStack(Item.record13, 1),new ItemStack(AetherItems.recordBlue),1000);

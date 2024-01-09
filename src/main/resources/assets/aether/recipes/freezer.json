@@ -1,6 +1,6 @@
 [
   {
-    "name": "aether:freezer/ice",
+    "name": "aether:freezer/ice_bucket",
     "type": "aether:machine",
     "time": 500,
     "input": {
@@ -13,6 +13,159 @@
     "output": {
       "id": 730,
       "amount": 5,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/obsidian",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": 16455,
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": 180,
+      "amount": 2,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/blue_aercloud",
+    "type": "aether:machine",
+    "time": 50,
+    "input": {
+      "stack": {
+        "key": "tile.aether.aercloud.white",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.aether.aercloud.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/permafrost",
+    "type": "aether:machine",
+    "time": 50,
+    "input": {
+      "stack": {
+        "key": "tile.stone",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.permafrost",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/permaice",
+    "type": "aether:machine",
+    "time": 50,
+    "input": {
+      "stack": {
+        "key": "tile.ice",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.ice.perma",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/ice_bucket_skyroot",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.aether.bucket.skyroot.water",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": 730,
+      "amount": 5,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/ice_ring_gold",
+    "type": "aether:machine",
+    "time": 1500,
+    "input": {
+      "stack": {
+        "key": "item.aether.armor.ring.gold",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "item.aether.armor.ring.ice",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/ice_ring_iron",
+    "type": "aether:machine",
+    "time": 1500,
+    "input": {
+      "stack": {
+        "key": "item.aether.armor.ring.iron",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "item.aether.armor.ring.ice",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/ice_pendant_gold",
+    "type": "aether:machine",
+    "time": 2500,
+    "input": {
+      "stack": {
+        "key": "item.aether.armor.pendant.gold",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "item.aether.armor.pendant.ice",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:freezer/ice_pendant_iron",
+    "type": "aether:machine",
+    "time": 2500,
+    "input": {
+      "stack": {
+        "key": "item.aether.armor.pendant.iron",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "item.aether.armor.pendant.ice",
+      "amount": 1,
       "meta": 0
     }
   }
