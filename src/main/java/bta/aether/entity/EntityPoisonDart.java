@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 
 public class EntityPoisonDart extends EntityGoldenDart {
     public EntityPoisonDart(World world) {
-        super(world, 2);
+        super(world, 11);
         this.noPhysics = true;
     }
 
@@ -23,12 +23,13 @@ public class EntityPoisonDart extends EntityGoldenDart {
         this.noPhysics = true;
     }
 
+    @Override
     protected void init() {
         this.arrowGravity = 0.02F;
         this.arrowSpeed = 1.0F;
         this.arrowDamage = 2;
     }
-
+    @Override
     public void playerTouch(EntityPlayer player) {
         if (!this.world.isClientSide) {
             if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0) {

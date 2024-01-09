@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Deprecated
 public class EnchanterRecipes {
     protected static final HashMap<ItemStack, Pair<ItemStack,Integer>> recipeList = new HashMap<>();
 
@@ -158,8 +159,6 @@ public class EnchanterRecipes {
         addRecipe(new ItemStack(AetherItems.armorHelmetGravitite,1),new ItemStack(AetherItems.armorHelmetGravitite),6000);
         addRecipe(new ItemStack(AetherItems.armorChestplateGravitite,1),new ItemStack(AetherItems.armorChestplateGravitite),6000);
         addRecipe(new ItemStack(AetherItems.armorLeggingsGravitite,1),new ItemStack(AetherItems.armorLeggingsGravitite),6000);
-        addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
-
         addRecipe(new ItemStack(AetherItems.armorBootsGravitite,1),new ItemStack(AetherItems.armorBootsGravitite),6000);
 
 

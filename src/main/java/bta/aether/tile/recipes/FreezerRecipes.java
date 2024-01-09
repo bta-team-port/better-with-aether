@@ -10,7 +10,7 @@ import net.minecraft.core.util.collection.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class FreezerRecipes {
     protected static final HashMap<ItemStack, Pair<ItemStack,Integer>> recipeList = new HashMap<>();
 

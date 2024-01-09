@@ -9,13 +9,16 @@ public class BlockAerogel extends BlockTransparent {
         super(key, id, material, true);
     }
 
+    @Override
     public int getRenderBlockPass() {
         return 1;
     }
+    @Override
     public boolean renderAsNormalBlock() {
         return false;
     }
-    public boolean isOpaqueCube() {
+    @Override
+    public boolean isSolidRender() {
         return false;
     }
 }
