@@ -26,11 +26,8 @@ public class ItemBucketMixin {
 
     @Inject(
             method = "onItemRightClick(Lnet/minecraft/core/item/ItemStack;Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/EntityPlayer;)Lnet/minecraft/core/item/ItemStack;",
-            at = @At(value = "TAIL"),
-            cancellable = true
+            at = @At(value = "TAIL")
     )
-
-
     public void aetherAerogel(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> cir) {
         float f = 1.0F;
         float f1 = player.xRotO + (player.xRot - player.xRotO) * f;

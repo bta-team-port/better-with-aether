@@ -32,7 +32,7 @@ public class EntityArrowFlaming extends EntityArrow {
 
     @Override
     public void tick() {
-        super.tick();
+        this.baseTick();
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt_double(this.xd * this.xd + this.zd * this.zd);
             this.yRotO = this.yRot = (float)(Math.atan2(this.xd, this.zd) * 180.0 / 3.1415927410125732);
