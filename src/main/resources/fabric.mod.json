@@ -21,6 +21,9 @@
     "beforeGameStart": [
       "bta.aether.Aether"
     ],
+    "beforeClientStart": [
+      "bta.aether.Aether"
+    ],
     "recipesReady": [
       "bta.aether.recipe.AetherRecipes"
     ],
