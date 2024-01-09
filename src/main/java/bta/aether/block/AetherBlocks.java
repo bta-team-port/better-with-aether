@@ -1,6 +1,5 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -112,7 +111,7 @@ public class AetherBlocks {
     public static final Block aerogel = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
-            .setResistance(10.0f)
+            .setResistance(2000f)
             .setTextures("Aerogel.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockAerogel("aerogel", blockID++, Material.stone));
@@ -262,21 +261,21 @@ public class AetherBlocks {
     public static final Block oreAmbrosiumHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("AmbrosiumOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone));
     public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("ZaniteOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
     public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("GravititeOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreGravitite("ore.gravitite", blockID++));

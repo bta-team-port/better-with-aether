@@ -6,7 +6,9 @@
     "mixins": [
         "BlockFluidPortalMixin",
         "InventoryPlayerMixin",
-        "EntityMixin"
+        "EntityMixin",
+        "BucketMixin",
+        "ItemFirestrikerMixin"
     ],
     "client": [
     ],
