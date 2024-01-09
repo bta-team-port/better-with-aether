@@ -5,6 +5,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockFlower;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -25,7 +26,6 @@ public class ItemSkyrootBucket extends Item {
         }
         this.foodType = foodType;
     }
-
     int getHealAmount() {
         switch (foodType) {
             case 1:
@@ -38,9 +38,9 @@ public class ItemSkyrootBucket extends Item {
                 return 0;
         }
     }
-
+    @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        if (this.foodType != 0 && useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyroot))) {
+        if (this.foodType != 0 && ItemBucketEmpty.useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyroot))) {
             int heal = getHealAmount();
             if (heal >= 0) {
                 entityplayer.heal(heal);
@@ -66,9 +66,7 @@ public class ItemSkyrootBucket extends Item {
         double d3 = 5.0;
         Vec3d vec3d1 = vec3d.addVector((double)f7 * d3, (double)f6 * d3, (double)f9 * d3);
         HitResult movingobjectposition = world.checkBlockCollisionBetweenPoints(vec3d, vec3d1, true);
-        if (movingobjectposition == null) {
-            return itemstack;
-        } else {
+        if (movingobjectposition != null) {
             if (movingobjectposition.hitType == HitResult.HitType.TILE) {
                 int i = movingobjectposition.x;
                 int j = movingobjectposition.y;
@@ -78,12 +76,24 @@ public class ItemSkyrootBucket extends Item {
                 }
 
                 switch (movingobjectposition.side) {
-                    case TOP: j++; break;
-                    case BOTTOM: j--; break;
-                    case EAST: i++; break;
-                    case WEST: i--; break;
-                    case SOUTH: k++; break;
-                    case NORTH: k--; break;
+                    case TOP:
+                        j++;
+                        break;
+                    case BOTTOM:
+                        j--;
+                        break;
+                    case EAST:
+                        i++;
+                        break;
+                    case WEST:
+                        i--;
+                        break;
+                    case SOUTH:
+                        k++;
+                        break;
+                    case NORTH:
+                        k--;
+                        break;
                 }
 
                 if (!(world.getBlock(i, j, k) == null || world.getBlock(i, j, k) instanceof BlockFlower)) {
@@ -93,30 +103,16 @@ public class ItemSkyrootBucket extends Item {
                 }
 
                 if (idToPlace != 0) {
-                    if (useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyroot))) {
+                    if (ItemBucketEmpty.useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyroot))) {
                         world.setBlockWithNotify(i, j, k, idToPlace);
                         entityplayer.swingItem();
                     }
                 }
             }
 
-            return itemstack;
         }
+        return itemstack;
     }
 
-    public static boolean useBucket(EntityPlayer player, ItemStack itemToGive) {
-        if (player.inventory.getCurrentItem().stackSize <= 1) {
-            player.inventory.setInventorySlotContents(player.inventory.currentItem, itemToGive);
-            return true;
-        } else {
-            player.inventory.insertItem(itemToGive, true);
-            if (itemToGive.stackSize < 1) {
-                player.inventory.getCurrentItem().consumeItem(player);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
 }
 

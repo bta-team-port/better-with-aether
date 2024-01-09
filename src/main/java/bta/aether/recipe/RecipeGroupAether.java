@@ -17,7 +17,6 @@ public class RecipeGroupAether extends RecipeGroup<RecipeEntryAetherMachine> {
         }
         return null;
     }
-
     public RecipeEntryAetherMachine findRecipe(ItemStack stack){
         for (RecipeEntryAetherMachine recipe : getAllRecipes()) {
             if(recipe.matches(stack)){

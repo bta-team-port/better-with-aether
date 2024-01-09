@@ -20,7 +20,6 @@ public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeGroup<RecipeEntryTrommel> TROMMEL = new RecipeGroup<>(new RecipeSymbol(new ItemStack(Block.trommelActive)));
     public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.enchanter)));
     public static final RecipeGroupAether FREEZER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.freezer)));
-
     @Override
     public void onRecipesReady() {
         AETHER.register("workbench", WORKBENCH);

@@ -18,12 +18,9 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
 
     public RecipeEntryAetherMachine() {
     }
-
-
     public boolean matches(ItemStack stack) {
         return getInput().matches(stack);
     }
-
     public boolean matchesQuery(SearchQuery query) {
         switch (query.mode){
             case ALL: {
@@ -41,7 +38,6 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         }
         return false;
     }
-
     public boolean matchesScope(SearchQuery query) {
         if(query.scope.getLeft() == SearchQuery.SearchScope.NONE) return true;
         if(query.scope.getLeft() == SearchQuery.SearchScope.NAMESPACE) {
