@@ -18,11 +18,17 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "beforeGameStart": [
+      "bta.aether.Aether"
+    ],
+    "beforeClientStart": [
       "bta.aether.Aether"
     ],
     "recipesReady": [
-      "bta.aether.crafting.AetherRecipes"
+      "bta.aether.recipe.AetherRecipes"
+    ],
+    "terrain-api": [
+      "bta.aether.compat.terrainapi.TerrainAPIPlugin"
     ]
   },
   "mixins": [

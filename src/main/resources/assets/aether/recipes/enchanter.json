@@ -1,0 +1,461 @@
+[
+  {
+    "name": "aether:enchanter/enchanted_gravitite",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "tile.aether.ore.gravitite",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.aether.block.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/quicksoil_glass",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "tile.aether.quicksoil",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "tile.aether.glass.quicksoil",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/healingstone",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "tile.aether.holystone",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "key": "item.aether.food.healingstone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/leather_helmet",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "16426",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16426",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/leather_chestplate",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "16427",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16427",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/leather_leggings",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "16428",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16428",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/leather_boots",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "16429",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16429",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/chain_helmet",
+    "type": "aether:machine",
+    "time": 3000,
+    "input": {
+      "stack": {
+        "id": "16430",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16430",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/chain_chestplate",
+    "type": "aether:machine",
+    "time": 3000,
+    "input": {
+      "stack": {
+        "id": "16431",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16431",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/chain_leggings",
+    "type": "aether:machine",
+    "time": 3000,
+    "input": {
+      "stack": {
+        "id": "16432",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16432",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/chain_boots",
+    "type": "aether:machine",
+    "time": 3000,
+    "input": {
+      "stack": {
+        "id": "16433",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16433",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_helmet",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16434",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16434",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_chestplate",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16435",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16435",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_leggings",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16436",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16436",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_boots",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16437",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16437",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_helmet",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16430",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16430",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_chestplate",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16431",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16431",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_leggings",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16432",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16432",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_boots",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16433",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16433",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_helmet",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "id": "16489",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16489",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_chestplate",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "id": "16490",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16490",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_leggings",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "id": "16491",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16491",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_boots",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "id": "16492",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16492",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_helmet",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "id": "16438",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16438",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_chestplate",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "id": "16439",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16439",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_leggings",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "id": "16440",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16440",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_boots",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "id": "16441",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16441",
+      "amount": 1,
+      "meta": 0
+    }
+  }
+]
