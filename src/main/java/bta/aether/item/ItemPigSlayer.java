@@ -7,5 +7,6 @@ public class ItemPigSlayer extends Item {
         super(i);
         this.maxStackSize = 1;
         this.setMaxDamage(384);
+        this.setFull3D();
     }
 }
