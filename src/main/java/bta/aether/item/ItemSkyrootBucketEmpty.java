@@ -15,7 +15,7 @@ public class ItemSkyrootBucketEmpty extends Item {
         super(id);
         this.maxStackSize = 64;
     }
-
+    @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         float f = 1.0F;
         float f1 = entityplayer.xRotO + (entityplayer.xRot - entityplayer.xRotO) * f;
@@ -33,9 +33,7 @@ public class ItemSkyrootBucketEmpty extends Item {
         double d3 = 5.0;
         Vec3d vec3d1 = vec3d.addVector((double)f7 * d3, (double)f6 * d3, (double)f9 * d3);
         HitResult movingobjectposition = world.checkBlockCollisionBetweenPoints(vec3d, vec3d1, true);
-        if (movingobjectposition == null) {
-            return itemstack;
-        } else {
+        if (movingobjectposition != null) {
             if (movingobjectposition.hitType == HitResult.HitType.TILE) {
                 int i = movingobjectposition.x;
                 int j = movingobjectposition.y;
@@ -52,7 +50,7 @@ public class ItemSkyrootBucketEmpty extends Item {
                 }
             }
 
-            return itemstack;
         }
+        return itemstack;
     }
 }

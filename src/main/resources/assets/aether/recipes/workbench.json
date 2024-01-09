@@ -287,7 +287,7 @@
       }
     ],
     "result": {
-      "key": "tile.fence.planks.oak",
+      "key": "tile.aether.fence.planks.skyroot",
       "amount": 6,
       "meta": 0
     },
@@ -319,8 +319,56 @@
       }
     ],
     "result": {
-      "key": "tile.fencegate.planks.oak",
+      "key": "tile.aether.fencegate.planks.skyroot",
       "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/slab_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.planks.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.slab.planks.skyroot",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/stairs_skyroot",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P  ",
+      "PP ",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.planks.skyroot",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.stairs.planks.skyroot",
+      "amount": 6,
       "meta": 0
     },
     "consumeContainers": true
@@ -507,6 +555,198 @@
     "result": {
       "key": "item.saddle",
       "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/slab_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.slab.holystone",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/stairs_holystone",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P  ",
+      "PP ",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.holystone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.stairs.holystone",
+      "amount": 6,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/slab_carved",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.carved",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.slab.carved",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/stairs_carved",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P  ",
+      "PP ",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.carved",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.stairs.carved",
+      "amount": 6,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/slab_angelic",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.angelic",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.slab.angelic",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/stairs_angelic",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P  ",
+      "PP ",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.angelic",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.stairs.angelic",
+      "amount": 6,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/slab_hellfire",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.hellfire",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.slab.hellfire",
+      "amount": 3,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/stairs_hellfire",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "P  ",
+      "PP ",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "tile.aether.hellfire",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.stairs.hellfire",
+      "amount": 6,
       "meta": 0
     },
     "consumeContainers": true

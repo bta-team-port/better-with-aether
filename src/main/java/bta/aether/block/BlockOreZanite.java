@@ -1,12 +1,10 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
@@ -14,7 +12,7 @@ public class BlockOreZanite extends Block {
     public BlockOreZanite(String key, int id, Material stone) {
         super(key, id, Material.stone);
     }
-
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:
