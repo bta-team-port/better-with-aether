@@ -1,6 +1,5 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -31,7 +30,7 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
             .build(new Block("dirt", blockID++, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -41,7 +40,7 @@ public class AetherBlocks {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass));
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
@@ -114,7 +113,7 @@ public class AetherBlocks {
     public static final Block aerogel = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
-            .setResistance(1000.0f)
+            .setResistance(2000f)
             .setTextures("Aerogel.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockAerogel("aerogel", blockID++, Material.stone));
@@ -265,21 +264,21 @@ public class AetherBlocks {
     public static final Block oreAmbrosiumHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("AmbrosiumOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone));
     public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("ZaniteOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
     public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setResistance(3.0f)
+            .setResistance(15.0f)
             .setTextures("GravititeOre.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockOreGravitite("ore.gravitite", blockID++));
@@ -536,7 +535,7 @@ public class AetherBlocks {
             .setTextures("QuicksoilGlass.png")
             .setSlipperiness(1.1f)
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++));
+            .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++, Material.glass, false));
 
     public static final Block trapdoorGlassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))

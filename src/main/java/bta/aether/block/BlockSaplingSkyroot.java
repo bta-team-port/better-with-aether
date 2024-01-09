@@ -13,7 +13,7 @@ public class BlockSaplingSkyroot extends BlockSaplingBase {
     }
     @Override
     public boolean canThisPlantGrowOnThisBlockID(int i) {
-        return i == AetherBlocks.grassAether.id;
+        return i == AetherBlocks.grassAether.id || i == AetherBlocks.dirtAether.id;
     }
     @Override
     public void growTree(World world, int i, int j, int k, Random random) {

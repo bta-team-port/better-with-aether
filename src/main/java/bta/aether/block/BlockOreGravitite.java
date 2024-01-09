@@ -1,6 +1,5 @@
 package bta.aether.block;
 
-import bta.aether.entity.EntityFallingGravitite;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
@@ -29,7 +28,7 @@ public class BlockOreGravitite extends Block {
     }
 
     private void tryToFall(World world, int i, int j, int k) {
-        if (canFallTo(world, i, j + 1, k) && j < 128) {
+        if (canFallTo(world, i, j + 1, k) && j < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(i - byte0, j - byte0, k - byte0, i + byte0, j + byte0, k + byte0)) {
                 EntityFallingGravitite entityfallinggravitite = new EntityFallingGravitite(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, this.id);
@@ -37,7 +36,7 @@ public class BlockOreGravitite extends Block {
             } else {
                 world.setBlockWithNotify(i, j, k, 0);
 
-                while(canFallTo(world, i, j + 1, k) && j < 128) {
+                while(canFallTo(world, i, j + 1, k) && j < 256) {
                     ++j;
                 }
 
