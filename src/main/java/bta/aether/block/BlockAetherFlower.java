@@ -1,5 +1,7 @@
 package bta.aether.block;
 
+import bta.aether.AetherBlockTags;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockFlower;
 
 public class BlockAetherFlower extends BlockFlower {
@@ -10,7 +12,7 @@ public class BlockAetherFlower extends BlockFlower {
 
     @Override
     protected boolean canThisPlantGrowOnThisBlockID(int i) {
-        return i == AetherBlocks.grassAether.id;
+        return Block.blocksList[i] != null && Block.blocksList[i].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS);
     }
 }
 
