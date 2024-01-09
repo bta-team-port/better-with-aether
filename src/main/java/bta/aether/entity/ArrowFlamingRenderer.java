@@ -16,16 +16,14 @@ public class ArrowFlamingRenderer extends EntityRenderer<EntityArrowFlaming> {
             GL11.glRotatef(arrow.yRotO + (arrow.yRot - arrow.yRotO) * renderPartialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(arrow.xRotO + (arrow.xRot - arrow.xRotO) * renderPartialTicks, 0.0F, 0.0F, 1.0F);
             Tessellator tessellator = Tessellator.instance;
-            byte arrowType = 4;
-
             float bodyMinU = 0.0F;
             float bodyMaxU = 0.5F;
-            float bodyMinV = (float)(arrowType * 10) / 32.0F;
-            float bodyMaxV = (float)(5 + arrowType * 10) / 32.0F;
+            float bodyMinV = 0;
+            float bodyMaxV = 5/ 32.0F;
             float tailMinU = 0.0F;
             float tailMaxU = 0.15625F;
-            float tailMinV = (float)(5 + arrowType * 10) / 32.0F;
-            float tailMaxV = (float)(10 + arrowType * 10) / 32.0F;
+            float tailMinV = 5/ 32.0F;
+            float tailMaxV = 10 / 32.0F;
             float scale = 0.05625F;
             GL11.glEnable(32826);
             float shakeAmount = (float)arrow.arrowShake - renderPartialTicks;
