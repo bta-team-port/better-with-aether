@@ -7,6 +7,7 @@ import net.minecraft.client.sound.block.BlockSound;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.item.block.ItemBlockSlab;
 import turniplabs.halplibe.helper.BlockBuilder;
 
 import static net.minecraft.core.block.Block.fluidWaterStill;
@@ -59,6 +60,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Holystone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(holystone, blockID++));
 
     public static final Block stairsHolystone = new BlockBuilder(MOD_ID)
@@ -179,6 +181,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
             .setTags(BlockTags.MINEABLE_BY_AXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(planksSkyroot, blockID++));
 
     public static final Block stairsPlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -364,6 +367,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneCarved, blockID++));
 
     public static final Block stairsStoneCarved = new BlockBuilder(MOD_ID)
@@ -399,6 +403,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneAngelic, blockID++));
 
     public static final Block stairsStoneCAngelic = new BlockBuilder(MOD_ID)
@@ -434,6 +439,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("HellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneHellfire, blockID++));
 
     public static final Block stairsStoneHellfire = new BlockBuilder(MOD_ID)
