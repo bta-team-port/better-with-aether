@@ -1,0 +1,138 @@
+[
+  {
+    "name": "aether:enchanter/iron_helmet",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16434",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16434",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_chestplate",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16435",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16435",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_leggings",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16436",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16436",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_boots",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "id": "16437",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16437",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_helmet",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16430",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16430",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_chestplate",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16431",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16431",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_leggings",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16432",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16432",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_boots",
+    "type": "aether:machine",
+    "time": 400,
+    "input": {
+      "stack": {
+        "id": "16433",
+        "amount": 1,
+        "meta": 0
+      }
+    },
+    "output": {
+      "id": "16433",
+      "amount": 1,
+      "meta": 0
+    }
+  }
+]
