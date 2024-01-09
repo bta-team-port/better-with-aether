@@ -6,8 +6,6 @@
 package bta.aether.entity;
 
 import bta.aether.block.BlockOreGravitite;
-import com.mojang.nbt.CompoundTag;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFallingSand;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
@@ -60,9 +58,9 @@ public class EntityFallingGravitite extends EntityFallingSand {
         }
 
         if (!world.isAirBlock(blockX, blockY + 1, blockZ) && this.world.isAirBlock(blockX, blockY, blockZ)) {
-            this.xd *= 0.699999988079071;
-            this.zd /= 0.699999988079071;
-            this.yd *= +0.5;
+            this.xd *= 0.7;
+            this.zd /= 0.7;
+            this.yd *= 0.5;
             this.remove();
             if ((!this.world.canBlockBePlacedAt(this.blockID, blockX, blockY, blockZ, true, Side.BOTTOM) || BlockOreGravitite.canFallTo(this.world, blockX, blockY + 1, blockZ) || !this.world.setBlockWithNotify(blockX, blockY, blockZ, this.blockID)) && !this.world.isClientSide && this.hasRemovedBlock) {
                 this.spawnAtLocation(this.blockID, 1);
