@@ -41,13 +41,6 @@ public class Aether implements GameStartEntrypoint {
     public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
     static
     {
-
-        Item.itemsList[AetherBlocks.slabHolystone.id] = new ItemBlockSlab(AetherBlocks.slabHolystone);
-        Item.itemsList[AetherBlocks.slabPlanksSkyroot.id] = new ItemBlockSlab(AetherBlocks.slabPlanksSkyroot);
-        Item.itemsList[AetherBlocks.slabStoneCarved.id] = new ItemBlockSlab(AetherBlocks.slabStoneCarved);
-        Item.itemsList[AetherBlocks.slabStoneAngelic.id] = new ItemBlockSlab(AetherBlocks.slabStoneAngelic);
-        Item.itemsList[AetherBlocks.slabStoneHellfire.id] = new ItemBlockSlab(AetherBlocks.slabStoneHellfire);
-
         Dimension.registerDimension(3, dimensionAether);
     }
     @Override
