@@ -27,7 +27,7 @@ public class BlockOreGravitite extends Block {
     }
 
     private void tryToFall(World world, int i, int j, int k) {
-        if (canFallBelow(world, i, j + 1, k) && j < 128) {
+        if (canFallBelow(world, i, j + 1, k) && j < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(i - byte0, j - byte0, k - byte0, i + byte0, j + byte0, k + byte0)) {
                 EntityFallingGravitite entityfallinggravitite = new EntityFallingGravitite(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), this.id);
@@ -35,7 +35,7 @@ public class BlockOreGravitite extends Block {
             } else {
                 world.setBlockWithNotify(i, j, k, 0);
 
-                while(canFallBelow(world, i, j + 1, k) && j < 128) {
+                while(canFallBelow(world, i, j + 1, k) && j < 256) {
                     ++j;
                 }
 
