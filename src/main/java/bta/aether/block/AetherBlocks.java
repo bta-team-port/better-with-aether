@@ -162,7 +162,7 @@ public class AetherBlocks {
             .setTopBottomTexture("GoldenOakTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE)
             .setBlockModel(new BlockModelRenderBlocks(27))
-            .build(new BlockLog("goldenoak.log", blockID++));
+            .build(new BlockGoldenOakLog("goldenoak.log", blockID++));
 
     public static final Block planksSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -535,7 +535,7 @@ public class AetherBlocks {
             .setTextures("QuicksoilGlass.png")
             .setSlipperiness(1.1f)
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++, Material.glass, false));
+            .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++));
 
     public static final Block trapdoorGlassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
