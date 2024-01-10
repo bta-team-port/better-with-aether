@@ -1,6 +1,8 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.*;
+import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
@@ -21,6 +23,7 @@ import net.minecraft.core.world.type.WorldTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.ParticleHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -49,6 +52,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public void beforeGameStart() {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
+        new AetherEntities().initializeEntities();
 
         //Tiles
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
@@ -78,6 +82,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
     }
 
     @Override

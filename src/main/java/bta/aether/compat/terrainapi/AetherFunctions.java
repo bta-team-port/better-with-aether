@@ -37,7 +37,7 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
         World world = parameters.chunk.world;
-        Random rand = new Random(world.getRandomSeed());
+        Random rand = new Random();
         int dx;
         int dy;
         int dz;
@@ -56,18 +56,20 @@ public class AetherFunctions {
         return null;
     }
 
+    private static final int[] cloudIDs = {AetherBlocks.aercloudWhite.id, AetherBlocks.aercloudBlue.id, AetherBlocks.aercloudGold.id};
+
     public static Void generateClouds(Parameters parameters) {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
         World world = parameters.chunk.world;
         Random rand = new Random();
         int dx = x + rand.nextInt(16);
-        int dy = rand.nextInt(64);
+        int dy = rand.nextInt(256);
         int dz = z + rand.nextInt(16);
 
-        int cloudSize = rand.nextInt(64);
+        int cloudSize = 10 + rand.nextInt(16);
         if (rand.nextInt(10) == 0 && world.getBlockId(dx, dy, dz) == 0)
-            (new WorldFeatureClouds(cloudSize)).generate(world, rand, dx, dy, dz);
+            (new WorldFeatureClouds(cloudSize, cloudIDs[rand.nextInt(cloudIDs.length)])).generate(world, rand, dx, dy, dz);
         return null;
     }
 }

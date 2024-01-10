@@ -13,9 +13,7 @@
     "homepage": "",
     "sources": ""
   },
-
   "license": "CC0-1.0",
-
   "environment": "*",
   "entrypoints": {
     "beforeGameStart": [
@@ -29,6 +27,9 @@
     ],
     "terrain-api": [
       "bta.aether.compat.terrainapi.TerrainAPIPlugin"
+    ],
+    "accessory-api": [
+      "bta.aether.compat.accessoryapi.AccessoryApiPlugin"
     ]
   },
   "mixins": [
