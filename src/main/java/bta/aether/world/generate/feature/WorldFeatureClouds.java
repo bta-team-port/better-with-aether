@@ -42,8 +42,14 @@ public class WorldFeatureClouds extends WorldFeature {
                 zOffset += random.nextInt(2);
             }
 
-            if (random.nextInt(3) == 0) {
-                zOffset += random.nextInt(2);
+            switch (random.nextInt(3)) {
+                case 0:
+                j += random.nextInt(2);
+                break;
+
+                case 1:
+                j -= random.nextInt(2);
+                break;
             }
 
             for(int x1 = xOffset - sizeX; x1 < xOffset + sizeX; x1++ ){
