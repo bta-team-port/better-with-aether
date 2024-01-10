@@ -5,12 +5,15 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockFluidPortalMixin",
+    "ExplosionCannonballMixin",
     "BlockMixin",
-    "BucketMixin",
     "EntityLivingMixin",
     "EntityMixin",
     "InventoryPlayerMixin",
+    "ItemBucketMixin",
+    "ItemDyeMixin",
     "ItemFirestrikerMixin",
+    "BlockTorchMixin",
     "accessors.ItemToolSwordAccessor"
   ],
   "client": [
