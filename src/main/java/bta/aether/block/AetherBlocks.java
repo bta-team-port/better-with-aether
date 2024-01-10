@@ -1,5 +1,6 @@
 package bta.aether.block;
 
+import bta.aether.AetherBlockTags;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -30,7 +31,7 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
             .build(new Block("dirt", blockID++, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -40,7 +41,7 @@ public class AetherBlocks {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass));
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
@@ -48,7 +49,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.8f)
             .setTextures("Holystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH)
             .build(new Block("holystone", blockID++, Material.stone));
 
     public static final Block slabHolystone = new BlockBuilder(MOD_ID)
@@ -201,7 +202,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
             .setBlockModel(new BlockModelRenderBlocks(11))
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT, BlockTags.CAN_HANG_OFF)
             .build(new BlockFence("fence.planks.skyroot", blockID++));
 
     public static final Block fenceGatePlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -248,18 +249,18 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("SkyrootSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .setBlockModel((new BlockModelRenderBlocks(1)))
-            .build(new BlockSaplingSkyroot("skyroot.sapling", blockID++));
+            .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
     public static final Block saplingOakGolden = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
             .setTextures("GoldenOakSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .setBlockModel((new BlockModelRenderBlocks(1)))
-            .build(new BlockSaplingGoldenOak("goldenoak.sapling", blockID++));
+            .build(new BlockSaplingAetherGoldenOak("goldenoak.sapling", blockID++));
 
     public static final Block oreAmbrosiumHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -288,7 +289,7 @@ public class AetherBlocks {
             .setHardness(1.0f)
             .setResistance(1.0f)
             .setTextures("AmbrosiumTorch.png")
-            .setBlockModel((new BlockModelRenderBlocks(3)))
+            .setBlockModel((new BlockModelRenderBlocks(2)))
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockAmbrosiumTorch("torch.ambrosium", blockID++));
 
@@ -555,7 +556,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("WhiteFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.white", blockID++));
 
     public static final Block flowerPurple = new BlockBuilder(MOD_ID)
@@ -564,7 +565,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("PurpleFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
     public void initializeBlocks(){}
