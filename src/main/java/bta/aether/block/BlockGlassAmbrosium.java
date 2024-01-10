@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 public class BlockGlassAmbrosium extends BlockTransparent {
     public BlockGlassAmbrosium(String key, int id) {
         super(key, id, Material.glass, false);
+        this.movementScale = 1.05f;
     }
     @Override
     public int getRenderBlockPass() {
