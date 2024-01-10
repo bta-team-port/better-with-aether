@@ -7,8 +7,8 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 
-public class BlockTrap extends Block {
-    public BlockTrap(String key, int id, Material material) {
+public class BlockCarvedTrap extends Block {
+    public BlockCarvedTrap(String key, int id, Material material) {
         super(key, id, material);
     }
 
@@ -19,7 +19,7 @@ public class BlockTrap extends Block {
             sentry.moveTo(x + 0.5, y + 1, z + 0.5, 0.0f, 0.0f);
             world.entityJoinedWorld(sentry);
             world.playSoundAtEntity(entity, "mob.ghast.fireball", 0.025F, 0.75F);
-            world.setBlockWithNotify(x, y, z, AetherBlocks.stoneCarvedTrap.id);
+            world.setBlockWithNotify(x, y, z, AetherBlocks.stoneCarvedLocked.id);
         }
     }
 }

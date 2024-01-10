@@ -155,6 +155,31 @@
     "consumeContainers": true
   },
   {
+    "name": "aether:workbench/block_ambrosium",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "PPP",
+      "P P",
+      "PPP"
+    ],
+    "symbols": [
+      {
+        "symbol": "P",
+        "stack": {
+          "key": "item.aether.ambrosium",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.aether.block.ambrosium",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
     "name": "aether:workbench/chest_skyroot",
     "type": "minecraft:crafting/shaped",
     "pattern": [
@@ -477,7 +502,7 @@
       "amount": 8,
       "meta": 0
     },
-    "consumeContainers": true
+    "consumeContainers": false
   },
   {
     "name": "aether:workbench/cloud_parachute",
@@ -750,5 +775,54 @@
       "meta": 0
     },
     "consumeContainers": true
+  },
+  {
+    "name": "aether:workbench/skyroot_bucket_icecream",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " C ",
+      "BSB",
+      " M "
+    ],
+    "symbols": [
+      {
+        "symbol": "M",
+        "stack": {
+          "key": "item.aether.bucket.skyroot.milk",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.dye",
+          "amount": 1,
+          "meta": 3
+        }
+      },
+      {
+        "symbol": "S",
+        "stack": {
+          "key": "item.ammo.snowball",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.food.cherry",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.bucket.skyroot.icecream",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": false
   }
 ]

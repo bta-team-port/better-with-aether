@@ -301,79 +301,95 @@ public class AetherBlocks {
 
     public static final Block gravititeEnchanted = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setHardness(3.0f)
+            .setResistance(10.0f)
             .setTopTexture("GravititeBlockTop.png")
             .setSideTextures("GravititeBlockSide.png")
             .setBottomTexture("GravititeBlockBottom.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new Block("block.gravitite", blockID++, Material.metal));
     public static final Block blockZanite = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
-            .setHardness(1.0f)
-            .setResistance(1.0f)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(3.0f)
+            .setResistance(10.0f)
             .setTopTexture("ZaniteBlockTop.png")
             .setSideTextures("ZaniteBlockSide.png")
             .setBottomTexture("ZaniteBlockBottom.png")
             .setBlockColor(new BlockColorDefault())
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new Block("block.zanite", blockID++, Material.metal));
+            .build(new Block("block.zanite", blockID++, Material.stone));
 
-    public static final Block trap = new BlockBuilder(MOD_ID)
+    public static final Block blockAmbrosium = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
+            .setHardness(3.0f)
+            .setResistance(10.0f)
+            .setTextures("AmbrosiumBlock.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .build(new Block("block.ambrosium", blockID++, Material.metal));
+
+    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new BlockTrap("trap", blockID++, Material.stone));
+            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
 
-    public static final Block stoneCarvedTrap = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("carved.trap", blockID++, Material.stone));
-
-    public static final Block stoneAngelicTrap = new BlockBuilder(MOD_ID)
+    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("angelic.trap", blockID++, Material.stone));
+            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
 
-    public static final Block stoneHellfireTrap = new BlockBuilder(MOD_ID)
+    public static final Block stoneCarvedLocked = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("CarvedStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("carved.locked", blockID++, Material.stone));
+
+    public static final Block stoneAngelicLocked = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("AngelicStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("angelic.locked", blockID++, Material.stone));
+
+    public static final Block stoneHellfireLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("HellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("hellfire.trap", blockID++, Material.stone));
+            .build(new Block("hellfire.locked", blockID++, Material.stone));
 
-    public static final Block stoneCarvedLightTrap = new BlockBuilder(MOD_ID)
+    public static final Block stoneCarvedLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("LightCarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("carved.light.trap", blockID++, Material.stone));
+            .build(new Block("carved.light.locked", blockID++, Material.stone));
 
-    public static final Block stoneAngelicLightTrap = new BlockBuilder(MOD_ID)
+    public static final Block stoneAngelicLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("LightAngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("angelic.light.trap", blockID++, Material.stone));
+            .build(new Block("angelic.light.locked", blockID++, Material.stone));
 
-    public static final Block stoneHellfireLightTrap = new BlockBuilder(MOD_ID)
+    public static final Block stoneHellfireLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("LightHellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("hellfire.light.trap", blockID++, Material.stone));
+            .build(new Block("hellfire.light.locked", blockID++, Material.stone));
 
     public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
