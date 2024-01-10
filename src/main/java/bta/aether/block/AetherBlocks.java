@@ -319,7 +319,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("trap", blockID++, Material.stone));
+            .build(new BlockTrap("trap", blockID++, Material.stone));
 
     public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
