@@ -10,6 +10,7 @@
     "EntityMixin",
     "InventoryPlayerMixin",
     "ItemBucketMixin",
+    "ItemDyeMixin",
     "ItemFirestrikerMixin",
     "accessors.ItemToolSwordAccessor"
   ],
