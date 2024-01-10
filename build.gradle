@@ -88,6 +88,14 @@ repositories {
 		}
 		metadataSources { artifact() }
 	}
+	ivy {
+		url = "https://github.com/ColinSweetland"
+		patternLayout {
+			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
+			m2compatible = true
+		}
+		metadataSources { artifact() }
+	}
 }
 
 dependencies {
@@ -105,6 +113,8 @@ dependencies {
 
 	modImplementation "ModMenu:ModMenu:2.0.3"
 	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
+	modImplementation "bta_accessory_api:accessoryapi:${project.accessoryapi_version}"
+
 
 	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
 
