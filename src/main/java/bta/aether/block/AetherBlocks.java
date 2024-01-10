@@ -163,7 +163,7 @@ public class AetherBlocks {
             .setTopBottomTexture("GoldenOakTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE)
             .setBlockModel(new BlockModelRenderBlocks(27))
-            .build(new BlockLog("goldenoak.log", blockID++));
+            .build(new BlockGoldenOakLog("goldenoak.log", blockID++));
 
     public static final Block planksSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
