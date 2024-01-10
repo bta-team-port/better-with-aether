@@ -35,10 +35,6 @@ public class EntityGoldenDart extends Entity {
     protected int arrowType;
     protected ItemStack stack;
 
-    public EntityGoldenDart(World world) {
-        this(world, 10);
-    }
-
     public EntityGoldenDart(World world, int arrowType) {
         super(world);
         this.stack = new ItemStack(AetherItems.dartGolden);
@@ -101,7 +97,7 @@ public class EntityGoldenDart extends Entity {
     }
 
     protected void init() {
-        this.arrowGravity = 0.00F;
+        this.arrowGravity = 0.03F;
         this.arrowSpeed = 0.99F;
         this.arrowDamage = 5;
         if (!(this.owner instanceof EntityPlayer)) {
