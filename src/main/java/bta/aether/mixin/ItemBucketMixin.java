@@ -60,6 +60,11 @@ public class ItemBucketMixin extends Item{
                 int y = rayTraceResult.side.getOffsetY() + rayTraceResult.y;
                 int z = rayTraceResult.side.getOffsetZ() + rayTraceResult.z;
 
+                if (world.getBlockId(x,y, z) != 0) {
+                    info.setReturnValue(stack);
+                    return;
+                }
+
                 player.swingItem();
                 world.playSoundEffect(SoundType.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 for (int l = 0; l < 8; ++l) {
@@ -73,6 +78,7 @@ public class ItemBucketMixin extends Item{
                     info.setReturnValue(new ItemStack(Item.bucket));
                     return;
                 }
+
                 info.setReturnValue(stack);
             }
         }
