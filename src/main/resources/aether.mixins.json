@@ -12,6 +12,7 @@
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
+    "BlockTorchMixin",
     "accessors.ItemToolSwordAccessor"
   ],
   "client": [

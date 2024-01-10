@@ -5,10 +5,16 @@ import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
 import net.minecraft.core.block.*;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockSlab;
+import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.BlockBuilder;
+
+import java.util.Random;
 
 import static net.minecraft.core.block.Block.fluidWaterStill;
 import static net.minecraft.core.block.Block.glowstone;
@@ -291,7 +297,7 @@ public class AetherBlocks {
             .setTextures("AmbrosiumTorch.png")
             .setBlockModel((new BlockModelRenderBlocks(2)))
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockAmbrosiumTorch("torch.ambrosium", blockID++));
+            .build(new BlockAmbrosiumTorch("torch.ambrosium", blockID++)).withLightEmission(15);
 
     public static final Block gravititeEnchanted = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
@@ -567,6 +573,23 @@ public class AetherBlocks {
             .setBlockModel(new BlockModelRenderBlocks(1))
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.purple", blockID++));
+
+    public static final Block torchUnlit = new BlockBuilder(MOD_ID)
+            .setHardness(0.0f)
+            .setResistance(0.0f)
+            .setTextures("TorchUnlit.png")
+            .setBlockModel((new BlockModelRenderBlocks(2)))
+            .build(new BlockTorch("torch.coal.unlit", blockID++) {
+                @Override
+                public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+                    return new ItemStack[] {new ItemStack(Block.torchCoal, 1)};
+                }
+
+                @Override
+                public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+                }
+            })
+            .withTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.BROKEN_BY_FLUIDS);
 
     public void initializeBlocks(){}
 }
