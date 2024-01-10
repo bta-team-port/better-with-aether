@@ -136,6 +136,890 @@
     }
   },
   {
+    "name": "aether:enchanter/bow",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.bow",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.bow",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/fishingrod",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.fishingrod",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.fishingrod",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/shears",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shears",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shears",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/firestriker",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.firestriker",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.firestriker",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/shears_steel",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shears.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shears.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/firestriker_steel",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.firestriker.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.firestriker.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/wood_pickaxe",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.wood",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.wood",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/wood_shovel",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.wood",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.wood",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/wood_axe",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.wood",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.wood",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/wood_sword",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.wood",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.wood",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/wood_hoe",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.wood",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.wood",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/stone_pickaxe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.stone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.stone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/stone_shovel",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.stone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.stone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/stone_axe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.stone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.stone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/stone_sword",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.stone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.stone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/stone_hoe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.stone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.stone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_pickaxe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.gold",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.gold",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_shovel",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.gold",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.gold",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_axe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.gold",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.gold",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_sword",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.gold",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.gold",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gold_hoe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.gold",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.gold",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_pickaxe",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.iron",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.iron",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_shovel",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.iron",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.iron",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_axe",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.iron",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.iron",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_sword",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.iron",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.iron",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/iron_hoe",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.iron",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.iron",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_pickaxe",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.diamond",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.diamond",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_shovel",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.diamond",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.diamond",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_axe",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.diamond",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.diamond",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_sword",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.diamond",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.diamond",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/diamond_hoe",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.diamond",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.diamond",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_pickaxe",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.pickaxe.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.pickaxe.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_shovel",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.shovel.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.shovel.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_axe",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.axe.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.axe.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_sword",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.sword.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.sword.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/steel_hoe",
+    "type": "aether:machine",
+    "time": 16000,
+    "input": {
+      "stack": {
+        "key": "item.tool.hoe.steel",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.tool.hoe.steel",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/skyroot_pickaxe",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.pickaxe.skyroot",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.pickaxe.skyroot",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/skyroot_shovel",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.shovel.skyroot",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.shovel.skyroot",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/skyroot_axe",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.axe.skyroot",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.axe.skyroot",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/skyroot_sword",
+    "type": "aether:machine",
+    "time": 500,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.sword.skyroot",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.sword.skyroot",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/holystone_pickaxe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.pickaxe.holystone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.pickaxe.holystone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/holystone_shovel",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.shovel.holystone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.shovel.holystone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/holystone_axe",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.axe.holystone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.axe.holystone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/holystone_sword",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.sword.holystone",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.sword.holystone",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/zanite_pickaxe",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.pickaxe.zanite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.pickaxe.zanite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/zanite_shovel",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.shovel.zanite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.shovel.zanite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/zanite_axe",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.axe.zanite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.axe.zanite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/zanite_sword",
+    "type": "aether:machine",
+    "time": 2000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.sword.zanite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.sword.zanite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gravitite_pickaxe",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.pickaxe.gravitite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.pickaxe.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gravitite_shovel",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.shovel.gravitite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.shovel.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gravitite_axe",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.axe.gravitite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.axe.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/gravitite_sword",
+    "type": "aether:machine",
+    "time": 6000,
+    "input": {
+      "stack": {
+        "key": "item.aether.tool.sword.gravitite",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.tool.sword.gravitite",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
     "name": "aether:enchanter/leather_helmet",
     "type": "aether:machine",
     "time": 500,

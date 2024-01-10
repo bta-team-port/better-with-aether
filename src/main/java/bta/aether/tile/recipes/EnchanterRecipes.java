@@ -57,63 +57,63 @@ public class EnchanterRecipes {
 //        addRecipe(new ItemStack(AetherBlocks.holystone,1),new ItemStack(AetherItems.healingstone),1000);
 //        addRecipe(new ItemStack(AetherItems.dartshooter,1),new ItemStack(AetherItems.dartEnchanted),2000);
 //        addRecipe(new ItemStack(AetherItems.dartshooterPoison,1),new ItemStack(AetherItems.dartEnchanted),2000);
-
-        addRecipe(new ItemStack(AetherItems.toolSwordSkyroot,1),new ItemStack(AetherItems.toolSwordSkyroot),500);
-        addRecipe(new ItemStack(AetherItems.toolPickaxeSkyroot,1),new ItemStack(AetherItems.toolPickaxeSkyroot),500);
-        addRecipe(new ItemStack(AetherItems.toolShovelSkyroot,1),new ItemStack(AetherItems.toolShovelSkyroot),500);
-        addRecipe(new ItemStack(AetherItems.toolAxeSkyroot,1),new ItemStack(AetherItems.toolAxeSkyroot),500);
-
-        addRecipe(new ItemStack(AetherItems.toolSwordHolystone,1),new ItemStack(AetherItems.toolSwordHolystone),1000);
-        addRecipe(new ItemStack(AetherItems.toolPickaxeHolystone,1),new ItemStack(AetherItems.toolPickaxeHolystone),1000);
-        addRecipe(new ItemStack(AetherItems.toolShovelHolystone,1),new ItemStack(AetherItems.toolShovelHolystone),1000);
-        addRecipe(new ItemStack(AetherItems.toolAxeHolystone,1),new ItemStack(AetherItems.toolAxeHolystone),1000);
-
-        addRecipe(new ItemStack(AetherItems.toolSwordZanite,1),new ItemStack(AetherItems.toolSwordZanite),2000);
-        addRecipe(new ItemStack(AetherItems.toolPickaxeZanite,1),new ItemStack(AetherItems.toolPickaxeZanite),2000);
-        addRecipe(new ItemStack(AetherItems.toolShovelZanite,1),new ItemStack(AetherItems.toolShovelZanite),2000);
-        addRecipe(new ItemStack(AetherItems.toolAxeZanite,1),new ItemStack(AetherItems.toolAxeZanite),2000);
-
-        addRecipe(new ItemStack(AetherItems.toolSwordGravitite,1),new ItemStack(AetherItems.toolSwordGravitite),6000);
-        addRecipe(new ItemStack(AetherItems.toolPickaxeGravitite,1),new ItemStack(AetherItems.toolPickaxeGravitite),6000);
-        addRecipe(new ItemStack(AetherItems.toolShovelGravitite,1),new ItemStack(AetherItems.toolShovelGravitite),6000);
-        addRecipe(new ItemStack(AetherItems.toolAxeGravitite,1),new ItemStack(AetherItems.toolAxeGravitite),6000);
-
-        addRecipe(new ItemStack(Item.toolSwordWood,1),new ItemStack(Item.toolSwordWood),500);
-        addRecipe(new ItemStack(Item.toolPickaxeWood,1),new ItemStack(Item.toolPickaxeWood),500);
-        addRecipe(new ItemStack(Item.toolShovelWood,1),new ItemStack(Item.toolShovelWood),500);
-        addRecipe(new ItemStack(Item.toolAxeWood,1),new ItemStack(Item.toolAxeWood),500);
-        addRecipe(new ItemStack(Item.toolHoeWood,1),new ItemStack(Item.toolHoeWood),500);
-
-        addRecipe(new ItemStack(Item.toolSwordStone,1),new ItemStack(Item.toolSwordStone),1000);
-        addRecipe(new ItemStack(Item.toolPickaxeStone,1),new ItemStack(Item.toolPickaxeStone),1000);
-        addRecipe(new ItemStack(Item.toolShovelStone,1),new ItemStack(Item.toolShovelStone),1000);
-        addRecipe(new ItemStack(Item.toolAxeStone,1),new ItemStack(Item.toolAxeStone),1000);
-        addRecipe(new ItemStack(Item.toolHoeStone,1),new ItemStack(Item.toolHoeStone),1000);
-
-        addRecipe(new ItemStack(Item.toolSwordIron,1),new ItemStack(Item.toolSwordIron),2000);
-        addRecipe(new ItemStack(Item.toolPickaxeIron,1),new ItemStack(Item.toolPickaxeIron),2000);
-        addRecipe(new ItemStack(Item.toolShovelIron,1),new ItemStack(Item.toolShovelIron),2000);
-        addRecipe(new ItemStack(Item.toolAxeIron,1),new ItemStack(Item.toolAxeIron),2000);
-        addRecipe(new ItemStack(Item.toolHoeIron,1),new ItemStack(Item.toolHoeIron),2000);
-
-        addRecipe(new ItemStack(Item.toolSwordGold,1),new ItemStack(Item.toolSwordGold),1000);
-        addRecipe(new ItemStack(Item.toolPickaxeGold,1),new ItemStack(Item.toolPickaxeGold),1000);
-        addRecipe(new ItemStack(Item.toolShovelGold,1),new ItemStack(Item.toolShovelGold),1000);
-        addRecipe(new ItemStack(Item.toolAxeGold,1),new ItemStack(Item.toolAxeGold),1000);
-        addRecipe(new ItemStack(Item.toolHoeGold,1),new ItemStack(Item.toolHoeGold),1000);
-
-        addRecipe(new ItemStack(Item.toolSwordDiamond,1),new ItemStack(Item.toolSwordDiamond),6000);
-        addRecipe(new ItemStack(Item.toolPickaxeDiamond,1),new ItemStack(Item.toolPickaxeDiamond),6000);
-        addRecipe(new ItemStack(Item.toolShovelDiamond,1),new ItemStack(Item.toolShovelDiamond),6000);
-        addRecipe(new ItemStack(Item.toolAxeDiamond,1),new ItemStack(Item.toolAxeDiamond),6000);
-        addRecipe(new ItemStack(Item.toolHoeDiamond,1),new ItemStack(Item.toolHoeDiamond),6000);
-
-        addRecipe(new ItemStack(Item.toolSwordSteel,1),new ItemStack(Item.toolSwordSteel),16000);
-        addRecipe(new ItemStack(Item.toolPickaxeSteel,1),new ItemStack(Item.toolPickaxeSteel),16000);
-        addRecipe(new ItemStack(Item.toolShovelSteel,1),new ItemStack(Item.toolShovelSteel),16000);
-        addRecipe(new ItemStack(Item.toolAxeSteel,1),new ItemStack(Item.toolAxeSteel),16000);
-        addRecipe(new ItemStack(Item.toolHoeSteel,1),new ItemStack(Item.toolHoeSteel),16000);
-
+//
+//        addRecipe(new ItemStack(AetherItems.toolSwordSkyroot,1),new ItemStack(AetherItems.toolSwordSkyroot),500);
+//        addRecipe(new ItemStack(AetherItems.toolPickaxeSkyroot,1),new ItemStack(AetherItems.toolPickaxeSkyroot),500);
+//        addRecipe(new ItemStack(AetherItems.toolShovelSkyroot,1),new ItemStack(AetherItems.toolShovelSkyroot),500);
+//        addRecipe(new ItemStack(AetherItems.toolAxeSkyroot,1),new ItemStack(AetherItems.toolAxeSkyroot),500);
+//
+//        addRecipe(new ItemStack(AetherItems.toolSwordHolystone,1),new ItemStack(AetherItems.toolSwordHolystone),1000);
+//        addRecipe(new ItemStack(AetherItems.toolPickaxeHolystone,1),new ItemStack(AetherItems.toolPickaxeHolystone),1000);
+//        addRecipe(new ItemStack(AetherItems.toolShovelHolystone,1),new ItemStack(AetherItems.toolShovelHolystone),1000);
+//        addRecipe(new ItemStack(AetherItems.toolAxeHolystone,1),new ItemStack(AetherItems.toolAxeHolystone),1000);
+//
+//        addRecipe(new ItemStack(AetherItems.toolSwordZanite,1),new ItemStack(AetherItems.toolSwordZanite),2000);
+//        addRecipe(new ItemStack(AetherItems.toolPickaxeZanite,1),new ItemStack(AetherItems.toolPickaxeZanite),2000);
+//        addRecipe(new ItemStack(AetherItems.toolShovelZanite,1),new ItemStack(AetherItems.toolShovelZanite),2000);
+//        addRecipe(new ItemStack(AetherItems.toolAxeZanite,1),new ItemStack(AetherItems.toolAxeZanite),2000);
+//
+//        addRecipe(new ItemStack(AetherItems.toolSwordGravitite,1),new ItemStack(AetherItems.toolSwordGravitite),6000);
+//        addRecipe(new ItemStack(AetherItems.toolPickaxeGravitite,1),new ItemStack(AetherItems.toolPickaxeGravitite),6000);
+//        addRecipe(new ItemStack(AetherItems.toolShovelGravitite,1),new ItemStack(AetherItems.toolShovelGravitite),6000);
+//        addRecipe(new ItemStack(AetherItems.toolAxeGravitite,1),new ItemStack(AetherItems.toolAxeGravitite),6000);
+//
+//        addRecipe(new ItemStack(Item.toolSwordWood,1),new ItemStack(Item.toolSwordWood),500);
+//        addRecipe(new ItemStack(Item.toolPickaxeWood,1),new ItemStack(Item.toolPickaxeWood),500);
+//        addRecipe(new ItemStack(Item.toolShovelWood,1),new ItemStack(Item.toolShovelWood),500);
+//        addRecipe(new ItemStack(Item.toolAxeWood,1),new ItemStack(Item.toolAxeWood),500);
+//        addRecipe(new ItemStack(Item.toolHoeWood,1),new ItemStack(Item.toolHoeWood),500);
+//
+//        addRecipe(new ItemStack(Item.toolSwordStone,1),new ItemStack(Item.toolSwordStone),1000);
+//        addRecipe(new ItemStack(Item.toolPickaxeStone,1),new ItemStack(Item.toolPickaxeStone),1000);
+//        addRecipe(new ItemStack(Item.toolShovelStone,1),new ItemStack(Item.toolShovelStone),1000);
+//        addRecipe(new ItemStack(Item.toolAxeStone,1),new ItemStack(Item.toolAxeStone),1000);
+//        addRecipe(new ItemStack(Item.toolHoeStone,1),new ItemStack(Item.toolHoeStone),1000);
+//
+//        addRecipe(new ItemStack(Item.toolSwordIron,1),new ItemStack(Item.toolSwordIron),2000);
+//        addRecipe(new ItemStack(Item.toolPickaxeIron,1),new ItemStack(Item.toolPickaxeIron),2000);
+//        addRecipe(new ItemStack(Item.toolShovelIron,1),new ItemStack(Item.toolShovelIron),2000);
+//        addRecipe(new ItemStack(Item.toolAxeIron,1),new ItemStack(Item.toolAxeIron),2000);
+//        addRecipe(new ItemStack(Item.toolHoeIron,1),new ItemStack(Item.toolHoeIron),2000);
+//
+//        addRecipe(new ItemStack(Item.toolSwordGold,1),new ItemStack(Item.toolSwordGold),1000);
+//        addRecipe(new ItemStack(Item.toolPickaxeGold,1),new ItemStack(Item.toolPickaxeGold),1000);
+//        addRecipe(new ItemStack(Item.toolShovelGold,1),new ItemStack(Item.toolShovelGold),1000);
+//        addRecipe(new ItemStack(Item.toolAxeGold,1),new ItemStack(Item.toolAxeGold),1000);
+//        addRecipe(new ItemStack(Item.toolHoeGold,1),new ItemStack(Item.toolHoeGold),1000);
+//
+//        addRecipe(new ItemStack(Item.toolSwordDiamond,1),new ItemStack(Item.toolSwordDiamond),6000);
+//        addRecipe(new ItemStack(Item.toolPickaxeDiamond,1),new ItemStack(Item.toolPickaxeDiamond),6000);
+//        addRecipe(new ItemStack(Item.toolShovelDiamond,1),new ItemStack(Item.toolShovelDiamond),6000);
+//        addRecipe(new ItemStack(Item.toolAxeDiamond,1),new ItemStack(Item.toolAxeDiamond),6000);
+//        addRecipe(new ItemStack(Item.toolHoeDiamond,1),new ItemStack(Item.toolHoeDiamond),6000);
+//
+//        addRecipe(new ItemStack(Item.toolSwordSteel,1),new ItemStack(Item.toolSwordSteel),16000);
+//        addRecipe(new ItemStack(Item.toolPickaxeSteel,1),new ItemStack(Item.toolPickaxeSteel),16000);
+//        addRecipe(new ItemStack(Item.toolShovelSteel,1),new ItemStack(Item.toolShovelSteel),16000);
+//        addRecipe(new ItemStack(Item.toolAxeSteel,1),new ItemStack(Item.toolAxeSteel),16000);
+//        addRecipe(new ItemStack(Item.toolHoeSteel,1),new ItemStack(Item.toolHoeSteel),16000);
+//
         addRecipe(new ItemStack(Item.toolBow,1),new ItemStack(Item.toolBow),500);
         addRecipe(new ItemStack(Item.toolFishingrod,1),new ItemStack(Item.toolFishingrod),500);
         addRecipe(new ItemStack(Item.toolShears,1),new ItemStack(Item.toolShears),2000);
