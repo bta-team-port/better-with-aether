@@ -1,5 +1,6 @@
 package bta.aether.mixin;
 
+import bta.aether.Aether;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockTorch;
 import net.minecraft.core.block.material.Material;
