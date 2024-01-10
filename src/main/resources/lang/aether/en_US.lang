@@ -121,8 +121,10 @@ tile.aether.pillar.desc=A pink pillar found at silver dungeons.
 tile.aether.pillar.top.name=Pillar Top
 tile.aether.pillar.top.desc=A rare pink pillar capstone found at silver dungeons.
 
-tile.aether.trap.name=Trap
-tile.aether.trap.desc=Sneaky block that summons a sentry
+tile.aether.trap.carved.name=Trapped Carved Stone
+tile.aether.trap.carved.desc=Sneaky block that summons a sentry.
+tile.aether.trap.angelic.name=Trapped Angelic Stone
+tile.aether.trap.angelic.desc=Sneaky block that summons a valkyrie.
 
 tile.aether.carved.trap.name=Carved Stone Trap
 tile.aether.carved.trap.desc=Unbreakable bronze dungeon block.
@@ -164,7 +166,8 @@ tile.aether.block.gravitite.name=Enchanted Gravitite
 tile.aether.block.gravitite.desc=Gravity warping block used to make tools. Floats upwards when powered!
 tile.aether.block.zanite.name=Block of Zanite
 tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
-
+tile.aether.block.ambrosium.name=Block of Ambrosium
+tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
 
 ##Items
 
@@ -256,14 +259,16 @@ item.aether.tool.dart.shooter.enchanted.desc=An enchanted weapon for blowing rap
 
 item.aether.bucket.skyroot.name=Skyroot Bucket
 item.aether.bucket.skyroot.desc=Used to pickup various liquids.
-item.aether.bucket.skyroot.water.name=Skyroot Water Bucket
+item.aether.bucket.skyroot.water.name=Water Skyroot Bucket
 item.aether.bucket.skyroot.water.desc=A bucket full of the bottomless sea.
-item.aether.bucket.skyroot.milk.name=Skyroot Milk Bucket
+item.aether.bucket.skyroot.milk.name=Skyroot Bucket of Milk
 item.aether.bucket.skyroot.milk.desc=A great source of calcium!
-item.aether.bucket.skyroot.poison.name=Skyroot Poison Bucket
+item.aether.bucket.skyroot.poison.name=Poison Skyroot Bucket
 item.aether.bucket.skyroot.poison.desc=A bucket full of bubbling poison. Stings!
-item.aether.bucket.skyroot.remedy.name=Skyroot Remedy Bucket
+item.aether.bucket.skyroot.remedy.name=Remedy Skyroot Bucket
 item.aether.bucket.skyroot.remedy.desc=A bucket used to cure poison.
+item.aether.bucket.skyroot.icecream.name=Skyroot Bucket of Ice Cream
+item.aether.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa flakes and a cherry!
 
 item.aether.cloud.parachute.name=Cloud Parachute
 item.aether.cloud.parachute.desc=Gently glide down when activated. Works if you fall out of The Aether.
