@@ -325,7 +325,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("trap", blockID++, Material.stone));
+            .build(new BlockTrap("trap", blockID++, Material.stone));
 
     public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -530,9 +530,8 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Quicksoil.png")
-            .setSlipperiness(1.2f)
             .setTags(BlockTags.MINEABLE_BY_SHOVEL)
-            .build(new Block("quicksoil", blockID++, Material.sand));
+            .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand));
     public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
@@ -540,7 +539,6 @@ public class AetherBlocks {
             .setLuminance(7)
             .setLightOpacity(0)
             .setTextures("QuicksoilGlass.png")
-            .setSlipperiness(1.1f)
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++));
 
@@ -553,7 +551,6 @@ public class AetherBlocks {
             .setTextures("QuicksoilGlass.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .setSlipperiness(1.1f)
             .build(new BlockTrapdoorAmbrosium("trapdoor.glass.quicksoil", blockID++, Material.glass, false));
 
     public static final Block flowerWhite = new BlockBuilder(MOD_ID)
