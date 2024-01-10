@@ -1,0 +1,206 @@
+[
+  {
+    "name": "aether:enchanter/record_blue_13",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18384",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_cat",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18385",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_blocks",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18386",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_chirp",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18387",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_far",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18388",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_mall",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18389",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_mellohi",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18390",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_stal",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18391",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_strad",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18392",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_ward",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18393",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_wait",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18394",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "aether:enchanter/record_blue_dog",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "18395",
+        "amount": 1,
+        "meta": -1
+      }
+    },
+    "output": {
+      "key": "item.aether.record.blue",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+]
