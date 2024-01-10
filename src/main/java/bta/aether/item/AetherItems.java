@@ -128,8 +128,8 @@ public class AetherItems {
     public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Leggings", itemID++, armorneptune, 2), "armor.leggings.neptune", "NeptuneLeggings.png");
     public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Boots", itemID++, armorneptune, 3), "armor.boots.neptune", "NeptuneBoots.png");
 
-    public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer(itemID++), "tool.sword.pig", "PigSlayer.png").withTags(ItemTags.preventCreativeMining);;
-    public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.vampire", "VampireBlade.png").withTags(ItemTags.preventCreativeMining);;
+    public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer(itemID++), "tool.sword.pig", "PigSlayer.png").withTags(ItemTags.preventCreativeMining);
+    public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.vampire", "VampireBlade.png").withTags(ItemTags.preventCreativeMining);
 
     public static final Item toolSwordFlaming = ItemHelper.createItem(MOD_ID, new ItemSwordFlaming("tool.sword.flaming", itemID++, swordSpecialMaterial), "tool.sword.flaming", "FlameSword.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolSwordHoly = ItemHelper.createItem(MOD_ID, new ItemSwordHoly("tool.sword.holy", itemID++, swordHolyMaterial), "tool.sword.holy", "HolySword.png").withTags(ItemTags.preventCreativeMining);;
