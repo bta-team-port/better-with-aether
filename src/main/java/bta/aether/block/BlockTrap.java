@@ -19,7 +19,7 @@ public class BlockTrap extends Block {
             sentry.moveTo(x + 0.5, y + 1, z + 0.5, 0.0f, 0.0f);
             world.entityJoinedWorld(sentry);
             world.playSoundAtEntity(entity, "mob.ghast.fireball", 0.025F, 0.75F);
-            world.setBlockWithNotify(x, y, z, AetherBlocks.stoneCarved.id);
+            world.setBlockWithNotify(x, y, z, AetherBlocks.stoneCarvedTrap.id);
         }
     }
 }
