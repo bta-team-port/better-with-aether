@@ -18,7 +18,7 @@ public class BlockTorchMixin extends Block {
 
     @Inject(method = "canPlaceBlockAt", at = @At("HEAD"), cancellable = true)
     public void callCanPlaceBlockAt(World world, int x, int y, int z, CallbackInfoReturnable<Boolean> info) {
-        if (world.dimension.languageKey.equals("aether")) {
+        if (world.dimension == Aether.dimensionAether) {
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
 
             for (int l = 0; l < 8; ++l) {
