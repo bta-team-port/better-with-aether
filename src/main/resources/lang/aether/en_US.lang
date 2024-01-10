@@ -126,20 +126,20 @@ tile.aether.trap.carved.desc=Sneaky block that summons a sentry.
 tile.aether.trap.angelic.name=Trapped Angelic Stone
 tile.aether.trap.angelic.desc=Sneaky block that summons a valkyrie.
 
-tile.aether.carved.trap.name=Carved Stone Trap
-tile.aether.carved.trap.desc=Unbreakable bronze dungeon block.
-tile.aether.carved.light.trap.name=Light Carved Stone Trap
-tile.aether.carved.light.trap.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
+tile.aether.carved.locked.name=Locked Carved Stone
+tile.aether.carved.locked.desc=Unbreakable bronze dungeon block.
+tile.aether.carved.light.locked.name=Locked Light Carved Stone
+tile.aether.carved.light.locked.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
 
-tile.aether.angelic.trap.name=Angelic Stone Trap
-tile.aether.angelic.trap.desc=Unbreakable silver dungeon block.
-tile.aether.angelic.light.trap.name=Light Angelic Stone Trap
-tile.aether.angelic.light.trap.desc=Unbreakable silver dungeon block that glows with an ethereal light.
+tile.aether.angelic.locked.name=Locked Angelic Stone
+tile.aether.angelic.locked.desc=Unbreakable silver dungeon block.
+tile.aether.angelic.light.locked.name=Locked Light Angelic Stone
+tile.aether.angelic.light.locked.desc=Unbreakable silver dungeon block that glows with an ethereal light.
 
-tile.aether.hellfire.trap.name=Hellfire Stone Trap
-tile.aether.hellfire.trap.desc=Unbreakable gold dungeon block.
-tile.aether.hellfire.light.trap.name=Light Hellfire Stone Trap
-tile.aether.hellfire.light.trap.desc=Unbreakable gold dungeon block that glows with an ethereal light.
+tile.aether.hellfire.locked.name=Locked Hellfire Stone
+tile.aether.hellfire.locked.desc=Unbreakable gold dungeon block.
+tile.aether.hellfire.light.locked.name=Locked Light Hellfire Stone
+tile.aether.hellfire.light.locked.desc=Unbreakable gold dungeon block that glows with an ethereal light.
 
 tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
