@@ -1,9 +1,7 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.ArrowFlamingRenderer;
-import bta.aether.entity.EntityArrowFlaming;
+import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
@@ -79,6 +77,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
     }
 
     @Override
