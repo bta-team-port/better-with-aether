@@ -1,5 +1,7 @@
 package bta.aether.block;
 
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockSaplingBase;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
