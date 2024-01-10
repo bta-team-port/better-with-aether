@@ -88,5 +88,23 @@
       "amount": 4,
       "meta": 0
     }
+  },
+  {
+    "name": "aether:workbench/decompress_ambrosium",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.aether.block.ambrosium",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.aether.ambrosium",
+      "amount": 8,
+      "meta": 0
+    }
   }
 ]
