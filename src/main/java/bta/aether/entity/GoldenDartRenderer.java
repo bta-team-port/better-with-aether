@@ -5,9 +5,9 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class GoldenDartRenderer extends EntityRenderer<EntityArrowFlaming> {
+public class GoldenDartRenderer extends EntityRenderer<EntityGoldenDart> {
     @Override
-    public void doRender(EntityArrowFlaming arrow, double x, double y, double z, float yaw, float renderPartialTicks) {
+    public void doRender(EntityGoldenDart arrow, double x, double y, double z, float yaw, float renderPartialTicks) {
         if (arrow.yRotO != 0.0F || arrow.xRotO != 0.0F) {
             this.loadTexture("/assets/aether/mobs/entitygoldendart.png");
             GL11.glPushMatrix();
