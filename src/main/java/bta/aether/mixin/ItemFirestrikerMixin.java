@@ -30,7 +30,7 @@ public class ItemFirestrikerMixin extends Item {
 
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
 
-            itemstack.damageItem(8, entityplayer);
+            itemstack.damageItem(2, entityplayer);
             info.setReturnValue(false);
             return false;
         } else {
