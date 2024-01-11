@@ -1,6 +1,8 @@
 package bta.aether.block;
 
+import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
