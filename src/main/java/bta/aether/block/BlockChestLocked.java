@@ -6,7 +6,6 @@ import net.minecraft.core.block.BlockChest;
 import net.minecraft.core.block.BlockTileEntityRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
@@ -26,9 +25,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
     @Override
     public void onBlockRemoved(World world, int x, int y, int z, int data) {
         if (!keepChestInventory){
-            if (!((TileEntityChestLocked) world.getBlockTileEntity(x, y, z)).getlocked()){
-                BlockChest.dropChestContent(world, x, y, z);
-            }
+            BlockChest.dropChestContent(world, x, y, z);
             world.removeBlockTileEntity(x, y, z);
         }
     }
@@ -74,6 +71,9 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
         }
 
         if (item != null && ( item.getData().getString("password").equals(chest.getPassword()))){
+
+            item.consumeItem(player);
+
             chest.setLocked(false);
             chest.setPassword("DEFAULT");
             world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
