@@ -2,6 +2,7 @@ package bta.aether.compat.terrainapi;
 
 import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
+import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
@@ -16,7 +17,7 @@ public class AetherInitialization extends BaseInitialization {
     private static final TerrainAetherConfig aetherConfig = ChunkDecoratorAetherAPI.aetherConfig;
     @Override
     protected void initValues() {
-        aetherConfig.addTreeDensity(Aether.biomeAether, 32);
+        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 32);
     }
 
     @Override

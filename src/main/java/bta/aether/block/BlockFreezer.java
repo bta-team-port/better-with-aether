@@ -1,8 +1,6 @@
 package bta.aether.block;
 
-import bta.aether.gui.GuiEnchanter;
 import bta.aether.gui.GuiFreezer;
-import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.BlockTileEntity;
@@ -12,10 +10,8 @@ import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BlockFreezer extends BlockTileEntity {

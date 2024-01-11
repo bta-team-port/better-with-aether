@@ -16,6 +16,9 @@
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "bta.aether.world.AetherDimension"
+    ],
     "beforeGameStart": [
       "bta.aether.Aether"
     ],
