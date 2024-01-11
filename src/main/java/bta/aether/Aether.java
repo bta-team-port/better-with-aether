@@ -83,6 +83,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
+        new AetherEntities().initializeModels();
     }
 
     @Override
