@@ -590,22 +590,14 @@ public class AetherBlocks {
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
-    public static final Block torchUnlit = new BlockBuilder(MOD_ID)
-            .setHardness(0.0f)
-            .setResistance(0.0f)
-            .setTextures("TorchUnlit.png")
-            .setBlockModel((new BlockModelRenderBlocks(2)))
-            .build(new BlockTorch("torch.coal.unlit", blockID++) {
-                @Override
-                public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
-                    return new ItemStack[] {new ItemStack(Block.torchCoal, 1)};
-                }
-
-                @Override
-                public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-                }
-            })
-            .withTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.BROKEN_BY_FLUIDS);
+    public static final Block chestLocked = new BlockBuilder(MOD_ID)
+            .setHardness(2.5F)
+            .setResistance(5.0F)
+            .setImmovable()
+            .setSideTextures("LockedChestSide.png")
+            .setTopBottomTexture(14, 3)
+            .setNorthTexture("LockedChestFront.png")
+            .build(new BlockChestLocked("chest.locked", blockID++, Material.stone));
 
     public void initializeBlocks(){}
 }
