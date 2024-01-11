@@ -17,6 +17,7 @@
     "accessors.ItemToolSwordAccessor"
   ],
   "client": [
+    "SlotArmorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
