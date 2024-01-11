@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemStack;
 
 public class TileEntityChestLocked extends TileEntityChest {
     private boolean isLocked;
-    private String password;
+    private String password = "DEFAULT";
 
     public void setLocked(boolean isLocked){
         this.isLocked = isLocked;
