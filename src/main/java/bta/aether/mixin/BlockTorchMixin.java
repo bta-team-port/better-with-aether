@@ -1,6 +1,7 @@
 package bta.aether.mixin;
 
 import bta.aether.Aether;
+import bta.aether.world.AetherDimension;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockTorch;
 import net.minecraft.core.block.material.Material;
@@ -19,7 +20,7 @@ public class BlockTorchMixin extends Block {
 
     @Inject(method = "canPlaceBlockAt", at = @At("HEAD"), cancellable = true)
     public void callCanPlaceBlockAt(World world, int x, int y, int z, CallbackInfoReturnable<Boolean> info) {
-        if (world.dimension == Aether.dimensionAether) {
+        if (world.dimension == AetherDimension.dimensionAether) {
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
 
             for (int l = 0; l < 8; ++l) {
