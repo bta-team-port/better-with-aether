@@ -23,12 +23,15 @@ public class AetherItems {
 
     // tags
     public static Tag<Item> aetherTool = Tag.of("aether_tool");
+    public static Tag<Item> aetherdungeonKey = Tag.of("aether_key");
 
 
     public static final Item victorymedal = ItemHelper.createItem(MOD_ID, new Item(itemID++), "victorymedal", "VictoryMedal.png").setMaxStackSize(10);
-    public static final Item keyBronze = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.bronze", "BronzeKey.png").setMaxStackSize(1);
-    public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.silver", "SilverKey.png").setMaxStackSize(1);
-    public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.gold", "GoldKey.png").setMaxStackSize(1);
+
+    // See: BlockChestLocked.java before using any of these.
+    public static final Item keyBronze = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.bronze", "BronzeKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
+    public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.silver", "SilverKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
+    public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.gold", "GoldKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
 
     public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore1", "OverworldBook.png");
     public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore2", "NetherBook.png");

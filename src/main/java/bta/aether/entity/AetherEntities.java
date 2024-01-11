@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.entity.tileEntity.TileEntityChestLocked;
 import bta.aether.entity.model.ModelSentry;
 import bta.aether.entity.renderer.SentryRenderer;
 import turniplabs.halplibe.helper.EntityHelper;
@@ -16,5 +17,7 @@ public class AetherEntities {
     public void initializeEntities() {
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
         EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
+
+        EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
     }
 }
