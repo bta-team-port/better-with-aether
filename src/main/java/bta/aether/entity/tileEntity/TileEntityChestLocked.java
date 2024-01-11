@@ -55,7 +55,7 @@ public class TileEntityChestLocked extends TileEntityChest {
 
     @Override
     public String getInvName() {
-        return "Dungeon Chest";
+        return "Treasure Chest";
     }
 
     @Override
