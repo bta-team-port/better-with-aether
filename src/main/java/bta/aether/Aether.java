@@ -1,12 +1,7 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
-import bta.aether.entity.AetherEntities;
-import bta.aether.entity.ArrowFlamingRenderer;
-import bta.aether.entity.EntityArrowFlaming;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.EntityGoldenDart;
-import bta.aether.entity.GoldenDartRenderer;
+import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
@@ -16,8 +11,11 @@ import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -39,6 +37,12 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
+
+        MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
+                3, 10, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
+                        1.0f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
+                        1.0f, 1, 2)});
+
 
         //Tiles
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");

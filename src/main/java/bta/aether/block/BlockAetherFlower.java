@@ -8,6 +8,7 @@ public class BlockAetherFlower extends BlockFlower {
 
     public BlockAetherFlower(String key, int id) {
         super(key, id);
+        this.setTicking(true);
     }
 
     @Override

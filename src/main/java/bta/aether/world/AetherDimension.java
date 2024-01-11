@@ -7,10 +7,11 @@ import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
+import net.minecraft.core.world.weather.Weather;
 
 public class AetherDimension implements PreLaunchEntrypoint {
     // Biomes
-    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether());
+    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether().setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog));
     // World types
     public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
     // Dimensions
