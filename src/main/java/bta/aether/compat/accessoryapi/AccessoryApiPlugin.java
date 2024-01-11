@@ -11,6 +11,7 @@ public class AccessoryApiPlugin implements AccessoryApiEntrypoint {
         // register our slot types
         AccessoryTypeRegistry.add("pendant",-1);
         AccessoryTypeRegistry.add("ring",-1);
+        AccessoryTypeRegistry.add("gloves",-1);
         AccessoryTypeRegistry.add("cape",-1);
         AccessoryTypeRegistry.add("shield",-1);
         AccessoryTypeRegistry.add("misc",-1);
