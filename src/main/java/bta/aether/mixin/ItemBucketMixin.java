@@ -1,5 +1,6 @@
 package bta.aether.mixin;
 
+import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
@@ -30,7 +31,7 @@ public class ItemBucketMixin extends Item{
 
     @Inject(method = "onItemRightClick", at = @At("HEAD"), cancellable = true)
     public void callOnItemRightClick(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> info) {
-        if (world.dimension.languageKey.equals("aether") && Block.getBlock(idToPlace).hasTag(BlockTags.IS_LAVA)) {
+        if (world.dimension == Aether.dimensionAether && Block.getBlock(idToPlace).hasTag(BlockTags.IS_LAVA)) {
 
             float pitch = player.xRotO + (player.xRot - player.xRotO);
             float yaw = player.yRotO + (player.yRot - player.yRotO);
