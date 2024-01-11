@@ -37,7 +37,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
 
                 if (item.getData().getString("password").isEmpty()) {
                     item.getData().putString("password", String.valueOf(world.rand.nextInt(100_000_000)));
-                    item.setCustomName(item.getCustomName() + item.getData().getString("password"));
+                    item.setCustomName(item.getData().getString("password"));
                 }
 
                 chest.setLocked(true);
