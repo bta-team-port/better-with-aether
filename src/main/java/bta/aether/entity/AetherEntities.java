@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.entity.tileEntity.TileEntityChestLocked;
 import bta.aether.entity.model.ModelSentry;
 import bta.aether.entity.model.ModelSwet;
 import bta.aether.entity.renderer.SentryRenderer;
@@ -23,5 +24,7 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1));
         EntityHelper.Core.createEntity(EntitySwet.class, entityID++, "Swet");
 
+
+        EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
     }
 }
