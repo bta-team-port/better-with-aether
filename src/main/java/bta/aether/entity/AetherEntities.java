@@ -19,12 +19,13 @@ public class AetherEntities {
 
 
     public void initializeEntities() {
-        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
         EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
-        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1));
         EntityHelper.Core.createEntity(EntitySwet.class, entityID++, "Swet");
 
-
         EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
+    }
+    public void initializeModels(){
+        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
+        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1));
     }
 }
