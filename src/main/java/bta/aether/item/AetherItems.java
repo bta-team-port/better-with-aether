@@ -25,7 +25,6 @@ public class AetherItems {
     public static Tag<Item> aetherTool = Tag.of("aether_tool");
     public static Tag<Item> aetherdungeonKey = Tag.of("aether_key");
 
-
     public static final Item victorymedal = ItemHelper.createItem(MOD_ID, new Item(itemID++), "victorymedal", "VictoryMedal.png").setMaxStackSize(10);
 
     // See: BlockChestLocked.java before using any of these.

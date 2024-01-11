@@ -5,16 +5,10 @@ import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
 import net.minecraft.core.block.*;
-import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
-import net.minecraft.core.enums.EnumDropCause;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockSlab;
-import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.BlockBuilder;
-
-import java.util.Random;
 
 import static net.minecraft.core.block.Block.fluidWaterStill;
 import static net.minecraft.core.block.Block.glowstone;
@@ -391,7 +385,7 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new Block("hellfire.light.locked", blockID++, Material.stone));
 
-    public static final Block chestMimic = new BlockBuilder(MOD_ID)
+    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
@@ -400,18 +394,6 @@ public class AetherBlocks {
             .setSideTextures(10, 1)
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new Block("chest.mimic", blockID++, Material.wood));
-
-    public static final Block chestTreasure = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTopBottomTexture(14, 3)
-            .setNorthTexture("LockedChestFront.png")
-            .setEastTexture("LockedChestSide.png")
-            .setWestTexture("LockedChestSide.png")
-            .setSouthTexture("LockedChestSide.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new BlockChestTreasure("chest.treasure", blockID++, Material.stone));
 
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -590,14 +572,25 @@ public class AetherBlocks {
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
-    public static final Block chestLocked = new BlockBuilder(MOD_ID)
-            .setHardness(2.5F)
-            .setResistance(5.0F)
+    public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
+            .setHardness(3000.0F)
+            .setResistance(3000.0F)
             .setImmovable()
             .setSideTextures("LockedChestSide.png")
             .setTopBottomTexture(14, 3)
             .setNorthTexture("LockedChestFront.png")
-            .build(new BlockChestLocked("chest.locked", blockID++, Material.stone));
+            .setTags(BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new BlockChestLocked("dungeon.chest.locked", blockID++, Material.stone));
+
+    public static final Block dungeonChest = new BlockBuilder(MOD_ID)
+            .setHardness(4.0f)
+            .setResistance(15.0f)
+            .setImmovable()
+            .setSideTextures("LockedChestSide.png")
+            .setTopBottomTexture(14, 3)
+            .setNorthTexture("LockedChestFront.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .build(new BlockChestLocked("dungeon.chest", blockID++, Material.stone));
 
     public void initializeBlocks(){}
 }
