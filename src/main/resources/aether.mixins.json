@@ -6,16 +6,21 @@
   "mixins": [
     "BlockFluidPortalMixin",
     "BlockMixin",
-    "BucketMixin",
+    "BlockTorchMixin",
     "EntityLivingMixin",
     "EntityMixin",
-    "ExplosionCannonballMixin",
     "GuiIngameMixin",
+    "EntityPlayerMPMixin",
+    "ExplosionCannonballMixin",
     "InventoryPlayerMixin",
+    "ItemBucketMixin",
+    "ItemDyeMixin",
     "ItemFirestrikerMixin",
-    "accessors.ItemToolSwordAccessor"
+    "accessors.ItemToolSwordAccessor",
+    "SaveHandlerBaseMixin"
   ],
   "client": [
+    "SlotArmorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

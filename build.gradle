@@ -92,6 +92,9 @@ repositories {
 		url = "https://github.com/MartinSVK12"
 		patternLayout {
 			artifact "[organisation]/releases/download/1.3.0/[module]-[revision].jar"
+		url = "https://github.com/ColinSweetland"
+		patternLayout {
+			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
 			m2compatible = true
 		}
 		metadataSources { artifact() }
@@ -107,14 +110,15 @@ dependencies {
 
 	// Helper library
 	// If you do not need Halplibe you can comment this line out or delete this line
-//	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
-	modImplementation files("lib/halplibe-3.1.1.jar")
+	//	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
+	modImplementation files("lib/halplibe-3.1.2.jar")
 	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
 
 	modImplementation "ModMenu:ModMenu:2.0.3"
 	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
 	modImplementation "catalyst:catalyst-core:${project.catalyst_core_version}"
 	modImplementation "catalyst:catalyst-effects:${project.catalyst_effect_version}"
+	modImplementation "bta_accessory_api:accessoryapi:${project.accessoryapi_version}"
 
 	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
 

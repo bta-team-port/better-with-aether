@@ -1,5 +1,6 @@
 package bta.aether.block;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockSaplingBase;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -7,13 +8,9 @@ import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 
 import java.util.Random;
 
-public class BlockSaplingGoldenOak extends BlockSaplingBase {
-    public BlockSaplingGoldenOak(String key, int id) {
+public class BlockSaplingAetherGoldenOak extends BlockSaplingAetherBase {
+    public BlockSaplingAetherGoldenOak(String key, int id) {
         super(key, id);
-    }
-    @Override
-    public boolean canThisPlantGrowOnThisBlockID(int i) {
-        return i == AetherBlocks.grassAether.id || i == AetherBlocks.dirtAether.id;
     }
 
     @Override

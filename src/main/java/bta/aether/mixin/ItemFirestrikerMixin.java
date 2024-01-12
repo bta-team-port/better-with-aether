@@ -1,5 +1,6 @@
 package bta.aether.mixin;
 
+import bta.aether.world.AetherDimension;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemFirestriker;
@@ -21,7 +22,7 @@ public class ItemFirestrikerMixin extends Item {
 
     @Inject(method = "onItemUse", at = @At("HEAD"), cancellable = true)
     public boolean callOnItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
-        if (world.dimension.languageKey.equals("aether")) {
+        if (world.dimension == AetherDimension.dimensionAether) {
 
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45);
@@ -30,7 +31,7 @@ public class ItemFirestrikerMixin extends Item {
 
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
 
-            itemstack.damageItem(8, entityplayer);
+            itemstack.damageItem(2, entityplayer);
             info.setReturnValue(false);
             return false;
         } else {

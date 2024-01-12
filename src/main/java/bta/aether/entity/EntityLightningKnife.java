@@ -236,6 +236,12 @@ public class EntityLightningKnife extends Entity {
         tag.putByte("shake", (byte)this.shakeKnife);
         tag.putByte("inGround", (byte)(this.inGroundKnife ? 1 : 0));
     }
+
+    @Override
+    public String getEntityTexture() {
+        return this.entityData.getByte(1) != 1 ? super.getEntityTexture() : "/assets/aether/item/LightningKnife.png";
+    }
+
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         this.xTileKnife = tag.getShort("xTile");
