@@ -13,25 +13,10 @@ public class ItemAccessoryGoldenFeather extends ItemAccessoryMisc implements Tic
     }
 
     @Override
-    public void onAccessoryAdded(EntityPlayer player, ItemStack accessory) {
-        accessory.setMetadata(0);
-    }
-
-    @Override
-    public void onAccessoryRemoved(EntityPlayer player, ItemStack accessory) {
-        accessory.setMetadata(0);
-    }
-
-    @Override
     public ItemStack tickWhileWorn(EntityPlayer player, ItemStack stack, int slot) {
-        if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem())) {
-            player.fallDistance = 0.0F;
-            if (!player.onGround && player.yd < 0.0 && !player.collision){
-                player.yd *= 0.6;
-
-                player.fallDistance = 0.0F;
-            }
-            return stack;
+        player.fallDistance = 0.0F;
+        if (!player.onGround && !player.isInWater() && player.yd < 0.0 && !player.collision && slot == AccessoryHelper.firstSlotWithAccessory(player,stack.getItem())) {
+            player.yd *= 0.6;
         }
         return stack;
     }
