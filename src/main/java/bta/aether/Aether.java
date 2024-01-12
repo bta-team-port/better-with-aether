@@ -1,6 +1,11 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.catalyst.effects.AetherEffects;
+import bta.aether.entity.AetherEntities;
+import bta.aether.entity.EntityFallingGravitite;
+import bta.aether.entity.ArrowFlamingRenderer;
+import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
@@ -37,6 +42,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
+        new AetherEffects().initializeEffects();
 
         MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
                 20, 0, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
