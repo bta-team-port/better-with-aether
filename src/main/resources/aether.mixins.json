@@ -9,6 +9,7 @@
     "BlockTorchMixin",
     "EntityLivingMixin",
     "EntityMixin",
+    "GuiIngameMixin",
     "EntityPlayerMPMixin",
     "ExplosionCannonballMixin",
     "InventoryPlayerMixin",
