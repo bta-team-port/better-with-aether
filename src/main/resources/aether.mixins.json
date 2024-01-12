@@ -20,7 +20,8 @@
     "SaveHandlerBaseMixin"
   ],
   "client": [
-    "SlotArmorMixin"
+    "SlotArmorMixin",
+    "OxygenBarComponentMixin"
   ],
   "injectors": {
     "defaultRequire": 1

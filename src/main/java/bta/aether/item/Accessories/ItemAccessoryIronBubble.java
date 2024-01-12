@@ -1,7 +1,6 @@
 package bta.aether.item.Accessories;
 
 import bta.aether.item.Accessories.base.ItemAccessoryMisc;
-import csweetla.accessoryapi.API.AccessoryHelper;
 import csweetla.accessoryapi.API.TickableWhileWorn;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
@@ -12,21 +11,8 @@ public class ItemAccessoryIronBubble extends ItemAccessoryMisc implements Tickab
     }
 
     @Override
-    public void onAccessoryAdded(EntityPlayer player, ItemStack accessory) {
-        accessory.setMetadata(0);
-    }
-
-    @Override
-    public void onAccessoryRemoved(EntityPlayer player, ItemStack accessory) {
-        accessory.setMetadata(0);
-    }
-
-    @Override
     public ItemStack tickWhileWorn(EntityPlayer player, ItemStack stack, int slot) {
-        if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem())) {
-            player.canBreatheUnderwater();
-            player.airSupply = 300;
-        }
+        player.airSupply = 300;
         return stack;
     }
 }
