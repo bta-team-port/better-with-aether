@@ -9,6 +9,7 @@ import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.command.commands.GiveCommand;
+import turniplabs.halplibe.HalpLibe;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,7 +58,7 @@ public class LootTable {
                 JsonObject lootTableJson = element.getAsJsonObject();
                 Item item = null;
                 if (!lootTableJson.get("key").getAsString().equals("null")) {
-                    item = GiveCommand.getItem(lootTableJson.get("key").getAsString());
+                    item = Item.itemsList[HalpLibe.getTrueItemOrBlockId(lootTableJson.get("key").getAsString())];
                 }
 
 
