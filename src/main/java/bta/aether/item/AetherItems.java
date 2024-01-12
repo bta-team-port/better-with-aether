@@ -190,5 +190,6 @@ public class AetherItems {
 
     public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick(itemID++), "dev.stick", "stick.png");
 
+
     public void initializeItems(){}
 }
