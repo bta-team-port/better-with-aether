@@ -1,10 +1,15 @@
 package bta.aether.block;
 
-import bta.aether.entity.EntityAetherBossBase;
+import bta.aether.world.AetherDimension;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.chunk.ChunkCoordinates;
+
 import java.util.Random;
 
 public class BlockDungeon extends Block {
@@ -13,36 +18,37 @@ public class BlockDungeon extends Block {
 
     public BlockDungeon(String key, int id, Material material, int replacementID) {
         super(key, id, material);
-        this.setTicking(true);
         this.replacementID = replacementID;
     }
 
     @Override
-    public int tickRate() {
-        return 1200;
+    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+        if (dropCause != EnumDropCause.IMPROPER_TOOL && canBreak(world, x, y, z)) {
+            return new ItemStack[]{new ItemStack(Block.getBlock(replacementID),1)};
+        }
+
+        return new ItemStack[]{new ItemStack(Block.getBlock(replacementID), 0)};
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
-        this.tryToTurn(world, x, y, z);
-        super.updateTick(world, x, y, z, rand);
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
+        if (!canBreak(world, x, y, z)) {
+            world.setBlock(x, y, z, this.id);
+        }
     }
 
     private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
+        return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2)));
     }
 
-    private void tryToTurn(World world, int x, int y, int z){
-        if (world.loadedEntityList.stream().noneMatch(entity -> entity instanceof EntityAetherBossBase && getDistanceFrom(x, y, z, entity.x, entity.y, entity.z) < 300)) {
-            world.setBlockWithNotify(x, y, z, this.replacementID);
-            for (int x1 = -3; x1 < 3; x1++ ) {
-                for (int y1 = -3; y1 < 2; y1++) {
-                    for (int z1 = -3; z1 < 3; z1++) {
-                        world.scheduleBlockUpdate(x + x1, y + y1, z + z1, this.id, 1);
-                    }
-                }
+    private boolean canBreak(World world, int x, int y, int z) {
+        final boolean[] canBreak = {true};
+        AetherDimension.dugeonMap.forEach((cords, defeated) -> {
+            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 300 && !defeated) {
+                canBreak[0] = false;
             }
+        });
 
-        }
+        return canBreak[0];
     }
 }

@@ -1,6 +1,5 @@
 package bta.aether.mixin;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.HitResult;

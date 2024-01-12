@@ -548,48 +548,48 @@ public class AetherBlocks {
 
     public static final Block stoneCarvedLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("CarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("carved.locked", blockID++, Material.stone, stoneCarved.id));
 
     public static final Block stoneAngelicLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("AngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("angelic.locked", blockID++, Material.stone, stoneAngelic.id));
 
     public static final Block stoneHellfireLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("HellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("hellfire.locked", blockID++, Material.stone, stoneHellfire.id));
 
     public static final Block stoneCarvedLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("LightCarvedStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("carved.light.locked", blockID++, Material.stone, stoneCarvedLight.id));
 
     public static final Block stoneAngelicLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("LightAngelicStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("angelic.light.locked", blockID++, Material.stone, stoneAngelicLight.id));
 
     public static final Block stoneHellfireLightLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setHardness(4.0f)
+            .setResistance(1.0f)
             .setTextures("LightHellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));

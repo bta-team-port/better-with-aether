@@ -15,7 +15,8 @@
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
-    "accessors.ItemToolSwordAccessor"
+    "accessors.ItemToolSwordAccessor",
+    "SaveHandlerBaseMixin"
   ],
   "client": [
     "SlotArmorMixin"
