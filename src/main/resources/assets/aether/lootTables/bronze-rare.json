@@ -56,7 +56,7 @@
     }
   },
   {
-    "key": "item.aether.tool.hammer.majonk",
+    "key": "item.aether.tool.hammer.notch",
     "rarity": 0,
 
     "meta": {
@@ -70,7 +70,7 @@
     }
   },
   {
-    "key": "item.aether.tool.knife",
+    "key": "item.aether.tool.knife.lightning",
     "rarity": 0,
 
     "meta": {

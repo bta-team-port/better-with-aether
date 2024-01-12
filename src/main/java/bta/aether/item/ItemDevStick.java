@@ -1,6 +1,6 @@
 package bta.aether.item;
 
-import bta.aether.world.generate.loot.LootTable;
+import bta.aether.world.LootTable;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
