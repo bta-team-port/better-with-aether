@@ -18,6 +18,7 @@ public class EntityMixin {
     public double prevY = y;
     @Unique
     public double deltaY;
+
     @Inject(method = "baseTick()V", at = @At(value ="HEAD"))
     private void tick(CallbackInfo ci){
         deltaY = y - prevY;
