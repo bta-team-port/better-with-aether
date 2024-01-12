@@ -1,6 +1,6 @@
 package bta.aether.item;
 
-import bta.aether.world.generate.loot.LootTable;
+import bta.aether.world.LootTable;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -23,6 +23,9 @@ public class ItemDevStick extends Item {
                 };
         ItemStack[] items = tables[itemRand.nextInt(tables.length)].generateLoot(16);
         for (int item = 0; item < items.length; item++) {
+
+            if (items[item] == null) { continue; }
+
             world.dropItem(blockX, blockY + 1, blockZ, items[item]);
         }
         return true;
