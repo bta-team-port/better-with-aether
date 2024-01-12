@@ -188,5 +188,7 @@ public class AetherItems {
 
     public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new Item(itemID++), "food.lifeshard", "LifeShard.png");
 
+    public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick(itemID++), "dev.stick");
+
     public void initializeItems(){}
 }
