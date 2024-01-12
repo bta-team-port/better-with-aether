@@ -16,10 +16,17 @@ import java.util.Map;
 public class AetherDimension implements PreLaunchEntrypoint {
 
     // coordinates and if the boss has been defeated.
-    public static Map<ChunkCoordinates, Boolean> dugeonMap = new HashMap<>();
+    public static Map<Integer, ChunkCoordinates> dugeonMap = new HashMap<>();
+    public static int AetherDimensionID = 3;
 
-    public void registerDungeonToMap(int x, int y, int z, boolean defeated){
-        dugeonMap.put(new ChunkCoordinates(x, y, z), defeated);
+    public static int registerDungeonToMap(int x, int y, int z){
+        int id = dugeonMap.size();
+        while (dugeonMap.get(id) != null) {
+            id++;
+        }
+
+        dugeonMap.put(id, new ChunkCoordinates(x, y, z));
+        return id;
     }
 
     // Biomes
@@ -33,6 +40,6 @@ public class AetherDimension implements PreLaunchEntrypoint {
         // This is here so that the dimension is created and added to the dimension list before the Server even launches, it'll crash otherwise
         biomeAether.topBlock = (short) AetherBlocks.grassAether.id;
         biomeAether.fillerBlock = (short) AetherBlocks.dirtAether.id;
-        Dimension.registerDimension(3, dimensionAether);
+        Dimension.registerDimension(AetherDimensionID, dimensionAether);
     }
 }

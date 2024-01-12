@@ -43,8 +43,8 @@ public class BlockDungeon extends Block {
 
     private boolean canBreak(World world, int x, int y, int z) {
         final boolean[] canBreak = {true};
-        AetherDimension.dugeonMap.forEach((cords, defeated) -> {
-            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 300 && !defeated) {
+        AetherDimension.dugeonMap.forEach((id, cords) -> {
+            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 300) {
                 canBreak[0] = false;
             }
         });

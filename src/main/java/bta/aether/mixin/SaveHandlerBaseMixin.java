@@ -27,23 +27,22 @@ public abstract class SaveHandlerBaseMixin implements LevelStorage {
     @Shadow @Final private String worldDirName;
 
     private int index = 0;
-    private void writeDugeonNBT(CompoundTag tag, CompoundTag subTag , int x, int y, int z, boolean defeated){
-        if (defeated) {
-            return;
-        }
-
-        index++;
-
+    private void writeDugeonNBT(CompoundTag tag, int id , int x, int y, int z){
+        CompoundTag subTag = new CompoundTag();
         subTag.putInt("x", x);
         subTag.putInt("y", y);
         subTag.putInt("z", z);
-        subTag.putBoolean("defeated", defeated);
+        subTag.putInt("id", id);
 
-        tag.putCompound(String.valueOf(index),subTag);
+        tag.putCompound(String.valueOf(id), subTag);
     }
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
     public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
+        if (dimensionId != AetherDimension.AetherDimensionID) {
+            return;
+        }
+
         CompoundTag data = saveFormat.getDimensionDataRaw(worldDirName, dimensionId);
         if (data != null) {
             CompoundTag dungeonMapNBT = data.getCompound("aether.dungeon");
@@ -51,12 +50,12 @@ public abstract class SaveHandlerBaseMixin implements LevelStorage {
             for (Tag<?> value: dungeonMapNBT.getValues()) {
                 if(value instanceof CompoundTag) {
                     AetherDimension.dugeonMap.put(
+                            ((CompoundTag) value).getInteger("id"),
                             new ChunkCoordinates(
                                     ((CompoundTag) value).getInteger("x"),
                                     ((CompoundTag) value).getInteger("y"),
                                     ((CompoundTag) value).getInteger("z")
-                            ),
-                            ((CompoundTag) value).getBoolean("defeated")
+                            )
                     );
                 }
             }
@@ -65,8 +64,12 @@ public abstract class SaveHandlerBaseMixin implements LevelStorage {
 
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
     public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionDataTag, CallbackInfo ci) {
+        if (dimensionId != AetherDimension.AetherDimensionID) {
+            return;
+        }
+
         CompoundTag dungeonMapNBT = new CompoundTag();
-        AetherDimension.dugeonMap.forEach( (cords, defeated) -> writeDugeonNBT(dungeonMapNBT, new CompoundTag(), cords.x, cords.y, cords.z, defeated));
+        AetherDimension.dugeonMap.forEach( (id, cords) -> writeDugeonNBT(dungeonMapNBT, id, cords.x, cords.y, cords.z));
         dimensionDataTag.putCompound("aether.dungeon", dungeonMapNBT);
     }
 

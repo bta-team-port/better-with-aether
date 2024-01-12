@@ -25,6 +25,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
     @Override
     public void onBlockRemoved(World world, int x, int y, int z, int data) {
         if (!keepChestInventory){
+            ((TileEntityChestLocked)world.getBlockTileEntity(x, y, z)).setLocked(false);
             BlockChest.dropChestContent(world, x, y, z);
             world.removeBlockTileEntity(x, y, z);
         }
@@ -52,7 +53,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
         TileEntityChestLocked chest = (TileEntityChestLocked) world.getBlockTileEntity(x, y, z);
 
         if (!chest.getlocked()) {
-            if (item != null && item.getItem().hasTag(AetherItems.aetherdungeonKey)) {
+            if (item != null && item.getItem().hasTag(AetherItems.aetherdungeonKey) && player.gamemode.isPlayerInvulnerable()) {
 
                 if (item.getData().getString("password").isEmpty()) {
                     item.getData().putString("password", String.valueOf(world.rand.nextInt(100_000_000)));
@@ -61,6 +62,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
 
                 chest.setLocked(true);
                 chest.setPassword(item.getData().getString("password"));
+
                 world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
                 swapBlock(world, x, y, z, AetherBlocks.dungeonChestLocked.id, world.getBlockMetadata(x,y,z) , chest);
                 return true;
@@ -76,6 +78,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
 
             chest.setLocked(false);
             chest.setPassword("DEFAULT");
+
             world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
             swapBlock(world, x, y, z, AetherBlocks.dungeonChest.id, world.getBlockMetadata(x,y,z), chest);
             return true;
