@@ -39,9 +39,9 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         new AetherEntities().initializeEntities();
 
         MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
-                3, 10, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
-                        1.0f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
-                        1.0f, 1, 2)});
+                20, 0, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
+                        0.66f * 0.8f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
+                        0.66f * 0.2f, 1, 2)});
 
 
         //Tiles
