@@ -1,0 +1,212 @@
+[
+  {
+    "key": "item.aether.armor.talisman.ironbubble",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.vampire",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.pig",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.gloves.phoenix",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.boots.phoenix",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.helmet.phoenix",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.chestplate.phoenix",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.leggings.phoenix",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.food.lifeshard",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.gloves.gravitite",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.boots.gravitite",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.helmet.gravitite",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.chestplate.gravitite",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.leggings.gravitite",
+    "rarity": 1,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.chestplate.obsidian",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  }
+]

@@ -12,6 +12,72 @@ dimension.aether.desc=A hostile Paradise
 effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
 
+## Entities
+
+#Passive
+aether.phyg.name=Phyg
+aether.phyg.name=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
+
+aether.sheepuff.name=Sheepuff
+aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found commonly anywhere.
+
+aether.phow.name=Phow
+aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found commonly anywhere.
+
+aether.aerbunny.name=Aerbunny
+aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found commonly anywhere.
+
+aether.moa.blue.name=Blue Moa
+aether.moa.blue.desc=
+aether.moa.white.name=White Moa
+aether.moa.white.desc=
+aether.moa.black.name=Black Moa
+aether.moa.black.desc=
+
+aether.aerwhale.name=Aerwhale
+aether.aerwhale.desc=Aerwhales are a large
+
+#Hostile
+aether.swet.blue.name=Blue Swet
+aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere.
+aether.swet.gold.name=Gold Swet
+aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere.
+
+aether.cockatrice.name=Cockatrice
+aether.blank.desc=
+
+aether.aechorplant.name=Aechor Plant
+aether.aechorplant.desc=
+
+aether.zephyr.name=Zephyr
+aether.blank.desc=
+
+aether.whirlwind.name=Whirlwind
+aether.whirlwind.desc=
+
+aether.mimic.name=Mimic
+aether.mimic.desc=
+
+aether.sentry.name=Sentry
+aether.sentry.desc=
+
+aether.valkyrie.name=Valkyrie
+aether.valkyrie.desc=
+
+
+#Bosses
+aether.slider.name=Slider
+aether.slider.desc=
+
+aether.valkyrie.queen.name=Valkyrie Queen
+aether.valkyrie.queen.desc=
+
+aether.sunspirit.name=Sun Spirit
+aether.sunspirit.desc=
+
+
+
+
 ## Blocks
 
 #Portal
@@ -124,28 +190,32 @@ tile.aether.pillar.desc=A pink pillar found at silver dungeons.
 tile.aether.pillar.top.name=Pillar Top
 tile.aether.pillar.top.desc=A rare pink pillar capstone found at silver dungeons.
 
-tile.aether.trap.name=Trap
-tile.aether.trap.desc=Sneaky block that summons a sentry
+tile.aether.trap.carved.name=Trapped Carved Stone
+tile.aether.trap.carved.desc=Sneaky block that summons a sentry.
+tile.aether.trap.angelic.name=Trapped Angelic Stone
+tile.aether.trap.angelic.desc=Sneaky block that summons a valkyrie.
 
-tile.aether.carved.trap.name=Carved Stone Trap
-tile.aether.carved.trap.desc=Unbreakable bronze dungeon block.
-tile.aether.carved.light.trap.name=Light Carved Stone Trap
-tile.aether.carved.light.trap.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
+tile.aether.carved.locked.name=Locked Carved Stone
+tile.aether.carved.locked.desc=Unbreakable bronze dungeon block.
+tile.aether.carved.light.locked.name=Locked Light Carved Stone
+tile.aether.carved.light.locked.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
 
-tile.aether.angelic.trap.name=Angelic Stone Trap
-tile.aether.angelic.trap.desc=Unbreakable silver dungeon block.
-tile.aether.angelic.light.trap.name=Light Angelic Stone Trap
-tile.aether.angelic.light.trap.desc=Unbreakable silver dungeon block that glows with an ethereal light.
+tile.aether.angelic.locked.name=Locked Angelic Stone
+tile.aether.angelic.locked.desc=Unbreakable silver dungeon block.
+tile.aether.angelic.light.locked.name=Locked Light Angelic Stone
+tile.aether.angelic.light.locked.desc=Unbreakable silver dungeon block that glows with an ethereal light.
 
-tile.aether.hellfire.trap.name=Hellfire Stone Trap
-tile.aether.hellfire.trap.desc=Unbreakable gold dungeon block.
-tile.aether.hellfire.light.trap.name=Light Hellfire Stone Trap
-tile.aether.hellfire.light.trap.desc=Unbreakable gold dungeon block that glows with an ethereal light.
+tile.aether.hellfire.locked.name=Locked Hellfire Stone
+tile.aether.hellfire.locked.desc=Unbreakable gold dungeon block.
+tile.aether.hellfire.light.locked.name=Locked Light Hellfire Stone
+tile.aether.hellfire.light.locked.desc=Unbreakable gold dungeon block that glows with an ethereal light.
 
 tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
 tile.aether.chest.treasure.name=Treasure Chest
 tile.aether.chest.treasure.desc=A chest filled with mysterious loot.
+tile.aether.chest.treasure.locked.name=Locked Treasure Chest
+tile.aether.chest.treasure.locked.desc=A locked chest filled with mysterious loot.
 
 #Misc
 tile.aether.glass.quicksoil.name=Quicksoil Glass
@@ -167,7 +237,8 @@ tile.aether.block.gravitite.name=Enchanted Gravitite
 tile.aether.block.gravitite.desc=Gravity warping block used to make tools. Floats upwards when powered!
 tile.aether.block.zanite.name=Block of Zanite
 tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
-
+tile.aether.block.ambrosium.name=Block of Ambrosium
+tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
 
 ##Items
 
@@ -259,14 +330,16 @@ item.aether.tool.dart.shooter.enchanted.desc=An enchanted weapon for blowing rap
 
 item.aether.bucket.skyroot.name=Skyroot Bucket
 item.aether.bucket.skyroot.desc=Used to pickup various liquids.
-item.aether.bucket.skyroot.water.name=Skyroot Water Bucket
+item.aether.bucket.skyroot.water.name=Water Skyroot Bucket
 item.aether.bucket.skyroot.water.desc=A bucket full of the bottomless sea.
-item.aether.bucket.skyroot.milk.name=Skyroot Milk Bucket
+item.aether.bucket.skyroot.milk.name=Skyroot Bucket of Milk
 item.aether.bucket.skyroot.milk.desc=A great source of calcium!
-item.aether.bucket.skyroot.poison.name=Skyroot Poison Bucket
+item.aether.bucket.skyroot.poison.name=Poison Skyroot Bucket
 item.aether.bucket.skyroot.poison.desc=A bucket full of bubbling poison. Stings!
-item.aether.bucket.skyroot.remedy.name=Skyroot Remedy Bucket
+item.aether.bucket.skyroot.remedy.name=Remedy Skyroot Bucket
 item.aether.bucket.skyroot.remedy.desc=A bucket used to cure poison.
+item.aether.bucket.skyroot.icecream.name=Skyroot Bucket of Ice Cream
+item.aether.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa flakes and a cherry!
 
 item.aether.cloud.parachute.name=Cloud Parachute
 item.aether.cloud.parachute.desc=Gently glide down when activated. Works if you fall out of The Aether.

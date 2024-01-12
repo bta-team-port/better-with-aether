@@ -4,7 +4,7 @@
   "version": "1.0.0",
 
   "name": "Aether",
-  "description": "Adds in a plethora of new and useful blocks",
+  "description": "The legendary dimension is finally here for Better Than Adventure!",
   "authors": [
     "LukeisStuff, jonkadelic, mak"
   ],
@@ -13,11 +13,12 @@
     "homepage": "",
     "sources": ""
   },
-
   "license": "CC0-1.0",
-
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "bta.aether.world.AetherDimension"
+    ],
     "beforeGameStart": [
       "bta.aether.Aether"
     ],
@@ -29,6 +30,9 @@
     ],
     "terrain-api": [
       "bta.aether.compat.terrainapi.TerrainAPIPlugin"
+    ],
+    "accessory-api": [
+      "bta.aether.compat.accessoryapi.AccessoryApiPlugin"
     ]
   },
   "mixins": [

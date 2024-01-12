@@ -2,8 +2,10 @@ package bta.aether.compat.terrainapi;
 
 import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
+import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
+import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.generation.StructureFeatures;
 import useless.terrainapi.generation.overworld.OverworldOreFeatures;
 import useless.terrainapi.generation.overworld.OverworldRandomFeatures;
@@ -15,7 +17,7 @@ public class AetherInitialization extends BaseInitialization {
     private static final TerrainAetherConfig aetherConfig = ChunkDecoratorAetherAPI.aetherConfig;
     @Override
     protected void initValues() {
-        aetherConfig.addTreeDensity(Aether.biomeAether, 16);
+        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 32);
     }
 
     @Override
@@ -44,6 +46,7 @@ public class AetherInitialization extends BaseInitialization {
         OverworldRandomFeatures randomFeatures = ChunkDecoratorAetherAPI.randomFeatures;
 
         randomFeatures.addFeatureSurface(new WorldFeatureTreeSkyroot(5), 2);
+        randomFeatures.addFeatureSurface(new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id,AetherBlocks.logOakGolden.id,5), 15); // might need a custom class for this but i've seen no issues thus far.
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerPurple.id), 2, 1);
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerWhite.id), 2, 1);
     }

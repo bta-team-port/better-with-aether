@@ -6,6 +6,7 @@ import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
+import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
@@ -13,8 +14,13 @@ import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
 import bta.aether.world.BiomeAether;
 import bta.aether.world.WorldTypeAetherDefault;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -31,28 +37,18 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // Biomes
-    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether());
-    static
-    {
-        biomeAether.topBlock = (short) AetherBlocks.grassAether.id;
-        biomeAether.fillerBlock = (short) AetherBlocks.dirtAether.id;
-    }
-    // World types
-    public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
-
-    // Dimensions
-    public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
-    static
-    {
-        Dimension.registerDimension(3, dimensionAether);
-    }
     @Override
     public void beforeGameStart() {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
         new AetherEffects().initializeEffects();
+
+        MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
+                20, 0, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
+                        0.66f * 0.8f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
+                        0.66f * 0.2f, 1, 2)});
+
 
         //Tiles
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
@@ -82,6 +78,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
+        new AetherEntities().initializeModels();
     }
 
     @Override

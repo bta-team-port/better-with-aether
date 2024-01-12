@@ -6,6 +6,7 @@ import net.minecraft.core.block.material.Material;
 public class BlockTrapdoorAmbrosium extends BlockTrapDoor {
     public BlockTrapdoorAmbrosium(String key, int id, Material material, boolean isIron) {
         super(key, id, material, isIron);
+        this.movementScale = 1.05f;
     }
 
     @Override
