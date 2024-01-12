@@ -1,0 +1,241 @@
+[
+  {
+    "key": "item.aether.food.gummy.blue",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 16
+    }
+  },
+  {
+    "key": "item.aether.food.gummy.gold",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 16
+    }
+  },
+  {
+    "key": "item.aether.tool.knife",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 16
+    }
+  },
+  {
+    "key": "item.aether.tool.axe.valkyrie",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.valkyrie",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.shovel.valkyrie",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.pickaxe.valkyrie",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.holy",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.talisman.goldenfeather",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.food.healingstone",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.helmet.neptune",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.boots.neptune",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.chestplate.neptune",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.leggings.neptune",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.gloves.neptune",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.cape.invisibility",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.pendant.zanite",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  }
+
+]
