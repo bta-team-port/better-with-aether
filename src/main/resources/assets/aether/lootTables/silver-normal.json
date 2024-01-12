@@ -147,7 +147,7 @@
 
     "meta": {
       "min": 120,
-      "max": 257
+      "max": 0
     },
 
     "amount": {
@@ -160,7 +160,7 @@
     "rarity": 2,
     "meta": {
       "min": 120,
-      "max": 257
+      "max": 0
     },
     "amount": {
       "min": 1,
@@ -173,7 +173,7 @@
 
     "meta": {
       "min": 120,
-      "max": 257
+      "max": 0
     },
 
     "amount": {
@@ -187,7 +187,7 @@
 
     "meta": {
       "min": 120,
-      "max": 257
+      "max": 0
     },
 
     "amount": {
