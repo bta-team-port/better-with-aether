@@ -5,10 +5,21 @@ import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
+import net.minecraft.core.world.chunk.ChunkCoordinates;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AetherDimension implements PreLaunchEntrypoint {
+
+    public static Map<ChunkCoordinates, Boolean> dugeonMap = new HashMap<>();
+
+    public void registerDungeonToMap(int x, int y, int z, boolean defeated){
+        dugeonMap.put(new ChunkCoordinates(x, y, z), defeated);
+    }
+
     // Biomes
     public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether());
     // World types
