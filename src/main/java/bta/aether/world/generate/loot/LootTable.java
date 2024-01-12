@@ -1,5 +1,6 @@
 package bta.aether.world.generate.loot;
 
+import bta.aether.Aether;
 import com.b100.utils.StringUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,28 +50,29 @@ public class LootTable {
     private final Random random = new Random();
 
     public LootTable(String path){
-        String jsonString = StringUtils.readInputString(DataLoader.class.getResourceAsStream(path));
-        JsonArray jsonArray = JsonParser.parseString(jsonString).getAsJsonArray();
+        try {
+            String jsonString = StringUtils.readInputString(LootTable.class.getResourceAsStream(path));
+            JsonArray jsonArray = JsonParser.parseString(jsonString).getAsJsonArray();
 
-        for (JsonElement element : jsonArray) {
-            if (!element.isJsonNull()) {
-                JsonObject lootTableJson = element.getAsJsonObject();
-                Item item = null;
-                if (!lootTableJson.get("key").getAsString().equals("null")) {
-                    item = GiveCommand.getItem(lootTableJson.get("key").getAsString());
+            for (JsonElement element : jsonArray) {
+                if (!element.isJsonNull()) {
+                    JsonObject lootTableJson = element.getAsJsonObject();
+                    Item item = GiveCommand.getItem(lootTableJson.get("key").getAsString());
+                    if (item == null) {
+                        Aether.LOGGER.error("in \"" + path + "\" The key \"" + lootTableJson.get("key").getAsString() + "\" doesn't lead anywhere!");
+                    }
+
+                    lootTable.put(lootTable.size(), new Loot(
+                            item,
+                            lootTableJson.get("rarity").getAsInt(),
+                            lootTableJson.getAsJsonObject("meta").get("min").getAsInt(),
+                            lootTableJson.getAsJsonObject("meta").get("max").getAsInt(),
+                            lootTableJson.getAsJsonObject("amount").get("min").getAsInt(),
+                            lootTableJson.getAsJsonObject("amount").get("max").getAsInt()
+                    ));
                 }
-
-
-                lootTable.put(lootTable.size(), new Loot(
-                        item,
-                        lootTableJson.get("rarity").getAsInt(),
-                        lootTableJson.getAsJsonObject("meta").get("min").getAsInt(),
-                        lootTableJson.getAsJsonObject("meta").get("max").getAsInt(),
-                        lootTableJson.getAsJsonObject("amount").get("min").getAsInt(),
-                        lootTableJson.getAsJsonObject("amount").get("max").getAsInt()
-                ));
             }
-        }
+        } catch (Exception exception) {Aether.LOGGER.error(String.valueOf(exception));}
     }
 
     public ItemStack[] generateLoot(int quantity){
@@ -112,6 +114,6 @@ public class LootTable {
 
         }
 
-        return  new ItemStack(loot.item, quantity, metadata);
+            return  new ItemStack(loot.item.id, quantity, metadata);
     }
 }
