@@ -23,7 +23,6 @@ public class ItemAccessoryIronBubble extends ItemAccessoryMisc implements Tickab
 
     @Override
     public ItemStack tickWhileWorn(EntityPlayer player, ItemStack stack, int slot) {
-        stack.setMetadata(stack.getMetadata() + 1);
         if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem())) {
             player.canBreatheUnderwater();
             player.airSupply = 300;

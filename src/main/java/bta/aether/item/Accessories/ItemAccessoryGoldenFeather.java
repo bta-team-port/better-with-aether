@@ -7,7 +7,6 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryGoldenFeather extends ItemAccessoryMisc implements TickableWhileWorn {
-    private double fallDistance;
 
     public ItemAccessoryGoldenFeather(int id) {
         super(id);
@@ -25,10 +24,15 @@ public class ItemAccessoryGoldenFeather extends ItemAccessoryMisc implements Tic
 
     @Override
     public ItemStack tickWhileWorn(EntityPlayer player, ItemStack stack, int slot) {
-        stack.setMetadata(stack.getMetadata() + 1);
-            if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem())) {
+        if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem())) {
+            player.fallDistance = 0.0F;
+            if (!player.onGround && player.yd < 0.0 && !player.collision){
+                player.yd *= 0.6;
+
                 player.fallDistance = 0.0F;
             }
+            return stack;
+        }
         return stack;
     }
 }
