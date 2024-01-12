@@ -1,4 +1,4 @@
-package bta.aether.world.generate.loot;
+package bta.aether.world;
 
 import bta.aether.Aether;
 import com.b100.utils.StringUtils;
@@ -6,19 +6,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.core.data.DataLoader;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.command.commands.GiveCommand;
+import turniplabs.halplibe.HalpLibe;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Random;
 
 class Loot {
 
     // the actual item
-    public Item item;
+    public int itemID;
 
     // how rare it is, for example, 99 equals a one hundred in one chance of finding it.
     public int rarity;
@@ -32,8 +29,8 @@ class Loot {
     public int maxMetadata;
     public int minMetadata;
 
-    public Loot(Item item, int rarity, int minMetadata, int maxMetadata, int minQuantity, int maxQuantity) {
-        this.item = item;
+    public Loot(int itemID, int rarity, int minMetadata, int maxMetadata, int minQuantity, int maxQuantity) {
+        this.itemID = itemID;
         this.rarity = rarity;
 
         this.maxMetadata = maxMetadata;
@@ -57,13 +54,10 @@ public class LootTable {
             for (JsonElement element : jsonArray) {
                 if (!element.isJsonNull()) {
                     JsonObject lootTableJson = element.getAsJsonObject();
-                    Item item = GiveCommand.getItem(lootTableJson.get("key").getAsString());
-                    if (item == null) {
-                        Aether.LOGGER.error("in \"" + path + "\" The key \"" + lootTableJson.get("key").getAsString() + "\" doesn't lead anywhere!");
-                    }
+                    int itemID = HalpLibe.getTrueItemOrBlockId(lootTableJson.get("key").getAsString());
 
                     lootTable.put(lootTable.size(), new Loot(
-                            item,
+                            itemID,
                             lootTableJson.get("rarity").getAsInt(),
                             lootTableJson.getAsJsonObject("meta").get("min").getAsInt(),
                             lootTableJson.getAsJsonObject("meta").get("max").getAsInt(),
@@ -114,6 +108,6 @@ public class LootTable {
 
         }
 
-            return  new ItemStack(loot.item.id, quantity, metadata);
+            return  new ItemStack(loot.itemID, quantity, metadata);
     }
 }
