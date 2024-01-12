@@ -1,0 +1,128 @@
+[
+  {
+    "key": "item.aether.food.gummy.blue",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 8
+    }
+  },
+  {
+    "key": "item.aether.food.gummy.gold",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 8
+    }
+  },
+  {
+    "key": "item.aether.tool.bow.phoenix",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.flaming",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.hammer.notch",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.knife.lightning",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 16
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.valkyrie",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.cape.agility",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.stick.skyroot",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  }
+]
