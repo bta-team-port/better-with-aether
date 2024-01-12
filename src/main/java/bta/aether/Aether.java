@@ -1,6 +1,7 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
@@ -51,6 +52,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
+        new AetherEffects().initializeEffects();
 
         //Tiles
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");

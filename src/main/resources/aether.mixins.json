@@ -5,11 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockFluidPortalMixin",
-    "ExplosionCannonballMixin",
     "BlockMixin",
     "BucketMixin",
     "EntityLivingMixin",
     "EntityMixin",
+    "ExplosionCannonballMixin",
+    "GuiIngameMixin",
     "InventoryPlayerMixin",
     "ItemFirestrikerMixin",
     "accessors.ItemToolSwordAccessor"
