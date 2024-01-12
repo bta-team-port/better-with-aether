@@ -534,7 +534,7 @@ public class AetherBlocks {
             .setTopBottomTexture(14, 3)
             .setNorthTexture("LockedChestFront.png")
             .setTags(BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new BlockChestLocked("dungeon.chest.locked", blockID++, Material.stone));
+            .build(new BlockChestLocked("chest.treasure.locked", blockID++, Material.stone));
 
     public static final Block dungeonChest = new BlockBuilder(MOD_ID)
             .setHardness(4.0f)
@@ -544,7 +544,7 @@ public class AetherBlocks {
             .setTopBottomTexture(14, 3)
             .setNorthTexture("LockedChestFront.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
-            .build(new BlockChestLocked("dungeon.chest", blockID++, Material.stone));
+            .build(new BlockChestLocked("chest.treasure", blockID++, Material.stone));
 
     public static final Block stoneCarvedLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))

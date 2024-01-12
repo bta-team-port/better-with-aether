@@ -9,6 +9,72 @@ dimension.aether.name=The Aether
 dimension.aether.desc=A hostile Paradise
 
 
+## Entities
+
+#Passive
+aether.phyg.name=Phyg
+aether.phyg.name=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
+
+aether.sheepuff.name=Sheepuff
+aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found commonly anywhere.
+
+aether.phow.name=Phow
+aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found commonly anywhere.
+
+aether.aerbunny.name=Aerbunny
+aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found commonly anywhere.
+
+aether.moa.blue.name=Blue Moa
+aether.moa.blue.desc=
+aether.moa.white.name=White Moa
+aether.moa.white.desc=
+aether.moa.black.name=Black Moa
+aether.moa.black.desc=
+
+aether.aerwhale.name=Aerwhale
+aether.aerwhale.desc=Aerwhales are a large
+
+#Hostile
+aether.swet.blue.name=Blue Swet
+aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere.
+aether.swet.gold.name=Gold Swet
+aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere.
+
+aether.cockatrice.name=Cockatrice
+aether.blank.desc=
+
+aether.aechorplant.name=Aechor Plant
+aether.aechorplant.desc=
+
+aether.zephyr.name=Zephyr
+aether.blank.desc=
+
+aether.whirlwind.name=Whirlwind
+aether.whirlwind.desc=
+
+aether.mimic.name=Mimic
+aether.mimic.desc=
+
+aether.sentry.name=Sentry
+aether.sentry.desc=
+
+aether.valkyrie.name=Valkyrie
+aether.valkyrie.desc=
+
+
+#Bosses
+aether.slider.name=Slider
+aether.slider.desc=
+
+aether.valkyrie.queen.name=Valkyrie Queen
+aether.valkyrie.queen.desc=
+
+aether.sunspirit.name=Sun Spirit
+aether.sunspirit.desc=
+
+
+
+
 ## Blocks
 
 #Portal
@@ -145,6 +211,8 @@ tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
 tile.aether.chest.treasure.name=Treasure Chest
 tile.aether.chest.treasure.desc=A chest filled with mysterious loot.
+tile.aether.chest.treasure.locked.name=Locked Treasure Chest
+tile.aether.chest.treasure.locked.desc=A locked chest filled with mysterious loot.
 
 #Misc
 tile.aether.glass.quicksoil.name=Quicksoil Glass
