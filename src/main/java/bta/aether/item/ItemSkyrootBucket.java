@@ -1,5 +1,6 @@
 package bta.aether.item;
 
+import bta.aether.catalyst.effects.AetherEffects;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockFlower;
@@ -7,10 +8,11 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
 public class ItemSkyrootBucket extends Item {
     private final int idToPlace;
@@ -26,27 +28,38 @@ public class ItemSkyrootBucket extends Item {
         }
         this.foodType = foodType;
     }
-    int getHealAmount() {
+
+    void applyEffect(EntityPlayer entityplayer) {
+        IHasEffects effectPlayer = (IHasEffects)entityplayer;
+        EffectStack stack;
         switch (foodType) {
             case 1:
-                return 4;
+                entityplayer.heal(4);
+                break;
             case 2:
-                return -10; // Replace with poison effect
+                int amount = 10;
+                if (effectPlayer.getContainer().hasEffect(AetherEffects.poisonEffect)) {
+                    effectPlayer.getContainer().remove(AetherEffects.poisonEffect);
+                }
+                stack = new EffectStack(effectPlayer, AetherEffects.poisonEffect, amount);
+                effectPlayer.getContainer().add(stack);
+                stack.start(effectPlayer.getContainer());
+                break;
             case 3:
-                return 10; // Replace with remedy effect
-            default:
-                return 0;
+                if (effectPlayer.getContainer().hasEffect(AetherEffects.remedyEffect)) {
+                    effectPlayer.getContainer().remove(AetherEffects.remedyEffect);
+                }
+                stack = new EffectStack(effectPlayer, AetherEffects.remedyEffect, 1);
+                effectPlayer.getContainer().add(stack);
+                stack.start(effectPlayer.getContainer());
+                break;
         }
     }
+
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (this.foodType != 0 && ItemBucketEmpty.useBucket(entityplayer, new ItemStack(AetherItems.bucketSkyroot))) {
-            int heal = getHealAmount();
-            if (heal >= 0) {
-                entityplayer.heal(heal);
-            } else {
-                entityplayer.hurt(entityplayer, -heal, DamageType.GENERIC);
-            }
+            applyEffect(entityplayer);
             return itemstack;
         }
 
