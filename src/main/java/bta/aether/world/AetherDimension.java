@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class AetherDimension implements PreLaunchEntrypoint {
 
+    // coordinates and if the boss has been defeated.
     public static Map<ChunkCoordinates, Boolean> dugeonMap = new HashMap<>();
 
     public void registerDungeonToMap(int x, int y, int z, boolean defeated){

@@ -28,6 +28,10 @@ public abstract class SaveHandlerBaseMixin implements LevelStorage {
 
     private int index = 0;
     private void writeDugeonNBT(CompoundTag tag, CompoundTag subTag , int x, int y, int z, boolean defeated){
+        if (defeated) {
+            return;
+        }
+
         index++;
 
         subTag.putInt("x", x);
