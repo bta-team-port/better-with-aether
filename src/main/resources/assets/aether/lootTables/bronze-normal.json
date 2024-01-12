@@ -1,0 +1,190 @@
+[
+  {
+    "key": "item.aether.zanite",
+    "rarity": 0,
+
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 4
+    }
+  },
+  {
+    "key": "item.aether.tool.pickaxe.zanite",
+    "rarity": 0,
+
+    "meta": {
+      "min": 120,
+      "max": 257
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.axe.zanite",
+    "rarity": 0,
+
+    "meta": {
+      "min": 120,
+      "max": 257
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.sword.zanite",
+    "rarity": 0,
+    "meta": {
+      "min": 120,
+      "max": 257
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.tool.shovel.zanite",
+    "rarity": 0,
+
+    "meta": {
+      "min": 120,
+      "max": 257
+    },
+
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.cape.agility",
+    "rarity": 0,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.ambrosium",
+    "rarity": 0,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 10
+    }
+  },
+  {
+    "key": "item.aether.record.blue",
+    "rarity": 20,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.bucket.skyroot",
+    "rarity": 0,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.ring.iron",
+    "rarity": 4,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.armor.ring.gold",
+    "rarity": 10,
+    "meta": {
+      "min": 0,
+      "max": 0
+    },
+    "amount": {
+      "min": 1,
+      "max": 1
+    }
+  },
+  {
+    "key": "item.aether.ammo.dart.gold",
+    "rarity": 0,
+    "meta": {
+      "min": 1,
+      "max": 1
+    },
+    "amount": {
+      "min": 1,
+      "max": 5
+    }
+  },
+  {
+    "key": "item.aether.ammo.dart.poison",
+    "rarity": 0,
+    "meta": {
+      "min": 1,
+      "max": 1
+    },
+    "amount": {
+      "min": 1,
+      "max": 3
+    }
+  },
+  {
+    "key": "item.aether.ammo.dart.enchanted",
+    "rarity": 0,
+    "meta": {
+      "min": 1,
+      "max": 1
+    },
+    "amount": {
+      "min": 1,
+      "max": 3
+    }
+  },
+  {
+    "key": "tile.aether.torch.ambrosium",
+    "rarity": 0,
+    "meta": {
+      "min": 1,
+      "max": 1
+    },
+    "amount": {
+      "min": 1,
+      "max": 8
+    }
+  }
+]
