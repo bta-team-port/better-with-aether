@@ -1,5 +1,6 @@
-package bta.aether.item;
+package bta.aether.item.Accessories.base;
 
+import bta.aether.item.ItemToolAccessory;
 import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryShield extends ItemToolAccessory {
