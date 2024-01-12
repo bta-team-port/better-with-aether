@@ -92,6 +92,7 @@ repositories {
 		url = "https://github.com/MartinSVK12"
 		patternLayout {
 			artifact "[organisation]/releases/download/1.3.0/[module]-[revision].jar"
+			m2compatible = true
 		}
 		metadataSources { artifact() }
 	}
@@ -114,8 +115,9 @@ dependencies {
 
 	// Helper library
 	// If you do not need Halplibe you can comment this line out or delete this line
-//	modImplementation "bta-halplibe:halplibe:${project.halplibe_version}"
-//	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
+	//	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
+	modImplementation files("lib/halplibe-${project.halplibe_version}.jar")
+	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
 
 	modImplementation "ModMenu:ModMenu:2.0.3"
 //	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
