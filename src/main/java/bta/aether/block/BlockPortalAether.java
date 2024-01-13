@@ -36,7 +36,7 @@ public class BlockPortalAether extends BlockPortal implements IDimensionSound {
                 d5 = (double)(rand.nextFloat() * 2.0F * (float)i1);
             }
 
-            world.spawnParticle("portal", d, d1, d2, d3, d4, d5);
+            world.spawnParticle("aether", d, d1, d2, d3, d4, d5);
         }
 
     }
