@@ -1,9 +1,9 @@
 package bta.aether.compat.terrainapi;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.generation.StructureFeatures;
@@ -36,9 +36,14 @@ public class AetherInitialization extends BaseInitialization {
     @Override
     protected void initOre() {
         OverworldOreFeatures oreFeatures = ChunkDecoratorAetherAPI.oreFeatures;
+        oreFeatures.addManagedOreFeature(MOD_ID, AetherBlocks.icestone, 32, 8, 1f, false);
         oreFeatures.addManagedOreFeature(MOD_ID, AetherBlocks.oreAmbrosiumHolystone, 16, 24, 1f, false);
         oreFeatures.addManagedOreFeature(MOD_ID, AetherBlocks.oreZaniteHolystone, 8, 16, 1f, false);
+        oreFeatures.addManagedOreFeature(MOD_ID, AetherBlocks.oreGravititeHolystone, 5, 16, 1f, false);
         oreFeatures.addManagedOreFeature(MOD_ID, AetherBlocks.oreZaniteHolystone, 2, 2, 1/3f, false);
+
+        oreFeatures.addManagedOreFeature(MOD_ID, Block.fluidLavaStill, 1, 24, 1f, false);
+        oreFeatures.addManagedOreFeature(MOD_ID, Block.ice, 3, 8, 1f, false);
     }
 
     @Override
