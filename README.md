@@ -12,4 +12,4 @@ Although this is a clean rewrite of the mod, we do not ship  any assets or copyr
 ![](https://imgur.com/Fh7CxjQ "Aether Silver Dungeon")
 
 ### Aether Wiki
-https://aether.fandom.com/wiki/Aether_Wiki
+https://aether.wiki.gg/wiki/Aether_Wiki
