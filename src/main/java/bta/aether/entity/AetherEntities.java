@@ -19,6 +19,7 @@ public class AetherEntities {
 
 
     public void initializeEntities() {
+        EntityHelper.Core.createEntity(EntityDevBoss.class, entityID++, "FatherSentry");
         EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
         EntityHelper.Core.createEntity(EntitySwet.class, entityID++, "Swet");
 

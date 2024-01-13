@@ -1,14 +1,16 @@
 package bta.aether.entity;
 
+import bta.aether.Aether;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.entity.monster.EntityMonster;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.chunk.ChunkCoordinates;
 
 public abstract class EntityAetherBossBase extends EntityMonster {
 
-    public ChunkCoordinates belongsTo;
+    public int belongsTo;
+    public ItemStack keySlot;
 
     public EntityAetherBossBase(World world) {
         super(world);
@@ -16,25 +18,34 @@ public abstract class EntityAetherBossBase extends EntityMonster {
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
-        CompoundTag belongsTo = new CompoundTag();
-        belongsTo.putInt("x", this.belongsTo.x);
-        belongsTo.putInt("y", this.belongsTo.y);
-        belongsTo.putInt("z", this.belongsTo.z);
+        tag.putInt("belongsTo", belongsTo);
 
-        tag.putCompound("belongsTo", belongsTo);
+        if (keySlot != null) {
+            CompoundTag inventoryNBT = new CompoundTag();
+            keySlot.writeToNBT(inventoryNBT);
+            tag.putCompound("inventory", inventoryNBT);
+        }
+
         super.addAdditionalSaveData(tag);
     }
 
     @Override
+    protected boolean canDespawn() {
+        return false;
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        CompoundTag value = tag.getCompound("belongsTo");
-        belongsTo = new ChunkCoordinates(value.getInteger("x"), value.getInteger("y"), value.getInteger("z"));
+        keySlot = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
+        belongsTo = tag.getInteger("belongsTo");
         super.readAdditionalSaveData(tag);
     }
 
     @Override
     public void onEntityDeath() {
-        AetherDimension.dugeonMap.put(belongsTo, true);
+        this.world.dropItem((int)x, (int)y, (int)z, keySlot);
+        AetherDimension.dugeonMap.remove(belongsTo);
+        Aether.LOGGER.info("A boss of ID " + String.valueOf(belongsTo) + " has been slain!");
         super.onEntityDeath();
     }
 
