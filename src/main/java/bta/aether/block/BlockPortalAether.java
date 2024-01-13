@@ -6,7 +6,7 @@ import net.minecraft.core.world.World;
 
 import java.util.Random;
 
-public class BlockPortalAether extends BlockPortal implements IDimensionSound {
+public class BlockPortalAether extends BlockPortal implements IPortalExtras {
     public BlockPortalAether(String key, int id, int targetDimension, int portalMaterialId, int portalTriggerId) {
         super(key, id, targetDimension, portalMaterialId, portalTriggerId);
     }
@@ -49,5 +49,10 @@ public class BlockPortalAether extends BlockPortal implements IDimensionSound {
     @Override
     public String portalTransport() {
         return "aether.travel";
+    }
+
+    @Override
+    public int portalOverlayIndex() {
+        return atlasIndices[0];
     }
 }
