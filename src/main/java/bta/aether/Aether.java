@@ -3,6 +3,8 @@ package bta.aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
+import bta.aether.entity.EntityPortalAetherFX;
+import bta.aether.entity.EntitySentry;
 import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
@@ -20,6 +22,7 @@ import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.ParticleHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -56,6 +59,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolAxeSkyroot.id, 600);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolSwordSkyroot.id, 600);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
+
+        ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
     }
