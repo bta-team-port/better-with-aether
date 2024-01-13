@@ -1,5 +1,6 @@
 package bta.aether.compat.terrainapi;
 
+import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
@@ -56,20 +57,47 @@ public class AetherFunctions {
         return null;
     }
 
-    private static final int[] cloudIDs = {AetherBlocks.aercloudWhite.id, AetherBlocks.aercloudBlue.id, AetherBlocks.aercloudGold.id};
-
     public static Void generateClouds(Parameters parameters) {
+        Random rand = new Random();
+
+        World world = parameters.chunk.world;
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
-        World world = parameters.chunk.world;
-        Random rand = new Random();
+
         int dx = x + rand.nextInt(16);
         int dy = rand.nextInt(256);
         int dz = z + rand.nextInt(16);
 
-        int cloudSize = 10 + rand.nextInt(16);
-        if (rand.nextInt(10) == 0 && world.getBlockId(dx, dy, dz) == 0)
-            (new WorldFeatureClouds(cloudSize, cloudIDs[rand.nextInt(cloudIDs.length)])).generate(world, rand, dx, dy, dz);
+        int cloudID = 0;
+        int choice = rand.nextInt(20);
+        if (choice == 0)  cloudID = AetherBlocks.aercloudGold.id;
+        if (choice > 15)  cloudID = AetherBlocks.aercloudBlue.id;
+        if (choice >= 1 && choice <= 15)  cloudID = AetherBlocks.aercloudWhite.id;
+
+
+        int cloudSize = 6 + rand.nextInt(10);
+        if (rand.nextInt(4) == 0) {
+            (new WorldFeatureClouds(cloudSize, cloudID, false)).generate(world, rand, dx, dy, dz);
+        }
+
+        dx = x + rand.nextInt(16);
+        dy = 210 + rand.nextInt(30);
+        dz = z + rand.nextInt(16);
+
+        cloudSize = 6 + rand.nextInt(10);
+        if (rand.nextInt(15) == 0) {
+            (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudGold.id, false)).generate(world, rand, dx, dy, dz);
+        }
+
+        dx = x + rand.nextInt(16);
+        dy = 10 + rand.nextInt(20);
+        dz = z + rand.nextInt(16);
+
+        cloudSize = 10 + rand.nextInt(20);
+        if (rand.nextInt(30) == 0) {
+            (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudWhite.id, true)).generate(world, rand, dx, dy, dz);
+        }
+
         return null;
     }
 }

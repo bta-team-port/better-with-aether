@@ -1,6 +1,5 @@
 package bta.aether.world.generate.feature;
 
-import bta.aether.block.AetherBlocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 
@@ -9,61 +8,39 @@ import java.util.Random;
 public class WorldFeatureClouds extends WorldFeature {
     private final int numBlocks;
     private final int cloudID;
+    private final boolean isFlat;
 
-    private static final int[] angles = {35, 120, 210, 300};
-
-    public WorldFeatureClouds(int numBlocks, int cloudID) {
+    public WorldFeatureClouds(int numBlocks, int cloudID,  boolean isFlat) {
         this.numBlocks = numBlocks;
         this.cloudID = cloudID;
+        this.isFlat = isFlat;
     }
     @Override
     public boolean generate(World world, Random random, int i, int j, int k) {
-        double angle = Math.toRadians(angles[random.nextInt(angles.length)]);
+        int x = i;
+        int z = k;
+        int y = j;
 
-        int xOffset = i;
-        int zOffset = k;
+        int xOffset = random.nextInt(3) - 1;
+        int zOffset = random.nextInt(3) - 1;
 
-        for(int b = 0; b < numBlocks; b++) {
+        for(int block = 0; block < numBlocks; block++) {
 
-            int sizeX = random.nextInt(3)+1;
-            int sizeZ = random.nextInt(3)+1;
-            int sizeY = random.nextInt(3)+1;
+            x += random.nextInt(3) - 1 + xOffset;
+            z += random.nextInt(3) - 1 + zOffset;
 
-            // march in random direction
-            xOffset += (int)(-(Math.cos(angle) * 4));
-            zOffset += (int)(-(Math.sin(angle) * 4));
-
-            // add random noise
-            if (random.nextInt(3) == 0) {
-                xOffset += random.nextInt(2);
+            if (this.isFlat && random.nextInt(10) == 0 || !this.isFlat && random.nextInt(10) == 0){
+                y += random.nextInt(3) - 1;
             }
 
-            if (random.nextInt(3) == 0) {
-                zOffset += random.nextInt(2);
-            }
-
-            switch (random.nextInt(3)) {
-                case 0:
-                j += random.nextInt(2);
-                break;
-
-                case 1:
-                j -= random.nextInt(2);
-                break;
-            }
-
-            for(int x1 = xOffset - sizeX; x1 < xOffset + sizeX; x1++ ){
-                for(int z1 = zOffset - sizeZ; z1 < zOffset + sizeZ; z1++ ){
-                    for(int y1 = j - sizeY; y1 < j + sizeY; y1++ ) {
-                        if (world.getBlockId(x1, y1, z1) == 0) {
-                            world.setBlock(x1, y1 , z1, cloudID);
+            for(int x1 = x; x1 < x + random.nextInt(4) + 3 * (this.isFlat ? 3 : 1); x1++ ){
+                for(int z1 = z; z1 < z + random.nextInt(4) + 3 * (this.isFlat ? 3 : 1); z1++ ){
+                    for(int y1 = y; y1 < y + random.nextInt(1) + 2; y1++ ) {
+                        if (world.getBlockId(x1, y1, z1) == 0 && Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < 4 * (this.isFlat ? 3 : 1) + random.nextInt(2)) {
+                            world.setBlockWithNotify(x1, y1 , z1, cloudID);
                         }
                     }
                 }
-            }
-
-            if (random.nextInt(15) == 0) {
-                angle = Math.toRadians(angles[random.nextInt(angles.length)]);
             }
         }
 
