@@ -1,6 +1,7 @@
 package bta.aether.entity;
 
 import bta.aether.Aether;
+import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.entity.monster.EntityMonster;
@@ -13,10 +14,12 @@ public abstract class EntityAetherBossBase extends EntityMonster {
     public int belongsTo;
     public ItemStack keySlot;
     public int maxHealth;
+    public String personalBossName;
 
     public EntityAetherBossBase(World world, int maxHealth) {
         super(world);
         this.maxHealth = maxHealth;
+        this.personalBossName = NameGenerator.getRandomName();
     }
 
     @Override
@@ -53,6 +56,6 @@ public abstract class EntityAetherBossBase extends EntityMonster {
     }
 
     public String getBossTitle() {
-        return I18n.getInstance().translateKey("boss."+Aether.MOD_ID+".father_sentry.title");
+        return personalBossName + ", the " +  I18n.getInstance().translateKey("boss."+Aether.MOD_ID+".father_sentry.title");
     }
 }
