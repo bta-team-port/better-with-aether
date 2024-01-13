@@ -13,6 +13,7 @@ import net.minecraft.client.gui.hud.HudComponent;
 import net.minecraft.client.gui.hud.HudComponents;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
 public class AetherClient implements ClientStartEntrypoint {
@@ -24,6 +25,9 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
         new AetherEntities().initializeModels();
+        SoundHelper.Client.addSound("aether", "portal.ogg");
+        SoundHelper.Client.addSound("aether", "travel.ogg");
+        SoundHelper.Client.addSound("aether", "trigger.ogg");
     }
 
     @Override
