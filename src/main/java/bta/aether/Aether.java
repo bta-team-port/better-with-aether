@@ -2,26 +2,23 @@ package bta.aether;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.entity.*;
-import bta.aether.gui.GuiBossBar;
+import bta.aether.entity.AetherEntities;
+import bta.aether.entity.EntitySentry;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
-import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
-import turniplabs.halplibe.helper.SoundHelper;
-import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 
-public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
+public class Aether implements GameStartEntrypoint {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -55,11 +52,6 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
-
-        SoundHelper.Client.addSound("aether", "portal.ogg");
-        SoundHelper.Client.addSound("aether", "travel.ogg");
-        SoundHelper.Client.addSound("aether", "trigger.ogg");
-
     }
 
     @Override
@@ -67,15 +59,5 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
 
     }
 
-    @Override
-    public void beforeClientStart() {
-        EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
-        new AetherEntities().initializeModels();
-    }
 
-    @Override
-    public void afterClientStart() {
-    }
 }

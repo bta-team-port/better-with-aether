@@ -23,7 +23,7 @@
       "bta.aether.Aether"
     ],
     "beforeClientStart": [
-      "bta.aether.Aether"
+      "bta.aether.AetherClient"
     ],
     "recipesReady": [
       "bta.aether.recipe.AetherRecipes"
