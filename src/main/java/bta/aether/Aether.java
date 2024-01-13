@@ -2,10 +2,6 @@ package bta.aether;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.entity.AetherEntities;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.ArrowFlamingRenderer;
-import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
 import bta.aether.gui.GuiBossBar;
 import bta.aether.item.AetherItems;
@@ -20,6 +16,7 @@ import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -58,6 +55,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
+
+        SoundHelper.Client.addSound("aether", "aetherportal.ogg");
     }
 
     @Override
