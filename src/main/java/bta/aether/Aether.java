@@ -7,7 +7,6 @@ import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
-import bta.aether.gui.GuiBossBar;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
