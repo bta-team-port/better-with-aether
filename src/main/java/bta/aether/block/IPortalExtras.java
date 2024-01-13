@@ -1,6 +1,7 @@
 package bta.aether.block;
 
-public interface IDimensionSound {
+public interface IPortalExtras {
     String portalTrigger();
     String portalTransport();
+    int portalOverlayIndex();
 }
