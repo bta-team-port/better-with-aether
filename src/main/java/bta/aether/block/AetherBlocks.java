@@ -1,8 +1,6 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
-import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -12,9 +10,9 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import turniplabs.halplibe.helper.BlockBuilder;
 
+import static bta.aether.Aether.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterStill;
 import static net.minecraft.core.block.Block.glowstone;
-import static bta.aether.Aether.MOD_ID;
 
 public class AetherBlocks {
 
@@ -26,7 +24,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setTextures("Portal.png")
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new BlockPortal("portal", blockID++, 3, glowstone.id, fluidWaterStill.id));
+            .build(new BlockPortalAether("portal", blockID++, 3, glowstone.id, fluidWaterStill.id));
 
     public static final Block dirtAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.gravel", "step.gravel", 1.0f, 1.0f))
