@@ -1,5 +1,9 @@
 package bta.aether.item;
 
+import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
+import bta.aether.item.Accessories.ItemAccessoryIronBubble;
+import bta.aether.item.Accessories.ItemAccessoryRegenStone;
+import bta.aether.item.Accessories.base.*;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
@@ -165,9 +169,9 @@ public class AetherItems {
     public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++), "armor.pendant.zanite", "ZanitePendant.png");
     public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++), "armor.pendant.ice", "IcePendant.png");
 
-    public static final Item armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryMisc(itemID++), "armor.talisman.ironbubble", "IronBubble.png");
-    public static final Item armorTalismanGoldenFeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryMisc(itemID++), "armor.talisman.goldenfeather", "GoldenFeather.png");
-    public static final Item armorTalismanRegenStone = ItemHelper.createItem(MOD_ID, new ItemAccessoryMisc(itemID++), "armor.talisman.regenstone", "RegenerationStone.png");
+    public static final Item armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryIronBubble(itemID++), "armor.talisman.ironbubble", "IronBubble.png");
+    public static final Item armorTalismanGoldenFeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldenFeather(itemID++), "armor.talisman.goldenfeather", "GoldenFeather.png");
+    public static final Item armorTalismanRegenStone = ItemHelper.createItem(MOD_ID, new ItemAccessoryRegenStone(itemID++), "armor.talisman.regenstone", "RegenerationStone.png");
 
     public static final Item armorShieldRepulsion = ItemHelper.createItem(MOD_ID, new ItemAccessoryShield(itemID++), "armor.shield.repulsion", "RepulsionShield.png");
 
