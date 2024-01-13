@@ -9,18 +9,19 @@
     "BlockTorchMixin",
     "EntityLivingMixin",
     "EntityMixin",
-    "GuiIngameMixin",
+    "EntityPlayerSPMixin",
     "ExplosionCannonballMixin",
+    "GuiIngameMixin",
     "InventoryPlayerMixin",
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
-    "accessors.ItemToolSwordAccessor",
-    "SaveHandlerBaseMixin"
+    "SaveHandlerBaseMixin",
+    "accessors.ItemToolSwordAccessor"
   ],
   "client": [
-    "SlotArmorMixin",
-    "OxygenBarComponentMixin"
+    "OxygenBarComponentMixin",
+    "SlotArmorMixin"
   ],
   "server": [
     "EntityPlayerMPMixin"
