@@ -1,23 +1,22 @@
 package bta.aether.mixin;
 
+import bta.aether.block.IPortalExtras;
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.entity.EntityAetherBossBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.Tessellator;
-import net.minecraft.core.entity.Entity;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockPortal;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(value = GuiIngame.class, remap = false)
 public class GuiIngameMixin {
@@ -38,6 +37,15 @@ public class GuiIngameMixin {
                 drawRect(0, 0, width, height, alpha, 0x99FF99);
             }
         }
+    }
+    @Redirect(method = "renderPortalOverlay(FII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;texCoordToIndex(II)I"))
+    private int customPortalOverlays(int x, int y){
+        BlockPortal portal = (BlockPortal) Block.blocksList[mc.thePlayer.portalID];
+        if (portal instanceof IPortalExtras){
+            IPortalExtras dimensionSound = (IPortalExtras) portal;
+            return dimensionSound.portalOverlayIndex();
+        }
+        return Block.texCoordToIndex(x,y);
     }
 
     @Unique

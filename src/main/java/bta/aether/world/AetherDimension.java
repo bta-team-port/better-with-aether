@@ -9,6 +9,7 @@ import net.minecraft.core.world.chunk.ChunkCoordinates;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weather;
+import turniplabs.halplibe.HalpLibe;
 
 import java.util.HashMap;
 import java.util.Map;
