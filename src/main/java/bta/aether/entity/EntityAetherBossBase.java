@@ -8,11 +8,11 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 
-public abstract class EntityAetherBossBase extends EntityMonster {
+public abstract class EntityAetherBossBase extends EntityMonster implements IAetherBoss{
 
-    public int belongsTo;
-    public ItemStack keySlot;
-    public int maxHealth;
+    protected int belongsTo;
+    protected ItemStack keyChain;
+    protected int maxHealth;
 
     public EntityAetherBossBase(World world, int maxHealth) {
         super(world);
@@ -23,9 +23,9 @@ public abstract class EntityAetherBossBase extends EntityMonster {
     public void addAdditionalSaveData(CompoundTag tag) {
         tag.putInt("belongsTo", belongsTo);
 
-        if (keySlot != null) {
+        if (keyChain != null) {
             CompoundTag inventoryNBT = new CompoundTag();
-            keySlot.writeToNBT(inventoryNBT);
+            keyChain.writeToNBT(inventoryNBT);
             tag.putCompound("inventory", inventoryNBT);
         }
 
@@ -39,14 +39,14 @@ public abstract class EntityAetherBossBase extends EntityMonster {
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        keySlot = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
+        keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
         belongsTo = tag.getInteger("belongsTo");
         super.readAdditionalSaveData(tag);
     }
 
     @Override
     public void onEntityDeath() {
-        this.world.dropItem((int)x, (int)y, (int)z, keySlot);
+        this.world.dropItem((int)x, (int)y, (int)z, keyChain);
         AetherDimension.dugeonMap.remove(belongsTo);
         Aether.LOGGER.info("A boss of ID " + belongsTo + " has been slain!");
         super.onEntityDeath();
@@ -54,5 +54,29 @@ public abstract class EntityAetherBossBase extends EntityMonster {
 
     public String getBossTitle() {
         return I18n.getInstance().translateKey("boss."+Aether.MOD_ID+".father_sentry.title");
+    }
+
+    public void setMaxHealth(int health) {
+        this.maxHealth = health;
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    public void setToDungeon(int ID) {
+        this.belongsTo = ID;
+    }
+
+    public int getDungeon() {
+        return this.belongsTo;
+    }
+
+    public void setKeychain(ItemStack key) {
+        this.keyChain = key;
+    }
+
+    public ItemStack getKeyChain() {
+        return this.keyChain;
     }
 }
