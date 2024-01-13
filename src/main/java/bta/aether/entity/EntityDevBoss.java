@@ -11,10 +11,11 @@ public class EntityDevBoss extends EntityAetherBossBase {
     public boolean activated;
 
     public EntityDevBoss(World world) {
-        super(world);
+        super(world, 100);
         this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
+        this.health = maxHealth;
     }
 
     public String getEntityTexture() {
