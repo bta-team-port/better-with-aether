@@ -1,9 +1,12 @@
 package bta.aether.mixin;
 
 import bta.aether.catalyst.effects.AetherEffects;
+import bta.aether.entity.EntityAetherBossBase;
+import bta.aether.gui.GuiBossBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.core.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,14 +17,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mixin(value = GuiIngame.class, remap = false)
 public class GuiIngameMixin {
 
     @Shadow
     protected Minecraft mc;
+    @Unique
+    GuiBossBar guiBossBar;
+
+    @Inject(method = "<init>(Lnet/minecraft/client/Minecraft;)V", at = @At(value ="TAIL"))
+    void constructor(Minecraft minecraft, CallbackInfo ci) {
+         guiBossBar = new GuiBossBar(minecraft);
+    }
+    
 
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="TAIL"))
-    public void endRenderWorld(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    public void endRenderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+        // TODO: Replace this with the BossList
+        List<EntityAetherBossBase> list = new ArrayList();
+        for (Entity entity : mc.theWorld.loadedEntityList) {
+            if (entity instanceof EntityAetherBossBase) {
+                list.add((EntityAetherBossBase) entity);
+            }
+        }
+        if (this.guiBossBar != null) this.guiBossBar.drawBossBars(list);
+
         int width = this.mc.resolution.scaledWidth;
         int height = this.mc.resolution.scaledHeight;
         for (EffectStack effectStack : ((IHasEffects)mc.thePlayer).getContainer().getEffects()) {
