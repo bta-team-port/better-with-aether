@@ -12,7 +12,10 @@ dimension.aether.desc=A hostile Paradise
 effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
 
-## Entities
+#Entities
+
+#Bosses
+boss.aether.father_sentry.title=FatherSentry, The big daddy
 
 #Passive
 aether.phyg.name=Phyg
