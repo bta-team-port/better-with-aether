@@ -10,7 +10,6 @@
     "EntityLivingMixin",
     "EntityMixin",
     "GuiIngameMixin",
-    //"EntityPlayerMPMixin",
     "ExplosionCannonballMixin",
     "InventoryPlayerMixin",
     "ItemBucketMixin",
@@ -22,6 +21,9 @@
   "client": [
     "SlotArmorMixin",
     "OxygenBarComponentMixin"
+  ],
+  "server": [
+    "EntityPlayerMPMixin"
   ],
   "injectors": {
     "defaultRequire": 1

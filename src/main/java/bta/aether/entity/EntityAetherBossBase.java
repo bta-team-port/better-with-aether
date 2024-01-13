@@ -48,9 +48,4 @@ public abstract class EntityAetherBossBase extends EntityMonster {
         Aether.LOGGER.info("A boss of ID " + String.valueOf(belongsTo) + " has been slain!");
         super.onEntityDeath();
     }
-
-    // boss bar to be displayed at the top of the screen.
-    public String getBarTexture(){
-        return "insert the default one here please.";
-    }
 }
