@@ -2,6 +2,7 @@ package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 
