@@ -17,7 +17,7 @@ public class AetherInitialization extends BaseInitialization {
     private static final TerrainAetherConfig aetherConfig = ChunkDecoratorAetherAPI.aetherConfig;
     @Override
     protected void initValues() {
-        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 32);
+        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 64);
     }
 
     @Override

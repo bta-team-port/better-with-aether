@@ -44,7 +44,7 @@ class Loot {
 public class LootTable {
 
     public HashMap<Integer, Loot> lootTable = new HashMap<>();
-    private final Random random = new Random();
+    protected final Random random = new Random();
 
     public LootTable(String path){
         try {
@@ -77,7 +77,7 @@ public class LootTable {
         return result;
     }
 
-    public ItemStack getLootItem(Loot loot) {
+    protected ItemStack getLootItem(Loot loot) {
         int quantity;
         int metadata;
 

@@ -10,7 +10,7 @@
     "EntityLivingMixin",
     "EntityMixin",
     "GuiIngameMixin",
-    "EntityPlayerMPMixin",
+    //"EntityPlayerMPMixin",
     "ExplosionCannonballMixin",
     "InventoryPlayerMixin",
     "ItemBucketMixin",
