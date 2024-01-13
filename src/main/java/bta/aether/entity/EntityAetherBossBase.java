@@ -5,15 +5,18 @@ import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.entity.monster.EntityMonster;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 
 public abstract class EntityAetherBossBase extends EntityMonster {
 
     public int belongsTo;
     public ItemStack keySlot;
+    public int maxHealth;
 
-    public EntityAetherBossBase(World world) {
+    public EntityAetherBossBase(World world, int maxHealth) {
         super(world);
+        this.maxHealth = maxHealth;
     }
 
     @Override
@@ -45,7 +48,11 @@ public abstract class EntityAetherBossBase extends EntityMonster {
     public void onEntityDeath() {
         this.world.dropItem((int)x, (int)y, (int)z, keySlot);
         AetherDimension.dugeonMap.remove(belongsTo);
-        Aether.LOGGER.info("A boss of ID " + String.valueOf(belongsTo) + " has been slain!");
+        Aether.LOGGER.info("A boss of ID " + belongsTo + " has been slain!");
         super.onEntityDeath();
+    }
+
+    public String getBossTitle() {
+        return I18n.getInstance().translateKey("boss."+Aether.MOD_ID+".father_sentry.title");
     }
 }
