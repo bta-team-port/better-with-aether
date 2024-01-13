@@ -1,6 +1,5 @@
 package bta.aether.compat.terrainapi;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
@@ -35,6 +34,7 @@ public class AetherFunctions {
     }
 
     public static Void generateQuickSoil(Parameters parameters) {
+
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
         World world = parameters.chunk.world;
@@ -43,12 +43,12 @@ public class AetherFunctions {
         int dy;
         int dz;
 
-        if(rand.nextInt(5) == 0) {
+        if(rand.nextInt(3) == 0) {
             for (dx = x; dx < x + 16; dx++) {
                 for (dy = 0; dy < 256; dy++) {
                     for (dz = z; dz < z + 16; dz++) {
                         if (world.getBlockId(dx, dy, dz) == 0 && world.getBlockId(dx, dy + 1, dz) == AetherBlocks.grassAether.id) {
-                            new WorldFeatureQuicksoil(AetherBlocks.quicksoil.id, 4).generate(world, rand, dx, dy, dz);
+                            new WorldFeatureQuicksoil(AetherBlocks.quicksoil.id, 3).generate(world, rand, dx, dy, dz);
                         }
                     }
                 }
@@ -59,11 +59,11 @@ public class AetherFunctions {
 
     public static Void generateClouds(Parameters parameters) {
         Random rand = new Random();
-
         World world = parameters.chunk.world;
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
+        // Normal clouds
         int dx = x + rand.nextInt(16);
         int dy = rand.nextInt(256);
         int dz = z + rand.nextInt(16);
@@ -80,6 +80,7 @@ public class AetherFunctions {
             (new WorldFeatureClouds(cloudSize, cloudID, false)).generate(world, rand, dx, dy, dz);
         }
 
+        // Yellow clouds
         dx = x + rand.nextInt(16);
         dy = 210 + rand.nextInt(30);
         dz = z + rand.nextInt(16);
@@ -89,6 +90,7 @@ public class AetherFunctions {
             (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudGold.id, false)).generate(world, rand, dx, dy, dz);
         }
 
+        // Flat clouds
         dx = x + rand.nextInt(16);
         dy = 10 + rand.nextInt(20);
         dz = z + rand.nextInt(16);
