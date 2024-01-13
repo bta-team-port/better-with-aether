@@ -56,7 +56,10 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
 
-        SoundHelper.Client.addSound("aether", "aetherportal.ogg");
+        SoundHelper.Client.addSound("aether", "portal.ogg");
+        SoundHelper.Client.addSound("aether", "travel.ogg");
+        SoundHelper.Client.addSound("aether", "trigger.ogg");
+
     }
 
     @Override
