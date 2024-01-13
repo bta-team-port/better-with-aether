@@ -1,6 +1,6 @@
 package bta.aether.mixin;
 
-import bta.aether.block.IDimensionSound;
+import bta.aether.block.IPortalExtras;
 import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.entity.IPlayerBossList;
 import net.minecraft.client.entity.player.EntityPlayerSP;
@@ -28,8 +28,8 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
     @Redirect(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundManager;playSound(Ljava/lang/String;Lnet/minecraft/core/sound/SoundType;FF)V"))
     private void customPortalSounds(SoundManager soundManager, String soundPath, SoundType soundType, float volume, float pitch){
         BlockPortal portal = (BlockPortal) Block.blocksList[portalID];
-        if (portal instanceof IDimensionSound){
-            IDimensionSound dimensionSound = (IDimensionSound) portal;
+        if (portal instanceof IPortalExtras){
+            IPortalExtras dimensionSound = (IPortalExtras) portal;
             if (soundPath.equals("portal.trigger")){
                 soundManager.playSound(dimensionSound.portalTrigger(), soundType, volume, pitch);
                 return;
