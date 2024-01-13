@@ -2,33 +2,20 @@ package bta.aether;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.entity.AetherEntities;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.ArrowFlamingRenderer;
-import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
-import bta.aether.world.BiomeAether;
-import bta.aether.world.WorldTypeAetherDefault;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.world.Dimension;
-import net.minecraft.core.world.biome.Biome;
-import net.minecraft.core.world.biome.Biomes;
-import net.minecraft.core.world.type.WorldType;
-import net.minecraft.core.world.type.WorldTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -67,6 +54,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
+
+        SoundHelper.Client.addSound("aether", "aetherportal.ogg");
     }
 
     @Override
