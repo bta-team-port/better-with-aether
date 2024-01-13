@@ -6,7 +6,7 @@ import net.minecraft.core.world.World;
 
 import java.util.Random;
 
-public class BlockPortalAether extends BlockPortal {
+public class BlockPortalAether extends BlockPortal implements IDimensionSound {
     public BlockPortalAether(String key, int id, int targetDimension, int portalMaterialId, int portalTriggerId) {
         super(key, id, targetDimension, portalMaterialId, portalTriggerId);
     }
@@ -14,7 +14,7 @@ public class BlockPortalAether extends BlockPortal {
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         int meta = world.getBlockMetadata(x, y, z);
         if ((meta & 2) > 0 && rand.nextInt(20) == 0) {
-            world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, "aether.aetherportal", 0.5F, rand.nextFloat() * 0.4F + 0.8F);
+            world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, "aether.portal", 0.5F, rand.nextFloat() * 0.4F + 0.8F);
         }
 
         for(int l = 0; l < 4; ++l) {
@@ -41,4 +41,13 @@ public class BlockPortalAether extends BlockPortal {
 
     }
 
+    @Override
+    public String portalTrigger() {
+        return "aether.trigger";
+    }
+
+    @Override
+    public String portalTransport() {
+        return "aether.travel";
+    }
 }
