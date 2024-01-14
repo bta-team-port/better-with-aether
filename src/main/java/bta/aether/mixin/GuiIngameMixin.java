@@ -36,15 +36,6 @@ public class GuiIngameMixin {
 
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="TAIL"))
     public void endRenderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
-        // TODO: Replace this with the BossList
-        List<EntityAetherBossBase> list = new ArrayList();
-        for (Entity entity : mc.theWorld.loadedEntityList) {
-            if (entity instanceof EntityAetherBossBase) {
-                list.add((EntityAetherBossBase) entity);
-            }
-        }
-        if (this.guiBossBar != null) this.guiBossBar.drawBossBars(list);
-
         int width = this.mc.resolution.scaledWidth;
         int height = this.mc.resolution.scaledHeight;
         for (EffectStack effectStack : ((IHasEffects)mc.thePlayer).getContainer().getEffects()) {
