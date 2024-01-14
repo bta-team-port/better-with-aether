@@ -15,6 +15,7 @@ import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
+import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
@@ -63,6 +64,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
+        ParticleHelper.createParticle(EntityFireflyFX.class, "fireflySilver");
 
         AchievementPage AETHERACHIEVEMENTS;
         AETHERACHIEVEMENTS = new AetherAchievements();

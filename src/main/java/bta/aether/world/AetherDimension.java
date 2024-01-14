@@ -31,7 +31,9 @@ public class AetherDimension implements PreLaunchEntrypoint {
     }
 
     // Biomes
-    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether().setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog));
+    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether().setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
+            .setTopBlock(AetherBlocks.grassAether.id)
+            .setFillerBlock(AetherBlocks.dirtAether.id);
     // World types
     public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
     // Dimensions
@@ -39,8 +41,6 @@ public class AetherDimension implements PreLaunchEntrypoint {
     @Override
     public void onPreLaunch() {
         // This is here so that the dimension is created and added to the dimension list before the Server even launches, it'll crash otherwise
-        biomeAether.topBlock = (short) AetherBlocks.grassAether.id;
-        biomeAether.fillerBlock = (short) AetherBlocks.dirtAether.id;
         Dimension.registerDimension(AetherDimensionID, dimensionAether);
     }
 }
