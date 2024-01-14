@@ -124,7 +124,7 @@ public abstract class WorldTypeAether
 
     @Override
     public Vec3d getFogColor(float f, float g) {
-        int i = 0x8080a0;
+        int i = 8421536;
         float f2 = MathHelper.cos(f * 3.141593F * 2.0F) * 2.0F + 0.5F;
         if(f2 < 0.0F)
         {
