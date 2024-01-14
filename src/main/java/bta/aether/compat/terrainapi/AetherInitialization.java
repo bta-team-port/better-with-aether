@@ -54,8 +54,8 @@ public class AetherInitialization extends BaseInitialization {
     public static Map<Integer, Integer> iceMap = new HashMap<Integer, Integer>(){{
         put(AetherBlocks.holystone.id, Block.ice.id);
     }};
-    public static Map<Integer, Integer> lavaMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, Block.fluidLavaStill.id);
+    public static Map<Integer, Integer> waterMap = new HashMap<Integer, Integer>(){{
+        put(AetherBlocks.holystone.id, Block.fluidWaterStill.id);
     }};
 
     @Override
@@ -67,7 +67,7 @@ public class AetherInitialization extends BaseInitialization {
         addManagedAetherOreFeature(MOD_ID, oreGravititeMap,AetherBlocks.oreGravititeHolystone, 5, 16, 0, 255);
         addManagedAetherOreFeature(MOD_ID, oreZaniteMap,AetherBlocks.oreZaniteHolystone, 2, 2, 0, 128);
 
-        addManagedAetherOreFeature(MOD_ID, lavaMap,Block.fluidLavaStill, 1, 24, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, waterMap,Block.fluidWaterStill, 1, 24, 0, 255);
         addManagedAetherOreFeature(MOD_ID, iceMap,Block.ice, 3, 8, 0, 255);
     }
     public static void addManagedAetherOreFeature(String modID, Map<Integer, Integer> blockMap, Block configSymbol, int defaultClusterSize, int defaultChances, int minY, int maxY){
