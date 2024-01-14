@@ -152,9 +152,11 @@ public class AetherItems {
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow(itemID++), "tool.bow.phoenix", "PhoenixBow.png");
 
     public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.leather", "LeatherGloves.png");
+    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.chain", "GloveChain.png");
     public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.iron", "IronGloves.png");
     public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.gold", "GoldGloves.png");
     public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.diamond", "DiamondGloves.png");
+    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.steel", "SteelGloves.png");
     public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.zanite", "ZaniteGloves.png");
     public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.gravitite", "GravititeGloves.png");
     public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++), "armor.gloves.phoenix", "PhoenixGloves.png");
@@ -192,8 +194,9 @@ public class AetherItems {
     public static final Item cloudparachute = ItemHelper.createItem(MOD_ID, new Item(itemID++), "cloud.parachute", "CloudParachute.png").setMaxStackSize(1);
     public static final Item cloudparachuteGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "cloud.parachute.gold", "GoldenParachute.png").setMaxStackSize(1);
 
-    public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new Item(itemID++), "food.lifeshard", "LifeShard.png");
+    public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new ItemLifeShard(itemID++), "food.lifeshard", "LifeShard.png");
     public static final Item lanternAether = ItemHelper.createItem(MOD_ID, new ItemPlaceable("lantern.firefly.silver",itemID++, AetherBlocks.lanternAetherBlock), "lantern.firefly.silver", "lanternSilverItem.png");
+
     public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick(itemID++), "dev.stick", "Stick.png").setMaxStackSize(1);
 
 
