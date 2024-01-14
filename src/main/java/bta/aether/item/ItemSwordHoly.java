@@ -30,7 +30,7 @@ public class ItemSwordHoly extends ItemToolSword {
     @Override
     public int getDamageVsEntity(Entity entity) {
         if (undeadList.contains(entity.getClass())){
-            return 10;
+            return 15;
         }
         return super.getDamageVsEntity(entity);
     }
