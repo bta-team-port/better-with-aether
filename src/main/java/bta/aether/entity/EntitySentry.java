@@ -45,7 +45,7 @@ public class EntitySentry extends EntityMonster {
     @Override
     protected void updatePlayerActionState() {
         this.tryToDespawn();
-        EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        EntityPlayer entityplayer = (EntityPlayer) findPlayerToAttack();
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
         if (entityplayer != null && targetPlayer) {
             this.entityToAttack = entityplayer;

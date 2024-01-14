@@ -1,13 +1,10 @@
 package bta.aether.entity.renderer;
 
 import bta.aether.entity.AetherEntities;
-import bta.aether.entity.EntitySentry;
 import bta.aether.entity.EntitySwet;
-import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
-import useless.dragonfly.model.entity.BenchEntityModel;
 
 public class SwetRenderer extends LivingRenderer<EntitySwet> {
 

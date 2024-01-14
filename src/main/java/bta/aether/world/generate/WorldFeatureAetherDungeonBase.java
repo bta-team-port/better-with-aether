@@ -21,15 +21,15 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
         return false;
     }
 
-    protected ItemStack makeTreasureChest(LootTable lootTable, int quantity, Boolean isLocked, World world, int x, int y, int z){
-        return this.makeTreasureChest(lootTable, quantity, null, isLocked, world, x, y, z);
+    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Boolean isLocked, World world, int x, int y, int z){
+        return makeTreasureChest(lootTable, quantity, null, isLocked, world, x, y, z);
     }
 
-    protected ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
-        return this.makeTreasureChest(lootTable, quantity, null, false, world, x, y, z);
+    public ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
+        return makeTreasureChest(lootTable, quantity, null, false, world, x, y, z);
     }
 
-    protected ItemStack makeTreasureChest(LootTable lootTable, int quantity, String password, Boolean isLocked, World world, int x, int y, int z){
+    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, String password, Boolean isLocked, World world, int x, int y, int z){
         ItemStack[] items = lootTable.generateLoot(quantity);
 
         if (isLocked) {
@@ -63,7 +63,7 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
         return null;
     }
 
-    protected EntityAetherBossBase placeBoss(World world, int x, int y, int z, Class<? extends EntityAetherBossBase> aetherBossClass) {
+    public static EntityAetherBossBase placeBoss(World world, int x, int y, int z, Class<? extends EntityAetherBossBase> aetherBossClass) {
         EntityDevBoss boss;
         try {
             boss = (EntityDevBoss) aetherBossClass.getConstructor(World.class).newInstance(world);
