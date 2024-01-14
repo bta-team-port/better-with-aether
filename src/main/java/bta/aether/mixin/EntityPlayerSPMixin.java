@@ -81,7 +81,7 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
         mc.displayGuiScreen(new GuiFreezer(inventory, tile));
     }
     @Unique
-    public void aether$displayGUILoreBook(int loreId){
+    public void aether$displayGUILoreBook(String loreId){
         mc.displayGuiScreen(new GuiLorebook(this, loreId));
     }
 }

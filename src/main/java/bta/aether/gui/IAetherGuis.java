@@ -6,5 +6,5 @@ import bta.aether.tile.TileEntityFreezer;
 public interface IAetherGuis {
     void aether$displayGUIEnchanter(TileEntityEnchanter tile);
     void aether$displayGUIFreeze(TileEntityFreezer tile);
-    void aether$displayGUILoreBook(int loreId);
+    void aether$displayGUILoreBook(String  loreId);
 }
