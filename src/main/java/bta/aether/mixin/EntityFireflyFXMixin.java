@@ -37,17 +37,17 @@ public class EntityFireflyFXMixin extends EntityFX {
 
     @Inject(method = "setColour(I)V", at = @At("HEAD"), cancellable = true)
     private void setNewColor(int type, CallbackInfo ci){
-        if (type == EnumFireflyColor.SILVER.getId()){
-            this.midR = 0.3f;
-            this.midG = 0.9f;
-            this.midB = 0.7f;
-            this.particleRed = this.midR;
-            this.particleGreen = this.midG;
-            this.particleBlue = this.midB;
-            this.maxR = MathHelper.clamp(this.midR + 0.25f, 0.0f, 1.0f);
-            this.maxG = MathHelper.clamp(this.midG + 0.25f, 0.0f, 1.0f);
-            this.maxB = MathHelper.clamp(this.midB + 0.25f, 0.0f, 1.0f);
-            ci.cancel();
-        }
+//        if (type == EnumFireflyColor.SILVER.getId()){
+//            this.midR = 0.3f;
+//            this.midG = 0.9f;
+//            this.midB = 0.7f;
+//            this.particleRed = this.midR;
+//            this.particleGreen = this.midG;
+//            this.particleBlue = this.midB;
+//            this.maxR = MathHelper.clamp(this.midR + 0.25f, 0.0f, 1.0f);
+//            this.maxG = MathHelper.clamp(this.midG + 0.25f, 0.0f, 1.0f);
+//            this.maxB = MathHelper.clamp(this.midB + 0.25f, 0.0f, 1.0f);
+//            ci.cancel();
+//        }
     }
 }

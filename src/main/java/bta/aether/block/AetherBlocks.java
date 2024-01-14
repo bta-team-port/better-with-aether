@@ -601,7 +601,7 @@ public class AetherBlocks {
             .setHardness(0.1f)
             .setBlockModel(new BlockModelRenderBlocks(26))
             .setTextures("lanternSilver.png")
-            .build(new BlockLanternFirefly("lantern.silver", blockID++, EnumFireflyColor.SILVER))
+            .build(new BlockLanternFirefly("lantern.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
             .withLightEmission(0.9375f)
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()

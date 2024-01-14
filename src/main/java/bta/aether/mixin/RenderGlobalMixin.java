@@ -31,7 +31,7 @@ public class RenderGlobalMixin {
                 ci.cancel();
                 return;
             }
-            mc.effectRenderer.addEffect(new EntityFireflyFX(this.worldObj, x, y, z, motionX, motionY, motionZ, 2.5f, EnumFireflyColor.SILVER.getId()));
+//            mc.effectRenderer.addEffect(new EntityFireflyFX(this.worldObj, x, y, z, motionX, motionY, motionZ, 2.5f, EnumFireflyColor.SILVER.getId()));
         }
     }
 }
