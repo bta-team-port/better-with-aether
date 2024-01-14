@@ -19,7 +19,7 @@ public class EntityPlayerMixin implements IAetherGuis {
     }
 
     @Override
-    public void aether$displayGUILoreBook(int loreId) {
+    public void aether$displayGUILoreBook(String loreId) {
 
     }
 }

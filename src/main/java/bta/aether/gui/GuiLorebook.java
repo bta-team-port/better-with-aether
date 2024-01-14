@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class GuiLorebook extends GuiContainer {
-    private int loreId;
-    public GuiLorebook(EntityPlayer player, int loreId) {
+    private String  loreId;
+    public GuiLorebook(EntityPlayer player, String loreId) {
         super(new ContainerLoreBook(player.inventory));
         this.xSize = 256;
         this.ySize = 195;
@@ -36,9 +36,9 @@ public class GuiLorebook extends GuiContainer {
         drawTexturedModalRect(left,top, 0,0, xSize, ySize);
         int titleCenterX = left + 20 + 106/2;
         int titleY = top + 20;
-        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book%d.line1", loreId)), titleCenterX, titleY, 0x404040);
-        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book%d.line2", loreId)), titleCenterX, titleY + 10, 0x404040);
-        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book%d.line3", loreId)), titleCenterX, titleY + 20, 0x404040);
+        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book.%s.line1", loreId)), titleCenterX, titleY, 0x404040);
+        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book.%s.line2", loreId)), titleCenterX, titleY + 10, 0x404040);
+        drawStringCenteredNoShadow(fontRenderer, t.translateKey(String.format("aether.gui.lorebook.book.%s.line3", loreId)), titleCenterX, titleY + 20, 0x404040);
 
         String itemText = t.translateKey("aether.gui.lorebook.item");
         drawStringNoShadow(fontRenderer, itemText, left + 76 - fontRenderer.getStringWidth(itemText), top + 66 + 7, 0x404040);
@@ -47,9 +47,9 @@ public class GuiLorebook extends GuiContainer {
         int loreLeft = left + 140;
         if (loreSlot.hasStack()){
             ItemStack stack = loreSlot.getStack();
-            String des = t.translateKey(stack.getItemName() + ".lore" + loreId);
+            String des = t.translateKey(stack.getItemName() + ".lore." + loreId);
             List<String> description = new ArrayList<>();
-            if (des.equals(stack.getItemName() + ".lore" + loreId)){
+            if (des.equals(stack.getItemName() + ".lore." + loreId)){
                 des = t.translateKey("aether.gui.lorebook.unknown");
             } else {
                 description.addAll(constrainString(t.translateKey(stack.getItemName() + ".name"), 15));
