@@ -46,6 +46,17 @@ public class ItemDyeMixin extends Item {
                 entityplayer.swingItem();
                 info.setReturnValue(true);
             }
+            if (world.getBlockId(blockX, blockY, blockZ) == AetherBlocks.dirtAether.id) {
+                if (!world.isClientSide && Block.lightBlock[world.getBlockId(blockX, blockY + 1, blockZ)] <= 2) {
+                    int grass = AetherBlocks.grassAether.id;
+                    world.setBlockWithNotify(blockX, blockY, blockZ, grass);
+                    if (entityplayer.getGamemode().consumeBlocks()) {
+                        --itemstack.stackSize;
+                    }
+                    entityplayer.swingItem();
+                    info.setReturnValue(true);
+                }
+            }
         }
     }
 }
