@@ -1,5 +1,32 @@
 ## Misc
 
+#Achievements
+achievement.aether.hostile.paradise=Hostile Paradise
+achievement.aether.hostile.paradise.desc=Ascend to the Aether.
+achievement.aether.bounce=To Infinity and Beyond!
+achievement.aether.bounce.desc=Bounce on a blue aercloud.
+achievement.aether.moa=Now You're Family
+achievement.aether.moa.desc=Incubate a moa.
+achievement.aether.phyg=When Phygs Fly
+achievement.aether.phyg.desc=Fly on a phyg.
+achievement.aether.enchanter=Do You Believe In Magic?
+achievement.aether.enchanter.desc=Craft an enchanter.
+achievement.aether.bronze=Like a Bossaru!
+achievement.aether.bronze.desc=Defeat the bronze dungeon boss.
+achievement.aether.silver=Dethroned
+achievement.aether.silver.desc=Defeat the silver dungeon boss.
+achievement.aether.gold=Extinguished
+achievement.aether.gold.desc=Defeat the gold dungeon boss.
+achievement.aether.gravitite=Pink is the New Blue
+achievement.aether.gravitite.desc=Craft a gravitite tool.
+achievement.aether.lore=The More You Know!
+achievement.aether.lore.desc=Read a book of lore.
+achievement.aether.lore.inception=Lore-Ception
+achievement.aether.lore.inception.desc=Its a book in a book in a book in...
+
+
+
+
 #Worldtype
 worldType.aether.default.name=The Aether
 worldType.aether.default.desc=Welcome to a hostile paradise.
@@ -396,12 +423,16 @@ item.aether.armor.boots.neptune.desc=A stormy pair of neptune boots.
 
 item.aether.armor.gloves.leather.name=Leather Gloves
 item.aether.armor.gloves.leather.desc=A pair of gloves made from a cow's hide.
+item.aether.armor.gloves.chain.name=Chain Gloves
+item.aether.armor.gloves.chain.desc=A pair of gloves made up of tiny chains. Can be repaired.
 item.aether.armor.gloves.iron.name=Iron Gloves
 item.aether.armor.gloves.iron.desc=A strong pair of iron gloves.
 item.aether.armor.gloves.gold.name=Gold Gloves
 item.aether.armor.gloves.gold.desc=A delicate pair of gold gloves.
 item.aether.armor.gloves.diamond.name=Diamond Gloves
 item.aether.armor.gloves.diamond.desc=A fancy pair of diamond gloves.
+item.aether.armor.gloves.steel.name=Steel Gloves
+item.aether.armor.gloves.steel.desc=A durable pair of steel gloves.
 item.aether.armor.gloves.zanite.name=Zanite Gloves
 item.aether.armor.gloves.zanite.desc=A shiny pair of zanite gloves.
 item.aether.armor.gloves.gravitite.name=Gravitite Gloves
