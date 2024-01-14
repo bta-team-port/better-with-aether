@@ -1,6 +1,5 @@
 package bta.aether.world;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.chunk.perlin.aether.ChunkGeneratorAether;
 import net.minecraft.core.Global;
@@ -78,8 +77,8 @@ public abstract class WorldTypeAether
     }
 
     @Override
-    public float getCelestialAngle(World world, long l, float f) {
-        return 0f;
+    public float getCelestialAngle(World world, long tick, float partialTick) {  //TODO REPLACE WITH SUN SPIRIT STUFF
+        return this.getTimeOfDay(world, tick, partialTick);
     }
 
     @Override
@@ -106,8 +105,21 @@ public abstract class WorldTypeAether
     }
 
     @Override
-    public int getSkyDarken(World world, long l, float f) {
-        return 0;
+    public int getSkyDarken(World world, long tick, float partialTick) { //TODO REPLACE WITH SUN SPIRIT STUFF
+        float f1 = this.getCelestialAngle(world, tick, partialTick);
+        float f2 = 1.0f - (MathHelper.cos(f1 * 3.141593f * 2.0f) * 2.0f + 0.5f);
+        if (f2 < 0.0f) {
+            f2 = 0.0f;
+        }
+        if (f2 > 1.0f) {
+            f2 = 1.0f;
+        }
+        float weatherOffset = 0.0f;
+        Weather currentWeather = world.getCurrentWeather();
+        if (currentWeather != null) {
+            weatherOffset = (float)currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
+        }
+        return (int)(f2 * (11.0f - weatherOffset) + weatherOffset);
     }
 
     @Override

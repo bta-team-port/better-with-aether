@@ -4,9 +4,11 @@ import bta.aether.AetherBlockTags;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
+import net.minecraft.client.sound.block.BlockSounds;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import turniplabs.halplibe.helper.BlockBuilder;
 
@@ -594,6 +596,16 @@ public class AetherBlocks {
             .setTextures("LightHellfireStone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));
+    public static final Block lanternAetherBlock = new BlockBuilder(MOD_ID)
+            .setBlockSound(BlockSounds.GLASS)
+            .setHardness(0.1f)
+            .setBlockModel(new BlockModelRenderBlocks(26))
+            .setTextures("lanternSilver.png")
+            .build(new BlockLanternFirefly("lantern.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
+            .withLightEmission(0.9375f)
+            .withDisabledStats()
+            .withDisabledNeighborNotifyOnMetadataChange()
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);;
 
     public void initializeBlocks(){}
 }
