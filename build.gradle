@@ -130,7 +130,7 @@ dependencies {
 	modImplementation files("dependencies/catalyst-effects-1.1.0.jar")
 	modImplementation files("dependencies/dragonfly-1.3.2-7.1.jar")
 	modImplementation files("dependencies/terrainapi-1.4.2-7.1.jar")
-	modImplementation files("dependencies/accessoryapi-1.0.1.jar")
+	modImplementation files("dependencies/accessoryapi-1.1.1.jar")
 
 	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
 
