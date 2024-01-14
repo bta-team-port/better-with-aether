@@ -16,6 +16,7 @@
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
+    "LoadingScreenRendererMixin",
     "SaveHandlerBaseMixin",
     "accessors.ItemToolSwordAccessor"
   ],
