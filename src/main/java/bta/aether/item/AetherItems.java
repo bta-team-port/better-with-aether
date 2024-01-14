@@ -1,5 +1,6 @@
 package bta.aether.item;
 
+import bta.aether.block.AetherBlocks;
 import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
 import bta.aether.item.Accessories.ItemAccessoryRegenStone;
@@ -9,6 +10,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.ItemFoodStackable;
+import net.minecraft.core.item.ItemPlaceable;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tag.ItemTags;
@@ -191,7 +193,7 @@ public class AetherItems {
     public static final Item cloudparachuteGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "cloud.parachute.gold", "GoldenParachute.png").setMaxStackSize(1);
 
     public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new Item(itemID++), "food.lifeshard", "LifeShard.png");
-
+    public static final Item lanternAether = ItemHelper.createItem(MOD_ID, new ItemPlaceable("lantern.firefly.silver",itemID++, AetherBlocks.lanternAetherBlock), "lantern.firefly.silver", "lanternSilverItem.png");
     public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick(itemID++), "dev.stick", "Stick.png").setMaxStackSize(1);
 
 
