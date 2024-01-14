@@ -1,6 +1,7 @@
 package bta.aether.entity;
 
 import bta.aether.Aether;
+import bta.aether.block.BlockDungeon;
 import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
@@ -69,6 +70,16 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         this.world.dropItem((int)x, (int)y, (int)z, keyChain);
         AetherDimension.dugeonMap.remove(belongsTo);
         Aether.LOGGER.info(personalBossName + " of ID " + belongsTo + " has been slain!");
+
+        // try triggering the propagate on dungeon blocks.
+        for (int x1 = -3; x1 < 3; x1++) {
+            for (int z1 = -3; z1 < 3; z1++) {
+                for (int y1 = -3; y1 < 3; y1++) {
+                    world.notifyBlockChange((int) x + x1, (int) y + y1, (int) z + z1, world.getBlockId((int) x + x1, (int) y + y1, (int) z + z1));
+                }
+            }
+        }
+
         super.onEntityDeath();
     }
 
