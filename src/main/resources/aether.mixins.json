@@ -7,6 +7,7 @@
     "BlockFluidPortalMixin",
     "BlockMixin",
     "BlockTorchMixin",
+    "EntityFireflyFXMixin",
     "EntityLivingMixin",
     "EntityMixin",
     "EntityPlayerSPMixin",
@@ -16,7 +17,9 @@
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
+    "ItemJarMixin",
     "LoadingScreenRendererMixin",
+    "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
     "accessors.ItemToolSwordAccessor"
   ],

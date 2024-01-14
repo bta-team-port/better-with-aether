@@ -10,6 +10,7 @@ import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import bta.aether.tile.TileEntityTreasureChest;
+import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.ItemStack;
@@ -54,6 +55,7 @@ public class Aether implements GameStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
+        ParticleHelper.createParticle(EntityFireflyFX.class, "fireflySilver");
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
     }
