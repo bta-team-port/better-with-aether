@@ -12,7 +12,7 @@ public class EntityDevBoss extends EntityAetherBossBase {
     public boolean activated;
 
     public EntityDevBoss(World world) {
-        super(world, 100);
+        super(world, 100, "father_sentry");
         this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
@@ -45,7 +45,7 @@ public class EntityDevBoss extends EntityAetherBossBase {
     @Override
     protected void updatePlayerActionState() {
         this.tryToDespawn();
-        EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        EntityPlayer entityplayer = (EntityPlayer) findPlayerToAttack();
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
         if (entityplayer != null && targetPlayer) {
             this.entityToAttack = entityplayer;

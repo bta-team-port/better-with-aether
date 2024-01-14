@@ -14,12 +14,6 @@ effect.aether.remedy.name=Remedy
 
 #Entities
 
-#Bosses
-boss.aether.father_sentry.title=, The Father Sentry
-boss.aether.slider.title=, The Slider
-boss.aether.valkyrie_queen.title=, The Valkyrie Queen
-boss.aether.sun_spirit.title=, The Sun Spirit
-
 #Passive
 aether.phyg.name=Phyg
 aether.phyg.name=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
@@ -71,18 +65,22 @@ aether.valkyrie.name=Valkyrie
 aether.valkyrie.desc=
 
 
-#Bosses
+# Bosses
+
+aether.father_sentry.name=Father Sentry
+aether.slider.desc="The deadbeat dad of all automatons"
+
 aether.slider.name=Slider
 aether.slider.desc=
 
-aether.valkyrie.queen.name=Valkyrie Queen
-aether.valkyrie.queen.desc=
+aether.valkyrie_queen.name=Valkyrie Queen
+aether.valkyrie_queen.desc=
 
 aether.sunspirit.name=Sun Spirit
 aether.sunspirit.desc=
 
-
-
+# GUI
+aether.menu.boss_bar.preview_name=John Doe, The Three-headed Render Preview
 
 ## Blocks
 
