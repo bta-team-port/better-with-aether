@@ -38,10 +38,10 @@ public class AetherItems {
     public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.silver", "SilverKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
     public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.gold", "GoldKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
 
-    public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore1", "OverworldBook.png");
-    public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore2", "NetherBook.png");
-    public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore3", "AetherBook.png");
-    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore4", "ParadiseBook.png");
+    public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, 1), "book.lore1", "OverworldBook.png");
+    public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, 2), "book.lore2", "NetherBook.png");
+    public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, 3), "book.lore3", "AetherBook.png");
+    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, 4), "book.lore4", "ParadiseBook.png");
 
     public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.blue", "BlueMoaEgg.png");
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png");
