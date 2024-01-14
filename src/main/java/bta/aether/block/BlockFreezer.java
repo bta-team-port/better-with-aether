@@ -1,8 +1,7 @@
 package bta.aether.block;
 
-import bta.aether.gui.GuiFreezer;
+import bta.aether.gui.IAetherGuis;
 import bta.aether.tile.TileEntityFreezer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.BlockTileEntity;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
@@ -24,8 +23,7 @@ public class BlockFreezer extends BlockTileEntity {
         if (!world.isClientSide) {
             TileEntityFreezer tile = (TileEntityFreezer) world.getBlockTileEntity(x, y, z);
             if (tile != null) {
-                //TODO: mp eventually -martin
-                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiFreezer(player.inventory, tile));
+                ((IAetherGuis)player).aether$displayGUIFreeze(tile);
             }
         }
         return true;
