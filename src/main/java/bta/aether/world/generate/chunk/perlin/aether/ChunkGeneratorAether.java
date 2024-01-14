@@ -9,6 +9,6 @@ import net.minecraft.core.world.generate.chunk.perlin.paradise.TerrainGeneratorP
 
 public class ChunkGeneratorAether  extends ChunkGeneratorPerlin {
     public ChunkGeneratorAether(World world) {
-        super(world, new ChunkDecoratorAetherAPI(world), new TerrainGeneratorParadise(world), new SurfaceGeneratorOverworld(world), new MapGenCaves(false));
+        super(world, new ChunkDecoratorAetherAPI(world), new TerrainGeneratorAether(world), new SurfaceGeneratorOverworld(world), new MapGenCaves(false));
     }
 }

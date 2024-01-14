@@ -1,6 +1,5 @@
 package bta.aether.world;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.chunk.perlin.aether.ChunkGeneratorAether;
 import net.minecraft.core.Global;
