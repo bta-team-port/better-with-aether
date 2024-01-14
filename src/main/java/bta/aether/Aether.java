@@ -15,9 +15,11 @@ import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import turniplabs.halplibe.helper.AchievementHelper;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.ParticleHelper;
 import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.util.achievements.AchievementPage;
 
 
 public class Aether implements GameStartEntrypoint {
@@ -54,6 +56,10 @@ public class Aether implements GameStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
+
+        AchievementPage AETHERACHIEVEMENTS;
+        AETHERACHIEVEMENTS = new AetherAchievements();
+        AchievementHelper.addPage(AETHERACHIEVEMENTS);
 
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
     }
