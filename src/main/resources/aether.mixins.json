@@ -10,6 +10,7 @@
     "EntityFireflyFXMixin",
     "EntityLivingMixin",
     "EntityMixin",
+    "EntityPlayerMixin",
     "EntityPlayerSPMixin",
     "ExplosionCannonballMixin",
     "GuiIngameMixin",

@@ -109,6 +109,24 @@ aether.sunspirit.desc=
 # GUI
 aether.menu.boss_bar.preview_name=John Doe, The Three-headed Render Preview
 
+aether.gui.lorebook.item=Item :
+
+aether.gui.lorebook.book1.line1=Book Of Lore
+aether.gui.lorebook.book1.line2=Volume 1
+aether.gui.lorebook.book1.line3=The Surface
+
+aether.gui.lorebook.book2.line1=Book Of Lore
+aether.gui.lorebook.book2.line2=Volume 2
+aether.gui.lorebook.book2.line3=The Nether
+
+aether.gui.lorebook.book3.line1=Book Of Lore
+aether.gui.lorebook.book3.line2=Volume 3
+aether.gui.lorebook.book3.line3=The Aether
+
+aether.gui.lorebook.book4.line1=Book Of Lore
+aether.gui.lorebook.book4.line2=Volume 4
+aether.gui.lorebook.book4.line3=Paradise
+
 ## Blocks
 
 #Portal
