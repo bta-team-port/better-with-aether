@@ -7,8 +7,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public class ItemLoreBook extends Item {
-    private final int loreId;
-    public ItemLoreBook(int id, int loreId) {
+    private final String loreId;
+    public ItemLoreBook(int id, String loreId) {
         super(id);
         this.loreId = loreId;
     }
