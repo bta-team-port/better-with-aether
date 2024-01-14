@@ -21,7 +21,7 @@ public class TerrainGeneratorAether extends TerrainGeneratorLerp {
     @Override
     protected int getBlockAt(int x, int y, int z, double density) {
         WorldType type = this.world.getWorldType();
-        if (density > 0.0) {
+        if (density > 3) {
             return type.getFillerBlock();
         }
         return 0;
