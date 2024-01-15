@@ -20,6 +20,7 @@
     "ItemFirestrikerMixin",
     "ItemJarMixin",
     "LoadingScreenRendererMixin",
+    "PlayerRendererMixin",
     "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
     "accessors.ItemToolSwordAccessor"

@@ -13,7 +13,6 @@ import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
-import bta.aether.tile.TileEntityTreasureChest;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
@@ -50,7 +49,6 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
         EntityHelper.Core.createTileEntity(TileEntityFreezer.class,"Freezer");
         EntityHelper.Core.createTileEntity(TileEntityIncubator.class,"Incubator");
-        EntityHelper.Core.createTileEntity(TileEntityTreasureChest.class,"Treasure Chest");
 
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
