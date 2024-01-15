@@ -21,22 +21,19 @@ public class ItemFirestrikerMixin extends Item {
     }
 
     @Inject(method = "onItemUse", at = @At("HEAD"), cancellable = true)
-    public boolean callOnItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
+    public void callOnItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
         if (world.dimension == AetherDimension.dimensionAether) {
 
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45);
-                world.spawnParticle("largesmoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
+                world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
             }
 
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
 
-            itemstack.damageItem(2, entityplayer);
+            itemstack.damageItem(1, entityplayer);
+            entityplayer.swingItem();
             info.setReturnValue(false);
-            return false;
-        } else {
-            return super.onItemUse(itemstack, entityplayer, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
         }
     }
-
 }

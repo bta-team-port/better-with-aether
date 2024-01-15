@@ -17,6 +17,8 @@ import net.minecraft.core.world.wind.WindManager;
 public abstract class WorldTypeAether
     extends WorldType
 {
+    private float[] colorsSunriseSunset = new float[4];
+
     public WorldTypeAether(String languageKey, Weather defaultWeather, WindManager windManager, SeasonConfig defaultSeasonConfig) {
         super(
             languageKey,
@@ -83,23 +85,19 @@ public abstract class WorldTypeAether
 
     @Override
     public float[] getSunriseColor(float timeOfDay, float partialTick) {
-        float[] sunriseCol = new float[4];
         float f2 = 0.4F;
         float f3 = MathHelper.cos(timeOfDay * 3.141593F * 2.0F) - 0.0F;
-        float f4 = -0F;
-        if(f3 >= f4 - f2 && f3 <= f4 + f2)
-        {
-            float c = ((f3 - f4) / f2) * 0.5F + 0.5F;
-            float a = 1.0F - (1.0F - MathHelper.sin(c * 3.141593F)) * 0.99F;
-            a *= a;
-            sunriseCol[0] = c * 0.3F + 0.7F;
-            sunriseCol[1] = c * c * 0.7F + 0.2F;
-            sunriseCol[2] = c * c * 0.0F + 0.2F;
-            sunriseCol[3] = a;
-            return sunriseCol;
-        }
-        else
-        {
+        float f4 = -0.0F;
+        if (f3 >= f4 - f2 && f3 <= f4 + f2) {
+            float f5 = (f3 - f4) / f2 * 0.5F + 0.5F;
+            float f6 = 1.0F - (1.0F - MathHelper.sin(f5 * 3.141593F)) * 0.99F;
+            f6 *= f6;
+            this.colorsSunriseSunset[0] = f5 * 0.3F + 0.1F;
+            this.colorsSunriseSunset[1] = f5 * f5 * 0.7F + 0.2F;
+            this.colorsSunriseSunset[2] = f5 * f5 * 0.7F + 0.2F;
+            this.colorsSunriseSunset[3] = f6;
+            return this.colorsSunriseSunset;
+        } else {
             return null;
         }
     }
@@ -134,9 +132,9 @@ public abstract class WorldTypeAether
         {
             f2 = 1.0F;
         }
-        float f3 = (float)(i >> 16 & 0xff) / 255F;
-        float f4 = (float)(i >> 8 & 0xff) / 255F;
-        float f5 = (float)(i & 0xff) / 255F;
+        float f3 = (float)(i >> 16 & 255) / 255F;
+        float f4 = (float)(i >> 8 & 255) / 255F;
+        float f5 = (float)(i & 255) / 255F;
         f3 *= f2 * 0.94F + 0.06F;
         f4 *= f2 * 0.94F + 0.06F;
         f5 *= f2 * 0.91F + 0.09F;
@@ -156,5 +154,10 @@ public abstract class WorldTypeAether
     @Override
     public boolean hasGround() {
         return false;
+    }
+
+    @Override
+    public boolean hasAurora() {
+        return true;
     }
 }
