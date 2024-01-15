@@ -16,6 +16,7 @@
     "ExplosionCannonballMixin",
     "GuiIngameMixin",
     "InventoryPlayerMixin",
+    "ItemBlockMixin",
     "ItemBucketMixin",
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
