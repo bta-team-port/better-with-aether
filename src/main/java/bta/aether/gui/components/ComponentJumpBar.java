@@ -13,9 +13,9 @@ import org.lwjgl.opengl.GL11;
 public class ComponentJumpBar extends MovableHudComponent {
 
     private static final String texture = "/assets/aether/gui/jumps.png";
-    private static final int iconWidth = 9;
-    private static final int iconHeight = 9;
-    private static final int rowLength = 9;
+    private static final int iconWidth = 8;
+    private static final int iconHeight = 8;
+    private static final int rowLength = 10;
 
 
     private Minecraft mc = Minecraft.getMinecraft(Minecraft.class);
@@ -66,7 +66,7 @@ public class ComponentJumpBar extends MovableHudComponent {
         this.gui = gui;
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
-        drawJumpBar(67,23);
+        drawJumpBar(((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount(), ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpAmount());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ComponentJumpBar extends MovableHudComponent {
         this.gui = gui;
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
-        drawJumpBar(((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount(), ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpAmount());
+        drawJumpBar(3,2);
     }
 
     public void drawJumpBar(int jumpMaxAmount, int jumpAmount){
