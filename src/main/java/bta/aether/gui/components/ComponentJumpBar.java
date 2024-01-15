@@ -1,6 +1,6 @@
 package bta.aether.gui.components;
 
-import bta.aether.entity.IAetherPlayer;
+import bta.aether.entity.IPlayerJumpAmount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiHudDesigner;
@@ -57,7 +57,7 @@ public class ComponentJumpBar extends MovableHudComponent {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return ((IAetherPlayer)mc.thePlayer).aether$getJumpMaxAmount() > 0;
+        return ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount() > 0;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ComponentJumpBar extends MovableHudComponent {
         this.gui = gui;
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
-        drawJumpBar(((IAetherPlayer)mc.thePlayer).aether$getJumpMaxAmount(), ((IAetherPlayer)mc.thePlayer).aether$getJumpAmount());
+        drawJumpBar(((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount(), ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpAmount());
     }
 
     public void drawJumpBar(int jumpMaxAmount, int jumpAmount){

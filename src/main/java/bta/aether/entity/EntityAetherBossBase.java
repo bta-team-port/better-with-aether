@@ -57,8 +57,8 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
     protected Entity findPlayerToAttack() {
         Entity entity = super.findPlayerToAttack();
         if (entity instanceof EntityPlayer){
-            if (((EntityPlayer) entity).gamemode.areMobsHostile() && !((IAetherPlayer) entity).aether$getBossList().contains(this)) {
-                ((IAetherPlayer) entity).aether$getBossList().add(this);
+            if (((EntityPlayer) entity).gamemode.areMobsHostile() && !((IPlayerBossList) entity).aether$getBossList().contains(this)) {
+                ((IPlayerBossList) entity).aether$getBossList().add(this);
             }
         }
         return entity;
