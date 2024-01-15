@@ -1,5 +1,6 @@
 package bta.aether.block;
 
+import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
@@ -11,6 +12,7 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import turniplabs.halplibe.helper.BlockBuilder;
+import turniplabs.halplibe.helper.TextureHelper;
 
 import static bta.aether.Aether.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterStill;
@@ -251,7 +253,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("SkyrootSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
     public static final Block saplingOakGolden = new BlockBuilder(MOD_ID)
@@ -260,7 +262,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("GoldenOakSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherGoldenOak("goldenoak.sapling", blockID++));
 
@@ -488,7 +490,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("WhiteFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .build(new BlockAetherFlower("flower.white", blockID++));
 
     public static final Block flowerPurple = new BlockBuilder(MOD_ID)
@@ -497,7 +499,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("PurpleFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
     public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
@@ -607,5 +609,7 @@ public class AetherBlocks {
             .withDisabledNeighborNotifyOnMetadataChange()
             .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);;
 
-    public void initializeBlocks(){}
+    public void initializeBlocks(){
+        TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jarAether.png"); // Loads the texture into halplibe at startup
+    }
 }
