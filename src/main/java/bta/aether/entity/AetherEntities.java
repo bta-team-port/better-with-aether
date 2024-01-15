@@ -1,14 +1,14 @@
 package bta.aether.entity;
 
 import bta.aether.entity.model.ModelMoa;
-import bta.aether.entity.model.ModelZephyr;
-import bta.aether.entity.renderer.ZephyrRenderer;
-import bta.aether.entity.tileEntity.TileEntityChestLocked;
 import bta.aether.entity.model.ModelSentry;
 import bta.aether.entity.model.ModelSwet;
+import bta.aether.entity.model.ModelZephyr;
+import bta.aether.entity.renderer.MoaRenderer;
 import bta.aether.entity.renderer.SentryRenderer;
 import bta.aether.entity.renderer.SwetRenderer;
-import net.minecraft.client.render.entity.LivingRenderer;
+import bta.aether.entity.renderer.ZephyrRenderer;
+import bta.aether.entity.tileEntity.TileEntityChestLocked;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
 import useless.dragonfly.model.entity.BenchEntityModel;
@@ -36,6 +36,6 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
         EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1));
         EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer(modelZephyr, 1));
-        EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new LivingRenderer<EntityMoa>(modelZephyr, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1));
     }
 }
