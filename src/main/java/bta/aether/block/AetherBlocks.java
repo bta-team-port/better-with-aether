@@ -323,32 +323,6 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.ambrosium", blockID++, Material.metal));
 
-    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
-
-    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
-
-    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
-            .setHardness(2.0f)
-            .setResistance(2.0f)
-            .setTopBottomTexture(9, 1)
-            .setSideTextures(10, 1)
-            .setNorthTexture(11, 1)
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("chest.mimic", blockID++, Material.wood));
-
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
@@ -526,6 +500,32 @@ public class AetherBlocks {
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
+    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("CarvedStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
+
+    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("AngelicStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
+
+    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
+            .setHardness(2.0f)
+            .setResistance(2.0f)
+            .setTopBottomTexture(9, 1)
+            .setSideTextures(10, 1)
+            .setNorthTexture(11, 1)
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("chest.mimic", blockID++, Material.wood));
+
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
             .setHardness(-1.0F)
             .setResistance(-1.0F)
@@ -601,7 +601,7 @@ public class AetherBlocks {
             .setHardness(0.1f)
             .setBlockModel(new BlockModelRenderBlocks(26))
             .setTextures("lanternSilver.png")
-            .build(new BlockLanternFirefly("lantern.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
+            .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
             .withLightEmission(0.9375f)
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()

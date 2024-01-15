@@ -293,6 +293,9 @@ tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
 tile.aether.block.ambrosium.name=Block of Ambrosium
 tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
 
+tile.aether.lantern.firefly.silver.name=Silver Firefly Lantern
+tile.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.
+
 ##Items
 
 #Tools
@@ -526,14 +529,14 @@ item.aether.armor.cape.blue.name=Blue Cape
 item.aether.armor.cape.blue.desc=Blue colored decorative cape.
 
 #Misc
-item.aether.book.lore1.name=Book of Lore: Volume 1
-item.aether.book.lore1.desc=Contains information about the Overworld.
-item.aether.book.lore2.name=Book of Lore Volume 2
-item.aether.book.lore2.desc=Contains information about The Nether.
-item.aether.book.lore3.name=Book of Lore Volume 3
-item.aether.book.lore3.desc=Contains information about The Aether.
-item.aether.book.lore4.name=Book of Lore Volume 4
-item.aether.book.lore4.desc=Contains information about Paradise.
+item.aether.book.lore.overworld.name=Book of Lore: Volume 1
+item.aether.book.lore.overworld.desc=Contains information about the Overworld.
+item.aether.book.lore.nether.name=Book of Lore Volume 2
+item.aether.book.lore.nether.desc=Contains information about The Nether.
+item.aether.book.lore.aether.name=Book of Lore Volume 3
+item.aether.book.lore.aether.desc=Contains information about The Aether.
+item.aether.book.lore.paradise.name=Book of Lore Volume 4
+item.aether.book.lore.paradise.desc=Contains information about Paradise.
 
 item.aether.egg.moa.blue.name=Blue Moa Egg
 item.aether.egg.moa.blue.desc=Laid by a blue moa, place it in an incubator.
@@ -568,3 +571,6 @@ item.aether.food.gummy.gold.desc=Delicious gold swet flavored sweet. Full heal!
 
 item.aether.food.lifeshard.name=Lifeshard
 item.aether.food.lifeshard.desc=Permanently increases your maximum health by one heart. Amazing!
+
+item.aether.lantern.firefly.silver.name=Silver Firefly Lantern
+item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.

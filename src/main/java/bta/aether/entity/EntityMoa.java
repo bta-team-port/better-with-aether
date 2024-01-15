@@ -27,6 +27,14 @@ public class EntityMoa extends EntityChicken implements IVehicle {
         this.viewScale = 2f;
     }
 
+    public String getEntityTexture() {
+            return "/assets/aether/mobs/BlueMoa.png";
+        }
+
+    public String getDefaultEntityTexture() {
+        return "/assets/aether/mobs/BlueMoa.png";
+    }
+
     @Override
     protected void causeFallDamage(float f) {
     }
