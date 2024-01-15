@@ -2,7 +2,8 @@ package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
 import bta.aether.entity.EntityAetherBossBase;
-import bta.aether.entity.IAetherPlayer;
+import bta.aether.entity.IPlayerBossList;
+import bta.aether.entity.IPlayerJumpAmount;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.core.block.Block;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = EntityPlayerSP.class, remap = false)
-public abstract class EntityPlayerSPMixin extends EntityPlayer implements IAetherPlayer {
+public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IPlayerJumpAmount {
     @Unique List<EntityAetherBossBase> bossList = new ArrayList<>();
 
     @Unique
