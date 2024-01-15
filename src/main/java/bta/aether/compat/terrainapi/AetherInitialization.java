@@ -52,23 +52,22 @@ public class AetherInitialization extends BaseInitialization {
         put(AetherBlocks.holystone.id, AetherBlocks.oreGravititeHolystone.id);
     }};
     public static Map<Integer, Integer> iceMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, Block.ice.id);
+        put(AetherBlocks.holystone.id, Block.fluidWaterFlowing.id);
     }};
     public static Map<Integer, Integer> waterMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, Block.fluidWaterStill.id);
+        put(AetherBlocks.holystone.id, Block.fluidWaterFlowing.id);
     }};
 
     @Override
     protected void initOre() {
         OverworldOreFeatures oreFeatures = ChunkDecoratorAetherAPI.oreFeatures;
         addManagedAetherOreFeature(MOD_ID, oreIceStoneMap,AetherBlocks.icestone, 32, 8, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, oreAmbrosiumMap,AetherBlocks.oreAmbrosiumHolystone, 16, 24, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, oreZaniteMap,AetherBlocks.oreZaniteHolystone, 8, 16, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, oreGravititeMap,AetherBlocks.oreGravititeHolystone, 5, 16, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, oreZaniteMap,AetherBlocks.oreZaniteHolystone, 2, 2, 0, 128);
+        addManagedAetherOreFeature(MOD_ID, oreAmbrosiumMap,AetherBlocks.oreAmbrosiumHolystone, 32, 20, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, oreZaniteMap,AetherBlocks.oreZaniteHolystone, 8, 20, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, oreGravititeMap,AetherBlocks.oreGravititeHolystone, 7, 1, 0, 100);
 
-        addManagedAetherOreFeature(MOD_ID, waterMap,Block.fluidWaterStill, 1, 24, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, iceMap,Block.ice, 3, 8, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, waterMap,Block.fluidWaterFlowing, 1, 24, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, iceMap,Block.fluidWaterFlowing, 3, 8, 0, 255);
     }
     public static void addManagedAetherOreFeature(String modID, Map<Integer, Integer> blockMap, Block configSymbol, int defaultClusterSize, int defaultChances, int minY, int maxY){
         float defaultRangeStart = minY/255f;
