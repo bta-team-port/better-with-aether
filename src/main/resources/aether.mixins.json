@@ -7,7 +7,6 @@
     "BlockFluidPortalMixin",
     "BlockJarMixin",
     "BlockMixin",
-    "BlockTorchMixin",
     "EntityFireflyFXMixin",
     "EntityLivingMixin",
     "EntityMixin",
