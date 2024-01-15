@@ -1,6 +1,6 @@
 package bta.aether.block;
 
-import bta.aether.entity.tileEntity.TileEntityChestLocked;
+import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.block.BlockChest;
 import net.minecraft.core.block.BlockTileEntityRotatable;
