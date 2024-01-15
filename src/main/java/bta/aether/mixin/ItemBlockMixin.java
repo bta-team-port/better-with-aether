@@ -28,7 +28,7 @@ public class ItemBlockMixin {
             if (Dimension.getDimensionList().get(player.dimension) == AetherDimension.dimensionAether){
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
-                    world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
+                    world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
                 }
 
                 world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);

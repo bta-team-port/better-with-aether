@@ -16,8 +16,6 @@ import net.minecraft.core.world.Dimension;
 import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 
-import java.awt.*;
-
 import static bta.aether.Aether.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterStill;
 import static net.minecraft.core.block.Block.glowstone;
@@ -615,6 +613,7 @@ public class AetherBlocks {
 
     public void initializeBlocks(){
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jarAether.png"); // Loads the texture into halplibe at startup
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(portalAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(dirtAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(holystone.id);
@@ -622,9 +621,14 @@ public class AetherBlocks {
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(stairsHolystone.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(slabHolystone.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(quicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(glassQuicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapdoorGlassQuicksoil.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreAmbrosiumHolystone.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreZaniteHolystone.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreGravititeHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(gravititeEnchanted.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(blockZanite.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(blockAmbrosium.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(logOakGolden.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(leavesOakGolden.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(saplingOakGolden.id);
