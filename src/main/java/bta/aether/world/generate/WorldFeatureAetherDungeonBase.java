@@ -4,7 +4,7 @@ import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.entity.EntityDevBoss;
-import bta.aether.entity.tileEntity.TileEntityChestLocked;
+import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.item.AetherItems;
 import bta.aether.world.LootTable;
 import net.minecraft.core.block.Block;

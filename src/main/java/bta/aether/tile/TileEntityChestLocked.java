@@ -1,4 +1,4 @@
-package bta.aether.entity.tileEntity;
+package bta.aether.tile;
 
 import bta.aether.Aether;
 import com.mojang.nbt.CompoundTag;
