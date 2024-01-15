@@ -26,8 +26,8 @@ public class AetherAchievements extends AchievementPage {
     public static final Achievement SILVER = new Achievement(AchievementList.achievementList.size() + 1, "aether.silver", 0, 4, AetherItems.keySilver, HOSTILE_PARADISE);
     public static final Achievement GOLD = new Achievement(AchievementList.achievementList.size() + 1, "aether.gold", 2, 3, AetherItems.keyGold, HOSTILE_PARADISE);
     public static final Achievement GRAVITITE = new Achievement(AchievementList.achievementList.size() + 1, "aether.gravitite", -1, -3, AetherItems.toolPickaxeGravitite, HOSTILE_PARADISE);
-    public static final Achievement LORE = new Achievement(AchievementList.achievementList.size() + 1, "aether.lore", 1, -3, AetherItems.bookLore3, HOSTILE_PARADISE);
-    public static final Achievement LORECEPTION = new Achievement(AchievementList.achievementList.size() + 1, "aether.lore.inception", 1, -5, AetherItems.bookLore3, LORE);
+    public static final Achievement LORE = new Achievement(AchievementList.achievementList.size() + 1, "aether.lore", 1, -3, AetherItems.bookLoreAether, HOSTILE_PARADISE);
+    public static final Achievement LORECEPTION = new Achievement(AchievementList.achievementList.size() + 1, "aether.lore.inception", 1, -5, AetherItems.bookLoreAether, LORE);
 
     public AetherAchievements() {
         super("Aether", "achievements.page.aether");
