@@ -2,7 +2,6 @@ package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.gui.GuiBossBar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.Tessellator;
@@ -24,14 +23,6 @@ public class GuiIngameMixin {
 
     @Shadow
     protected Minecraft mc;
-    @Unique
-    GuiBossBar guiBossBar;
-
-    @Inject(method = "<init>(Lnet/minecraft/client/Minecraft;)V", at = @At(value ="TAIL"))
-    void constructor(Minecraft minecraft, CallbackInfo ci) {
-         guiBossBar = new GuiBossBar(minecraft);
-    }
-
 
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="TAIL"))
     public void endRenderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {

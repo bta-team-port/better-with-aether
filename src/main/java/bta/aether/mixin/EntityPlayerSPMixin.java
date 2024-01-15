@@ -3,6 +3,7 @@ package bta.aether.mixin;
 import bta.aether.block.IPortalExtras;
 import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.entity.IPlayerBossList;
+import bta.aether.entity.IPlayerJumpAmount;
 import bta.aether.gui.GuiEnchanter;
 import bta.aether.gui.GuiFreezer;
 import bta.aether.gui.GuiLorebook;
@@ -28,9 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = EntityPlayerSP.class, remap = false)
-public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IAetherGuis {
+public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IPlayerJumpAmount, IAetherGuis {
+
     @Shadow protected Minecraft mc;
     @Unique List<EntityAetherBossBase> bossList = new ArrayList<>();
+
+    @Unique
+    int jumpAmount = 0;
+    @Unique
+    int jumpMaxAmount = 0;
+
     public EntityPlayerSPMixin(World world) {
         super(world);
     }
@@ -84,4 +92,27 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
     public void aether$displayGUILoreBook(String loreId){
         mc.displayGuiScreen(new GuiLorebook(this, loreId));
     }
+
+    @Unique
+    public int aether$getJumpMaxAmount() {
+        return this.jumpMaxAmount;
+    }
+
+    @Unique
+    public int aether$getJumpAmount() {
+        return this.jumpAmount;
+    }
+
+    @Unique
+    public void aether$setJumpMaxAmount(int jumpMaxAmount) {
+        this.jumpMaxAmount = jumpMaxAmount;
+    }
+
+    @Unique
+    public void aether$setJumpAmount(int jumpAmount) {
+        this.jumpAmount = jumpAmount;
+    }
+
+
+
 }
