@@ -12,9 +12,9 @@ import org.lwjgl.opengl.GL11;
 
 public class ComponentJumpBar extends MovableHudComponent {
 
-    private static final String texture = "/assets/aether/gui/jumps.png";
-    private static final int iconWidth = 8;
-    private static final int iconHeight = 8;
+    private static final String texture = "/assets/aether/gui/aetherIcons.png";
+    private static final int iconWidth = 9;
+    private static final int iconHeight = 9;
     private static final int rowLength = 10;
 
 
@@ -93,12 +93,12 @@ public class ComponentJumpBar extends MovableHudComponent {
     public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount){
         int row;
         for (row = 0; row < iconAmount/rowLength; row++) {
-            for (int feather = screenX; feather < screenX + (iconWidth*rowLength); feather += iconWidth) {
+            for (int feather = screenX; feather < screenX + (iconWidth*rowLength); feather += iconWidth-1) {
                 gui.drawTexturedModalRect(feather, screenY - (iconHeight*row), U, V, iconWidth, iconHeight);
             }
         }
 
-        for (int feather = screenX; feather < screenX + (iconWidth * ((iconAmount%rowLength) - (iconAmount/rowLength))); feather += iconWidth) {
+        for (int feather = screenX; feather < screenX + (iconWidth * ((iconAmount%rowLength) - (iconAmount/rowLength))); feather += iconWidth-1) {
             gui.drawTexturedModalRect(feather, screenY - (iconHeight * row), U, V, iconWidth, iconHeight);
         }
     }
