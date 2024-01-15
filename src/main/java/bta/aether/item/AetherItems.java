@@ -2,6 +2,7 @@ package bta.aether.item;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
+import bta.aether.item.Accessories.ItemAccessoryInvisibilityCape;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
 import bta.aether.item.Accessories.ItemAccessoryRegenStone;
 import bta.aether.item.Accessories.base.*;
@@ -182,7 +183,7 @@ public class AetherItems {
     public static final Item armorShieldRepulsion = ItemHelper.createItem(MOD_ID, new ItemAccessoryShield(itemID++), "armor.shield.repulsion", "RepulsionShield.png");
 
     public static final Item armorCapeSwet = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++), "armor.cape.swet", "AetherCape.png");
-    public static final Item armorCapeInvisibility = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++), "armor.cape.invisibility", "InvisibilityCloak.png");
+    public static final Item armorCapeInvisibility = ItemHelper.createItem(MOD_ID, new ItemAccessoryInvisibilityCape(itemID++), "armor.cape.invisibility", "InvisibilityCloak.png");
     public static final Item armorCapeAgility = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++), "armor.cape.agility", "AgilityCape.png");
 
     public static final Item armorCapeWhite = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++), "armor.cape.white", "Cape.png");
