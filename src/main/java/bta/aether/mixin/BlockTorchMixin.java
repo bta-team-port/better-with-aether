@@ -1,6 +1,5 @@
 package bta.aether.mixin;
 
-import bta.aether.Aether;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockTorch;
@@ -25,7 +24,7 @@ public class BlockTorchMixin extends Block {
 
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45);
-                world.spawnParticle("largesmoke", (double) x + 0.5, (double) y + 0.6, (double) z + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
+                world.spawnParticle("smoke", (double) x + 0.5, (double) y + 0.6, (double) z + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
             }
             info.setReturnValue(false);
         }

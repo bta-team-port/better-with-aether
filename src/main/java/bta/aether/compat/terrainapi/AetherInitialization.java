@@ -6,7 +6,6 @@ import bta.aether.world.generate.feature.WorldFeatureAetherOre;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
-import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.config.OreConfig;
 import useless.terrainapi.generation.StructureFeatures;
@@ -25,6 +24,7 @@ public class AetherInitialization extends BaseInitialization {
     @Override
     protected void initValues() {
         aetherConfig.addTreeDensity(AetherDimension.biomeAether, 64);
+        aetherConfig.addLakeDensity(AetherDimension.biomeAether, 1);
     }
 
     @Override
@@ -67,8 +67,7 @@ public class AetherInitialization extends BaseInitialization {
         addManagedAetherOreFeature(MOD_ID, oreGravititeMap,AetherBlocks.oreGravititeHolystone, 5, 16, 0, 255);
         addManagedAetherOreFeature(MOD_ID, oreZaniteMap,AetherBlocks.oreZaniteHolystone, 2, 2, 0, 128);
 
-        addManagedAetherOreFeature(MOD_ID, lavaMap,Block.fluidLavaStill, 1, 24, 0, 255);
-        addManagedAetherOreFeature(MOD_ID, iceMap,Block.ice, 3, 8, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, iceMap,Block.fluidWaterFlowing, 3, 8, 0, 255);
     }
     public static void addManagedAetherOreFeature(String modID, Map<Integer, Integer> blockMap, Block configSymbol, int defaultClusterSize, int defaultChances, int minY, int maxY){
         float defaultRangeStart = minY/255f;

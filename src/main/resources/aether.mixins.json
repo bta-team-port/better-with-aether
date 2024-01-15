@@ -19,6 +19,7 @@
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
     "ItemJarMixin",
+    "ItemPlaceableMixin",
     "LoadingScreenRendererMixin",
     "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
