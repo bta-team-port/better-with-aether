@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockFluidPortalMixin",
+    "BlockJarMixin",
     "BlockMixin",
     "BlockTorchMixin",
     "EntityFireflyFXMixin",
@@ -21,6 +22,7 @@
     "ItemJarMixin",
     "LoadingScreenRendererMixin",
     "PlayerRendererMixin",
+    "RenderBlocksMixin",
     "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
     "accessors.ItemToolSwordAccessor"
