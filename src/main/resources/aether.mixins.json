@@ -21,6 +21,7 @@
     "ItemFirestrikerMixin",
     "ItemJarMixin",
     "LoadingScreenRendererMixin",
+    "PlayerRendererMixin",
     "RenderBlocksMixin",
     "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
