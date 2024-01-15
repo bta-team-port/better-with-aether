@@ -1,7 +1,6 @@
 package bta.aether.entity;
 
 import bta.aether.Aether;
-import bta.aether.block.BlockDungeon;
 import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;

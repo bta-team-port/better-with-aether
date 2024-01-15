@@ -47,12 +47,13 @@ public class EntityFallingGravitite extends EntityFallingSand {
         int blockX = MathHelper.floor_double(this.x);
         int blockY = MathHelper.floor_double(this.y);
         int blockZ = MathHelper.floor_double(this.z);
+
         if (this.world.getBlockId(blockX, blockY, blockZ) == this.blockID) {
             this.world.setBlockWithNotify(blockX, blockY, blockZ, 0);
             this.hasRemovedBlock = true;
         }
 
-        if (!world.isAirBlock(blockX, blockY + 1, blockZ) && this.world.isAirBlock(blockX, blockY, blockZ)) {
+        if (!world.isAirBlock(blockX, blockY + 1, blockZ) && (blockY + 0.5) - this.y < 0.01 && this.world.isAirBlock(blockX, blockY, blockZ)) {
             this.xd *= 0.7;
             this.zd /= 0.7;
             this.yd *= 0.5;
