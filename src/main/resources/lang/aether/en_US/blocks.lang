@@ -1,0 +1,166 @@
+tile.dirt.lore.overworld=Plentiful and can be used in the trommel
+
+
+#Portal
+tile.aether.portal.name=Aether Portal
+tile.aether.portal.desc=A portal to the Aether.
+
+#Natural
+tile.aether.dirt.name=Aether Dirt
+tile.aether.dirt.desc=Crumbly pale dirt.
+tile.aether.grass.name=Aether Grass
+tile.aether.grass.desc=Pale grass from a lost paradise.
+
+tile.aether.flower.white.name=White Flower
+tile.aether.flower.white.desc=A majestic white flower.
+tile.aether.flower.purple.name=Purple Flower
+tile.aether.flower.purple.desc=A majestic purple flower.
+tile.aether.flower.purple.lore.aether=Can be used to craft dye
+
+tile.aether.quicksoil.name=Quicksoil
+tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.
+
+tile.aether.holystone.name=Holystone
+tile.aether.holystone.desc=A block of solid Holystone.
+tile.aether.slab.holystone.name=Holystone Slab
+tile.aether.slab.holystone.desc=A slab of holystone.
+tile.aether.stairs.holystone.name=Holystone Stairs
+tile.aether.stairs.holystone.desc=Holystone block used for rapid vertical movement.
+
+tile.aether.holystone.mossy.name=Mossy Holystone
+tile.aether.holystone.mossy.desc=Holystone with added greenery.
+
+tile.aether.icestone.name=Icestone
+tile.aether.icestone.desc=Frozen stone that freezes what it touches.
+
+tile.aether.aercloud.white.name=Cold Aercloud
+tile.aether.aercloud.white.desc=White cloud. Very fluffy!
+tile.aether.aercloud.blue.name=Blue Aercloud
+tile.aether.aercloud.blue.desc=Springy cloud that will bounce you sky high.
+tile.aether.aercloud.gold.name=Gold Aercloud
+tile.aether.aercloud.gold.desc=Golden cloud. Very rare!
+
+tile.aether.skyroot.log.name=Skyroot Log
+tile.aether.skyroot.log.desc=A log from a skyroot tree.
+tile.aether.goldenoak.log.name=Golden Oak Log
+tile.aether.goldenoak.log.desc=A log from a golden oak tree.
+
+tile.aether.skyroot.leaves.name=Skyroot Leaves
+tile.aether.skyroot.leaves.desc=Leaves from a skyroot tree.
+tile.aether.goldenoak.leaves.name=Golden Oak Leaves
+tile.aether.goldenoak.leaves.desc=Leaves from a golden oak tree. Drops golden apples rarely.
+
+tile.aether.skyroot.sapling.name=Skyroot Sapling
+tile.aether.skyroot.sapling.desc=Plant to grow a skyroot tree.
+tile.aether.goldenoak.sapling.name=Golden Oak Sapling
+tile.aether.goldenoak.sapling.desc=Plant to grow a golden oak tree.
+
+tile.aether.planks.skyroot.name=Skyroot Planks
+tile.aether.planks.skyroot.desc=Processed skyroot logs.
+tile.aether.slab.planks.skyroot.name=Skyroot Slab
+tile.aether.slab.planks.skyroot.desc=A slab of skyroot planks.
+tile.aether.stairs.planks.skyroot.name=Skyroot Stairs
+tile.aether.stairs.planks.skyroot.desc=Skyroot plank block used for rapid vertical movement.
+tile.aether.fence.planks.skyroot.name=Skyroot Fence
+tile.aether.fence.planks.skyroot.desc=Still too tall to jump over.
+tile.aether.fencegate.planks.skyroot.name=Skyroot Fence Gate
+tile.aether.fencegate.planks.skyroot.desc=Like a trapdoor but for fences.
+
+tile.aether.ore.ambrosium.name=Holystone Ambrosium Ore
+tile.aether.ore.ambrosium.desc=Ambrosium shards embedded in holystone.
+tile.aether.ore.zanite.name=Holystone Zanite Ore
+tile.aether.ore.zanite.desc=A lump of zanite embedded in holystone.
+tile.aether.ore.gravitite.name=Holystone Gravitite Ore
+tile.aether.ore.gravitite.desc=A chunk of gravitite embedded in holystone.
+
+tile.aether.aerogel.name=Aerogel
+tile.aether.aerogel.desc=Dense cloud that's explosion proof.
+
+#Dungeons
+tile.aether.carved.name=Carved Stone
+tile.aether.carved.desc=Decorative bronze dungeon block.
+tile.aether.slab.carved.name=Carved Slab
+tile.aether.slab.carved.desc=A slab of carved stone.
+tile.aether.stairs.carved.name=Carved Stone Stairs
+tile.aether.stairs.carved.desc=Carved stone block used for rapid vertical movement.
+
+tile.aether.carved.light.name=Light Carved Stone
+tile.aether.carved.light.desc=Decorative bronze dungeon block that glows with an ethereal light.
+
+tile.aether.angelic.name=Angelic Stone
+tile.aether.angelic.desc=Decorative silver dungeon block.
+tile.aether.slab.angelic.name=Angelic Stone Slab
+tile.aether.slab.angelic.desc=A slab of angelic stone.
+tile.aether.stairs.angelic.name=Angelic Stone Stairs
+tile.aether.stairs.angelic.desc=Angelic stone block used for rapid vertical movement.
+
+tile.aether.angelic.light.name=Light Angelic Stone
+tile.aether.angelic.light.desc=Decorative silver dungeon block that glows with an ethereal light.
+
+tile.aether.hellfire.name=Hellfire Stone
+tile.aether.hellfire.desc=Decorative gold dungeon block.
+tile.aether.slab.hellfire.name=Hellfire Stone Slab
+tile.aether.slab.hellfire.desc=A slab of hellfire stone.
+tile.aether.stairs.hellfire.name=Hellfire Stone Stairs
+tile.aether.stairs.hellfire.desc=Hellfire stone block used for rapid vertical movement.
+
+tile.aether.hellfire.light.name=Light Hellfire Stone
+tile.aether.hellfire.light.desc=Decorative gold dungeon block that glows with an ethereal light.
+
+tile.aether.pillar.name=Pillar
+tile.aether.pillar.desc=A pink pillar found at silver dungeons.
+tile.aether.pillar.top.name=Pillar Top
+tile.aether.pillar.top.desc=A rare pink pillar capstone found at silver dungeons.
+
+tile.aether.trap.carved.name=Trapped Carved Stone
+tile.aether.trap.carved.desc=Sneaky block that summons a sentry.
+tile.aether.trap.angelic.name=Trapped Angelic Stone
+tile.aether.trap.angelic.desc=Sneaky block that summons a valkyrie.
+
+tile.aether.carved.locked.name=Locked Carved Stone
+tile.aether.carved.locked.desc=Unbreakable bronze dungeon block.
+tile.aether.carved.light.locked.name=Locked Light Carved Stone
+tile.aether.carved.light.locked.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
+
+tile.aether.angelic.locked.name=Locked Angelic Stone
+tile.aether.angelic.locked.desc=Unbreakable silver dungeon block.
+tile.aether.angelic.light.locked.name=Locked Light Angelic Stone
+tile.aether.angelic.light.locked.desc=Unbreakable silver dungeon block that glows with an ethereal light.
+
+tile.aether.hellfire.locked.name=Locked Hellfire Stone
+tile.aether.hellfire.locked.desc=Unbreakable gold dungeon block.
+tile.aether.hellfire.light.locked.name=Locked Light Hellfire Stone
+tile.aether.hellfire.light.locked.desc=Unbreakable gold dungeon block that glows with an ethereal light.
+
+tile.aether.chest.mimic.name=Trapped Chest
+tile.aether.chest.mimic.desc=Thank you dark souls.
+tile.aether.chest.treasure.name=Treasure Chest
+tile.aether.chest.treasure.desc=A chest filled with mysterious loot.
+tile.aether.chest.treasure.locked.name=Locked Treasure Chest
+tile.aether.chest.treasure.locked.desc=A locked chest filled with mysterious loot.
+
+#Misc
+tile.aether.glass.quicksoil.name=Quicksoil Glass
+tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.
+tile.aether.trapdoor.glass.quicksoil.name=Quicksoil Glass Trapdoor
+tile.aether.trapdoor.glass.quicksoil.desc=Still useless at its job.
+
+tile.aether.enchanter.name=Enchanter
+tile.aether.enchanter.desc=For repairing and enchanting blocks and equipment.
+tile.aether.freezer.name=Freezer
+tile.aether.freezer.desc=For freezing and cooling blocks and items.
+tile.aether.incubator.name=Incubator
+tile.aether.incubator.desc=Nurture moa eggs into useful friends.
+
+tile.aether.torch.ambrosium.name=Ambrosium Torch
+tile.aether.torch.ambrosium.desc=It glows with a cold, ethereal light.
+
+tile.aether.block.gravitite.name=Enchanted Gravitite
+tile.aether.block.gravitite.desc=Gravity warping block used to make tools. Floats upwards when powered!
+tile.aether.block.zanite.name=Block of Zanite
+tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
+tile.aether.block.ambrosium.name=Block of Ambrosium
+tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
+
+tile.aether.lantern.firefly.silver.name=Silver Firefly Lantern
+tile.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.
