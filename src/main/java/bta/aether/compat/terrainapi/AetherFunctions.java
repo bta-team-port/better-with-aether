@@ -43,7 +43,7 @@ public class AetherFunctions {
         int dy;
         int dz;
 
-        if(rand.nextInt(3) == 0) {
+        if(rand.nextInt(8) == 0) {
             for (dx = x; dx < x + 16; dx++) {
                 for (dy = 0; dy < 256; dy++) {
                     for (dz = z; dz < z + 16; dz++) {

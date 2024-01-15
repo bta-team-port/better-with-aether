@@ -600,7 +600,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setLuminance(7)
             .setTextures("LightHellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU,BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));
     public static final Block lanternAetherBlock = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GLASS)
