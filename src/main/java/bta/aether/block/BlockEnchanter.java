@@ -1,9 +1,7 @@
 package bta.aether.block;
 
-import bta.aether.gui.GuiEnchanter;
+import bta.aether.gui.IAetherGuis;
 import bta.aether.tile.TileEntityEnchanter;
-import bta.aether.tile.TileEntityFreezer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.BlockTileEntity;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
@@ -57,8 +55,7 @@ public class BlockEnchanter extends BlockTileEntity {
         if (!world.isClientSide) {
             TileEntityEnchanter tile = (TileEntityEnchanter) world.getBlockTileEntity(x, y, z);
             if (tile != null) {
-                //TODO: mp eventually -martin
-                Minecraft.getMinecraft(Minecraft.class).displayGuiScreen(new GuiEnchanter(player.inventory, tile));
+                ((IAetherGuis)player).aether$displayGUIEnchanter(tile);
             }
         }
         return true;

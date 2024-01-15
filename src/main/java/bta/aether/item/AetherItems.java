@@ -5,6 +5,7 @@ import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
 import bta.aether.item.Accessories.ItemAccessoryRegenStone;
 import bta.aether.item.Accessories.base.*;
+import bta.aether.world.AetherDimension;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
@@ -18,6 +19,7 @@ import net.minecraft.core.item.tool.ItemToolAxe;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.item.tool.ItemToolShovel;
 import net.minecraft.core.item.tool.ItemToolSword;
+import net.minecraft.core.world.Dimension;
 import turniplabs.halplibe.helper.ArmorHelper;
 import turniplabs.halplibe.helper.ItemHelper;
 
@@ -38,10 +40,10 @@ public class AetherItems {
     public static final Item keySilver = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.silver", "SilverKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
     public static final Item keyGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "key.gold", "GoldKey.png").withTags(aetherdungeonKey).setMaxStackSize(1);
 
-    public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore1", "OverworldBook.png");
-    public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore2", "NetherBook.png");
-    public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore3", "AetherBook.png");
-    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new Item(itemID++), "book.lore4", "ParadiseBook.png");
+    public static final Item bookLore1 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.overworld.languageKey), "book.lore1", "OverworldBook.png");
+    public static final Item bookLore2 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.nether.languageKey), "book.lore2", "NetherBook.png");
+    public static final Item bookLore3 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, AetherDimension.dimensionAether.languageKey), "book.lore3", "AetherBook.png");
+    public static final Item bookLore4 = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.paradise.languageKey), "book.lore4", "ParadiseBook.png");
 
     public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.blue", "BlueMoaEgg.png");
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png");

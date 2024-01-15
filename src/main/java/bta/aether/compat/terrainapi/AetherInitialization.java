@@ -6,7 +6,6 @@ import bta.aether.world.generate.feature.WorldFeatureAetherOre;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
-import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.config.OreConfig;
 import useless.terrainapi.generation.StructureFeatures;
@@ -25,6 +24,7 @@ public class AetherInitialization extends BaseInitialization {
     @Override
     protected void initValues() {
         aetherConfig.addTreeDensity(AetherDimension.biomeAether, 64);
+        aetherConfig.addLakeDensity(AetherDimension.biomeAether, 1);
     }
 
     @Override

@@ -109,7 +109,28 @@ aether.sunspirit.desc=
 # GUI
 aether.menu.boss_bar.preview_name=John Doe, The Three-headed Render Preview
 
+aether.gui.lorebook.item=Item :
+
+aether.gui.lorebook.book.overworld.line1=Book Of Lore
+aether.gui.lorebook.book.overworld.line2=Volume 1
+aether.gui.lorebook.book.overworld.line3=The Surface
+
+aether.gui.lorebook.book.hell.line1=Book Of Lore
+aether.gui.lorebook.book.hell.line2=Volume 2
+aether.gui.lorebook.book.hell.line3=The Nether
+
+aether.gui.lorebook.book.aether.line1=Book Of Lore
+aether.gui.lorebook.book.aether.line2=Volume 3
+aether.gui.lorebook.book.aether.line3=The Aether
+
+aether.gui.lorebook.book.paradise.line1=Book Of Lore
+aether.gui.lorebook.book.paradise.line2=Volume 4
+aether.gui.lorebook.book.paradise.line3=Paradise
+
+aether.gui.lorebook.unknown=This book lacks any information on this item.
 ## Blocks
+tile.dirt.lore.overworld=Plentiful and can be used in the trommel
+
 
 #Portal
 tile.aether.portal.name=Aether Portal
@@ -125,6 +146,7 @@ tile.aether.flower.white.name=White Flower
 tile.aether.flower.white.desc=A majestic white flower.
 tile.aether.flower.purple.name=Purple Flower
 tile.aether.flower.purple.desc=A majestic purple flower.
+tile.aether.flower.purple.lore.aether=Can be used to craft dye
 
 tile.aether.quicksoil.name=Quicksoil
 tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.
