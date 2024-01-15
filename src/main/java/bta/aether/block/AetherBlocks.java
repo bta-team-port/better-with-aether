@@ -51,7 +51,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.8f)
             .setTextures("Holystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("holystone", blockID++, Material.stone));
 
     public static final Block slabHolystone = new BlockBuilder(MOD_ID)
@@ -88,7 +88,7 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(3.0f)
             .setTextures("Icestone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new Block("icestone", blockID++, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
@@ -485,7 +485,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Quicksoil.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand));
     public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))

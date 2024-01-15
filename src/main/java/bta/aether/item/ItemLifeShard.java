@@ -12,7 +12,7 @@ public class ItemLifeShard extends Item {
 
     public ItemLifeShard(int id) {
         super(id);
-        setMaxStackSize(1);
+        setMaxStackSize(10);
     }
 
     @Override
