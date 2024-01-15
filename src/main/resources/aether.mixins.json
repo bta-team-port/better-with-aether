@@ -20,6 +20,7 @@
     "ItemDyeMixin",
     "ItemFirestrikerMixin",
     "ItemJarMixin",
+    "LivingRendererMixin",
     "LoadingScreenRendererMixin",
     "PlayerRendererMixin",
     "RenderBlocksMixin",
