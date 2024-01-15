@@ -1,0 +1,11 @@
+#Worldtype
+worldType.aether.default.name=The Aether
+worldType.aether.default.desc=Welcome to a hostile paradise.
+
+#Dimension
+dimension.aether.name=The Aether
+dimension.aether.desc=A hostile Paradise
+
+#Effects
+effect.aether.poison.name=Poison
+effect.aether.remedy.name=Remedy
