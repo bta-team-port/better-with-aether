@@ -8,6 +8,7 @@ import bta.aether.entity.EntityGoldenDart;
 import bta.aether.entity.GoldenDartRenderer;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.hud.*;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import turniplabs.halplibe.helper.EntityHelper;
@@ -31,5 +32,8 @@ public class AetherClient implements ClientStartEntrypoint {
 
     @Override
     public void afterClientStart() {
+    }
+    public static Minecraft getMinecraft(){
+        return Minecraft.getMinecraft(Minecraft.class);
     }
 }
