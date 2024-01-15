@@ -2,7 +2,7 @@ package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
 import bta.aether.entity.EntityAetherBossBase;
-import bta.aether.entity.IPlayerBossList;
+import bta.aether.entity.IAetherPlayer;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.core.block.Block;
@@ -20,8 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = EntityPlayerSP.class, remap = false)
-public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList {
+public abstract class EntityPlayerSPMixin extends EntityPlayer implements IAetherPlayer {
     @Unique List<EntityAetherBossBase> bossList = new ArrayList<>();
+
+    @Unique
+    int jumpAmount = 0;
+    @Unique
+    int jumpMaxAmount = 0;
+
     public EntityPlayerSPMixin(World world) {
         super(world);
     }
@@ -63,4 +69,27 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
         bossList = _bosses;
         return bossList;
     }
+
+    @Unique
+    public int aether$getJumpMaxAmount() {
+        return this.jumpMaxAmount;
+    }
+
+    @Unique
+    public int aether$getJumpAmount() {
+        return this.jumpAmount;
+    }
+
+    @Unique
+    public void aether$setJumpMaxAmount(int jumpMaxAmount) {
+        this.jumpMaxAmount = jumpMaxAmount;
+    }
+
+    @Unique
+    public void aether$setJumpAmount(int jumpAmount) {
+        this.jumpAmount = jumpAmount;
+    }
+
+
+
 }

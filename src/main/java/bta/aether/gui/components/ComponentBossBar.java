@@ -2,8 +2,7 @@ package bta.aether.gui.components;
 
 import bta.aether.Aether;
 import bta.aether.entity.EntityAetherBossBase;
-import bta.aether.entity.EntityDevBoss;
-import bta.aether.entity.IPlayerBossList;
+import bta.aether.entity.IAetherPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiHudDesigner;
@@ -11,11 +10,9 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.hud.ComponentAnchor;
 import net.minecraft.client.gui.hud.Layout;
 import net.minecraft.client.gui.hud.MovableHudComponent;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentBossBar extends MovableHudComponent {
@@ -34,7 +31,7 @@ public class ComponentBossBar extends MovableHudComponent {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return !((IPlayerBossList)minecraft.thePlayer).aether$getBossList().isEmpty();
+        return !((IAetherPlayer)minecraft.thePlayer).aether$getBossList().isEmpty();
     }
     @Override
     public int getAnchorY(ComponentAnchor anchor) {
@@ -57,7 +54,7 @@ public class ComponentBossBar extends MovableHudComponent {
         gui = guiIngame;
         xScreenSize = i;
         yScreenSize = j;
-        drawBossBars(((IPlayerBossList)minecraft.thePlayer).aether$getBossList());
+        drawBossBars(((IAetherPlayer)minecraft.thePlayer).aether$getBossList());
     }
 
     @Override
