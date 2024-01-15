@@ -12,10 +12,12 @@ import org.lwjgl.opengl.GL11;
 
 public class ComponentJumpBar extends MovableHudComponent {
 
-    private static final String texture = "/assets/aether/gui/jumps.png";
+    private static final String texture = "/assets/aether/gui/aetherIcons.png";
     private static final int iconWidth = 9;
     private static final int iconHeight = 9;
-    private static final int rowLength = 9;
+    private static final int rowLength = 10;
+    private static final int spacingX = -1;
+    private static final int spacingY = -1;
 
 
     private Minecraft mc = Minecraft.getMinecraft(Minecraft.class);
@@ -34,15 +36,12 @@ public class ComponentJumpBar extends MovableHudComponent {
         if (!(mc.currentScreen instanceof GuiHudDesigner) && !this.isVisible(mc)) {
             return 0;
         }
-        return iconHeight * rowAmount;
+        return (iconHeight - spacingY) * rowAmount      ;
     }
 
     @Override
     public int getXSize(Minecraft mc) {
-        if (!(mc.currentScreen instanceof GuiHudDesigner) && !this.isVisible(mc)) {
-            return 0;
-        }
-        return iconWidth * rowLength;
+        return (iconWidth + spacingX) * rowLength - spacingX;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class ComponentJumpBar extends MovableHudComponent {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount() > 0;
+        return ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount() >= 1;
     }
 
     @Override
@@ -66,7 +65,7 @@ public class ComponentJumpBar extends MovableHudComponent {
         this.gui = gui;
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
-        drawJumpBar(67,23);
+        drawJumpBar(((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount(), ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpAmount());
     }
 
     @Override
@@ -75,14 +74,14 @@ public class ComponentJumpBar extends MovableHudComponent {
         this.gui = gui;
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
-        drawJumpBar(((IPlayerJumpAmount)mc.thePlayer).aether$getJumpMaxAmount(), ((IPlayerJumpAmount)mc.thePlayer).aether$getJumpAmount());
+        drawJumpBar(3,2);
     }
 
     public void drawJumpBar(int jumpMaxAmount, int jumpAmount){
-        rowAmount = (jumpMaxAmount%rowLength) <= 0 ? jumpMaxAmount/rowLength : (jumpMaxAmount/rowLength) + 1;
+        rowAmount = getRows(jumpMaxAmount);
 
         int barX = getLayout().getComponentX(mc, this, xScreenSize);
-        int barY = getLayout().getComponentY(mc, this, yScreenSize) + iconHeight*(rowAmount-1);
+        int barY = getLayout().getComponentY(mc, this, yScreenSize) + ((iconHeight - spacingY) * (rowAmount - 1));
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture(mc.renderEngine.getTexture(texture));
@@ -90,16 +89,20 @@ public class ComponentJumpBar extends MovableHudComponent {
         drawRowsOfIcons(barX, barY, 0,0 ,jumpAmount);
     }
 
-    public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount){
-        int row;
-        for (row = 0; row < iconAmount/rowLength; row++) {
-            for (int feather = screenX; feather < screenX + (iconWidth*rowLength); feather += iconWidth) {
-                gui.drawTexturedModalRect(feather, screenY - (iconHeight*row), U, V, iconWidth, iconHeight);
-            }
-        }
+    public int getRows(int amount) {
+        return (amount%rowLength) <= 0 ? amount/rowLength : (amount/rowLength) + 1;
+    }
 
-        for (int feather = screenX; feather < screenX + (iconWidth * ((iconAmount%rowLength) - (iconAmount/rowLength))); feather += iconWidth) {
-            gui.drawTexturedModalRect(feather, screenY - (iconHeight * row), U, V, iconWidth, iconHeight);
+    public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount){
+        int iconsToDraw = iconAmount;
+        for (int row = 0; row < getRows(iconAmount); row++) {
+            for (int collumn = 0; collumn < Math.min(rowLength, iconsToDraw); collumn++) {
+                int currentX = screenX + (iconWidth * collumn) + (spacingX * collumn);
+                int currentY = screenY - (iconHeight * row) + (spacingY * row);
+
+                gui.drawTexturedModalRect(currentX, currentY, U, V, iconWidth, iconHeight);
+            }
+            iconsToDraw -= rowLength;
         }
     }
 }

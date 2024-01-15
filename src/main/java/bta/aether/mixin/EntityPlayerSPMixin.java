@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = EntityPlayerSP.class, remap = false)
-public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IPlayerJumpAmount, IAetherGuis {
+public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IAetherGuis {
 
     @Shadow protected Minecraft mc;
     @Unique List<EntityAetherBossBase> bossList = new ArrayList<>();
@@ -92,27 +92,5 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
     public void aether$displayGUILoreBook(String loreId){
         mc.displayGuiScreen(new GuiLorebook(this, loreId));
     }
-
-    @Unique
-    public int aether$getJumpMaxAmount() {
-        return this.jumpMaxAmount;
-    }
-
-    @Unique
-    public int aether$getJumpAmount() {
-        return this.jumpAmount;
-    }
-
-    @Unique
-    public void aether$setJumpMaxAmount(int jumpMaxAmount) {
-        this.jumpMaxAmount = jumpMaxAmount;
-    }
-
-    @Unique
-    public void aether$setJumpAmount(int jumpAmount) {
-        this.jumpAmount = jumpAmount;
-    }
-
-
 
 }
