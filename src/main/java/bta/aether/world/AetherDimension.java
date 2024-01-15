@@ -11,7 +11,9 @@ import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weather;
 import turniplabs.halplibe.HalpLibe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AetherDimension implements PreLaunchEntrypoint {
@@ -19,6 +21,13 @@ public class AetherDimension implements PreLaunchEntrypoint {
     // coordinates and if the boss has been defeated.
     public static Map<Integer, ChunkCoordinates> dugeonMap = new HashMap<>();
     public static int AetherDimensionID = 3;
+    private static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
+    public static List<Integer> getDimensionBlacklist(Dimension dimension){
+        if (!dimensionPlacementBlacklist.containsKey(dimension)){
+            dimensionPlacementBlacklist.put(dimension, new ArrayList<>());
+        }
+        return dimensionPlacementBlacklist.get(dimension);
+    }
 
     public static int registerDungeonToMap(int x, int y, int z){
         int id = dugeonMap.size();

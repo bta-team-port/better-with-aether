@@ -2,6 +2,7 @@ package bta.aether.block;
 
 import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -11,8 +12,11 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.block.ItemBlockSlab;
+import net.minecraft.core.world.Dimension;
 import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
+
+import java.awt.*;
 
 import static bta.aether.Aether.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterStill;
@@ -607,9 +611,45 @@ public class AetherBlocks {
             .withLightEmission(0.9375f)
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);;
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
     public void initializeBlocks(){
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jarAether.png"); // Loads the texture into halplibe at startup
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(dirtAether.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(holystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(holystoneMossy.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stairsHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(slabHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(quicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreAmbrosiumHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreZaniteHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreGravititeHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(logOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(leavesOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(saplingOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(logSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(leavesSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(saplingSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudBlue.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudGold.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudWhite.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(planksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(slabPlanksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stairsPlanksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerPurple.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerWhite.id);
+
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fire.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fluidLavaFlowing.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fluidLavaStill.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.torchCoal.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.pumpkinCarvedActive.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.netherrack.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.netherrackIgneous.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.soulsand.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.portalNether.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.oreNethercoalNetherrack.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.blockNetherCoal.id);
     }
 }
