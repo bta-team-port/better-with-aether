@@ -5,6 +5,7 @@ import bta.aether.entity.IAetherAccessories;
 import bta.aether.item.Accessories.base.ItemAccessoryGloves;
 import bta.aether.item.Accessories.base.ItemAccessoryPendant;
 import com.llamalad7.mixinextras.sugar.Local;
+import csweetla.accessoryapi.API.Accessory;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.entity.PlayerRenderer;
 import net.minecraft.client.render.model.ModelBase;
@@ -45,8 +46,10 @@ public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
                 this.loadTexture(path);
                 this.modelAccessories.onGround = 0.0f;
                 this.modelAccessories.isRiding = false;
+                this.modelAccessories.bipedRightArm.showModel = true;
                 this.modelAccessories.setRotationAngles(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.065f);
                 this.modelAccessories.bipedRightArm.render(0.065f);
+                this.modelAccessories.bipedRightArm.showModel = false;
             }
         }
     }
@@ -73,10 +76,10 @@ public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
         ItemStack itemStack = player.inventory.armorInventory[renderPass];
         if (itemStack == null) return;
         Item item = itemStack.getItem();
+        if (!(item instanceof Accessory)) return;
         if (item instanceof ItemAccessoryGloves) {
             path = ((ItemAccessoryGloves)item).getTexturePath();
-        }
-        if (item instanceof ItemAccessoryPendant) {
+        } else if (item instanceof ItemAccessoryPendant) {
             path = ((ItemAccessoryPendant)item).getTexturePath();
         }
         this.loadTexture(path);
