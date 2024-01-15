@@ -8,7 +8,7 @@ import bta.aether.entity.renderer.MoaRenderer;
 import bta.aether.entity.renderer.SentryRenderer;
 import bta.aether.entity.renderer.SwetRenderer;
 import bta.aether.entity.renderer.ZephyrRenderer;
-import bta.aether.entity.tileEntity.TileEntityChestLocked;
+import bta.aether.tile.TileEntityChestLocked;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
 import useless.dragonfly.model.entity.BenchEntityModel;
