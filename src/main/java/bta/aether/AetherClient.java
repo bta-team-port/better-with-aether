@@ -28,7 +28,30 @@ public class AetherClient implements ClientStartEntrypoint {
         SoundHelper.Client.addSound("aether", "portal.ogg");
         SoundHelper.Client.addSound("aether", "travel.ogg");
         SoundHelper.Client.addSound("aether", "trigger.ogg");
-        SoundHelper.Client.addStreaming("aether", "AetherTune");
+
+        SoundHelper.Client.addSound("aether", "achievementBronze.ogg");
+        SoundHelper.Client.addSound("aether", "achievementSilver.ogg");
+        SoundHelper.Client.addSound("aether", "achievementGen.ogg");
+
+        SoundHelper.Client.addStreaming("aether", "AetherTune.ogg");
+        SoundHelper.Client.addStreaming("aether", "AMorningWish.ogg");
+        SoundHelper.Client.addStreaming("aether", "AscendingDawn.ogg");
+        SoundHelper.Client.addMusic("aether", "aether1.ogg");
+        SoundHelper.Client.addMusic("aether", "aether2.ogg");
+        SoundHelper.Client.addMusic("aether", "aether3.ogg");
+        SoundHelper.Client.addMusic("aether", "aether4.ogg");
+        SoundHelper.Client.addMusic("aether", "aether5.ogg");
+        SoundHelper.Client.addMusic("aether", "aether6.ogg");
+        SoundHelper.Client.addMusic("aether", "aether7.ogg");
+        SoundHelper.Client.addMusic("aether", "aether8.ogg");
+        SoundHelper.Client.addMusic("aether", "aether9.ogg");
+
+        SoundHelper.Client.addMusic("aether", "sliderboss.ogg");
+        SoundHelper.Client.addMusic("aether", "fireboss.ogg");
+
+        SoundHelper.Client.addMusic("aether", "menu.ogg");
+        SoundHelper.Client.addMusic("aether", "menunether.ogg");
+
     }
 
     @Override
