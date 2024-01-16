@@ -24,7 +24,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
 
     public EntityMoa(World world) {
         super(world);
-        this.viewScale = 2f;
+        this.setSize(1.5f, 1.5f);
     }
 
     public String getEntityTexture() {

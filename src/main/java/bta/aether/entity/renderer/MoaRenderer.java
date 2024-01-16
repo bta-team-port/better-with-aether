@@ -12,7 +12,6 @@ public class MoaRenderer extends LivingRenderer<EntityMoa> {
         super(model, shadowSize);
         this.setRenderPassModel(AetherEntities.modelMoa);
     }
-
     @Override
     protected void preRenderCallback(EntityMoa entity, float f) {
         GL11.glScalef(1.0f, 1.0f, 1.0f);
