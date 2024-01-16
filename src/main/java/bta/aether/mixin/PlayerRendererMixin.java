@@ -42,7 +42,7 @@ public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
             Item item = itemStack.getItem();
             if (item instanceof ItemAccessoryGloves) {
                 String path = ((ItemAccessoryGloves)item).getTexturePath();
-                if (path == null) continue;
+                if (renderDispatcher.renderEngine == null) continue;
                 this.loadTexture(path);
                 this.modelAccessories.onGround = 0.0f;
                 this.modelAccessories.isRiding = false;
