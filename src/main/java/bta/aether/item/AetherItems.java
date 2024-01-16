@@ -46,9 +46,9 @@ public class AetherItems {
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png");
     public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.white", "WhiteMoaEgg.png");
 
-    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18400, "AetherTune"), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
-    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18401, "AMorningWish"), "record.silver", "SilverMusicDisk.png").setMaxStackSize(1);
-    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18402, "AscendingDawn"), "record.pink", "PinkMusicDisk.png").setMaxStackSize(1);
+    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18400, "AetherTune", "Noisestorm"), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
+    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18401, "AMorningWish", "Emile van Krieken"), "record.silver", "SilverMusicDisk.png").setMaxStackSize(1);
+    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18402, "AscendingDawn", "Emile van Krieken"), "record.pink", "PinkMusicDisk.png").setMaxStackSize(1);
 
     public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item(itemID++), "goldenamber", "GoldenAmber.png");
     public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item(itemID++), "aechorpetal", "AechorPetal.png");
