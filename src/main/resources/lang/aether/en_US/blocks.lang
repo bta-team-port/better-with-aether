@@ -15,7 +15,7 @@ tile.aether.flower.white.name=White Flower
 tile.aether.flower.white.desc=A majestic white flower.
 tile.aether.flower.purple.name=Purple Flower
 tile.aether.flower.purple.desc=A majestic purple flower.
-tile.aether.flower.purple.lore.aether=Can be used to craft dye
+tile.aether.flower.purple.lore.aether=Can be used to craft dye.
 
 tile.aether.quicksoil.name=Quicksoil
 tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.

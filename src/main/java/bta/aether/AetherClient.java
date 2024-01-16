@@ -28,6 +28,7 @@ public class AetherClient implements ClientStartEntrypoint {
         SoundHelper.Client.addSound("aether", "portal.ogg");
         SoundHelper.Client.addSound("aether", "travel.ogg");
         SoundHelper.Client.addSound("aether", "trigger.ogg");
+        SoundHelper.Client.addStreaming("aether", "AetherTune");
     }
 
     @Override
