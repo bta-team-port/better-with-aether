@@ -245,8 +245,12 @@ item.aether.egg.moa.black.desc=Laid by a black moa, place it in an incubator.
 item.aether.egg.moa.white.name=White Moa Egg
 item.aether.egg.moa.white.desc=Laid by a white moa, place it in an incubator.
 
-item.aether.record.blue.name=Blue Music Disc
+item.aether.record.blue.name=Aether Music Disc
 item.aether.record.blue.desc=§baethertune
+item.aether.record.silver.name=Aether Music Disc
+item.aether.record.silver.desc=§8amorningwish
+item.aether.record.pink.name=Aether Music Disc
+item.aether.record.pink.desc=§6ascendingdawn
 
 item.aether.goldenamber.name=Golden Amber
 item.aether.goldenamber.desc=Harvested from a golden oak, useful for darts.
