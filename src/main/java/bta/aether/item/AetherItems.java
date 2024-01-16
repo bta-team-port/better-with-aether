@@ -8,11 +8,7 @@ import bta.aether.item.Accessories.ItemAccessoryRegenStone;
 import bta.aether.item.Accessories.base.*;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.data.tag.Tag;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemArmor;
-import net.minecraft.core.item.ItemFood;
-import net.minecraft.core.item.ItemFoodStackable;
-import net.minecraft.core.item.ItemPlaceable;
+import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tag.ItemTags;
@@ -50,7 +46,7 @@ public class AetherItems {
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png");
     public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.white", "WhiteMoaEgg.png");
 
-    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new Item(18400), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
+    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18400, "AetherTune"), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
 
     public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item(itemID++), "goldenamber", "GoldenAmber.png");
     public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item(itemID++), "aechorpetal", "AechorPetal.png");
@@ -120,6 +116,7 @@ public class AetherItems {
     public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Chestplate", itemID++, armorzanite, 1), "armor.chestplate.zanite", "ZaniteChestplate.png");
     public static final Item armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Leggings", itemID++, armorzanite, 2), "armor.leggings.zanite", "ZaniteLeggings.png");
     public static final Item armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("Zanite Boots", itemID++, armorzanite, 3), "armor.boots.zanite", "ZaniteBoots.png");
+
     public static final Item armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Helmet", itemID++, armorgravitite, 0), "armor.helmet.gravitite", "GravititeHelmet.png");
     public static final Item armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Chestplate", itemID++, armorgravitite, 1), "armor.chestplate.gravitite", "GravititeChestplate.png");
     public static final Item armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("Gravitite Leggings", itemID++, armorgravitite, 2), "armor.leggings.gravitite", "GravititeLeggings.png");
@@ -141,7 +138,7 @@ public class AetherItems {
     public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("Neptune Boots", itemID++, armorneptune, 3), "armor.boots.neptune", "NeptuneBoots.png");
 
     public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer(itemID++), "tool.sword.pig", "PigSlayer.png").withTags(ItemTags.preventCreativeMining);
-    public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.sword.vampire", "VampireBlade.png").withTags(ItemTags.preventCreativeMining);
+    public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new ItemVampireSword("tool.sword.vampire", itemID++, ToolMaterial.diamond), "tool.sword.vampire", "VampireBlade.png").withTags(ItemTags.preventCreativeMining);
 
     public static final Item toolSwordFlaming = ItemHelper.createItem(MOD_ID, new ItemSwordFlaming("tool.sword.flaming", itemID++, swordSpecialMaterial), "tool.sword.flaming", "FlameSword.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolSwordHoly = ItemHelper.createItem(MOD_ID, new ItemSwordHoly("tool.sword.holy", itemID++, swordHolyMaterial), "tool.sword.holy", "HolySword.png").withTags(ItemTags.preventCreativeMining);;
