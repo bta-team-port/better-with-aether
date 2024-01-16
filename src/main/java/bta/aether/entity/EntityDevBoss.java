@@ -12,7 +12,7 @@ public class EntityDevBoss extends EntityAetherBossBase {
     public boolean activated;
 
     public EntityDevBoss(World world) {
-        super(world, 100, "father_sentry");
+        super(world, 100, "aether.father_sentry.name");
         this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
