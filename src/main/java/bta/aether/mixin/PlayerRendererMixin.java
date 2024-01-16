@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Debug(export = true)
 @Mixin(value = PlayerRenderer.class, remap = false)
 public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
     @Unique
