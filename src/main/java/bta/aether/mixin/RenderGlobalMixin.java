@@ -1,21 +1,17 @@
 package bta.aether.mixin;
 
+import bta.aether.item.ItemRecordAccessor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.fx.EntityFireflyFX;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.RenderGlobal;
-import net.minecraft.core.enums.EnumFireflyColor;
-import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = RenderGlobal.class, remap = false)
 public class RenderGlobalMixin {
     @Shadow private Minecraft mc;
-
-    @Shadow private World worldObj;
 
     @Inject(method = "addParticle(Ljava/lang/String;DDDDDDD)V", at = @At("HEAD"), cancellable = true)
     private void specialParticles(String particleId, double x, double y, double z, double motionX, double motionY, double motionZ, double maxDistance, CallbackInfo ci){
@@ -34,4 +30,16 @@ public class RenderGlobalMixin {
 //            mc.effectRenderer.addEffect(new EntityFireflyFX(this.worldObj, x, y, z, motionX, motionY, motionZ, 2.5f, EnumFireflyColor.SILVER.getId()));
         }
     }
+
+    @Redirect(method = "playStreamingMusic(Ljava/lang/String;III)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiIngame;setRecordPlayingMessage(Ljava/lang/String;)V"))
+    public void playStreamingMusic(GuiIngame instance, String title) {
+        instance.setRecordPlayingMessage(ItemRecordAccessor.getAuthor(title) + " - " + title);
+    }
+
+    @ModifyConstant(method = "playStreamingMusic(Ljava/lang/String;III)V", constant = @Constant(stringValue = "C418 - "))
+    public String playStreamingMusic(String constant) {
+        return "";
+    }
+
 }
