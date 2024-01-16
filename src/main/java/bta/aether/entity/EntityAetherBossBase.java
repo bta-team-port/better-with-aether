@@ -23,6 +23,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         super(world);
         this.translationKey = translationKey;
         this.maxHealth = maxHealth;
+        this.health = maxHealth;
         this.personalBossName = NameGenerator.getRandomName();
     }
 
@@ -83,7 +84,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
     }
 
     public String getBossTitle() {
-        return personalBossName + ", The " +  I18n.getInstance().translateKey(Aether.MOD_ID+"."+this.translationKey+".name");
+        return personalBossName + ", The " +  I18n.getInstance().translateKey(translationKey);
     }
 
     public void setMaxHealth(int health) {
