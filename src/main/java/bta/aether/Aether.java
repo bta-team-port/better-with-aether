@@ -10,6 +10,7 @@ import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
+import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
@@ -49,6 +50,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
         EntityHelper.Core.createTileEntity(TileEntityFreezer.class,"Freezer");
         EntityHelper.Core.createTileEntity(TileEntityIncubator.class,"Incubator");
+        EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
 
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);

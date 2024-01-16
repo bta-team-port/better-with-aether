@@ -56,6 +56,7 @@ aether.slider.desc="The deadbeat dad of all automatons"
 
 aether.slider.name=Slider
 aether.slider.desc=
+aether.slider.hit_fail=This is made out of stone... maybe i should use a pickaxe?
 
 aether.valkyrie_queen.name=Valkyrie Queen
 aether.valkyrie_queen.desc=
