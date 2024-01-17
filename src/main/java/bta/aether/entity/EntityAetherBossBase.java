@@ -83,6 +83,10 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         super.onEntityDeath();
     }
 
+    @Override
+    public void tryToDespawn() {
+    }
+
     public String getBossTitle() {
         return personalBossName + ", The " +  I18n.getInstance().translateKey(translationKey);
     }
