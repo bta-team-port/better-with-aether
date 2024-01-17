@@ -26,6 +26,14 @@
     "RenderBlocksMixin",
     "RenderGlobalMixin",
     "SaveHandlerBaseMixin",
+    "EntityLivingMixinGravitite",
+    "EntityLivingMixinNeptune",
+    "EntityLivingMixinPhoenix",
+    "EntityPlayerMixinPhoenix",
+    "ExplosionCannonballMixinObsidian",
+    "ExplosionMixinObsidian",
+    "FireBarComponentMixinPhoenix",
+    "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor"
   ],
   "client": [
