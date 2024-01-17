@@ -2,7 +2,16 @@ package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
 import bta.aether.entity.EntityAetherBossBase;
+import bta.aether.entity.IAetherAccessories;
 import bta.aether.entity.IPlayerBossList;
+import bta.aether.entity.IPlayerJumpAmount;
+import bta.aether.gui.GuiEnchanter;
+import bta.aether.gui.GuiFreezer;
+import bta.aether.gui.GuiLorebook;
+import bta.aether.gui.IAetherGuis;
+import bta.aether.tile.TileEntityEnchanter;
+import bta.aether.tile.TileEntityFreezer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.core.block.Block;
@@ -10,8 +19,10 @@ import net.minecraft.core.block.BlockPortal;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.sound.SoundType;
+import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,8 +31,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = EntityPlayerSP.class, remap = false)
-public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList {
+public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlayerBossList, IAetherGuis, IAetherAccessories {
+
+    @Shadow protected Minecraft mc;
     @Unique List<EntityAetherBossBase> bossList = new ArrayList<>();
+
+    @Unique
+    int jumpAmount = 0;
+    @Unique
+    int jumpMaxAmount = 0;
+    private boolean invisible;
+
     public EntityPlayerSPMixin(World world) {
         super(world);
     }
@@ -63,4 +83,32 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
         bossList = _bosses;
         return bossList;
     }
+    @Unique
+    public void aether$displayGUIEnchanter(TileEntityEnchanter tile){
+        mc.displayGuiScreen(new GuiEnchanter(inventory, tile));
+    }
+    @Unique
+    public void aether$displayGUIFreeze(TileEntityFreezer tile){
+        mc.displayGuiScreen(new GuiFreezer(inventory, tile));
+    }
+    @Unique
+    public void aether$displayGUILoreBook(String loreId){
+        mc.displayGuiScreen(new GuiLorebook(this, loreId));
+    }
+
+
+    @Override
+    public boolean shouldRender(Vec3d vec3d) {
+        return invisible ? false : super.shouldRender(vec3d);
+    }
+
+    @Unique
+    public void aether$setInvisible(boolean invisible) {
+        this.invisible = invisible;
+    }
+    @Unique
+    public boolean aether$getInvisible() {
+        return invisible;
+    }
+
 }

@@ -1,14 +1,20 @@
 package bta.aether.block;
 
+import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.color.BlockColorDefault;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
+import net.minecraft.client.sound.block.BlockSounds;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.block.ItemBlockSlab;
+import net.minecraft.core.world.Dimension;
 import turniplabs.halplibe.helper.BlockBuilder;
+import turniplabs.halplibe.helper.TextureHelper;
 
 import static bta.aether.Aether.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterStill;
@@ -19,7 +25,7 @@ public class AetherBlocks {
     private static int blockID = 1000;
 
     public static final Block portalAether = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("Portal.png")
@@ -49,7 +55,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.8f)
             .setTextures("Holystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("holystone", blockID++, Material.stone));
 
     public static final Block slabHolystone = new BlockBuilder(MOD_ID)
@@ -86,8 +92,8 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(3.0f)
             .setTextures("Icestone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new Block("icestone", blockID++, Material.stone));
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+            .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
@@ -249,7 +255,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("SkyrootSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
     public static final Block saplingOakGolden = new BlockBuilder(MOD_ID)
@@ -258,7 +264,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("GoldenOakSapling.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherGoldenOak("goldenoak.sapling", blockID++));
 
@@ -320,32 +326,6 @@ public class AetherBlocks {
             .setTextures("AmbrosiumBlock.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.ambrosium", blockID++, Material.metal));
-
-    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
-
-    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
-
-    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
-            .setHardness(2.0f)
-            .setResistance(2.0f)
-            .setTopBottomTexture(9, 1)
-            .setSideTextures(10, 1)
-            .setNorthTexture(11, 1)
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("chest.mimic", blockID++, Material.wood));
 
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -483,7 +463,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Quicksoil.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL)
+            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand));
     public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -512,7 +492,7 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("WhiteFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .build(new BlockAetherFlower("flower.white", blockID++));
 
     public static final Block flowerPurple = new BlockBuilder(MOD_ID)
@@ -521,8 +501,34 @@ public class AetherBlocks {
             .setResistance(0.0f)
             .setTextures("PurpleFlower.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .build(new BlockAetherFlower("flower.purple", blockID++));
+
+    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("CarvedStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
+
+    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance(-1.0f)
+            .setTextures("AngelicStone.png")
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
+
+    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
+            .setHardness(2.0f)
+            .setResistance(2.0f)
+            .setTopBottomTexture(9, 1)
+            .setSideTextures(10, 1)
+            .setNorthTexture(11, 1)
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new Block("chest.mimic", blockID++, Material.wood));
 
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
             .setHardness(-1.0F)
@@ -592,8 +598,62 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setLuminance(7)
             .setTextures("LightHellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU,BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));
+    public static final Block lanternAetherBlock = new BlockBuilder(MOD_ID)
+            .setBlockSound(BlockSounds.GLASS)
+            .setHardness(0.1f)
+            .setBlockModel(new BlockModelRenderBlocks(26))
+            .setTextures("lanternSilver.png")
+            .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
+            .withLightEmission(0.9375f)
+            .withDisabledStats()
+            .withDisabledNeighborNotifyOnMetadataChange()
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
-    public void initializeBlocks(){}
+    public void initializeBlocks(){
+        TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jarAether.png"); // Loads the texture into halplibe at startup
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(portalAether.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(dirtAether.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(holystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(holystoneMossy.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stairsHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(slabHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(quicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(glassQuicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapdoorGlassQuicksoil.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreAmbrosiumHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreZaniteHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(oreGravititeHolystone.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(gravititeEnchanted.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(blockZanite.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(blockAmbrosium.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(logOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(leavesOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(saplingOakGolden.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(logSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(leavesSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(saplingSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudBlue.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudGold.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(aercloudWhite.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(planksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(slabPlanksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stairsPlanksSkyroot.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerPurple.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerWhite.id);
+
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fire.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fluidLavaFlowing.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.fluidLavaStill.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.torchCoal.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.pumpkinCarvedActive.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.netherrack.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.netherrackIgneous.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.soulsand.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.portalNether.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.oreNethercoalNetherrack.id);
+        AetherDimension.getDimensionBlacklist(AetherDimension.dimensionAether).add(Block.blockNetherCoal.id);
+    }
 }
