@@ -43,8 +43,9 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
 
     public EntityBossSlider(World world) {
-        super(world, 100, "aether.slider.name");
-        this.setSize(2f,2f);
+        super(world, 500, "aether.slider.name");
+        this.setSize(3f,3f);
+        this.scoreValue = 10000;
         this.viewScale = 2f;
         this.setSize(2.5F, 2.5F);
     }
@@ -292,7 +293,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
                 awake = true;
                 return super.hurt(attacker, damage, type);
             } else if (!this.awake) {
-                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit_fail");
+                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
                 ((EntityPlayer)attacker).addChatMessage(message);
             }
         }
