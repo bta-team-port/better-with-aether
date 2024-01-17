@@ -31,22 +31,22 @@ aether.cockatrice.name=Cockatrice
 aether.blank.desc=
 
 aether.aechorplant.name=Aechor Plant
-aether.aechorplant.desc=
+aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether, and shoot poison darts to deter anything from coming near.
 
 aether.zephyr.name=Zephyr
-aether.blank.desc=
+aether.blank.desc=Common annoyance found flying all over the aether, they shoot snowballs that send you flying.
 
 aether.whirlwind.name=Whirlwind
-aether.whirlwind.desc=
+aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
 
 aether.mimic.name=Mimic
-aether.mimic.desc=
+aether.mimic.desc=A common trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
 aether.sentry.name=Sentry
-aether.sentry.desc=
+aether.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 
 aether.valkyrie.name=Valkyrie
-aether.valkyrie.desc=
+aether.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
 
 # Bosses
@@ -54,12 +54,12 @@ aether.valkyrie.desc=
 aether.father_sentry.name=Father Sentry
 aether.slider.desc="The deadbeat dad of all automatons"
 
-aether.slider.name=Slider
-aether.slider.desc=
-aether.slider.hit_fail=This is made out of stone... maybe a pickaxe will do?
+aether.boss.slider.name=Slider
+aether.boss.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
+aether.slider.hit.fail=Hmm. Perhaps I need to attack it with a pickaxe?
 
-aether.valkyrie_queen.name=Valkyrie Queen
-aether.valkyrie_queen.desc=
+aether.boss.valkyrie.queen.name=Valkyrie Queen
+aether.boss.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 
-aether.sunspirit.name=Sun Spirit
-aether.sunspirit.desc=
+aether.boss.sunspirit.name=Sun Spirit
+aether.boss.sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.
