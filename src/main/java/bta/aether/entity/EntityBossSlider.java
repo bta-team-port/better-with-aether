@@ -98,15 +98,25 @@ public class EntityBossSlider extends EntityAetherBossBase{
     public void tick() {
         super.baseTick();
 
+        boolean flag = false;
+        int blocksBroken = 0;
         if (Math.abs(momentumX) > 1.0F || Math.abs(momentumZ) > 1.0F) {
             for (int x = -2; x <= 3; x++) {
+                if (flag) break;
                 for (int z = -2; z <= 3; z++) {
+                    if (flag) break;
                     for (int y = -1; y <= 3; y++) {
                         if (world.getBlockId((int) (this.x + x), (int) (this.y + y), (int) (this.z + z)) != 0) {
+
                             doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z));
-                            this.momentumX *= 0.50F;
-                            this.momentumZ *= 0.50F;
-                            break;
+                            this.momentumX *= 0.65F;
+                            this.momentumZ *= 0.65F;
+
+                            blocksBroken++;
+                            if (blocksBroken >= 5){
+                                flag = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -161,7 +171,8 @@ public class EntityBossSlider extends EntityAetherBossBase{
                     doExplosionEffect(world, explosionX, explosionY, explosionZ);
                 }
 
-                midSlam = false;
+                this.midSlam = false;
+                this.attackCoolDown = maxAttackCoolDown;
             }
 
             this.slamY = this.y;
@@ -225,7 +236,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
         if (distance > 3) {
             return getAngerModifier();
         }
-        return (float) distance / 10;
+        return (float) distance / 5;
     }
 
     public float getAngerModifier() {
@@ -335,8 +346,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
     @Override
     protected void dropFewItems() {
-        int lootAmount = this.random.nextInt(4);
-
+        int lootAmount = this.random.nextInt(10);
         for(int loot = 0; loot < lootAmount; ++loot) {
             int id = AetherBlocks.stoneCarved.id;
             if (world.rand.nextInt(2) == 0) {
