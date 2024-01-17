@@ -520,15 +520,15 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
 
-    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
+    public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
             .setTopBottomTexture(9, 1)
             .setSideTextures(10, 1)
             .setNorthTexture(11, 1)
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("chest.mimic", blockID++, Material.wood));
+            .setTags(BlockTags.MINEABLE_BY_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
+            .build(new BlockChestMimic("chest.mimic", blockID++, Material.wood));
 
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
             .setHardness(-1.0F)

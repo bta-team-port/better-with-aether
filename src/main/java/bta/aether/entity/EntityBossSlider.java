@@ -55,7 +55,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (Math.abs(this.momentumZ) > 0F || Math.abs(this.momentumX) > 0F) {
+        if (Math.abs(this.momentumZ) > 0.05F || Math.abs(this.momentumX) > 0.05F || Math.abs(this.momentumY) > 0.05F) {
             entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
             entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
             doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
@@ -134,7 +134,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
             this.momentumZ *= 0.75F;
             move(this.momentumX, this.momentumY, this.momentumZ);
 
-            if (this.slamY == this.y) {
+            if (this.slamY == this.y && attackCoolDown <= 0) {
                 int slamRadius = 4;
                 float launchSpeed = 0.75F;
                 List<Entity> list = world.getEntitiesWithinAABB(Entity.class, AABB.getBoundingBox(this.x - slamRadius, this.y, this.z  - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius));
@@ -143,7 +143,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
                     entity.hurt(this, (int) ((baseDamage * 0.50F) * getAngerModifier()), DamageType.FALL);
                     entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.GENERIC);
 
-                    switch (calculateDirection((int) entity.x, (int) entity.z)) {
+                    switch (calculateDirection((int) entity.x, (int) entity.y, (int) entity.z)) {
                         case NORTH:
                             entity.push(0, launchSpeed /2, -launchSpeed);
                             break;
@@ -192,14 +192,25 @@ public class EntityBossSlider extends EntityAetherBossBase{
                 this.speed = this.baseSpeed * getSpeedModifier(target);
                 this.attackCoolDown = this.maxAttackCoolDown * this.health/this.maxHealth;
 
-                if (getDistanceFrom(this.x, this.y, this.z, target.x, target.y, target.z) <= 5 && health < (maxHealth * 0.50F) && !midSlam && random.nextBoolean()) {
+                if (getDistanceFrom(this.x, this.y, this.z, target.x, target.y, target.z) <= 5 && health < (maxHealth * 0.50F) && !midSlam && random.nextInt(5) == 0) {
                     this.midSlam = true;
                     this.attackCoolDown = this.maxAttackCoolDown;
                     this.momentumY += this.baseSpeed * getAngerModifier();
                     return;
                 }
 
-                switch (calculateDirection((int) target.x, (int) target.z)){
+                Direction direction = calculateDirection((int) target.x, (int) target.y, (int) target.z);
+                 switch (direction){
+                    case UP:
+                        this.moving = true;
+                        this.momentumY += speed;
+                        break;
+
+                    case DOWN:
+                        this.moving = true;
+                        this.momentumY -= speed;
+                        break;
+
                     case NORTH:
                         this.moving = true;
                         this.momentumZ -= speed;
@@ -236,7 +247,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
         if (distance > 3) {
             return getAngerModifier();
         }
-        return (float) distance / 5;
+        return (float) distance / 2;
     }
 
     public float getAngerModifier() {
@@ -247,9 +258,18 @@ public class EntityBossSlider extends EntityAetherBossBase{
         return (this.health * 100) / this.maxHealth < angerThreshold;
     }
 
-    public Direction calculateDirection(int entityX, int entityZ) {
+    public Direction calculateDirection(int entityX, int entityY, int entityZ) {
         int deltaX = (int) (this.x - entityX);
         int deltaZ = (int) (this.z - entityZ);
+        int deltaY = (int) (this.y - entityY);
+
+        if (Math.abs(deltaY) > 1) {
+            if (deltaY < 0) {
+                return Direction.UP;
+            } else {
+                return Direction.DOWN;
+            }
+        }
 
         if (Math.abs(deltaX) > Math.abs(deltaZ)) {
             if (deltaX < 0) {
@@ -341,7 +361,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
     }
 
     private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(z2 - z1, 2)));
+        return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2)));
     }
 
     @Override
