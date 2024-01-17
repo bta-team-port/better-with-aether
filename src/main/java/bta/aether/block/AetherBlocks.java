@@ -25,7 +25,7 @@ public class AetherBlocks {
     private static int blockID = 1000;
 
     public static final Block portalAether = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("Portal.png")
@@ -93,7 +93,7 @@ public class AetherBlocks {
             .setResistance(3.0f)
             .setTextures("Icestone.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
-            .build(new Block("icestone", blockID++, Material.stone));
+            .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
