@@ -76,12 +76,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
             if (gameSettings.keyJump.isPressed()) {
                 if (!this.onGround && this.jumpAmount > 0 && this.jumpLastState != gameSettings.keyJump.isPressed()) {
                     this.yd += 1;
-
-                    for (int l = 0; l < 16; ++l) {
-                        double angle = Math.toRadians(l * 45);
-                        world.spawnParticle("smoke", rider.x + 0.5, rider.y + 0.6, rider.z + 0.5, -Math.cos(angle) / 20.0,  -0.5f, -Math.sin(angle) / 20.0);
-                    }
-
+                    this.spawnCloudParticles();
                     this.jumpAmount--;
                     this.jumpCoolDown = this.jumpCoolDownMax;
                     ((IPlayerJumpAmount)this.rider).aether$setJumpAmount(this.jumpAmount);
@@ -120,6 +115,23 @@ public class EntityMoa extends EntityChicken implements IVehicle {
         this.isBeingRidden = true;
 
         return super.interact(entityplayer);
+    }
+
+    private void spawnCloudParticles() {
+        float width = 1.0f;
+
+        for (int i = 0; i < 20; ++i) {
+            double dx = random.nextGaussian() * 0.02;
+            double dy = random.nextGaussian() * 0.02;
+            double dz = random.nextGaussian() * 0.02;
+            world.spawnParticle(
+                    "snowshovel",
+                    x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
+                    y - bbHeight + (double) (random.nextFloat() * width),
+                    z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
+                    dx, dy, dz
+            );
+        }
     }
 
     @Override

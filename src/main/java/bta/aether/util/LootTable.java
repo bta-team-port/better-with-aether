@@ -1,4 +1,4 @@
-package bta.aether.world;
+package bta.aether.util;
 
 import bta.aether.Aether;
 import com.b100.utils.StringUtils;
@@ -66,7 +66,10 @@ public class LootTable {
                     ));
                 }
             }
-        } catch (Exception exception) {Aether.LOGGER.error(String.valueOf(exception));}
+        } catch (Exception exception) {
+            Aether.LOGGER.error("failed to load loot table!");
+            Aether.LOGGER.error(String.valueOf(exception));
+        }
     }
 
     public ItemStack[] generateLoot(int quantity){
