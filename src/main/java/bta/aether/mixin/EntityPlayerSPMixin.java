@@ -1,10 +1,7 @@
 package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
-import bta.aether.entity.EntityAetherBossBase;
-import bta.aether.entity.IAetherAccessories;
-import bta.aether.entity.IPlayerBossList;
-import bta.aether.entity.IPlayerJumpAmount;
+import bta.aether.entity.*;
 import bta.aether.gui.GuiEnchanter;
 import bta.aether.gui.GuiFreezer;
 import bta.aether.gui.GuiLorebook;
@@ -76,7 +73,7 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
     public List<EntityAetherBossBase> aether$getBossList(){
         List<EntityAetherBossBase> _bosses = new ArrayList<>(bossList);
         for (EntityAetherBossBase bossBase : bossList){
-            if (!bossBase.isAlive()){
+            if (!bossBase.isAlive() || (bossBase instanceof EntityBossSlider && !((EntityBossSlider) bossBase).awake)){
                 _bosses.remove(bossBase);
             }
         }
