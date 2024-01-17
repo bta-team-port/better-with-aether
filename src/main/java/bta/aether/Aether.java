@@ -9,12 +9,12 @@ import bta.aether.entity.EntityFallingGravitite;
 import bta.aether.entity.ArrowFlamingRenderer;
 import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
-import bta.aether.gui.GuiBossBar;
 import bta.aether.item.AetherItems;
+import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
-import bta.aether.tile.TileEntityTreasureChest;
+import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
@@ -50,7 +50,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
         EntityHelper.Core.createTileEntity(TileEntityFreezer.class,"Freezer");
         EntityHelper.Core.createTileEntity(TileEntityIncubator.class,"Incubator");
-        EntityHelper.Core.createTileEntity(TileEntityTreasureChest.class,"Treasure Chest");
+        EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
 
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
@@ -63,6 +63,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
+        ParticleHelper.createParticle(EntityFireflyFX.class, "fireflySilver");
 
         AchievementPage AETHERACHIEVEMENTS;
         AETHERACHIEVEMENTS = new AetherAchievements();

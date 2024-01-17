@@ -1,41 +1,49 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "bta.aether.mixin",
-    "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "BlockFluidPortalMixin",
-        "BlockMixin",
-        "BlockTorchMixin",
-        "EntityLivingMixin",
-        "EntityLivingMixinGravitite",
-        "EntityLivingMixinNeptune",
-        "EntityLivingMixinPhoenix",
-        "EntityMixin",
-        "EntityPlayerMixinPhoenix",
-        "EntityPlayerSPMixin",
-        "ExplosionCannonballMixin",
-        "ExplosionCannonballMixinObsidian",
-        "ExplosionMixinObsidian",
-        "FireBarComponentMixinPhoenix",
-        "GuiIngameMixin",
-        "InventoryPlayerMixin",
-        "ItemBucketMixin",
-        "ItemDyeMixin",
-        "ItemFirestrikerMixin",
-        "LoadingScreenRendererMixin",
-        "SaveHandlerBaseMixin",
-        "accessors.EntityAccessor",
-        "accessors.ItemToolSwordAccessor"
-    ],
-    "client": [
-        "OxygenBarComponentMixin",
-        "SlotArmorMixin"
-    ],
-    "server": [
-        "EntityPlayerMPMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "bta.aether.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockFluidPortalMixin",
+    "BlockJarMixin",
+    "BlockMixin",
+    "EntityFireflyFXMixin",
+    "EntityLivingMixin",
+    "EntityMixin",
+    "EntityPlayerMixin",
+    "EntityPlayerSPMixin",
+    "ExplosionCannonballMixin",
+    "GuiIngameMixin",
+    "InventoryPlayerMixin",
+    "ItemBlockMixin",
+    "ItemBucketMixin",
+    "ItemDyeMixin",
+    "ItemFirestrikerMixin",
+    "ItemJarMixin",
+    "LivingRendererMixin",
+    "LoadingScreenRendererMixin",
+    "PlayerRendererMixin",
+    "RenderBlocksMixin",
+    "RenderGlobalMixin",
+    "SaveHandlerBaseMixin",
+    "EntityLivingMixinGravitite",
+    "EntityLivingMixinNeptune",
+    "EntityLivingMixinPhoenix",
+    "EntityPlayerMixinPhoenix",
+    "ExplosionCannonballMixinObsidian",
+    "ExplosionMixinObsidian",
+    "FireBarComponentMixinPhoenix",
+    "accessors.EntityAccessor",
+    "accessors.ItemToolSwordAccessor"
+  ],
+  "client": [
+    "OxygenBarComponentMixin",
+    "SlotArmorMixin"
+  ],
+  "server": [
+    "EntityPlayerMPMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }

@@ -43,7 +43,7 @@ public class AetherFunctions {
         int dy;
         int dz;
 
-        if(rand.nextInt(3) == 0) {
+        if(rand.nextInt(8) == 0) {
             for (dx = x; dx < x + 16; dx++) {
                 for (dy = 0; dy < 256; dy++) {
                     for (dz = z; dz < z + 16; dz++) {
@@ -65,7 +65,7 @@ public class AetherFunctions {
 
         // Normal clouds
         int dx = x + rand.nextInt(16);
-        int dy = rand.nextInt(256);
+        int dy = 20 + rand.nextInt(200);
         int dz = z + rand.nextInt(16);
 
         int cloudID = 0;
