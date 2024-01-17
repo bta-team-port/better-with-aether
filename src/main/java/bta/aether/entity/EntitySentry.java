@@ -15,6 +15,7 @@ public class EntitySentry extends EntityMonster {
         super(world);
         this.attackStrength = 5;
         this.cooldownInactive = 0;
+        this.health = 10;
         this.activated = false;
         this.setSize(1f, 1f);
     }
