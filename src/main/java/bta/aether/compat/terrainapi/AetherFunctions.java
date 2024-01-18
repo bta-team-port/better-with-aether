@@ -51,7 +51,7 @@ public class AetherFunctions {
             for (dx = x; dx < x + 16; dx++) {
                 for (dy = 0; dy < 256; dy++) {
                     for (dz = z; dz < z + 16; dz++) {
-                        if (world.getBlockId(dx, dy, dz) == 0 && world.getBlockId(dx, dy + 1, dz) == AetherBlocks.grassAether.id) {
+                        if (world.getBlockId(dx, dy, dz) == 0 && world.getBlockId(dx, dy + 1, dz) == AetherBlocks.grassAether.id && world.getBlockId(dx, dy - 1, dz) != Block.fluidWaterStill.id) {
                             new WorldFeatureQuicksoil(AetherBlocks.quicksoil.id, 3).generate(world, rand, dx, dy, dz);
                         }
                     }
