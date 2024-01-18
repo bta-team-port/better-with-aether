@@ -70,7 +70,7 @@ public abstract class WorldTypeAether
 
     @Override
     public boolean isValidSpawn(World world, int i, int j, int k) {
-        return true;
+        return world.getBlock(i, j, k) == AetherBlocks.grassAether;
     }
 
     @Override
