@@ -46,13 +46,13 @@ public class DensityGeneratorAether implements DensityGenerator {
         final double coordScale = 684.412D / 4;
         final double heightScale = 684.412D / 2;
 
-        final double upperLimitScale = 512;
-        final double lowerLimitScale = 256;
+        final double upperLimitScale = 128;
+        final double lowerLimitScale = 128;
 
         // uses temp and humidity to alter terrain shape.
         double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
-        double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 8, heightScale * 12, coordScale * 8);
-        double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 8, heightScale * 12, coordScale * 8);
+        double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
+        double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
         int mainIndex = 0;
         for(int dx = 0; dx < xSize; dx++)
         {
@@ -64,7 +64,7 @@ public class DensityGeneratorAether implements DensityGenerator {
                     double density;
                     double minDensity = minLimitArray[mainIndex] / upperLimitScale;
                     double maxDensity = maxLimitArray[mainIndex] / lowerLimitScale;
-                    double mainDensity = (mainNoiseArray[mainIndex] / 10D + 1.0D) / 4D;
+                    double mainDensity = (mainNoiseArray[mainIndex] / 10D + 1.0D);
                     if(mainDensity < 0.0D)
                     {
                         density = minDensity;
@@ -77,16 +77,16 @@ public class DensityGeneratorAether implements DensityGenerator {
                     {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 24D;
+                    density -= 16D;
 
-                    int upperLowerLimit = 40;
+                    int upperLowerLimit = 50 + 20;
                     // Upper cutoff
                     if(dy > ySize - upperLowerLimit)
                     {
                         double densityMod = (float)(dy - (ySize - upperLowerLimit)) / ((float)upperLowerLimit - 1.0F);
                         density = density * (1.0D - densityMod) + -30D * densityMod;
                     }
-                    upperLowerLimit = 16;
+                    upperLowerLimit = 20;
                     // Lower cutoff
                     if(dy < upperLowerLimit)
                     {
