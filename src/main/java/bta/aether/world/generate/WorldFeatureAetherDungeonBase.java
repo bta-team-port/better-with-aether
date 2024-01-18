@@ -16,6 +16,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonBase extends WorldFeature {
+
     @Override
     public boolean generate(World world, Random random, int i, int j, int k) {
         return false;
@@ -78,7 +79,5 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
 
         return boss;
     }
-
-
 
 }

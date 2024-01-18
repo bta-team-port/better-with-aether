@@ -1,6 +1,10 @@
 package bta.aether.compat.terrainapi;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.world.AetherDimension;
+import bta.aether.world.generate.dungeon.AetherDungeonRoom;
+import bta.aether.world.generate.dungeon.AetherDungeonRoomEmptyBronze;
+import bta.aether.world.generate.dungeon.AetherDungeonRoomTrappedBronze;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
 import net.minecraft.core.world.World;
@@ -98,6 +102,34 @@ public class AetherFunctions {
         cloudSize = 10 + rand.nextInt(20);
         if (rand.nextInt(30) == 0) {
             (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudWhite.id, true)).generate(world, rand, dx, dy, dz);
+        }
+
+        return null;
+    }
+
+    public static Void generateBronzeDungeon(Parameters parameters) {
+        Random rand = new Random();
+        World world = parameters.chunk.world;
+        if (parameters.chunk.xPosition%10 != 0 || parameters.chunk.zPosition%10 != 0) return null;
+
+        int x = parameters.chunk.xPosition * 16;
+        int y = 100 + rand.nextInt(50);
+        int z = parameters.chunk.zPosition * 16;
+        int dungeon = AetherDimension.registerDungeonToMap(x, y, z);
+
+        AetherDungeonRoom room1 = new AetherDungeonRoomEmptyBronze();
+        AetherDungeonRoom room2 = new AetherDungeonRoomTrappedBronze();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 1; j++) {
+                for (int k = 0; k < 3; k++) {
+                    //if (room1.canPlaceRoom(world, x+i*16, y, z+k*16)) // TODO: check block in non loaded chunk and crash the game :D
+                    if (i == 1 && k == 1) {
+                        room2.placeRoom(world, x+i*16, y, z+k*16);
+                        continue;
+                    }
+                    room1.placeRoom(world, x+i*16, y, z+k*16);
+                }
+            }
         }
 
         return null;

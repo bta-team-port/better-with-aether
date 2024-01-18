@@ -38,6 +38,10 @@ public class AetherInitialization extends BaseInitialization {
         structureFeatures.addFeature(
                 AetherFunctions::generateClouds, null
         );
+
+        structureFeatures.addFeature(
+                AetherFunctions::generateBronzeDungeon, null
+        );
     }
     public static Map<Integer, Integer> oreIceStoneMap = new HashMap<Integer, Integer>(){{
         put(AetherBlocks.holystone.id, AetherBlocks.icestone.id);
