@@ -3,7 +3,11 @@ package bta.aether.compat.terrainapi;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.generate.feature.WorldFeatureLake;
+import org.jetbrains.annotations.Nullable;
 import useless.terrainapi.generation.Parameters;
 
 import java.util.Random;
@@ -28,8 +32,8 @@ public class AetherFunctions {
             if (parameters.random.nextInt(10) == 0) {
                 ++treeDensityOffset;
             }
-
-            return treeDensity == null ? treeDensityOffset : treeDensity + noiseValue + treeDensityOffset;
+            treeDensity = treeDensity == null ? treeDensityOffset : treeDensity + noiseValue + treeDensityOffset;
+            return (int) (treeDensity * parameters.chunk.humidity[0]);
         }
     }
 
@@ -56,17 +60,8 @@ public class AetherFunctions {
         }
         return null;
     }
-
-    public static Void generateClouds(Parameters parameters) {
-        Random rand = new Random();
-        World world = parameters.chunk.world;
-        int x = parameters.chunk.xPosition * 16;
-        int z = parameters.chunk.zPosition * 16;
-
-        // Normal clouds
-        int dx = x + rand.nextInt(16);
-        int dy = 20 + rand.nextInt(200);
-        int dz = z + rand.nextInt(16);
+    public static WorldFeature getNormalClouds(Parameters parameters){
+        Random rand = parameters.random;
 
         int cloudID = 0;
         int choice = rand.nextInt(20);
@@ -74,30 +69,29 @@ public class AetherFunctions {
         if (choice > 15)  cloudID = AetherBlocks.aercloudBlue.id;
         if (choice >= 1 && choice <= 15)  cloudID = AetherBlocks.aercloudWhite.id;
 
+        return new WorldFeatureClouds(6 + rand.nextInt(10), cloudID, false);
+    }
+    public static WorldFeature getYellowClouds(Parameters parameters){
+        return new WorldFeatureClouds(6 + parameters.random.nextInt(10), AetherBlocks.aercloudGold.id, false);
+    }
+    public static WorldFeature getFlatClouds(Parameters parameters){
+        return new WorldFeatureClouds(20 + parameters.random.nextInt(25), AetherBlocks.aercloudWhite.id, true);
+    }
+    @Nullable
+    public static Void generateLakeFeature(Parameters parameters) {
+        int lakeChance = ChunkDecoratorAetherAPI.aetherConfig.getLakeDensity(parameters.biome, ChunkDecoratorAetherAPI.aetherConfig.defaultLakeDensity);
+        int x = parameters.chunk.xPosition * 16;
+        int z = parameters.chunk.zPosition * 16;
+        if (lakeChance != 0 && parameters.random.nextInt(lakeChance) == 0) {
+            int fluid = Block.fluidWaterStill.id;
+            if (parameters.biome.hasSurfaceSnow()) {
+                fluid = Block.ice.id;
+            }
 
-        int cloudSize = 6 + rand.nextInt(10);
-        if (rand.nextInt(4) == 0) {
-            (new WorldFeatureClouds(cloudSize, cloudID, false)).generate(world, rand, dx, dy, dz);
-        }
-
-        // Yellow clouds
-        dx = x + rand.nextInt(16);
-        dy = 210 + rand.nextInt(30);
-        dz = z + rand.nextInt(16);
-
-        cloudSize = 6 + rand.nextInt(10);
-        if (rand.nextInt(15) == 0) {
-            (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudGold.id, false)).generate(world, rand, dx, dy, dz);
-        }
-
-        // Flat clouds
-        dx = x + rand.nextInt(16);
-        dy = 10 + rand.nextInt(20);
-        dz = z + rand.nextInt(16);
-
-        cloudSize = 20 + rand.nextInt(25);
-        if (rand.nextInt(30) == 0) {
-            (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudWhite.id, true)).generate(world, rand, dx, dy, dz);
+            int xf = x + parameters.random.nextInt(16) + 8;
+            int yf = parameters.decorator.minY + parameters.random.nextInt(parameters.decorator.rangeY);
+            int zf = z + parameters.random.nextInt(16) + 8;
+            new WorldFeatureLake(fluid).generate(parameters.decorator.world, parameters.random, xf, yf, zf);
         }
 
         return null;
