@@ -42,15 +42,15 @@ public class AetherItems {
     public static final Item bookLoreOverworld = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.overworld.languageKey), "book.lore.overworld", "OverworldBook.png");
     public static final Item bookLoreNether = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.nether.languageKey), "book.lore.nether", "NetherBook.png");
     public static final Item bookLoreAether = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, AetherDimension.dimensionAether.languageKey), "book.lore.aether", "AetherBook.png");
-    public static final Item bookLoreParadise = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.paradise.languageKey), "book.lore.paradise", "ParadiseBook.png");
+    public static final Item bookLoreParadise = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.paradise.languageKey), "book.lore.paradise", "paradise_book.png");
 
     public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.blue", "BlueMoaEgg.png").withTags(aetheregg);
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png").withTags(aetheregg);
     public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.white", "WhiteMoaEgg.png").withTags(aetheregg);
 
     public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18400, "AetherTune", "Noisestorm"), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
-    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18401, "AMorningWish", "Emile van Krieken"), "record.silver", "SilverMusicDisk.png").setMaxStackSize(1);
-    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18402, "AscendingDawn", "Emile van Krieken"), "record.pink", "PinkMusicDisk.png").setMaxStackSize(1);
+    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18401, "AMorningWish", "Emile van Krieken"), "record.silver", "silver_music_disk.png").setMaxStackSize(1);
+    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18402, "AscendingDawn", "Emile van Krieken"), "record.pink", "pink_music_disk.png").setMaxStackSize(1);
 
     public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item(itemID++), "goldenamber", "GoldenAmber.png");
     public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item(itemID++), "aechorpetal", "AechorPetal.png");
@@ -72,7 +72,7 @@ public class AetherItems {
     public static final Item bucketSkyrootMilk = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(itemID++, null, 1), "bucket.skyroot.milk", "BucketMilk.png").setContainerItem(bucketSkyroot);
     public static final Item bucketSkyrootPoison = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(itemID++, null, 2), "bucket.skyroot.poison", "BucketPoison.png").setContainerItem(bucketSkyroot);
     public static final Item bucketSkyrootRemedy = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket(itemID++, null, 3), "bucket.skyroot.remedy", "BucketRemedy.png").setContainerItem(bucketSkyroot);
-    public static final Item bucketSkyrootIcecream = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucketIceCream(itemID++, 10), "bucket.skyroot.icecream", "BucketIceCream.png").setContainerItem(bucketSkyroot);
+    public static final Item bucketSkyrootIcecream = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucketIceCream(itemID++, 10), "bucket.skyroot.icecream", "skyroot_icecream_bucket.png").setContainerItem(bucketSkyroot);
 
     public static final Item healingStone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", itemID++, 4, false), "food.healingstone", "HealingStone.png");
 
@@ -155,17 +155,17 @@ public class AetherItems {
     public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new Item(itemID++), "tool.hammer.notch", "HammerNotch.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow(itemID++), "tool.bow.phoenix", "PhoenixBow.png");
 
-    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/LeatherAccessories.png"), "armor.gloves.leather", "LeatherGloves.png");
-    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/ChainAccessories.png"), "armor.gloves.chain", "GloveChain.png");
+    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/leather_pendant_and_gloves.png"), "armor.gloves.leather", "LeatherGloves.png");
+    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/chain_pendant_and_gloves.png"), "armor.gloves.chain", "GloveChain.png");
     public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/Accessories.png"), "armor.gloves.iron", "IronGloves.png");
-    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/GoldAccessories.png"), "armor.gloves.gold", "GoldGloves.png");
-    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/DiamondAccessories.png"), "armor.gloves.diamond", "DiamondGloves.png");
-    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/SteelAccessories.png"), "armor.gloves.steel", "SteelGloves.png");
-    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/ZaniteAccessories.png"), "armor.gloves.zanite", "ZaniteGloves.png");
-    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/GravititeAccessories.png"), "armor.gloves.gravitite", "GravititeGloves.png");
+    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/gold_pendant_and_gloves.png"), "armor.gloves.gold", "GoldGloves.png");
+    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/diamond_pendant_and_gloves.png"), "armor.gloves.diamond", "DiamondGloves.png");
+    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/steel_pendant_and_gloves.png"), "armor.gloves.steel", "steel_gloves.png");
+    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/zanite_pendant_and_gloves.png"), "armor.gloves.zanite", "ZaniteGloves.png");
+    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/gravitite_pendant_and_gloves.png"), "armor.gloves.gravitite", "GravititeGloves.png");
     public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/Phoenix.png"), "armor.gloves.phoenix", "PhoenixGloves.png");
-    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/ObsidianAccessories.png"), "armor.gloves.obsidian", "ObsidianGloves.png");
-    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/NeptuneAccessories.png"), "armor.gloves.neptune", "NeptuneGloves.png");
+    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/obsidian_pendant_and_gloves.png"), "armor.gloves.obsidian", "ObsidianGloves.png");
+    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves(itemID++, "/armor/neptune_pendant_and_gloves.png"), "armor.gloves.neptune", "NeptuneGloves.png");
 
     public static final Item armorRingIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing(itemID++), "armor.ring.iron", "IronRing.png");
     public static final Item armorRingGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing(itemID++), "armor.ring.gold", "GoldRing.png");
@@ -173,9 +173,9 @@ public class AetherItems {
     public static final Item armorRingIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing(itemID++), "armor.ring.ice", "IceRing.png");
 
     public static final Item armorPendantIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/Accessories.png"), "armor.pendant.iron", "IronPendant.png");
-    public static final Item armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/GoldAccessories.png"), "armor.pendant.gold", "GoldPendant.png");
-    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/ZaniteAccessories.png"), "armor.pendant.zanite", "ZanitePendant.png");
-    public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/IceAccessories.png"), "armor.pendant.ice", "IcePendant.png");
+    public static final Item armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/gold_pendant_and_gloves.png"), "armor.pendant.gold", "GoldPendant.png");
+    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/zanite_pendant_and_gloves.png"), "armor.pendant.zanite", "ZanitePendant.png");
+    public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant(itemID++, "/armor/ice_pendant_and_gloves.png"), "armor.pendant.ice", "IcePendant.png");
 
     public static final Item armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryIronBubble(itemID++), "armor.talisman.ironbubble", "IronBubble.png");
     public static final Item armorTalismanGoldenFeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldenFeather(itemID++), "armor.talisman.goldenfeather", "GoldenFeather.png");
@@ -184,7 +184,7 @@ public class AetherItems {
     public static final Item armorShieldRepulsion = ItemHelper.createItem(MOD_ID, new ItemAccessoryShield(itemID++), "armor.shield.repulsion", "RepulsionShield.png");
 
     public static final Item armorCapeSwet = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++, "/assets/aether/other/AetherCape.png"), "armor.cape.swet", "AetherCape.png");
-    public static final Item armorCapeInvisibility = ItemHelper.createItem(MOD_ID, new ItemAccessoryInvisibilityCloak(itemID++), "armor.cape.invisibility", "InvisibilityCloak.png");
+    public static final Item armorCloakInvisibility = ItemHelper.createItem(MOD_ID, new ItemAccessoryInvisibilityCloak(itemID++), "armor.cape.invisibility", "InvisibilityCloak.png");
     public static final Item armorCapeAgility = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++, "/assets/aether/other/AgilityCape.png"), "armor.cape.agility", "AgilityCape.png");
 
     public static final Item armorCapeWhite = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape(itemID++, "/assets/aether/other/WhiteCape.png"), "armor.cape.white", "Cape.png");
@@ -199,7 +199,7 @@ public class AetherItems {
     public static final Item cloudParachuteGold = ItemHelper.createItem(MOD_ID, new Item(itemID++), "cloud.parachute.gold", "GoldenParachute.png").setMaxStackSize(1);
 
     public static final Item lifeshard = ItemHelper.createItem(MOD_ID, new ItemLifeShard(itemID++), "food.lifeshard", "LifeShard.png");
-    public static final Item lanternAether = ItemHelper.createItem(MOD_ID, new ItemPlaceable("lantern.firefly.silver",itemID++, AetherBlocks.lanternAetherBlock), "lantern.firefly.silver", "lanternSilverItem.png");
+    public static final Item lanternAether = ItemHelper.createItem(MOD_ID, new ItemPlaceable("lantern.firefly.silver",itemID++, AetherBlocks.lanternAetherBlock), "lantern.firefly.silver", "silver_lantern.png");
 
     public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick(itemID++), "dev.stick", "Stick.png").setMaxStackSize(1);
 

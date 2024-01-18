@@ -29,13 +29,13 @@ public class AetherClient implements ClientStartEntrypoint {
         SoundHelper.Client.addSound("aether", "travel.ogg");
         SoundHelper.Client.addSound("aether", "trigger.ogg");
 
-        SoundHelper.Client.addSound("aether", "achievementBronze.ogg");
-        SoundHelper.Client.addSound("aether", "achievementSilver.ogg");
-        SoundHelper.Client.addSound("aether", "achievementGen.ogg");
+        SoundHelper.Client.addSound("aether", "achievement_bronze.ogg");
+        SoundHelper.Client.addSound("aether", "achievement_silver.ogg");
+        SoundHelper.Client.addSound("aether", "achievement_gen.ogg");
 
-        SoundHelper.Client.addStreaming("aether", "AetherTune.ogg");
-        SoundHelper.Client.addStreaming("aether", "AMorningWish.ogg");
-        SoundHelper.Client.addStreaming("aether", "AscendingDawn.ogg");
+        SoundHelper.Client.addStreaming("aether", "aether_tune.ogg");
+        SoundHelper.Client.addStreaming("aether", "a_morning_wish.ogg");
+        SoundHelper.Client.addStreaming("aether", "ascending_dawn.ogg");
         SoundHelper.Client.addMusic("aether", "aether1.ogg");
         SoundHelper.Client.addMusic("aether", "aether2.ogg");
         SoundHelper.Client.addMusic("aether", "aether3.ogg");
