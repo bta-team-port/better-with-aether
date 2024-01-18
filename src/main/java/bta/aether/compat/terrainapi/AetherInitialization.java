@@ -10,6 +10,7 @@ import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.config.OreConfig;
 import useless.terrainapi.generation.StructureFeatures;
+import useless.terrainapi.generation.overworld.OverworldBiomeFeatures;
 import useless.terrainapi.generation.overworld.OverworldFunctions;
 import useless.terrainapi.generation.overworld.OverworldOreFeatures;
 import useless.terrainapi.generation.overworld.OverworldRandomFeatures;
@@ -24,8 +25,8 @@ public class AetherInitialization extends BaseInitialization {
     private static final TerrainAetherConfig aetherConfig = ChunkDecoratorAetherAPI.aetherConfig;
     @Override
     protected void initValues() {
-        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 64);
-        aetherConfig.addLakeDensity(AetherDimension.biomeAether, 1);
+        aetherConfig.addTreeDensity(AetherDimension.biomeAether, 1);
+        aetherConfig.addLakeDensity(AetherDimension.biomeAether, 4);
     }
 
     @Override
@@ -35,10 +36,7 @@ public class AetherInitialization extends BaseInitialization {
         structureFeatures.addFeature(
             AetherFunctions::generateQuickSoil, null
         );
-
-        structureFeatures.addFeature(
-                AetherFunctions::generateClouds, null
-        );
+        structureFeatures.addFeature(AetherFunctions::generateLakeFeature, null);
     }
     public static Map<Integer, Integer> oreIceStoneMap = new HashMap<Integer, Integer>(){{
         put(AetherBlocks.holystone.id, AetherBlocks.icestone.id);
@@ -87,16 +85,25 @@ public class AetherInitialization extends BaseInitialization {
     @Override
     protected void initRandom() {
         OverworldRandomFeatures randomFeatures = ChunkDecoratorAetherAPI.randomFeatures;
-
-        randomFeatures.addFeatureSurface(new WorldFeatureTreeSkyroot(5), 2);
-        randomFeatures.addFeatureSurface(new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id,AetherBlocks.logOakGolden.id,5), 15); // might need a custom class for this but i've seen no issues thus far.
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerPurple.id), 2, 1);
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerWhite.id), 2, 1);
-        randomFeatures.addFeature(new WorldFeatureLake(Block.fluidWaterStill.id), 2, 1);
+        randomFeatures.addFeature(
+                AetherFunctions::getNormalClouds, null,
+                OverworldFunctions::getStandardBiomesDensity, new Object[]{3, null},
+                8, 20f/255, 220f/255);
+        randomFeatures.addFeature(
+                AetherFunctions::getYellowClouds, null,
+                OverworldFunctions::getStandardBiomesDensity, new Object[]{1, null},
+                25, 210f/255, 240f/255);
+        randomFeatures.addFeature(
+                AetherFunctions::getFlatClouds, null,
+                OverworldFunctions::getStandardBiomesDensity, new Object[]{1, null},
+                40, 10f/255, 20f/255);
     }
 
     @Override
     protected void initBiome() {
-
+        OverworldBiomeFeatures biomeFeatures = ChunkDecoratorAetherAPI.biomeFeatures;
+        biomeFeatures.addFeature(OverworldFunctions::getTreeFeature, null, AetherFunctions::getTreeDensity, null, -1.0F);
     }
 }
