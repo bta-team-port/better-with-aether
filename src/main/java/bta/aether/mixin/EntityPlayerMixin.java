@@ -4,6 +4,7 @@ import bta.aether.entity.IPlayerJumpAmount;
 import bta.aether.gui.IAetherGuis;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
+import bta.aether.tile.TileEntityIncubator;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -30,6 +31,10 @@ public abstract class EntityPlayerMixin extends EntityLiving implements IAetherG
 
     @Override
     public void aether$displayGUIEnchanter(TileEntityEnchanter tile) {
+    }
+
+    @Override
+    public void aether$displayGUIIncubator(TileEntityIncubator tile) {
     }
 
     @Override

@@ -95,7 +95,7 @@ public class AetherFunctions {
         dy = 10 + rand.nextInt(20);
         dz = z + rand.nextInt(16);
 
-        cloudSize = 10 + rand.nextInt(20);
+        cloudSize = 20 + rand.nextInt(25);
         if (rand.nextInt(30) == 0) {
             (new WorldFeatureClouds(cloudSize, AetherBlocks.aercloudWhite.id, true)).generate(world, rand, dx, dy, dz);
         }

@@ -1,0 +1,30 @@
+{
+  "ingredients": [
+
+    {
+      "symbol": "D",
+      "key": "tile.aether.quicksoil",
+      "meta": 0
+    },
+
+    {
+      "symbol": "F",
+      "key": "tile.aether.icestone",
+      "meta": 0
+    }
+
+  ],
+
+  "structure": [
+    [
+      ["F","D","F"],
+      ["F","null","F"],
+      ["F","D","F"]
+    ],
+    [
+      ["F","D","F"],
+      ["F","null","F"],
+      ["F","D","F"]
+    ]
+  ]
+}
