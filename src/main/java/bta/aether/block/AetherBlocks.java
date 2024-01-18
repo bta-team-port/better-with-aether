@@ -92,6 +92,7 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(3.0f)
             .setTextures("Icestone.png")
+            .setTickOnLoad()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
@@ -150,7 +151,7 @@ public class AetherBlocks {
             .setTopTexture("IncubatorTop.png")
             .setBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT)
-            .build(new Block("incubator", blockID++, Material.wood));
+            .build(new BlockIncubator("incubator", blockID++, Material.wood));
 
     public static final Block logSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -520,15 +521,15 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
 
-    public static final Block  chestMimic = new BlockBuilder(MOD_ID)
+    public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
             .setTopBottomTexture(9, 1)
             .setSideTextures(10, 1)
             .setNorthTexture(11, 1)
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new Block("chest.mimic", blockID++, Material.wood));
+            .setTags(BlockTags.MINEABLE_BY_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
+            .build(new BlockChestMimic("chest.mimic", blockID++, Material.wood));
 
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
             .setHardness(-1.0F)

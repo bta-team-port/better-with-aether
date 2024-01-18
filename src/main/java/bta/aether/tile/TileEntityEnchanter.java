@@ -1,5 +1,6 @@
 package bta.aether.tile;
 
+import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
 import bta.aether.recipe.AetherRecipes;
 import net.minecraft.core.item.ItemStack;
@@ -44,6 +45,8 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
                     fuelBurnTicks++;
                 }
             }
+
+            if(contents[0] == null) this.progressTicks = 0;
         }
 
         if(update){
@@ -52,7 +55,18 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
     }
 
     private boolean fuel(){
-        int fuel = (contents[1] != null && contents[1].getItem() == AetherItems.ambrosium) ? 500 : 0;
+
+        int fuel = 0;
+        if (contents[1] != null) {
+            if (contents[1].getItem() == AetherItems.ambrosium) {
+                fuel = 500;
+            }
+
+            if (contents[1].getItem() == AetherBlocks.blockAmbrosium.asItem()){
+                fuel = 4000;
+            }
+        }
+
         if(fuel > 0 && canProcess()){
             fuelMaxBurnTicks = fuelBurnTicks = fuel;
             contents[1].stackSize--;
