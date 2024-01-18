@@ -14,6 +14,9 @@ loom {
 }
 
 repositories {
+	flatDir { // DO NOT DELETE THIS, THIS ALLOWS GRADLE TO *OPTIONALLY* LOAD JARS LOCALLY, THIS HELPS TO FIX SOME PROBLEMATIC DEPENDENCIES
+		dirs "/dependencies"
+	}
 	mavenCentral()
 	maven { url = "https://jitpack.io" }
 	maven {
@@ -24,8 +27,6 @@ repositories {
 		name = 'Fabric'
 		url = 'https://maven.fabricmc.net/'
 	}
-
-
 	ivy {
 		url = "https://github.com/Better-than-Adventure"
 		patternLayout {
@@ -121,11 +122,8 @@ dependencies {
 	modImplementation "ModMenu:ModMenu:2.0.3"
 	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
 	modImplementation "bta_accessory_api:accessoryapi:${project.accessoryapi_version}"
-//	modImplementation "catalyst:catalyst-core:${project.catalyst_core_version}"
-//	modImplementation "catalyst:catalyst-effects:${project.catalyst_effects_version}"
-	// because martin did weird shit
-	modImplementation files("lib/catalyst-core-${project.catalyst_core_version}.jar")
-	modImplementation files("lib/catalyst-effects-${project.catalyst_effects_version}.jar")
+	modImplementation "catalyst:catalyst-core:${project.catalyst_core_version}"
+	modImplementation "catalyst:catalyst-effects:${project.catalyst_effects_version}"
 
 	include(implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9")))
 
