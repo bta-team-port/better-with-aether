@@ -30,6 +30,7 @@ public class AetherItems {
     // tags
     public static Tag<Item> aetherTool = Tag.of("aether_tool");
     public static Tag<Item> aetherdungeonKey = Tag.of("aether_key");
+    public static Tag<Item> aetheregg = Tag.of("aether_egg");
 
     public static final Item victoryMedal = ItemHelper.createItem(MOD_ID, new Item(itemID++), "victorymedal", "VictoryMedal.png").setMaxStackSize(10);
 
@@ -43,9 +44,9 @@ public class AetherItems {
     public static final Item bookLoreAether = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, AetherDimension.dimensionAether.languageKey), "book.lore.aether", "AetherBook.png");
     public static final Item bookLoreParadise = ItemHelper.createItem(MOD_ID, new ItemLoreBook(itemID++, Dimension.paradise.languageKey), "book.lore.paradise", "ParadiseBook.png");
 
-    public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.blue", "BlueMoaEgg.png");
-    public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png");
-    public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.white", "WhiteMoaEgg.png");
+    public static final Item eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.blue", "BlueMoaEgg.png").withTags(aetheregg);
+    public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.black", "BlackMoaEgg.png").withTags(aetheregg);
+    public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item(itemID++), "egg.moa.white", "WhiteMoaEgg.png").withTags(aetheregg);
 
     public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18400, "AetherTune", "Noisestorm"), "record.blue", "BlueMusicDisk.png").setMaxStackSize(1);
     public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor(MOD_ID, 18401, "AMorningWish", "Emile van Krieken"), "record.silver", "SilverMusicDisk.png").setMaxStackSize(1);

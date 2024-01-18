@@ -3,6 +3,7 @@ package bta.aether.gui;
 import bta.aether.container.ContainerEnchanter;
 import bta.aether.tile.TileEntityEnchanter;
 import net.minecraft.client.gui.GuiContainer;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 
@@ -36,6 +37,6 @@ public class GuiEnchanter extends GuiContainer {
     protected void drawGuiContainerForegroundLayer()
     {
         super.drawGuiContainerForegroundLayer();
-        fontRenderer.drawString("Enchanter", 64, 6, 0xFF404040);
+        fontRenderer.drawString(I18n.getInstance().translateKey("aether.gui.enchanter.title"), 64, 6, 0xFF404040);
     }
 }

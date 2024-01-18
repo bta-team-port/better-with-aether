@@ -30,6 +30,8 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityZephyr.class, entityID++, "Zephyr");
         EntityHelper.Core.createEntity(EntityMoa.class, entityID++, "Moa");
         EntityHelper.Core.createEntity(EntityBossSlider.class, entityID++, "Slider");
+        EntityHelper.Core.createEntity(EntityMimic.class, entityID++, "Mimic");
+
 
     }
     public void initializeModels(){
