@@ -6,6 +6,7 @@ import bta.aether.world.generate.feature.WorldFeatureAetherOre;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
+import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.config.OreConfig;
 import useless.terrainapi.generation.StructureFeatures;
@@ -91,6 +92,7 @@ public class AetherInitialization extends BaseInitialization {
         randomFeatures.addFeatureSurface(new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id,AetherBlocks.logOakGolden.id,5), 15); // might need a custom class for this but i've seen no issues thus far.
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerPurple.id), 2, 1);
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerWhite.id), 2, 1);
+        randomFeatures.addFeature(new WorldFeatureLake(Block.fluidWaterStill.id), 2, 1);
     }
 
     @Override
