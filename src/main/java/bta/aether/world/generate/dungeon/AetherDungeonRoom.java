@@ -2,7 +2,9 @@ package bta.aether.world.generate.dungeon;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.chunk.ChunkCoordinates;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public abstract class AetherDungeonRoom {
@@ -26,32 +28,38 @@ public abstract class AetherDungeonRoom {
     }
 
     public boolean canPlaceRoom(World world, int x, int y, int z) {
-        if (this.underground) {
-            if (world.getBlock(x, y, z).id == 0) return false;
-            if (world.getBlock(x + this.sizeX, y, z).id == 0) return false;
-            if (world.getBlock(x, y + this.sizeY, z).id == 0) return false;
-            if (world.getBlock(x, y, z + this.sizeZ).id == 0) return false;
+        //return (world.getBlockId(x, y, z) == 0) != this.underground;
+        int p = 0;
+        if ((world.getBlockId(x, y, z) == 0) != this.underground) p++;
+        if ((world.getBlockId(x + this.sizeX, y, z) == 0) != this.underground) p++;
+        if ((world.getBlockId(x, y + this.sizeY, z) == 0) != this.underground) p++;
+        if ((world.getBlockId(x, y, z + this.sizeZ) == 0) != this.underground) p++;
 
-            if (world.getBlock(x + this.sizeX, y, z + this.sizeZ).id == 0) return false;
-            if (world.getBlock(x, y + this.sizeY, z + this.sizeZ).id == 0) return false;
-            if (world.getBlock(x + this.sizeX, y + this.sizeY, z).id == 0) return false;
-            if (world.getBlock(x + this.sizeX, y + this.sizeY, z + this.sizeZ).id == 0) return false;
-        } else {
-            if (world.getBlock(x, y, z).id != 0) return false;
-            if (world.getBlock(x + this.sizeX, y, z).id != 0) return false;
-            if (world.getBlock(x, y + this.sizeY, z).id != 0) return false;
-            if (world.getBlock(x, y, z + this.sizeZ).id != 0) return false;
+        if ((world.getBlockId(x + this.sizeX, y, z + this.sizeZ) == 0) != this.underground) p++;
+        if ((world.getBlockId(x, y + this.sizeY, z + this.sizeZ) == 0) != this.underground) p++;
+        if ((world.getBlockId(x + this.sizeX, y + this.sizeY, z) == 0) != this.underground) p++;
+        if ((world.getBlockId(x + this.sizeX, y + this.sizeY, z + this.sizeZ) == 0) != this.underground) p++;
+        return p > 2;
+    }
 
-            if (world.getBlock(x + this.sizeX, y, z + this.sizeZ).id != 0) return false;
-            if (world.getBlock(x, y + this.sizeY, z + this.sizeZ).id != 0) return false;
-            if (world.getBlock(x + this.sizeX, y + this.sizeY, z).id != 0) return false;
-            if (world.getBlock(x + this.sizeX, y + this.sizeY, z + this.sizeZ).id != 0) return false;
+    public boolean canPlaceRoom(World world, int x, int y, int z, HashMap<ChunkCoordinates, AetherDungeonRoom> roomMap) {
+        if (!canPlaceRoom(world, x, y, z)) return false;
+        for (ChunkCoordinates roomCoords : roomMap.keySet()) {
+            AetherDungeonRoom hisRoom = roomMap.get(roomCoords);
+            int hisX = roomCoords.x;
+            int hisY = roomCoords.y;
+            int hisZ = roomCoords.z;
+            if (!(      (x + this.sizeX > hisX && x < hisX + hisRoom.sizeX) && // inside xAxis
+                        (y + this.sizeY > hisY && y < hisY + hisRoom.sizeY) && // inside yAxis
+                        (z + this.sizeZ > hisZ && z < hisZ + hisRoom.sizeZ)    // inside zAxis
+            )) return true;
         }
-        return true;
+        return false;
     }
 
     public void placeRoom(World world, int x, int y, int z) {
         placeEmptyCube(world, x, y, z, x+sizeX, y+sizeY, z+sizeZ, mainBlock, secondaryBlock);
+        placeFullCube(world, x+1, y+1, z+1, x+sizeX-1, y+sizeY-1, z+sizeZ-1, Block.getBlock(0), null);
     }
 
     public static void placeEmptyCube(World world, int x, int y, int z, int maxX, int maxY, int maxZ, Block mainBlock, Block secondaryBlock) {
@@ -64,14 +72,13 @@ public abstract class AetherDungeonRoom {
     }
 
     public static void placeFullCube(World world, int x, int y, int z, int maxX, int maxY, int maxZ, Block mainBlock, Block secondaryBlock) {
-        if (mainBlock == null) return;
         Random random = new Random();
         for (int i = x; i <= maxX; i++) {
             for (int j = y; j <= maxY; j++) {
                 for (int k = z; k <= maxZ; k++) {
                     boolean secondary = random.nextInt(25) == 0;
-                    world.setBlockWithNotify(i, j, k,
-                            (secondary && secondaryBlock != null) ? secondaryBlock.id : mainBlock.id);
+                    world.setBlock(i, j, k,
+                            (secondary && secondaryBlock != null) ? secondaryBlock.id : (mainBlock == null) ? 0 : mainBlock.id);
                 }
             }
         }

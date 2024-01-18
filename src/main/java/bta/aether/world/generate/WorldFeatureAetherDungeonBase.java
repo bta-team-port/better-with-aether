@@ -7,6 +7,9 @@ import bta.aether.entity.EntityDevBoss;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.item.AetherItems;
 import bta.aether.world.LootTable;
+import bta.aether.world.generate.dungeon.AetherDungeonRoom;
+import bta.aether.world.generate.dungeon.AetherDungeonRoomEmptyBronze;
+import bta.aether.world.generate.dungeon.AetherDungeonRoomTrappedBronze;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.item.ItemStack;
@@ -16,6 +19,11 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonBase extends WorldFeature {
+
+    public static AetherDungeonRoom[] bronzeRoomList = new AetherDungeonRoom[] {
+            new AetherDungeonRoomEmptyBronze(),
+            new AetherDungeonRoomTrappedBronze(),
+    };
 
     @Override
     public boolean generate(World world, Random random, int i, int j, int k) {
