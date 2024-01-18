@@ -1,5 +1,6 @@
 package bta.aether.compat.terrainapi;
 
+import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.dungeon.AetherDungeonRoom;
@@ -121,19 +122,28 @@ public class AetherFunctions {
         int y = 100 + rand.nextInt(50);
         int z = parameters.chunk.zPosition * 16;
 
-        for (ChunkCoordinates coords : AetherDimension.dugeonMap.values()) {
-            if (coords.getSqDistanceTo(x, y, z) < 400) return null;
-        }
 
+        //FIXME: this gets straight up ignored sometimes and that's  v e r y  bad  -martin
+        for (ChunkCoordinates coords : AetherDimension.dugeonMap.values()) {
+            if (coords.getSqDistanceTo(x, y, z) < 400) {
+                return null;
+            }
+        }
         // Dungeon room placement logic
         int maxIteration = 5;
         HashMap<ChunkCoordinates, AetherDungeonRoom> generatedDungeonLayout = generateDungeonLayout(world, x, y, z, 0, maxIteration, new HashMap<>());
 
-        System.out.printf("got dungeon: %d%n", generatedDungeonLayout.size());
         if (generatedDungeonLayout.size() < 10) return null;
+        System.out.printf("got dungeon: %d%n", generatedDungeonLayout.size());
+
+        //failsafe in case the check above gets ignored
+        int dungeon = AetherDimension.registerDungeonToMap(x, y, z);
+        if(dungeon == -1){
+            Aether.LOGGER.warn("Tried to generate dungeon too close to another one.");
+            return null;
+        }
 
         System.out.printf("Dungeon Generated: %d, %d, %d%n", x, y, z);
-        int dungeon = AetherDimension.registerDungeonToMap(x, y, z);
         // Room generation
         for (ChunkCoordinates coordinate : generatedDungeonLayout.keySet()) {
             AetherDungeonRoom room = generatedDungeonLayout.get(coordinate);

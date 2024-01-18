@@ -46,6 +46,12 @@ public class AetherDimension implements PreLaunchEntrypoint {
             id++;
         }
 
+        for (ChunkCoordinates coords : dugeonMap.values()) {
+            if(coords.getSqDistanceTo(x,y,z) < 400){
+                return -1;
+            }
+        }
+
         dugeonMap.put(id, new ChunkCoordinates(x, y, z));
         return id;
     }
