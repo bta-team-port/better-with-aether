@@ -63,16 +63,17 @@ public class AetherFunctions {
     public static WorldFeature getNormalClouds(Parameters parameters){
         Random rand = parameters.random;
 
-        int cloudID = 0;
-        int choice = rand.nextInt(20);
-        if (choice == 0)  cloudID = AetherBlocks.aercloudGold.id;
-        if (choice > 15)  cloudID = AetherBlocks.aercloudBlue.id;
-        if (choice >= 1 && choice <= 15)  cloudID = AetherBlocks.aercloudWhite.id;
+        int cloudID;
+        if (rand.nextInt(100) > 70) {
+            cloudID = AetherBlocks.aercloudBlue.id;
+        } else {
+            cloudID = AetherBlocks.aercloudWhite.id;
+        }
 
         return new WorldFeatureClouds(6 + rand.nextInt(10), cloudID, false);
     }
     public static WorldFeature getYellowClouds(Parameters parameters){
-        return new WorldFeatureClouds(6 + parameters.random.nextInt(10), AetherBlocks.aercloudGold.id, false);
+        return new WorldFeatureClouds(3 + parameters.random.nextInt(5), AetherBlocks.aercloudGold.id, false);
     }
     public static WorldFeature getFlatClouds(Parameters parameters){
         return new WorldFeatureClouds(20 + parameters.random.nextInt(25), AetherBlocks.aercloudWhite.id, true);

@@ -90,15 +90,15 @@ public class AetherInitialization extends BaseInitialization {
         randomFeatures.addFeature(
                 AetherFunctions::getNormalClouds, null,
                 OverworldFunctions::getStandardBiomesDensity, new Object[]{3, null},
-                4, 20f/255, 220f/255);
+                8, 20f/255, 220f/255);
         randomFeatures.addFeature(
                 AetherFunctions::getYellowClouds, null,
-                OverworldFunctions::getStandardBiomesDensity, new Object[]{2, null},
-                15, 210f/255, 240f/255);
+                OverworldFunctions::getStandardBiomesDensity, new Object[]{1, null},
+                25, 210f/255, 240f/255);
         randomFeatures.addFeature(
                 AetherFunctions::getFlatClouds, null,
                 OverworldFunctions::getStandardBiomesDensity, new Object[]{1, null},
-                30, 10f/255, 20f/255);
+                40, 10f/255, 20f/255);
     }
 
     @Override
