@@ -1,6 +1,8 @@
 package bta.aether.world.generate.chunk.perlin.aether;
 
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.chunk.Chunk;
+import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.generate.chunk.perlin.TerrainGeneratorLerp;
 import net.minecraft.core.world.type.WorldType;
@@ -21,7 +23,7 @@ public class TerrainGeneratorAether extends TerrainGeneratorLerp {
     @Override
     protected int getBlockAt(int x, int y, int z, double density) {
         WorldType type = this.world.getWorldType();
-        if (density > 3) {
+        if (density > 4) {
             return type.getFillerBlock();
         }
         return 0;
