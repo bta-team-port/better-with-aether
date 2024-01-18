@@ -353,13 +353,6 @@ public class EntityBossSlider extends EntityAetherBossBase{
         super.readAdditionalSaveData(tag);
     }
 
-    boolean doSlam = false;
-    @Override
-    public boolean interact(EntityPlayer entityplayer) {
-        doSlam = !doSlam;
-        return true;
-    }
-
     private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2)));
     }

@@ -92,6 +92,7 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(3.0f)
             .setTextures("Icestone.png")
+            .setTickOnLoad()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
@@ -150,7 +151,7 @@ public class AetherBlocks {
             .setTopTexture("IncubatorTop.png")
             .setBottomTexture("EnchanterTop.png")
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT)
-            .build(new Block("incubator", blockID++, Material.wood));
+            .build(new BlockIncubator("incubator", blockID++, Material.wood));
 
     public static final Block logSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))

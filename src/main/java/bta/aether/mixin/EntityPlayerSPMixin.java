@@ -2,12 +2,10 @@ package bta.aether.mixin;
 
 import bta.aether.block.IPortalExtras;
 import bta.aether.entity.*;
-import bta.aether.gui.GuiEnchanter;
-import bta.aether.gui.GuiFreezer;
-import bta.aether.gui.GuiLorebook;
-import bta.aether.gui.IAetherGuis;
+import bta.aether.gui.*;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
+import bta.aether.tile.TileEntityIncubator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.sound.SoundManager;
@@ -83,6 +81,10 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
     @Unique
     public void aether$displayGUIEnchanter(TileEntityEnchanter tile){
         mc.displayGuiScreen(new GuiEnchanter(inventory, tile));
+    }
+    @Unique
+    public void aether$displayGUIIncubator(TileEntityIncubator tile){
+        mc.displayGuiScreen(new GuiIncubator(inventory, tile));
     }
     @Unique
     public void aether$displayGUIFreeze(TileEntityFreezer tile){
