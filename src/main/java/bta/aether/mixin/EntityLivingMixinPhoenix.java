@@ -28,16 +28,20 @@ abstract public class EntityLivingMixinPhoenix extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
-                        helmetSlot.itemID != AetherItems.armorHelmetPhoenix.id ||
-                        chestplateSlot == null ||
-                        chestplateSlot.itemID != AetherItems.armorChestplatePhoenix.id ||
-                        leggingsSlot == null ||
-                        leggingsSlot.itemID != AetherItems.armorLeggingsPhoenix.id ||
-                        bootsSlot == null ||
-                        bootsSlot.itemID != AetherItems.armorBootsPhoenix.id
+                helmetSlot.itemID != AetherItems.armorHelmetPhoenix.id ||
+                chestplateSlot == null ||
+                chestplateSlot.itemID != AetherItems.armorChestplatePhoenix.id ||
+                leggingsSlot == null ||
+                leggingsSlot.itemID != AetherItems.armorLeggingsPhoenix.id ||
+                bootsSlot == null ||
+                bootsSlot.itemID != AetherItems.armorBootsPhoenix.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesPhoenix.id
+
         ) {
             return constant;
         }
