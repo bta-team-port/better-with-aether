@@ -22,8 +22,8 @@ public class ItemSkyrootBucket extends Item {
     private final int idToPlace;
     private final int foodType;
 
-    public ItemSkyrootBucket(int id, Block blockToPlace, int foodType) {
-        super(id);
+    public ItemSkyrootBucket(String name, int id, Block blockToPlace, int foodType) {
+        super(name, id);
         this.maxStackSize = 1;
         if (blockToPlace == null) {
             this.idToPlace = -1;

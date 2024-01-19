@@ -328,7 +328,7 @@ public class AetherBlocks {
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.5f))
             .setHardness(3.0f)
             .setResistance(10.0f)
-            .setTextures("AmbrosiumBlock.png")
+            .setTextures("ambrosium_block.png")
             .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.ambrosium", blockID++, Material.metal));
 
@@ -609,7 +609,7 @@ public class AetherBlocks {
             .setBlockSound(BlockSounds.GLASS)
             .setHardness(0.1f)
             .setBlockModel(new BlockModelRenderBlocks(26))
-            .setTextures("lanternSilver.png")
+            .setTextures("silver_lantern.png")
             .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
             .withLightEmission(0.9375f)
             .withDisabledStats()
@@ -632,7 +632,7 @@ public class AetherBlocks {
             });
 
     public void initializeBlocks(){
-        TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jarAether.png"); // Loads the texture into halplibe at startup
+        TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png"); // Loads the texture into halplibe at startup
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(portalAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(dirtAether.id);

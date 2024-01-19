@@ -8,8 +8,8 @@ import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryGoldenFeather extends ItemAccessoryMisc implements TickableWhileWorn {
 
-    public ItemAccessoryGoldenFeather(int id) {
-        super(id);
+    public ItemAccessoryGoldenFeather(String name, int id) {
+        super(name, id);
     }
 
     @Override
