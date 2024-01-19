@@ -2,16 +2,15 @@ package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 
-public class EntityDevBoss extends EntityAetherBossBase {
+public class EntityBossDev extends EntityAetherBossBase {
     private int jumpDelay;
     private int cooldownInactive;
     public boolean activated;
 
-    public EntityDevBoss(World world) {
+    public EntityBossDev(World world) {
         super(world, 100, "aether.father_sentry.name");
         this.attackStrength = 5;
         this.cooldownInactive = 0;
