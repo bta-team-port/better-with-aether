@@ -11,8 +11,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 public class ItemAccessoryGloves extends ItemToolAccessory implements TexturePath {
     private final String texturePath;
 
-    public ItemAccessoryGloves(int id, String texturePath) {
-        super(id);
+    public ItemAccessoryGloves(String name, int id, String texturePath) {
+        super(name, id);
         this.texturePath = texturePath;
     }
 

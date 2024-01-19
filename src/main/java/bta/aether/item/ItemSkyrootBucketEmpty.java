@@ -11,8 +11,8 @@ import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 
 public class ItemSkyrootBucketEmpty extends Item {
-    public ItemSkyrootBucketEmpty(int id) {
-        super(id);
+    public ItemSkyrootBucketEmpty(String name, int id) {
+        super(name, id);
         this.maxStackSize = 64;
     }
     @Override

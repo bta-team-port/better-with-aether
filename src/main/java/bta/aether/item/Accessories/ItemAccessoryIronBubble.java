@@ -6,8 +6,8 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryIronBubble extends ItemAccessoryMisc implements TickableWhileWorn {
-    public ItemAccessoryIronBubble(int id) {
-        super(id);
+    public ItemAccessoryIronBubble(String name, int id) {
+        super(name, id);
     }
 
     @Override
