@@ -8,6 +8,7 @@ import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.item.AetherItems;
 import bta.aether.world.LootTable;
 import bta.aether.world.generate.dungeon.AetherDungeonRoom;
+import bta.aether.world.generate.dungeon.AetherDungeonRoomChestBronze;
 import bta.aether.world.generate.dungeon.AetherDungeonRoomEmptyBronze;
 import bta.aether.world.generate.dungeon.AetherDungeonRoomTrappedBronze;
 import net.minecraft.core.block.Block;
@@ -23,6 +24,7 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
     public static AetherDungeonRoom[] bronzeRoomList = new AetherDungeonRoom[] {
             new AetherDungeonRoomEmptyBronze(),
             new AetherDungeonRoomTrappedBronze(),
+            new AetherDungeonRoomChestBronze(),
     };
 
     @Override

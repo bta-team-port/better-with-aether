@@ -46,12 +46,13 @@ public abstract class AetherDungeonRoom {
         if (!canPlaceRoom(world, x, y, z)) return false;
         for (ChunkCoordinates roomCoords : roomMap.keySet()) {
             AetherDungeonRoom hisRoom = roomMap.get(roomCoords);
+            // TODO: A room bigger than the other can be undetected by the algorythm.
             int hisX = roomCoords.x;
             int hisY = roomCoords.y;
             int hisZ = roomCoords.z;
-            if (!(      (x + this.sizeX > hisX && x < hisX + hisRoom.sizeX) && // inside xAxis
-                        (y + this.sizeY > hisY && y < hisY + hisRoom.sizeY) && // inside yAxis
-                        (z + this.sizeZ > hisZ && z < hisZ + hisRoom.sizeZ)    // inside zAxis
+            if (!(      (x + this.sizeX >= hisX && x <= hisX + hisRoom.sizeX) && // inside xAxis
+                        (y + this.sizeY >= hisY && y <= hisY + hisRoom.sizeY) && // inside yAxis
+                        (z + this.sizeZ >= hisZ && z <= hisZ + hisRoom.sizeZ)    // inside zAxis
             )) return true;
         }
         return false;

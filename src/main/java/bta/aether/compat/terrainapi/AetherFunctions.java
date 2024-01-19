@@ -3,10 +3,10 @@ package bta.aether.compat.terrainapi;
 import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.AetherDimension;
-import bta.aether.world.generate.dungeon.AetherDungeonRoom;
-import bta.aether.world.generate.dungeon.AetherDungeonRoomEmptyBronze;
+import bta.aether.world.generate.dungeon.*;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.ChunkCoordinates;
 import useless.terrainapi.generation.Parameters;
@@ -131,10 +131,44 @@ public class AetherFunctions {
         }
         // Dungeon room placement logic
         int maxIteration = 5;
-        HashMap<ChunkCoordinates, AetherDungeonRoom> generatedDungeonLayout = generateDungeonLayout(world, x, y, z, 0, maxIteration, new HashMap<>());
+        HashMap<ChunkCoordinates, AetherDungeonRoom> hallwayMap = new HashMap<>();
+        HashMap<ChunkCoordinates, AetherDungeonRoom> generatedDungeonLayout = generateDungeonLayout(world, x, y, z, 0, maxIteration, new HashMap<>(), hallwayMap);
 
+        // check for dungeon size being large enough
         if (generatedDungeonLayout.size() < 10) return null;
         System.out.printf("got dungeon: %d%n", generatedDungeonLayout.size());
+
+        // TODO: Boos Room can generate inside already placed room
+        // Boss Room
+        int roomOffset = 3;
+        AetherDungeonRoom newRoom = new AetherDungeonRoomBossBronze();
+        HashMap<ChunkCoordinates, AetherDungeonRoom> newRoomMap = (HashMap<ChunkCoordinates, AetherDungeonRoom>) generatedDungeonLayout.clone();
+        boolean boosRoomSpawned = false;
+        for (ChunkCoordinates coordinate : newRoomMap.keySet()) {
+            AetherDungeonRoom room = newRoomMap.get(coordinate);
+            if (newRoom.canPlaceRoom(world, x + roomOffset + room.sizeX-2, y, z-2, generatedDungeonLayout)) { // X+ Axis
+                generatedDungeonLayout.put(new ChunkCoordinates(x + roomOffset + room.sizeX-2, y, z-2), newRoom);
+                //hallwayMap.put(new ChunkCoordinates(x + room.sizeX, y + 1, z + (room.sizeZ / 2)-1), new AetherDungeonRoomHallwayBronze(Side.EAST, roomOffset + 1));
+                boosRoomSpawned = true;
+                break;
+            } else if (newRoom.canPlaceRoom(world, x - roomOffset - room.sizeX-2, y, z-2, generatedDungeonLayout)) { // X- Axis
+                generatedDungeonLayout.put(new ChunkCoordinates(x - roomOffset - room.sizeX-2, y, z-2), newRoom);
+                //hallwayMap.put(new ChunkCoordinates(x - roomOffset+1, y+1, z+(room.sizeZ/2)-1), new AetherDungeonRoomHallwayBronze(Side.WEST, roomOffset + 1));
+                boosRoomSpawned = true;
+                break;
+            } else if (newRoom.canPlaceRoom(world, x-2, y, z + roomOffset + room.sizeZ-2, generatedDungeonLayout)) { // Z+ Axis
+                generatedDungeonLayout.put(new ChunkCoordinates(x-2, y, z + roomOffset + room.sizeZ-2), newRoom);
+                //hallwayMap.put(new ChunkCoordinates(x+(room.sizeX/2)-1, y+1, z + room.sizeX), new AetherDungeonRoomHallwayBronze(Side.SOUTH, roomOffset + 1));
+                boosRoomSpawned = true;
+                break;
+            } else if (newRoom.canPlaceRoom(world, x-2, y, z-roomOffset-room.sizeZ-2, generatedDungeonLayout)) { // Z- Axis
+                generatedDungeonLayout.put(new ChunkCoordinates(x-2, y, z-roomOffset-room.sizeZ-2), newRoom);
+                //hallwayMap.put(new ChunkCoordinates(x+(room.sizeX/2)-1, y+1, z - roomOffset+1), new AetherDungeonRoomHallwayBronze(Side.NORTH, roomOffset + 1));
+                boosRoomSpawned = true;
+                break;
+            }
+        }
+        if (!boosRoomSpawned) return null;
 
         //failsafe in case the check above gets ignored
         int dungeon = AetherDimension.registerDungeonToMap(x, y, z);
@@ -149,34 +183,25 @@ public class AetherFunctions {
             AetherDungeonRoom room = generatedDungeonLayout.get(coordinate);
             room.placeRoom(world, coordinate.x, coordinate.y, coordinate.z);
         }
-        /*for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 1; j++) {
-                for (int k = 0; k < 3; k++) {
-                    if (!room1.canPlaceRoom(world, x+i*16, y, z+k*16)) continue;// TODO: check block in non loaded chunk and crash the game :D
-                    if (i == 1 && k == 1) {
-                        room2.placeRoom(world, x+i*16, y, z+k*16);
-                        continue;
-                    }
-                    room1.placeRoom(world, x+i*16, y, z+k*16);
-                }
-            }
-        }*/
+        for (ChunkCoordinates coordinate : hallwayMap.keySet()) {
+            AetherDungeonRoom room = hallwayMap.get(coordinate);
+            room.placeRoom(world, coordinate.x, coordinate.y, coordinate.z);
+        }
 
         return null;
     }
 
-    private static HashMap<ChunkCoordinates, AetherDungeonRoom> generateDungeonLayout(World world, int x, int y, int z, int iteration, int maxIteration, HashMap<ChunkCoordinates, AetherDungeonRoom> roomMap) {
+    private static HashMap<ChunkCoordinates, AetherDungeonRoom> generateDungeonLayout(World world, int x, int y, int z, int iteration, int maxIteration, HashMap<ChunkCoordinates, AetherDungeonRoom> roomMap, HashMap<ChunkCoordinates, AetherDungeonRoom> hallwayMap) {
         Random random = new Random();
         int roomOffset = 5;
         if (iteration >= maxIteration) {
-            // Search place for BoosRoom, return null if none;
             return roomMap;
         }
         if (roomMap.isEmpty()) {
             AetherDungeonRoom room = new AetherDungeonRoomEmptyBronze();
             if (!room.canPlaceRoom(world, x, y, z)) return roomMap;
             roomMap.put(new ChunkCoordinates(x, y, z), room);
-            return generateDungeonLayout(world, x, y, z, iteration+1, maxIteration, roomMap);
+            return generateDungeonLayout(world, x, y, z, iteration+1, maxIteration, roomMap, hallwayMap);
         } else {
             HashMap<ChunkCoordinates, AetherDungeonRoom> newRoomMap = (HashMap<ChunkCoordinates, AetherDungeonRoom>) roomMap.clone();
             for (ChunkCoordinates coordinate : roomMap.keySet()) {
@@ -184,13 +209,15 @@ public class AetherFunctions {
 
                 List<AetherDungeonRoom> possibleRooms;
                 AetherDungeonRoom newRoom;
+
                 // X+ axis
                 possibleRooms = new ArrayList<>();
                 possibleRooms.addAll(getPossibleRooms(world, x+roomOffset+room.sizeX, y, z, newRoomMap));
                 newRoom = (possibleRooms.size() > 0) ? possibleRooms.get(random.nextInt(possibleRooms.size())) : null;
                 if (newRoom != null) {
                     newRoomMap.put(new ChunkCoordinates(x + roomOffset + room.sizeX, y, z), newRoom);
-                    newRoomMap = generateDungeonLayout(world, x + roomOffset + room.sizeX, y, z, iteration + 1, maxIteration, newRoomMap);
+                    hallwayMap.put(new ChunkCoordinates(x + room.sizeX, y+1, z+(room.sizeZ/2)-1), new AetherDungeonRoomHallwayBronze(Side.EAST, roomOffset+1));
+                    newRoomMap = generateDungeonLayout(world, x + roomOffset + room.sizeX, y, z, iteration + 1, maxIteration, newRoomMap, hallwayMap);
                 }
                 // X- axis
                 possibleRooms = new ArrayList<>();
@@ -198,7 +225,8 @@ public class AetherFunctions {
                 newRoom = (possibleRooms.size() > 0) ? possibleRooms.get(random.nextInt(possibleRooms.size())) : null;
                 if (newRoom != null) {
                     newRoomMap.put(new ChunkCoordinates(x - roomOffset - room.sizeX, y, z), possibleRooms.get(random.nextInt(possibleRooms.size())));
-                    newRoomMap = generateDungeonLayout(world, x - roomOffset - room.sizeX, y, z, iteration + 1, maxIteration, newRoomMap);
+                    //hallwayMap.put(new ChunkCoordinates(x - roomOffset+1, y+1, z+(room.sizeZ/2)-1), new AetherDungeonRoomHallwayBronze(Side.WEST, roomOffset+1));
+                    newRoomMap = generateDungeonLayout(world, x - roomOffset - room.sizeX, y, z, iteration + 1, maxIteration, newRoomMap, hallwayMap);
                 }
                 // Z+ axis
                 possibleRooms = new ArrayList<>();
@@ -206,7 +234,8 @@ public class AetherFunctions {
                 newRoom = (possibleRooms.size() > 0) ? possibleRooms.get(random.nextInt(possibleRooms.size())) : null;
                 if (newRoom != null) {
                     newRoomMap.put(new ChunkCoordinates(x, y, z + roomOffset + room.sizeZ), possibleRooms.get(random.nextInt(possibleRooms.size())));
-                    newRoomMap = generateDungeonLayout(world, x, y, z + roomOffset + room.sizeZ, iteration + 1, maxIteration, newRoomMap);
+                    hallwayMap.put(new ChunkCoordinates(x+(room.sizeX/2)-1, y+1, z + room.sizeX), new AetherDungeonRoomHallwayBronze(Side.SOUTH, roomOffset+1));
+                    newRoomMap = generateDungeonLayout(world, x, y, z + roomOffset + room.sizeZ, iteration + 1, maxIteration, newRoomMap, hallwayMap);
                 }
                 // Z- axis
                 possibleRooms = new ArrayList<>();
@@ -214,7 +243,8 @@ public class AetherFunctions {
                 newRoom = (possibleRooms.size() > 0) ? possibleRooms.get(random.nextInt(possibleRooms.size())) : null;
                 if (newRoom != null) {
                     newRoomMap.put(new ChunkCoordinates(x, y, z - roomOffset - room.sizeZ), possibleRooms.get(random.nextInt(possibleRooms.size())));
-                    newRoomMap = generateDungeonLayout(world, x, y, z - roomOffset - room.sizeZ, iteration + 1, maxIteration, newRoomMap);
+                    //hallwayMap.put(new ChunkCoordinates(x+(room.sizeX/2)-1, y+1, z - roomOffset+1), new AetherDungeonRoomHallwayBronze(Side.NORTH, roomOffset+1));
+                    newRoomMap = generateDungeonLayout(world, x, y, z - roomOffset - room.sizeZ, iteration + 1, maxIteration, newRoomMap, hallwayMap);
                 }
             }
             return newRoomMap;
