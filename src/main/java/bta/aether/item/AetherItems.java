@@ -155,27 +155,27 @@ public class AetherItems {
     public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new Item("tool.hammer.notch", itemID++), "HammerNotch.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow("tool.bow.phoenix", itemID++), "PhoenixBow.png");
 
-    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/armor/leather_pendant_and_gloves.png"), "LeatherGloves.png");
-    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.chain", itemID++, "/armor/chain_pendant_and_gloves.png"), "GloveChain.png");
-    public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.iron", itemID++, "/armor/Accessories.png"), "IronGloves.png");
-    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gold", itemID++, "/armor/gold_pendant_and_gloves.png"), "GoldGloves.png");
-    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.diamond", itemID++, "/armor/diamond_pendant_and_gloves.png"), "DiamondGloves.png");
-    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.steel", itemID++, "/armor/steel_pendant_and_gloves.png"), "steel_gloves.png");
-    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.zanite", itemID++, "/armor/zanite_pendant_and_gloves.png"), "ZaniteGloves.png");
-    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gravitite", itemID++, "/armor/gravitite_pendant_and_gloves.png"), "GravititeGloves.png");
-    public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.phoenix", itemID++, "/armor/Phoenix.png"), "PhoenixGloves.png");
-    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.obsidian", itemID++, "/armor/obsidian_pendant_and_gloves.png"), "ObsidianGloves.png");
-    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.neptune", itemID++, "/armor/neptune_pendant_and_gloves.png"), "NeptuneGloves.png");
+    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png"), "LeatherGloves.png");
+    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.chain", itemID++, "/assets/aether/armor/chain_pendant_and_gloves.png"), "GloveChain.png");
+    public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.iron", itemID++, "/assets/aether/armor/Accessories.png"), "IronGloves.png");
+    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png"), "GoldGloves.png");
+    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.diamond", itemID++, "/assets/aether/armor/diamond_pendant_and_gloves.png"), "DiamondGloves.png");
+    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.steel", itemID++, "/assets/aether/armor/steel_pendant_and_gloves.png"), "steel_gloves.png");
+    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "ZaniteGloves.png");
+    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gravitite", itemID++, "/assets/aether/armor/gravitite_pendant_and_gloves.png"), "GravititeGloves.png");
+    public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.phoenix", itemID++, "/assets/aether/armor/Phoenix.png"), "PhoenixGloves.png");
+    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.obsidian", itemID++, "/assets/aether/armor/obsidian_pendant_and_gloves.png"), "ObsidianGloves.png");
+    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.neptune", itemID++, "/assets/aether/armor/neptune_pendant_and_gloves.png"), "NeptuneGloves.png");
 
     public static final Item armorRingIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.iron", itemID++), "IronRing.png");
     public static final Item armorRingGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.gold", itemID++), "GoldRing.png");
     public static final Item armorRingZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.zanite", itemID++), "ZaniteRing.png");
     public static final Item armorRingIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.ice", itemID++), "IceRing.png");
 
-    public static final Item armorPendantIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.iron", itemID++, "/armor/Accessories.png"), "IronPendant.png");
-    public static final Item armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.gold", itemID++, "/armor/gold_pendant_and_gloves.png"), "GoldPendant.png");
-    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.zanite", itemID++, "/armor/zanite_pendant_and_gloves.png"), "ZanitePendant.png");
-    public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.ice", itemID++, "/armor/ice_pendant_and_gloves.png"), "IcePendant.png");
+    public static final Item armorPendantIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.iron", itemID++, "/assets/aether/armor/Accessories.png"), "IronPendant.png");
+    public static final Item armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png"), "GoldPendant.png");
+    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "ZanitePendant.png");
+    public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.ice", itemID++, "/assets/aether/armor/ice_pendant_and_gloves.png"), "IcePendant.png");
 
     public static final Item armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryIronBubble("armor.talisman.ironbubble", itemID++), "IronBubble.png");
     public static final Item armorTalismanGoldenFeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldenFeather("armor.talisman.goldenfeather", itemID++), "GoldenFeather.png");
