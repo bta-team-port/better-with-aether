@@ -27,6 +27,7 @@ abstract public class EntityPlayerMixinPhoenix extends EntityLiving {
         ItemStack leggingsSlot = inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = inventory.armorItemInSlot(2);
         ItemStack helmetSlot = inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = inventory.armorItemInSlot(10);
 
         fireImmune = helmetSlot != null &&
                 helmetSlot.itemID == AetherItems.armorHelmetPhoenix.id &&
@@ -35,7 +36,9 @@ abstract public class EntityPlayerMixinPhoenix extends EntityLiving {
                 leggingsSlot != null &&
                 leggingsSlot.itemID == AetherItems.armorLeggingsPhoenix.id &&
                 bootsSlot != null &&
-                bootsSlot.itemID == AetherItems.armorBootsPhoenix.id;
+                bootsSlot.itemID == AetherItems.armorBootsPhoenix.id &&
+                glovesSlot != null &&
+                glovesSlot.itemID == AetherItems.armorGlovesPhoenix.id;
 
         if (fireImmune && random.nextInt(3) == 0) {
             spawnFlameParticles();

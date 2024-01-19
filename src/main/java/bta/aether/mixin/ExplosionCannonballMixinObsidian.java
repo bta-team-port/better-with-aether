@@ -37,6 +37,7 @@ abstract public class ExplosionCannonballMixinObsidian extends Explosion {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
@@ -46,7 +47,9 @@ abstract public class ExplosionCannonballMixinObsidian extends Explosion {
                 leggingsSlot == null ||
                 leggingsSlot.itemID != AetherItems.armorLeggingsObsidian.id ||
                 bootsSlot == null ||
-                bootsSlot.itemID != AetherItems.armorBootsObsidian.id
+                bootsSlot.itemID != AetherItems.armorBootsObsidian.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesObsidian.id
         ) {
             return;
         }
