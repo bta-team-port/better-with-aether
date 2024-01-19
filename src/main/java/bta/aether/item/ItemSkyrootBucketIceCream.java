@@ -8,8 +8,8 @@ import net.minecraft.core.world.World;
 public class ItemSkyrootBucketIceCream extends Item {
     protected int healAmount;
 
-    public ItemSkyrootBucketIceCream(int id, int healAmount) {
-        super(id);
+    public ItemSkyrootBucketIceCream(String name, int id, int healAmount) {
+        super(name, id);
         this.healAmount = healAmount;
         this.maxStackSize = 1;
     }

@@ -7,8 +7,8 @@ import net.minecraft.core.item.ItemStack;
 public class ItemAccessoryCape extends ItemToolAccessory implements TexturePath {
     private String texturePath;
 
-    public ItemAccessoryCape(int id, String texturePath) {
-        super(id);
+    public ItemAccessoryCape(String name, int id, String texturePath) {
+        super(name, id);
         this.texturePath = texturePath;
     }
 

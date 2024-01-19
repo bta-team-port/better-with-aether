@@ -13,8 +13,8 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class ItemDevStick extends Item {
-    public ItemDevStick(int id) {
-        super(id);
+    public ItemDevStick(String name, int id) {
+        super(name, id);
     }
 
     @Override

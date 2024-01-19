@@ -9,8 +9,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 public class ItemAccessoryPendant extends ItemToolAccessory implements TexturePath {
     private final String texturePath;
 
-    public ItemAccessoryPendant(int id, String texturePath) {
-        super(id);
+    public ItemAccessoryPendant(String name, int id, String texturePath) {
+        super(name, id);
         this.texturePath = texturePath;
     }
 

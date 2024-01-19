@@ -6,8 +6,8 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 
 public abstract class ItemToolAccessory extends Item implements Accessory {
-    public ItemToolAccessory(int id){
-        super(id);
+    public ItemToolAccessory(String name, int id){
+        super(name, id);
         this.maxStackSize = 1;
     }
 
