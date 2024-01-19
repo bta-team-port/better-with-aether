@@ -5,7 +5,6 @@ import bta.aether.entity.renderer.MoaRenderer;
 import bta.aether.entity.renderer.SentryRenderer;
 import bta.aether.entity.renderer.SwetRenderer;
 import bta.aether.entity.renderer.ZephyrRenderer;
-import bta.aether.tile.TileEntityChestLocked;
 import net.minecraft.client.render.entity.LivingRenderer;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
@@ -24,7 +23,7 @@ public class AetherEntities {
 
 
     public void initializeEntities() {
-        EntityHelper.Core.createEntity(EntityDevBoss.class, entityID++, "FatherSentry");
+        EntityHelper.Core.createEntity(EntityBossDev.class, entityID++, "FatherSentry");
         EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
         EntityHelper.Core.createEntity(EntitySwet.class, entityID++, "Swet");
         EntityHelper.Core.createEntity(EntityZephyr.class, entityID++, "Zephyr");
