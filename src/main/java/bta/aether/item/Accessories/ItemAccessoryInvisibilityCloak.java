@@ -7,8 +7,8 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryInvisibilityCloak extends ItemToolAccessory {
-    public ItemAccessoryInvisibilityCloak(int id) {
-        super(id);
+    public ItemAccessoryInvisibilityCloak(String name, int id) {
+        super(name, id);
     }
 
     @Override

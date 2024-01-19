@@ -33,9 +33,9 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logSkyroot.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logOakGolden.getDefaultStack());
         DataLoader.loadRecipes("/assets/aether/recipes/workbench.json");
-        DataLoader.loadRecipes("/assets/aether/recipes/workbench-shapeless.json");
-        DataLoader.loadRecipes("/assets/aether/recipes/workbench-tools.json");
-        DataLoader.loadRecipes("/assets/aether/recipes/workbench-armor.json");
+        DataLoader.loadRecipes("/assets/aether/recipes/workbench_shapeless.json");
+        DataLoader.loadRecipes("/assets/aether/recipes/workbench_tools.json");
+        DataLoader.loadRecipes("/assets/aether/recipes/workbench_armor.json");
         DataLoader.loadRecipes("/assets/aether/recipes/furnace.json");
         DataLoader.loadRecipes("/assets/aether/recipes/trommel.json");
         DataLoader.loadRecipes("/assets/aether/recipes/enchanter.json");

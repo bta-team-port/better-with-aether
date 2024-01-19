@@ -229,7 +229,7 @@ item.aether.armor.cape.blue.name=Blue Cape
 item.aether.armor.cape.blue.desc=Blue colored decorative cape.
 
 #Misc
-item.aether.book.lore.overworld.name=Book of Lore: Volume 1
+item.aether.book.lore.overworld.name=Book of Lore Volume 1
 item.aether.book.lore.overworld.desc=Contains information about the Overworld.
 item.aether.book.lore.nether.name=Book of Lore Volume 2
 item.aether.book.lore.nether.desc=Contains information about The Nether.

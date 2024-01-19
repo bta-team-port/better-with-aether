@@ -5,8 +5,8 @@ import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryMisc extends ItemToolAccessory {
 
-    public ItemAccessoryMisc(int id) {
-        super(id);
+    public ItemAccessoryMisc(String name, int id) {
+        super(name, id);
     }
 
     @Override
