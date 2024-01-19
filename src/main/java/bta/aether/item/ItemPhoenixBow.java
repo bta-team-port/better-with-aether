@@ -7,8 +7,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public class ItemPhoenixBow extends Item {
-    public ItemPhoenixBow(int id) {
-        super(id);
+    public ItemPhoenixBow(String name, int id) {
+        super(name, id);
         this.maxStackSize = 1;
         this.setMaxDamage(768);
     }

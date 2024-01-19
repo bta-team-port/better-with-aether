@@ -8,8 +8,8 @@ import net.minecraft.core.world.World;
 
 public class ItemLoreBook extends Item {
     private final String loreId;
-    public ItemLoreBook(int id, String loreId) {
-        super(id);
+    public ItemLoreBook(String name, int id, String loreId) {
+        super(name, id);
         this.loreId = loreId;
     }
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
