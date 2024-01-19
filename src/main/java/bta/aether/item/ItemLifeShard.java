@@ -10,8 +10,8 @@ import csweetla.accessoryapi.API.HealthHelper;
 
 public class ItemLifeShard extends Item {
 
-    public ItemLifeShard(int id) {
-        super(id);
+    public ItemLifeShard(String name, int id) {
+        super(name, id);
         setMaxStackSize(10);
     }
 

@@ -8,8 +8,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public class ItemLightningKnife extends Item {
-    public ItemLightningKnife(int id) {
-        super(id);
+    public ItemLightningKnife(String name, int id) {
+        super(name, id);
         this.maxStackSize = 64;
     }
 

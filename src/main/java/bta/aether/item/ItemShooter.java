@@ -9,8 +9,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public class ItemShooter extends Item {
-    public ItemShooter(int id) {
-        super(id);
+    public ItemShooter(String name, int id) {
+        super(name, id);
         this.setMaxDamage(100);
         this.maxStackSize = 1;
     }

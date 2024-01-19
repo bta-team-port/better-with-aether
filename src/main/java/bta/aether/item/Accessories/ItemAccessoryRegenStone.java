@@ -11,8 +11,8 @@ public class ItemAccessoryRegenStone extends ItemAccessoryMisc implements Tickab
     // 14 seconds at 20 ticks per second to heal half heart (estimated from original mod)
     public static int ticks_per_half_heart_heal = 14 * 20;
 
-    public ItemAccessoryRegenStone(int id) {
-        super(id);
+    public ItemAccessoryRegenStone(String name, int id) {
+        super(name, id);
     }
 
     @Override
