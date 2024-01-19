@@ -8,11 +8,15 @@ import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
 import net.minecraft.client.sound.block.BlockSounds;
 import net.minecraft.core.block.*;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.enums.EnumFireflyColor;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.world.Dimension;
+import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 
@@ -611,6 +615,21 @@ public class AetherBlocks {
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()
             .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
+
+    public static final Block aetherTallGrass = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
+            .setHardness(0.0f)
+            .setResistance(0.0f)
+            .setBlockDrop(null)
+            .setTextures("AetherTallGrass.png")
+            .setBlockModel(new BlockModelRenderBlocks(1))
+            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .build(new BlockAetherFlower("grass.tall", blockID++){
+                @Override
+                public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+                    return dropCause == EnumDropCause.SILK_TOUCH || dropCause == EnumDropCause.PICK_BLOCK ? new ItemStack[]{new ItemStack(this)} : null;
+                }
+            });
 
     public void initializeBlocks(){
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png"); // Loads the texture into halplibe at startup

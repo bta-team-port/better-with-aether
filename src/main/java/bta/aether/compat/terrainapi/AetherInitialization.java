@@ -6,7 +6,9 @@ import bta.aether.world.generate.feature.WorldFeatureAetherOre;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
+import net.minecraft.core.world.generate.feature.WorldFeatureGrassPatch;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
+import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 import useless.terrainapi.config.OreConfig;
 import useless.terrainapi.generation.StructureFeatures;
@@ -87,6 +89,8 @@ public class AetherInitialization extends BaseInitialization {
         OverworldRandomFeatures randomFeatures = ChunkDecoratorAetherAPI.randomFeatures;
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerPurple.id), 2, 1);
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerWhite.id), 2, 1);
+        randomFeatures.addFeature(new WorldFeatureTallGrass(AetherBlocks.aetherTallGrass.id), 2, 1);
+
         randomFeatures.addFeature(
                 AetherFunctions::getNormalClouds, null,
                 OverworldFunctions::getStandardBiomesDensity, new Object[]{3, null},
