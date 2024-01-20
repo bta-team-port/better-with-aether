@@ -193,7 +193,7 @@ public class AetherItems {
     public static final Item armorCapeBlue = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.blue", itemID++, "/assets/aether/other/BlueCape.png"), "BlueCape.png");
 
     public static final Item foodGummyBlue = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("food.gummy.blue", itemID++, 20, false, 64), "BlueGummy.png");
-    public static final Item foodGummyGold = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("food.gummy.gold", itemID++, 20, false, 64), "GoldGummy.png");
+    public static final Item foodGummyGold = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("food.gummy.gold", itemID++, 40, false, 64), "GoldGummy.png");
 
     public static final Item cloudParachute = ItemHelper.createItem(MOD_ID, new Item("cloud.parachute", itemID++), "CloudParachute.png").setMaxStackSize(1);
     public static final Item cloudParachuteGold = ItemHelper.createItem(MOD_ID, new Item("cloud.parachute.gold", itemID++), "GoldenParachute.png").setMaxStackSize(1);

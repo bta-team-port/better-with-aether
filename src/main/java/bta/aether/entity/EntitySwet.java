@@ -3,7 +3,6 @@ package bta.aether.entity;
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.monster.EntityMonster;
-import net.minecraft.core.entity.monster.EntitySlime;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 
@@ -20,12 +19,6 @@ public class EntitySwet extends EntityMonster {
         this.heightOffset = 0.0F;
         this.scoreValue = 100;
         this.setSize(1f, 1f);
-    }
-
-    public EntitySwet(World world, boolean isSplit) {
-        super(world);
-        this.heightOffset = 0.0F;
-        this.scoreValue = 100;
     }
 
     public String getEntityTexture() {
@@ -104,7 +97,7 @@ public class EntitySwet extends EntityMonster {
 
     @Override
     protected int getDropItemId() {
-        return AetherItems.foodGummyBlue.id;
+        return AetherBlocks.aercloudBlue.id;
     }
 
     protected float getSoundVolume() {
