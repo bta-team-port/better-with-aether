@@ -41,8 +41,10 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
 
     public EntityBossSlider(World world) {
-        super(world, 125, "aether.slider.name");
+        super(world, 500, "aether.slider.name");
         this.setSize(2f,2f);
+        this.health = 500;
+        this.scoreValue = 10000;
         this.viewScale = 2f;
         this.setSize(2.5F, 2.5F);
     }
@@ -325,7 +327,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
                 awake = true;
                 return super.hurt(attacker, damage, type);
             } else if (!this.awake) {
-                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit_fail");
+                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
                 ((EntityPlayer)attacker).addChatMessage(message);
             }
         }
@@ -361,7 +363,8 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
     @Override
     protected void dropFewItems() {
-        int lootAmount = this.random.nextInt(10);
+        int lootAmount = this.random.nextInt(4);
+
         for(int loot = 0; loot < lootAmount; ++loot) {
             int id = AetherBlocks.stoneCarved.id;
             if (world.rand.nextInt(2) == 0) {
