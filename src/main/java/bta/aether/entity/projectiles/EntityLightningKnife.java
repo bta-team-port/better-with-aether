@@ -1,14 +1,13 @@
-package bta.aether.entity;
+package bta.aether.entity.projectiles;
 
 import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.EntityLightningBolt;
 import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.item.ItemStack;
 
 import net.minecraft.core.world.World;
 
-public class EntityLightningKnife extends EntityArrow {
+public class EntityLightningKnife extends EntityProjectileModular {
 
     public ItemStack item = new ItemStack(AetherItems.toolKnifeLightning);
 

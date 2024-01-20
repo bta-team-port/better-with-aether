@@ -4,11 +4,12 @@ import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityPortalAetherFX;
-import bta.aether.entity.EntitySentry;
 import bta.aether.entity.EntityFallingGravitite;
+import bta.aether.entity.projectiles.EntityGoldenDart;
+import bta.aether.entity.projectiles.EntityLightningKnife;
+import bta.aether.entity.projectiles.EntityPoisonDart;
 import bta.aether.entity.renderer.aetherArrowRenderer;
-import bta.aether.entity.EntityArrowFlaming;
-import bta.aether.entity.*;
+import bta.aether.entity.projectiles.EntityArrowFlaming;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
@@ -78,6 +79,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
 
         new AetherEntities().initializeModels();
     }
