@@ -185,7 +185,7 @@ public class AetherBlocks {
             .build(new Block("planks.skyroot", blockID++, Material.wood));
 
     public static final Block slabPlanksSkyroot = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setUseInternalLight()
@@ -196,7 +196,7 @@ public class AetherBlocks {
             .build(new BlockSlab(planksSkyroot, blockID++));
 
     public static final Block stairsPlanksSkyroot = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0F)
             .setResistance(5.0f)
             .setUseInternalLight()
@@ -206,7 +206,7 @@ public class AetherBlocks {
             .build(new BlockStairs(planksSkyroot, blockID++));
 
     public static final Block fencePlanksSkyroot = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0F)
             .setResistance(5.0f)
             .setUseInternalLight()
@@ -217,7 +217,7 @@ public class AetherBlocks {
             .build(new BlockFence("fence.planks.skyroot", blockID++));
 
     public static final Block fenceGatePlanksSkyroot = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0F)
             .setResistance(5.0f)
             .setUseInternalLight()
@@ -227,11 +227,25 @@ public class AetherBlocks {
             .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
             .build(new BlockFenceGate("fencegate.planks.skyroot", blockID++));
 
+    public static final Block chestSkyroot = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
+            .setHardness(2.0F)
+            .setResistance(5.0f)
+            .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setSideTextures("SkyrootChestSide.png")
+            .setTopBottomTexture("SkyrootChestTop.png")
+            .setNorthTexture("SkyrootChestFront.png")
+            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .build(new BlockChestSkyroot("chest.skyroot", blockID++, Material.wood));
+
     public static final Block leavesSkyroot = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
-            .setTextures("SkyrootLeaves.png")
+            .setSideTextures("SkyrootLeaves.png")
+            .setBottomTexture("SkyrootLeavesFast.png")
+            .setTopBottomTexture("SkyrootLeaves.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS)
             .build(new BlockLeavesBase("skyroot.leaves", blockID++, Material.leaves, true) {
@@ -244,7 +258,9 @@ public class AetherBlocks {
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
-            .setTextures("GoldenOakLeaves.png")
+            .setSideTextures("GoldenOakLeaves.png")
+            .setBottomTexture("GoldenOakLeavesFast.png")
+            .setTopBottomTexture("GoldenOakLeaves.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS)
             .build(new BlockLeavesBase("goldenoak.leaves", blockID++, Material.leaves, true) {
@@ -379,7 +395,7 @@ public class AetherBlocks {
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneAngelic, blockID++));
 
-    public static final Block stairsStoneCAngelic = new BlockBuilder(MOD_ID)
+    public static final Block stairsStoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setResistance(1.0f)
@@ -490,6 +506,21 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.MINEABLE_BY_PICKAXE)
             .build(new BlockTrapdoorAmbrosium("trapdoor.glass.quicksoil", blockID++, Material.glass, false));
+
+    public static final Block aetherTallGrass = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
+            .setHardness(0.0f)
+            .setResistance(0.0f)
+            .setBlockDrop(null)
+            .setTextures("AetherTallGrass.png")
+            .setBlockModel(new BlockModelRenderBlocks(1))
+            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .build(new BlockAetherFlower("grass.tall", blockID++){
+                @Override
+                public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+                    return dropCause == EnumDropCause.SILK_TOUCH || dropCause == EnumDropCause.PICK_BLOCK ? new ItemStack[]{new ItemStack(this)} : null;
+                }
+            });
 
     public static final Block flowerWhite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -615,21 +646,6 @@ public class AetherBlocks {
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()
             .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
-
-    public static final Block aetherTallGrass = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-            .setHardness(0.0f)
-            .setResistance(0.0f)
-            .setBlockDrop(null)
-            .setTextures("AetherTallGrass.png")
-            .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
-            .build(new BlockAetherFlower("grass.tall", blockID++){
-                @Override
-                public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
-                    return dropCause == EnumDropCause.SILK_TOUCH || dropCause == EnumDropCause.PICK_BLOCK ? new ItemStack[]{new ItemStack(this)} : null;
-                }
-            });
 
     public void initializeBlocks(){
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png"); // Loads the texture into halplibe at startup

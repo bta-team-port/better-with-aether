@@ -139,7 +139,7 @@ public class AetherItems {
     public static final Item armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.neptune", itemID++, armorNeptune, 1), "NeptuneChestplate.png");
     public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.neptune", itemID++, armorNeptune, 2), "NeptuneLeggings.png");
     public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.neptune", itemID++, armorNeptune, 3), "NeptuneBoots.png");
-   
+
 
     public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer("tool.sword.pig", itemID++), "PigSlayer.png").withTags(ItemTags.preventCreativeMining);
     public static final Item toolSwordVampire = ItemHelper.createItem(MOD_ID, new ItemVampireSword("tool.sword.vampire", itemID++, ToolMaterial.diamond), "VampireBlade.png").withTags(ItemTags.preventCreativeMining);
