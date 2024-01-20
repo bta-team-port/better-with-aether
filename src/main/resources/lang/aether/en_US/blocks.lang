@@ -11,6 +11,9 @@ tile.aether.dirt.desc=Crumbly pale dirt.
 tile.aether.grass.name=Aether Grass
 tile.aether.grass.desc=Pale grass from a lost paradise.
 
+tile.aether.grass.tall.name=Tall Aether Grass
+tile.aether.grass.tall.desc=Rich, sprouting aether grass.
+
 tile.aether.flower.white.name=White Flower
 tile.aether.flower.white.desc=A majestic white flower.
 tile.aether.flower.purple.name=Purple Flower
@@ -65,6 +68,9 @@ tile.aether.fence.planks.skyroot.name=Skyroot Fence
 tile.aether.fence.planks.skyroot.desc=Still too tall to jump over.
 tile.aether.fencegate.planks.skyroot.name=Skyroot Fence Gate
 tile.aether.fencegate.planks.skyroot.desc=Like a trapdoor but for fences.
+
+tile.aether.chest.skyroot.name=Skyroot Chest
+tile.aether.chest.skyroot.desc=A place to store your items.
 
 tile.aether.ore.ambrosium.name=Holystone Ambrosium Ore
 tile.aether.ore.ambrosium.desc=Ambrosium shards embedded in holystone.

@@ -42,6 +42,7 @@ abstract public class EntityLivingMixinNeptune extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
@@ -51,7 +52,9 @@ abstract public class EntityLivingMixinNeptune extends Entity {
                 leggingsSlot == null ||
                 leggingsSlot.itemID != AetherItems.armorLeggingsNeptune.id ||
                 bootsSlot == null ||
-                bootsSlot.itemID != AetherItems.armorBootsNeptune.id
+                bootsSlot.itemID != AetherItems.armorBootsNeptune.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesNeptune.id
         ) {
             return constant;
         }
@@ -79,16 +82,19 @@ abstract public class EntityLivingMixinNeptune extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
-                        helmetSlot.itemID != AetherItems.armorHelmetNeptune.id ||
-                        chestplateSlot == null ||
-                        chestplateSlot.itemID != AetherItems.armorChestplateNeptune.id ||
-                        leggingsSlot == null ||
-                        leggingsSlot.itemID != AetherItems.armorLeggingsNeptune.id ||
-                        bootsSlot == null ||
-                        bootsSlot.itemID != AetherItems.armorBootsNeptune.id
+                helmetSlot.itemID != AetherItems.armorHelmetNeptune.id ||
+                chestplateSlot == null ||
+                chestplateSlot.itemID != AetherItems.armorChestplateNeptune.id ||
+                leggingsSlot == null ||
+                leggingsSlot.itemID != AetherItems.armorLeggingsNeptune.id ||
+                bootsSlot == null ||
+                bootsSlot.itemID != AetherItems.armorBootsNeptune.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesNeptune.id
         ) {
             return;
         }
@@ -110,16 +116,19 @@ abstract public class EntityLivingMixinNeptune extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
-                        helmetSlot.itemID != AetherItems.armorHelmetNeptune.id ||
-                        chestplateSlot == null ||
-                        chestplateSlot.itemID != AetherItems.armorChestplateNeptune.id ||
-                        leggingsSlot == null ||
-                        leggingsSlot.itemID != AetherItems.armorLeggingsNeptune.id ||
-                        bootsSlot == null ||
-                        bootsSlot.itemID != AetherItems.armorBootsNeptune.id
+                helmetSlot.itemID != AetherItems.armorHelmetNeptune.id ||
+                chestplateSlot == null ||
+                chestplateSlot.itemID != AetherItems.armorChestplateNeptune.id ||
+                leggingsSlot == null ||
+                leggingsSlot.itemID != AetherItems.armorLeggingsNeptune.id ||
+                bootsSlot == null ||
+                bootsSlot.itemID != AetherItems.armorBootsNeptune.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesNeptune.id
         ) {
             return constant;
         }

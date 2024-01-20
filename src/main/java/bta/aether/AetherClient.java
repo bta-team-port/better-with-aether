@@ -2,10 +2,13 @@ package bta.aether;
 
 import bta.aether.entity.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
+import bta.aether.block.AetherBlocks;
+import bta.aether.entity.*;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
 import bta.aether.item.AetherItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.*;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
@@ -26,6 +29,16 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
 
         new AetherEntities().initializeModels();
+
+        MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
+                        0.66f * 0.8f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
+                        0.66f * 0.2f, 1, 2)});
+
+        MobInfoRegistry.register(EntityBossSlider.class, "aether.boss.slider.name", "aether.boss.slider.desc",
+                500, 10000, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.keyBronze),
+                        0.66f * 0.8f, 1 ,1)});
+
         SoundHelper.Client.addSound("aether", "portal.ogg");
         SoundHelper.Client.addSound("aether", "travel.ogg");
         SoundHelper.Client.addSound("aether", "trigger.ogg");

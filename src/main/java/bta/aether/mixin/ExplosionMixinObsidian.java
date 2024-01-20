@@ -32,16 +32,19 @@ abstract public class ExplosionMixinObsidian {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
-                        helmetSlot.itemID != AetherItems.armorHelmetObsidian.id ||
-                        chestplateSlot == null ||
-                        chestplateSlot.itemID != AetherItems.armorChestplateObsidian.id ||
-                        leggingsSlot == null ||
-                        leggingsSlot.itemID != AetherItems.armorLeggingsObsidian.id ||
-                        bootsSlot == null ||
-                        bootsSlot.itemID != AetherItems.armorBootsObsidian.id
+                helmetSlot.itemID != AetherItems.armorHelmetObsidian.id ||
+                chestplateSlot == null ||
+                chestplateSlot.itemID != AetherItems.armorChestplateObsidian.id ||
+                leggingsSlot == null ||
+                leggingsSlot.itemID != AetherItems.armorLeggingsObsidian.id ||
+                bootsSlot == null ||
+                bootsSlot.itemID != AetherItems.armorBootsObsidian.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesObsidian.id
         ) {
             return;
         }

@@ -49,6 +49,7 @@ abstract public class EntityLivingMixinGravitite extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot != null &&
@@ -58,7 +59,9 @@ abstract public class EntityLivingMixinGravitite extends Entity {
                 leggingsSlot != null &&
                 leggingsSlot.itemID == AetherItems.armorLeggingsGravitite.id &&
                 bootsSlot != null &&
-                bootsSlot.itemID == AetherItems.armorBootsGravitite.id
+                bootsSlot.itemID == AetherItems.armorBootsGravitite.id &&
+                glovesSlot != null &&
+                glovesSlot.itemID == AetherItems.armorGlovesGravitite.id
         ) {
             yd = 1.05;
         }
@@ -89,6 +92,7 @@ abstract public class EntityLivingMixinGravitite extends Entity {
         ItemStack leggingsSlot = player.inventory.armorItemInSlot(1);
         ItemStack chestplateSlot = player.inventory.armorItemInSlot(2);
         ItemStack helmetSlot = player.inventory.armorItemInSlot(3);
+        ItemStack glovesSlot = player.inventory.armorItemInSlot(10);
 
         if (
                 helmetSlot == null ||
@@ -98,13 +102,14 @@ abstract public class EntityLivingMixinGravitite extends Entity {
                 leggingsSlot == null ||
                 leggingsSlot.itemID != AetherItems.armorLeggingsGravitite.id ||
                 bootsSlot == null ||
-                bootsSlot.itemID != AetherItems.armorBootsGravitite.id
+                bootsSlot.itemID != AetherItems.armorBootsGravitite.id ||
+                glovesSlot == null ||
+                glovesSlot.itemID != AetherItems.armorGlovesGravitite.id
         ) {
             return;
         }
 
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
-            Aether.LOGGER.info("double jump!");
             yd = 1.05;
 
             spawnCloudParticles();

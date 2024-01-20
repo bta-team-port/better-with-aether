@@ -15,12 +15,9 @@ import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
-import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
-import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.AchievementHelper;
@@ -41,11 +38,6 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
         new AetherEffects().initializeEffects();
-
-        MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
-                20, 0, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
-                        0.66f * 0.8f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
-                        0.66f * 0.2f, 1, 2)});
 
 
         //Tiles

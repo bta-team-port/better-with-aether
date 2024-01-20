@@ -48,31 +48,32 @@ public class EntitySwet extends EntityMonster {
     protected void updatePlayerActionState() {
         this.tryToDespawn();
         EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
-        if (entityplayer != null && targetPlayer) {
-            this.entityToAttack = entityplayer;
-        }
-        if (this.entityToAttack != null && !this.canEntityBeSeen(entityToAttack)) {
-            this.entityToAttack = null;
-            targetPlayer = false;
-            this.activated = false;
-        }
+        boolean targetPlayer = entityplayer != null &&
+                entityplayer.getGamemode().areMobsHostile() &&
+                canEntityBeSeen(entityplayer) &&
+                (entityplayer.inventory.armorItemInSlot(5) == null || entityplayer.inventory.armorItemInSlot(5).itemID != AetherItems.armorCapeSwet.id);
+
         if (cooldownInactive > 0) {
             cooldownInactive--;
         }
+
         if (targetPlayer) {
-            this.faceEntity(entityToAttack, 10.0f, 20.0f);
-            this.activated = true;
+            entityToAttack = entityplayer;
+            faceEntity(entityToAttack, 10.0f, 20.0f);
+            activated = true;
             cooldownInactive = 100;
+        } else {
+            entityToAttack = null;
+            activated = false;
         }
+
         if (this.onGround && this.jumpDelay-- <= 0 && cooldownInactive > 0) {
-            if (!targetPlayer) {
+            this.jumpDelay = this.random.nextInt(20) + 10;
+            if (targetPlayer) {
+                this.jumpDelay /= 3;
+            } else {
                 float rotation = (this.world.rand.nextFloat() - 0.5f) * 90.0f;
                 this.yRot += rotation;
-            }
-            this.jumpDelay = this.random.nextInt(20) + 10;
-            if (entityToAttack != null) {
-                this.jumpDelay /= 3;
             }
             this.isJumping = true;
             this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
