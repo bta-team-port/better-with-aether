@@ -18,6 +18,7 @@ import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.AchievementHelper;
