@@ -79,9 +79,9 @@ item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from an e
 
 item.aether.tool.dart.shooter.name=Dart Shooter
 item.aether.tool.dart.shooter.desc=A weapon for blowing rapid-fire darts.
-item.aether.tool.dart.shooter.poison.name=Poison Shooter
+item.aether.tool.dart.shooter.poison.name=Poison Dart Shooter
 item.aether.tool.dart.shooter.poison.desc=A poisoned weapon for blowing rapid-fire poison darts.
-item.aether.tool.dart.shooter.enchanted.name=Enchanted Shooter
+item.aether.tool.dart.shooter.enchanted.name=Enchanted Dart Shooter
 item.aether.tool.dart.shooter.enchanted.desc=An enchanted weapon for blowing rapid-fire enchanted darts.
 
 item.aether.bucket.skyroot.name=Skyroot Bucket
@@ -229,13 +229,13 @@ item.aether.armor.cape.blue.name=Blue Cape
 item.aether.armor.cape.blue.desc=Blue colored decorative cape.
 
 #Misc
-item.aether.book.lore.overworld.name=Book of Lore Volume 1
+item.aether.book.lore.overworld.name=Book of Lore : Volume Overworld
 item.aether.book.lore.overworld.desc=Contains information about the Overworld.
-item.aether.book.lore.nether.name=Book of Lore Volume 2
+item.aether.book.lore.nether.name=Book of Lore : Volume Nether
 item.aether.book.lore.nether.desc=Contains information about The Nether.
-item.aether.book.lore.aether.name=Book of Lore Volume 3
+item.aether.book.lore.aether.name=Book of Lore : Volume Aether
 item.aether.book.lore.aether.desc=Contains information about The Aether.
-item.aether.book.lore.paradise.name=Book of Lore Volume 4
+item.aether.book.lore.paradise.name=Book of Lore : Volume Paradise
 item.aether.book.lore.paradise.desc=Contains information about Paradise.
 
 item.aether.egg.moa.blue.name=Blue Moa Egg
@@ -255,7 +255,7 @@ item.aether.record.pink.desc=§6ascendingdawn
 item.aether.goldenamber.name=Golden Amber
 item.aether.goldenamber.desc=Harvested from a golden oak, useful for darts.
 item.aether.aechorpetal.name=Aechor Petal
-item.aether.aechorpetal.desc=Collected from a aechor plant, a great treat for a moa!
+item.aether.aechorpetal.desc=Collected from a aechor plant, a great treat for a baby moa!
 
 item.aether.stick.skyroot.name=Skyroot Stick
 item.aether.stick.skyroot.desc=Found at the ends of branches. Can craft various Aether items.
