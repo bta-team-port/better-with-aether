@@ -58,7 +58,7 @@ public class EntityFallingGravitite extends EntityFallingSand {
             this.zd /= 0.7;
             this.yd *= 0.5;
             this.remove();
-            if ((!this.world.canBlockBePlacedAt(this.blockID, blockX, blockY, blockZ, true, Side.BOTTOM) || BlockOreGravitite.canFallTo(this.world, blockX, blockY + 1, blockZ) || !this.world.setBlockWithNotify(blockX, blockY, blockZ, this.blockID)) && !this.world.isClientSide && this.hasRemovedBlock) {
+            if ((!this.world.canBlockBePlacedAt(this.blockID, blockX, blockY, blockZ, true, Side.BOTTOM) || BlockOreGravitite.canFallBelow(this.world, blockX, blockY + 1, blockZ) || !this.world.setBlockWithNotify(blockX, blockY, blockZ, this.blockID)) && !this.world.isClientSide && this.hasRemovedBlock) {
                 this.spawnAtLocation(this.blockID, 1);
             }
         } else if (this.fallTime > 100 && !this.world.isClientSide) {
