@@ -29,7 +29,7 @@ public class BlockOreGravitite extends Block {
     }
 
     private void tryToFall(World world, int i, int j, int k) {
-        if (canFallTo(world, i, j + 1, k) && j < 256) {
+        if (canFallBelow(world, i, j + 1, k) && j < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(i - byte0, j - byte0, k - byte0, i + byte0, j + byte0, k + byte0)) {
                 EntityFallingGravitite entityfallinggravitite = new EntityFallingGravitite(world, (float)i + 0.5F, (float)j + 0.5F, (float)k + 0.5F, this.id);
@@ -37,7 +37,7 @@ public class BlockOreGravitite extends Block {
             } else {
                 world.setBlockWithNotify(i, j, k, 0);
 
-                while(canFallTo(world, i, j + 1, k) && j < 256) {
+                while(canFallBelow(world, i, j + 1, k) && j < 256) {
                     ++j;
                 }
 
@@ -53,14 +53,17 @@ public class BlockOreGravitite extends Block {
         return 3;
     }
 
-    public static boolean canFallTo(World world, int i, int j, int k) { // Could probably just be replaced with BlockSand.canFallBelow -Useless
+    public static boolean canFallBelow(World world, int i, int j, int k) {
         int blockId = world.getBlockId(i, j, k);
         if (blockId == 0) {
             return true;
-        } else if (blockId == Block.fire.id) {
-            return true;
-        } else {
-            return Block.hasTag(blockId, BlockTags.IS_WATER) || Block.hasTag(blockId, BlockTags.IS_LAVA);
         }
+        if (blockId == Block.fire.id) {
+            return true;
+        }
+        if (Block.hasTag(blockId, BlockTags.IS_WATER)) {
+            return true;
+        }
+        return Block.hasTag(blockId, BlockTags.IS_LAVA);
     }
 }

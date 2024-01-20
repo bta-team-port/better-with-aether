@@ -54,12 +54,12 @@ aether.valkyrie.desc=A beautiful soldier that can teleport around you, found roa
 aether.father_sentry.name=Father Sentry
 aether.slider.desc="The deadbeat dad of all automatons"
 
-aether.boss.slider.name=Slider
-aether.boss.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
+aether.slider.name=Slider
+aether.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.slider.hit.fail=Hmm. Perhaps I need to attack it with a pickaxe?
 
-aether.boss.valkyrie.queen.name=Valkyrie Queen
-aether.boss.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
+aether.valkyrie.queen.name=Valkyrie Queen
+aether.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 
-aether.boss.sunspirit.name=Sun Spirit
-aether.boss.sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.
+aether.sunspirit.name=Sun Spirit
+aether.sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.
