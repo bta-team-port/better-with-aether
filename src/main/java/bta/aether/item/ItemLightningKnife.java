@@ -1,6 +1,6 @@
 package bta.aether.item;
 
-import bta.aether.entity.EntityLightningKnife;
+import bta.aether.entity.projectiles.EntityLightningKnife;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
