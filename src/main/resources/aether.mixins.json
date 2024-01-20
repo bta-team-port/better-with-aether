@@ -21,27 +21,27 @@
         "ExplosionCannonballMixin",
         "ExplosionCannonballMixinObsidian",
         "ExplosionMixinObsidian",
-        "FireBarComponentMixinPhoenix",
-        "GuiIngameMixin",
         "InventoryPlayerMixin",
         "ItemBlockMixin",
         "ItemBucketMixin",
         "ItemDyeMixin",
         "ItemFirestrikerMixin",
         "ItemJarMixin",
-        "LivingRendererMixin",
-        "LoadingScreenRendererMixin",
-        "PlayerRendererMixin",
-        "PlayerRendererMixinCapes",
-        "RenderBlocksMixin",
-        "RenderGlobalMixin",
         "SaveHandlerBaseMixin",
         "accessors.EntityAccessor",
         "accessors.ItemToolSwordAccessor"
     ],
     "client": [
         "OxygenBarComponentMixin",
-        "SlotArmorMixin"
+        "SlotArmorMixin",
+        "LivingRendererMixin",
+        "LoadingScreenRendererMixin",
+        "FireBarComponentMixinPhoenix",
+        "GuiIngameMixin",
+        "PlayerRendererMixin",
+        "PlayerRendererMixinCapes",
+        "RenderBlocksMixin",
+        "RenderGlobalMixin"
     ],
     "server": [
         "EntityPlayerMPMixin"
