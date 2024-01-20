@@ -6,7 +6,7 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 128,
 				"texture_height": 64,
-				"visible_bounds_width": 4,
+				"visible_bounds_width": 5,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
 			},
@@ -15,7 +15,7 @@
 					"name": "bb_main",
 					"pivot": [0, 0, 0],
 					"cubes": [
-						{"origin": [-17, 0, -16], "size": [32, 32, 32], "uv": [0, 0]}
+						{"origin": [-31, 0, -1], "size": [32, 32, 32], "uv": [0, 0]}
 					]
 				}
 			]
