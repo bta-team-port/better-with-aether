@@ -1,6 +1,9 @@
 package bta.aether.item;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.projectiles.EntityGoldenDart;
+import bta.aether.entity.projectiles.EntityPoisonDart;
+import bta.aether.entity.projectiles.EntityProjectileModular;
 import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
 import bta.aether.item.Accessories.ItemAccessoryInvisibilityCloak;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
@@ -8,6 +11,7 @@ import bta.aether.item.Accessories.ItemAccessoryRegenStone;
 import bta.aether.item.Accessories.base.*;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.data.tag.Tag;
+import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -18,6 +22,7 @@ import net.minecraft.core.item.tool.ItemToolShovel;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.Dimension;
+import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.ArmorHelper;
 import turniplabs.halplibe.helper.ItemHelper;
 
@@ -60,8 +65,18 @@ public class AetherItems {
     public static final Item dartPoison = ItemHelper.createItem(MOD_ID, new Item("ammo.dart.poison", itemID++), "DartPoison.png");
     public static final Item dartEnchanted = ItemHelper.createItem(MOD_ID, new Item("ammo.dart.enchanted",  itemID++), "DartEnchanted.png");
 
-    public static final Item dartShooter = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter", itemID++), "DartShooter.png");
-    public static final Item dartShooterPoison = ItemHelper.createItem(MOD_ID, new Item("tool.dart.shooter.poison", itemID++), "DartShooterPoison.png");
+    public static final Item dartShooter = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter", itemID++, AetherItems.dartGolden.id){
+        @Override
+        public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+            return new EntityGoldenDart(world, entityPlayer, true);
+        }
+    }, "DartShooter.png");
+    public static final Item dartShooterPoison = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.poison", itemID++, AetherItems.dartPoison.id){
+        @Override
+        public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+            return new EntityPoisonDart(world, entityPlayer, true);
+        }
+    }, "DartShooterPoison.png");
     public static final Item dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new Item("tool.dart.shooter.enchanted", itemID++), "DartShooterEnchanted.png");
 
     public static final Item ambrosium = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("ambrosium", itemID++, 1, false, 64), "AmbrosiumShard.png");
