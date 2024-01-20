@@ -1,6 +1,8 @@
 package bta.aether;
 
 import bta.aether.entity.*;
+import bta.aether.entity.renderer.aetherArrowRenderer;
+import bta.aether.block.AetherBlocks;
 import bta.aether.entity.projectiles.EntityArrowFlaming;
 import bta.aether.entity.projectiles.EntityGoldenDart;
 import bta.aether.entity.projectiles.EntityLightningKnife;
