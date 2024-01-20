@@ -1,5 +1,7 @@
 package bta.aether;
 
+import bta.aether.entity.*;
+import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.*;
 import bta.aether.gui.components.ComponentBossBar;
@@ -9,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.*;
 import net.minecraft.client.render.entity.FallingSandRenderer;
+import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
@@ -21,8 +24,10 @@ public class AetherClient implements ClientStartEntrypoint {
     @Override
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
+        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
+
         new AetherEntities().initializeModels();
 
         MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",

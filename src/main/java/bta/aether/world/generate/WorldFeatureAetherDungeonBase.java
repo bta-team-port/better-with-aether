@@ -4,10 +4,10 @@ import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.tile.TileEntityChestLocked;
-import bta.aether.item.AetherItems;
 import bta.aether.util.LootTable;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntityChest;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -20,15 +20,15 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
         return false;
     }
 
-    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Boolean isLocked, World world, int x, int y, int z){
-        return makeTreasureChest(lootTable, quantity, null, isLocked, world, x, y, z);
+    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, Boolean isLocked, World world, int x, int y, int z){
+        return makeTreasureChest(lootTable, quantity, itemKey, null, isLocked, world, x, y, z);
     }
 
     public ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
-        return makeTreasureChest(lootTable, quantity, null, false, world, x, y, z);
+        return makeTreasureChest(lootTable, quantity, null, null, false, world, x, y, z);
     }
 
-    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, String password, Boolean isLocked, World world, int x, int y, int z){
+    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, String password, Boolean isLocked, World world, int x, int y, int z){
         ItemStack[] items = lootTable.generateLoot(quantity);
 
         if (isLocked) {
@@ -54,7 +54,7 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
             ((TileEntityChestLocked)chest).setLocked(true);
             ((TileEntityChestLocked)chest).setPassword(password);
 
-            ItemStack key = new ItemStack(AetherItems.keyBronze);
+            ItemStack key = new ItemStack(itemKey);
             key.getData().putString("password", password);
             return key;
         }
@@ -78,7 +78,4 @@ public class WorldFeatureAetherDungeonBase extends WorldFeature {
 
         return boss;
     }
-
-
-
 }
