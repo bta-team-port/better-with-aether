@@ -3,7 +3,6 @@ package bta.aether;
 import bta.aether.entity.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.block.AetherBlocks;
-import bta.aether.entity.*;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
 import bta.aether.item.AetherItems;
@@ -46,6 +45,9 @@ public class AetherClient implements ClientStartEntrypoint {
         SoundHelper.Client.addSound("aether", "achievement_bronze.ogg");
         SoundHelper.Client.addSound("aether", "achievement_silver.ogg");
         SoundHelper.Client.addSound("aether", "achievement_gen.ogg");
+
+        SoundHelper.Client.addSound("aether", "life_shard_chime.ogg");
+        SoundHelper.Client.addSound("aether", "life_shard_chime_final.ogg");
 
         SoundHelper.Client.addStreaming("aether", "aether_tune.ogg");
         SoundHelper.Client.addStreaming("aether", "a_morning_wish.ogg");

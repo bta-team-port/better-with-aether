@@ -18,6 +18,14 @@ public class ItemLifeShard extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (HealthHelper.getExtraHealth(entityplayer) < 20 && itemstack.consumeItem(entityplayer)) {
+            // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
+            int extra_heart_amount = Math.min(HealthHelper.getExtraHealth(entityplayer), 20);
+
+            if (extra_heart_amount == 18)
+                world.playSoundAtEntity(entityplayer, "aether.life_shard_chime_final",1.0F,1.0F);
+            else
+                world.playSoundAtEntity(entityplayer,"aether.life_shard_chime", 0.9F + 0.01F * extra_heart_amount,0.9F + 0.015F * extra_heart_amount);
+
             HealthHelper.addExtraHealth(entityplayer, 2);
             entityplayer.heal(2);
         }
