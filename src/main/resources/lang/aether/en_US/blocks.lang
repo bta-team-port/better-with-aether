@@ -10,6 +10,8 @@ tile.aether.dirt.name=Aether Dirt
 tile.aether.dirt.desc=Crumbly pale dirt.
 tile.aether.grass.name=Aether Grass
 tile.aether.grass.desc=Pale grass from a lost paradise.
+tile.aether.grass.tall.name=Aether Tall Grass
+tile.aether.grass.tall.desc=Pale grass from a lost paradise.
 
 tile.aether.flower.white.name=White Flower
 tile.aether.flower.white.desc=A majestic white flower.

@@ -15,6 +15,7 @@
         "EntityMixin",
         "EntityPlayerMixin",
         "EntityPlayerMixinAgility",
+        "EntityPlayerMixinIce",
         "EntityPlayerMixinPhoenix",
         "EntityPlayerSPMixin",
         "ExplosionCannonballMixin",
