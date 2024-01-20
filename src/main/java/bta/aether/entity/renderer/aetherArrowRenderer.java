@@ -1,15 +1,21 @@
-package bta.aether.entity;
+package bta.aether.entity.renderer;
 
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
-public class GoldenDartRenderer extends EntityRenderer<EntityGoldenDart> {
+public class aetherArrowRenderer extends EntityRenderer<EntityArrow> {
+    private final String texturePath;
+    public aetherArrowRenderer(String texturePath){
+        this.texturePath = texturePath;
+    }
+
     @Override
-    public void doRender(EntityGoldenDart arrow, double x, double y, double z, float yaw, float renderPartialTicks) {
+    public void doRender(EntityArrow arrow, double x, double y, double z, float yaw, float renderPartialTicks) {
         if (arrow.yRotO != 0.0F || arrow.xRotO != 0.0F) {
-            this.loadTexture("/assets/aether/mobs/entitygoldendart.png");
+            this.loadTexture(texturePath);
             GL11.glPushMatrix();
             GL11.glTranslatef((float)x, (float)y, (float)z);
             GL11.glRotatef(arrow.yRotO + (arrow.yRot - arrow.yRotO) * renderPartialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
@@ -65,3 +71,4 @@ public class GoldenDartRenderer extends EntityRenderer<EntityGoldenDart> {
         }
     }
 }
+

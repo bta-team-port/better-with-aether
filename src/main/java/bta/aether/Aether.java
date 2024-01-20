@@ -6,7 +6,7 @@ import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityPortalAetherFX;
 import bta.aether.entity.EntitySentry;
 import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.ArrowFlamingRenderer;
+import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.entity.EntityArrowFlaming;
 import bta.aether.entity.*;
 import bta.aether.item.AetherItems;
@@ -17,6 +17,8 @@ import bta.aether.tile.TileEntityIncubator;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.entity.FallingSandRenderer;
+import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
@@ -80,8 +82,10 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
     @Override
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
+        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
+
         new AetherEntities().initializeModels();
     }
 

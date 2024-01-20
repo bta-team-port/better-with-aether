@@ -1,16 +1,15 @@
 package bta.aether;
 
-import bta.aether.entity.AetherEntities;
-import bta.aether.entity.ArrowFlamingRenderer;
-import bta.aether.entity.EntityArrowFlaming;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.EntityGoldenDart;
-import bta.aether.entity.GoldenDartRenderer;
+import bta.aether.entity.*;
+import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
+import bta.aether.item.AetherItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.hud.*;
 import net.minecraft.client.render.entity.FallingSandRenderer;
+import net.minecraft.client.render.entity.SnowballRenderer;
+import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -22,8 +21,10 @@ public class AetherClient implements ClientStartEntrypoint {
     @Override
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new ArrowFlamingRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new GoldenDartRenderer());
+        EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
+        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
+
         new AetherEntities().initializeModels();
         SoundHelper.Client.addSound("aether", "portal.ogg");
         SoundHelper.Client.addSound("aether", "travel.ogg");
