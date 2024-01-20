@@ -20,9 +20,9 @@ public class DensityGeneratorAether implements DensityGenerator {
 
         minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
         maxLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 16);
-        mainNoise = new PerlinNoise(world.getRandomSeed(), 8, 32);
-        scaleNoise = new PerlinNoise(world.getRandomSeed(), 10, 48);
-        depthNoise = new PerlinNoise(world.getRandomSeed(), 16, 58);
+        mainNoise = new PerlinNoise(world.getRandomSeed(), 8, 16);
+        scaleNoise = new PerlinNoise(world.getRandomSeed(), 10, 32);
+        depthNoise = new PerlinNoise(world.getRandomSeed(), 16, 48);
     }
 
     @Override
