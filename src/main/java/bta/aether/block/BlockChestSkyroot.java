@@ -70,12 +70,12 @@ public class BlockChestSkyroot extends BlockChest {
         return textures[index];
     }
     static {
-        textures[0] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestTop.png");
-        textures[1] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestSide.png");
-        textures[2] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestFront.png");
-        textures[3] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestFrontLeft.png");
-        textures[4] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestFrontRight.png");
-        textures[5] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestSideLeft.png");
-        textures[6] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "assets/aether/block/SkyrootChestSideLeft.png");
+        textures[0] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestTop.png");
+        textures[1] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSide.png");
+        textures[2] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFront.png");
+        textures[3] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFrontLeft.png");
+        textures[4] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFrontRight.png");
+        textures[5] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSideLeft.png");
+        textures[6] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSideLeft.png");
     }
 }
