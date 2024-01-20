@@ -2,13 +2,12 @@ package bta.aether.item.Accessories;
 
 import bta.aether.entity.IAetherAccessories;
 import bta.aether.item.Accessories.base.ItemAccessoryCape;
-import bta.aether.item.ItemToolAccessory;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
-public class ItemAccessoryInvisibilityCloak extends ItemToolAccessory {
-    public ItemAccessoryInvisibilityCloak(String name, int id) {
-        super(name, id);
+public class ItemAccessoryInvisibilityCloak extends ItemAccessoryCape {
+    public ItemAccessoryInvisibilityCloak(String name, int id, String texturePath) {
+        super(name, id, texturePath);
     }
 
     @Override

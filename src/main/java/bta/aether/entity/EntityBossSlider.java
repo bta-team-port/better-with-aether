@@ -45,6 +45,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
         this.setSize(3f,3f);
+        this.health = 500;
         this.scoreValue = 10000;
         this.viewScale = 2f;
         this.setSize(2.5F, 2.5F);
