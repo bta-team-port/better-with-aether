@@ -1,6 +1,6 @@
 package bta.aether.item;
 
-import bta.aether.entity.EntityArrowFlaming;
+import bta.aether.entity.projectiles.EntityArrowFlaming;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -27,12 +27,6 @@ public class ItemPhoenixBow extends Item {
             world.playSoundAtEntity(entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityArrowFlaming(world, entityplayer, false, 4));
-            }
-        } else if (entityplayer.inventory.consumeInventoryItem(Item.ammoArrowGold.id)) {
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new EntityArrowFlaming(world, entityplayer, true, 4));
             }
         } else if (entityplayer.inventory.consumeInventoryItem(Item.ammoArrow.id)) {
             itemstack.damageItem(1, entityplayer);
