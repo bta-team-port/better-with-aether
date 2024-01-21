@@ -41,7 +41,7 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
             .build(new Block("dirt", blockID++, Material.dirt));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -51,44 +51,44 @@ public class AetherBlocks {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass));
 
     public static final Block holystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.5f)
+            .setHardness(1.5f)
             .setResistance(0.8f)
             .setTextures("Holystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("holystone", blockID++, Material.stone));
 
     public static final Block slabHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.5f)
+            .setHardness(1.5f)
             .setResistance(0.8f)
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("Holystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(holystone, blockID++));
 
     public static final Block stairsHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.5f)
+            .setHardness(1.5f)
             .setResistance(0.8f)
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockStairs(holystone, blockID++));
 
     public static final Block holystoneMossy = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(0.5f)
+            .setHardness(1.5f)
             .setResistance(0.8f)
             .setTextures("MossyHolystone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("holystone.mossy", blockID++, Material.stone));
 
     public static final Block icestone = new BlockBuilder(MOD_ID)
@@ -97,7 +97,7 @@ public class AetherBlocks {
             .setResistance(3.0f)
             .setTextures("Icestone.png")
             .setTickOnLoad()
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
     public static final Block aercloudWhite = new BlockBuilder(MOD_ID)
@@ -105,21 +105,21 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Aercloud.png")
-            .setTags(BlockTags.MINEABLE_BY_SWORD)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SWORD)
             .build(new BlockCloudBase("aercloud.white", blockID++, Material.cloth));
     public static final Block aercloudBlue = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("BlueAercloud.png")
-            .setTags(BlockTags.MINEABLE_BY_SWORD)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SWORD)
             .build(new BlockCloudBlue("aercloud.blue", blockID++, Material.cloth));
     public static final Block aercloudGold = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("GoldAercloud.png")
-            .setTags(BlockTags.MINEABLE_BY_SWORD)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SWORD)
             .build(new BlockCloudBase("aercloud.gold", blockID++, Material.cloth));
 
     public static final Block aerogel = new BlockBuilder(MOD_ID)
@@ -127,7 +127,7 @@ public class AetherBlocks {
             .setHardness(1.0f)
             .setResistance(2000f)
             .setTextures("Aerogel.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockAerogel("aerogel", blockID++, Material.stone));
 
     public static final Block enchanter = new BlockBuilder(MOD_ID)
@@ -136,7 +136,7 @@ public class AetherBlocks {
             .setResistance(2.0f)
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT)
             .build(new BlockEnchanter("enchanter", blockID++, Material.wood));
     public static final Block freezer = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -145,7 +145,7 @@ public class AetherBlocks {
             .setSideTextures("FreezerSide.png")
             .setTopTexture("FreezerTop.png")
             .setBottomTexture("EnchanterTop.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT)
             .build(new BlockFreezer("freezer", blockID++, Material.wood));
     public static final Block incubator = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -154,7 +154,7 @@ public class AetherBlocks {
             .setSideTextures("IncubatorSide.png")
             .setTopTexture("IncubatorTop.png")
             .setBottomTexture("EnchanterTop.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT)
             .build(new BlockIncubator("incubator", blockID++, Material.wood));
 
     public static final Block logSkyroot = new BlockBuilder(MOD_ID)
@@ -163,7 +163,7 @@ public class AetherBlocks {
             .setResistance(2.0f)
             .setSideTextures("SkyrootLogSide.png")
             .setTopBottomTexture("SkyrootLogTop.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockLog("skyroot.log", blockID++));
     public static final Block logOakGolden = new BlockBuilder(MOD_ID)
@@ -172,7 +172,7 @@ public class AetherBlocks {
             .setResistance(2.0f)
             .setSideTextures("GoldenOak.png")
             .setTopBottomTexture("GoldenOakTop.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockGoldenOakLog("goldenoak.log", blockID++));
 
@@ -181,7 +181,7 @@ public class AetherBlocks {
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setTextures("Plank.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .build(new Block("planks.skyroot", blockID++, Material.wood));
 
     public static final Block slabPlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -191,7 +191,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(planksSkyroot, blockID++));
 
@@ -202,7 +202,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .build(new BlockStairs(planksSkyroot, blockID++));
 
     public static final Block fencePlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -213,7 +213,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
             .setBlockModel(new BlockModelRenderBlocks(11))
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT, BlockTags.CAN_HANG_OFF)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT, BlockTags.CAN_HANG_OFF)
             .build(new BlockFence("fence.planks.skyroot", blockID++));
 
     public static final Block fenceGatePlanksSkyroot = new BlockBuilder(MOD_ID)
@@ -224,7 +224,7 @@ public class AetherBlocks {
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
             .setBlockModel(new BlockModelRenderBlocks(18))
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .build(new BlockFenceGate("fencegate.planks.skyroot", blockID++));
 
     public static final Block chestSkyroot = new BlockBuilder(MOD_ID)
@@ -236,7 +236,7 @@ public class AetherBlocks {
             .setSideTextures("SkyrootChestSide.png")
             .setTopBottomTexture("SkyrootChestTop.png")
             .setNorthTexture("SkyrootChestFront.png")
-            .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
             .build(new BlockChestSkyroot("chest.skyroot", blockID++, Material.wood));
 
     public static final Block leavesSkyroot = new BlockBuilder(MOD_ID)
@@ -247,7 +247,7 @@ public class AetherBlocks {
             .setBottomTexture("SkyrootLeavesFast.png")
             .setTopBottomTexture("SkyrootLeaves.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS)
+            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS)
             .build(new BlockLeavesBase("skyroot.leaves", blockID++, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
@@ -262,7 +262,7 @@ public class AetherBlocks {
             .setBottomTexture("GoldenOakLeavesFast.png")
             .setTopBottomTexture("GoldenOakLeaves.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS)
+            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS)
             .build(new BlockLeavesBase("goldenoak.leaves", blockID++, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
@@ -294,21 +294,21 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(15.0f)
             .setTextures("AmbrosiumOre.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone));
     public static final Block oreZaniteHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
             .setResistance(15.0f)
             .setTextures("ZaniteOre.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
     public static final Block oreGravititeHolystone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(3.0f)
             .setResistance(15.0f)
             .setTextures("GravititeOre.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockOreGravitite("ore.gravitite", blockID++));
 
     public static final Block torchAmbrosium = new BlockBuilder(MOD_ID)
@@ -317,7 +317,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setTextures("AmbrosiumTorch.png")
             .setBlockModel((new BlockModelRenderBlocks(2)))
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build(new BlockAmbrosiumTorch("torch.ambrosium", blockID++)).withLightEmission(15);
 
     public static final Block gravititeEnchanted = new BlockBuilder(MOD_ID)
@@ -327,7 +327,7 @@ public class AetherBlocks {
             .setTopTexture("GravititeBlockTop.png")
             .setSideTextures("GravititeBlockSide.png")
             .setBottomTexture("GravititeBlockBottom.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.gravitite", blockID++, Material.metal));
     public static final Block blockZanite = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -337,7 +337,7 @@ public class AetherBlocks {
             .setSideTextures("ZaniteBlockSide.png")
             .setBottomTexture("ZaniteBlockBottom.png")
             .setBlockColor(new BlockColorDefault())
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.zanite", blockID++, Material.stone));
 
     public static final Block blockAmbrosium = new BlockBuilder(MOD_ID)
@@ -345,7 +345,7 @@ public class AetherBlocks {
             .setHardness(3.0f)
             .setResistance(10.0f)
             .setTextures("ambrosium_block.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("block.ambrosium", blockID++, Material.metal));
 
     public static final Block stoneCarved = new BlockBuilder(MOD_ID)
@@ -353,7 +353,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("carved", blockID++, Material.stone));
 
     public static final Block slabStoneCarved = new BlockBuilder(MOD_ID)
@@ -363,7 +363,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneCarved, blockID++));
 
@@ -374,14 +374,14 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockStairs(stoneCarved, blockID++));
     public static final Block stoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("angelic", blockID++, Material.stone));
 
     public static final Block slabStoneAngelic = new BlockBuilder(MOD_ID)
@@ -391,7 +391,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneAngelic, blockID++));
 
@@ -402,14 +402,14 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockStairs(stoneAngelic, blockID++));
     public static final Block stoneHellfire = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setResistance(1.0f)
             .setTextures("HellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("hellfire", blockID++, Material.stone));
 
     public static final Block slabStoneHellfire = new BlockBuilder(MOD_ID)
@@ -419,7 +419,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("HellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneHellfire, blockID++));
 
@@ -430,7 +430,7 @@ public class AetherBlocks {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockStairs(stoneHellfire, blockID++));
 
     public static final Block stoneCarvedLight = new BlockBuilder(MOD_ID)
@@ -439,7 +439,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightCarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("carved.light", blockID++, Material.stone));
 
     public static final Block stoneAngelicLight = new BlockBuilder(MOD_ID)
@@ -448,7 +448,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightAngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("angelic.light", blockID++, Material.stone));
 
     public static final Block stoneHellfireLight = new BlockBuilder(MOD_ID)
@@ -457,7 +457,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setLuminance(7)
             .setTextures("LightHellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new Block("hellfire.light", blockID++, Material.stone));
 
     public static final Block pillar = new BlockBuilder(MOD_ID)
@@ -466,7 +466,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setTopBottomTexture("PillarTop.png")
             .setSideTextures("PillarSide.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockAxisAligned("pillar", blockID++, Material.stone));
     public static final Block pillarTop = new BlockBuilder(MOD_ID)
@@ -475,7 +475,7 @@ public class AetherBlocks {
             .setResistance(1.0f)
             .setTopBottomTexture("PillarTop.png")
             .setSideTextures("PillarCarved.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .build(new BlockAxisAligned("pillar.top", blockID++, Material.stone));
 
@@ -484,7 +484,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Quicksoil.png")
-            .setTags(BlockTags.MINEABLE_BY_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand));
     public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -493,7 +493,7 @@ public class AetherBlocks {
             .setLuminance(7)
             .setLightOpacity(0)
             .setTextures("QuicksoilGlass.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++));
 
     public static final Block trapdoorGlassQuicksoil = new BlockBuilder(MOD_ID)
@@ -504,7 +504,7 @@ public class AetherBlocks {
             .setLightOpacity(0)
             .setTextures("QuicksoilGlass.png")
             .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build(new BlockTrapdoorAmbrosium("trapdoor.glass.quicksoil", blockID++, Material.glass, false));
 
     public static final Block aetherTallGrass = new BlockBuilder(MOD_ID)
@@ -544,7 +544,7 @@ public class AetherBlocks {
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
 
     public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
@@ -552,7 +552,7 @@ public class AetherBlocks {
             .setHardness(-1.0f)
             .setResistance(-1.0f)
             .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
 
     public static final Block chestMimic = new BlockBuilder(MOD_ID)
@@ -562,7 +562,7 @@ public class AetherBlocks {
             .setTopBottomTexture(9, 1)
             .setSideTextures(10, 1)
             .setNorthTexture(11, 1)
-            .setTags(BlockTags.MINEABLE_BY_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
             .build(new BlockChestMimic("chest.mimic", blockID++, Material.wood));
 
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
@@ -582,7 +582,7 @@ public class AetherBlocks {
             .setSideTextures("LockedChestSide.png")
             .setTopBottomTexture(14, 3)
             .setNorthTexture("LockedChestFront.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockChestLocked("chest.treasure", blockID++, Material.stone));
 
     public static final Block stoneCarvedLocked = new BlockBuilder(MOD_ID)
@@ -590,7 +590,7 @@ public class AetherBlocks {
             .setHardness(-1.0F)
             .setResistance(-1.0F)
             .setTextures("CarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("carved.locked", blockID++, Material.stone, stoneCarved.id));
 
     public static final Block stoneAngelicLocked = new BlockBuilder(MOD_ID)
@@ -598,7 +598,7 @@ public class AetherBlocks {
             .setHardness(-1.0F)
             .setResistance(-1.0F)
             .setTextures("AngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("angelic.locked", blockID++, Material.stone, stoneAngelic.id));
 
     public static final Block stoneHellfireLocked = new BlockBuilder(MOD_ID)
@@ -606,7 +606,7 @@ public class AetherBlocks {
             .setHardness(-1.0F)
             .setResistance(-1.0F)
             .setTextures("HellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("hellfire.locked", blockID++, Material.stone, stoneHellfire.id));
 
     public static final Block stoneCarvedLightLocked = new BlockBuilder(MOD_ID)
@@ -615,7 +615,7 @@ public class AetherBlocks {
             .setResistance(-1.0F)
             .setLuminance(7)
             .setTextures("LightCarvedStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("carved.light.locked", blockID++, Material.stone, stoneCarvedLight.id));
 
     public static final Block stoneAngelicLightLocked = new BlockBuilder(MOD_ID)
@@ -624,7 +624,7 @@ public class AetherBlocks {
             .setResistance(-1.0F)
             .setLuminance(7)
             .setTextures("LightAngelicStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("angelic.light.locked", blockID++, Material.stone, stoneAngelicLight.id));
 
     public static final Block stoneHellfireLightLocked = new BlockBuilder(MOD_ID)
@@ -633,7 +633,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setLuminance(7)
             .setTextures("LightHellfireStone.png")
-            .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU,BlockTags.CHAINLINK_FENCES_CONNECT)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU,BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));
     public static final Block lanternAetherBlock = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GLASS)
@@ -644,7 +644,7 @@ public class AetherBlocks {
             .withLightEmission(0.9375f)
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange()
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
+            .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
     public void initializeBlocks(){
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png"); // Loads the texture into halplibe at startup
