@@ -9,6 +9,12 @@ import bta.aether.item.Accessories.ItemAccessoryInvisibilityCloak;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
 import bta.aether.item.Accessories.ItemAccessoryRegenStone;
 import bta.aether.item.Accessories.base.*;
+import bta.aether.item.tool.ItemToolAxeZanite;
+import bta.aether.item.tool.ItemToolPickaxeZanite;
+import bta.aether.item.tool.ItemToolShovelZanite;
+import bta.aether.item.tool.base.ItemToolAetherAxe;
+import bta.aether.item.tool.base.ItemToolAetherPickaxe;
+import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -16,9 +22,6 @@ import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.item.tool.ItemToolAxe;
-import net.minecraft.core.item.tool.ItemToolPickaxe;
-import net.minecraft.core.item.tool.ItemToolShovel;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.Dimension;
@@ -93,35 +96,35 @@ public class AetherItems {
 
     public static final ToolMaterial toolskyroot = new ToolMaterialAether().setDropMultipier(2).setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
     public static final ToolMaterial toolholystone = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1).setBlockHitDelay(0);
-    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 8.0F).setMiningLevel(2).setBlockHitDelay(0);
+    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 10.0F).setMiningLevel(2).setBlockHitDelay(0);
     public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(8.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
     public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(10.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
     public static final ToolMaterial swordSpecialMaterial = new ToolMaterial().setDurability(32).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
     public static final ToolMaterial swordHolyMaterial = new ToolMaterial().setDurability(128).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
 
-    public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.skyroot",itemID++, toolskyroot), "PickSkyroot.png").withTags(aetherTool);
-    public static final Item toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.skyroot",itemID++, toolskyroot), "ShovelSkyroot.png").withTags(aetherTool);
-    public static final Item toolAxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.skyroot", itemID++, toolskyroot), "AxeSkyroot.png").withTags(aetherTool);
+    public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.skyroot",itemID++, toolskyroot), "PickSkyroot.png").withTags(aetherTool);
+    public static final Item toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.skyroot",itemID++, toolskyroot), "ShovelSkyroot.png").withTags(aetherTool);
+    public static final Item toolAxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.skyroot", itemID++, toolskyroot), "AxeSkyroot.png").withTags(aetherTool);
     public static final Item toolSwordSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.skyroot", itemID++, toolskyroot), "SwordSkyroot.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
-    public static final Item toolPickaxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.holystone",itemID++, toolholystone), "PickHolystone.png").withTags(aetherTool);
-    public static final Item toolShovelHolystone = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.holystone",itemID++, toolholystone), "ShovelHolystone.png").withTags(aetherTool);
-    public static final Item toolAxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.holystone",itemID++, toolholystone), "AxeHolystone.png").withTags(aetherTool);
+    public static final Item toolPickaxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.holystone",itemID++, toolholystone), "PickHolystone.png").withTags(aetherTool);
+    public static final Item toolShovelHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.holystone",itemID++, toolholystone), "ShovelHolystone.png").withTags(aetherTool);
+    public static final Item toolAxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.holystone",itemID++, toolholystone), "AxeHolystone.png").withTags(aetherTool);
     public static final Item toolSwordHolystone = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.holystone", itemID++, toolholystone), "SwordHolystone.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
-    public static final Item toolPickaxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.zanite", itemID++, toolzanite), "PickZanite.png").withTags(aetherTool);
-    public static final Item toolShovelZanite = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.zanite", itemID++, toolzanite), "ShovelZanite.png").withTags(aetherTool);
-    public static final Item toolAxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.zanite", itemID++, toolzanite), "AxeZanite.png").withTags(aetherTool);
+    public static final Item toolPickaxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemID++, toolzanite), "PickZanite.png").withTags(aetherTool);
+    public static final Item toolShovelZanite = ItemHelper.createItem(MOD_ID, new ItemToolShovelZanite("tool.shovel.zanite", itemID++, toolzanite), "ShovelZanite.png").withTags(aetherTool);
+    public static final Item toolAxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolAxeZanite("tool.axe.zanite", itemID++, toolzanite), "AxeZanite.png").withTags(aetherTool);
     public static final Item toolSwordZanite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.zanite", itemID++, toolzanite), "SwordZanite.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
-    public static final Item toolPickaxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.gravitite", itemID++, toolgravitite), "PickGravitite.png").withTags(aetherTool);
-    public static final Item toolShovelGravitite = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.gravitite", itemID++, toolgravitite), "ShovelGravitite.png").withTags(aetherTool);
-    public static final Item toolAxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.gravitite", itemID++, toolgravitite), "AxeGravitite.png").withTags(aetherTool);
+    public static final Item toolPickaxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.gravitite", itemID++, toolgravitite), "PickGravitite.png").withTags(aetherTool);
+    public static final Item toolShovelGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.gravitite", itemID++, toolgravitite), "ShovelGravitite.png").withTags(aetherTool);
+    public static final Item toolAxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.gravitite", itemID++, toolgravitite), "AxeGravitite.png").withTags(aetherTool);
     public static final Item toolSwordGravitite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.gravitite", itemID++, toolgravitite), "SwordGravitite.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
-    public static final Item toolPickaxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolPickaxe("tool.pickaxe.valkyrie", itemID++, toolvalkyrie), "ValkyriePickaxe.png").withTags(aetherTool);
-    public static final Item toolShovelValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolShovel("tool.shovel.valkyrie", itemID++, toolvalkyrie), "ValkyrieShovel.png").withTags(aetherTool);
-    public static final Item toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAxe("tool.axe.valkyrie", itemID++, toolvalkyrie), "ValkyrieAxe.png").withTags(aetherTool);
+    public static final Item toolPickaxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.valkyrie", itemID++, toolvalkyrie), "ValkyriePickaxe.png").withTags(aetherTool);
+    public static final Item toolShovelValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.valkyrie", itemID++, toolvalkyrie), "ValkyrieShovel.png").withTags(aetherTool);
+    public static final Item toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.valkyrie", itemID++, toolvalkyrie), "ValkyrieAxe.png").withTags(aetherTool);
     public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", itemID++, toolvalkyrie), "Lance.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
     //Armor
