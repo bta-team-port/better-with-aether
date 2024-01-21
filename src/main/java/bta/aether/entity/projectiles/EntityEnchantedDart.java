@@ -15,6 +15,7 @@ public class EntityEnchantedDart extends EntityProjectileModular{
     public EntityEnchantedDart(World world) {
         super(world);
     }
+
     public EntityEnchantedDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
         super(world, entityliving, doesArrowBelongToPlayer, 11);
     }
