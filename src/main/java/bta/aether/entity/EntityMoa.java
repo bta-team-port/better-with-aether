@@ -160,7 +160,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
                 this.tameAttempts++;
             }
 
-            if (item.itemID == Item.saddle.id && !this.hasSaddle && !this.isChild) {
+            if (item.itemID == Item.saddle.id && !this.hasSaddle && !this.isChild && this.isTamed) {
                 entityplayer.inventory.consumeInventoryItem(Item.saddle.id);
                 this.hasSaddle = true;
             }
