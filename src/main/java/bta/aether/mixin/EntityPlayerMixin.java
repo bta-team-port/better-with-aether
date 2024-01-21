@@ -1,5 +1,6 @@
 package bta.aether.mixin;
 
+import bta.aether.entity.EntityAerbunny;
 import bta.aether.entity.IPlayerJumpAmount;
 import bta.aether.gui.IAetherGuis;
 import bta.aether.tile.TileEntityEnchanter;
@@ -70,6 +71,14 @@ public abstract class EntityPlayerMixin extends EntityLiving implements IAetherG
     public int teleportDelay = 0;
     @Inject(method = "tick()V", at = @At("HEAD"))
     private void fallIntoOverworldFromAether(CallbackInfo ci){
+
+        if (passenger instanceof EntityAerbunny) {
+            this.fallDistance = 0.0F;
+            if (!this.onGround && !this.isInWater() && this.yd < 0.0 && !this.collision) {
+                this.yd *= 0.6;
+            }
+        }
+
         teleportDelay--;
         if (teleportDelay < 0 && Dimension.getDimensionList().get(dimension) == AetherDimension.dimensionAether){
             if (this.y < world.worldType.getMinY() - 10){
