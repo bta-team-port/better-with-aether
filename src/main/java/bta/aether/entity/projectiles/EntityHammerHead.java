@@ -17,6 +17,7 @@ public class EntityHammerHead extends EntityProjectileModular{
         super(world);
 
     }
+
     public EntityHammerHead(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
         super(world, entityliving, doesArrowBelongToPlayer, 11);
     }
