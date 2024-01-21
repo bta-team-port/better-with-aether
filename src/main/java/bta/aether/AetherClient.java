@@ -57,6 +57,9 @@ public class AetherClient implements ClientStartEntrypoint {
         SoundHelper.Client.addSound("aether", "achievement_silver.ogg");
         SoundHelper.Client.addSound("aether", "achievement_gen.ogg");
 
+        SoundHelper.Client.addSound("aether", "life_shard_chime.ogg");
+        SoundHelper.Client.addSound("aether", "life_shard_chime_final.ogg");
+
         SoundHelper.Client.addStreaming("aether", "aether_tune.ogg");
         SoundHelper.Client.addStreaming("aether", "a_morning_wish.ogg");
         SoundHelper.Client.addStreaming("aether", "ascending_dawn.ogg");
