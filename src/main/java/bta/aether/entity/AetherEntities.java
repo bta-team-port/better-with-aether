@@ -1,11 +1,9 @@
 package bta.aether.entity;
 
 import bta.aether.entity.model.*;
-import bta.aether.entity.renderer.MoaRenderer;
-import bta.aether.entity.renderer.SentryRenderer;
-import bta.aether.entity.renderer.SwetRenderer;
-import bta.aether.entity.renderer.ZephyrRenderer;
+import bta.aether.entity.renderer.*;
 import net.minecraft.client.render.entity.LivingRenderer;
+import net.minecraft.core.enums.EnumDropCause;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
 import useless.dragonfly.model.entity.BenchEntityModel;
@@ -30,7 +28,7 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityMoa.class, entityID++, "Moa");
         EntityHelper.Core.createEntity(EntityBossSlider.class, entityID++, "Slider");
         EntityHelper.Core.createEntity(EntityMimic.class, entityID++, "Mimic");
-
+        EntityHelper.Core.createEntity(EntityWhirlwind.class, entityID++, "Whirlwind");
 
     }
     public void initializeModels(){
@@ -39,5 +37,6 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer(modelZephyr, 1));
         EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1));
         EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new LivingRenderer<EntityBossSlider>(modelSlider, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
     }
 }
