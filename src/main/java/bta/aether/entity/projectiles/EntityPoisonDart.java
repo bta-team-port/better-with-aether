@@ -10,22 +10,21 @@ import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
 public class EntityPoisonDart extends EntityProjectileModular {
+
+    {
+        this.stack = new ItemStack(AetherItems.dartPoison);
+    }
+
     public EntityPoisonDart(World world) {
         super(world, 11);
-        this.stack = new ItemStack(AetherItems.dartPoison);
-        this.noPhysics = true;
     }
 
     public EntityPoisonDart(World world, double d, double d1, double d2) {
         super(world, d, d1, d2, 11);
-        this.stack = new ItemStack(AetherItems.dartPoison);
-        this.noPhysics = true;
     }
 
     public EntityPoisonDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
         super(world, entityliving, doesArrowBelongToPlayer, 11);
-        this.stack = new ItemStack(AetherItems.dartPoison);
-        this.noPhysics = true;
     }
 
     @Override
