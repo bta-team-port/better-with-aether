@@ -5,7 +5,11 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ItemToolAetherPickaxe extends ItemTool {
+    public static Map<Block, Integer> miningLevels = new HashMap<>();
 
     public ItemToolAetherPickaxe(String name, int id, ToolMaterial enumtoolmaterial) {
         super(name, id, 2, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
@@ -13,7 +17,10 @@ public class ItemToolAetherPickaxe extends ItemTool {
 
     @Override
     public boolean canHarvestBlock(Block block) {
-        // TODO: add mining levels, if they exist in this mod???
+        Integer miningLevel = miningLevels.get(block);
+        if (miningLevel != null) {
+            return this.material.getMiningLevel() >= miningLevel;
+        }
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
     }
 }

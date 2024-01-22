@@ -2,6 +2,7 @@ package bta.aether.block;
 
 import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -89,8 +90,7 @@ public class AetherBlocks {
     public static final BlockBuilder clouds = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.2f)
-            .setResistance(0.2f)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_SHEARS);
+            .setResistance(0.2f);
     public static final Block aercloudWhite = clouds
             .setTextures("Aercloud.png")
             .build(new BlockCloudBase("aercloud.white", blockID++, Material.cloth));
@@ -112,7 +112,7 @@ public class AetherBlocks {
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.5f)
             .setResistance(10.0f)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.FENCES_CONNECT);
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT);
     public static final Block enchanter = stations
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
@@ -506,7 +506,39 @@ public class AetherBlocks {
             .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
     public void initializeBlocks(){
+
+        ItemToolAetherPickaxe.miningLevels.put(holystone, 0);
+        ItemToolAetherPickaxe.miningLevels.put(slabHolystone, 0);
+        ItemToolAetherPickaxe.miningLevels.put(stairsHolystone, 0);
+        ItemToolAetherPickaxe.miningLevels.put(holystoneMossy, 0);
+        ItemToolAetherPickaxe.miningLevels.put(oreAmbrosiumHolystone, 0);
+
+        ItemToolAetherPickaxe.miningLevels.put(icestone, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneCarved, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stairsStoneCarved, 1);
+        ItemToolAetherPickaxe.miningLevels.put(slabStoneCarved, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneCarvedLight, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneAngelic, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stairsStoneAngelic, 1);
+        ItemToolAetherPickaxe.miningLevels.put(slabStoneAngelic, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneAngelicLight, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneHellfire, 1);
+        ItemToolAetherPickaxe.miningLevels.put(slabStoneHellfire, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stairsStoneHellfire, 1);
+        ItemToolAetherPickaxe.miningLevels.put(stoneHellfireLight, 1);
+        ItemToolAetherPickaxe.miningLevels.put(pillar, 1);
+        ItemToolAetherPickaxe.miningLevels.put(pillarTop, 1);
+        ItemToolAetherPickaxe.miningLevels.put(blockZanite, 1);
+        ItemToolAetherPickaxe.miningLevels.put(oreZaniteHolystone, 1);
+
+
+        ItemToolAetherPickaxe.miningLevels.put(gravititeEnchanted, 2);
+        ItemToolAetherPickaxe.miningLevels.put(oreGravititeHolystone, 2);
+
+        ItemToolAetherPickaxe.miningLevels.put(aerogel, 3);
+
         TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png"); // Loads the texture into halplibe at startup
+
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(portalAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(dirtAether.id);
