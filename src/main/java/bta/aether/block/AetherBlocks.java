@@ -2,7 +2,10 @@ package bta.aether.block;
 
 import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.item.ItemBlockAetherDouble;
+import bta.aether.item.tool.base.ItemToolAetherAxe;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
+import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.client.sound.block.BlockSound;
@@ -41,8 +44,9 @@ public class AetherBlocks {
             .setHardness(0.2f)
             .setResistance(0.2f)
             .setTextures("Dirt.png")
+            .setItemBlock(ItemBlockAetherDouble::new)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
-            .build(new Block("dirt", blockID++, Material.dirt));
+            .build(new BlockAetherDouble("dirt", blockID++, Material.dirt, ItemToolAetherShovel.class));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -51,8 +55,9 @@ public class AetherBlocks {
             .setSideTextures("GrassSide.png")
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
+            .setItemBlock(ItemBlockAetherDouble::new)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
-            .build(new BlockAetherGrass("grass", blockID++, Material.grass));
+            .build(new BlockAetherGrass("grass", blockID++, Material.grass, ItemToolAetherShovel.class));
 
     public static final BlockBuilder holyStone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -61,8 +66,9 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
     public static final Block holystone = holyStone
             .setTextures("Holystone.png")
+            .setItemBlock(ItemBlockAetherDouble::new)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new Block("holystone", blockID++, Material.stone));
+            .build(new BlockAetherDouble("holystone", blockID++, Material.stone, ItemToolAetherPickaxe.class));
     public static final Block slabHolystone = holyStone
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
@@ -76,7 +82,8 @@ public class AetherBlocks {
             .build(new BlockStairs(holystone, blockID++));
     public static final Block holystoneMossy = holyStone
             .setTextures("MossyHolystone.png")
-            .build(new Block("holystone.mossy", blockID++, Material.stone));
+            .setItemBlock(ItemBlockAetherDouble::new)
+            .build(new BlockAetherDouble("holystone.mossy", blockID++, Material.stone, ItemToolAetherPickaxe.class));
 
     public static final Block icestone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -137,12 +144,14 @@ public class AetherBlocks {
             .setSideTextures("SkyrootLogSide.png")
             .setTopBottomTexture("SkyrootLogTop.png")
             .setBlockModel(new BlockModelRenderBlocks(27))
-            .build(new BlockLog("skyroot.log", blockID++));
+            .setItemBlock(ItemBlockAetherDouble::new)
+            .build(new BlockDoubleLog("skyroot.log", blockID++, ItemToolAetherAxe.class));
     public static final Block logOakGolden = wood
             .setSideTextures("GoldenOak.png")
             .setTopBottomTexture("GoldenOakTop.png")
             .setBlockModel(new BlockModelRenderBlocks(27))
-            .build(new BlockGoldenOakLog("goldenoak.log", blockID++));
+            .setItemBlock(ItemBlockAetherDouble::new)
+            .build(new BlockDoubleLog("goldenoak.log", blockID++, ItemToolAetherAxe.class));
     public static final Block planksSkyroot = wood
             .setTextures("Plank.png")
             .build(new Block("planks.skyroot", blockID++, Material.wood));
@@ -363,8 +372,9 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.5f)
             .setTextures("Quicksoil.png")
+            .setItemBlock(ItemBlockAetherDouble::new)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
-            .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand));
+            .build(new BlockQuicksoil("quicksoil", blockID++, Material.sand, ItemToolAetherShovel.class));
     public static final Block glassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
