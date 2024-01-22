@@ -246,7 +246,7 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
     public static final Block oreAmbrosiumHolystone = ores
             .setTextures("AmbrosiumOre.png")
-            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone));
+            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone, ItemToolAetherPickaxe.class));
     public static final Block oreZaniteHolystone = ores
             .setTextures("ZaniteOre.png")
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
