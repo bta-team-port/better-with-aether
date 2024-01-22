@@ -49,6 +49,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.planksSkyroot.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.slabPlanksSkyroot.id, 150);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.stairsPlanksSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.stickSkyroot.id, 150);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolPickaxeSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolShovelSkyroot.id, 600);
