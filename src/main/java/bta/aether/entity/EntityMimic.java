@@ -8,5 +8,11 @@ public class EntityMimic extends EntityMonster {
         super(world);
         this.health = 20;
     }
+    public String getEntityTexture() {
+            return "/assets/aether/mobs/Mimic2.png";
+        }
 
+    public String getDefaultEntityTexture() {
+        return "/assets/aether/mobs/Mimic2.png";
+    }
 }
