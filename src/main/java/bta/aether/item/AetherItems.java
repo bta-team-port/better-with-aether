@@ -100,11 +100,11 @@ public class AetherItems {
 
     public static final Item healingStone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", itemID++, 4, false), "HealingStone.png");
 
-    public static final ToolMaterial toolskyroot = new ToolMaterialAether().setDropMultipier(2).setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
+    public static final ToolMaterial toolskyroot = new ToolMaterialAether()/*.setDropMultipier(2)*/.setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
     public static final ToolMaterial toolholystone = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1).setBlockHitDelay(0);
-    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 10.0F).setMiningLevel(2).setBlockHitDelay(0);
-    public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(8.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
-    public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(10.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
+    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 8.0F).setMiningLevel(2).setBlockHitDelay(0);
+    public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(10.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
+    public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(12.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
     public static final ToolMaterial swordSpecialMaterial = new ToolMaterial().setDurability(32).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
     public static final ToolMaterial swordHolyMaterial = new ToolMaterial().setDurability(128).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
 
