@@ -403,7 +403,7 @@ public class AetherBlocks {
             .setBlockDrop(null)
             .setTextures("AetherTallGrass.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
+            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.BROKEN_BY_FLUIDS)
             .build(new BlockAetherFlower("grass.tall", blockID++){
                 @Override
                 public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
@@ -581,6 +581,14 @@ public class AetherBlocks {
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(fenceGatePlanksSkyroot.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(chestSkyroot.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(chestMimic.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapStoneCarved.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapStoneAngelic.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneCarvedLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneAngelicLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneHellfireLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneCarvedLightLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneAngelicLightLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneHellfireLightLocked.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerPurple.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerWhite.id);
 
