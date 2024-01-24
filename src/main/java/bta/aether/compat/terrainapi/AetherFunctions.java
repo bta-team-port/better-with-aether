@@ -130,7 +130,7 @@ public class AetherFunctions {
             }
         }
         // Dungeon room placement logic
-        int maxIteration = 5;
+        int maxIteration = 3;
         HashMap<ChunkCoordinates, AetherDungeonRoom> hallwayMap = new HashMap<>();
         HashMap<ChunkCoordinates, AetherDungeonRoom> generatedDungeonLayout = generateDungeonLayout(world, x, y, z, 0, maxIteration, new HashMap<>(), hallwayMap);
 
@@ -146,6 +146,9 @@ public class AetherFunctions {
         boolean boosRoomSpawned = false;
         for (ChunkCoordinates coordinate : newRoomMap.keySet()) {
             AetherDungeonRoom room = newRoomMap.get(coordinate);
+            /*if (newRoom.canPlaceRoom(world, x + roomOffset + room.sizeX-2, y, z-2, generatedDungeonLayout)) {
+
+            }*/
             if (newRoom.canPlaceRoom(world, x + roomOffset + room.sizeX-2, y, z-2, generatedDungeonLayout)) { // X+ Axis
                 generatedDungeonLayout.put(new ChunkCoordinates(x + roomOffset + room.sizeX-2, y, z-2), newRoom);
                 //hallwayMap.put(new ChunkCoordinates(x + room.sizeX, y + 1, z + (room.sizeZ / 2)-1), new AetherDungeonRoomHallwayBronze(Side.EAST, roomOffset + 1));
