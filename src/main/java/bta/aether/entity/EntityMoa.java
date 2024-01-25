@@ -45,6 +45,10 @@ public class EntityMoa extends EntityChicken implements IVehicle {
         if (hasSaddle) return "/assets/aether/mobs/BlueMoaSaddle.png";
         return "/assets/aether/mobs/BlueMoa.png";
     }
+    public String getDefaultEntityTexture() {
+        if (hasSaddle) return "/assets/aether/mobs/BlueMoaSaddle.png";
+        return "/assets/aether/mobs/BlueMoa.png";
+    }
 
     @Override
     public double getRideHeight() {

@@ -1,5 +1,7 @@
 package bta.aether.entity;
 
+import bta.aether.block.AetherBlocks;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityAnimal;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -13,7 +15,12 @@ public class EntityAerbunny extends EntityAnimal {
     // run away when attacked
     // puff up on jump and slowly fart the puffiness away
     public Entity runningFrom;
+
     private int puffSubtract;
+
+    public int aerMax = 15;
+    public int aer = 0;
+
 
     public EntityAerbunny(World world) {
         super(world);
@@ -40,15 +47,23 @@ public class EntityAerbunny extends EntityAnimal {
 
     @Override
     public void tick() {
-        super.tick();
 
         this.fallDistance = 0.0F;
         if (!this.onGround && !this.isInWater() && this.yd < 0.0 && !this.collision) {
             this.yd *= 0.75;
         }
 
-        if (this.onGround && this.random.nextInt(100) == 0) jump();
-        if (!this.onGround && this.random.nextInt(50) == 0) jump();
+        if (this.onGround && this.random.nextInt(100) == 0) {
+            jump();
+            this.aer = this.aerMax;
+        }
+
+        if (aer > 0 && this.random.nextInt(8) == 0) {
+            this.jump();
+            double lookAngleRadians = Math.atan2(this.getLookAngle().zCoord, this.getLookAngle().xCoord);
+            this.push(0.125 * Math.cos(lookAngleRadians), 0, 0.125 * Math.sin(lookAngleRadians));
+            this.aer--;
+        }
 
         if (this.pathToEntity == null && this.runningFrom != null) {
             if (Math.pow(this.runningFrom.x - this.x, 2) + Math.pow(this.runningFrom.y - this.y, 2) + Math.pow(this.runningFrom.z - this.z, 2) < 3600) {
@@ -66,6 +81,7 @@ public class EntityAerbunny extends EntityAnimal {
         } else {
             this.puffSubtract = 0;
         }
+        super.tick();
     }
 
     @Override
@@ -153,12 +169,15 @@ public class EntityAerbunny extends EntityAnimal {
     public void runAway() {
         double angle = Math.toRadians(this.random.nextInt(60) * 6);
         this.pathToEntity = this.world.getEntityPathToXYZ(this, (int) (this.x + (-Math.cos(angle) * 20.0)), (int) this.y, (int) (this.z + (-Math.sin(angle) * 20.0)), 10.0F);
+        this.aer = this.aerMax;
     }
 
     @Override
     protected void jump() {
         if (!this.noPhysics) {
-            this.yd = 0.60;
+            this.yd = 0.80;
+            if (aer > 0) this.yd = 0.20;
+
             if (this.isSprinting()) {
                 float f = this.yRot * 0.01745329F;
                 this.xd -= MathHelper.sin(f) * 0.2F;
@@ -166,6 +185,16 @@ public class EntityAerbunny extends EntityAnimal {
             }
         }
         this.puff();
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        int x = MathHelper.floor_double(this.x);
+        int y = MathHelper.floor_double(this.bb.minY);
+        int z = MathHelper.floor_double(this.z);
+
+        int id = this.world.getBlockId(x, y - 1, z);
+        return Block.blocksList[id] == AetherBlocks.grassAether;
     }
 
     @Override

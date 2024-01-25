@@ -26,7 +26,7 @@ public class EntityWhirlwind extends EntityMonster {
 
     @Override
     public void spawnInit() {
-        isHostile = world.rand.nextBoolean();
+        if (this.random.nextInt(10) == 0) this.isHostile = true;
         super.spawnInit();
     }
 
@@ -50,7 +50,12 @@ public class EntityWhirlwind extends EntityMonster {
 
     @Override
     public void tick() {
-        if (world.dimension != AetherDimension.dimensionAether) this.remove();
+        int radius = 8;
+        List<Entity> list = world.getEntitiesWithinAABB(Entity.class, AABB.getBoundingBox(this.x - radius, this.y, this.z  - radius, this.x + radius, this.y + radius, this.z + radius));
+        for (Entity entity : list) {
+            if (entity instanceof EntityPlayer && !isHostile) this.remove();
+        }
+
         super.tick();
         drawCone();
     }
