@@ -15,7 +15,7 @@ public class ModelAerbunny extends BenchEntityModel {
         super.setLivingAnimations(entityliving, limbSwing, limbYaw, partialTick);
         if (entityliving instanceof EntityAerbunny) {
             aerbunny = (EntityAerbunny) entityliving;
-            this.puffiness = MathHelper.lerp(partialTick, aerbunny.getPuffiness(), aerbunny.getPuffiness() - aerbunny.getPuffSubtract());
+            this.puffiness = MathHelper.lerp(partialTick, aerbunny.getPuffiness(), aerbunny.getPuffiness() - aerbunny.getPuffSubtract()) / 40;
 
         }
     }
