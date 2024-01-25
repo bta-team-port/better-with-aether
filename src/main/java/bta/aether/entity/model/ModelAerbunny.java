@@ -13,9 +13,9 @@ public class ModelAerbunny extends BenchEntityModel {
     @Override
     public void setLivingAnimations(EntityLiving entityliving, float limbSwing, float limbYaw, float partialTick) {
         super.setLivingAnimations(entityliving, limbSwing, limbYaw, partialTick);
-        if (aerbunny instanceof EntityAerbunny) {
+        if (entityliving instanceof EntityAerbunny) {
             aerbunny = (EntityAerbunny) entityliving;
-            this.puffiness = MathHelper.lerp(partialTick, aerbunny.getPuffiness(), aerbunny.getPuffiness() - aerbunny.getPuffSubtract()) / 20.0F;
+            this.puffiness = MathHelper.lerp(partialTick, aerbunny.getPuffiness(), aerbunny.getPuffiness() - aerbunny.getPuffSubtract()) / 40;
 
         }
     }
