@@ -6,7 +6,7 @@
   "name": "Aether",
   "description": "The legendary dimension is finally here for Better Than Adventure!",
   "authors": [
-    "LukeisStuff, jonkadelic, Mak, Useless, CantComplain, MartinSVK12, Cookie Cakes, Kheprep, azurelmao, ToufouMaster"
+    "LukeisStuff, jonkadelic, Mak, Useless, CantComplain, MartinSVK12, Cookie Cakes, Kheprep, azurelmao, ToufouMaster, bagu_chan"
   ],
   "icon": "icon.png",
   "contact": {
@@ -16,6 +16,9 @@
   "license": "CC0-1.0",
   "environment": "*",
   "entrypoints": {
+    "main": [
+      "bta.aether.Aether"
+    ],
     "preLaunch": [
       "bta.aether.world.AetherDimension"
     ],
