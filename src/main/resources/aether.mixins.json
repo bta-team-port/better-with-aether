@@ -1,52 +1,54 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "bta.aether.mixin",
-    "compatibilityLevel": "JAVA_8",
-    "mixins": [
-        "BlockFluidPortalMixin",
-        "BlockJarMixin",
-        "BlockMixin",
-        "EntityFireflyFXMixin",
-        "EntityLivingMixin",
-        "EntityLivingMixinGravitite",
-        "EntityLivingMixinNeptune",
-        "EntityLivingMixinPhoenix",
-        "EntityMixin",
-        "EntityPlayerMixin",
-        "EntityPlayerMixinAgility",
-        "EntityPlayerMixinIce",
-        "EntityPlayerMixinPhoenix",
-        "EntityPlayerSPMixin",
-        "ExplosionCannonballMixin",
-        "ExplosionCannonballMixinObsidian",
-        "ExplosionMixinObsidian",
-        "InventoryPlayerMixin",
-        "ItemBlockMixin",
-        "ItemBucketMixin",
-        "ItemDyeMixin",
-        "ItemFirestrikerMixin",
-        "ItemJarMixin",
-        "SaveHandlerBaseMixin",
-        "accessors.EntityAccessor",
-        "accessors.ItemToolSwordAccessor"
-    ],
-    "client": [
-        "OxygenBarComponentMixin",
-        "SlotArmorMixin",
-        "LivingRendererMixin",
-        "LoadingScreenRendererMixin",
-        "FireBarComponentMixinPhoenix",
-        "GuiIngameMixin",
-        "PlayerRendererMixin",
-        "PlayerRendererMixinCapes",
-        "RenderBlocksMixin",
-        "RenderGlobalMixin"
-    ],
-    "server": [
-        "EntityPlayerMPMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "bta.aether.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BlockFluidPortalMixin",
+    "BlockJarMixin",
+    "BlockMixin",
+    "EntityFireflyFXMixin",
+    "EntityLivingMixin",
+    "EntityLivingMixinGravitite",
+    "EntityLivingMixinNeptune",
+    "EntityLivingMixinPhoenix",
+    "EntityMixin",
+    "EntityPlayerMixin",
+    "EntityPlayerMixinAgility",
+    "EntityPlayerMixinIce",
+    "EntityPlayerMixinPhoenix",
+    "EntityPlayerSPMixin",
+    "ExplosionCannonballMixin",
+    "ExplosionCannonballMixinObsidian",
+    "ExplosionMixinObsidian",
+    "InventoryPlayerMixin",
+    "ItemBlockMixin",
+    "ItemBucketMixin",
+    "ItemDyeMixin",
+    "ItemFirestrikerMixin",
+    "ItemJarMixin",
+    "NetHandlerMixin",
+    "NetServerHandlerMixin",
+    "SaveHandlerBaseMixin",
+    "accessors.EntityAccessor",
+    "accessors.ItemToolSwordAccessor"
+  ],
+  "client": [
+    "FireBarComponentMixinPhoenix",
+    "GuiIngameMixin",
+    "LivingRendererMixin",
+    "LoadingScreenRendererMixin",
+    "OxygenBarComponentMixin",
+    "PlayerRendererMixin",
+    "PlayerRendererMixinCapes",
+    "RenderBlocksMixin",
+    "RenderGlobalMixin",
+    "SlotArmorMixin"
+  ],
+  "server": [
+    "EntityPlayerMPMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }
