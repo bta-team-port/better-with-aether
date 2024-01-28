@@ -135,10 +135,18 @@ public class AetherItems {
 
     //Armor
     public static final ArmorMaterial armorZanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0f, 0f, 0f, 0f); // all zeros are intended, uses custom protection values
-    public static final ArmorMaterial armorGravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 35f, 35f, 35f, 150f);
-    public static final ArmorMaterial armorPhoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 80f, 20f, 150f, 45f);
-    public static final ArmorMaterial armorObsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 35f, 150f, 65f, 0f);
-    public static final ArmorMaterial armorNeptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 100f, 0f, 55f).withProtectionPercentage(DamageType.DROWN, 50f);
+    public static final ArmorMaterial armorGravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 66f, 66f, 66f, 150f);
+    public static final ArmorMaterial armorPhoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 150f, 0f, 150f, 0f);
+    public static final ArmorMaterial armorObsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0f, 150f, 150f, 0f);
+    public static final ArmorMaterial armorNeptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 150f, 0f, 0f).withProtectionPercentage(DamageType.DROWN, 50f);
+
+//    public static final ArmorMaterial LEATHER = ArmorMaterial.register(new ArmorMaterial("cloth", 0, 180).COMBAT, 20.0f).BLAST, 20.0f).FIRE, 20.0f).FALL, 120.0f));
+//    public static final ArmorMaterial CHAINMAIL = ArmorMaterial.register(new ArmorMaterial("chain", 1, 240).COMBAT, 120.0f).BLAST, 35.0f).FIRE, 35.0f).FALL, 35.0f));
+//    public static final ArmorMaterial IRON = ArmorMaterial.register(new ArmorMaterial("iron", 2, 200).COMBAT, 45.0f).BLAST, 45.0f).FIRE, 45.0f).FALL, 45.0f));
+//    public static final ArmorMaterial GOLD = ArmorMaterial.register(new ArmorMaterial("gold", 4, 120).COMBAT, 70.0f).BLAST, 70.0f).FIRE, 70.0f).FALL, 70.0f));
+//    public static final ArmorMaterial DIAMOND = ArmorMaterial.register(new ArmorMaterial("diamond", 3, 800).COMBAT, 66.0f).BLAST, 66.0f).FIRE, 124.0f).FALL, 66.0f));
+//    public static final ArmorMaterial STEEL = ArmorMaterial.register(new ArmorMaterial("steel", 5, 1200).COMBAT, 55.0f).BLAST, 150.0f).FIRE, 55.0f).FALL, 55.0f));
+
 
     public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.zanite", itemID++, armorZanite, 0), "ZaniteHelmet.png");
     public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.zanite", itemID++, armorZanite, 1), "ZaniteChestplate.png");
@@ -179,17 +187,17 @@ public class AetherItems {
     public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new ItemHammerNotch("tool.hammer.notch", itemID++, ToolMaterial.diamond), "HammerNotch.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow("tool.bow.phoenix", itemID++), "PhoenixBow.png");
 
-    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png", ArmorMaterial.LEATHER, 3), "LeatherGloves.png");
-    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.chain", itemID++, "/assets/aether/armor/chain_pendant_and_gloves.png", ArmorMaterial.CHAINMAIL, 3), "GloveChain.png");
-    public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.iron", itemID++, "/assets/aether/armor/Accessories.png", ArmorMaterial.IRON, 3), "IronGloves.png");
-    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png", ArmorMaterial.GOLD, 3), "GoldGloves.png");
-    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.diamond", itemID++, "/assets/aether/armor/diamond_pendant_and_gloves.png", ArmorMaterial.DIAMOND, 3), "DiamondGloves.png");
-    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.steel", itemID++, "/assets/aether/armor/steel_pendant_and_gloves.png", ArmorMaterial.STEEL, 3), "steel_gloves.png");
-    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png", armorZanite, 3), "ZaniteGloves.png");
-    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gravitite", itemID++, "/assets/aether/armor/gravitite_pendant_and_gloves.png", armorGravitite, 3), "GravititeGloves.png");
-    public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.phoenix", itemID++, "/assets/aether/armor/Phoenix.png", armorPhoenix, 3), "PhoenixGloves.png");
-    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.obsidian", itemID++, "/assets/aether/armor/obsidian_pendant_and_gloves.png", armorObsidian, 3), "ObsidianGloves.png");
-    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.neptune", itemID++, "/assets/aether/armor/neptune_pendant_and_gloves.png", armorNeptune, 3), "NeptuneGloves.png");
+    public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png"), "LeatherGloves.png");
+    public static final Item armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.chain", itemID++, "/assets/aether/armor/chain_pendant_and_gloves.png"), "GloveChain.png");
+    public static final Item armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.iron", itemID++, "/assets/aether/armor/Accessories.png"), "IronGloves.png");
+    public static final Item armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png"), "GoldGloves.png");
+    public static final Item armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.diamond", itemID++, "/assets/aether/armor/diamond_pendant_and_gloves.png"), "DiamondGloves.png");
+    public static final Item armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.steel", itemID++, "/assets/aether/armor/steel_pendant_and_gloves.png"), "steel_gloves.png");
+    public static final Item armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "ZaniteGloves.png");
+    public static final Item armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gravitite", itemID++, "/assets/aether/armor/gravitite_pendant_and_gloves.png"), "GravititeGloves.png");
+    public static final Item armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.phoenix", itemID++, "/assets/aether/armor/Phoenix.png"), "PhoenixGloves.png");
+    public static final Item armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.obsidian", itemID++, "/assets/aether/armor/obsidian_pendant_and_gloves.png"), "ObsidianGloves.png");
+    public static final Item armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.neptune", itemID++, "/assets/aether/armor/neptune_pendant_and_gloves.png"), "NeptuneGloves.png");
 
     public static final Item armorRingIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.iron", itemID++), "IronRing.png");
     public static final Item armorRingGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.gold", itemID++), "GoldRing.png");
