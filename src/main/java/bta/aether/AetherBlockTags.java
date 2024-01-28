@@ -3,6 +3,10 @@ package bta.aether;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.data.tag.Tag;
 
+import java.lang.reflect.Field;
+
+import static net.minecraft.core.block.tag.BlockTags.TAG_LIST;
+
 public class AetherBlockTags {
 
     public static Tag<Block> MINEABLE_BY_AETHER_PICKAXE = Tag.of("mineable_by_aether_pickaxe");
@@ -15,5 +19,14 @@ public class AetherBlockTags {
 
     public static Tag<Block> AETHER_JAR_RENDERING = Tag.of("aether_jar_dirt");
 
-
+    static {
+        for (Field field : AetherBlockTags.class.getDeclaredFields()) {
+            if (!field.getType().equals(Tag.class)) continue;
+            try {
+                TAG_LIST.add((Tag)field.get(null));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
