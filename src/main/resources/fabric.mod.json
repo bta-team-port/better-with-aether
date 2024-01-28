@@ -33,15 +33,12 @@
     ],
     "terrain-api": [
       "bta.aether.compat.terrainapi.TerrainAPIPlugin"
-    ],
-    "accessory-api": [
-      "bta.aether.compat.accessoryapi.AccessoryApiPlugin"
     ]
   },
   "mixins": [
     "aether.mixins.json"
   ],
-
+  "accessWidener": "aether.accesswidener",
   "depends": {
     "fabricloader": ">=0.13.3"
   },

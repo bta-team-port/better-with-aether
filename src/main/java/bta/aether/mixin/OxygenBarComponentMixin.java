@@ -1,7 +1,7 @@
 package bta.aether.mixin;
 
+import bta.aether.accessory.API.AccessoryHelper;
 import bta.aether.item.AetherItems;
-import csweetla.accessoryapi.API.AccessoryHelper;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
