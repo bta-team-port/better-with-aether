@@ -2,6 +2,8 @@ package bta.aether.item;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityBossSlider;
+import bta.aether.entity.projectiles.EntityHammerHead;
+import bta.aether.entity.projectiles.EntityZephyrSnowball;
 import bta.aether.util.StructureLoader;
 import bta.aether.world.AetherDimension;
 import bta.aether.util.LootTable;
@@ -19,8 +21,7 @@ public class ItemDevStick extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-
-
+        world.entityJoinedWorld(new EntityZephyrSnowball(world, entityplayer, true));
         return itemstack;
     }
 }
