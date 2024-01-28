@@ -146,7 +146,7 @@ tile.aether.chest.treasure.name=Treasure Chest
 tile.aether.chest.treasure.desc=A chest filled with mysterious loot.
 tile.aether.chest.treasure.locked.name=Locked Treasure Chest
 tile.aether.chest.treasure.locked.desc=A locked chest filled with mysterious loot.
-
+tile.aether.chest.treasure.locked.fail=The chest does not budge.
 #Misc
 tile.aether.glass.quicksoil.name=Quicksoil Glass
 tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.
