@@ -1,6 +1,9 @@
 package bta.aether.world;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.EntityAerbunny;
+import bta.aether.entity.EntityMoa;
+import bta.aether.entity.EntityWhirlwind;
 import bta.aether.world.generate.feature.WorldFeatureTreeSkyroot;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.EntityFireflyCluster;
@@ -16,6 +19,12 @@ public class BiomeAether extends Biome {
         spawnableCreatureList.clear();
         spawnableWaterCreatureList.clear();
         spawnableMonsterList.clear();
+
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityMoa.class, 10));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityAerbunny.class, 10));
+
+        this.spawnableMonsterList.add(new SpawnListEntry(EntityWhirlwind.class, 10));
+
         this.spawnableAmbientCreatureList.add(new SpawnListEntry(EntityFireflyCluster.class, 10));
     }
 

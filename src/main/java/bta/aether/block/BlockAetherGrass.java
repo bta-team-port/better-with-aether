@@ -10,9 +10,9 @@ import net.minecraft.core.world.World;
 
 import java.util.Random;
 
-public class BlockAetherGrass extends Block {
-    public BlockAetherGrass(String key, int id, Material material) {
-        super(key, id, material);
+public class BlockAetherGrass extends BlockAetherDouble {
+    public BlockAetherGrass(String key, int id, Material material, Class<?> toolClass) {
+        super(key, id, material, toolClass);
         this.setTicking(true);
     }
 

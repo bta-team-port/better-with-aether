@@ -113,7 +113,7 @@ public abstract class EntityProjectileModular extends EntityArrow {
             if (movingobjectposition != null && movingobjectposition.entity != null) {
 
                 if (hurtEntity(movingobjectposition.entity)) {
-                    this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                    playHitSound();
 
                 } else {
                     this.xTile = movingobjectposition.x;
@@ -130,6 +130,8 @@ public abstract class EntityProjectileModular extends EntityArrow {
                     this.z -= this.zd / (double) f1 * 0.05000000074505806;
                     this.inGroundAction();
                 }
+
+                onHit(movingobjectposition);
             }
 
                 this.x += this.xd;
@@ -175,6 +177,22 @@ public abstract class EntityProjectileModular extends EntityArrow {
         }
     }
 
+    protected void onHit(HitResult movingobjectposition) {
+    }
+
+    protected void playHitSound(){
+        this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+    }
+
+    protected void inGroundAction() {
+        playHitSound();
+        this.inGround = true;
+        this.arrowShake = 7;
+    }
+
+    protected void spawnParticles(){
+    }
+
     protected Boolean hurtEntity(Entity entity) {
         if (this.isOnFire()) entity.fireHurt();
         return entity.hurt(this.owner, this.arrowDamage, DamageType.COMBAT);
@@ -191,10 +209,7 @@ public abstract class EntityProjectileModular extends EntityArrow {
                     this.remove();
                 }
             }
-
         }
     }
 
-    protected void spawnParticles(){
-    }
 }

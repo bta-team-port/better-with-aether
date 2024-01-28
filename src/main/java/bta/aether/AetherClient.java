@@ -1,6 +1,7 @@
 package bta.aether;
 
 import bta.aether.entity.*;
+import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.projectiles.EntityArrowFlaming;
@@ -20,6 +21,7 @@ import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
+import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
 public class AetherClient implements ClientStartEntrypoint {
@@ -33,6 +35,8 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "../other/NotchWave.png")));
 
         new AetherEntities().initializeModels();
 

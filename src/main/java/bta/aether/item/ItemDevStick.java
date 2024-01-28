@@ -18,12 +18,9 @@ public class ItemDevStick extends Item {
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        StructureLoader structure = new StructureLoader();
-        structure.loadStructure("/assets/aether/structures/test.json");
-        entityplayer.addChatMessage(String.valueOf(structure.symbols));
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
 
-        structure.generate(world, blockX, blockY, blockZ);
-        return true;
+
+        return itemstack;
     }
 }
