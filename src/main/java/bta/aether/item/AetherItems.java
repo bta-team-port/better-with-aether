@@ -135,10 +135,18 @@ public class AetherItems {
 
     //Armor
     public static final ArmorMaterial armorZanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0f, 0f, 0f, 0f); // all zeros are intended, uses custom protection values
-    public static final ArmorMaterial armorGravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 35f, 35f, 35f, 150f);
-    public static final ArmorMaterial armorPhoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 80f, 20f, 150f, 45f);
-    public static final ArmorMaterial armorObsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 35f, 150f, 65f, 0f);
-    public static final ArmorMaterial armorNeptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 100f, 0f, 55f).withProtectionPercentage(DamageType.DROWN, 50f);
+    public static final ArmorMaterial armorGravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 66f, 66f, 66f, 150f);
+    public static final ArmorMaterial armorPhoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 150f, 0f, 150f, 0f);
+    public static final ArmorMaterial armorObsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0f, 150f, 150f, 0f);
+    public static final ArmorMaterial armorNeptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 150f, 0f, 0f).withProtectionPercentage(DamageType.DROWN, 50f);
+
+//    public static final ArmorMaterial LEATHER = ArmorMaterial.register(new ArmorMaterial("cloth", 0, 180).COMBAT, 20.0f).BLAST, 20.0f).FIRE, 20.0f).FALL, 120.0f));
+//    public static final ArmorMaterial CHAINMAIL = ArmorMaterial.register(new ArmorMaterial("chain", 1, 240).COMBAT, 120.0f).BLAST, 35.0f).FIRE, 35.0f).FALL, 35.0f));
+//    public static final ArmorMaterial IRON = ArmorMaterial.register(new ArmorMaterial("iron", 2, 200).COMBAT, 45.0f).BLAST, 45.0f).FIRE, 45.0f).FALL, 45.0f));
+//    public static final ArmorMaterial GOLD = ArmorMaterial.register(new ArmorMaterial("gold", 4, 120).COMBAT, 70.0f).BLAST, 70.0f).FIRE, 70.0f).FALL, 70.0f));
+//    public static final ArmorMaterial DIAMOND = ArmorMaterial.register(new ArmorMaterial("diamond", 3, 800).COMBAT, 66.0f).BLAST, 66.0f).FIRE, 124.0f).FALL, 66.0f));
+//    public static final ArmorMaterial STEEL = ArmorMaterial.register(new ArmorMaterial("steel", 5, 1200).COMBAT, 55.0f).BLAST, 150.0f).FIRE, 55.0f).FALL, 55.0f));
+
 
     public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.zanite", itemID++, armorZanite, 0), "ZaniteHelmet.png");
     public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.zanite", itemID++, armorZanite, 1), "ZaniteChestplate.png");
