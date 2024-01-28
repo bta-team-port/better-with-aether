@@ -336,15 +336,15 @@ public class AetherBlocks {
             .build(new BlockStairs(stoneHellfire, blockID++));
     // LIGHT DUNGEON STONES
     public static final Block stoneCarvedLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightCarvedStone.png")
             .build(new Block("carved.light", blockID++, Material.stone));
     public static final Block stoneAngelicLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightAngelicStone.png")
             .build(new Block("angelic.light", blockID++, Material.stone));
     public static final Block stoneHellfireLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightHellfireStone.png")
             .build(new Block("hellfire.light", blockID++, Material.stone));
 
@@ -404,7 +404,7 @@ public class AetherBlocks {
             .setTextures("AetherTallGrass.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
             .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.BROKEN_BY_FLUIDS)
-            .build(new BlockAetherFlower("grass.tall", blockID++){
+            .build(new BlockAetherTallGrass("grass.tall", blockID++){
                 @Override
                 public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
                     return dropCause == EnumDropCause.SILK_TOUCH || dropCause == EnumDropCause.PICK_BLOCK ? new ItemStack[]{new ItemStack(this)} : null;
