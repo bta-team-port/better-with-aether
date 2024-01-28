@@ -41,7 +41,7 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1));
         EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new LivingRenderer<EntityBossSlider>(modelSlider, 1));
         EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new LivingRenderer<EntityAerbunny>(modelAerbunny, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new LivingRenderer<EntityAerbunny>(modelAerbunny, 0.4F));
         EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1));
     }
 }

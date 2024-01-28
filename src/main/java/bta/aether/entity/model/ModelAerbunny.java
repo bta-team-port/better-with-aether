@@ -44,7 +44,7 @@ public class ModelAerbunny extends BenchEntityModel {
                 }
             }
             if (puff != null) {
-                float a = 1.0F + this.puffiness * 0.5F;
+                float a = 1.0F + this.puffiness * 0.25F;
                 puff.scaleX = a;
                 puff.scaleY = a;
                 puff.scaleZ = a;
