@@ -153,11 +153,11 @@ public class EntityBossSlider extends EntityAetherBossBase{
                             break;
 
                         case EAST:
-                            entity.push(launchSpeed /2, launchSpeed, 0);
+                            entity.push(launchSpeed, launchSpeed /2, 0);
                             break;
 
                         case WEST:
-                            entity.push(-launchSpeed /2, launchSpeed, 0);
+                            entity.push(-launchSpeed, launchSpeed /2, 0);
                             break;
                     }
 

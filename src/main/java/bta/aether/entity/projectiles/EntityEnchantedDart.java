@@ -5,17 +5,18 @@ import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
-
-public class EntityGoldenDart extends EntityProjectileModular {
+public class EntityEnchantedDart extends EntityProjectileModular{
 
     {
-        this.stack = new ItemStack(AetherItems.dartGolden);
+        this.stack = new ItemStack(AetherItems.dartEnchanted);
+        this.arrowDamage = 6;
     }
 
-    public EntityGoldenDart(World world) {
+    public EntityEnchantedDart(World world) {
         super(world);
     }
-    public EntityGoldenDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
+
+    public EntityEnchantedDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
         super(world, entityliving, doesArrowBelongToPlayer, 11);
     }
 }

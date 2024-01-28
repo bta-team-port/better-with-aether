@@ -5,11 +5,8 @@ import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityPortalAetherFX;
 import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.projectiles.EntityGoldenDart;
-import bta.aether.entity.projectiles.EntityLightningKnife;
-import bta.aether.entity.projectiles.EntityPoisonDart;
+import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
-import bta.aether.entity.projectiles.EntityArrowFlaming;
 import bta.aether.item.AetherItems;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
@@ -25,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.AchievementHelper;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.ParticleHelper;
+import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.achievements.AchievementPage;
@@ -51,6 +49,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.planksSkyroot.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.slabPlanksSkyroot.id, 150);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.stairsPlanksSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.stickSkyroot.id, 150);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolPickaxeSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolShovelSkyroot.id, 600);
@@ -80,6 +80,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "../other/NotchWave.png")));
 
         new AetherEntities().initializeModels();
     }

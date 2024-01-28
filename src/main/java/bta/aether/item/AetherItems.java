@@ -4,6 +4,7 @@ import bta.aether.block.AetherBlocks;
 import bta.aether.entity.projectiles.EntityGoldenDart;
 import bta.aether.entity.projectiles.EntityPoisonDart;
 import bta.aether.entity.projectiles.EntityProjectileModular;
+import bta.aether.entity.projectiles.EntityEnchantedDart;
 import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
 import bta.aether.item.Accessories.ItemAccessoryInvisibilityCloak;
 import bta.aether.item.Accessories.ItemAccessoryIronBubble;
@@ -80,7 +81,12 @@ public class AetherItems {
             return new EntityPoisonDart(world, entityPlayer, true);
         }
     }, "DartShooterPoison.png");
-    public static final Item dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new Item("tool.dart.shooter.enchanted", itemID++), "DartShooterEnchanted.png");
+    public static final Item dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.enchanted", itemID++, AetherItems.dartEnchanted.id){
+            @Override
+            public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+                return new EntityEnchantedDart(world, entityPlayer, true);
+            }
+        }, "DartShooterEnchanted.png");
 
     public static final Item ambrosium = ItemHelper.createItem(MOD_ID, new ItemFoodStackable("ambrosium", itemID++, 1, false, 64), "AmbrosiumShard.png");
     public static final Item gemZanite = ItemHelper.createItem(MOD_ID, new Item("zanite", itemID++), "Zanite.png");
@@ -94,11 +100,11 @@ public class AetherItems {
 
     public static final Item healingStone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", itemID++, 4, false), "HealingStone.png");
 
-    public static final ToolMaterial toolskyroot = new ToolMaterialAether().setDropMultipier(2).setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
+    public static final ToolMaterial toolskyroot = new ToolMaterialAether()/*.setDropMultipier(2)*/.setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
     public static final ToolMaterial toolholystone = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1).setBlockHitDelay(0);
-    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 10.0F).setMiningLevel(2).setBlockHitDelay(0);
-    public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(8.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
-    public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(10.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
+    public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 8.0F).setMiningLevel(2).setBlockHitDelay(0);
+    public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(10.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
+    public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(12.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
     public static final ToolMaterial swordSpecialMaterial = new ToolMaterial().setDurability(32).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
     public static final ToolMaterial swordHolyMaterial = new ToolMaterial().setDurability(128).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
 
@@ -170,7 +176,7 @@ public class AetherItems {
     public static final Item toolStaffCloud = ItemHelper.createItem(MOD_ID, new Item("tool.staff.cloud", itemID++), "CloudStaff.png");
 
     public static final Item toolKnifeLightning = ItemHelper.createItem(MOD_ID, new ItemLightningKnife("tool.knife.lightning", itemID++), "LightningKnife.png").withTags(ItemTags.preventCreativeMining);;
-    public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new Item("tool.hammer.notch", itemID++), "HammerNotch.png").withTags(ItemTags.preventCreativeMining);;
+    public static final Item toolHammerNotch = ItemHelper.createItem(MOD_ID, new ItemHammerNotch("tool.hammer.notch", itemID++, ToolMaterial.diamond), "HammerNotch.png").withTags(ItemTags.preventCreativeMining);;
     public static final Item toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow("tool.bow.phoenix", itemID++), "PhoenixBow.png");
 
     public static final Item armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png"), "LeatherGloves.png");
