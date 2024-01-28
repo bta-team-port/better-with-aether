@@ -1,6 +1,5 @@
 package bta.aether.entity.projectiles;
 
-import bta.aether.entity.EntityZephyr;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -9,7 +8,7 @@ import net.minecraft.core.world.World;
 public class EntityZephyrSnowball extends EntityProjectileModular{
 
     {
-        this.arrowDamage = 1;
+        this.arrowDamage = 0;
     }
 
     public EntityZephyrSnowball(World world, double d, double d1, double d2, int arrowType) {
@@ -35,9 +34,13 @@ public class EntityZephyrSnowball extends EntityProjectileModular{
     }
 
     @Override
+    protected void playCollectedSound() {
+    }
+
+    @Override
     protected void onHit(HitResult movingobjectposition) {
         if (movingobjectposition.entity != null) {
-            movingobjectposition.entity.push(this.xd, this.yd, this.zd);
+            movingobjectposition.entity.push(this.xd * 1.75, 0, this.zd * 1.75);
             this.remove();
         }
     }

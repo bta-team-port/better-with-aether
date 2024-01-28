@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.AetherBlockTags;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.projectiles.EntityZephyrSnowball;
 import net.minecraft.core.entity.Entity;
@@ -34,6 +35,16 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
     protected void init() {
         super.init();
         this.entityData.define(16, (byte) 1);
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        int x = MathHelper.floor_double(this.x);
+        int y = MathHelper.floor_double(this.bb.minY);
+        int z = MathHelper.floor_double(this.z);
+
+        if (world.getBlock(x, y-1, z) == null) return false;
+        return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
     @Override

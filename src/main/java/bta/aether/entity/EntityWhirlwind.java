@@ -31,6 +31,7 @@ public class EntityWhirlwind extends EntityMonster {
         super.spawnInit();
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         if (this.world.loadedEntityList.stream().anyMatch(entity -> Math.pow(entity.x - x, 2) + Math.pow(entity.y - y, 2) + Math.pow(entity.z - z, 2) < 3600 && entity instanceof EntityWhirlwind)) {
             return false;
@@ -40,6 +41,7 @@ public class EntityWhirlwind extends EntityMonster {
         int y = MathHelper.floor_double(this.bb.minY);
         int z = MathHelper.floor_double(this.z);
 
+        if (world.getBlock(x, y-1, z) == null) return false;
         return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
