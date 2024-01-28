@@ -180,10 +180,15 @@ public abstract class EntityProjectileModular extends EntityArrow {
     protected void onHit(HitResult movingobjectposition) {
     }
 
-    protected void playHitSound(){
+    protected void playHitSound() {
         this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
+    protected void playCollectedSound() {
+        this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+    }
+
+    @Override
     protected void inGroundAction() {
         playHitSound();
         this.inGround = true;
@@ -204,7 +209,7 @@ public abstract class EntityProjectileModular extends EntityArrow {
             if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0) {
                 player.inventory.insertItem(this.stack, true);
                 if (this.stack.stackSize <= 0) {
-                    this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                    this.playCollectedSound();
                     player.onItemPickup(this, stack.itemID);
                     this.remove();
                 }
