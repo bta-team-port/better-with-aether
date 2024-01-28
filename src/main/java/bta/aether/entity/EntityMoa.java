@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.AetherBlockTags;
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
 import com.mojang.nbt.CompoundTag;
@@ -126,8 +127,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
         int y = MathHelper.floor_double(this.bb.minY);
         int z = MathHelper.floor_double(this.z);
 
-        int id = this.world.getBlockId(x, y - 1, z);
-        return Block.blocksList[id] == AetherBlocks.grassAether;
+        return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
 
