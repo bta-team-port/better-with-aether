@@ -194,6 +194,7 @@ public class EntityAerbunny extends EntityAnimal {
         int y = MathHelper.floor_double(this.bb.minY);
         int z = MathHelper.floor_double(this.z);
 
+        if (world.getBlock(x, y-1, z) == null) return false;
         return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
