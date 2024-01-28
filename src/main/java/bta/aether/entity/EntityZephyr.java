@@ -1,6 +1,7 @@
 package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.projectiles.EntityZephyrSnowball;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFlying;
 import net.minecraft.core.entity.monster.IEnemy;
@@ -30,6 +31,12 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
     public int attackCounter = 0;
 
     @Override
+    protected void init() {
+        super.init();
+        this.entityData.define(16, (byte) 1);
+    }
+
+    @Override
     public void tick() {
         if (this.world.isClientSide) {
             byte i = this.entityData.getByte(16);
@@ -54,7 +61,6 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
     @Override
     protected void updatePlayerActionState() {
         byte byte1;
-        byte byte0;
         if (!this.world.isClientSide && this.world.difficultySetting == 0) {
             this.remove();
         }
@@ -105,14 +111,16 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
                 }
                 ++this.attackCounter;
                 if (this.attackCounter == 20) {
+
+                    // no clue what this does, it does not fire snowballs correctly.
                     this.world.playSoundAtEntity(this, "aether.sound.mobs.zephyr.zephyrShoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
-                    EntityZephyrSnowball entityssnowball = new EntityZephyrSnowball(this.world, this, d5 += this.targetedEntity.x * (this.targetedEntity.xd * 0.5), d6 += this.targetedEntity.y * (this.targetedEntity.yd * 0.5), d7 += this.targetedEntity.z * (this.targetedEntity.zd * 0.5));
+                    EntityZephyrSnowball zephyrSnowball = new EntityZephyrSnowball(this.world, d5 += this.targetedEntity.x * (this.targetedEntity.xd * 0.5), d6 += this.targetedEntity.y * (this.targetedEntity.yd * 0.5), d7 += this.targetedEntity.z * (this.targetedEntity.zd * 0.5), 0);
                     double d8 = 4.0;
                     Vec3d vec3d = this.getViewVector(1.0f);
-                    entityssnowball.x = this.x + vec3d.xCoord * d8;
-                    entityssnowball.y = this.y + (double)(this.bbHeight / 2.0f) + 0.5;
-                    entityssnowball.z = this.z + vec3d.zCoord * d8;
-                    this.world.entityJoinedWorld(entityssnowball);
+                    zephyrSnowball.x = this.x + vec3d.xCoord * d8;
+                    zephyrSnowball.y = this.y + (double)(this.bbHeight / 2.0f) + 0.5;
+                    zephyrSnowball.z = this.z + vec3d.zCoord * d8;
+                    this.world.entityJoinedWorld(zephyrSnowball);
                     this.attackCounter = -40;
                 }
             } else if (this.attackCounter > 0) {
@@ -124,7 +132,7 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
                 --this.attackCounter;
             }
         }
-        if (!this.world.isClientSide && (byte0 = this.entityData.getByte(16)) != (byte1 = (byte)(this.attackCounter > 10 ? 1 : 0))) {
+        if (!this.world.isClientSide && this.entityData.getByte(16) != (byte1 = (byte)(this.attackCounter > 10 ? 1 : 0))) {
             this.entityData.set(16, byte1);
         }
     }
