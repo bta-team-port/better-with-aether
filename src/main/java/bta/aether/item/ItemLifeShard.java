@@ -1,12 +1,11 @@
 package bta.aether.item;
 
 
+import bta.aether.accessory.API.HealthHelper;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-
-import csweetla.accessoryapi.API.HealthHelper;
 
 public class ItemLifeShard extends Item {
 

@@ -1,8 +1,8 @@
 package bta.aether.item.Accessories;
 
+import bta.aether.accessory.API.AccessoryHelper;
+import bta.aether.accessory.API.TickableWhileWorn;
 import bta.aether.item.Accessories.base.ItemAccessoryMisc;
-import csweetla.accessoryapi.API.AccessoryHelper;
-import csweetla.accessoryapi.API.TickableWhileWorn;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 
