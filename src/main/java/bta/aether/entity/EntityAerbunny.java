@@ -137,7 +137,7 @@ public class EntityAerbunny extends EntityAnimal {
                     f3 = -30.0f;
                 }
                 this.yRot += f3;
-                //It make no longer made weird dash
+                //This makes it not do a weird dash.
                 this.jump();
             }
         }
@@ -202,7 +202,9 @@ public class EntityAerbunny extends EntityAnimal {
     public boolean interact(EntityPlayer entityplayer) {
         if (isPassenger()) {
             entityplayer.ejectRider();
-            this.y = entityplayer.y + entityplayer.getRideHeight();
+            this.setPos(entityplayer.x, entityplayer.y - 1, entityplayer.z);
+            this.jump();
+            this.puff();
         } else {
             this.startRiding(entityplayer);
         }
