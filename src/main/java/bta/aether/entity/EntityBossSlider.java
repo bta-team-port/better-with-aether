@@ -2,6 +2,7 @@ package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.block.BlockDungeon;
+import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
@@ -326,6 +327,9 @@ public class EntityBossSlider extends EntityAetherBossBase{
             if (item != null && item.getItem() instanceof ItemToolPickaxe) {
                 awake = true;
                 return super.hurt(attacker, damage, type);
+            } else if (item != null && item.getItem() instanceof ItemToolAetherPickaxe) {
+                    awake = true;
+                    return super.hurt(attacker, damage, type);
             } else if (!this.awake) {
                 String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
                 ((EntityPlayer)attacker).addChatMessage(message);
