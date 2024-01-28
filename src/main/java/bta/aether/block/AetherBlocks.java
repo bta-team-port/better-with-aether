@@ -45,7 +45,7 @@ public class AetherBlocks {
             .setResistance(0.2f)
             .setTextures("Dirt.png")
             .setItemBlock(ItemBlockAetherDouble::new)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
             .build(new BlockAetherDouble("dirt", blockID++, Material.dirt, ItemToolAetherShovel.class));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -56,7 +56,8 @@ public class AetherBlocks {
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
             .setItemBlock(ItemBlockAetherDouble::new)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTickOnLoad()
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass, ItemToolAetherShovel.class));
 
     public static final BlockBuilder holyStone = new BlockBuilder(MOD_ID)
@@ -246,7 +247,7 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
     public static final Block oreAmbrosiumHolystone = ores
             .setTextures("AmbrosiumOre.png")
-            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone));
+            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone, ItemToolAetherPickaxe.class));
     public static final Block oreZaniteHolystone = ores
             .setTextures("ZaniteOre.png")
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
@@ -336,15 +337,15 @@ public class AetherBlocks {
             .build(new BlockStairs(stoneHellfire, blockID++));
     // LIGHT DUNGEON STONES
     public static final Block stoneCarvedLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightCarvedStone.png")
             .build(new Block("carved.light", blockID++, Material.stone));
     public static final Block stoneAngelicLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightAngelicStone.png")
             .build(new Block("angelic.light", blockID++, Material.stone));
     public static final Block stoneHellfireLight = stone
-            .setLuminance(7)
+            .setLuminance(11)
             .setTextures("LightHellfireStone.png")
             .build(new Block("hellfire.light", blockID++, Material.stone));
 
@@ -403,8 +404,8 @@ public class AetherBlocks {
             .setBlockDrop(null)
             .setTextures("AetherTallGrass.png")
             .setBlockModel(new BlockModelRenderBlocks(1))
-            .setTags(BlockTags.BROKEN_BY_FLUIDS)
-            .build(new BlockAetherFlower("grass.tall", blockID++){
+            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.BROKEN_BY_FLUIDS)
+            .build(new BlockAetherTallGrass("grass.tall", blockID++){
                 @Override
                 public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
                     return dropCause == EnumDropCause.SILK_TOUCH || dropCause == EnumDropCause.PICK_BLOCK ? new ItemStack[]{new ItemStack(this)} : null;
@@ -581,6 +582,14 @@ public class AetherBlocks {
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(fenceGatePlanksSkyroot.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(chestSkyroot.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(chestMimic.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapStoneCarved.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(trapStoneAngelic.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneCarvedLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneAngelicLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneHellfireLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneCarvedLightLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneAngelicLightLocked.id);
+        AetherDimension.getDimensionBlacklist(Dimension.nether).add(stoneHellfireLightLocked.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerPurple.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(flowerWhite.id);
 

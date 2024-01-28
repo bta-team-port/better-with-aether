@@ -18,6 +18,7 @@ public class AetherEntities {
     public static final BenchEntityModel modelMoa =  ModelHelper.getOrCreateEntityModel(MOD_ID, "moa", ModelMoa.class);
     public static final BenchEntityModel modelSlider =  ModelHelper.getOrCreateEntityModel(MOD_ID, "slider", ModelSlider.class);
     public static final BenchEntityModel modelAerbunny =  ModelHelper.getOrCreateEntityModel(MOD_ID, "aerbunny", ModelAerbunny.class);
+    public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimictop", ModelMimic.class);
     public static final BenchEntityModel modelValk =  ModelHelper.getOrCreateEntityModel(MOD_ID, "valk", ModelValk.class);
 
 

@@ -3,34 +3,39 @@ package bta.aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
-import bta.aether.entity.EntityPortalAetherFX;
 import bta.aether.entity.EntityFallingGravitite;
+import bta.aether.entity.EntityPortalAetherFX;
 import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.item.AetherItems;
+import bta.aether.packet.PuffAerBunnyPacket;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import turniplabs.halplibe.helper.AchievementHelper;
-import turniplabs.halplibe.helper.EntityHelper;
-import turniplabs.halplibe.helper.ParticleHelper;
-import turniplabs.halplibe.helper.TextureHelper;
+import turniplabs.halplibe.helper.*;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.achievements.AchievementPage;
 
 
-public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
+public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    @Override
+    public void onInitialize() {
+        NetworkHelper.register(PuffAerBunnyPacket.class, true, false);
+    }
 
     @Override
     public void beforeGameStart() {
@@ -82,6 +87,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "../other/NotchWave.png")));
+        EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
 
         new AetherEntities().initializeModels();
     }
