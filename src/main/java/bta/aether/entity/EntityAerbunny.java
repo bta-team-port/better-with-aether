@@ -1,5 +1,6 @@
 package bta.aether.entity;
 
+import bta.aether.AetherBlockTags;
 import bta.aether.block.AetherBlocks;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
@@ -193,8 +194,7 @@ public class EntityAerbunny extends EntityAnimal {
         int y = MathHelper.floor_double(this.bb.minY);
         int z = MathHelper.floor_double(this.z);
 
-        int id = this.world.getBlockId(x, y - 1, z);
-        return Block.blocksList[id] == AetherBlocks.grassAether;
+        return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
     }
 
     @Override
