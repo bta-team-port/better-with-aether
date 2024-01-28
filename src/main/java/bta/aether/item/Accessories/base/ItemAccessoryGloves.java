@@ -1,12 +1,10 @@
 package bta.aether.item.Accessories.base;
 
 import bta.aether.entity.IAetherAccessories;
-import bta.aether.item.AetherArmorMaterial;
 import bta.aether.item.ItemToolAccessory;
 import bta.aether.item.TexturePath;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.material.ArmorMaterial;
 
 public class ItemAccessoryGloves extends ItemToolAccessory implements TexturePath {
     private final String texturePath;
