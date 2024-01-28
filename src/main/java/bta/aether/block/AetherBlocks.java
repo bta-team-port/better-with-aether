@@ -56,6 +56,7 @@ public class AetherBlocks {
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
             .setItemBlock(ItemBlockAetherDouble::new)
+            .setTickOnLoad()
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass, ItemToolAetherShovel.class));
 
