@@ -6,15 +6,17 @@ import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 
+import java.security.MessageDigest;
+
 public class TileEntityChestLocked extends TileEntityChest {
     private boolean isLocked;
-    private String password = "DEFAULT";
+    private String password = "BLANK PASSWORD";
 
     public void setLocked(boolean isLocked){
         this.isLocked = isLocked;
     }
 
-    public boolean getlocked() {
+    public boolean getLocked() {
         return isLocked;
     }
 
@@ -24,6 +26,25 @@ public class TileEntityChestLocked extends TileEntityChest {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public String hashString(String password) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            messageDigest.update(password.getBytes());
+            return new String(messageDigest.digest());
+        }
+        catch (Exception exception) {
+            Aether.LOGGER.error("Failed to perform hash function!");
+            Aether.LOGGER.error(exception.toString());
+
+            this.setLocked(false);
+            return "HASH FAILURE";
+        }
+    }
+
+    public void setPasswordHashed(String password) {
+        this.setPassword(this.hashString(password));
     }
 
     @Override

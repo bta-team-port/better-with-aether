@@ -45,7 +45,7 @@ public class AetherBlocks {
             .setResistance(0.2f)
             .setTextures("Dirt.png")
             .setItemBlock(ItemBlockAetherDouble::new)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
             .build(new BlockAetherDouble("dirt", blockID++, Material.dirt, ItemToolAetherShovel.class));
 
     public static final Block grassAether = new BlockBuilder(MOD_ID)
@@ -56,7 +56,7 @@ public class AetherBlocks {
             .setTopTexture("GrassTop.png")
             .setBottomTexture("Dirt.png")
             .setItemBlock(ItemBlockAetherDouble::new)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
             .build(new BlockAetherGrass("grass", blockID++, Material.grass, ItemToolAetherShovel.class));
 
     public static final BlockBuilder holyStone = new BlockBuilder(MOD_ID)
