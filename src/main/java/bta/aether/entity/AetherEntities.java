@@ -20,6 +20,7 @@ public class AetherEntities {
     public static final BenchEntityModel modelAerbunny =  ModelHelper.getOrCreateEntityModel(MOD_ID, "aerbunny", ModelAerbunny.class);
     public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimictop", ModelMimic.class);
     public static final BenchEntityModel modelValk =  ModelHelper.getOrCreateEntityModel(MOD_ID, "valk", ModelValk.class);
+    public static final BenchEntityModel modelAerwhale = ModelHelper.getOrCreateEntityModel(MOD_ID, "aerwhale", ModelAerwhale.class);
 
 
     public void initializeEntities() {
@@ -33,6 +34,7 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityWhirlwind.class, entityID++, "Whirlwind");
         EntityHelper.Core.createEntity(EntityAerbunny.class, entityID++, "AerBunny");
         EntityHelper.Core.createEntity(EntityValk.class, entityID++, "Valk");
+        EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
     }
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
@@ -43,5 +45,6 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new LivingRenderer<EntityAerbunny>(modelAerbunny, 0.4F));
         EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new LivingRenderer<EntityAerwhale>(modelAerwhale, 1));
     }
 }
