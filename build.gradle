@@ -11,6 +11,7 @@ loom {
 	gluedMinecraftJar()
 	noIntermediateMappings()
 	customMinecraftManifest.set("https://github.com/Turnip-Labs/bta-manifest-repo/releases/download/v${project.bta_version}/${project.bta_version}.json")
+	accessWidenerPath = file("src/main/resources/aether.accesswidener")
 }
 
 repositories {
@@ -99,14 +100,6 @@ repositories {
 		}
 		metadataSources { artifact() }
 	}
-	ivy {
-		url = "https://github.com/ColinSweetland"
-		patternLayout {
-			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
 }
 
 dependencies {
@@ -121,7 +114,6 @@ dependencies {
 
 	modImplementation "ModMenu:ModMenu:2.0.3"
 	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
-	modImplementation "bta_accessory_api:accessoryapi:${project.accessoryapi_version}"
 	modImplementation "catalyst:catalyst-core:${project.catalyst_core_version}"
 	modImplementation "catalyst:catalyst-effects:${project.catalyst_effects_version}"
 
