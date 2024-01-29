@@ -7,6 +7,7 @@
     "BlockFluidPortalMixin",
     "BlockJarMixin",
     "BlockMixin",
+    "CommandsMixin",
     "EntityFireflyFXMixin",
     "EntityLivingMixin",
     "EntityLivingMixinGravitite",
@@ -31,7 +32,16 @@
     "NetServerHandlerMixin",
     "SaveHandlerBaseMixin",
     "accessors.EntityAccessor",
-    "accessors.ItemToolSwordAccessor"
+    "accessors.ItemToolSwordAccessor",
+    "accessory.ContainerPlayerMixin",
+    "accessory.EntityLivingMixin",
+    "accessory.EntityPlayerMixin",
+    "accessory.GuiInventoryCreativeMixin",
+    "accessory.GuiInventoryMixin",
+    "accessory.HealthBarComponentMixin",
+    "accessory.HudComponentMixin",
+    "accessory.InventoryPlayerMixin",
+    "accessory.itemFoodMixin"
   ],
   "client": [
     "FireBarComponentMixinPhoenix",
@@ -43,7 +53,8 @@
     "PlayerRendererMixinCapes",
     "RenderBlocksMixin",
     "RenderGlobalMixin",
-    "SlotArmorMixin"
+    "SlotArmorMixin",
+    "accessory.MinecraftMixin"
   ],
   "server": [
     "EntityPlayerMPMixin"
