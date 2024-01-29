@@ -48,8 +48,8 @@ public class EntityAerbunny extends EntityAnimal {
 
     @Override
     public void tick() {
-
-        this.fallDistance = 0.0F;
+//
+//        this.fallDistance = 0.0F;
         if (!this.onGround && !this.isInWater() && this.yd < 0.0 && !this.collision) {
             this.yd *= 0.75;
         }
