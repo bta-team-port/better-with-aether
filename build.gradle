@@ -3,10 +3,6 @@ plugins {
 	id 'java'
 }
 
-group = project.mod_group
-archivesBaseName = project.mod_name
-version = project.mod_version
-
 loom {
 	gluedMinecraftJar()
 	noIntermediateMappings()
@@ -138,7 +134,7 @@ java {
 	withSourcesJar()
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
 	options.release.set 8
 }
 
