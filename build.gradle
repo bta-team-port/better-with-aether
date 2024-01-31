@@ -16,7 +16,7 @@ loom {
 
 repositories {
 	flatDir { // DO NOT DELETE THIS, THIS ALLOWS GRADLE TO *OPTIONALLY* LOAD JARS LOCALLY, THIS HELPS TO FIX SOME PROBLEMATIC DEPENDENCIES
-		dirs "/dependencies"
+		dirs "./dependencies"
 	}
 	mavenCentral()
 	maven { url = "https://jitpack.io" }
