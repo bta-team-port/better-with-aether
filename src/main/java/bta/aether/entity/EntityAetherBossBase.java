@@ -47,6 +47,10 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
     }
 
     @Override
+    public void tryToDespawn() {
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
         belongsTo = tag.getInteger("belongsTo");
@@ -83,10 +87,6 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         }
 
         super.onEntityDeath();
-    }
-
-    @Override
-    public void tryToDespawn() {
     }
 
     public String getBossTitle() {
