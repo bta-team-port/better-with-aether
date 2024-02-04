@@ -18,15 +18,18 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class EntityBossSlider extends EntityAetherBossBase{
+public class EntityBossSlider extends EntityAetherBossBase {
+    public final int angerThreshold = 50;
+    public final float baseDamage = 10F;
+    public final int maxAttackCoolDown = 60;
+    public final float baseSpeed = 1.375F;
 
     public boolean awake = false;
-    public int angerThreshold = 50;
-    public float baseDamage = 10F;
-    public int maxAttackCoolDown = 60;
-    public float baseSpeed = 1.375F;
+    private final ArrayList<EntityPlayer> creativeAttackersList = new ArrayList<>();
 
     public int attackCoolDown = 0;
     private boolean midSlam = false;
@@ -37,10 +40,9 @@ public class EntityBossSlider extends EntityAetherBossBase{
     private float momentumY = 0;
     private float momentumZ = 0;
 
-    public int pedestalX = (int) this.x;
-    public int pedestalY = (int) this.y;
-    public int pedestalZ = (int) this.z;
-
+    public int pedestalX;
+    public int pedestalY;
+    public int pedestalZ;
 
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
@@ -59,7 +61,10 @@ public class EntityBossSlider extends EntityAetherBossBase{
         if (Math.abs(this.momentumZ) > 0.05F || Math.abs(this.momentumX) > 0.05F || Math.abs(this.momentumY) > 0.05F) {
             entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
             entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
-            doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
+            if (entity instanceof EntityPlayer && ((EntityPlayer) entity).gamemode.isPlayerInvulnerable()) {
+                return super.collidesWith(entity);
+            }
+                doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
         }
 
         return super.collidesWith(entity);
@@ -86,9 +91,11 @@ public class EntityBossSlider extends EntityAetherBossBase{
     }
 
     public void returnToPedestal() {
-        this.x = pedestalX;
-        this.y = pedestalY;
-        this.z = pedestalZ;
+        if (Arrays.stream(new Integer[] {this.pedestalX, this.pedestalY, this.pedestalZ}).noneMatch(integer -> integer == 0)) {
+            this.x = this.pedestalX;
+            this.y = this.pedestalY;
+            this.z = this.pedestalZ;
+        }
 
         this.allowedToMove = true;
         this.attackCoolDown = 0;
@@ -105,12 +112,13 @@ public class EntityBossSlider extends EntityAetherBossBase{
                 for (int z = -2; z <= 1; z++) {
                     for (int y = -1; y <= 2; y++) {
                         if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z))) {
-                            this.momentumX *= 0.75F;
-                            this.momentumY *= 0.75F;
-                            this.momentumZ *= 0.75F;
+                            this.momentumX *= 0.85F;
+                            this.momentumY *= 0.85F;
+                            this.momentumZ *= 0.85F;
 
                             blocksBroken++;
-                            if (blocksBroken >= 16){
+                            if (blocksBroken >= 9) {
+                                if (this.momentumY <= 0) this.momentumY = 0.4125F;
                                 this.allowedToMove = false;
                                 this.attackCoolDown = maxAttackCoolDown;
                                 return;
@@ -141,7 +149,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
                     entity.hurt(this, (int) ((baseDamage * 0.50F) * getAngerModifier()), DamageType.FALL);
                     entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.GENERIC);
 
-                    switch (calculateDirection(entity.x, entity.y, entity.z)) {
+                    switch (calculateDirection(entity)) {
                         case NORTH:
                             entity.push(0, launchSpeed /2, -launchSpeed);
                             break;
@@ -170,6 +178,7 @@ public class EntityBossSlider extends EntityAetherBossBase{
                     doExplosionEffect(world, explosionX, explosionY, explosionZ);
                 }
 
+                if (this.momentumY <= 0) this.momentumY = 0.4125F;
                 this.midSlam = false;
                 this.awake = true;
                 this.attackCoolDown = maxAttackCoolDown;
@@ -181,18 +190,27 @@ public class EntityBossSlider extends EntityAetherBossBase{
         }
 
         if (awake) {
-            if (this.world.loadedEntityList.stream().noneMatch(entity -> entity instanceof EntityPlayer && getDistanceFrom(this.x, this.y, this.z, entity.x, entity.y, entity.z) < 100)) {
+            if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < 7225)) {
                 this.awake = false;
                 returnToPedestal();
                 return;
             }
 
             EntityPlayer target = (EntityPlayer) findPlayerToAttack();
+            if (target == null && !this.creativeAttackersList.isEmpty()) {
+                target = creativeAttackersList.get(0);
+                for (EntityPlayer entityPlayer : this.creativeAttackersList) {
+                    if (this.distanceToSqr(entityPlayer) < this.distanceToSqr(target)) target = entityPlayer;
+                }
+
+                if (this.distanceToSqr(target) > 7225) target = null;
+            }
+
             if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
-                this.speed = this.baseSpeed * getSpeedModifier(target.x, target.y, target.z);
+                this.speed = this.baseSpeed * getSpeedModifier(target);
                 this.attackCoolDown = this.maxAttackCoolDown * this.health/this.maxHealth;
 
-                if (getDistanceFrom(this.x, this.y, this.z, target.x, target.y, target.z) <= 5 && health < (maxHealth * 0.50F) && !midSlam && random.nextInt(6) == 0) {
+                if (this.distanceToSqr(target) <= 25 && health < (maxHealth * 0.50F) && !midSlam && random.nextInt(6) == 0) {
                     this.midSlam = true;
                     this.awake = false;
                     this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
@@ -200,16 +218,16 @@ public class EntityBossSlider extends EntityAetherBossBase{
                     return;
                 }
 
-                Direction direction = calculateDirection(target.x, target.y, target.z);
+                Direction direction = calculateDirection(target);
                  switch (direction){
                     case UP:
                         this.allowedToMove = false;
-                        this.momentumY += baseSpeed * getSpeedModifier(this.x, target.y, this.z);
+                        this.momentumY += baseSpeed * getSpeedModifier(target);
                         break;
 
                     case DOWN:
                         this.allowedToMove = false;
-                        this.momentumY -= baseSpeed * getSpeedModifier(this.x, target.y, this.z);
+                        this.momentumY -= baseSpeed * getSpeedModifier(target);
                         break;
 
                     case NORTH:
@@ -244,8 +262,8 @@ public class EntityBossSlider extends EntityAetherBossBase{
         }
     }
 
-    public float getSpeedModifier(double targetX, double targetY, double targetZ){
-        double distance = getDistanceFrom(this.x, this.y, this.z, targetX, targetY, targetZ);
+    public float getSpeedModifier(Entity target){
+        double distance = this.distanceTo(target);
         if (distance > 3) {
             return getAngerModifier();
         }
@@ -261,10 +279,10 @@ public class EntityBossSlider extends EntityAetherBossBase{
         return (this.health * 100) / this.maxHealth < angerThreshold;
     }
 
-    public Direction calculateDirection(double entityX, double entityY, double entityZ) {
-        double deltaX =  this.x - entityX;
-        double deltaZ =  this.z - entityZ;
-        double deltaY =  this.y - entityY;
+    public Direction calculateDirection(Entity entity) {
+        double deltaX =  this.x - entity.x;
+        double deltaY =  this.y - entity.y;
+        double deltaZ =  this.z - entity.z;
 
         if (Math.abs(deltaY) >= 1.65) {
             if (deltaY < 0) {
@@ -328,11 +346,13 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
             if (item != null && item.getItem() instanceof ItemToolPickaxe) {
                 awake = true;
+                if (!((EntityPlayer)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((EntityPlayer) attacker);
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.holystone), type);
             }
 
             if (item != null && item.getItem() instanceof ItemToolAetherPickaxe) {
                 awake = true;
+                if (!((EntityPlayer)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((EntityPlayer) attacker);
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.holystone), type);
             }
 
@@ -347,17 +367,17 @@ public class EntityBossSlider extends EntityAetherBossBase{
 
     @Override
     public void onEntityDeath() {
-        world.setBlockWithNotify(pedestalX, pedestalY, pedestalZ, 0);
-        world.setBlockWithNotify(pedestalX, pedestalY, pedestalZ + 1, 0);
-        world.setBlockWithNotify(pedestalX + 1, pedestalY, pedestalZ, 0);
-        world.setBlockWithNotify(pedestalX + 1, pedestalY, pedestalZ + 1, 0);
+        world.setBlockWithNotify(this.pedestalX, this.pedestalY, this.pedestalZ, 0);
+        world.setBlockWithNotify(this.pedestalX, this.pedestalY, this.pedestalZ + 1, 0);
+        world.setBlockWithNotify(this.pedestalX + 1, this.pedestalY, this.pedestalZ, 0);
+        world.setBlockWithNotify(this.pedestalX + 1, this.pedestalY, this.pedestalZ + 1, 0);
 
         super.onEntityDeath();
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
-        tag.putBoolean("awake", awake);
+        tag.putBoolean("awake", this.awake);
         super.addAdditionalSaveData(tag);
     }
 
@@ -365,10 +385,6 @@ public class EntityBossSlider extends EntityAetherBossBase{
     public void readAdditionalSaveData(CompoundTag tag) {
         this.awake = tag.getBoolean("awake");
         super.readAdditionalSaveData(tag);
-    }
-
-    private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2)));
     }
 
     @Override

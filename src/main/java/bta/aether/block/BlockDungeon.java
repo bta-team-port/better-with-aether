@@ -45,13 +45,16 @@ public class BlockDungeon extends Block {
     }
 
     private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
-        return Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2)));
+        double d = x1 - x2;
+        double d1 = y1 - y2;
+        double d2 = z1 - z2;
+        return d * d + d1 * d1 + d2 * d2;
     }
 
     public void attemptPropagate(World world, int x, int y, int z) {
         final boolean[] canBreak = {true};
         AetherDimension.dugeonMap.forEach((id, cords) -> {
-            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 300) {
+            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 90000) {
                 canBreak[0] = false;
             }
         });
