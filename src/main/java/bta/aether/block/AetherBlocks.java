@@ -14,8 +14,10 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.enums.EnumFireflyColor;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.world.Dimension;
@@ -65,6 +67,7 @@ public class AetherBlocks {
             .setHardness(0.5f)
             .setResistance(0.8f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+
     public static final Block holystone = holyStone
             .setTextures("Holystone.png")
             .setItemBlock(ItemBlockAetherDouble::new)
@@ -76,15 +79,26 @@ public class AetherBlocks {
             .setTextures("Holystone.png")
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(holystone, blockID++));
+
+    public static final Block holystoneMossy = holyStone
+            .setTextures("MossyHolystone.png")
+            .setItemBlock(ItemBlockAetherDouble::new)
+            .build(new BlockMoss("holystone.mossy", blockID++) {
+                private final Class<?> toolClass = ItemToolAetherPickaxe.class;
+
+                @Override
+                public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta, EntityPlayer player, Item item) {
+                    if (toolClass.isInstance(item) && player.getGamemode().consumeBlocks() && meta == 0){
+                        dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, world.getBlockTileEntity(x, y, z));
+                    }
+                }
+            });
+
     public static final Block stairsHolystone = holyStone
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setBlockModel(new BlockModelRenderBlocks(10))
             .build(new BlockStairs(holystone, blockID++));
-    public static final Block holystoneMossy = holyStone
-            .setTextures("MossyHolystone.png")
-            .setItemBlock(ItemBlockAetherDouble::new)
-            .build(new BlockAetherDouble("holystone.mossy", blockID++, Material.stone, ItemToolAetherPickaxe.class));
 
     public static final Block icestone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -517,6 +531,7 @@ public class AetherBlocks {
             .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
 
     public void initializeBlocks(){
+        BlockMoss.mossToStoneMap.put(holystone, holystoneMossy);
 
         ItemToolAetherPickaxe.miningLevels.put(holystone, 0);
         ItemToolAetherPickaxe.miningLevels.put(slabHolystone, 0);
