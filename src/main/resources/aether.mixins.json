@@ -23,6 +23,7 @@
     "ExplosionCannonballMixin",
     "ExplosionCannonballMixinObsidian",
     "ExplosionMixinObsidian",
+    "InventoryPlayerGloveArmorMixin",
     "InventoryPlayerMixin",
     "InventoryPlayerMixinZaniteAccessories",
     "ItemBlockMixin",
