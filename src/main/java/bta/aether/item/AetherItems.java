@@ -5,10 +5,7 @@ import bta.aether.entity.projectiles.EntityGoldenDart;
 import bta.aether.entity.projectiles.EntityPoisonDart;
 import bta.aether.entity.projectiles.EntityProjectileModular;
 import bta.aether.entity.projectiles.EntityEnchantedDart;
-import bta.aether.item.Accessories.ItemAccessoryGoldenFeather;
-import bta.aether.item.Accessories.ItemAccessoryInvisibilityCloak;
-import bta.aether.item.Accessories.ItemAccessoryIronBubble;
-import bta.aether.item.Accessories.ItemAccessoryRegenStone;
+import bta.aether.item.Accessories.*;
 import bta.aether.item.Accessories.base.*;
 import bta.aether.item.tool.ItemToolAxeZanite;
 import bta.aether.item.tool.ItemToolPickaxeZanite;
@@ -201,12 +198,12 @@ public class AetherItems {
 
     public static final Item armorRingIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.iron", itemID++), "IronRing.png");
     public static final Item armorRingGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.gold", itemID++), "GoldRing.png");
-    public static final Item armorRingZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.zanite", itemID++), "ZaniteRing.png");
+    public static final Item armorRingZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryZaniteRing("armor.ring.zanite", itemID++), "ZaniteRing.png");
     public static final Item armorRingIce = ItemHelper.createItem(MOD_ID, new ItemRingIce("armor.ring.ice", itemID++), "IceRing.png");
 
     public static final Item armorPendantIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.iron", itemID++, "/assets/aether/armor/Accessories.png"), "IronPendant.png");
     public static final Item armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png"), "GoldPendant.png");
-    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "ZanitePendant.png");
+    public static final Item armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryZanitePendant("armor.pendant.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "ZanitePendant.png");
     public static final Item armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemPendantIce("armor.pendant.ice", itemID++, "/assets/aether/armor/ice_pendant_and_gloves.png"), "IcePendant.png");
 
     public static final Item armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryIronBubble("armor.talisman.ironbubble", itemID++), "IronBubble.png");
