@@ -1,6 +1,6 @@
 package bta.aether.mixin;
 
-import bta.aether.item.AetherItems;
+import bta.aether.item.AetherArmorMaterial;
 import bta.aether.item.ItemPigSlayer;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityPig;
@@ -36,7 +36,7 @@ public abstract class InventoryPlayerMixin {
             )
     )
     private float changeProtection(ArmorMaterial instance, DamageType damageType, @Local(ordinal = 0) ItemArmor armor, @Local(ordinal = 0) int i) {
-        if (instance == AetherItems.armorZanite) {
+        if (instance == AetherArmorMaterial.ZANITE) {
             float durability = (float) armorInventory[i].getMetadata() / ((float) armor.getMaxDamage() * 0.8f);
             durability = MathHelper.clamp(durability, 0.0f, 1.0f);
             return MathHelper.lerp(ArmorMaterial.IRON.getProtection(damageType), ArmorMaterial.GOLD.getProtection(damageType), durability);

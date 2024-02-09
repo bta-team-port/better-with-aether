@@ -130,44 +130,31 @@ public class AetherItems {
     public static final Item toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.valkyrie", itemID++, toolvalkyrie), "ValkyrieAxe.png").withTags(aetherTool);
     public static final Item toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", itemID++, toolvalkyrie), "Lance.png").withTags(ItemTags.preventCreativeMining, aetherTool);;
 
-    //Armor
-    public static final ArmorMaterial armorZanite = ArmorHelper.createArmorMaterial("Zanite", 200, 0f, 0f, 0f, 0f); // all zeros are intended, uses custom protection values
-    public static final ArmorMaterial armorGravitite = ArmorHelper.createArmorMaterial("Gravitite", 800, 66f, 66f, 66f, 150f);
-    public static final ArmorMaterial armorPhoenix = ArmorHelper.createArmorMaterial("Phoenix", 800, 150f, 0f, 150f, 0f);
-    public static final ArmorMaterial armorObsidian = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0f, 150f, 150f, 0f);
-    public static final ArmorMaterial armorNeptune = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 150f, 0f, 0f).withProtectionPercentage(DamageType.DROWN, 50f);
 
-//    public static final ArmorMaterial LEATHER = ArmorMaterial.register(new ArmorMaterial("cloth", 0, 180).COMBAT, 20.0f).BLAST, 20.0f).FIRE, 20.0f).FALL, 120.0f));
-//    public static final ArmorMaterial CHAINMAIL = ArmorMaterial.register(new ArmorMaterial("chain", 1, 240).COMBAT, 120.0f).BLAST, 35.0f).FIRE, 35.0f).FALL, 35.0f));
-//    public static final ArmorMaterial IRON = ArmorMaterial.register(new ArmorMaterial("iron", 2, 200).COMBAT, 45.0f).BLAST, 45.0f).FIRE, 45.0f).FALL, 45.0f));
-//    public static final ArmorMaterial GOLD = ArmorMaterial.register(new ArmorMaterial("gold", 4, 120).COMBAT, 70.0f).BLAST, 70.0f).FIRE, 70.0f).FALL, 70.0f));
-//    public static final ArmorMaterial DIAMOND = ArmorMaterial.register(new ArmorMaterial("diamond", 3, 800).COMBAT, 66.0f).BLAST, 66.0f).FIRE, 124.0f).FALL, 66.0f));
-//    public static final ArmorMaterial STEEL = ArmorMaterial.register(new ArmorMaterial("steel", 5, 1200).COMBAT, 55.0f).BLAST, 150.0f).FIRE, 55.0f).FALL, 55.0f));
+    // --- ARMOR ---
+    public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.zanite", itemID++, AetherArmorMaterial.ZANITE, 0), "ZaniteHelmet.png");
+    public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.zanite", itemID++, AetherArmorMaterial.ZANITE, 1), "ZaniteChestplate.png");
+    public static final Item armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.zanite", itemID++, AetherArmorMaterial.ZANITE, 2), "ZaniteLeggings.png");
+    public static final Item armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.zanite", itemID++, AetherArmorMaterial.ZANITE, 3), "ZaniteBoots.png");
+    public static final Item armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 0), "GravititeHelmet.png");
+    public static final Item armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 1), "GravititeChestplate.png");
+    public static final Item armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 2), "GravititeLeggings.png");
+    public static final Item armorBootsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 3), "GravititeBoots.png");
 
+    public static final Item armorHelmetPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 0), "PhoenixHelmet.png");
+    public static final Item armorChestplatePhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 1), "PhoenixChestplate.png");
+    public static final Item armorLeggingsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 2), "PhoenixLeggings.png");
+    public static final Item armorBootsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 3), "PhoenixBoots.png");
 
-    public static final Item armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.zanite", itemID++, armorZanite, 0), "ZaniteHelmet.png");
-    public static final Item armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.zanite", itemID++, armorZanite, 1), "ZaniteChestplate.png");
-    public static final Item armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.zanite", itemID++, armorZanite, 2), "ZaniteLeggings.png");
-    public static final Item armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.zanite", itemID++, armorZanite, 3), "ZaniteBoots.png");
-    public static final Item armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.gravitite", itemID++, armorGravitite, 0), "GravititeHelmet.png");
-    public static final Item armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.gravitite", itemID++, armorGravitite, 1), "GravititeChestplate.png");
-    public static final Item armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.gravitite", itemID++, armorGravitite, 2), "GravititeLeggings.png");
-    public static final Item armorBootsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.gravitite", itemID++, armorGravitite, 3), "GravititeBoots.png");
+    public static final Item armorHelmetObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 0), "ObsidianHelmet.png");
+    public static final Item armorChestplateObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 1), "ObsidianChestplate.png");
+    public static final Item armorLeggingsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 2), "ObsidianLeggings.png");
+    public static final Item armorBootsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 3), "ObsidianBoots.png");
 
-    public static final Item armorHelmetPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.phoenix", itemID++, armorPhoenix, 0), "PhoenixHelmet.png");
-    public static final Item armorChestplatePhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.phoenix", itemID++, armorPhoenix, 1), "PhoenixChestplate.png");
-    public static final Item armorLeggingsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.phoenix", itemID++, armorPhoenix, 2), "PhoenixLeggings.png");
-    public static final Item armorBootsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.phoenix", itemID++, armorPhoenix, 3), "PhoenixBoots.png");
-
-    public static final Item armorHelmetObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.obsidian", itemID++, armorObsidian, 0), "ObsidianHelmet.png");
-    public static final Item armorChestplateObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.obsidian", itemID++, armorObsidian, 1), "ObsidianChestplate.png");
-    public static final Item armorLeggingsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.obsidian", itemID++, armorObsidian, 2), "ObsidianLeggings.png");
-    public static final Item armorBootsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.obsidian", itemID++, armorObsidian, 3), "ObsidianBoots.png");
-
-    public static final Item armorHelmetNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.neptune", itemID++, armorNeptune, 0), "NeptuneHelmet.png");
-    public static final Item armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.neptune", itemID++, armorNeptune, 1), "NeptuneChestplate.png");
-    public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.neptune", itemID++, armorNeptune, 2), "NeptuneLeggings.png");
-    public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.neptune", itemID++, armorNeptune, 3), "NeptuneBoots.png");
+    public static final Item armorHelmetNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 0), "NeptuneHelmet.png");
+    public static final Item armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 1), "NeptuneChestplate.png");
+    public static final Item armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 2), "NeptuneLeggings.png");
+    public static final Item armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 3), "NeptuneBoots.png");
 
 
     public static final Item toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer("tool.sword.pig", itemID++), "PigSlayer.png").withTags(ItemTags.preventCreativeMining);
