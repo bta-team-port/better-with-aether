@@ -2,17 +2,14 @@ package bta.aether.item;
 
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
+import turniplabs.halplibe.helper.ArmorHelper;
 
 public class AetherArmorMaterial {
 
-    // TODO: Replace them with the real stats, currently everything is set to Steel stats
-    public static final ArmorMaterial ZANITE = ArmorMaterial.register(new ArmorMaterial("zanite", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
-    public static final ArmorMaterial GRAVITITE = ArmorMaterial.register(new ArmorMaterial("gravitite", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
-    public static final ArmorMaterial PHOENIX = ArmorMaterial.register(new ArmorMaterial("phoenix", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
-    public static final ArmorMaterial OBSIDIAN = ArmorMaterial.register(new ArmorMaterial("obsidian", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
-    public static final ArmorMaterial NEPTUNE = ArmorMaterial.register(new ArmorMaterial("neptune", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
-
-    // Used by pendant and ring
-    public static final ArmorMaterial ICE = ArmorMaterial.register(new ArmorMaterial("ice", 5, 1200).withProtectionPercentage(DamageType.COMBAT, 55.0f).withProtectionPercentage(DamageType.BLAST, 150.0f).withProtectionPercentage(DamageType.FIRE, 55.0f).withProtectionPercentage(DamageType.FALL, 55.0f));
+    public static final ArmorMaterial ZANITE    = ArmorHelper.createArmorMaterial("Zanite", 200, 0f, 0f, 0f, 0f); // all zeros are intended, uses custom protection values;
+    public static final ArmorMaterial GRAVITITE = ArmorHelper.createArmorMaterial("Gravitite", 800, 66f, 66f, 66f, 150f);
+    public static final ArmorMaterial PHOENIX   = ArmorHelper.createArmorMaterial("Phoenix", 800, 150f, 0f, 150f, 0f);
+    public static final ArmorMaterial OBSIDIAN  = ArmorHelper.createArmorMaterial("Obsidian", 1200, 0f, 150f, 150f, 0f);
+    public static final ArmorMaterial NEPTUNE   = ArmorHelper.createArmorMaterial("Neptune", 800, 150f, 150f, 0f, 0f).withProtectionPercentage(DamageType.DROWN, 50f);
 
 }
