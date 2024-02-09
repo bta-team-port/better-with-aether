@@ -1,2 +1,3 @@
 accessWidener v2 named
 accessible method net/minecraft/core/player/inventory/Container addSlot (Lnet/minecraft/core/player/inventory/slot/Slot;)V
+accessible field net/minecraft/core/item/ItemArmor armorPieceDurabilityModifiers [F
