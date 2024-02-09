@@ -1,11 +1,17 @@
 package bta.aether.mixin.accessory;
 
+import bta.aether.item.Accessories.base.ItemAccessoryGloves;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiContainer;
 import net.minecraft.client.gui.GuiInventory;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.Container;
+import net.minecraft.core.player.inventory.InventoryPlayer;
 import org.lwjgl.opengl.GL11;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,6 +36,26 @@ public abstract class GuiInventoryMixin extends GuiContainer {
 
 	public GuiInventoryMixin(Container container) {
 		super(container);
+	}
+
+	// dumb hack, modify the inventory size so we check the full inventory for gloves,
+	// we can't do it globally cause shit breaks then and idk why
+	@WrapOperation(method = "init", at = @At(value = "INVOKE",target = "Lnet/minecraft/core/player/inventory/InventoryPlayer;getSizeInventory()I"))
+	public int checkFullInventory(InventoryPlayer instance, Operation<Integer> original) {
+		return original.call(instance) + 8;
+	}
+
+	// enables armor button if gloves are in INVENTORY
+	@WrapOperation(method = "init", at = @At(value = "INVOKE",target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;"))
+	public Item enableArmorButtonForGloves(ItemStack stack, Operation<Item> original) {
+		Item item = original.call(stack);
+
+		// lie about gloves being armor to force armor button to appear
+		if (item instanceof ItemAccessoryGloves) {
+			item = Item.armorBootsIron;
+		}
+
+		return item;
 	}
 
 	@Inject(method = "init", at = @At("TAIL"))
