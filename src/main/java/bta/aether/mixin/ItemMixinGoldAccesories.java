@@ -3,23 +3,24 @@ package bta.aether.mixin;
 import bta.aether.accessory.API.AccessoryHelper;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.InventoryPlayer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(value = InventoryPlayer.class, remap = false)
-public abstract class InventoryPlayerMixinGoldAccesories {
+@Mixin(value = Item.class, remap = false)
+public abstract class ItemMixinGoldAccesories {
 
-    @Shadow
+    @Unique
     public EntityPlayer player;
 
-    @Shadow public ItemStack[] armorInventory;
+    @Unique
+    public ItemStack[] armorInventory;
 
-    @ModifyConstant(method = "getStrVsBlock", constant = @Constant(floatValue = 1.0f))
-    public float modifyBreakSpeedModifier(float constant) {
+    @ModifyConstant(method = "isSilkTouch", constant = @Constant(floatValue = 1.0f))
+    public float modifySilkTouchModifier(float constant) {
         // cause blocks to break faster when zanite accessories are equipped
 
         int gold_item_slot = AccessoryHelper.firstSlotWithAccessory(this.player, AetherItems.armorPendantGold);

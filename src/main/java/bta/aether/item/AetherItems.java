@@ -1,10 +1,10 @@
 package bta.aether.item;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.projectiles.EntityEnchantedDart;
 import bta.aether.entity.projectiles.EntityGoldenDart;
 import bta.aether.entity.projectiles.EntityPoisonDart;
 import bta.aether.entity.projectiles.EntityProjectileModular;
-import bta.aether.entity.projectiles.EntityEnchantedDart;
 import bta.aether.item.Accessories.*;
 import bta.aether.item.Accessories.base.*;
 import bta.aether.item.tool.ItemToolAxeZanite;
@@ -21,14 +21,12 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.item.tool.ItemToolSword;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
-import turniplabs.halplibe.helper.ArmorHelper;
 import turniplabs.halplibe.helper.ItemHelper;
 
-import static net.minecraft.core.block.Block.fluidWaterFlowing;
 import static bta.aether.Aether.MOD_ID;
+import static net.minecraft.core.block.Block.fluidWaterFlowing;
 
 public class AetherItems {
     private static int itemID = 17000;
@@ -97,12 +95,12 @@ public class AetherItems {
 
     public static final Item healingStone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", itemID++, 4, false), "HealingStone.png");
 
-    public static final ToolMaterial toolskyroot = new ToolMaterialAether()/*.setDropMultipier(2)*/.setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
+    public static final ToolMaterial toolskyroot = new ToolMaterialAether().setDurability(64).setEfficiency(2.0F, 4.0f).setMiningLevel(0).setBlockHitDelay(0);
     public static final ToolMaterial toolholystone = new ToolMaterial().setDurability(128).setEfficiency(4.0F, 6.0F).setMiningLevel(1).setBlockHitDelay(0);
     public static final ToolMaterial toolzanite = new ToolMaterial().setDurability(256).setEfficiency(6.0F, 8.0F).setMiningLevel(2).setBlockHitDelay(0);
     public static final ToolMaterial toolgravitite = new ToolMaterial().setDurability(1536).setEfficiency(10.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(2);
     public static final ToolMaterial toolvalkyrie = new ToolMaterial().setDurability(1536).setEfficiency(12.0f, 35.0f).setMiningLevel(3).setBlockHitDelay(3);
-    public static final ToolMaterial swordSpecialMaterial = new ToolMaterial().setDurability(32).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
+    public static final ToolMaterial swordSpecialMaterial = new ToolMaterial().setDurability(128).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
     public static final ToolMaterial swordHolyMaterial = new ToolMaterial().setDurability(128).setEfficiency(2.0f, 4.0f).setMiningLevel(0);
 
     public static final Item toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.skyroot",itemID++, toolskyroot), "PickSkyroot.png").withTags(aetherTool);
