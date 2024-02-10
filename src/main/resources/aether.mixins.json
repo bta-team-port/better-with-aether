@@ -6,7 +6,6 @@
   "mixins": [
     "BlockFluidPortalMixin",
     "BlockJarMixin",
-    "BlockMixin",
     "BlockMixinGoldAccessories",
     "BlockMixinZaniteAccessories",
     "CommandsMixin",
@@ -24,6 +23,7 @@
     "ExplosionCannonballMixin",
     "ExplosionCannonballMixinObsidian",
     "ExplosionMixinObsidian",
+    "PlayerControllerValkToolsReachMixin",
     "InventoryPlayerGloveArmorMixin",
     "InventoryPlayerMixin",
     "InventoryPlayerMixinZaniteAccessories",
