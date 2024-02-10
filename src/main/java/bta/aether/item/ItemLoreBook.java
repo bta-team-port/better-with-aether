@@ -1,5 +1,6 @@
 package bta.aether.item;
 
+import bta.aether.AetherAchievements;
 import bta.aether.gui.IAetherGuis;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
@@ -14,6 +15,7 @@ public class ItemLoreBook extends Item {
     }
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ((IAetherGuis)entityplayer).aether$displayGUILoreBook(loreId);
+        entityplayer.addStat(AetherAchievements.LORE, 1);
         return super.onItemRightClick(itemstack, world, entityplayer);
     }
 }

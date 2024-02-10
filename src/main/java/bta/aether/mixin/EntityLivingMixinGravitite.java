@@ -1,6 +1,5 @@
 package bta.aether.mixin;
 
-import bta.aether.Aether;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLiving;
@@ -14,8 +13,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Random;
 
 @Mixin(value = EntityLiving.class, remap = false)
 abstract public class EntityLivingMixinGravitite extends Entity {
@@ -64,6 +61,7 @@ abstract public class EntityLivingMixinGravitite extends Entity {
                 glovesSlot.itemID == AetherItems.armorGlovesGravitite.id
         ) {
             yd = 1.05;
+            fallDistance = 0.0F;
         }
     }
 
@@ -111,6 +109,7 @@ abstract public class EntityLivingMixinGravitite extends Entity {
 
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
+            fallDistance = 0.0F;
 
             spawnCloudParticles();
             usedDoubleJump = true;
