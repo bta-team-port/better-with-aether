@@ -1632,7 +1632,7 @@
     }
   },
   {
-    "name": "aether:enchanter/record_blue_far",
+    "name": "aether:enchanter/record_silver_far",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1643,13 +1643,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.silver",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_mall",
+    "name": "aether:enchanter/record_silver_mall",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1660,13 +1660,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.silver",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_mellohi",
+    "name": "aether:enchanter/record_silver_mellohi",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1677,13 +1677,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.silver",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_stal",
+    "name": "aether:enchanter/record_silver_stal",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1694,13 +1694,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.silver",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_strad",
+    "name": "aether:enchanter/record_pink_strad",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1711,13 +1711,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.pink",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_ward",
+    "name": "aether:enchanter/record_pink_ward",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1728,13 +1728,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.pink",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_wait",
+    "name": "aether:enchanter/record_pink_wait",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1745,13 +1745,13 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.pink",
       "amount": 1,
       "meta": 0
     }
   },
   {
-    "name": "aether:enchanter/record_blue_dog",
+    "name": "aether:enchanter/record_pink_dog",
     "type": "aether:machine",
     "time": 1000,
     "input": {
@@ -1762,7 +1762,7 @@
       }
     },
     "output": {
-      "key": "item.aether.record.blue",
+      "key": "item.aether.record.pink",
       "amount": 1,
       "meta": 0
     }

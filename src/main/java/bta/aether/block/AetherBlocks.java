@@ -19,6 +19,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.block.ItemBlockLeaves;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -159,39 +160,45 @@ public class AetherBlocks {
             .setSideTextures("SkyrootLogSide.png")
             .setTopBottomTexture("SkyrootLogTop.png")
             .setBlockModel(new BlockModelRenderBlocks(27))
+            .setFlammability(5, 5)
             .setItemBlock(ItemBlockAetherDouble::new)
             .build(new BlockDoubleLog("skyroot.log", blockID++, ItemToolAetherAxe.class));
     public static final Block logOakGolden = wood
             .setSideTextures("GoldenOak.png")
             .setTopBottomTexture("GoldenOakTop.png")
+            .setFlammability(5, 5)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .setItemBlock(ItemBlockAetherDouble::new)
             .build(new BlockDoubleLog("goldenoak.log", blockID++, ItemToolAetherAxe.class));
     public static final Block planksSkyroot = wood
             .setTextures("Plank.png")
+            .setFlammability(20, 5)
             .build(new Block("planks.skyroot", blockID++, Material.wood));
     public static final Block slabPlanksSkyroot = wood
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
+            .setFlammability(20, 5)
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(planksSkyroot, blockID++));
     public static final Block stairsPlanksSkyroot = wood
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
+            .setFlammability(20, 5)
             .setBlockModel(new BlockModelRenderBlocks(10))
             .build(new BlockStairs(planksSkyroot, blockID++));
     public static final Block fencePlanksSkyroot = wood
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
+            .setFlammability(20, 5)
             .setBlockModel(new BlockModelRenderBlocks(11))
             .build(new BlockFence("fence.planks.skyroot", blockID++));
-
     public static final Block fenceGatePlanksSkyroot = wood
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("Plank.png")
+            .setFlammability(20, 5)
             .setBlockModel(new BlockModelRenderBlocks(18))
             .build(new BlockFenceGate("fencegate.planks.skyroot", blockID++));
     public static final Block chestSkyroot = wood
@@ -203,30 +210,30 @@ public class AetherBlocks {
             .setNorthTexture("SkyrootChestFront.png")
             .build(new BlockChestSkyroot("chest.skyroot", blockID++, Material.wood));
 
-    public static final Block leavesSkyroot = new BlockBuilder(MOD_ID)
+
+
+    public static final BlockBuilder leaves = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f)
+            .setFlammability(60, 30)
+            .setItemBlock(ItemBlockLeaves::new)
+            .setVisualUpdateOnMetadata()
+            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_SWORD);
+    public static final Block leavesSkyroot = leaves
             .setSideTextures("SkyrootLeaves.png")
             .setBottomTexture("SkyrootLeavesFast.png")
             .setTopBottomTexture("SkyrootLeaves.png")
-            .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_SWORD)
             .build(new BlockLeavesBase("skyroot.leaves", blockID++, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
                     return AetherBlocks.saplingSkyroot;
                 }
             });
-    public static final Block leavesOakGolden = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-            .setHardness(0.2f)
-            .setResistance(0.2f)
+    public static final Block leavesOakGolden = leaves
             .setSideTextures("GoldenOakLeaves.png")
             .setBottomTexture("GoldenOakLeavesFast.png")
             .setTopBottomTexture("GoldenOakLeaves.png")
-            .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_SWORD)
             .build(new BlockLeavesBase("goldenoak.leaves", blockID++, Material.leaves, true) {
                 @Override
                 protected Block getSapling() {
@@ -234,23 +241,21 @@ public class AetherBlocks {
                 }
             });
 
-    public static final Block saplingSkyroot = new BlockBuilder(MOD_ID)
+    public static final BlockBuilder sapling = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
+            .setVisualUpdateOnMetadata()
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
+            .setBlockModel((new BlockModelRenderBlocks(1)));
+    public static final Block saplingSkyroot = sapling
             .setTextures("SkyrootSapling.png")
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
-    public static final Block saplingOakGolden = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-            .setHardness(0.0f)
-            .setResistance(0.0f)
+    public static final Block saplingOakGolden = sapling
             .setTextures("GoldenOakSapling.png")
-            .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
-            .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherGoldenOak("goldenoak.sapling", blockID++));
 
 
@@ -261,7 +266,7 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
     public static final Block oreAmbrosiumHolystone = ores
             .setTextures("AmbrosiumOre.png")
-            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, Material.stone, ItemToolAetherPickaxe.class));
+            .build(new BlockOreAmbrosium("ore.ambrosium", blockID++, ItemToolAetherPickaxe.class));
     public static final Block oreZaniteHolystone = ores
             .setTextures("ZaniteOre.png")
             .build(new BlockOreZanite("ore.zanite", blockID++, Material.stone));
@@ -296,7 +301,7 @@ public class AetherBlocks {
     public static final Block blockAmbrosium = oreBlock
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setTextures("ambrosium_block.png")
-            .build(new Block("block.ambrosium", blockID++, Material.metal));
+            .build(new Block("block.ambrosium", blockID++, Material.stone));
 
 
     public static final BlockBuilder stone = new BlockBuilder(MOD_ID)
@@ -337,16 +342,19 @@ public class AetherBlocks {
     // HELLFIRE DUNGEON STONES
     public static final Block stoneHellfire = stone
             .setTextures("HellfireStone.png")
+            .setInfiniburn()
             .build(new Block("hellfire", blockID++, Material.stone));
     public static final Block slabStoneHellfire = stone
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setTextures("HellfireStone.png")
+            .setInfiniburn()
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(stoneHellfire, blockID++));
     public static final Block stairsStoneHellfire = stone
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
+            .setInfiniburn()
             .setBlockModel(new BlockModelRenderBlocks(10))
             .build(new BlockStairs(stoneHellfire, blockID++));
     // LIGHT DUNGEON STONES
@@ -361,6 +369,7 @@ public class AetherBlocks {
     public static final Block stoneHellfireLight = stone
             .setLuminance(11)
             .setTextures("LightHellfireStone.png")
+            .setInfiniburn()
             .build(new Block("hellfire.light", blockID++, Material.stone));
 
     public static final Block pillar = new BlockBuilder(MOD_ID)
