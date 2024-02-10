@@ -7,6 +7,7 @@
     "BlockFluidPortalMixin",
     "BlockJarMixin",
     "BlockMixin",
+    "BlockMixinGoldAccessories",
     "BlockMixinZaniteAccessories",
     "CommandsMixin",
     "EntityFireflyFXMixin",
