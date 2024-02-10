@@ -1,7 +1,6 @@
 package bta.aether.block;
 
 import bta.aether.item.AetherItems;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -10,10 +9,10 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
-public class BlockOreAmbrosium extends Block {
+public class BlockOreAmbrosium extends BlockAetherDouble {
     protected final Class<?> toolClass;
-    public BlockOreAmbrosium(String key, int id, Material material, Class<?> toolClass) {
-        super(key, id, Material.stone);
+    public BlockOreAmbrosium(String key, int id, Class<?> toolClass) {
+        super(key, id, Material.stone, toolClass);
         this.toolClass = toolClass;
     }
 
