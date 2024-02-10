@@ -23,10 +23,7 @@ public abstract class BlockMixinZaniteAccessories {
             zanite_item_slot = AccessoryHelper.firstSlotWithAccessory(entityplayer, AetherItems.armorRingZanite);
 
         if (zanite_item_slot != -1) {
-            entityplayer.inventory.armorInventory[zanite_item_slot].damageItem(1, entityplayer);
-            if (entityplayer.inventory.armorInventory[zanite_item_slot].stackSize <= 0) {
-                entityplayer.inventory.armorInventory[zanite_item_slot] = null;
-            }
+            entityplayer.inventory.damageArmor(1,zanite_item_slot);
         }
     }
 }
