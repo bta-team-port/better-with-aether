@@ -27,8 +27,7 @@ import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 
 import static bta.aether.Aether.MOD_ID;
-import static net.minecraft.core.block.Block.fluidWaterStill;
-import static net.minecraft.core.block.Block.glowstone;
+import static net.minecraft.core.block.Block.*;
 
 public class AetherBlocks {
 
@@ -40,7 +39,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setTextures("Portal.png")
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build(new BlockPortalAether("portal", blockID++, 3, glowstone.id, fluidWaterStill.id));
+            .build(new BlockPortalAether("portal", blockID++, 3, glowstone.id, fluidWaterFlowing.id));
 
     public static final Block dirtAether = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.gravel", "step.gravel", 1.0f, 1.0f))
