@@ -35,6 +35,7 @@
     "NetHandlerMixin",
     "NetServerHandlerMixin",
     "SaveHandlerBaseMixin",
+    "SlotCraftingMixin",
     "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessory.ContainerPlayerMixin",

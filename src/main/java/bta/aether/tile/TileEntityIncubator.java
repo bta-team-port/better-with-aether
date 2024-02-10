@@ -1,18 +1,21 @@
 package bta.aether.tile;
 
 import bta.aether.Aether;
+import bta.aether.AetherAchievements;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityMoa;
 import bta.aether.item.AetherItems;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityChicken;
+import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.world.World;
 
 import java.util.Random;
 
 public class TileEntityIncubator extends TileEntityAetherMachine {
+    EntityPlayer thePlayer;
 
     private final Random random = new Random();
     @Override
@@ -92,6 +95,7 @@ public class TileEntityIncubator extends TileEntityAetherMachine {
 
             if (contents[0].getItem() == AetherItems.eggMoaBlue) {
                 spawnEntity(this.worldObj, this.x, this.y + 2, this.z, EntityMoa.class);
+                thePlayer.addStat(AetherAchievements.MOA, 1);
                 contents[0].stackSize--;
             }
         }

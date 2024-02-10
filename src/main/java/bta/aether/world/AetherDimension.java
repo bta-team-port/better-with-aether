@@ -1,17 +1,13 @@
 package bta.aether.world;
 
+import bta.aether.AetherAchievements;
 import bta.aether.AetherClient;
 import bta.aether.AetherServer;
 import bta.aether.block.AetherBlocks;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.client.entity.player.EntityPlayerSP;
-import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.net.packet.Packet41EntityPlayerGamemode;
-import net.minecraft.core.net.packet.Packet74GameRule;
-import net.minecraft.core.net.packet.Packet9Respawn;
 import net.minecraft.core.world.Dimension;
-import net.minecraft.core.world.PortalHandler;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.Biomes;
@@ -20,7 +16,6 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.minecraft.server.world.WorldServer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +91,7 @@ public class AetherDimension implements PreLaunchEntrypoint {
             if (player.isAlive()) {
                 player.moveTo(player.x, world.worldType.getMaxY()+1, player.z, player.yRot, player.xRot);
                 world.updateEntityWithOptionalForce(player, false);
+                player.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
             }
         }
     }
