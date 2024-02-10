@@ -1,7 +1,7 @@
 package bta.aether.mixin;
 
 import bta.aether.catalyst.effects.AetherEffects;
-import bta.aether.item.ToolMaterialAether;
+import bta.aether.item.AetherToolMaterial;
 import bta.aether.entity.IAetherEntityLiving;
 import bta.aether.mixin.accessors.ItemToolSwordAccessor;
 import net.minecraft.core.entity.Entity;
@@ -41,8 +41,8 @@ public abstract class EntityLivingMixin extends Entity implements IAetherEntityL
     private void multiplyDrop(Entity entity, CallbackInfo ci){
         if (entity instanceof EntityPlayer){
             ItemStack heldStack = ((EntityPlayer) entity).getHeldItem();
-            if (heldStack != null && heldStack.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial() instanceof ToolMaterialAether){
-                int dropMultiplier = ((ToolMaterialAether)((ItemToolSwordAccessor) heldStack.getItem()).getMaterial()).getDropMultipier() - 1; // Acounts for the base dropFewItems Call
+            if (heldStack != null && heldStack.getItem() instanceof ItemToolSword){
+                int dropMultiplier = ((((ItemToolSwordAccessor) heldStack.getItem()).getMaterial()) == AetherToolMaterial.TOOL_SKYROOT) ? 1 : 0;
                 for (int i = 0; i < dropMultiplier; i++) {
                     dropFewItems();
                 }
