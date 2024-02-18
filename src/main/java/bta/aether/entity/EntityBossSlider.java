@@ -72,12 +72,12 @@ public class EntityBossSlider extends EntityAetherBossBase {
 
     public String getEntityTexture() {
         if (this.awake) {
-            if (isAngry()) return "/assets/aether/mobs/sliderAwake_red.png";
-            return "/assets/aether/mobs/sliderAwake.png";
+            if (isAngry()) return "/Jar/aether/mobs/sliderAwake_red.png";
+            return "/Jar/aether/mobs/sliderAwake.png";
         }
 
-        if (isAngry()) return "/assets/aether/mobs/sliderSleep_red.png";
-        return "/assets/aether/mobs/sliderSleep.png";
+        if (isAngry()) return "/Jar/aether/mobs/sliderSleep_red.png";
+        return "/Jar/aether/mobs/sliderSleep.png";
     }
 
     @Override

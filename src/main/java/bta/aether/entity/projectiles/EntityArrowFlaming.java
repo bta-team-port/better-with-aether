@@ -44,7 +44,7 @@ public class EntityArrowFlaming extends EntityProjectileModular {
 
     @Override
     public String getEntityTexture() {
-        return this.entityData.getByte(1) != 1 ? super.getEntityTexture() : "/assets/aether/other/FlamingArrows.png";
+        return this.entityData.getByte(1) != 1 ? super.getEntityTexture() : "/Jar/aether/other/FlamingArrows.png";
     }
 }
 
