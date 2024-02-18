@@ -22,13 +22,13 @@ public class EntitySentry extends EntityMonster {
 
     public String getEntityTexture() {
         if (activated) {
-            return "/assets/aether/mobs/SentryLit.png";
+            return "/Jar/aether/mobs/SentryLit.png";
         }
-        return "/assets/aether/mobs/Sentry.png";
+        return "/Jar/aether/mobs/Sentry.png";
     }
 
     public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/Sentry.png";
+        return "/Jar/aether/mobs/Sentry.png";
     }
 
     @Override

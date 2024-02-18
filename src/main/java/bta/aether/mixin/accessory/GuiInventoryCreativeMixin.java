@@ -32,7 +32,7 @@ public abstract class GuiInventoryCreativeMixin extends GuiInventory {
 		int startY = (height - ySize) / 2;
 
 		// draw aether gui texture
-		int texture_id = minecraft.renderEngine.getTexture("assets/aether/gui/inventory.png");
+		int texture_id = minecraft.renderEngine.getTexture("Jar/aether/gui/inventory.png");
 		minecraft.renderEngine.bindTexture(texture_id);
 		drawTexturedModalRect(startX, startY, 0, 0, 175 - CORNER_INSET, 165);
 	}

@@ -96,7 +96,7 @@ public class ComponentBossBar extends MovableHudComponent {
         int progressWidth = (int)(barWidth*progress);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/assets/aether/gui/bossHPBar.png"));
+        mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/Jar/aether/gui/bossHPBar.png"));
         gui.drawTexturedModalRect(barX, barY, 0, 16, barWidth, barHeight); // Background
         gui.drawTexturedModalRect(barX, barY, 0, 0, progressWidth, barHeight); // LifeBar
     }
