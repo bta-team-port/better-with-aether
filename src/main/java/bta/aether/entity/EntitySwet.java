@@ -22,7 +22,7 @@ public class EntitySwet extends EntityMonster {
     }
 
     public String getEntityTexture() {
-        return "/assets/aether/mobs/swets.png";
+        return "/Jar/aether/mobs/swets.png";
     }
 
     @Override
@@ -82,7 +82,7 @@ public class EntitySwet extends EntityMonster {
     }
 
     public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/swets.png";
+        return "/Jar/aether/mobs/swets.png";
     }
 
     @Override

@@ -43,12 +43,12 @@ public class EntityMoa extends EntityChicken implements IVehicle {
     }
 
     public String getEntityTexture() {
-        if (hasSaddle) return "/assets/aether/mobs/BlueMoaSaddle.png";
-        return "/assets/aether/mobs/BlueMoa.png";
+        if (hasSaddle) return "/Jar/aether/mobs/BlueMoaSaddle.png";
+        return "/Jar/aether/mobs/BlueMoa.png";
     }
     public String getDefaultEntityTexture() {
-        if (hasSaddle) return "/assets/aether/mobs/BlueMoaSaddle.png";
-        return "/assets/aether/mobs/BlueMoa.png";
+        if (hasSaddle) return "/Jar/aether/mobs/BlueMoaSaddle.png";
+        return "/Jar/aether/mobs/BlueMoa.png";
     }
 
     @Override

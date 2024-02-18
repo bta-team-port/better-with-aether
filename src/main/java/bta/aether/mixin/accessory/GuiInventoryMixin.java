@@ -75,7 +75,7 @@ public abstract class GuiInventoryMixin extends GuiContainer {
 		int texture_id;
 
 		// draw aether inventory texture
-		texture_id = minecraft.renderEngine.getTexture("assets/aether/gui/inventory.png");
+		texture_id = minecraft.renderEngine.getTexture("Jar/aether/gui/inventory.png");
 		minecraft.renderEngine.bindTexture(texture_id);
 		drawTexturedModalRect(startX, startY, 0, 0, 175, 165);
 	}
