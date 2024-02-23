@@ -121,6 +121,12 @@ dependencies {
 
 	implementation libs.guava
 	implementation libs.gson
+
+	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
+	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
+	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
+
+	modImplementation "ModMenu:ModMenu:2.0.3"
 }
 
 var javaVersion = 8

@@ -253,9 +253,6 @@ public class AetherBlocks {
             .setBlockModel((new BlockModelRenderBlocks(1)));
     public static final Block saplingSkyroot = sapling
             .setTextures("SkyrootSapling.png")
-            .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
-            .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
     public static final Block saplingOakGolden = sapling
             .setTextures("GoldenOakSapling.png")
