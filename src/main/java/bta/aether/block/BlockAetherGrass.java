@@ -6,12 +6,13 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.data.gamerule.GameRules;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.world.World;
 
 import java.util.Random;
 
 public class BlockAetherGrass extends BlockAetherDouble {
-    public BlockAetherGrass(String key, int id, Material material, Class<?> toolClass) {
+    public BlockAetherGrass(String key, int id, Material material, Class<? extends ItemTool> toolClass) {
         super(key, id, material, toolClass);
         this.setTicking(true);
     }
