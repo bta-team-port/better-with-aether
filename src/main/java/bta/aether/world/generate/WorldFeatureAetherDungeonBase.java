@@ -132,10 +132,9 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         drawPlane(world, id, meta, direction1, length1, direction3, length3, startX + direction2.getOffsetX() * (length2 - 1), startY + direction2.getOffsetY() * (length2 - 1), startZ + direction2.getOffsetZ() * (length2 - 1), withNotify);
 
         drawPlane(world, id, meta, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
-        drawPlane(world, id, meta, direction2, length2, direction3, length3, startX + direction1.getOffsetX() * (length1 - 1), startY + direction1.getOffsetY() * (length1 - 1), startZ + direction1.getOffsetZ() * (length1 - 1), withNotify);
-        return new int[]{startX, startY, startZ};
+        return drawPlane(world, id, meta, direction2, length2, direction3, length3, startX + direction1.getOffsetX() * (length1 - 1), startY + direction1.getOffsetY() * (length1 - 1), startZ + direction1.getOffsetZ() * (length1 - 1), withNotify);
     }
-    private void setBlock(World world, int x, int y, int z, int id, int meta, boolean withNotify){
+    protected void setBlock(World world, int x, int y, int z, int id, int meta, boolean withNotify){
         if (withNotify){
             world.setBlockAndMetadataWithNotify(x, y, z, id, meta);
         } else {
