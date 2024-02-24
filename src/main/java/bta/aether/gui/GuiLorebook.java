@@ -32,7 +32,7 @@ public class GuiLorebook extends GuiContainer {
         int left = (width - xSize) / 2;
         int top = (height - ySize) / 2;
         GL11.glColor4f(1f,1f,1f,1f);
-        mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/Jar/aether/gui/lore.png"));
+        mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/assets/aether/gui/lore.png"));
         drawTexturedModalRect(left,top, 0,0, xSize, ySize);
         int titleCenterX = left + 20 + 106/2;
         int titleY = top + 20;

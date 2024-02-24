@@ -180,11 +180,11 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
     }
 
     public String getEntityTexture() {
-        return "/Jar/aether/mobs/Zephyr.png";
+        return "/assets/aether/mobs/Zephyr.png";
     }
 
     public String getDefaultEntityTexture() {
-        return "/Jar/aether/mobs/Zephyr.png";
+        return "/assets/aether/mobs/Zephyr.png";
     }
 
     protected int getDropItemId() {

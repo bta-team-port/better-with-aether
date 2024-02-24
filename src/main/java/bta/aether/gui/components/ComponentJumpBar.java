@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ComponentJumpBar extends MovableHudComponent {
 
-    private static final String texture = "/Jar/aether/gui/icons.png";
+    private static final String texture = "/assets/aether/gui/icons.png";
     private static final int iconWidth = 9;
     private static final int iconHeight = 9;
     private static final int rowLength = 10;
