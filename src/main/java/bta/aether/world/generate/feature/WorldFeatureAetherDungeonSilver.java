@@ -5,7 +5,6 @@ import bta.aether.world.generate.WorldFeatureAetherDungeonBase;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import turniplabs.halplibe.helper.RecipeBuilder;
 
 import java.util.Random;
 
@@ -28,7 +27,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
                     int roomY = y + 5 * j;
                     int roomZ = z + 4 + k * 7;
                     if (counter == stairNum && genStairs){
-                        createStaircaseRoom(world, random, roomX, roomY, roomZ, false, false);
+                        createStaircaseRoom(world, random, roomX, roomY, roomZ, false, true);
                         genStairs = false;
                         continue;
                     }
