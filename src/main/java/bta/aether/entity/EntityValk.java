@@ -8,9 +8,9 @@ public class EntityValk extends EntityMonster {
         super(world);
     }
     public String getEntityTexture() {
-        return "/Jar/aether/mobs/valkyrie.png";
+        return "/assets/aether/mobs/valkyrie.png";
     }
     public String getDefaultEntityTexture() {
-        return "/Jar/aether/mobs/valkyrie2.png";
+        return "/assets/aether/mobs/valkyrie2.png";
     }
 }

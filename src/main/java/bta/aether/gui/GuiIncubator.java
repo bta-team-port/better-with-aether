@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class GuiIncubator extends GuiContainer {
 
-    private final String texture = "/Jar/aether/gui/incubator.png";
+    private final String texture = "/assets/aether/gui/incubator.png";
     private final int progressBarWidth = 15;
     private final int progressBarHeight = 58;
     private final int flameWidth = 14;

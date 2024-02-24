@@ -20,13 +20,13 @@ public class EntityBossDev extends EntityAetherBossBase {
 
     public String getEntityTexture() {
         if (activated) {
-            return "/Jar/aether/mobs/SentryLit.png";
+            return "/assets/aether/mobs/SentryLit.png";
         }
-        return "/Jar/aether/mobs/Sentry.png";
+        return "/assets/aether/mobs/Sentry.png";
     }
 
     public String getDefaultEntityTexture() {
-        return "/Jar/aether/mobs/Sentry.png";
+        return "/assets/aether/mobs/Sentry.png";
     }
 
     @Override

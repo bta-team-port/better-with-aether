@@ -43,10 +43,5 @@
     "fabricloader": ">=0.13.3"
   },
   "suggests": {
-  },
-  "custom": {
-    "halplibe:block_textures": "/Jar/aether/blocks/",
-    "halplibe:item_textures": "/Jar/aether/items/",
-    "halplibe:armor": "/Jar/armor/"
   }
 }

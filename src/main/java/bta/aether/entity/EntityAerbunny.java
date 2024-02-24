@@ -36,7 +36,7 @@ public class EntityAerbunny extends EntityAnimal {
 
     @Override
     public String getEntityTexture() {
-        return "/Jar/aether/mobs/aerbunny.png";
+        return "/assets/aether/mobs/aerbunny.png";
     }
 
     @Override

@@ -31,10 +31,10 @@ public class AetherClient implements ClientStartEntrypoint {
     public void beforeClientStart() {
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
-        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/Jar/aether/other/FlamingArrows.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/Jar/aether/mobs/entitygoldendart.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/Jar/aether/mobs/entitypoisondart.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/Jar/aether/mobs/entityenchanteddart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
+        EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "../other/NotchWave.png")));
         EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
 

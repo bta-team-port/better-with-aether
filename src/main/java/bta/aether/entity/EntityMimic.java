@@ -21,10 +21,10 @@ public class EntityMimic extends EntityMonster {
     }
 
     public String getEntityTexture() {
-            return "/Jar/aether/mobs/Mimic2.png";
+            return "/assets/aether/mobs/Mimic2.png";
         }
 
     public String getDefaultEntityTexture() {
-        return "/Jar/aether/mobs/Mimic2.png";
+        return "/assets/aether/mobs/Mimic2.png";
     }
 }
