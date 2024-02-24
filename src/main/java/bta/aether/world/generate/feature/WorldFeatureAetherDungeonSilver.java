@@ -11,9 +11,12 @@ import java.util.Random;
 public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
+        // clear the volume of the structure of blocks
         drawVolume(world, 0, 0, Direction.SOUTH, 57,Direction.UP, 30, Direction.WEST, 32, x + 1, y, z - 1, false);
+        // holystone base
         int[] volume = drawVolume(world, AetherBlocks.holystone.id, 0, Direction.SOUTH, 55,Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
 
+        // generate 3x3x3 grid of rooms
         for (int j = 2; j >= 0; j--) {
             boolean genStairs = false;
             int counter = 0;
@@ -49,20 +52,25 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
             }
         }
 
+        // Outer walls of dungeon itself
         drawShell(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 22,Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, true);
         drawShell(world, AetherBlocks.stoneAngelic.id, 0, Direction.NORTH, 26,Direction.UP, 16, Direction.EAST, 22, volume[0] + 4, y, volume[2] - 5, false);
 
+        // Entrance hole into boss room
         drawPlane(world, 0, 0,Direction.UP, 2, Direction.WEST, 2, x - 4 - 17, y + 1, z + 25, true);
 
+        // Staircase
         drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 4, x - 14, y, z, false);
         drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 3, x - 14, y, z + 1, false);
         drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 2, x - 14, y, z + 2, false);
         drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 1, x - 14, y, z + 3, false);
 
+        // Roof
         for (int i = 0; i < 7; i++) {
             drawPlane(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, true);
         }
 
+        // Pillars
         for (int i = 0; i < 14; i++) {
             createPillar(world, x, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
             createPillar(world, x - 27, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
@@ -74,6 +82,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
                 createPillar(world, x - 19, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
             }
         }
+        // Entrance hole into building
         drawPlane(world, 0, 0, Direction.WEST, 2, Direction.UP, 2, x - 14, y + 1, z + 4, false);
 
         return true;
