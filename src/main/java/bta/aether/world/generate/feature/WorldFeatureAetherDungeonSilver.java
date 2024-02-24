@@ -1,0 +1,60 @@
+package bta.aether.world.generate.feature;
+
+import bta.aether.block.AetherBlocks;
+import bta.aether.world.generate.WorldFeatureAetherDungeonBase;
+import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.world.World;
+
+import java.util.Random;
+
+public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
+    @Override
+    public boolean generate(World world, Random random, int x, int y, int z) {
+        int[] volume = drawVolume(world, AetherBlocks.holystone.id, 0, Direction.SOUTH, 55,Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    createRoom(world, x - 4 - i * 7, y + 5 * j, z + 4 + k * 7);
+                }
+            }
+        }
+
+        drawShell(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 47,Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, true);
+        drawShell(world, AetherBlocks.stoneAngelic.id, 0, Direction.NORTH, 26,Direction.UP, 16, Direction.EAST, 22, volume[0] + 4, y, volume[2] - 5, false);
+
+        drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 4, x - 14, y, z, false);
+        drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 3, x - 14, y, z + 1, false);
+        drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 2, x - 14, y, z + 2, false);
+        drawPlane(world, 0, 0, Direction.WEST, 2, Direction.DOWN, 1, x - 14, y, z + 3, false);
+
+        for (int i = 0; i < 7; i++) {
+            drawPlane(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, false);
+        }
+
+        for (int i = 0; i < 14; i++) {
+            createPillar(world, x, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+            createPillar(world, x - 27, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+            if (i == 0 || i == 13){
+                createPillar(world, x - 4, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+                createPillar(world, x - 8, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+
+                createPillar(world, x - 23, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+                createPillar(world, x - 19, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4);
+            }
+        }
+        drawPlane(world, 0, 0, Direction.WEST, 2, Direction.UP, 2, x - 14, y + 1, z + 4, false);
+
+        return true;
+    }
+    protected void createPillar(World world, int x, int y, int z){
+        drawPlane(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false);
+        drawPlane(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false);
+        drawLine(world, AetherBlocks.pillar.id, 0, Direction.UP, 15, x + Direction.WEST.getOffsetX(), y, z + Direction.SOUTH.getOffsetZ(), false);
+    }
+    protected void createRoom(World world, int x, int y, int z){
+        drawShell(world, AetherBlocks.stoneAngelic.id, 0, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, false);
+        drawVolume(world, 0, 0, Direction.SOUTH, 8, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z, false);
+        drawVolume(world, 0, 0, Direction.SOUTH, 2, Direction.UP, 2, Direction.WEST, 8, x, y + 1, z + 3, false);
+    }
+}
