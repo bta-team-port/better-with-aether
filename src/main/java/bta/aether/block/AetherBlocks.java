@@ -79,7 +79,11 @@ public class AetherBlocks {
             .setTextures("Holystone.png")
             .setItemBlock(ItemBlockSlab::new)
             .build(new BlockSlab(holystone, blockID++));
-
+    public static final Block stairsHolystone = holyStone
+            .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setBlockModel(new BlockModelRenderBlocks(10))
+            .build(new BlockStairs(holystone, blockID++));
     public static final Block holystoneMossy = holyStone
             .setTextures("MossyHolystone.png")
             .setItemBlock(ItemBlockAetherDouble::new)
@@ -94,11 +98,6 @@ public class AetherBlocks {
                 }
             });
 
-    public static final Block stairsHolystone = holyStone
-            .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
-            .setBlockModel(new BlockModelRenderBlocks(10))
-            .build(new BlockStairs(holystone, blockID++));
 
     public static final Block icestone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -109,10 +108,12 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build(new BlockIcestone("icestone", blockID++, Material.stone));
 
+
     public static final BlockBuilder clouds = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setHardness(0.2f)
             .setResistance(0.2f);
+
     public static final Block aercloudWhite = clouds
             .setTextures("Aercloud.png")
             .build(new BlockCloudBase("aercloud.white", blockID++, Material.cloth));
@@ -122,6 +123,7 @@ public class AetherBlocks {
     public static final Block aercloudGold = clouds
             .setTextures("GoldAercloud.png")
             .build(new BlockCloudBase("aercloud.gold", blockID++, Material.cloth));
+
     public static final Block aerogel = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
@@ -130,11 +132,13 @@ public class AetherBlocks {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockAerogel("aerogel", blockID++, Material.stone));
 
+
     public static final BlockBuilder stations = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.5f)
             .setResistance(10.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT);
+
     public static final Block enchanter = stations
             .setSideTextures("EnchanterSide.png")
             .setTopBottomTexture("EnchanterTop.png")
@@ -249,9 +253,6 @@ public class AetherBlocks {
             .setBlockModel((new BlockModelRenderBlocks(1)));
     public static final Block saplingSkyroot = sapling
             .setTextures("SkyrootSapling.png")
-            .setVisualUpdateOnMetadata()
-            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
-            .setBlockModel((new BlockModelRenderBlocks(1)))
             .build(new BlockSaplingAetherSkyroot("skyroot.sapling", blockID++));
     public static final Block saplingOakGolden = sapling
             .setTextures("GoldenOakSapling.png")
