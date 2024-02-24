@@ -1,17 +1,19 @@
 package bta.aether.block;
 
 import bta.aether.item.AetherItems;
+import bta.aether.item.AetherToolMaterial;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.world.World;
 
 public class BlockOreAmbrosium extends BlockAetherDouble {
-    protected final Class<?> toolClass;
-    public BlockOreAmbrosium(String key, int id, Class<?> toolClass) {
+    protected final Class<? extends ItemTool> toolClass;
+    public BlockOreAmbrosium(String key, int id, Class<? extends ItemTool> toolClass) {
         super(key, id, Material.stone, toolClass);
         this.toolClass = toolClass;
     }
@@ -28,12 +30,4 @@ public class BlockOreAmbrosium extends BlockAetherDouble {
                 return null;
         }
     }
-
-    @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta, EntityPlayer player, Item item) {
-        if (toolClass.isInstance(item) && player.getGamemode().consumeBlocks() && meta == 0){
-            dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, world.getBlockTileEntity(x, y, z));
-        }
-    }
-
 }
