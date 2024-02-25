@@ -1,9 +1,13 @@
 package bta.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
@@ -62,6 +66,31 @@ public class GuiIngameMixin {
             }
             GL11.glDisable(3042);
             GL11.glDisable(2896);
+        }
+    }
+
+    // render clock, compass, calendar overlays when they are equipped in the accessory inventory
+    @Inject(method = "renderGameOverlay", at=@At(value = "INVOKE", target="Lnet/minecraft/client/entity/player/EntityPlayerSP;getGamemode()Lnet/minecraft/core/player/gamemode/Gamemode;", ordinal = 0 ))
+    public void updateOverlayButtons2(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci,
+                                      @Local(ordinal = 1) LocalBooleanRef clock,
+                                      @Local(ordinal = 2) LocalBooleanRef compass,
+                                      @Local(ordinal = 3) LocalBooleanRef calendar
+    ) {
+        EntityPlayer player = mc.thePlayer;
+
+        // technically we only have to check misc slots but :shrug:
+        for (int i = 0; i < player.inventory.armorInventory.length; i++) {
+            ItemStack stack = player.inventory.armorInventory[i];
+
+            if (stack == null) continue;
+
+            if (stack.getItem().equals(Item.toolClock)) {
+                clock.set(true);
+            } else if (stack.getItem().equals(Item.toolCompass)) {
+                compass.set(true);
+            } else if (stack.getItem().equals(Item.toolCalendar)) {
+                calendar.set(true);
+            }
         }
     }
 }
