@@ -103,7 +103,7 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(450) == 0){
+        if (parameters.random.nextInt(250) == 0){
             int xPos = x + parameters.random.nextInt(16) + 8;
             int yPos = parameters.decorator.minY + 30 + parameters.random.nextInt(parameters.decorator.rangeY - 80);
             int zPos = z + parameters.random.nextInt(16) + 8;
