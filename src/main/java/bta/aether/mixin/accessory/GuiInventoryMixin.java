@@ -3,11 +3,14 @@ package bta.aether.mixin.accessory;
 import bta.aether.item.Accessories.base.ItemAccessoryGloves;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiContainer;
 import net.minecraft.client.gui.GuiInventory;
+import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.Container;
@@ -97,5 +100,30 @@ public abstract class GuiInventoryMixin extends GuiContainer {
 	@Inject(method = "drawGuiContainerForegroundLayer", at = @At("HEAD"), cancellable = true)
 	public void renderForeground(CallbackInfo ci) {
 		ci.cancel();
+	}
+
+	// draw overlay buttons if player has compass/clock/calendar in accessory inv
+	@Inject(method = "updateOverlayButtons", at=@At(value = "INVOKE", target="Lnet/minecraft/client/entity/player/EntityPlayerSP;getGamemode()Lnet/minecraft/core/player/gamemode/Gamemode;"))
+	public void updateOverlayButtons(CallbackInfo ci,
+									 @Local(ordinal = 0) LocalBooleanRef clock,
+									 @Local(ordinal = 1) LocalBooleanRef compass,
+									 @Local(ordinal = 2) LocalBooleanRef calendar
+	) {
+		EntityPlayer player = mc.thePlayer;
+
+		// technically we only have to check misc slots but :shrug:
+		for (int i = 0; i < player.inventory.armorInventory.length; i++) {
+			ItemStack stack = player.inventory.armorInventory[i];
+
+			if (stack == null) continue;
+
+			if (stack.getItem().equals(Item.toolClock)) {
+				clock.set(true);
+			} else if (stack.getItem().equals(Item.toolCompass)) {
+				compass.set(true);
+			} else if (stack.getItem().equals(Item.toolCalendar)) {
+				calendar.set(true);
+			}
+		}
 	}
 }
