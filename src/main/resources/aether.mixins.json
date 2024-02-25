@@ -39,6 +39,7 @@
     "SlotCraftingMixin",
     "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor",
+    "accessory.BlockCakeMixin",
     "accessory.ContainerPlayerMixin",
     "accessory.EntityLivingMixin",
     "accessory.EntityPlayerMixin",
