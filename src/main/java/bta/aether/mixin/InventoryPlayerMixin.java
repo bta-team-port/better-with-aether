@@ -48,7 +48,6 @@ public abstract class InventoryPlayerMixin {
     @Inject(method = "getDamageVsEntity(Lnet/minecraft/core/entity/Entity;)I", at = @At("HEAD"))
     public void getDamageVsEntity(Entity entity, CallbackInfoReturnable<Integer> cir) {
         ItemStack equippedItem = player.getCurrentEquippedItem();
-        System.out.println(entity instanceof EntityPig);
         if (entity instanceof EntityPig && equippedItem != null && equippedItem.getItem() instanceof ItemPigSlayer) {
             for (int i = 0; i < 20; i++) {
                 Random random = new Random();
