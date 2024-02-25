@@ -30,7 +30,7 @@ public class TileEntityEnchanter extends TileEntityAetherMachine {
             }
             if(isBurning() && canProcess()){
                 if(progressTicks % 5 == 0){
-                    worldObj.spawnParticle("flame",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0,0,3);
+                    worldObj.spawnParticle("flameambrosium",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0,0,3);
                     worldObj.spawnParticle("smoke",x+0.5,y+1+Math.min(random.nextFloat(),0.2),z+0.5,0,0.01,0,5);
                 }
                 progressTicks++;
