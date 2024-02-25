@@ -233,20 +233,24 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         drawVolume(world, random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, Direction.UP, 9, x - 3, y + 1, z + 3, true);
 
 
-        setBlock(world, x - 2, y + 1, z + 2, Block.slabStonePolished.id, 0, true);
-        setBlock(world, x - 2, y + 1, z + 3, Block.slabStonePolished.id, 1, true);
-        setBlock(world, x - 2, y + 2, z + 4, Block.slabStonePolished.id, 0, true);
-        setBlock(world, x - 2, y + 2, z + 5, Block.slabStonePolished.id, 1, true);
+        setBlock(world, x - 2, y + 1, z + 2, AetherBlocks.slabStoneCarved.id, 0, true);
+        setBlock(world, x - 2, y + 1, z + 3, AetherBlocks.slabStoneCarved.id, 1, true);
+        setBlock(world, x - 2, y + 2, z + 4, AetherBlocks.slabStoneCarved.id, 0, true);
+        setBlock(world, x - 2, y + 1, z + 4, AetherBlocks.slabStoneCarved.id, 2, true);
+        setBlock(world, x - 2, y + 2, z + 5, AetherBlocks.slabStoneCarved.id, 1, true);
 
-        setBlock(world, x - 3, y + 3, z + 5, Block.slabStonePolished.id, 0, true);
-        setBlock(world, x - 4, y + 3, z + 5, Block.slabStonePolished.id, 1, true);
-        setBlock(world, x - 5, y + 4, z + 5, Block.slabStonePolished.id, 0, true);
+        setBlock(world, x - 3, y + 3, z + 5, AetherBlocks.slabStoneCarved.id, 0, true);
+        setBlock(world, x - 3, y + 2, z + 5, AetherBlocks.slabStoneCarved.id, 2, true);
+        setBlock(world, x - 4, y + 3, z + 5, AetherBlocks.slabStoneCarved.id, 1, true);
+        setBlock(world, x - 5, y + 4, z + 5, AetherBlocks.slabStoneCarved.id, 0, true);
+        setBlock(world, x - 5, y + 3, z + 5, AetherBlocks.slabStoneCarved.id, 2, true);
 
-        setBlock(world, x - 5, y + 4, z + 4, Block.slabStonePolished.id, 1, true);
-        setBlock(world, x - 5, y + 5, z + 3, Block.slabStonePolished.id, 0, true);
-        setBlock(world, x - 5, y + 5, z + 2, Block.slabStonePolished.id, 1, true);
+        setBlock(world, x - 5, y + 4, z + 4, AetherBlocks.slabStoneCarved.id, 1, true);
+        setBlock(world, x - 5, y + 5, z + 3, AetherBlocks.slabStoneCarved.id, 0, true);
+        setBlock(world, x - 5, y + 4, z + 3, AetherBlocks.slabStoneCarved.id, 2, true);
+        setBlock(world, x - 5, y + 5, z + 2, AetherBlocks.slabStoneCarved.id, 1, true);
 
-        setBlock(world, x - 4, y + 5, z + 2, Block.slabStonePolished.id, 1, true);
-        setBlock(world, x - 3, y + 5, z + 2, Block.slabStonePolished.id, 1, true);
+        setBlock(world, x - 4, y + 5, z + 2, AetherBlocks.slabStoneCarved.id, 1, true);
+        setBlock(world, x - 3, y + 5, z + 2, AetherBlocks.slabStoneCarved.id, 1, true);
     }
 }
