@@ -2,19 +2,39 @@ package bta.aether;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
+import bta.aether.recipe.RecipeEntryAetherMachine;
+import bta.aether.recipe.RecipeGroupAether;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.data.registry.Registries;
+import net.minecraft.core.data.registry.recipe.RecipeNamespace;
+import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
+import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import static bta.aether.Aether.MOD_ID;
 
-public class AetherRecipes {
+public class AetherRecipes implements RecipeEntrypoint {
+    public static final RecipeNamespace AETHER = new RecipeNamespace();
+    public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.enchanter)));
+    public static final RecipeGroupAether FREEZER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.freezer)));
 
-    public void initilizeRecipes() {
+    @Override
+    public void onRecipesReady() {
+        AETHER.register("enchanter",ENCHANTER);
+        AETHER.register("freezer",FREEZER);
+        Registries.RECIPES.register("aether", AETHER);
+        Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
+
+        DataLoader.loadRecipes("/assets/aether/recipes/enchanter.json");
+        DataLoader.loadRecipes("/assets/aether/recipes/freezer.json");
+    }
+
+    public void initializeRecipes() {
 
         // Recipe Groups
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.logSkyroot.getDefaultStack());
@@ -32,6 +52,18 @@ public class AetherRecipes {
         Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.gravititeEnchanted, Item.diamond));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.stickSkyroot, Item.stick));
 
+        Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(new ItemStack(AetherBlocks.oreAmbrosiumHolystone, 1)));
+        Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(new ItemStack(AetherBlocks.oreZaniteHolystone, 1)));
+        Registries.ITEM_GROUPS.register("aether:gravitite_ores", Registries.stackListOf(new ItemStack(AetherBlocks.oreGravititeHolystone, 1)));
+
+        Registries.ITEM_GROUPS.register("aether:blue_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 11), new ItemStack(Block.wool, 1, 3), new ItemStack(Block.wool, 1, 9)));
+        Registries.ITEM_GROUPS.register("aether:white_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 0), new ItemStack(Block.wool, 1, 8)));
+        Registries.ITEM_GROUPS.register("aether:red_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 14), new ItemStack(Block.wool, 1, 6)));
+        Registries.ITEM_GROUPS.register("aether:green_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 5), new ItemStack(Block.wool, 1, 13)));
+        Registries.ITEM_GROUPS.register("aether:purple_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 2), new ItemStack(Block.wool, 1, 10)));
+        Registries.ITEM_GROUPS.register("aether:orange_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 1), new ItemStack(Block.wool, 1, 4), new ItemStack(Block.wool, 1, 12)));
+        Registries.ITEM_GROUPS.register("aether:black_wool", Registries.stackListOf(new ItemStack(Block.wool, 1, 7), new ItemStack(Block.wool, 1, 15)));
+
 
         // Crafting Recipes Blocks
 
@@ -47,6 +79,21 @@ public class AetherRecipes {
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.logSkyroot).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.planksSkyroot, 4, 14));
         templateLogtoPlank.addInput('X', AetherBlocks.logOakGolden).create("golden_oak_log_to_yellow_wooden_planks", new ItemStack(Block.planksOakPainted, 4, 4));
+
+        RecipeBuilder.Shaped(MOD_ID, "PSP", "PSP")
+                .addInput('P', AetherBlocks.planksSkyroot)
+                .addInput('S', AetherItems.stickSkyroot)
+                .create("skyroot_fence", new ItemStack(AetherBlocks.fencePlanksSkyroot, 6));
+
+        RecipeBuilder.Shaped(MOD_ID, "SPS", "SPS")
+                .addInput('P', AetherBlocks.planksSkyroot)
+                .addInput('S', AetherItems.stickSkyroot)
+                .create("skyroot_fencegate", new ItemStack(AetherBlocks.fenceGatePlanksSkyroot, 3));
+
+        RecipeBuilder.Shaped(MOD_ID, "PX", "XP")
+                .addInput('P', (Item.ammoPebble))
+                .addInput('X', (AetherBlocks.aercloudWhite))
+                .create("pebbles_to_holystone", new ItemStack(AetherBlocks.holystone, 2));
 
         RecipeBuilderShaped templateItemtoBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "XXX", "XXX");
         templateItemtoBlock.addInput('X', AetherItems.gemZanite).create("block_of_zanite", new ItemStack(AetherBlocks.blockZanite, 1));
@@ -106,8 +153,46 @@ public class AetherRecipes {
 
 
         // Crafting Recipes Items
+
         RecipeBuilderShaped templateStack = new RecipeBuilderShaped(MOD_ID, "X", "X");
         templateStack.addInput('X', AetherBlocks.planksSkyroot).create("skyroot_sticks", new ItemStack(AetherItems.stickSkyroot, 4));
+
+        RecipeBuilder.Shaped(MOD_ID, "X  ", " X ", "  X")
+                .addInput('X', AetherBlocks.planksSkyroot)
+                .create("skyroot_bucket", new ItemStack(AetherItems.bucketSkyroot, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, " C ", "BSB", " M ")
+                .addInput('C', Item.cherry)
+                .addInput('B', new ItemStack(Item.dye, 1, 3))
+                .addInput('S', Item.ammoSnowball)
+                .addInput('M', AetherItems.bucketSkyrootMilk)
+                .create("skyroot_bucket_icecream", new ItemStack(AetherItems.bucketSkyrootIcecream, 1));
+
+        RecipeBuilderShaped Capes = new RecipeBuilderShaped(MOD_ID, "WW", "WW", "WW");
+        Capes.addInput('W', "aether:white_wool").create("cape_white", new ItemStack(AetherItems.armorCapeWhite, 1));
+        Capes.addInput('W', "aether:blue_wool").create("cape_blue", new ItemStack(AetherItems.armorCapeBlue, 1));
+        Capes.addInput('W', "aether:orange_wool").create("cape_yellow", new ItemStack(AetherItems.armorCapeYellow, 1));
+        Capes.addInput('W', "aether:red_wool").create("cape_red", new ItemStack(AetherItems.armorCapeRed, 1));
+
+        RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
+        Shooter.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.gemZanite).create("dart_shooter", new ItemStack(AetherItems.dartShooter, 1));
+        Shooter.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.petalAechor).create("dart_shooter_poison", new ItemStack(AetherItems.dartShooterPoison, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
+                .addInput('S', Item.stick)
+                .addInput('A', AetherItems.amberGolden)
+                .addInput('F', Item.featherChicken)
+                .create("dart_golden", new ItemStack(AetherItems.dartGolden, 4));
+
+        RecipeBuilder.Shaped(MOD_ID, " D ", "DPD", " D ")
+                .addInput('D', AetherItems.dartGolden)
+                .addInput('P', AetherItems.bucketSkyrootPoison)
+                .create("dart_poison", new ItemStack(AetherItems.dartPoison, 4));
+
+        RecipeBuilder.Shaped(MOD_ID, "Z", "S")
+                .addInput('S', Item.stick)
+                .addInput('Z', AetherItems.gemZanite)
+                .create("nature_staff", new ItemStack(AetherItems.toolStaffNature, 1));
 
         RecipeBuilderShaped Sword = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
         Sword.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.stickSkyroot).create("skyroot_sword", new ItemStack(AetherItems.toolSwordSkyroot, 1));
@@ -167,6 +252,19 @@ public class AetherRecipes {
         Pendant.addInput('X', AetherItems.gemZanite).addInput('S', Item.string).create("zanite_pendant", new ItemStack(AetherItems.armorPendantZanite, 1));
         Pendant.addInput('X', AetherBlocks.gravititeEnchanted).addInput('S', Item.string).create("gravitite_pendant", new ItemStack(AetherItems.armorPendantGravitite, 1));
 
+        RecipeBuilderShaped Rings = new RecipeBuilderShaped(MOD_ID, " X ", "X X", " X ");
+        Rings.addInput('X', AetherItems.gemZanite).create("zanite_ring", new ItemStack(AetherItems.armorRingZanite, 1));
+        Rings.addInput('X', Item.ingotIron).create("iron_ring", new ItemStack(AetherItems.armorRingIron, 1));
+        Rings.addInput('X', Item.ingotGold).create("gold_ring", new ItemStack(AetherItems.armorRingGold, 1));
+
+        RecipeBuilderShaped Clouds = new RecipeBuilderShaped(MOD_ID, "XX", "XX");
+        Clouds.addInput('X', AetherBlocks.aercloudWhite).create("cloud_parachute", new ItemStack(AetherItems.cloudParachute, 1));
+        Clouds.addInput('X', AetherBlocks.aercloudGold).create("cloud_parachute_gold", new ItemStack(AetherItems.cloudParachuteGold, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, "Z", "S")
+                .addInput('S', Item.stick)
+                .addInput('Z', AetherItems.gemZanite)
+                .create("nature_staff", new ItemStack(AetherItems.toolStaffNature, 1));
 
         // Furnace Recipes
 

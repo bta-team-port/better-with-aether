@@ -200,6 +200,16 @@ item.aether.armor.pendant.zanite.name=Zanite Pendant
 item.aether.armor.pendant.zanite.desc=A shiny zanite pendant.
 item.aether.armor.pendant.ice.name=Ice Pendant
 item.aether.armor.pendant.ice.desc=A freezing ice pendant.
+item.aether.armor.pendant.leather.name=Leather Pendant
+item.aether.armor.pendant.leather.desc=A pendant made from a cow's hide.
+item.aether.armor.pendant.chain.name=Chain Pendant
+item.aether.armor.pendant.chain.desc=A pendant made up of tiny chains. Can be repaired.
+item.aether.armor.pendant.diamond.name=Diamond Pendant
+item.aether.armor.pendant.diamond.desc=A fancy diamond pendant.
+item.aether.armor.pendant.steel.name=Steel Pendant
+item.aether.armor.pendant.steel.desc=A durable steel pendant.
+item.aether.armor.pendant.gravitite.name=Gravitite Pendant
+item.aether.armor.pendant.gravitite.desc=A forceful gravitite pendant.
 
 item.aether.armor.talisman.ironbubble.name=Iron Bubble
 item.aether.armor.talisman.ironbubble.desc=Allows you to breathe underwater forever.

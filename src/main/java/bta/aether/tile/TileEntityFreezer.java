@@ -1,7 +1,7 @@
 package bta.aether.tile;
 
+import bta.aether.AetherRecipes;
 import bta.aether.block.AetherBlocks;
-import bta.aether.recipe.AetherRecipes;
 import net.minecraft.core.item.ItemStack;
 
 import java.util.Random;
