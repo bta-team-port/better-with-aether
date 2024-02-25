@@ -103,11 +103,13 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(100) == 0){
+        if (parameters.random.nextInt(450) == 0){
             int xPos = x + parameters.random.nextInt(16) + 8;
-            int yPos = parameters.decorator.minY + parameters.random.nextInt(parameters.decorator.rangeY);
+            int yPos = parameters.decorator.minY + 30 + parameters.random.nextInt(parameters.decorator.rangeY - 80);
             int zPos = z + parameters.random.nextInt(16) + 8;
-            new WorldFeatureAetherDungeonSilver().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+            if (parameters.decorator.world.isAirBlock(xPos, yPos, zPos) && parameters.decorator.world.isAirBlock(xPos + 30, yPos, zPos) && parameters.decorator.world.isAirBlock(xPos, yPos, zPos + 50) && parameters.decorator.world.isAirBlock(xPos + 30, yPos, zPos + 50)) {
+                new WorldFeatureAetherDungeonSilver().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+            }
         }
 
         return null;
