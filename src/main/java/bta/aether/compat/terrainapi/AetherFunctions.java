@@ -3,6 +3,7 @@ package bta.aether.compat.terrainapi;
 import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.feature.WorldFeatureClouds;
 import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
+import bta.aether.world.generate.feature.WorldFeatureAetherDungeonSilver;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -93,6 +94,20 @@ public class AetherFunctions {
             int yf = parameters.decorator.minY + parameters.random.nextInt(parameters.decorator.rangeY);
             int zf = z + parameters.random.nextInt(16) + 8;
             new WorldFeatureLake(fluid).generate(parameters.decorator.world, parameters.random, xf, yf, zf);
+        }
+
+        return null;
+    }
+    @Nullable
+    public static Void generateAetherDungeonSilver(Parameters parameters) {
+        int x = parameters.chunk.xPosition * 16;
+        int z = parameters.chunk.zPosition * 16;
+
+        if (parameters.random.nextInt(100) == 0){
+            int xPos = x + parameters.random.nextInt(16) + 8;
+            int yPos = parameters.decorator.minY + parameters.random.nextInt(parameters.decorator.rangeY);
+            int zPos = z + parameters.random.nextInt(16) + 8;
+            new WorldFeatureAetherDungeonSilver().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
         }
 
         return null;
