@@ -1,8 +1,8 @@
 package bta.aether.accessory.API;
 
 public interface VariableHealthPlayer {
-	int getExtraHP();
+	int better_with_aether$getExtraHP();
 
-	void setExtraHP(int extraHP);
-	void addExtraHP(int extraHP);
+	void better_with_aether$setExtraHP(int extraHP);
+	void better_with_aether$addExtraHP(int extraHP);
 }

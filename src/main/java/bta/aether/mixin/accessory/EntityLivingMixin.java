@@ -29,7 +29,7 @@ public abstract class EntityLivingMixin extends Entity {
 		int extraHP = 0;
 		if (this instanceof VariableHealthPlayer)
 		{
-			extraHP = ((VariableHealthPlayer)(Object) this).getExtraHP();
+			extraHP = ((VariableHealthPlayer)(Object) this).better_with_aether$getExtraHP();
 		}
 
 		if (this.health > 0) {

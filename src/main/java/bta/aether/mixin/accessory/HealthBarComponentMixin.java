@@ -38,7 +38,7 @@ public abstract class HealthBarComponentMixin extends MovableHudComponent {
 	@Inject(method = "render", at = @At("TAIL"))
 	public void render(Minecraft mc, GuiIngame gui, int xSizeScreen, int ySizeScreen, float partialTick, CallbackInfo ci) {
 
-		int extra_health =  ((VariableHealthPlayer) mc.thePlayer).getExtraHP();
+		int extra_health =  ((VariableHealthPlayer) mc.thePlayer).better_with_aether$getExtraHP();
 
 		int extra_heart_amount = extra_health / 2;
 		if (extra_heart_amount == 0)

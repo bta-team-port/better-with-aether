@@ -56,23 +56,23 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 
 	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
 	public void writeExtraHp(CompoundTag tag, CallbackInfo ci) {
-		tag.putInt("ExtraHP", getExtraHP());
+		tag.putInt("ExtraHP", better_with_aether$getExtraHP());
 	}
 
 	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
 	public void readExtraHp(CompoundTag tag, CallbackInfo ci) {
 		if (tag.containsKey("ExtraHP")) {
-			setExtraHP(tag.getInteger("ExtraHP"));
+			better_with_aether$setExtraHP(tag.getInteger("ExtraHP"));
 		} else {
-			setExtraHP(0);
+			better_with_aether$setExtraHP(0);
 		}
 	}
 
-	public int getExtraHP() {
+	public int better_with_aether$getExtraHP() {
 		return this.entityData.getInt(31);
 	}
 
-	public void setExtraHP(int extraHP) {
+	public void better_with_aether$setExtraHP(int extraHP) {
 		this.entityData.set(31, extraHP);
 		// if we would have more health that our new max, give us the new max
 		if (health > 20 + extraHP) {
@@ -80,7 +80,7 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 		}
 	}
 
-	public void addExtraHP(int extraHP) {
-		setExtraHP(getExtraHP() + extraHP);
+	public void better_with_aether$addExtraHP(int extraHP) {
+		better_with_aether$setExtraHP(better_with_aether$getExtraHP() + extraHP);
 	}
 }
