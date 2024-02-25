@@ -100,7 +100,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
 
     @Override
     public void afterGameStart() {
-
+        new AetherRecipes().initilizeRecipes();
     }
 
     @Override
