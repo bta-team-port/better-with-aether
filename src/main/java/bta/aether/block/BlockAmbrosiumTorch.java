@@ -1,9 +1,7 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.enums.EnumDropCause;
@@ -170,19 +168,19 @@ public class BlockAmbrosiumTorch extends Block {
         double d4 = 0.27;
         if (l == 1) {
 //            world.spawnParticle("smoke", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flame", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
         } else if (l == 2) {
 //            world.spawnParticle("smoke", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flame", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
         } else if (l == 3) {
 //            world.spawnParticle("smoke", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
-            world.spawnParticle("flame", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
         } else if (l == 4) {
 //            world.spawnParticle("smoke", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
-            world.spawnParticle("flame", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
         } else {
 //            world.spawnParticle("smoke", d, d1, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flame", d, d1, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", d, d1, d2, 0.0, 0.0, 0.0);
         }
 
     }
