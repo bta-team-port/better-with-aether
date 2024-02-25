@@ -86,7 +86,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
             return particle;
         });
 
-        FireflyColor fireflySilver = new FireflyColor(6, "fireflySilver", new ItemStack(AetherItems.lanternAether), new Biome[]{AetherDimension.biomeAether});
+        FireflyColor fireflySilver = new FireflyColor(6, "fireflySilver", new ItemStack(AetherItems.lanternAether, 1), new Biome[]{AetherDimension.biomeAether});
 
         FireflyHelper.createColor(fireflySilver);
         FireflyHelper.setColor((BlockLanternFirefly) AetherBlocks.lanternAetherBlock, fireflySilver);
