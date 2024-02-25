@@ -16,7 +16,6 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
-import net.minecraft.core.enums.EnumFireflyColor;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockLeaves;
@@ -27,7 +26,8 @@ import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 
 import static bta.aether.Aether.MOD_ID;
-import static net.minecraft.core.block.Block.*;
+import static net.minecraft.core.block.Block.fluidWaterFlowing;
+import static net.minecraft.core.block.Block.glowstone;
 
 public class AetherBlocks {
 
@@ -533,11 +533,11 @@ public class AetherBlocks {
             .setHardness(0.1f)
             .setBlockModel(new BlockModelRenderBlocks(26))
             .setTextures("silver_lantern.png")
-            .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, EnumFireflyColor.BLUE/*EnumFireflyColor.SILVER*/))
-            .withLightEmission(0.9375f)
+            .setLuminance(14)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, null))
             .withDisabledStats()
-            .withDisabledNeighborNotifyOnMetadataChange()
-            .withTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU);
+            .withDisabledNeighborNotifyOnMetadataChange();
 
     public void initializeBlocks(){
         BlockMoss.mossToStoneMap.put(holystone, holystoneMossy);

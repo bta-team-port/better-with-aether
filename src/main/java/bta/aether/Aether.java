@@ -13,17 +13,21 @@ import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
+import bta.aether.world.AetherDimension;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
+import net.minecraft.core.block.BlockLanternFirefly;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.helper.*;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
+import turniplabs.halplibe.util.FireflyColor;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.achievements.AchievementPage;
 
@@ -64,7 +68,21 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
         ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
-        ParticleHelper.createParticle(EntityFireflyFX.class, "fireflySilver");
+
+
+        ((BlockLanternFirefly) AetherBlocks.lanternAetherBlock).setItem(AetherItems.lanternAether);
+        ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ) -> {
+            EntityFireflyFX particle = new EntityFireflyFX(world, x, y, z, motionX, motionY, motionZ, 2.5f, 0);
+            ParticleHelper.setFireflyColorMin(particle, 0.25f, 0.50f, 0.35f);
+            ParticleHelper.setFireflyColorMid(particle, 0.50f, 0.75f, 0.60f);
+            ParticleHelper.setFireflyColorMax(particle, 0.75f, 1.00f, 0.85f);
+            return particle;
+        });
+
+        FireflyColor fireflySilver = new FireflyColor(6, "fireflySilver", new ItemStack(AetherItems.lanternAether), new Biome[]{AetherDimension.biomeAether});
+
+        FireflyHelper.createColor(fireflySilver);
+        FireflyHelper.setColor((BlockLanternFirefly) AetherBlocks.lanternAetherBlock, fireflySilver);
 
         AchievementPage AETHERACHIEVEMENTS;
         AETHERACHIEVEMENTS = new AetherAchievements();
