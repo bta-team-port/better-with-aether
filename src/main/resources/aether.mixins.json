@@ -43,6 +43,7 @@
     "accessory.ContainerPlayerMixin",
     "accessory.EntityLivingMixin",
     "accessory.EntityPlayerMixin",
+    "accessory.GuiIngameMixin",
     "accessory.GuiInventoryCreativeMixin",
     "accessory.GuiInventoryMixin",
     "accessory.HealthBarComponentMixin",
