@@ -1,8 +1,6 @@
 package bta.aether.entity;
 
 import bta.aether.AetherBlockTags;
-import bta.aether.block.AetherBlocks;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityAnimal;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -48,8 +46,7 @@ public class EntityAerbunny extends EntityAnimal {
 
     @Override
     public void tick() {
-//
-//        this.fallDistance = 0.0F;
+        this.fallDistance = 0.0F;
         if (!this.onGround && !this.isInWater() && this.yd < 0.0 && !this.collision) {
             this.yd *= 0.75;
         }

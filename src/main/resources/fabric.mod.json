@@ -31,6 +31,9 @@
     "afterGameStart": [
       "bta.aether.Aether"
     ],
+    "recipesReady": [
+      "bta.aether.AetherRecipes"
+    ],
     "terrain-api": [
       "bta.aether.compat.terrainapi.TerrainAPIPlugin"
     ]
