@@ -303,6 +303,13 @@ public class AetherBlocks {
             .setTextures("ambrosium_block.png")
             .build(new Block("block.ambrosium", blockID++, Material.stone));
 
+//    public static final Block brickZanite = oreBlock
+//            .setTextures("ZaniteBrick.png")
+//            .build(new Block("brick.zanite", blockID++, Material.metal));
+//    public static final Block brickGravitite = oreBlock
+//            .setTextures("GravititeBrick.png")
+//            .build(new Block("brick.gravitite", blockID++, Material.metal));
+
 
     public static final BlockBuilder stone = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))

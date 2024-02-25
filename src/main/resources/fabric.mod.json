@@ -28,8 +28,8 @@
     "beforeClientStart": [
       "bta.aether.AetherClient"
     ],
-    "recipesReady": [
-      "bta.aether.recipe.AetherRecipes"
+    "afterGameStart": [
+      "bta.aether.Aether"
     ],
     "terrain-api": [
       "bta.aether.compat.terrainapi.TerrainAPIPlugin"
