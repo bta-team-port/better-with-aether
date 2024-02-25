@@ -21,9 +21,9 @@ public class ItemLifeShard extends Item {
             int extra_heart_amount = Math.min(HealthHelper.getExtraHealth(entityplayer), 20);
 
             if (extra_heart_amount == 18)
-                world.playSoundAtEntity(entityplayer, "aether.life_shard_chime_final",1.0F,1.0F);
+                world.playSoundAtEntity(entityplayer, "aether.life_shard_chime_final",0.65F,1.0F);
             else
-                world.playSoundAtEntity(entityplayer,"aether.life_shard_chime", 0.9F + 0.01F * extra_heart_amount,0.9F + 0.015F * extra_heart_amount);
+                world.playSoundAtEntity(entityplayer,"aether.life_shard_chime", 0.45F + 0.02F * extra_heart_amount,0.9F + 0.015F * extra_heart_amount);
 
             HealthHelper.addExtraHealth(entityplayer, 2);
             entityplayer.heal(2);
