@@ -17,7 +17,7 @@ import net.minecraft.core.world.wind.WindManager;
 public abstract class WorldTypeAether
     extends WorldType
 {
-    private float[] colorsSunriseSunset = new float[4];
+    private final float[] colorsSunriseSunset = new float[4];
 
     public WorldTypeAether(String languageKey, Weather defaultWeather, WindManager windManager, SeasonConfig defaultSeasonConfig) {
         super(

@@ -1,10 +1,8 @@
 package bta.aether.block;
 
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockSaplingBase;
+import bta.aether.world.WorldFeatureGoldenOak;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import net.minecraft.core.world.generate.feature.tree.WorldFeatureTreeFancy;
 
 import java.util.Random;
 
@@ -15,7 +13,7 @@ public class BlockSaplingAetherGoldenOak extends BlockSaplingAetherBase {
 
     @Override
     public void growTree(World world, int i, int j, int k, Random random) {
-        WorldFeature treeBig = new WorldFeatureTreeFancy(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id);
+        WorldFeature treeBig = new WorldFeatureGoldenOak(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id);
         world.setBlock(i, j, k, 0);
         if (!treeBig.generate(world, random, i, j, k)){
             world.setBlock(i, j, k, this.id);
