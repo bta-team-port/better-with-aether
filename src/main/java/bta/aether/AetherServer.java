@@ -11,7 +11,7 @@ import net.minecraft.server.world.WorldServer;
 
 import java.time.Duration;
 
-public class AetherServer {
+public class    AetherServer {
     public static void teleportNotToPortalMP(EntityPlayerMP entityplayermp, int targetDim){
         MinecraftServer server = MinecraftServer.getInstance();
         entityplayermp.timeUntilPortal = 10;
