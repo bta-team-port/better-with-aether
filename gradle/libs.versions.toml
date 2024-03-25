@@ -1,9 +1,9 @@
 [versions]
-bta = "7.1-pre1a"
-fabric-loader = "0.14.19-babric.3-bta"
-babric-loom = "1.1.+"
+bta = "7.1-pre2a"
+fabric-loader = "0.15.6-babric.4-bta"
+babric-loom = "1.4.+"
 terrainapi = "1.4.2-7.1"
-halplibe = "3.3.4"
+halplibe = "3.4.17"
 dragonfly = "1.4.1-7.1"
 catalyst-core = "1.1.2"
 catalyst-effects = "1.1.1"
