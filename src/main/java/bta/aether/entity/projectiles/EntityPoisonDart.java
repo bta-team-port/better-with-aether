@@ -29,9 +29,9 @@ public class EntityPoisonDart extends EntityProjectileModular {
 
     @Override
     protected void init() {
-        this.arrowGravity = 0.02F;
-        this.arrowSpeed = 1.0F;
-        this.arrowDamage = 2;
+        this.gravity = 0.02F;
+        this.speed = 1.0F;
+        this.damage = 2;
     }
 
     @Override

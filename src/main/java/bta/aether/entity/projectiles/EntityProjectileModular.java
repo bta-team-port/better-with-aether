@@ -50,14 +50,14 @@ public abstract class EntityProjectileModular extends EntityArrow {
             }
         }
 
-        if (this.arrowShake > 0) {
-            --this.arrowShake;
+        if (this.shake > 0) {
+            --this.shake;
         }
 
         if (this.inGround) {
             int j = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             int k = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-            if (j == this.inTile && k == this.field_28019_h) {
+            if (j == this.inTile && k == this.inData) {
                 ++this.ticksInGround;
                 if (this.ticksInGround == 1200) {
                     this.remove();
@@ -85,20 +85,19 @@ public abstract class EntityProjectileModular extends EntityArrow {
             }
 
             Entity entity = null;
-            List list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.addCoord(this.xd, this.yd, this.zd).expand(1.0, 1.0, 1.0));
+            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.addCoord(this.xd, this.yd, this.zd).expand(1.0, 1.0, 1.0));
             double d = 0.0;
 
             float f5;
-            for (int l = 0; l < list.size(); ++l) {
-                Entity entity1 = (Entity) list.get(l);
-                if (entity1.isPickable() && (entity1 != this.owner || this.ticksInAir >= 5)) {
+            for (Entity value : list) {
+                if (value.isPickable() && (value != this.owner || this.ticksInAir >= 5)) {
                     f5 = 0.3F;
-                    AABB axisalignedbb1 = entity1.bb.expand((double) f5, (double) f5, (double) f5);
+                    AABB axisalignedbb1 = value.bb.expand(f5, f5, f5);
                     HitResult movingobjectposition1 = axisalignedbb1.func_1169_a(oldPos, newPos);
                     if (movingobjectposition1 != null) {
                         double d1 = oldPos.distanceTo(movingobjectposition1.location);
                         if (d1 < d || d == 0.0) {
-                            entity = entity1;
+                            entity = value;
                             d = d1;
                         }
                     }
@@ -120,7 +119,7 @@ public abstract class EntityProjectileModular extends EntityArrow {
                     this.yTile = movingobjectposition.y;
                     this.zTile = movingobjectposition.z;
                     this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
-                    this.field_28019_h = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                    this.inData = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
                     this.xd = (float) (movingobjectposition.location.xCoord - this.x);
                     this.yd = (float) (movingobjectposition.location.yCoord - this.y);
                     this.zd = (float) (movingobjectposition.location.zCoord - this.z);
@@ -157,8 +156,8 @@ public abstract class EntityProjectileModular extends EntityArrow {
 
                 this.xRot = this.xRotO + (this.xRot - this.xRotO) * 0.2F;
                 this.yRot = this.yRotO + (this.yRot - this.yRotO) * 0.2F;
-                float f3 = this.arrowSpeed;
-                f5 = this.arrowGravity;
+                float f3 = this.speed;
+                f5 = this.gravity;
 
                 if (this.isInWater()) {
                     for (int i1 = 0; i1 < 4; ++i1) {
@@ -177,22 +176,22 @@ public abstract class EntityProjectileModular extends EntityArrow {
         }
     }
 
-    protected void onHit(HitResult movingobjectposition) {
+    public void onHit(HitResult movingobjectposition) {
     }
 
     protected void playHitSound() {
-        this.world.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     protected void playCollectedSound() {
-        this.world.playSoundAtEntity(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        this.world.playSoundAtEntity(null,this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
     }
 
     @Override
     protected void inGroundAction() {
         playHitSound();
         this.inGround = true;
-        this.arrowShake = 7;
+        this.shake = 7;
     }
 
     protected void spawnParticles(){
@@ -200,13 +199,13 @@ public abstract class EntityProjectileModular extends EntityArrow {
 
     protected Boolean hurtEntity(Entity entity) {
         if (this.isOnFire()) entity.fireHurt();
-        return entity.hurt(this.owner, this.arrowDamage, DamageType.COMBAT);
+        return entity.hurt(this.owner, this.damage, DamageType.COMBAT);
     }
 
     @Override
     public void playerTouch(EntityPlayer player) {
         if (!this.world.isClientSide) {
-            if (this.inGround && this.doesArrowBelongToPlayer && this.arrowShake <= 0) {
+            if (this.inGround && this.doesArrowBelongToPlayer && this.shake <= 0) {
                 player.inventory.insertItem(this.stack, true);
                 if (this.stack.stackSize <= 0) {
                     this.playCollectedSound();

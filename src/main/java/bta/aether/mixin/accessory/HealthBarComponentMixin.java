@@ -47,7 +47,7 @@ public abstract class HealthBarComponentMixin extends MovableHudComponent {
 		int x = this.getLayout().getComponentX(mc, this, xSizeScreen);
 		int y = this.getLayout().getComponentY(mc, this, ySizeScreen);
 
-		int health = mc.thePlayer.health;
+		int health = mc.thePlayer.getHealth();
 		int prevHealth = mc.thePlayer.prevHealth;
 
 		boolean heartsFlash = mc.thePlayer.heartsFlashTime / 3 % 2 == 1;

@@ -14,7 +14,8 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import java.util.Random;
 
 public class BiomeAether extends Biome {
-    public BiomeAether() {
+    public BiomeAether(String key) {
+        super(key);
         spawnableAmbientCreatureList.clear();
         spawnableCreatureList.clear();
         spawnableWaterCreatureList.clear();

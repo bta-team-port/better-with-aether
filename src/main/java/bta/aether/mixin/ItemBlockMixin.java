@@ -4,7 +4,7 @@ import bta.aether.world.AetherDimension;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
-import net.minecraft.core.sound.SoundType;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -31,9 +31,9 @@ public class ItemBlockMixin {
                     world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
                 }
 
-                world.playSoundEffect(SoundType.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
             } else {
-                world.playSoundEffect(SoundType.WORLD_SOUNDS, (float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
+                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                 for (int i = 0; i < 8; ++i) {
                     world.spawnParticle("largesmoke", (double)blockX + Math.random(), (double)blockY + .2, (double)blockZ + Math.random(), 0.0, 0.0, 0.0);
                 }

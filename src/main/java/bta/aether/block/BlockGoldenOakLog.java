@@ -14,7 +14,7 @@ public class BlockGoldenOakLog extends BlockLog {
     protected final Class<?> toolClass;
     public BlockGoldenOakLog(String key, int id, Class<?> doubleResultTool) {
         super(key, id);
-        this.setDropOverride(AetherBlocks.dirtAether);
+        this.setDropOverride(AetherBlocks.dirtAether.id);
         this.toolClass = doubleResultTool;
     }
 

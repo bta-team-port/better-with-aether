@@ -14,7 +14,7 @@ public class ItemLightningKnife extends Item {
 
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         itemstack.consumeItem(entityplayer);
-        world.playSoundAtEntity(entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+        world.playSoundAtEntity(null, entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
         if (!world.isClientSide) {
             world.entityJoinedWorld(new EntityLightningKnife(world, entityplayer, false, 10));
         }

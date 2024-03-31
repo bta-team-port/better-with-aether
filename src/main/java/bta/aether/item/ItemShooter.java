@@ -26,7 +26,7 @@ public abstract class ItemShooter extends Item {
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (entityplayer.inventory.consumeInventoryItem(this.arrowId)) {
             itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(null, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(getArrow(world, entityplayer, true));
             }

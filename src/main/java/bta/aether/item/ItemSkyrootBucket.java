@@ -9,7 +9,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.sound.SoundType;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.Vec3d;
@@ -108,13 +108,13 @@ public class ItemSkyrootBucket extends Item {
         }
         if (world.isAirBlock(x, y, z) || !world.getBlockMaterial(x, y, z).isSolid()) {
             if (world.dimension == Dimension.nether && this.idToPlace == Block.fluidWaterFlowing.id) {
-                world.playSoundEffect(SoundType.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
+                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                 for (int l = 0; l < 8; ++l) {
                     world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + Math.random(), (double)z + Math.random(), 0.0, 0.0, 0.0);
                 }
             } else {
                 if (this.idToPlace == Block.fluidWaterFlowing.id) {
-                    world.playSoundEffect(SoundType.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "liquid.splash", 0.5f, 1.0f);
+                    world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "liquid.splash", 0.5f, 1.0f);
                 }
                 player.swingItem();
                 Block block1 = world.getBlock(x, y, z);
