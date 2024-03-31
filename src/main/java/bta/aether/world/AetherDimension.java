@@ -46,7 +46,7 @@ public class AetherDimension implements PreLaunchEntrypoint {
     }
 
     // Biomes
-    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether().setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
+    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether("aether.aether").setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
             .setTopBlock(AetherBlocks.grassAether.id)
             .setFillerBlock(AetherBlocks.dirtAether.id);
     // World types

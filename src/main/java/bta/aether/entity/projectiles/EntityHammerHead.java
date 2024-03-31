@@ -4,12 +4,11 @@ import net.minecraft.core.HitResult;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
-import org.lwjgl.Sys;
 
 public class EntityHammerHead extends EntityProjectileModular{
 
     {
-        this.arrowDamage = 8;
+        this.damage = 8;
         this.viewScale = 2;
     }
 
@@ -28,7 +27,7 @@ public class EntityHammerHead extends EntityProjectileModular{
 
     @Override
     protected void playHitSound() {
-        world.playSoundAtEntity(this, "mob.ghast.fireball", 0.3F, 1.0F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
+        world.playSoundAtEntity(null, this, "mob.ghast.fireball", 0.3F, 1.0F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
     }
 
     @Override
@@ -38,7 +37,7 @@ public class EntityHammerHead extends EntityProjectileModular{
     }
 
     @Override
-    protected void onHit(HitResult movingobjectposition) {
+    public void onHit(HitResult movingobjectposition) {
         if (movingobjectposition.entity != null) this.remove();
     }
 

@@ -7,6 +7,7 @@ public class ItemAccessoryShield extends ItemToolAccessory {
 
     public ItemAccessoryShield(String name, int id) {
         super(name, id);
+        setMaxDamage(512);
     }
 
     @Override

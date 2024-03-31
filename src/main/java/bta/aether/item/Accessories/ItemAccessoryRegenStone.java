@@ -32,7 +32,7 @@ public class ItemAccessoryRegenStone extends ItemAccessoryMisc implements Tickab
             stack.setMetadata(0);
             // only heal if it's the first equipped, since in the OG mod effect doesn't stack.
             // also don't heal when player has max health, since that causes hearts flash
-            if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem()) && player.health < 20) {
+            if (slot == AccessoryHelper.firstSlotWithAccessory(player, stack.getItem()) && player.getHealth() < 20) {
                 player.heal(1);
             }
         }

@@ -30,7 +30,7 @@ public class EntitySwet extends EntityMonster {
         boolean flag = this.onGround;
         super.tick();
         if (this.onGround && !flag) {
-            this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
         }
         if (!this.world.isClientSide && this.world.difficultySetting == 0) {
             this.remove();
@@ -69,7 +69,7 @@ public class EntitySwet extends EntityMonster {
                 this.yRot += rotation;
             }
             this.isJumping = true;
-            this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
             this.moveStrafing = 1.0f - this.random.nextFloat() * 2.0f;
             this.moveForward = 2;
         } else {

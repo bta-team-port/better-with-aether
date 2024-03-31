@@ -18,7 +18,7 @@ public class BlockAngelicTrap extends Block {
             sentry.spawnInit();
             sentry.moveTo(x + 0.5, y + 1, z + 0.5, 0.0f, 0.0f);
             world.entityJoinedWorld(sentry);
-            world.playSoundAtEntity(entity, "mob.ghast.fireball", 0.025F, 0.75F);
+            world.playSoundAtEntity(null, entity, "mob.ghast.fireball", 0.025F, 0.75F);
             world.setBlockWithNotify(x, y, z, AetherBlocks.stoneAngelicLocked.id);
         }
     }

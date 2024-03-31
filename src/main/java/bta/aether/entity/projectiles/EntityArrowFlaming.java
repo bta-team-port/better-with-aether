@@ -32,7 +32,7 @@ public class EntityArrowFlaming extends EntityProjectileModular {
     @Override
     protected Boolean hurtEntity(Entity entity) {
         entity.fireHurt();
-        return entity.hurt(this.owner, this.arrowDamage, DamageType.COMBAT);
+        return entity.hurt(this.owner, this.damage, DamageType.COMBAT);
     }
 
     @Override
