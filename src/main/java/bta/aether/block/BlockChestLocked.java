@@ -66,7 +66,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
                 chest.setLocked(true);
                 chest.setPasswordHashed(item.getData().getString("password"));
 
-                world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
+//                world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
                 swapBlock(world, x, y, z, AetherBlocks.dungeonChestLocked.id, world.getBlockMetadata(x,y,z) , chest);
                 return true;
             }
@@ -82,7 +82,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
             chest.setLocked(false);
             chest.setPassword("BLANK PASSWORD");
 
-            world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
+//            world.playSoundEffectForPlayer(player, 1003, x, y, z, 0);
             swapBlock(world, x, y, z, AetherBlocks.dungeonChest.id, world.getBlockMetadata(x,y,z), chest);
             return true;
         }

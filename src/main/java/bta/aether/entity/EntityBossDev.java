@@ -15,7 +15,7 @@ public class EntityBossDev extends EntityAetherBossBase {
         this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
-        this.health = maxHealth;
+        this.maxHealth = maxHealth;
     }
 
     public String getEntityTexture() {
@@ -34,7 +34,7 @@ public class EntityBossDev extends EntityAetherBossBase {
         boolean flag = this.onGround;
         super.tick();
         if (this.onGround && !flag) {
-            this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
         }
         if (!this.world.isClientSide && this.world.difficultySetting == 0) {
             this.remove();
@@ -72,7 +72,7 @@ public class EntityBossDev extends EntityAetherBossBase {
                 this.jumpDelay /= 3;
             }
             this.isJumping = true;
-            this.world.playSoundAtEntity(this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
             this.moveStrafing = 1.0f - this.random.nextFloat() * 2.0f;
             this.moveForward = 2;
         } else {
@@ -89,7 +89,7 @@ public class EntityBossDev extends EntityAetherBossBase {
         if (entityToAttack == player && this.canEntityBeSeen(player) && (double)this.distanceTo(player) < 1.5) {
             entityToAttack.hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.newExplosion(this, this.x, this.y-0.5, this.z, 2f, false, true);
-            this.health = 0;
+            this.maxHealth = 0;
         }
     }
 
