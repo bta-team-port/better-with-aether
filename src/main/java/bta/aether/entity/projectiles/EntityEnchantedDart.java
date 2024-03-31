@@ -9,7 +9,7 @@ public class EntityEnchantedDart extends EntityProjectileModular{
 
     {
         this.stack = new ItemStack(AetherItems.dartEnchanted);
-        this.arrowDamage = 6;
+        this.damage = 6;
     }
 
     public EntityEnchantedDart(World world) {

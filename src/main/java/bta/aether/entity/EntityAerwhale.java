@@ -8,7 +8,6 @@ public class EntityAerwhale extends EntityFlying implements IAnimal {
 
     public EntityAerwhale(World world) {
         super(world);
-        this.health = 20;
     }
 
     @Override

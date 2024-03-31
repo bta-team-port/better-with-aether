@@ -12,7 +12,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.lang.I18n;
-import net.minecraft.core.sound.SoundType;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
@@ -47,7 +47,7 @@ public class EntityBossSlider extends EntityAetherBossBase {
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
         this.setSize(2f,2f);
-        this.health = 500;
+        this.maxHealth = 500;
         this.scoreValue = 10000;
         this.viewScale = 2f;
     }
@@ -99,7 +99,6 @@ public class EntityBossSlider extends EntityAetherBossBase {
 
         this.allowedToMove = true;
         this.attackCoolDown = 0;
-        this.health = maxHealth;
     }
 
     @Override
@@ -208,9 +207,9 @@ public class EntityBossSlider extends EntityAetherBossBase {
 
             if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
                 this.speed = this.baseSpeed * getSpeedModifier(target);
-                this.attackCoolDown = this.maxAttackCoolDown * this.health/this.maxHealth;
+                this.attackCoolDown = this.maxAttackCoolDown * this.maxHealth/this.maxHealth;
 
-                if (this.distanceToSqr(target) <= 25 && health < (maxHealth * 0.50F) && !midSlam && random.nextInt(6) == 0) {
+                if (this.distanceToSqr(target) <= 25 && maxHealth < (maxHealth * 0.50F) && !midSlam && random.nextInt(6) == 0) {
                     this.midSlam = true;
                     this.awake = false;
                     this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
@@ -272,11 +271,11 @@ public class EntityBossSlider extends EntityAetherBossBase {
     }
 
     public float getAngerModifier() {
-        return 1.0F + ( (float) (this.maxHealth - this.health) / this.maxHealth );
+        return 1.0F + ( (float) (this.maxHealth - this.maxHealth) / this.maxHealth );
     }
 
     public boolean isAngry() {
-        return (this.health * 100) / this.maxHealth < angerThreshold;
+        return (this.maxHealth * 100) / this.maxHealth < angerThreshold;
     }
 
     public Direction calculateDirection(Entity entity) {
@@ -329,7 +328,7 @@ public class EntityBossSlider extends EntityAetherBossBase {
             world.spawnParticle("explode", XParticle, YParticle, ZParticle, 0,0,0);
         }
 
-        world.playSoundEffect(SoundType.WORLD_SOUNDS, x, y, z, "random.explode", 1.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 1.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
     @Override

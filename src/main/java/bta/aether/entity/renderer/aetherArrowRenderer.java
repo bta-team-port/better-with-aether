@@ -31,7 +31,7 @@ public class aetherArrowRenderer extends EntityRenderer<EntityArrow> {
             float tailMaxV = 10 / 32.0F;
             float scale = 0.05625F;
             GL11.glEnable(32826);
-            float shakeAmount = (float)arrow.arrowShake - renderPartialTicks;
+            float shakeAmount = (float)arrow.shake - renderPartialTicks;
             if (shakeAmount > 0.0F) {
                 float shakeAngle = -MathHelper.sin(shakeAmount * 3.0F) * shakeAmount;
                 GL11.glRotatef(shakeAngle, 0.0F, 0.0F, 1.0F);

@@ -19,6 +19,6 @@ public class MinecraftMixin {
 	public void respawn(boolean flag, int i, CallbackInfo ci, EntityPlayer previousPlayer, ChunkCoordinates spawnCoordinates, ChunkCoordinates bedSpawnCoordinates, ChunkCoordinates lastDeathCoordinates, boolean canRespawnAtBed, IChunkProvider ichunkprovider, int j, Gamemode playerGamemode) {
 		Minecraft thisAs = (Minecraft) (Object) this;
 		HealthHelper.setExtraHealth(thisAs.thePlayer, HealthHelper.getExtraHealth(previousPlayer));
-		thisAs.thePlayer.health = HealthHelper.getTotalHealth(thisAs.thePlayer);
+//Dk what to replace		thisAs.thePlayer.health = HealthHelper.getTotalHealth(thisAs.thePlayer);
 	}
 }

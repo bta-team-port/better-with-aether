@@ -34,7 +34,7 @@ public class ContainerLoreBook extends Container {
         if (stack != null){
             craftMatrix.setInventorySlotContents(0, null);
             storeOrDropItem(player, stack);
-            player.world.playSoundAtEntity(player, "random.insert", 0.1f, 1.0f);
+            player.world.playSoundAtEntity(null, player, "random.insert", 0.1f, 1.0f);
         }
     }
     @Override
