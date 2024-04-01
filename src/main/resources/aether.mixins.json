@@ -68,7 +68,7 @@
     "accessory.MinecraftMixin"
   ],
   "server": [
-    "EntityPlayerMPMixin"
+    "entity.entityplayer.EntityPlayerMPMixin"
   ],
   "injectors": {
     "defaultRequire": 1

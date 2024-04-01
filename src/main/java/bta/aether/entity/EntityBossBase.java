@@ -11,18 +11,19 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 
-public abstract class EntityAetherBossBase extends EntityMonster implements IAetherBoss{
+public abstract class EntityBossBase extends EntityMonster implements IAetherBoss{
 
     protected int belongsTo;
     protected ItemStack keyChain;
-    protected int maxHealth;
+    private int maxHealth;
     public String personalBossName;
     public String translationKey;
 
-    public EntityAetherBossBase(World world, int maxHealth, String translationKey) {
+    public EntityBossBase(World world, int maxHealth, String translationKey) {
         super(world);
+        this.setMaxHealth(maxHealth);
+        this.setHealthRaw(maxHealth);
         this.translationKey = translationKey;
-        this.maxHealth = maxHealth;
         this.personalBossName = NameGenerator.getRandomName();
     }
 
@@ -34,7 +35,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         if (keyChain != null) {
             CompoundTag inventoryNBT = new CompoundTag();
             keyChain.writeToNBT(inventoryNBT);
-            tag.putCompound("inventory", inventoryNBT);
+            tag.putCompound("keyChain", inventoryNBT);
         }
 
         super.addAdditionalSaveData(tag);
@@ -51,7 +52,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
+        keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("keyChain"));
         belongsTo = tag.getInteger("belongsTo");
         personalBossName = tag.getString("personalBossName");
         super.readAdditionalSaveData(tag);
@@ -92,12 +93,13 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         return personalBossName + ", The " +  I18n.getInstance().translateKey(translationKey);
     }
 
-    public void setMaxHealth(int health) {
-        this.maxHealth = health;
-    }
-
+    @Override
     public int getMaxHealth() {
         return this.maxHealth;
+    }
+
+    public void setMaxHealth(int health) {
+        this.maxHealth = health;
     }
 
     public void setToDungeon(int ID) {

@@ -1,10 +1,12 @@
 package bta.aether.mixin.entity.entityplayer;
 
-import bta.aether.entity.EntityAetherBossBase;
+import bta.aether.entity.EntityBossBase;
 import bta.aether.entity.EntityBossSlider;
+import bta.aether.entity.IAetherBoss;
 import bta.aether.entity.IPlayerBossList;
 import net.minecraft.client.entity.player.EntityPlayerSP;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,16 +19,16 @@ import java.util.List;
 public abstract class EntityPlayerSPMixinBossList extends EntityPlayer implements IPlayerBossList {
 
     @Unique
-     List<EntityAetherBossBase> aether$bossList = new ArrayList<>();
+    List<EntityLiving> aether$bossList = new ArrayList<>();
 
     public EntityPlayerSPMixinBossList(World world) {
         super(world);
     }
 
     @Override
-    public List<EntityAetherBossBase> aether$getBossList() {
-        List<EntityAetherBossBase> _bosses = new ArrayList<>(aether$bossList);
-        for (EntityAetherBossBase bossBase : aether$bossList) {
+    public List<EntityLiving> aether$getBossList() {
+        List<EntityLiving> _bosses = new ArrayList<>(aether$bossList);
+        for (EntityLiving bossBase : aether$bossList) {
             if (!bossBase.isAlive() || (bossBase instanceof EntityBossSlider && !((EntityBossSlider) bossBase).awake)) {
                 _bosses.remove(bossBase);
             }
@@ -37,8 +39,8 @@ public abstract class EntityPlayerSPMixinBossList extends EntityPlayer implement
 
     @Override
     public void attackTargetEntityWithCurrentItem(Entity entity) {
-        if (entity instanceof EntityAetherBossBase && !aether$bossList.contains(entity)) {
-            aether$bossList.add((EntityAetherBossBase) entity);
+        if (entity instanceof IAetherBoss && !aether$bossList.contains(entity)) {
+            aether$bossList.add((EntityBossBase) entity);
         }
         super.attackTargetEntityWithCurrentItem(entity);
     }

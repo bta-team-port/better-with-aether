@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EntityBossSlider extends EntityAetherBossBase {
+public class EntityBossSlider extends EntityBossBase {
     public final int angerThreshold = 50;
     public final float baseDamage = 10F;
     public final int maxAttackCoolDown = 60;
@@ -47,7 +47,6 @@ public class EntityBossSlider extends EntityAetherBossBase {
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
         this.setSize(2f,2f);
-        this.maxHealth = 500;
         this.scoreValue = 10000;
         this.viewScale = 2f;
     }
@@ -99,6 +98,7 @@ public class EntityBossSlider extends EntityAetherBossBase {
 
         this.allowedToMove = true;
         this.attackCoolDown = 0;
+        this.setHealthRaw(this.getMaxHealth());
     }
 
     @Override
@@ -207,9 +207,9 @@ public class EntityBossSlider extends EntityAetherBossBase {
 
             if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
                 this.speed = this.baseSpeed * getSpeedModifier(target);
-                this.attackCoolDown = this.maxAttackCoolDown * this.maxHealth/this.maxHealth;
+                this.attackCoolDown = this.maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
 
-                if (this.distanceToSqr(target) <= 25 && maxHealth < (maxHealth * 0.50F) && !midSlam && random.nextInt(6) == 0) {
+                if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && !midSlam && random.nextInt(6) == 0) {
                     this.midSlam = true;
                     this.awake = false;
                     this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
@@ -271,11 +271,11 @@ public class EntityBossSlider extends EntityAetherBossBase {
     }
 
     public float getAngerModifier() {
-        return 1.0F + ( (float) (this.maxHealth - this.maxHealth) / this.maxHealth );
+        return 1.0F + ( (float) (this.getMaxHealth() - this.getHealth()) / this.getMaxHealth() );
     }
 
     public boolean isAngry() {
-        return (this.maxHealth * 100) / this.maxHealth < angerThreshold;
+        return (this.getHealth() * 100) / this.getMaxHealth() < angerThreshold;
     }
 
     public Direction calculateDirection(Entity entity) {
