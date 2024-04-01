@@ -40,10 +40,10 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 	// heal extra hearts in peaceful
 	@Inject(method = "onLivingUpdate", at = @At("HEAD"))
 	public void onLivingUpdate(CallbackInfo ci) {
-		if (this.health < 20 || this.world.difficultySetting != 0)
+		if (this.getHealth() < 20 || this.world.difficultySetting != 0)
 			return;
 
-		if (this.health < 20 + HealthHelper.getExtraHealth((EntityPlayer) (Object) this) && this.tickCount % 20 * 12 == 0) {
+		if (this.getHealth() < 20 + HealthHelper.getExtraHealth((EntityPlayer) (Object) this) && this.tickCount % 20 * 12 == 0) {
 			this.heal(1);
 		}
 	}
@@ -75,8 +75,8 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 	public void better_with_aether$setExtraHP(int extraHP) {
 		this.entityData.set(31, extraHP);
 		// if we would have more health that our new max, give us the new max
-		if (health > 20 + extraHP) {
-			health = 20 + extraHP;
+		if (getHealth() > 20 + extraHP) {
+// Idk what to replace this with			health = 20 + extraHP;
 		}
 	}
 

@@ -8,7 +8,7 @@ import net.minecraft.core.world.World;
 public class EntityZephyrSnowball extends EntityProjectileModular{
 
     {
-        this.arrowDamage = 0;
+        this.damage = 0;
     }
 
     public EntityZephyrSnowball(World world, double d, double d1, double d2, int arrowType) {
@@ -38,7 +38,7 @@ public class EntityZephyrSnowball extends EntityProjectileModular{
     }
 
     @Override
-    protected void onHit(HitResult movingobjectposition) {
+    public void onHit(HitResult movingobjectposition) {
         if (movingobjectposition.entity != null) {
             movingobjectposition.entity.push(this.xd * 1.75, 0, this.zd * 1.75);
             this.remove();
