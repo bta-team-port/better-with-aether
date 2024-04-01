@@ -1,7 +1,8 @@
 package bta.aether.entity;
 
+import net.minecraft.core.entity.EntityLiving;
 import java.util.List;
 
 public interface IPlayerBossList {
-    List<EntityAetherBossBase> aether$getBossList();
+    List<EntityLiving> aether$getBossList();
 }

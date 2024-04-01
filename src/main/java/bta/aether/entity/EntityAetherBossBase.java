@@ -92,12 +92,13 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         return personalBossName + ", The " +  I18n.getInstance().translateKey(translationKey);
     }
 
-    public void setMaxHealth(int health) {
-        this.maxHealth = health;
-    }
-
+    @Override
     public int getMaxHealth() {
         return this.maxHealth;
+    }
+
+    public void setMaxHealth(int health) {
+        this.maxHealth = health;
     }
 
     public void setToDungeon(int ID) {

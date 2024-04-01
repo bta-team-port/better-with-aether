@@ -1,8 +1,8 @@
 package bta.aether.gui.components;
 
 import bta.aether.Aether;
-import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.entity.IPlayerBossList;
+import bta.aether.util.NameGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiHudDesigner;
@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.hud.ComponentAnchor;
 import net.minecraft.client.gui.hud.Layout;
 import net.minecraft.client.gui.hud.MovableHudComponent;
+import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 
@@ -75,21 +76,22 @@ public class ComponentBossBar extends MovableHudComponent {
             gui.drawStringCentered(this.mc.fontRenderer, I18n.getInstance().translateKey(Aether.MOD_ID+".menu.boss_bar.preview_name"), textX, textY, 0xFFFFFFFF);
         }
     }
-    public void drawBossBars(List<EntityAetherBossBase> bosses) {
+    public void drawBossBars(List<EntityLiving> entities) {
         int i = 0;
-        for (EntityAetherBossBase boss : bosses) {
-            if (i+1 <= 3 && getDistanceFrom(boss.x, boss.y, boss.z, mc.thePlayer.x, mc.thePlayer.y, mc.thePlayer.z) < 100) drawBossBar(boss, i++);
+        for (EntityLiving entity : entities) {
+            if (i+1 <= 3 && getDistanceFrom(entity.x, entity.y, entity.z, mc.thePlayer.x, mc.thePlayer.y, mc.thePlayer.z) < 100) drawBossBar(entity, i++);
         }
         barAmount = Math.min(i, 3);
     }
-    void drawBossBar(EntityAetherBossBase boss, int offset) {
+    void drawBossBar(EntityLiving entity, int offset) {
         int barX = getLayout().getComponentX(mc, this, xScreenSize);
         int barY = getLayout().getComponentY(mc, this, yScreenSize) + (barHeight + spacing) * offset + spacing;
         int textX = barX + barWidth/2;
         int textY = barY + textOffset;
 
-        drawProgressBar(barX, barY, boss.getMaxHealth(), boss.getMaxHealth());
-        gui.drawStringCentered(this.mc.fontRenderer, boss.getBossTitle(), textX, textY, 0xFFFFFFFF);
+        drawProgressBar(barX, barY, entity.getHealth(), entity.getMaxHealth());
+        String entityName = NameGenerator.getNameFromEntity(entity);
+        gui.drawStringCentered(this.mc.fontRenderer, entityName, textX, textY, 0xFFFFFFFF);
     }
     private void drawProgressBar(int barX, int barY, int health, int maxHealth) {
         float progress = (float)health/(float)maxHealth;

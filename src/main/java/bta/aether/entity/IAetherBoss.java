@@ -6,7 +6,6 @@ public interface IAetherBoss {
     String getBossTitle();
 
     void setMaxHealth(int health);
-    int getMaxHealth();
 
     void setToDungeon(int ID);
     int getDungeon();
