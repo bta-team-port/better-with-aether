@@ -2,7 +2,7 @@ package bta.aether.world.generate;
 
 import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
-import bta.aether.entity.EntityAetherBossBase;
+import bta.aether.entity.EntityBossBase;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.util.LootTable;
 import bta.aether.util.Pair;
@@ -55,8 +55,8 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         return null;
     }
 
-    public static EntityAetherBossBase placeBoss(World world, int x, int y, int z, Class<? extends EntityAetherBossBase> aetherBossClass) {
-        EntityAetherBossBase boss;
+    public static EntityBossBase placeBoss(World world, int x, int y, int z, Class<? extends EntityBossBase> aetherBossClass) {
+        EntityBossBase boss;
         try {
             boss = aetherBossClass.getConstructor(World.class).newInstance(world);
         } catch (Exception exception) {

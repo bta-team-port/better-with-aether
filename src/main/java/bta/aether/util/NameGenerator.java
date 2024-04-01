@@ -1,5 +1,6 @@
 package bta.aether.util;
 
+import bta.aether.entity.IAetherBoss;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityLiving;
@@ -13,6 +14,9 @@ public class NameGenerator {
     public static String[] name3 = new String[]{"cath", "carth", "ayne", "yd", "arik", "asty", "rik", "lir", "dor", "nal", "on", "codd", "y", "ber", "ro", "stead", "ta", "tyne", "wat", "carn", "erry", "chean", "ain", "aryne", "al", "ak", "ert", "ras", "ien", "alen", "is", "acy", "la", "ame", "ter", "arn", "quine", "ayn", "sene", "art", "arth", "lyn", "mel", "arne", "ern", "eth", "ly", "zane", "se", "gar", "eas", "ty", "an", "il", "yn", "oller", "gayn", "a", "bin", "iel", "azer", "astar", "tuny", "ont", "iera", "aldy", "ene", "ian", "or", "in", "sa", "yne", "era", "er", "fyn", "im", "dar", "sume", "doth", "en", "aller", "ir", "reth", "que", "arny", "ney", "warty", "un", "juin", "nik", "warne", "ere", "yr", "lene", "ane", "valer", "war", "ant", "iam", "ew", "dy", "aryn", "gary", "ime", "varn", "orn", "tha", "arty", "quent", "arry", "aver", "geth", "car", "lin", "ydd", "ris", "nyd", "ance", "luth", "ar", "dal", "gant", "el", "tyn", "air", "gine"};
     public static String getNameFromEntity(EntityLiving entity){
         I18n translator = I18n.getInstance();
+        if (entity instanceof IAetherBoss && !((IAetherBoss)entity).getBossTitle().isEmpty()) {
+            return ((IAetherBoss)entity).getBossTitle();
+        }
         if (!entity.nickname.isEmpty()){
             return entity.nickname;
         }
