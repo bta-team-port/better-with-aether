@@ -8,8 +8,6 @@ import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
-import net.minecraft.client.sound.block.BlockSound;
-import net.minecraft.client.sound.block.BlockSounds;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
@@ -20,6 +18,8 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlockLeaves;
 import net.minecraft.core.item.block.ItemBlockSlab;
+import net.minecraft.core.sound.BlockSound;
+import net.minecraft.core.sound.BlockSounds;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.BlockBuilder;
@@ -159,6 +159,7 @@ public class AetherBlocks {
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
+
     public static final Block logSkyroot = wood
             .setSideTextures("SkyrootLogSide.png")
             .setTopBottomTexture("SkyrootLogTop.png")
@@ -172,7 +173,8 @@ public class AetherBlocks {
             .setFlammability(5, 5)
             .setBlockModel(new BlockModelRenderBlocks(27))
             .setItemBlock(ItemBlockAetherDouble::new)
-            .build(new BlockDoubleLog("goldenoak.log", blockID++, ItemToolAetherAxe.class));
+            .build(new BlockGoldenOakLog("goldenoak.log", blockID++, ItemToolAetherAxe.class));
+
     public static final Block planksSkyroot = wood
             .setTextures("Plank.png")
             .setFlammability(20, 5)
@@ -415,7 +417,6 @@ public class AetherBlocks {
             .setTextures("QuicksoilGlass.png")
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build(new BlockGlassAmbrosium("glass.quicksoil", blockID++));
-
     public static final Block trapdoorGlassQuicksoil = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)

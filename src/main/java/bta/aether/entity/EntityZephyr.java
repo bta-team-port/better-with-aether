@@ -52,7 +52,7 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
         if (this.world.isClientSide) {
             byte i = this.entityData.getByte(16);
             if (i > 0 && this.attackCounter == 0) {
-                this.world.playSoundAtEntity(this, "aether.sound.mobs.zephyr.zephyrCall", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                this.world.playSoundAtEntity(null, this, "aether.sound.mobs.zephyr.zephyrCall", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
             }
             this.attackCounter += i;
             if (this.attackCounter < 0) {
@@ -62,7 +62,7 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
                 this.attackCounter = 20;
             }
             if (this.attackCounter >= 20 && i == 0) {
-                this.world.playSoundAtEntity(this, "aether.sound.mobs.zephyr.zephyrShoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                this.world.playSoundAtEntity(null, this, "aether.sound.mobs.zephyr.zephyrShoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
                 this.attackCounter = -40;
             }
         }
@@ -118,13 +118,13 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
             this.renderYawOffset = this.yRot = -((float)Math.atan2(d5, d7)) * 180.0f / 3.141593f;
             if (this.canEntityBeSeen(this.targetedEntity)) {
                 if (this.attackCounter == 10) {
-                    this.world.playSoundAtEntity(this, "aether.sound.mobs.zephyr.zephyrCall", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                    this.world.playSoundAtEntity(null, this, "aether.sound.mobs.zephyr.zephyrCall", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
                 }
                 ++this.attackCounter;
                 if (this.attackCounter == 20) {
 
                     // no clue what this does, it does not fire snowballs correctly.
-                    this.world.playSoundAtEntity(this, "aether.sound.mobs.zephyr.zephyrShoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
+                    this.world.playSoundAtEntity(null, this, "aether.sound.mobs.zephyr.zephyrShoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f);
                     EntityZephyrSnowball zephyrSnowball = new EntityZephyrSnowball(this.world, d5 += this.targetedEntity.x * (this.targetedEntity.xd * 0.5), d6 += this.targetedEntity.y * (this.targetedEntity.yd * 0.5), d7 += this.targetedEntity.z * (this.targetedEntity.zd * 0.5), 0);
                     double d8 = 4.0;
                     Vec3d vec3d = this.getViewVector(1.0f);

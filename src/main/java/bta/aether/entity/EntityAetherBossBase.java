@@ -23,7 +23,6 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         super(world);
         this.translationKey = translationKey;
         this.maxHealth = maxHealth;
-        this.health = maxHealth;
         this.personalBossName = NameGenerator.getRandomName();
     }
 

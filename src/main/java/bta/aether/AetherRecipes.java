@@ -30,8 +30,8 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.RECIPES.register("aether", AETHER);
         Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
 
-        DataLoader.loadRecipes("/assets/aether/recipes/enchanter.json");
-        DataLoader.loadRecipes("/assets/aether/recipes/freezer.json");
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
     }
 
     public void initializeRecipes() {

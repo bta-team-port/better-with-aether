@@ -18,19 +18,19 @@ public class ItemPhoenixBow extends Item {
         if (quiverSlot != null && quiverSlot.itemID == Item.armorQuiver.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) {
             entityplayer.inventory.armorItemInSlot(2).damageItem(1, entityplayer);
             itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(null, entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityArrowFlaming(world, entityplayer, true, 4));
             }
         } else if (quiverSlot != null && quiverSlot.itemID == Item.armorQuiverGold.id) {
             itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(null, entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityArrowFlaming(world, entityplayer, false, 4));
             }
         } else if (entityplayer.inventory.consumeInventoryItem(Item.ammoArrow.id)) {
             itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            world.playSoundAtEntity(null, entityplayer, "mob.ghast.fireball", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityArrowFlaming(world, entityplayer, true, 4));
             }

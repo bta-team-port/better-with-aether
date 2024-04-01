@@ -29,7 +29,7 @@ public class ItemBlockAetherDouble extends ItemBlock {
             Block block = Block.blocksList[this.blockID];
             if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.blockID, ((this.getPlacedBlockMetadata(1) & 0b0111_1111) + 0b1000_0000))) { // Delete the highest bit and force it on to signified player placed
                 block.onBlockPlaced(world, blockX, blockY, blockZ, side, player, yPlaced);
-                world.playBlockSoundEffect((float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, block, EnumBlockSoundEffectType.PLACE);
+                world.playBlockSoundEffect(null, (float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, block, EnumBlockSoundEffectType.PLACE);
             }
             return true;
         }

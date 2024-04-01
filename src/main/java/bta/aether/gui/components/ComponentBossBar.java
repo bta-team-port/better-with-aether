@@ -88,7 +88,7 @@ public class ComponentBossBar extends MovableHudComponent {
         int textX = barX + barWidth/2;
         int textY = barY + textOffset;
 
-        drawProgressBar(barX, barY, boss.health, boss.getMaxHealth());
+        drawProgressBar(barX, barY, boss.getMaxHealth(), boss.getMaxHealth());
         gui.drawStringCentered(this.mc.fontRenderer, boss.getBossTitle(), textX, textY, 0xFFFFFFFF);
     }
     private void drawProgressBar(int barX, int barY, int health, int maxHealth) {

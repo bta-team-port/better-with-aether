@@ -2,13 +2,11 @@ package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
 import net.minecraft.core.entity.monster.EntityMonster;
-import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 
 public class EntityMimic extends EntityMonster {
     public EntityMimic(World world) {
         super(world);
-        this.health = 20;
     }
 
     @Override
