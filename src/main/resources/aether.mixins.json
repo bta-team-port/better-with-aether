@@ -37,9 +37,7 @@
     "SlotCraftingMixin",
     "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor",
-    "accessory.BlockCakeMixin",
     "accessory.ContainerPlayerMixin",
-    "accessory.EntityLivingMixin",
     "accessory.EntityPlayerMixin",
     "accessory.GuiIngameMixin",
     "accessory.GuiInventoryCreativeMixin",
@@ -47,7 +45,6 @@
     "accessory.HealthBarComponentMixin",
     "accessory.HudComponentMixin",
     "accessory.InventoryPlayerMixin",
-    "accessory.itemFoodMixin",
     "accessory.ItemMixin"
   ],
   "client": [
