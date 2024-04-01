@@ -34,6 +34,11 @@ public class AetherRecipes implements RecipeEntrypoint {
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
     }
 
+    @Override
+    public void initNamespaces() {
+
+    }
+
     public void initializeRecipes() {
 
         // Recipe Groups
