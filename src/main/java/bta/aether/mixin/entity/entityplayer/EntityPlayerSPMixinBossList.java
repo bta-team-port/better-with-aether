@@ -1,6 +1,6 @@
 package bta.aether.mixin.entity.entityplayer;
 
-import bta.aether.entity.EntityBossBase;
+import bta.aether.entity.EntityAetherBossBase;
 import bta.aether.entity.EntityBossSlider;
 import bta.aether.entity.IAetherBoss;
 import bta.aether.entity.IPlayerBossList;
@@ -40,7 +40,7 @@ public abstract class EntityPlayerSPMixinBossList extends EntityPlayer implement
     @Override
     public void attackTargetEntityWithCurrentItem(Entity entity) {
         if (entity instanceof IAetherBoss && !aether$bossList.contains(entity)) {
-            aether$bossList.add((EntityBossBase) entity);
+            aether$bossList.add((EntityAetherBossBase) entity);
         }
         super.attackTargetEntityWithCurrentItem(entity);
     }
