@@ -11,18 +11,19 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 
-public abstract class EntityAetherBossBase extends EntityMonster implements IAetherBoss{
+public abstract class EntityBossBase extends EntityMonster implements IAetherBoss{
 
     protected int belongsTo;
     protected ItemStack keyChain;
-    protected int maxHealth;
+    private int maxHealth;
     public String personalBossName;
     public String translationKey;
 
-    public EntityAetherBossBase(World world, int maxHealth, String translationKey) {
+    public EntityBossBase(World world, int maxHealth, String translationKey) {
         super(world);
+        this.setMaxHealth(maxHealth);
+        this.setHealthRaw(maxHealth);
         this.translationKey = translationKey;
-        this.maxHealth = maxHealth;
         this.personalBossName = NameGenerator.getRandomName();
     }
 

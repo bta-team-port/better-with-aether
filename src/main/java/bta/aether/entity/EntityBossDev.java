@@ -5,17 +5,16 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 
-public class EntityBossDev extends EntityAetherBossBase {
+public class EntityBossDev extends EntityBossBase {
     private int jumpDelay;
     private int cooldownInactive;
     public boolean activated;
 
     public EntityBossDev(World world) {
-        super(world, 100, "aether.father_sentry.name");
+        super(world, 500, "aether.father_sentry.name");
         this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
-        this.maxHealth = maxHealth;
     }
 
     public String getEntityTexture() {
@@ -89,7 +88,7 @@ public class EntityBossDev extends EntityAetherBossBase {
         if (entityToAttack == player && this.canEntityBeSeen(player) && (double)this.distanceTo(player) < 1.5) {
             entityToAttack.hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.newExplosion(this, this.x, this.y-0.5, this.z, 2f, false, true);
-            this.maxHealth = 0;
+            this.setHealthRaw(0);
         }
     }
 
