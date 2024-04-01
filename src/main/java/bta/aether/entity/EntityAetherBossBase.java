@@ -34,7 +34,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
         if (keyChain != null) {
             CompoundTag inventoryNBT = new CompoundTag();
             keyChain.writeToNBT(inventoryNBT);
-            tag.putCompound("inventory", inventoryNBT);
+            tag.putCompound("keyChain", inventoryNBT);
         }
 
         super.addAdditionalSaveData(tag);
@@ -51,7 +51,7 @@ public abstract class EntityAetherBossBase extends EntityMonster implements IAet
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("inventory"));
+        keyChain = ItemStack.readItemStackFromNbt(tag.getCompound("keyChain"));
         belongsTo = tag.getInteger("belongsTo");
         personalBossName = tag.getString("personalBossName");
         super.readAdditionalSaveData(tag);
