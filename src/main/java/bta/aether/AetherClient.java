@@ -16,12 +16,19 @@ import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.*;
 import net.minecraft.client.render.entity.FallingSandRenderer;
 import net.minecraft.client.render.entity.SnowballRenderer;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
+import turniplabs.halplibe.util.DirectoryManager;
+import turniplabs.halplibe.util.ItemCoords;
+import turniplabs.halplibe.util.TextureHandler;
+
+import static turniplabs.halplibe.helper.TextureHelper.registeredItemTextures;
+import static turniplabs.halplibe.helper.TextureHelper.textureHandlers;
 
 public class AetherClient implements ClientStartEntrypoint {
     public static HudComponent BOSS_BAR = HudComponents.register(new ComponentBossBar("aether.boss.bar", new AbsoluteLayout(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)));
@@ -35,9 +42,14 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "../other/NotchWave.png")));
         EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
 
+        // cursed, I know.
+        final String hammerHeadTexture = "/assets/aether/other/NotchWave.png";
+        int[] newCoords = ItemCoords.nextCoords();
+        registeredItemTextures.put(Aether.MOD_ID + ":" + hammerHeadTexture, newCoords);
+        textureHandlers.add(new TextureHandler("/gui/items.png", hammerHeadTexture, Block.texCoordToIndex(newCoords[0], newCoords[1]), 16, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(Block.texCoordToIndex(newCoords[0], newCoords[1])));
 
         new AetherEntities().initializeModels();
 

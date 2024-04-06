@@ -4,7 +4,6 @@ import bta.aether.block.AetherBlocks;
 import bta.aether.entity.projectiles.EntityEnchantedDart;
 import bta.aether.entity.projectiles.EntityGoldenDart;
 import bta.aether.entity.projectiles.EntityPoisonDart;
-import bta.aether.entity.projectiles.EntityProjectileModular;
 import bta.aether.item.Accessories.*;
 import bta.aether.item.Accessories.base.*;
 import bta.aether.item.tool.ItemToolAxeZanite;
@@ -16,6 +15,7 @@ import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.projectile.EntityProjectile;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -67,19 +67,19 @@ public class AetherItems {
 
     public static final Item dartShooter = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter", itemID++, AetherItems.dartGolden.id){
         @Override
-        public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+        public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
             return new EntityGoldenDart(world, entityPlayer, true);
         }
     }, "DartShooter.png");
     public static final Item dartShooterPoison = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.poison", itemID++, AetherItems.dartPoison.id){
         @Override
-        public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+        public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
             return new EntityPoisonDart(world, entityPlayer, true);
         }
     }, "DartShooterPoison.png");
     public static final Item dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.enchanted", itemID++, AetherItems.dartEnchanted.id){
             @Override
-            public EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+            public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
                 return new EntityEnchantedDart(world, entityPlayer, true);
             }
         }, "DartShooterEnchanted.png");
