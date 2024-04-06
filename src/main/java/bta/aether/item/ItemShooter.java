@@ -1,7 +1,7 @@
 package bta.aether.item;
 
-import bta.aether.entity.projectiles.EntityProjectileModular;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.projectile.EntityProjectile;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
@@ -20,7 +20,7 @@ public abstract class ItemShooter extends Item {
         return true;
     }
 
-    public abstract EntityProjectileModular getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer);
+    public abstract EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer);
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {

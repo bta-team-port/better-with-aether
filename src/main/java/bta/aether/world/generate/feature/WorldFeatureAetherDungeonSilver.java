@@ -29,7 +29,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
 
-        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> WorldFeatureAetherDungeonBase.distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 100000)) {
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> WorldFeatureAetherDungeonBase.distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) {
             return false;
         }
         // most of this code has notify on. so we create the dungeon entry first so all the blocks won't turn to their normal variants mid-generation.
