@@ -3,11 +3,12 @@ package bta.aether.entity.projectiles;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.entity.EntityLightningBolt;
 import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.item.ItemStack;
 
 import net.minecraft.core.world.World;
 
-public class EntityLightningKnife extends EntityProjectileModular {
+public class EntityLightningKnife extends EntityArrow {
 
     public ItemStack item = new ItemStack(AetherItems.toolKnifeLightning);
 
@@ -25,9 +26,8 @@ public class EntityLightningKnife extends EntityProjectileModular {
     }
 
     @Override
-    public void tick() {
-        if (this.inGround) this.remove();
-        super.tick();
+    protected void inGroundAction() {
+        this.remove();
     }
 
     @Override

@@ -2,14 +2,16 @@ package bta.aether.entity.projectiles;
 
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.item.AetherItems;
+import net.minecraft.core.HitResult;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
-public class EntityPoisonDart extends EntityProjectileModular {
+public class EntityPoisonDart extends EntityArrow {
 
     {
         this.stack = new ItemStack(AetherItems.dartPoison);
@@ -29,18 +31,20 @@ public class EntityPoisonDart extends EntityProjectileModular {
 
     @Override
     protected void init() {
+        super.init();
         this.gravity = 0.02F;
         this.speed = 1.0F;
         this.damage = 2;
     }
 
     @Override
-    protected Boolean hurtEntity(Entity entity) {
-        IHasEffects effectEntity = (IHasEffects) entity;
-        EffectStack stack = new EffectStack(effectEntity, AetherEffects.poisonEffect, 10);
-
-        effectEntity.getContainer().add(stack);
-        stack.start(effectEntity.getContainer());
-        return super.hurtEntity(entity);
+    public void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
+        if (hitResult.entity != null) {
+            IHasEffects effectEntity = (IHasEffects) hitResult.entity;
+            EffectStack stack = new EffectStack(effectEntity, AetherEffects.poisonEffect, 10);
+            effectEntity.getContainer().add(stack);
+            stack.start(effectEntity.getContainer());
+        }
     }
 }

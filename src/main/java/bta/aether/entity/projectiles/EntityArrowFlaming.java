@@ -1,12 +1,15 @@
 package bta.aether.entity.projectiles;
 
+import bta.aether.world.AetherDimension;
+import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.entity.Entity;
+import net.minecraft.core.block.BlockTNT;
 import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.entity.monster.EntityCreeper;
+import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.world.World;
 
-public class EntityArrowFlaming extends EntityProjectileModular {
+public class EntityArrowFlaming extends EntityArrow {
     public EntityArrowFlaming(World world) {
         this(world, 4);
     }
@@ -24,22 +27,42 @@ public class EntityArrowFlaming extends EntityProjectileModular {
     }
 
     @Override
-    protected void spawnParticles() {
-        this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
-        this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
+    public void tick() {
+        super.tick();
+        if (!this.inGround) {
+            if (world.dimension.id != AetherDimension.AetherDimensionID) this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
+            else this.world.spawnParticle("snowshovel", this.x, this.y, this.z, 0.0, 0.0, 0.0);
+            this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
+        }
     }
 
     @Override
-    protected Boolean hurtEntity(Entity entity) {
-        entity.fireHurt();
-        return entity.hurt(this.owner, this.damage, DamageType.COMBAT);
-    }
+    public void onHit(HitResult hitResult) {
+        super.onHit(hitResult);
 
-    @Override
-    protected void inGroundAction() {
-        if (world.getBlockId(this.xTile, this.yTile + 1, this.zTile) == 0 && Block.fire.canPlaceBlockAt(this.world, this.xTile, this.yTile + 1, this.zTile))
-            world.setBlockWithNotify(this.xTile, this.yTile + 1, this.zTile, Block.fire.id);
-        super.inGroundAction();
+        if (hitResult.entity != null) {
+            if (hitResult.entity instanceof EntityCreeper) {
+                EntityCreeper entityCreeper = (EntityCreeper) hitResult.entity;
+                this.world.createExplosion(entityCreeper, entityCreeper.x, entityCreeper.y, entityCreeper.z, 6.0F);
+                entityCreeper.remove();
+            }
+            if (world.dimension.id != AetherDimension.AetherDimensionID) hitResult.entity.fireHurt();
+        }
+        else if (world.dimension.id != AetherDimension.AetherDimensionID){
+            if (world.getBlockId(this.xTile, this.yTile, this.zTile) == Block.tnt.id){
+                ((BlockTNT)world.getBlock(this.xTile, this.yTile, this.zTile)).ignite(world, this.xTile, this.yTile, this.zTile, true);
+                super.inGroundAction();
+                return;
+            }
+
+            int x = this.xTile + hitResult.side.getOffsetX();
+            int y = this.yTile + hitResult.side.getOffsetY();
+            int z = this.zTile + hitResult.side.getOffsetZ();
+            if (world.getBlockId(x, y, z) == 0 && Block.fire.canPlaceBlockAt(this.world, x, y, z)) {
+                world.setBlockWithNotify(x, y, z, Block.fire.id);
+                super.inGroundAction();
+            }
+        }
     }
 
     @Override
