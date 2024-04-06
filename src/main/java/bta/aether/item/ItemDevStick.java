@@ -16,6 +16,13 @@ public class ItemDevStick extends Item {
     }
 
     @Override
+    public int getDamageVsEntity(Entity entity) {
+        // I am a man who believes in balance.
+        if (entity instanceof EntityLiving) ((EntityLiving) entity).setHealthRaw(Integer.MAX_VALUE * -1);
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         AABB boundingBox = new AABB(entityplayer.x -3, entityplayer.y -3, entityplayer.z -3, entityplayer.x +3, entityplayer.y +3, entityplayer.z +3);
         for (Entity entityInBox : world.getEntitiesWithinAABB(EntityLiving.class, boundingBox)) {
