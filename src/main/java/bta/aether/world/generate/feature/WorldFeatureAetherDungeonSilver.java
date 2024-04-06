@@ -28,6 +28,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     }
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
+        // most of this code has notify on. so we create the dungeon entry first so all the blocks won't turn to their normal variants mid-generation.
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
         for (int i = 0; i < 120; i++) {
             new WorldFeatureClouds(6 + random.nextInt(10), AetherBlocks.aercloudWhite.id, false).generate(world, random, x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65));
         }
@@ -129,7 +131,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         // Boss TODO: replace with valkyrie queen.
         EntityBossBase boss = WorldFeatureAetherDungeonBase.placeBoss(world, x - 15, y + 4, z + 42, EntityBossSlider.class);
         if (boss != null) {
-            boss.setToDungeon(AetherDimension.registerDungeonToMap(x - 15, y + 4, z + 42));
+            boss.setToDungeon(dungeonID);
             boss.setKeychain(key);
             boss.setReturnPoint(new AetherBlockCoord(x - 15, y + 4, z + 42));
             boss.setBlocksDestroyOnDeath(treasureDoor);

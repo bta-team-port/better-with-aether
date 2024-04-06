@@ -22,19 +22,11 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         return makeTreasureChest(lootTable, quantity, itemKey, null, isLocked, world, x, y, z);
     }
 
-    public static LootTable lootTableBronzeNormal;
-    public static LootTable lootTableBronzeRare;
-    public static LootTable lootTableSilverNormal;
-    public static LootTable lootTableSilverRare;
-    public static LootTable lootTableGoldRare;
-
-    static {
-        lootTableBronzeNormal = new LootTable("/assets/aether/loot/bronze_normal.json");
-        lootTableBronzeRare = new LootTable("/assets/aether/loot/bronze_rare.json");
-        lootTableSilverNormal = new LootTable("/assets/aether/loot/silver_normal.json");
-        lootTableSilverRare = new LootTable("/assets/aether/loot/silver_rare.json");
-        lootTableGoldRare = new LootTable("/assets/aether/loot/gold_rare.json");
-    }
+    public static final LootTable lootTableBronzeNormal = new LootTable("/assets/aether/loot/bronze_normal.json");
+    public static final LootTable lootTableBronzeRare = new LootTable("/assets/aether/loot/bronze_rare.json");
+    public static final LootTable lootTableSilverNormal = new LootTable("/assets/aether/loot/silver_normal.json");
+    public static final LootTable lootTableSilverRare = new LootTable("/assets/aether/loot/silver_rare.json");
+    public static final LootTable lootTableGoldRare = new LootTable("/assets/aether/loot/gold_rare.json");
 
     public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, String password, Boolean isLocked, World world, int x, int y, int z){
         ItemStack[] items = lootTable.generateLoot(quantity);
