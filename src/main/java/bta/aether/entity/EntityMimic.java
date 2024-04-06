@@ -23,7 +23,7 @@ public class EntityMimic extends EntityMonster {
     public int getMaxHealth() {
         return 40;
     }
-
+    private int tickCounter = 0;
     @Override
     protected void dropFewItems() {
         if (world.dimension.id == AetherDimension.dimensionAether.id) {
