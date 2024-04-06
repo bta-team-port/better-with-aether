@@ -9,6 +9,16 @@ public class EntityMimic extends EntityMonster {
         super(world);
     }
     private int tickCounter = 0;
+
+    @Override
+    protected boolean canDespawn() {
+        return false;
+    }
+
+    @Override
+    public void tryToDespawn() {
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -20,10 +30,10 @@ public class EntityMimic extends EntityMonster {
     }
 
     public String getEntityTexture() {
-            return "/assets/aether/mobs/Mimic2.png";
+            return "/assets/aether/mobs/Mimic.png";
         }
 
     public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/Mimic2.png";
+        return "/assets/aether/mobs/Mimic.png";
     }
 }
