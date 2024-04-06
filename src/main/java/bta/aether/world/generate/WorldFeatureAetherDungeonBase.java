@@ -84,6 +84,13 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         return makeTreasureChest(lootTable, quantity, null, null, false, world, x, y, z);
     }
 
+    public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
+        double d3 = x - x1;
+        double d4 = y - y1;
+        double d5 = z - z1;
+        return d3 * d3 + d4 * d4 + d5 * d5;
+    }
+
     public int[] drawLine(World world, int id, int meta, Direction direction, int length, int startX, int startY, int startZ, boolean withNotify){
         for (int i = 0; i < length - 1; i++) {
             setBlock(world,startX, startY, startZ, id, meta, withNotify);
