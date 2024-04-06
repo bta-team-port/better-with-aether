@@ -18,7 +18,7 @@ public class AetherEntities {
     public static final BenchEntityModel modelMoa =  ModelHelper.getOrCreateEntityModel(MOD_ID, "moa", ModelMoa.class);
     public static final BenchEntityModel modelSlider =  ModelHelper.getOrCreateEntityModel(MOD_ID, "slider", ModelSlider.class);
     public static final BenchEntityModel modelAerbunny =  ModelHelper.getOrCreateEntityModel(MOD_ID, "aerbunny", ModelAerbunny.class);
-    public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimictop", ModelMimic.class);
+    public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimic", ModelMimic.class);
     public static final BenchEntityModel modelValk =  ModelHelper.getOrCreateEntityModel(MOD_ID, "valk", ModelValk.class);
     public static final BenchEntityModel modelAerwhale = ModelHelper.getOrCreateEntityModel(MOD_ID, "aerwhale", ModelAerwhale.class);
 
@@ -37,14 +37,15 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
     }
     public void initializeModels(){
-        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
-        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1));
-        EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer(modelZephyr, 1));
-        EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1));
-        EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new LivingRenderer<EntityBossSlider>(modelSlider, 1));
+        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5F));
+        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer(modelZephyr, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new LivingRenderer<EntityBossSlider>(modelSlider, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new LivingRenderer<EntityAerbunny>(modelAerbunny, 0.4F));
-        EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1));
-        EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new LivingRenderer<EntityAerwhale>(modelAerwhale, 1));
+        EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new LivingRenderer<EntityAerwhale>(modelAerwhale, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityMimic.class, new MimicRenderer(modelMimic, 1F));
     }
 }

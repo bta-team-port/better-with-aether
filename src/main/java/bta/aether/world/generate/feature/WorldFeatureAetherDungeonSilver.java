@@ -1,26 +1,40 @@
 package bta.aether.world.generate.feature;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.entity.EntityBossBase;
+import bta.aether.entity.EntityBossSlider;
+import bta.aether.item.AetherItems;
+import bta.aether.util.AetherBlockCoord;
+import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.BlockPallet;
 import bta.aether.world.generate.WorldFeatureAetherDungeonBase;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
     private static BlockPallet angelic = new BlockPallet();
     private static BlockPallet holystone = new BlockPallet();
     static {
-        angelic.addEntry(AetherBlocks.stoneAngelic.id, 0, 95);
-        angelic.addEntry(AetherBlocks.stoneAngelicLight.id, 0, 5);
+        angelic.addEntry(AetherBlocks.stoneAngelicLocked.id, 0, 95);
+        angelic.addEntry(AetherBlocks.stoneAngelicLightLocked.id, 0, 5);
 
         holystone.addEntry(AetherBlocks.holystone.id, 0, 90);
         holystone.addEntry(AetherBlocks.holystoneMossy.id, 0, 10);
     }
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
+
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> WorldFeatureAetherDungeonBase.distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 100000)) {
+            return false;
+        }
+        // most of this code has notify on. so we create the dungeon entry first so all the blocks won't turn to their normal variants mid-generation.
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
+
         for (int i = 0; i < 120; i++) {
             new WorldFeatureClouds(6 + random.nextInt(10), AetherBlocks.aercloudWhite.id, false).generate(world, random, x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65));
         }
@@ -106,9 +120,27 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         // Throne
         drawPlane(world, random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, true);
         drawShell(world, random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, true);
+
         // Chest hole
         drawVolume(world, 0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true);
-        setBlock(world, x - 15, y, z + 42, AetherBlocks.dungeonChestLocked.id, 0, true);
+        ItemStack key = WorldFeatureAetherDungeonBase.makeTreasureChest(WorldFeatureAetherDungeonBase.lootTableBronzeRare, random.nextInt(10), AetherItems.keySilver, true, world, x - 15, y, z + 42);
+        AetherBlockCoord[] treasureDoor = {
+                new AetherBlockCoord(x - 14, y + 2, z + 41),
+                new AetherBlockCoord(x - 14, y + 2, z + 42),
+                new AetherBlockCoord(x - 14, y + 2, z + 43),
+                new AetherBlockCoord(x - 15, y + 2, z + 41),
+                new AetherBlockCoord(x - 15, y + 2, z + 42),
+                new AetherBlockCoord(x - 15, y + 2, z + 43),
+        };
+
+        // Boss TODO: replace with valkyrie queen.
+        EntityBossBase boss = WorldFeatureAetherDungeonBase.placeBoss(world, x - 15, y + 4, z + 42, EntityBossSlider.class);
+        if (boss != null) {
+            boss.setToDungeon(dungeonID);
+            boss.setKeychain(key);
+            boss.setReturnPoint(new AetherBlockCoord(x - 15, y + 4, z + 42));
+            boss.setBlocksDestroyOnDeath(treasureDoor);
+        }
 
         setBlock(world, x - 11, y + 3, z + 44, AetherBlocks.torchAmbrosium.id, 0, true);
         setBlock(world, x - 11, y + 3, z + 49, AetherBlocks.torchAmbrosium.id, 0, true);
@@ -208,21 +240,26 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         int chestCount = 0;
         if (random.nextInt(3) == 0){
             chestCount++;
-            setBlock(world,x - 3, y + 2, z + 3, random.nextInt(2) == 0 ? Block.chestPlanksOak.id : AetherBlocks.chestMimic.id, 0, true);
+            placeChestOrMimic(world, random,x - 3, y + 2, z + 3);
         }
         if (random.nextInt(3) == 0){
             chestCount++;
-            setBlock(world,x - 4, y + 2, z + 3, random.nextInt(2) == 0 ? Block.chestPlanksOak.id : AetherBlocks.chestMimic.id, 0, true);
+            placeChestOrMimic(world, random,x - 4, y + 2, z + 3);
         }
         if (random.nextInt(3) == 0 && chestCount < 2){
             chestCount++;
-            setBlock(world,x - 3, y + 2, z + 4, random.nextInt(2) == 0 ? Block.chestPlanksOak.id : AetherBlocks.chestMimic.id, 0, true);
+            placeChestOrMimic(world, random,x - 3, y + 2, z + 4);
         }
         if (random.nextInt(3) == 0 && chestCount < 2){
-            chestCount++;
-            setBlock(world,x - 4, y + 2, z + 4, random.nextInt(2) == 0 ? Block.chestPlanksOak.id : AetherBlocks.chestMimic.id, 0, true);
+            placeChestOrMimic(world, random,x - 4, y + 2, z + 4);
         }
     }
+
+    protected void placeChestOrMimic(World world, Random random, int x, int y, int z) {
+        if (random.nextInt(2) == 0) WorldFeatureAetherDungeonBase.makeTreasureChest(WorldFeatureAetherDungeonBase.lootTableSilverNormal, random.nextInt(16), world, x, y, z);
+        else setBlock(world, x, y, z, AetherBlocks.chestMimic.id, 0, true);
+    }
+
     protected void createStaircaseRoom(World world, Random random, int x, int y, int z, boolean forceWalls, boolean forceOpen){
         if (forceWalls){
             drawShell(world, random, angelic, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true);
