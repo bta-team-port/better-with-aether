@@ -1,6 +1,7 @@
 package bta.aether.entity;
 
 import bta.aether.Aether;
+import bta.aether.util.AetherBlockCoord;
 import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
@@ -11,6 +12,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 
+import java.util.Arrays;
+
 public abstract class EntityBossBase extends EntityMonster implements IAetherBoss{
 
     protected int belongsTo;
@@ -18,6 +21,14 @@ public abstract class EntityBossBase extends EntityMonster implements IAetherBos
     private int maxHealth;
     public String personalBossName;
     public String translationKey;
+
+    protected AetherBlockCoord returnPoint;
+    protected AetherBlockCoord[] blocksDestroyOnDeath;
+
+    {
+        if (this.returnPoint == null)
+            returnPoint = new AetherBlockCoord((int) this.x, (int) this.z, (int) this.y);
+    }
 
     public EntityBossBase(World world, int maxHealth, String translationKey) {
         super(world);
@@ -86,6 +97,9 @@ public abstract class EntityBossBase extends EntityMonster implements IAetherBos
             }
         }
 
+        if (this.blocksDestroyOnDeath != null) for (AetherBlockCoord coordinate : this.blocksDestroyOnDeath) {
+            world.setBlockAndMetadataWithNotify(coordinate.getX(), coordinate.getY(), coordinate.getZ(), 0, 0);
+        }
         super.onEntityDeath();
     }
 
@@ -116,5 +130,21 @@ public abstract class EntityBossBase extends EntityMonster implements IAetherBos
 
     public ItemStack getKeyChain() {
         return this.keyChain;
+    }
+
+    public void setReturnPoint(AetherBlockCoord coordinate) {
+        this.returnPoint = coordinate;
+    }
+
+    public AetherBlockCoord getReturnPoint() {
+        return this.returnPoint;
+    }
+
+    public void setBlocksDestroyOnDeath(AetherBlockCoord[] CoordinateArray) {
+        this.blocksDestroyOnDeath = CoordinateArray;
+    }
+
+    public AetherBlockCoord[] getBlocksDestroyOnDeath() {
+        return this.blocksDestroyOnDeath;
     }
 }

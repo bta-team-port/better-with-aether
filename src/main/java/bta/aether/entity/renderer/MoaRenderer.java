@@ -20,6 +20,7 @@ public class MoaRenderer extends LivingRenderer<EntityMoa> {
         return (MathHelper.sin(f1 * 0.225F) + 1.0F) * f2;
     }
 
+    @Override
     protected float ticksExisted(EntityMoa entity, float partialTick) {
         return this.getWingRotation(entity, partialTick);
     }

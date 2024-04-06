@@ -3,6 +3,7 @@ package bta.aether.entity;
 import bta.aether.block.AetherBlocks;
 import bta.aether.block.BlockDungeon;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
+import bta.aether.util.AetherBlockCoord;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.LiquidMaterial;
@@ -39,10 +40,6 @@ public class EntityBossSlider extends EntityBossBase {
     private float momentumX = 0;
     private float momentumY = 0;
     private float momentumZ = 0;
-
-    public int pedestalX;
-    public int pedestalY;
-    public int pedestalZ;
 
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
@@ -90,10 +87,10 @@ public class EntityBossSlider extends EntityBossBase {
     }
 
     public void returnToPedestal() {
-        if (Arrays.stream(new Integer[] {this.pedestalX, this.pedestalY, this.pedestalZ}).noneMatch(integer -> integer == 0)) {
-            this.x = this.pedestalX;
-            this.y = this.pedestalY;
-            this.z = this.pedestalZ;
+        if (Arrays.stream(this.returnPoint.values()).noneMatch(integer -> integer == 0)) {
+            this.x = this.returnPoint.getX();
+            this.y = this.returnPoint.getY();
+            this.z = this.returnPoint.getZ();
         }
 
         this.allowedToMove = true;
@@ -365,16 +362,6 @@ public class EntityBossSlider extends EntityBossBase {
     }
 
     @Override
-    public void onEntityDeath() {
-        world.setBlockWithNotify(this.pedestalX, this.pedestalY, this.pedestalZ, 0);
-        world.setBlockWithNotify(this.pedestalX, this.pedestalY, this.pedestalZ + 1, 0);
-        world.setBlockWithNotify(this.pedestalX + 1, this.pedestalY, this.pedestalZ, 0);
-        world.setBlockWithNotify(this.pedestalX + 1, this.pedestalY, this.pedestalZ + 1, 0);
-
-        super.onEntityDeath();
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         tag.putBoolean("awake", this.awake);
         super.addAdditionalSaveData(tag);
@@ -398,5 +385,4 @@ public class EntityBossSlider extends EntityBossBase {
             this.spawnAtLocation(id, 1);
         }
     }
-
 }

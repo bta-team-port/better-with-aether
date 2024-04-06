@@ -57,6 +57,7 @@ public class BlockChestMimic extends Block {
 
     @Override
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+        world.playSoundEffect(player, 1003, x, y, z, 0);
         world.setBlockWithNotify(x, y, z, 0);
         EntityMimic mimic = new EntityMimic(world);
         mimic.spawnInit();
