@@ -3,7 +3,6 @@ package bta.aether.entity.projectiles;
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.item.AetherItems;
 import net.minecraft.core.HitResult;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.item.ItemStack;
@@ -12,10 +11,6 @@ import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 
 public class EntityPoisonDart extends EntityArrow {
-
-    {
-        this.stack = new ItemStack(AetherItems.dartPoison);
-    }
 
     public EntityPoisonDart(World world) {
         super(world, 11);
@@ -32,6 +27,7 @@ public class EntityPoisonDart extends EntityArrow {
     @Override
     protected void init() {
         super.init();
+        this.stack = new ItemStack(AetherItems.dartPoison);
         this.gravity = 0.02F;
         this.speed = 1.0F;
         this.damage = 2;

@@ -9,7 +9,9 @@ import net.minecraft.core.world.World;
 
 public class EntityGoldenDart extends EntityArrow {
 
-    {
+    @Override
+    protected void init() {
+        super.init();
         this.stack = new ItemStack(AetherItems.dartGolden);
     }
 

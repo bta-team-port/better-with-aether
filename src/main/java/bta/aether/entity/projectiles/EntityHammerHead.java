@@ -2,7 +2,6 @@ package bta.aether.entity.projectiles;
 
 import net.minecraft.core.HitResult;
 import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.world.World;
 

@@ -2,15 +2,10 @@ package bta.aether.entity.projectiles;
 
 import net.minecraft.core.HitResult;
 import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.world.World;
 
 public class EntityZephyrSnowball extends EntityArrow {
-
-    {
-        this.damage = 0;
-    }
 
     public EntityZephyrSnowball(World world, double d, double d1, double d2, int arrowType) {
         super(world, d, d1, d2, arrowType);
@@ -18,6 +13,12 @@ public class EntityZephyrSnowball extends EntityArrow {
 
     public EntityZephyrSnowball(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {
         super(world, entityliving, doesArrowBelongToPlayer, 11);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        this.damage = 0;
     }
 
     @Override

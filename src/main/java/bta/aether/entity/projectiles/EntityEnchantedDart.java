@@ -8,13 +8,15 @@ import net.minecraft.core.world.World;
 
 public class EntityEnchantedDart extends EntityArrow {
 
-    {
-        this.stack = new ItemStack(AetherItems.dartEnchanted);
-        this.damage = 6;
-    }
-
     public EntityEnchantedDart(World world) {
         super(world);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        this.stack = new ItemStack(AetherItems.dartEnchanted);
+        this.damage = 6;
     }
 
     public EntityEnchantedDart(World world, EntityLiving entityliving, boolean doesArrowBelongToPlayer) {

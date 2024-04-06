@@ -48,19 +48,18 @@ public class EntityArrowFlaming extends EntityArrow {
             }
             if (world.dimension.id != AetherDimension.AetherDimensionID) hitResult.entity.fireHurt();
         }
-        else if (world.dimension.id != AetherDimension.AetherDimensionID){
-            if (world.getBlockId(this.xTile, this.yTile, this.zTile) == Block.tnt.id){
-                ((BlockTNT)world.getBlock(this.xTile, this.yTile, this.zTile)).ignite(world, this.xTile, this.yTile, this.zTile, true);
-                super.inGroundAction();
-                return;
-            }
 
+        if (world.getBlockId(this.xTile, this.yTile, this.zTile) == Block.tnt.id) {
+            ((BlockTNT)world.getBlock(this.xTile, this.yTile, this.zTile)).ignite(world, this.xTile, this.yTile, this.zTile, true);
+            return;
+        }
+
+        if (world.dimension.id != AetherDimension.AetherDimensionID){
             int x = this.xTile + hitResult.side.getOffsetX();
             int y = this.yTile + hitResult.side.getOffsetY();
             int z = this.zTile + hitResult.side.getOffsetZ();
             if (world.getBlockId(x, y, z) == 0 && Block.fire.canPlaceBlockAt(this.world, x, y, z)) {
                 world.setBlockWithNotify(x, y, z, Block.fire.id);
-                super.inGroundAction();
             }
         }
     }
