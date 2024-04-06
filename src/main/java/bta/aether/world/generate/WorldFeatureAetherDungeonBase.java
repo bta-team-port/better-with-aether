@@ -21,20 +21,36 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
     public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, Boolean isLocked, World world, int x, int y, int z){
         return makeTreasureChest(lootTable, quantity, itemKey, null, isLocked, world, x, y, z);
     }
+
+    public static LootTable lootTableBronzeNormal;
+    public static LootTable lootTableBronzeRare;
+    public static LootTable lootTableSilverNormal;
+    public static LootTable lootTableSilverRare;
+    public static LootTable lootTableGoldRare;
+
+    static {
+        lootTableBronzeNormal = new LootTable("/assets/aether/loot/bronze_normal.json");
+        lootTableBronzeRare = new LootTable("/assets/aether/loot/bronze_rare.json");
+        lootTableSilverNormal = new LootTable("/assets/aether/loot/silver_normal.json");
+        lootTableSilverRare = new LootTable("/assets/aether/loot/silver_rare.json");
+        lootTableGoldRare = new LootTable("/assets/aether/loot/gold_rare.json");
+    }
+
     public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, String password, Boolean isLocked, World world, int x, int y, int z){
         ItemStack[] items = lootTable.generateLoot(quantity);
 
-        if (isLocked) {
-            world.setBlock(x, y, z, AetherBlocks.dungeonChestLocked.id);
-        } else {
-            world.setBlockWithNotify(x, y, z, Block.chestPlanksOak.id);
-        }
+        if (isLocked) world.setBlock(x, y, z, AetherBlocks.dungeonChestLocked.id);
+        else world.setBlockWithNotify(x, y, z, Block.chestPlanksOak.id);
 
         TileEntityChest chest = (TileEntityChest) world.getBlockTileEntity(x, y, z);
+        if (chest == null) {
+            Aether.LOGGER.error(String.format("Failed to acquire chest! at X%d, Y%d, Z%d.", x, y, z));
+            return null;
+        }
 
         for (int item = 0; item < items.length;) {
             int slot = world.rand.nextInt(chest.getSizeInventory());
-            if (items[item] == null || chest.getStackInSlot(slot) != null) { continue; }
+            if (items[item] == null || chest.getStackInSlot(slot) != null) continue;
             chest.setInventorySlotContents(slot, items[item]);
             item++;
         }
@@ -60,7 +76,7 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         try {
             boss = aetherBossClass.getConstructor(World.class).newInstance(world);
         } catch (Exception exception) {
-            Aether.LOGGER.error("SOMETHING WENT WRONG");
+            Aether.LOGGER.error("Something went wrong!");
             Aether.LOGGER.error(String.valueOf(exception));
             return null;
         }
@@ -72,9 +88,10 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         return boss;
     }
 
-    public ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
+    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
         return makeTreasureChest(lootTable, quantity, null, null, false, world, x, y, z);
     }
+
     public int[] drawLine(World world, int id, int meta, Direction direction, int length, int startX, int startY, int startZ, boolean withNotify){
         for (int i = 0; i < length - 1; i++) {
             setBlock(world,startX, startY, startZ, id, meta, withNotify);
