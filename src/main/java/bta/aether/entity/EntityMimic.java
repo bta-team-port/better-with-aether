@@ -1,7 +1,13 @@
 package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.EntityMonster;
+import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.tool.ItemToolAxe;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 
 public class EntityMimic extends EntityMonster {
@@ -9,6 +15,11 @@ public class EntityMimic extends EntityMonster {
         super(world);
     }
     private int tickCounter = 0;
+
+    @Override
+    protected int getDropItemId() {
+        return Block.planksOak.id;
+    }
 
     @Override
     protected boolean canDespawn() {
@@ -20,6 +31,16 @@ public class EntityMimic extends EntityMonster {
     }
 
     @Override
+    public boolean hurt(Entity attacker, int i, DamageType type) {
+        if (attacker instanceof EntityPlayer) {
+            ItemStack stack = ((EntityPlayer) attacker).inventory.getCurrentItem();
+            if (stack != null && stack.getItem() instanceof ItemToolAxe)
+                return super.hurt(attacker,i*3, type);
+        }
+        return super.hurt(attacker, i, type);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         tickCounter = (tickCounter+1)%100;
@@ -27,6 +48,17 @@ public class EntityMimic extends EntityMonster {
             world.setBlockWithNotify((int) this.x, (int) this.y, (int) this.z, AetherBlocks.chestMimic.id);
             this.remove();
         }
+    }
+
+    // TODO: get a better sound for this (*˘▽˘)b
+    @Override
+    protected String getDeathSound() {
+        return "step.wood";
+    }
+
+    @Override
+    protected String getHurtSound() {
+        return "step.wood";
     }
 
     public String getEntityTexture() {
