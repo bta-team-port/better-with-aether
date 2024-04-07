@@ -17,8 +17,8 @@ public class EntityMimic extends EntityMonster {
     private int tickCounter = 0;
 
     @Override
-    protected int getDropItemId() {
-        return Block.planksOak.id;
+    protected void dropFewItems() {
+        this.spawnAtLocation(AetherBlocks.chestSkyroot.id, 1);
     }
 
     @Override
