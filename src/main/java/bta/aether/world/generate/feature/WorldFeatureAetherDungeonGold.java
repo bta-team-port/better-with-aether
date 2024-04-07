@@ -94,7 +94,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         if (boss != null) {
             boss.setToDungeon(dungeonID);
             boss.setKeychain(key);
-            boss.setReturnPoint(new AetherBlockCoord(x +radius, y + 4, z));
+            boss.setReturnPoint(new AetherBlockCoord(x, y +radius/2 +2, z));
             boss.setBlocksDestroyOnDeath(null);
         }
 
