@@ -1,13 +1,15 @@
 package bta.aether.item;
 
-import bta.aether.entity.IPlayerBossList;
-import bta.aether.entity.projectiles.EntityZephyrSnowball;
+import bta.aether.block.AetherBlocks;
+import bta.aether.world.WorldFeatureGoldenOak;
+import bta.aether.world.generate.feature.WorldFeatureAetherDungeonBase;
+import bta.aether.world.generate.feature.WorldFeatureAetherDungeonGold;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.phys.AABB;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class ItemDevStick extends Item {
@@ -23,13 +25,8 @@ public class ItemDevStick extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
-        AABB boundingBox = new AABB(entityplayer.x -3, entityplayer.y -3, entityplayer.z -3, entityplayer.x +3, entityplayer.y +3, entityplayer.z +3);
-        for (Entity entityInBox : world.getEntitiesWithinAABB(EntityLiving.class, boundingBox)) {
-            if (entityInBox != entityplayer)
-                ((IPlayerBossList) entityplayer).aether$getBossList().add((EntityLiving) entityInBox);
-        }
-
-        return itemstack;
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+        new WorldFeatureAetherDungeonGold().generate(world, world.rand, blockX, blockY + 15, blockZ);
+        return true;
     }
 }
