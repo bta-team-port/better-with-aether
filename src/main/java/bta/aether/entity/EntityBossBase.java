@@ -97,8 +97,13 @@ public abstract class EntityBossBase extends EntityMonster implements IAetherBos
             }
         }
 
-        if (this.blocksDestroyOnDeath != null) for (AetherBlockCoord coordinate : this.blocksDestroyOnDeath) {
-            world.setBlockAndMetadataWithNotify(coordinate.getX(), coordinate.getY(), coordinate.getZ(), 0, 0);
+        if (this.blocksDestroyOnDeath != null) {
+            world.playSoundEffect(null, 1003, (int) x, (int) y, (int) z, 0);
+            for (AetherBlockCoord coordinate : this.blocksDestroyOnDeath) {
+                world.spawnParticle("smoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0);
+                world.spawnParticle("largesmoke", coordinate.getX(), coordinate.getY() + 0.8F, coordinate.getZ(), 0.0, 0.0, 0.0);
+                world.setBlockAndMetadataWithNotify(coordinate.getX(), coordinate.getY(), coordinate.getZ(), 0, 0);
+            }
         }
         super.onEntityDeath();
     }
