@@ -32,6 +32,8 @@ public class AetherInitialization extends BaseInitialization {
         StructureFeatures structureFeatures = ChunkDecoratorAetherAPI.structureFeatures;
 
         structureFeatures.addFeature(AetherFunctions::generateAetherDungeonSilver, null);
+        structureFeatures.addFeature(AetherFunctions::generateAetherDungeonGold, null);
+
         structureFeatures.addFeature(
             AetherFunctions::generateQuickSoil, null
         );
