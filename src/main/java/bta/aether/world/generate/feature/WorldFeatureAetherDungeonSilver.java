@@ -7,13 +7,11 @@ import bta.aether.item.AetherItems;
 import bta.aether.util.AetherBlockCoord;
 import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.BlockPallet;
-import bta.aether.world.generate.WorldFeatureAetherDungeonBase;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
@@ -29,10 +27,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
 
-        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> WorldFeatureAetherDungeonBase.distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) {
-            return false;
-        }
-        // most of this code has notify on. so we create the dungeon entry first so all the blocks won't turn to their normal variants mid-generation.
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         for (int i = 0; i < 120; i++) {
@@ -123,7 +118,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
 
         // Chest hole
         drawVolume(world, 0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true);
-        ItemStack key = WorldFeatureAetherDungeonBase.makeTreasureChest(WorldFeatureAetherDungeonBase.lootTableBronzeRare, random.nextInt(10), AetherItems.keySilver, true, world, x - 15, y, z + 42);
+        ItemStack key = makeTreasureChest(lootTableBronzeRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x - 15, y, z + 42);
         AetherBlockCoord[] treasureDoor = {
                 new AetherBlockCoord(x - 14, y + 2, z + 41),
                 new AetherBlockCoord(x - 14, y + 2, z + 42),
@@ -134,7 +129,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         };
 
         // Boss TODO: replace with valkyrie queen.
-        EntityBossBase boss = WorldFeatureAetherDungeonBase.placeBoss(world, x - 15, y + 4, z + 42, EntityBossSlider.class);
+        EntityBossBase boss = placeBoss(world, x - 15, y + 4, z + 42, EntityBossSlider.class);
         if (boss != null) {
             boss.setToDungeon(dungeonID);
             boss.setKeychain(key);
@@ -256,7 +251,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     }
 
     protected void placeChestOrMimic(World world, Random random, int x, int y, int z) {
-        if (random.nextInt(2) == 0) WorldFeatureAetherDungeonBase.makeTreasureChest(WorldFeatureAetherDungeonBase.lootTableSilverNormal, random.nextInt(16), world, x, y, z);
+        if (random.nextInt(2) == 0) makeTreasureChest(lootTableSilverNormal, random.nextInt(16), world, x, y, z);
         else setBlock(world, x, y, z, AetherBlocks.chestMimic.id, 0, true);
     }
 

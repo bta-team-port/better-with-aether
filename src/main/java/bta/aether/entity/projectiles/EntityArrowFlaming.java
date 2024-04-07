@@ -54,7 +54,7 @@ public class EntityArrowFlaming extends EntityArrow {
             return;
         }
 
-        if (world.dimension.id != AetherDimension.AetherDimensionID){
+        if (world.dimension.id != AetherDimension.AetherDimensionID && hitResult.side != null) {
             int x = this.xTile + hitResult.side.getOffsetX();
             int y = this.yTile + hitResult.side.getOffsetY();
             int z = this.zTile + hitResult.side.getOffsetZ();

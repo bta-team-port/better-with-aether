@@ -1,4 +1,4 @@
-package bta.aether.world.generate;
+package bta.aether.world.generate.feature;
 
 import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
@@ -6,6 +6,7 @@ import bta.aether.entity.EntityBossBase;
 import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.util.LootTable;
 import bta.aether.util.Pair;
+import bta.aether.world.generate.BlockPallet;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.item.Item;
@@ -89,6 +90,30 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         double d4 = y - y1;
         double d5 = z - z1;
         return d3 * d3 + d4 * d4 + d5 * d5;
+    }
+
+    public void drawSphere(World world, Random random, int x, int y, int z, int radius, BlockPallet pallet, boolean withNotify) {
+        for (int blockX = x - radius; blockX <= x + radius; blockX++) {
+            for (int blockY = y - radius; blockY <= y + radius; blockY++) {
+                for (int blockZ = z - radius; blockZ <= z + radius; blockZ++) {
+                    if (distanceToSqr(x, y, z, blockX, blockY, blockZ) < Math.pow(radius, 2))
+                        setBlock(world,blockX, blockY, blockZ, pallet.getRandom(random), withNotify);
+                }
+            }
+        }
+    }
+
+    public void drawSpheroid(World world, Random random, int x, int y, int z, int width, int height, int depth, BlockPallet pallet, boolean withNotify) {
+        for (int blockX = x - width; blockX <= x + width; blockX++) {
+            for (int blockY = y - height; blockY <= y + height; blockY++) {
+                for (int blockZ = z - depth; blockZ <= z + depth; blockZ++) {
+                    double distanceSqr = Math.pow((blockX - x) / (double) width, 2) + Math.pow((blockY - y) / (double) height, 2) + Math.pow((blockZ - z) / (double) depth, 2);
+                    if (distanceSqr <= 1.0) {
+                        setBlock(world,blockX, blockY, blockZ, pallet.getRandom(random), withNotify);
+                    }
+                }
+            }
+        }
     }
 
     public int[] drawLine(World world, int id, int meta, Direction direction, int length, int startX, int startY, int startZ, boolean withNotify){

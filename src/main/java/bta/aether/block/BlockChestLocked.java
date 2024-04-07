@@ -47,7 +47,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
      * A locked chest can not have items inserted into or removed from it.
      *
      * Locked chests are unlocked by default, be mindful of that when writing generation code.
-     * See bta.aether.world.generate.WorldFeatureAetherDungeonBase.makeTreasureChest() for generation code.
+     * See bta.aether.world.generate.feature.WorldFeatureAetherDungeonBase.makeTreasureChest() for generation code.
      */
 
     @Override
