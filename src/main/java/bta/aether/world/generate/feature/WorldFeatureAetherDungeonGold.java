@@ -34,13 +34,13 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
 
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) return false;
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000));
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
 
         // generate main spheroid
         int radius = 16;
-        drawSpheroid(world, random, x, y + 15, z, radius, (int) (radius*1.1), radius, holystone, true);
+        drawSpheroid(world, random, x, y + 15, z, radius, (int) (radius*1.12), radius, holystone, true);
 
         // cover it in grass and put some trees.
         int radX, radZ, height;
@@ -55,8 +55,9 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
                 if (random.nextInt(64) == 0) new WorldFeatureFlowers(AetherBlocks.aetherTallGrass.id).generate(world, random, radX + x, height-1, radZ + z);
             }
 
-        // place the outer spheres
         radius -= 2;
+
+        // place the outer spheres
         List<Integer> angles = new ArrayList<>();
         for (int angle = 0; angle < 10; angle++) angles.add(angle*(360/10));
 
@@ -66,8 +67,9 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
             angles.remove(angleIndex);
 
             double newX = x + radius * Math.cos(Math.toRadians(angle));
-            double newZ = z + radius * Math.tan(Math.toRadians(angle));
+            double newZ = z + radius * Math.sin(Math.toRadians(angle));
             double mod = (double) (4 + random.nextInt(5)) / 10;
+
             drawSphere(world, random, (int) newX, (int) (y + (radius*0.8F)), (int) newZ, (int) (radius*mod), holystone, true);
 
             // greenery
@@ -83,8 +85,8 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
                 }
         }
 
-        drawVolume(world, random, hellfire, Direction.WEST, 19, Direction.NORTH, 19, Direction.UP, 8, x +1 +radius/2, y +radius/2, z +1 +radius/2, true);
-        drawVolume(world, 0, 0, Direction.WEST, 17, Direction.NORTH, 17, Direction.UP, 6, x +radius/2, y +1 +radius/2, z +radius/2, true);
+        drawVolume(world, random, hellfire, Direction.WEST, 19, Direction.NORTH, 19, Direction.UP, 8, x +2 +radius/2, y +radius/2, z +2 +radius/2, true);
+        drawVolume(world, 0, 0, Direction.WEST, 17, Direction.NORTH, 17, Direction.UP, 6, x +1 +radius/2, y +1 +radius/2, z +1 +radius/2, true);
 
         // Chest hole
         ItemStack key = makeTreasureChest(lootTableGoldRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x, y +radius/2 +1, z);
