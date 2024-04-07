@@ -18,7 +18,7 @@ public class EntityPhyg extends EntityPig {
     }
 
     public String getEntityTexture() {
-        return "/assets/aether/mob/" + this.skinName + "/" + this.getSkinVariant() + ".png";
+        return "/assets/aether/mobs/" + this.skinName + "/" + this.getSkinVariant() + ".png";
     }
     @Override
     public int getSkinVariant() {
