@@ -35,6 +35,8 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityAerbunny.class, entityID++, "AerBunny");
         EntityHelper.Core.createEntity(EntityValk.class, entityID++, "Valk");
         EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
+        EntityHelper.Core.createEntity(EntityPhyg.class, entityID++, "Phyg");
+        EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
     }
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5f));
