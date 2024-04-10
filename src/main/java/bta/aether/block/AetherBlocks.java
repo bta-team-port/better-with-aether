@@ -488,7 +488,7 @@ public class AetherBlocks {
 
     public static final Block dungeonChestLocked = new BlockBuilder(MOD_ID)
             .setHardness(-1.0F)
-            .setResistance(-1.0F)
+            .setResistance((float)Integer.MAX_VALUE)
             .setImmovable()
             .setSideTextures("LockedChestSide.png")
             .setTopBottomTexture(14, 3)
@@ -510,7 +510,7 @@ public class AetherBlocks {
     public static final BlockBuilder stoneLocked = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0F)
-            .setResistance(-1.0F)
+            .setResistance((float)Integer.MAX_VALUE)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT);
     public static final Block stoneCarvedLocked = stoneLocked
             .setTextures("CarvedStone.png")
@@ -521,7 +521,8 @@ public class AetherBlocks {
     public static final Block stoneHellfireLocked = stoneLocked
             .setTextures("HellfireStone.png")
             .build(new BlockDungeon("hellfire.locked", blockID++, Material.stone, stoneHellfire.id));
-//LOCKED LIGHT DUNGEON STONES
+
+//LOCKED DUNGEON LIGHTS
     public static final Block stoneCarvedLightLocked = stoneLocked
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setLuminance(7)
