@@ -11,21 +11,6 @@ public class PhygRenderer extends LivingRenderer<EntityPhyg> {
         this.setRenderPassModel(modelbase1);
     }
 
-    protected boolean renderSaddledPig(EntityPhyg entity, int i, float f) {
-        this.loadTexture("/assets/aether/mobs/PhygSaddle.png");
-        return i == 0 && entity != null && entity.getSaddled();
-    }
-
-    protected boolean setWoolColorAndRender(EntityPhyg pig, int i, float f) {
-        if (i == 1) {
-            this.loadTexture("/assets/aether/mobs/Wings.png");
-            ModelPhyg2.pig = pig;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     protected boolean shouldRenderPass(EntityPhyg entity, int renderPass, float partialTick)
     {
