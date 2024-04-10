@@ -3,6 +3,7 @@ package bta.aether.gui.components;
 import bta.aether.Aether;
 import bta.aether.entity.IPlayerBossList;
 import bta.aether.util.NameGenerator;
+import bta.aether.world.AetherDimension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiHudDesigner;
@@ -79,7 +80,7 @@ public class ComponentBossBar extends MovableHudComponent {
     public void drawBossBars(List<EntityLiving> entities) {
         int i = 0;
         for (EntityLiving entity : entities) {
-            if (i+1 <= 3 && getDistanceFrom(entity.x, entity.y, entity.z, mc.thePlayer.x, mc.thePlayer.y, mc.thePlayer.z) < 100) drawBossBar(entity, i++);
+            if (i+1 <= 3 && getDistanceFrom(entity.x, entity.y, entity.z, mc.thePlayer.x, mc.thePlayer.y, mc.thePlayer.z) < AetherDimension.bossDetectionRange) drawBossBar(entity, i++);
         }
         barAmount = Math.min(i, 3);
     }

@@ -123,7 +123,7 @@ public class AetherFunctions {
 
         if (parameters.random.nextInt(250) == 0){
             int xPos = x + parameters.random.nextInt(16) + 8;
-            int yPos = parameters.decorator.minY + 50 + parameters.random.nextInt(parameters.decorator.rangeY - 30);
+            int yPos = parameters.decorator.minY + 50 + parameters.random.nextInt(parameters.decorator.rangeY - 50);
             int zPos = z + parameters.random.nextInt(16) + 8;
             if (parameters.decorator.world.isAirBlock(xPos, yPos, zPos) && parameters.decorator.world.isAirBlock(xPos + 30, yPos, zPos) && parameters.decorator.world.isAirBlock(xPos, yPos, zPos + 50) && parameters.decorator.world.isAirBlock(xPos + 30, yPos, zPos + 50)) {
                 new WorldFeatureAetherDungeonGold().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);

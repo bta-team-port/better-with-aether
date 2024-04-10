@@ -54,7 +54,7 @@ public class BlockDungeon extends Block {
     public void attemptPropagate(World world, int x, int y, int z) {
         final boolean[] canBreak = {true};
         AetherDimension.dugeonMap.forEach((id, cords) -> {
-            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < 90000) {
+            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < AetherDimension.dungeonRadiusSQR) {
                 canBreak[0] = false;
             }
         });
