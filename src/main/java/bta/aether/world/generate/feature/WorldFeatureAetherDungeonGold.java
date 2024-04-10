@@ -40,8 +40,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
 
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-        // that return is only commented, so I can generate these back to back.
-        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) /*return false*/;
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < 250000)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         // generate main spheroid
