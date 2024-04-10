@@ -37,13 +37,12 @@ public class ModelPhyg2 extends ModelBase {
         this.leftWingOuter.rotateAngleZ = pig.wingAngle - wingBend + 1.5707964F;
         this.rightWingInner.rotateAngleZ = -(pig.wingAngle + wingBend - 1.5707964F);
         this.rightWingOuter.rotateAngleZ = -(pig.wingAngle - wingBend + 1.5707964F);
-        this.leftWingOuter.render(scale);
-        this.leftWingInner.render(scale);
-        this.rightWingOuter.render(scale);
-        this.rightWingInner.render(scale);
+        this.leftWingOuter.renderWithRotation(scale);
+        this.leftWingInner.renderWithRotation(scale);
+        this.rightWingOuter.renderWithRotation(scale);
+        this.rightWingInner.renderWithRotation(scale);
     }
 
     public void setRotationAngles(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-        super.setRotationAngles(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
     }
 }

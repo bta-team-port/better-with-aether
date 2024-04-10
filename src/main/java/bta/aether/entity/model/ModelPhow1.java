@@ -9,7 +9,7 @@ public class ModelPhow1 extends ModelQuadruped {
     Cube horn2;
 
     public ModelPhow1() {
-        super(112, 0.0F);
+        super(12, 0.0F);
         this.head = new Cube(0, 0);
         this.head.addBox(-4.0F, -4.0F, -6.0F, 8, 8, 6, 0.0F);
         this.head.setRotationPoint(0.0F, 4.0F, -8.0F);

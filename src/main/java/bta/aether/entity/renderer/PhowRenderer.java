@@ -4,7 +4,6 @@ import bta.aether.entity.EntityPhow;
 import bta.aether.entity.model.ModelPhow2;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.core.entity.EntityLiving;
 
 public class PhowRenderer extends LivingRenderer<EntityPhow> {
     public PhowRenderer(ModelBase modelbase, ModelBase modelbase1, float f) {
@@ -22,8 +21,8 @@ public class PhowRenderer extends LivingRenderer<EntityPhow> {
         }
     }
 
-    protected boolean render(EntityLiving entityliving, int i, float f) {
-        return this.setWoolColorAndRender((EntityPhow) entityliving, i, f);
+    protected boolean shouldRenderPass(EntityPhow entity, int renderPass, float partialTick) {
+        return this.setWoolColorAndRender(entity, renderPass, partialTick);
     }
 
 }
