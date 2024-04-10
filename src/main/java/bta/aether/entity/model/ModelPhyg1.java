@@ -12,10 +12,6 @@ public class ModelPhyg1 extends ModelQuadruped {
         this.nose.setRotationPoint(0.0F, 12.0F, -6.0F);
     }
 
-    public ModelPhyg1(float f) {
-        super(6, f);
-    }
-
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.render(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.nose.render(scale);
