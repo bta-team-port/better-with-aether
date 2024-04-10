@@ -16,7 +16,7 @@ public class ModelPhyg2 extends ModelBase {
         this.leftWingOuter.addBox(-1.0F, -8.0F, -4.0F, 2, 16, 8, 0.0F);
         this.rightWingInner.addBox(-1.0F, -8.0F, -4.0F, 2, 16, 8, 0.0F);
         this.rightWingOuter.addBox(-1.0F, -8.0F, -4.0F, 2, 16, 8, 0.0F);
-        this.rightWingOuter.rotateAngleY = 3.1415927F;
+        this.rightWingOuter.rotationPointY = 3.1415927F;
     }
 
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
