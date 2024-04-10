@@ -36,7 +36,7 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityValk.class, entityID++, "Valk");
         EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
         EntityHelper.Core.createEntity(EntityPhyg.class, entityID++, "Phyg");
-        EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
+        EntityHelper.Core.createEntity(EntityPhow.class, entityID++, "Phow");
     }
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5F));
@@ -49,5 +49,8 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new LivingRenderer<EntityAerwhale>(modelAerwhale, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityMimic.class, new MimicRenderer(modelMimic, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
+        EntityHelper.Client.assignEntityRenderer(EntityPhow.class, new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F));
+
     }
 }
