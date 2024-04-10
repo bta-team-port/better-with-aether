@@ -4,7 +4,6 @@ import bta.aether.entity.EntityPhyg;
 import bta.aether.entity.model.ModelPhyg2;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
-import net.minecraft.core.entity.EntityLiving;
 
 public class PhygRenderer extends LivingRenderer<EntityPhyg> {
     public PhygRenderer(ModelBase modelbase, ModelBase modelbase1, float f) {
@@ -22,7 +21,7 @@ public class PhygRenderer extends LivingRenderer<EntityPhyg> {
         }
     }
 
-    protected boolean render(EntityLiving entityliving, int i, float f) {
-        return this.setWoolColorAndRender((EntityPhyg) entityliving, i, f);
+    protected boolean shouldRenderPass(EntityPhyg entity, int renderPass, float partialTick) {
+        return this.setWoolColorAndRender(entity, renderPass, partialTick);
     }
 }

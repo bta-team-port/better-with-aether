@@ -2,14 +2,13 @@ package bta.aether.entity;
 
 import bta.aether.AetherBlockTags;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.animal.EntityAnimal;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 
-public class EntityAerbunny extends EntityAnimal {
+public class EntityAerbunny extends EntityAetherAnimal {
     private static final int MAXIMUM_PUFFS = 11;
     // run away when attacked
     // puff up on jump and slowly fart the puffiness away

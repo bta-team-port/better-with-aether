@@ -44,5 +44,6 @@ public class ModelPhow2 extends ModelBase {
     }
 
     public void setRotationAngles(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+        super.setRotationAngles(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
     }
 }
