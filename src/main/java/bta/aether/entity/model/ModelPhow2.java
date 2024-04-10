@@ -33,10 +33,10 @@ public class ModelPhow2 extends ModelBase {
         y2 = x * (float)Math.sin(cow.wingAngle) + y * (float)Math.cos(cow.wingAngle);
         this.leftWingOuter.setRotationPoint(4.0F + x2, y2 + 6.0F, z);
         this.rightWingOuter.setRotationPoint(-4.0F - x2, y2 + 6.0F, z);
-        this.leftWingInner.rotationPointZ = cow.wingAngle + wingBend + 1.5707964F;
-        this.leftWingOuter.rotationPointZ = cow.wingAngle - wingBend + 1.5707964F;
-        this.rightWingInner.rotationPointZ = -(cow.wingAngle + wingBend - 1.5707964F);
-        this.rightWingOuter.rotationPointZ = -(cow.wingAngle - wingBend + 1.5707964F);
+        this.leftWingInner.rotateAngleZ = cow.wingAngle + wingBend + 1.5707964F;
+        this.leftWingOuter.rotateAngleZ = cow.wingAngle - wingBend + 1.5707964F;
+        this.rightWingInner.rotateAngleZ = -(cow.wingAngle + wingBend - 1.5707964F);
+        this.rightWingOuter.rotateAngleZ = -(cow.wingAngle - wingBend + 1.5707964F);
         this.leftWingOuter.renderWithRotation(scale);
         this.leftWingInner.renderWithRotation(scale);
         this.rightWingOuter.renderWithRotation(scale);
