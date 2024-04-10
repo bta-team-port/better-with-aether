@@ -12,10 +12,10 @@ public class PhowRenderer extends LivingRenderer<EntityPhow> {
         this.setRenderPassModel(modelbase1);
     }
 
-    protected boolean setWoolColorAndRender(EntityPhow flyingcow, int i, float f) {
+    protected boolean setWoolColorAndRender(EntityPhow cow, int i, float f) {
         if (i == 0) {
             this.loadTexture("/assets/aether/mobs/Wings.png");
-            ModelPhow2.flyingcow = flyingcow;
+            ModelPhow2.cow = cow;
             return true;
         } else {
             return false;
@@ -26,8 +26,4 @@ public class PhowRenderer extends LivingRenderer<EntityPhow> {
         return this.setWoolColorAndRender((EntityPhow) entityliving, i, f);
     }
 
-    @Override
-    public void doRender(EntityPhow entity, double d, double e, double f, float g, float h) {
-
-    }
 }
