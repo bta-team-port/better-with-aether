@@ -3,7 +3,7 @@ package bta.aether.entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.world.World;
 
-public class EntityPhyg extends EntityAetherAnimal {
+public class EntityPhow extends EntityAetherAnimal {
     public boolean getSaddled = false;
     public float wingFold;
     public float wingAngle;
@@ -12,9 +12,9 @@ public class EntityPhyg extends EntityAetherAnimal {
     public int jrem;
     private boolean jpress;
     private int ticks;
-    public EntityPhyg(World world) {
+    public EntityPhow(World world) {
         super(world);
-        this.skinName = "phyg";
+        this.skinName = "phow";
     }
 
     public String getEntityTexture() {
@@ -27,19 +27,23 @@ public class EntityPhyg extends EntityAetherAnimal {
     }
 
     public String getLivingSound() {
-        return "mob.pig";
+        return "mob.cow";
     }
 
     protected String getHurtSound() {
-        return "mob.pig";
+        return "mob.cowhurt";
     }
 
     protected String getDeathSound() {
-        return "mob.pigdeath";
+        return "mob.cowhurt";
+    }
+
+    protected float getSoundVolume() {
+        return 0.4F;
     }
 
     protected int getDropItemId() {
-        return Item.foodPorkchopRaw.id;
+        return Item.leather.id;
     }
 
     protected void dropFewItems() {
@@ -47,7 +51,7 @@ public class EntityPhyg extends EntityAetherAnimal {
 
         int k;
         for(k = 0; k < i; ++k) {
-            this.spawnAtLocation(Item.foodPorkchopRaw.id, 1);
+            this.spawnAtLocation(Item.leather.id, 1);
         }
 
         i = this.random.nextInt(3);
@@ -57,5 +61,4 @@ public class EntityPhyg extends EntityAetherAnimal {
         }
 
     }
-
 }

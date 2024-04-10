@@ -1,13 +1,12 @@
 package bta.aether;
 
-import bta.aether.entity.*;
+import bta.aether.block.AetherBlocks;
+import bta.aether.entity.AetherEntities;
+import bta.aether.entity.EntityBossSlider;
+import bta.aether.entity.EntityFallingGravitite;
+import bta.aether.entity.EntitySentry;
 import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
-import bta.aether.block.AetherBlocks;
-import bta.aether.entity.projectiles.EntityArrowFlaming;
-import bta.aether.entity.projectiles.EntityGoldenDart;
-import bta.aether.entity.projectiles.EntityLightningKnife;
-import bta.aether.entity.projectiles.EntityPoisonDart;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
 import bta.aether.item.AetherItems;
@@ -21,9 +20,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
-import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
-import turniplabs.halplibe.util.DirectoryManager;
 import turniplabs.halplibe.util.ItemCoords;
 import turniplabs.halplibe.util.TextureHandler;
 
