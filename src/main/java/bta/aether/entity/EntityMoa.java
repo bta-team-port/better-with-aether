@@ -1,12 +1,10 @@
 package bta.aether.entity;
 
 import bta.aether.AetherBlockTags;
-import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.GameSettings;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.EntityChicken;
 import net.minecraft.core.entity.player.EntityPlayer;
