@@ -1,10 +1,10 @@
 package bta.aether.entity;
 
 import net.minecraft.core.entity.EntityFlying;
-import net.minecraft.core.entity.animal.IAnimal;
+import net.minecraft.core.entity.monster.IEnemy;
 import net.minecraft.core.world.World;
 
-public class EntityAerwhale extends EntityFlying implements IAnimal {
+public class EntityAerwhale extends EntityFlying implements IEnemy {
 
     public EntityAerwhale(World world) {
         super(world);
@@ -12,7 +12,7 @@ public class EntityAerwhale extends EntityFlying implements IAnimal {
 
     @Override
     public String getEntityTexture() {
-        return "/assets/aether/mobs/Mob_Aerwhale.png";
+        return "/assets/aether/mobs/aerwhale.png";
     }
 
     @Override
