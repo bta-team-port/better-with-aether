@@ -20,6 +20,7 @@
     "entity.entityliving.EntityLivingMixinGravitite",
     "entity.entityliving.EntityLivingMixinNeptune",
     "entity.entityliving.EntityLivingMixinPhoenix",
+    "entity.entityliving.EntityWolfMixin",
     "entity.entityplayer.EntityPlayerMixin",
     "entity.entityplayer.EntityPlayerMixinAgility",
     "entity.entityplayer.EntityPlayerMixinIce",
