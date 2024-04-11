@@ -101,6 +101,7 @@ public abstract class HealthBarComponentMixin extends MovableHudComponent {
 	@Redirect(method = "render", at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/hud/Layout;getComponentY(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/hud/HudComponent;I)I"))
 	public int healthY(Layout instance, Minecraft minecraft, HudComponent hudComponent, int i) {
 		int y = instance.getComponentY(minecraft,hudComponent,i);
+		if (minecraft.thePlayer == null) return y;
 		if (HealthHelper.getExtraHealth(minecraft.thePlayer) > 0) {
 			y += 10;
 		}

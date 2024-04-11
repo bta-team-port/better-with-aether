@@ -22,6 +22,10 @@ public class EntityWolfMixin extends EntityAnimal {
 
     static {
         ARMOR_MATERIALS.put(AetherArmorMaterial.PHOENIX, (ItemArmor) AetherItems.armorChestplatePhoenix);
+        ARMOR_MATERIALS.put(AetherArmorMaterial.NEPTUNE, (ItemArmor) AetherItems.armorChestplateNeptune);
+        ARMOR_MATERIALS.put(AetherArmorMaterial.OBSIDIAN, (ItemArmor) AetherItems.armorChestplateObsidian);
+        ARMOR_MATERIALS.put(AetherArmorMaterial.GRAVITITE, (ItemArmor) AetherItems.armorChestplateGravitite);
+        ARMOR_MATERIALS.put(AetherArmorMaterial.ZANITE, (ItemArmor) AetherItems.armorChestplateZanite);
     }
 
 

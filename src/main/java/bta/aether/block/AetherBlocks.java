@@ -480,9 +480,9 @@ public class AetherBlocks {
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
             .setResistance(2.0f)
-            .setTopBottomTexture(9, 1)
-            .setSideTextures(10, 1)
-            .setNorthTexture(11, 1)
+            .setTopBottomTexture("SkyrootChestTop.png")
+            .setSideTextures("SkyrootChestSide.png")
+            .setNorthTexture("SkyrootChestFront.png")
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
             .build(new BlockChestMimic("chest.mimic", blockID++, Material.wood));
 
