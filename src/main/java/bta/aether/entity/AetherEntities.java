@@ -3,6 +3,7 @@ package bta.aether.entity;
 import bta.aether.entity.model.*;
 import bta.aether.entity.renderer.*;
 import net.minecraft.client.render.entity.LivingRenderer;
+import net.minecraft.client.render.model.ModelSlime;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
 import useless.dragonfly.model.entity.BenchEntityModel;
@@ -12,9 +13,7 @@ import static bta.aether.Aether.MOD_ID;
 public class AetherEntities {
     private static int entityID = 100;
 
-    public static final BenchEntityModel modelSentry =  ModelHelper.getOrCreateEntityModel(MOD_ID, "sentry", ModelSentry.class);
     public static final BenchEntityModel modelSwet =  ModelHelper.getOrCreateEntityModel(MOD_ID, "swet", ModelSwet.class);
-    public static final BenchEntityModel modelZephyr =  ModelHelper.getOrCreateEntityModel(MOD_ID, "zephyr", ModelZephyr.class);
     public static final BenchEntityModel modelMoa =  ModelHelper.getOrCreateEntityModel(MOD_ID, "moa", ModelMoa.class);
     public static final BenchEntityModel modelSlider =  ModelHelper.getOrCreateEntityModel(MOD_ID, "slider", ModelSlider.class);
     public static final BenchEntityModel modelAerbunny =  ModelHelper.getOrCreateEntityModel(MOD_ID, "aerbunny", ModelAerbunny.class);
@@ -40,9 +39,9 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntitySheepuff.class, entityID++, "Sheepuff");
     }
     public void initializeModels(){
-        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5F));
+        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(new ModelSlime(0), 0.2F));
         EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1F));
-        EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer(modelZephyr, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new LivingRenderer<EntityBossSlider>(modelSlider, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
@@ -53,7 +52,5 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
         EntityHelper.Client.assignEntityRenderer(EntityPhow.class, new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F));
         EntityHelper.Client.assignEntityRenderer(EntitySheepuff.class, new SheepuffRenderer(new ModelSheepuff1(), new ModelSheepuff2(), new ModelSheepuff3(), 0.7F));
-
-
     }
 }
