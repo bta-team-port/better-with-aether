@@ -33,7 +33,7 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         ItemStack[] items = lootTable.generateLoot(quantity);
 
         if (isLocked) world.setBlock(x, y, z, AetherBlocks.dungeonChestLocked.id);
-        else world.setBlockWithNotify(x, y, z, Block.chestPlanksOak.id);
+        else world.setBlockWithNotify(x, y, z, AetherBlocks.chestSkyroot.id);
 
         TileEntityChest chest = (TileEntityChest) world.getBlockTileEntity(x, y, z);
         if (chest == null) {

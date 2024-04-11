@@ -17,6 +17,7 @@ public class HudComponentMixin {
 	@Unique
 	private static int CalculateHealthbarYSize(Minecraft mc) {
 		// TODO: fix when more than one row of hearts is supported
+		if (mc.thePlayer == null) return 10;
 		return (HealthHelper.getExtraHealth(mc.thePlayer) > 0 ? 20 : 10);
 	}
 
