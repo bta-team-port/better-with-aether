@@ -26,8 +26,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     }
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-
         if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR*1.5)) return false;
+        if (!world.canBlockSeeTheSky(x, y, z)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         for (int i = 0; i < 120; i++) {
