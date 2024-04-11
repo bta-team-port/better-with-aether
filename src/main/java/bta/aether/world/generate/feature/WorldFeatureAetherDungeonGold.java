@@ -15,7 +15,10 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase{
     private static BlockPallet hellfire = new BlockPallet();
@@ -35,12 +38,13 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
     private static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
             new Pair<>(128, new WorldFeatureGoldenOak(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id)),
             new Pair<>(32, new WorldFeatureFlowers(AetherBlocks.aetherTallGrass.id)),
-            new Pair<>(64, new WorldFeatureFlowers(AetherBlocks.flowerWhite.id))
+            new Pair<>(84, new WorldFeatureFlowers(AetherBlocks.flowerWhite.id))
     };
 
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
         if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR*1.5)) return false;
+        if (!world.canBlockSeeTheSky(x, y, z)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         // generate main spheroid
@@ -72,25 +76,47 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         int YRoomHeight = 8;
         int ZRoomLength = 19;
         drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true);
+        drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true);
+        drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +YRoomHeight-2 +radius/2, z +radius/2, true);
 
         // chest room
         xRoomLength = 7;
         YRoomHeight = 5;
         ZRoomLength = 7;
-        drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x -1 +radius, y +radius/2, z +ZRoomLength/2, true);
+        drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x -1 +radius, y +1 +radius/2, z +ZRoomLength/2, true);
 
-        ItemStack key = makeTreasureChest(lootTableGoldRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x, y + radius / 2 + 1, z);
+        ItemStack key = makeTreasureChest(lootTableGoldRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x -4 +radius, y +2 +radius/2, z);
+        world.setBlockMetadata(x -4 +radius, y +2 +radius/2, z, 4);
+
+        AetherBlockCoord[] bossDoor = {
+                new AetherBlockCoord(x +radius -xRoomLength, y +2 +radius/2, z -1),
+                new AetherBlockCoord(x +radius -xRoomLength, y +3 +radius/2, z -1),
+                new AetherBlockCoord(x +radius -xRoomLength, y +4 +radius/2, z -1),
+
+                new AetherBlockCoord(x +radius -xRoomLength, y +2 +radius/2, z),
+                new AetherBlockCoord(x +radius -xRoomLength, y +3 +radius/2, z),
+                new AetherBlockCoord(x +radius -xRoomLength, y +4 +radius/2, z),
+
+                new AetherBlockCoord(x +radius -xRoomLength, y +2 +radius/2, z +1),
+                new AetherBlockCoord(x +radius -xRoomLength, y +3 +radius/2, z +1),
+                new AetherBlockCoord(x +radius -xRoomLength, y +4 +radius/2, z +1),
+        };
 
         // Boss TODO: replace with sunfire spirit.
-        EntityBossBase boss = placeBoss(world, x, y + radius / 2 + 2, z, EntityBossSlider.class);
+        EntityBossBase boss = placeBoss(world, x, y +1 +radius/2, z, EntityBossSlider.class);
         if (boss != null) {
             boss.setToDungeon(dungeonID);
             boss.setKeychain(key);
             boss.setReturnPoint(new AetherBlockCoord(x, y + radius / 2 + 2, z));
-            boss.setBlocksDestroyOnDeath(null);
+            boss.setBlocksDestroyOnDeath(bossDoor);
         }
 
         return true;
+    }
+
+    private void drawSquareCylinder(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
+        drawVolume(world, random, pallet, direction1, length1, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
+        drawVolume(world, 0, 0, direction1, length1 -2, direction2, length2 -2, direction3, length3, startX -1, startY, startZ -1, withNotify);
     }
 
     private void drawHollowShell(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
@@ -103,10 +129,12 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         for (radX = -radius; radX < radius; radX++) for (radZ = -radius; radZ < radius; radZ++) {
             if (WorldFeatureAetherDungeonBase.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
                 height = world.getHeightValue((radX + x), (radZ + z));
+                if (Math.abs(height - y) > radius*2.25) continue;
 
                 if (stones.contains(world.getBlockId((radX + x), height - 1, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 1, (radZ + z), AetherBlocks.grassAether.id);
                 if (stones.contains(world.getBlockId((radX + x), height - 2, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 2, (radZ + z), AetherBlocks.dirtAether.id);
                 if (stones.contains(world.getBlockId((radX + x), height - 3, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 3, (radZ + z), AetherBlocks.dirtAether.id);
+                if (stones.contains(world.getBlockId((radX + x), height - 4, (radZ + z))) && world.rand.nextInt(10) > 3) world.setBlockWithNotify((radX + x), height - 4, (radZ + z), AetherBlocks.dirtAether.id);
 
                 for (Pair<Integer, WorldFeature> integerWorldFeaturePair : worldFeaturePair)
                     if (random.nextInt(integerWorldFeaturePair.first) == 0)
