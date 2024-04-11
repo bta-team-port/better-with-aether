@@ -1,7 +1,6 @@
 package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.EntityMonster;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -13,6 +12,7 @@ import net.minecraft.core.world.World;
 public class EntityMimic extends EntityMonster {
     public EntityMimic(World world) {
         super(world);
+        setSize(0.9F, 0.9F);
     }
     private int tickCounter = 0;
 

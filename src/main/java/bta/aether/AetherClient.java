@@ -1,10 +1,7 @@
 package bta.aether;
 
 import bta.aether.block.AetherBlocks;
-import bta.aether.entity.AetherEntities;
-import bta.aether.entity.EntityBossSlider;
-import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.EntitySentry;
+import bta.aether.entity.*;
 import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.gui.components.ComponentBossBar;
@@ -49,6 +46,20 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(Block.texCoordToIndex(newCoords[0], newCoords[1])));
 
         new AetherEntities().initializeModels();
+
+        MobInfoRegistry.register(EntityPhyg.class, "aether.phyg.name", "aether.phyg.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Item.foodPorkchopRaw),
+                        0.66f * 0.8f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
+                        0.66f * 0.2f, 0, 2)});
+
+        MobInfoRegistry.register(EntityPhow.class, "aether.phow.name", "aether.phow.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Item.leather),
+                        0.66f * 0.8f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
+                        0.66f * 0.2f, 0, 2)});
+
+        MobInfoRegistry.register(EntitySheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Block.wool),
+                        0.66f * 0.8f, 0 ,2)});
 
         MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),

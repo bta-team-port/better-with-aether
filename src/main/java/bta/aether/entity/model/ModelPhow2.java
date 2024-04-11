@@ -5,11 +5,11 @@ import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
 public class ModelPhow2 extends ModelBase {
-    private final Cube leftWingInner = new Cube(0, 0);
-    private final Cube leftWingOuter = new Cube(20, 0);
-    private final Cube rightWingInner = new Cube(0, 0);
-    private final Cube rightWingOuter = new Cube(40, 0);
-    public static EntityPhow flyingcow;
+    public Cube leftWingInner = new Cube(0, 0);
+    public Cube leftWingOuter = new Cube(20, 0);
+    public Cube rightWingInner = new Cube(0, 0);
+    public Cube rightWingOuter = new Cube(40, 0);
+    public static EntityPhow cow;
 
     public ModelPhow2() {
         this.leftWingInner.addBox(-1.0F, -8.0F, -4.0F, 2, 16, 8, 0.0F);
@@ -20,30 +20,29 @@ public class ModelPhow2 extends ModelBase {
     }
 
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-        float wingBend = -((float) Math.acos(flyingcow.wingFold));
-        float x = 32.0F * flyingcow.wingFold / 4.0F;
-        float y = -32.0F * (float) Math.sqrt(1.0F - flyingcow.wingFold * flyingcow.wingFold) / 4.0F;
+        float wingBend = -((float)Math.acos(cow.wingFold));
+        float x = 32.0F * cow.wingFold / 4.0F;
+        float y = -32.0F * (float)Math.sqrt(1.0F - cow.wingFold * cow.wingFold) / 4.0F;
         float z = 0.0F;
-        float x2 = x * (float) Math.cos(flyingcow.wingAngle) - y * (float) Math.sin(flyingcow.wingAngle);
-        float y2 = x * (float) Math.sin(flyingcow.wingAngle) + y * (float) Math.cos(flyingcow.wingAngle);
+        float x2 = x * (float)Math.cos(cow.wingAngle) - y * (float)Math.sin(cow.wingAngle);
+        float y2 = x * (float)Math.sin(cow.wingAngle) + y * (float)Math.cos(cow.wingAngle);
         this.leftWingInner.setRotationPoint(4.0F + x2, y2 + 6.0F, z);
         this.rightWingInner.setRotationPoint(-4.0F - x2, y2 + 6.0F, z);
         x *= 3.0F;
-        x2 = x * (float)Math.cos(flyingcow.wingAngle) - y * (float)Math.sin(flyingcow.wingAngle);
-        y2 = x * (float)Math.sin(flyingcow.wingAngle) + y * (float)Math.cos(flyingcow.wingAngle);
+        x2 = x * (float)Math.cos(cow.wingAngle) - y * (float)Math.sin(cow.wingAngle);
+        y2 = x * (float)Math.sin(cow.wingAngle) + y * (float)Math.cos(cow.wingAngle);
         this.leftWingOuter.setRotationPoint(4.0F + x2, y2 + 6.0F, z);
         this.rightWingOuter.setRotationPoint(-4.0F - x2, y2 + 6.0F, z);
-        this.leftWingInner.rotationPointZ = flyingcow.wingAngle + wingBend + 1.5707964F;
-        this.leftWingOuter.rotationPointZ = flyingcow.wingAngle - wingBend + 1.5707964F;
-        this.rightWingInner.rotationPointZ = -(flyingcow.wingAngle + wingBend - 1.5707964F);
-        this.rightWingOuter.rotationPointZ = -(flyingcow.wingAngle - wingBend + 1.5707964F);
-        this.leftWingOuter.render(scale);
-        this.leftWingInner.render(scale);
-        this.rightWingOuter.render(scale);
-        this.rightWingInner.render(scale);
+        this.leftWingInner.rotateAngleZ = cow.wingAngle + wingBend + 1.5707964F;
+        this.leftWingOuter.rotateAngleZ = cow.wingAngle - wingBend + 1.5707964F;
+        this.rightWingInner.rotateAngleZ = -(cow.wingAngle + wingBend - 1.5707964F);
+        this.rightWingOuter.rotateAngleZ = -(cow.wingAngle - wingBend + 1.5707964F);
+        this.leftWingOuter.renderWithRotation(scale);
+        this.leftWingInner.renderWithRotation(scale);
+        this.rightWingOuter.renderWithRotation(scale);
+        this.rightWingInner.renderWithRotation(scale);
     }
 
     public void setRotationAngles(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-        super.setRotationAngles(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
     }
 }
