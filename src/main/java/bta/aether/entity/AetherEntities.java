@@ -37,6 +37,7 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
         EntityHelper.Core.createEntity(EntityPhyg.class, entityID++, "Phyg");
         EntityHelper.Core.createEntity(EntityPhow.class, entityID++, "Phow");
+        EntityHelper.Core.createEntity(EntitySheepuff.class, entityID++, "Sheepuff");
     }
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(modelSentry, 0.5F));
@@ -51,6 +52,8 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityMimic.class, new MimicRenderer(modelMimic, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
         EntityHelper.Client.assignEntityRenderer(EntityPhow.class, new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F));
+        EntityHelper.Client.assignEntityRenderer(EntitySheepuff.class, new SheepuffRenderer(new ModelSheepuff1(), new ModelSheepuff2(), new ModelSheepuff3(), 0.7F));
+
 
     }
 }
