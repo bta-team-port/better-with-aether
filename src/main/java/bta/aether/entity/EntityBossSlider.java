@@ -3,7 +3,7 @@ package bta.aether.entity;
 import bta.aether.block.AetherBlocks;
 import bta.aether.block.BlockDungeon;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
-import bta.aether.util.AetherBlockCoord;
+import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.LiquidMaterial;
@@ -186,7 +186,7 @@ public class EntityBossSlider extends EntityBossBase {
         }
 
         if (awake) {
-            if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < 7225)) {
+            if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)) {
                 this.awake = false;
                 returnToPedestal();
                 return;
