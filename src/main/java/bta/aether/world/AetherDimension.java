@@ -28,6 +28,12 @@ public class AetherDimension implements PreLaunchEntrypoint {
     public static Map<Integer, ChunkCoordinates> dugeonMap = new HashMap<>();
     public static int AetherDimensionID = 3;
     private static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
+
+    public static final int bossDetectionRange = 100;
+    public static final int bossDetectionRangeSQR = 10000;
+    public static final int dungeonRadius = 300;
+    public static final int dungeonRadiusSQR = 90000;
+
     public static List<Integer> getDimensionBlacklist(Dimension dimension){
         if (!dimensionPlacementBlacklist.containsKey(dimension)){
             dimensionPlacementBlacklist.put(dimension, new ArrayList<>());
