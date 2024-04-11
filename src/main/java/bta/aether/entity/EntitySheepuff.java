@@ -206,7 +206,7 @@ public class EntitySheepuff extends EntityAetherAnimal {
     }
 
     public String getEntityTexture() {
-        return "/assets/aether/mobs/sheepuff.png";
+        return "/assets/aether/mobs/sheepuff/sheepuff.png";
     }
 
     public void tick() {
