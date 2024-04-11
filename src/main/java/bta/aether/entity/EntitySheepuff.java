@@ -124,7 +124,7 @@ public class EntitySheepuff extends EntityAetherAnimal {
             blockZ = MathHelper.floor_double(this.z);
             blockBelow = this.world.getBlock(blockX, blockY - 1, blockZ);
             this.growthTimer = 0;
-            if ((blockBelow == Block.grass || blockBelow == Block.grassRetro) && !this.world.isClientSide) {
+            if (blockBelow == AetherBlocks.grassAether && !this.world.isClientSide) {
                 this.setIsSheepEating(true);
             }
 
@@ -138,13 +138,13 @@ public class EntitySheepuff extends EntityAetherAnimal {
             blockZ = MathHelper.floor_double(this.z);
             blockBelow = this.world.getBlock(blockX, blockY - 1, blockZ);
             if (this.timeSheepEating >= 5 && this.timeSheepEating <= 35 && this.timeSheepEating % 5 == 0 && !this.world.isClientSide) {
-                this.world.playBlockSoundEffect((Entity)null, this.x + 0.5, this.y + 0.5, this.z + 0.5, Block.grass, EnumBlockSoundEffectType.DIG);
+                this.world.playBlockSoundEffect(null, this.x + 0.5, this.y + 0.5, this.z + 0.5, AetherBlocks.grassAether, EnumBlockSoundEffectType.DIG);
             }
 
             this.prevTimeSheepEating = this.timeSheepEating++;
-            if (this.prevTimeSheepEating == 35 && (blockBelow == Block.grass || blockBelow == Block.grassRetro) && !this.world.isClientSide) {
+            if (this.prevTimeSheepEating == 35 && blockBelow == AetherBlocks.grassAether && !this.world.isClientSide) {
                 this.world.playSoundEffect((EntityPlayer)null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
-                this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, Block.dirt.id);
+                this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, AetherBlocks.dirtAether.id);
                 this.setSheared(false);
             }
 
@@ -244,15 +244,15 @@ public class EntitySheepuff extends EntityAetherAnimal {
     public static int getRandomFleeceColor(Random random) {
         int i = random.nextInt(100);
         if (i < 5) {
-            return 15;
+            return 3;
         } else if (i < 10) {
-            return 7;
+            return 9;
         } else if (i < 15) {
-            return 8;
+            return 5;
         } else if (i < 18) {
-            return 12;
+            return 6;
         } else {
-            return random.nextInt(500) != 0 ? 0 : 6;
+            return random.nextInt(500) != 0 ? 0 : 10;
         }
     }
 
