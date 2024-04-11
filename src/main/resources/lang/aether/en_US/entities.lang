@@ -1,6 +1,6 @@
 #Passive
 aether.phyg.name=Phyg
-aether.phyg.name=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
+aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
 
 aether.sheepuff.name=Sheepuff
 aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found commonly anywhere.
@@ -28,13 +28,13 @@ aether.swet.gold.name=Gold Swet
 aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere.
 
 aether.cockatrice.name=Cockatrice
-aether.blank.desc=
+aether.cockatrice.desc=
 
 aether.aechorplant.name=Aechor Plant
 aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether, and shoot poison darts to deter anything from coming near.
 
 aether.zephyr.name=Zephyr
-aether.blank.desc=Common annoyance found flying all over the aether, they shoot snowballs that send you flying.
+aether.blank.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
 
 aether.whirlwind.name=Whirlwind
 aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
