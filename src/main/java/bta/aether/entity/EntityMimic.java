@@ -7,6 +7,7 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolAxe;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 
 public class EntityMimic extends EntityMonster {
@@ -62,10 +63,10 @@ public class EntityMimic extends EntityMonster {
     }
 
     public String getEntityTexture() {
-            return "/assets/aether/mobs/Mimic.png";
+            return (world.dimension.id == Dimension.overworld.id) ? "/assets/aether/mobs/mimic/Oak.png" : "/assets/aether/mobs/mimic/Skyroot.png";
         }
 
     public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/Mimic.png";
+        return "/assets/aether/mobs/mimic/Skyroot.png";
     }
 }
