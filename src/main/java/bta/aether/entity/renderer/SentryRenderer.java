@@ -1,6 +1,5 @@
 package bta.aether.entity.renderer;
 
-import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntitySentry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.LivingRenderer;
@@ -11,17 +10,17 @@ public class SentryRenderer extends LivingRenderer<EntitySentry> {
 
     public SentryRenderer(ModelBase model, float shadowSize) {
         super(model, shadowSize);
-        this.setRenderPassModel(AetherEntities.modelSentry);
+        this.setRenderPassModel(model);
     }
 
     @Override
     protected void preRenderCallback(EntitySentry entity, float f) {
-        GL11.glScalef(1.5f, 1.5f, 1.5f);
+        GL11.glScalef(1.75F, 1.75F, 1.75F);
     }
 
     protected boolean setEyeBrightness(EntitySentry sentry, int i) {
         if (i == 0 && sentry.activated) {
-            this.loadTexture("assets/aether/entity/SentryEye.png");
+            this.loadTexture("assets/aether/mobs/sentry/sentry_eye.png");
             float brightness = sentry.getBrightness(1.0f);
             if (Minecraft.getMinecraft(this).fullbright) {
                 brightness = 1.0f;

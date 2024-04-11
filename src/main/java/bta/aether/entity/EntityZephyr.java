@@ -20,6 +20,7 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
         this.fireImmune = false;
         this.scoreValue = 1000;
         this.bb.expand(2.0, 3.0, 2.0);
+        this.setSize(4.0f, 4.0f);
     }
 
     public int courseChangeCooldown = 0;
@@ -180,11 +181,12 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
     }
 
     public String getEntityTexture() {
-        return "/assets/aether/mobs/Zephyr.png";
+        return "/assets/aether/mobs/" + this.skinName + "/" + this.getSkinVariant() + ".png";
     }
-
-    public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/Zephyr.png";
+    @Override
+    public int getSkinVariant() {
+        int skinVariantCount = 1;
+        return this.entityData.getByte(1) % skinVariantCount;
     }
 
     protected int getDropItemId() {
