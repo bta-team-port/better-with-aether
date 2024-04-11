@@ -22,7 +22,7 @@ public class BiomeAether extends Biome {
         this.spawnableCreatureList.add(new SpawnListEntry(EntityAerbunny.class, 102));
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPhyg.class, 102));
         this.spawnableCreatureList.add(new SpawnListEntry(EntityPhow.class, 102));
-
+        this.spawnableCreatureList.add(new SpawnListEntry(EntitySheepuff.class, 102));
 
 
         this.spawnableMonsterList.add(new SpawnListEntry(EntityZephyr.class, 10));
