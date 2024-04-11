@@ -70,12 +70,12 @@ public class BlockChestSkyroot extends BlockChest {
         return textures[index];
     }
     static {
-        textures[0] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestTop.png");
-        textures[1] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSide.png");
-        textures[2] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFront.png");
-        textures[3] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFrontLeft.png");
-        textures[4] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestFrontRight.png");
-        textures[5] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSideLeft.png");
-        textures[6] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "SkyrootChestSideLeft.png");
+        textures[0] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_top.png");
+        textures[1] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_side.png");
+        textures[2] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_front.png");
+        textures[3] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_front_left.png");
+        textures[4] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_front_right.png");
+        textures[5] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_side_left.png");
+        textures[6] = TextureHelper.getOrCreateBlockTextureIndex(MOD_ID, "chest_skyroot_side_right.png");
     }
 }
