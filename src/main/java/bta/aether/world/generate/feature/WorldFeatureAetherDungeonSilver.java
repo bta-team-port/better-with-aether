@@ -6,6 +6,7 @@ import bta.aether.entity.EntityBossSlider;
 import bta.aether.item.AetherItems;
 import bta.aether.util.AetherBlockCoord;
 import bta.aether.world.AetherDimension;
+import bta.aether.world.WorldFeatureGoldenOak;
 import bta.aether.world.generate.BlockPallet;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
@@ -26,8 +27,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     }
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
-
         if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR*1.5)) return false;
+        if (!world.canBlockSeeTheSky(x, y, z)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         for (int i = 0; i < 120; i++) {
@@ -104,7 +105,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
             int bz = z + 45;
             drawPlane(world, random, angelic,Direction.WEST, 3, Direction.SOUTH, 3, bx, y + 2, bz, true);
             setBlock(world, bx - 1, y + 2, bz + 1, AetherBlocks.dirtAether.id, 0, true);
-            setBlock(world, bx - 1, y + 3, bz + 1, AetherBlocks.saplingOakGolden.id, 0, false);
+            if (world.rand.nextInt(6) == 0) setBlock(world, bx - 1, y + 3, bz + 1, AetherBlocks.saplingOakGolden.id, 0, false);
+            else new WorldFeatureGoldenOak(AetherBlocks.logOakGolden.id, AetherBlocks.leavesOakGolden.id).generate(world, random, bx - 1, y + 3, bz + 1);
 
             setBlock(world, bx, y + 3, bz,AetherBlocks.torchAmbrosium.id, 0, true);
             setBlock(world, bx - 2, y + 3, bz,AetherBlocks.torchAmbrosium.id, 0, true);

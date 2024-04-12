@@ -43,14 +43,15 @@ public class EntityArrowFlaming extends EntityArrow {
         if (hitResult.entity != null) {
             if (hitResult.entity instanceof EntityCreeper) {
                 EntityCreeper entityCreeper = (EntityCreeper) hitResult.entity;
-                this.world.createExplosion(entityCreeper, entityCreeper.x, entityCreeper.y, entityCreeper.z, 6.0F);
-                entityCreeper.remove();
+                entityCreeper.setTarget(entityCreeper);
+                return;
             }
-            if (world.dimension.id != AetherDimension.AetherDimensionID) hitResult.entity.fireHurt();
+            hitResult.entity.fireHurt();
         }
 
         if (world.getBlockId(this.xTile, this.yTile, this.zTile) == Block.tnt.id) {
             ((BlockTNT)world.getBlock(this.xTile, this.yTile, this.zTile)).ignite(world, this.xTile, this.yTile, this.zTile, true);
+            this.remove();
             return;
         }
 

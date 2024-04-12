@@ -29,7 +29,7 @@ public abstract class EntityPlayerSPMixinBossList extends EntityPlayer implement
     public List<EntityLiving> aether$getBossList() {
         List<EntityLiving> _bosses = new ArrayList<>(aether$bossList);
         for (EntityLiving bossBase : aether$bossList) {
-            if (!bossBase.isAlive() || (bossBase instanceof EntityBossSlider && !((EntityBossSlider) bossBase).awake)) {
+            if (!bossBase.isAlive() || (bossBase instanceof EntityBossSlider && !((EntityBossSlider) bossBase).isAwake())) {
                 _bosses.remove(bossBase);
             }
         }
