@@ -73,7 +73,7 @@ public class EntitySentry extends EntityMonster {
                 this.jumpDelay /= 3;
             }
             this.isJumping = true;
-            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+            this.world.playSoundAtEntity(entityplayer, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
             this.moveStrafing = 1.0f - this.random.nextFloat() * 2.0f;
             this.moveForward = 2;
         } else {
