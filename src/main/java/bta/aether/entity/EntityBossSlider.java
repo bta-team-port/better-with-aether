@@ -21,31 +21,48 @@ import net.minecraft.core.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class EntityBossSlider extends EntityBossBase {
+
     public final int angerThreshold = 50;
     public final float baseDamage = 10F;
     public final int maxAttackCoolDown = 60;
     public final float baseSpeed = 1.375F;
 
-    public boolean awake = false;
-    private final ArrayList<EntityPlayer> creativeAttackersList = new ArrayList<>();
-
     public int attackCoolDown = 0;
-    private boolean midSlam = false;
     private double slamY = 0;
-
+    private EntityPlayer target;
     private boolean allowedToMove = true;
+
     private float momentumX = 0;
     private float momentumY = 0;
     private float momentumZ = 0;
+
+    private final ArrayList<EntityPlayer> creativeAttackersList = new ArrayList<>();
+    enum state {
+        AWAKE,
+        SLAM,
+        SLEEP
+    }
+
+    private final HashMap<state, Runnable> statemap = new HashMap<>();
+    {
+        statemap.put(state.AWAKE, this::stateAwake);
+        statemap.put(state.SLAM, this::stateSlam);
+        statemap.put(state.SLEEP, () -> {});
+    }
+
+    private state currentState = state.SLEEP;
+    private List<Direction> lastMoves = new ArrayList<>();
 
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
         this.setSize(2f,2f);
         this.scoreValue = 10000;
         this.viewScale = 2f;
+        this.fireImmune = true;
     }
 
     @Override
@@ -67,7 +84,7 @@ public class EntityBossSlider extends EntityBossBase {
     }
 
     public String getEntityTexture() {
-        if (this.awake) {
+        if (this.isAwake()) {
             if (isAngry()) return "/assets/aether/mobs/sliderAwake_red.png";
             return "/assets/aether/mobs/sliderAwake.png";
         }
@@ -104,158 +121,167 @@ public class EntityBossSlider extends EntityBossBase {
 
         int blocksBroken = 0;
         if (Math.abs(momentumX) > 1.0F || Math.abs(momentumZ) > 1.0F) {
-            for (int x = -2; x <= 1; x++) {
-                for (int z = -2; z <= 1; z++) {
-                    for (int y = -1; y <= 2; y++) {
-                        if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z))) {
-                            this.momentumX *= 0.85F;
-                            this.momentumY *= 0.85F;
-                            this.momentumZ *= 0.85F;
+            for (int x = -2; x <= 1; x++) for (int z = -2; z <= 1; z++) for (int y = -1; y <= 2; y++) {
+                if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z))) {
+                    this.momentumX *= 0.85F;
+                    this.momentumY *= 0.85F;
+                    this.momentumZ *= 0.85F;
 
-                            blocksBroken++;
-                            if (blocksBroken >= 9) {
-                                if (this.momentumY <= 0) this.momentumY = 0.4125F;
-                                this.allowedToMove = false;
-                                this.attackCoolDown = maxAttackCoolDown;
-                                return;
-                            }
-                        }
+                    blocksBroken++;
+                    if (blocksBroken >= 9) {
+                        if (this.momentumY <= 0) this.momentumY = 0.4125F;
+                        this.allowedToMove = false;
+                        this.attackCoolDown = maxAttackCoolDown;
+                        return;
                     }
                 }
             }
         }
 
-        if (midSlam) {
+        List<Direction> movesUsed = new ArrayList<>();
+        lastMoves.forEach(direction -> {if (!movesUsed.contains(direction)) movesUsed.add(direction);});
 
-            if (attackCoolDown <= 0) {
-                this.momentumY -= this.baseSpeed;
-            }
+        if (lastMoves.size() > 3 && movesUsed.size() <= 2) {
+            this.momentumY += this.baseSpeed * getAngerModifier();
+            this.currentState = state.SLAM;
+            lastMoves.add(Direction.NONE);
+        }
 
-            this.momentumX *= 0.75F;
-            this.momentumY *= 0.75F;
-            this.momentumZ *= 0.75F;
-            move(this.momentumX, this.momentumY, this.momentumZ);
+        statemap.get(this.currentState).run();
 
-            if (this.slamY == this.y && attackCoolDown <= 0) {
-                int slamRadius = 5;
-                float launchSpeed = 0.75F;
-                List<Entity> list = world.getEntitiesWithinAABB(Entity.class, AABB.getBoundingBox(this.x - slamRadius, this.y, this.z  - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius));
+        this.momentumX *= 0.75F;
+        this.momentumY *= 0.75F;
+        this.momentumZ *= 0.75F;
+        move(this.momentumX, this.momentumY, this.momentumZ);
 
-                for (Entity entity : list) {
-                    entity.hurt(this, (int) ((baseDamage * 0.50F) * getAngerModifier()), DamageType.FALL);
-                    entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.GENERIC);
+        this.attackCoolDown--;
+        if (attackCoolDown <= 0) allowedToMove = true;
+        if (lastMoves.size() > 4) lastMoves.remove(0);
+    }
 
-                    switch (calculateDirection(entity)) {
-                        case NORTH:
-                            entity.push(0, launchSpeed /2, -launchSpeed);
-                            break;
-
-                        case SOUTH:
-                            entity.push(0, launchSpeed /2, launchSpeed);
-                            break;
-
-                        case EAST:
-                            entity.push(launchSpeed, launchSpeed /2, 0);
-                            break;
-
-                        case WEST:
-                            entity.push(-launchSpeed, launchSpeed /2, 0);
-                            break;
-                    }
-
-                    doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
-                }
-
-                for (int particle = 0; particle < 16; particle++) {
-                    double explosionX = this.x - slamRadius + world.rand.nextInt(slamRadius * 2);
-                    double explosionY = this.y - slamRadius + world.rand.nextInt(slamRadius * 2);
-                    double explosionZ = this.z - slamRadius + world.rand.nextInt(slamRadius * 2);
-
-                    doExplosionEffect(world, explosionX, explosionY, explosionZ);
-                }
-
-                if (this.momentumY <= 0) this.momentumY = 0.4125F;
-                this.midSlam = false;
-                this.awake = true;
-                this.attackCoolDown = maxAttackCoolDown;
-            }
-
-            this.slamY = this.y;
-            attackCoolDown--;
+    protected void stateAwake() {
+        if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)) {
+            this.currentState = state.SLEEP;
+            returnToPedestal();
             return;
         }
 
-        if (awake) {
-            if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)) {
-                this.awake = false;
-                returnToPedestal();
+        this.target = (EntityPlayer) findPlayerToAttack();
+        if (target == null && !this.creativeAttackersList.isEmpty()) {
+            target = creativeAttackersList.get(0);
+            for (EntityPlayer entityPlayer : this.creativeAttackersList) {
+                if (this.distanceToSqr(entityPlayer) < this.distanceToSqr(target)) target = entityPlayer;
+            }
+
+            if (this.distanceToSqr(target) > AetherDimension.bossDetectionRangeSQR) target = null;
+        }
+
+        if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
+            this.speed = this.baseSpeed * getSpeedModifier(target);
+            this.attackCoolDown = this.maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
+
+            if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && currentState != state.SLAM && random.nextInt(6) == 0) {
+                this.currentState = state.SLAM;
+                this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
+                this.momentumY += this.baseSpeed * getAngerModifier();
                 return;
             }
 
-            EntityPlayer target = (EntityPlayer) findPlayerToAttack();
-            if (target == null && !this.creativeAttackersList.isEmpty()) {
-                target = creativeAttackersList.get(0);
-                for (EntityPlayer entityPlayer : this.creativeAttackersList) {
-                    if (this.distanceToSqr(entityPlayer) < this.distanceToSqr(target)) target = entityPlayer;
-                }
+            Direction moveDirection = calculateDirection(target);
+            lastMoves.add(moveDirection);
+            move(moveDirection);
+        }
+    }
 
-                if (this.distanceToSqr(target) > 7225) target = null;
-            }
+    private void move(Direction direction) {
+        switch (direction) {
+            case UP:
+                this.allowedToMove = false;
+                this.momentumY += baseSpeed * getSpeedModifier(target);
+                break;
 
-            if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
-                this.speed = this.baseSpeed * getSpeedModifier(target);
-                this.attackCoolDown = this.maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
+            case DOWN:
+                this.allowedToMove = false;
+                this.momentumY -= baseSpeed * getSpeedModifier(target);
+                break;
 
-                if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && !midSlam && random.nextInt(6) == 0) {
-                    this.midSlam = true;
-                    this.awake = false;
-                    this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
-                    this.momentumY += this.baseSpeed * getAngerModifier();
-                    return;
-                }
+            case NORTH:
+                this.allowedToMove = false;
+                this.momentumZ -= speed;
+                break;
 
-                Direction direction = calculateDirection(target);
-                 switch (direction){
-                    case UP:
-                        this.allowedToMove = false;
-                        this.momentumY += baseSpeed * getSpeedModifier(target);
-                        break;
+            case SOUTH:
+                this.allowedToMove = false;
+                this.momentumZ += speed;
+                break;
 
-                    case DOWN:
-                        this.allowedToMove = false;
-                        this.momentumY -= baseSpeed * getSpeedModifier(target);
-                        break;
+            case EAST:
+                this.allowedToMove = false;
+                this.momentumX += speed;
+                break;
 
+            case WEST:
+                this.allowedToMove = false;
+                this.momentumX -= speed;
+                break;
+        }
+    }
+
+    protected void stateSlam() {
+        if (attackCoolDown <= 0) {
+            this.momentumY -= this.baseSpeed;
+        }
+
+        this.momentumX *= 0.75F;
+        this.momentumY *= 0.75F;
+        this.momentumZ *= 0.75F;
+        move(this.momentumX, this.momentumY, this.momentumZ);
+
+        if (this.slamY == this.y && attackCoolDown <= 0) {
+            int slamRadius = 5;
+            float launchSpeed = 0.75F;
+            List<Entity> list = world.getEntitiesWithinAABB(Entity.class, AABB.getBoundingBox(this.x - slamRadius, this.y, this.z  - slamRadius, this.x + slamRadius, this.y + slamRadius, this.z + slamRadius));
+
+            for (Entity entity : list) {
+                entity.hurt(this, (int) ((baseDamage * 0.50F) * getAngerModifier()), DamageType.FALL);
+                entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.GENERIC);
+
+                switch (calculateDirection(entity)) {
                     case NORTH:
-                        this.allowedToMove = false;
-                        this.momentumZ -= speed;
+                        entity.push(0, launchSpeed /2, -launchSpeed);
                         break;
 
                     case SOUTH:
-                        this.allowedToMove = false;
-                        this.momentumZ += speed;
+                        entity.push(0, launchSpeed /2, launchSpeed);
                         break;
 
                     case EAST:
-                        this.allowedToMove = false;
-                        this.momentumX += speed;
+                        entity.push(launchSpeed, launchSpeed /2, 0);
                         break;
 
                     case WEST:
-                        this.allowedToMove = false;
-                        this.momentumX -= speed;
+                        entity.push(-launchSpeed, launchSpeed /2, 0);
                         break;
                 }
+
+                doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
             }
 
-            this.momentumX *= 0.75F;
-            this.momentumY *= 0.75F;
-            this.momentumZ *= 0.75F;
-            move(this.momentumX, this.momentumY, this.momentumZ);
+            for (int particle = 0; particle < 16; particle++) {
+                double explosionX = this.x - slamRadius + world.rand.nextInt(slamRadius * 2);
+                double explosionY = this.y - slamRadius + world.rand.nextInt(slamRadius * 2);
+                double explosionZ = this.z - slamRadius + world.rand.nextInt(slamRadius * 2);
 
-            this.attackCoolDown--;
-            if (attackCoolDown <= 0) allowedToMove = true;
+                doExplosionEffect(world, explosionX, explosionY, explosionZ);
+            }
+
+            if (this.momentumY <= 0) this.momentumY = 0.4125F;
+            this.currentState = state.AWAKE;
+            this.attackCoolDown = maxAttackCoolDown;
         }
+
+        this.slamY = this.y;
+        attackCoolDown--;
     }
 
     public float getSpeedModifier(Entity target){
@@ -275,12 +301,20 @@ public class EntityBossSlider extends EntityBossBase {
         return (this.getHealth() * 100) / this.getMaxHealth() < angerThreshold;
     }
 
+    public boolean isAwake() {
+        return this.currentState == state.AWAKE;
+    }
+
+    public void tryAwake() {
+        if (this.currentState != state.SLAM) this.currentState = state.AWAKE;
+    }
+
     public Direction calculateDirection(Entity entity) {
         double deltaX =  this.x - entity.x;
         double deltaY =  this.y - entity.y;
         double deltaZ =  this.z - entity.z;
 
-        if (Math.abs(deltaY) >= 1.65) {
+        if (Math.abs(deltaY) >= 1.25) {
             if (deltaY < 0) {
                 return Direction.UP;
             } else {
@@ -330,46 +364,38 @@ public class EntityBossSlider extends EntityBossBase {
 
     @Override
     protected boolean isMovementBlocked() {
-        return !this.awake;
+        return !this.isAwake();
     }
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if(this.awake && type == DamageType.BLAST) return super.hurt(attacker, damage/4, type);
+        if(this.isAwake() && type == DamageType.BLAST) return super.hurt(attacker, damage/4, type);
 
         if (attacker instanceof EntityPlayer) {
             ItemStack item = ((EntityPlayer)attacker).inventory.mainInventory[((EntityPlayer)attacker).inventory.currentItem];
 
-            if (item != null && item.getItem() instanceof ItemToolPickaxe) {
-                awake = true;
+            if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolAetherPickaxe)) {
+                tryAwake();
                 if (!((EntityPlayer)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((EntityPlayer) attacker);
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.holystone), type);
             }
-
-            if (item != null && item.getItem() instanceof ItemToolAetherPickaxe) {
-                awake = true;
-                if (!((EntityPlayer)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((EntityPlayer) attacker);
-                return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.holystone), type);
-            }
-
-            if (!this.awake) {
+            if (!this.isAwake()) {
                 String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
                 ((EntityPlayer)attacker).addChatMessage(message);
             }
         }
-
         return false;
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag tag) {
-        tag.putBoolean("awake", this.awake);
+        tag.putBoolean("awake", this.isAwake());
         super.addAdditionalSaveData(tag);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        this.awake = tag.getBoolean("awake");
+        if (currentState == state.SLEEP && tag.getBoolean("awake")) this.currentState = state.AWAKE;
         super.readAdditionalSaveData(tag);
     }
 
