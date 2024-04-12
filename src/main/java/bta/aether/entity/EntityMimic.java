@@ -1,6 +1,8 @@
 package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
+import bta.aether.world.AetherDimension;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.EntityMonster;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -13,13 +15,21 @@ import net.minecraft.core.world.World;
 public class EntityMimic extends EntityMonster {
     public EntityMimic(World world) {
         super(world);
+        this.heightOffset = 0.0F;
         setSize(0.9F, 0.9F);
     }
     private int tickCounter = 0;
 
+    public int getMaxHealth() {
+        return 40;
+    }
+
     @Override
     protected void dropFewItems() {
-        this.spawnAtLocation(AetherBlocks.chestSkyroot.id, 1);
+        if (world.dimension.id == AetherDimension.dimensionAether.id) {
+            this.spawnAtLocation(AetherBlocks.chestSkyroot.id, 1);
+        }
+        else this.spawnAtLocation(Block.chestPlanksOak.id, 1);
     }
 
     @Override
@@ -63,10 +73,10 @@ public class EntityMimic extends EntityMonster {
     }
 
     public String getEntityTexture() {
-            return (world.dimension.id == Dimension.overworld.id) ? "/assets/aether/mobs/mimic/Oak.png" : "/assets/aether/mobs/mimic/Skyroot.png";
+            return (world.dimension.id == Dimension.overworld.id) ? "/assets/aether/mobs/mimic/0.png" : "/assets/aether/mobs/mimic/1.png";
         }
 
     public String getDefaultEntityTexture() {
-        return "/assets/aether/mobs/mimic/Skyroot.png";
+        return "/assets/aether/mobs/mimic/1.png";
     }
 }
