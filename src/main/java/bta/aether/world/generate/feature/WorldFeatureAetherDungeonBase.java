@@ -7,7 +7,6 @@ import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.util.LootTable;
 import bta.aether.util.Pair;
 import bta.aether.world.generate.BlockPallet;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;

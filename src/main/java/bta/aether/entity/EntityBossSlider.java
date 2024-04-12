@@ -68,12 +68,12 @@ public class EntityBossSlider extends EntityBossBase {
 
     public String getEntityTexture() {
         if (this.awake) {
-            if (isAngry()) return "/assets/aether/mobs/sliderAwake_red.png";
-            return "/assets/aether/mobs/sliderAwake.png";
+            if (isAngry()) return "/assets/aether/mobs/slider/slider_awake_red.png";
+            return "/assets/aether/mobs/slider/slider_awake.png";
         }
 
-        if (isAngry()) return "/assets/aether/mobs/sliderSleep_red.png";
-        return "/assets/aether/mobs/sliderSleep.png";
+        if (isAngry()) return "/assets/aether/mobs/slider/slider_sleep_red.png";
+        return "/assets/aether/mobs/slider/slider_sleep.png";
     }
 
     @Override
@@ -353,7 +353,7 @@ public class EntityBossSlider extends EntityBossBase {
             }
 
             if (!this.awake) {
-                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
+                String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.boss.slider.hit.fail");
                 ((EntityPlayer)attacker).addChatMessage(message);
             }
         }

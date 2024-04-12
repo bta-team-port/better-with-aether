@@ -23,7 +23,7 @@ public class SheepuffRenderer extends LivingRenderer<EntitySheepuff> {
                 this.loadTexture("/assets/aether/mobs/sheepuff/sheepuff_fur.png");
             } else {
                 this.setRenderPassModel(this.wool);
-                this.loadTexture("/assets/aether/mobs/sheepuff_fur.png");
+                this.loadTexture("/assets/aether/mobs/sheepuff/sheepuff_fur.png");
             }
 
             float f1 = entitysheep.getBrightness(f);
