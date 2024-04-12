@@ -15,9 +15,14 @@ import net.minecraft.core.world.World;
 public class EntityMimic extends EntityMonster {
     public EntityMimic(World world) {
         super(world);
+        this.heightOffset = 0.0F;
         setSize(0.9F, 0.9F);
     }
     private int tickCounter = 0;
+
+    public int getMaxHealth() {
+        return 40;
+    }
 
     @Override
     protected void dropFewItems() {
