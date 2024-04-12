@@ -49,22 +49,27 @@ public class AetherClient implements ClientStartEntrypoint {
 
         MobInfoRegistry.register(EntityPhyg.class, "aether.phyg.name", "aether.phyg.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Item.foodPorkchopRaw),
-                        0.66f * 0.8f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
-                        0.66f * 0.2f, 0, 2)});
+                        1.0f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
+                        1.0f, 0, 2)});
 
         MobInfoRegistry.register(EntityPhow.class, "aether.phow.name", "aether.phow.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Item.leather),
-                        0.66f * 0.8f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
-                        0.66f * 0.2f, 0, 2)});
+                        1.0f, 0 ,2), new MobInfoRegistry.MobDrop(new ItemStack(Item.featherChicken),
+                        1.0f, 0, 2)});
 
         MobInfoRegistry.register(EntitySheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Block.wool),
-                        0.66f * 0.8f, 0 ,2)});
+                        1.0f, 0 ,2)});
 
         MobInfoRegistry.register(EntitySentry.class, "aether.sentry.name", "aether.sentry.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarved),
-                        0.66f * 0.8f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
-                        0.66f * 0.2f, 1, 2)});
+                        1.0f, 1 ,2), new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.stoneCarvedLight),
+                        1.0f, 1, 2)});
+
+        MobInfoRegistry.register(EntityMimic.class, "aether.mimic.name", "aether.mimic.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.chestSkyroot),
+                        1.0f, 1 ,1), new MobInfoRegistry.MobDrop(new ItemStack(Block.chestPlanksOak),
+                        1.0f, 1, 1)});
 
         MobInfoRegistry.register(EntityBossSlider.class, "aether.boss.slider.name", "aether.boss.slider.desc",
                 500, 10000, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.keyBronze),
