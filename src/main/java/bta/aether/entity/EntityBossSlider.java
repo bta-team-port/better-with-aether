@@ -21,8 +21,8 @@ import net.minecraft.core.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class EntityBossSlider extends EntityBossBase {
 
@@ -40,22 +40,19 @@ public class EntityBossSlider extends EntityBossBase {
     private float momentumY = 0;
     private float momentumZ = 0;
 
+    enum State {
+        AWAKE((slider) -> slider.stateAwake()),
+        SLAM((slider) -> slider.stateSlam()),
+        SLEEP((slider) -> {});
+
+        private final Consumer<EntityBossSlider> consumer;
+
+        State(Consumer<EntityBossSlider> consumer) {this.consumer = consumer;}
+        public Consumer<EntityBossSlider> getConsumer() {return this.consumer;}
+    }
+
     private final ArrayList<EntityPlayer> creativeAttackersList = new ArrayList<>();
-    enum state {
-        AWAKE,
-        SLAM,
-        SLEEP
-    }
-
-    private final HashMap<state, Runnable> statemap = new HashMap<>();
-    {
-        statemap.put(state.AWAKE, this::stateAwake);
-        statemap.put(state.SLAM, this::stateSlam);
-        statemap.put(state.SLEEP, () -> {});
-    }
-
-    private state currentState = state.SLEEP;
-    private List<Direction> lastMoves = new ArrayList<>();
+    private State currentState = State.SLEEP;
 
     public EntityBossSlider(World world) {
         super(world, 500, "aether.slider.name");
@@ -138,16 +135,7 @@ public class EntityBossSlider extends EntityBossBase {
             }
         }
 
-        List<Direction> movesUsed = new ArrayList<>();
-        lastMoves.forEach(direction -> {if (!movesUsed.contains(direction)) movesUsed.add(direction);});
-
-        if (lastMoves.size() > 3 && movesUsed.size() <= 2) {
-            this.momentumY += this.baseSpeed * getAngerModifier();
-            this.currentState = state.SLAM;
-            lastMoves.add(Direction.NONE);
-        }
-
-        statemap.get(this.currentState).run();
+        this.currentState.getConsumer().accept(this);
 
         this.momentumX *= 0.75F;
         this.momentumY *= 0.75F;
@@ -156,12 +144,11 @@ public class EntityBossSlider extends EntityBossBase {
 
         this.attackCoolDown--;
         if (attackCoolDown <= 0) allowedToMove = true;
-        if (lastMoves.size() > 4) lastMoves.remove(0);
     }
 
     protected void stateAwake() {
         if (this.world.players.stream().noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)) {
-            this.currentState = state.SLEEP;
+            this.currentState = State.SLEEP;
             returnToPedestal();
             return;
         }
@@ -180,15 +167,14 @@ public class EntityBossSlider extends EntityBossBase {
             this.speed = this.baseSpeed * getSpeedModifier(target);
             this.attackCoolDown = this.maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
 
-            if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && currentState != state.SLAM && random.nextInt(6) == 0) {
-                this.currentState = state.SLAM;
+            if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && currentState != State.SLAM && random.nextInt(6) == 0) {
+                this.currentState = State.SLAM;
                 this.attackCoolDown = (int) (this.maxAttackCoolDown * 0.50F);
                 this.momentumY += this.baseSpeed * getAngerModifier();
                 return;
             }
 
             Direction moveDirection = calculateDirection(target);
-            lastMoves.add(moveDirection);
             move(moveDirection);
         }
     }
@@ -232,11 +218,6 @@ public class EntityBossSlider extends EntityBossBase {
             this.momentumY -= this.baseSpeed;
         }
 
-        this.momentumX *= 0.75F;
-        this.momentumY *= 0.75F;
-        this.momentumZ *= 0.75F;
-        move(this.momentumX, this.momentumY, this.momentumZ);
-
         if (this.slamY == this.y && attackCoolDown <= 0) {
             int slamRadius = 5;
             float launchSpeed = 0.75F;
@@ -276,12 +257,11 @@ public class EntityBossSlider extends EntityBossBase {
             }
 
             if (this.momentumY <= 0) this.momentumY = 0.4125F;
-            this.currentState = state.AWAKE;
+            this.currentState = State.AWAKE;
             this.attackCoolDown = maxAttackCoolDown;
         }
 
         this.slamY = this.y;
-        attackCoolDown--;
     }
 
     public float getSpeedModifier(Entity target){
@@ -302,11 +282,11 @@ public class EntityBossSlider extends EntityBossBase {
     }
 
     public boolean isAwake() {
-        return this.currentState == state.AWAKE;
+        return this.currentState == State.AWAKE;
     }
 
     public void tryAwake() {
-        if (this.currentState != state.SLAM) this.currentState = state.AWAKE;
+        if (this.currentState != State.SLAM) this.currentState = State.AWAKE;
     }
 
     public Direction calculateDirection(Entity entity) {
@@ -395,7 +375,7 @@ public class EntityBossSlider extends EntityBossBase {
 
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
-        if (currentState == state.SLEEP && tag.getBoolean("awake")) this.currentState = state.AWAKE;
+        if (currentState == State.SLEEP && tag.getBoolean("awake")) this.currentState = State.AWAKE;
         super.readAdditionalSaveData(tag);
     }
 
