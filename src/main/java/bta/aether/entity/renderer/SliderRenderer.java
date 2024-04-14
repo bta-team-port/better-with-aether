@@ -16,8 +16,8 @@ public class SliderRenderer extends LivingRenderer<EntityBossSlider> {
         if (i != 0) {
             return false;
         } else {
-            if (slider.isAwake()) {
-                if (slider.getHealth() < slider.angerThreshold) {
+            if (slider.isAwake() && !slider.doingSlam()) {
+                if (slider.isAngry()) {
                     this.loadTexture("/assets/aether/mobs/slider/slider_awake_red_glow.png");
                 } else {
                     this.loadTexture("/assets/aether/mobs/slider/slider_awake_glow.png");
