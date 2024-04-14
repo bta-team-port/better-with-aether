@@ -3,6 +3,7 @@ package bta.aether.entity;
 import bta.aether.block.AetherBlocks;
 import bta.aether.block.BlockDungeon;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
+import bta.aether.util.AetherBlockCoord;
 import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.Block;
@@ -22,6 +23,7 @@ import org.spongepowered.asm.mixin.Debug;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -112,6 +114,12 @@ public class EntityBossSlider extends EntityBossBase {
     }
 
     @Override
+    public boolean interact(EntityPlayer entityplayer) {
+        this.currentState = State.SLAM;
+        return true;
+    }
+
+    @Override
     public void tick() {
         super.baseTick();
 
@@ -137,6 +145,10 @@ public class EntityBossSlider extends EntityBossBase {
         this.momentumY *= 0.75F;
         this.momentumZ *= 0.75F;
         move(this.momentumX, this.momentumY, this.momentumZ);
+
+        if (target != null) target.addChatMessage(String.valueOf(this.currentState));
+        if (target != null) target.addChatMessage(String.valueOf(this.attackCoolDown));
+
 
         this.attackCoolDown--;
         if (attackCoolDown <= 0) allowedToMove = true;
