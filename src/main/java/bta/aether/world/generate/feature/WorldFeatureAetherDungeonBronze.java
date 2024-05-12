@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBase {
+
     private static BlockPallet carvedHolystone = new BlockPallet();
     private static BlockPallet holystone = new BlockPallet();
     static {

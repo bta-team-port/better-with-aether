@@ -55,9 +55,11 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
             ((TileEntityChestLocked)chest).setLocked(true);
             ((TileEntityChestLocked)chest).setPasswordHashed(password);
 
-            ItemStack key = new ItemStack(itemKey);
-            key.getData().putString("password", password);
-            return key;
+            if (itemKey != null) {
+                ItemStack key = new ItemStack(itemKey);
+                key.getData().putString("password", password);
+                return key;
+            }
         }
 
         return null;

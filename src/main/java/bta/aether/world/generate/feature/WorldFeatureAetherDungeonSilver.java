@@ -120,7 +120,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
 
         // Chest hole
         drawVolume(world, 0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true);
-        ItemStack key = makeTreasureChest(lootTableBronzeRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x - 15, y, z + 42);
+        ItemStack key = makeTreasureChest(lootTableSilverRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x - 15, y, z + 42);
         AetherBlockCoord[] treasureDoor = {
                 new AetherBlockCoord(x - 14, y + 2, z + 41),
                 new AetherBlockCoord(x - 14, y + 2, z + 42),
