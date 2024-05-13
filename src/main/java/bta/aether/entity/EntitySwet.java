@@ -2,18 +2,16 @@ package bta.aether.entity;
 
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
-import net.minecraft.core.entity.monster.EntityMonster;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 
-public class EntitySwet extends EntityMonster {
+public class EntitySwet extends EntityAetherAnimal {
     private int jumpDelay;
     private int cooldownInactive;
     public boolean activated;
 
     public EntitySwet(World world) {
         super(world);
-        this.attackStrength = 5;
         this.cooldownInactive = 0;
         this.activated = false;
         this.heightOffset = 0.0F;
@@ -22,7 +20,7 @@ public class EntitySwet extends EntityMonster {
     }
 
     public String getEntityTexture() {
-        return "/assets/aether/mobs/swets.png";
+        return "/assets/aether/mobs/swet/swet_blue.png";
     }
 
     @Override

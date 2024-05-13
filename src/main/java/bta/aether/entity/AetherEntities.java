@@ -13,7 +13,6 @@ import static bta.aether.Aether.MOD_ID;
 public class AetherEntities {
     private static int entityID = 100;
 
-    public static final BenchEntityModel modelSwet =  ModelHelper.getOrCreateEntityModel(MOD_ID, "swet", ModelSwet.class);
     public static final BenchEntityModel modelMoa =  ModelHelper.getOrCreateEntityModel(MOD_ID, "moa", ModelMoa.class);
     public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimic", ModelMimic.class);
     public static final BenchEntityModel modelValk =  ModelHelper.getOrCreateEntityModel(MOD_ID, "valk", ModelValk.class);
@@ -38,7 +37,7 @@ public class AetherEntities {
     }
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(new ModelSlime(0), 0.2F));
-        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(modelSwet, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(new ModelSlime(16), new ModelSlime(0), 0.3F));
         EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new SliderRenderer(new ModelSlider(0.0F, 12.0F), 1.5F));
