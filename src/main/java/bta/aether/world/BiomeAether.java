@@ -32,7 +32,7 @@ public class BiomeAether extends Biome {
     }
 
     public int getSkyColor(float temperature) {
-    return 12632319;
+    return 0xc0c0ff;
     }
     public WorldFeature getRandomWorldGenForTrees(Random random) {
         if (random.nextInt(10) == 0) {
