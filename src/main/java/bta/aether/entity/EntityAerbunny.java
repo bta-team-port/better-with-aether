@@ -1,28 +1,39 @@
 package bta.aether.entity;
 
-import bta.aether.AetherBlockTags;
+import com.mojang.nbt.CompoundTag;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pathfinder.Path;
+
+import java.util.List;
 
 public class EntityAerbunny extends EntityAetherAnimal {
-    private static final int MAXIMUM_PUFFS = 11;
-    // run away when attacked
-    // puff up on jump and slowly fart the puffiness away
-    public Entity runningFrom;
-
-    private int puffSubtract;
-
-    public int aerMax = 15;
-    public int aer = 0;
-
+    public int age;
+    public int mate;
+    public boolean grab;
+    public boolean fear;
+    public boolean gotrider;
+    public Entity runFrom;
+    public float puffiness;
 
     public EntityAerbunny(World world) {
         super(world);
-        this.setSize(0.6F, 0.6F);
+        this.moveSpeed = 2.5F;
+        this.heightOffset = -0.16F;
+        this.setSize(0.4F, 0.4F);
+        if (this.renderYawOffset < 5.0) {
+            this.renderYawOffset = 5.0f;
+        }
+
+        this.age = this.random.nextInt(64);
+        this.mate = 0;
+    }
+
+    public int getMaxHealth() {
+        return 6;
     }
 
     @Override
@@ -33,177 +44,189 @@ public class EntityAerbunny extends EntityAetherAnimal {
 
     @Override
     public String getEntityTexture() {
-        return "/assets/aether/mobs/aerbunny.png";
+        return "/assets/aether/mobs/aerbunny/aerbunny.png";
     }
 
-    @Override
-    public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (isPassenger()) return false;
-        runningFrom = attacker;
-        return super.hurt(attacker, damage, type);
-    }
-
-    @Override
     public void tick() {
-        this.fallDistance = 0.0F;
-        if (!this.onGround && !this.isInWater() && this.yd < 0.0 && !this.collision) {
-            this.yd *= 0.75;
-        }
-
-        if (this.onGround && this.random.nextInt(100) == 0) {
-            jump();
-            this.aer = this.aerMax;
-        }
-
-        if (aer > 0 && this.random.nextInt(8) == 0) {
-            this.jump();
-            double lookAngleRadians = Math.atan2(this.getLookAngle().zCoord, this.getLookAngle().xCoord);
-            this.push(0.125 * Math.cos(lookAngleRadians), 0, 0.125 * Math.sin(lookAngleRadians));
-            this.aer--;
-        }
-
-        if (this.pathToEntity == null && this.runningFrom != null) {
-            if (Math.pow(this.runningFrom.x - this.x, 2) + Math.pow(this.runningFrom.y - this.y, 2) + Math.pow(this.runningFrom.z - this.z, 2) < 3600) {
-                runAway();
-                this.speed = 0.85F;
-            } else {
-                runningFrom = null;
-                this.speed = 0.35F;
+        if (this.gotrider) {
+            this.gotrider = false;
+            if (this.vehicle == null) {
+                EntityPlayer entityplayer = (EntityPlayer) this.findPlayerToRunFrom();
+                if (entityplayer != null && this.distanceTo(entityplayer) < 2.0F && entityplayer.passenger == null) {
+                    this.startRiding(entityplayer);
+                }
             }
         }
 
-        this.setPuffiness(this.getPuffiness() - this.puffSubtract);
-        if (this.getPuffiness() > 0) {
-            this.puffSubtract = 1;
+        if (this.age < 1023) {
+            ++this.age;
+        } else if (this.mate < 127) {
+            ++this.mate;
         } else {
-            this.puffSubtract = 0;
+            int i = 0;
+            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(16.0, 16.0, 16.0));
+
+            for (Entity entity : list) {
+                if (entity instanceof EntityAerbunny) {
+                    ++i;
+                }
+            }
+
+            if (i > 12) {
+                this.proceed();
+                return;
+            }
+
+            List<Entity> list1 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(1.0, 1.0, 1.0));
+            boolean flag = false;
+
+            for (int k = 0; k < list.size(); ++k) {
+                Entity entity1 = list1.get(k);
+                if (entity1 instanceof EntityAerbunny && entity1 != this) {
+                    EntityAerbunny entitybunny = (EntityAerbunny) entity1;
+                    if (entitybunny.vehicle == null && entitybunny.age >= 1023) {
+                        EntityAerbunny entitybunny1 = new EntityAerbunny(this.world);
+                        entitybunny1.setPos(this.x, this.y, this.z);
+                        this.world.entityJoinedWorld(entitybunny1);
+                        this.world.playSoundAtEntity(null, this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                        this.proceed();
+                        entitybunny.proceed();
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!flag) {
+                this.mate = this.random.nextInt(16);
+            }
         }
+
+        if (this.puffiness > 0.0F) {
+            this.puffiness -= 0.1F;
+        } else {
+            this.puffiness = 0.0F;
+        }
+
         super.tick();
     }
 
-    @Override
-    protected void updatePlayerActionState() {
-        if (this.onGround) {
-            this.moveForward = 0.0f;
-            this.moveStrafing = 0.0f;
-        }
-        this.hasAttacked = this.isMovementCeased();
-        if (!this.hasAttacked && this.closestFireflyEntity == null && (this.pathToEntity == null && this.random.nextInt(80) == 0 || this.random.nextInt(80) == 0)) {
-            this.roamRandomPath();
-        }
-        int i = MathHelper.floor_double(this.bb.minY + 0.5);
-        boolean inWater = this.isInWater();
-        boolean inLava = this.isInLava();
-        this.xRot = 0.0f;
-        if (this.pathToEntity == null || this.random.nextInt(100) == 0) {
-            super.updatePlayerActionState();
-            this.pathToEntity = null;
-            return;
-        }
-        Vec3d coordsForNextPath = this.pathToEntity.getPos(this);
-        double d = this.bbWidth * 2.0f;
-        while (coordsForNextPath != null && coordsForNextPath.squareDistanceTo(this.x, coordsForNextPath.yCoord, this.z) < d * d) {
-            this.pathToEntity.next();
-            if (this.pathToEntity.isDone()) {
-                this.closestFireflyEntity = null;
-                coordsForNextPath = null;
-                this.pathToEntity = null;
-                continue;
-            }
-            coordsForNextPath = this.pathToEntity.getPos(this);
-        }
-        this.isJumping = false;
-        if (coordsForNextPath != null) {
-            if (this.onGround) {
-                float f3;
-                double x1 = coordsForNextPath.xCoord - this.x;
-                double z1 = coordsForNextPath.zCoord - this.z;
-                double y1 = coordsForNextPath.yCoord - (double) i;
-                float f2 = (float) (Math.atan2(z1, x1) * 180.0 / 3.1415927410125732) - 90.0f;
-                this.moveForward = this.moveSpeed;
-                for (f3 = f2 - this.yRot; f3 < -180.0f; f3 += 360.0f) {
-                }
-                while (f3 >= 180.0f) {
-                    f3 -= 360.0f;
-                }
-                if (f3 > 30.0f) {
-                    f3 = 30.0f;
-                }
-                if (f3 < -30.0f) {
-                    f3 = -30.0f;
-                }
-                this.yRot += f3;
-                //This makes it not do a weird dash.
-                this.jump();
-            }
-        }
-        if (this.horizontalCollision && !this.hasPath()) {
-            this.isJumping = true;
-        }
-        if (this.random.nextFloat() < 0.8f && (inWater || inLava)) {
-            this.isJumping = true;
-        }
+    protected void causeFallDamage(float f) {
     }
 
-    public int getPuffiness() {
-        return this.entityData.getInt(16);
-    }
-
-    public void setPuffiness(int puffiness) {
-        this.entityData.set(16, puffiness);
-    }
-
-    public int getPuffSubtract() {
-        return this.puffSubtract;
-    }
-
-    public void puff() {
-        this.world.spawnParticle("explode", this.x, this.y + 0.5, this.z, 0.0, -0.075, 0.0);
-
-        this.setPuffiness(MAXIMUM_PUFFS);
-    }
-
-    public void runAway() {
-        double angle = Math.toRadians(this.random.nextInt(60) * 6);
-        this.pathToEntity = this.world.getEntityPathToXYZ(this, (int) (this.x + (-Math.cos(angle) * 20.0)), (int) this.y, (int) (this.z + (-Math.sin(angle) * 20.0)), 10.0F);
-        this.aer = this.aerMax;
-    }
-
-    @Override
-    protected void jump() {
-        if (!this.noPhysics) {
-            this.yd = 0.80;
-            if (aer > 0) this.yd = 0.20;
-
-            if (this.isSprinting()) {
-                float f = this.yRot * 0.01745329F;
-                this.xd -= MathHelper.sin(f) * 0.2F;
-                this.zd += MathHelper.cos(f) * 0.2F;
-            }
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Fear", this.fear);
+        if (this.passenger != null) {
+            this.gotrider = true;
         }
-        this.puff();
+
+        tag.putBoolean("GotRider", this.gotrider);
+        tag.putShort("RepAge", (short) this.age);
+        tag.putShort("RepMate", (short) this.mate);
     }
 
-    @Override
-    public boolean getCanSpawnHere() {
-        int x = MathHelper.floor_double(this.x);
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.fear = tag.getBoolean("Fear");
+        this.gotrider = tag.getBoolean("GotRider");
+        this.age = tag.getShort("RepAge");
+        this.mate = tag.getShort("RepMate");
+    }
+
+    public void cloudPoop() {
+        double a = this.random.nextFloat() - 0.5F;
+        double d = this.x + a * 0.4000000059604645;
+        double e = this.bb.minY;
+        double f = this.z + a * 0.4000000059604645;
+        this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0);
+    }
+
+    public boolean onGround() {
+        return this.moveForward != 0.0F;
+    }
+
+    public Entity findPlayerToRunFrom() {
+        EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 12.0);
+        return entityplayer != null && this.onGround() ? entityplayer : null;
+    }
+
+
+    public void runLikeHell() {
+        double a = this.x - this.runFrom.x;
+        double b = this.z - this.runFrom.z;
+        double crazy = Math.atan2(a, b);
+        crazy += (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.75;
+        double c = this.x + Math.sin(crazy) * 8.0;
+        double d = this.z + Math.cos(crazy) * 8.0;
+        int x = MathHelper.floor_double(c);
         int y = MathHelper.floor_double(this.bb.minY);
-        int z = MathHelper.floor_double(this.z);
+        int z = MathHelper.floor_double(d);
 
-        if (world.getBlock(x, y-1, z) == null) return false;
-        return this.world.getBlock(x, y - 1, z).hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+        for (int q = 0; q < 16; ++q) {
+            int i = x + this.random.nextInt(4) - this.random.nextInt(4);
+            int j = y + this.random.nextInt(4) - this.random.nextInt(4) - 1;
+            int k = z + this.random.nextInt(4) - this.random    .nextInt(4);
+            if (j > 4 && (this.world.getBlockId(i, j, k) == 0 || this.world.getBlockId(i, j, k) == Block.blockSnow.id) && this.world.getBlockId(i, j - 1, k) != 0) {
+                Path dogs = this.world.getEntityPathToXYZ(this, i, j, k, 16.0F);
+                this.setTarget(null);
+                break;
+            }
+        }
+
     }
 
-    @Override
     public boolean interact(EntityPlayer entityplayer) {
-        if (isPassenger()) {
-            entityplayer.ejectRider();
-            this.setPos(entityplayer.x, entityplayer.y - 1, entityplayer.z);
-            this.jump();
-            this.puff();
-        } else {
-            this.startRiding(entityplayer);
+        this.zd = entityplayer.zd;
+        if (this.vehicle != null) {
+            this.gotrider = this.vehicle.getPassenger().horizontalCollision;
+            this.zd = this.vehicle.getPassenger().z;
         }
-        return super.interact(entityplayer);
+
+        this.startRiding(entityplayer);
+        if (this.vehicle == null) {
+            this.grab = true;
+        } else {
+            this.world.playSoundAtEntity(null, this, "aether:mobs.aerbunny.aerbunnylift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        }
+
+        this.isJumping = false;
+        this.moveForward = 0.0F;
+        this.moveStrafing = 0.0F;
+        this.setTarget(null);
+        this.xd = entityplayer.xd * 5.0;
+        this.yd = entityplayer.yd / 2.0 + 0.5;
+        this.zd = entityplayer.zd * 5.0;
+        return true;
+    }
+
+    public double getRidingHeight() {
+        return this.vehicle != null ? (double) (this.heightOffset - 1.15F) : (double) this.heightOffset;
+    }
+
+
+    public void proceed() {
+        this.mate = 0;
+        this.age = this.random.nextInt(64);
+    }
+
+    public boolean canClimb() {
+        return this.onGround;
+    }
+
+    public String getHurtSound() {
+        return "aether:mobs.aerbunny.aerbunnyhurt";
+    }
+
+    public String getDeathSound() {
+        return "aether:mobs.aerbunny.aerbunnydeath";
+    }
+
+    public String getLivingSound() {
+        return null;
+    }
+
+    public boolean getCanSpawnHere() {
+        return super.getCanSpawnHere();
     }
 }

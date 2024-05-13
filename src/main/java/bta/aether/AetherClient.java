@@ -3,6 +3,7 @@ package bta.aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.*;
 import bta.aether.entity.projectiles.*;
+import bta.aether.entity.renderer.ZephyrSnowballRenderer;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
@@ -36,7 +37,7 @@ public class AetherClient implements ClientStartEntrypoint {
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
+        EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new ZephyrSnowballRenderer());
 
         // cursed, I know.
         final String hammerHeadTexture = "/assets/aether/other/NotchWave.png";
