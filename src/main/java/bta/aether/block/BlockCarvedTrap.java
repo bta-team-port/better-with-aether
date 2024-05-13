@@ -1,5 +1,6 @@
 package bta.aether.block;
 
+import bta.aether.Aether;
 import bta.aether.entity.EntitySentry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
@@ -7,9 +8,9 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 
-public class BlockCarvedTrap extends Block {
-    public BlockCarvedTrap(String key, int id, Material material) {
-        super(key, id, material);
+public class BlockCarvedTrap extends BlockDungeon {
+    public BlockCarvedTrap(String key, int id, Material material, int replacementID) {
+        super(key, id, material, replacementID);
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {

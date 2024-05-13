@@ -33,6 +33,7 @@ public class AetherInitialization extends BaseInitialization {
 
         structureFeatures.addFeature(AetherFunctions::generateAetherDungeonSilver, null);
         structureFeatures.addFeature(AetherFunctions::generateAetherDungeonGold, null);
+        structureFeatures.addFeature(AetherFunctions::generateAetherDungeonBronze, null);
 
         structureFeatures.addFeature(
             AetherFunctions::generateQuickSoil, null
