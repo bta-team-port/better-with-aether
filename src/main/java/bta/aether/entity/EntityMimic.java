@@ -50,7 +50,7 @@ public class EntityMimic extends EntityMonster {
         }
         return super.hurt(attacker, i, type);
     }
-    private int tickCounter = 0;
+
     @Override
     public void tick() {
         super.tick();
