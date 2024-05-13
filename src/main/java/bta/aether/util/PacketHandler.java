@@ -6,7 +6,7 @@ import net.minecraft.core.entity.player.EntityPlayer;
 public class PacketHandler {
 
     public static void handleAerBunnyPuffJump(EntityPlayer player, EntityAerbunny aerbunny) {
-        aerbunny.puff();
+        float puffiness = aerbunny.puffiness;
         player.yd = 0.25;
     }
 }

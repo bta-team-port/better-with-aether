@@ -78,7 +78,6 @@ public class EntityPhow extends EntityAetherAnimal {
     public void tick() {
         super.tick();
         if (this.onGround) {
-            this.wingAngle = this.wingAngle * 0.8F;
             this.aimingForFold = 0.1F;
             this.jpress = false;
             this.jrem = this.jumps;
