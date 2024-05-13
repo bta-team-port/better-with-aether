@@ -1,10 +1,7 @@
 package bta.aether.compat.terrainapi;
 
 import bta.aether.block.AetherBlocks;
-import bta.aether.world.generate.feature.WorldFeatureAetherDungeonGold;
-import bta.aether.world.generate.feature.WorldFeatureClouds;
-import bta.aether.world.generate.feature.WorldFeatureQuicksoil;
-import bta.aether.world.generate.feature.WorldFeatureAetherDungeonSilver;
+import bta.aether.world.generate.feature.*;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -132,4 +129,21 @@ public class AetherFunctions {
 
         return null;
     }
+
+    @Nullable
+    public static Void generateAetherDungeonBronze(Parameters parameters) {
+        int x = parameters.chunk.xPosition * 16;
+        int z = parameters.chunk.zPosition * 16;
+
+        if (parameters.random.nextInt(250) == 0){
+            int xPos = x + parameters.random.nextInt(16) + 8;
+            int yPos = parameters.decorator.minY + 20 + parameters.random.nextInt(parameters.decorator.rangeY - 120);
+            int zPos = z + parameters.random.nextInt(16) + 8;
+            new WorldFeatureAetherDungeonBronzeCursed().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+        }
+
+        return null;
+    }
+
+
 }

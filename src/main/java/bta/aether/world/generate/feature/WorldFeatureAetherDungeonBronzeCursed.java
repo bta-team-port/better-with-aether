@@ -5,6 +5,7 @@ import bta.aether.entity.EntityBossBase;
 import bta.aether.entity.EntityBossSlider;
 import bta.aether.item.AetherItems;
 import bta.aether.util.AetherBlockCoord;
+import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.BlockPallet;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
@@ -13,13 +14,15 @@ import net.minecraft.core.world.World;
 
 import java.util.Random;
 
+// this class is a chimera made from the stapi port and our tooling. good luck! :3
 public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDungeonBase {
 
     private static BlockPallet carvedHolystone = new BlockPallet();
     private static BlockPallet holystone = new BlockPallet();
     static {
-        carvedHolystone.addEntry(AetherBlocks.stoneCarvedLocked.id, 0, 95);
+        carvedHolystone.addEntry(AetherBlocks.stoneCarvedLocked.id, 0, 85);
         carvedHolystone.addEntry(AetherBlocks.stoneCarvedLightLocked.id, 0, 5);
+        carvedHolystone.addEntry(AetherBlocks.trapStoneCarved.id, 0, 10);
 
         holystone.addEntry(AetherBlocks.holystone.id, 0, 90);
         holystone.addEntry(AetherBlocks.holystoneMossy.id, 0, 10);
@@ -31,17 +34,16 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
 
     @Override
     public boolean generate(final World world, final Random random, final int x, final int y, final int z) {
-        int dungeonID = 0;
-//        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR*1.5)) return false;
-//        if (!world.canBlockSeeTheSky(x, y, z)) return false;
-//        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
-
         this.n = 0;
-        if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16) || !this.isBoxSolid(world, x + 20, y, z + 2, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12)) {
-           return false;
-        }
+        if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR)) return false;
+        if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16) || !this.isBoxSolid(world, x + 20, y, z + 2, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12)) return false;
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
+
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
+        this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
+
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
+        this.addSolidBox(world, 0, 0,x + 7, y - 1, z + 7, 2, 2, 2, true);
 
         int x2 = x + 7 + random.nextInt(2);
         int y2 = y - 1;
@@ -55,7 +57,6 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
                 new AetherBlockCoord(x + 8, y +1, z + 8),
         };
 
-        // Boss TODO: replace with sunfire spirit.
         EntityBossBase boss = placeBoss(world, x + 8, y + 2, z + 8, EntityBossSlider.class);
         if (boss != null) {
             boss.setToDungeon(dungeonID);
@@ -72,11 +73,9 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
         }
 
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12, x2, y2, z2, true);
+        this.addSolidBox(world, 0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10, true);
 
-        // draws a tube
-//        this.setBlocks(this.corridorBlockID2, this.corridorBlockID1, 5);
-//        this.setMetadata(this.corridorMeta2, this.corridorMeta1);
-//        this.addSquareTube(world, random, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
+        this.addSquareTube(world, random, holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
 
         for (int p = x2 + 2; p < x2 + 10; p += 3) {
             for (int q = z2 + 2; q < z2 + 10; q += 3) {
@@ -124,6 +123,7 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
         }
 
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 12, Direction.UP, 8, Direction.SOUTH, 12, x, y, z, true);
+        this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 10, 6, 10, true);
 
         for (int p = x; p < x + 12; ++p) {
             for (int q = y; q < y + 8; ++q) {
@@ -158,30 +158,25 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
             }
         }
 
-        world.setBlock(x - 5, y, z + 3, Block.blockDiamond.id);
-        world.setBlock(x + 3, y, z - 5, Block.blockDiamond.id);
-        world.setBlock(x + 11, y, z + 3, Block.blockDiamond.id);
-        world.setBlock(x + 3, y, z + 11, Block.blockDiamond.id);
-
-
         switch (dir) {
             case 0: {
-                world.setBlock(x - 5, y, z + 3, Block.blockDiamond.id);
+                this.addSquareTube(world, random, holystone, x - 5, y, z + 3, 6, 6, 6, 0);
                 break;
             }
             case 1: {
-                world.setBlock(x + 3, y, z - 5, Block.blockDiamond.id);
+                this.addSquareTube(world, random, holystone, x + 3, y, z - 5, 6, 6, 6, 2);
                 break;
             }
             case 2: {
-                world.setBlock(x + 11, y, z + 3, Block.blockDiamond.id);
+                this.addSquareTube(world, random, holystone, x + 11, y, z + 3, 6, 6, 6, 0);
                 break;
             }
             case 3: {
-                world.setBlock(x + 3, y, z + 11, Block.blockDiamond.id);
+                this.addSquareTube(world, random, holystone, x + 3, y, z + 11, 6, 6, 6, 2);
                 break;
             }
         }
+
         ++this.n;
         return this.generateNextRoom(world, random, x, y, z) && this.generateNextRoom(world, random, x, y, z);
     }
@@ -198,7 +193,7 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
             x += 11;
             z += 3;
             while (tunnelling) {
-                if (this.isBoxSolid(world, x, y, z, 1, 8, 6) || x - i > 100) {
+                if (this.isBoxEmpty(world, x, y, z, 1, 8, 6) || x - i > 100) {
                     tunnelling = false;
                 }
                 boolean flag = true;
@@ -210,12 +205,8 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
                     }
                 }
 
-//                this.setBlocks(this.corridorBlockID2, this.corridorBlockID1, 5);
-//                this.setMetadata(this.corridorMeta2, this.corridorMeta1);
-//                this.addPlaneX(world, random, x, y, z, 8, 6);
-
-//                this.setBlocks(0, 0, 1);
-//                this.addPlaneX(world, random, x, y + 1, z + 1, 6, 4);
+                this.drawPlane(world, random, holystone, Direction.UP, 8, Direction.SOUTH, 6, x, y, z, true);
+                this.drawPlane(world, 0, 0, Direction.UP, 6, Direction.SOUTH, 4, x, y + 1, z + 1, true);
 
                 ++x;
             }
@@ -224,7 +215,7 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
             x += 3;
             z += 11;
             while (tunnelling) {
-                if (this.isBoxSolid(world, x, y, z, 6, 8, 1) || z - k > 100) {
+                if (this.isBoxEmpty(world, x, y, z, 6, 8, 1) || z - k > 100) {
                     tunnelling = false;
                 }
                 boolean flag = true;
@@ -236,12 +227,8 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
                     }
                 }
 
-//                this.setBlocks(this.corridorBlockID2, this.corridorBlockID1, 5);
-//                this.setMetadata(this.corridorMeta2, this.corridorMeta1);
-//                this.addPlaneZ(world, random, x, y, z, 6, 8);
-
-//                this.setBlocks(0, 0, 1);
-//                this.addPlaneZ(world, random, x + 1, y + 1, z, 4, 6);
+                this.drawPlane(world, random, holystone, Direction.UP, 6, Direction.EAST, 8, x, y, z, true);
+                this.drawPlane(world, 0, 0, Direction.UP, 4, Direction.EAST, 6, x + 1, y + 1, z, true);
 
                 ++z;
             }
@@ -250,7 +237,7 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
             x += 3;
             z += 0;
             while (tunnelling) {
-                if (this.isBoxSolid(world, x, y, z, 6, 8, 1) || j - z > 100) {
+                if (this.isBoxEmpty(world, x, y, z, 6, 8, 1) || j - z > 100) {
                     tunnelling = false;
                 }
                 boolean flag = true;
@@ -262,12 +249,9 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
                     }
                 }
 
-//                this.setBlocks(this.corridorBlockID2, this.corridorBlockID1, 5);
-//                this.setMetadata(this.corridorMeta2, this.corridorMeta1);
-//                this.addPlaneZ(world, random, x, y, z, 6, 8);
+                this.drawPlane(world, random, holystone, Direction.UP, 6, Direction.EAST, 8, x, y, z, true);
+                this.drawPlane(world, 0, 0, Direction.UP, 4, Direction.EAST, 6, x + 1, y + 1, z, true);
 
-//                this.setBlocks(0, 0, 1);
-//                this.addPlaneZ(world, random, x + 1, y + 1, z, 4, 6);
                 --z;
             }
         }
@@ -277,9 +261,12 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
         return this.isBoxSolid(world, startX, startY, startZ, Direction.EAST, length1, Direction.UP, length2, Direction.NORTH,length3);
     }
 
-    private boolean isBoxSolid(World world, int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
-        if (true) return true;
+    public boolean isBoxEmpty(World world, int i, int j, int k, int di, int dj, int dk) {
+        return !isBoxSolid(world, i, j, k, Direction.EAST, di, Direction.UP, dj, Direction.SOUTH, dk);
+    }
 
+    private boolean isBoxSolid(World world, int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
+        int flag = 0;
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
@@ -292,13 +279,60 @@ public class WorldFeatureAetherDungeonBronzeCursed extends WorldFeatureAetherDun
                 blockY = y3 + direction2.getOffsetY() * j;
                 blockZ = z3 + direction2.getOffsetZ() * j;
                 for (int k = 0; k < length1; k++) {
-                    if (world.getBlockId(blockX, blockY, blockZ) == 0) return false;
+                    if (world.getBlockId(blockX, blockY, blockZ) == 0) flag++;
                     blockX += direction1.getOffsetX();
                     blockY += direction1.getOffsetY();
                     blockZ += direction1.getOffsetZ();
                 }
             }
         }
-        return true;
+
+        return !(flag>16);
     }
+
+    public void addSolidBox(World world, Random random, BlockPallet pallet, int i, int j, int k, int di, int dj, int dk, Boolean withNotify) {
+        for (int x = i; x < i + di; ++x) {
+            for (int y = j; y < j + dj; ++y) {
+                for (int z = k; z < k + dk; ++z) {
+                    setBlock(world, x, y, z, pallet.getRandom(random), withNotify);
+                }
+            }
+        }
+    }
+
+    public void addSolidBox(World world, int id, int meta, int i, int j, int k, int di, int dj, int dk, Boolean withNotify) {
+        for (int x = i; x < i + di; ++x) {
+            for (int y = j; y < j + dj; ++y) {
+                for (int z = k; z < k + dk; ++z) {
+                    if (withNotify) {
+                        world.setBlockAndMetadataWithNotify(x, y, z, id, meta);
+                        continue;
+                    }
+                    world.setBlockAndMetadata(x, y, z, Block.blockDiamond.id, meta);
+                }
+            }
+        }
+    }
+
+
+    public void addSquareTube(World world, Random random, BlockPallet pallet, int i, int j, int k, int di, int dj, int dk, int dir) {
+        this.addSolidBox(world, 0, 0, i, j, k, di, dj, dk, true);
+
+        if (dir == 0 || dir == 2) {
+            this.drawPlane(world, random, pallet, Direction.SOUTH, di, Direction.EAST, dk,  i, j, k, true);
+            this.drawPlane(world, random, pallet, Direction.SOUTH, di, Direction.EAST, dk,  i,j + dj - 1, k, true);
+        }
+
+        if (dir == 1 || dir == 2) {
+            this.drawPlane(world, random, pallet, Direction.UP, dj, Direction.SOUTH, dk, i, j, k, true);
+            this.drawPlane(world, random, pallet, Direction.UP, dj, Direction.SOUTH, dk, i + di - 1, j, k, true);
+        }
+
+        if (dir == 0 || dir == 1) {
+            this.drawPlane(world, random, pallet, Direction.UP, di, Direction.EAST, dj, i, j, k, true);
+            this.drawPlane(world, random, pallet, Direction.UP, di, Direction.EAST, dj, i, j, k + dk - 1, true);
+        }
+
+    }
+
 }

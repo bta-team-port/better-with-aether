@@ -467,7 +467,7 @@ public class AetherBlocks {
             .setResistance(-1.0f)
             .setTextures("carved.png")
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone));
+            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone, stoneCarved.id));
 
     public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
