@@ -464,7 +464,7 @@ public class AetherBlocks {
     public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(-1.0f)
-            .setResistance(-1.0f)
+            .setResistance((float)Integer.MAX_VALUE)
             .setTextures("carved.png")
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
             .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone, stoneCarved.id));
