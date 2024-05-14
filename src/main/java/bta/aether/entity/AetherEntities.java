@@ -48,7 +48,7 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
         EntityHelper.Client.assignEntityRenderer(EntityPhow.class, new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F));
         EntityHelper.Client.assignEntityRenderer(EntitySheepuff.class, new SheepuffRenderer(new ModelSheepuff1(), new ModelSheepuff2(), new ModelSheepuff3(), 0.7F));
-        EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new AerbunnyRenderer(new ModelAerbunny(), 0.7F));
+        EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new AerbunnyRenderer(new ModelAerbunny(), 0.4F));
 
     }
 }
