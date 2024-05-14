@@ -8,11 +8,13 @@ public class EntityAerwhale extends EntityFlying implements IEnemy {
 
     public EntityAerwhale(World world) {
         super(world);
+        this.setSize(8f,4f);
+        this.viewScale = 2f;
     }
 
     @Override
     public String getEntityTexture() {
-        return "/assets/aether/mobs/aerwhale.png";
+        return "/assets/aether/mobs/aerwhale/0.png";
     }
 
     @Override
