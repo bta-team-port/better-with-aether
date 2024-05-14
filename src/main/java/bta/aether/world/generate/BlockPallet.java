@@ -40,7 +40,7 @@ public class BlockPallet {
         return Collections.unmodifiableList(this.entries);
     }
 
-    public class Entry {
+    public static class Entry {
         private double accumulatedWeight;
         private Pair<Integer, Integer> object;
         private double weight;
