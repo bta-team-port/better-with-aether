@@ -1,6 +1,6 @@
 package bta.aether.item;
 
-import bta.aether.world.generate.feature.WorldFeatureAetherDungeonBronzeCursed;
+import bta.aether.world.generate.feature.WorldFeatureAetherDungeonBronze;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -23,7 +23,7 @@ public class ItemDevStick extends Item {
 
     @Override
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        new WorldFeatureAetherDungeonBronzeCursed().generate(world, world.rand, blockX, blockY, blockZ);
+        new WorldFeatureAetherDungeonBronze().generate(world, world.rand, blockX, blockY, blockZ);
         return true;
     }
 }
