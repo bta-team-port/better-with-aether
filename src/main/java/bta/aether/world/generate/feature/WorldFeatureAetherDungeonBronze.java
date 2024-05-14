@@ -36,7 +36,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
     public boolean generate(final World world, final Random random, final int x, final int y, final int z) {
         this.n = 0;
         if (AetherDimension.dugeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) < AetherDimension.dungeonRadiusSQR)) return false;
-        if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16) || !this.isBoxSolid(world, x + 20, y, z + 2, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12)) return false;
+        if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
         int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
@@ -48,20 +48,20 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         int x2 = x + 7 + random.nextInt(2);
         int y2 = y - 1;
         int z2 = z + 7 + random.nextInt(2);
+
         ItemStack key = makeTreasureChest(lootTableBronzeRare, 6 + random.nextInt(6), AetherItems.keySilver, true, world, x2, y2, z2);
-
-        AetherBlockCoord[] treasureDoor = new AetherBlockCoord[] {
-                new AetherBlockCoord(x + 7, y +1, z + 7),
-                new AetherBlockCoord(x + 8, y +1, z + 7),
-                new AetherBlockCoord(x + 7, y +1, z + 8),
-                new AetherBlockCoord(x + 8, y +1, z + 8),
-        };
-
         EntityBossBase boss = placeBoss(world, x + 8, y + 2, z + 8, EntityBossSlider.class);
+
         if (boss != null) {
             boss.setToDungeon(dungeonID);
             boss.setKeychain(key);
             boss.setReturnPoint(new AetherBlockCoord(x + 8, y + 2, z + 8));
+            AetherBlockCoord[] treasureDoor = new AetherBlockCoord[] {
+                    new AetherBlockCoord(x + 7, y +1, z + 7),
+                    new AetherBlockCoord(x + 8, y +1, z + 7),
+                    new AetherBlockCoord(x + 7, y +1, z + 8),
+                    new AetherBlockCoord(x + 8, y +1, z + 8),
+            };
             boss.setBlocksDestroyOnDeath(treasureDoor);
         }
 
