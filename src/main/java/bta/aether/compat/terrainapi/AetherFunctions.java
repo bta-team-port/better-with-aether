@@ -135,11 +135,11 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(50) == 0){
+        if (parameters.random.nextInt(250) == 0){
             int xPos = x + parameters.random.nextInt(16) + 8;
             int yPos = parameters.decorator.minY + 20 + parameters.random.nextInt(parameters.decorator.rangeY - 120);
             int zPos = z + parameters.random.nextInt(16) + 8;
-            new WorldFeatureAetherDungeonBronze(AetherBlocks.stoneCarvedLocked.id, AetherBlocks.stoneCarvedLightLocked.id, AetherBlocks.stoneCarved.id, AetherBlocks.stoneCarvedLight.id, AetherBlocks.holystoneMossy.id, AetherBlocks.holystone.id, 16, true).generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+            new WorldFeatureAetherDungeonBronzeCursed().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
         }
 
         return null;
