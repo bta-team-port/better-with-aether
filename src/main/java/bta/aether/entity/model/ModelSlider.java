@@ -17,19 +17,19 @@ public class ModelSlider extends ModelBase {
 
     public ModelSlider(float f, float f1) {
         this.head = new Cube(0, 0);
-        this.head.addBox(-8.0F, -16.0F, -8.0F, 16, 16, 16, f);
+        this.head.addBox(-8.0F, -4f, -8.0F, 16, 16, 16, f);
         this.head.setRotationPoint(0.0F, 0.0F + f1, 0.0F);
     }
 
-    public void render(float f, float f1, float f2, float f3, float f4, float f5) {
-        this.setAngles(f, f1, f2, f3, f4, f5);
+    public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+        this.setRotationAngles(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         GL11.glPushMatrix();
         GL11.glScalef(2.0F, 2.0F, 2.0F);
-        this.head.render(f5);
+        this.head.render(scale);
         GL11.glPopMatrix();
     }
 
-    public void setAngles(float f, float f1, float f2, float f3, float f4, float f5) {
+    public void setRotationAngles(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         this.head.rotateAngleY = 0.0F;
         this.head.rotateAngleX = 0.0F;
     }

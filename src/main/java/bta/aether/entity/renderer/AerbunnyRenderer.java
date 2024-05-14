@@ -9,8 +9,8 @@ import org.lwjgl.opengl.GL11;
 
 public class AerbunnyRenderer extends LivingRenderer<EntityAerbunny> {
     public ModelAerbunny mb;
-    public AerbunnyRenderer(ModelBase modelbase, float f) {
-        super(modelbase, f);
+    public AerbunnyRenderer(ModelBase modelbase, float shadowSize) {
+        super(modelbase, shadowSize);
         this.mb = (ModelAerbunny) modelbase;
     }
 
