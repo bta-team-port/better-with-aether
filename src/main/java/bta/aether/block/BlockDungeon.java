@@ -12,8 +12,7 @@ import java.util.Random;
 
 public class BlockDungeon extends Block {
 
-    private final int replacementID;
-
+    public final int replacementID;
     public BlockDungeon(String key, int id, Material material, int replacementID) {
         super(key, id, material);
         this.replacementID = replacementID;
