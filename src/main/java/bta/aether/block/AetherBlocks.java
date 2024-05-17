@@ -2,6 +2,9 @@ package bta.aether.block;
 
 import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.entity.EntityAerbunny;
+import bta.aether.entity.EntitySentry;
+import bta.aether.entity.EntityValk;
 import bta.aether.item.ItemBlockAetherDouble;
 import bta.aether.item.tool.base.ItemToolAetherAxe;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
@@ -461,22 +464,6 @@ public class AetherBlocks {
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
             .build(new BlockAetherFlower("flower.purple", blockID++));
 
-    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance((float)Integer.MAX_VALUE)
-            .setTextures("carved.png")
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone, stoneCarved.id));
-
-    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
-            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-            .setHardness(-1.0f)
-            .setResistance(-1.0f)
-            .setTextures("angelic.png")
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
-
     public static final Block chestMimic = new BlockBuilder(MOD_ID)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.0f)
@@ -537,6 +524,22 @@ public class AetherBlocks {
             .setLuminance(7)
             .setTextures("hellfire_glow.png")
             .build(new BlockDungeon("hellfire.light.locked", blockID++, Material.stone, stoneHellfireLight.id));
+
+    public static final Block trapStoneCarved = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance((float)Integer.MAX_VALUE)
+            .setTextures("carved.png")
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockMobTrap("trap.carved", blockID++, Material.stone, stoneCarvedLocked.id, EntitySentry.class));
+
+    public static final Block trapStoneAngelic = new BlockBuilder(MOD_ID)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(-1.0f)
+            .setResistance((float)Integer.MAX_VALUE)
+            .setTextures("angelic.png")
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
+            .build(new BlockMobTrap("trap.angelic", blockID++, Material.stone, stoneAngelicLocked.id, EntityValk.class));
 
     public static final Block lanternAetherBlock = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.GLASS)
