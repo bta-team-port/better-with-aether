@@ -32,6 +32,10 @@ public class BlockMobTrap extends BlockDungeon {
                     Entity monster = this.monster.getConstructor(World.class).newInstance(world);
                     monster.spawnInit();
                     monster.moveTo(spawnX, y + 1, spawnZ, 0.0f, 0.0f);
+                    if (monster.isInWall()) {
+                        monster.remove();
+                        continue;
+                    }
                     world.entityJoinedWorld(monster);
                     mobs--;
 
@@ -48,7 +52,7 @@ public class BlockMobTrap extends BlockDungeon {
                 }
             }
             catch(Exception exception) {
-                Aether.LOGGER.error("Failed to spawn Sentry!");
+                Aether.LOGGER.error("Failed to spawn monster at trap!");
                 Aether.LOGGER.error(String.valueOf(exception));
             }
         }
