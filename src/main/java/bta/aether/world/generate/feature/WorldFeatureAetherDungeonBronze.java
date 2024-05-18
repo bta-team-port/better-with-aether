@@ -3,12 +3,14 @@ package bta.aether.world.generate.feature;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityBossBase;
 import bta.aether.entity.EntityBossSlider;
+import bta.aether.entity.EntitySentry;
 import bta.aether.item.AetherItems;
 import bta.aether.util.AetherBlockCoord;
 import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.BlockPallet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.entity.TileEntityMobSpawner;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -118,6 +120,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
             return false;
         }
         if (this.isBoxEmpty(world, x, j, z, 12, 8, 12)) return true;
+        if (world.canBlockSeeTheSky(x, j + 1, z)) return true;
 
         ++this.roomCount;
         this.drawShell(world, random, carvedHolystone, Direction.EAST, 12, Direction.UP, 8, Direction.SOUTH, 12, x, j, z, true);
@@ -126,10 +129,16 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         final int p2 = x + 5;
         final int q2 = z + 5;
-        if (world.rand.nextInt(3) == 0) placeChest(world, random, p2, j + 2, q2);
-        if (world.rand.nextInt(3) == 0) placeChest(world, random, p2, j + 2, q2 + 1);
-        if (world.rand.nextInt(3) == 0) placeChest(world, random, p2 + 1, j + 2, q2);
-        if (world.rand.nextInt(3) == 0) placeChest(world, random, p2 + 1, j + 2, q2 + 1);
+
+        if (random.nextInt(48) == 0) {
+            generateNextRoom(world, random, i, j-12, k, dir);
+            this.addSolidBox(world, 0, 0, p2, j -9, q2, 2, 11, 2, true);
+        } else {
+            if (world.rand.nextInt(3) == 0) placeChest(world, random, p2, j + 2, q2);
+            if (world.rand.nextInt(3) == 0) placeChest(world, random, p2, j + 2, q2 + 1);
+            if (world.rand.nextInt(3) == 0) placeChest(world, random, p2 + 1, j + 2, q2);
+            if (world.rand.nextInt(3) == 0) placeChest(world, random, p2 + 1, j + 2, q2 + 1);
+        }
 
         switch (dir) {
             case 0: {
