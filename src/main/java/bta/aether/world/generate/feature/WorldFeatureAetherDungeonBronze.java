@@ -3,18 +3,14 @@ package bta.aether.world.generate.feature;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityBossBase;
 import bta.aether.entity.EntityBossSlider;
-import bta.aether.entity.EntitySentry;
 import bta.aether.item.AetherItems;
 import bta.aether.util.AetherBlockCoord;
 import bta.aether.world.AetherDimension;
 import bta.aether.world.generate.BlockPallet;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.entity.TileEntityMobSpawner;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
