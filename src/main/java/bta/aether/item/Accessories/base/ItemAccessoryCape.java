@@ -5,7 +5,7 @@ import bta.aether.item.TexturePath;
 import net.minecraft.core.item.ItemStack;
 
 public class ItemAccessoryCape extends ItemToolAccessory implements TexturePath {
-    private String texturePath;
+    private final String texturePath;
 
     public ItemAccessoryCape(String name, int id, String texturePath) {
         super(name, id);
