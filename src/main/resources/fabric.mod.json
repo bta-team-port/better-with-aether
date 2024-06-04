@@ -6,7 +6,17 @@
   "name": "Aether",
   "description": "The legendary dimension is finally here for Better Than Adventure!",
   "authors": [
-    "LukeisStuff, jonkadelic, Mak, Useless, CantComplain, MartinSVK12, Cookie Cakes, Kheprep, azurelmao, ToufouMaster, bagu_chan"
+    "LukeisStuff",
+    "jonkadelic",
+    "Mak",
+    "Useless",
+    "CantComplain",
+    "MartinSVK12",
+    "Cookie Cakes",
+    "Kheprep",
+    "azurelmao",
+    "ToufouMaster",
+    "bagu_chan"
   ],
   "icon": "icon.png",
   "contact": {
@@ -43,7 +53,7 @@
   ],
   "accessWidener": "aether.accesswidener",
   "depends": {
-    "minecraft": "~7.1-beta.2",
+    "minecraft": "~7.1",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {
