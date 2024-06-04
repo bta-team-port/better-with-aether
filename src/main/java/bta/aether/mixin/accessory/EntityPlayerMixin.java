@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = EntityPlayer.class, remap = false)
 public abstract class EntityPlayerMixin extends EntityLiving implements VariableHealthPlayer {
@@ -40,12 +41,18 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 	// heal extra hearts in peaceful
 	@Inject(method = "onLivingUpdate", at = @At("HEAD"))
 	public void onLivingUpdate(CallbackInfo ci) {
-		if (this.getHealth() < 20 || this.world.difficultySetting != 0)
+		if (getHealth() < 20 || this.world.difficultySetting != 0)
 			return;
 
-		if (this.getHealth() < 20 + HealthHelper.getExtraHealth((EntityPlayer) (Object) this) && this.tickCount % 20 * 12 == 0) {
-			this.heal(1);
+		if (getHealth() < 20 + HealthHelper.getExtraHealth((EntityPlayer) (Object) this) && tickCount % 20 * 12 == 0) {
+			heal(1);
 		}
+	}
+
+	// This now requires a direct mixin, due to it being a set integer. -Cookie
+	@Inject(method = "getMaxHealth", at = @At("HEAD"), cancellable = true)
+	public void aether_getMaxHealth(CallbackInfoReturnable<Integer> cir) {
+		cir.setReturnValue(20 + better_with_aether$getExtraHP());
 	}
 
 	@Inject(method = "init", at = @At("TAIL"))
@@ -75,8 +82,9 @@ public abstract class EntityPlayerMixin extends EntityLiving implements Variable
 	public void better_with_aether$setExtraHP(int extraHP) {
 		this.entityData.set(31, extraHP);
 		// if we would have more health that our new max, give us the new max
+		// Is this even needed anymore? -Cookie
 		if (getHealth() > 20 + extraHP) {
-// Idk what to replace this with			health = 20 + extraHP;
+
 		}
 	}
 
