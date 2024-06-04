@@ -67,7 +67,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolSwordSkyroot.id, 600);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
-        ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
+        ParticleHelper.createParticle("aether", (EntityPortalAetherFX::new));
 
         TextureHelper.getOrCreateParticleTexture(MOD_ID, "flameambrosium.png");
         ParticleHelper.createParticle("flameambrosium", (world, x, y, z, motionX, motionY, motionZ) -> new EntityFlameAmbrosiumFX(world, x, y, z, motionX, motionY, motionZ, ORANGE));
