@@ -43,7 +43,7 @@
   ],
   "accessWidener": "aether.accesswidener",
   "depends": {
-    "minecraft": "~7.1-beta.2",
+    "minecraft": "~7.1",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {
