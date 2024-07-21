@@ -16,14 +16,13 @@ public class EntityMimic extends EntityMonster {
     public EntityMimic(World world) {
         super(world);
         this.heightOffset = 0.0F;
-        setSize(0.9F, 0.9F);
+        setSize(0.9F, 1.9F);
     }
     private int tickCounter = 0;
 
     public int getMaxHealth() {
         return 40;
     }
-    private int tickCounter = 0;
     @Override
     protected void dropFewItems() {
         if (world.dimension.id == AetherDimension.dimensionAether.id) {
