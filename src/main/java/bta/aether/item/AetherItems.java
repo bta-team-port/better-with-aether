@@ -249,51 +249,85 @@ public class AetherItems {
                 .build(new ItemLoreBook("book.lore.paradise", itemID("bookLoreParadise"), Dimension.paradise.languageKey));
 
 
-        eggMoaBlue = ItemHelper.createItem(MOD_ID, new Item("egg.moa.blue", itemID++), "moa_egg_blue.png").withTags(aetheregg);
-        eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item("egg.moa.white", itemID++), "moa_egg_white.png").withTags(aetheregg);
-        eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item("egg.moa.black", itemID++), "moa_egg_black.png").withTags(aetheregg);
+        eggMoaBlue = new ItemBuilder(MOD_ID)
+                .setIcon("item/moa_egg_blue")
+                .build(new Item("egg.moa.blue", itemID("eggMoaBlue")).withTags(aetheregg));
+
+        eggMoaWhite = new ItemBuilder(MOD_ID)
+                .setIcon("item/moa_egg_white")
+                .build(new Item("egg.moa.white", itemID("eggMoaWhite")).withTags(aetheregg));
+
+        eggMoaBlack = new ItemBuilder(MOD_ID)
+                .setIcon("item/moa_egg_black")
+                .build(new Item("egg.moa.black", itemID("eggMoaBlack")).withTags(aetheregg));
+
 
         recordBlue = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/record_aether")
                 .setStackSize(1)
-                .build(new ItemRecord("record.blue", itemID++, "AetherTune", "Noisestorm"));
+                .build(new ItemRecord("record.blue", itemID("recordBlue"), "AetherTune", "Noisestorm"));
 
         recordSilver = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/record_wish")
                 .setStackSize(1)
-                .build(new ItemRecord("record.silver", itemID++, "AMorningWish", "Emile van Krieken"));
+                .build(new ItemRecord("record.silver", itemID("recordSilver"), "AMorningWish", "Emile van Krieken"));
 
         recordPink = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/record_dawn")
                 .setStackSize(1)
-                .build(new ItemRecord("record.pink", itemID++, "AscendingDawn", "Emile van Krieken"));
+                .build(new ItemRecord("record.pink", itemID("recordPink"), "AscendingDawn", "Emile van Krieken"));
 
-        amberGolden = ItemHelper.createItem(MOD_ID, new Item("goldenamber", itemID++), "amber.png");
-        petalAechor = ItemHelper.createItem(MOD_ID, new Item("aechorpetal", itemID++), "petal.png");
-        stickSkyroot = ItemHelper.createItem(MOD_ID, new Item("stick.skyroot", itemID++), "stick_skyroot.png");
+        amberGolden = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/amber")
+                .build(new Item("goldenamber", itemID("amberGolden")));
 
-        dartGolden = ItemHelper.createItem(MOD_ID, new Item("ammo.dart.gold", itemID++),"dart_golden.png");
-        dartPoison = ItemHelper.createItem(MOD_ID, new Item("ammo.dart.poison", itemID++), "dart_poison.png");
-        dartEnchanted = ItemHelper.createItem(MOD_ID, new Item("ammo.dart.enchanted",  itemID++), "dart_enchanted.png");
+        petalAechor = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/petal")
+                .build(new Item("aechorpetal", itemID("petalAechor")));
 
-        dartShooter = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter", itemID++, AetherItems.dartGolden.id){
+        stickSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/stick_skyroot")
+                .build(new Item("stick.skyroot", itemID("stickSkyroot")));
+
+
+        dartGolden = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/dart_golden")
+                .build(new Item("ammo.dart.gold", itemID("dartGolden")));
+
+        dartPoison = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/dart_poison")
+                .build(new Item("ammo.dart.poison", itemID("dartPoison")));
+
+        dartEnchanted = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/dart_enchanted")
+                .build(new Item("ammo.dart.enchanted", itemID("dartEnchanted")));
+
+        dartShooter = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/shooter_gold")
+                .build(new ItemShooter("tool.dart.shooter", itemID("dartShooter"), AetherItems.dartGolden.id){
             @Override
             public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
                 return new EntityGoldenDart(world, entityPlayer, true);
             }
-        }, "shooter_gold.png");
-        dartShooterPoison = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.poison", itemID++, AetherItems.dartPoison.id){
-            @Override
-            public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
-                return new EntityPoisonDart(world, entityPlayer, true);
-            }
-        }, "shooter_poison.png");
-        dartShooterEnchanted = ItemHelper.createItem(MOD_ID, new ItemShooter("tool.dart.shooter.enchanted", itemID++, AetherItems.dartEnchanted.id){
-            @Override
-            public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
-                return new EntityEnchantedDart(world, entityPlayer, true);
-            }
-        }, "shooter_enchanted.png");
+                });
+
+        dartShooterPoison = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/shooter_poison")
+                .build(new ItemShooter("tool.dart.shooter.poison", itemID("dartShooterPoison"), AetherItems.dartPoison.id){
+                    @Override
+                    public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+                        return new EntityPoisonDart(world, entityPlayer, true);
+                    }
+                });
+
+        dartShooterEnchanted = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/shooter_enchanted")
+                .build(new ItemShooter("tool.dart.shooter.enchanted", itemID("dartShooterEnchanted"), AetherItems.dartEnchanted.id){
+                    @Override
+                    public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
+                        return new EntityEnchantedDart(world, entityPlayer, true);
+                    }
+                });
 
 
         ambrosium = ItemHelper.createItem(MOD_ID, new ItemFood("ambrosium", itemID++, 1, false, 64), "ambrosium.png");
