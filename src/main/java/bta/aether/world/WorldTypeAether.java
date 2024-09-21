@@ -17,7 +17,7 @@ import net.minecraft.core.world.wind.WindManager;
 public abstract class WorldTypeAether
     extends WorldType
 {
-    private final float[] colorsSunriseSunset = new float[4];
+    public final float[] colorsSunriseSunset = new float[4];
 
     public WorldTypeAether(String languageKey, Weather defaultWeather, WindManager windManager, SeasonConfig defaultSeasonConfig) {
         super(
@@ -30,7 +30,7 @@ public abstract class WorldTypeAether
         );
     }
 
-    private static float[] createLightRamp()
+    public static float[] createLightRamp()
     {
         float[] brightnessRamp = new float[32];
         float f = 0.05F;
@@ -55,7 +55,7 @@ public abstract class WorldTypeAether
 
     @Override
     public int getFillerBlock() {
-        return AetherBlocks.holystone.id;
+        return AetherBlocks.cobbleHolystone.id;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
         TextureHelper.getOrCreateParticleTexture(MOD_ID, "flameambrosium.png");
         ParticleHelper.createParticle("flameambrosium", (world, x, y, z, motionX, motionY, motionZ) -> new EntityFlameAmbrosiumFX(world, x, y, z, motionX, motionY, motionZ, ORANGE));
 
-        ((BlockLanternFirefly) AetherBlocks.lanternAetherBlock).setItem(AetherItems.lanternAether);
+        ((BlockLanternFirefly) AetherBlocks.lanternFireflyAether).setItem(AetherItems.lanternAether);
         ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ) -> {
             EntityFireflyFX particle = new EntityFireflyFX(world, x, y, z, motionX, motionY, motionZ, 2.5f, 0);
             ParticleHelper.setFireflyColorMin(particle, 0.25f, 0.50f, 0.35f);
@@ -91,6 +91,8 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
     @Override
     public void afterGameStart() {
         new AetherRecipes().initializeRecipes();
+        new AetherBlocks().initializeBlockDetails();
+        new AetherBlocks().initializeBlocks();
     }
 
     @Override

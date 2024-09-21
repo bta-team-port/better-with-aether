@@ -41,22 +41,22 @@ public class AetherInitialization extends BaseInitialization {
         structureFeatures.addFeature(AetherFunctions::generateLakeFeature, null);
     }
     public static Map<Integer, Integer> oreIceStoneMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, AetherBlocks.icestone.id);
+        put(AetherBlocks.cobbleHolystone.id, AetherBlocks.icestone.id);
     }};
     public static Map<Integer, Integer> oreAmbrosiumMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, AetherBlocks.oreAmbrosiumHolystone.id);
+        put(AetherBlocks.cobbleHolystone.id, AetherBlocks.oreAmbrosiumHolystone.id);
     }};
     public static Map<Integer, Integer> oreZaniteMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, AetherBlocks.oreZaniteHolystone.id);
+        put(AetherBlocks.cobbleHolystone.id, AetherBlocks.oreZaniteHolystone.id);
     }};
     public static Map<Integer, Integer> oreGravititeMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, AetherBlocks.oreGravititeHolystone.id);
+        put(AetherBlocks.cobbleHolystone.id, AetherBlocks.oreGravititeHolystone.id);
     }};
     public static Map<Integer, Integer> iceMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, Block.fluidWaterFlowing.id);
+        put(AetherBlocks.cobbleHolystone.id, Block.fluidWaterFlowing.id);
     }};
     public static Map<Integer, Integer> waterMap = new HashMap<Integer, Integer>(){{
-        put(AetherBlocks.holystone.id, Block.fluidWaterFlowing.id);
+        put(AetherBlocks.cobbleHolystone.id, Block.fluidWaterFlowing.id);
     }};
 
     @Override
@@ -89,7 +89,7 @@ public class AetherInitialization extends BaseInitialization {
         OverworldRandomFeatures randomFeatures = ChunkDecoratorAetherAPI.randomFeatures;
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerPurple.id), 2, 1);
         randomFeatures.addFeature(new WorldFeatureFlowers(AetherBlocks.flowerWhite.id), 2, 1);
-        randomFeatures.addFeature(new WorldFeatureTallGrass(AetherBlocks.aetherTallGrass.id), 8, 2);
+        randomFeatures.addFeature(new WorldFeatureTallGrass(AetherBlocks.tallgrassAether.id), 8, 2);
 
         randomFeatures.addFeature(
                 AetherFunctions::getNormalClouds, null,

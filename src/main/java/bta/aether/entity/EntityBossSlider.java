@@ -18,7 +18,6 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
-import org.spongepowered.asm.mixin.Debug;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -354,7 +353,7 @@ public class EntityBossSlider extends EntityBossBase {
             if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolAetherPickaxe)) {
                 tryAwake();
                 if (!((EntityPlayer)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((EntityPlayer) attacker);
-                return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.holystone), type);
+                return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.cobbleHolystone), type);
             }
             if (!this.isAwake()) {
                 String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");

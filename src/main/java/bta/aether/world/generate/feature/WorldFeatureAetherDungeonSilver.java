@@ -16,14 +16,14 @@ import net.minecraft.core.world.World;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
-    private static BlockPallet angelic = new BlockPallet();
-    private static BlockPallet holystone = new BlockPallet();
+    public static BlockPallet angelic = new BlockPallet();
+    public static BlockPallet holystone = new BlockPallet();
     static {
         angelic.addEntry(AetherBlocks.stoneAngelicLocked.id, 0, 95);
         angelic.addEntry(AetherBlocks.stoneAngelicLightLocked.id, 0, 5);
 
-        holystone.addEntry(AetherBlocks.holystone.id, 0, 90);
-        holystone.addEntry(AetherBlocks.holystoneMossy.id, 0, 10);
+        holystone.addEntry(AetherBlocks.cobbleHolystone.id, 0, 90);
+        holystone.addEntry(AetherBlocks.cobbleHolystoneMossy.id, 0, 10);
     }
     @Override
     public boolean generate(World world, Random random, int x, int y, int z) {
@@ -184,7 +184,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
 
         return true;
     }
-    protected void createFountain(World world, Random random, int x, int y, int z, Direction directionEW){
+    public void createFountain(World world, Random random, int x, int y, int z, Direction directionEW){
         int[] walls = new int[]{2, 3, 4, 4, 4, 4, 3, 2};
         boolean[] torches = new boolean[]{false, false, true, false, false, true, false, false};
         int[] water = new int[]{0, 2, 3, 3, 3, 3, 2, 0};
@@ -197,7 +197,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
             drawLine(world, Block.fluidWaterStill.id, 0, directionEW, water[i], x, y, z + i, false);
         }
     }
-    protected void createLight(World world, Random random, int x, int y, int z){
+    public void createLight(World world, Random random, int x, int y, int z){
         setBlock(world, x, y, z, Block.fencePlanksOak.id, 0, false);
         setBlock(world, x, y - 1, z, Block.fencePlanksOak.id, 0, false);
         setBlock(world, x, y - 2, z, Block.fencePlanksOak.id, 0, false);
@@ -209,13 +209,13 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         setBlock(world, x, y - 4, z + 1, Block.glowstone.id, 0, true);
         setBlock(world, x, y - 5, z, Block.glowstone.id, 0, true);
     }
-    protected void createPillar(World world, Random random, int x, int y, int z){
+    public void createPillar(World world, Random random, int x, int y, int z){
         drawPlane(world, random, angelic, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false);
         drawPlane(world, random, angelic, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false);
         drawLine(world, AetherBlocks.pillar.id, 0, Direction.UP, 13, x + Direction.WEST.getOffsetX(), y, z + Direction.SOUTH.getOffsetZ(), false);
-        setBlock(world, x + Direction.WEST.getOffsetX(), y + 13, z + Direction.SOUTH.getOffsetZ(), AetherBlocks.pillarTop.id, 0, false);
+        setBlock(world, x + Direction.WEST.getOffsetX(), y + 13, z + Direction.SOUTH.getOffsetZ(), AetherBlocks.pillarCapstone.id, 0, false);
     }
-    protected void createRoom(World world, Random random, int x, int y, int z, boolean forceOpen){
+    public void createRoom(World world, Random random, int x, int y, int z, boolean forceOpen){
         drawShell(world, random, angelic, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true);
         if (random.nextInt(2) != 0 || forceOpen){
             drawPlane(world, 0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z, true);
@@ -230,7 +230,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
             drawPlane(world, 0, 0, Direction.UP, 2, Direction.SOUTH, 2, x - 7, y + 1, z + 3, true);
         }
     }
-    protected void createTreasureRoom(World world, Random random, int x, int y, int z, boolean forceOpen){
+    public void createTreasureRoom(World world, Random random, int x, int y, int z, boolean forceOpen){
         createRoom(world, random, x, y, z, forceOpen);
         drawPlane(world, random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, true);
 
@@ -252,12 +252,12 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         }
     }
 
-    protected void placeChestOrMimic(World world, Random random, int x, int y, int z) {
+    public void placeChestOrMimic(World world, Random random, int x, int y, int z) {
         if (random.nextInt(2) == 0) makeTreasureChest(lootTableSilverNormal, random.nextInt(16), world, x, y, z);
         else setBlock(world, x, y, z, AetherBlocks.chestMimic.id, 0, true);
     }
 
-    protected void createStaircaseRoom(World world, Random random, int x, int y, int z, boolean forceWalls, boolean forceOpen){
+    public void createStaircaseRoom(World world, Random random, int x, int y, int z, boolean forceWalls, boolean forceOpen){
         if (forceWalls){
             drawShell(world, random, angelic, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true);
         } else {

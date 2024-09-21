@@ -67,7 +67,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
                 chest.setPasswordHashed(item.getData().getString("password"));
 
                 world.playSoundEffect(player, 1003, x, y, z, 0);
-                swapBlock(world, x, y, z, AetherBlocks.dungeonChestLocked.id, world.getBlockMetadata(x,y,z) , chest);
+                swapBlock(world, x, y, z, AetherBlocks.chestDungeonLocked.id, world.getBlockMetadata(x,y,z) , chest);
                 return true;
             }
 
@@ -83,7 +83,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
             chest.setPassword("BLANK PASSWORD");
 
             world.playSoundEffect(player, 1003, x, y, z, 0);
-            swapBlock(world, x, y, z, AetherBlocks.dungeonChest.id, world.getBlockMetadata(x,y,z), chest);
+            swapBlock(world, x, y, z, AetherBlocks.chestDungeon.id, world.getBlockMetadata(x,y,z), chest);
             return true;
         }
         player.addChatMessage(I18n.getInstance().translateKey("tile.aether.chest.treasure.locked.fail"));

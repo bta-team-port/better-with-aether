@@ -21,23 +21,23 @@ import java.util.List;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase{
-    private static BlockPallet hellfire = new BlockPallet();
-    private static BlockPallet holystone = new BlockPallet();
+    public static final BlockPallet hellfire = new BlockPallet();
+    public static final BlockPallet holystone = new BlockPallet();
 
-    private static final List<Integer> stones = Arrays.asList(AetherBlocks.holystoneMossy.id, AetherBlocks.holystone.id);
+    public static final List<Integer> stones = Arrays.asList(AetherBlocks.cobbleHolystoneMossy.id, AetherBlocks.cobbleHolystone.id);
     static {
         hellfire.addEntry(AetherBlocks.stoneHellfireLocked.id, 0, 90);
         hellfire.addEntry(AetherBlocks.stoneHellfireLightLocked.id, 0, 10);
 
-        holystone.addEntry(AetherBlocks.holystone.id, 0, 90);
-        holystone.addEntry(AetherBlocks.holystoneMossy.id, 0, 10);
+        holystone.addEntry(AetherBlocks.cobbleHolystone.id, 0, 90);
+        holystone.addEntry(AetherBlocks.cobbleHolystoneMossy.id, 0, 10);
     }
 
-    private static final int radius = 16;
+    public static final int radius = 16;
 
-    private static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
+    public static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
             new Pair<>(128, new WorldFeatureGoldenOak(AetherBlocks.leavesOakGolden.id, AetherBlocks.logOakGolden.id)),
-            new Pair<>(32, new WorldFeatureFlowers(AetherBlocks.aetherTallGrass.id)),
+            new Pair<>(32, new WorldFeatureFlowers(AetherBlocks.tallgrassAether.id)),
             new Pair<>(84, new WorldFeatureFlowers(AetherBlocks.flowerWhite.id))
     };
 
@@ -114,17 +114,17 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         return true;
     }
 
-    private void drawSquareCylinder(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
+    public void drawSquareCylinder(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
         drawVolume(world, random, pallet, direction1, length1, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
         drawVolume(world, 0, 0, direction1, length1 -2, direction2, length2 -2, direction3, length3, startX -1, startY, startZ -1, withNotify);
     }
 
-    private void drawHollowShell(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
+    public void drawHollowShell(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
         drawVolume(world, random, pallet, direction1, length1, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
         drawVolume(world, 0, 0, direction1, length1 -2, direction2, length2 -2, direction3, length3 -2, startX -1, startY +1, startZ -1, withNotify);
     }
 
-    private void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, World world, Random random, int x, int y, int z) {
+    public void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, World world, Random random, int x, int y, int z) {
         int radX, radZ, height;
         for (radX = -radius; radX < radius; radX++) for (radZ = -radius; radZ < radius; radZ++) {
             if (WorldFeatureAetherDungeonBase.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {

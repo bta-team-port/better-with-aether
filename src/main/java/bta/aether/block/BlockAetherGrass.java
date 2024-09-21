@@ -38,7 +38,7 @@ public class BlockAetherGrass extends BlockAetherDouble {
             if (world.getGameRule(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && world.seasonManager.getCurrentSeason() != null && world.seasonManager.getCurrentSeason().growFlowers && rand.nextInt(256) == 0) {
                 int idToSpawn = 0;
                 int r = rand.nextInt(400);
-                idToSpawn = r < 26 ? AetherBlocks.flowerPurple.id : (r < 41 ? AetherBlocks.flowerWhite.id : (AetherBlocks.aetherTallGrass.id));
+                idToSpawn = r < 26 ? AetherBlocks.flowerPurple.id : (r < 41 ? AetherBlocks.flowerWhite.id : (AetherBlocks.tallgrassAether.id));
                 world.setBlockWithNotify(x, y + 1, z, idToSpawn);
             }
         }

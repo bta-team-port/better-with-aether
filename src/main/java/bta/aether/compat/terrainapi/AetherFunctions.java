@@ -139,7 +139,7 @@ public class AetherFunctions {
             int xPos = x + parameters.random.nextInt(16) + 8;
             int yPos = parameters.decorator.minY + 20 + parameters.random.nextInt(parameters.decorator.rangeY - 120);
             int zPos = z + parameters.random.nextInt(16) + 8;
-            new WorldFeatureAetherDungeonBronze(AetherBlocks.stoneCarvedLocked.id, AetherBlocks.stoneCarvedLightLocked.id, AetherBlocks.stoneCarved.id, AetherBlocks.stoneCarvedLight.id, AetherBlocks.holystoneMossy.id, AetherBlocks.holystone.id, 16, true).generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+            new WorldFeatureAetherDungeonBronze(AetherBlocks.stoneCarvedLocked.id, AetherBlocks.stoneCarvedLightLocked.id, AetherBlocks.stoneCarved.id, AetherBlocks.stoneCarvedLight.id, AetherBlocks.cobbleHolystoneMossy.id, AetherBlocks.cobbleHolystone.id, 16, true).generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
         }
 
         return null;

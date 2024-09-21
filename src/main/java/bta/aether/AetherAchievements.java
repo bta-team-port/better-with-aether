@@ -53,7 +53,7 @@ public class AetherAchievements extends AchievementPage {
             GL11.glColor4f(f5, f5, f5, 1.0f);
             int i8 = 0;
             while (i8 * 16 - blockX2 < 224) {
-                int k8 = AetherBlocks.holystone.getBlockTextureFromSideAndMetadata(Side.BOTTOM,0);
+                int k8 = AetherBlocks.cobbleHolystone.getBlockTextureFromSideAndMetadata(Side.BOTTOM,0);
                 guiAchievements.drawTexturedModalRect(iOffset + i8 * 16 - blockX2, jOffset + l7 * 16 - blockY2, k8 % Global.TEXTURE_ATLAS_WIDTH_TILES * TextureFX.tileWidthTerrain, k8 / Global.TEXTURE_ATLAS_WIDTH_TILES * TextureFX.tileWidthTerrain, 16, 16, TextureFX.tileWidthTerrain, 1.0f / (float)(Global.TEXTURE_ATLAS_WIDTH_TILES * TextureFX.tileWidthTerrain));
                 ++i8;
             }

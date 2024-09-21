@@ -2,7 +2,6 @@ package bta.aether.entity;
 
 import bta.aether.entity.model.*;
 import bta.aether.entity.renderer.*;
-import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelSlime;
 import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
@@ -41,7 +40,7 @@ public class AetherEntities {
         EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new SliderRenderer(new ModelSlider(0.0F, 12.0F), 1.5F));
         EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityValk.class, new LivingRenderer<EntityAerbunny>(modelValk, 1F));
+        EntityHelper.Client.assignEntityRenderer(EntityValk.class, new ValkRenderer(modelValk, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new AerwhaleRenderer(new ModelAerwhale(), 1F));
         EntityHelper.Client.assignEntityRenderer(EntityMimic.class, new MimicRenderer(modelMimic, 1F));
         EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));

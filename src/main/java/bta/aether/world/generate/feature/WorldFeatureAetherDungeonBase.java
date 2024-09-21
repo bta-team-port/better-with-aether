@@ -31,7 +31,7 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
     public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, Item itemKey, String password, Boolean isLocked, World world, int x, int y, int z){
         ItemStack[] items = lootTable.generateLoot(quantity);
 
-        if (isLocked) world.setBlock(x, y, z, AetherBlocks.dungeonChestLocked.id);
+        if (isLocked) world.setBlock(x, y, z, AetherBlocks.chestDungeonLocked.id);
         else world.setBlockWithNotify(x, y, z, AetherBlocks.chestSkyroot.id);
 
         TileEntityChest chest = (TileEntityChest) world.getBlockTileEntity(x, y, z);

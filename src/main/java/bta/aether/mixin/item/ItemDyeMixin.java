@@ -29,7 +29,7 @@ public class ItemDyeMixin extends Item {
                 Random random = new Random();
 
                 for(int l = 0; l < 64; ++l) {
-                    Block plantBlock = new Block[]{AetherBlocks.flowerPurple, AetherBlocks.aetherTallGrass, AetherBlocks.flowerWhite, AetherBlocks.aetherTallGrass}[random.nextInt(4)];
+                    Block plantBlock = new Block[]{AetherBlocks.flowerPurple, AetherBlocks.tallgrassAether, AetherBlocks.flowerWhite, AetherBlocks.tallgrassAether}[random.nextInt(4)];
 
                     int x = blockX + random.nextInt(8) - random.nextInt(8);
                     int y = blockY + random.nextInt(4) - random.nextInt(4);

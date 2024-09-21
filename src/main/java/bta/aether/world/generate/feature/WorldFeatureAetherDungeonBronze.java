@@ -50,7 +50,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherBuildings
         int x2 = x + 7 + rand.nextInt(2);
         int y2 = y - 1;
         int z2 = z + 7 + rand.nextInt(2);
-        world.setBlockAndMetadata(x2, y2, z2, AetherBlocks.dungeonChestLocked.id, 2);
+        world.setBlockAndMetadata(x2, y2, z2, AetherBlocks.chestDungeonLocked.id, 2);
         x2 = x + 20;
         y2 = y;
         z2 = z + 2;
@@ -63,7 +63,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherBuildings
         this.addSquareTube(world, rand, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
         for (int p = x2 + 2; p < x2 + 10; p += 3) {
             for (int q = z2 + 2; q < z2 + 10; q += 3) {
-                world.setBlock(p, y, q, AetherBlocks.trapStoneCarved.id);
+                world.setBlock(p, y, q, AetherBlocks.stoneCarvedTrap.id);
             }
         }
         ++this.n;
