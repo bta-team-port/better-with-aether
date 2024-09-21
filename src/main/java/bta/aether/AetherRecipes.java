@@ -16,7 +16,7 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeNamespace AETHER = new RecipeNamespace();

@@ -26,7 +26,7 @@ public class BlockDoubleLog extends BlockLog {
         world.setBlockMetadataWithNotify(x, y, z, BlockAxisAligned.axisToMeta(axis) | (meta & 0b1000_0000));
     }
     @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta, EntityPlayer player, Item item) {
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, EntityPlayer player, Item item) {
         if (toolClass.isInstance(item) && ((ItemTool) item).getMaterial() == AetherToolMaterial.TOOL_SKYROOT && player.getGamemode().consumeBlocks() && meta == 0){
             dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, world.getBlockTileEntity(x, y, z));
         }

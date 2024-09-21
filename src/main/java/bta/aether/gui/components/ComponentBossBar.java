@@ -1,6 +1,6 @@
 package bta.aether.gui.components;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import bta.aether.entity.IPlayerBossList;
 import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
@@ -74,7 +74,7 @@ public class ComponentBossBar extends MovableHudComponent {
             int textY = barY + textOffset;
 
             drawProgressBar(barX, barY, 100, 100);
-            gui.drawStringCentered(this.mc.fontRenderer, I18n.getInstance().translateKey(Aether.MOD_ID+".menu.boss_bar.preview_name"), textX, textY, 0xFFFFFFFF);
+            gui.drawStringCentered(this.mc.fontRenderer, I18n.getInstance().translateKey(AetherMod.MOD_ID+".menu.boss_bar.preview_name"), textX, textY, 0xFFFFFFFF);
         }
     }
     public void drawBossBars(List<EntityLiving> entities) {

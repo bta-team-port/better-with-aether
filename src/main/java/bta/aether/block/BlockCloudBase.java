@@ -35,8 +35,8 @@ public class BlockCloudBase extends BlockTransparent {
         return false;
     }
 
-    public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
-        return AABB.getBoundingBoxFromPool((double)x, (double)y, (double)z, (double)(x + 1), (double)y, (double)(z + 1));
+    public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
+        return AABB.getBoundingBoxFromPool(x, y, z, x + 1, y, z + 1);
     }
 
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {

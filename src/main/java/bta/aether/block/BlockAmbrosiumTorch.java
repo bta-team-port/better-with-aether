@@ -9,6 +9,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.WorldSource;
 
 import java.util.Random;
 
@@ -17,28 +18,24 @@ public class BlockAmbrosiumTorch extends Block {
         super(key, id, Material.decoration);
         this.setTicking(true);
     }
-    @Override
-    public int getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        return side == Side.TOP ? AetherBlocks.torchAmbrosium.getBlockTextureFromSideAndMetadata(side, meta) : super.getBlockTextureFromSideAndMetadata(side, meta);
-    }
-    @Override
-    public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+
+    public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
         return null;
     }
-    @Override
+
     public boolean isSolidRender() {
         return false;
     }
-    @Override
+
     public boolean renderAsNormalBlock() {
         return false;
     }
 
-    private boolean canPlaceOnTop(World world, int i, int j, int k) {
-        int id = world.getBlockId(i, j, k);
-        return world.isBlockNormalCube(i, j, k) || id == Block.fencePlanksOak.id || id == Block.fencePlanksOakPainted.id;
+    private boolean canPlaceOnTop(World world, int x, int y, int z) {
+        int id = world.getBlockId(x, y, z);
+        return world.canPlaceOnSurfaceOfBlock(x, y, z) || id == Block.fencePlanksOak.id || id == Block.fencePlanksOakPainted.id;
     }
-    @Override
+
     public boolean canPlaceBlockAt(World world, int x, int y, int z) {
         if (world.isBlockNormalCube(x - 1, y, z)) {
             return true;
@@ -50,7 +47,7 @@ public class BlockAmbrosiumTorch extends Block {
             return world.isBlockNormalCube(x, y, z + 1) || world.canPlaceOnSurfaceOfBlock(x, y - 1, z);
         }
     }
-    @Override
+
     public void onBlockPlaced(World world, int x, int y, int z, Side side, EntityLiving entity, double sideHeight) {
         int l = side.getId();
         int i1 = world.getBlockMetadata(x, y, z);
@@ -76,7 +73,7 @@ public class BlockAmbrosiumTorch extends Block {
 
         world.setBlockMetadataWithNotify(x, y, z, i1);
     }
-    @Override
+
     public void updateTick(World world, int x, int y, int z, Random rand) {
         super.updateTick(world, x, y, z, rand);
         if (world.getBlockMetadata(x, y, z) == 0) {
@@ -84,23 +81,23 @@ public class BlockAmbrosiumTorch extends Block {
         }
 
     }
-    @Override
-    public void onBlockAdded(World world, int i, int j, int k) {
-        if (world.isBlockNormalCube(i - 1, j, k)) {
-            world.setBlockMetadataWithNotify(i, j, k, 1);
-        } else if (world.isBlockNormalCube(i + 1, j, k)) {
-            world.setBlockMetadataWithNotify(i, j, k, 2);
-        } else if (world.isBlockNormalCube(i, j, k - 1)) {
-            world.setBlockMetadataWithNotify(i, j, k, 3);
-        } else if (world.isBlockNormalCube(i, j, k + 1)) {
-            world.setBlockMetadataWithNotify(i, j, k, 4);
-        } else if (this.canPlaceOnTop(world, i, j - 1, k)) {
-            world.setBlockMetadataWithNotify(i, j, k, 5);
+
+    public void onBlockAdded(World world, int x, int y, int z) {
+        if (world.isBlockNormalCube(x - 1, y, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 1);
+        } else if (world.isBlockNormalCube(x + 1, y, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 2);
+        } else if (world.isBlockNormalCube(x, y, z - 1)) {
+            world.setBlockMetadataWithNotify(x, y, z, 3);
+        } else if (world.isBlockNormalCube(x, y, z + 1)) {
+            world.setBlockMetadataWithNotify(x, y, z, 4);
+        } else if (this.canPlaceOnTop(world, x, y - 1, z)) {
+            world.setBlockMetadataWithNotify(x, y, z, 5);
         }
 
-        this.dropTorchIfCantStay(world, i, j, k);
+        this.dropTorchIfCantStay(world, x, y, z);
     }
-    @Override
+
     public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
         if (this.dropTorchIfCantStay(world, x, y, z)) {
             int i1 = world.getBlockMetadata(x, y, z);
@@ -139,50 +136,50 @@ public class BlockAmbrosiumTorch extends Block {
             return true;
         }
     }
-    @Override
+
     public HitResult collisionRayTrace(World world, int x, int y, int z, Vec3d start, Vec3d end) {
         int l = world.getBlockMetadata(x, y, z) & 7;
         float f = 0.15F;
         if (l == 1) {
-            this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
+            this.setBlockBounds(0.0, 0.20000000298023224, 0.5F - f, f * 2.0F, 0.800000011920929, 0.5F + f);
         } else if (l == 2) {
-            this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
+            this.setBlockBounds(1.0F - f * 2.0F, 0.20000000298023224, 0.5F - f, 1.0, 0.800000011920929, 0.5F + f);
         } else if (l == 3) {
-            this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
+            this.setBlockBounds(0.5F - f, 0.20000000298023224, 0.0, 0.5F + f, 0.800000011920929, f * 2.0F);
         } else if (l == 4) {
-            this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
+            this.setBlockBounds(0.5F - f, 0.20000000298023224, 1.0F - f * 2.0F, 0.5F + f, 0.800000011920929, 1.0);
         } else {
             float f1 = 0.1F;
-            this.setBlockBounds(0.5F - f1, 0.0F, 0.5F - f1, 0.5F + f1, 0.6F, 0.5F + f1);
+            this.setBlockBounds(0.5F - f1, 0.0, 0.5F - f1, 0.5F + f1, 0.6000000238418579, 0.5F + f1);
         }
 
         return super.collisionRayTrace(world, x, y, z, start, end);
     }
-    @Override
+
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         int l = world.getBlockMetadata(x, y, z);
-        double d = (float)x + 0.5F;
-        double d1 = (float)y + 0.7F;
-        double d2 = (float)z + 0.5F;
+        double xPos = (double)x + 0.5;
+        double yPos = (double)y + 0.7;
+        double zPos = (double)z + 0.5;
         double d3 = 0.22;
         double d4 = 0.27;
         if (l == 1) {
-//            world.spawnParticle("smoke", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flameambrosium", d - d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
         } else if (l == 2) {
-//            world.spawnParticle("smoke", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flameambrosium", d + d4, d1 + d3, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
         } else if (l == 3) {
-//            world.spawnParticle("smoke", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
-            world.spawnParticle("flameambrosium", d, d1 + d3, d2 - d4, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0);
         } else if (l == 4) {
-//            world.spawnParticle("smoke", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
-            world.spawnParticle("flameambrosium", d, d1 + d3, d2 + d4, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0);
         } else {
-//            world.spawnParticle("smoke", d, d1, d2, 0.0, 0.0, 0.0);
-            world.spawnParticle("flameambrosium", d, d1, d2, 0.0, 0.0, 0.0);
+            world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0);
         }
 
     }
+
+    public int getLightmapCoord(WorldSource blockAccess, int x, int y, int z) {
+        return blockAccess.getLightmapCoord(x, y, z, lightEmission[this.id] > 0 ? 15 : 0);
+    }
+
 }
 

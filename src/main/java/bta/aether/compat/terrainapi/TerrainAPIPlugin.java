@@ -2,7 +2,7 @@ package bta.aether.compat.terrainapi;
 
 import useless.terrainapi.api.TerrainAPI;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class TerrainAPIPlugin implements TerrainAPI {
 

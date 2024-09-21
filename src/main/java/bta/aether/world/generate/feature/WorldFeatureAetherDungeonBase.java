@@ -1,6 +1,6 @@
 package bta.aether.world.generate.feature;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityBossBase;
 import bta.aether.tile.TileEntityChestLocked;
@@ -36,7 +36,7 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
 
         TileEntityChest chest = (TileEntityChest) world.getBlockTileEntity(x, y, z);
         if (chest == null) {
-            Aether.LOGGER.error(String.format("Failed to acquire chest! at X%d, Y%d, Z%d.", x, y, z));
+            AetherMod.LOGGER.error(String.format("Failed to acquire chest! at X%d, Y%d, Z%d.", x, y, z));
             return null;
         }
 
@@ -70,8 +70,8 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         try {
             boss = aetherBossClass.getConstructor(World.class).newInstance(world);
         } catch (Exception exception) {
-            Aether.LOGGER.error("Something went wrong!");
-            Aether.LOGGER.error(String.valueOf(exception));
+            AetherMod.LOGGER.error("Something went wrong!");
+            AetherMod.LOGGER.error(String.valueOf(exception));
             return null;
         }
 

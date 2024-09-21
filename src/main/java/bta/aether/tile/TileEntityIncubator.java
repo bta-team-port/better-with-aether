@@ -1,6 +1,6 @@
 package bta.aether.tile;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import bta.aether.AetherAchievements;
 import bta.aether.block.AetherBlocks;
 import bta.aether.entity.EntityMoa;
@@ -118,8 +118,8 @@ public class TileEntityIncubator extends TileEntityAetherMachine {
         }
 
         catch (Exception exception) {
-            Aether.LOGGER.error("SOMETHING WENT WRONG");
-            Aether.LOGGER.error(String.valueOf(exception));
+            AetherMod.LOGGER.error("SOMETHING WENT WRONG");
+            AetherMod.LOGGER.error(String.valueOf(exception));
             return;
         }
 

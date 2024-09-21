@@ -5,7 +5,7 @@ import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
 import sunsetsatellite.catalyst.effects.api.effect.Effects;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class AetherEffects {
 

@@ -1,6 +1,6 @@
 package bta.aether.entity;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import bta.aether.util.AetherBlockCoord;
 import bta.aether.util.NameGenerator;
 import bta.aether.world.AetherDimension;
@@ -11,8 +11,6 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
-
-import java.util.Arrays;
 
 public abstract class EntityBossBase extends EntityMonster implements IAetherBoss{
 
@@ -86,7 +84,7 @@ public abstract class EntityBossBase extends EntityMonster implements IAetherBos
     public void onEntityDeath() {
         this.world.dropItem((int)x, (int)y, (int)z, keyChain);
         AetherDimension.dugeonMap.remove(belongsTo);
-        Aether.LOGGER.info(personalBossName + " of ID " + belongsTo + " has been slain!");
+        AetherMod.LOGGER.info(personalBossName + " of ID " + belongsTo + " has been slain!");
 
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {

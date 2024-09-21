@@ -7,6 +7,7 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -28,7 +29,7 @@ public class BlockGoldenOakLog extends BlockLog {
         }
             world.dropItem(x, y, z, new ItemStack(this, 1));
     }
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta, EntityPlayer player, Item item) {
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, EntityPlayer player, Item item) {
         if (toolClass.isInstance(item) && player.getGamemode().consumeBlocks() && meta == 0){
             dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, world.getBlockTileEntity(x, y, z));
         }

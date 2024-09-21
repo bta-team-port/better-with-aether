@@ -5,7 +5,7 @@ import net.minecraft.core.block.material.Material;
 
 public class BlockAerogel extends BlockTransparent {
     public BlockAerogel(String key, int id, Material material) {
-        super(key, id, material, true);
+        super(key, id, material);
     }
     @Override
     public int getRenderBlockPass() {

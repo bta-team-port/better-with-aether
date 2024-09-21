@@ -4,7 +4,7 @@ import net.minecraft.client.entity.fx.EntityFlameFX;
 import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.TextureHelper;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class EntityFlameAmbrosiumFX extends EntityFlameFX {
     public EntityFlameAmbrosiumFX(World world, double d, double d1, double d2, double d3, double d4, double d5, Type type) {

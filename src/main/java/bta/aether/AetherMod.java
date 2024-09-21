@@ -32,13 +32,14 @@ import turniplabs.halplibe.util.achievements.AchievementPage;
 import static net.minecraft.client.entity.fx.EntityFlameFX.Type.ORANGE;
 
 
-public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModInitializer {
+public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientStartEntrypoint {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitialize() {
         NetworkHelper.register(PuffAerBunnyPacket.class, true, false);
+        LOGGER.info("AetherMod initialized. Welcome to a hostile paradise.");
     }
 
     @Override
@@ -48,12 +49,15 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
         new AetherEntities().initializeEntities();
         new AetherEffects().initializeEffects();
 
+        AchievementPage AETHERACHIEVEMENTS;
+        AETHERACHIEVEMENTS = new AetherAchievements();
+        AchievementHelper.addPage(AETHERACHIEVEMENTS);
 
         //Tiles
-        EntityHelper.Core.createTileEntity(TileEntityEnchanter.class,"Enchanter");
-        EntityHelper.Core.createTileEntity(TileEntityFreezer.class,"Freezer");
-        EntityHelper.Core.createTileEntity(TileEntityIncubator.class,"Incubator");
-        EntityHelper.Core.createTileEntity(TileEntityChestLocked.class, "chest.locked");
+        EntityHelper.createTileEntity(TileEntityEnchanter.class,"Enchanter");
+        EntityHelper.createTileEntity(TileEntityFreezer.class,"Freezer");
+        EntityHelper.createTileEntity(TileEntityIncubator.class,"Incubator");
+        EntityHelper.createTileEntity(TileEntityChestLocked.class, "chest.locked");
 
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logSkyroot.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.logOakGolden.id, 300);
@@ -80,12 +84,6 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
             ParticleHelper.setFireflyColorMax(particle, 0.75f, 1.00f, 0.85f);
             return particle;
         });
-
-        AchievementPage AETHERACHIEVEMENTS;
-        AETHERACHIEVEMENTS = new AetherAchievements();
-        AchievementHelper.addPage(AETHERACHIEVEMENTS);
-
-        LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
     }
 
     @Override
@@ -103,7 +101,7 @@ public class Aether implements GameStartEntrypoint, ClientStartEntrypoint, ModIn
         EntityHelper.Client.assignEntityRenderer(EntityGoldenDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitygoldendart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityPoisonDart.class, new aetherArrowRenderer("/assets/aether/mobs/entitypoisondart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
-        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(Aether.MOD_ID, "/assets/aether/other/NotchWave.png")));
+        EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(AetherMod.MOD_ID, "/assets/aether/other/NotchWave.png")));
         EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
 
         new AetherEntities().initializeModels();

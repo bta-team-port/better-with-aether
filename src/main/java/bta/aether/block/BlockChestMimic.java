@@ -6,7 +6,6 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.World;
 
 public class BlockChestMimic extends Block {
@@ -45,18 +44,12 @@ public class BlockChestMimic extends Block {
         world.setBlockMetadataWithNotify(x, y, z, entity.getHorizontalPlacementDirection(side).getOpposite().getId());
     }
 
-    public int getBlockTextureFromSideAndMetadata(Side side, int data) {
-        int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.getId()];
-        return this.atlasIndices[index];
-    }
-
     public void onBlockAdded(World world, int x, int y, int z) {
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
     }
 
-    @Override
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockRightClicked(World world, int x, int y, int z, EntityPlayer player, Side side, double xHit, double yHit) {
         world.playSoundEffect(player, 1003, x, y, z, 0);
         world.setBlockWithNotify(x, y, z, 0);
         EntityMimic mimic = new EntityMimic(world);

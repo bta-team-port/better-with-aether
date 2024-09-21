@@ -9,6 +9,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class BlockChestLocked extends BlockTileEntityRotatable {
@@ -50,8 +51,8 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
      * See bta.aether.world.generate.feature.WorldFeatureAetherDungeonBase.makeTreasureChest() for generation code.
      */
 
-    @Override
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+
+    public boolean onBlockRightClicked(World world, int x, int y, int z, EntityPlayer player, Side side, double xHit, double yHit) {
         ItemStack item = player.inventory.mainInventory[player.inventory.currentItem];
         TileEntityChestLocked chest = (TileEntityChestLocked) world.getBlockTileEntity(x, y, z);
 
@@ -86,7 +87,7 @@ public class BlockChestLocked extends BlockTileEntityRotatable {
             swapBlock(world, x, y, z, AetherBlocks.chestDungeon.id, world.getBlockMetadata(x,y,z), chest);
             return true;
         }
-        player.addChatMessage(I18n.getInstance().translateKey("tile.aether.chest.treasure.locked.fail"));
+        player.sendTranslatedChatMessage(I18n.getInstance().translateKey("tile.aether.chest.treasure.locked.fail"));
         return false;
         }
 }

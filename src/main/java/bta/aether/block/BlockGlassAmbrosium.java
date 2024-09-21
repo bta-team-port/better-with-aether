@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 
 public class BlockGlassAmbrosium extends BlockTransparent {
     public BlockGlassAmbrosium(String key, int id) {
-        super(key, id, Material.glass, false);
+        super(key, id, Material.glass);
         this.movementScale = 1.05f;
     }
     @Override

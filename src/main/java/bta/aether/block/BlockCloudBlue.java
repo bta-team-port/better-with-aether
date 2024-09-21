@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.WorldSource;
 
 public class BlockCloudBlue extends BlockCloudBase {
 
@@ -22,7 +23,7 @@ public class BlockCloudBlue extends BlockCloudBase {
     }
 
     @Override
-    public AABB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+    public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
         return AABB.getBoundingBoxFromPool(0, y, 0, 0, y, 0);
     }
 

@@ -1,8 +1,6 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import bta.aether.entity.EntitySentry;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;

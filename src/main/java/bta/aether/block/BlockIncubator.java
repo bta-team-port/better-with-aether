@@ -1,12 +1,12 @@
 package bta.aether.block;
 
 import bta.aether.gui.IAetherGuis;
-import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityIncubator;
 import net.minecraft.core.block.BlockTileEntity;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class BlockIncubator extends BlockTileEntity {
@@ -20,7 +20,7 @@ public class BlockIncubator extends BlockTileEntity {
     }
 
     @Override
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockRightClicked(World world, int x, int y, int z, EntityPlayer player, Side side, double xHit, double yHit) {
         if (!world.isClientSide) {
             TileEntityIncubator tile = (TileEntityIncubator) world.getBlockTileEntity(x, y, z);
             if (tile != null) {

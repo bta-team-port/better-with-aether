@@ -42,7 +42,7 @@ public class AetherClient implements ClientStartEntrypoint {
         // cursed, I know.
         final String hammerHeadTexture = "/assets/aether/other/NotchWave.png";
         int[] newCoords = ItemCoords.nextCoords();
-        registeredItemTextures.put(Aether.MOD_ID + ":" + hammerHeadTexture, newCoords);
+        registeredItemTextures.put(AetherMod.MOD_ID + ":" + hammerHeadTexture, newCoords);
         textureHandlers.add(new TextureHandler("/gui/items.png", hammerHeadTexture, Block.texCoordToIndex(newCoords[0], newCoords[1]), 16, 1));
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(Block.texCoordToIndex(newCoords[0], newCoords[1])));
 

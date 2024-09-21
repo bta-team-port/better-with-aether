@@ -17,19 +17,19 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "bta.aether.Aether"
+      "bta.aether.AetherMod"
     ],
     "preLaunch": [
       "bta.aether.world.AetherDimension"
     ],
     "beforeGameStart": [
-      "bta.aether.Aether"
+      "bta.aether.AetherMod"
     ],
     "beforeClientStart": [
       "bta.aether.AetherClient"
     ],
     "afterGameStart": [
-      "bta.aether.Aether"
+      "bta.aether.AetherMod"
     ],
     "recipesReady": [
       "bta.aether.AetherRecipes"

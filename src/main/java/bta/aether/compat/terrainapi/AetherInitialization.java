@@ -17,7 +17,7 @@ import useless.terrainapi.initialization.BaseInitialization;
 import java.util.HashMap;
 import java.util.Map;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class AetherInitialization extends BaseInitialization {
     private static final TerrainAetherConfig aetherConfig = ChunkDecoratorAetherAPI.aetherConfig;

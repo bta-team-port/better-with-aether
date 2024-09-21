@@ -35,7 +35,7 @@ public class BlockAetherGrass extends BlockAetherDouble {
             if (world.getBlockId(l, i1, j1) == AetherBlocks.dirtAether.id && world.getBlockLightValue(l, i1 + 1, j1) >= 4 && Block.lightBlock[k1] <= 2) {
                 world.setBlockWithNotify(l, i1, j1, this.id);
             }
-            if (world.getGameRule(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && world.seasonManager.getCurrentSeason() != null && world.seasonManager.getCurrentSeason().growFlowers && rand.nextInt(256) == 0) {
+            if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && world.seasonManager.getCurrentSeason() != null && world.seasonManager.getCurrentSeason().growFlowers && rand.nextInt(256) == 0) {
                 int idToSpawn = 0;
                 int r = rand.nextInt(400);
                 idToSpawn = r < 26 ? AetherBlocks.flowerPurple.id : (r < 41 ? AetherBlocks.flowerWhite.id : (AetherBlocks.tallgrassAether.id));

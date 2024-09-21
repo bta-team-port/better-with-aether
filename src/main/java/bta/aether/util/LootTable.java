@@ -1,6 +1,6 @@
 package bta.aether.util;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import com.b100.utils.StringUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -8,12 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
-import org.lwjgl.Sys;
 import turniplabs.halplibe.HalpLibe;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
@@ -73,15 +69,15 @@ public class LootTable {
                 }
             }
         } catch (Exception exception) {
-            Aether.LOGGER.error("Failed to load loot table!");
-            Aether.LOGGER.error(String.valueOf(exception));
+            AetherMod.LOGGER.error("Failed to load loot table!");
+            AetherMod.LOGGER.error(String.valueOf(exception));
             lootTable = null;
         }
     }
 
     public ItemStack[] generateLoot(int quantity){
         if (lootTable == null) {
-            Aether.LOGGER.error("Something went wrong! Failed to generate loot.");
+            AetherMod.LOGGER.error("Something went wrong! Failed to generate loot.");
             return new ItemStack[] {new ItemStack(Block.dirt)};
         }
 

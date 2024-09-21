@@ -1,6 +1,6 @@
 package bta.aether.tile;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.item.ItemStack;
@@ -35,8 +35,8 @@ public class TileEntityChestLocked extends TileEntityChest {
             return new String(messageDigest.digest());
         }
         catch (Exception exception) {
-            Aether.LOGGER.error("Failed to perform hash function!");
-            Aether.LOGGER.error(exception.toString());
+            AetherMod.LOGGER.error("Failed to perform hash function!");
+            AetherMod.LOGGER.error(exception.toString());
 
             this.setLocked(false);
             return "HASH FAILURE";
@@ -50,7 +50,7 @@ public class TileEntityChestLocked extends TileEntityChest {
     @Override
     public ItemStack getStackInSlot(int i) {
         if (isLocked) {
-            Aether.LOGGER.warn("You cannot look inside a locked chest!");
+            AetherMod.LOGGER.warn("You cannot look inside a locked chest!");
             return null;
         }
         return super.getStackInSlot(i);
@@ -59,7 +59,7 @@ public class TileEntityChestLocked extends TileEntityChest {
     @Override
     public ItemStack decrStackSize(int i, int j) {
         if (isLocked) {
-            Aether.LOGGER.warn("You cannot Interact with a locked chest!");
+            AetherMod.LOGGER.warn("You cannot Interact with a locked chest!");
             return null;
         }
         return super.decrStackSize(i, j);
@@ -68,7 +68,7 @@ public class TileEntityChestLocked extends TileEntityChest {
     @Override
     public void setInventorySlotContents(int i, ItemStack itemstack) {
         if (isLocked) {
-            Aether.LOGGER.warn("You cannot place items inside a locked chest!");
+            AetherMod.LOGGER.warn("You cannot place items inside a locked chest!");
             this.worldObj.dropItem(this.x, this.y + 1, this.z,itemstack);
             return;
         }

@@ -7,7 +7,7 @@ import turniplabs.halplibe.helper.EntityHelper;
 import useless.dragonfly.helper.ModelHelper;
 import useless.dragonfly.model.entity.BenchEntityModel;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 
 public class AetherEntities {
     private static int entityID = 100;

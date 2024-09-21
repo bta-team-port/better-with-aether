@@ -1,13 +1,14 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
+import bta.aether.item.AetherItems;
 import bta.aether.item.ItemBlockAetherDouble;
 import bta.aether.item.tool.base.ItemToolAetherAxe;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
-import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
+import net.minecraft.client.render.block.model.*;
+import net.minecraft.client.render.stitcher.TextureRegistry;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
@@ -20,12 +21,12 @@ import net.minecraft.core.item.block.ItemBlockLeaves;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.BlockBuilder;
-import turniplabs.halplibe.helper.TextureHelper;
 
-import static bta.aether.Aether.MOD_ID;
+import static bta.aether.AetherMod.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterFlowing;
 import static net.minecraft.core.block.Block.glowstone;
 
@@ -169,7 +170,7 @@ public class AetherBlocks {
                 .setResistance(0.0f)
                 .setVisualUpdateOnMetadata()
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
-                .setBlockModel((new BlockModelRenderBlocks(1)));
+                .setBlockModel(BlockModelCrossedSquares::new);
 
         BlockBuilder ores = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -194,6 +195,13 @@ public class AetherBlocks {
                 .setHardness(-1.0F)
                 .setResistance((float)Integer.MAX_VALUE)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT);
+
+        BlockBuilder flower = new BlockBuilder(MOD_ID)
+                .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
+                .setHardness(0.0f)
+                .setResistance(0.0f)
+                .setBlockModel(BlockModelCrossedSquares::new)
+                .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING);
 
 
 
@@ -241,12 +249,13 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTextures("holystone.png")
                 .setItemBlock(ItemBlockSlab::new)
+                .setBlockModel(BlockModelSlab::new)
                 .build(new BlockSlab(cobbleHolystone, blockID++));
 
         stairsCobbleHolystone = stoneholy
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
-                .setBlockModel(new BlockModelRenderBlocks(10))
+                .setBlockModel(BlockModelStairs::new)
                 .build(new BlockStairs(cobbleHolystone, blockID++));
 
         cobbleHolystoneMossy = stoneholy
@@ -255,7 +264,7 @@ public class AetherBlocks {
                 .build(new BlockMoss("holystone.mossy", blockID++) {
                     public final Class<?> toolClass = ItemToolAetherPickaxe.class;
                     @Override
-                    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta, EntityPlayer player, Item item) {
+                    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, EntityPlayer player, Item item) {
                         if (toolClass.isInstance(item) && player.getGamemode().consumeBlocks() && meta == 0){
                             dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, world.getBlockTileEntity(x, y, z));
                         }
@@ -298,7 +307,7 @@ public class AetherBlocks {
         enchanter = stations
                 .setSideTextures("incubator_side.png")
                 .setNorthTexture("enchanter_side.png")
-                .setTopBottomTexture("enchanter_top.png")
+                .setTopBottomTextures("enchanter_top.png")
                 .build(new BlockEnchanter("enchanter", blockID++, Material.wood));
         freezer = stations
                 .setSideTextures("freezer_side.png")
@@ -313,18 +322,14 @@ public class AetherBlocks {
 
 
         logSkyroot = wood
-                .setSideTextures("log_skyroot_side.png")
-                .setTopBottomTexture("log_skyroot_top.png")
-                .setBlockModel(new BlockModelRenderBlocks(27))
+                .setBlockModel(block -> new BlockModelAxisAligned<>(block).withTextures("bonusblocks:block/log_skyroot_top", "bonusblocks:block/log_skyroot_side"))
                 .setFlammability(5, 5)
                 .setItemBlock(ItemBlockAetherDouble::new)
                 .build(new BlockDoubleLog("skyroot.log", blockID++, ItemToolAetherAxe.class));
 
         logOakGolden = wood
-                .setSideTextures("log_goldenoak_side.png")
-                .setTopBottomTexture("log_goldenoak_top.png")
                 .setFlammability(5, 5)
-                .setBlockModel(new BlockModelRenderBlocks(27))
+                .setBlockModel(block -> new BlockModelAxisAligned<>(block).withTextures("bonusblocks:block/log_goldenoak_top", "bonusblocks:block/log_goldenoak_side"))
                 .setItemBlock(ItemBlockAetherDouble::new)
                 .build(new BlockGoldenOakLog("goldenoak.log", blockID++, ItemToolAetherAxe.class));
 
@@ -340,13 +345,14 @@ public class AetherBlocks {
                 .setTextures("planks_skyroot.png")
                 .setFlammability(20, 5)
                 .setItemBlock(ItemBlockSlab::new)
+                .setBlockModel(BlockModelSlab::new)
                 .build(new BlockSlab(planksSkyroot, blockID++));
 
         stairsPlanksSkyroot = wood
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .setFlammability(20, 5)
-                .setBlockModel(new BlockModelRenderBlocks(10))
+                .setBlockModel(BlockModelStairs::new)
                 .build(new BlockStairs(planksSkyroot, blockID++));
 
         fencePlanksSkyroot = wood
@@ -354,7 +360,7 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTextures("planks_skyroot.png")
                 .setFlammability(20, 5)
-                .setBlockModel(new BlockModelRenderBlocks(11))
+                .setBlockModel(BlockModelFence::new)
                 .build(new BlockFence("fence.planks.skyroot", blockID++));
 
         fenceGatePlanksSkyroot = wood
@@ -362,7 +368,7 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTextures("planks_skyroot.png")
                 .setFlammability(20, 5)
-                .setBlockModel(new BlockModelRenderBlocks(18))
+                .setBlockModel(BlockModelFenceGate::new)
                 .build(new BlockFenceGate("fencegate.planks.skyroot", blockID++));
 
         chestSkyroot = wood
@@ -370,7 +376,7 @@ public class AetherBlocks {
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .setSideTextures("chest_skyroot_side.png")
-                .setTopBottomTexture("chest_skyroot_top.png")
+                .setTopBottomTextures("chest_skyroot_top.png")
                 .setNorthTexture("chest_skyroot_front.png")
                 .build(new BlockChestSkyroot("chest.skyroot", blockID++, Material.wood));
 
@@ -378,8 +384,8 @@ public class AetherBlocks {
         leavesSkyroot = leaves
                 .setSideTextures("leaves_skyroot.png")
                 .setBottomTexture("leaves_skyroot_solid.png")
-                .setTopBottomTexture("leaves_skyroot.png")
-                .build(new BlockLeavesBase("skyroot.leaves", blockID++, Material.leaves, true) {
+                .setTopBottomTextures("leaves_skyroot.png")
+                .build(new BlockLeavesBase("skyroot.leaves", blockID++, Material.leaves) {
                     @Override
                     public Block getSapling() {
                         return AetherBlocks.saplingSkyroot;
@@ -388,8 +394,8 @@ public class AetherBlocks {
         leavesOakGolden = leaves
                 .setSideTextures("leaves_goldenoak.png")
                 .setBottomTexture("leaves_goldenoak_solid.png")
-                .setTopBottomTexture("leaves_goldenoak.png")
-                .build(new BlockLeavesBase("goldenoak.leaves", blockID++, Material.leaves, true) {
+                .setTopBottomTextures("leaves_goldenoak.png")
+                .build(new BlockLeavesBase("goldenoak.leaves", blockID++, Material.leaves) {
                     @Override
                     public Block getSapling() {
                         return AetherBlocks.saplingOakGolden;
@@ -421,7 +427,7 @@ public class AetherBlocks {
                 .setHardness(1.0f)
                 .setResistance(1.0f)
                 .setTextures("torch_ambrosium.png")
-                .setBlockModel((new BlockModelRenderBlocks(2)))
+                .setBlockModel(BlockModelTorch::new)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build(new BlockAmbrosiumTorch("torch.ambrosium", blockID++)).withLightEmission(15);
 
@@ -460,12 +466,13 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTextures("carved.png")
                 .setItemBlock(ItemBlockSlab::new)
+                .setBlockModel(BlockModelSlab::new)
                 .build(new BlockSlab(stoneCarved, blockID++));
 
         stairsStoneCarved = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
-                .setBlockModel(new BlockModelRenderBlocks(10))
+                .setBlockModel(BlockModelStairs::new)
                 .build(new BlockStairs(stoneCarved, blockID++));
 
 
@@ -479,12 +486,13 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTextures("angelic.png")
                 .setItemBlock(ItemBlockSlab::new)
+                .setBlockModel(BlockModelSlab::new)
                 .build(new BlockSlab(stoneAngelic, blockID++));
 
         stairsStoneAngelic = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
-                .setBlockModel(new BlockModelRenderBlocks(10))
+                .setBlockModel(BlockModelStairs::new)
                 .build(new BlockStairs(stoneAngelic, blockID++));
 
 
@@ -500,13 +508,14 @@ public class AetherBlocks {
                 .setTextures("hellfire.png")
                 .setInfiniburn()
                 .setItemBlock(ItemBlockSlab::new)
+                .setBlockModel(BlockModelSlab::new)
                 .build(new BlockSlab(stoneHellfire, blockID++));
 
         stairsStoneHellfire = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .setInfiniburn()
-                .setBlockModel(new BlockModelRenderBlocks(10))
+                .setBlockModel(BlockModelStairs::new)
                 .build(new BlockStairs(stoneHellfire, blockID++));
 
 
@@ -532,20 +541,20 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(1.0f)
-                .setTopBottomTexture("pillar_top.png")
+                .setTopBottomTextures("pillar_top.png")
                 .setSideTextures("pillar_side.png")
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
-                .setBlockModel(new BlockModelRenderBlocks(27))
+                .setBlockModel(BlockModelAxisAligned::new)
                 .build(new BlockAxisAligned("pillar", blockID++, Material.stone));
 
         pillarCapstone = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(1.0f)
-                .setTopBottomTexture("pillar_top.png")
+                .setTopBottomTextures("pillar_top.png")
                 .setSideTextures("pillar_side2.png")
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
-                .setBlockModel(new BlockModelRenderBlocks(27))
+                .setBlockModel(BlockModelAxisAligned::new)
                 .build(new BlockAxisAligned("pillar.top", blockID++, Material.stone));
 
 
@@ -586,7 +595,7 @@ public class AetherBlocks {
                 .setResistance(0.0f)
                 .setBlockDrop(null)
                 .setTextures("tallgrass_aether.png")
-                .setBlockModel(new BlockModelRenderBlocks(1))
+                .setBlockModel(BlockModelCrossedSquares::new)
                 .setTags(BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.BROKEN_BY_FLUIDS)
                 .build(new BlockAetherTallGrass("grass.tall", blockID++){
                     @Override
@@ -596,22 +605,12 @@ public class AetherBlocks {
                 });
 
 
-        flowerWhite = new BlockBuilder(MOD_ID)
-                .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-                .setHardness(0.0f)
-                .setResistance(0.0f)
+        flowerWhite = flower
                 .setTextures("flower_white.png")
-                .setBlockModel(new BlockModelRenderBlocks(1))
-                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
                 .build(new BlockAetherFlower("flower.white", blockID++));
 
-        flowerPurple = new BlockBuilder(MOD_ID)
-                .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-                .setHardness(0.0f)
-                .setResistance(0.0f)
+        flowerPurple = flower
                 .setTextures("flower_purple.png")
-                .setBlockModel(new BlockModelRenderBlocks(1))
-                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.AETHER_JAR_RENDERING)
                 .build(new BlockAetherFlower("flower.purple", blockID++));
 
 
@@ -637,7 +636,7 @@ public class AetherBlocks {
                 .setHardness(2.0f)
                 .setResistance(2.0f)
                 .setSideTextures("chest_skyroot_side.png")
-                .setTopBottomTexture("chest_skyroot_top.png")
+                .setTopBottomTextures("chest_skyroot_top.png")
                 .setNorthTexture("chest_skyroot_front.png")
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE /*BlockTags.NOT_IN_CREATIVE_MENU*/)
                 .build(new BlockChestMimic("chest.mimic", blockID++, Material.wood));
@@ -648,7 +647,7 @@ public class AetherBlocks {
                 .setResistance(15.0f)
                 .setImmovable()
                 .setSideTextures("chest_dungeon_side.png")
-                .setTopBottomTexture(14, 3)
+                .setTopBottomTextures("minecraft:block/furnace_stone_top")
                 .setNorthTexture("chest_dungeon_front.png")
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
                 .build(new BlockChestLocked("chest.treasure", blockID++, Material.stone));
@@ -658,7 +657,7 @@ public class AetherBlocks {
                 .setResistance((float)Integer.MAX_VALUE)
                 .setImmovable()
                 .setSideTextures("chest_dungeon_side.png")
-                .setTopBottomTexture(14, 3)
+                .setTopBottomTextures("minecraft:block/furnace_stone_top")
                 .setNorthTexture("chest_dungeon_front.png")
                 .setTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
                 .build(new BlockChestLocked("chest.treasure.locked", blockID++, Material.stone));
@@ -698,15 +697,13 @@ public class AetherBlocks {
         lanternFireflyAether = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.GLASS)
                 .setHardness(0.1f)
-                .setBlockModel(new BlockModelRenderBlocks(26))
+                .setBlockModel(BlockModelLantern::new)
                 .setTextures("lantern_firefly_silver.png")
                 .setLuminance(14)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, null))
+                .build(new BlockLanternFirefly("lantern.firefly.silver", blockID++, null, () -> AetherItems.lanternAether))
                 .withDisabledStats()
                 .withDisabledNeighborNotifyOnMetadataChange();
-
-
 
     }
 
@@ -743,7 +740,7 @@ public class AetherBlocks {
 
         ItemToolAetherPickaxe.miningLevels.put(aerogel, 3);
 
-        TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_dirt_aether.png"); // Loads the texture into halplibe at startup
+        TextureRegistry.getTexture("jar_dirt_aether.png"); // Loads the texture into halplibe at startup
 
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(portalAether.id);
         AetherDimension.getDimensionBlacklist(Dimension.nether).add(grassAether.id);

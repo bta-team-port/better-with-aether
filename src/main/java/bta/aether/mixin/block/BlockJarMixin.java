@@ -1,6 +1,6 @@
 package bta.aether.mixin.block;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import bta.aether.AetherBlockTags;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockJar;
@@ -23,7 +23,7 @@ public abstract class BlockJarMixin extends Block {
         TileEntityFlowerJar jar = (TileEntityFlowerJar) blockAccess.getBlockTileEntity(x, y, z);
         int meta = blockAccess.getBlockMetadata(x, y, z);
         if (meta == 1 && jar != null && blocksList[jar.flowerInPot].hasTag(AetherBlockTags.AETHER_JAR_RENDERING)){
-            return TextureHelper.getOrCreateBlockTextureIndex(Aether.MOD_ID, "jar_aether.png");
+            return TextureHelper.getOrCreateBlockTextureIndex(AetherMod.MOD_ID, "jar_aether.png");
         }
         return super.getBlockTexture(blockAccess,x, y, z, side);
     }

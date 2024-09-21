@@ -1,8 +1,6 @@
 package bta.aether.mixin.render;
 
-import bta.aether.Aether;
 import bta.aether.item.Accessories.base.ItemAccessoryCape;
-import bta.aether.item.AetherItems;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.client.render.entity.LivingRenderer;
