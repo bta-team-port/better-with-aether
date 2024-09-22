@@ -1,4 +1,4 @@
-package bta.aether.entity;
+package bta.aether.entity.fx;
 
 import net.minecraft.client.entity.fx.EntityPortalFX;
 import net.minecraft.core.world.World;

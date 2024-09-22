@@ -4,8 +4,6 @@ import bta.aether.block.AetherBlocks;
 import bta.aether.catalyst.effects.AetherEffects;
 import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityFallingGravitite;
-import bta.aether.entity.EntityFlameAmbrosiumFX;
-import bta.aether.entity.EntityPortalAetherFX;
 import bta.aether.entity.projectiles.*;
 import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.item.AetherItems;
@@ -28,8 +26,6 @@ import turniplabs.halplibe.helper.*;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.achievements.AchievementPage;
-
-import static net.minecraft.client.entity.fx.EntityFlameFX.Type.ORANGE;
 
 
 public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientStartEntrypoint {
@@ -71,13 +67,10 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.toolSwordSkyroot.id, 600);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.bucketSkyroot.id, 600);
 
-        ParticleHelper.createParticle(EntityPortalAetherFX.class, "aether");
 
-        TextureHelper.getOrCreateParticleTexture(MOD_ID, "flameambrosium.png");
-        ParticleHelper.createParticle("flameambrosium", (world, x, y, z, motionX, motionY, motionZ) -> new EntityFlameAmbrosiumFX(world, x, y, z, motionX, motionY, motionZ, ORANGE));
 
         ((BlockLanternFirefly) AetherBlocks.lanternFireflyAether).setItem(AetherItems.lanternAether);
-        ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ) -> {
+        ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, 0) -> {
             EntityFireflyFX particle = new EntityFireflyFX(world, x, y, z, motionX, motionY, motionZ, 2.5f, 0);
             ParticleHelper.setFireflyColorMin(particle, 0.25f, 0.50f, 0.35f);
             ParticleHelper.setFireflyColorMid(particle, 0.50f, 0.75f, 0.60f);

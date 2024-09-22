@@ -131,6 +131,8 @@ dependencies {
 	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
 	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
 	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
+	modImplementation "ModMenu:ModMenu:${project.mod_menu_version}"
+	modImplementation "sunsetsatellite:catalyst-core:${project.catalyst_all_version}"
 
 	modImplementation "ModMenu:ModMenu:${project.mod_menu_version}"
 

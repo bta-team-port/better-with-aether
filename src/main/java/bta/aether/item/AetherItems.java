@@ -346,6 +346,7 @@ public class AetherItems {
                 .setIcon(MOD_ID + ":item/zanite")
                 .build(new Item("zanite", itemID("zanite")));
 
+
         bucketSkyroot = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/bucket_skyroot")
                 .build(new ItemSkyrootBucketEmpty("bucket.skyroot", itemID("bucketSkyroot")));
@@ -417,6 +418,7 @@ public class AetherItems {
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new ItemToolSword("tool.sword.holystone", itemID("toolSwordHolystone"), AetherToolMaterial.TOOL_HOLYSTONE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
 
+
         toolPickaxeZanite = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/tool_pickaxe_zanite")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
@@ -437,6 +439,7 @@ public class AetherItems {
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new ItemToolSword("tool.sword.zanite", itemID("toolSwordZanite"), AetherToolMaterial.TOOL_ZANITE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
 
+
         toolPickaxeGravitite = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/tool_pickaxe_gravitite")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
@@ -456,6 +459,7 @@ public class AetherItems {
                 .setIcon(MOD_ID + ":item/tool_sword_gravitite")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new ItemToolSword("tool.sword.gravitite", itemID("toolSwordGravitite"), AetherToolMaterial.TOOL_GRAVITITE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
+
 
         toolPickaxeValkyrie = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/tool_pickaxe_valk")
@@ -515,18 +519,22 @@ public class AetherItems {
 
         armorHelmetPhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/armor_helmet_phoenix")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemArmor("armor.helmet.phoenix", itemID("armorHelmetPhoenix"), AetherArmorMaterial.PHOENIX, 0));
 
         armorChestplatePhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/armor_chestplate_phoenix")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemArmor("armor.chestplate.phoenix", itemID("armorChestplatePhoenix"), AetherArmorMaterial.PHOENIX, 1));
 
         armorLeggingsPhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/armor_leggings_phoenix")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemArmor("armor.leggings.phoenix", itemID("armorLeggingsPhoenix"), AetherArmorMaterial.PHOENIX, 2));
 
         armorBootsPhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/armor_boots_phoenix")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemArmor("armor.boots.phoenix", itemID("armorBootsPhoenix"), AetherArmorMaterial.PHOENIX, 3));
 
 
@@ -614,7 +622,7 @@ public class AetherItems {
 
         toolBowPhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/tool_bow_phoenix")
-                .setItemModel((item) -> new ItemModelBow(item, MOD_ID))
+                .setItemModel((item) -> new ItemModelBow(item, MOD_ID).setFullBright())
                 .build(new ItemPhoenixBow("tool.bow.phoenix", itemID("toolBowPhoenix")));
 
 
@@ -652,6 +660,7 @@ public class AetherItems {
 
         armorGlovesPhoenix = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/armor_gloves_phoenix")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemAccessoryGloves("armor.gloves.phoenix", itemID("armorGlovesPhoenix"), "/assets/aether/armor/Phoenix.png", AetherArmorMaterial.PHOENIX));
 
         armorGlovesObsidian = new ItemBuilder(MOD_ID)
@@ -792,6 +801,7 @@ public class AetherItems {
         //Firefly Lantern
         lanternAether = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/lantern_firefly_silver")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFullBright())
                 .build(new ItemPlaceable("lantern.firefly.silver", itemID("lanternAether"), AetherBlocks.lanternFireflyAether));
 
     }

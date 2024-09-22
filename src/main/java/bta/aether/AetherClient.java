@@ -19,11 +19,6 @@ import net.minecraft.core.item.ItemStack;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.helper.SoundHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
-import turniplabs.halplibe.util.ItemCoords;
-import turniplabs.halplibe.util.TextureHandler;
-
-import static turniplabs.halplibe.helper.TextureHelper.registeredItemTextures;
-import static turniplabs.halplibe.helper.TextureHelper.textureHandlers;
 
 public class AetherClient implements ClientStartEntrypoint {
     public static HudComponent BOSS_BAR = HudComponents.register(new ComponentBossBar("aether.boss.bar", new AbsoluteLayout(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)));
@@ -76,35 +71,35 @@ public class AetherClient implements ClientStartEntrypoint {
                 500, 10000, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.keyBronze),
                         0.66f * 0.8f, 1 ,1)});
 
-        SoundHelper.Client.addSound("aether", "portal.ogg");
-        SoundHelper.Client.addSound("aether", "travel.ogg");
-        SoundHelper.Client.addSound("aether", "trigger.ogg");
+        SoundHelper.addSound("aether", "portal.ogg");
+        SoundHelper.addSound("aether", "travel.ogg");
+        SoundHelper.addSound("aether", "trigger.ogg");
 
-        SoundHelper.Client.addSound("aether", "achievement_bronze.ogg");
-        SoundHelper.Client.addSound("aether", "achievement_silver.ogg");
-        SoundHelper.Client.addSound("aether", "achievement_gen.ogg");
+        SoundHelper.addSound("aether", "achievement_bronze.ogg");
+        SoundHelper.addSound("aether", "achievement_silver.ogg");
+        SoundHelper.addSound("aether", "achievement_gen.ogg");
 
-        SoundHelper.Client.addSound("aether", "life_shard_chime.ogg");
-        SoundHelper.Client.addSound("aether", "life_shard_chime_final.ogg");
+        SoundHelper.addSound("aether", "life_shard_chime.ogg");
+        SoundHelper.addSound("aether", "life_shard_chime_final.ogg");
 
-        SoundHelper.Client.addStreaming("aether", "aether_tune.ogg");
-        SoundHelper.Client.addStreaming("aether", "a_morning_wish.ogg");
-        SoundHelper.Client.addStreaming("aether", "ascending_dawn.ogg");
-        SoundHelper.Client.addMusic("aether", "aether1.ogg");
-        SoundHelper.Client.addMusic("aether", "aether2.ogg");
-        SoundHelper.Client.addMusic("aether", "aether3.ogg");
-        SoundHelper.Client.addMusic("aether", "aether4.ogg");
-        SoundHelper.Client.addMusic("aether", "aether5.ogg");
-        SoundHelper.Client.addMusic("aether", "aether6.ogg");
-        SoundHelper.Client.addMusic("aether", "aether7.ogg");
-        SoundHelper.Client.addMusic("aether", "aether8.ogg");
-        SoundHelper.Client.addMusic("aether", "aether9.ogg");
+        SoundHelper.addStreaming("aether", "aether_tune.ogg");
+        SoundHelper.addStreaming("aether", "a_morning_wish.ogg");
+        SoundHelper.addStreaming("aether", "ascending_dawn.ogg");
+        SoundHelper.addMusic("aether", "aether1.ogg");
+        SoundHelper.addMusic("aether", "aether2.ogg");
+        SoundHelper.addMusic("aether", "aether3.ogg");
+        SoundHelper.addMusic("aether", "aether4.ogg");
+        SoundHelper.addMusic("aether", "aether5.ogg");
+        SoundHelper.addMusic("aether", "aether6.ogg");
+        SoundHelper.addMusic("aether", "aether7.ogg");
+        SoundHelper.addMusic("aether", "aether8.ogg");
+        SoundHelper.addMusic("aether", "aether9.ogg");
 
-        SoundHelper.Client.addMusic("aether", "sliderboss.ogg");
-        SoundHelper.Client.addMusic("aether", "fireboss.ogg");
+        SoundHelper.addMusic("aether", "sliderboss.ogg");
+        SoundHelper.addMusic("aether", "fireboss.ogg");
 
-        SoundHelper.Client.addMusic("aether", "menu.ogg");
-        SoundHelper.Client.addMusic("aether", "menunether.ogg");
+        SoundHelper.addMusic("aether", "menu.ogg");
+        SoundHelper.addMusic("aether", "menunether.ogg");
 
     }
 

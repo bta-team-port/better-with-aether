@@ -1,5 +1,8 @@
 package bta.aether.block;
 
+import bta.aether.entity.fx.EntityFlameAmbrosiumFX;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.fx.EntityFlameFX;
 import net.minecraft.core.HitResult;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
@@ -157,22 +160,23 @@ public class BlockAmbrosiumTorch extends Block {
     }
 
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-        int l = world.getBlockMetadata(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        Minecraft mc = Minecraft.getMinecraft(Minecraft.class);
         double xPos = (double)x + 0.5;
         double yPos = (double)y + 0.7;
         double zPos = (double)z + 0.5;
         double d3 = 0.22;
         double d4 = 0.27;
-        if (l == 1) {
-            world.spawnParticle("flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
-        } else if (l == 2) {
-            world.spawnParticle("flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
-        } else if (l == 3) {
-            world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0);
-        } else if (l == 4) {
-            world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0);
+        if (meta == 1) {
+            mc.effectRenderer.addEffect(new EntityFlameAmbrosiumFX(world, xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, EntityFlameFX.Type.ORANGE));
+        } else if (meta == 2) {
+            mc.effectRenderer.addEffect(new EntityFlameAmbrosiumFX(world, xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, EntityFlameFX.Type.ORANGE));
+        } else if (meta == 3) {
+            mc.effectRenderer.addEffect(new EntityFlameAmbrosiumFX(world, xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, EntityFlameFX.Type.ORANGE));
+        } else if (meta == 4) {
+            mc.effectRenderer.addEffect(new EntityFlameAmbrosiumFX(world, xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, EntityFlameFX.Type.ORANGE));
         } else {
-            world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0);
+            mc.effectRenderer.addEffect(new EntityFlameAmbrosiumFX(world, xPos, yPos, zPos, 0.0, 0.0, 0.0, EntityFlameFX.Type.ORANGE));
         }
 
     }
