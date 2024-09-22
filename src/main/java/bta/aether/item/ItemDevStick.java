@@ -29,7 +29,8 @@ public class ItemDevStick extends Item {
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseItemOnBlock(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+        entityplayer.sendMessage("hi");
         int distance = 5;
 
         AABB bb = entityplayer.bb.expand(32, 32, 32);
@@ -50,7 +51,7 @@ public class ItemDevStick extends Item {
 
         double value = 180 - Math.atan2(entityplayer.x - entityLiving.x, entityplayer.z - entityLiving.z) * 180 / Math.PI;
         entityplayer.yRot = (float) value;
-        entityplayer.addChatMessage(String.valueOf(value));
+        entityplayer.sendMessage(String.valueOf(value));
 
         return true;
     }

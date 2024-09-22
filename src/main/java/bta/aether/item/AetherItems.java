@@ -202,11 +202,15 @@ public class AetherItems {
     public static Tag<Item> aetherdungeonKey = Tag.of("aether_key");
     public static Tag<Item> aetheregg = Tag.of("aether_egg");
 
-
-//    public static final Item devStick = ItemHelper.createItem(MOD_ID, new ItemDevStick("dev.stick", itemID++), "stick_skyroot.png").setMaxStackSize(1);
-
+    public static Item devStick;
 
     public void initializeItems(){
+
+        devStick = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/stick_skyroot")
+                .setStackSize(1)
+                .build(new ItemDevStick("devStick", itemID("devStick")));
+
         victoryMedal = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/medal")
                 .setStackSize(10)
@@ -217,20 +221,22 @@ public class AetherItems {
                 .setIcon(MOD_ID + ":item/key_bronze")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
-                .build(new Item("key.bronze", itemID("keyBronze")));
+                .build(new Item("key.bronze", itemID("keyBronze")))
+                .withTags(aetherdungeonKey);
 
         keySilver = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/key_silver")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
-                .build(new Item("key.silver", itemID("keySilver")));
+                .build(new Item("key.silver", itemID("keySilver")))
+                .withTags(aetherdungeonKey);
 
         keyGold = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/key_gold")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
-                .build(new Item("key.gold", itemID("keyGold")));
-
+                .build(new Item("key.gold", itemID("keyGold")))
+                .withTags(aetherdungeonKey);
 
         bookLoreOverworld = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/book_overworld")

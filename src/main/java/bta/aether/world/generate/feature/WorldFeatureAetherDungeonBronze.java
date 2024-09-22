@@ -23,10 +23,10 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
     static {
         carvedHolystone.addEntry(AetherBlocks.stoneCarvedLocked.id, 0, 85);
         carvedHolystone.addEntry(AetherBlocks.stoneCarvedLightLocked.id, 0, 5);
-        carvedHolystone.addEntry(AetherBlocks.trapStoneCarved.id, 0, 10);
+        carvedHolystone.addEntry(AetherBlocks.stoneCarvedTrap.id, 0, 10);
 
-        holystone.addEntry(AetherBlocks.holystone.id, 0, 90);
-        holystone.addEntry(AetherBlocks.holystoneMossy.id, 0, 10);
+        holystone.addEntry(AetherBlocks.cobbleHolystone.id, 0, 90);
+        holystone.addEntry(AetherBlocks.cobbleHolystoneMossy.id, 0, 10);
     }
 
     public static final int roomCountMax = 13;

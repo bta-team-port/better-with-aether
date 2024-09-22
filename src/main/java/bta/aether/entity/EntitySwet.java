@@ -1,6 +1,5 @@
 package bta.aether.entity;
 
-import bta.aether.Aether;
 import bta.aether.block.AetherBlocks;
 import bta.aether.item.AetherItems;
 import com.mojang.nbt.CompoundTag;
@@ -61,7 +60,7 @@ public class EntitySwet extends EntityAetherAnimal {
                 double d = (float) this.x + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.3F;
                 double d1 = (float) this.y + this.bbHeight;
                 double d2 = (float) this.z + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.3F;
-                this.world.spawnParticle("splash", d, d1 - 0.25, d2, 0.0, 0.0, 0.0);
+                this.world.spawnParticle("splash", d, d1 - 0.25, d2, 0.0, 0.0, 0.0, 0);
             }
         }
 
@@ -105,7 +104,7 @@ public class EntitySwet extends EntityAetherAnimal {
             float f1 = this.rand.nextFloat() * 0.5F + 0.25F;
             float f2 = MathHelper.sin(f) * f1;
             float f3 = MathHelper.cos(f) * f1;
-            this.world.spawnParticle("splash", this.x + (double) f2, this.bb.minY + 1.25, this.z + (double) f3, (double) f2 * 1.5 + this.xd, 4.0, (double) f3 * 1.5 + this.zd);
+            this.world.spawnParticle("splash", this.x + (double) f2, this.bb.minY + 1.25, this.z + (double) f3, (double) f2 * 1.5 + this.xd, 4.0, (double) f3 * 1.5 + this.zd, 0);
         }
 
         if (this.passenger != null) {

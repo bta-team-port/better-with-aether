@@ -1,6 +1,6 @@
 package bta.aether.block;
 
-import bta.aether.Aether;
+import bta.aether.AetherMod;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
@@ -41,9 +41,9 @@ public class BlockMobTrap extends BlockDungeon {
 
                     for (int l = 0; l < 8; ++l) {
                         double angle = Math.toRadians(l * 45);
-                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0);
-                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0);
-                        world.spawnParticle("largesmoke", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0);
+                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+                        world.spawnParticle("largesmoke", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
                     }
 
                     world.playSoundEffect(player, 1003, x, y, z, 0);
@@ -52,8 +52,8 @@ public class BlockMobTrap extends BlockDungeon {
                 }
             }
             catch(Exception exception) {
-                Aether.LOGGER.error("Failed to spawn monster at trap!");
-                Aether.LOGGER.error(String.valueOf(exception));
+                AetherMod.LOGGER.error("Failed to spawn monster at trap!");
+                AetherMod.LOGGER.error(String.valueOf(exception));
             }
         }
     }

@@ -1,6 +1,8 @@
 package bta.aether.block;
 
 import bta.aether.AetherBlockTags;
+import bta.aether.entity.EntitySentry;
+import bta.aether.entity.EntityValk;
 import bta.aether.item.AetherItems;
 import bta.aether.item.ItemBlockAetherDouble;
 import bta.aether.item.tool.base.ItemToolAetherAxe;
@@ -619,8 +621,8 @@ public class AetherBlocks {
                 .setHardness(-1.0f)
                 .setResistance((float)Integer.MAX_VALUE)
                 .setTextures("aether:block/carved")
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-                .build(new BlockCarvedTrap("trap.carved", blockID++, Material.stone, stoneCarved.id));
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, /*BlockTags.NOT_IN_CREATIVE_MENU,*/ BlockTags.CHAINLINK_FENCES_CONNECT)
+                .build(new BlockMobTrap("trap.carved", blockID++, Material.stone, stoneCarved.id, EntitySentry.class));
 
         stoneAngelicTrap = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -628,7 +630,7 @@ public class AetherBlocks {
                 .setResistance(-1.0f)
                 .setTextures("aether:block/angelic")
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.CHAINLINK_FENCES_CONNECT)
-                .build(new BlockAngelicTrap("trap.angelic", blockID++, Material.stone));
+                .build(new BlockMobTrap("trap.angelic", blockID++, Material.stone, stoneAngelic.id, EntityValk.class));
 
 
         chestMimic = new BlockBuilder(MOD_ID)
