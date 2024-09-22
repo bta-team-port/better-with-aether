@@ -32,7 +32,7 @@ public class AccessorySlot extends Slot {
         return false;
     }
 
-//    @Override
+//    @Override TODO: FIX ME
 //    public int getBackgroundIconIndex() {
 //        return AccessoryTypeRegistry.getSlotIconTextureIndex(this.type_key);
 //    }
