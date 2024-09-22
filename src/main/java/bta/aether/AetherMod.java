@@ -27,6 +27,8 @@ import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.achievements.AchievementPage;
 
+import java.util.function.Supplier;
+
 
 public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientStartEntrypoint {
     public static final String MOD_ID = "aether";
@@ -69,8 +71,9 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
 
 
 
-        ((BlockLanternFirefly) AetherBlocks.lanternFireflyAether).setItem(AetherItems.lanternAether);
-        ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, 0) -> {
+        Supplier<Item> laternSupplier = () -> AetherItems.lanternAether;
+        ((BlockLanternFirefly) AetherBlocks.lanternFireflyAether).setBlockItem(laternSupplier);
+        ParticleHelper.createParticle("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> {
             EntityFireflyFX particle = new EntityFireflyFX(world, x, y, z, motionX, motionY, motionZ, 2.5f, 0);
             ParticleHelper.setFireflyColorMin(particle, 0.25f, 0.50f, 0.35f);
             ParticleHelper.setFireflyColorMid(particle, 0.50f, 0.75f, 0.60f);
@@ -88,6 +91,7 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
 
     @Override
     public void beforeClientStart() {
+        /* TODO: make entities render again
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
@@ -96,7 +100,7 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
         EntityHelper.Client.assignEntityRenderer(EntityEnchantedDart.class, new aetherArrowRenderer("/assets/aether/mobs/entityenchanteddart.png"));
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(TextureHelper.getOrCreateItemTextureIndex(AetherMod.MOD_ID, "/assets/aether/other/NotchWave.png")));
         EntityHelper.Client.assignEntityRenderer(EntityZephyrSnowball.class, new SnowballRenderer(Item.ammoSnowball.getIconIndex(new ItemStack(Item.ammoSnowball))));
-
+        */
         new AetherEntities().initializeModels();
     }
 

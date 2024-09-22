@@ -4,7 +4,6 @@ import bta.aether.block.IPortalExtras;
 import bta.aether.catalyst.effects.AetherEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockPortal;

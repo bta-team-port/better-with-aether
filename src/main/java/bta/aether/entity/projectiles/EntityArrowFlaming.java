@@ -30,9 +30,9 @@ public class EntityArrowFlaming extends EntityArrow {
     public void tick() {
         super.tick();
         if (!this.inGround) {
-            if (world.dimension.id != AetherDimension.AetherDimensionID) this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
-            else this.world.spawnParticle("snowshovel", this.x, this.y, this.z, 0.0, 0.0, 0.0);
-            this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05);
+            if (world.dimension.id != AetherDimension.AetherDimensionID) this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            else this.world.spawnParticle("snowshovel", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
         }
     }
 

@@ -32,10 +32,10 @@ public class AccessorySlot extends Slot {
         return false;
     }
 
-    @Override
-    public int getBackgroundIconIndex() {
-        return AccessoryTypeRegistry.getSlotIconTextureIndex(this.type_key);
-    }
+//    @Override
+//    public int getBackgroundIconIndex() {
+//        return AccessoryTypeRegistry.getSlotIconTextureIndex(this.type_key);
+//    }
 
     public void onPickupFromSlot(ItemStack itemstack) {
         if (itemstack.getItem() instanceof Accessory && this.inventory instanceof InventoryPlayer) {

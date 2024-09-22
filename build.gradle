@@ -20,7 +20,9 @@ repositories {
 		dirs "./dependencies"
 	}
 	mavenCentral()
-	maven { url = "https://jitpack.io" }
+	maven {
+		url = "https://jitpack.io"
+	}
 	maven {
 		name = 'Babric'
 		url = 'https://maven.glass-launcher.net/babric'
@@ -126,17 +128,17 @@ dependencies {
 	modRuntimeOnly "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
 	modImplementation "fabric-loader:fabric-loader:${project.loader_version}"
 
+	// replace this with maven.
+	modImplementation project.files("dependencies/catalyst-core-1.6.0-7.2_01.jar")
+	modImplementation project.files("dependencies/catalyst-effects-1.2.1-7.2.jar")
+
 	// Helper library
 	// If you do not need Halplibe you can comment this line out or delete this line
+	modImplementation "com.github.UselessSolutions:dragonfly:${project.dragonfly_version}"
 	modImplementation "com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}"
 	modImplementation "TerrainAPI:terrainapi:${project.terrain_api_version}"
-	modImplementation "DragonFly:dragonfly:${project.dragonfly_version}"
 	modImplementation "ModMenu:ModMenu:${project.mod_menu_version}"
-	modImplementation "sunsetsatellite:catalyst-core:${project.catalyst_all_version}"
-
 	modImplementation "ModMenu:ModMenu:${project.mod_menu_version}"
-
-	modImplementation project.files("libs/catalyst-all-1.10.0-7.2_01.jar")
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"

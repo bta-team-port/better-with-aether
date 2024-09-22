@@ -38,11 +38,11 @@ public class EntityHammerHead extends EntityArrow {
     private void doEffect() {
         world.playSoundAtEntity(null, this, "mob.ghast.fireball", 0.3F, 1.0F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
         for (int j = 0; j < 8; ++j) {
-            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0);
-            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0);
-            this.world.spawnParticle("smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0);
-            this.world.spawnParticle("largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0);
-            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0);
+            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
         }
     }
 }

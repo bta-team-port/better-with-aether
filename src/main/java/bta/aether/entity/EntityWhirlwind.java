@@ -83,7 +83,7 @@ public class EntityWhirlwind extends EntityMonster {
             double z = this.z + 0.5 + currentRadius * Math.sin(angle);
             if (world.rand.nextBoolean()) continue;
 
-            world.spawnParticle(particle(), x + ((double) world.rand.nextInt(10) / 20), y + ((double) world.rand.nextInt(10) / 20), z + ((double) world.rand.nextInt(10) / 20), 0.0, 0.03, 0.0);
+            world.spawnParticle(particle(), x + ((double) world.rand.nextInt(10) / 20), y + ((double) world.rand.nextInt(10) / 20), z + ((double) world.rand.nextInt(10) / 20), 0.0, 0.03, 0.0, 0);
         }
 
         rotation += 32;

@@ -1,11 +1,15 @@
 package bta.aether.entity;
 
+import bta.aether.AetherMod;
 import bta.aether.entity.model.*;
 import bta.aether.entity.renderer.*;
+import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.model.ModelSlime;
 import turniplabs.halplibe.helper.EntityHelper;
-import useless.dragonfly.helper.ModelHelper;
-import useless.dragonfly.model.entity.BenchEntityModel;
+import org.useless.dragonfly.helper.ModelHelper;
+import org.useless.dragonfly.model.entity.BenchEntityModel;
+
+import java.util.function.Supplier;
 
 import static bta.aether.AetherMod.MOD_ID;
 
@@ -18,35 +22,54 @@ public class AetherEntities {
 
 
     public void initializeEntities() {
-        EntityHelper.Core.createEntity(EntityBossDev.class, entityID++, "FatherSentry");
-        EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
-        EntityHelper.Core.createEntity(EntitySwet.class, entityID++, "Swet");
-        EntityHelper.Core.createEntity(EntityZephyr.class, entityID++, "Zephyr");
-        EntityHelper.Core.createEntity(EntityMoa.class, entityID++, "Moa");
-        EntityHelper.Core.createEntity(EntityBossSlider.class, entityID++, "Slider");
-        EntityHelper.Core.createEntity(EntityMimic.class, entityID++, "Mimic");
-        EntityHelper.Core.createEntity(EntityWhirlwind.class, entityID++, "Whirlwind");
-        EntityHelper.Core.createEntity(EntityAerbunny.class, entityID++, "AerBunny");
-        EntityHelper.Core.createEntity(EntityValk.class, entityID++, "Valk");
-        EntityHelper.Core.createEntity(EntityAerwhale.class, entityID++, "AerWhale");
-        EntityHelper.Core.createEntity(EntityPhyg.class, entityID++, "Phyg");
-        EntityHelper.Core.createEntity(EntityPhow.class, entityID++, "Phow");
-        EntityHelper.Core.createEntity(EntitySheepuff.class, entityID++, "Sheepuff");
-    }
-    public void initializeModels(){
-        EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(new ModelSlime(0), 0.2F));
-        EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(new ModelSlime(16), new ModelSlime(0), 0.3F));
-        EntityHelper.Client.assignEntityRenderer(EntityZephyr.class, new ZephyrRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityMoa.class, new MoaRenderer(modelMoa, 1F));
-        EntityHelper.Client.assignEntityRenderer(EntityBossSlider.class, new SliderRenderer(new ModelSlider(0.0F, 12.0F), 1.5F));
-        EntityHelper.Client.assignEntityRenderer(EntityWhirlwind.class, new WhirlwindRenderer());
-        EntityHelper.Client.assignEntityRenderer(EntityValk.class, new ValkRenderer(modelValk, 1F));
-        EntityHelper.Client.assignEntityRenderer(EntityAerwhale.class, new AerwhaleRenderer(new ModelAerwhale(), 1F));
-        EntityHelper.Client.assignEntityRenderer(EntityMimic.class, new MimicRenderer(modelMimic, 1F));
-        EntityHelper.Client.assignEntityRenderer(EntityPhyg.class, new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F));
-        EntityHelper.Client.assignEntityRenderer(EntityPhow.class, new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F));
-        EntityHelper.Client.assignEntityRenderer(EntitySheepuff.class, new SheepuffRenderer(new ModelSheepuff1(), new ModelSheepuff2(), new ModelSheepuff3(), 0.7F));
-        EntityHelper.Client.assignEntityRenderer(EntityAerbunny.class, new AerbunnyRenderer(new ModelAerbunny(), 0.4F));
+        Supplier<EntityRenderer<?>> supplier = () -> new SentryRenderer(new ModelSlime(0), 0.2F);
+        EntityHelper.createEntity(EntityBossDev.class, entityID++, "FatherSentry", supplier);
 
+        supplier = () -> new SentryRenderer(new ModelSlime(0), 0.2F);
+        EntityHelper.createEntity(EntitySentry.class, entityID++, "Sentry", supplier);
+
+        supplier = () -> new SwetRenderer(new ModelSlime(16), new ModelSlime(0), 0.3F);
+        EntityHelper.createEntity(EntitySwet.class, entityID++, "Swet", supplier);
+
+        supplier = ZephyrRenderer::new;
+        EntityHelper.createEntity(EntityZephyr.class, entityID++, "Zephyr", supplier);
+
+
+        supplier = () -> new MoaRenderer(modelMoa, 1F);
+        EntityHelper.createEntity(EntityMoa.class, entityID++, "Moa", supplier);
+
+
+        supplier = () -> new SliderRenderer(new ModelSlider(0.0F, 12.0F), 1.5F);
+        EntityHelper.createEntity(EntityBossSlider.class, entityID++, "Slider", supplier);
+
+        supplier = () -> new WhirlwindRenderer();
+        EntityHelper.createEntity(EntityWhirlwind.class, entityID++, "Whirlwind", supplier);
+
+        supplier = () -> new ValkRenderer(modelValk, 1F);
+        EntityHelper.createEntity(EntityValk.class, entityID++, "Valk", supplier);
+
+        supplier = () -> new AerwhaleRenderer(new ModelAerwhale(), 1F);
+        EntityHelper.createEntity(EntityAerwhale.class, entityID++, "AerWhale", supplier);
+
+        supplier = () -> new PhygRenderer(new ModelPhyg1(), new ModelPhyg2(), 0.7F);
+        EntityHelper.createEntity(EntityPhyg.class, entityID++, "Phyg", supplier);
+
+        supplier = () -> new PhowRenderer(new ModelPhow1(), new ModelPhow2(), 0.7F);
+        EntityHelper.createEntity(EntityPhow.class, entityID++, "Phow", supplier);
+
+        supplier = () -> new SheepuffRenderer(new ModelSheepuff1(), new ModelSheepuff2(), new ModelSheepuff3(), 0.7F);
+        EntityHelper.createEntity(EntitySheepuff.class, entityID++, "Sheepuff", supplier);
+
+        supplier = () -> new AerbunnyRenderer(new ModelAerbunny(), 0.4F);
+        EntityHelper.createEntity(EntityAerbunny.class, entityID++, "AerBunny", supplier);
+
+        supplier = () -> new MimicRenderer(modelMimic, 1F);
+        EntityHelper.createEntity(EntityMimic.class, entityID++, "Mimic", supplier);
+
+    }
+
+    @Deprecated
+    public void initializeModels(){
+        AetherMod.LOGGER.warn("This is not used anymore. Please remove me.");
     }
 }

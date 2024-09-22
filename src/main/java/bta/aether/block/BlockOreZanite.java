@@ -19,7 +19,7 @@ public class BlockOreZanite extends Block {
             case PICK_BLOCK:
                 return new ItemStack[]{new ItemStack(this)};
             case PROPER_TOOL:
-                return new ItemStack[]{new ItemStack(AetherItems.gemZanite)};
+                return new ItemStack[]{new ItemStack(AetherItems.zanite)};
             default:
                 return null;
         }

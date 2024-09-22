@@ -10,7 +10,7 @@ import net.minecraft.core.world.WorldSource;
 
 public class BlockCloudBase extends BlockTransparent {
     public BlockCloudBase(String key, int id, Material material) {
-        super(key, id, material, false);
+        super(key, id, material);
     }
 
     @Override

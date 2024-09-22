@@ -13,6 +13,7 @@ import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 
 public class EntityZephyr extends EntityFlying implements IEnemy {
+    private final String skinName;
     public int courseChangeCooldown;
     public double waypointX;
     public double waypointY;

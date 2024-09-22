@@ -78,7 +78,7 @@ public class EntityZephyrSnowball extends EntityProjectile {
         this.xd += this.accelX;
         this.yd += this.accelY;
         this.zd += this.accelZ;
-        this.world.spawnParticle("snowballpoof", this.x, this.y, this.z, 0.0, 0.0, 0.0);
+        this.world.spawnParticle("snowballpoof", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
     }
 
     public void inGroundAction() {

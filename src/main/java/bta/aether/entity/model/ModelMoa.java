@@ -3,8 +3,8 @@ package bta.aether.entity.model;
 import bta.aether.entity.EntityMoa;
 import net.minecraft.core.entity.EntityLiving;
 import net.minecraft.core.util.helper.MathHelper;
-import useless.dragonfly.model.entity.BenchEntityModel;
-import useless.dragonfly.model.entity.processor.BenchEntityBones;
+import org.useless.dragonfly.model.entity.BenchEntityModel;
+import org.useless.dragonfly.model.entity.processor.BenchEntityBones;
 
 public class ModelMoa extends BenchEntityModel {
 

@@ -10,6 +10,8 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 
 public class EntityAetherAnimal extends EntityPathfinder implements IAnimal {
+    protected String skinName;
+
     public EntityAetherAnimal(World world) {
         super(world);
     }

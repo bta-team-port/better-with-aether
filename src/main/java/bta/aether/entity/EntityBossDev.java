@@ -102,10 +102,10 @@ public class EntityBossDev extends EntityBossBase {
         return "mob.slime";
     }
 
-    @Override
-    protected int getDropItemId() {
-        return this.random.nextInt(5) == 0 ? AetherBlocks.stoneCarvedLight.id : AetherBlocks.stoneCarved.id;
-    }
+//    @Override TODO:FIX ME
+//    protected int getDropItemId() {
+//        return this.random.nextInt(5) == 0 ? AetherBlocks.stoneCarvedLight.id : AetherBlocks.stoneCarved.id;
+//    }
 
     @Override
     public boolean getCanSpawnHere() {

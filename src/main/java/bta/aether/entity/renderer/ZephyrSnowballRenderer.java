@@ -1,8 +1,8 @@
 package bta.aether.entity.renderer;
 
 import bta.aether.entity.projectiles.EntityZephyrSnowball;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.Global;
 import net.minecraft.core.item.Item;
 import org.lwjgl.opengl.GL11;
@@ -11,16 +11,16 @@ public class ZephyrSnowballRenderer extends EntityRenderer<EntityZephyrSnowball>
     public ZephyrSnowballRenderer() {
     }
 
-    public void renderSnowball(EntityZephyrSnowball entity, double d, double d1, double d2, float f, float f1) {
+    @Override
+    public void doRender(Tessellator tessellator, EntityZephyrSnowball entity, double x, double y, double z, float yaw, float partTicks) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)d, (float)d1, (float)d2);
+        GL11.glTranslatef((float)x, (float)y, (float)z);
         GL11.glDisable(2896);
         GL11.glEnable(32826);
         float f2 = 2.0F;
         GL11.glScalef(f2, f2, f2);
         int i = Item.ammoSnowball.getIconFromDamage(0);
         this.loadTexture("/gui/items.png");
-        Tessellator tessellator = Tessellator.instance;
         float f3 = (float)(i % Global.TEXTURE_ATLAS_WIDTH_TILES) / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
         float f4 = f3 + 1.0F / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
         float f5 = (float)(i / Global.TEXTURE_ATLAS_WIDTH_TILES) / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
@@ -43,7 +43,4 @@ public class ZephyrSnowballRenderer extends EntityRenderer<EntityZephyrSnowball>
         GL11.glEnable(2896);
     }
 
-    public void doRender(EntityZephyrSnowball entity, double x, double y, double z, float yaw, float partialTick) {
-        this.renderSnowball(entity, x, y, z, yaw, partialTick);
-    }
 }

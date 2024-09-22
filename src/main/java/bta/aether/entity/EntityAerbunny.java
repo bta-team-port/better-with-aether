@@ -139,7 +139,7 @@ public class EntityAerbunny extends EntityAetherAnimal {
         double d = this.x + a * 0.4000000059604645;
         double e = this.bb.minY;
         double f = this.z + a * 0.4000000059604645;
-        this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0);
+        this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
     public boolean onGround() {

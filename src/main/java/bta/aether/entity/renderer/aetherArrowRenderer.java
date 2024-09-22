@@ -1,7 +1,7 @@
 package bta.aether.entity.renderer;
 
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
@@ -12,15 +12,15 @@ public class aetherArrowRenderer extends EntityRenderer<EntityArrow> {
         this.texturePath = texturePath;
     }
 
+
     @Override
-    public void doRender(EntityArrow arrow, double x, double y, double z, float yaw, float renderPartialTicks) {
+    public void doRender(Tessellator tessellator, EntityArrow arrow, double x, double y, double z, float yaw, float partTicks) {
         if (arrow.yRotO != 0.0F || arrow.xRotO != 0.0F) {
             this.loadTexture(texturePath);
             GL11.glPushMatrix();
             GL11.glTranslatef((float)x, (float)y, (float)z);
-            GL11.glRotatef(arrow.yRotO + (arrow.yRot - arrow.yRotO) * renderPartialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(arrow.xRotO + (arrow.xRot - arrow.xRotO) * renderPartialTicks, 0.0F, 0.0F, 1.0F);
-            Tessellator tessellator = Tessellator.instance;
+            GL11.glRotatef(arrow.yRotO + (arrow.yRot - arrow.yRotO) * partTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(arrow.xRotO + (arrow.xRot - arrow.xRotO) * partTicks, 0.0F, 0.0F, 1.0F);
             float bodyMinU = 0.0F;
             float bodyMaxU = 0.5F;
             float bodyMinV = 0;
@@ -31,7 +31,7 @@ public class aetherArrowRenderer extends EntityRenderer<EntityArrow> {
             float tailMaxV = 10 / 32.0F;
             float scale = 0.05625F;
             GL11.glEnable(32826);
-            float shakeAmount = (float)arrow.shake - renderPartialTicks;
+            float shakeAmount = (float)arrow.shake - partTicks;
             if (shakeAmount > 0.0F) {
                 float shakeAngle = -MathHelper.sin(shakeAmount * 3.0F) * shakeAmount;
                 GL11.glRotatef(shakeAngle, 0.0F, 0.0F, 1.0F);

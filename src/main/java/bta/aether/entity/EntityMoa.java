@@ -186,7 +186,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
                 this.x + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth,
                 this.y + 0.5 + (double)(this.random.nextFloat() * this.bbHeight),
                 this.z + (double)(this.random.nextFloat() * this.bbWidth * 2.0F) - (double)this.bbWidth,
-                dx, dy, dz);
+                dx, dy, dz, 0);
         }
     }
 
@@ -202,7 +202,7 @@ public class EntityMoa extends EntityChicken implements IVehicle {
                 x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                 y - bbHeight + (double) (random.nextFloat() * width),
                 z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
-                dx, dy, dz
+                dx, dy, dz, 0
             );
         }
     }

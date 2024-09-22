@@ -332,7 +332,7 @@ public class EntityBossSlider extends EntityBossBase {
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double ZParticle = z + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
-            world.spawnParticle("explode", XParticle, YParticle, ZParticle, 0,0,0);
+            world.spawnParticle("explode", XParticle, YParticle, ZParticle, 0,0,0,0);
         }
 
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 1.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -357,7 +357,7 @@ public class EntityBossSlider extends EntityBossBase {
             }
             if (!this.isAwake()) {
                 String message = "<"+((EntityPlayer)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
-                ((EntityPlayer)attacker).addChatMessage(message);
+                ((EntityPlayer)attacker).sendTranslatedChatMessage(message);
             }
         }
         return false;

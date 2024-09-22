@@ -9,8 +9,6 @@ public class ValkRenderer extends LivingRenderer<EntityValk> {
         super(model, shadowSize);
     }
 
-    @Override
     public void doRender(EntityValk entity, double d, double e, double f, float g, float h) {
-
     }
 }

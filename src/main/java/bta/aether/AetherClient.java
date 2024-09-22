@@ -26,6 +26,7 @@ public class AetherClient implements ClientStartEntrypoint {
 
     @Override
     public void beforeClientStart() {
+        /*
         EntityHelper.Client.assignEntityRenderer(EntityFallingGravitite.class, new FallingSandRenderer());
         EntityHelper.Client.assignEntityRenderer(EntityLightningKnife.class, new SnowballRenderer(AetherItems.toolKnifeLightning.getIconIndex(new ItemStack(AetherItems.toolKnifeLightning))));
         EntityHelper.Client.assignEntityRenderer(EntityArrowFlaming.class, new aetherArrowRenderer("/assets/aether/other/FlamingArrows.png"));
@@ -40,7 +41,7 @@ public class AetherClient implements ClientStartEntrypoint {
         registeredItemTextures.put(AetherMod.MOD_ID + ":" + hammerHeadTexture, newCoords);
         textureHandlers.add(new TextureHandler("/gui/items.png", hammerHeadTexture, Block.texCoordToIndex(newCoords[0], newCoords[1]), 16, 1));
         EntityHelper.Client.assignEntityRenderer(EntityHammerHead.class, new SnowballRenderer(Block.texCoordToIndex(newCoords[0], newCoords[1])));
-
+        */
         new AetherEntities().initializeModels();
 
         MobInfoRegistry.register(EntityPhyg.class, "aether.phyg.name", "aether.phyg.desc",

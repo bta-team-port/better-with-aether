@@ -93,10 +93,10 @@ public class EntitySwet extends EntityAetherAnimal {
         return "mob.slime";
     }
 
-    @Override
-    protected int getDropItemId() {
-        return AetherBlocks.aercloudBlue.id;
-    }
+//    @Override TODO: FIX ME
+//    protected int getDropItemId() {
+//        return AetherBlocks.aercloudBlue.id;
+//    }
 
     protected float getSoundVolume() {
         return 0.6F;
