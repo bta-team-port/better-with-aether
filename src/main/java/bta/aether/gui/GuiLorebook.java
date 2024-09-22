@@ -47,12 +47,12 @@ public class GuiLorebook extends GuiContainer {
         int loreLeft = left + 140;
         if (loreSlot.hasStack()){
             ItemStack stack = loreSlot.getStack();
-            String des = t.translateKey(stack.getItemName() + ".lore." + loreId);
+            String des = t.translateKey(stack.getItemKey() + ".lore." + loreId);
             List<String> description = new ArrayList<>();
-            if (des.equals(stack.getItemName() + ".lore." + loreId)){
+            if (des.equals(stack.getItemKey() + ".lore." + loreId)){
                 des = t.translateKey("aether.gui.lorebook.unknown");
             } else {
-                description.addAll(constrainString(t.translateKey(stack.getItemName() + ".name"), 15));
+                description.addAll(constrainString(t.translateKey(stack.getItemKey() + ".name"), 15));
             }
             description.addAll(constrainString(des, 15));
             boolean first = true;

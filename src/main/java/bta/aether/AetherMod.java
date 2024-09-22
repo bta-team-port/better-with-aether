@@ -12,6 +12,7 @@ import bta.aether.tile.TileEntityChestLocked;
 import bta.aether.tile.TileEntityEnchanter;
 import bta.aether.tile.TileEntityFreezer;
 import bta.aether.tile.TileEntityIncubator;
+import bta.aether.world.AetherDimension;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.entity.fx.EntityFireflyFX;
 import net.minecraft.client.render.entity.FallingSandRenderer;
@@ -43,6 +44,7 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
     @Override
     public void beforeGameStart() {
         new AetherBlocks().initializeBlocks();
+        new AetherDimension().initializeDimension();
         new AetherItems().initializeItems();
         new AetherEntities().initializeEntities();
         new AetherEffects().initializeEffects();
@@ -86,7 +88,6 @@ public class AetherMod implements ModInitializer, GameStartEntrypoint, ClientSta
     public void afterGameStart() {
         new AetherRecipes().initializeRecipes();
         new AetherBlocks().initializeBlockDetails();
-        new AetherBlocks().initializeBlocks();
     }
 
     @Override

@@ -208,61 +208,61 @@ public class AetherItems {
 
     public void initializeItems(){
         victoryMedal = new ItemBuilder(MOD_ID)
-                .setIcon("item/medal")
+                .setIcon(MOD_ID + ":item/medal")
                 .setStackSize(10)
                 .build(new Item("victorymedal", itemID("victoryMedal")));
 
         // See BlockChestLocked.java before using any of these.
         keyBronze = new ItemBuilder(MOD_ID)
-                .setIcon("item/key_bronze")
+                .setIcon(MOD_ID + ":item/key_bronze")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.bronze", itemID("keyBronze")));
 
         keySilver = new ItemBuilder(MOD_ID)
-                .setIcon("item/key_silver")
+                .setIcon(MOD_ID + ":item/key_silver")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.silver", itemID("keySilver")));
 
         keyGold = new ItemBuilder(MOD_ID)
-                .setIcon("item/key_gold")
+                .setIcon(MOD_ID + ":item/key_gold")
                 .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.gold", itemID("keyGold")));
 
 
         bookLoreOverworld = new ItemBuilder(MOD_ID)
-                .setIcon("item/book_overworld")
+                .setIcon(MOD_ID + ":item/book_overworld")
                 .setStackSize(1)
                 .build(new ItemLoreBook("book.lore.overworld", itemID("bookLoreOverworld"), Dimension.overworld.languageKey));
 
         bookLoreNether = new ItemBuilder(MOD_ID)
-                .setIcon("item/book_nether")
+                .setIcon(MOD_ID + ":item/book_nether")
                 .setStackSize(1)
                 .build(new ItemLoreBook("book.lore.nether", itemID("bookLoreNether"), Dimension.nether.languageKey));
 
         bookLoreAether = new ItemBuilder(MOD_ID)
-                .setIcon("item/book_aether")
+                .setIcon(MOD_ID + ":item/book_aether")
                 .setStackSize(1)
                 .build(new ItemLoreBook("book.lore.aether", itemID("bookLoreAether"), AetherDimension.dimensionAether.languageKey));
 
         bookLoreParadise = new ItemBuilder(MOD_ID)
-                .setIcon("item/book_paradise")
+                .setIcon(MOD_ID + ":item/book_paradise")
                 .setStackSize(1)
                 .build(new ItemLoreBook("book.lore.paradise", itemID("bookLoreParadise"), Dimension.paradise.languageKey));
 
 
         eggMoaBlue = new ItemBuilder(MOD_ID)
-                .setIcon("item/moa_egg_blue")
+                .setIcon(MOD_ID + ":item/moa_egg_blue")
                 .build(new Item("egg.moa.blue", itemID("eggMoaBlue")).withTags(aetheregg));
 
         eggMoaWhite = new ItemBuilder(MOD_ID)
-                .setIcon("item/moa_egg_white")
+                .setIcon(MOD_ID + ":item/moa_egg_white")
                 .build(new Item("egg.moa.white", itemID("eggMoaWhite")).withTags(aetheregg));
 
         eggMoaBlack = new ItemBuilder(MOD_ID)
-                .setIcon("item/moa_egg_black")
+                .setIcon(MOD_ID + ":item/moa_egg_black")
                 .build(new Item("egg.moa.black", itemID("eggMoaBlack")).withTags(aetheregg));
 
 

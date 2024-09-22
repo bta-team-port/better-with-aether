@@ -2,6 +2,8 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.projectiles.EntityZephyrSnowball;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.stitcher.IconCoordinate;
+import net.minecraft.client.render.stitcher.TextureRegistry;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.Global;
 import net.minecraft.core.item.Item;
@@ -19,15 +21,16 @@ public class ZephyrSnowballRenderer extends EntityRenderer<EntityZephyrSnowball>
         GL11.glEnable(32826);
         float f2 = 2.0F;
         GL11.glScalef(f2, f2, f2);
-        int i = Item.ammoSnowball.getIconFromDamage(0);
-        this.loadTexture("/gui/items.png");
-        float f3 = (float)(i % Global.TEXTURE_ATLAS_WIDTH_TILES) / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
-        float f4 = f3 + 1.0F / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
-        float f5 = (float)(i / Global.TEXTURE_ATLAS_WIDTH_TILES) / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
-        float f6 = f5 + 1.0F / (float)Global.TEXTURE_ATLAS_WIDTH_TILES;
-        float f7 = 1.0F;
-        float f8 = 0.5F;
-        float f9 = 0.25F;
+
+        IconCoordinate tex = TextureRegistry.getTexture("minecraft:item/snowball");
+//      this.loadTexture("/gui/items.png");
+        double f3 = tex.getIconUMin();
+        double f4 = tex.getIconUMax();
+        double f5 = tex.getIconVMin();
+        double f6 = tex.getIconVMax();
+        double f7 = 1.0F;
+        double f8 = 0.5F;
+        double f9 = 0.25F;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glRotatef(180.0F - this.renderDispatcher.viewLerpYaw, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-this.renderDispatcher.viewLerpPitch, 1.0F, 0.0F, 0.0F);

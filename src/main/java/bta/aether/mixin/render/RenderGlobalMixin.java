@@ -16,22 +16,22 @@ public class RenderGlobalMixin {
 
     @Shadow private World worldObj;
 
-    @Inject(method = "addParticle(Ljava/lang/String;DDDDDDID)V", at = @At("HEAD"), cancellable = true)
-    private void specialParticles(String particleId, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance, CallbackInfo ci){
-        if (particleId.equals("fireflySilver")){
-            double d8;
-            double d7;
-            if (this.mc == null || this.mc.activeCamera == null || this.mc.effectRenderer == null) {
-                ci.cancel();
-                return;
-            }
-            double d6 = this.mc.activeCamera.getX() - x;
-            if (d6 * d6 + (d7 = this.mc.activeCamera.getY() - y) * d7 + (d8 = this.mc.activeCamera.getZ() - z) * d8 > maxDistance * maxDistance) {
-                ci.cancel();
-            }
-            mc.effectRenderer.addEffect(new EntityFireflyFX(this.worldObj, x, y, z, motionX, motionY, motionZ, 2.5f, EnumFireflyColor.SILVER.getId()));
-        }
-    }
+//    @Inject(method = "addParticle(Ljava/lang/String;DDDDDDID)V", at = @At("HEAD"), cancellable = true)
+//    private void specialParticles(String particleId, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance, CallbackInfo ci){
+//        if (particleId.equals("fireflySilver")){
+//            double d8;
+//            double d7;
+//            if (this.mc == null || this.mc.activeCamera == null || this.mc.effectRenderer == null) {
+//                ci.cancel();
+//                return;
+//            }
+//            double d6 = this.mc.activeCamera.getX() - x;
+//            if (d6 * d6 + (d7 = this.mc.activeCamera.getY() - y) * d7 + (d8 = this.mc.activeCamera.getZ() - z) * d8 > maxDistance * maxDistance) {
+//                ci.cancel();
+//            }
+//            mc.effectRenderer.addEffect(new EntityFireflyFX(this.worldObj, x, y, z, motionX, motionY, motionZ, 2.5f, EnumFireflyColor.SILVER.getId()));
+//        }
+//    }
 
 
 }

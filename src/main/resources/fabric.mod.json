@@ -20,7 +20,6 @@
       "bta.aether.AetherMod"
     ],
     "preLaunch": [
-      "bta.aether.world.AetherDimension"
     ],
     "beforeGameStart": [
       "bta.aether.AetherMod"
@@ -43,7 +42,7 @@
   ],
   "accessWidener": "aether.accesswidener",
   "depends": {
-    "minecraft": "~7.1-beta.2",
+    "minecraft": "~7.2",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {

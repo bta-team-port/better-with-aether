@@ -67,7 +67,7 @@ public abstract class ContainerPlayerMixin extends Container {
 			int row_num = (i % 4);
 			// col 0 is the already placed armor slots
 			int col_num = (i / 4) + 1;
-			addSlot(new AccessorySlot(inv, slotnum++,startX + slot_w * col_num, startY + slot_w * row_num, slot_types[i]));
+			//addSlot(new AccessorySlot(inv, slotnum++,startX + slot_w * col_num, startY + slot_w * row_num, slot_types[i]));
 		}
 	}
 

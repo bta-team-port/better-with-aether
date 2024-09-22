@@ -45,9 +45,9 @@ public abstract class EntityPlayerMPMixin extends EntityPlayer implements IAethe
                     this.timeInPortal = 1.0f;
                     this.timeUntilPortal = 10;
                     if (this.dimension == targetDim) {
-                        this.mcServer.playerList.sendPlayerToOtherDimension((EntityPlayerMP)(Object) this, 0);
+                        this.mcServer.playerList.sendPlayerToOtherDimension((EntityPlayerMP)(Object) this, 0, false);
                     } else {
-                        this.mcServer.playerList.sendPlayerToOtherDimension((EntityPlayerMP)(Object) this, targetDim);
+                        this.mcServer.playerList.sendPlayerToOtherDimension((EntityPlayerMP)(Object) this, targetDim, false);
                     }
                 }
             }

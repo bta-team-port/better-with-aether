@@ -4,6 +4,7 @@ import bta.aether.block.IPortalExtras;
 import bta.aether.catalyst.effects.AetherEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.render.stitcher.TextureRegistry;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockPortal;
@@ -38,15 +39,15 @@ public class GuiIngameMixin {
             }
         }
     }
-    @Redirect(method = "renderPortalOverlay(FII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;texCoordToIndex(II)I"))
-    private int customPortalOverlays(int x, int y){
-        BlockPortal portal = (BlockPortal) Block.blocksList[mc.thePlayer.portalID];
-        if (portal instanceof IPortalExtras){
-            IPortalExtras dimensionSound = (IPortalExtras) portal;
-            return dimensionSound.portalOverlayIndex();
-        }
-        return Block.texCoordToIndex(x,y);
-    }
+//    @Redirect(method = "renderPortalOverlay(FII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;texCoordToIndex(II)I"))
+//    private int customPortalOverlays(int x, int y){
+//        BlockPortal portal = (BlockPortal) Block.blocksList[mc.thePlayer.portalID];
+//        if (portal instanceof IPortalExtras){
+//            IPortalExtras dimensionSound = (IPortalExtras) portal;
+//            return dimensionSound.portalOverlayIndex();
+//        }
+//        return Block.texCoordToIndex(x,y);
+//    }
 
     @Unique
     void drawRect(int minX, int minY, int maxX, int maxY, float alpha, int rgb) {

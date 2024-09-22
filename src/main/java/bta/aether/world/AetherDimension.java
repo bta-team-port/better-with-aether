@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AetherDimension implements PreLaunchEntrypoint {
+public class AetherDimension {
 
     // coordinates and if the boss has been defeated.
     public static Map<Integer, ChunkCoordinates> dugeonMap = new HashMap<>();
@@ -32,7 +32,7 @@ public class AetherDimension implements PreLaunchEntrypoint {
     public static final int bossDetectionRange = 100;
     public static final int bossDetectionRangeSQR = 10000;
     public static final int dungeonRadius = 300;
-    public static final int dungeonRadiusSQR = 90000;
+    public static final int dungeonRadiusSQR = dungeonRadius * dungeonRadius;
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension){
         if (!dimensionPlacementBlacklist.containsKey(dimension)){
@@ -51,16 +51,18 @@ public class AetherDimension implements PreLaunchEntrypoint {
         return id;
     }
 
-    // Biomes
-    public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether("aether.aether").setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
+    public static Biome biomeAether;
+    public static WorldType worldTypeAether;
+    public static Dimension dimensionAether;
+
+    public void initializeDimension() {
+        biomeAether = Biomes.register("aether:aether.aether", new BiomeAether("aether.aether").setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
             .setTopBlock(AetherBlocks.grassAether.id)
             .setFillerBlock(AetherBlocks.dirtAether.id);
-    // World types
-    public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
-    // Dimensions
-    public static final Dimension dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
-    @Override
-    public void onPreLaunch() {
+
+        worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
+        dimensionAether = new Dimension("aether", Dimension.overworld, 3f, AetherBlocks.portalAether.id).setDefaultWorldType(worldTypeAether);
+
         // This is here so that the dimension is created and added to the dimension list before the Server even launches, it'll crash otherwise
         Dimension.registerDimension(AetherDimensionID, dimensionAether);
     }
