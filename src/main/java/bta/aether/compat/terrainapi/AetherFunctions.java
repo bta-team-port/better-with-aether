@@ -101,7 +101,7 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(250) == 0){
+        if (parameters.random.nextInt(250) == 0) {
             int xPos = x + parameters.random.nextInt(16) + 8;
             int yPos = parameters.decorator.minY + 30 + parameters.random.nextInt(parameters.decorator.rangeY - 80);
             int zPos = z + parameters.random.nextInt(16) + 8;
@@ -118,7 +118,7 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(250) == 0){
+        if (parameters.random.nextInt(250) == 0) {
             int xPos = x + parameters.random.nextInt(16) + 8;
             int yPos = parameters.decorator.minY + 50 + parameters.random.nextInt(parameters.decorator.rangeY - 50);
             int zPos = z + parameters.random.nextInt(16) + 8;
@@ -135,13 +135,12 @@ public class AetherFunctions {
         int x = parameters.chunk.xPosition * 16;
         int z = parameters.chunk.zPosition * 16;
 
-        if (parameters.random.nextInt(50) == 0){
+        if (parameters.random.nextInt(32) == 0) {
             int xPos = x + parameters.random.nextInt(16) + 8;
-            int yPos = parameters.decorator.minY + 20 + parameters.random.nextInt(parameters.decorator.rangeY - 120);
+            int yPos = parameters.decorator.minY + 50 + parameters.random.nextInt(100);
             int zPos = z + parameters.random.nextInt(16) + 8;
-            new WorldFeatureAetherDungeonBronze(AetherBlocks.stoneCarvedLocked.id, AetherBlocks.stoneCarvedLightLocked.id, AetherBlocks.stoneCarved.id, AetherBlocks.stoneCarvedLight.id, AetherBlocks.cobbleHolystoneMossy.id, AetherBlocks.cobbleHolystone.id, 16, true).generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
+            new WorldFeatureAetherDungeonBronze().generate(parameters.decorator.world, parameters.random, xPos, yPos, zPos);
         }
-
         return null;
     }
 

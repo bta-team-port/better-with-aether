@@ -11,11 +11,6 @@ public class ItemAccessoryInvisibilityCloak extends ItemAccessoryCape {
     }
 
     @Override
-    public String[] getAccessoryTypes(ItemStack itemStack) {
-        return new String[]{"cape"};
-    }
-
-    @Override
     public void onAccessoryAdded(EntityPlayer player, ItemStack accessory) {
         ((IAetherAccessories)player).aether$setInvisible(true);
     }

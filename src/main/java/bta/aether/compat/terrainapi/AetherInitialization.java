@@ -68,7 +68,7 @@ public class AetherInitialization extends BaseInitialization {
         addManagedAetherOreFeature(MOD_ID, oreGravititeMap,AetherBlocks.oreGravititeHolystone, 7, 1, 0, 100);
 
         addManagedAetherOreFeature(MOD_ID, waterMap,Block.fluidWaterFlowing, 1, 24, 0, 255);
-//        addManagedAetherOreFeature(MOD_ID, iceMap,Block.fluidWaterFlowing, 3, 8, 0, 255);
+        addManagedAetherOreFeature(MOD_ID, iceMap,Block.fluidWaterFlowing, 3, 8, 0, 255);
     }
     public static void addManagedAetherOreFeature(String modID, Map<Integer, Integer> blockMap, Block configSymbol, int defaultClusterSize, int defaultChances, int minY, int maxY){
         float defaultRangeStart = minY/255f;
