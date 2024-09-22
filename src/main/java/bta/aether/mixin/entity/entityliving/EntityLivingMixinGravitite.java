@@ -135,7 +135,7 @@ abstract public class EntityLivingMixinGravitite extends Entity {
                     x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                     y - bbHeight + (double) (random.nextFloat() * width),
                     z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
-                    dx, dy, dz
+                    dx, dy, dz, 0
             );
         }
     }

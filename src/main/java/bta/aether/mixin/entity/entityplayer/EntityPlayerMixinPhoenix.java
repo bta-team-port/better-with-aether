@@ -50,12 +50,6 @@ abstract public class EntityPlayerMixinPhoenix extends EntityLiving {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        world.spawnParticle(
-                "flame",
-                x + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-                y + (double) (random.nextFloat() * bbHeight) - (double) bbHeight,
-                z + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-                dx, dy, dz
-        );
+        world.spawnParticle("flame", x + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth, y + (double) (random.nextFloat() * bbHeight) - (double) bbHeight, z + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth, dx, dy, dz, 0);
     }
 }

@@ -1,7 +1,7 @@
 package bta.aether.mixin.block;
 
-import bta.aether.AetherMod;
 import bta.aether.AetherBlockTags;
+import bta.aether.AetherMod;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockJar;
 import net.minecraft.core.block.entity.TileEntityFlowerJar;
@@ -10,7 +10,6 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import turniplabs.halplibe.helper.TextureHelper;
 
 @Mixin(value = BlockJar.class, remap = false)
 public abstract class BlockJarMixin extends Block {

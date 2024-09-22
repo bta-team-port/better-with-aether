@@ -11,7 +11,6 @@ public class ItemVampireSword extends ItemToolSword {
         super(name, id, enumtoolmaterial);
         this.maxStackSize = 1;
         this.setMaxDamage(enumtoolmaterial.getDurability());
-        this.setFull3D();
     }
 
     public boolean hitEntity(ItemStack itemstack, EntityLiving entityliving, EntityLiving entityliving1) {

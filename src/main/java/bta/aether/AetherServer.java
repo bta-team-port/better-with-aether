@@ -35,7 +35,7 @@ public class AetherServer {
         }
         server.playerList.func_28172_a(entityplayermp);
         entityplayermp.playerNetServerHandler.teleportAndRotate(entityplayermp.x, entityplayermp.y, entityplayermp.z, entityplayermp.yRot, entityplayermp.xRot);
-        entityplayermp.playerNetServerHandler.sendPacket(new Packet41EntityPlayerGamemode(entityplayermp.getGamemode().getId()));
+        entityplayermp.playerNetServerHandler.sendPacket(new Packet41EntityPlayerGamemode());
         entityplayermp.setWorld(worldserver1);
         server.playerList.func_28170_a(entityplayermp, worldserver1);
         server.playerList.func_30008_g(entityplayermp);

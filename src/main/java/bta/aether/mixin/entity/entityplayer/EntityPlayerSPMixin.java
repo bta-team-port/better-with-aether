@@ -82,7 +82,7 @@ public abstract class EntityPlayerSPMixin extends EntityPlayer implements IPlaye
 
     @Override
     public boolean shouldRender(Vec3d vec3d) {
-        return invisible ? false : super.shouldRender(vec3d);
+        return !invisible && super.shouldRender(vec3d);
     }
 
     @Unique

@@ -15,7 +15,7 @@ public class ItemLifeShard extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (HealthHelper.getExtraHealth(entityplayer) < 20 && itemstack.consumeItem(entityplayer)) {
             // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
             int extra_heart_amount = Math.min(HealthHelper.getExtraHealth(entityplayer), 20);

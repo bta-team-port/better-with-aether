@@ -15,15 +15,10 @@ public abstract class ItemShooter extends Item {
         this.arrowId = arrowId;
     }
 
-    @Override
-    public boolean isFull3D() {
-        return true;
-    }
-
     public abstract EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer);
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         if (entityplayer.inventory.consumeInventoryItem(this.arrowId)) {
             itemstack.damageItem(1, entityplayer);
             world.playSoundAtEntity(null, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));

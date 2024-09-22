@@ -22,7 +22,7 @@ public class ItemDyeMixin extends Item {
         super(id);
     }
 
-    @Inject(method = "onItemUse", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onUseItemOnBlock", at = @At("HEAD"), cancellable = true)
     public void callOnItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
         if (itemstack.getMetadata() == 15 ) {
             if (world.getBlockId(blockX, blockY, blockZ) == AetherBlocks.grassAether.id) {

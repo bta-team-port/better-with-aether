@@ -57,7 +57,7 @@ public abstract class InventoryPlayerMixin {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ);
+                player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ, 0);
             }
             ((EntityPig) entity).onDeath(player);
             entity.remove();
@@ -71,7 +71,7 @@ public abstract class InventoryPlayerMixin {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ);
+                player.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ, 0);
             }
             ((EntityPigZombie) entity).onDeath(player);
             entity.remove();

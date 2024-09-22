@@ -12,7 +12,7 @@ public class ItemLightningKnife extends Item {
         this.maxStackSize = 64;
     }
 
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         itemstack.consumeItem(entityplayer);
         world.playSoundAtEntity(null, entityplayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
         if (!world.isClientSide) {

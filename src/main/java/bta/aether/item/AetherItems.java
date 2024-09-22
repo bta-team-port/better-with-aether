@@ -14,6 +14,8 @@ import bta.aether.item.tool.base.ItemToolAetherAxe;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import bta.aether.item.tool.base.ItemToolAetherShovel;
 import bta.aether.world.AetherDimension;
+import net.minecraft.client.render.item.model.ItemModelBow;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.entity.projectile.EntityProjectile;
@@ -25,7 +27,6 @@ import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.ItemBuilder;
-import turniplabs.halplibe.helper.ItemHelper;
 
 import static bta.aether.AetherMod.MOD_ID;
 import static net.minecraft.core.block.Block.fluidWaterFlowing;
@@ -214,16 +215,19 @@ public class AetherItems {
         // See BlockChestLocked.java before using any of these.
         keyBronze = new ItemBuilder(MOD_ID)
                 .setIcon("item/key_bronze")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.bronze", itemID("keyBronze")));
 
         keySilver = new ItemBuilder(MOD_ID)
                 .setIcon("item/key_silver")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.silver", itemID("keySilver")));
 
         keyGold = new ItemBuilder(MOD_ID)
                 .setIcon("item/key_gold")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .setStackSize(1)
                 .build(new Item("key.gold", itemID("keyGold")));
 
@@ -287,6 +291,7 @@ public class AetherItems {
 
         stickSkyroot = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/stick_skyroot")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new Item("stick.skyroot", itemID("stickSkyroot")));
 
 
@@ -300,10 +305,12 @@ public class AetherItems {
 
         dartEnchanted = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/dart_enchanted")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new Item("ammo.dart.enchanted", itemID("dartEnchanted")));
 
         dartShooter = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/shooter_gold")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new ItemShooter("tool.dart.shooter", itemID("dartShooter"), AetherItems.dartGolden.id){
             @Override
             public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
@@ -313,6 +320,7 @@ public class AetherItems {
 
         dartShooterPoison = new ItemBuilder(MOD_ID)
                 .setIcon(MOD_ID + ":item/shooter_poison")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
                 .build(new ItemShooter("tool.dart.shooter.poison", itemID("dartShooterPoison"), AetherItems.dartPoison.id){
                     @Override
                     public EntityProjectile getArrow(World world, EntityPlayer entityPlayer, Boolean belongToPlayer) {
@@ -330,135 +338,461 @@ public class AetherItems {
                 });
 
 
-        ambrosium = ItemHelper.createItem(MOD_ID, new ItemFood("ambrosium", itemID++, 1, false, 64), "ambrosium.png");
-        zanite = ItemHelper.createItem(MOD_ID, new Item("zanite", itemID++), "zanite.png");
+        ambrosium = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/ambrosium")
+                .build(new ItemFood("ambrosium", itemID("ambrosium"), 1, 1, false, 64));
 
-        bucketSkyroot = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucketEmpty("bucket.skyroot", itemID++), "bucket_skyroot.png");
-        bucketSkyrootWater = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket("bucket.skyroot.water", itemID++, fluidWaterFlowing, 0), "bucket_skyroot_water.png").setContainerItem(bucketSkyroot);
-        bucketSkyrootMilk = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket("bucket.skyroot.milk", itemID++, null, 1), "bucket_skyroot_milk.png").setContainerItem(bucketSkyroot);
-        bucketSkyrootPoison = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket("bucket.skyroot.poison", itemID++, null, 2), "bucket_skyroot_poison.png").setContainerItem(bucketSkyroot);
-        bucketSkyrootRemedy = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucket("bucket.skyroot.remedy", itemID++, null, 3), "bucket_skyroot_remedy.png").setContainerItem(bucketSkyroot);
-        bucketSkyrootIcecream = ItemHelper.createItem(MOD_ID, new ItemSkyrootBucketIceCream("bucket.skyroot.icecream", itemID++, 10), "bucket_skyroot_icecream.png").setContainerItem(bucketSkyroot);
+        zanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/zanite")
+                .build(new Item("zanite", itemID("zanite")));
 
-        healingStone = ItemHelper.createItem(MOD_ID, new ItemFood("food.healingstone", itemID++, 4, false), "food_stone.png");
+        bucketSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot")
+                .build(new ItemSkyrootBucketEmpty("bucket.skyroot", itemID("bucketSkyroot")));
 
-        toolPickaxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.skyroot",itemID++, AetherToolMaterial.TOOL_SKYROOT), "tool_pickaxe_skyroot.png").withTags(aetherTool);
-        toolShovelSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.skyroot",itemID++, AetherToolMaterial.TOOL_SKYROOT), "tool_shovel_skyroot.png").withTags(aetherTool);
-        toolAxeSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.skyroot", itemID++, AetherToolMaterial.TOOL_SKYROOT), "tool_axe_skyroot.png").withTags(aetherTool);
-        toolSwordSkyroot = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.skyroot", itemID++, AetherToolMaterial.TOOL_SKYROOT), "tool_sword_skyroot.png").withTags(ItemTags.preventCreativeMining, aetherTool);
+        bucketSkyrootWater = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot_water")
+                .build(new ItemSkyrootBucket("bucket.skyroot.water", itemID("bucketSkyrootWater"), fluidWaterFlowing, 0)).setContainerItem(bucketSkyroot);
 
-        toolPickaxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.holystone",itemID++, AetherToolMaterial.TOOL_HOLYSTONE), "tool_pickaxe_holystone.png").withTags(aetherTool);
-        toolShovelHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.holystone",itemID++, AetherToolMaterial.TOOL_HOLYSTONE), "tool_shovel_holystone.png").withTags(aetherTool);
-        toolAxeHolystone = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.holystone",itemID++, AetherToolMaterial.TOOL_HOLYSTONE), "tool_axe_holystone.png").withTags(aetherTool);
-        toolSwordHolystone = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.holystone", itemID++, AetherToolMaterial.TOOL_HOLYSTONE), "tool_sword_holystone.png").withTags(ItemTags.preventCreativeMining, aetherTool);
+        bucketSkyrootMilk = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot_milk")
+                .build(new ItemSkyrootBucket("bucket.skyroot.milk", itemID("bucketSkyrootMilk"), null, 1)).setContainerItem(bucketSkyroot);
 
-        toolPickaxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemID++, AetherToolMaterial.TOOL_ZANITE), "tool_pickaxe_zanite.png").withTags(aetherTool);
-        toolShovelZanite = ItemHelper.createItem(MOD_ID, new ItemToolShovelZanite("tool.shovel.zanite", itemID++, AetherToolMaterial.TOOL_ZANITE), "tool_shovel_zanite.png").withTags(aetherTool);
-        toolAxeZanite = ItemHelper.createItem(MOD_ID, new ItemToolAxeZanite("tool.axe.zanite", itemID++, AetherToolMaterial.TOOL_ZANITE), "tool_axe_zanite.png").withTags(aetherTool);
-        toolSwordZanite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.zanite", itemID++, AetherToolMaterial.TOOL_ZANITE), "tool_sword_zanite.png").withTags(ItemTags.preventCreativeMining, aetherTool);
+        bucketSkyrootPoison = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot_poison")
+                .build(new ItemSkyrootBucket("bucket.skyroot.poison", itemID("bucketSkyrootPoison"), null, 2)).setContainerItem(bucketSkyroot);
 
-        toolPickaxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.gravitite", itemID++, AetherToolMaterial.TOOL_GRAVITITE), "tool_pickaxe_gravitite.png").withTags(aetherTool);
-        toolShovelGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.gravitite", itemID++, AetherToolMaterial.TOOL_GRAVITITE), "tool_shovel_gravitite.png").withTags(aetherTool);
-        toolAxeGravitite = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.gravitite", itemID++, AetherToolMaterial.TOOL_GRAVITITE), "tool_axe_gravitite.png").withTags(aetherTool);
-        toolSwordGravitite = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.gravitite", itemID++, AetherToolMaterial.TOOL_GRAVITITE), "tool_sword_gravitite.png").withTags(ItemTags.preventCreativeMining, aetherTool);
+        bucketSkyrootRemedy = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot_remedy")
+                .build(new ItemSkyrootBucket("bucket.skyroot.remedy", itemID("bucketSkyrootRemedy"), null, 3)).setContainerItem(bucketSkyroot);
 
-        toolPickaxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherPickaxe("tool.pickaxe.valkyrie", itemID++, AetherToolMaterial.TOOL_VALKYRIE), "tool_pickaxe_valk.png").withTags(aetherTool);
-        toolShovelValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherShovel("tool.shovel.valkyrie", itemID++, AetherToolMaterial.TOOL_VALKYRIE), "tool_shovel_valk.png").withTags(aetherTool);
-        toolAxeValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolAetherAxe("tool.axe.valkyrie", itemID++, AetherToolMaterial.TOOL_VALKYRIE), "tool_axe_valk.png").withTags(aetherTool);
-        toolSwordValkyrie = ItemHelper.createItem(MOD_ID, new ItemToolSword("tool.sword.valkyrie", itemID++, AetherToolMaterial.TOOL_VALKYRIE), "tool_sword_valk.png").withTags(ItemTags.preventCreativeMining, aetherTool);
+        bucketSkyrootIcecream = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/bucket_skyroot_icecream")
+                .build(new ItemSkyrootBucketIceCream("bucket.skyroot.icecream", itemID("bucketSkyrootIcecream"), 10, 4)).setContainerItem(bucketSkyroot);
+
+
+        healingStone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/food_stone")
+                .build(new ItemFood("food.healingstone", itemID("healingStone"), 4, 16, false, 64));
+
+
+        toolPickaxeSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_pickaxe_skyroot")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherPickaxe("tool.pickaxe.skyroot",itemID("toolPickaxeSkyroot"), AetherToolMaterial.TOOL_SKYROOT)).withTags(aetherTool);
+
+        toolShovelSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shovel_skyroot")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherShovel("tool.shovel.skyroot",itemID("toolShovelSkyroot"), AetherToolMaterial.TOOL_SKYROOT)).withTags(aetherTool);
+
+        toolAxeSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_axe_skyroot")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherAxe("tool.axe.skyroot", itemID("toolAxeSkyroot"), AetherToolMaterial.TOOL_SKYROOT)).withTags(aetherTool);
+
+        toolSwordSkyroot = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_skyroot")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolSword("tool.sword.skyroot", itemID("toolSwordSkyroot"), AetherToolMaterial.TOOL_SKYROOT)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
+
+
+        toolPickaxeHolystone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_pickaxe_holystone")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherPickaxe("tool.pickaxe.holystone",itemID("toolPickaxeHolystone"), AetherToolMaterial.TOOL_HOLYSTONE)).withTags(aetherTool);
+
+        toolShovelHolystone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shovel_holystone")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherShovel("tool.shovel.holystone",itemID("toolShovelHolystone"), AetherToolMaterial.TOOL_HOLYSTONE)).withTags(aetherTool);
+
+        toolAxeHolystone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_axe_holystone")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherAxe("tool.axe.holystone",itemID("toolAxeHolystone"), AetherToolMaterial.TOOL_HOLYSTONE)).withTags(aetherTool);
+
+        toolSwordHolystone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_holystone")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolSword("tool.sword.holystone", itemID("toolSwordHolystone"), AetherToolMaterial.TOOL_HOLYSTONE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
+
+        toolPickaxeZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_pickaxe_zanite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemID("toolPickaxeZanite"), AetherToolMaterial.TOOL_ZANITE)).withTags(aetherTool);
+
+        toolShovelZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shovel_zanite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolShovelZanite("tool.shovel.zanite", itemID("toolShovelZanite"), AetherToolMaterial.TOOL_ZANITE)).withTags(aetherTool);
+
+        toolAxeZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_axe_zanite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAxeZanite("tool.axe.zanite", itemID("toolAxeZanite"), AetherToolMaterial.TOOL_ZANITE)).withTags(aetherTool);
+
+        toolSwordZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_zanite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolSword("tool.sword.zanite", itemID("toolSwordZanite"), AetherToolMaterial.TOOL_ZANITE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
+
+        toolPickaxeGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_pickaxe_gravitite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherPickaxe("tool.pickaxe.gravitite", itemID("toolPickaxeGravitite"), AetherToolMaterial.TOOL_GRAVITITE)).withTags(aetherTool);
+
+        toolShovelGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shovel_gravitite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherShovel("tool.shovel.gravitite", itemID("toolShovelGravitite"), AetherToolMaterial.TOOL_GRAVITITE)).withTags(aetherTool);
+
+        toolAxeGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_axe_gravitite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherAxe("tool.axe.gravitite", itemID("toolAxeGravitite"), AetherToolMaterial.TOOL_GRAVITITE)).withTags(aetherTool);
+
+        toolSwordGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_gravitite")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolSword("tool.sword.gravitite", itemID("toolSwordGravitite"), AetherToolMaterial.TOOL_GRAVITITE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
+
+        toolPickaxeValkyrie = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_pickaxe_valk")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherPickaxe("tool.pickaxe.valkyrie", itemID("toolPickaxeValkyrie"), AetherToolMaterial.TOOL_VALKYRIE)).withTags(aetherTool);
+
+        toolShovelValkyrie = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shovel_valk")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherShovel("tool.shovel.valkyrie", itemID("toolShovelValkyrie"), AetherToolMaterial.TOOL_VALKYRIE)).withTags(aetherTool);
+
+        toolAxeValkyrie = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_axe_valk")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolAetherAxe("tool.axe.valkyrie", itemID("toolAxeValkyrie"), AetherToolMaterial.TOOL_VALKYRIE)).withTags(aetherTool);
+
+        toolSwordValkyrie = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_valk")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemToolSword("tool.sword.valkyrie", itemID("toolSwordValkyrie"), AetherToolMaterial.TOOL_VALKYRIE)).withTags(ItemTags.PREVENT_CREATIVE_MINING, aetherTool);
 
 
         // --- ARMOR ---
-        armorHelmetZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.zanite", itemID++, AetherArmorMaterial.ZANITE, 0), "armor_helmet_zanite.png");
-        armorChestplateZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.zanite", itemID++, AetherArmorMaterial.ZANITE, 1), "armor_chestplate_zanite.png");
-        armorLeggingsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.zanite", itemID++, AetherArmorMaterial.ZANITE, 2), "armor_leggings_zanite.png");
-        armorBootsZanite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.zanite", itemID++, AetherArmorMaterial.ZANITE, 3), "armor_boots_zanite.png");
+        armorHelmetZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_helmet_zanite")
+                .build(new ItemArmor("armor.helmet.zanite", itemID("armorHelmetZanite"), AetherArmorMaterial.ZANITE, 0));
 
-        armorHelmetGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 0), "armor_helmet_gravitite.png");
-        armorChestplateGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 1), "armor_chestplate_gravitite.png");
-        armorLeggingsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 2), "armor_leggings_gravitite.png");
-        armorBootsGravitite = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.gravitite", itemID++, AetherArmorMaterial.GRAVITITE, 3), "armor_boots_gravitite.png");
+        armorChestplateZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_chestplate_zanite")
+                .build(new ItemArmor("armor.chestplate.zanite", itemID("armorChestplateZanite"), AetherArmorMaterial.ZANITE, 1));
 
-        armorHelmetPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 0), "armor_helmet_phoenix.png");
-        armorChestplatePhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 1), "armor_chestplate_phoenix.png");
-        armorLeggingsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 2), "armor_leggings_phoenix.png");
-        armorBootsPhoenix = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.phoenix", itemID++, AetherArmorMaterial.PHOENIX, 3), "armor_boots_phoenix.png");
+        armorLeggingsZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_leggings_zanite")
+                .build(new ItemArmor("armor.leggings.zanite", itemID("armorLeggingsZanite"), AetherArmorMaterial.ZANITE, 2));
 
-        armorHelmetObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 0), "armor_helmet_obsidian.png");
-        armorChestplateObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 1), "armor_chestplate_obsidian.png");
-        armorLeggingsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 2), "armor_leggings_obsidian.png");
-        armorBootsObsidian = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.obsidian", itemID++, AetherArmorMaterial.OBSIDIAN, 3), "armor_boots_obsidian.png");
-
-        armorHelmetNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.helmet.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 0), "armor_helmet_neptune.png");
-        armorChestplateNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.chestplate.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 1), "armor_chestplate_neptune.png");
-        armorLeggingsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.leggings.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 2), "armor_leggings_neptune.png");
-        armorBootsNeptune = ItemHelper.createItem(MOD_ID, new ItemArmor("armor.boots.neptune", itemID++, AetherArmorMaterial.NEPTUNE, 3), "armor_boots_neptune.png");
+        armorBootsZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_boots_zanite")
+                .build(new ItemArmor("armor.boots.zanite", itemID("armorBootsZanite"), AetherArmorMaterial.ZANITE, 3));
 
 
-        toolSwordPig = ItemHelper.createItem(MOD_ID, new ItemPigSlayer("tool.sword.pig", itemID++), "tool_knife_pig.png").withTags(ItemTags.preventCreativeMining);
-        toolSwordVampire = ItemHelper.createItem(MOD_ID, new ItemVampireSword("tool.sword.vampire", itemID++, ToolMaterial.diamond), "tool_sword_vampire.png").withTags(ItemTags.preventCreativeMining);
+        armorHelmetGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_helmet_gravitite")
+                .build(new ItemArmor("armor.helmet.gravitite", itemID("armorHelmetGravitite"), AetherArmorMaterial.GRAVITITE, 0));
 
-        toolSwordFlaming = ItemHelper.createItem(MOD_ID, new ItemSwordFlaming("tool.sword.flaming", itemID++, AetherToolMaterial.SWORD_SPECIAL), "tool_sword_element_fire.png").withTags(ItemTags.preventCreativeMining);
-        toolSwordHoly = ItemHelper.createItem(MOD_ID, new ItemSwordHoly("tool.sword.holy", itemID++, AetherToolMaterial.SWORD_HOLY), "tool_sword_element_holy.png").withTags(ItemTags.preventCreativeMining);
-        toolSwordLightning = ItemHelper.createItem(MOD_ID, new ItemSwordLightning("tool.sword.lightning", itemID++, AetherToolMaterial.SWORD_SPECIAL), "tool_sword_element_lightning.png").withTags(ItemTags.preventCreativeMining);
+        armorChestplateGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_chestplate_gravitite")
+                .build(new ItemArmor("armor.chestplate.gravitite", itemID("armorChestplateGravitite"), AetherArmorMaterial.GRAVITITE, 1));
 
-        toolStaffNature = ItemHelper.createItem(MOD_ID, new Item("tool.staff.nature", itemID++), "staff_nature.png");
-        toolStaffCloud = ItemHelper.createItem(MOD_ID, new Item("tool.staff.cloud", itemID++), "staff_cloud.png");
+        armorLeggingsGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_leggings_gravitite")
+                .build(new ItemArmor("armor.leggings.gravitite", itemID("armorLeggingsGravitite"), AetherArmorMaterial.GRAVITITE, 2));
 
-        toolKnifeLightning = ItemHelper.createItem(MOD_ID, new ItemLightningKnife("tool.knife.lightning", itemID++), "tool_knife_lightning.png").withTags(ItemTags.preventCreativeMining);
-        toolHammerNotch = ItemHelper.createItem(MOD_ID, new ItemHammerNotch("tool.hammer.notch", itemID++, ToolMaterial.diamond), "tool_hammer_notch.png").withTags(ItemTags.preventCreativeMining);
-        toolBowPhoenix = ItemHelper.createItem(MOD_ID, new ItemPhoenixBow("tool.bow.phoenix", itemID++), "tool_bow_phoenix.png");
+        armorBootsGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_boots_gravitite")
+                .build(new ItemArmor("armor.boots.gravitite", itemID("armorBootsGravitite"), AetherArmorMaterial.GRAVITITE, 3));
 
-        armorGlovesLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png", ArmorMaterial.LEATHER), "armor_gloves_leather.png");
-        armorGlovesChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.chain", itemID++, "/assets/aether/armor/chain_pendant_and_gloves.png", ArmorMaterial.CHAINMAIL), "armor_gloves_chain.png");
-        armorGlovesIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.iron", itemID++, "/assets/aether/armor/Accessories.png", ArmorMaterial.IRON), "armor_gloves_iron.png");
-        armorGlovesGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png", ArmorMaterial.GOLD), "armor_gloves_gold.png");
-        armorGlovesDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.diamond", itemID++, "/assets/aether/armor/diamond_pendant_and_gloves.png", ArmorMaterial.DIAMOND), "armor_gloves_diamond.png");
-        armorGlovesSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.steel", itemID++, "/assets/aether/armor/steel_pendant_and_gloves.png", ArmorMaterial.STEEL), "armor_gloves_steel.png");
-        armorGlovesZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png", AetherArmorMaterial.ZANITE), "armor_gloves_zanite.png");
-        armorGlovesGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.gravitite", itemID++, "/assets/aether/armor/gravitite_pendant_and_gloves.png", AetherArmorMaterial.GRAVITITE), "armor_gloves_gravitite.png");
-        armorGlovesPhoenix = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.phoenix", itemID++, "/assets/aether/armor/Phoenix.png", AetherArmorMaterial.PHOENIX), "armor_gloves_phoenix.png");
-        armorGlovesObsidian = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.obsidian", itemID++, "/assets/aether/armor/obsidian_pendant_and_gloves.png", AetherArmorMaterial.OBSIDIAN), "armor_gloves_obsidian.png");
-        armorGlovesNeptune = ItemHelper.createItem(MOD_ID, new ItemAccessoryGloves("armor.gloves.neptune", itemID++, "/assets/aether/armor/neptune_pendant_and_gloves.png", AetherArmorMaterial.NEPTUNE), "armor_gloves_neptune.png");
 
-        armorRingIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryRing("armor.ring.iron", itemID++), "armor_ring_iron.png");
-        armorRingGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldRing("armor.ring.gold", itemID++), "armor_ring_gold.png");
-        armorRingZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryZaniteRing("armor.ring.zanite", itemID++), "armor_ring_zanite.png");
-        armorRingIce = ItemHelper.createItem(MOD_ID, new ItemRingIce("armor.ring.ice", itemID++), "armor_ring_ice.png");
+        armorHelmetPhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_helmet_phoenix")
+                .build(new ItemArmor("armor.helmet.phoenix", itemID("armorHelmetPhoenix"), AetherArmorMaterial.PHOENIX, 0));
 
-        armorPendantLeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.leather", itemID++, "/assets/aether/armor/leather_pendant_and_gloves.png"), "armor_pendant_leather.png");
-        armorPendantChain = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.chain", itemID++, "/assets/aether/armor/chain_pendant_and_gloves.png"), "armor_pendant_chain.png");
-        armorPendantIron = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.iron", itemID++, "/assets/aether/armor/Accessories.png"), "armor_pendant_iron.png");
-        armorPendantGold = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldPendant("armor.pendant.gold", itemID++, "/assets/aether/armor/gold_pendant_and_gloves.png"), "armor_pendant_gold.png");
-        armorPendantDiamond = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.diamond", itemID++, "/assets/aether/armor/diamond_pendant_and_gloves.png"), "armor_pendant_diamond.png");
-        armorPendantSteel = ItemHelper.createItem(MOD_ID, new ItemAccessoryPendant("armor.pendant.steel", itemID++, "/assets/aether/armor/steel_pendant_and_gloves.png"), "armor_pendant_steel.png");
-        armorPendantZanite = ItemHelper.createItem(MOD_ID, new ItemAccessoryZanitePendant("armor.pendant.zanite", itemID++, "/assets/aether/armor/zanite_pendant_and_gloves.png"), "armor_pendant_zanite.png");
-        armorPendantGravitite = ItemHelper.createItem(MOD_ID, new ItemAccessoryZanitePendant("armor.pendant.gravitite", itemID++, "/assets/aether/armor/gravitite_pendant_and_gloves.png"), "armor_pendant_gravitite.png");
-        armorPendantIce = ItemHelper.createItem(MOD_ID, new ItemPendantIce("armor.pendant.ice", itemID++, "/assets/aether/armor/ice_pendant_and_gloves.png"), "armor_pendant_ice.png");
+        armorChestplatePhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_chestplate_phoenix")
+                .build(new ItemArmor("armor.chestplate.phoenix", itemID("armorChestplatePhoenix"), AetherArmorMaterial.PHOENIX, 1));
 
-        armorTalismanIronBubble = ItemHelper.createItem(MOD_ID, new ItemAccessoryIronBubble("armor.talisman.ironbubble", itemID++), "accessory_bubble.png");
-        armorTalismanGoldenFeather = ItemHelper.createItem(MOD_ID, new ItemAccessoryGoldenFeather("armor.talisman.goldenfeather", itemID++), "accessory_feather.png");
-        armorTalismanRegenStone = ItemHelper.createItem(MOD_ID, new ItemAccessoryRegenStone("armor.talisman.regenstone", itemID++), "accessory_healing.png");
+        armorLeggingsPhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_leggings_phoenix")
+                .build(new ItemArmor("armor.leggings.phoenix", itemID("armorLeggingsPhoenix"), AetherArmorMaterial.PHOENIX, 2));
 
-        armorShieldRepulsion = ItemHelper.createItem(MOD_ID, new ItemAccessoryShield("armor.shield.repulsion", itemID++), "tool_shield_repulsion.png");
+        armorBootsPhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_boots_phoenix")
+                .build(new ItemArmor("armor.boots.phoenix", itemID("armorBootsPhoenix"), AetherArmorMaterial.PHOENIX, 3));
 
-        armorCapeSwet = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.swet", itemID++, "/assets/aether/other/AetherCape.png"), "cape_swet.png");
-        armorCapeInvisibility = ItemHelper.createItem(MOD_ID, new ItemAccessoryInvisibilityCloak("armor.cape.invisibility", itemID++, "/assets/aether/other/InvisCape.png"), "cape_invis.png");
-        armorCapeAgility = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.agility", itemID++, "/assets/aether/other/AgilityCape.png"), "cape_agility.png");
 
-        armorCapeWhite = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.white", itemID++, "/assets/aether/other/WhiteCape.png"), "cape_white.png");
-        armorCapeRed = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.red", itemID++, "/assets/aether/other/RedCape.png"), "cape_red.png");
-        armorCapeYellow = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.yellow", itemID++, "/assets/aether/other/YellowCape.png"), "cape_yellow.png");
-        armorCapeBlue = ItemHelper.createItem(MOD_ID, new ItemAccessoryCape("armor.cape.blue", itemID++, "/assets/aether/other/BlueCape.png"), "cape_blue.png");
+        armorHelmetObsidian = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_helmet_obsidian")
+                .build(new ItemArmor("armor.helmet.obsidian", itemID("armorHelmetObsidian"), AetherArmorMaterial.OBSIDIAN, 0));
 
-        foodGummyBlue = ItemHelper.createItem(MOD_ID, new ItemFood("food.gummy.blue", itemID++, 20, false, 64), "food_swet_blue.png");
-        foodGummyGold = ItemHelper.createItem(MOD_ID, new ItemFood("food.gummy.gold", itemID++, 40, false, 64), "food_swet_gold.png");
+        armorChestplateObsidian = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_chestplate_obsidian")
+                .build(new ItemArmor("armor.chestplate.obsidian", itemID("armorChestplateObsidian"), AetherArmorMaterial.OBSIDIAN, 1));
 
-        cloudParachute = ItemHelper.createItem(MOD_ID, new Item("cloud.parachute", itemID++), "parachute.png").setMaxStackSize(1);
-        cloudParachuteGold = ItemHelper.createItem(MOD_ID, new Item("cloud.parachute.gold", itemID++), "parachute_gold.png").setMaxStackSize(1);
+        armorLeggingsObsidian = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_leggings_obsidian")
+                .build(new ItemArmor("armor.leggings.obsidian", itemID("armorLeggingsObsidian"), AetherArmorMaterial.OBSIDIAN, 2));
 
-        lifeshard = ItemHelper.createItem(MOD_ID, new ItemLifeShard("food.lifeshard", itemID++), "food_lifeshard.png");
-        lanternAether = ItemHelper.createItem(MOD_ID, new ItemPlaceable("lantern.firefly.silver", itemID++, AetherBlocks.lanternFireflyAether), "lantern_firefly_silver.png");
+        armorBootsObsidian = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_boots_obsidian")
+                .build(new ItemArmor("armor.boots.obsidian", itemID("armorBootsObsidian"), AetherArmorMaterial.OBSIDIAN, 3));
+
+
+        armorHelmetNeptune = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_helmet_neptune")
+                .build(new ItemArmor("armor.helmet.neptune", itemID("armorHelmetNeptune"), AetherArmorMaterial.NEPTUNE, 0));
+
+        armorChestplateNeptune = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_chestplate_neptune")
+                .build(new ItemArmor("armor.chestplate.neptune", itemID("armorChestplateNeptune"), AetherArmorMaterial.NEPTUNE, 1));
+
+        armorLeggingsNeptune = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_leggings_neptune")
+                .build(new ItemArmor("armor.leggings.neptune", itemID("armorLeggingsNeptune"), AetherArmorMaterial.NEPTUNE, 2));
+
+        armorBootsNeptune = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_boots_neptune")
+                .build(new ItemArmor("armor.boots.neptune", itemID("armorBootsNeptune"), AetherArmorMaterial.NEPTUNE, 3));
+
+
+        toolSwordPig = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_knife_pig")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemPigSlayer("tool.sword.pig", itemID("toolSwordPig"))).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        toolSwordVampire = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_vampire")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemVampireSword("tool.sword.vampire", itemID("toolSwordVampire"), ToolMaterial.diamond)).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+
+        toolSwordFlaming = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_element_fire")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemSwordFlaming("tool.sword.flaming", itemID("toolSwordFlaming"), AetherToolMaterial.SWORD_SPECIAL)).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        toolSwordHoly = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_element_holy")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemSwordHoly("tool.sword.holy", itemID("toolSwordHoly"), AetherToolMaterial.SWORD_HOLY)).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        toolSwordLightning = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_sword_element_lightning")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemSwordLightning("tool.sword.lightning", itemID("toolSwordLightning"), AetherToolMaterial.SWORD_SPECIAL)).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+
+        toolStaffNature = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/staff_nature")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new Item("tool.staff.nature", itemID("toolStaffNature")));
+
+        toolStaffCloud = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/staff_cloud")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new Item("tool.staff.cloud", itemID("toolStaffCloud")));
+
+
+        toolKnifeLightning = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_knife_lightning")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemLightningKnife("tool.knife.lightning", itemID("toolKnifeLightning"))).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        toolHammerNotch = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_hammer_notch")
+                .setItemModel((item) -> new ItemModelStandard(item, MOD_ID).setFull3D())
+                .build(new ItemHammerNotch("tool.hammer.notch", itemID("toolHammerNotch"), ToolMaterial.diamond)).withTags(ItemTags.PREVENT_CREATIVE_MINING);
+
+        toolBowPhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_bow_phoenix")
+                .setItemModel((item) -> new ItemModelBow(item, MOD_ID))
+                .build(new ItemPhoenixBow("tool.bow.phoenix", itemID("toolBowPhoenix")));
+
+
+        armorGlovesLeather = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_leather")
+                .build(new ItemAccessoryGloves("armor.gloves.leather", itemID("armorGlovesLeather"), "/assets/aether/armor/leather_pendant_and_gloves.png", ArmorMaterial.LEATHER));
+
+        armorGlovesChain = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_chain")
+                .build(new ItemAccessoryGloves("armor.gloves.chain", itemID("armorGlovesChain"), "/assets/aether/armor/chain_pendant_and_gloves.png", ArmorMaterial.CHAINMAIL));
+
+        armorGlovesIron = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_iron")
+                .build(new ItemAccessoryGloves("armor.gloves.iron", itemID("armorGlovesIron"), "/assets/aether/armor/Accessories.png", ArmorMaterial.IRON));
+
+        armorGlovesGold = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_gold")
+                .build(new ItemAccessoryGloves("armor.gloves.gold", itemID("armorGlovesGold"), "/assets/aether/armor/gold_pendant_and_gloves.png", ArmorMaterial.GOLD));
+
+        armorGlovesDiamond = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_diamond")
+                .build(new ItemAccessoryGloves("armor.gloves.diamond", itemID("armorGlovesDiamond"), "/assets/aether/armor/diamond_pendant_and_gloves.png", ArmorMaterial.DIAMOND));
+
+        armorGlovesSteel = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_steel")
+                .build(new ItemAccessoryGloves("armor.gloves.steel", itemID("armorGlovesSteel"), "/assets/aether/armor/steel_pendant_and_gloves.png", ArmorMaterial.STEEL));
+
+        armorGlovesZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_zanite")
+                .build(new ItemAccessoryGloves("armor.gloves.zanite", itemID("armorGlovesZanite"), "/assets/aether/armor/zanite_pendant_and_gloves.png", AetherArmorMaterial.ZANITE));
+
+        armorGlovesGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_gravitite")
+                .build(new ItemAccessoryGloves("armor.gloves.gravitite", itemID("armorGlovesGravitite"), "/assets/aether/armor/gravitite_pendant_and_gloves.png", AetherArmorMaterial.GRAVITITE));
+
+        armorGlovesPhoenix = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_phoenix")
+                .build(new ItemAccessoryGloves("armor.gloves.phoenix", itemID("armorGlovesPhoenix"), "/assets/aether/armor/Phoenix.png", AetherArmorMaterial.PHOENIX));
+
+        armorGlovesObsidian = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_obsidian")
+                .build(new ItemAccessoryGloves("armor.gloves.obsidian", itemID("armorGlovesObsidian"), "/assets/aether/armor/obsidian_pendant_and_gloves.png", AetherArmorMaterial.OBSIDIAN));
+
+        armorGlovesNeptune = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_gloves_neptune")
+                .build(new ItemAccessoryGloves("armor.gloves.neptune", itemID("armorGlovesNeptune"), "/assets/aether/armor/neptune_pendant_and_gloves.png", AetherArmorMaterial.NEPTUNE));
+
+
+        //Rings
+        armorRingIron = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_ring_iron")
+                .build(new ItemAccessoryRing("armor.ring.iron", itemID("armorRingIron")));
+
+        armorRingGold = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_ring_gold")
+                .build(new ItemAccessoryGoldRing("armor.ring.gold", itemID("armorRingGold")));
+
+        armorRingZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_ring_zanite")
+                .build(new ItemAccessoryZaniteRing("armor.ring.zanite", itemID("armorRingZanite")));
+
+        armorRingIce = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_ring_ice")
+                .build(new ItemRingIce("armor.ring.ice", itemID("armorRingIce")));
+
+
+        //Pendants
+        armorPendantLeather = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_leather")
+                .build(new ItemAccessoryPendant("armor.pendant.leather", itemID("armorPendantLeather"), "/assets/aether/armor/leather_pendant_and_gloves.png"));
+
+        armorPendantChain = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_chain")
+                .build(new ItemAccessoryPendant("armor.pendant.chain", itemID("armorPendantChain"), "/assets/aether/armor/chain_pendant_and_gloves.png"));
+
+        armorPendantIron = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_iron")
+                .build(new ItemAccessoryPendant("armor.pendant.iron", itemID("armorPendantIron"), "/assets/aether/armor/Accessories.png"));
+
+        armorPendantGold = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_gold")
+                .build(new ItemAccessoryGoldPendant("armor.pendant.gold", itemID("armorPendantGold"), "/assets/aether/armor/gold_pendant_and_gloves.png"));
+
+        armorPendantDiamond = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_diamond")
+                .build(new ItemAccessoryPendant("armor.pendant.diamond", itemID("armorPendantDiamond"), "/assets/aether/armor/diamond_pendant_and_gloves.png"));
+
+        armorPendantSteel = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_steel")
+                .build(new ItemAccessoryPendant("armor.pendant.steel", itemID("armorPendantSteel"), "/assets/aether/armor/steel_pendant_and_gloves.png"));
+
+        armorPendantZanite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_zanite")
+                .build(new ItemAccessoryZanitePendant("armor.pendant.zanite", itemID("armorPendantZanite"), "/assets/aether/armor/zanite_pendant_and_gloves.png"));
+
+        armorPendantGravitite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_gravitite")
+                .build(new ItemAccessoryZanitePendant("armor.pendant.gravitite", itemID("armorPendantGravitite"), "/assets/aether/armor/gravitite_pendant_and_gloves.png"));
+
+        armorPendantIce = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/armor_pendant_ice")
+                .build(new ItemPendantIce("armor.pendant.ice", itemID("armorPendantIce"), "/assets/aether/armor/ice_pendant_and_gloves.png"));
+
+        //Talismans
+        armorTalismanIronBubble = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/accessory_bubble")
+                .build(new ItemAccessoryIronBubble("armor.talisman.ironbubble", itemID("armorTalismanIronBubble")));
+
+        armorTalismanGoldenFeather = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/accessory_feather")
+                .build(new ItemAccessoryGoldenFeather("armor.talisman.goldenfeather", itemID("armorTalismanGoldenFeather")));
+
+        armorTalismanRegenStone = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/accessory_healing")
+                .build(new ItemAccessoryRegenStone("armor.talisman.regenstone", itemID("armorTalismanRegenStone")));
+
+        //Shields
+        armorShieldRepulsion = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/tool_shield_repulsion")
+                .build(new ItemAccessoryShield("armor.shield.repulsion", itemID("armorShieldRepulsion")));
+
+        //Capes
+        armorCapeSwet = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_swet")
+                .build(new ItemAccessoryCape("armor.cape.swet", itemID("armorCapeSwet"), "/assets/aether/other/AetherCape.png"));
+
+        armorCapeInvisibility = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_invis")
+                .build(new ItemAccessoryInvisibilityCloak("armor.cape.invisibility", itemID("armorCapeInvisibility"), "/assets/aether/other/InvisCape.png"));
+
+        armorCapeAgility = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_agility")
+                .build(new ItemAccessoryCape("armor.cape.agility", itemID("armorCapeAgility"), "/assets/aether/other/AgilityCape.png"));
+
+
+        armorCapeWhite = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_white")
+                .build(new ItemAccessoryCape("armor.cape.white", itemID("armorCapeWhite"), "/assets/aether/other/WhiteCape.png"));
+
+        armorCapeRed = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_red")
+                .build(new ItemAccessoryCape("armor.cape.red", itemID("armorCapeRed"), "/assets/aether/other/RedCape.png"));
+
+        armorCapeYellow = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_yellow")
+                .build(new ItemAccessoryCape("armor.cape.yellow", itemID("armorCapeYellow"), "/assets/aether/other/YellowCape.png"));
+
+        armorCapeBlue = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/cape_blue")
+                .build(new ItemAccessoryCape("armor.cape.blue", itemID("armorCapeBlue"), "/assets/aether/other/BlueCape.png"));
+
+        //Gummy
+        foodGummyBlue = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/food_swet_blue")
+                .build(new ItemFood("food.gummy.blue", itemID("foodGummyBlue"), 20, 12, false, 64));
+
+        foodGummyGold = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/food_swet_gold")
+                .build(new ItemFood("food.gummy.gold", itemID("foodGummyGold"), 40, 6, false, 64));
+
+        //Parachutes
+        cloudParachute = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/parachute")
+                .build(new Item("cloud.parachute", itemID("cloudParachute"))).setMaxStackSize(1);
+
+        cloudParachuteGold = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/parachute_gold")
+                .build(new Item("cloud.parachute.gold", itemID("cloudParachuteGold"))).setMaxStackSize(1);
+
+        //Lifeshard
+        lifeshard = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/food_lifeshard")
+                .build(new ItemLifeShard("food.lifeshard", itemID("lifeshard")));
+
+        //Firefly Lantern
+        lanternAether = new ItemBuilder(MOD_ID)
+                .setIcon(MOD_ID + ":item/lantern_firefly_silver")
+                .build(new ItemPlaceable("lantern.firefly.silver", itemID("lanternAether"), AetherBlocks.lanternFireflyAether));
 
     }
 

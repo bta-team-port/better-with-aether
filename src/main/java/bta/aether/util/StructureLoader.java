@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import turniplabs.halplibe.HalpLibe;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class StructureLoader {
     public HashMap<String, ItemStack> symbols = new HashMap<>();
@@ -17,7 +18,7 @@ public class StructureLoader {
 
 
     public void loadStructure(String path){
-        String jsonString = StringUtils.readInputString(StructureLoader.class.getResourceAsStream(path));
+        String jsonString = StringUtils.readInputString(Objects.requireNonNull(StructureLoader.class.getResourceAsStream(path)));
         this.structureRoot = JsonParser.parseString(jsonString).getAsJsonObject();
 
         JsonArray ingredients = structureRoot.getAsJsonArray("ingredients");

@@ -20,13 +20,13 @@ public class ItemFirestrikerMixin extends Item {
         super(name, id);
     }
 
-    @Inject(method = "onItemUse", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onUseItemOnBlock", at = @At("HEAD"), cancellable = true)
     public void callOnItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
         if (world.dimension == AetherDimension.dimensionAether) {
 
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45);
-                world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0);
+                world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0, 0);
             }
 
             world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);

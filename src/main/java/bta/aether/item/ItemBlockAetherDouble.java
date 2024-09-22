@@ -13,7 +13,7 @@ public class ItemBlockAetherDouble extends ItemBlock {
         super(block);
     }
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+    public boolean onUseItemOnBlock(ItemStack stack, EntityPlayer player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         if (stack.stackSize <= 0) {
             return false;
         }

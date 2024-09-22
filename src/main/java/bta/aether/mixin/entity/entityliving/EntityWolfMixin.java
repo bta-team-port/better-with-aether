@@ -7,6 +7,7 @@ import net.minecraft.core.entity.animal.EntityWolf;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
@@ -18,7 +19,9 @@ public class EntityWolfMixin extends EntityAnimal {
         super(world);
     }
 
-    @Shadow private static Map<ArmorMaterial, ItemArmor> ARMOR_MATERIALS;
+    @Final
+    @Shadow
+    public static Map<ArmorMaterial, ItemArmor> ARMOR_MATERIALS;
 
     static {
         ARMOR_MATERIALS.put(AetherArmorMaterial.PHOENIX, (ItemArmor) AetherItems.armorChestplatePhoenix);

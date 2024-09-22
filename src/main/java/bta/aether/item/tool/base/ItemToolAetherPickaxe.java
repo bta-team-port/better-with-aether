@@ -2,6 +2,8 @@ package bta.aether.item.tool.base;
 
 import bta.aether.AetherBlockTags;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.entity.EntityLiving;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
 
@@ -16,7 +18,7 @@ public class ItemToolAetherPickaxe extends ItemTool {
     }
 
     @Override
-    public boolean canHarvestBlock(Block block) {
+    public boolean canHarvestBlock(EntityLiving entityLiving, ItemStack itemStack, Block block) {
         Integer miningLevel = miningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;

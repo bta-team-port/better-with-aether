@@ -31,7 +31,7 @@ public class ItemBucketMixin extends Item{
     }
 
 
-    @Inject(method = "onItemRightClick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onUseItem", at = @At("HEAD"), cancellable = true)
     public void callOnItemRightClick(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> info) {
         if (world.dimension == Dimension.nether && Block.getBlock(idToPlace).hasTag(BlockTags.IS_WATER)) {
 
@@ -71,7 +71,7 @@ public class ItemBucketMixin extends Item{
                 player.swingItem();
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                 for (int i = 0; i < 8; ++i) {
-                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + .2, (double)z + Math.random(), 0.0, 0.0, 0.0);
+                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + .2, (double)z + Math.random(), 0.0, 0.0, 0.0, 0);
                 }
 
                 world.setBlockWithNotify(x, y, z, 0);
@@ -86,7 +86,7 @@ public class ItemBucketMixin extends Item{
         }
     }
 
-    @Inject(method = "onItemRightClick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onUseItem", at = @At("HEAD"), cancellable = true)
     public void callOnItemRightClick2(ItemStack stack, World world, EntityPlayer player, CallbackInfoReturnable<ItemStack> info) {
         if (world.dimension == AetherDimension.dimensionAether && Block.getBlock(idToPlace).hasTag(BlockTags.IS_LAVA)) {
 
@@ -127,7 +127,7 @@ public class ItemBucketMixin extends Item{
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
-                    world.spawnParticle("smoke", (double) x + 0.5, (double) y, (double) z + 0.5, -(Math.cos(angle) * 2) / 20.0, 0.03, -(Math.sin(angle) * 2)/ 20.0);
+                    world.spawnParticle("smoke", (double) x + 0.5, (double) y, (double) z + 0.5, -(Math.cos(angle) * 2) / 20.0, 0.03, -(Math.sin(angle) * 2)/ 20.0, 0);
                 }
 
                 world.setBlockWithNotify(x, y, z, AetherBlocks.aerogel.id);

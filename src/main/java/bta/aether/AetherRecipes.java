@@ -101,14 +101,14 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .create("pebbles_to_holystone", new ItemStack(AetherBlocks.cobbleHolystone, 2));
 
         RecipeBuilderShaped templateItemtoBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "XXX", "XXX");
-        templateItemtoBlock.addInput('X', AetherItems.gemZanite).create("block_of_zanite", new ItemStack(AetherBlocks.blockZanite, 1));
+        templateItemtoBlock.addInput('X', AetherItems.zanite).create("block_of_zanite", new ItemStack(AetherBlocks.blockZanite, 1));
 
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.ambrosium).create("block_of_ambrosium", new ItemStack(AetherBlocks.blockAmbrosium, 1));
         templateItemtoFuelBlock.addInput('X', AetherBlocks.planksSkyroot).create("skyroot_chest", new ItemStack(AetherBlocks.chestSkyroot, 1));
 
         RecipeBuilderShaped templateBlocktoItem = new RecipeBuilderShaped(MOD_ID, "X");
-        templateBlocktoItem.addInput('X', AetherBlocks.blockZanite).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.gemZanite, 9));
+        templateBlocktoItem.addInput('X', AetherBlocks.blockZanite).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.zanite, 9));
         templateBlocktoItem.addInput('X', AetherBlocks.blockAmbrosium).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.ambrosium, 8));
 
         RecipeBuilderShaped templateFlowertoDye = new RecipeBuilderShaped(MOD_ID, "X");
@@ -122,7 +122,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HZH", "HHH")
                 .addInput('H', (AetherBlocks.cobbleHolystone))
-                .addInput('Z', (AetherItems.gemZanite))
+                .addInput('Z', (AetherItems.zanite))
                 .create("enchanter", new ItemStack(AetherBlocks.enchanter, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HIH", "SSS")
@@ -167,7 +167,7 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .create("skyroot_bucket", new ItemStack(AetherItems.bucketSkyroot, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " C ", "BSB", " M ")
-                .addInput('C', Item.cherry)
+                .addInput('C', Item.foodCherry)
                 .addInput('B', new ItemStack(Item.dye, 1, 3))
                 .addInput('S', Item.ammoSnowball)
                 .addInput('M', AetherItems.bucketSkyrootMilk)
@@ -180,7 +180,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Capes.addInput('W', "aether:red_wool").create("cape_red", new ItemStack(AetherItems.armorCapeRed, 1));
 
         RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Shooter.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.gemZanite).create("dart_shooter", new ItemStack(AetherItems.dartShooter, 1));
+        Shooter.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.zanite).create("dart_shooter", new ItemStack(AetherItems.dartShooter, 1));
         Shooter.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.petalAechor).create("dart_shooter_poison", new ItemStack(AetherItems.dartShooterPoison, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
@@ -196,47 +196,47 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilder.Shaped(MOD_ID, "Z", "S")
                 .addInput('S', Item.stick)
-                .addInput('Z', AetherItems.gemZanite)
+                .addInput('Z', AetherItems.zanite)
                 .create("nature_staff", new ItemStack(AetherItems.toolStaffNature, 1));
 
         RecipeBuilderShaped Sword = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
         Sword.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.stickSkyroot).create("skyroot_sword", new ItemStack(AetherItems.toolSwordSkyroot, 1));
         Sword.addInput('X', AetherBlocks.cobbleHolystone).addInput('S', AetherItems.stickSkyroot).create("holystone_sword", new ItemStack(AetherItems.toolSwordHolystone, 1));
-        Sword.addInput('X', AetherItems.gemZanite).addInput('S', AetherItems.stickSkyroot).create("zanite_sword", new ItemStack(AetherItems.toolSwordZanite, 1));
+        Sword.addInput('X', AetherItems.zanite).addInput('S', AetherItems.stickSkyroot).create("zanite_sword", new ItemStack(AetherItems.toolSwordZanite, 1));
         Sword.addInput('X', AetherBlocks.blockGravitite).addInput('S', AetherItems.stickSkyroot).create("gravitite_sword", new ItemStack(AetherItems.toolSwordGravitite, 1));
 
         RecipeBuilderShaped Pick = new RecipeBuilderShaped(MOD_ID, "XXX", " S ", " S ");
         Pick.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.stickSkyroot).create("skyroot_pick", new ItemStack(AetherItems.toolPickaxeSkyroot, 1));
         Pick.addInput('X', AetherBlocks.cobbleHolystone).addInput('S', AetherItems.stickSkyroot).create("holystone_pick", new ItemStack(AetherItems.toolPickaxeHolystone, 1));
-        Pick.addInput('X', AetherItems.gemZanite).addInput('S', AetherItems.stickSkyroot).create("zanite_pick", new ItemStack(AetherItems.toolPickaxeZanite, 1));
+        Pick.addInput('X', AetherItems.zanite).addInput('S', AetherItems.stickSkyroot).create("zanite_pick", new ItemStack(AetherItems.toolPickaxeZanite, 1));
         Pick.addInput('X', AetherBlocks.blockGravitite).addInput('S', AetherItems.stickSkyroot).create("gravitite_pick", new ItemStack(AetherItems.toolPickaxeGravitite, 1));
 
         RecipeBuilderShaped Shovel = new RecipeBuilderShaped(MOD_ID, " X ", " S ", " S ");
         Shovel.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.stickSkyroot).create("skyroot_shovel", new ItemStack(AetherItems.toolShovelSkyroot, 1));
         Shovel.addInput('X', AetherBlocks.cobbleHolystone).addInput('S', AetherItems.stickSkyroot).create("holystone_shovel", new ItemStack(AetherItems.toolShovelHolystone, 1));
-        Shovel.addInput('X', AetherItems.gemZanite).addInput('S', AetherItems.stickSkyroot).create("zanite_shovel", new ItemStack(AetherItems.toolShovelZanite, 1));
+        Shovel.addInput('X', AetherItems.zanite).addInput('S', AetherItems.stickSkyroot).create("zanite_shovel", new ItemStack(AetherItems.toolShovelZanite, 1));
         Shovel.addInput('X', AetherBlocks.blockGravitite).addInput('S', AetherItems.stickSkyroot).create("gravitite_shovel", new ItemStack(AetherItems.toolShovelGravitite, 1));
 
         RecipeBuilderShaped Axe = new RecipeBuilderShaped(MOD_ID, "XX ", "XS ", " S ");
         Axe.addInput('X', AetherBlocks.planksSkyroot).addInput('S', AetherItems.stickSkyroot).create("skyroot_axe", new ItemStack(AetherItems.toolAxeSkyroot, 1));
         Axe.addInput('X', AetherBlocks.cobbleHolystone).addInput('S', AetherItems.stickSkyroot).create("holystone_axe", new ItemStack(AetherItems.toolAxeHolystone, 1));
-        Axe.addInput('X', AetherItems.gemZanite).addInput('S', AetherItems.stickSkyroot).create("zanite_axe", new ItemStack(AetherItems.toolAxeZanite, 1));
+        Axe.addInput('X', AetherItems.zanite).addInput('S', AetherItems.stickSkyroot).create("zanite_axe", new ItemStack(AetherItems.toolAxeZanite, 1));
         Axe.addInput('X', AetherBlocks.blockGravitite).addInput('S', AetherItems.stickSkyroot).create("gravitite_axe", new ItemStack(AetherItems.toolAxeGravitite, 1));
 
         RecipeBuilderShaped Helmet = new RecipeBuilderShaped(MOD_ID, "XXX", "X X");
-        Helmet.addInput('X', AetherItems.gemZanite).create("zanite_helmet", new ItemStack(AetherItems.armorHelmetZanite, 1));
+        Helmet.addInput('X', AetherItems.zanite).create("zanite_helmet", new ItemStack(AetherItems.armorHelmetZanite, 1));
         Helmet.addInput('X', AetherBlocks.blockGravitite).create("gravitite_helmet", new ItemStack(AetherItems.armorHelmetGravitite, 1));
 
         RecipeBuilderShaped Chestplate = new RecipeBuilderShaped(MOD_ID, "X X", "XXX", "XXX");
-        Chestplate.addInput('X', AetherItems.gemZanite).create("zanite_chestplate", new ItemStack(AetherItems.armorChestplateZanite, 1));
+        Chestplate.addInput('X', AetherItems.zanite).create("zanite_chestplate", new ItemStack(AetherItems.armorChestplateZanite, 1));
         Chestplate.addInput('X', AetherBlocks.blockGravitite).create("gravitite_chestplate", new ItemStack(AetherItems.armorChestplateGravitite, 1));
 
         RecipeBuilderShaped Leggings = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "X X");
-        Leggings.addInput('X', AetherItems.gemZanite).create("zanite_leggings", new ItemStack(AetherItems.armorLeggingsZanite, 1));
+        Leggings.addInput('X', AetherItems.zanite).create("zanite_leggings", new ItemStack(AetherItems.armorLeggingsZanite, 1));
         Leggings.addInput('X', AetherBlocks.blockGravitite).create("gravitite_leggings", new ItemStack(AetherItems.armorLeggingsGravitite, 1));
 
         RecipeBuilderShaped Boots = new RecipeBuilderShaped(MOD_ID, "X X", "X X");
-        Boots.addInput('X', AetherItems.gemZanite).create("zanite_boots", new ItemStack(AetherItems.armorBootsZanite, 1));
+        Boots.addInput('X', AetherItems.zanite).create("zanite_boots", new ItemStack(AetherItems.armorBootsZanite, 1));
         Boots.addInput('X', AetherBlocks.blockGravitite).create("gravitite_boots", new ItemStack(AetherItems.armorBootsGravitite, 1));
 
         RecipeBuilderShaped Gloves = new RecipeBuilderShaped(MOD_ID, "X X");
@@ -245,7 +245,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Gloves.addInput('X', Item.ingotGold).create("gold_gloves", new ItemStack(AetherItems.armorGlovesGold, 1));
         Gloves.addInput('X', Item.diamond).create("diamond_gloves", new ItemStack(AetherItems.armorGlovesDiamond, 1));
         Gloves.addInput('X', Item.ingotSteel).create("steel_gloves", new ItemStack(AetherItems.armorGlovesSteel, 1));
-        Gloves.addInput('X', AetherItems.gemZanite).create("zanite_gloves", new ItemStack(AetherItems.armorGlovesZanite, 1));
+        Gloves.addInput('X', AetherItems.zanite).create("zanite_gloves", new ItemStack(AetherItems.armorGlovesZanite, 1));
         Gloves.addInput('X', AetherBlocks.blockGravitite).create("gravitite_gloves", new ItemStack(AetherItems.armorGlovesGravitite, 1));
 
         RecipeBuilderShaped Pendant = new RecipeBuilderShaped(MOD_ID, "SSS", "S S", " X ");
@@ -254,11 +254,11 @@ public class AetherRecipes implements RecipeEntrypoint {
         Pendant.addInput('X', Item.ingotGold).addInput('S', Item.string).create("gold_pendant", new ItemStack(AetherItems.armorPendantGold, 1));
         Pendant.addInput('X', Item.diamond).addInput('S', Item.string).create("diamond_pendant", new ItemStack(AetherItems.armorPendantDiamond, 1));
         Pendant.addInput('X', Item.ingotSteel).addInput('S', Item.string).create("steel_pendant", new ItemStack(AetherItems.armorPendantSteel, 1));
-        Pendant.addInput('X', AetherItems.gemZanite).addInput('S', Item.string).create("zanite_pendant", new ItemStack(AetherItems.armorPendantZanite, 1));
+        Pendant.addInput('X', AetherItems.zanite).addInput('S', Item.string).create("zanite_pendant", new ItemStack(AetherItems.armorPendantZanite, 1));
         Pendant.addInput('X', AetherBlocks.blockGravitite).addInput('S', Item.string).create("gravitite_pendant", new ItemStack(AetherItems.armorPendantGravitite, 1));
 
         RecipeBuilderShaped Rings = new RecipeBuilderShaped(MOD_ID, " X ", "X X", " X ");
-        Rings.addInput('X', AetherItems.gemZanite).create("zanite_ring", new ItemStack(AetherItems.armorRingZanite, 1));
+        Rings.addInput('X', AetherItems.zanite).create("zanite_ring", new ItemStack(AetherItems.armorRingZanite, 1));
         Rings.addInput('X', Item.ingotIron).create("iron_ring", new ItemStack(AetherItems.armorRingIron, 1));
         Rings.addInput('X', Item.ingotGold).create("gold_ring", new ItemStack(AetherItems.armorRingGold, 1));
 
@@ -268,7 +268,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilder.Shaped(MOD_ID, "Z", "S")
                 .addInput('S', Item.stick)
-                .addInput('Z', AetherItems.gemZanite)
+                .addInput('Z', AetherItems.zanite)
                 .create("nature_staff", new ItemStack(AetherItems.toolStaffNature, 1));
 
         // Furnace Recipes
@@ -283,7 +283,7 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addEntry(new WeightedRandomLootObject(Item.clay.getDefaultStack(), 1, 5), 24.10)
                 .addEntry(new WeightedRandomLootObject(Item.flint.getDefaultStack(), 1, 3), 12.05)
                 .addEntry(new WeightedRandomLootObject(Item.sulphur.getDefaultStack(), 1), 2.41)
-                .addEntry(new WeightedRandomLootObject(AetherItems.gemZanite.getDefaultStack(), 1), 0.60)
+                .addEntry(new WeightedRandomLootObject(AetherItems.zanite.getDefaultStack(), 1), 0.60)
                 .addEntry(new WeightedRandomLootObject(Item.bone.getDefaultStack(), 1), 0.30)
                 .addEntry(new WeightedRandomLootObject(AetherItems.stickSkyroot.getDefaultStack(), 1), 0.30)
                 .create("trommel_aether_grass");
@@ -294,7 +294,7 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addEntry(new WeightedRandomLootObject(Item.clay.getDefaultStack(), 1, 5), 24.10)
                 .addEntry(new WeightedRandomLootObject(Item.flint.getDefaultStack(), 1, 3), 12.05)
                 .addEntry(new WeightedRandomLootObject(Item.sulphur.getDefaultStack(), 1), 2.41)
-                .addEntry(new WeightedRandomLootObject(AetherItems.gemZanite.getDefaultStack(), 1), 0.60)
+                .addEntry(new WeightedRandomLootObject(AetherItems.zanite.getDefaultStack(), 1), 0.60)
                 .addEntry(new WeightedRandomLootObject(Item.bone.getDefaultStack(), 1), 0.30)
                 .addEntry(new WeightedRandomLootObject(AetherItems.stickSkyroot.getDefaultStack(), 1), 0.30)
                 .create("trommel_aether_dirt");

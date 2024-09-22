@@ -13,7 +13,7 @@ public class ItemPhoenixBow extends Item {
         this.setMaxDamage(768);
     }
     @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ItemStack quiverSlot = entityplayer.inventory.armorItemInSlot(2);
         if (quiverSlot != null && quiverSlot.itemID == Item.armorQuiver.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) {
             entityplayer.inventory.armorItemInSlot(2).damageItem(1, entityplayer);

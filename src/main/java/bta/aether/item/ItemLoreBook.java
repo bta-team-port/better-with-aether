@@ -13,9 +13,9 @@ public class ItemLoreBook extends Item {
         super(name, id);
         this.loreId = loreId;
     }
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+    public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
         ((IAetherGuis)entityplayer).aether$displayGUILoreBook(loreId);
         entityplayer.addStat(AetherAchievements.LORE, 1);
-        return super.onItemRightClick(itemstack, world, entityplayer);
+        return super.onUseItem(itemstack, world, entityplayer);
     }
 }

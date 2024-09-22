@@ -4,29 +4,32 @@ import bta.aether.world.AetherDimension;
 import com.mojang.nbt.CompoundTag;
 import com.mojang.nbt.Tag;
 import net.minecraft.core.world.chunk.ChunkCoordinates;
+import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
 import net.minecraft.core.world.save.LevelStorage;
 import net.minecraft.core.world.save.SaveHandlerBase;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.core.world.save.DimensionData;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Random;
 
 
 @Mixin(value = SaveHandlerBase.class,remap = false)
 public abstract class SaveHandlerBaseMixin implements LevelStorage {
 
-    @Shadow @Final private ISaveFormat saveFormat;
+    @Shadow @Final
+    ISaveFormat saveFormat;
 
-    @Shadow @Final private String worldDirName;
+    @Shadow @Final
+    String worldDirName;
 
-    private int index = 0;
+    @Unique
+    public int index = 0;
+    @Unique
     private void writeDugeonNBT(CompoundTag tag, int id , int x, int y, int z){
         CompoundTag subTag = new CompoundTag();
         subTag.putInt("x", x);

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SlotArmorMixin {
 
     // cancel the bta armor icon from appearing, since the aether has its own that are on the inventory.png
-    @Inject(method = "getBackgroundIconIndex",at=@At("HEAD"),cancellable = true)
+    @Inject(method = "getBackgroundIconId()Ljava/lang/String;",at=@At("HEAD"),cancellable = true)
     public void getBackgroundIconIndex(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(-1);
     }

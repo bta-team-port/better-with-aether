@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static java.awt.SystemColor.info;
+
 @Mixin(value = PlayerRenderer.class, remap = false)
 public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
     @Unique
@@ -30,12 +32,12 @@ public class PlayerRendererMixin extends LivingRenderer<EntityPlayer> {
     }
 
     @Inject(method = "drawFirstPersonHand", at = @At("HEAD"), cancellable = true)
-    public void callDrawFirstPersonHandBefore(EntityPlayer player, CallbackInfo info) {
-        if (((IAetherAccessories)player).aether$getInvisible()) info.cancel();
+    public void callDrawFirstPersonHandBefore(EntityPlayer player, boolean isLeft, CallbackInfo ci) {
+        if (((IAetherAccessories)player).aether$getInvisible()) ci.cancel();
     }
 
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"))
-    public void callDrawFirstPersonHandAfter(EntityPlayer player, CallbackInfo info) {
+    public void callDrawFirstPersonHandAfter(EntityPlayer player, boolean isLeft, CallbackInfo ci) {
         for (ItemStack itemStack : player.inventory.armorInventory) {
             if (itemStack == null) continue;
             Item item = itemStack.getItem();

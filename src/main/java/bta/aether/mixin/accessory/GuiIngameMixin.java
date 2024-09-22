@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.render.FontRenderer;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.render.item.model.ItemModelDispatcher;
+import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -50,7 +52,7 @@ public class GuiIngameMixin {
                 int x = width - sp - 19;
                 int y = height - sp - ((1 + num_drawn++) * 16);
 
-                itemRenderer.renderItemIntoGUI(fontrenderer, this.mc.renderEngine, stack, x, y, 1.0f);
+                ItemModelDispatcher.getInstance().getDispatch(stack).renderItemIntoGui(Tessellator.instance, fontrenderer, this.mc.renderEngine, stack, y, y, 1.0F);
 
                 float durability = (float)(stack.getMaxDamage() - stack.getMetadata()) / (float)stack.getMaxDamage();
                 l = (int)(durability * 255.0f);

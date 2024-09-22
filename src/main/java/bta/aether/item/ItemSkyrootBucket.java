@@ -61,7 +61,7 @@ public class ItemSkyrootBucket extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ItemStack onUseItem(ItemStack stack, World world, EntityPlayer player) {
         if (this.foodType != 0 && ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.bucketSkyroot))) {
             applyEffect(player);
             return stack;
@@ -110,7 +110,7 @@ public class ItemSkyrootBucket extends Item {
             if (world.dimension == Dimension.nether && this.idToPlace == Block.fluidWaterFlowing.id) {
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                 for (int l = 0; l < 8; ++l) {
-                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + Math.random(), (double)z + Math.random(), 0.0, 0.0, 0.0);
+                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + Math.random(), (double)z + Math.random(), 0.0, 0.0, 0.0, 0);
                 }
             } else {
                 if (this.idToPlace == Block.fluidWaterFlowing.id) {

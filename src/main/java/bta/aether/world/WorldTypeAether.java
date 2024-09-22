@@ -4,7 +4,6 @@ import bta.aether.block.AetherBlocks;
 import bta.aether.world.generate.chunk.perlin.aether.ChunkGeneratorAether;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.biome.provider.BiomeProviderSingleBiome;
@@ -118,27 +117,6 @@ public abstract class WorldTypeAether
             weatherOffset = (float)currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
         }
         return (int)(f2 * (11.0f - weatherOffset) + weatherOffset);
-    }
-
-    @Override
-    public Vec3d getFogColor(float f, float g) {
-        int i = 8421536;
-        float f2 = MathHelper.cos(f * 3.141593F * 2.0F) * 2.0F + 0.5F;
-        if(f2 < 0.0F)
-        {
-            f2 = 0.0F;
-        }
-        if(f2 > 1.0F)
-        {
-            f2 = 1.0F;
-        }
-        float f3 = (float)(i >> 16 & 255) / 255F;
-        float f4 = (float)(i >> 8 & 255) / 255F;
-        float f5 = (float)(i & 255) / 255F;
-        f3 *= f2 * 0.94F + 0.06F;
-        f4 *= f2 * 0.94F + 0.06F;
-        f5 *= f2 * 0.91F + 0.09F;
-        return Vec3d.createVector(f3, f4, f5);
     }
 
     @Override
