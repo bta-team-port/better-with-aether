@@ -176,27 +176,34 @@ public class EntityAerbunny extends EntityAetherAnimal {
 
     }
 
-    public boolean interact(EntityPlayer entityplayer) {
-        this.zd = entityplayer.zd;
+    public boolean interact(EntityPlayer player) {
+        this.zd = player.zd;
         if (this.vehicle != null) {
             this.gotrider = this.vehicle.getPassenger().horizontalCollision;
             this.zd = this.vehicle.getPassenger().z;
         }
 
-        this.startRiding(entityplayer);
         if (this.vehicle == null) {
             this.grab = true;
+            this.startRiding(player);
         } else {
-            this.world.playSoundAtEntity(null, this, "aether:mobs.aerbunny.aerbunnylift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.vehicle.ejectRider();
+            this.setPos(this.x, player.y, this.z);
+            this.jump();
+            this.world.playSoundAtEntity(null,
+                    this,
+                    "aether:mobs.aerbunny.aerbunnylift",
+                    1.0F,
+                    (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
         }
 
         this.isJumping = false;
         this.moveForward = 0.0F;
         this.moveStrafing = 0.0F;
         this.setTarget(null);
-        this.xd = entityplayer.xd * 5.0;
-        this.yd = entityplayer.yd / 2.0 + 0.5;
-        this.zd = entityplayer.zd * 5.0;
+        this.xd = player.xd * 5.0;
+        this.yd = player.yd / 2.0 + 0.5;
+        this.zd = player.zd * 5.0;
         return true;
     }
 

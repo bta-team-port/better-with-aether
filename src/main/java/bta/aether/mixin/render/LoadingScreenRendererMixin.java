@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = LoadingScreenRenderer.class, remap = false)
-public class LoadingScreenRendererMixin {
+public abstract class LoadingScreenRendererMixin {
     @Shadow private String backgroundPath;
 
     @Inject(method = "updateLoadingBackground(Lnet/minecraft/core/world/Dimension;)V", at = @At("HEAD"), cancellable = true)
     private void customBackground(Dimension dimension, CallbackInfo ci){
         if (dimension == AetherDimension.dimensionAether){
-            this.backgroundPath = "/assets/aether/block/Holystone.png";
+            this.backgroundPath = "/assets/aether/block/holystone.png";
             ci.cancel();
         }
     }
