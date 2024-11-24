@@ -48,7 +48,8 @@
     "item.ItemDyeMixin",
     "item.ItemFirestrikerMixin",
     "item.ItemSaddleMixin",
-    "item.ItemStackZaniteSwordDamageMixin"
+    "item.ItemStackZaniteSwordDamageMixin",
+    "FireflyJankMixin"
   ],
   "client": [
     "FireBarComponentMixinPhoenix",
