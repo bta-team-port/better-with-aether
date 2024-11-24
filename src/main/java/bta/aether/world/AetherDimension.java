@@ -6,6 +6,7 @@ import bta.aether.AetherServer;
 import bta.aether.block.AetherBlocks;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import net.minecraft.client.entity.player.EntityPlayerSP;
+import net.minecraft.core.entity.animal.EntityFireflyCluster;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -55,6 +56,13 @@ public class AetherDimension implements PreLaunchEntrypoint {
     public static final Biome biomeAether = Biomes.register("aether:aether.aether", new BiomeAether("aether.aether").setBlockedWeathers(Weather.overworldRain, Weather.overworldSnow, Weather.overworldStorm, Weather.overworldFog))
             .setTopBlock(AetherBlocks.grassAether.id)
             .setFillerBlock(AetherBlocks.dirtAether.id);
+
+    public static final EntityFireflyCluster.FireflyColor fireflyColorSilver = new EntityFireflyCluster.FireflyColor(
+            6, "fireflySilver",
+            new Biome[]{biomeAether},
+            new float[]{0.75f, 1.00f, 0.85f}
+    );
+
     // World types
     public static final WorldType worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault("worldType.aether.default"));
     // Dimensions
@@ -63,6 +71,7 @@ public class AetherDimension implements PreLaunchEntrypoint {
     public void onPreLaunch() {
         // This is here so that the dimension is created and added to the dimension list before the Server even launches, it'll crash otherwise
         Dimension.registerDimension(AetherDimensionID, dimensionAether);
+        EntityFireflyCluster.FireflyColor.register(fireflyColorSilver);
     }
     public static void dimensionShift(EntityPlayer player, int targetDimension){
         World world = player.world;
