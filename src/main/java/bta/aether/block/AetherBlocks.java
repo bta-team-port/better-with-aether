@@ -2,13 +2,13 @@ package bta.aether.block;
 
 import bta.aether.Aether;
 import bta.aether.AetherBlockTags;
-import bta.aether.entity.EntityAerbunny;
 import bta.aether.entity.EntitySentry;
 import bta.aether.entity.EntityValk;
 import bta.aether.item.ItemBlockAetherDouble;
 import bta.aether.item.tool.base.ItemToolAetherAxe;
 import bta.aether.item.tool.base.ItemToolAetherPickaxe;
 import bta.aether.item.tool.base.ItemToolAetherShovel;
+import bta.aether.mixin.FireflyJankMixin;
 import bta.aether.world.AetherDimension;
 import net.minecraft.client.render.block.model.BlockModelRenderBlocks;
 import net.minecraft.core.block.*;
@@ -29,6 +29,7 @@ import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.helper.TextureHelper;
 
 import static bta.aether.Aether.MOD_ID;
+import static bta.aether.world.AetherDimension.fireflyColorSilver;
 import static net.minecraft.core.block.Block.fluidWaterFlowing;
 import static net.minecraft.core.block.Block.glowstone;
 
@@ -552,7 +553,11 @@ public class AetherBlocks {
             .withDisabledStats()
             .withDisabledNeighborNotifyOnMetadataChange();
 
-    public void initializeBlocks(){
+    public void initializeBlocks() {
+        // This is here because aetherBlocks is declared before AetherDimension but initialized after.
+        // This means that: we *cannot* declare the creation of the lantern normally without causing a circular dependency that resolves to null.
+        // Enjoy the jank!! - Khep
+        ((FireflyJankMixin) lanternAetherBlock).setColor(fireflyColorSilver);
         BlockMoss.mossToStoneMap.put(holystone, holystoneMossy);
 
         ItemToolAetherPickaxe.miningLevels.put(holystone, 0);
