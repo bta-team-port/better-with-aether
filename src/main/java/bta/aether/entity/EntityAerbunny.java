@@ -4,6 +4,7 @@ import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.pathfinder.Path;
@@ -41,6 +42,9 @@ public class EntityAerbunny extends EntityAetherAnimal {
         super.init();
         this.entityData.define(16, 0);
     }
+
+    @Override
+    protected int getDropItemId() { return Item.string.id; }
 
     @Override
     public String getEntityTexture() {
