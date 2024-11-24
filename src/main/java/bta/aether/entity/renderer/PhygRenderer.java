@@ -18,8 +18,8 @@ public class PhygRenderer extends LivingRenderer<EntityPhyg> {
         // else we get a second, untextured pair of wings. -Cookie
         ModelPhyg2.pig = entity;
 
-        if (renderPass == 0){
-            loadTexture("/assets/aether/mobs/PhygSaddle.png");
+        if (renderPass == 0) {
+            loadTexture("/assets/aether/mobs/phyg/phyg_saddle.png");
             return entity != null && entity.getSaddled();
         } else if (renderPass == 1) {
             loadTexture("/assets/aether/mobs/Wings.png");

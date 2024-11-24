@@ -53,9 +53,10 @@ public class AetherItems {
     public static final Item eggMoaWhite = ItemHelper.createItem(MOD_ID, new Item("egg.moa.white", itemID++), "moa_egg_white.png").withTags(aetheregg);
     public static final Item eggMoaBlack = ItemHelper.createItem(MOD_ID, new Item("egg.moa.black", itemID++), "moa_egg_black.png").withTags(aetheregg);
 
-    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.blue", 18500, "AetherTune", "Noisestorm"), "record_aether.png").setMaxStackSize(1);
-    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.silver", 18501, "AMorningWish", "Emile van Krieken"), "record_wish.png").setMaxStackSize(1);
-    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.pink", 18502, "AscendingDawn", "Emile van Krieken"), "record_dawn.png").setMaxStackSize(1);
+    // Record names apparently have to match the sound file. -Cookie
+    public static final Item recordBlue = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.blue", 18500, "aether_tune", "Noisestorm"), "record_aether.png").setMaxStackSize(1);
+    public static final Item recordSilver = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.silver", 18501, "a_morning_wish", "Emile van Krieken"), "record_wish.png").setMaxStackSize(1);
+    public static final Item recordPink = ItemHelper.createItem(MOD_ID, new ItemRecordAccessor("record.pink", 18502, "ascending_dawn", "Emile van Krieken"), "record_dawn.png").setMaxStackSize(1);
 
     public static final Item amberGolden = ItemHelper.createItem(MOD_ID, new Item("goldenamber", itemID++), "amber.png");
     public static final Item petalAechor = ItemHelper.createItem(MOD_ID, new Item("aechorpetal", itemID++), "petal.png");
