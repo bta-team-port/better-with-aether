@@ -88,12 +88,6 @@ public abstract class EntityPlayerMixin extends EntityLiving implements IAetherG
         }
     }
 
-    // A fix for the Aerbunny holding. -Cookie
-    @Override
-    public double getRideHeight() {
-        return bbHeight * 0.15F;
-    }
-
     // Sets the jump height to two and a half blocks if the Aerbunny is a passenger. -Cookie
     @Inject(method = "jump", at = @At("TAIL"))
     private void aether_aerbunnyJump(CallbackInfo ci) {
