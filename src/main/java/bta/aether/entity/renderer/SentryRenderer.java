@@ -1,11 +1,14 @@
 package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntitySentry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class SentryRenderer extends LivingRenderer<EntitySentry> {
 
     public SentryRenderer(ModelBase model, float shadowSize) {

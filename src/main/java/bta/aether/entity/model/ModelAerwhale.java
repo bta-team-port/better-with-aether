@@ -1,8 +1,11 @@
 package bta.aether.entity.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class ModelAerwhale extends ModelBase {
     public Cube body;
     public Cube body2;
