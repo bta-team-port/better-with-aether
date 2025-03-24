@@ -2,10 +2,13 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntityAerwhale;
 import bta.aether.entity.model.ModelAerwhale;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class AerwhaleRenderer extends LivingRenderer<EntityAerwhale> {
     private final ModelBase model = new ModelAerwhale();
 

@@ -2,10 +2,13 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntityBossSlider;
 import bta.aether.entity.model.ModelSlider;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class SliderRenderer extends LivingRenderer<EntityBossSlider> {
     public SliderRenderer(ModelBase ms, float f) {
         super(new ModelSlider(), 1.0F);

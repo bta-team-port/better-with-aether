@@ -1,11 +1,14 @@
 package bta.aether.entity.renderer;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.core.entity.projectile.EntityArrow;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class aetherArrowRenderer extends EntityRenderer<EntityArrow> {
     private final String texturePath;
     public aetherArrowRenderer(String texturePath){

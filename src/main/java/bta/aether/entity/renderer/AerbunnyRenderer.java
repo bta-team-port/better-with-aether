@@ -2,11 +2,14 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntityAerbunny;
 import bta.aether.entity.model.ModelAerbunny;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.entity.EntityLiving;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class AerbunnyRenderer extends LivingRenderer<EntityAerbunny> {
     public ModelAerbunny mb;
     public AerbunnyRenderer(ModelBase modelbase, float shadowSize) {

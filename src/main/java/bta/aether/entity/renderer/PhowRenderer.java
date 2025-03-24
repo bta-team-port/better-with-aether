@@ -2,9 +2,12 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntityPhow;
 import bta.aether.entity.model.ModelPhow2;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class PhowRenderer extends LivingRenderer<EntityPhow> {
     public PhowRenderer(ModelBase modelbase, ModelBase modelbase1, float f) {
         super(modelbase, f);

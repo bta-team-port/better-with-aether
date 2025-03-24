@@ -1,9 +1,12 @@
 package bta.aether.entity.model;
 
 import bta.aether.entity.EntityPhow;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class ModelPhow2 extends ModelBase {
     public Cube leftWingInner = new Cube(0, 0);
     public Cube leftWingOuter = new Cube(20, 0);

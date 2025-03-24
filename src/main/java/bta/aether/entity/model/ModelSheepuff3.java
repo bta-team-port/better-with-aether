@@ -1,8 +1,11 @@
 package bta.aether.entity.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
 
+@Environment(EnvType.CLIENT)
 public class ModelSheepuff3 extends ModelQuadruped {
     public ModelSheepuff3() {
         super(12, 0.0F);

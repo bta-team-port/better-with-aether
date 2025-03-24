@@ -1,5 +1,7 @@
 package bta.aether;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.net.packet.Packet41EntityPlayerGamemode;
 import net.minecraft.core.net.packet.Packet74GameRule;
@@ -9,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.world.WorldServer;
 
+@Environment(EnvType.SERVER)
 public class AetherServer {
     public static void teleportNotToPortalMP(EntityPlayerMP entityplayermp, int targetDim){
         MinecraftServer server = MinecraftServer.getInstance();
