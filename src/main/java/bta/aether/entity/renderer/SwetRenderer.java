@@ -1,10 +1,13 @@
 package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntitySwet;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class SwetRenderer extends LivingRenderer<EntitySwet> {
     private final ModelBase scaleAmount;
 

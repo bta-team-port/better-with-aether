@@ -1,9 +1,12 @@
 package bta.aether.entity.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class ModelSlider extends ModelBase {
     public Cube head;
 

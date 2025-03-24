@@ -71,8 +71,11 @@ public class EntityMimic extends EntityMonster {
     }
 
     public String getEntityTexture() {
+        if (world != null) {
             return (world.dimension.id == Dimension.overworld.id) ? "/assets/aether/mobs/mimic/0.png" : "/assets/aether/mobs/mimic/1.png";
         }
+        return "";
+    }
 
     public String getDefaultEntityTexture() {
         return "/assets/aether/mobs/mimic/1.png";

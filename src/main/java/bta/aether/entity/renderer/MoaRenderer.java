@@ -2,11 +2,14 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.AetherEntities;
 import bta.aether.entity.EntityMoa;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MoaRenderer extends LivingRenderer<EntityMoa> {
 
     public MoaRenderer(ModelBase model, float shadowSize) {

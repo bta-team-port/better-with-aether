@@ -2,9 +2,12 @@ package bta.aether.entity.renderer;
 
 import bta.aether.entity.EntityPhyg;
 import bta.aether.entity.model.ModelPhyg2;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.LivingRenderer;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class PhygRenderer extends LivingRenderer<EntityPhyg> {
     public PhygRenderer(ModelBase modelbase, ModelBase modelbase1, float f) {
         super(modelbase, f);
@@ -14,7 +17,7 @@ public class PhygRenderer extends LivingRenderer<EntityPhyg> {
     @Override
     protected boolean shouldRenderPass(EntityPhyg entity, int renderPass, float partialTick) {
 
-        // ModelPhyg2.pig has to be put outside of the renderpass for some reason,
+        // ModelPhyg2 has to be put outside the render pass for some reason,
         // else we get a second, untextured pair of wings. -Cookie
         ModelPhyg2.pig = entity;
 
@@ -25,6 +28,7 @@ public class PhygRenderer extends LivingRenderer<EntityPhyg> {
             loadTexture("/assets/aether/mobs/Wings.png");
             return true;
         }
+
         return false;
     }
 }

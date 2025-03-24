@@ -1,8 +1,11 @@
 package bta.aether.entity.renderer;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.core.entity.Entity;
 
+@Environment(EnvType.CLIENT)
 public class WhirlwindRenderer extends EntityRenderer<Entity> {
 
     public WhirlwindRenderer() {
