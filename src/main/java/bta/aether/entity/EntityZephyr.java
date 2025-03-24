@@ -233,6 +233,16 @@ public class EntityZephyr extends EntityFlying implements IEnemy {
         return entityData.getByte(1) % skinVariantCount;
     }
 
+    @Override
+    protected void dropFewItems() {
+        int drop = getDropItemId();
+
+        if (drop > 0) {
+            int stack = random.nextInt(12) + 4;
+            spawnAtLocation(drop, stack);
+        }
+    }
+
     public int getDropItemId() {
         return AetherBlocks.aercloudWhite.id;
     }
