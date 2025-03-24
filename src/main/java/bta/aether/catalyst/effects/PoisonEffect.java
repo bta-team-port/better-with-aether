@@ -20,7 +20,7 @@ public class PoisonEffect extends Effect {
         if (!(effectContainer.getParent() instanceof EntityLiving)) return;
         EntityLiving entityLiving = (EntityLiving) effectContainer.getParent();
         Random random = new Random();
-        ((IAetherEntityLiving) entityLiving).setPoisonSlide(random.nextDouble()-0.5, random.nextDouble()-0.5);
+        ((IAetherEntityLiving) entityLiving).setPoisonSlide(random.nextDouble() - 0.33, random.nextDouble() - 0.33);
         entityLiving.hurt(null, 1, DamageType.GENERIC);
     }
 
@@ -28,13 +28,13 @@ public class PoisonEffect extends Effect {
     public <T> void expired(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (effectStack.getEffect() != this) return;
         int amount = effectStack.getAmount();
-        if (amount-1 <= 0) {
+        if (amount - 1 <= 0) {
             IAetherEntityLiving entityLiving = (IAetherEntityLiving) effectContainer.getParent();
             entityLiving.setPoisonSlide(0, 0);
             return;
         }
         effectContainer.remove(AetherEffects.poisonEffect);
-        EffectStack newStack = new EffectStack((IHasEffects) effectContainer.getParent(), AetherEffects.poisonEffect, amount-1);
+        EffectStack newStack = new EffectStack((IHasEffects) effectContainer.getParent(), AetherEffects.poisonEffect, amount - 1);
         effectContainer.add(newStack);
         newStack.start(effectContainer);
     }

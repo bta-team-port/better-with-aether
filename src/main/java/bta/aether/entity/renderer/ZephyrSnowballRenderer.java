@@ -1,12 +1,15 @@
 package bta.aether.entity.renderer;
 
 import bta.aether.entity.projectiles.EntityZephyrSnowball;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.core.Global;
 import net.minecraft.core.item.Item;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class ZephyrSnowballRenderer extends EntityRenderer<EntityZephyrSnowball> {
     public ZephyrSnowballRenderer() {
     }

@@ -8,6 +8,8 @@ import bta.aether.entity.renderer.aetherArrowRenderer;
 import bta.aether.gui.components.ComponentBossBar;
 import bta.aether.gui.components.ComponentJumpBar;
 import bta.aether.item.AetherItems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.*;
@@ -25,6 +27,7 @@ import turniplabs.halplibe.util.TextureHandler;
 import static turniplabs.halplibe.helper.TextureHelper.registeredItemTextures;
 import static turniplabs.halplibe.helper.TextureHelper.textureHandlers;
 
+@Environment(EnvType.CLIENT)
 public class AetherClient implements ClientStartEntrypoint {
     public static HudComponent BOSS_BAR = HudComponents.register(new ComponentBossBar("aether.boss.bar", new AbsoluteLayout(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)));
     public static HudComponent JUMP_BAR = HudComponents.register(new ComponentJumpBar("aether.jump.bar", new SnapLayout(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT)));

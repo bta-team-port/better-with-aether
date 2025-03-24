@@ -17,7 +17,6 @@ public class AetherEntities {
     public static final BenchEntityModel modelMimic =  ModelHelper.getOrCreateEntityModel(MOD_ID, "mimic", ModelMimic.class);
     public static final BenchEntityModel modelValk =  ModelHelper.getOrCreateEntityModel(MOD_ID, "valk", ModelValk.class);
 
-
     public void initializeEntities() {
         EntityHelper.Core.createEntity(EntityBossDev.class, entityID++, "FatherSentry");
         EntityHelper.Core.createEntity(EntitySentry.class, entityID++, "Sentry");
@@ -34,6 +33,7 @@ public class AetherEntities {
         EntityHelper.Core.createEntity(EntityPhow.class, entityID++, "Phow");
         EntityHelper.Core.createEntity(EntitySheepuff.class, entityID++, "Sheepuff");
     }
+
     public void initializeModels(){
         EntityHelper.Client.assignEntityRenderer(EntitySentry.class, new SentryRenderer(new ModelSlime(0), 0.2F));
         EntityHelper.Client.assignEntityRenderer(EntitySwet.class, new SwetRenderer(new ModelSlime(16), new ModelSlime(0), 0.3F));
