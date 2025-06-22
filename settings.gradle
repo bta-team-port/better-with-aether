@@ -1,10 +1,10 @@
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
-        gradlePluginPortal()
         maven {
             name = 'Jitpack'
             url = 'https://jitpack.io'
@@ -12,6 +12,10 @@ pluginManagement {
         maven {
             name = 'Babric'
             url = 'https://maven.glass-launcher.net/babric'
+        }
+        maven {
+            name = 'SignalumMavenInfrastructure'
+            url = 'https://maven.thesignalumproject.net/infrastructure'
         }
     }
 }

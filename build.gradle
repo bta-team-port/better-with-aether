@@ -1,21 +1,34 @@
 plugins {
-	alias libs.plugins.babric.loom
+	id 'fabric-loom' version '1.10.0-bta'
 	id 'java'
 }
 
 
+import org.gradle.internal.os.OperatingSystem
+
+project.ext.lwjglVersion = "3.3.3"
+
+switch (OperatingSystem.current()) {
+	case OperatingSystem.LINUX:
+		project.ext.lwjglNatives = "natives-linux"
+		break
+	case OperatingSystem.WINDOWS:
+		project.ext.lwjglNatives = "natives-windows"
+		break
+	case OperatingSystem.MAC_OS:
+		project.ext.lwjglNatives = "natives-macos"
+}
+
+group = project.mod_group
+archivesBaseName = project.mod_name
+version = project.mod_version
+
 loom {
-	gluedMinecraftJar()
 	noIntermediateMappings()
-	var btaVersion = libs.versions.bta.get()
-	customMinecraftManifest.set("https://github.com/Turnip-Labs/bta-manifest-repo/releases/download/v$btaVersion/${btaVersion}.json")
-	accessWidenerPath = file("src/main/resources/aether.accesswidener")
+	customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${project.bta_channel}/v${project.bta_version}/manifest.json")
 }
 
 repositories {
-	flatDir { // DO NOT DELETE THIS, THIS ALLOWS GRADLE TO *OPTIONALLY* LOAD JARS LOCALLY, THIS HELPS TO FIX SOME PROBLEMATIC DEPENDENCIES
-		dirs "./dependencies"
-	}
 	mavenCentral()
 	maven { url = "https://jitpack.io" }
 	maven {
@@ -26,6 +39,14 @@ repositories {
 		name = 'Fabric'
 		url = 'https://maven.fabricmc.net/'
 	}
+	maven {
+		name = 'SignalumMavenInfrastructure'
+		url = 'https://maven.thesignalumproject.net/infrastructure'
+	}
+	maven {
+		name = 'SignalumMavenReleases'
+		url = 'https://maven.thesignalumproject.net/releases'
+	}
 	ivy {
 		url = "https://github.com/Better-than-Adventure"
 		patternLayout {
@@ -35,25 +56,17 @@ repositories {
 		metadataSources { artifact() }
 	}
 	ivy {
-		url = "https://github.com/Turnip-Labs"
+		url = "https://downloads.betterthanadventure.net/bta-client/${project.bta_channel}/"
 		patternLayout {
-			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
+			artifact "/v[revision]/client.jar"
 			m2compatible = true
 		}
 		metadataSources { artifact() }
 	}
 	ivy {
-		url = "https://github.com/Turnip-Labs"
+		url = "https://downloads.betterthanadventure.net/bta-server/${project.bta_channel}/"
 		patternLayout {
-			artifact "[organisation]/releases/download/[revision]/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
-	ivy {
-		url = "https://github.com/Turnip-Labs"
-		patternLayout {
-			artifact "[organisation]/releases/download/[revision]/[module]-bta-[revision].jar"
+			artifact "/v[revision]/server.jar"
 			m2compatible = true
 		}
 		metadataSources { artifact() }
@@ -66,81 +79,75 @@ repositories {
 		}
 		metadataSources { artifact() }
 	}
-	ivy {
-		url = "https://github.com/MartinSVK12"
-		patternLayout {
-			artifact "[organisation]/releases/download/[revision]/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
-	ivy {
-		url = "https://github.com/UselessBullets"
-		patternLayout {
-			artifact "[organisation]/releases/download/r[revision]/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
-	ivy {
-		url = "https://github.com/UselessBullets"
-		patternLayout {
-			artifact "[organisation]/releases/download/v[revision]/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
-	ivy {
-		url = "https://github.com/MartinSVK12"
-		patternLayout {
-			artifact "[organisation]/releases/download/1.3.7/[module]-[revision].jar"
-			m2compatible = true
-		}
-		metadataSources { artifact() }
-	}
+
 }
 
 dependencies {
-	minecraft libs.bta
+	minecraft "::${project.bta_version}"
 	mappings loom.layered() {}
 
-	modRuntimeOnly libs.client // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
-	modImplementation libs.fabric.loader
+	modRuntimeOnly "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation libs.halplibe
-	modImplementation libs.terrainapi
+	// Helper library
+	// If you do not need Halplibe you can comment this line out or delete this line
+	modImplementation("turniplabs:halplibe:${project.halplibe_version}")
 
-	modImplementation libs.modmenu
-	modImplementation libs.dragonfly
-	modImplementation libs.bundles.catalyst
-	modImplementation libs.catalyst.core
-	modImplementation libs.catalyst.effects
+	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
-	include(implementation(annotationProcessor(libs.mixinextras.get())))
+	modImplementation "com.github.UselessSolutions:dragonfly:${project.dragonfly_version}"
+	modImplementation(files("dependencies/btwaila-1.2.1-7.3_01.jar"))
+	modImplementation(files("dependencies/catalyst-core-2.0.3-7.3_03.jar"))
+	modImplementation(files("dependencies/tmb-1.1.1-7.3_03.jar"))
 
-	implementation libs.bundles.logging
-	implementation libs.apache.commons.lang
+	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
+	implementation "org.apache.logging.log4j:log4j-slf4j18-impl:2.16.0"
 
-	implementation libs.guava
-	implementation libs.gson
+	implementation 'com.google.guava:guava:33.0.0-jre'
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+	var log4jVersion = "2.20.0"
+	implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+	implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
+	implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion}")
+
+	include(implementation("org.apache.commons:commons-lang3:3.12.0"))
+
+	modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:1.0.5")
+	implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+	runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+	implementation "org.lwjgl:lwjgl:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-assimp:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-glfw:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-openal:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-opengl:$lwjglVersion"
+	implementation "org.lwjgl:lwjgl-stb:$lwjglVersion"
 }
 
-var javaVersion = 8
-
 java {
-	sourceCompatibility = JavaVersion.toVersion(javaVersion)
-	targetCompatibility = JavaVersion.toVersion(javaVersion)
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 	withSourcesJar()
 }
 
 tasks.withType(JavaCompile).configureEach {
-	options.release.set javaVersion
+	options.release.set 8
 }
 
 jar {
 	from("LICENSE") {
 		rename { "${it}_${archivesBaseName}" }
 	}
+}
+
+configurations.configureEach {
+	// Removes LWJGL2 dependencies
+	exclude group: "org.lwjgl.lwjgl"
 }
 
 processResources {

@@ -27,25 +27,25 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "bta.aether.Aether"
-    ],
-    "preLaunch": [
-      "bta.aether.world.AetherDimension"
+      "teamport.aether.Aether"
     ],
     "beforeGameStart": [
-      "bta.aether.Aether"
-    ],
-    "beforeClientStart": [
-      "bta.aether.AetherClient"
+      "teamport.aether.Aether"
     ],
     "afterGameStart": [
-      "bta.aether.Aether"
+      "teamport.aether.Aether"
     ],
-    "recipesReady": [
-      "bta.aether.AetherRecipes"
+    "client": [
+      "teamport.aether.AetherClient"
     ],
-    "terrain-api": [
-      "bta.aether.compat.terrainapi.TerrainAPIPlugin"
+    "beforeClientStart": [
+      "teamport.aether.AetherClient"
+    ],
+    "afterClientStart": [
+      "teamport.aether.AetherClient"
+    ],
+    "server": [
+      "teamport.aether.AetherServer"
     ]
   },
   "mixins": [
