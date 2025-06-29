@@ -13,6 +13,6 @@ public class AetherServer implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        LOGGER.info("Aether server initialized.");
+        LOGGER.info("AetherMod server initialized.");
     }
 }

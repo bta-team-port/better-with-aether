@@ -16,7 +16,8 @@
     "Kheprep",
     "azurelmao",
     "ToufouMaster",
-    "bagu_chan"
+    "bagu_chan",
+    "Tocinin"
   ],
   "icon": "icon.png",
   "contact": {
@@ -27,13 +28,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "teamport.aether.Aether"
+      "teamport.aether.AetherMod"
     ],
     "beforeGameStart": [
-      "teamport.aether.Aether"
+      "teamport.aether.AetherMod"
     ],
     "afterGameStart": [
-      "teamport.aether.Aether"
+      "teamport.aether.AetherMod"
     ],
     "client": [
       "teamport.aether.AetherClient"
@@ -44,6 +45,9 @@
     "afterClientStart": [
       "teamport.aether.AetherClient"
     ],
+    "initModels": [
+      "teamport.aether.models.AetherModels"
+    ],
     "server": [
       "teamport.aether.AetherServer"
     ]
@@ -53,7 +57,6 @@
   ],
   "accessWidener": "aether.accesswidener",
   "depends": {
-    "minecraft": "~7.1",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {
