@@ -29,6 +29,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         } catch (URISyntaxException | IOException e) {
             LOGGER.error("Failed to initialize textures!");
         }
+
     }
 
     @Override

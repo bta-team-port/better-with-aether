@@ -3,16 +3,18 @@ package teamport.aether;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.minecraft.client.sound.SoundRepository;
+
+import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
+import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.SERVER)
 public class AetherServer implements DedicatedServerModInitializer {
-    public static final String MOD_ID = "aether|server";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitializeServer() {
+        SoundRepository.registerNamespace(MOD_ID);
+
         LOGGER.info("AetherMod server initialized.");
     }
 }

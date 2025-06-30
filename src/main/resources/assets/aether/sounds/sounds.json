@@ -1,0 +1,20 @@
+{
+  "aether.tune": {
+    "subtitle": "subtitles.aether.aether.tune",
+    "sounds": [
+      "aether.tune.ogg"
+    ]
+  },
+  "a.morning.wish": {
+    "subtitle": "subtitles.aether.a.morning.wish",
+    "sounds": [
+      "a.morning.wish.ogg"
+    ]
+  },
+  "ascending.dawn": {
+    "subtitle": "subtitles.aether.ascending.dawn",
+    "sounds": [
+      "ascending.dawn.ogg"
+    ]
+  }
+}

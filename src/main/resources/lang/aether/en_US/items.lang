@@ -49,8 +49,8 @@ item.aether.tool.sword.pig.desc=Magical dagger that kills pig-like creatures in 
 item.aether.tool.sword.vampire.name=Vampire Blade
 item.aether.tool.sword.vampire.desc=Vampiric sword that drains the health of enemies, giving you a fair share.
 
-item.aether.tool.sword.flaming.name=Flaming Sword
-item.aether.tool.sword.flaming.desc=An elemental blade imbued with the power of fire.
+item.aether.tool.sword.flame.name=Flaming Sword
+item.aether.tool.sword.flame.desc=An elemental blade imbued with the power of fire.
 item.aether.tool.sword.holy.name=Holy Sword
 item.aether.tool.sword.holy.desc=An elemental blade imbued with the power of light.
 item.aether.tool.sword.lightning.name=Lightning Sword
@@ -66,23 +66,21 @@ item.aether.tool.knife.lightning.desc=Throwable dagger that strikes the foe with
 
 item.aether.tool.hammer.notch.name=Hammer of Notch
 item.aether.tool.hammer.notch.desc=Legendary hammer with a special attack for groups of foes.
+item.aether.ammo.hammer.head.name=Hammer Head
+item.aether.ammo.hammer.head.desc=Projectile launched from the hammer of Notch.
 
 item.aether.tool.bow.phoenix.name=Phoenix Bow
 item.aether.tool.bow.phoenix.desc=A weapon for shooting rapid-fire flaming arrows.
 
-item.aether.ammo.dart.gold.name=Golden Dart
-item.aether.ammo.dart.gold.desc=A gold spiked projectile for firing from a dart shooter.
+item.aether.ammo.dart.golden.name=Golden Dart
+item.aether.ammo.dart.golden.desc=A gold spiked projectile for firing from a dart shooter.
 item.aether.ammo.dart.poison.name=Poison Dart
 item.aether.ammo.dart.poison.desc=A gold tipped projectile for firing from a poison shooter.
 item.aether.ammo.dart.enchanted.name=Enchanted Dart
 item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from an enchanted shooter.
 
-item.aether.tool.dart.shooter.name=Dart Shooter
-item.aether.tool.dart.shooter.desc=A weapon for blowing rapid-fire darts.
-item.aether.tool.dart.shooter.poison.name=Poison Dart Shooter
-item.aether.tool.dart.shooter.poison.desc=A poisoned weapon for blowing rapid-fire poison darts.
-item.aether.tool.dart.shooter.enchanted.name=Enchanted Dart Shooter
-item.aether.tool.dart.shooter.enchanted.desc=An enchanted weapon for blowing rapid-fire enchanted darts.
+item.aether.tool.shooter.name=Dart Shooter
+item.aether.tool.shooter.desc=A weapon for blowing rapid-fire darts.
 
 item.aether.bucket.skyroot.name=Skyroot Bucket
 item.aether.bucket.skyroot.desc=Used to pickup various liquids.
@@ -97,10 +95,10 @@ item.aether.bucket.skyroot.remedy.desc=A bucket used to cure poison.
 item.aether.bucket.skyroot.icecream.name=Skyroot Bucket of Ice Cream
 item.aether.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa flakes and a cherry!
 
-item.aether.cloud.parachute.name=Cloud Parachute
-item.aether.cloud.parachute.desc=Gently glide down when activated. Works if you fall out of The Aether.
-item.aether.cloud.parachute.gold.name=Golden Parachute
-item.aether.cloud.parachute.gold.desc=Gently glide down when activated. Works if you fall out of The Aether.
+item.aether.parachute.cloud.name=Cloud Parachute
+item.aether.parachute.cloud.desc=Gently glide down when activated. Works if you fall out of The Aether.
+item.aether.parachute.cloud.gold.name=Golden Parachute
+item.aether.parachute.cloud.gold.desc=Gently glide down when activated. Works if you fall out of The Aether.
 
 #Armor
 item.aether.armor.helmet.zanite.name=Zanite Helmet
@@ -171,8 +169,8 @@ item.aether.armor.gloves.neptune.name=Neptune Gloves
 item.aether.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
 
 #Dungeon
-item.aether.victorymedal.name=Victory Medal
-item.aether.victorymedal.desc=A prize for defeating a valiant valkyrie. Collect 10!
+item.aether.medal.victory.name=Victory Medal
+item.aether.medal.victory.desc=A prize for defeating a valkyrie. Collect 10!
 
 item.aether.key.bronze.name=Bronze Key
 item.aether.key.bronze.desc=Dropped by the Slider, use it on a treasure chest!
@@ -255,17 +253,17 @@ item.aether.egg.moa.black.desc=Laid by a black moa, place it in an incubator.
 item.aether.egg.moa.white.name=White Moa Egg
 item.aether.egg.moa.white.desc=Laid by a white moa, place it in an incubator.
 
-item.aether.record.blue.name=Aether Music Disc
-item.aether.record.blue.desc=§baethertune
-item.aether.record.silver.name=Aether Music Disc
-item.aether.record.silver.desc=§8amorningwish
-item.aether.record.pink.name=Aether Music Disc
-item.aether.record.pink.desc=§6ascendingdawn
+item.aether.record.aether.name=Aether Music Disc
+item.aether.record.aether.desc=§baethertune
+item.aether.record.morning.name=Aether Music Disc
+item.aether.record.morning.desc=§8amorningwish
+item.aether.record.dawn.name=Aether Music Disc
+item.aether.record.dawn.desc=§6ascendingdawn
 
-item.aether.goldenamber.name=Golden Amber
-item.aether.goldenamber.desc=Harvested from a golden oak, useful for darts.
-item.aether.aechorpetal.name=Aechor Petal
-item.aether.aechorpetal.desc=Collected from a aechor plant, a great treat for a baby moa!
+item.aether.amber.name=Golden Amber
+item.aether.amber.desc=Harvested from a golden oak, useful for darts.
+item.aether.petal.aechor.name=Aechor Petal
+item.aether.petal.aechor.desc=Collected from an aechor plant, a great treat for a baby moa!
 
 item.aether.stick.skyroot.name=Skyroot Stick
 item.aether.stick.skyroot.desc=Found at the ends of branches. Can craft various Aether items.
@@ -275,8 +273,8 @@ item.aether.ambrosium.desc=A magical fuel found in holystone, can be eaten.
 item.aether.zanite.name=Zanite Gemstone
 item.aether.zanite.desc=A shiny purple gemstone used to make tools.
 
-item.aether.food.healingstone.name=Healing Stone
-item.aether.food.healingstone.desc=Enchanted rock turned into food, tastes holy!
+item.aether.food.healing.stone.name=Healing Stone
+item.aether.food.healing.stone.desc=Enchanted rock turned into food, tastes divine!
 
 item.aether.food.gummy.blue.name=Blue Gummy Swet
 item.aether.food.gummy.blue.desc=Tasty blue swet flavored sweet. Heals a lot!
@@ -288,3 +286,8 @@ item.aether.food.lifeshard.desc=Permanently increases your maximum health by one
 
 item.aether.lantern.firefly.silver.name=Silver Firefly Lantern
 item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.
+
+item.aether.door.skyroot.name=Skyroot Door
+item.aether.door.skyroot.desc=Every home needs one.
+item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
+item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.

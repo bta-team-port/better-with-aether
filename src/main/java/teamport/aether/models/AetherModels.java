@@ -4,9 +4,14 @@ import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.*;
+import net.minecraft.client.render.entity.EntityRendererSprite;
+import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
+import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.projectile.ProjectileHammerHead;
+import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
@@ -245,14 +250,142 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setBlockModel(AetherBlocks.TORCH_AMBROSIUM, () -> new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
                 .setAllTextures(0, "aether:block/torch_ambrosium"));
 
+        ModelHelper.setBlockModel(AetherBlocks.LANTERN_FIREFLY_SILVER, () -> new BlockModelLantern<>(AetherBlocks.LANTERN_FIREFLY_SILVER)
+                .setAllTextures(0, "aether:block/lantern_firefly_silver"));
+
     }
 
     @Override
     public void initItemModels(ItemModelDispatcher dispatcher) {
+
+        ModelHelper.setItemModel(AetherItems.MEDAL_VICTORY, () -> new ItemModelStandard(AetherItems.MEDAL_VICTORY, null).setIcon("aether:item/medal_victory"));
+
+        ModelHelper.setItemModel(AetherItems.KEY_BRONZE, () -> new ItemModelStandard(AetherItems.KEY_BRONZE, null).setIcon("aether:item/key_bronze"));
+        ModelHelper.setItemModel(AetherItems.KEY_SILVER, () -> new ItemModelStandard(AetherItems.KEY_SILVER, null).setIcon("aether:item/key_silver"));
+        ModelHelper.setItemModel(AetherItems.KEY_GOLD, () -> new ItemModelStandard(AetherItems.KEY_GOLD, null).setIcon("aether:item/key_gold"));
+
+        ModelHelper.setItemModel(AetherItems.EGG_MOA_BLUE, () -> new ItemModelStandard(AetherItems.EGG_MOA_BLUE, null).setIcon("aether:item/egg_moa_blue"));
+        ModelHelper.setItemModel(AetherItems.EGG_MOA_WHITE, () -> new ItemModelStandard(AetherItems.EGG_MOA_WHITE, null).setIcon("aether:item/egg_moa_white"));
+        ModelHelper.setItemModel(AetherItems.EGG_MOA_BLACK, () -> new ItemModelStandard(AetherItems.EGG_MOA_BLACK, null).setIcon("aether:item/egg_moa_black"));
+
+        ModelHelper.setItemModel(AetherItems.RECORD_AETHER, () -> new ItemModelStandard(AetherItems.RECORD_AETHER, null).setIcon("aether:item/record_aether"));
+        ModelHelper.setItemModel(AetherItems.RECORD_MORNING, () -> new ItemModelStandard(AetherItems.RECORD_MORNING, null).setIcon("aether:item/record_morning"));
+        ModelHelper.setItemModel(AetherItems.RECORD_DAWN, () -> new ItemModelStandard(AetherItems.RECORD_DAWN, null).setIcon("aether:item/record_dawn"));
+
+        ModelHelper.setItemModel(AetherItems.AMBER, () -> new ItemModelStandard(AetherItems.AMBER, null).setIcon("aether:item/amber"));
+        ModelHelper.setItemModel(AetherItems.PETAL_AECHOR, () -> new ItemModelStandard(AetherItems.PETAL_AECHOR, null).setIcon("aether:item/petal_aechor"));
+        ModelHelper.setItemModel(AetherItems.STICK_SKYROOT, () -> new ItemModelStandard(AetherItems.STICK_SKYROOT, null).setIcon("aether:item/stick_skyroot"));
+
+
+        ModelHelper.setItemModel(AetherItems.AMBROSIUM, () -> new ItemModelStandard(AetherItems.AMBROSIUM, null).setIcon("aether:item/ambrosium"));
+        ModelHelper.setItemModel(AetherItems.ZANITE, () -> new ItemModelStandard(AetherItems.ZANITE, null).setIcon("aether:item/zanite"));
+
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT, null).setIcon("aether:item/bucket_skyroot"));
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT_WATER, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT_WATER, null).setIcon("aether:item/bucket_skyroot_water"));
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT_MILK, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT_MILK, null).setIcon("aether:item/bucket_skyroot_milk"));
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT_POISON, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT_POISON, null).setIcon("aether:item/bucket_skyroot_poison"));
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT_REMEDY, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT_REMEDY, null).setIcon("aether:item/bucket_skyroot_remedy"));
+        ModelHelper.setItemModel(AetherItems.BUCKET_SKYROOT_ICECREAM, () -> new ItemModelStandard(AetherItems.BUCKET_SKYROOT_ICECREAM, null).setIcon("aether:item/bucket_skyroot_icecream"));
+
+
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_SKYROOT, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_SKYROOT, null).setIcon("aether:item/tool_sword_skyroot").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOVEL_SKYROOT, () -> new ItemModelStandard(AetherItems.TOOL_SHOVEL_SKYROOT, null).setIcon("aether:item/tool_shovel_skyroot").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_PICKAXE_SKYROOT, () -> new ItemModelStandard(AetherItems.TOOL_PICKAXE_SKYROOT, null).setIcon("aether:item/tool_pickaxe_skyroot").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_AXE_SKYROOT, () -> new ItemModelStandard(AetherItems.TOOL_AXE_SKYROOT, null).setIcon("aether:item/tool_axe_skyroot").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_HOLYSTONE, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_HOLYSTONE, null).setIcon("aether:item/tool_sword_holystone").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOVEL_HOLYSTONE, () -> new ItemModelStandard(AetherItems.TOOL_SHOVEL_HOLYSTONE, null).setIcon("aether:item/tool_shovel_holystone").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_PICKAXE_HOLYSTONE, () -> new ItemModelStandard(AetherItems.TOOL_PICKAXE_HOLYSTONE, null).setIcon("aether:item/tool_pickaxe_holystone").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_AXE_HOLYSTONE, () -> new ItemModelStandard(AetherItems.TOOL_AXE_HOLYSTONE, null).setIcon("aether:item/tool_axe_holystone").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_ZANITE, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_ZANITE, null).setIcon("aether:item/tool_sword_zanite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOVEL_ZANITE, () -> new ItemModelStandard(AetherItems.TOOL_SHOVEL_ZANITE, null).setIcon("aether:item/tool_shovel_zanite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_PICKAXE_ZANITE, () -> new ItemModelStandard(AetherItems.TOOL_PICKAXE_ZANITE, null).setIcon("aether:item/tool_pickaxe_zanite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_AXE_ZANITE, () -> new ItemModelStandard(AetherItems.TOOL_AXE_ZANITE, null).setIcon("aether:item/tool_axe_zanite").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_GRAVITITE, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_GRAVITITE, null).setIcon("aether:item/tool_sword_gravitite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOVEL_GRAVITITE, () -> new ItemModelStandard(AetherItems.TOOL_SHOVEL_GRAVITITE, null).setIcon("aether:item/tool_shovel_gravitite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_PICKAXE_GRAVITITE, () -> new ItemModelStandard(AetherItems.TOOL_PICKAXE_GRAVITITE, null).setIcon("aether:item/tool_pickaxe_gravitite").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_AXE_GRAVITITE, () -> new ItemModelStandard(AetherItems.TOOL_AXE_GRAVITITE, null).setIcon("aether:item/tool_axe_gravitite").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_VALKYRIE, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_VALKYRIE, null).setIcon("aether:item/tool_sword_valk"));
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOVEL_VALKYRIE, () -> new ItemModelStandard(AetherItems.TOOL_SHOVEL_VALKYRIE, null).setIcon("aether:item/tool_shovel_valk").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_PICKAXE_VALKYRIE, () -> new ItemModelStandard(AetherItems.TOOL_PICKAXE_VALKYRIE, null).setIcon("aether:item/tool_pickaxe_valk").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_AXE_VALKYRIE, () -> new ItemModelStandard(AetherItems.TOOL_AXE_VALKYRIE, null).setIcon("aether:item/tool_axe_valk").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_KNIFE_LIGHTNING, () -> new ItemModelStandard(AetherItems.TOOL_KNIFE_LIGHTNING, null).setIcon("aether:item/tool_knife_lightning").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_HAMMER_NOTCH, () -> new ItemModelStandard(AetherItems.TOOL_HAMMER_NOTCH, null).setIcon("aether:item/tool_hammer_notch").setFull3D());
+        ModelHelper.setItemModel(AetherItems.AMMO_HAMMER_HEAD, () -> new ItemModelStandard(AetherItems.AMMO_HAMMER_HEAD, null).setIcon("aether:item/notch_wave"));
+
+
+        ModelHelper.setItemModel(AetherItems.TOOL_BOW_PHOENIX, () -> new ItemModelBow(AetherItems.TOOL_BOW_PHOENIX, null).setIcon("aether:item/tool_bow_phoenix"));
+
+        ModelHelper.setItemModel(AetherItems.AMMO_DART_GOLDEN, () -> new ItemModelStandard(AetherItems.AMMO_DART_GOLDEN, null).setIcon("aether:item/dart_golden"));
+        ModelHelper.setItemModel(AetherItems.AMMO_DART_POISON, () -> new ItemModelStandard(AetherItems.AMMO_DART_POISON, null).setIcon("aether:item/dart_poison"));
+        ModelHelper.setItemModel(AetherItems.AMMO_DART_ENCHANTED, () -> new ItemModelStandard(AetherItems.AMMO_DART_ENCHANTED, null).setIcon("aether:item/dart_enchanted"));
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SHOOTER, () -> new ItemModelStandard(AetherItems.TOOL_SHOOTER, null).setIcon("aether:item/shooter_gold"));
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_PIG, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_PIG, null).setIcon("aether:item/tool_knife_pig").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_VAMPIRE, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_VAMPIRE, null).setIcon("aether:item/tool_sword_vampire").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_FLAME, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_FLAME, null).setIcon("aether:item/tool_sword_element_fire").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_HOLY, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_HOLY, null).setIcon("aether:item/tool_sword_element_holy").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_SWORD_LIGHTNING, () -> new ItemModelStandard(AetherItems.TOOL_SWORD_LIGHTNING, null).setIcon("aether:item/tool_sword_element_lightning").setFull3D());
+
+        ModelHelper.setItemModel(AetherItems.TOOL_STAFF_NATURE, () -> new ItemModelStandard(AetherItems.TOOL_STAFF_NATURE, null).setIcon("aether:item/staff_nature").setFull3D());
+        ModelHelper.setItemModel(AetherItems.TOOL_STAFF_CLOUD, () -> new ItemModelStandard(AetherItems.TOOL_STAFF_CLOUD, null).setIcon("aether:item/staff_cloud").setFull3D());
+
+
+        ModelHelper.setItemModel(AetherItems.ARMOR_HELMET_ZANITE, () -> new ItemModelStandard(AetherItems.ARMOR_HELMET_ZANITE, null).setIcon("aether:item/armor_helmet_zanite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_CHESTPLATE_ZANITE, () -> new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_ZANITE, null).setIcon("aether:item/armor_chestplate_zanite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_LEGGINGS_ZANITE, () -> new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_ZANITE, null).setIcon("aether:item/armor_leggings_zanite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_BOOTS_ZANITE, () -> new ItemModelStandard(AetherItems.ARMOR_BOOTS_ZANITE, null).setIcon("aether:item/armor_boots_zanite"));
+
+        ModelHelper.setItemModel(AetherItems.ARMOR_HELMET_GRAVITITE, () -> new ItemModelStandard(AetherItems.ARMOR_HELMET_GRAVITITE, null).setIcon("aether:item/armor_helmet_gravitite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_CHESTPLATE_GRAVITITE, () -> new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_GRAVITITE, null).setIcon("aether:item/armor_chestplate_gravitite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_LEGGINGS_GRAVITITE, () -> new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_GRAVITITE, null).setIcon("aether:item/armor_leggings_gravitite"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_BOOTS_GRAVITITE, () -> new ItemModelStandard(AetherItems.ARMOR_BOOTS_GRAVITITE, null).setIcon("aether:item/armor_boots_gravitite"));
+
+        ModelHelper.setItemModel(AetherItems.ARMOR_HELMET_OBSIDIAN, () -> new ItemModelStandard(AetherItems.ARMOR_HELMET_OBSIDIAN, null).setIcon("aether:item/armor_helmet_obsidian"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_CHESTPLATE_OBSIDIAN, () -> new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_OBSIDIAN, null).setIcon("aether:item/armor_chestplate_obsidian"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_LEGGINGS_OBSIDIAN, () -> new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_OBSIDIAN, null).setIcon("aether:item/armor_leggings_obsidian"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_BOOTS_OBSIDIAN, () -> new ItemModelStandard(AetherItems.ARMOR_BOOTS_OBSIDIAN, null).setIcon("aether:item/armor_boots_obsidian"));
+
+        ModelHelper.setItemModel(AetherItems.ARMOR_HELMET_PHOENIX, () -> new ItemModelStandard(AetherItems.ARMOR_HELMET_PHOENIX, null).setIcon("aether:item/armor_helmet_phoenix"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_CHESTPLATE_PHOENIX, () -> new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_PHOENIX, null).setIcon("aether:item/armor_chestplate_phoenix"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_LEGGINGS_PHOENIX, () -> new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_PHOENIX, null).setIcon("aether:item/armor_leggings_phoenix"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_BOOTS_PHOENIX, () -> new ItemModelStandard(AetherItems.ARMOR_BOOTS_PHOENIX, null).setIcon("aether:item/armor_boots_phoenix"));
+
+        ModelHelper.setItemModel(AetherItems.ARMOR_HELMET_NEPTUNE, () -> new ItemModelStandard(AetherItems.ARMOR_HELMET_NEPTUNE, null).setIcon("aether:item/armor_helmet_neptune"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_CHESTPLATE_NEPTUNE, () -> new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_NEPTUNE, null).setIcon("aether:item/armor_chestplate_neptune"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_LEGGINGS_NEPTUNE, () -> new ItemModelStandard(AetherItems.ARMOR_LEGGINGS_NEPTUNE, null).setIcon("aether:item/armor_leggings_neptune"));
+        ModelHelper.setItemModel(AetherItems.ARMOR_BOOTS_NEPTUNE, () -> new ItemModelStandard(AetherItems.ARMOR_BOOTS_NEPTUNE, null).setIcon("aether:item/armor_boots_neptune"));
+
+
+        ModelHelper.setItemModel(AetherItems.FOOD_HEALING_STONE, () -> new ItemModelStandard(AetherItems.FOOD_HEALING_STONE, null).setIcon("aether:item/food_healing_stone"));
+
+        ModelHelper.setItemModel(AetherItems.FOOD_GUMMY_BLUE, () -> new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_gold"));
+        ModelHelper.setItemModel(AetherItems.FOOD_GUMMY_GOLD, () -> new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_blue"));
+
+        ModelHelper.setItemModel(AetherItems.LIFESHARD, () -> new ItemModelStandard(AetherItems.LIFESHARD, null).setIcon("aether:item/food_lifeshard"));
+
+        ModelHelper.setItemModel(AetherItems.PARACHUTE_CLOUD, () -> new ItemModelStandard(AetherItems.PARACHUTE_CLOUD, null).setIcon("aether:item/parachute"));
+        ModelHelper.setItemModel(AetherItems.PARACHUTE_CLOUD_GOLD, () -> new ItemModelStandard(AetherItems.PARACHUTE_CLOUD_GOLD, null).setIcon("aether:item/parachute_gold"));
+
+
+        ModelHelper.setItemModel(AetherItems.LANTERN_FIREFLY_SILVER, () -> new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver"));
+        ModelHelper.setItemModel(AetherItems.DOOR_SKYROOT, () -> new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
+        ModelHelper.setItemModel(AetherItems.DOOR_GLASS_AMBROSIUM, () -> new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
+
     }
 
     @Override
     public void initEntityModels(EntityRenderDispatcher dispatcher) {
+
+        ModelHelper.setEntityModel(ProjectileHammerHead.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD));
+
     }
 
     @Override
