@@ -6,6 +6,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import teamport.aether.AetherAchievements;
 
 public class BlockLogicCloudBlue extends BlockLogicCloudBase{
     public BlockLogicCloudBlue(Block<?> block) {
@@ -43,7 +44,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase{
             this.jump(entity);
         }
         if (entity instanceof Player) {
-//            ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
+            ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
         }
     }
 
