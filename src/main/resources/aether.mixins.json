@@ -4,8 +4,10 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ItemsAccessor"
   ],
   "client": [
+    "MinecraftMixin"
   ],
   "server": [
   ],
