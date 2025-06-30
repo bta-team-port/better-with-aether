@@ -234,7 +234,7 @@ public class AetherItems {
         TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.valkyrie", "aether:item/tool_axe_valkyrie", 17069, AetherToolMaterial.valkyrie));
 
         TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID).build(new ItemToolKnifeLightning("tool.knife.lightning", "aether:item/tool_knife_lightning", 17037));
-        AMMO_HAMMER_HEAD = new ItemBuilder(MOD_ID).build(new Item("ammo.hammer.head", "aether:item/ammo_hammer_head", 17038)).withTags(ItemTags.NOT_IN_CREATIVE_MENU);
+        AMMO_HAMMER_HEAD = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.hammer.head", "aether:item/ammo_hammer_head", 17038));
         TOOL_HAMMER_NOTCH = new ItemBuilder(MOD_ID).build(new ItemToolHammerNotch("tool.hammer.notch", "aether:item/tool_hammer_notch", 17039, AetherToolMaterial.special));
 
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemBowPhoenix("tool.bow.phoenix", "aether:item/tool_bow_phoenix", 17040));
@@ -295,11 +295,14 @@ public class AetherItems {
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", "aether:item/parachute_cloud", 17106));
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", "aether:item/parachute_cloud_gold", 17107));
 
-
-
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", "aether:item/lantern_firefly_silver", 17110, AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", "aether:item/door_skyroot", 17111, AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
         DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemDoor("door.glass.ambrosium", "aether:item/door_glass_ambrosium", 17112, AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));
+
+        AMMO_WINDBALL = new ItemBuilder(MOD_ID).build(new Item("ammo.windball", "aether:item/ammo_windball", 17115));
+        PROJECTILE_FIRE = new ItemBuilder(MOD_ID).build(new Item("projectile.fire", "aether:item/projectile_fire", 17116));
+        PROJECTILE_ICE = new ItemBuilder(MOD_ID).build(new Item("projectile.ice", "aether:item/projectile_ice", 17117));
+        PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID).build(new Item("projectile.lightning", "aether:item/projectile_lightning", 17118));
 
 
 

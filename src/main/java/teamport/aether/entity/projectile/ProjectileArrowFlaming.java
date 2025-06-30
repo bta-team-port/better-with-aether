@@ -5,8 +5,10 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
+import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 
@@ -57,6 +59,38 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
             this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
 
             super.tick();
+        }
+    }
+
+    public void onHit(HitResult hitResult) {
+        if (hitResult.entity != null) {
+            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
+                if (this.isOnFire()) {
+                    hitResult.entity.fireHurt();
+                }
+
+                if (!this.world.isClientSide) {
+                    this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                    hitResult.entity.maxFireTicks = 30 * 20;
+                    hitResult.entity.remainingFireTicks = 30 * 20;
+                    this.remove();
+                }
+            } else {
+                this.xTile = hitResult.x;
+                this.yTile = hitResult.y;
+                this.zTile = hitResult.z;
+                this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
+                this.inData = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                this.xd = (float) (hitResult.location.x - this.x);
+                this.yd = (float) (hitResult.location.y - this.y);
+                this.zd = (float) (hitResult.location.z - this.z);
+                float f1 = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
+                this.x -= this.xd / (double) f1 * 0.05;
+                this.y -= this.yd / (double) f1 * 0.05;
+                this.z -= this.zd / (double) f1 * 0.05;
+                this.inGroundAction();
+            }
+
         }
     }
 
