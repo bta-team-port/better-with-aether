@@ -6,10 +6,11 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobChicken;
 import net.minecraft.core.entity.animal.MobCow;
-import net.minecraft.core.item.Items;
+import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
 import net.minecraft.core.world.Dimension;
+import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.BlockBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -127,6 +128,8 @@ public class AetherBlocks {
     public static Block<?> CARVED_STONE_TRAPPED;
     public static Block<?> CARVED_ANGELIC_TRAPPED;
 
+    public static Block<?> LANTERN_FIREFLY_SILVER;
+
 //    public static Block<?> ;
 
     public void initializeBlocks() {
@@ -135,20 +138,20 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(0.8f)
-                .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         BlockBuilder wood = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setFlammability(20, 5)
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT);
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
         BlockBuilder dungeonStone = stone
                 .setResistance(1.0f);
 
         BlockBuilder dungeonStoneLocked = stone
-                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(-1.0f)
                 .setResistance(-1.0f);
 
@@ -156,7 +159,7 @@ public class AetherBlocks {
                 .setBlockSound(BlockSounds.METAL)
                 .setHardness(3.0f)
                 .setResistance(10.0f)
-                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT);
+                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         BlockBuilder flower = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -169,7 +172,7 @@ public class AetherBlocks {
                 .setHardness(2.0F)
                 .setResistance(1.0f)
                 .setFlammability(5, 5)
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT);
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
         BlockBuilder leaves = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -178,7 +181,7 @@ public class AetherBlocks {
                 .setFlammability(30, 60)
                 .setTickOnLoad()
                 .setVisualUpdateOnMetadata()
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
+                .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
 
         BlockBuilder sapling = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -217,14 +220,14 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.3f)
                 .setResistance(0.6f)
-                .setTags(BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("grass", 10001, b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
-                .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
+                .setBlockSound(BlockSounds.GRAVEL)
                 .setHardness(0.2f)
                 .setResistance(0.2f)
-                .setTags(BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("dirt", 10002, b -> new BlockLogic(b, Material.dirt));
 
 
@@ -235,7 +238,7 @@ public class AetherBlocks {
                 .build("holystone.polished", 10051, b -> new BlockLogic(b, Material.marble));
 
         HOLYSTONE_CARVED = stone
-                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("holystone.carved", 10052, b -> new BlockLogic(b, Material.marble));
 
         SLAB_HOLYSTONE_POLISHED = slab
@@ -285,7 +288,7 @@ public class AetherBlocks {
                 .setHardness(3.0f)
                 .setResistance(3.0f)
                 .setTickOnLoad()
-                .setTags(BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("icestone", 10070, BlockLogicIceStone::new);
 
 
@@ -293,7 +296,7 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.sand", "step.gravel", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(0.5f)
-                .setTags(BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("quicksoil", 10030, BlockLogicQuicksoil::new);
 
 
@@ -312,9 +315,9 @@ public class AetherBlocks {
                 .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
-                .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.glass.quicksoil.bottom", 10032, block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, false, false, () -> Items.AMMO_ARROW));
+                .build("door.glass.quicksoil.bottom", 10032, block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
 
         DOOR_GLASS_QUICKSOIL_TOP = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -322,9 +325,9 @@ public class AetherBlocks {
                 .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
-                .setTags(BlockTags.MINEABLE_BY_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.glass.quicksoil.top", 10033, block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, true, false, () -> Items.AMMO_ARROW));
+                .build("door.glass.quicksoil.top", 10033, block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
 
         TRAPDOOR_GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -359,23 +362,23 @@ public class AetherBlocks {
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
                 .build("fence.planks.skyroot", 10043, BlockLogicFence::new);
         FENCEGATE_PLANKS_SKYROOT = stairs
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.FENCES_CONNECT)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
                 .build("fencegate.planks.skyroot", 10044, BlockLogicFenceGate::new);
 
         DOOR_PLANKS_SKYROOT_BOTTOM = wood
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", 10045, b -> new BlockLogicDoor(b, Material.wood, false, false, () -> Items.AMMO_ARROW));
+                .build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", 10045, b -> new BlockLogicDoor(b, Material.wood, false, false, () -> AetherItems.DOOR_SKYROOT));
         DOOR_PLANKS_SKYROOT_TOP = wood
-                .setTags(BlockTags.MINEABLE_BY_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.planks.skyroot.top", "door_planks_skyroot_top", 10046, b -> new BlockLogicDoor(b, Material.wood, true, false, () -> Items.AMMO_ARROW));
+                .build("door.planks.skyroot.top", "door_planks_skyroot_top", 10046, b -> new BlockLogicDoor(b, Material.wood, true, false, () -> AetherItems.DOOR_SKYROOT));
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
@@ -426,7 +429,7 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(1.0f)
                 .setResistance(2000.0f)
-                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
                 .build("aerogel", 10083, b -> new BlockLogicTransparent(b, Material.stone));
 
 
@@ -514,9 +517,9 @@ public class AetherBlocks {
                 .build("carved.hellfire.light", 10111, b -> new BlockLogic(b, Material.stone));
 
 
-        PILLAR = dungeonStoneLocked
+        PILLAR = dungeonStone
                 .build("pillar", 10120, b -> new BlockLogicAxisAligned(b, Material.stone));
-        PILLAR_CAPSTONE = dungeonStoneLocked
+        PILLAR_CAPSTONE = dungeonStone
                 .build("pillar.capstone", 10121, b -> new BlockLogicAxisAligned(b, Material.stone));
 
 
@@ -557,6 +560,17 @@ public class AetherBlocks {
 
         CHEST_MIMIC = wood
                 .build("chest.mimic", 10138, BlockLogicChestMimic::new);
+
+
+        LANTERN_FIREFLY_SILVER = new BlockBuilder(MOD_ID)
+                .setBlockSound(BlockSounds.GLASS)
+                .setHardness(0.1f)
+                .setResistance(0.1f)
+                .setUseInternalLight()
+                .setLuminance(14)
+                .setVisualUpdateOnMetadata()
+                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+                .build("lantern.firefly.silver", 10150, b -> new BlockLogicLanternFirefly(b, MobFireflyCluster.FireflyColor.BLUE, () -> AetherItems.LANTERN_FIREFLY_SILVER));
     }
 
 
