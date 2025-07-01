@@ -6,13 +6,16 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.data.gamerule.GameRules;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.IBonemealable;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 import java.util.Random;
 
-public class BlockLogicGrassAether extends BlockLogic {
+public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
     public final Block<?> dirt;
 
     public BlockLogicGrassAether(Block<?> block, Block<?> dirt) {
@@ -59,6 +62,27 @@ public class BlockLogicGrassAether extends BlockLogic {
 
         }
     }
+
+    public boolean onBonemealUsed(ItemStack itemstack,  Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+        Random random = new Random();
+        for (int l = 0; l < 16; ++l) {
+            Block<?> plantBlock = new Block[]{AetherBlocks.FLOWER_PURPLE, AetherBlocks.TALLGRASS_AETHER, AetherBlocks.FLOWER_WHITE, AetherBlocks.TALLGRASS_AETHER}[random.nextInt(4)];
+
+            int x = blockX + random.nextInt(8) - random.nextInt(8);
+            int y = blockY + random.nextInt(4) - random.nextInt(4);
+            int z = blockZ + random.nextInt(8) - random.nextInt(8);
+
+            if (world.isAirBlock(x, y, z) && (plantBlock.canBlockStay(world, x, y, z))) {
+                world.setBlockWithNotify(x, y, z, plantBlock.id());
+            }
+        }
+        if (player.getGamemode().consumeBlocks()) {
+            --itemstack.stackSize;
+        }
+        player.swingItem();
+        return false;
+    }
+
 
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {

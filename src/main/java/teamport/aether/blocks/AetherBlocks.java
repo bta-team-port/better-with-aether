@@ -220,13 +220,14 @@ public class AetherBlocks {
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("portal.aether", "portal_aether", 10000, b -> new BlockLogicPortal(b, Dimension.OVERWORLD, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
+        //TODO Portal Model and texture are a bit broken atm, and portal doesnt seem to every light up
 
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.3f)
                 .setResistance(0.6f)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("grass.aether", "grass_aether", 10001, b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
@@ -234,7 +235,7 @@ public class AetherBlocks {
                 .setHardness(0.2f)
                 .setResistance(0.2f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
-                .build("dirt.aether", "dirt_aether", 10002, b -> new BlockLogic(b, Material.dirt));
+                .build("dirt.aether", "dirt_aether", 10002, b -> new BlockLogicDirtAether(b));
 
         PATH_DIRT_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.GRAVEL)
