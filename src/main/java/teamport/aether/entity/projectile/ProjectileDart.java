@@ -1,9 +1,11 @@
 package teamport.aether.entity.projectile;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.entity.projectile.ProjectileArrow;
+import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -12,29 +14,30 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.ProjectileDartEnchanted;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileDart extends ProjectileArrow {
+public class ProjectileDart extends Projectile {
     public static final int TYPE_GOLDEN = 0;
     public static final int TYPE_POISON = 1;
     public static final int TYPE_ENCHANTED = 2;
-    public int mobsHit;
-    public int xTile;
-    public int yTile;
-    public int zTile;
-    public int inTile;
+    protected int mobsHit;
+    protected int xTile;
+    protected int yTile;
+    protected int zTile;
+    protected int inTile;
     public int shake;
-    public int inData;
-    public int arrowType;
-    public ItemStack stack;
-    public boolean inGround;
-    public boolean doesArrowBelongToPlayer;
+    protected int inData;
+    protected int dartType;
+    protected ItemStack stack;
+    protected boolean inGround;
+    protected boolean doesDartBelongToPlayer;
 
     public ProjectileDart(World world) {
         this(world, 0);
     }
 
-    public ProjectileDart(World world, int arrowType) {
+    public ProjectileDart(World world, int dartType) {
         super(world);
         this.mobsHit = 0;
         this.xTile = -1;
@@ -45,12 +48,12 @@ public class ProjectileDart extends ProjectileArrow {
         this.inData = 0;
         this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
         this.inGround = false;
-        this.doesArrowBelongToPlayer = false;
-        this.arrowType = arrowType;
+        this.doesDartBelongToPlayer = false;
+        this.dartType = dartType;
     }
 
-    public ProjectileDart(World world, double d, double d1, double d2, int arrowType) {
-        super(world, d, d1, d2, arrowType);
+    public ProjectileDart(World world, double d, double d1, double d2, int dartType) {
+        super(world, d, d1, d2);
         this.mobsHit = 0;
         this.xTile = -1;
         this.yTile = -1;
@@ -60,12 +63,12 @@ public class ProjectileDart extends ProjectileArrow {
         this.inData = 0;
         this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
         this.inGround = false;
-        this.doesArrowBelongToPlayer = false;
-        this.arrowType = arrowType;
+        this.doesDartBelongToPlayer = false;
+        this.dartType = dartType;
     }
 
-    public ProjectileDart(World world, boolean doesArrowBelongToPlayer, int arrowType) {
-        super(world);
+    public ProjectileDart(World world, Mob entityliving, boolean doesDartBelongToPlayer, int dartType) {
+        super(world, entityliving);
         this.mobsHit = 0;
         this.xTile = -1;
         this.yTile = -1;
@@ -75,22 +78,22 @@ public class ProjectileDart extends ProjectileArrow {
         this.inData = 0;
         this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
         this.inGround = false;
-        this.doesArrowBelongToPlayer = false;
-        this.setDoesArrowBelongToPlayer(doesArrowBelongToPlayer);
-        this.arrowType = arrowType;
+        this.doesDartBelongToPlayer = false;
+        this.setDoesDartBelongToPlayer(doesDartBelongToPlayer);
+        this.dartType = dartType;
     }
 
-    public void initProjectile() {
+    protected void initProjectile() {
         super.initProjectile();
         this.damage = 5;
     }
 
-    public void setDoesArrowBelongToPlayer(boolean flag) {
-        this.doesArrowBelongToPlayer = flag;
+    public void setDoesDartBelongToPlayer(boolean flag) {
+        this.doesDartBelongToPlayer = flag;
     }
 
-    public boolean arrowBelongsToPlayer() {
-        return this.doesArrowBelongToPlayer;
+    public boolean dartBelongsToPlayer() {
+        return this.doesDartBelongToPlayer;
     }
 
     public void setGrounded(boolean flag) {
@@ -153,6 +156,12 @@ public class ProjectileDart extends ProjectileArrow {
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
+        } else {
+            if (this instanceof ProjectileDartEnchanted) {
+                this.world.spawnParticle("arrowtrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+                this.world.spawnParticle("arrowtrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            }
+
             super.tick();
         }
     }
@@ -173,6 +182,19 @@ public class ProjectileDart extends ProjectileArrow {
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
+
+                if (!(this instanceof ProjectileDartEnchanted)) {
+                    this.remove();
+                } else if (this.owner instanceof Player && ++this.mobsHit >= 3) {
+                    ((Player)this.owner).addStat(Achievements.TRIPLE_HIT, 1);
+                }
+            } else if (!(this instanceof ProjectileDartEnchanted)) {
+                this.xd *= -0.1;
+                this.yd *= -0.1;
+                this.zd *= -0.1;
+                this.yRot += 180.0F;
+                this.yRotO += 180.0F;
+                this.ticksInAir = 0;
             }
         } else {
             this.xTile = hitResult.x;
@@ -189,13 +211,14 @@ public class ProjectileDart extends ProjectileArrow {
             this.z -= this.zd / (double)f1 * 0.05;
             this.inGroundAction();
         }
+
     }
 
-    public void inGroundAction() {
+    protected void inGroundAction() {
         if (this.world.isClientSide) {
             this.setGrounded(true);
             this.shake = 7;
-        } else if (this.arrowBelongsToPlayer()) {
+        } else if (this.dartBelongsToPlayer()) {
             this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             this.setGrounded(true);
             this.shake = 7;
@@ -210,8 +233,8 @@ public class ProjectileDart extends ProjectileArrow {
         }
     }
 
-    public int getArrowType() {
-        return this.arrowType;
+    public int getDartType() {
+        return this.dartType;
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -223,7 +246,7 @@ public class ProjectileDart extends ProjectileArrow {
         tag.putByte("shake", (byte)this.shake);
         tag.putByte("inData", (byte)this.inData);
         tag.putByte("inGround", (byte)(this.isGrounded() ? 1 : 0));
-        tag.putBoolean("player", this.arrowBelongsToPlayer());
+        tag.putBoolean("player", this.dartBelongsToPlayer());
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -235,12 +258,12 @@ public class ProjectileDart extends ProjectileArrow {
         this.shake = tag.getByte("shake") & 255;
         this.inData = tag.getByte("inData") & 255;
         this.setGrounded(tag.getByte("inGround") == 1);
-        this.setDoesArrowBelongToPlayer(tag.getBoolean("player"));
+        this.setDoesDartBelongToPlayer(tag.getBoolean("player"));
     }
 
     public void playerTouch(Player player) {
         if (!this.world.isClientSide) {
-            if (this.isGrounded() && this.arrowBelongsToPlayer() && this.shake <= 0) {
+            if (this.isGrounded() && this.dartBelongsToPlayer() && this.shake <= 0) {
                 player.inventory.insertItem(this.stack, true);
                 if (this.stack.stackSize <= 0) {
                     this.world.playSoundAtEntity(player, this, "item.pickup", 1.0F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 4.0F);
@@ -248,6 +271,7 @@ public class ProjectileDart extends ProjectileArrow {
                     this.remove();
                 }
             }
+
         }
     }
 }
