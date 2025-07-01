@@ -8,6 +8,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
+import teamport.aether.items.AetherItems;
 
 public class BlockLogicOreAmbrosium extends BlockLogic {
     public static WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
@@ -25,7 +26,7 @@ public class BlockLogicOreAmbrosium extends BlockLogic {
             case EXPLOSION:
             case PROPER_TOOL:
             case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherBlocks.BLOCK_AMBROSIUM)};
+                return new ItemStack[]{new ItemStack(AetherItems.AMBROSIUM)};
             default:
                 return null;
         }

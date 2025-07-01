@@ -45,10 +45,10 @@ public class ProjectileKnifeLightning extends Projectile {
     public void doEffect() {
         world.entityJoinedWorld(new EntityLightning(world, this.x, this.y + 0.5, this.z));
         for (int j = 0; j < 8; ++j) {
-//            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-//            this.world.spawnParticle("smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-//            this.world.spawnParticle("largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-//            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
         }
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
+import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.helper.ParticleHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -23,6 +24,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     @Override
     public void beforeClientStart() {
         ParticleHelper.createParticle("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
+        ParticleHelper.createParticle("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
         SoundRepository.registerNamespace(MOD_ID);
 
         try {

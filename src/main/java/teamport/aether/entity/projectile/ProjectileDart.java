@@ -158,8 +158,8 @@ public class ProjectileDart extends Projectile {
             }
         } else {
             if (this instanceof ProjectileDartEnchanted) {
-                this.world.spawnParticle("arrowtrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-                this.world.spawnParticle("arrowtrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+                this.world.spawnParticle("darttrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+                this.world.spawnParticle("darttrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             }
 
             super.tick();
