@@ -75,9 +75,9 @@ item.aether.tool.bow.phoenix.desc=A weapon for shooting rapid-fire flaming arrow
 item.aether.ammo.dart.golden.name=Golden Dart
 item.aether.ammo.dart.golden.desc=A gold spiked projectile for firing from a dart shooter.
 item.aether.ammo.dart.poison.name=Poison Dart
-item.aether.ammo.dart.poison.desc=A gold tipped projectile for firing from a poison shooter.
+item.aether.ammo.dart.poison.desc=A poison tipped projectile for firing from a dart shooter.
 item.aether.ammo.dart.enchanted.name=Enchanted Dart
-item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from an enchanted shooter.
+item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from a dart shooter.
 
 item.aether.tool.shooter.name=Dart Shooter
 item.aether.tool.shooter.desc=A weapon for blowing rapid-fire darts.
@@ -181,45 +181,37 @@ item.aether.key.gold.desc=Dropped by the Sun Spirit, use it on a treasure chest!
 
 
 #Accessories
-item.aether.armor.ring.iron.name=Iron Ring
-item.aether.armor.ring.iron.desc=A strong iron ring.
-item.aether.armor.ring.gold.name=Gold Ring
-item.aether.armor.ring.gold.desc=A delicate gold ring
-item.aether.armor.ring.zanite.name=Zanite Ring
-item.aether.armor.ring.zanite.desc=A shiny zanite ring
-item.aether.armor.ring.ice.name=Ice Ring
-item.aether.armor.ring.ice.desc=A freezing ice ring
 
-item.aether.armor.pendant.iron.name=Iron Pendant
-item.aether.armor.pendant.iron.desc=A strong iron pendant.
-item.aether.armor.pendant.gold.name=Gold Pendant
-item.aether.armor.pendant.gold.desc=A delicate gold pendant.
-item.aether.armor.pendant.zanite.name=Zanite Pendant
-item.aether.armor.pendant.zanite.desc=A shiny zanite pendant.
-item.aether.armor.pendant.ice.name=Ice Pendant
-item.aether.armor.pendant.ice.desc=A freezing ice pendant.
-item.aether.armor.pendant.leather.name=Leather Pendant
-item.aether.armor.pendant.leather.desc=A pendant made from a cow's hide.
-item.aether.armor.pendant.chain.name=Chain Pendant
-item.aether.armor.pendant.chain.desc=A pendant made up of tiny chains. Can be repaired.
-item.aether.armor.pendant.diamond.name=Diamond Pendant
-item.aether.armor.pendant.diamond.desc=A fancy diamond pendant.
-item.aether.armor.pendant.steel.name=Steel Pendant
-item.aether.armor.pendant.steel.desc=A durable steel pendant.
-item.aether.armor.pendant.gravitite.name=Gravitite Pendant
-item.aether.armor.pendant.gravitite.desc=A forceful gravitite pendant.
+item.aether.armor.talisman.iron.name=Iron Pendant
+item.aether.armor.talisman.iron.desc=A strong iron pendant.
+item.aether.armor.talisman.gold.name=Gold Pendant
+item.aether.armor.talisman.gold.desc=A delicate gold pendant.
+item.aether.armor.talisman.zanite.name=Zanite Pendant
+item.aether.armor.talisman.zanite.desc=A shiny zanite pendant.
+item.aether.armor.talisman.ice.name=Ice Pendant
+item.aether.armor.talisman.ice.desc=A freezing ice pendant.
+item.aether.armor.talisman.leather.name=Leather Pendant
+item.aether.armor.talisman.leather.desc=A pendant made from a cow's hide.
+item.aether.armor.talisman.chain.name=Chain Pendant
+item.aether.armor.talisman.chain.desc=A pendant made up of tiny chains. Can be repaired.
+item.aether.armor.talisman.diamond.name=Diamond Pendant
+item.aether.armor.talisman.diamond.desc=A fancy diamond pendant.
+item.aether.armor.talisman.steel.name=Steel Pendant
+item.aether.armor.talisman.steel.desc=A durable steel pendant.
+item.aether.armor.talisman.gravitite.name=Gravitite Pendant
+item.aether.armor.talisman.gravitite.desc=A forceful gravitite pendant.
 
-item.aether.armor.talisman.ironbubble.name=Iron Bubble
-item.aether.armor.talisman.ironbubble.desc=Allows you to breathe underwater forever.
+item.aether.armor.talisman.bubble.name=Iron Bubble
+item.aether.armor.talisman.bubble.desc=Allows you to breathe underwater forever.
 
-item.aether.armor.talisman.goldenfeather.name=Golden Feather
-item.aether.armor.talisman.goldenfeather.desc=Lets you gently float to the ground without taking fall damage.
+item.aether.armor.talisman.feather.gold.name=Golden Feather
+item.aether.armor.talisman.feather.gold.desc=Lets you gently float to the ground without taking fall damage.
 
-item.aether.armor.talisman.regenstone.name=Regeneration Stone
-item.aether.armor.talisman.regenstone.desc=Regenerates your health over time.
+item.aether.armor.talisman.regen.name=Regeneration Stone
+item.aether.armor.talisman.regen.desc=Regenerates your health over time.
 
-item.aether.armor.shield.repulsion.name=Shield of Repulsion
-item.aether.armor.shield.repulsion.desc=While standing still, all projectiles will bounce off of you.
+item.aether.tool.shield.repulsion.name=Shield of Repulsion
+item.aether.tool.shield.repulsion.desc=While standing still, all projectiles will bounce off of you.
 
 item.aether.armor.cape.swet.name=Swet Cape
 item.aether.armor.cape.swet.desc=Rare decorative cape with an emblem of a swet.
@@ -291,3 +283,15 @@ item.aether.door.skyroot.name=Skyroot Door
 item.aether.door.skyroot.desc=Every home needs one.
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
+
+item.aether.ammo.windball.name=Wind Charge
+item.aether.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
+
+item.aether.projectile.fire.name=Fire Crystal
+item.aether.projectile.fire.desc=Crystallized projectile made of fire.
+item.aether.projectile.ice.name=Ice Crystal
+item.aether.projectile.ice.desc=Crystallized projectile made of ice.
+item.aether.projectile.lightning.name=Lightning Crystal
+item.aether.projectile.lightning.desc=Crystallized projectile made of lightning.
+
+

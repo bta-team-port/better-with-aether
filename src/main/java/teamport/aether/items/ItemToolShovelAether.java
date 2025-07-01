@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
@@ -37,6 +38,14 @@ public class ItemToolShovelAether extends ItemTool {
             world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.PATH_DIRT.id());
+                itemstack.damageItem(1, entityplayer);
+            }
+            return true;
+        }
+        if (side != Side.BOTTOM && blockAbove == 0 && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
+            world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
+            if (!world.isClientSide) {
+                world.setBlockWithNotify(blockX, blockY, blockZ, AetherBlocks.PATH_DIRT_AETHER.id());
                 itemstack.damageItem(1, entityplayer);
             }
             return true;

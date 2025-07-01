@@ -3,20 +3,20 @@ tile.aether.portal.aether.name=Aether Portal
 tile.aether.portal.aether.desc=A portal to the Aether.
 
 #Natural
-tile.aether.dirt.name=Aether Dirt
-tile.aether.dirt.desc=Crumbly pale dirt.
-tile.aether.grass.name=Aether Grass
-tile.aether.grass.desc=Pale grass from a lost paradise.
-tile.aether.grass.tall.name=Aether Tall Grass
-tile.aether.grass.tall.desc=Pale grass from a lost paradise.
+tile.aether.dirt.aether.name=Aether Dirt
+tile.aether.dirt.aether.desc=Crumbly pale dirt.
+tile.aether.grass.aether.name=Aether Grass
+tile.aether.grass.aether.desc=Pale, frosted grass.
+tile.aether.path.dirt.aether.name=Aether Dirt Path
+tile.aether.path.dirt.aether.desc=Aether dirt worn down from frequent traveling.
 
-tile.aether.grass.tall.name=Tall Aether Grass
-tile.aether.grass.tall.desc=Rich, sprouting aether grass.
+tile.aether.tallgrass.aether.name=Tall Aether Grass
+tile.aether.tallgrass.aether.desc=Cold, sprouting aether grass.
 
 tile.aether.flower.white.name=White Flower
 tile.aether.flower.white.desc=A majestic white flower.
 tile.aether.flower.purple.name=Purple Flower
-tile.aether.flower.purple.desc=A majestic purple flower.
+tile.aether.flower.purple.desc=A gorgeous purple flower.
 
 tile.aether.quicksoil.name=Quicksoil
 tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.

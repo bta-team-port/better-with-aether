@@ -21,11 +21,10 @@ public class BlockLogicOreGravitite extends BlockLogic {
         switch (dropCause) {
             case SILK_TOUCH:
             case PICK_BLOCK:
-                return new ItemStack[]{new ItemStack(this)};
             case EXPLOSION:
             case PROPER_TOOL:
             case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(AetherBlocks.BLOCK_GRAVITITE)};
+                return new ItemStack[]{new ItemStack(this)};
             default:
                 return null;
         }

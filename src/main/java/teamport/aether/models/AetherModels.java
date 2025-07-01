@@ -28,13 +28,18 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(0, "aether:block/portal_aether"));
 
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.GRASS_AETHER)
+        dispatcher.addDispatch(new BlockModelGrassAether<>(AetherBlocks.GRASS_AETHER)
                 .setTex(0, "aether:block/grass_aether/top", Side.TOP)
                 .setTex(0, "aether:block/grass_aether/bottom", Side.BOTTOM)
-                .setTex(0, "aether:block/grass_aether/side", Side.sides));
+                .setTex(0, "aether:block/grass_aether/side", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DIRT_AETHER)
                 .setAllTextures(0, "aether:block/dirt_aether"));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PATH_DIRT_AETHER)
+                .setTex(0, "aether:block/grass_path_aether/top", Side.TOP)
+                .setTex(0, "aether:block/grass_path_aether/bottom", Side.BOTTOM)
+                .setTex(0, "aether:block/grass_path_aether/side", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH));
 
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE)
@@ -77,11 +82,13 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_GLASS_QUICKSOIL).onRenderLayer(1)
                 .setTex(0, "aether:block/trapdoor/glass_quicksoil/top", Side.TOP, Side.BOTTOM)
-                .setTex(0, "aether:block/trapdoor/glass_quicksoil/side", Side.sides));
+                .setTex(0, "aether:block/trapdoor/glass_quicksoil/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
 
         dispatcher.addDispatch(new BlockModelFlowerStackable<>(AetherBlocks.FLOWER_PURPLE, "aether:block/flower_purple/"));
         dispatcher.addDispatch(new BlockModelFlowerStackable<>(AetherBlocks.FLOWER_WHITE, "aether:block/flower_white/"));
+
+        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.TALLGRASS_AETHER).setAllTextures(0, "aether:block/tallgrass_aether"));
 
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PLANKS_SKYROOT)
@@ -96,7 +103,7 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
                 .setTex(0, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
-                .setTex(0, "aether:block/trapdoor/skyroot/side", Side.sides));
+                .setTex(0, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
         dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT, "aether:block/chest/skyroot/")
                 .setAllTextures(0, "aether:block/chest/skyroot/top"));
@@ -321,7 +328,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_HAMMER_NOTCH, null).setIcon("aether:item/tool_hammer_notch").setFull3D());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_HAMMER_HEAD, null).setIcon("aether:item/notch_wave"));
 
-
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHIELD_REPULSION, null).setIcon("aether:item/tool_shield_repulsion"));
         dispatcher.addDispatch(new ItemModelBow(AetherItems.TOOL_BOW_PHOENIX, null).setIcon("aether:item/tool_bow_phoenix"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_GOLDEN, null).setIcon("aether:item/dart_golden"));
@@ -367,6 +374,30 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_BOOTS_NEPTUNE, null).setIcon("aether:item/armor_boots_neptune"));
 
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_REGEN, null).setIcon("aether:item/accessory_healing"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_BUBBLE, null).setIcon("aether:item/accessory_bubble"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_FEATHER_GOLD, null).setIcon("aether:item/accessory_feather"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_LEATHER, null).setIcon("aether:item/armor_pendant_leather"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_CHAIN, null).setIcon("aether:item/armor_pendant_chain"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_IRON, null).setIcon("aether:item/armor_pendant_iron"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_GOLD, null).setIcon("aether:item/armor_pendant_gold"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_DIAMOND, null).setIcon("aether:item/armor_pendant_diamond"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_STEEL, null).setIcon("aether:item/armor_pendant_steel"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_ZANITE, null).setIcon("aether:item/armor_pendant_zanite"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_GRAVITITE, null).setIcon("aether:item/armor_pendant_gravitite"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_TALISMAN_ICE, null).setIcon("aether:item/armor_pendant_ice"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_AGILITY, null).setIcon("aether:item/armor_cape_agility"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SWET, null).setIcon("aether:item/armor_cape_swet"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_INVISIBILITY, null).setIcon("aether:item/armor_cape_invisibility"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_WHITE, null).setIcon("aether:item/armor_cape_white"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_RED, null).setIcon("aether:item/armor_cape_red"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_YELLOW, null).setIcon("aether:item/armor_cape_yellow"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_BLUE, null).setIcon("aether:item/armor_cape_blue"));
+
+
+
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_HEALING_STONE, null).setIcon("aether:item/food_healing_stone"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_gold"));
@@ -381,6 +412,11 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_ICE, null).setIcon("aether:item/projectile_ice"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_LIGHTNING, null).setIcon("aether:item/projectile_lightning"));
 
     }
 

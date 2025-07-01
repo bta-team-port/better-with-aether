@@ -4,10 +4,14 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ItemsAccessor"
+    "BlockLogicPathDirtMixin",
+    "ItemsAccessor",
+    "ItemToolShovelMixin",
+    "accessors.ItemToolSwordAccessor"
   ],
   "client": [
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "PlayerControllerValkToolsReachMixin"
   ],
   "server": [
   ],
