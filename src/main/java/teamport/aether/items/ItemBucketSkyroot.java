@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Random;
 
 public class ItemBucketSkyroot extends Item {
-    private final @Nullable Block<?> blockToPlace;
+    public final @Nullable Block<?> blockToPlace;
 
     public ItemBucketSkyroot(String name, String namespaceId, int id, @Nullable Block<?> blockToPlace) {
         super(name, namespaceId, id);

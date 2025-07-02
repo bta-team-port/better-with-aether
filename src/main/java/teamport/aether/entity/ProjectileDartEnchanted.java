@@ -26,7 +26,7 @@ public class ProjectileDartEnchanted extends ProjectileDart {
         this.stack = new ItemStack(AetherItems.AMMO_DART_ENCHANTED);
     }
 
-    protected void initProjectile() {
+    public void initProjectile() {
         super.initProjectile();
         this.defaultGravity = 0.02F;
         this.defaultProjectileSpeed = 1.0F;
