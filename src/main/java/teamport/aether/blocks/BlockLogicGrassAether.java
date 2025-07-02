@@ -6,12 +6,17 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.data.gamerule.GameRules;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.IBonemealable;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import teamport.aether.items.AetherItems;
 
 import java.util.Random;
 
@@ -81,6 +86,21 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
         }
         player.swingItem();
         return false;
+    }
+
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
+        world.setBlockMetadataWithNotify(x, y, z, 1);
+    }
+
+    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+        return 1;
+    }
+
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
+        ItemStack heldItem = player.getHeldItem();
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
+            this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
+        }
     }
 
 

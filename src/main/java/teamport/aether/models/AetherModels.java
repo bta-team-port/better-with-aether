@@ -116,10 +116,10 @@ public class AetherModels implements ModelEntrypoint {
 
 
 
-        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.LOG_SKYROOT)
+        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
                 .setTex(0, "aether:block/log/skyroot_side", Side.sides)
                 .setTex(0, "aether:block/log/skyroot_top", Side.TOP, Side.BOTTOM));
-        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.LOG_OAK_GOLDEN)
+        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_OAK_GOLDEN)
                 .setTex(0, "aether:block/log/oak_golden_side", Side.sides)
                 .setTex(0, "aether:block/log/oak_golden_top", Side.TOP, Side.BOTTOM));
 
