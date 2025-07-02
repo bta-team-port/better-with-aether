@@ -47,7 +47,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
 
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (entity.yd < 0.0) {
-            entity.yd *= 0.1;
+            entity.yd *= 0.005;
             entity.fallDistance = 0.0F;
         }
     }

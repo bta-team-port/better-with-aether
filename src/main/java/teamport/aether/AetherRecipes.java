@@ -63,10 +63,10 @@ public class AetherRecipes implements RecipeEntrypoint {
         // Crafting Recipes Blocks
 
         RecipeBuilderShaped jukebox = new RecipeBuilderShaped(MOD_ID, "XXX", "XGX", "XXX");
-        jukebox.addInput('X', "minecraft:planks").addInput('G', "aether:gems").create("ladder", new ItemStack(Blocks.JUKEBOX, 1));
+        jukebox.addInput('X', "minecraft:planks").addInput('G', "aether:gems").create("jukebox", new ItemStack(Blocks.JUKEBOX, 1));
 
         RecipeBuilderShaped sticks = new RecipeBuilderShaped(MOD_ID, "X X", "XXX", "X X");
-        sticks.addInput('X', "aether:sticks").create("jukebox", new ItemStack(Blocks.LADDER_OAK, 2));
+        sticks.addInput('X', "aether:sticks").create("ladder", new ItemStack(Blocks.LADDER_OAK, 2));
 
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_SKYROOT).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT, 4));

@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.phys.AABB;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.AetherAchievements;
@@ -14,16 +15,16 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase{
     }
 
     public void jump(Entity entity) {
-        if (entity != null && entity.yd < 1.0D) {
-            entity.yd = 0.0D;
+        entity.fallDistance = 0.0F;
+        if (!entity.isSneaking()) {
             entity.fallDistance = 0.0F;
-            entity.push(0.0D, 2.0D, 0.0D);
+            entity.yd = 2.0f;
         }
     }
 
     @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getPermanentBB(0, y, 0, 0, y, 0);
+        return AABB.getPermanentBB(x, y, z, 0, y, 0);
     }
 
     @Override
@@ -32,14 +33,15 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase{
         entity.fallDistance = 0.0F;
     }
 
+    public void handleEntityInside(World world, int x, int y, int z, Entity entity, Vec3 entityVelocity) {
+        this.jump(entity);
+        entity.fallDistance = 0.0F;
+    }
+
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         entity.fallDistance = 0.0F;
 
-        if (entity.yd < 0.0) {
-            entity.yd *= 0.1;
-            entity.fallDistance = 0.0F;
-        }
         if (entity.y > (double) y) {
             this.jump(entity);
         }

@@ -171,7 +171,7 @@ public class AetherBlocks {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.0f)
                 .setResistance(0.0f)
-                .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR);
+                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH);
 
         BlockBuilder log = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.WOOD)
@@ -264,10 +264,10 @@ public class AetherBlocks {
 
 
         COBBLE_HOLYSTONE = stone
-                .build("cobble.holystone", "cobble_holystone", 10055, b -> new BlockLogicCobble(b, Material.marble, () -> Blocks.GRAVEL));
+                .build("cobble.holystone", "cobble_holystone", 10055, b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
 
         COBBLE_HOLYSTONE_MOSSY = stone
-                .build("cobble.holystone.mossy", "cobble_holystone_mossy", 10056, b -> new BlockLogicCobble(b, Material.marble, () -> Blocks.GRAVEL));
+                .build("cobble.holystone.mossy", "cobble_holystone_mossy", 10056, b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
 
         STAIRS_COBBLE_HOLYSTONE = stairs
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
@@ -355,10 +355,10 @@ public class AetherBlocks {
 
 
         FLOWER_PURPLE = flower
-                .build("flower.purple", "flower_purple", 10020, BlockLogicFlowerStackable::new);
+                .build("flower.purple", "flower_purple", 10020, (b) -> (BlockLogicFlowerStackable)(new BlockLogicFlowerStackable(b)).setKilledByWeather().setBonemealable());
 
         FLOWER_WHITE = flower
-                .build("flower.white", "flower_white", 10021, BlockLogicFlowerStackable::new);
+                .build("flower.white", "flower_white", 10021, (b) -> (BlockLogicFlowerStackable)(new BlockLogicFlowerStackable(b)).setKilledByWeather().setBonemealable());
 
         TALLGRASS_AETHER = flower
                 .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES)
@@ -417,10 +417,10 @@ public class AetherBlocks {
 
 
         LOG_SKYROOT = log
-                .build("log.skyroot", "log_skyroot", 10010, BlockLogicLog::new);
+                .build("log.skyroot", "log_skyroot", 10010, BlockLogicLogAether::new);
 
         LOG_OAK_GOLDEN = log
-                .build("log.oak.golden", "log_oak_golden", 10011, BlockLogicLog::new);
+                .build("log.oak.golden", "log_oak_golden", 10011, BlockLogicLogAether::new);
 
 
         LEAVES_SKYROOT = leaves

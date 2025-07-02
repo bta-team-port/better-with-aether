@@ -1,36 +1,35 @@
 package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.BlockLogicAxisAligned;
+import net.minecraft.core.block.BlockLogicLog;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.PlacementMode;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
-public class BlockLogicQuicksoil extends BlockLogic {
-    public BlockLogicQuicksoil(Block<?> block) {
-        super(block, Material.dirt);
-        block.friction = 1.1f;
+public class BlockLogicLogAether extends BlockLogicLog {
+    public BlockLogicLogAether(Block<?> block) {
+        super(block);
     }
 
+    @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
-            world.setBlockMetadataWithNotify(x, y, z, 1);
-        }
-
-    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
-        return 1;
+        Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).getAxis();
+        world.setBlockMetadataWithNotify(x, y, z, BlockLogicAxisAligned.axisToMeta(axis) + 4);
     }
 
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
             this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
         }
     }
+
 }
