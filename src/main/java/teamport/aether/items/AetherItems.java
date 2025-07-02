@@ -199,6 +199,7 @@ public class AetherItems {
         BUCKET_SKYROOT_REMEDY = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), 17033, null)).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_POISON = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), 17034, null)).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_ICECREAM = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootIceCream("bucket.skyroot.icecream", itemKey("bucket_skyroot_icecream"), 17035, 10, 4)).setContainerItem(BUCKET_SKYROOT);
+        //TODO Poison and remedy buckets need to be drinkable and give effects
 
 
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), 17050, AetherToolMaterial.skyroot));
@@ -208,7 +209,7 @@ public class AetherItems {
 
         TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.holystone) {
             public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-                if (itemRand.nextInt(25) == 0) {
+                if (itemRand.nextInt(16) == 0) {
                     target.dropItem(AMBROSIUM.id, 1);
                 }
                 itemstack.damageItem(1, attacker);
@@ -221,7 +222,7 @@ public class AetherItems {
                 if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
                     itemstack.damageItem(1, mob);
                 }
-                if (itemRand.nextInt(50) == 0) {
+                if (itemRand.nextInt(32) == 0) {
                     world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
                 }
                 return true;
@@ -233,7 +234,7 @@ public class AetherItems {
                 if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
                     itemstack.damageItem(1, mob);
                 }
-                if (itemRand.nextInt(50) == 0) {
+                if (itemRand.nextInt(32) == 0) {
                     world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
                 }
                 return true;
@@ -245,7 +246,7 @@ public class AetherItems {
                 if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
                     itemstack.damageItem(1, mob);
                 }
-                if (itemRand.nextInt(50) == 0) {
+                if (itemRand.nextInt(32) == 0) {
                     world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
                 }
                 return true;
@@ -256,11 +257,13 @@ public class AetherItems {
         TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.zanite));
         TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.zanite));
         TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.zanite));
+        //TODO Zanite tools need their ability where they mine faster as you use them
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.gravitite));
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.gravitite));
         TOOL_PICKAXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), 17064, AetherToolMaterial.gravitite));
         TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.gravitite", itemKey("tool_axe_gravitite"), 17065, AetherToolMaterial.gravitite));
+        //TODO Gravitite tools need their ability to make blocks that you right click float up, blocks only float up if you are using the right tool and it uses durability
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), 17066, AetherToolMaterial.valkyrie));
         TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), 17067, AetherToolMaterial.valkyrie));
@@ -268,18 +271,22 @@ public class AetherItems {
         TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), 17069, AetherToolMaterial.valkyrie));
 
         TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), 17037));
+        //TODO Lightning knife model is a bit broken
         AMMO_HAMMER_HEAD = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), 17038));
         TOOL_HAMMER_NOTCH = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), 17039, AetherToolMaterial.special));
 
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), 17040));
+        //TODO potentially add flaming arrow versions of golden arrows/purple arrows
 
         AMMO_DART_GOLDEN = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.golden", itemKey("ammo_dart_golden"), 17041));
         AMMO_DART_POISON = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.poison", itemKey("ammo_dart_poison"), 17042));
         AMMO_DART_ENCHANTED = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), 17043));
+        //TODO Poison darts need to be added and given their effect when they hit something, enchanted darts need their ability to be more accurate and do more damage
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID).build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), 17044));
 
         TOOL_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new Item("tool.shield.repulsion", itemKey("tool_shield_repulsion"), 17045));
+        //TODO Shield needs its ability to activate when held, blocks all projectiles from hitting you
 
 
 
@@ -287,11 +294,13 @@ public class AetherItems {
         ARMOR_CHESTPLATE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), 17071, AetherArmorMaterial.zanite, 2));
         ARMOR_LEGGINGS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.zanite", itemKey("armor_leggings_zanite"), 17072, AetherArmorMaterial.zanite, 1));
         ARMOR_BOOTS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.zanite", itemKey("armor_boots_zanite"), 17073, AetherArmorMaterial.zanite, 0));
+        //TODO Zanite armor needs its ability to get higher protection as its durability goes down
 
         ARMOR_HELMET_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.gravitite", itemKey("armor_helmet_gravitite"), 17074, AetherArmorMaterial.gravitite, 3));
         ARMOR_CHESTPLATE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), 17075, AetherArmorMaterial.gravitite, 2));
         ARMOR_LEGGINGS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.gravitite", itemKey("armor_leggings_gravitite"), 17076, AetherArmorMaterial.gravitite, 1));
         ARMOR_BOOTS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.gravitite", itemKey("armor_boots_gravitite"), 17077, AetherArmorMaterial.gravitite, 0));
+        //TODO Gravitite armor needs its ability to remove fall damage and give the user a double jump when the full set is worn
 
         ARMOR_HELMET_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), 17078, AetherArmorMaterial.obsidian, 3));
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), 17079, AetherArmorMaterial.obsidian, 2));
@@ -302,11 +311,13 @@ public class AetherItems {
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.phoenix, 2));
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), 17084, AetherArmorMaterial.phoenix, 1));
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), 17085, AetherArmorMaterial.phoenix, 0));
+        //TODO Phoenix armor needs its ability to completely negate fire and lava damage when the full set is equipped, possibly losing durability as you swim in lava unharmed
 
         ARMOR_HELMET_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.neptune", itemKey("armor_helmet_neptune"), 17086, AetherArmorMaterial.neptune, 3));
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), 17087, AetherArmorMaterial.neptune, 2));
         ARMOR_LEGGINGS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.neptune", itemKey("armor_leggings_neptune"), 17088, AetherArmorMaterial.neptune, 1));
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), 17089, AetherArmorMaterial.neptune, 0));
+        //TODO Neptune armor needs its ability to grant the player to have full speed underwater, full mining speed, and let the player jump out of water at full block height when full set is equipped
 
         ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.leather", itemKey("armor_gloves_leather"), 17150));
         ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.chain", itemKey("armor_gloves_chain"), 17151));
@@ -319,6 +330,7 @@ public class AetherItems {
         ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), 17158));
         ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), 17159));
         ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.neptune", itemKey("armor_gloves_neptune"), 17160));
+        //TODO Gloves need their system added and be wearable
 
 
         TOOL_SWORD_PIG = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), 17090, AetherToolMaterial.special));
@@ -330,11 +342,14 @@ public class AetherItems {
 
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), 17095));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), 17096));
+        //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
+        //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system build into bta for that now
 
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), 17120));
         ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.bubble", itemKey("armor_talisman_bubble"), 17121));
         ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), 17122));
+        //TODO all talismans need their effects and also work with the new armor system, regen stone heals half a heart every 5 seconds, iron bubble gives water breathing, feather gold makes you fall like a chicken
 
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.leather", itemKey("armor_talisman_leather"), 17125));
         ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.chain", itemKey("armor_talisman_chain"), 17126));
@@ -345,15 +360,19 @@ public class AetherItems {
         ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.zanite", itemKey("armor_talisman_zanite"), 17131));
         ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), 17132));
         ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.ice", itemKey("armor_talisman_ice"), 17133));
+        //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
+        //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
 
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.agility", itemKey("armor_cape_agility"), 17134));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new Item("armor.cape.swet", itemKey("armor_cape_swet"), 17135));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.invisibility", itemKey("armor_cape_invisibility"), 17136));
+        //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorational, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
         ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.white", itemKey("armor_cape_white"), 17137));
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), 17138));
         ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new Item("armor.cape.yellow", itemKey("armor_cape_yellow"), 17139));
         ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), 17140));
+        //TODO Decorative capes, potenial to add cape color for each wool color,
 
 
 
@@ -363,9 +382,11 @@ public class AetherItems {
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105));
+        //TODO Lifeshards need to grant 1 extra heart every time you use one, up to 10 times, they should play a chime noise each time you eat one and a special chime noise for the final one, check old code it was implemented there
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), 17106));
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), 17107));
+        //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), 17110, AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), 17111, AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
@@ -375,6 +396,7 @@ public class AetherItems {
         PROJECTILE_FIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.fire", itemKey("projectile_fire"), 17116));
         PROJECTILE_ICE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.ice", itemKey("projectile_ice"), 17117));
         PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.lightning", itemKey("projectile_lightning"), 17118));
+        //TODO These are to be used as the textures for the projectile the zephyrs shoot (windball), and the other 3 as the boss projectiles that bounce off walls and can be deflected back
 
 
 

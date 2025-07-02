@@ -204,10 +204,6 @@ public class AetherBlocks {
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata();
 
-        BlockBuilder stairs = new BlockBuilder(MOD_ID)
-                .setUseInternalLight()
-                .setVisualUpdateOnMetadata();
-
         BlockBuilder ores = stone
                 .setHardness(3.0f)
                 .setResistance(15.0f);
@@ -269,7 +265,7 @@ public class AetherBlocks {
         COBBLE_HOLYSTONE_MOSSY = stone
                 .build("cobble.holystone.mossy", "cobble_holystone_mossy", 10056, b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
 
-        STAIRS_COBBLE_HOLYSTONE = stairs
+        STAIRS_COBBLE_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(0.8f)
@@ -285,7 +281,7 @@ public class AetherBlocks {
         BRICK_HOLYSTONE = stone
                 .build("brick.holystone", "brick_holystone", 10060, b -> new BlockLogic(b, Material.marble));
 
-        STAIRS_BRICK_HOLYSTONE = stairs
+        STAIRS_BRICK_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(0.8f)
@@ -372,18 +368,18 @@ public class AetherBlocks {
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .build("slab.planks.skyroot", "slab_planks_skyroot", 10041, b -> new BlockLogicSlab(b, PLANKS_SKYROOT));
-        STAIRS_PLANKS_SKYROOT = stairs
+        STAIRS_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .build("stairs.planks.skyroot", "stairs_planks_skyroot", 10042, b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
-        FENCE_PLANKS_SKYROOT = stairs
+        FENCE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
                 .build("fence.planks.skyroot", "fence_planks_skyroot", 10043, BlockLogicFence::new);
-        FENCEGATE_PLANKS_SKYROOT = stairs
+        FENCEGATE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
@@ -428,6 +424,7 @@ public class AetherBlocks {
 
         LEAVES_OAK_GOLDEN = leaves
                 .build("leaves.oak.golden", "leaves_oak_golden", 10013, block -> new BlockLogicLeavesBase(block, Material.leaves, SAPLING_OAK_GOLDEN));
+        //TODO Make the leaves drop golden apples rarely
 
 
         SAPLING_SKYROOT = sapling
@@ -447,19 +444,16 @@ public class AetherBlocks {
         AEROGEL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(1.0f)
-                .setResistance(2000.0f)
+                .setResistance(6000.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
                 .build("aerogel", "aerogel", 10083, b -> new BlockLogicTransparent(b, Material.stone));
 
 
         TORCH_AMBROSIUM = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-                .setHardness(1.0f)
-                .setResistance(1.0f)
+                .setHardness(0.0f)
                 .setUseInternalLight()
                 .setLuminance(15)
-                .setTicking(true)
-                .setTickOnLoad()
                 .build("torch.ambrosium", "torch_ambrosium", 10005, BlockLogicTorchAmbrosium::new);
 
 
@@ -470,6 +464,7 @@ public class AetherBlocks {
                 .build("ore.zanite.holystone", "ore_zanite_holystone", 10086, b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, Material.stone));
         ORE_GRAVITITE_HOLYSTONE = ores
                 .build("ore.gravitite.holystone", "ore_gravitite_holystone", 10087, b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
+        //TODO Make the block fall upwards
 
         BLOCK_AMBROSIUM = oreBlock
                 .setBlockSound(BlockSounds.STONE)
@@ -547,6 +542,7 @@ public class AetherBlocks {
 
         CHEST_DUNGEON_LOCKED = dungeonStoneLocked
                 .build("chest.dungeon.locked", "chest_dungeon_locked", 10141, BlockLogicChestDungeon::new);
+        //TODO Both chests need a custom tile entity and locked chest able to be unlocked with key to turn into normal one, possibly based on meta data? 0 bronze, 1 silver, 2 gold
 
 
         CARVED_STONE_LOCKED = dungeonStoneLocked
@@ -590,6 +586,7 @@ public class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("lantern.firefly.silver", "lantern_firefly_silver", 10150, b -> new BlockLogicLanternFirefly(b, MobFireflyCluster.FireflyColor.BLUE, () -> AetherItems.LANTERN_FIREFLY_SILVER));
+        //TODO Needs its own firefly color eventually, so it can be obtained
     }
 
 
