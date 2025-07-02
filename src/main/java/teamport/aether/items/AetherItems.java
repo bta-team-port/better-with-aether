@@ -1,8 +1,12 @@
 package teamport.aether.items;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import turniplabs.halplibe.helper.ItemBuilder;
 
@@ -202,10 +206,51 @@ public class AetherItems {
         TOOL_PICKAXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), 17052, AetherToolMaterial.skyroot));
         TOOL_AXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), 17053, AetherToolMaterial.skyroot));
 
-        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.holystone));
-        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.holystone));
-        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.holystone));
-        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.holystone));
+        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.holystone) {
+            public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+                if (itemRand.nextInt(25) == 0) {
+                    target.dropItem(AMBROSIUM.id, 1);
+                }
+                itemstack.damageItem(1, attacker);
+                return true;
+            }
+        });
+        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.holystone) {
+            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
+                Block<?> block = Blocks.blocksList[i];
+                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
+                    itemstack.damageItem(1, mob);
+                }
+                if (itemRand.nextInt(50) == 0) {
+                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
+                }
+                return true;
+            }
+        });
+        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.holystone) {
+            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
+                Block<?> block = Blocks.blocksList[i];
+                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
+                    itemstack.damageItem(1, mob);
+                }
+                if (itemRand.nextInt(50) == 0) {
+                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
+                }
+                return true;
+            }
+        });
+        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.holystone) {
+            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
+                Block<?> block = Blocks.blocksList[i];
+                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
+                    itemstack.damageItem(1, mob);
+                }
+                if (itemRand.nextInt(50) == 0) {
+                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
+                }
+                return true;
+            }
+        });
 
         TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite));
         TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.zanite));
