@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStandard<T> {
-    protected IconCoordinate snowSide = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side");
+    public IconCoordinate snowSide = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side");
 
     public BlockModelGrassAether(Block<T> block) {
         super(block);

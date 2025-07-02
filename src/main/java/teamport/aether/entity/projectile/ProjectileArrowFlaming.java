@@ -94,7 +94,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
         }
     }
 
-    protected void inGroundAction() {
+    public void inGroundAction() {
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
         for(int j = 0; j < 4; ++j) {

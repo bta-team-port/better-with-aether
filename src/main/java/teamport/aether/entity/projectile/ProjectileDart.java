@@ -21,17 +21,17 @@ public class ProjectileDart extends Projectile {
     public static final int TYPE_GOLDEN = 0;
     public static final int TYPE_POISON = 1;
     public static final int TYPE_ENCHANTED = 2;
-    protected int mobsHit;
-    protected int xTile;
-    protected int yTile;
-    protected int zTile;
-    protected int inTile;
+    public int mobsHit;
+    public int xTile;
+    public int yTile;
+    public int zTile;
+    public int inTile;
     public int shake;
-    protected int inData;
-    protected int dartType;
-    protected ItemStack stack;
-    protected boolean inGround;
-    protected boolean doesDartBelongToPlayer;
+    public int inData;
+    public int dartType;
+    public ItemStack stack;
+    public boolean inGround;
+    public boolean doesDartBelongToPlayer;
 
     public ProjectileDart(World world) {
         this(world, 0);
@@ -83,7 +83,7 @@ public class ProjectileDart extends Projectile {
         this.dartType = dartType;
     }
 
-    protected void initProjectile() {
+    public void initProjectile() {
         super.initProjectile();
         this.damage = 5;
     }
@@ -214,7 +214,7 @@ public class ProjectileDart extends Projectile {
 
     }
 
-    protected void inGroundAction() {
+    public void inGroundAction() {
         if (this.world.isClientSide) {
             this.setGrounded(true);
             this.shake = 7;
