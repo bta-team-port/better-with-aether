@@ -1,0 +1,39 @@
+package teamport.aether.blocks;
+
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicLeavesBase;
+import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.material.Material;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
+import net.minecraft.core.world.World;
+
+import java.util.Random;
+
+public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
+    public BlockLogicLeavesOakGolden(Block<?> block) {
+        super(block, Material.leaves, AetherBlocks.SAPLING_OAK_GOLDEN);
+    }
+
+    public void animationTick(World world, int x, int y, int z, Random rand) {
+        if (rand.nextInt(20) == 0) {
+            world.spawnParticle("arrowtrail", x, (double) y - 0.10000000149011612, z, 0.0, (double) y / 2, 0.0, 0);
+        }
+    }
+
+    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        if (dropCause != EnumDropCause.PICK_BLOCK && dropCause != EnumDropCause.SILK_TOUCH) {
+            if (world.rand.nextInt(100) <= 5) {
+                return new ItemStack[]{new ItemStack(AetherBlocks.SAPLING_OAK_GOLDEN, 1)};
+            }
+            if (world.rand.nextInt(100) <= 1) {
+                return new ItemStack[]{new ItemStack(Items.FOOD_APPLE_GOLD, 1)};
+            }
+        } else {
+            return new ItemStack[]{new ItemStack(this)};
+        }
+        return null;
+    }
+
+}
