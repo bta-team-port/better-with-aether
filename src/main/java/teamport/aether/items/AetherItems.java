@@ -258,7 +258,7 @@ public class AetherItems {
         TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite){
             public int getDamageVsEntity(Entity entity, ItemStack is) {
                 // to keep it consistent with other tools
-                float factor = AetherToolMaterial.zanite.getEfficiency(false ) / AetherToolMaterial.zanite.getEfficiency(false);
+                float factor = AetherToolMaterial.zanite.getEfficiency(true ) / AetherToolMaterial.zanite.getEfficiency(false);
 
                 // we will 'lerp' between the starting damage and starting damage time ration of efficiency
                 float durability_progress = (float) is.getMetadata() / this.getMaxDamage();
