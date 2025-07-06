@@ -2,6 +2,7 @@ package teamport.aether.items;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
@@ -254,7 +255,18 @@ public class AetherItems {
             }
         });
 
-        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite));
+        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite){
+            public int getDamageVsEntity(Entity entity, ItemStack is) {
+                // to keep it consistent with other tools
+                float factor = AetherToolMaterial.zanite.getEfficiency(false ) / AetherToolMaterial.zanite.getEfficiency(false);
+
+                // we will 'lerp' between the starting damage and starting damage time ration of efficiency
+                float durability_progress = (float) is.getMetadata() / this.getMaxDamage();
+                float starting_damage = (float) super.getDamageVsEntity(entity, is);
+                float ending_damage = starting_damage * factor;
+                return Math.round(starting_damage * (1.0F - durability_progress) + (ending_damage * durability_progress));
+            }
+        });
         TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.zanite){
             public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
                 if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return 1.0F;
