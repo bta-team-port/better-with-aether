@@ -256,7 +256,7 @@ public class AetherItems {
 
         TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite));
         TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.zanite){
-            public float getStrVsBlock(ItemStack itemstack, Block block) {
+            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
                 if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return 1.0F;
                 float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
 
@@ -268,7 +268,7 @@ public class AetherItems {
 
         });
         TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.zanite){
-            public float getStrVsBlock(ItemStack itemstack, Block block) {
+            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
                 if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)) return 1.0F;
                 float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
 
@@ -281,7 +281,7 @@ public class AetherItems {
 
         });
         TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.zanite){
-            public float getStrVsBlock(ItemStack itemstack, Block block) {
+            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
                 if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
                 float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
 
