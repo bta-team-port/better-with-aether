@@ -305,7 +305,6 @@ public class AetherItems {
             }
 
         });
-        //TODO Zanite tools need their ability where they mine faster as you use them
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.gravitite));
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.gravitite));

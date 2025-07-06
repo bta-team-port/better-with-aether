@@ -6,10 +6,10 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobChicken;
 import net.minecraft.core.entity.animal.MobCow;
-import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
 import net.minecraft.core.world.Dimension;
+import teamport.aether.AetherMod;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.BlockBuilder;
 
@@ -585,8 +585,8 @@ public class AetherBlocks {
                 .setLuminance(14)
                 .setVisualUpdateOnMetadata()
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-                .build("lantern.firefly.silver", "lantern_firefly_silver", 10150, b -> new BlockLogicLanternFirefly(b, MobFireflyCluster.FireflyColor.BLUE, () -> AetherItems.LANTERN_FIREFLY_SILVER));
-        //TODO Needs its own firefly color eventually, so it can be obtained
+                .build("lantern.firefly.silver", "lantern_firefly_silver", 10150, b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER));
+        //TODO Needs its own cluster entity, so it can be picked up from broken firefly jar
     }
 
 
