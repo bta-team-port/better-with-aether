@@ -187,7 +187,7 @@ public class AetherBlocks {
                 .setFlammability(30, 60)
                 .setTickOnLoad()
                 .setVisualUpdateOnMetadata()
-                .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
+                .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
 
         BlockBuilder sapling = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
@@ -420,11 +420,12 @@ public class AetherBlocks {
 
 
         LEAVES_SKYROOT = leaves
+                .setLightOpacity(1)
                 .build("leaves.skyroot", "leaves_skyroot", 10012, block -> new BlockLogicLeavesBase(block, Material.leaves, SAPLING_SKYROOT));
 
         LEAVES_OAK_GOLDEN = leaves
-                .build("leaves.oak.golden", "leaves_oak_golden", 10013, block -> new BlockLogicLeavesBase(block, Material.leaves, SAPLING_OAK_GOLDEN));
-        //TODO Make the leaves drop golden apples rarely
+                .setLightOpacity(1)
+                .build("leaves.oak.golden", "leaves_oak_golden", 10013, BlockLogicLeavesOakGolden::new);
 
 
         SAPLING_SKYROOT = sapling
