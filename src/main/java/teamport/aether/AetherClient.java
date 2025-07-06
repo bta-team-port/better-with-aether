@@ -3,13 +3,14 @@ package teamport.aether;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.entity.particle.ParticleDispatcher;
+import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
-import turniplabs.halplibe.helper.ParticleHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
 import java.io.IOException;
@@ -23,8 +24,12 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void beforeClientStart() {
-        ParticleHelper.createParticle("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
-        ParticleHelper.createParticle("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
+        ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
+
+        dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
+
         SoundRepository.registerNamespace(MOD_ID);
 
         try {
