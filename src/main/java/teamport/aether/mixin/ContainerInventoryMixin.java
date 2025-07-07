@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.items.AetherToolMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixin {
@@ -21,7 +20,7 @@ public abstract class ContainerInventoryMixin {
 
     // TODO figure a way out to get rid of mixin, in case this will be needed later
     @Inject(method = "getTotalProtectionAmount", at = @At("HEAD"), cancellable = true)
-    private void getTotalProtectionAmount_Hook(DamageType damageType, CallbackInfoReturnable<Float> cir) {
+    private void injectCustomArmorProtection(DamageType damageType, CallbackInfoReturnable<Float> cir) {
 
         float protectionPercentage = 0.0F;
 
@@ -37,6 +36,7 @@ public abstract class ContainerInventoryMixin {
                     float protection = material.getProtection(damageType);
                     float percent = armor.getArmorPieceProtectionPercentage();
 
+                    // protection value go from iron to gold
                     if (material.equals(AetherArmorMaterial.zanite) ){
                         float durability_progress = (float) itemStack.getMetadata() / material.durability;
                         float end_protection = ArmorMaterial.GOLD.getProtection(damageType);
