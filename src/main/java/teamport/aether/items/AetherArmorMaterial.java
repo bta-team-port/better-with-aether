@@ -10,10 +10,10 @@ public class AetherArmorMaterial {
     public static final ArmorMaterial zanite = ArmorHelper.createArmorMaterial(MOD_ID,
             "zanite",
             200,
-            0f,
-            0f,
-            0f,
-            0f);
+            45f,
+            45f,
+            45f,
+            45f);
 
     public static final ArmorMaterial gravitite = ArmorHelper.createArmorMaterial(MOD_ID,
             "gravitite",
