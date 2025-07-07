@@ -8,6 +8,7 @@
     "ContainerInventoryMixin",
     "ItemsAccessor",
     "ItemToolShovelMixin",
+    "PlayerMixin",
     "accessors.ItemToolSwordAccessor"
   ],
   "client": [

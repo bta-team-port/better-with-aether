@@ -445,9 +445,6 @@ public class AetherItems {
         PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.lightning", itemKey("projectile_lightning"), 17118));
         //TODO These are to be used as the textures for the projectile the zephyrs shoot (windball), and the other 3 as the boss projectiles that bounce off walls and can be deflected back
 
-
-
-
 //        BLANK = new ItemBuilder(MOD_ID)
 //                .build(new Item("BLANK", "aether:item/blank", ID));
 
