@@ -341,13 +341,12 @@ public class AetherItems {
         ARMOR_CHESTPLATE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), 17071, AetherArmorMaterial.zanite, 2));
         ARMOR_LEGGINGS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.zanite", itemKey("armor_leggings_zanite"), 17072, AetherArmorMaterial.zanite, 1));
         ARMOR_BOOTS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.zanite", itemKey("armor_boots_zanite"), 17073, AetherArmorMaterial.zanite, 0));
-        //TODO Zanite armor needs its ability to get higher protection as its durability goes down
 
         ARMOR_HELMET_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.gravitite", itemKey("armor_helmet_gravitite"), 17074, AetherArmorMaterial.gravitite, 3));
         ARMOR_CHESTPLATE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), 17075, AetherArmorMaterial.gravitite, 2));
         ARMOR_LEGGINGS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.gravitite", itemKey("armor_leggings_gravitite"), 17076, AetherArmorMaterial.gravitite, 1));
         ARMOR_BOOTS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.gravitite", itemKey("armor_boots_gravitite"), 17077, AetherArmorMaterial.gravitite, 0));
-        //TODO Gravitite armor needs its ability to remove fall damage and give the user a double jump when the full set is worn
+        //TODO Gravitite armor needs its ability give the user a double jump when the full set is worn
 
         ARMOR_HELMET_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), 17078, AetherArmorMaterial.obsidian, 3));
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), 17079, AetherArmorMaterial.obsidian, 2));
@@ -358,7 +357,6 @@ public class AetherItems {
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.phoenix, 2));
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), 17084, AetherArmorMaterial.phoenix, 1));
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), 17085, AetherArmorMaterial.phoenix, 0));
-        //TODO Phoenix armor needs its ability to completely negate fire and lava damage when the full set is equipped, possibly losing durability as you swim in lava unharmed
 
         ARMOR_HELMET_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.neptune", itemKey("armor_helmet_neptune"), 17086, AetherArmorMaterial.neptune, 3));
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), 17087, AetherArmorMaterial.neptune, 2));
