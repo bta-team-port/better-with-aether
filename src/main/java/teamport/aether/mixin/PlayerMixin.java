@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -21,7 +22,7 @@ public abstract class PlayerMixin {
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void isImmuneToDamageType(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir) {
         Player player = (Player) (Object) this;
-        if(type.equals(DamageType.FIRE) && countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4){
+        if (type.equals(DamageType.FIRE) && countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4) {
             // could not implement Accessor for radom, not sure what it is good for
             Random rand = new Random();
             float take_damage = rand.nextFloat() > (double) 0.05F ? 0 : 4;
@@ -31,13 +32,14 @@ public abstract class PlayerMixin {
             cir.setReturnValue(false);
             return;
         }
-        if(type.equals(DamageType.FALL) && countArmorPiecesOfMaterial(AetherArmorMaterial.gravitite) == 4){
+        if (type.equals(DamageType.FALL) && countArmorPiecesOfMaterial(AetherArmorMaterial.gravitite) == 4) {
             // armor takes damage
             player.inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
             cir.setReturnValue(false);
         }
     }
 
+    @Unique
     private int countArmorPiecesOfMaterial(ArmorMaterial material) {
         int count = 0;
         Player player = (Player) (Object) this;
@@ -51,7 +53,7 @@ public abstract class PlayerMixin {
                 continue;
             }
             ArmorMaterial armorMaterial = armor.getArmorMaterial();
-            if (!armorMaterial.equals(material)) {
+            if (armorMaterial != null && !armorMaterial.equals(material)) {
                 continue;
             }
             count++;
