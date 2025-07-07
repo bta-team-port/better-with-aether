@@ -21,6 +21,7 @@ public abstract class PlayerMixin {
     // TODO fire damage still causes fire to be rendered
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void isImmuneToDamageType(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir) {
+        if(type == null) return;
         Player player = (Player) (Object) this;
         if (type.equals(DamageType.FIRE) && countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4) {
             // could not implement Accessor for radom, not sure what it is good for
