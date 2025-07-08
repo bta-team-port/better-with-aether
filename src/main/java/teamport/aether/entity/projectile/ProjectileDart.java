@@ -14,7 +14,6 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.ProjectileDartEnchanted;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile {
@@ -85,7 +84,28 @@ public class ProjectileDart extends Projectile {
 
     public void initProjectile() {
         super.initProjectile();
-        this.damage = 5;
+        this.damage = 4;
+        this.defaultGravity = 0.005F;
+    }
+
+    public void setHeading(double newMotionX, double newMotionY, double newMotionZ, float speed, float randomness) {
+        float velocity = MathHelper.sqrt(newMotionX * newMotionX + newMotionY * newMotionY + newMotionZ * newMotionZ);
+        newMotionX /= velocity;
+        newMotionY /= velocity;
+        newMotionZ /= velocity;
+        newMotionX += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
+        newMotionY += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
+        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
+        newMotionX *= speed;
+        newMotionY *= speed;
+        newMotionZ *= speed;
+        this.xd = newMotionX;
+        this.yd = newMotionY;
+        this.zd = newMotionZ;
+        float f3 = MathHelper.sqrt(newMotionX * newMotionX + newMotionZ * newMotionZ);
+        this.yRotO = this.yRot = (float)(Math.atan2(newMotionX, newMotionZ) * 180.0 / Math.PI);
+        this.xRotO = this.xRot = (float)(Math.atan2(newMotionY, f3) * 180.0 / Math.PI);
+        this.ticksInGround = 0;
     }
 
     public void setDoesDartBelongToPlayer(boolean flag) {
@@ -110,8 +130,8 @@ public class ProjectileDart extends Projectile {
         this.zd = zd;
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(xd * xd + zd * zd);
-            this.yRot = (float)(Math.atan2(xd, zd) * 180.0 / Math.PI);
-            this.xRot = (float)(Math.atan2(yd, f) * 180.0 / Math.PI);
+            this.yRot = (float)(Math.atan2(xd, zd) * 30.0 / Math.PI);
+            this.xRot = (float)(Math.atan2(yd, f) * 30.0 / Math.PI);
             this.xRotO = this.xRot;
             this.yRotO = this.yRot;
             this.moveTo(this.x, this.y, this.z, this.yRot, this.xRot);
@@ -127,8 +147,8 @@ public class ProjectileDart extends Projectile {
 
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
-            this.yRotO = this.yRot = (float)(Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
-            this.xRotO = this.xRot = (float)(Math.atan2(this.yd, f) * 180.0 / Math.PI);
+            this.yRotO = this.yRot = (float)(Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
+            this.xRotO = this.xRot = (float)(Math.atan2(this.yd, f) * 30.0 / Math.PI);
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
@@ -150,9 +170,9 @@ public class ProjectileDart extends Projectile {
 
             } else {
                 this.setGrounded(false);
-                this.xd *= (double)this.random.nextFloat() * 0.2;
-                this.yd *= (double)this.random.nextFloat() * 0.2;
-                this.zd *= (double)this.random.nextFloat() * 0.2;
+                this.xd *= (double)this.random.nextFloat() * 0.02;
+                this.yd *= (double)this.random.nextFloat() * 0.02;
+                this.zd *= (double)this.random.nextFloat() * 0.02;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -217,11 +237,11 @@ public class ProjectileDart extends Projectile {
     public void inGroundAction() {
         if (this.world.isClientSide) {
             this.setGrounded(true);
-            this.shake = 7;
+            this.shake = 3;
         } else if (this.dartBelongsToPlayer()) {
             this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
             this.setGrounded(true);
-            this.shake = 7;
+            this.shake = 3;
         } else {
             this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
@@ -231,6 +251,15 @@ public class ProjectileDart extends Projectile {
 
             this.remove();
         }
+    }
+
+    public void waterTick() {
+        for(int k = 0; k < 4; ++k) {
+            double particleDistance = 0.25;
+            this.world.spawnParticle("bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
+        }
+
+        this.projectileSpeed = 0.95F;
     }
 
     public int getDartType() {

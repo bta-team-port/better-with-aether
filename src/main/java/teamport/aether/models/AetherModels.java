@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.EntityRendererSprite;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
+import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.projectile.ProjectileDart;
@@ -15,6 +16,8 @@ import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
+import teamport.aether.entity.sentry.MobRendererSentry;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
@@ -335,7 +338,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_POISON, null).setIcon("aether:item/dart_poison"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_ENCHANTED, null).setIcon("aether:item/dart_enchanted"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOOTER, null).setIcon("aether:item/shooter_gold"));
+        dispatcher.addDispatch(new ItemModelShooter(AetherItems.TOOL_SHOOTER, null).setIcon("aether:item/shooter_gold"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_PIG, null).setIcon("aether:item/tool_knife_pig").setFull3D());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_VAMPIRE, null).setIcon("aether:item/tool_sword_vampire").setFull3D());
@@ -440,6 +443,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
+        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
 
 
     }

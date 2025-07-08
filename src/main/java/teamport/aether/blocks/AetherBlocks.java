@@ -4,12 +4,12 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.animal.MobChicken;
 import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
 import net.minecraft.core.world.Dimension;
 import teamport.aether.AetherMod;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.BlockBuilder;
 
@@ -568,10 +568,11 @@ public class AetherBlocks {
 
 
         CARVED_STONE_TRAPPED = dungeonStoneLocked
-                .build("carved.stone.trapped", "carved_stone_trapped", 10136, b -> new BlockLogicTrapped(b, CARVED_STONE.id(), MobChicken.class));
+                .build("carved.stone.trapped", "carved_stone_trapped", 10136, b -> new BlockLogicTrapped(b, CARVED_STONE.id(), MobSentry.class));
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
                 .build("carved.angelic.trapped", "carved_angelic_trapped", 10137, b -> new BlockLogicTrapped(b, CARVED_ANGELIC.id(), MobCow.class));
+        //TODO Replace Cow with valkyrie mob
 
 
         CHEST_MIMIC = wood

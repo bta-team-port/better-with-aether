@@ -20,7 +20,7 @@ public abstract class ContainerInventoryMixin {
 
     // TODO figure a way out to get rid of mixin, in case this will be needed later
     @Inject(method = "getTotalProtectionAmount", at = @At("HEAD"), cancellable = true)
-    private void injectCustomArmorProtection(DamageType damageType, CallbackInfoReturnable<Float> cir) {
+    public void injectCustomArmorProtection(DamageType damageType, CallbackInfoReturnable<Float> cir) {
 
         float protectionPercentage = 0.0F;
 
