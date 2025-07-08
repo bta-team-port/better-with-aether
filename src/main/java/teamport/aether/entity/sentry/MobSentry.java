@@ -21,7 +21,6 @@ public class MobSentry extends MobMonster implements Enemy {
         this.setSize(1f, 1f);
         this.activated = false;
         this.cooldownInactive = 0;
-        this.attackStrength = 5;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class MobSentry extends MobMonster implements Enemy {
         boolean flag = this.onGround;
         super.tick();
         if (this.onGround && !flag) {
-            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
+            this.world.playSoundAtEntity(null, this, "step.stone", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
         }
         if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
             this.remove();
@@ -70,7 +69,7 @@ public class MobSentry extends MobMonster implements Enemy {
                 this.yRot += rotation;
             }
             this.isJumping = true;
-            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+            this.world.playSoundAtEntity(null, this, "step.stone", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
             this.moveStrafing = 1.0f - this.random.nextFloat() * 2.0f;
             this.moveForward = 2;
 
@@ -88,16 +87,16 @@ public class MobSentry extends MobMonster implements Enemy {
     public void playerTouch(Player player) {
         if (findPlayerToAttack() == player && this.canEntityBeSeen(player) && (double)this.distanceTo(player) < 1.5) {
             findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
-            this.world.createExplosion(this, this.x, this.y-0.5, this.z, 2f, false, true);
+            this.world.createExplosion(this, this.x, this.y-0.5, this.z, 1f, false, true);
         }
     }
 
     public String getHurtSound() {
-        return "mob.slime";
+        return "step.stone";
     }
 
     public String getDeathSound() {
-        return "mob.slime";
+        return "step.stone";
     }
 
 
