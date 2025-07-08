@@ -9,6 +9,8 @@ import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.net.command.CommandManager;
+import teamport.aether.command.AetherCommand;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -31,6 +33,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
 
         SoundRepository.registerNamespace(MOD_ID);
+        AetherCommand.initializeCommandsClient();
 
         try {
             TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, false);
@@ -62,4 +65,5 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         page.addAchievement(AetherAchievements.GRAVITITE, 2, -1);
         AchievementPages.register(page);
     }
+
 }
