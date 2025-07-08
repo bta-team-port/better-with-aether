@@ -36,48 +36,53 @@ public class MobSentry extends MobMonster implements Enemy {
         }
     }
 
-    @Override
-    public void updateAI() {
+    protected void updateAI() {
         this.tryToDespawn();
-        Player entityplayer = (Player) findPlayerToAttack();
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer) {
-            this.findPlayerToAttack();
+            this.target = entityplayer;
         }
-        if (this.findPlayerToAttack() != null && !this.canEntityBeSeen(findPlayerToAttack())) {
-            this.findPlayerToAttack();
+        if (this.target != null && !this.canEntityBeSeen(target)) {
+            this.target = null;
             targetPlayer = false;
             this.activated = false;
         }
         if (cooldownInactive > 0) {
             cooldownInactive--;
         }
+
         if (targetPlayer) {
-            this.faceEntity(findPlayerToAttack(), 10.0f, 20.0f);
-            this.activated = true;
+            target = entityplayer;
+            lookAt(entityplayer, 10.0f, 20.0f);
+            activated = true;
             cooldownInactive = 100;
+        } else {
+            activated = false;
         }
+
         if (this.onGround && this.jumpDelay-- <= 0 && cooldownInactive > 0) {
-            if (!targetPlayer) {
+            this.jumpDelay = this.random.nextInt(20) + 10;
+            if (targetPlayer) {
+                this.jumpDelay /= 3;
+            } else {
                 float rotation = (this.world.rand.nextFloat() - 0.5f) * 90.0f;
                 this.yRot += rotation;
             }
-            this.jumpDelay = this.random.nextInt(20) + 10;
-            if (findPlayerToAttack() != null) {
-                this.jumpDelay /= 3;
-            }
             this.isJumping = true;
-            this.world.playSoundAtEntity(entityplayer, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) * 0.8f);
             this.moveStrafing = 1.0f - this.random.nextFloat() * 2.0f;
             this.moveForward = 2;
+
         } else {
             this.isJumping = false;
             if (this.onGround) {
-                this.moveForward = 0.0f;
-                this.moveStrafing = 0.0f;
+                this.moveStrafing = this.moveForward = 0.0F;
             }
         }
+
     }
+
 
     @Override
     public void playerTouch(Player player) {
