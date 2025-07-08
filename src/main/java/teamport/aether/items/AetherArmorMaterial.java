@@ -18,32 +18,32 @@ public class AetherArmorMaterial {
     public static final ArmorMaterial gravitite = ArmorHelper.createArmorMaterial(MOD_ID,
             "gravitite",
             800,
-            66f,
-            66f,
-            66f,
-            150f);
+            56f,
+            56f,
+            56f,
+            130f);
 
     public static final ArmorMaterial phoenix = ArmorHelper.createArmorMaterial(MOD_ID,
             "phoenix",
             800,
-            150f,
+            130f,
             0f,
-            150f,
+            130f,
             0f);
 
     public static final ArmorMaterial obsidian = ArmorHelper.createArmorMaterial(MOD_ID,
             "obsidian",
             1200,
             0f,
-            150f,
-            150f,
+            130f,
+            130f,
             0f);
 
     public static final ArmorMaterial neptune = ArmorHelper.createArmorMaterial(MOD_ID,
             "neptune",
             800,
-            150f,
-            150f,
+            130f,
+            130f,
             0f,
             0f)
             .withProtectionPercentage(DamageType.DROWN, 50f);
