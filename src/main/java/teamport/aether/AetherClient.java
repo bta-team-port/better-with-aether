@@ -6,9 +6,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.item.ItemStack;
+import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -42,6 +46,9 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
+        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,2),
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 2)});
     }
 
     @Override

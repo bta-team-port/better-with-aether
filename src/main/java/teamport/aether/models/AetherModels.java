@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.EntityRendererSprite;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
+import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.projectile.ProjectileDart;
@@ -15,6 +16,8 @@ import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
+import teamport.aether.entity.sentry.MobRendererSentry;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
@@ -440,6 +443,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
+        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
 
 
     }

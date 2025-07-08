@@ -9,6 +9,7 @@ import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItems;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
@@ -31,6 +32,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
+        new AetherEntities().initializeEntities();
         new AetherBlocks().initializeBlocks();
         new AetherItems().initializeItems();
 
