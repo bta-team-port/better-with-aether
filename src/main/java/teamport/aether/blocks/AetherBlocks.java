@@ -572,6 +572,7 @@ public class AetherBlocks {
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
                 .build("carved.angelic.trapped", "carved_angelic_trapped", 10137, b -> new BlockLogicTrapped(b, CARVED_ANGELIC.id(), MobCow.class));
+        //TODO Replace Chicken and Cow with sentry and valkyrie mob
 
 
         CHEST_MIMIC = wood

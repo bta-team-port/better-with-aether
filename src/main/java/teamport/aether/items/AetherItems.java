@@ -417,7 +417,7 @@ public class AetherItems {
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), 17138));
         ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new Item("armor.cape.yellow", itemKey("armor_cape_yellow"), 17139));
         ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), 17140));
-        //TODO Decorative capes, potenial to add cape color for each wool color,
+        //TODO Decorative capes, potential to add cape color for each wool color,
 
 
 
