@@ -341,6 +341,7 @@ public class AetherItems {
         ARMOR_CHESTPLATE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), 17071, AetherArmorMaterial.zanite, 2));
         ARMOR_LEGGINGS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.zanite", itemKey("armor_leggings_zanite"), 17072, AetherArmorMaterial.zanite, 1));
         ARMOR_BOOTS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.zanite", itemKey("armor_boots_zanite"), 17073, AetherArmorMaterial.zanite, 0));
+        //TODO prevent fire from rendering when full set worn
 
         ARMOR_HELMET_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.gravitite", itemKey("armor_helmet_gravitite"), 17074, AetherArmorMaterial.gravitite, 3));
         ARMOR_CHESTPLATE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), 17075, AetherArmorMaterial.gravitite, 2));
@@ -427,7 +428,8 @@ public class AetherItems {
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105));
-        //TODO Lifeshards need to grant 1 extra heart every time you use one, up to 10 times, they should play a chime noise each time you eat one and a special chime noise for the final one, check old code it was implemented there
+        //TODO Lifeshards should play a chime noise each time you eat one and a special chime noise for the final one, check old code it was implemented there
+        //TODO hud needs to be extended to include the extra health
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), 17106));
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), 17107));
