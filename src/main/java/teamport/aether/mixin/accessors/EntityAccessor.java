@@ -10,6 +10,7 @@ public interface EntityAccessor {
     @Accessor("random")
     Random getRandom();
 
+    // later for to suppress onFire
     @Accessor("fireImmune")
     boolean getFireImmune();
 
