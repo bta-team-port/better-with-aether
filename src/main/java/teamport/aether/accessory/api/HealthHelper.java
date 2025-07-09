@@ -10,7 +10,7 @@ public class HealthHelper {
      * @return the amount of extra health
      */
     public static int getExtraHealth(Player player) {
-        return ((VariableHealthPlayer) player).aether$getExtraHealth();
+        return ((IVariableHealthPlayer) player).aether$getExtraHealth();
     }
 
     /**
@@ -19,7 +19,7 @@ public class HealthHelper {
      * @param amount the amount of extra health they should have
      */
     public static void setExtraHealth(Player player, int amount) {
-        ((VariableHealthPlayer) player).aether$setExtraHealth(amount);
+        ((IVariableHealthPlayer) player).aether$setExtraHealth(amount);
     }
 
     /**
@@ -28,7 +28,7 @@ public class HealthHelper {
      * @param amount the amount of extra health to add, on top of the amount they already have
      */
     public static void addExtraHealth(Player player, int amount) {
-        ((VariableHealthPlayer) player).aether$addExtraHealth(amount);
+        ((IVariableHealthPlayer) player).aether$addExtraHealth(amount);
     }
 
     /**
@@ -37,6 +37,6 @@ public class HealthHelper {
      * @return total health including base 20 + extra health
      */
     public static int getMaxHealth(Player player) {
-        return ((VariableHealthPlayer) player).aether$getMaxHealth();
+        return (player).getMaxHealth();
     }
 }
