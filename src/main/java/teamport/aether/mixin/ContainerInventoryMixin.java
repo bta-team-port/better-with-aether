@@ -7,13 +7,15 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.accessory.api.ICountArmor;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-public abstract class ContainerInventoryMixin {
+public abstract class ContainerInventoryMixin implements ICountArmor {
 
     @Shadow
     public ItemStack[] armorInventory;
@@ -48,4 +50,27 @@ public abstract class ContainerInventoryMixin {
         }
         cir.setReturnValue(protectionPercentage);
     }
+
+
+    @Unique
+    public int aether$countArmorPiecesOfMaterial(ArmorMaterial material) {
+        int count = 0;
+        for (int i = 0; i < this.armorInventory.length; ++i) {
+            ItemStack itemStack = this.armorInventory[i];
+            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
+                continue;
+            }
+            IArmorItem armor = (IArmorItem) itemStack.getItem();
+            if (armor.getArmorPiece() != i) {
+                continue;
+            }
+            ArmorMaterial armorMaterial = armor.getArmorMaterial();
+            if (armorMaterial == null || !armorMaterial.equals(material)) {
+                continue;
+            }
+            count++;
+        }
+        return count;
+    }
+
 }
