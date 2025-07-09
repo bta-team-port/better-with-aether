@@ -16,5 +16,15 @@
     "sounds": [
       "ascending.dawn.ogg"
     ]
+  },
+  "life_shard_chime_final": {
+    "sounds": [
+      "life_shard_chime.ogg"
+    ]
+  },
+  "life_shard_chime": {
+    "sounds": [
+      "life_shard_chime_final.ogg"
+    ]
   }
 }

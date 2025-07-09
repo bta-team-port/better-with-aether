@@ -1,8 +1,8 @@
 package teamport.aether.accessory.api;
 
 public interface VariableHealthPlayer {
-    int better_with_aether$getExtraHP();
-
-    void better_with_aether$setExtraHP(int extraHP);
-    void better_with_aether$addExtraHP(int extraHP);
+    int aether$getExtraHealth();
+    void aether$setExtraHealth(int extraHP);
+    void aether$addExtraHealth(int extraHP);
+    int aether$getMaxHealth();
 }

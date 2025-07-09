@@ -1,0 +1,2 @@
+command.aether.set_extra_health=Set %s extra Health to %s
+command.aether.get_max_health=%s max Health is %s

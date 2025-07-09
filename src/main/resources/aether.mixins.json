@@ -8,8 +8,9 @@
     "ContainerInventoryMixin",
     "ItemsAccessor",
     "ItemToolShovelMixin",
-    "PlayerMixin",
-    "accessors.ItemToolSwordAccessor"
+    "accessors.EntityAccessor",
+    "accessors.ItemToolSwordAccessor",
+    "entity.PlayerMixin"
   ],
   "client": [
     "MinecraftMixin",
