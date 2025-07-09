@@ -15,8 +15,8 @@ public class ItemLifeShard extends Item {
     @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
         int extraHealth = HealthHelper.getExtraHealth(player);
-        if (player.getMaxHealth() < 40) {
-            if (itemstack.consumeItem(player)) {
+        if (itemstack.consumeItem(player)) {
+            if (player.getMaxHealth() < 40) {
                 if (extraHealth < 20) {
                     // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
                     int extra_heart_amount = Math.min(extraHealth, 20);
@@ -27,8 +27,9 @@ public class ItemLifeShard extends Item {
 
                     // gives Player extra health
                     HealthHelper.addExtraHealth(player, 2);
-                    player.heal(40);
                 }
+            } else {
+                player.heal(40);
             }
         }
         return itemstack;
