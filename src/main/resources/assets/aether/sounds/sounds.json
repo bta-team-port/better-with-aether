@@ -17,14 +17,16 @@
       "ascending.dawn.ogg"
     ]
   },
-  "life_shard_chime_final": {
+  "life.shard.chime": {
+    "subtitle": "subtitles.aether.life.shard.chime",
     "sounds": [
-      "life_shard_chime.ogg"
+      "life.shard.chime.ogg"
     ]
   },
-  "life_shard_chime": {
+  "life.shard.chime.final": {
+    "subtitle": "subtitles.aether.life.shard.chime.final",
     "sounds": [
-      "life_shard_chime_final.ogg"
+      "life.shard.chime.final.ogg"
     ]
   }
 }
