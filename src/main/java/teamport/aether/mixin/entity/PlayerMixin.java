@@ -1,8 +1,8 @@
 package teamport.aether.mixin.entity;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.core.achievement.stat.StatList;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -22,134 +22,96 @@ import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixin
+public abstract class PlayerMixin
         extends Mob
         implements IVariableHealthPlayer{
 
     @Shadow public ContainerInventory inventory;
+
+    @Shadow public abstract boolean hurt(Entity attacker, int damage, DamageType type);
+
+    @Shadow public abstract void fireHurt();
 
     public PlayerMixin(@Nullable World world) {
         super(world);
     }
 
     //###############################  Phoenix Armour  ###############################
-    // TODO somewhere the player is still catching on fire and burning despite everything being covered
-    // Issue: as soon as player hits the bounding box of fire he catches on fire Entity:657
-
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci){
-        if(ContainerHelper.aether$countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
-            damageArmourPhoenix();
-            spawnFlameParticles();
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
+            aether$damagePhoenixArmourWithEffect(4);
             ci.cancel();
         }
     }
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci){
-        if(ContainerHelper.aether$countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
-            damageArmourPhoenix();
-            spawnFlameParticles();
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
+            aether$damagePhoenixArmourWithEffect(1);
             ci.cancel();
         }
     }
 
     @Override
     public void burn(int damage) {
-        if (ContainerHelper.aether$countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4) {
-            damageArmourPhoenix();
-            spawnFlameParticles();
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4) {
+            aether$damagePhoenixArmourWithEffect(1);
             return;
         }
-        if (this.fireImmune) {
+        super.burn(damage);
+    }
+
+    @Override
+    public void thunderHit(EntityLightning bolt) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4) {
+            // only the burn is negated
+            this.hurt((Entity) null, 5, DamageType.FIRE);
+            aether$damagePhoenixArmourWithEffect(5);
             return;
         }
-        this.hurt((Entity) null, damage, DamageType.FIRE);
+        super.thunderHit(bolt);
     }
 
     @Unique
-    private void damageArmourPhoenix() {
+    private void aether$damagePhoenixArmourWithEffect(int damage) {
         Player player = (Player) (Object) this;
-        int new_damage = ((EntityAccessor)player).getRandom().nextFloat() > (double) 0.2F ? 0 : 1;
-        player.inventory.damageArmor((int) Math.ceil((double) new_damage / (double) 4.0F));
+        if(((EntityAccessor)player).getRandom().nextFloat() < (double) 0.2F){
+            player.inventory.damageArmor(damage);
+        }
+        aether$spawnFlameParticles();
     }
 
-    // TODO fix this function
     @Unique
-    private void spawnFlameParticles() {
+    private void aether$spawnFlameParticles() {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-//        world.spawnParticle(
-//                "flame",
-//                x + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-//                y + (double) (random.nextFloat() * bbHeight) - (double) bbHeight,
-//                z + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-//                dx, dy, dz
-//        );
+        // TODO figure out what data is
+        world.spawnParticle(
+                "flame",
+                x + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
+                y + (double) (random.nextFloat() * bbHeight) - (double) bbHeight,
+                z + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
+                dx, dy, dz, 2
+        );
     }
 
     //##############################  Gravitite Armour  ##############################
 
-    @Inject(method = "causeFallDamage", at=)
-    public void causeFallDamage(float distance) {
-        if (distance >= 2.0F) {
-            ((Player) (Object) this).addStat(StatList.distanceFallenStat, (int)Math.round((double)distance * (double)100.0F));
-        }
-        if(ContainerHelper.aether$countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.gravitite) == 4){
+    @Inject(method = "causeFallDamage", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
+    public void causeFallDamage(float distance, CallbackInfo ci) {
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.gravitite) == 4){
             int damage = (int)Math.ceil(distance - 3.0F);
-            if(damage  > 0) damageArmourGravitite(damage);
-            return;
+            if(damage  > 0) aether$damageArmourGravitite(damage);
+            ci.cancel();
         }
-        super.causeFallDamage(distance);
     }
 
-    private void damageArmourGravitite(int damage) {
+    private void aether$damageArmourGravitite(int damage) {
         ((Player) (Object) this).inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
     }
-
-
-//    // TODO fire damage still causes fire to be rendered
-//    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
-//    public void aether$isImmuneToDamageType(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir) {
-//        if (type == null) return;
-//        Player player = (Player) (Object) this;
-//        if (type.equals(DamageType.FIRE) && aether$countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4) {
-//            float take_damage = ((EntityAccessor)player).getRandom().nextFloat() > (double) 0.05F ? 0 : 4;
-//            // armor takes damage
-//            player.inventory.damageArmor((int) Math.ceil((double) take_damage / (double) 4.0F));
-//            cir.setReturnValue(false);
-//            return;
-//        }
-//        if (type.equals(DamageType.FALL) && aether$countArmorPiecesOfMaterial(AetherArmorMaterial.gravitite) == 4) {
-//            // armor takes damage
-//            player.inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
-//            cir.setReturnValue(false);
-//        }
-//    }
-
-//    @Unique
-//    private int aether$countArmorPiecesOfMaterial(ArmorMaterial material) {
-//        int count = 0;
-//        Player player = (Player) (Object) this;
-//        for (int i = 0; i < player.inventory.armorInventory.length; ++i) {
-//            ItemStack itemStack = player.inventory.armorInventory[i];
-//            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
-//                continue;
-//            }
-//            IArmorItem armor = (IArmorItem) itemStack.getItem();
-//            if (armor.getArmorPiece() != i) {
-//                continue;
-//            }
-//            ArmorMaterial armorMaterial = armor.getArmorMaterial();
-//            if (armorMaterial != null && !armorMaterial.equals(material)) {
-//                continue;
-//            }
-//            count++;
-//        }
-//        return count;
-//    }
 
     //###############################  ItemLifeShard  ###############################
 

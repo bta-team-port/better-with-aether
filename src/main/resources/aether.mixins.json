@@ -10,6 +10,7 @@
     "ItemToolShovelMixin",
     "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor",
+    "entity.EntityMixin",
     "entity.PlayerMixin"
   ],
   "client": [
