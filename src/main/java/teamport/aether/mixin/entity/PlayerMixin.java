@@ -1,12 +1,10 @@
 package teamport.aether.mixin.entity;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.achievement.stat.StatList;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
@@ -19,19 +17,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.accessory.api.ContainerHelper;
-import teamport.aether.accessory.api.IAvoidBurnDamage;
+import teamport.aether.accessory.api.IImmunities;
 import teamport.aether.accessory.api.IVariableHealthPlayer;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class PlayerMixinI
+public class PlayerMixin
         extends Mob
-        implements IVariableHealthPlayer, IAvoidBurnDamage {
+        implements IVariableHealthPlayer, IImmunities {
 
     @Shadow public ContainerInventory inventory;
 
-    public PlayerMixinI(@Nullable World world) {
+    public PlayerMixin(@Nullable World world) {
         super(world);
     }
 
@@ -90,6 +88,24 @@ public abstract class PlayerMixinI
     }
 
     //##############################  Gravitite Armour  ##############################
+
+    @Override
+    public void causeFallDamage(float distance) {
+        if (distance >= 2.0F) {
+            ((Player) (Object) this).addStat(StatList.distanceFallenStat, (int)Math.round((double)distance * (double)100.0F));
+        }
+        if(ContainerHelper.aether$countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.gravitite) == 4){
+            int damage = (int)Math.ceil(distance - 3.0F);
+            if(damage  > 0) damageArmourGravitite(damage);
+            return;
+        }
+        super.causeFallDamage(distance);
+    }
+
+    private void damageArmourGravitite(int damage) {
+        ((Player) (Object) this).inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
+    }
+
 
 //    // TODO fire damage still causes fire to be rendered
 //    @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
@@ -170,5 +186,4 @@ public abstract class PlayerMixinI
     public void aether$addExtraHealth(int extraHP) {
         aether$setExtraHealth(aether$getExtraHealth() + extraHP);
     }
-
 }
