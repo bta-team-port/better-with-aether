@@ -423,7 +423,7 @@ public class AetherItems {
         FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), 17101, 20, 1, false, 64));
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
-        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105));
+        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(4));
         //TODO Lifeshards should play a chime noise each time you eat one and a special chime noise for the final one, check old code it was implemented there
         //TODO hud needs to be extended to include the extra health
         //TODO Extra hearts need to stay after death
