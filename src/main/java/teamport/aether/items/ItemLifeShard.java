@@ -27,6 +27,7 @@ public class ItemLifeShard extends Item {
 
                     // gives Player extra health
                     HealthHelper.addExtraHealth(player, 2);
+                    player.heal(40);
                 }
             }
         }

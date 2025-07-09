@@ -117,6 +117,11 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
                 .setAllTextures(0, "aether:block/skyroot").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
 
+        dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
+                .setAllTextures(0, "aether:block/skyroot"));
+        dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
+                .setAllTextures(0, "aether:block/skyroot"));
+
 
 
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
@@ -237,6 +242,14 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM));
 
 
+        dispatcher.addDispatch(AetherBlocks.TORCH_AMBROSIUM, new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
+                .setAllTextures(0, "aether:block/torch_ambrosium"));
+
+
+        dispatcher.addDispatch(AetherBlocks.LANTERN_FIREFLY_SILVER, new BlockModelLantern<>(AetherBlocks.LANTERN_FIREFLY_SILVER)
+                .setAllTextures(0, "aether:block/lantern_firefly_silver"));
+
+
 
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_COBBLE_HOLYSTONE));
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_HOLYSTONE));
@@ -254,20 +267,6 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_HELLFIRE));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_ZANITE));
-
-
-
-        ModelHelper.setBlockModel(AetherBlocks.FENCE_PLANKS_SKYROOT, () -> new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
-                .setAllTextures(0, "aether:block/skyroot"));
-        ModelHelper.setBlockModel(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, () -> new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
-                .setAllTextures(0, "aether:block/skyroot"));
-
-
-        ModelHelper.setBlockModel(AetherBlocks.TORCH_AMBROSIUM, () -> new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
-                .setAllTextures(0, "aether:block/torch_ambrosium"));
-
-        ModelHelper.setBlockModel(AetherBlocks.LANTERN_FIREFLY_SILVER, () -> new BlockModelLantern<>(AetherBlocks.LANTERN_FIREFLY_SILVER)
-                .setAllTextures(0, "aether:block/lantern_firefly_silver"));
 
     }
 

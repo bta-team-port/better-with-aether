@@ -14,14 +14,14 @@ effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
 
 #Music
-ascending.dawn=Ascending Dawn
-a.morning.wish=A Morning Wish
-aether.tune=Aether Tune
-
 aether:ascending.dawn=Ascending Dawn
 aether:a.morning.wish=A Morning Wish
 aether:aether.tune=Aether Tune
 
-subtitles.aether.ascending.dawn=
-subtitles.aether.a.morning.wish=
-subtitles.aether.aether.tune=
+ascending.dawn=Ascending Dawn
+a.morning.wish=A Morning Wish
+aether.tune=Aether Tune
+
+#Subtitles
+subtitles.aether.life.shard.chime=Life shard activated
+subtitles.aether.life.shard.chime.final=Final life shard activated

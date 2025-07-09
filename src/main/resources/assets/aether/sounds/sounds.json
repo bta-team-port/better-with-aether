@@ -1,20 +1,32 @@
 {
   "aether.tune": {
-    "subtitle": "subtitles.aether.aether.tune",
     "sounds": [
-      "aether.tune.ogg"
+      {
+        "name": "record/aether.tune.ogg",
+        "volume": 0.2,
+        "attenuation_distance": 64,
+        "stream": true
+      }
     ]
   },
   "a.morning.wish": {
-    "subtitle": "subtitles.aether.a.morning.wish",
     "sounds": [
-      "a.morning.wish.ogg"
+      {
+        "name": "record/a.morning.wish.ogg",
+        "volume": 0.5,
+        "attenuation_distance": 64,
+        "stream": true
+      }
     ]
   },
   "ascending.dawn": {
-    "subtitle": "subtitles.aether.ascending.dawn",
     "sounds": [
-      "ascending.dawn.ogg"
+      {
+        "name": "record/ascending.dawn.ogg",
+        "volume": 0.3,
+        "attenuation_distance": 64,
+        "stream": true
+      }
     ]
   },
   "life.shard.chime": {

@@ -254,7 +254,6 @@ public class AetherItems {
                 return true;
             }
         });
-
         TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.zanite){
             public int getDamageVsEntity(Entity entity, ItemStack is) {
                 // to keep it consistent with other tools
@@ -277,7 +276,6 @@ public class AetherItems {
                 float ending_efficiency = this.material.getEfficiency(true);
                 return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
             }
-
         });
         TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.zanite){
             public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
@@ -290,7 +288,6 @@ public class AetherItems {
 
                 return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
             }
-
         });
         TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.zanite){
             public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
@@ -303,7 +300,6 @@ public class AetherItems {
 
                 return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
             }
-
         });
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.gravitite));
@@ -412,7 +408,7 @@ public class AetherItems {
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.agility", itemKey("armor_cape_agility"), 17134));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new Item("armor.cape.swet", itemKey("armor_cape_swet"), 17135));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.invisibility", itemKey("armor_cape_invisibility"), 17136));
-        //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorational, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
+        //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
         ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.white", itemKey("armor_cape_white"), 17137));
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), 17138));
