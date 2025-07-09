@@ -29,6 +29,21 @@ public abstract class PlayerMixin extends Mob implements VariableHealthPlayer {
 
     //########################  Phoenix/Gravitite immunities  ########################
 
+//    @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
+//    public void phoenixArmourResistense(CallbackInfo ci){
+//        if(aether$countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4){
+//
+//        }
+//    }
+//
+//    @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
+//    public void phoenixArmourResistense(CallbackInfo ci){
+//        if(aether$countArmorPiecesOfMaterial(AetherArmorMaterial.phoenix) == 4){
+//
+//        }
+//    }
+
+
     // TODO fire damage still causes fire to be rendered
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void aether$isImmuneToDamageType(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir) {
