@@ -13,6 +13,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.command.AetherCommand;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -35,6 +36,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
 
         SoundRepository.registerNamespace(MOD_ID);
+        AetherCommand.initializeCommandsClient();
 
         try {
             TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, false);
