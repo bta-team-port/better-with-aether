@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.accessory.api.ContainerHelper;
-import teamport.aether.accessory.api.IImmunities;
 import teamport.aether.accessory.api.IVariableHealthPlayer;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -25,7 +24,7 @@ import teamport.aether.mixin.accessors.EntityAccessor;
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixin
         extends Mob
-        implements IVariableHealthPlayer, IImmunities {
+        implements IVariableHealthPlayer{
 
     @Shadow public ContainerInventory inventory;
 
@@ -34,6 +33,9 @@ public class PlayerMixin
     }
 
     //###############################  Phoenix Armour  ###############################
+    // TODO somewhere the player is still catching on fire and burning despite everything being covered
+    // Issue: as soon as player hits the bounding box of fire he catches on fire Entity:657
+
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci){
@@ -73,6 +75,7 @@ public class PlayerMixin
         player.inventory.damageArmor((int) Math.ceil((double) new_damage / (double) 4.0F));
     }
 
+    // TODO fix this function
     @Unique
     private void spawnFlameParticles() {
         double dx = random.nextGaussian() * 0.02;
@@ -89,7 +92,7 @@ public class PlayerMixin
 
     //##############################  Gravitite Armour  ##############################
 
-    @Override
+    @Inject(method = "causeFallDamage", at=)
     public void causeFallDamage(float distance) {
         if (distance >= 2.0F) {
             ((Player) (Object) this).addStat(StatList.distanceFallenStat, (int)Math.round((double)distance * (double)100.0F));
