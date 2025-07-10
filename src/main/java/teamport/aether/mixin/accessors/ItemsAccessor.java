@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.accessors;
 
 import net.minecraft.core.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
