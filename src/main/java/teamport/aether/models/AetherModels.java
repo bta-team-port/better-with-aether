@@ -4,6 +4,7 @@ import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.*;
+import net.minecraft.client.render.entity.EntityRendererFallingBlock;
 import net.minecraft.client.render.entity.EntityRendererSprite;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
@@ -11,6 +12,7 @@ import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.EntityFallingGravitite;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
@@ -256,7 +258,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/enchanter/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/enchanter/idle_front", Side.NORTH)
                 .setTex(0, "aether:block/enchanter/side", Side.EAST, Side.WEST, Side.SOUTH));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ENCHANTER_ACTIVE)
+        dispatcher.addDispatch(new BlockModelFurnace<>(AetherBlocks.ENCHANTER_ACTIVE)
                 .setTex(0, "aether:block/enchanter/top", Side.TOP)
                 .setTex(0, "aether:block/enchanter/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/enchanter/active_front", Side.NORTH)
@@ -266,7 +268,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/freezer/idle_top", Side.TOP)
                 .setTex(0, "aether:block/freezer/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.FREEZER_ACTIVE)
+        dispatcher.addDispatch(new BlockModelFurnace<>(AetherBlocks.FREEZER_ACTIVE)
                 .setTex(0, "aether:block/freezer/active_top", Side.TOP)
                 .setTex(0, "aether:block/freezer/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
@@ -275,7 +277,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/incubator/idle_top", Side.TOP)
                 .setTex(0, "aether:block/incubator/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.INCUBATOR_ACTIVE)
+        dispatcher.addDispatch(new BlockModelFurnace<>(AetherBlocks.INCUBATOR_ACTIVE)
                 .setTex(0, "aether:block/incubator/active_top", Side.TOP)
                 .setTex(0, "aether:block/incubator/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
@@ -474,6 +476,9 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+
+        ModelHelper.setEntityModel(EntityFallingGravitite.class, EntityRendererFallingBlock::new);
+
 
 
     }
