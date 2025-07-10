@@ -16,6 +16,7 @@ import teamport.aether.accessory.api.HealthHelper;
 
 import java.util.Random;
 
+// this is a mystery to me
 @Environment(EnvType.CLIENT)
 public class ComponentExtraHealthBar extends HudComponentMovable {
     private final Random random = new Random();
