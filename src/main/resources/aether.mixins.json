@@ -6,7 +6,7 @@
   "mixins": [
     "BlockLogicPathDirtMixin",
     "ContainerInventoryMixin",
-    "ItemsAccessor",
+    "accessors.ItemsAccessor",
     "ItemToolShovelMixin",
     "accessors.EntityAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -14,7 +14,7 @@
     "entity.PlayerMixin"
   ],
   "client": [
-    "MinecraftMixin",
+    "client.MinecraftMixin",
     "PlayerControllerValkToolsReachMixin"
   ],
   "server": [
