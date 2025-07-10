@@ -49,7 +49,7 @@ public abstract class MobMixinGravitite extends Entity {
     }
 
     @Inject(method = "onLivingUpdate",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/EntityLiving;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
+            at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
     private void onLivingUpdate(CallbackInfo ci) {
         if (!((Mob)(Object) this instanceof Player)) {
             return;

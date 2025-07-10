@@ -13,9 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.accessory.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.mixin.accessors.EntityAccessor;
-
-import java.util.Random;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinGravitite extends Mob {
@@ -30,7 +27,7 @@ public abstract class PlayerMixinGravitite extends Mob {
     @Inject(method = "causeFallDamage", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
     public void aether$causeFallDamage(float distance, CallbackInfo ci) {
         if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.gravitite) == 4){
-            int damage = (int)Math.ceil(distance - 3.0F);
+            int damage = (int)Math.ceil(distance - 6.0F);
             if(damage  > 0) aether$damageArmourGravitite(damage);
             ci.cancel();
         }
