@@ -7,7 +7,6 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -39,7 +38,7 @@ public abstract class ContainerInventoryMixinZanite implements ICountArmor {
                     float percent = armor.getArmorPieceProtectionPercentage();
 
                     // protection value go from iron to gold
-                    if (material.equals(AetherArmorMaterial.zanite) ){
+                    if (material.equals(AetherArmorMaterial.ZANITE) ){
                         float durability_progress = (float) itemStack.getMetadata() / material.durability;
                         float end_protection = ArmorMaterial.GOLD.getProtection(damageType);
                         protection = (protection * (1 - durability_progress) + end_protection * durability_progress);

@@ -3,8 +3,6 @@ package teamport.aether.mixin.entity.mob;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -42,7 +40,7 @@ public abstract class MobMixinGravitite extends Entity {
             return;
         }
         Player player = (Player)(Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.gravitite) == 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) == 4) {
             yd = 1.05;
             fallDistance = 0.0F;
         }
@@ -50,7 +48,7 @@ public abstract class MobMixinGravitite extends Entity {
 
     @Inject(method = "onLivingUpdate",
             at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
-    private void onLivingUpdate(CallbackInfo ci) {
+    private void aether$onLivingUpdate(CallbackInfo ci) {
         if (!((Mob)(Object) this instanceof Player)) {
             return;
         }
@@ -61,7 +59,7 @@ public abstract class MobMixinGravitite extends Entity {
             return;
         }
 
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.gravitite) < 4) return;
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 4) return;
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;

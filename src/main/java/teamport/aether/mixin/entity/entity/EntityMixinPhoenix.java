@@ -16,7 +16,7 @@ public class EntityMixinPhoenix {
     public void aether$cantCatchFire(CallbackInfoReturnable<Boolean> cir){
         if(((Entity)(Object)this) instanceof Player){
             Player player = ((Player)(Object)this);
-            if(ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.phoenix) == 4){
+            if(ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.PHOENIX) == 4){
                 cir.setReturnValue(true);
             }
         }

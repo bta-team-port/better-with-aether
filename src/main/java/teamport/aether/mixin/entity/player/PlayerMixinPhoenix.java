@@ -32,7 +32,8 @@ public class PlayerMixinPhoenix extends Mob {
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci){
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4){
+            // lava damage is 4 points
             aether$damagePhoenixArmourWithEffect(4);
             ci.cancel();
         }
@@ -40,7 +41,8 @@ public class PlayerMixinPhoenix extends Mob {
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci){
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4){
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4){
+            // fire damage is 1 points
             aether$damagePhoenixArmourWithEffect(1);
             ci.cancel();
         }
@@ -48,7 +50,8 @@ public class PlayerMixinPhoenix extends Mob {
 
     @Override
     public void burn(int damage) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4) {
+            // burn damage is 4 points
             aether$damagePhoenixArmourWithEffect(1);
             return;
         }
@@ -57,8 +60,8 @@ public class PlayerMixinPhoenix extends Mob {
 
     @Override
     public void thunderHit(EntityLightning bolt) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.phoenix) == 4) {
-            // only the burn is negated
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4) {
+            // we only negate the burn but the player takes the lightning damage
             this.hurt((Entity) null, 5, DamageType.FIRE);
             aether$damagePhoenixArmourWithEffect(5);
             return;
