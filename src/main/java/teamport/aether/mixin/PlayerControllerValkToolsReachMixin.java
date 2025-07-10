@@ -27,9 +27,9 @@ public class PlayerControllerValkToolsReachMixin {
         ItemStack held = player.getHeldItem();
         if (held == null)
             return false;
-        else if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie)) {
+        else if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE)) {
             return true;
-        } else return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie;
+        } else return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE;
     }
 
     @ModifyReturnValue(method = "getBlockReachDistance", at=@At("RETURN"))
