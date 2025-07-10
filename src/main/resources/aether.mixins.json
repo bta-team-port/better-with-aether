@@ -12,9 +12,9 @@
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "entity.EntityMixin",
-    "entity.Player.PlayerMixinPhoenix",
-    "entity.Player.PlayerMixinGravititeImmunity",
-    "entity.Player.PlayerMixinLifeShard"
+    "entity.player.PlayerMixinPhoenix",
+    "entity.player.PlayerMixinGravititeImmunity",
+    "entity.player.PlayerMixinLifeShard"
   ],
   "client": [
     "PlayerControllerValkToolsReachMixin",

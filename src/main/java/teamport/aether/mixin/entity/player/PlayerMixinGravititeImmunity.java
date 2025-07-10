@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.Player;
+package teamport.aether.mixin.entity.player;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
