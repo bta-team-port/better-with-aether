@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.Player;
+package teamport.aether.mixin.entity.player;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
