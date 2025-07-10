@@ -11,9 +11,9 @@
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
-    "entity.EntityMixin",
+    "entity.entity.EntityMixinPhoenix",
     "entity.player.PlayerMixinPhoenix",
-    "entity.player.PlayerMixinGravititeImmunity",
+    "entity.player.PlayerMixinGravitite",
     "entity.player.PlayerMixinLifeShard"
   ],
   "client": [
