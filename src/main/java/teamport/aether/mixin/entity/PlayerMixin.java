@@ -27,10 +27,7 @@ public abstract class PlayerMixin
         implements IVariableHealthPlayer{
 
     @Shadow public ContainerInventory inventory;
-
-    @Shadow public abstract boolean hurt(Entity attacker, int damage, DamageType type);
-
-    @Shadow public abstract void fireHurt();
+    @Unique protected int extraHealth = 0;
 
     public PlayerMixin(@Nullable World world) {
         super(world);
@@ -101,7 +98,7 @@ public abstract class PlayerMixin
     //##############################  Gravitite Armour  ##############################
 
     @Inject(method = "causeFallDamage", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
-    public void causeFallDamage(float distance, CallbackInfo ci) {
+    public void aether$causeFallDamage(float distance, CallbackInfo ci) {
         if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.gravitite) == 4){
             int damage = (int)Math.ceil(distance - 3.0F);
             if(damage  > 0) aether$damageArmourGravitite(damage);
@@ -115,40 +112,45 @@ public abstract class PlayerMixin
 
     //###############################  ItemLifeShard  ###############################
 
-    // new field in playerData for extra hp
-    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    public void aether$initExtraHealth(CallbackInfo ci) {
-        this.entityData.define(31, 0, Integer.class);
-    }
+    // when respawning the player is created as a new entity, thus this is incorrect
+    // TODO define in entry in entityData for extra Health
+//    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+//    private void aether$initExtraHealth(CallbackInfo ci) {
+//        this.entityData.define(31, 0, Integer.class);
+//    }
 
     @Inject(method = "getMaxHealth", at = @At("HEAD"), cancellable = true)
-    public void aether$getMaxHealth(CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(20 + aether$getExtraHealth());
+    private void aether$getMaxHealth(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(20 + this.aether$getExtraHealth());
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    public void aether$writeExtraHealth(CompoundTag tag, CallbackInfo ci) {
-        tag.putInt("ExtraHP", aether$getExtraHealth());
+    private void aether$writeExtraHealth(CompoundTag tag, CallbackInfo ci) {
+        tag.putInt("ExtraHP", this.aether$getExtraHealth());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    public void aether$readExtraHealth(CompoundTag tag, CallbackInfo ci) {
+    private void aether$readExtraHealth(CompoundTag tag, CallbackInfo ci) {
         if (tag.containsKey("ExtraHP")) {
-            aether$setExtraHealth(tag.getInteger("ExtraHP"));
+            this.aether$setExtraHealth(tag.getInteger("ExtraHP"));
         } else {
-            aether$setExtraHealth(0);
+            this.aether$setExtraHealth(0);
         }
     }
 
+    // TODO restore once entry in entityData for extra Health works
     public int aether$getExtraHealth() {
-        return this.entityData.getInt(31);
+        return extraHealth;
+//        return this.entityData.getInt(31);
     }
 
-    public void aether$setExtraHealth(int extraHP) {
-        this.entityData.set(31, Math.min(extraHP, 20));
+    // TODO restore once entry in entityData for extra Health works
+    public void aether$setExtraHealth(int extraHealth) {
+        this.extraHealth = Math.min(extraHealth, 20);
+//        this.entityData.set(31, Math.min(extraHealth, 20));
     }
 
-    public void aether$addExtraHealth(int extraHP) {
-        aether$setExtraHealth(aether$getExtraHealth() + extraHP);
+    public void aether$addExtraHealth(int extraHealth) {
+        this.aether$setExtraHealth(this.aether$getExtraHealth() + extraHealth);
     }
 }
