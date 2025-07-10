@@ -332,7 +332,6 @@ public class AetherItems {
         //TODO Shield needs its ability to activate when held, blocks all projectiles from hitting you
 
 
-
         ARMOR_HELMET_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.zanite", itemKey("armor_helmet_zanite"), 17070, AetherArmorMaterial.zanite, 3));
         ARMOR_CHESTPLATE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), 17071, AetherArmorMaterial.zanite, 2));
         ARMOR_LEGGINGS_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.zanite", itemKey("armor_leggings_zanite"), 17072, AetherArmorMaterial.zanite, 1));
@@ -342,12 +341,12 @@ public class AetherItems {
         ARMOR_CHESTPLATE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.gravitite", itemKey("armor_chestplate_gravitite"), 17075, AetherArmorMaterial.gravitite, 2));
         ARMOR_LEGGINGS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.gravitite", itemKey("armor_leggings_gravitite"), 17076, AetherArmorMaterial.gravitite, 1));
         ARMOR_BOOTS_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.gravitite", itemKey("armor_boots_gravitite"), 17077, AetherArmorMaterial.gravitite, 0));
-        //TODO Gravitite armor needs its ability give the user a double jump when the full set is worn
 
         ARMOR_HELMET_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), 17078, AetherArmorMaterial.obsidian, 3));
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), 17079, AetherArmorMaterial.obsidian, 2));
         ARMOR_LEGGINGS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), 17080, AetherArmorMaterial.obsidian, 1));
         ARMOR_BOOTS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.obsidian", itemKey("armor_boots_obsidian"), 17081, AetherArmorMaterial.obsidian, 0));
+        // TODO figure out what Obsidian armor do
 
         ARMOR_HELMET_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), 17082, AetherArmorMaterial.phoenix, 3));
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.phoenix, 2));
