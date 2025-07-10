@@ -61,7 +61,7 @@ public abstract class MobMixinGravitite extends Entity {
             return;
         }
 
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.gravitite) == 4) return;
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.gravitite) != 4) return;
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;
