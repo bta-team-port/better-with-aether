@@ -423,8 +423,7 @@ public class AetherItems {
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(4));
-        //TODO hud needs to be extended to include the extra health
-        //TODO Extra hearts need to stay after death
+        //TODO hud need to be adjusted so it wont overlap with oxygenmeter
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), 17106));
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), 17107));
