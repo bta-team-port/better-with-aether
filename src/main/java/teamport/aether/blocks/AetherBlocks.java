@@ -60,9 +60,12 @@ public class AetherBlocks {
 
     public static Block<?> TORCH_AMBROSIUM;
 
-    public static Block<?> ENCHANTER;
-    public static Block<?> FREEZER;
-    public static Block<?> INCUBATOR;
+    public static Block<?> ENCHANTER_IDLE;
+    public static Block<?> ENCHANTER_ACTIVE;
+    public static Block<?> FREEZER_IDLE;
+    public static Block<?> FREEZER_ACTIVE;
+    public static Block<?> INCUBATOR_IDLE;
+    public static Block<?> INCUBATOR_ACTIVE;
 
 
     public static Block<BlockLogicLog> LOG_SKYROOT;
@@ -207,6 +210,12 @@ public class AetherBlocks {
         BlockBuilder ores = stone
                 .setHardness(3.0f)
                 .setResistance(15.0f);
+
+        BlockBuilder station = new BlockBuilder(MOD_ID)
+                .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
+                .setHardness(2.5f)
+                .setResistance(10.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT);
 
 
         PORTAL_AETHER = new BlockBuilder(MOD_ID)
@@ -455,7 +464,32 @@ public class AetherBlocks {
                 .setHardness(0.0f)
                 .setUseInternalLight()
                 .setLuminance(15)
-                .build("torch.ambrosium", "torch_ambrosium", 10005, BlockLogicTorchAmbrosium::new);
+                .build("torch.ambrosium", "torch_ambrosium", 10004, BlockLogicTorchAmbrosium::new);
+
+
+        ENCHANTER_IDLE = station
+                .build("enchanter.idle", "enchanter_idle", 10005, b -> new BlockLogicFurnace(b, false));
+
+        ENCHANTER_ACTIVE = station
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+                .build("enchanter.active", "enchanter_active", 10006, b -> new BlockLogicFurnace(b, true));
+        //TODO Give enchanter functionality the exact same as a furnace, with its own recipe list, its fuel is ambrosium and ambrosium blocks
+
+        FREEZER_IDLE = station
+                .build("freezer.idle", "freezer_idle", 10007, b -> new BlockLogicFurnace(b, false));
+
+        FREEZER_IDLE = station
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+                .build("freezer.active", "freezer_active", 10008, b -> new BlockLogicFurnace(b, true));
+        //TODO Give freezer functionality the exact same as a furnace/enchanter, with its own recipe list, its fuel is icestone
+
+        INCUBATOR_IDLE = station
+                .build("incubator.idle", "incubator_idle", 10016, b -> new BlockLogicFurnace(b, false));
+
+        INCUBATOR_ACTIVE = station
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+                .build("incubator.active", "incubator_active", 10017, b -> new BlockLogicFurnace(b, true));
+        //TODO Give freezer functionality, you can place moa eggs or chicken eggs and slowly cook and then spawn the mob when done, take ambrosium torches as fuel, Has no output
 
 
         ORE_AMBROSIUM_HOLYSTONE = ores
