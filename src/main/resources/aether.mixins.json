@@ -11,8 +11,10 @@
     "accessors.ItemToolSwordAccessor",
     "container.ContainerInventoryMixinArmorCount",
     "container.ContainerInventoryMixinZanite",
+    "entity.MobWolfMixinArmor",
     "entity.entity.EntityMixinPhoenix",
     "entity.mob.MobMixinGravitite",
+    "entity.mob.MobMixinNeptune",
     "entity.player.PlayerMixinGravitite",
     "entity.player.PlayerMixinLifeShard",
     "entity.player.PlayerMixinPhoenix"
