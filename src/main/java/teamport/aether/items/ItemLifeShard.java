@@ -36,7 +36,7 @@ public class ItemLifeShard extends Item {
         HealthHelper.addExtraHealth(player, 2);
         // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
         int extra_heart_amount = Math.min(extraHealth, 20);
-        if (extra_heart_amount == 18) {
+        if (extra_heart_amount >= 18) {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime.final", 0.65F, 1.0F);
         } else {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F + 0.02F * extra_heart_amount, 0.9F + 0.015F * extra_heart_amount);
