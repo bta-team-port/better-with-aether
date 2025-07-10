@@ -42,6 +42,7 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
         }
         int health = mc.thePlayer.getHealth();
         int prevHealth = mc.thePlayer.prevHealth;
+        this.random.setSeed((long)hud.updateCounter * 312871L);
         boolean isHardcore = mc.thePlayer.getGamemode() == Gamemode.hardcore;
 
         // additional information
@@ -51,12 +52,12 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
             return;
         }
 
-        for (int i = 10; i < 10 + extra_heart_amount; ++i) {
+        for (int i = 0; i < 10; ++i) {
             int heartOffset = 0;
             if (heartsFlash) {
                 heartOffset = 1;
             }
-            int xHeart = x + (i - 10) * 8;
+            int xHeart = x + (i) * 8;
             int yHeart = y;
             if (health <= 4) {
                 yHeart += this.random.nextInt(2);
