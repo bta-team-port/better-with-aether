@@ -5,17 +5,20 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockLogicPathDirtMixin",
-    "ContainerInventoryMixin",
-    "accessors.ItemsAccessor",
+    "container.ContainerInventoryMixinZanite",
+    "container.ContainerInventoryMixinArmorCount",
     "ItemToolShovelMixin",
     "accessors.EntityAccessor",
+    "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "entity.EntityMixin",
-    "entity.PlayerMixin"
+    "entity.Player.PlayerMixinPhoenix",
+    "entity.Player.PlayerMixinGravititeImmunity",
+    "entity.Player.PlayerMixinLifeShard"
   ],
   "client": [
-    "client.MinecraftMixin",
-    "PlayerControllerValkToolsReachMixin"
+    "PlayerControllerValkToolsReachMixin",
+    "client.MinecraftMixin"
   ],
   "server": [
   ],
