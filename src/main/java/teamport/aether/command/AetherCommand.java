@@ -4,7 +4,7 @@ import net.minecraft.core.net.command.CommandManager;
 
 public class AetherCommand {
 
-    public static void initializeCommandClient(){
+    public static void registerClientCommands(){
         CommandManager.registerCommand(new CommandExtraHealth());
     }
 
