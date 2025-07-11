@@ -502,6 +502,8 @@ public class AetherBlocks {
         ORE_ZANITE_HOLYSTONE = ores
                 .build("ore.zanite.holystone", "ore_zanite_holystone", 10086, b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, Material.stone));
         ORE_GRAVITITE_HOLYSTONE = ores
+                .setTicking(true)
+                .setTickOnLoad()
                 .build("ore.gravitite.holystone", "ore_gravitite_holystone", 10087, b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
         //TODO Make the block fall upwards
 

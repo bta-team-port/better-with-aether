@@ -35,19 +35,20 @@ public class BlockLogicOreGravitite extends BlockLogic {
     }
 
     public void tryToFall(World world, int x, int y, int z) {
-        if (canFallAbove(world, x, y + 1, z) && y < 255) {
+        if (canFallAbove(world, x, y + 1, z) && y < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
                 EntityFallingGravitite entityFallingGravitite = new EntityFallingGravitite(world, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, this.block.id(), 0, null);
                 world.entityJoinedWorld(entityFallingGravitite);
+                world.setBlockWithNotify(x, y, z, 0);
             } else {
                 world.setBlockWithNotify(x, y, z, 0);
 
-                while(canFallAbove(world, x, y + 1, z) && y < 255) {
+                while(canFallAbove(world, x, y + 1, z) && y < 256) {
                     ++y;
                 }
 
-                if (y > 0) {
+                if (y < 256) {
                     world.setBlockWithNotify(x, y, z, this.block.id());
                 }
             }
