@@ -3,9 +3,10 @@ package teamport.aether.blocks;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import net.minecraft.core.world.generate.feature.tree.WorldFeatureTree;
+import teamport.aether.gen.feature.WorldFeatureTreeAether;
 
 import java.util.Random;
 
@@ -15,17 +16,16 @@ public class BlockLogicSaplingSkyroot extends BlockLogicSaplingBase {
     }
 
     public boolean mayPlaceOn(int blockId) {
-        return blockId == Blocks.SAND.id() || blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id() || super.mayPlaceOn(blockId);
+        return Blocks.blocksList[blockId] == null ? false : Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES);
     }
+
 
     @Override
     public void growTree(World world, int x, int y, int z, Random random) {
-        WorldFeature treeBig = new WorldFeatureTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
-        WorldFeature treeSmall = new WorldFeatureTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
         world.setBlock(x, y, z, 0);
-        if (!treeSmall.place(world, random, x, y, z) && !treeBig.place(world, random, x, y, z)) {
+        WorldFeature tree = new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
+        if (!tree.place(world, random, x, y, z)) {
             world.setBlock(x, y, z, this.id());
-        }
-
+            }
     }
 }

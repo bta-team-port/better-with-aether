@@ -26,7 +26,7 @@ public abstract class MobMixinNeptune extends Entity {
             return;
         }
         Player player = (Player)(Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory,AetherArmorMaterial.NEPTUNE) < 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 4) {
             return;
         }
         yd += 0.02;
@@ -55,7 +55,7 @@ public abstract class MobMixinNeptune extends Entity {
         }
         Player player = (Player)(Object) this;
 
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory,AetherArmorMaterial.NEPTUNE) < 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 4) {
             return constant;
         }
         return this.speed * 0.4f;
@@ -69,7 +69,7 @@ public abstract class MobMixinNeptune extends Entity {
         }
         Player player = (Player)(Object) this;
 
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory,AetherArmorMaterial.NEPTUNE) < 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 4) {
             return constant;
         }
         return 0.16;
