@@ -69,7 +69,7 @@ public class PlayerMixinPhoenix extends Mob {
     }
 
     @Unique
-    private void aether$damagePhoenixArmourWithEffect(int damage) {
+    public void aether$damagePhoenixArmourWithEffect(int damage) {
         Player player = (Player) (Object) this;
         if(((EntityAccessor)player).getRandom().nextFloat() < (double) 0.05F){
             player.inventory.damageArmor(damage);
@@ -78,7 +78,7 @@ public class PlayerMixinPhoenix extends Mob {
     }
 
     @Unique
-    private void aether$spawnFlameParticles() {
+    public void aether$spawnFlameParticles() {
         Random random = ((EntityAccessor)this).getRandom();
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;

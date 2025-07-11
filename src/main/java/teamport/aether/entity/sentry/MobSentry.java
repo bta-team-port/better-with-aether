@@ -35,7 +35,7 @@ public class MobSentry extends MobMonster implements Enemy {
         }
     }
 
-    protected void updateAI() {
+    public void updateAI() {
         this.tryToDespawn();
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && canEntityBeSeen(entityplayer);
