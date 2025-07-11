@@ -63,14 +63,14 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static void initAchievementsPage() {
         AchievementPageAether page = new AchievementPageAether(MOD_ID, Blocks.GLOWSTONE.getDefaultStack());
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
-        page.addAchievement(AetherAchievements.BOUNCE, -2, -1);
-        page.addAchievement(AetherAchievements.MOA, 2, 1);
-        page.addAchievement(AetherAchievements.PHYG, -2, 1);
-        page.addAchievement(AetherAchievements.ENCHANTER, 2, 1);
-        page.addAchievement(AetherAchievements.BRONZE, -2, 3);
+        page.addAchievement(AetherAchievements.BOUNCE, -2, -2);
+        page.addAchievement(AetherAchievements.MOA, 0, -4);
+        page.addAchievement(AetherAchievements.PHYG, -2, 0);
+        page.addAchievement(AetherAchievements.ENCHANTER, 2, 0);
+        page.addAchievement(AetherAchievements.BRONZE, -2, 2);
         page.addAchievement(AetherAchievements.SILVER, 0, 4);
-        page.addAchievement(AetherAchievements.GOLD, 2, 3);
-        page.addAchievement(AetherAchievements.GRAVITITE, 2, -1);
+        page.addAchievement(AetherAchievements.GOLD, 2, 2);
+        page.addAchievement(AetherAchievements.GRAVITITE, 2, -2);
         AchievementPages.register(page);
     }
 }
