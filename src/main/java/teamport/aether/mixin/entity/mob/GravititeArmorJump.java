@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.accessory.api.ContainerHelper;
+import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
@@ -73,7 +73,7 @@ public abstract class GravititeArmorJump extends Entity {
 
 
     @Unique
-    public void aether$spawnCloudParticles() {
+    private void aether$spawnCloudParticles() {
         float width = 1.0f;
 
         for (int i = 0; i < 20; ++i) {
