@@ -15,7 +15,7 @@ import turniplabs.halplibe.helper.BlockBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class AetherBlocks {
+public final class AetherBlocks {
 
 
     public static Block<BlockLogicPortal> PORTAL_AETHER;
@@ -139,10 +139,16 @@ public class AetherBlocks {
     public static Block<?> CARVED_ANGELIC_TRAPPED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
+    private static boolean hasInit = false;
 
-//    public static Block<?> ;
+    public static void init(){
+        if(!hasInit){
+            hasInit = true;
+            initializeBlocks();
+        }
+    }
 
-    public void initializeBlocks() {
+    public static void initializeBlocks() {
 
         BlockBuilder stone = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
