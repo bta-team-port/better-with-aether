@@ -1,4 +1,17 @@
 {
+  "mob.zephyr.call": {
+    "subtitle": "subtitles.mob.zephyr.call",
+    "sounds": [
+      "mob/zephyr/call1.ogg",
+      "mob/zephyr/call2.ogg"
+    ]
+  },
+  "mob.zephyr.shoot": {
+    "subtitle": "subtitles.mob.zephyr.shoot",
+    "sounds": [
+      "mob/zephyr/shoot.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {

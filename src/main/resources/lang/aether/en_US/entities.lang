@@ -1,4 +1,5 @@
 #Passive
+
 aether.phyg.name=Phyg
 aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
 
@@ -22,6 +23,7 @@ aether.aerwhale.name=Aerwhale
 aether.aerwhale.desc=Aerwhales are a large
 
 #Hostile
+
 aether.swet.blue.name=Blue Swet
 aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere.
 aether.swet.gold.name=Gold Swet
@@ -33,8 +35,9 @@ aether.cockatrice.desc=
 aether.aechorplant.name=Aechor Plant
 aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether, and shoot poison darts to deter anything from coming near.
 
+aether.entity.zephyr=Zephyr
 aether.zephyr.name=Zephyr
-aether.blank.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
+aether.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
 
 aether.whirlwind.name=Whirlwind
 aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
@@ -51,9 +54,6 @@ aether.valkyrie.desc=A beautiful soldier that can teleport around you, found roa
 
 
 # Bosses
-
-aether.father_sentry.name=Father Sentry
-aether.slider.desc="The deadbeat dad of all automatons"
 
 aether.slider.name=Slider
 aether.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.

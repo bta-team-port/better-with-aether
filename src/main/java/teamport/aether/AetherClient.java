@@ -14,6 +14,7 @@ import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.command.AetherCommand;
+import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.gui.AetherHudComponents;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
@@ -53,6 +54,9 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
+
+        MobInfoRegistry.register(MobZephyr.class, "aether.zephyr.name", "aether.zephyr.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_WHITE), 1.0f, 0, 6)});
     }
 
     @Override
