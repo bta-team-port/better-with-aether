@@ -4,6 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.ItemToolGravitite.ItemToolSwordGravitite;
 import teamport.aether.items.ItemToolHolystone.ItemToolAxeHolystone;
 import teamport.aether.items.ItemToolHolystone.ItemToolPickaxeHolystone;
 import teamport.aether.items.ItemToolHolystone.ItemToolShovelHolystone;
