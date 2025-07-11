@@ -11,7 +11,7 @@ import net.minecraft.core.net.command.CommandSource;
 import net.minecraft.core.net.command.arguments.ArgumentTypeEntity;
 import net.minecraft.core.net.command.helpers.EntitySelector;
 import net.minecraft.core.net.command.util.CommandHelper;
-import teamport.aether.accessory.api.HealthHelper;
+import teamport.aether.api.HealthHelper;
 
 import java.util.List;
 

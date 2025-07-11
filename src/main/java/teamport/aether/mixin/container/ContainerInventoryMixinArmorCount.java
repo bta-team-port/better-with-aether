@@ -7,7 +7,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.accessory.api.ICountArmor;
+import teamport.aether.api.ICountArmor;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public class ContainerInventoryMixinArmorCount  implements ICountArmor {
