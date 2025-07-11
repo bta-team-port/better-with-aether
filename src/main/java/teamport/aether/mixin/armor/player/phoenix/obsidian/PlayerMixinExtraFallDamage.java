@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.player;
+package teamport.aether.mixin.armor.player.phoenix.obsidian;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -14,12 +14,12 @@ import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public class ObsidianExtraDamage extends Mob {
+public class PlayerMixinExtraFallDamage extends Mob {
 
     @Shadow
     public ContainerInventory inventory;
 
-    public ObsidianExtraDamage(@Nullable World world) {
+    public PlayerMixinExtraFallDamage(@Nullable World world) {
         super(world);
     }
 

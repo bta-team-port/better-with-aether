@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.mob;
+package teamport.aether.mixin.armor.player.phoenix.obsidian;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -12,12 +12,12 @@ import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class ObsidianArmorKnockback extends Mob{
+public abstract class PlayerMixinNoKnockback extends Mob{
 
     @Shadow
     public ContainerInventory inventory;
 
-    public ObsidianArmorKnockback(@Nullable World world) {
+    public PlayerMixinNoKnockback(@Nullable World world) {
         super(world);
     }
 
