@@ -42,6 +42,7 @@ aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will thr
 aether.mimic.name=Mimic
 aether.mimic.desc=A common trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
+aether.entity.sentry=Sentry
 aether.sentry.name=Sentry
 aether.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 

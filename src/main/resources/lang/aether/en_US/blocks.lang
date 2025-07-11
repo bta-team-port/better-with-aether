@@ -108,14 +108,14 @@ tile.aether.aerogel.name=Aerogel
 tile.aether.aerogel.desc=Dense cloud that's explosion proof.
 
 #Dungeons
-tile.aether.carved.stone.name=Carved Stone
+tile.aether.carved.stone.name=Sentry Stone
 tile.aether.carved.stone.desc=Decorative bronze dungeon block.
-tile.aether.slab.carved.stone.name=Carved Slab
-tile.aether.slab.carved.stone.desc=A slab of carved stone.
-tile.aether.stairs.carved.stone.name=Carved Stone Stairs
-tile.aether.stairs.carved.stone.desc=Carved stone block used for rapid vertical movement.
+tile.aether.slab.carved.stone.name=Sentry Stone Slab
+tile.aether.slab.carved.stone.desc=A slab of sentry stone.
+tile.aether.stairs.carved.stone.name=Sentry Stone Stairs
+tile.aether.stairs.carved.stone.desc=Sentry stone block used for rapid vertical movement.
 
-tile.aether.carved.stone.light.name=Light Carved Stone
+tile.aether.carved.stone.light.name=Light Sentry Stone
 tile.aether.carved.stone.light.desc=Decorative bronze dungeon block that glows with an ethereal light.
 
 tile.aether.carved.angelic.name=Angelic Stone
@@ -143,14 +143,14 @@ tile.aether.pillar.desc=A pink pillar found at silver dungeons.
 tile.aether.pillar.capstone.name=Pillar Capstone
 tile.aether.pillar.capstone.desc=A rare pink pillar capstone found at silver dungeons.
 
-tile.aether.carved.stone.trapped.name=Trapped Carved Stone
+tile.aether.carved.stone.trapped.name=Trapped Sentry Stone
 tile.aether.carved.stone.trapped.desc=A sneaky block that summons a sentry.
 tile.aether.carved.angelic.trapped.name=Trapped Angelic Stone
 tile.aether.carved.angelic.trapped.desc=A sneaky block that summons a valkyrie.
 
-tile.aether.carved.stone.locked.name=Locked Carved Stone
+tile.aether.carved.stone.locked.name=Locked Sentry Stone
 tile.aether.carved.stone.locked.desc=Unbreakable bronze dungeon block.
-tile.aether.carved.stone.light.locked.name=Locked Light Carved Stone
+tile.aether.carved.stone.light.locked.name=Locked Light Sentry Stone
 tile.aether.carved.stone.light.locked.desc=Unbreakable bronze dungeon block that glows with an ethereal light.
 
 tile.aether.carved.angelic.locked.name=Locked Angelic Stone

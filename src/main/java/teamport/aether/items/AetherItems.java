@@ -386,7 +386,7 @@ public class AetherItems {
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), 17095));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), 17096));
         //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
-        //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system build into bta for that now
+        //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system built into bta for that now
 
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), 17120));
