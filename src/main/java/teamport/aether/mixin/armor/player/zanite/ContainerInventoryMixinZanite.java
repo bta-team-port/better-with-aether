@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-public abstract class ContainerInventoryMixinZanite implements ICountArmor {
+public abstract class ContainerInventoryMixinZanite{
 
     @Shadow
     public ItemStack[] armorInventory;
