@@ -13,6 +13,7 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.BlockBuilder;
 
+import static net.minecraft.core.block.BlockLogicMoss.stoneToMossMap;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherBlocks {
@@ -37,6 +38,7 @@ public class AetherBlocks {
     public static Block<BlockLogicFlowerStackable> FLOWER_WHITE;
 
     public static Block<?> HOLYSTONE;
+    public static Block<?> HOLYSTONE_MOSSY;
     public static Block<?> HOLYSTONE_POLISHED;
     public static Block<?> HOLYSTONE_CARVED;
     public static Block<BlockLogicSlab> SLAB_HOLYSTONE_POLISHED;
@@ -253,6 +255,9 @@ public class AetherBlocks {
 
         HOLYSTONE = stone
                 .build("holystone", "holystone", 10050, b -> new BlockLogicStone(b, COBBLE_HOLYSTONE, Material.marble));
+
+        HOLYSTONE_MOSSY = stone
+                .build("holystone.mossy", "holystone_mossy", 10054, b -> new BlockLogicMoss(b, HOLYSTONE));
 
         HOLYSTONE_POLISHED = stone
                 .build("holystone.polished", "holystone_polished", 10051, b -> new BlockLogic(b, Material.marble));
@@ -623,6 +628,10 @@ public class AetherBlocks {
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("lantern.firefly.silver", "lantern_firefly_silver", 10150, b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER));
         //TODO Needs its own cluster entity, so it can be picked up from broken firefly jar
+
+
+        stoneToMossMap.put(AetherBlocks.HOLYSTONE, AetherBlocks.HOLYSTONE_MOSSY);
+        stoneToMossMap.put(AetherBlocks.COBBLE_HOLYSTONE, AetherBlocks.COBBLE_HOLYSTONE_MOSSY);
     }
 
 
