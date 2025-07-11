@@ -26,6 +26,6 @@ public class ObsidianExtraDamage extends Mob {
     @Inject(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
     public void aether$causeFallDamage(float distance, CallbackInfo ci) {
         float totalProtectionOfMaterial = ContainerHelper.getTotalEquippedArmorProtection(inventory, AetherArmorMaterial.OBSIDIAN);
-        super.causeFallDamage((1 + totalProtectionOfMaterial * 0.75F) * distance);
+        super.causeFallDamage((1 + totalProtectionOfMaterial) * distance);
     }
 }
