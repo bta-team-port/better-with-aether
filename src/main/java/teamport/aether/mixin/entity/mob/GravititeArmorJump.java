@@ -19,7 +19,7 @@ import teamport.aether.mixin.accessors.EntityAccessor;
 import java.util.Random;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class MobMixinGravitite extends Entity {
+public abstract class GravititeArmorJump extends Entity {
 
     @Shadow
     public boolean isJumping;
@@ -30,7 +30,7 @@ public abstract class MobMixinGravitite extends Entity {
     @Unique
     public boolean isJumpingPrev = false;
 
-    public MobMixinGravitite(@Nullable World world) {
+    public GravititeArmorJump(@Nullable World world) {
         super(world);
     }
 
