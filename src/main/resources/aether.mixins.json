@@ -16,10 +16,12 @@
     "entity.entity.PhoenixArmorIgnitionImmunity",
     "entity.mob.GravititeArmorJump",
     "entity.mob.NeptuneArmorSwimming",
+    "entity.mob.ObsidianArmorKnockback",
     "entity.mob.SkyrootSwordDropMultiplier",
     "entity.player.GravititeArmorImmunity",
     "entity.player.LifeShardExtraHealth",
     "entity.player.NeptuneArmorMining",
+    "entity.player.ObsidianArmorImmunity",
     "entity.player.PhoenixArmorImmunity"
   ],
   "client": [
