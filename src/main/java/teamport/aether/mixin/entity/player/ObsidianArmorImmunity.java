@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.accessory.api.ContainerHelper;
+import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
@@ -20,7 +20,7 @@ public class ObsidianArmorImmunity {
     @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"), cancellable = true)
     public void negateDamage(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir){
         if(   type == null
-           || !type.equals(DamageType.BLAST) 
+           || !type.equals(DamageType.BLAST)
            || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 4
         ){
             return;

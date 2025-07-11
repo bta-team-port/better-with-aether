@@ -13,45 +13,45 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.accessory.api.ContainerHelper;
+import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.Random;
 
 @Mixin(value = Player.class, remap = false)
-public class PhoenixArmorImmunity extends Mob {
+public class ArmorFireImmunity extends Mob {
 
     @Shadow
     public ContainerInventory inventory;
 
-    public PhoenixArmorImmunity(@Nullable World world) {
+    public ArmorFireImmunity(@Nullable World world) {
         super(world);
     }
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci){
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4){
+        if (fireResistanceCount() >= 4) {
             // lava damage is 4 points
-            aether$damagePhoenixArmourWithEffect(4);
+            aether$damageArmourWithEffect(4);
             ci.cancel();
         }
     }
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci){
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4){
+        if (fireResistanceCount() >= 4) {
             // fire damage is 1 points
-            aether$damagePhoenixArmourWithEffect(1);
+            aether$damageArmourWithEffect(1);
             ci.cancel();
         }
     }
 
     @Override
     public void burn(int damage) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4) {
+        if (fireResistanceCount() >= 4) {
             // burn damage is 4 points
-            aether$damagePhoenixArmourWithEffect(1);
+            aether$damageArmourWithEffect(1);
             return;
         }
         super.burn(damage);
@@ -59,17 +59,23 @@ public class PhoenixArmorImmunity extends Mob {
 
     @Override
     public void thunderHit(EntityLightning bolt) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4) {
+        if (fireResistanceCount() >= 4) {
             // we only negate the burn but the player takes the lightning damage
             this.hurt(null, 5, DamageType.FIRE);
-            aether$damagePhoenixArmourWithEffect(5);
+            aether$damageArmourWithEffect(5);
             return;
         }
         super.thunderHit(bolt);
     }
 
     @Unique
-    public void aether$damagePhoenixArmourWithEffect(int damage) {
+    private int  fireResistanceCount(){
+        return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX)
+                + ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.OBSIDIAN);
+    }
+
+    @Unique
+    private void aether$damageArmourWithEffect(int damage) {
         Player player = (Player) (Object) this;
         if(((EntityAccessor)player).getRandom().nextFloat() < (double) 0.05F){
             player.inventory.damageArmor(damage);
@@ -78,7 +84,7 @@ public class PhoenixArmorImmunity extends Mob {
     }
 
     @Unique
-    public void aether$spawnFlameParticles() {
+    private void aether$spawnFlameParticles() {
         Random random = ((EntityAccessor)this).getRandom();
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
