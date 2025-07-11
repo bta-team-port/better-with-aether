@@ -25,8 +25,9 @@
     "armor.wolf.MobWolfMixinFallDamage",
     "armor.wolf.MobWolfMixinFireImmunity",
     "armor.wolf.MobWolfNoKnockback",
-    "item.lifeshard.PlayerMixinExtraHealth",
-    "item.SkyrootSwordDropMultiplier"
+    "armor.wolf.MobWolfMixinZaniteResistance",
+    "item.SkyrootSwordDropMultiplier",
+    "item.lifeshard.PlayerMixinExtraHealth"
   ],
   "client": [
     "PlayerControllerValkToolsReachMixin",
