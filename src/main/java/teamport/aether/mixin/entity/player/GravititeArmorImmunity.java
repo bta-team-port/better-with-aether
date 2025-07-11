@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.accessory.api.ContainerHelper;
+import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
@@ -26,7 +26,7 @@ public abstract class GravititeArmorImmunity extends Mob {
 
     @Inject(method = "causeFallDamage", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
     public void aether$causeFallDamage(float distance, CallbackInfo ci) {
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.GRAVITITE) == 4){
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.GRAVITITE) >= 4){
             int damage = (int)Math.ceil(distance - 13.0F);
             if(damage  > 0) aether$damageArmourGravitite(damage);
             ci.cancel();
@@ -34,7 +34,7 @@ public abstract class GravititeArmorImmunity extends Mob {
     }
 
     @Unique
-    public void aether$damageArmourGravitite(int damage) {
+    private void aether$damageArmourGravitite(int damage) {
         ((Player) (Object) this).inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
     }
 }
