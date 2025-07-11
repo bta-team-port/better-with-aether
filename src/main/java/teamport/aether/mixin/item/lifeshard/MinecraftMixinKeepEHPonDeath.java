@@ -1,4 +1,4 @@
-package teamport.aether.mixin.item;
+package teamport.aether.mixin.item.lifeshard;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,7 @@ import teamport.aether.mixin.accessors.ItemsAccessor;
 
 @Mixin(value = Minecraft.class, remap = false)
 
-public abstract class MinecraftMixin {
+public abstract class MinecraftMixinKeepEHPonDeath {
     @Shadow
     public PlayerLocal thePlayer;
 
