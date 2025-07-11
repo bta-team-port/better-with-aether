@@ -278,7 +278,6 @@ public final class AetherItems {
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), 17079, AetherArmorMaterial.OBSIDIAN, 2));
         ARMOR_LEGGINGS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), 17080, AetherArmorMaterial.OBSIDIAN, 1));
         ARMOR_BOOTS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.obsidian", itemKey("armor_boots_obsidian"), 17081, AetherArmorMaterial.OBSIDIAN, 0));
-        // TODO Give obsidian armor ability to negate knockback damage
 
         ARMOR_HELMET_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), 17082, AetherArmorMaterial.PHOENIX, 3));
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.PHOENIX, 2));
@@ -290,7 +289,6 @@ public final class AetherItems {
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), 17087, AetherArmorMaterial.NEPTUNE, 2));
         ARMOR_LEGGINGS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.neptune", itemKey("armor_leggings_neptune"), 17088, AetherArmorMaterial.NEPTUNE, 1));
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), 17089, AetherArmorMaterial.NEPTUNE, 0));
-        //TODO Neptune armor needs its ability to full mining speed
 
         ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.leather", itemKey("armor_gloves_leather"), 17150));
         ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.chain", itemKey("armor_gloves_chain"), 17151));
