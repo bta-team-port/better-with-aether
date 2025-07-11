@@ -10,24 +10,27 @@
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
+    "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
     "armor.player.gravitite.PlayerMixinFallImmuniy",
     "armor.player.neptune.MobMixinSwimming",
     "armor.player.neptune.PlayerMixinMining",
-    "armor.player.phoenix.EntityMixinIgnitionImmunity",
     "armor.player.phoenix.PlayerMixinFireImmunity",
     "armor.player.phoenix.obsidian.PlayerMixinBlastImmunity",
     "armor.player.phoenix.obsidian.PlayerMixinExtraFallDamage",
     "armor.player.phoenix.obsidian.PlayerMixinNoKnockback",
     "armor.player.zanite.ContainerInventoryMixinZanite",
+    "armor.wolf.MobMixinBlastImmunity",
     "armor.wolf.MobWolfMixinArmor",
-    "armor.wolf.MobWolfMixinFallImmunity",
-    "item.LifeShardExtraHealth",
+    "armor.wolf.MobWolfMixinFallDamage",
+    "armor.wolf.MobWolfMixinFireImmunity",
+    "armor.wolf.MobWolfNoKnockback",
+    "item.lifeshard.PlayerMixinExtraHealth",
     "item.SkyrootSwordDropMultiplier"
   ],
   "client": [
     "PlayerControllerValkToolsReachMixin",
-    "item.MinecraftMixin"
+    "item.lifeshard.MinecraftMixinKeepEHPonDeath"
   ],
   "server": [
   ],
