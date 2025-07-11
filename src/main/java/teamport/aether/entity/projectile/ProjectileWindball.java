@@ -1,0 +1,82 @@
+package teamport.aether.entity.projectile;
+
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.world.World;
+
+public class ProjectileWindball extends Projectile {
+
+    public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
+        super(world);
+        this.setSize(1.0F, 1.0F);
+        this.moveTo(owner.x, owner.y, owner.z, owner.yRot, owner.xRot);
+        this.setPos(this.x, this.y, this.z);
+        this.owner = owner;
+        this.heightOffset = 0.0F;
+        vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
+        vY += this.random.nextGaussian() * 0.4;
+        vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
+        this.setVelocity(vX, vY, vZ);
+    }
+
+    public void setVelocity(double vX, double vY, double vZ) {
+        double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
+        if (velocity != 0.0) {
+            this.xd = vX / velocity;
+            this.yd = vY / velocity;
+            this.zd = vZ / velocity;
+        } else {
+            this.xd = 0.0;
+            this.yd = 0.0;
+            this.zd = 0.0;
+        }
+
+    }
+
+    public void initProjectile() {
+        this.damage = 0;
+        this.defaultGravity = 0.0F;
+        this.defaultProjectileSpeed = 1.0F;
+    }
+
+    public void tick() {
+        super.tick();
+    }
+
+    public void onHit(HitResult result) {
+        if (!this.world.isClientSide) {
+            if (result.entity != null) {
+                result.entity.push(result.entity.xd, result.entity.yd, result.entity.zd);
+            }
+        }
+        this.remove();
+    }
+
+    public void afterTick() {
+        super.afterTick();
+    }
+
+    public boolean isPickable() {
+        return true;
+    }
+
+    public float getPickRadius() {
+        return 1.0F;
+    }
+
+    public boolean hurt(Entity entity, int i, DamageType type) {
+        this.markHurt();
+        return false;
+    }
+
+
+    public void lerpMotion(double xd, double yd, double zd) {
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
+    }
+}

@@ -499,7 +499,7 @@ public final class AetherBlocks {
         INCUBATOR_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("incubator.active", "incubator_active", 10017, b -> new BlockLogicFurnace(b, true));
-        //TODO Give freezer functionality, you can place moa eggs or chicken eggs and slowly cook and then spawn the mob when done, take ambrosium torches as fuel, Has no output
+        //TODO Give Incubator functionality, you can place moa eggs or chicken eggs and slowly cook and then spawn the mob when done, take ambrosium torches as fuel, Has no output
 
 
         ORE_AMBROSIUM_HOLYSTONE = ores
@@ -511,7 +511,7 @@ public final class AetherBlocks {
                 .setTicking(true)
                 .setTickOnLoad()
                 .build("ore.gravitite.holystone", "ore_gravitite_holystone", 10087, b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
-        //TODO Make the block fall upwards
+        //TODO Make the block place when it stops falling upwards
 
         BLOCK_AMBROSIUM = oreBlock
                 .setBlockSound(BlockSounds.STONE)

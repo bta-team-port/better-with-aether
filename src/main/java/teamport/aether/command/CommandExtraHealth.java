@@ -38,7 +38,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
                         .executes(c ->{
                             CommandSource source = (CommandSource) c.getSource();
                             int amount = c.getArgument("amount", Integer.class);
-                            EntitySelector entitySelector = (EntitySelector) c.getArgument("target", EntitySelector.class);
+                            EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
                             List<? extends Entity> entities = entitySelector.get(source);
                             int max_health_added = 0;
                             for(Entity player: entities){
@@ -50,7 +50,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
 
                             if(entities.size() == 1) {
                                 source.sendTranslatableMessage("command.aether.add.extra_health.success_single_entity",
-                                        new Object[]{max_health_added, CommandHelper.getEntityName((Entity) entities.get(0))});
+                                        max_health_added, CommandHelper.getEntityName(entities.get(0)));
                             }else{
                                 source.sendTranslatableMessage("command.aether.add.extra_health.success_multiple_entities", max_health_added);
                             }
@@ -63,7 +63,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
                             CommandSource source = (CommandSource) c.getSource();
                             int amount = c.getArgument("amount", Integer.class);
                             amount = Math.min(20, amount);
-                            EntitySelector entitySelector = (EntitySelector) c.getArgument("target", EntitySelector.class);
+                            EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
                             List<? extends Entity> entities = entitySelector.get(source);
                             for(Entity player: entities){
                                 HealthHelper.setExtraHealth((Player) player, amount);
@@ -71,7 +71,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
 
                             if(entities.size() == 1) {
                                 source.sendTranslatableMessage("command.aether.set.extra_health.success_single_entity",
-                                        new Object[]{CommandHelper.getEntityName((Entity) entities.get(0)), amount});
+                                        CommandHelper.getEntityName(entities.get(0)), amount);
                             }else{
                                 source.sendTranslatableMessage("command.aether.set.extra_health.success_multiple_entities", amount);
                             }
@@ -81,7 +81,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
                         .then(ArgumentBuilderRequired.argument("target", ArgumentTypeEntity.usernames())
                         .executes(c ->{
                             CommandSource source = (CommandSource) c.getSource();
-                            EntitySelector entitySelector = (EntitySelector) c.getArgument("target", EntitySelector.class);
+                            EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
                             List<? extends Entity> entities = entitySelector.get(source);
                             int total_health = 0;
                             for(Entity player: entities){
@@ -89,7 +89,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
                             }
                             if(entities.size() == 1) {
                                 source.sendTranslatableMessage("command.aether.get.extra_health.success_single_entity",
-                                        new Object[]{CommandHelper.getEntityName((Entity) entities.get(0)), total_health});
+                                        CommandHelper.getEntityName(entities.get(0)), total_health);
                             }else{
                                 source.sendTranslatableMessage("command.aether.get.extra_health.success_multiple_entities", total_health);
                             }

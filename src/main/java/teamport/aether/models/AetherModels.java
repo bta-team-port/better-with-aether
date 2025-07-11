@@ -16,10 +16,13 @@ import teamport.aether.entity.EntityFallingGravitite;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
+import teamport.aether.entity.projectile.ProjectileWindball;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.sentry.MobRendererSentry;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.entity.zephyr.MobRendererZephyr;
+import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
@@ -475,10 +478,15 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(ProjectileHammerHead.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD));
 
+        ModelHelper.setEntityModel(ProjectileWindball.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
+
+
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+
+        ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 
         ModelHelper.setEntityModel(EntityFallingGravitite.class, EntityRendererFallingBlock::new);
 
