@@ -1,5 +1,7 @@
 package teamport.aether.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.tessellator.Tessellator;
@@ -9,6 +11,7 @@ import net.minecraft.core.world.World;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
+@Environment(EnvType.CLIENT)
 public class ParticleFlameAmbrosium extends Particle {
     public float originalScale;
 
