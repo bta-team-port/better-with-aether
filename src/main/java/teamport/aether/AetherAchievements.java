@@ -18,9 +18,9 @@ public class AetherAchievements {
     public static final Achievement HOSTILE_PARADISE = new Achievement(key("aether"), "aether.hostile.paradise", Blocks.GLOWSTONE, null).registerAchievement();
 
     public static final Achievement BOUNCE = new Achievement(key("bounce"), "aether.bounce", AetherBlocks.AERCLOUD_BLUE, HOSTILE_PARADISE).registerAchievement();
-    public static final Achievement MOA = new Achievement(key("moa"), "aether.moa", AetherBlocks.PLANKS_SKYROOT, HOSTILE_PARADISE).registerAchievement();
+    public static final Achievement MOA = new Achievement(key("moa"), "aether.moa", AetherBlocks.INCUBATOR_IDLE, HOSTILE_PARADISE).registerAchievement();
     public static final Achievement PHYG = new Achievement(key("phyg"), "aether.phyg", Items.SADDLE, HOSTILE_PARADISE).registerAchievement();
-    public static final Achievement ENCHANTER = new Achievement(key("enchanter"), "aether.enchanter", AetherBlocks.PLANKS_SKYROOT, HOSTILE_PARADISE).registerAchievement();
+    public static final Achievement ENCHANTER = new Achievement(key("enchanter"), "aether.enchanter", AetherBlocks.ENCHANTER_IDLE, HOSTILE_PARADISE).registerAchievement();
 
     public static final Achievement BRONZE = new Achievement(key("bronze"), "aether.bronze", AetherItems.KEY_BRONZE, HOSTILE_PARADISE).registerAchievement();
     public static final Achievement SILVER = new Achievement(key("silver"), "aether.silver", AetherItems.KEY_SILVER, HOSTILE_PARADISE).registerAchievement();
