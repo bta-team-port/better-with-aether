@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.mob;
+package teamport.aether.mixin.armor.player.neptune;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -12,8 +12,8 @@ import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class NeptuneArmorSwimming extends Entity {
-    public NeptuneArmorSwimming(@Nullable World world) {
+public abstract class MobMixinSwimming extends Entity {
+    public MobMixinSwimming(@Nullable World world) {
         super(world);
     }
 

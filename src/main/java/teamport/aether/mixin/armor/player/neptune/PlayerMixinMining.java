@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.player;
+package teamport.aether.mixin.armor.player.neptune;
 
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,7 +8,7 @@ import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public class NeptuneArmorMining {
+public class PlayerMixinMining {
 
     @ModifyConstant(
             method = "getCurrentPlayerStrVsBlock",

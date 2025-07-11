@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.player;
+package teamport.aether.mixin.armor.player.gravitite;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -15,12 +15,12 @@ import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class GravititeArmorImmunity extends Mob {
+public abstract class PlayerMixinFallImmuniy extends Mob {
 
     @Shadow
     public ContainerInventory inventory;
 
-    public GravititeArmorImmunity(@Nullable World world) {
+    public PlayerMixinFallImmuniy(@Nullable World world) {
         super(world);
     }
 

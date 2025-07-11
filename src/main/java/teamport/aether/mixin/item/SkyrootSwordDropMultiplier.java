@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.mob;
+package teamport.aether.mixin.item;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;

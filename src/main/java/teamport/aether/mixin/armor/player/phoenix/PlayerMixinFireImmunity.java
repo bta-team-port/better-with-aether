@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.player;
+package teamport.aether.mixin.armor.player.phoenix;
 
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
@@ -14,23 +14,22 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.api.ContainerHelper;
+import teamport.aether.api.ParticalHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
-import java.util.Random;
-
 @Mixin(value = Player.class, remap = false)
-public class ArmorFireImmunity extends Mob {
+public class PlayerMixinFireImmunity extends Mob {
 
     @Shadow
     public ContainerInventory inventory;
 
-    public ArmorFireImmunity(@Nullable World world) {
+    public PlayerMixinFireImmunity(@Nullable World world) {
         super(world);
     }
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
-    public void aether$lavaImmunity(CallbackInfo ci){
+    public void aether$lavaImmunity(CallbackInfo ci) {
         if (fireResistanceCount() >= 4) {
             // lava damage is 4 points
             aether$damageArmourWithEffect(4);
@@ -39,7 +38,7 @@ public class ArmorFireImmunity extends Mob {
     }
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
-    public void aether$fireImmunity(CallbackInfo ci){
+    public void aether$fireImmunity(CallbackInfo ci) {
         if (fireResistanceCount() >= 4) {
             // fire damage is 1 points
             aether$damageArmourWithEffect(1);
@@ -69,7 +68,7 @@ public class ArmorFireImmunity extends Mob {
     }
 
     @Unique
-    private int  fireResistanceCount(){
+    private int fireResistanceCount() {
         return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX)
                 + ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.OBSIDIAN);
     }
@@ -77,25 +76,9 @@ public class ArmorFireImmunity extends Mob {
     @Unique
     private void aether$damageArmourWithEffect(int damage) {
         Player player = (Player) (Object) this;
-        if(((EntityAccessor)player).getRandom().nextFloat() < (double) 0.05F){
+        if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
             player.inventory.damageArmor(damage);
         }
-        aether$spawnFlameParticles();
-    }
-
-    @Unique
-    private void aether$spawnFlameParticles() {
-        Random random = ((EntityAccessor)this).getRandom();
-        double dx = random.nextGaussian() * 0.02;
-        double dy = random.nextGaussian() * 0.02;
-        double dz = random.nextGaussian() * 0.02;
-        // TODO figure out what data is
-        world.spawnParticle(
-                "flame",
-                x + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-                y + (double) (random.nextFloat() * bbHeight) - (double) bbHeight,
-                z + (double) (random.nextFloat() * bbWidth * 2.0F) - (double) bbWidth,
-                dx, dy, dz, 2
-        );
+        ParticalHelper.spawnFlameParticles(world,  x, y, z, bbHeight, bbWidth);
     }
 }
