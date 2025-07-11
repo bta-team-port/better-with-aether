@@ -1,4 +1,4 @@
-package teamport.aether.accessory.api;
+package teamport.aether.api;
 
 import net.minecraft.core.entity.player.Player;
 

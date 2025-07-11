@@ -4,7 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.accessory.api.HealthHelper;
+import teamport.aether.api.HealthHelper;
 
 public class ItemLifeShard extends Item {
 
