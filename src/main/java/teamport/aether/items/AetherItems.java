@@ -215,12 +215,14 @@ public final class AetherItems {
         //TODO Poison and remedy buckets need to be drinkable and give effects
 
 
+        /**
+         SUGGESTION all tool do extremely poorly outside of aether, maybe scale them down to a specific tool tier?
+         An example can be found in ItemToolAxeZanite
+         */
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), 17050, AetherToolMaterial.SKYROOT));
-        // TODO 7.2 port: skyroot sword drops fewer item
         TOOL_SHOVEL_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), 17051, AetherToolMaterial.SKYROOT));
         TOOL_PICKAXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), 17052, AetherToolMaterial.SKYROOT));
         TOOL_AXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), 17053, AetherToolMaterial.SKYROOT));
-        // TODO skyroot
 
         TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.HOLYSTONE));
         TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.HOLYSTONE));
