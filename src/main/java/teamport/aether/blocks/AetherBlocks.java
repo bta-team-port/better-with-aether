@@ -31,7 +31,7 @@ public class AetherBlocks {
     public static Block<BlockLogicDoorGlassQuicksoil> DOOR_GLASS_QUICKSOIL_TOP;
     public static Block<BlockLogicDoorGlassQuicksoil> DOOR_GLASS_QUICKSOIL_BOTTOM;
 
-    public static Block<BlockLogicTallGrass> TALLGRASS_AETHER;
+    public static Block<BlockLogicTallGrassAether> TALLGRASS_AETHER;
 
     public static Block<BlockLogicFlowerStackable> FLOWER_PURPLE;
     public static Block<BlockLogicFlowerStackable> FLOWER_WHITE;
@@ -225,21 +225,21 @@ public class AetherBlocks {
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("portal.aether", "portal_aether", 10000, b -> new BlockLogicPortal(b, Dimension.OVERWORLD, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
-        //TODO Portal Model and texture are a bit broken atm, and portal doesnt seem to every light up
+        //TODO Portal Model and texture are a bit broken atm, and portal doesn't seem to every light up
 
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.3f)
                 .setResistance(0.6f)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("grass.aether", "grass_aether", 10001, b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.GRAVEL)
                 .setHardness(0.2f)
                 .setResistance(0.2f)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, BlockTags.GROWS_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("dirt.aether", "dirt_aether", 10002, b -> new BlockLogicDirtAether(b));
 
         PATH_DIRT_AETHER = new BlockBuilder(MOD_ID)
@@ -360,14 +360,14 @@ public class AetherBlocks {
 
 
         FLOWER_PURPLE = flower
-                .build("flower.purple", "flower_purple", 10020, (b) -> (BlockLogicFlowerStackable)(new BlockLogicFlowerStackable(b)).setKilledByWeather().setBonemealable());
+                .build("flower.purple", "flower_purple", 10020, (b) -> (BlockLogicFlowerAether)(new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
 
         FLOWER_WHITE = flower
-                .build("flower.white", "flower_white", 10021, (b) -> (BlockLogicFlowerStackable)(new BlockLogicFlowerStackable(b)).setKilledByWeather().setBonemealable());
+                .build("flower.white", "flower_white", 10021, (b) -> (BlockLogicFlowerAether)(new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
 
         TALLGRASS_AETHER = flower
                 .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES)
-                .build("tallgrass.aether", "tallgrass_aether", 10022, BlockLogicTallGrass::new);
+                .build("tallgrass.aether", "tallgrass_aether", 10022, BlockLogicTallGrassAether::new);
 
 
         PLANKS_SKYROOT = wood
@@ -430,7 +430,7 @@ public class AetherBlocks {
 
         LEAVES_SKYROOT = leaves
                 .setLightOpacity(1)
-                .build("leaves.skyroot", "leaves_skyroot", 10012, block -> new BlockLogicLeavesBase(block, Material.leaves, SAPLING_SKYROOT));
+                .build("leaves.skyroot", "leaves_skyroot", 10012, block -> new BlockLogicLeavesSkyroot(block, Material.leaves, SAPLING_SKYROOT));
 
         LEAVES_OAK_GOLDEN = leaves
                 .setLightOpacity(1)

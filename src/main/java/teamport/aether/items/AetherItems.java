@@ -348,12 +348,13 @@ public class AetherItems {
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), 17079, AetherArmorMaterial.OBSIDIAN, 2));
         ARMOR_LEGGINGS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), 17080, AetherArmorMaterial.OBSIDIAN, 1));
         ARMOR_BOOTS_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.obsidian", itemKey("armor_boots_obsidian"), 17081, AetherArmorMaterial.OBSIDIAN, 0));
-        // TODO figure out what Obsidian armor do
+        // TODO Give obsidian armor ability to negate knockback damage
 
         ARMOR_HELMET_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), 17082, AetherArmorMaterial.PHOENIX, 3));
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.PHOENIX, 2));
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), 17084, AetherArmorMaterial.PHOENIX, 1));
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), 17085, AetherArmorMaterial.PHOENIX, 0));
+        //TODO Phoenix armor should be damaged in water and if a piece of armor breaks while in water it turns into a piece of obsidian armor
 
         ARMOR_HELMET_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.neptune", itemKey("armor_helmet_neptune"), 17086, AetherArmorMaterial.NEPTUNE, 3));
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), 17087, AetherArmorMaterial.NEPTUNE, 2));
@@ -423,7 +424,7 @@ public class AetherItems {
         FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), 17101, 20, 1, false, 64));
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
-        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(4));
+        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(10));
         //TODO hud need to be adjusted so it wont overlap with oxygenmeter
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), 17106));

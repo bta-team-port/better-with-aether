@@ -1,6 +1,5 @@
 package teamport.aether.mixin.entity.player;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -62,7 +61,7 @@ public class PlayerMixinPhoenix extends Mob {
     public void thunderHit(EntityLightning bolt) {
         if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.PHOENIX) == 4) {
             // we only negate the burn but the player takes the lightning damage
-            this.hurt((Entity) null, 5, DamageType.FIRE);
+            this.hurt(null, 5, DamageType.FIRE);
             aether$damagePhoenixArmourWithEffect(5);
             return;
         }
