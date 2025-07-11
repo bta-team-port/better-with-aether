@@ -1,20 +1,22 @@
 package teamport.aether.items;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.World;
-import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.ItemToolHolystone.ItemToolAxeHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolPickaxeHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolShovelHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolSwordHolystone;
+import teamport.aether.items.ItemToolZanite.ItemToolAxeZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolPickaxeZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolShovelZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolSwordZanite;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class AetherItems {
+public final class AetherItems {
 
     public static String itemKey(String string) {
         return MOD_ID + ":item/" + string;
@@ -211,98 +213,15 @@ public class AetherItems {
         TOOL_AXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), 17053, AetherToolMaterial.SKYROOT));
         // TODO skyroot
 
-        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.HOLYSTONE) {
-            public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-                if (itemRand.nextInt(16) == 0) {
-                    target.dropItem(AMBROSIUM.id, 1);
-                }
-                itemstack.damageItem(1, attacker);
-                return true;
-            }
-        });
-        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.ZANITE){
-            public int getDamageVsEntity(Entity entity, ItemStack is) {
-                // to keep it consistent with other tools
-                float factor = AetherToolMaterial.ZANITE.getEfficiency(true ) / AetherToolMaterial.ZANITE.getEfficiency(false);
+        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.HOLYSTONE));
+        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.HOLYSTONE));
+        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.HOLYSTONE));
+        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.HOLYSTONE) );
 
-                // we will 'lerp' between the starting damage and starting damage time ration of efficiency
-                float durability_progress = (float) is.getMetadata() / this.getMaxDamage();
-                float starting_damage = (float) super.getDamageVsEntity(entity, is);
-                float ending_damage = starting_damage * factor;
-                return Math.round(starting_damage * (1.0F - durability_progress) + (ending_damage * durability_progress));
-            }
-        });
-        TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
-        TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
-        TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
+        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.ZANITE));
+        TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.ZANITE));
+        TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.ZANITE));
+        TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.ZANITE));
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.GRAVITITE));
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.GRAVITITE));
