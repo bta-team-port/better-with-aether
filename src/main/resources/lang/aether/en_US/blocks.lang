@@ -24,6 +24,8 @@ tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.
 
 tile.aether.holystone.name=Holystone
 tile.aether.holystone.desc=Bright white rock with a cold touch, smoothed with age.
+tile.aether.holystone.mossy.name=Mossy Holystone
+tile.aether.holystone.mossy.desc=Pale moss covering a block of holystone.
 tile.aether.holystone.polished.name=Polished Holystone
 tile.aether.holystone.polished.desc=A polished block of holystone.
 tile.aether.holystone.carved.name=Carved Holystone

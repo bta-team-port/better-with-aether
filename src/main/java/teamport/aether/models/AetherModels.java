@@ -50,6 +50,9 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE)
                 .setAllTextures(0, "aether:block/holystone"));
 
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_MOSSY)
+                .setAllTextures(0, "aether:block/holystone_mossy"));
+
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_POLISHED)
                 .setTex(0, "aether:block/polished_holystone_side", Side.sides)
                 .setTex(0, "aether:block/polished_holystone_top", Side.TOP, Side.BOTTOM));

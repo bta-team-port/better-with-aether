@@ -33,6 +33,7 @@ public class ItemToolPickaxeAether extends ItemTool {
         miningLevels.put(STAIRS_COBBLE_HOLYSTONE, 0);
         miningLevels.put(COBBLE_HOLYSTONE_MOSSY, 0);
         miningLevels.put(HOLYSTONE, 0);
+        miningLevels.put(HOLYSTONE_MOSSY, 0);
         miningLevels.put(HOLYSTONE_CARVED, 0);
         miningLevels.put(HOLYSTONE_POLISHED, 0);
         miningLevels.put(SLAB_HOLYSTONE_POLISHED, 0);
