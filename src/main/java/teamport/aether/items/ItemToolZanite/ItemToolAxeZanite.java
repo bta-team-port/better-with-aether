@@ -13,6 +13,7 @@ public class ItemToolAxeZanite extends ItemToolAxeAether {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+//        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return Items.TOOL_AXE_WOOD.getStrVsBlock(itemstack, block);
         if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
         float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
 
