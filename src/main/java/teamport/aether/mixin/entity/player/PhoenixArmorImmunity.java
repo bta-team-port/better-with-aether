@@ -20,12 +20,12 @@ import teamport.aether.mixin.accessors.EntityAccessor;
 import java.util.Random;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinPhoenix extends Mob {
+public class PhoenixArmorImmunity extends Mob {
 
     @Shadow
     public ContainerInventory inventory;
 
-    public PlayerMixinPhoenix(@Nullable World world) {
+    public PhoenixArmorImmunity(@Nullable World world) {
         super(world);
     }
 

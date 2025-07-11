@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.accessory.api.IVariableHealthPlayer;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinLifeShard
+public class LifeShardExtraHealth
         implements IVariableHealthPlayer {
     @Unique
     public int extraHealth = 0;

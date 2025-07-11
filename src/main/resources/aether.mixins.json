@@ -13,13 +13,13 @@
     "container.ContainerInventoryMixinArmorCount",
     "container.ContainerInventoryMixinZanite",
     "entity.MobWolfMixinArmor",
-    "entity.entity.EntityMixinPhoenix",
-    "entity.mob.MobMixinGravitite",
-    "entity.mob.MobMixinNeptune",
-    "entity.mob.MobMixinSkyrootSword",
-    "entity.player.PlayerMixinGravitite",
-    "entity.player.PlayerMixinLifeShard",
-    "entity.player.PlayerMixinPhoenix"
+    "entity.entity.PhoenixArmorCatchingFire",
+    "entity.mob.GravititeArmorJump",
+    "entity.mob.NeptuneArmorSwimming",
+    "entity.mob.SkyrootSwordDropMultiplier",
+    "entity.player.GravititeArmorImmunity",
+    "entity.player.LifeShardExtraHealth",
+    "entity.player.PhoenixArmorImmunity"
   ],
   "client": [
     "PlayerControllerValkToolsReachMixin",

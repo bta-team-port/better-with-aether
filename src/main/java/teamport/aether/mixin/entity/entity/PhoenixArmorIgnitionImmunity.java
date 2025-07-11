@@ -10,7 +10,7 @@ import teamport.aether.accessory.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Entity.class, remap = false)
-public class EntityMixinPhoenix {
+public class PhoenixArmorIgnitionImmunity {
 
     @Inject(method = "isInWaterOrRain", at = @At("HEAD"), cancellable = true)
     public void aether$cantCatchFire(CallbackInfoReturnable<Boolean> cir){
