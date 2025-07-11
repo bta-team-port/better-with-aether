@@ -6,13 +6,22 @@ import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class AetherEntities {
+public final class AetherEntities {
+    private static boolean hasInit = false;
 
-    public String entityKey(String string) {
+    public static void init() {
+        if(!hasInit){
+            hasInit = true;
+            initializeEntities();
+        }
+
+    }
+
+    public static String entityKey(String string) {
         return MOD_ID + ".entity." + string;
     }
 
-    public void initializeEntities() {
+    public static void initializeEntities() {
         EntityHelper.createEntity(MobSentry.class, NamespaceID.getPermanent(MOD_ID, "sentry"), entityKey("sentry"));
     }
 

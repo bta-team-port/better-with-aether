@@ -18,113 +18,110 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 public final class AetherItems {
 
-    public static String itemKey(String string) {
-        return MOD_ID + ":item/" + string;
-    }
-
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;
+
     public static Item KEY_SILVER;
     public static Item KEY_GOLD;
-
     public static Item EGG_MOA_BLUE;
+
     public static Item EGG_MOA_WHITE;
     public static Item EGG_MOA_BLACK;
-
     public static Item RECORD_AETHER;
+
     public static Item RECORD_MORNING;
     public static Item RECORD_DAWN;
-
     public static Item AMBER;
+
     public static Item PETAL_AECHOR;
     public static Item STICK_SKYROOT;
-
     public static Item AMMO_DART_GOLDEN;
+
     public static Item AMMO_DART_POISON;
     public static Item AMMO_DART_ENCHANTED;
-
     public static Item TOOL_SHOOTER;
 
     public static Item AMBROSIUM;
-    public static Item ZANITE;
 
+    public static Item ZANITE;
     public static Item BUCKET_SKYROOT;
+
     public static Item BUCKET_SKYROOT_WATER;
     public static Item BUCKET_SKYROOT_MILK;
     public static Item BUCKET_SKYROOT_POISON;
     public static Item BUCKET_SKYROOT_REMEDY;
     public static Item BUCKET_SKYROOT_ICECREAM;
-
     public static Item FOOD_HEALING_STONE;
 
     public static Item TOOL_PICKAXE_SKYROOT;
+
     public static Item TOOL_SHOVEL_SKYROOT;
     public static Item TOOL_AXE_SKYROOT;
     public static Item TOOL_SWORD_SKYROOT;
-
     public static Item TOOL_PICKAXE_HOLYSTONE;
+
     public static Item TOOL_SHOVEL_HOLYSTONE;
     public static Item TOOL_AXE_HOLYSTONE;
     public static Item TOOL_SWORD_HOLYSTONE;
-
     public static Item TOOL_PICKAXE_ZANITE;
+
     public static Item TOOL_SHOVEL_ZANITE;
     public static Item TOOL_AXE_ZANITE;
     public static Item TOOL_SWORD_ZANITE;
-
     public static Item TOOL_PICKAXE_GRAVITITE;
+
     public static Item TOOL_SHOVEL_GRAVITITE;
     public static Item TOOL_AXE_GRAVITITE;
     public static Item TOOL_SWORD_GRAVITITE;
-
     public static Item TOOL_PICKAXE_VALKYRIE;
+
     public static Item TOOL_SHOVEL_VALKYRIE;
     public static Item TOOL_AXE_VALKYRIE;
     public static Item TOOL_SWORD_VALKYRIE;
-
     public static Item ARMOR_HELMET_ZANITE;
+
     public static Item ARMOR_CHESTPLATE_ZANITE;
     public static Item ARMOR_LEGGINGS_ZANITE;
     public static Item ARMOR_BOOTS_ZANITE;
-
     public static Item ARMOR_HELMET_GRAVITITE;
+
     public static Item ARMOR_CHESTPLATE_GRAVITITE;
     public static Item ARMOR_LEGGINGS_GRAVITITE;
     public static Item ARMOR_BOOTS_GRAVITITE;
-
     public static Item ARMOR_HELMET_OBSIDIAN;
+
     public static Item ARMOR_CHESTPLATE_OBSIDIAN;
     public static Item ARMOR_LEGGINGS_OBSIDIAN;
     public static Item ARMOR_BOOTS_OBSIDIAN;
-
     public static Item ARMOR_HELMET_PHOENIX;
+
     public static Item ARMOR_CHESTPLATE_PHOENIX;
     public static Item ARMOR_LEGGINGS_PHOENIX;
     public static Item ARMOR_BOOTS_PHOENIX;
-
     public static Item ARMOR_HELMET_NEPTUNE;
+
     public static Item ARMOR_CHESTPLATE_NEPTUNE;
     public static Item ARMOR_LEGGINGS_NEPTUNE;
     public static Item ARMOR_BOOTS_NEPTUNE;
-
     public static Item TOOL_SWORD_PIG;
-    public static Item TOOL_SWORD_VAMPIRE;
 
+    public static Item TOOL_SWORD_VAMPIRE;
     public static Item TOOL_SWORD_FLAME;
+
     public static Item TOOL_SWORD_HOLY;
     public static Item TOOL_SWORD_LIGHTNING;
-
     public static Item TOOL_STAFF_NATURE;
-    public static Item TOOL_STAFF_CLOUD;
 
+    public static Item TOOL_STAFF_CLOUD;
     public static Item TOOL_KNIFE_LIGHTNING;
+
     public static Item TOOL_HAMMER_NOTCH;
     public static Item AMMO_HAMMER_HEAD;
     public static Item TOOL_BOW_PHOENIX;
     public static Item TOOL_SHIELD_REPULSION;
-
     public static Item ARMOR_GLOVES_LEATHER;
+
     public static Item ARMOR_GLOVES_CHAIN;
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
@@ -135,8 +132,8 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_OBSIDIAN;
     public static Item ARMOR_GLOVES_PHOENIX;
     public static Item ARMOR_GLOVES_NEPTUNE;
-
     public static Item ARMOR_TALISMAN_LEATHER;
+
     public static Item ARMOR_TALISMAN_CHAIN;
     public static Item ARMOR_TALISMAN_IRON;
     public static Item ARMOR_TALISMAN_GOLD;
@@ -145,21 +142,21 @@ public final class AetherItems {
     public static Item ARMOR_TALISMAN_ZANITE;
     public static Item ARMOR_TALISMAN_GRAVITITE;
     public static Item ARMOR_TALISMAN_ICE;
-
     public static Item ARMOR_TALISMAN_BUBBLE;
+
     public static Item ARMOR_TALISMAN_FEATHER_GOLD;
     public static Item ARMOR_TALISMAN_REGEN;
-
     public static Item ARMOR_CAPE_SWET;
+
     public static Item ARMOR_CAPE_INVISIBILITY;
     public static Item ARMOR_CAPE_AGILITY;
-
     public static Item ARMOR_CAPE_RED;
+
     public static Item ARMOR_CAPE_YELLOW;
     public static Item ARMOR_CAPE_BLUE;
     public static Item ARMOR_CAPE_WHITE;
-
     public static Item FOOD_GUMMY_BLUE;
+
     public static Item FOOD_GUMMY_GOLD;
     public static Item PARACHUTE_CLOUD;
     public static Item PARACHUTE_CLOUD_GOLD;
@@ -167,14 +164,26 @@ public final class AetherItems {
     public static Item LANTERN_FIREFLY_SILVER;
     public static Item DOOR_SKYROOT;
     public static Item DOOR_GLASS_AMBROSIUM;
-
     public static Item AMMO_WINDBALL;
 
     public static Item PROJECTILE_FIRE;
+
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
+    private static boolean hasInit = false;
 
-    public void initializeItems() {
+    public static void init(){
+        if(!hasInit){
+            hasInit = true;
+            initializeItems();
+        }
+    }
+
+    public static String itemKey(String string) {
+        return MOD_ID + ":item/" + string;
+    }
+
+    private static void initializeItems() {
 
         MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), 17000));
 

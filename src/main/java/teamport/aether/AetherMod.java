@@ -15,7 +15,6 @@ import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
-import static net.minecraft.core.block.BlockLogicMoss.stoneToMossMap;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -33,9 +32,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
-        new AetherEntities().initializeEntities();
-        new AetherBlocks().initializeBlocks();
-        new AetherItems().initializeItems();
+        AetherEntities.init();
+        AetherBlocks.init();
+        AetherItems.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
 
