@@ -19,7 +19,7 @@ import java.util.Random;
 // this is a mystery to me
 @Environment(EnvType.CLIENT)
 public class ComponentExtraHealthBar extends HudComponentMovable {
-    private final Random random = new Random();
+    public final Random random = new Random();
 
     public ComponentExtraHealthBar(String key, Layout layout) {
         super(key, 81, 10, layout);

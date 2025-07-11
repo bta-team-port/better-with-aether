@@ -22,20 +22,20 @@ import java.util.Random;
 public abstract class MobMixinGravitite extends Entity {
 
     @Shadow
-    protected boolean isJumping;
+    public boolean isJumping;
 
     @Unique
-    private boolean usedDoubleJump = false;
+    public boolean usedDoubleJump = false;
 
     @Unique
-    private boolean isJumpingPrev = false;
+    public boolean isJumpingPrev = false;
 
     public MobMixinGravitite(@Nullable World world) {
         super(world);
     }
 
     @Inject(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;isSprinting()Z"))
-    private void aether$jump(CallbackInfo ci) {
+    public void aether$jump(CallbackInfo ci) {
         if (!((Mob)(Object) this instanceof Player)) {
             return;
         }
@@ -48,7 +48,7 @@ public abstract class MobMixinGravitite extends Entity {
 
     @Inject(method = "onLivingUpdate",
             at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
-    private void aether$onLivingUpdate(CallbackInfo ci) {
+    public void aether$onLivingUpdate(CallbackInfo ci) {
         if (!((Mob)(Object) this instanceof Player)) {
             return;
         }
@@ -73,7 +73,7 @@ public abstract class MobMixinGravitite extends Entity {
 
 
     @Unique
-    private void aether$spawnCloudParticles() {
+    public void aether$spawnCloudParticles() {
         float width = 1.0f;
 
         for (int i = 0; i < 20; ++i) {

@@ -34,7 +34,7 @@ public class BlockLogicOreGravitite extends BlockLogic {
         this.tryToFall(world, x, y, z);
     }
 
-    private void tryToFall(World world, int x, int y, int z) {
+    public void tryToFall(World world, int x, int y, int z) {
         if (canFallAbove(world, x, y + 1, z) && y < 255) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {

@@ -14,29 +14,29 @@ import teamport.aether.accessory.api.IVariableHealthPlayer;
 public class PlayerMixinLifeShard
         implements IVariableHealthPlayer {
     @Unique
-    protected int extraHealth = 0;
+    public int extraHealth = 0;
 
     //###############################  ItemLifeShard  ###############################
 
     // when respawning the player is created as a new entity, thus this is incorrect
     // TODO define in entry in entityData for extra Health
 //    @Inject(method = "defineSynchedData", at = @At("TAIL"))
-//    private void aether$initExtraHealth(CallbackInfo ci) {
+//    public void aether$initExtraHealth(CallbackInfo ci) {
 //        this.entityData.define(31, 0, Integer.class);
 //    }
 
     @Inject(method = "getMaxHealth", at = @At("HEAD"), cancellable = true)
-    private void aether$getMaxHealth(CallbackInfoReturnable<Integer> cir) {
+    public void aether$getMaxHealth(CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(20 + this.aether$getExtraHealth());
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void aether$writeExtraHealth(CompoundTag tag, CallbackInfo ci) {
+    public void aether$writeExtraHealth(CompoundTag tag, CallbackInfo ci) {
         tag.putInt("ExtraHP", this.aether$getExtraHealth());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void aether$readExtraHealth(CompoundTag tag, CallbackInfo ci) {
+    public void aether$readExtraHealth(CompoundTag tag, CallbackInfo ci) {
         if (tag.containsKey("ExtraHP")) {
             this.aether$setExtraHealth(tag.getInteger("ExtraHP"));
         } else {

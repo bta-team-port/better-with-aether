@@ -21,7 +21,7 @@ public abstract class MobMixinNeptune extends Entity {
             method = "moveEntityWithHeading",
             at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0)
     )
-    private void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
+    public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
         if (!((Mob)(Object) this instanceof Player)) {
             return;
         }
@@ -49,7 +49,7 @@ public abstract class MobMixinNeptune extends Entity {
                     )
             )
     )
-    private float aether$changeMoveRelative(float constant) {
+    public float aether$changeMoveRelative(float constant) {
         if (!((Mob)(Object) this instanceof Player)) {
             return constant;
         }
@@ -63,7 +63,7 @@ public abstract class MobMixinNeptune extends Entity {
 
     // TODO maybe target in some other way
     @ModifyConstant(method = "onLivingUpdate", constant = @Constant(doubleValue = 0.04, ordinal = 0))
-    private double aether$changeRisingSpeed(double constant) {
+    public double aether$changeRisingSpeed(double constant) {
         if (!((Mob)(Object) this instanceof Player)) {
             return constant;
         }

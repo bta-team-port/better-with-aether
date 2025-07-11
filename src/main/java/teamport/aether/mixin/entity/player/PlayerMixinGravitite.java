@@ -34,7 +34,7 @@ public abstract class PlayerMixinGravitite extends Mob {
     }
 
     @Unique
-    private void aether$damageArmourGravitite(int damage) {
+    public void aether$damageArmourGravitite(int damage) {
         ((Player) (Object) this).inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
     }
 }

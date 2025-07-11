@@ -32,11 +32,11 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
         }
     }
 
-    protected void scaleSentry() {
+    public void scaleSentry() {
         GL11.glScalef(1.75F, 1.75F, 1.75F);
     }
 
-    protected void setupScale(MobSentry entity, float partialTick) {
+    public void setupScale(MobSentry entity, float partialTick) {
         this.scaleSentry();
     }
 
