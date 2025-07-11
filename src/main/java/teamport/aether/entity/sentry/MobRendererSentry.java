@@ -16,7 +16,7 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
         if (renderPass == 0 && sentry.activated) {
             this.bindTexture("/assets/aether/textures/entity/sentry/sentry_eye.png/");
             this.overlayTexture = "/assets/aether/textures/entity/sentry/sentry_eye.png/";
-            float brightness = sentry.getBrightness(1.0F);
+            float brightness = sentry.getBrightness(15.0F);
             if (Minecraft.getMinecraft().fullbright) {
                 brightness = 1.0f;
             }

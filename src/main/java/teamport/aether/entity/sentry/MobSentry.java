@@ -23,6 +23,14 @@ public class MobSentry extends MobMonster implements Enemy {
         this.cooldownInactive = 0;
     }
 
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
+    public int getMaxHealth() {
+        return 10;
+    }
+
     @Override
     public void tick() {
         boolean flag = this.onGround;
@@ -111,7 +119,7 @@ public class MobSentry extends MobMonster implements Enemy {
 
 
     public boolean canSpawnHere() {
-        return !this.world.getDifficulty().canHostileMobsSpawn() ? false : super.canSpawnHere();
+        return this.world.getDifficulty().canHostileMobsSpawn() && super.canSpawnHere();
     }
 
     @Override

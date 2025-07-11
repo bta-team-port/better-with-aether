@@ -38,13 +38,13 @@ public class BlockLogicOreGravitite extends BlockLogic {
         if (canFallAbove(world, x, y + 1, z) && y < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
-                EntityFallingGravitite entityFallingGravitite = new EntityFallingGravitite(world, (double)x + 0.5, (double)y + 0.5, (double)z + 0.5, this.block.id(), 0, null);
+                EntityFallingGravitite entityFallingGravitite = new EntityFallingGravitite(world, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, this.block.id(), 0, null);
                 world.entityJoinedWorld(entityFallingGravitite);
                 world.setBlockWithNotify(x, y, z, 0);
             } else {
                 world.setBlockWithNotify(x, y, z, 0);
 
-                while(canFallAbove(world, x, y + 1, z) && y < 256) {
+                while (canFallAbove(world, x, y + 1, z) && y < 256) {
                     ++y;
                 }
 
@@ -53,7 +53,6 @@ public class BlockLogicOreGravitite extends BlockLogic {
                 }
             }
         }
-
     }
 
     public int tickDelay() {
