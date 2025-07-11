@@ -16,6 +16,7 @@
     "entity.entity.EntityMixinPhoenix",
     "entity.mob.MobMixinGravitite",
     "entity.mob.MobMixinNeptune",
+    "entity.mob.MobMixinSkyrootSword",
     "entity.player.PlayerMixinGravitite",
     "entity.player.PlayerMixinLifeShard",
     "entity.player.PlayerMixinPhoenix"

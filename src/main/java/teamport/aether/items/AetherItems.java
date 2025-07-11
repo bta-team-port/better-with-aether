@@ -1,128 +1,127 @@
 package teamport.aether.items;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.World;
-import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.ItemToolHolystone.ItemToolAxeHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolPickaxeHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolShovelHolystone;
+import teamport.aether.items.ItemToolHolystone.ItemToolSwordHolystone;
+import teamport.aether.items.ItemToolZanite.ItemToolAxeZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolPickaxeZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolShovelZanite;
+import teamport.aether.items.ItemToolZanite.ItemToolSwordZanite;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public class AetherItems {
-
-    public static String itemKey(String string) {
-        return MOD_ID + ":item/" + string;
-    }
+public final class AetherItems {
 
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;
+
     public static Item KEY_SILVER;
     public static Item KEY_GOLD;
-
     public static Item EGG_MOA_BLUE;
+
     public static Item EGG_MOA_WHITE;
     public static Item EGG_MOA_BLACK;
-
     public static Item RECORD_AETHER;
+
     public static Item RECORD_MORNING;
     public static Item RECORD_DAWN;
-
     public static Item AMBER;
+
     public static Item PETAL_AECHOR;
     public static Item STICK_SKYROOT;
-
     public static Item AMMO_DART_GOLDEN;
+
     public static Item AMMO_DART_POISON;
     public static Item AMMO_DART_ENCHANTED;
-
     public static Item TOOL_SHOOTER;
 
     public static Item AMBROSIUM;
-    public static Item ZANITE;
 
+    public static Item ZANITE;
     public static Item BUCKET_SKYROOT;
+
     public static Item BUCKET_SKYROOT_WATER;
     public static Item BUCKET_SKYROOT_MILK;
     public static Item BUCKET_SKYROOT_POISON;
     public static Item BUCKET_SKYROOT_REMEDY;
     public static Item BUCKET_SKYROOT_ICECREAM;
-
     public static Item FOOD_HEALING_STONE;
 
     public static Item TOOL_PICKAXE_SKYROOT;
+
     public static Item TOOL_SHOVEL_SKYROOT;
     public static Item TOOL_AXE_SKYROOT;
     public static Item TOOL_SWORD_SKYROOT;
-
     public static Item TOOL_PICKAXE_HOLYSTONE;
+
     public static Item TOOL_SHOVEL_HOLYSTONE;
     public static Item TOOL_AXE_HOLYSTONE;
     public static Item TOOL_SWORD_HOLYSTONE;
-
     public static Item TOOL_PICKAXE_ZANITE;
+
     public static Item TOOL_SHOVEL_ZANITE;
     public static Item TOOL_AXE_ZANITE;
     public static Item TOOL_SWORD_ZANITE;
-
     public static Item TOOL_PICKAXE_GRAVITITE;
+
     public static Item TOOL_SHOVEL_GRAVITITE;
     public static Item TOOL_AXE_GRAVITITE;
     public static Item TOOL_SWORD_GRAVITITE;
-
     public static Item TOOL_PICKAXE_VALKYRIE;
+
     public static Item TOOL_SHOVEL_VALKYRIE;
     public static Item TOOL_AXE_VALKYRIE;
     public static Item TOOL_SWORD_VALKYRIE;
-
     public static Item ARMOR_HELMET_ZANITE;
+
     public static Item ARMOR_CHESTPLATE_ZANITE;
     public static Item ARMOR_LEGGINGS_ZANITE;
     public static Item ARMOR_BOOTS_ZANITE;
-
     public static Item ARMOR_HELMET_GRAVITITE;
+
     public static Item ARMOR_CHESTPLATE_GRAVITITE;
     public static Item ARMOR_LEGGINGS_GRAVITITE;
     public static Item ARMOR_BOOTS_GRAVITITE;
-
     public static Item ARMOR_HELMET_OBSIDIAN;
+
     public static Item ARMOR_CHESTPLATE_OBSIDIAN;
     public static Item ARMOR_LEGGINGS_OBSIDIAN;
     public static Item ARMOR_BOOTS_OBSIDIAN;
-
     public static Item ARMOR_HELMET_PHOENIX;
+
     public static Item ARMOR_CHESTPLATE_PHOENIX;
     public static Item ARMOR_LEGGINGS_PHOENIX;
     public static Item ARMOR_BOOTS_PHOENIX;
-
     public static Item ARMOR_HELMET_NEPTUNE;
+
     public static Item ARMOR_CHESTPLATE_NEPTUNE;
     public static Item ARMOR_LEGGINGS_NEPTUNE;
     public static Item ARMOR_BOOTS_NEPTUNE;
-
     public static Item TOOL_SWORD_PIG;
-    public static Item TOOL_SWORD_VAMPIRE;
 
+    public static Item TOOL_SWORD_VAMPIRE;
     public static Item TOOL_SWORD_FLAME;
+
     public static Item TOOL_SWORD_HOLY;
     public static Item TOOL_SWORD_LIGHTNING;
-
     public static Item TOOL_STAFF_NATURE;
-    public static Item TOOL_STAFF_CLOUD;
 
+    public static Item TOOL_STAFF_CLOUD;
     public static Item TOOL_KNIFE_LIGHTNING;
+
     public static Item TOOL_HAMMER_NOTCH;
     public static Item AMMO_HAMMER_HEAD;
     public static Item TOOL_BOW_PHOENIX;
     public static Item TOOL_SHIELD_REPULSION;
-
     public static Item ARMOR_GLOVES_LEATHER;
+
     public static Item ARMOR_GLOVES_CHAIN;
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
@@ -133,8 +132,8 @@ public class AetherItems {
     public static Item ARMOR_GLOVES_OBSIDIAN;
     public static Item ARMOR_GLOVES_PHOENIX;
     public static Item ARMOR_GLOVES_NEPTUNE;
-
     public static Item ARMOR_TALISMAN_LEATHER;
+
     public static Item ARMOR_TALISMAN_CHAIN;
     public static Item ARMOR_TALISMAN_IRON;
     public static Item ARMOR_TALISMAN_GOLD;
@@ -143,21 +142,21 @@ public class AetherItems {
     public static Item ARMOR_TALISMAN_ZANITE;
     public static Item ARMOR_TALISMAN_GRAVITITE;
     public static Item ARMOR_TALISMAN_ICE;
-
     public static Item ARMOR_TALISMAN_BUBBLE;
+
     public static Item ARMOR_TALISMAN_FEATHER_GOLD;
     public static Item ARMOR_TALISMAN_REGEN;
-
     public static Item ARMOR_CAPE_SWET;
+
     public static Item ARMOR_CAPE_INVISIBILITY;
     public static Item ARMOR_CAPE_AGILITY;
-
     public static Item ARMOR_CAPE_RED;
+
     public static Item ARMOR_CAPE_YELLOW;
     public static Item ARMOR_CAPE_BLUE;
     public static Item ARMOR_CAPE_WHITE;
-
     public static Item FOOD_GUMMY_BLUE;
+
     public static Item FOOD_GUMMY_GOLD;
     public static Item PARACHUTE_CLOUD;
     public static Item PARACHUTE_CLOUD_GOLD;
@@ -165,14 +164,26 @@ public class AetherItems {
     public static Item LANTERN_FIREFLY_SILVER;
     public static Item DOOR_SKYROOT;
     public static Item DOOR_GLASS_AMBROSIUM;
-
     public static Item AMMO_WINDBALL;
 
     public static Item PROJECTILE_FIRE;
+
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
+    private static boolean hasInit = false;
 
-    public void initializeItems() {
+    public static void init(){
+        if(!hasInit){
+            hasInit = true;
+            initializeItems();
+        }
+    }
+
+    public static String itemKey(String string) {
+        return MOD_ID + ":item/" + string;
+    }
+
+    private static void initializeItems() {
 
         MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), 17000));
 
@@ -204,105 +215,24 @@ public class AetherItems {
         //TODO Poison and remedy buckets need to be drinkable and give effects
 
 
+        /**
+         SUGGESTION all tool do extremely poorly outside of aether, maybe scale them down to a specific tool tier?
+         An example can be found in ItemToolAxeZanite
+         */
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), 17050, AetherToolMaterial.SKYROOT));
-        // TODO 7.2 port: skyroot sword drops fewer item
         TOOL_SHOVEL_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), 17051, AetherToolMaterial.SKYROOT));
         TOOL_PICKAXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), 17052, AetherToolMaterial.SKYROOT));
         TOOL_AXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), 17053, AetherToolMaterial.SKYROOT));
-        // TODO skyroot
 
-        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.HOLYSTONE) {
-            public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-                if (itemRand.nextInt(16) == 0) {
-                    target.dropItem(AMBROSIUM.id, 1);
-                }
-                itemstack.damageItem(1, attacker);
-                return true;
-            }
-        });
-        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.HOLYSTONE) {
-            public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
-                Block<?> block = Blocks.blocksList[i];
-                if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
-                    itemstack.damageItem(1, mob);
-                }
-                if (itemRand.nextInt(32) == 0) {
-                    world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
-                }
-                return true;
-            }
-        });
-        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.ZANITE){
-            public int getDamageVsEntity(Entity entity, ItemStack is) {
-                // to keep it consistent with other tools
-                float factor = AetherToolMaterial.ZANITE.getEfficiency(true ) / AetherToolMaterial.ZANITE.getEfficiency(false);
+        TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), 17054, AetherToolMaterial.HOLYSTONE));
+        TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), 17055, AetherToolMaterial.HOLYSTONE));
+        TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), 17056, AetherToolMaterial.HOLYSTONE));
+        TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID).build(new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), 17057, AetherToolMaterial.HOLYSTONE) );
 
-                // we will 'lerp' between the starting damage and starting damage time ration of efficiency
-                float durability_progress = (float) is.getMetadata() / this.getMaxDamage();
-                float starting_damage = (float) super.getDamageVsEntity(entity, is);
-                float ending_damage = starting_damage * factor;
-                return Math.round(starting_damage * (1.0F - durability_progress) + (ending_damage * durability_progress));
-            }
-        });
-        TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
-        TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
-        TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.ZANITE){
-            public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-                if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
-                float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-                // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-                float starting_efficiency = this.material.getEfficiency(false);
-                float ending_efficiency = this.material.getEfficiency(true);
-
-                return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
-            }
-        });
+        TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), 17058, AetherToolMaterial.ZANITE));
+        TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), 17059, AetherToolMaterial.ZANITE));
+        TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), 17060, AetherToolMaterial.ZANITE));
+        TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), 17061, AetherToolMaterial.ZANITE));
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.GRAVITITE));
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.GRAVITITE));
