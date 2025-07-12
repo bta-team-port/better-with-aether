@@ -1,4 +1,4 @@
-package teamport.aether.mixin.client;
+package teamport.aether.mixin.item.lifeshard;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherClient;
-import teamport.aether.accessory.api.HealthHelper;
+import teamport.aether.api.HealthHelper;
 import teamport.aether.mixin.accessors.ItemsAccessor;
 
 @Mixin(value = Minecraft.class, remap = false)
 
-public abstract class MinecraftMixin {
+public abstract class MinecraftMixinKeepEHPonDeath {
     @Shadow
     public PlayerLocal thePlayer;
 

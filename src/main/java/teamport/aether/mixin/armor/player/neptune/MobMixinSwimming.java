@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.mob;
+package teamport.aether.mixin.armor.player.neptune;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -8,12 +8,12 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.accessory.api.ContainerHelper;
+import teamport.aether.api.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class MobMixinNeptune extends Entity {
-    public MobMixinNeptune(@Nullable World world) {
+public abstract class MobMixinSwimming extends Entity {
+    public MobMixinSwimming(@Nullable World world) {
         super(world);
     }
 
