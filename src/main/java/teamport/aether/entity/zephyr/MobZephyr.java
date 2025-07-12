@@ -69,21 +69,21 @@ public class MobZephyr extends MobFlying implements Enemy {
         this.tryToDespawn();
         this.attackChargeO = this.attackCharge;
         double d = this.waypointX - this.x;
-        double d2 = this.waypointY - this.y;
-        double d3 = this.waypointZ - this.z;
-        double d4 = MathHelper.sqrt(d * d + d2 * d2 + d3 * d3);
-        if (d4 < 1.0 || d4 > 60.0) {
-            this.waypointX = this.x + (this.random.nextFloat() * 2.0f - 1.0f) * 16.0f;
-            this.waypointY = this.y + (this.random.nextFloat() * 2.0f - 1.0f) * 16.0f;
-            this.waypointZ = this.z + (this.random.nextFloat() * 2.0f - 1.0f) * 16.0f;
+        double d1 = this.waypointY - this.y;
+        double d2 = this.waypointZ - this.z;
+        double d3 = MathHelper.sqrt(d * d + d1 * d1 + d2 * d2);
+        if (d3 < 1.0 || d3 > 60.0) {
+            this.waypointX = this.x + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointY = this.y + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            this.waypointZ = this.z + (double) ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
         }
 
         if (this.courseChangeCooldown-- <= 0) {
             this.courseChangeCooldown += this.random.nextInt(5) + 2;
-            if (this.isCourseTraversable(d, d2, d3, d4)) {
-                this.xd += d / d4 * 0.1;
-                this.yd += d2 / d4 * 0.1;
-                this.zd += d3 / d4 * 0.1;
+            if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3)) {
+                this.xd += d / d3 * 0.1;
+                this.yd += d1 / d3 * 0.1;
+                this.zd += d2 / d3 * 0.1;
             } else {
                 this.waypointX = this.x;
                 this.waypointY = this.y;
@@ -97,17 +97,17 @@ public class MobZephyr extends MobFlying implements Enemy {
 
         if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
             this.targetedEntity = this.world.getClosestPlayerToEntity(this, 100.0);
-            if (this.targetedEntity != null && !((Player) this.targetedEntity).getGamemode().areMobsHostile()) {
-                this.targetedEntity = null;
-            }
-
             if (this.targetedEntity != null) {
                 this.aggroCooldown = 20;
             }
+
+            if (this.targetedEntity != null && !((Player) this.targetedEntity).getGamemode().areMobsHostile()) {
+                this.targetedEntity = null;
+            }
         }
 
-        double d5 = 64.0;
-        if (this.targetedEntity != null && this.targetedEntity.distanceToSqr(this) < d5 * d5) {
+        double d4 = 64.0;
+        if (this.targetedEntity != null && this.targetedEntity.distanceToSqr(this) < d4 * d4) {
             double d8 = 4.0;
             Vec3 vec3 = this.getViewVector(1.0F);
             double dX = this.targetedEntity.x - this.x;
@@ -115,21 +115,19 @@ public class MobZephyr extends MobFlying implements Enemy {
             double dZ = this.targetedEntity.z - this.z;
             double dist = MathHelper.sqrt(dX * dX + dY * dY + dZ * dZ);
             double vX = dX + this.targetedEntity.xd * dist / 7.5 - vec3.x * d8;
-            double vY = dY + this.targetedEntity.yd * dist / 7.5 - ((double)(this.bbHeight / 2.0F) + 0.5);
+            double vY = dY + this.targetedEntity.yd * dist / 7.5 - ((double) (this.bbHeight / 2.0F) + 0.5);
             double vZ = dZ + this.targetedEntity.zd * dist / 7.5 - vec3.z * d8;
-            this.yBodyRot = this.yRot = -((float)Math.atan2(vX, vZ)) * 180.0F / 3.1415927F;
+            this.yBodyRot = this.yRot = -((float) Math.atan2(vX, vZ)) * 180.0F / 3.1415927F;
             if (this.canEntityBeSeen(this.targetedEntity)) {
                 if (this.attackCharge == 10) {
-                    this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.call", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 }
 
                 ++this.attackCharge;
                 if (this.attackCharge == 20) {
                     this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     ProjectileWindball windball = new ProjectileWindball(this.world, this, vX, vY, vZ);
-                    windball.x = this.x + vec3.x * d8;
-                    windball.y = this.y + (double)(this.bbHeight / 2.0F) + 0.5;
-                    windball.z = this.z + vec3.z * d8;
+                    windball.setPos(this.x + vec3.x * d8, this.y + (double) (this.bbHeight / 2.0F) + 0.5, this.z + vec3.z * d8 );
                     this.world.entityJoinedWorld(windball);
                     this.attackCharge = -40;
                 }
@@ -139,12 +137,11 @@ public class MobZephyr extends MobFlying implements Enemy {
                 this.targetedEntity = null;
             }
         } else {
-            this.yBodyRot = this.yRot = -((float)Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
+            this.yBodyRot = this.yRot = -((float) Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
             if (this.attackCharge > 0) {
                 --this.attackCharge;
             }
         }
-
     }
 
     public boolean isCourseTraversable(double d, double d1, double d2, double d3) {
@@ -153,9 +150,9 @@ public class MobZephyr extends MobFlying implements Enemy {
         double d6 = (this.waypointZ - this.z) / d3;
         AABB axisalignedbb = this.bb.copy();
 
-        for(int i = 1; (double)i < d3; ++i) {
+        for (int i = 1; (double) i < d3; ++i) {
             axisalignedbb.move(d4, d5, d6);
-            if (!this.world.getCubes(this, axisalignedbb).isEmpty()) {
+            if (this.world.getCubes(this, axisalignedbb).size() > 0) {
                 return false;
             }
         }
@@ -171,8 +168,10 @@ public class MobZephyr extends MobFlying implements Enemy {
                     this.aggroCooldown = 60;
                 }
 
+                return true;
+            } else {
+                return true;
             }
-            return true;
         } else {
             return false;
         }

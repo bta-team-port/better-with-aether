@@ -8,8 +8,8 @@ public class ModelZephyr extends ModelBase {
 
     public ModelZephyr() {
         this.body = new Cube(0, 0);
-        this.body.addBox(-8.0F, -4.0F, -8.0F, 15, 12, 17);
-        this.body.setRotationPoint(-0.5F, 2F, 0.5F);
+        this.body.addBox(-7.5F, -4.0F, -8.5F, 15, 12, 17);
+//        this.body.setRotationPoint(body.x, body.y, body.z);
         Cube var10000 = this.body;
         var10000.y += (float)(16);
     }
