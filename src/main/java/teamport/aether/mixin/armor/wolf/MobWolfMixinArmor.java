@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity;
+package teamport.aether.mixin.armor.wolf;
 
 
 import net.minecraft.core.entity.animal.MobAnimal;
@@ -26,5 +26,6 @@ public abstract class MobWolfMixinArmor extends MobAnimal {
         ARMOR_MATERIALS.put(AetherArmorMaterial.GRAVITITE, (IArmorItem) AetherItems.ARMOR_CHESTPLATE_GRAVITITE);
         ARMOR_MATERIALS.put(AetherArmorMaterial.ZANITE, (IArmorItem) AetherItems.ARMOR_CHESTPLATE_ZANITE);
     }
+
 
 }
