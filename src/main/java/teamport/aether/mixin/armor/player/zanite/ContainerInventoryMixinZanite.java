@@ -1,4 +1,4 @@
-package teamport.aether.mixin.container;
+package teamport.aether.mixin.armor.player.zanite;
 
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
@@ -10,11 +10,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.accessory.api.ICountArmor;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-public abstract class ContainerInventoryMixinZanite implements ICountArmor {
+public abstract class ContainerInventoryMixinZanite{
 
     @Shadow
     public ItemStack[] armorInventory;

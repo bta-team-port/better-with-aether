@@ -1,10 +1,11 @@
-package teamport.aether.items;
+package teamport.aether.items.ItemToolGravitite;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
+import teamport.aether.items.ItemToolSwordAether;
 
-public class ItemToolSwordGravitite extends ItemToolSwordAether{
+public class ItemToolSwordGravitite extends ItemToolSwordAether {
 
     public ItemToolSwordGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);

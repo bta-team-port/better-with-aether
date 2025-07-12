@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.player;
+package teamport.aether.mixin.item.lifeshard;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.player.Player;
@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.accessory.api.IVariableHealthPlayer;
+import teamport.aether.api.IVariableHealthPlayer;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinLifeShard
+public class PlayerMixinExtraHealth
         implements IVariableHealthPlayer {
     @Unique
     public int extraHealth = 0;
