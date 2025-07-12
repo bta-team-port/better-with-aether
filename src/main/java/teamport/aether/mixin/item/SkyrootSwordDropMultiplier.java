@@ -1,4 +1,4 @@
-package teamport.aether.mixin.entity.mob;
+package teamport.aether.mixin.item;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -15,7 +15,7 @@ import teamport.aether.items.AetherToolMaterial;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class MobMixinSkyrootSword{
+public abstract class SkyrootSwordDropMultiplier {
 
     @Shadow
     protected abstract void dropDeathItems();
