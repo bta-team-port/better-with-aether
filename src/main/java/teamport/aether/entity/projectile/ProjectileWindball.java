@@ -48,9 +48,10 @@ public class ProjectileWindball extends Projectile {
     }
 
     public void onHit(HitResult result) {
+
         if (!this.world.isClientSide) {
             if (result.entity != null) {
-                result.entity.push(result.entity.xd, result.entity.yd, result.entity.zd);
+                result.entity.fling(xd * 4, yd * 0, zd * 4, 0.5F);
             }
         }
         this.remove();

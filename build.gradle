@@ -95,7 +95,7 @@ dependencies {
 
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
-	modImplementation(files("dependencies/btwaila-1.2.1-7.3_01.jar"))
+//	modImplementation(files("dependencies/btwaila-1.2.1-7.3_01.jar"))
 	modImplementation(files("dependencies/catalyst-core-2.0.3-7.3_03.jar"))
 	modImplementation(files("dependencies/tmb-1.1.1-7.3_03.jar"))
 
