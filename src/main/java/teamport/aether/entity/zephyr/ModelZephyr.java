@@ -7,11 +7,11 @@ public class ModelZephyr extends ModelBase {
     Cube body;
 
     public ModelZephyr() {
-        byte yOff = -16;
         this.body = new Cube(0, 0);
-        this.body.addBox(-8.0F, -4.0F, -8.0F, 10, 7, 12);
+        this.body.addBox(-8.0F, -4.0F, -8.0F, 15, 12, 17);
+        this.body.setRotationPoint(-0.5F, 2F, 0.5F);
         Cube var10000 = this.body;
-        var10000.y += (float)(24 + yOff);
+        var10000.y += (float)(16);
     }
 
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
