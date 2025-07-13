@@ -10,11 +10,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.api.IVariableHealthPlayer;
 
+import static teamport.aether.AetherConfig.EXTRA_HEALTH;
+
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinExtraHealth
         implements IVariableHealthPlayer {
     @Unique
-    public int extraHealth = 0;
+    public int extraHealth = EXTRA_HEALTH;
 
     //###############################  ItemLifeShard  ###############################
 
@@ -52,7 +54,7 @@ public class PlayerMixinExtraHealth
 
     // TODO restore once entry in entityData for extra Health works
     public void aether$setExtraHealth(int extraHealth) {
-        this.extraHealth = Math.min(extraHealth, 20);
+        this.extraHealth = Math.min(extraHealth, EXTRA_HEALTH);
 //        this.entityData.set(31, Math.min(extraHealth, 20));
     }
 

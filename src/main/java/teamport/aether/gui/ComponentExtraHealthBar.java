@@ -19,10 +19,13 @@ import java.util.Random;
 // this is a mystery to me
 @Environment(EnvType.CLIENT)
 public class ComponentExtraHealthBar extends HudComponentMovable {
+    public static final String PATH_HEART = "minecraft:gui/hud/heart/";
     public final Random random = new Random();
+    public int barCount;
 
-    public ComponentExtraHealthBar(String key, Layout layout) {
+    public ComponentExtraHealthBar(String key, Layout layout, int barCount) {
         super(key, 81, 10, layout);
+        this.barCount = barCount;
     }
 
     @Override
@@ -33,6 +36,7 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
     @Override
     public void render(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick) {
 
+        // copied from HealthBar ---------------------------------------------------------------------------------------
         int x = this.getLayout().getComponentX(mc, this, xSizeScreen);
         int y = this.getLayout().getComponentY(mc, this, ySizeScreen);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -43,93 +47,82 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
         }
         int health = mc.thePlayer.getHealth();
         int prevHealth = mc.thePlayer.prevHealth;
-        this.random.setSeed((long)hud.updateCounter * 312871L);
+        this.random.setSeed((long) hud.updateCounter * 312871L);
         boolean isHardcore = mc.thePlayer.getGamemode() == Gamemode.hardcore;
+        //--------------------------------------------------------------------------------------------------------------
+        String hardcoreHearths = isHardcore ? "hardcore_" : "";
+        String guiHeart = PATH_HEART + hardcoreHearths;
+        //--------------------------------------------------------------------------------------------------------------
+        int totalHealth = HealthHelper.getMaxHealth(mc.thePlayer);
+        int renderHealth = Math.min(totalHealth - barCount * 20, 20);
+        int renderHeart = (renderHealth + 1) / 2;
+        if (renderHeart == 0) return;
 
-        // additional information
-        int extra_health = HealthHelper.getExtraHealth(mc.thePlayer);
-        int extra_heart_amount = (extra_health + 1) / 2;
-        if (extra_heart_amount == 0) {
-            return;
-        }
+        // TODO change heal and prevhealth
+        int barprevHealth = prevHealth - barCount * 20;
+        int barhealth = health - barCount * 20;
 
-        for (int i = 0; i < 10; ++i) {
-            int heartOffset = 0;
-            if (heartsFlash) {
-                heartOffset = 1;
-            }
-            int xHeart = x + (i) * 8;
-            int yHeart = y;
+        GL11.glTranslated(0, 0, -0.01 * barCount);
+
+        for (int i = 0; i < renderHeart; ++i) {
+            int heartOffset = heartsFlash ? 1 : 0;
+            int xHeart = x + i * 8;
+            int yHeart = y + (5 * barCount);
             if (health <= 4) {
                 yHeart += this.random.nextInt(2);
             }
-            hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                    heartOffset == 0
-                            ? TextureRegistry.getTexture("minecraft:gui/hud/heart/container")
-                            : TextureRegistry.getTexture("minecraft:gui/hud/heart/container_blinking"));
+            int currentHeart = i * 2 + 1;
+            String heartTexturePath = PATH_HEART + (heartOffset == 0 ? "container" : "container_blinking");
+
+                                                             hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(heartTexturePath));
             if (heartsFlash) {
-                if (i * 2 + 1 < prevHealth) {
-                    hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "full_blinking"));
-                }
-
-                if (i * 2 + 1 == prevHealth) {
-                    hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                            TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "half_blinking"));
-                }
+                if (currentHeart < barprevHealth)              {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(PATH_HEART + "full_blinking"));}
+                if (currentHeart == barprevHealth)             {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "half_blinking"));}
             }
+            if (currentHeart < barhealth)                      {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "full"));}
+            if (currentHeart == barhealth)                     {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "half"));}
 
-            if (i * 2 + 1 < health) {
-                hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                        TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "full"));
+            // healing -------------------------------------------------------------------------------------------------
+            if (
+                    mc.thePlayer.inventory.getCurrentItem() == null
+                            || (!(mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood)
+                            && !(mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream))
+                            || !((Boolean) mc.gameSettings.foodHealthRegenOverlay.value)
+            ) {
+                continue;
             }
-
-            if (i * 2 + 1 == health) {
-                hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                        TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "half"));
-            }
-
-            if (mc.thePlayer.inventory.getCurrentItem() != null && (mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood || mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream) && (Boolean) mc.gameSettings.foodHealthRegenOverlay.value) {
-                int healing;
-                if (mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood) {
-                    healing = ((ItemFood) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();
-                } else {
-                    healing = ((ItemBucketIceCream) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();
-                }
-
-                if (i * 2 + 1 >= health) {
-                    if (i * 2 + 1 == health) {
-                        hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                                TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "preview_half_right"));
-                    } else if (i * 2 + 1 < health + healing) {
-                        hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                                TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "preview_full"));
-                    } else if (i * 2 + 1 == health + healing) {
-                        hud.drawGuiIcon(xHeart, yHeart, 9, 9,
-                                TextureRegistry.getTexture("minecraft:gui/hud/heart/" + (isHardcore ? "hardcore_" : "") + "preview_half"));
-                    }
-                }
-            }
+            int healing;
+            if (mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood)  {healing = ((ItemFood) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();}
+            else                                                                        {healing = ((ItemBucketIceCream) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();}
+            if (currentHeart < barhealth)                      {continue;}
+            if (currentHeart == barhealth)                     {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_half_right"));}
+            else if (currentHeart < barhealth + healing)       {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_full"));}
+            else if (currentHeart == barhealth + healing)      {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_half"));}
+            // ---------------------------------------------------------------------------------------------------------
         }
     }
 
 
+    /**
+     * this is probably for the editing of the hud
+     */
+    // TODO move the hearths into the correct location
     @Override
     public void renderPreview(Minecraft mc, Gui gui, Layout layout, int xSizeScreen, int ySizeScreen) {
         int x = layout.getComponentX(mc, this, xSizeScreen);
         int y = layout.getComponentY(mc, this, ySizeScreen);
+//        int y = layout.getComponentY(mc, this, ySizeScreen) + 5 + (barCount - 1) * 10;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(3042);
         int health = 11;
-
         for (int i = 0; i < 10; ++i) {
-            int xHeart = x + (i - 10) * 8;
-            gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture("minecraft:gui/hud/heart/container"));
+            int xHeart = x + i * 8;
+            gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "container"));
             if (i * 2 + 1 < health) {
-                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture("minecraft:gui/hud/heart/full"));
+                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "full"));
             }
-
             if (i * 2 + 1 == health) {
-                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture("minecraft:gui/hud/heart/half"));
+                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "half"));
             }
         }
 
