@@ -22,8 +22,8 @@ public class AetherConfig {
     public static TomlConfigHandler cfg;
 
     public static int blockIDs = 10000;
-
     public static int itemIDs = 20000;
+    public static int EXTRA_HEALTH;
 
     public static String BlockIDs = "Block IDs";
     public static String ItemIDs = "Item IDs";
@@ -50,6 +50,8 @@ public class AetherConfig {
         for (Field itemField : itemFields) {
             properties.addEntry(ItemIDs+ "." + itemField.getName(), itemIDs++);
         }
+        properties.addCategory("Others")
+                .addEntry("EXTRA_HEALTH", 20);
 
         cfg = new TomlConfigHandler(MOD_ID, properties);
 
@@ -59,5 +61,12 @@ public class AetherConfig {
             try {cfg.getConfigFile().createNewFile();} catch (IOException e) {throw new RuntimeException(e);}
             cfg.writeConfig();
         }
+
+        try {
+            EXTRA_HEALTH = AetherConfig.cfg.getInt("EXTRA_HEALTH");
+        } catch (NullPointerException e) {
+            EXTRA_HEALTH = 20;
+        }
+
     }
 }
