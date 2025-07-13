@@ -287,6 +287,7 @@ public final class AetherBlocks {
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
                 .setResistance(0.8f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("slab.holystone.carved", "slab_holystone_polished", blockID("SLAB_HOLYSTONE_POLISHED"), b -> new BlockLogicSlab(b, HOLYSTONE_CARVED));
 
 
@@ -299,11 +300,13 @@ public final class AetherBlocks {
         STAIRS_COBBLE_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("stairs.cobble.holystone", "stairs_cobble_holystone", blockID("STAIRS_COBBLE_HOLYSTONE"), b -> new BlockLogicStairs(b, COBBLE_HOLYSTONE));
 
         SLAB_COBBLE_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("slab.cobble.holystone", "slab_cobble_holystone", blockID("SLAB_COBBLE_HOLYSTONE"), b -> new BlockLogicSlab(b, COBBLE_HOLYSTONE));
 
 
@@ -313,11 +316,13 @@ public final class AetherBlocks {
         STAIRS_BRICK_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("stairs.brick.holystone", "stairs_brick_holystone", blockID("STAIRS_BRICK_HOLYSTONE"), b -> new BlockLogicStairs(b, BRICK_HOLYSTONE));
 
         SLAB_BRICK_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("slab.brick.holystone", "slab_brick_holystone", blockID("SLAB_BRICK_HOLYSTONE"), b -> new BlockLogicSlab(b, BRICK_HOLYSTONE));
 
 
@@ -341,6 +346,7 @@ public final class AetherBlocks {
                 .setHardness(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("glass.quicksoil", "glass_quicksoil", blockID("GLASS_QUICKSOIL"), BlockLogicGlassQuicksoil::new);
 
 
@@ -368,6 +374,7 @@ public final class AetherBlocks {
                 .setLuminance(7)
                 .setLightOpacity(0)
                 .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("trapdoor.glass.quicksoil", "trapdoor_glass_quicksoil", blockID("TRAPDOOR_GLASS_QUICKSOIL"), b -> new BlockLogicTrapDoorGlassQuicksoil(b, Material.glass));
 
 
@@ -388,11 +395,13 @@ public final class AetherBlocks {
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 .build("slab.planks.skyroot", "slab_planks_skyroot", blockID("SLAB_PLANKS_SKYROOT"), b -> new BlockLogicSlab(b, PLANKS_SKYROOT));
         STAIRS_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 .build("stairs.planks.skyroot", "stairs_planks_skyroot", blockID("STAIRS_PLANKS_SKYROOT"), b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
         FENCE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
@@ -418,6 +427,7 @@ public final class AetherBlocks {
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 .build("trapdoor.planks.skyroot", "trapdoor_planks_skyroot", blockID("TRAPDOOR_PLANKS_SKYROOT"), b -> new BlockLogicTrapDoor(b, Material.cloth));
 
         CHEST_PLANKS_SKYROOT = wood
@@ -426,10 +436,12 @@ public final class AetherBlocks {
 
         BUTTON_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
                 .build("button.planks.skyroot", "button_planks_skyroot", blockID("BUTTON_PLANKS_SKYROOT"), BlockLogicButtonPlanks::new);
 
         PRESSURE_PLATE_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
                 .build("pressure.plate.planks.skyroot", "pressure_plate_planks_skyroot", blockID("PRESSURE_PLATE_PLANKS_SKYROOT"), b -> new BlockLogicPressurePlate<>(b, Entity.class, Material.wood));
 
 

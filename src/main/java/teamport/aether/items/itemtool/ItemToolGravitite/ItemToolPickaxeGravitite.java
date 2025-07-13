@@ -31,10 +31,12 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
         if (block == null
                 || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 || player.isSneaking()
+                || block.getHardness() < 0
                 || nextBlock != null
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
         }
+
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(
                 world,
                 (double) blockX + 0.5F, (double) blockY + 0.5F, (double) blockZ + 0.5F,
