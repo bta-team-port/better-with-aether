@@ -185,6 +185,14 @@ public final class AetherItems {
     }
 
     private static void initializeItems() {
+        // TODO maybe moving some item initialization in their own method
+        AetherItems.registerArmor();
+        AetherItems.registerTool();
+        AetherItems.registerFood();
+        AetherItems.registerOther();
+
+
+
 
         MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), 17000));
 
@@ -374,5 +382,11 @@ public final class AetherItems {
 //                .build(new Item("BLANK", "aether:item/blank", ID));
 
     }
+
+    // maybe for later when cleanign up
+    private static void registerOther() {}
+    private static void registerTool() {}
+    private static void registerFood() {}
+    private static void registerArmor() {}
 
 }
