@@ -166,7 +166,6 @@ public final class AetherBlocks {
         BlockBuilder stone = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.8f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         BlockBuilder wood = new BlockBuilder(MOD_ID)
@@ -175,9 +174,6 @@ public final class AetherBlocks {
                 .setResistance(5.0f)
                 .setFlammability(20, 5)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
-
-        BlockBuilder dungeonStone = stone
-                .setResistance(1.0f);
 
         BlockBuilder dungeonStoneLocked = stone
                 .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
@@ -208,6 +204,7 @@ public final class AetherBlocks {
                 .setHardness(0.2F)
                 .setResistance(0.2F)
                 .setFlammability(30, 60)
+                .setLightOpacity(1)
                 .setTickOnLoad()
                 .setVisualUpdateOnMetadata()
                 .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
@@ -229,7 +226,7 @@ public final class AetherBlocks {
 
         BlockBuilder ores = stone
                 .setHardness(3.0f)
-                .setResistance(15.0f);
+                .setResistance(5.0f);
 
         BlockBuilder station = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
@@ -302,13 +299,11 @@ public final class AetherBlocks {
         STAIRS_COBBLE_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.8f)
                 .build("stairs.cobble.holystone", "stairs_cobble_holystone", blockID("STAIRS_COBBLE_HOLYSTONE"), b -> new BlockLogicStairs(b, COBBLE_HOLYSTONE));
 
         SLAB_COBBLE_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.8f)
                 .build("slab.cobble.holystone", "slab_cobble_holystone", blockID("SLAB_COBBLE_HOLYSTONE"), b -> new BlockLogicSlab(b, COBBLE_HOLYSTONE));
 
 
@@ -318,20 +313,17 @@ public final class AetherBlocks {
         STAIRS_BRICK_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.8f)
                 .build("stairs.brick.holystone", "stairs_brick_holystone", blockID("STAIRS_BRICK_HOLYSTONE"), b -> new BlockLogicStairs(b, BRICK_HOLYSTONE));
 
         SLAB_BRICK_HOLYSTONE = slab
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.8f)
                 .build("slab.brick.holystone", "slab_brick_holystone", blockID("SLAB_BRICK_HOLYSTONE"), b -> new BlockLogicSlab(b, BRICK_HOLYSTONE));
 
 
         ICESTONE = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
                 .setHardness(3.0f)
-                .setResistance(3.0f)
                 .setTickOnLoad()
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("icestone", "icestone", blockID("ICESTONE"), BlockLogicIceStone::new);
@@ -340,7 +332,6 @@ public final class AetherBlocks {
         QUICKSOIL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.sand", "step.gravel", 1.0f, 1.0f))
                 .setHardness(0.5f)
-                .setResistance(0.5f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
                 .build("quicksoil", "quicksoil", blockID("QUICKSOIL"), BlockLogicQuicksoil::new);
 
@@ -348,7 +339,6 @@ public final class AetherBlocks {
         GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
                 .setHardness(0.3f)
-                .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
                 .build("glass.quicksoil", "glass_quicksoil", blockID("GLASS_QUICKSOIL"), BlockLogicGlassQuicksoil::new);
@@ -357,7 +347,6 @@ public final class AetherBlocks {
         DOOR_GLASS_QUICKSOIL_BOTTOM = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
                 .setHardness(0.3f)
-                .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
@@ -367,7 +356,6 @@ public final class AetherBlocks {
         DOOR_GLASS_QUICKSOIL_TOP = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
                 .setHardness(0.3f)
-                .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
@@ -377,7 +365,6 @@ public final class AetherBlocks {
         TRAPDOOR_GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
                 .setHardness(0.3f)
-                .setResistance(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
                 .setVisualUpdateOnMetadata()
@@ -454,11 +441,9 @@ public final class AetherBlocks {
 
 
         LEAVES_SKYROOT = leaves
-                .setLightOpacity(1)
                 .build("leaves.skyroot", "leaves_skyroot", blockID("LEAVES_SKYROOT"), block -> new BlockLogicLeavesSkyroot(block, Material.leaves, SAPLING_SKYROOT));
 
         LEAVES_OAK_GOLDEN = leaves
-                .setLightOpacity(1)
                 .build("leaves.oak.golden", "leaves_oak_golden", blockID("LEAVES_OAK_GOLDEN"), BlockLogicLeavesOakGolden::new);
 
 
@@ -479,7 +464,7 @@ public final class AetherBlocks {
         AEROGEL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
                 .setHardness(1.0f)
-                .setResistance(6000.0f)
+                .setResistance(2000.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
                 .build("aerogel", "aerogel", blockID("AEROGEL"), b -> new BlockLogicTransparent(b, Material.stone));
 
@@ -548,58 +533,60 @@ public final class AetherBlocks {
                 .setVisualUpdateOnMetadata()
                 .build("stairs.brick.zanite", "stairs_brick_zanite", blockID("STAIRS_BRICK_ZANITE"), b -> new BlockLogicStairs(b, BRICK_ZANITE));
 
-        CARVED_STONE = dungeonStone
+        CARVED_STONE = stone
                 .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogic(b, Material.stone));
-        SLAB_CARVED_STONE = dungeonStone
+        SLAB_CARVED_STONE = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.stone", "slab_carved_stone", blockID("SLAB_CARVED_STONE"), b -> new BlockLogicSlab(b, CARVED_STONE));
-        STAIRS_CARVED_STONE = dungeonStone
+        STAIRS_CARVED_STONE = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.stone", "stairs_carved_stone", blockID("STAIRS_CARVED_STONE"), b -> new BlockLogicStairs(b, CARVED_STONE));
-        CARVED_STONE_LIGHT = dungeonStone
+        CARVED_STONE_LIGHT = stone
                 .setLuminance(11)
                 .build("carved.stone.light", "carved_stone_light", blockID("CARVED_STONE_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
-        CARVED_ANGELIC = dungeonStone
+        CARVED_ANGELIC = stone
                 .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogic(b, Material.stone));
-        SLAB_CARVED_ANGELIC = dungeonStone
+        SLAB_CARVED_ANGELIC = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.angelic", "slab_carved_angelic", blockID("SLAB_CARVED_ANGELIC"), b -> new BlockLogicSlab(b, CARVED_ANGELIC));
-        STAIRS_CARVED_ANGELIC = dungeonStone
+        STAIRS_CARVED_ANGELIC = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.angelic", "stairs_carved_angelic", blockID("STAIRS_CARVED_ANGELIC"), b -> new BlockLogicStairs(b, CARVED_ANGELIC));
-        CARVED_ANGELIC_LIGHT = dungeonStone
+        CARVED_ANGELIC_LIGHT = stone
                 .setLuminance(11)
                 .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
-        CARVED_HELLFIRE = dungeonStone
+        CARVED_HELLFIRE = stone
                 .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogic(b, Material.stone));
-        SLAB_CARVED_HELLFIRE = dungeonStone
+        SLAB_CARVED_HELLFIRE = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.hellfire", "slab_carved_hellfire", blockID("SLAB_CARVED_HELLFIRE"), b -> new BlockLogicSlab(b, CARVED_HELLFIRE));
-        STAIRS_CARVED_HELLFIRE = dungeonStone
+        STAIRS_CARVED_HELLFIRE = stone
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.hellfire", "stairs_carved_hellfire", blockID("STAIRS_CARVED_HELLFIRE"), b -> new BlockLogicStairs(b, CARVED_HELLFIRE));
-        CARVED_HELLFIRE_LIGHT = dungeonStone
+        CARVED_HELLFIRE_LIGHT = stone
                 .setLuminance(11)
                 .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
-        PILLAR = dungeonStone
+        PILLAR = stone
+                .setHardness(0.5F)
                 .build("pillar", "pillar", blockID("PILLAR"), b -> new BlockLogicAxisAligned(b, Material.stone));
-        PILLAR_CAPSTONE = dungeonStone
+        PILLAR_CAPSTONE = stone
+                .setHardness(0.5F)
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
 
-        CHEST_DUNGEON = dungeonStone
+        CHEST_DUNGEON = stone
                 .build("chest.dungeon", "chest_dungeon", blockID("CHEST_DUNGEON"), BlockLogicChestDungeon::new);
 
         CHEST_DUNGEON_LOCKED = dungeonStoneLocked
