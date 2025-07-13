@@ -14,7 +14,7 @@ public class PlayerMixinMining {
             method = "getCurrentPlayerStrVsBlock",
             constant = @Constant(floatValue = 5.0F)
     )
-    private float modifyWaterSlowdownConstant(float original) {
+    public float modifyWaterSlowdownConstant(float original) {
         Player player = (Player) (Object) this;
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 4) {
             return original;

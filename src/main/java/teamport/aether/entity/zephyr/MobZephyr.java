@@ -189,7 +189,7 @@ public class MobZephyr extends MobFlying implements Enemy {
         return "aether:mob.zephyr.call";
     }
 
-    protected float getSoundVolume() {
+    public float getSoundVolume() {
         return 3.0F;
     }
 

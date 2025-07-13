@@ -59,7 +59,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     }
 
     @Unique
-    private boolean isImmuneToFire() {
+    public boolean isImmuneToFire() {
         ArmorMaterial armorMaterial = ((MobWolf)(Object)this).getArmorMaterial();
         if(armorMaterial == null){
             return false;

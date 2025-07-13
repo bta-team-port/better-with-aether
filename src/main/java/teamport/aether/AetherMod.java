@@ -28,6 +28,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
+        AetherConfig.Setup();
         AetherEntities.init();
         AetherBlocks.init();
         AetherItems.init();
