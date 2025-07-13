@@ -16,7 +16,8 @@ import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.re
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static MobFireflyCluster.FireflyColor SILVER;
+    public static MobFireflyCluster.FireflyColor SILVER;;
+
 
     @Override
     public void onInitialize() {
@@ -25,6 +26,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void beforeGameStart() {
+
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
@@ -37,11 +39,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         /** these are client-side  only! */
 //        ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
-
 //        dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
 //        dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
 //        dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
-
     }
 
     @Override

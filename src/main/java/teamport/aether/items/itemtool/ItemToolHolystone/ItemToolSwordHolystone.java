@@ -1,9 +1,9 @@
-package teamport.aether.items.ItemToolHolystone;
+package teamport.aether.items.itemtool.ItemToolHolystone;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
-import teamport.aether.items.ItemToolSwordAether;
+import teamport.aether.items.itemtool.ItemToolSwordAether;
 
 import static teamport.aether.items.AetherItems.AMBROSIUM;
 

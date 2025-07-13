@@ -12,8 +12,10 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 
-public class EntityFallingGravitite extends EntityFallingBlock {
-    public EntityFallingGravitite(World world) {
+
+// TODO fix multiplayer desync
+public class EntityFloatingBlock extends EntityFallingBlock {
+    public EntityFloatingBlock(World world) {
         super(world);
         this.carriedBlock = new CarriedBlock(this, AetherBlocks.BLOCK_GRAVITITE, 0, null);
         this.fallTime = 0;
@@ -21,7 +23,7 @@ public class EntityFallingGravitite extends EntityFallingBlock {
         this.heightOffset = this.bbHeight / 2.0F;
     }
 
-    public EntityFallingGravitite(World world, double x, double y, double z, int blockId, int blockMeta, @Nullable TileEntity tileEntity) {
+    public EntityFloatingBlock(World world, double x, double y, double z, int blockId, int blockMeta, @Nullable TileEntity tileEntity) {
         super(world);
         this.fallTime = 0;
         this.carriedBlock = new CarriedBlock(this, blockId, blockMeta, tileEntity);
@@ -129,5 +131,4 @@ public class EntityFallingGravitite extends EntityFallingBlock {
             }
         }
     }
-
 }

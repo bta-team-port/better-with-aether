@@ -12,11 +12,10 @@ import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.entity.zephyr.MobZephyr;
-import teamport.aether.gui.AetherHudComponents;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -51,8 +50,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
-        AetherHudComponents.registerHudComponents();
-        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 5, 100, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
 

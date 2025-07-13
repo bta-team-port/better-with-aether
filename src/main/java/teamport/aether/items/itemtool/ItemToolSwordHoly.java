@@ -1,4 +1,4 @@
-package teamport.aether.items;
+package teamport.aether.items.itemtool;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.*;

@@ -9,7 +9,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import teamport.aether.entity.EntityFallingGravitite;
+import teamport.aether.entity.EntityFloatingBlock;
 
 import java.util.Random;
 
@@ -38,8 +38,8 @@ public class BlockLogicOreGravitite extends BlockLogic {
         if (canFallAbove(world, x, y + 1, z) && y < 256) {
             byte byte0 = 32;
             if (!fallInstantly && world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
-                EntityFallingGravitite entityFallingGravitite = new EntityFallingGravitite(world, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, this.block.id(), 0, null);
-                world.entityJoinedWorld(entityFallingGravitite);
+                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, this.block.id(), 0, null);
+                world.entityJoinedWorld(entityFloatingBlock);
                 world.setBlockWithNotify(x, y, z, 0);
             } else {
                 world.setBlockWithNotify(x, y, z, 0);
