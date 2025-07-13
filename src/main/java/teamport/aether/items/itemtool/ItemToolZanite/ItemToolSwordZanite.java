@@ -1,10 +1,10 @@
-package teamport.aether.items.ItemToolZanite;
+package teamport.aether.items.itemtool.ItemToolZanite;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import teamport.aether.items.AetherToolMaterial;
-import teamport.aether.items.ItemToolSwordAether;
+import teamport.aether.items.itemtool.ItemToolSwordAether;
 
 public class ItemToolSwordZanite extends ItemToolSwordAether {
     // to keep it consistent with other tools, and keep not a const incase it changes

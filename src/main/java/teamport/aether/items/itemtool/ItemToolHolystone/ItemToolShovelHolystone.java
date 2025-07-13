@@ -1,4 +1,4 @@
-package teamport.aether.items.ItemToolHolystone;
+package teamport.aether.items.itemtool.ItemToolHolystone;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
@@ -7,19 +7,19 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import teamport.aether.items.ItemToolPickaxeAether;
+import teamport.aether.items.itemtool.ItemToolShovelAether;
 
 import static teamport.aether.items.AetherItems.AMBROSIUM;
 
-public class ItemToolPickaxeHolystone extends ItemToolPickaxeAether {
+public class ItemToolShovelHolystone extends ItemToolShovelAether {
 
-    public ItemToolPickaxeHolystone(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
+    public ItemToolShovelHolystone(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
     }
 
     @Override
-
-    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
+    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob
+            mob) {
         Block<?> block = Blocks.blocksList[i];
         if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
             itemstack.damageItem(1, mob);
@@ -29,5 +29,4 @@ public class ItemToolPickaxeHolystone extends ItemToolPickaxeAether {
         }
         return true;
     }
-
 }
