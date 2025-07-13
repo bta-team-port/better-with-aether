@@ -1,4 +1,4 @@
-package teamport.aether.items.ItemToolGravitite;
+package teamport.aether.items.itemtool.ItemToolGravitite;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.player.Player;
@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.EntityFallingGravitite;
-import teamport.aether.items.ItemToolShovelAether;
+import teamport.aether.items.itemtool.ItemToolShovelAether;
 
 public class ItemToolShovelGravitite extends ItemToolShovelAether {
 
