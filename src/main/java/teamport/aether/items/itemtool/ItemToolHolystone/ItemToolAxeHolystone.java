@@ -1,14 +1,13 @@
-package teamport.aether.items.ItemToolZanite;
+package teamport.aether.items.itemtool.ItemToolHolystone;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.items.ItemToolPickaxeAether;
+import teamport.aether.items.itemtool.ItemToolAxeAether;
 
-public class ItemToolPickaxeZanite extends ItemToolPickaxeAether {
-
-    public ItemToolPickaxeZanite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
+public class ItemToolAxeHolystone extends ItemToolAxeAether {
+    public ItemToolAxeHolystone(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
     }
 
@@ -24,3 +23,4 @@ public class ItemToolPickaxeZanite extends ItemToolPickaxeAether {
         return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
     }
 }
+

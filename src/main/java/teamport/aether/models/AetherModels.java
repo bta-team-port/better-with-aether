@@ -12,7 +12,7 @@ import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.EntityFallingGravitite;
+import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.mimic.MobRendererMimic;
 import teamport.aether.entity.projectile.ProjectileDart;
@@ -490,10 +490,9 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 
+        ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
+
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
-
-
-        ModelHelper.setEntityModel(EntityFallingGravitite.class, EntityRendererFallingBlock::new);
 
 
 
