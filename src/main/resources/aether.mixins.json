@@ -24,13 +24,15 @@
     "armor.wolf.MobWolfMixinArmor",
     "armor.wolf.MobWolfMixinFallDamage",
     "armor.wolf.MobWolfMixinFireImmunity",
-    "armor.wolf.MobWolfNoKnockback",
     "armor.wolf.MobWolfMixinZaniteResistance",
+    "armor.wolf.MobWolfNoKnockback",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth"
   ],
   "client": [
+    "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
+    "accessors.HudComponentsAccessor",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath"
   ],
   "server": [

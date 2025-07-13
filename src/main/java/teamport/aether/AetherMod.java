@@ -18,6 +18,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static MobFireflyCluster.FireflyColor SILVER;
 
+    // need to be in config
+    public static final int EXTRA_HEALTH = 60;
+
     @Override
     public void onInitialize() {
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
@@ -25,6 +28,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void beforeGameStart() {
+        // TODO move oxygen and fire bar to above armor
+
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
@@ -36,11 +41,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         /** these are client-side  only! */
 //        ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
-
 //        dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
 //        dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
 //        dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
-
     }
 
     @Override
