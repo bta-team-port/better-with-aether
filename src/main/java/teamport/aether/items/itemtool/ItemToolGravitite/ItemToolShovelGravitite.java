@@ -7,7 +7,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.entity.EntityFallingGravitite;
+import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.items.itemtool.ItemToolShovelAether;
 
 public class ItemToolShovelGravitite extends ItemToolShovelAether {
@@ -28,11 +28,11 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether {
     ) {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
         if(block == null || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL) || player.isSneaking()) return false;
-        EntityFallingGravitite entityFallingGravitite = new EntityFallingGravitite(
+        EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(
                 world,
                 (double) blockX + 0.5F, (double) blockY + 0.5F, (double) blockZ + 0.5F,
                 block.id(), world.getBlockMetadata(blockX, blockY, blockZ), null);
-        world.entityJoinedWorld(entityFallingGravitite);
+        world.entityJoinedWorld(entityFloatingBlock);
         world.setBlockWithNotify(blockX, blockY, blockZ, 0);
         itemstack.damageItem(1, player);
         return true;
