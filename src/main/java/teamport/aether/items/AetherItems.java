@@ -5,6 +5,7 @@ import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.itemtool.*;
+import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolAxeGravitite;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolSwordGravitite;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolAxeHolystone;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolPickaxeHolystone;
@@ -247,7 +248,7 @@ public final class AetherItems {
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), 17062, AetherToolMaterial.GRAVITITE));
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.GRAVITITE));
         TOOL_PICKAXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), 17064, AetherToolMaterial.GRAVITITE));
-        TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.gravitite", itemKey("tool_axe_gravitite"), 17065, AetherToolMaterial.GRAVITITE));
+        TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), 17065, AetherToolMaterial.GRAVITITE));
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), 17066, AetherToolMaterial.VALKYRIE));
         TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), 17067, AetherToolMaterial.VALKYRIE));
