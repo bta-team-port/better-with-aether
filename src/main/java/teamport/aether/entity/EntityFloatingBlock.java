@@ -12,6 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 
+
+// TODO fix multiplayer desync
 public class EntityFloatingBlock extends EntityFallingBlock {
     public EntityFloatingBlock(World world) {
         super(world);
