@@ -31,7 +31,11 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 1.0f, 0.5f);
                 world.setBlockWithNotify(x, y, z, 0);
                 mimic.spawnInit();
-                mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
+                Player player = world.getClosestPlayer(x, y, z, 16);
+                if (player != null) {
+                    mimic.absMoveTo(x + 0.5, y, z + 0.5, (player.yRot) - 180F, -player.xRot);
+                }
+                else mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
                 world.entityJoinedWorld(mimic);
         }
         return null;
