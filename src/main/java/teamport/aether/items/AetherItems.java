@@ -4,15 +4,16 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.ItemToolGravitite.ItemToolSwordGravitite;
-import teamport.aether.items.ItemToolHolystone.ItemToolAxeHolystone;
-import teamport.aether.items.ItemToolHolystone.ItemToolPickaxeHolystone;
-import teamport.aether.items.ItemToolHolystone.ItemToolShovelHolystone;
-import teamport.aether.items.ItemToolHolystone.ItemToolSwordHolystone;
-import teamport.aether.items.ItemToolZanite.ItemToolAxeZanite;
-import teamport.aether.items.ItemToolZanite.ItemToolPickaxeZanite;
-import teamport.aether.items.ItemToolZanite.ItemToolShovelZanite;
-import teamport.aether.items.ItemToolZanite.ItemToolSwordZanite;
+import teamport.aether.items.itemtool.*;
+import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolSwordGravitite;
+import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolAxeHolystone;
+import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolPickaxeHolystone;
+import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolShovelHolystone;
+import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolSwordHolystone;
+import teamport.aether.items.itemtool.ItemToolZanite.ItemToolAxeZanite;
+import teamport.aether.items.itemtool.ItemToolZanite.ItemToolPickaxeZanite;
+import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
+import teamport.aether.items.itemtool.ItemToolZanite.ItemToolSwordZanite;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -247,7 +248,6 @@ public final class AetherItems {
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), 17063, AetherToolMaterial.GRAVITITE));
         TOOL_PICKAXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), 17064, AetherToolMaterial.GRAVITITE));
         TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.gravitite", itemKey("tool_axe_gravitite"), 17065, AetherToolMaterial.GRAVITITE));
-        //TODO Gravitite tools need their ability to make blocks that you right click float up, blocks only float up if you are using the right tool and it uses durability
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), 17066, AetherToolMaterial.VALKYRIE));
         TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), 17067, AetherToolMaterial.VALKYRIE));
@@ -292,7 +292,7 @@ public final class AetherItems {
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), 17083, AetherArmorMaterial.PHOENIX, 2));
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), 17084, AetherArmorMaterial.PHOENIX, 1));
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), 17085, AetherArmorMaterial.PHOENIX, 0));
-        //TODO Phoenix armor should be damaged in water and if a piece of armor breaks while in water it turns into a piece of obsidian armor
+        // TODO obsidian armor is craftable by freezing phoenix armor in a freezer
 
         ARMOR_HELMET_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.neptune", itemKey("armor_helmet_neptune"), 17086, AetherArmorMaterial.NEPTUNE, 3));
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), 17087, AetherArmorMaterial.NEPTUNE, 2));
@@ -354,15 +354,12 @@ public final class AetherItems {
         ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), 17140));
         //TODO Decorative capes, potential to add cape color for each wool color,
 
-
-
         FOOD_HEALING_STONE = new ItemBuilder(MOD_ID).build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), 17100, 4, 1, false, 16));
 
         FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), 17101, 20, 1, false, 64));
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), 17102, 40, 1, false, 64));
 
-        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(10));
-        //TODO hud need to be adjusted so it wont overlap with oxygenmeter
+        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), 17105).setMaxStackSize(10).setMaxStackSize(10));
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), 17106));
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), 17107));

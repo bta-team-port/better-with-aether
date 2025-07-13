@@ -23,7 +23,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static TomlConfigHandler config;
     public static final int EXTRA_HEALTH = 20;
 
-    /// I assume that you want to register all block and items as seperate entries in a config right?
+    /// I assume that you want to register all block and items as separate entries in a config right?
     static {
         properties.addCategory("ID")
                 .addEntry("Starting ID", 17000)
