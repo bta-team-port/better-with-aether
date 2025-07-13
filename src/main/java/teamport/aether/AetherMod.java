@@ -10,6 +10,8 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.util.TomlConfigHandler;
+import turniplabs.halplibe.util.toml.Toml;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
@@ -17,9 +19,18 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static MobFireflyCluster.FireflyColor SILVER;
+    public static final Toml properties = new Toml("Better than Aether Configuration");
+    public static TomlConfigHandler config;
 
-    // need to be in config
-    public static final int EXTRA_HEALTH = 60;
+    /// I assume that you want to register all block and items as seperate entries in a config right?
+    static {
+        properties.addCategory("ID")
+                .addEntry("Starting ID", 17000)
+                .addEntry("Block ID", 10000);
+        properties.addCategory("Stats")
+                .addEntry("Extra Health", 20);
+        config = new TomlConfigHandler(AetherMod.MOD_ID, properties);
+    }
 
     @Override
     public void onInitialize() {
@@ -28,7 +39,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void beforeGameStart() {
-        // TODO move oxygen and fire bar to above armor
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
