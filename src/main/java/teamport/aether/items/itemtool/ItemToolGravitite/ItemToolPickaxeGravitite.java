@@ -1,6 +1,7 @@
 package teamport.aether.items.itemtool.ItemToolGravitite;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -26,7 +27,14 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
             double xPlaced, double yPlaced
     ) {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
-        if(block == null || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) || player.isSneaking()) return false;
+        Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
+        if (block == null
+                || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+                || player.isSneaking()
+                || nextBlock != null
+                && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
+            return false;
+        }
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(
                 world,
                 (double) blockX + 0.5F, (double) blockY + 0.5F, (double) blockZ + 0.5F,
