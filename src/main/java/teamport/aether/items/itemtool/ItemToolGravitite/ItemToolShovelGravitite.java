@@ -13,7 +13,6 @@ import teamport.aether.items.itemtool.ItemToolShovelAether;
 
 public class ItemToolShovelGravitite extends ItemToolShovelAether {
 
-
     public ItemToolShovelGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
     }
@@ -32,10 +31,12 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether {
         if (block == null
                 || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)
                 || player.isSneaking()
+                || block.getHardness() < 0
                 || nextBlock != null
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
         }
+
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(
                 world,
                 (double) blockX + 0.5F, (double) blockY + 0.5F, (double) blockZ + 0.5F,

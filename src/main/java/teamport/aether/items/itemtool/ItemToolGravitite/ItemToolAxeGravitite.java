@@ -31,6 +31,7 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether {
         if (block == null
                 || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 || player.isSneaking()
+                || block.getHardness() < 0
                 || nextBlock != null
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
