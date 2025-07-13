@@ -21,6 +21,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static MobFireflyCluster.FireflyColor SILVER;
     public static final Toml properties = new Toml("Better than Aether Configuration");
     public static TomlConfigHandler config;
+    public static final int EXTRA_HEALTH = 20;
 
     /// I assume that you want to register all block and items as seperate entries in a config right?
     static {
