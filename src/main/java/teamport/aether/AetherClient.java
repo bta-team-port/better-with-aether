@@ -12,6 +12,7 @@ import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.entity.zephyr.MobZephyr;
@@ -51,12 +52,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     @Override
     public void afterClientStart() {
         AetherHudComponents.registerHudComponents();
-        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 5, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
 
         MobInfoRegistry.register(MobZephyr.class, "aether.zephyr.name", "aether.zephyr.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_WHITE), 1.0f, 0, 6)});
+
+        MobInfoRegistry.register(MobMimic.class, "aether.mimic.name", "aether.mimic.desc", 20, 100, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
     }
 
     @Override

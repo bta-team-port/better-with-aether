@@ -68,13 +68,13 @@ public class PlayerMixinFireImmunity extends Mob {
     }
 
     @Unique
-    private int fireResistanceCount() {
+    public int fireResistanceCount() {
         return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX)
                 + ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.OBSIDIAN);
     }
 
     @Unique
-    private void aether$damageArmourWithEffect(int damage) {
+    public void aether$damageArmourWithEffect(int damage) {
         Player player = (Player) (Object) this;
         if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
             player.inventory.damageArmor(damage);
