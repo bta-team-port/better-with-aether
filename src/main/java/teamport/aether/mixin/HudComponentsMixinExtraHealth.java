@@ -8,7 +8,8 @@ import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.gui.ComponentExtraHealthBar;
 
-import static teamport.aether.AetherMod.EXTRA_HEALTH;
+import static teamport.aether.AetherConfig.EXTRA_HEALTH;
+
 
 @Mixin(value = HudComponents.class)
 public class HudComponentsMixinExtraHealth {

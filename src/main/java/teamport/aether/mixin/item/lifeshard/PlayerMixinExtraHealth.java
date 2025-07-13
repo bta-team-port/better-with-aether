@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.api.IVariableHealthPlayer;
 
-import static teamport.aether.AetherMod.EXTRA_HEALTH;
+import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinExtraHealth

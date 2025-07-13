@@ -7,6 +7,8 @@ import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.itemtool.*;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolAxeGravitite;
+import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolPickaxeGravitite;
+import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolShovelGravitite;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolSwordGravitite;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolAxeHolystone;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolPickaxeHolystone;

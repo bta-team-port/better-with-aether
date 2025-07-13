@@ -10,28 +10,14 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.GameStartEntrypoint;
-import turniplabs.halplibe.util.TomlConfigHandler;
-import turniplabs.halplibe.util.toml.Toml;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static MobFireflyCluster.FireflyColor SILVER;
-    public static final Toml properties = new Toml("Better than Aether Configuration");
-    public static TomlConfigHandler config;
-    public static final int EXTRA_HEALTH = 20;
+    public static MobFireflyCluster.FireflyColor SILVER;;
 
-    /// I assume that you want to register all block and items as separate entries in a config right?
-    static {
-        properties.addCategory("ID")
-                .addEntry("Starting ID", 17000)
-                .addEntry("Block ID", 10000);
-        properties.addCategory("Stats")
-                .addEntry("Extra Health", 20);
-        config = new TomlConfigHandler(AetherMod.MOD_ID, properties);
-    }
 
     @Override
     public void onInitialize() {
