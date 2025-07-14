@@ -1,10 +1,15 @@
 package teamport.aether.items.itemtool.ItemToolHolystone;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
-import teamport.aether.blocks.AetherBlockTags;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.World;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
+
+import static teamport.aether.items.AetherItems.AMBROSIUM;
 
 public class ItemToolAxeHolystone extends ItemToolAxeAether {
     public ItemToolAxeHolystone(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -12,15 +17,15 @@ public class ItemToolAxeHolystone extends ItemToolAxeAether {
     }
 
     @Override
-    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
-        float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
-
-        // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-        float starting_efficiency = this.material.getEfficiency(false);
-        float ending_efficiency = this.material.getEfficiency(true);
-
-        return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
+    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
+        Block<?> block = Blocks.blocksList[i];
+        if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
+            itemstack.damageItem(1, mob);
+        }
+        if (itemRand.nextInt(32) == 0) {
+            world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
+        }
+        return true;
     }
 }
 
