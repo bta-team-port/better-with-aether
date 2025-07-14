@@ -531,7 +531,7 @@ public final class AetherBlocks {
         BLOCK_ZANITE = oreBlock
                 .build("block.zanite", "block_zanite", blockID("BLOCK_ZANITE"), b -> new BlockLogic(b, Material.metal));
         BLOCK_GRAVITITE = oreBlock
-                .build("block.gravitite", "block_gravitite", blockID("BLOCK_GRAVITITE"), b -> new BlockLogic(b, Material.metal));
+                .build("block.gravitite", "block_gravitite", blockID("BLOCK_GRAVITITE"), b -> new BlockLogicBlockGravitite(b, Material.metal));
 
         BRICK_ZANITE = oreBlock
                 .build("brick.zanite", "brick_zanite", blockID("BRICK_ZANITE"), b -> new BlockLogic(b, Material.metal));
