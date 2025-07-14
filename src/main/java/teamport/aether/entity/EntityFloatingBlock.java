@@ -15,6 +15,7 @@ import teamport.aether.blocks.BlockLogicOreGravitite;
 
 // TODO fix multiplayer desync
 // TODO make it slow down when hiting cobwebs
+
 ///  all the comment were made to understand what the logic does
 public class EntityFloatingBlock extends EntityFallingBlock {
     private boolean onCeiling = false;
@@ -43,6 +44,11 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         if (this.pushTime < 0.05F || (double) this.pushTime < 0.25 && this.onGround) {
             this.pushTime = 0.0F;
         }
+        int x = MathHelper.floor(this.x - 0.5);
+        int y = MathHelper.floor(this.y); // multiplying by -1 results in the block rising forever
+        int z = MathHelper.floor(this.z - 0.5);
+        this.isOnCeiling(x, y, z);
+
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
@@ -54,10 +60,6 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         this.zd *= 0.98;
 
 
-        int x = MathHelper.floor(this.x - 0.5);
-        int y = MathHelper.floor(this.y); // multiplying by -1 results in the block rising forever
-        int z = MathHelper.floor(this.z - 0.5);
-        this.isOnCeiling(x, y, z);
         //--------------------------------------------------------------------------------------------------------------
 
         if (this.world.getBlockId(x, y, z) == this.carriedBlock.blockId && !this.hasRemovedBlock) {
@@ -153,19 +155,11 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         }
     }
 
-    private void isInCobweb(int x, int y, int z) {
-        Block<?> block = world.getBlock(x,y,z);
-        if(block == null) return;
-        if(block.id() == 0) return;
-        if(block.id() == Blocks.COBWEB.id()) {
-            this.stuckInCobweb = true;
-            this.onCeiling = false;
-        }
-    }
-
     public void isOnCeiling(int x, int y, int z) {
         boolean canPlace = this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y + 1, z, true, Side.TOP);
         boolean isWorldHeight = y + 1 >= world.getHeightBlocks();
-        onCeiling = !isWorldHeight & !canPlace;
+        Block<?> block = world.getBlock(x, y + 1, z);
+        if (block == null) return;
+        onCeiling = !isWorldHeight & !canPlace & block.id() != Blocks.COBWEB.id();
     }
 }
