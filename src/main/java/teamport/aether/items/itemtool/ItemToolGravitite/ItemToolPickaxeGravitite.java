@@ -1,6 +1,7 @@
 package teamport.aether.items.itemtool.ItemToolGravitite;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -29,10 +30,11 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
         Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
         if (block == null
-                || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+//                || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 || player.isSneaking()
                 || block.getHardness() < 0
                 || nextBlock != null
+                && nextBlock.id() != Blocks.COBWEB.id()
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
         }
