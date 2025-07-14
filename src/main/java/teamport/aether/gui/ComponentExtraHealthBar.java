@@ -19,6 +19,8 @@ import java.util.Random;
 // this is a mystery to me
 @Environment(EnvType.CLIENT)
 public class ComponentExtraHealthBar extends HudComponentMovable {
+    public int[][] rgbColors = {{246, 34, 23},{255, 215, 0}};
+
     public static final String PATH_HEART = "minecraft:gui/hud/heart/";
     public final Random random = new Random();
     public int barCount;
@@ -111,12 +113,11 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
     public void renderPreview(Minecraft mc, Gui gui, Layout layout, int xSizeScreen, int ySizeScreen) {
         int x = layout.getComponentX(mc, this, xSizeScreen);
         int y = layout.getComponentY(mc, this, ySizeScreen);
-//        int y = layout.getComponentY(mc, this, ySizeScreen) + 5 + (barCount - 1) * 10;
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(3042);
-        int health = 11;
+        int health = 11 - barCount;
         for (int i = 0; i < 10; ++i) {
-            int xHeart = x + i * 8;
+            int xHeart = x + (i) * 8;
             gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "container"));
             if (i * 2 + 1 < health) {
                 gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "full"));
