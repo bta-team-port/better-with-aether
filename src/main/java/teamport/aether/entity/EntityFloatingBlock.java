@@ -73,8 +73,9 @@ public class EntityFloatingBlock extends EntityFallingBlock {
 
 
         int x = MathHelper.round(this.x - 0.5);
-        int y = MathHelper.round(-this.y);
+        int y = MathHelper.round(this.y); // multiplying by -1 results in the block rising forever
         int z = MathHelper.round(this.z - 0.5);
+        this.isOnCeiling(x, y, z);
         //--------------------------------------------------------------------------------------------------------------
 
         if (this.world.getBlockId(x, y, z) == this.carriedBlock.blockId && !this.hasRemovedBlock) {
@@ -90,11 +91,19 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             // so the entity is removed but why? when its this hits in sand?
             this.remove();
         }
+
+        if (this.onCeiling) {
+            this.xd *= 0.7;
+            this.zd /= 0.7;
+            this.yd *= 0.5;
+            this.remove();
+        }
         //--------------------------------------------------------------------------------------------------------------
         // what does this do?
         double v = Math.hypot(this.xd, this.zd);
         if (v < 0.001 || this.isInWall()) {
-            if (!this.onGround && !this.isInWall()) {
+//            if (!this.onGround && !this.isInWall()) {
+            if (!this.onCeiling && !this.isInWall()) {
                 if (this.fallTime > 200 && !this.world.isClientSide) {
                     if (this.hasRemovedBlock) {
                         this.drop();
@@ -115,13 +124,13 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             //
             if (
                     (
-                    // can pass though block that allow placement on the bottom
-                    !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
-                    || BlockLogicOreGravitite.canFallAbove(this.world, x, y + 1, z)
-                    // we check and place the block here so this should at some point return true and place
-                    || !this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId)
+                            // can pass though block that allow placement on the bottom
+                            !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
+                                    || BlockLogicOreGravitite.canFallAbove(this.world, x, y + 1, z)
+                                    // we check and place the block here so this should at some point return true and place
+                                    || !this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId)
                     )
-                    && !this.world.isClientSide) {
+                            && !this.world.isClientSide) {
 
                 if (this.hasRemovedBlock) {
                     this.drop();
@@ -161,7 +170,10 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             this.carriedBlock.heldTick(this.world, this);
         }
     }
-    public boolean onCieling(){
-        return true;
+
+    public void isOnCeiling(int x, int y, int z) {
+//        assert this.world != null;
+        onCeiling = !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y + 1, z, true, Side.TOP);
+//        return;
     }
 }
