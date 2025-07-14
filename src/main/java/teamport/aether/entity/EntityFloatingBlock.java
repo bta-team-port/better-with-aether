@@ -76,7 +76,7 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             this.remove();
         }
 
-        if (this.onCeiling) {
+        if (this.onCeiling || y > 600) {
             this.xd *= 0.7;
             this.zd /= 0.7;
             this.yd *= 0.5;
