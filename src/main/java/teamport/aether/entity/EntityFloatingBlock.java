@@ -1,7 +1,8 @@
 package teamport.aether.entity;
 
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFallingBlock;
 import net.minecraft.core.util.helper.MathHelper;
@@ -9,41 +10,22 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 
 
 // TODO fix multiplayer desync
+// TODO make it slow down when hiting cobwebs
+///  all the comment were made to understand what the logic does
 public class EntityFloatingBlock extends EntityFallingBlock {
     private boolean onCeiling = false;
+    private final int maxFloatingTime = 600;
 
     public EntityFloatingBlock(World world) {
         super(world);
-        this.carriedBlock = new CarriedBlock(this, AetherBlocks.BLOCK_GRAVITITE, 0, null);
-        this.fallTime = 0;
-        this.setSize(1.0F, 1.0F);
-        this.heightOffset = this.bbHeight / 2.0F;
     }
 
     public EntityFloatingBlock(World world, double x, double y, double z, int blockId, int blockMeta, @Nullable TileEntity tileEntity) {
-        super(world);
-        this.fallTime = 0;
-        this.carriedBlock = new CarriedBlock(this, blockId, blockMeta, tileEntity);
-        if (tileEntity != null) {
-            tileEntity.worldObj = null;
-            tileEntity.carriedBlock = this.carriedBlock;
-        }
-
-        this.blocksBuilding = true;
-        this.setSize(1.0F, 1.0F);
-        this.heightOffset = this.bbHeight / 2.0F;
-        this.setPos(x, y, z);
-        this.xd = 0.0;
-        this.yd = 0.0;
-        this.zd = 0.0;
-        this.xo = x;
-        this.yo = y;
-        this.zo = z;
+        super(world, x, y, z, blockId, blockMeta, tileEntity);
     }
 
     public void tick() {
@@ -68,13 +50,13 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         this.yd += 0.04; // rising block
         this.move(this.xd, this.yd, this.zd);
         this.xd *= 0.98;
-        this.yd /= 0.98; // does the sand do that too? hm no sand multiplies what does this do?
+        this.yd *= 0.98; // does the sand do that too? hm no sand multiplies what does this do?
         this.zd *= 0.98;
 
 
-        int x = MathHelper.round(this.x - 0.5);
-        int y = MathHelper.round(this.y); // multiplying by -1 results in the block rising forever
-        int z = MathHelper.round(this.z - 0.5);
+        int x = MathHelper.floor(this.x - 0.5);
+        int y = MathHelper.floor(this.y); // multiplying by -1 results in the block rising forever
+        int z = MathHelper.floor(this.z - 0.5);
         this.isOnCeiling(x, y, z);
         //--------------------------------------------------------------------------------------------------------------
 
@@ -104,7 +86,7 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         if (v < 0.001 || this.isInWall()) {
 //            if (!this.onGround && !this.isInWall()) {
             if (!this.onCeiling && !this.isInWall()) {
-                if (this.fallTime > 200 && !this.world.isClientSide) {
+                if (this.fallTime > maxFloatingTime && !this.world.isClientSide) {
                     if (this.hasRemovedBlock) {
                         this.drop();
                     }
@@ -171,9 +153,19 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         }
     }
 
+    private void isInCobweb(int x, int y, int z) {
+        Block<?> block = world.getBlock(x,y,z);
+        if(block == null) return;
+        if(block.id() == 0) return;
+        if(block.id() == Blocks.COBWEB.id()) {
+            this.stuckInCobweb = true;
+            this.onCeiling = false;
+        }
+    }
+
     public void isOnCeiling(int x, int y, int z) {
-//        assert this.world != null;
-        onCeiling = !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y + 1, z, true, Side.TOP);
-//        return;
+        boolean canPlace = this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y + 1, z, true, Side.TOP);
+        boolean isWorldHeight = y + 1 >= world.getHeightBlocks();
+        onCeiling = !isWorldHeight & !canPlace;
     }
 }
