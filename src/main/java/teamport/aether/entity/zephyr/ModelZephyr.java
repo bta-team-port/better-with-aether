@@ -4,12 +4,12 @@ import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
 public class ModelZephyr extends ModelBase {
-    Cube body;
+    public Cube body;
 
     public ModelZephyr() {
         this.body = new Cube(0, 0);
-        this.body.addBox(-7.5F, -4.0F, -8.5F, 15, 12, 17);
-//        this.body.setRotationPoint(body.x, body.y, body.z);
+        this.body.addBox(-7.5F, -5.0F, -8.5F, 15, 12, 17);
+        this.body.setRotationPoint(0.0f, 1.0f, 0.0f);
         Cube var10000 = this.body;
         var10000.y += (float)(16);
     }
