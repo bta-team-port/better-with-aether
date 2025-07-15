@@ -27,13 +27,15 @@
     "armor.wolf.MobWolfMixinZaniteResistance",
     "armor.wolf.MobWolfNoKnockback",
     "item.SkyrootSwordDropMultiplier",
-    "item.lifeshard.PlayerMixinExtraHealth"
+    "item.lifeshard.PlayerMixinExtraHealth",
+    "screens.PlayerMixinAetherScreens"
   ],
   "client": [
     "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
-    "item.lifeshard.MinecraftMixinKeepEHPonDeath"
+    "item.lifeshard.MinecraftMixinKeepEHPonDeath",
+    "screens.PlayerLocalMixinAetherScreens"
   ],
   "server": [
   ],

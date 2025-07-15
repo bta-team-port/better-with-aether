@@ -490,11 +490,11 @@ public final class AetherBlocks {
 
 
         ENCHANTER_IDLE = station
-                .build("enchanter.idle", "enchanter_idle", blockID("ENCHANTER_IDLE"), b -> new BlockLogicFurnace(b, false));
+                .build("enchanter.idle", "enchanter_idle", blockID("ENCHANTER_IDLE"), b -> new BlockLogicEnchanter(b, false));
 
         ENCHANTER_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicFurnace(b, true));
+                .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true));
         //TODO Give enchanter functionality the exact same as a furnace, with its own recipe list, its fuel is ambrosium and ambrosium blocks
 
         FREEZER_IDLE = station

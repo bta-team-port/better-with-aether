@@ -1,6 +1,8 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.world.biome.Biome;
@@ -11,12 +13,15 @@ import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static MobFireflyCluster.FireflyColor SILVER;;
+    public static MobFireflyCluster.FireflyColor SILVER;
 
 
     @Override
@@ -36,6 +41,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherItems.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
+        AetherMod.registerTextures();
 
         /** these are client-side  only! */
 //        ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
@@ -46,5 +52,15 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
+    }
+
+    private static void registerTextures() {
+        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
+            try {
+                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
+            } catch (URISyntaxException | IOException e) {
+                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+            }
+        }
     }
 }
