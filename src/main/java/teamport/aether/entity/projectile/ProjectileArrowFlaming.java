@@ -7,6 +7,7 @@ import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
@@ -75,6 +76,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
                     hitResult.entity.remainingFireTicks = 30 * 20;
                     this.remove();
                 }
+            }
             } else {
                 this.xTile = hitResult.x;
                 this.yTile = hitResult.y;
@@ -88,23 +90,22 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
                 this.x -= this.xd / (double) f1 * 0.05;
                 this.y -= this.yd / (double) f1 * 0.05;
                 this.z -= this.zd / (double) f1 * 0.05;
-                this.inGroundAction();
+                this.inGroundAction(hitResult.side,xTile, yTile, zTile);
             }
-
-        }
     }
 
-    public void inGroundAction() {
+    public void inGroundAction(Side side, int blockX, int blockY, int blockZ) {
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-
         for(int j = 0; j < 4; ++j) {
             this.world.spawnParticle("item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
         }
-
-        if (world.getBlock(xTile, yTile + 1, zTile) == null && Blocks.FIRE.canPlaceBlockAt(this.world, xTile, yTile + 1, zTile)) {
-            world.setBlockWithNotify(this.xTile, this.yTile + 1, this.zTile, Blocks.FIRE.id());
+        blockX += side.getOffsetX();
+        blockY += side.getOffsetY();
+        blockZ += side.getOffsetZ();
+        int blockID = world.getBlockId(blockX, blockY, blockZ);
+        if(blockID == 0){
+            world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id());
         }
         this.remove();
     }
-
 }
