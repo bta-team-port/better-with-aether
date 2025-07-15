@@ -1,9 +1,11 @@
 package teamport.aether.entity;
 
+import net.minecraft.core.block.entity.TileEntityDispatcher;
 import net.minecraft.core.util.collection.NamespaceID;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.tile.TileEntityEnchanter;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -29,6 +31,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
 
 
+        // TODO register the other 2, incubator and freezer
+        EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
     }
-
 }
