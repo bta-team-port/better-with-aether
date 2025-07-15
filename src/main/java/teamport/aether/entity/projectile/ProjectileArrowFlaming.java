@@ -63,6 +63,8 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
         }
     }
 
+    // TODO despite doing fire damage only it damages both player and wolf in phoenix armor
+    // TODO maybe change the damage type too
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
