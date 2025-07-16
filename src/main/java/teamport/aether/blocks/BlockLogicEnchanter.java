@@ -40,8 +40,30 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
         }
     }
 
-    // TODO echanter is missing the animation during opperation
-    public void animationTick(World world, int x, int y, int z, Random rand) {}
+    public void animationTick(World world, int x, int y, int z, Random rand) {
+        if (this.isActive) {
+            int l = world.getBlockMetadata(x, y, z);
+            double poxX = (double)x + (double)0.5F;
+            double posY = (double)y + (double)0.0F + (double)(rand.nextFloat() * 6.0F / 16.0F);
+            double posZ = (double)z + (double)0.5F;
+            double f3 = (double)0.52F;
+            double f4 = (double)(rand.nextFloat() * 0.6F - 0.3F);
+            if (l == 4) {
+                world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+            } else if (l == 5) {
+                world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+            } else if (l == 2) {
+                world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+            } else if (l == 3) {
+                world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+            }
+
+        }
+    }
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
