@@ -1,0 +1,32 @@
+package teamport.aether.data.registry.recipe.adapter;
+
+import com.google.gson.*;
+import net.minecraft.core.data.registry.Registries;
+import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
+import net.minecraft.core.item.ItemStack;
+import teamport.aether.data.registry.recipe.entry.RecipeEntryProcessor;
+
+import java.lang.reflect.Type;
+
+public class RecipeProcessorJsonAdapter implements RecipeJsonAdapter<RecipeEntryProcessor> {
+    @Override
+    public RecipeEntryProcessor deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject obj = json.getAsJsonObject();
+        RecipeSymbol input = (RecipeSymbol)context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
+        ItemStack output = (ItemStack)context.deserialize(obj.get("output").getAsJsonObject(), ItemStack.class);
+        int time = obj.get("time").getAsInt();
+        return new RecipeEntryProcessor(input, output, time);
+    }
+
+    @Override
+    public JsonElement serialize(RecipeEntryProcessor src, Type typeOfSrc, JsonSerializationContext context) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("name", src.toString());
+        obj.addProperty("type", Registries.RECIPE_TYPES.getKey(src.getClass()));
+        obj.add("input", context.serialize(src.getInput(), RecipeSymbol.class));
+        obj.add("output", context.serialize(src.getOutput(), ItemStack.class));
+        obj.add("time", context.serialize(src.getData()));
+        return obj;
+    }
+}
