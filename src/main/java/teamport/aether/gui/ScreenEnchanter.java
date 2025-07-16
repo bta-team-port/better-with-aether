@@ -12,7 +12,7 @@ import teamport.aether.tile.TileEntityEnchanter;
 @Environment(EnvType.CLIENT)
 public class ScreenEnchanter extends ScreenContainerAbstract {
 
-    private final TileEntityEnchanter enchantInventory;
+    public final TileEntityEnchanter enchantInventory;
 
     public ScreenEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
         super(new MenuEnchanter(inventory, tileEntityEnchanter));

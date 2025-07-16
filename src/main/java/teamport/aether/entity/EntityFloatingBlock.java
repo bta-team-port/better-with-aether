@@ -18,8 +18,8 @@ import teamport.aether.blocks.BlockLogicOreGravitite;
 
 ///  all the comment were made to understand what the logic does
 public class EntityFloatingBlock extends EntityFallingBlock {
-    private boolean onCeiling = false;
-    private final int maxFloatingTime = 600;
+    public boolean onCeiling = false;
+    public final int maxFloatingTime = 600;
 
     public EntityFloatingBlock(World world) {
         super(world);
