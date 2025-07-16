@@ -6,7 +6,7 @@ import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.player.inventory.MenuEnchanter;
+import teamport.aether.player.MenuEnchanter;
 import teamport.aether.tile.TileEntityEnchanter;
 
 @Environment(EnvType.CLIENT)
@@ -26,10 +26,10 @@ public class ScreenEnchanter extends ScreenContainerAbstract {
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
-        if (this.enchantInventory.isBurning()) {
-            int fireHeight = this.enchantInventory.getBurnTimeRemainingScaled(12);
+        if (this.enchantInventory.isProcessing()) {
+            int fireHeight = this.enchantInventory.getEnergyTimeRemainingScaled(12);
             this.drawTexturedModalRect(j + 56, k + 36 + 12 - fireHeight, 176, 12 - fireHeight, 14, fireHeight + 2);
-            int arrowWidth = this.enchantInventory.getCookProgressScaled(24);
+            int arrowWidth = this.enchantInventory.getProcessProgressScaled(24);
             this.drawTexturedModalRect(j + 79, k + 34, 176, 14, arrowWidth + 1, 16);
         }
     }
