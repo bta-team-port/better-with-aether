@@ -15,6 +15,14 @@ public class RecipeEntryProcessor extends RecipeEntryBase<RecipeSymbol, ItemStac
         super(input, output, time);
     }
 
+    public boolean matchesQueryIgnoreExceptions(SearchQuery query) {
+        try {
+            return this.matchesQuery(query);
+        } catch (IllegalArgumentException | NullPointerException var3) {
+            return false;
+        }
+    }
+
     public boolean matches(ItemStack stack) {
         return ((RecipeSymbol)this.getInput()).matches(stack);
     }
@@ -92,9 +100,6 @@ public class RecipeEntryProcessor extends RecipeEntryBase<RecipeSymbol, ItemStac
         return false;
     }
 
-    /// missing matchesScope                    -> not sure what it does
-    /// missing getData                         -> also not sure
-    /// missing matchesQueryIgnoreExceptions    -> also not sure about this
 
     @Override
     public RecipeJsonAdapter<?> getAdapter() {
