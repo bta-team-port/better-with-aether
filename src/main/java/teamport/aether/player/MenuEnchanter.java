@@ -1,4 +1,4 @@
-package teamport.aether.player.inventory;
+package teamport.aether.player;
 
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
