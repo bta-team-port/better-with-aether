@@ -6,7 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 // TODO implement the class, this should be mostly a port from 7.2
-public class TileEntityFreezer extends AetherTileEntityProcessor {
+public class TileEntityFreezer extends AetherTileEntityMachine {
 
     /// missing tick                    -> tick
     /// missing canSmelt                -> canProcess
