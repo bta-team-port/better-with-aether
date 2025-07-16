@@ -1,4 +1,4 @@
-package teamport.aether.api;
+package teamport.aether.particle;
 
 import net.minecraft.core.world.World;
 
