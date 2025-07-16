@@ -17,7 +17,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
         this.setOverlayModel(overlay, "/assets/aether/textures/entity/sheepuff/sheepuff_overlay.png");
     }
 
-    protected boolean setWoolColorAndRender(MobSheepuff entitysheep, int i, float f) {
+    public boolean setWoolColorAndRender(MobSheepuff entitysheep, int i, float f) {
         if (i == 0 && !entitysheep.getSheared()) {
             if (entitysheep.getPuffed()) {
                 this.setArmorModel(this.puffed);
@@ -43,7 +43,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
         this.overlayModel.onUnload();
     }
 
-    protected boolean prepareArmor(MobSheepuff entity, int renderPass, float partialTick) {
+    public boolean prepareArmor(MobSheepuff entity, int renderPass, float partialTick) {
         return this.setWoolColorAndRender(entity, renderPass, partialTick);
     }
 }

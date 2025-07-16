@@ -20,7 +20,7 @@ public class ScreenEnchanter extends ScreenContainerAbstract {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f) {
+    public void drawGuiContainerBackgroundLayer(float f) {
         this.mc.textureManager.loadTexture("/assets/aether/gui/enchanter.png").bind();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int j = (width - xSize) / 2;
@@ -35,7 +35,7 @@ public class ScreenEnchanter extends ScreenContainerAbstract {
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer() {
+    public void drawGuiContainerForegroundLayer() {
         I18n i18n = I18n.getInstance();
         this.font.drawString(i18n.translateKey("aether.gui.furnace.label.enchanter"), 60, 6, 0xFF404040);
         this.font.drawString(i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
