@@ -25,7 +25,7 @@ public abstract class MobWolfMixinZaniteResistance extends MobAnimal{
 
     // TODO rewritte it to be not an Injection, maybe WrapOperations
     @Inject(method = "damageEntity", at = @At("HEAD"), cancellable = true)
-    protected void damageEntity(int damage, DamageType damageType, CallbackInfo ci) {
+    public void damageEntity(int damage, DamageType damageType, CallbackInfo ci) {
         MobWolf wolf = (MobWolf) (Object) this;
         if (wolf.getArmorMaterial() == null || !wolf.getArmorMaterial().equals(AetherArmorMaterial.ZANITE)) {
             super.damageEntity(damage, damageType);
@@ -36,9 +36,10 @@ public abstract class MobWolfMixinZaniteResistance extends MobAnimal{
         float endProtection = ArmorMaterial.GOLD.getProtection(damageType);
         float protection = 1.0F - ((baseProtection * healthPercentage) + (endProtection * (1 - healthPercentage)));
         protection = Math.max(protection, 0.01F);
-        double d = (double) ((float) damage * protection);
+        double d = (float) damage * protection;
         Random random = this.random;
         int newDamage = (int) ((double) random.nextFloat() > (double) 0.5F ? Math.floor(d) : Math.ceil(d));
         super.damageEntity(newDamage, damageType);
+        ci.cancel();
     }
 }
