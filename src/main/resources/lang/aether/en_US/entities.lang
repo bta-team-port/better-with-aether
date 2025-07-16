@@ -42,6 +42,7 @@ aether.zephyr.desc=Common annoyance found floating all over the aether, they sho
 aether.whirlwind.name=Whirlwind
 aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
 
+aether.entity.mimic=Mimic
 aether.mimic.name=Mimic
 aether.mimic.desc=A common trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
