@@ -18,7 +18,6 @@ public abstract class MobWolfMixinArmor extends MobAnimal {
         super(world);
     }
 
-    // TODO once the mod is done, make the effects of phoenix and gravitite work for dogs too
     static {
         ARMOR_MATERIALS.put(AetherArmorMaterial.PHOENIX, (IArmorItem) AetherItems.ARMOR_CHESTPLATE_PHOENIX);
         ARMOR_MATERIALS.put(AetherArmorMaterial.NEPTUNE, (IArmorItem) AetherItems.ARMOR_CHESTPLATE_NEPTUNE);
