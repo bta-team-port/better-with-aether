@@ -10,6 +10,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
+import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
@@ -162,6 +163,7 @@ public class AetherTileEntityProcessor extends TileEntity implements Container {
     }
 
     public void sortContainer() {
+        InventorySorter.sortInventory(containerItemStacks);
     }
 
     @Override
