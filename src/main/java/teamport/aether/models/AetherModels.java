@@ -23,6 +23,7 @@ import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.sentry.MobRendererSentry;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.entity.sheepuff.*;
 import teamport.aether.entity.zephyr.MobRendererZephyr;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
@@ -487,6 +488,8 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+
+        ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
 
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 

@@ -13,7 +13,7 @@ import java.util.List;
 public class MenuEnchanter extends MenuAbstract {
 
 
-    private final TileEntityEnchanter enchanter;
+    public final TileEntityEnchanter enchanter;
 
     public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter){
         this.enchanter = tileEntityEnchanter;

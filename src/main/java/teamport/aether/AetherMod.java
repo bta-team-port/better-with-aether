@@ -54,7 +54,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public void afterGameStart() {
     }
 
-    private static void registerTextures() {
+    public static void registerTextures() {
         for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
             try {
                 TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);

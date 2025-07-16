@@ -1,6 +1,5 @@
 package teamport.aether.blocks;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
@@ -13,16 +12,13 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 import teamport.aether.gui.IAetherScreens;
 import teamport.aether.tile.TileEntityEnchanter;
 
 import java.util.Random;
 
 public class BlockLogicEnchanter extends BlockLogicRotatable {
-    // TODO figure out what logger is needed here, if any at all
-    private static final Logger LOGGER = LogUtils.getLogger();
-    private final boolean isActive;
+    public final boolean isActive;
     public static boolean keepEnchanterInventory = false;
 
     public BlockLogicEnchanter(Block<?> block, boolean active) {
@@ -65,7 +61,6 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
                 throw new RuntimeException(msg);
             }
             world.setBlockWithNotify(x, y, z, 0);
-            LOGGER.warn(msg);
             return;
         }
         keepEnchanterInventory = true;

@@ -187,7 +187,7 @@ public final class AetherItems {
 
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
-    private static boolean hasInit = false;
+    public static boolean hasInit = false;
 
     public static void init(){
         if(!hasInit){
@@ -200,7 +200,7 @@ public final class AetherItems {
         return MOD_ID + ":item/" + string;
     }
 
-    private static void initializeItems() {
+    public static void initializeItems() {
         // TODO maybe moving some item initialization in their own method
         AetherItems.registerArmor();
         AetherItems.registerTool();
@@ -397,9 +397,9 @@ public final class AetherItems {
     }
 
     // maybe for later when cleanign up
-    private static void registerOther() {}
-    private static void registerTool() {}
-    private static void registerFood() {}
-    private static void registerArmor() {}
+    public static void registerOther() {}
+    public static void registerTool() {}
+    public static void registerFood() {}
+    public static void registerArmor() {}
 
 }
