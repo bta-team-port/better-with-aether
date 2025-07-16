@@ -1,14 +1,3 @@
-#Worldtype
-worldType.aether.default.name=The Aether
-worldType.aether.default.desc=Welcome to a hostile paradise.
-
-#Dimension
-dimension.aether.name=The Aether
-dimension.aether.desc=A hostile Paradise
-
-#Biome
-biome.aether.aether=The Aether
-
 #Effects
 effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
@@ -22,6 +11,3 @@ ascending.dawn=Ascending Dawn
 a.morning.wish=A Morning Wish
 aether.tune=Aether Tune
 
-#Subtitles
-subtitles.aether.life.shard.chime=Life shard activated
-subtitles.aether.life.shard.chime.final=Final life shard activated
