@@ -42,9 +42,9 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (this.isActive) {
             int l = world.getBlockMetadata(x, y, z);
-            double poxX = (double)x + (double)0.5F;
-            double posY = (double)y + (double)0.0F + (double)(rand.nextFloat() * 6.0F / 16.0F);
-            double posZ = (double)z + (double)0.5F;
+            double poxX = (double) x + (double) 0.5F;
+            double posY = (double) y + (double) 0.5F + (double) (rand.nextFloat() * 6.0F / 16.0F);
+            double posZ = (double) z + (double) 0.5F;
             double f3 = 0.52F;
             double f4 = rand.nextFloat() * 0.6F - 0.3F;
             if (l == 4) {
@@ -68,7 +68,7 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityEnchanter tileEntityEnchanter = (TileEntityEnchanter) world.getTileEntity(x, y, z);
-            ((IAetherScreens)player).aether$displayEnchanterScreen(tileEntityEnchanter);
+            ((IAetherScreens) player).aether$displayEnchanterScreen(tileEntityEnchanter);
         }
         return true;
     }
