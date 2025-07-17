@@ -190,7 +190,7 @@ public final class AetherBlocks {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.0f)
                 .setResistance(0.0f)
-                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH);
+                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH);
 
         BlockBuilder log = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.WOOD)
@@ -385,7 +385,7 @@ public final class AetherBlocks {
                 .build("flower.white", "flower_white", blockID("FLOWER_WHITE"), (b) -> (BlockLogicFlowerAether)(new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
 
         TALLGRASS_AETHER = flower
-                .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES)
+                .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
                 .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), BlockLogicTallGrassAether::new);
 
 
@@ -523,7 +523,6 @@ public final class AetherBlocks {
                 .setTicking(true)
                 .setTickOnLoad()
                 .build("ore.gravitite.holystone", "ore_gravitite_holystone", blockID("ORE_GRAVITITE_HOLYSTONE"), b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
-        //TODO Make the block place when it stops falling upwards
 
         BLOCK_AMBROSIUM = oreBlock
                 .setBlockSound(BlockSounds.STONE)

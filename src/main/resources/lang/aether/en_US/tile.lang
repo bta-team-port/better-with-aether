@@ -194,7 +194,7 @@ tile.aether.incubator.active.desc=Nurture moa eggs into useful friends.
 tile.aether.torch.ambrosium.name=Ambrosium Torch
 tile.aether.torch.ambrosium.desc=It glows with a cold, ethereal light.
 
-tile.aether.block.gravitite.name=Enchanted Gravitite
+tile.aether.block.gravitite.name=Block of Enchanted Gravitite
 tile.aether.block.gravitite.desc=Gravity warping block used to make tools. Floats upwards when powered!
 tile.aether.block.zanite.name=Block of Zanite
 tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
@@ -210,10 +210,3 @@ tile.aether.stairs.brick.zanite.desc=Zanite brick block used for rapid vertical 
 
 tile.aether.lantern.firefly.silver.name=Silver Firefly Lantern
 tile.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.
-
-tile.aether.enchanter.idle.name=Enchanter
-tile.aether.enchanter.idle.desc=For repairing and enchanting blocks and equipment.
-tile.aetehr.freezer.idle.name=Freezer
-tile.aetehr.freezer.idle.desc=For freezing and cooling blocks and items.
-tile.aether.incubator.idle.name=Incubator
-tile.aether.incubator.idle.desc=Nurture moa eggs into useful friends.
