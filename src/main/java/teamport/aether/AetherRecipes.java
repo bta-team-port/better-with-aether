@@ -3,10 +3,15 @@ package teamport.aether;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.registry.Registries;
+import net.minecraft.core.data.registry.recipe.RecipeGroup;
+import net.minecraft.core.data.registry.recipe.RecipeNamespace;
+import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
+import teamport.aether.recipe.RecipeEntryAetherMachine;
+import teamport.aether.recipe.RecipeGroupAether;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
@@ -14,16 +19,29 @@ import turniplabs.halplibe.util.RecipeEntrypoint;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherRecipes implements RecipeEntrypoint {
+    public static final RecipeNamespace AETHER = RecipeBuilder.getRecipeNamespace(MOD_ID);
+    public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
+
 
     @Override
     public void onRecipesReady() {
+        RecipeBuilder.initNameSpace(MOD_ID);
+        AETHER.register("enchanter",ENCHANTER);
+//        AETHER.register("freezer",FREEZER);
+        Registries.RECIPES.register("aether", AETHER);
+        Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
+
+//        RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
+//        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
+//        RecipeGroupAether ENCHANTER = RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_IDLE)));
         initializeRecipes();
     }
 
     @Override
     public void initNamespaces() {
-        RecipeBuilder.initNameSpace(MOD_ID);
-        RecipeBuilder.getRecipeNamespace(MOD_ID);
+        // TODO why do we do this twice?
+        RecipeBuilder.initNameSpace(MOD_ID); // already called here
+
 
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("ladder");
@@ -323,8 +341,7 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1), 0.30)
                 .create("trommel_aether_quicksoil");
 
-        RecipeBuilder.initNameSpace(MOD_ID);
-        RecipeBuilder.getRecipeNamespace(MOD_ID);
 
+//        RecipeBuilder.initNameSpace(MOD_ID);
     }
 }

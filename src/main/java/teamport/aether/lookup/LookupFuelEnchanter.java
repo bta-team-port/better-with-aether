@@ -1,0 +1,29 @@
+package teamport.aether.lookup;
+
+import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.AetherItems;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class LookupFuelEnchanter {
+    public static final LookupFuelEnchanter instance = new LookupFuelEnchanter();
+    protected final Map<Integer, Integer> fuelList = new HashMap();
+
+    protected void register() {
+        this.addFuelEntry(AetherItems.AMBROSIUM.id, 500);
+        this.addFuelEntry(AetherBlocks.BLOCK_AMBROSIUM.id(), 4000);
+    }
+
+    public void addFuelEntry(int id, int fuelYield) {
+        this.fuelList.put(id, fuelYield);
+    }
+
+    public int getFuelYield(int id) {
+        return this.fuelList.get(id) == null ? 0 : (Integer)this.fuelList.get(id);
+    }
+
+    public Map<Integer, Integer> getFuelList() {
+        return this.fuelList;
+    }
+}

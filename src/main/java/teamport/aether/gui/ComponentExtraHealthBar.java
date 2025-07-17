@@ -25,9 +25,9 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
     public final Random random = new Random();
     public int barCount;
 
-    public ComponentExtraHealthBar(String key, Layout layout, int barCount) {
+    public ComponentExtraHealthBar(String key, Layout layout, int barIndex) {
         super(key, 81, 10, layout);
-        this.barCount = barCount;
+        this.barCount = barIndex;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
         int renderHeart = (renderHealth + 1) / 2;
         if (renderHeart == 0) return;
 
-        // TODO change heal and prevhealth
+        // these 2 lines are magical pls do not change
         int barprevHealth = prevHealth - barCount * 20;
         int barhealth = health - barCount * 20;
 
@@ -105,10 +105,6 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
     }
 
 
-    /**
-     * this is probably for the editing of the hud
-     */
-    // TODO move the hearths into the correct location
     @Override
     public void renderPreview(Minecraft mc, Gui gui, Layout layout, int xSizeScreen, int ySizeScreen) {
         int x = layout.getComponentX(mc, this, xSizeScreen);
