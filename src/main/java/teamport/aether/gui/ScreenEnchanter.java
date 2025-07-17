@@ -2,15 +2,17 @@ package teamport.aether.gui;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.container.ScreenContainerAbstract;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.AetherRecipes;
+import teamport.aether.lookup.LookupFuelEnchanter;
 import teamport.aether.player.MenuEnchanter;
 import teamport.aether.tile.TileEntityEnchanter;
 
 @Environment(EnvType.CLIENT)
-public class ScreenEnchanter extends ScreenContainerAbstract {
+public class ScreenEnchanter extends ScreenAetherMachine {
 
     public final TileEntityEnchanter enchantInventory;
 
@@ -39,5 +41,18 @@ public class ScreenEnchanter extends ScreenContainerAbstract {
         I18n i18n = I18n.getInstance();
         this.font.drawString(i18n.translateKey("aether.gui.enchanter.title"), 60, 6, 0xFF404040);
         this.font.drawString(i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
+    }
+
+    @Override
+    public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
+        boolean isIngredient = AetherRecipes.ENCHANTER.findRecipe(stackInSlot) != null;
+        boolean isFuel = LookupFuelEnchanter.instance.getFuelYield(clickedItemId) > 0;
+        if (isIngredient) {
+            return 1;
+        }
+        if (isFuel) {
+            return 2;
+        }
+        return 0;
     }
 }
