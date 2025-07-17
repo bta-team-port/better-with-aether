@@ -150,15 +150,6 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     @Override
-    public boolean stillValid(Player entityplayer) {
-        if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-            return entityplayer.distanceToSqr((double) this.x + (double) 0.5F, (double) this.y + (double) 0.5F, (double) this.z + (double) 0.5F) <= (double) 64.0F;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public void dropContents(World world, int x, int y, int z) {
         super.dropContents(world, x, y, z);
         if (!BlockLogicEnchanter.keepEnchanterInventory) {

@@ -3,7 +3,6 @@ package teamport.aether.blocks;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
@@ -46,20 +45,20 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
             double poxX = (double)x + (double)0.5F;
             double posY = (double)y + (double)0.0F + (double)(rand.nextFloat() * 6.0F / 16.0F);
             double posZ = (double)z + (double)0.5F;
-            double f3 = (double)0.52F;
-            double f4 = (double)(rand.nextFloat() * 0.6F - 0.3F);
+            double f3 = 0.52F;
+            double f4 = rand.nextFloat() * 0.6F - 0.3F;
             if (l == 4) {
-                world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX - f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 5) {
-                world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f3, posY, posZ + f4, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 2) {
-                world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ - f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 3) {
-                world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ + f3, (double)0.0F, (double)0.0F, (double)0.0F, 0);
+                world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
             }
 
         }
@@ -87,9 +86,9 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
         }
         keepEnchanterInventory = true;
         if (lit) {
-            world.setBlockWithNotify(x, y, z, Blocks.FURNACE_STONE_ACTIVE.id());
+            world.setBlockWithNotify(x, y, z, AetherBlocks.ENCHANTER_ACTIVE.id());
         } else {
-            world.setBlockWithNotify(x, y, z, Blocks.FURNACE_STONE_IDLE.id());
+            world.setBlockWithNotify(x, y, z, AetherBlocks.ENCHANTER_IDLE.id());
         }
         keepEnchanterInventory = false;
         world.setBlockMetadataWithNotify(x, y, z, meta);

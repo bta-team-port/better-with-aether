@@ -3,7 +3,6 @@ package teamport.aether;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.registry.Registries;
-import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
@@ -25,15 +24,15 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     @Override
     public void onRecipesReady() {
-        RecipeBuilder.initNameSpace(MOD_ID);
-        AETHER.register("enchanter",ENCHANTER);
-//        AETHER.register("freezer",FREEZER);
+        AETHER.register("enchanter", ENCHANTER);
+//        AETHER.register("freezer", FREEZER);
         Registries.RECIPES.register("aether", AETHER);
         Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
 
 //        RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
 //        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
 //        RecipeGroupAether ENCHANTER = RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_IDLE)));
+
         initializeRecipes();
     }
 
@@ -41,6 +40,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     public void initNamespaces() {
         // TODO why do we do this twice?
         RecipeBuilder.initNameSpace(MOD_ID); // already called here
+        RecipeBuilder.getRecipeNamespace(MOD_ID);
 
 
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
@@ -148,21 +148,21 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .create("quicksoil_glass_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_GLASS_QUICKSOIL, 6));
 
 
-//        RecipeBuilder.Shaped(MOD_ID, "HHH", "HZH", "HHH")
-//                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
-//                .addInput('Z', (AetherItems.ZANITE))
-//                .create("enchanter", new ItemStack(AetherBlocks.ENCHANTER, 1));
-//
-//        RecipeBuilder.Shaped(MOD_ID, "HHH", "HIH", "SSS")
-//                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
-//                .addInput('I', (AetherBlocks.ICESTONE))
-//                .addInput('S', (AetherBlocks.PLANKS_SKYROOT))
-//                .create("freezer", new ItemStack(AetherBlocks.FREEZER, 1));
-//
-//        RecipeBuilder.Shaped(MOD_ID, "HHH", "HTH", "HHH")
-//                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
-//                .addInput('T', (AetherBlocks.TORCH_AMBROSIUM))
-//                .create("incubator", new ItemStack(AetherBlocks.INCUBATOR, 1));
+        RecipeBuilder.Shaped(MOD_ID, "HHH", "HZH", "HHH")
+                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
+                .addInput('Z', (AetherItems.ZANITE))
+                .create("enchanter", new ItemStack(AetherBlocks.ENCHANTER_IDLE, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, "HHH", "HIH", "SSS")
+                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
+                .addInput('I', (AetherBlocks.ICESTONE))
+                .addInput('S', (AetherBlocks.PLANKS_SKYROOT))
+                .create("freezer", new ItemStack(AetherBlocks.FREEZER_IDLE, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, "HHH", "HTH", "HHH")
+                .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
+                .addInput('T', (AetherBlocks.TORCH_AMBROSIUM))
+                .create("incubator", new ItemStack(AetherBlocks.INCUBATOR_IDLE, 1));
 
 
         RecipeBuilderShaped templateStacked = new RecipeBuilderShaped(MOD_ID, "X", "S");
@@ -269,13 +269,13 @@ public class AetherRecipes implements RecipeEntrypoint {
         Boots.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_boots", new ItemStack(AetherItems.ARMOR_BOOTS_GRAVITITE, 1));
 
         RecipeBuilderShaped Gloves = new RecipeBuilderShaped(MOD_ID, "X X");
-//        Gloves.addInput('X', Items.LEATHER).create("leather_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_LEATHER, 1));
-//        Gloves.addInput('X', Items.INGOT_IRON).create("iron_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_IRON, 1));
-//        Gloves.addInput('X', Items.INGOT_GOLD).create("gold_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_GOLD, 1));
-//        Gloves.addInput('X', Items.DIAMOND).create("diamond_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_DIAMOND, 1));
-//        Gloves.addInput('X', Items.INGOT_STEEL).create("steel_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_STEEL, 1));
-//        Gloves.addInput('X', AetherItems.ZANITE).create("zanite_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_ZANITE, 1));
-//        Gloves.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_GRAVITITE, 1));
+        Gloves.addInput('X', Items.LEATHER).create("leather_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_LEATHER, 1));
+        Gloves.addInput('X', Items.INGOT_IRON).create("iron_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_IRON, 1));
+        Gloves.addInput('X', Items.INGOT_GOLD).create("gold_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_GOLD, 1));
+        Gloves.addInput('X', Items.DIAMOND).create("diamond_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_DIAMOND, 1));
+        Gloves.addInput('X', Items.INGOT_STEEL).create("steel_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_STEEL, 1));
+        Gloves.addInput('X', AetherItems.ZANITE).create("zanite_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_ZANITE, 1));
+        Gloves.addInput('X', AetherBlocks.BLOCK_GRAVITITE).create("gravitite_gloves", new ItemStack(AetherItems.ARMOR_GLOVES_GRAVITITE, 1));
 
         RecipeBuilderShaped Pendant = new RecipeBuilderShaped(MOD_ID, "SSS", "S S", " X ");
         Pendant.addInput('X', Items.LEATHER).addInput('S', Items.STRING).create("leather_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_LEATHER, 1));
@@ -340,8 +340,5 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addEntry(new WeightedRandomLootObject(AetherItems.STICK_SKYROOT.getDefaultStack(), 1), 0.30)
                 .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1), 0.30)
                 .create("trommel_aether_quicksoil");
-
-
-//        RecipeBuilder.initNameSpace(MOD_ID);
     }
 }
