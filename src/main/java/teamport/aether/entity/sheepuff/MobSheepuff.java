@@ -15,11 +15,10 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.MobAetherAnimal;
 
 import java.util.Random;
 
-public class MobSheepuff extends MobAetherAnimal {
+public class MobSheepuff extends MobSheep {
     public int growthTimer;
     public MobSheepuff(World world) {
         super(world);
@@ -76,14 +75,9 @@ public class MobSheepuff extends MobAetherAnimal {
 
             this.prevTimeSheepEating = this.timeSheepEating++;
             if (this.prevTimeSheepEating == 35 && blockBelow == AetherBlocks.GRASS_AETHER && !this.world.isClientSide) {
-                this.world.playBlockEvent(null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
+                this.world.playBlockEvent(null, 2001, (int) this.x, (int) this.y - 1, (int) this.z, this.world.getBlockId((int) this.x, (int) this.y - 1, (int) this.z));
                 this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, AetherBlocks.DIRT_AETHER.id());
-                if (!this.getPuffed() && !this.getSheared()) {
-                    this.setPuffed(true);
-                }
-                if (!this.getPuffed() && this.getSheared()) {
-                    this.setSheared(false);
-                }
+                this.setPuffed(true);
             }
 
             if (this.prevTimeSheepEating >= 40) {
