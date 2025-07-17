@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 
+
 public abstract class MobAetherAnimal extends MobAnimal implements Creature {
 
     public MobAetherAnimal(World world) {
