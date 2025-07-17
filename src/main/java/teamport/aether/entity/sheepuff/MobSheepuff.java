@@ -3,10 +3,12 @@ package teamport.aether.entity.sheepuff;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
+import net.minecraft.core.item.ItemDye;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolShears;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -29,6 +31,10 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "sheepuff");
         this.setSize(0.9F, 1.3F);
+    }
+
+    public boolean isFavouriteItem(ItemStack itemStack) {
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK);
     }
 
     protected void defineSynchedData() {
@@ -68,7 +74,7 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
         if (this.getPuffed()) {
             this.fallDistance = 0.0F;
             if (this.yd < -0.05) {
-                this.yd *= 0.6;
+                this.yd *= 0.4;
             }
         }
 
@@ -125,10 +131,10 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
             ItemStack itemstack = player.inventory.getCurrentItem();
             if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && this.getPuffed()) {
                 if (!this.world.isClientSide) {
-                        this.setPuffed(false);
-                    int count = 2 + this.random.nextInt(3);
+                    this.setPuffed(false);
 
-                    for(int j = 0; j < count; ++j) {
+                    int count = 2 + this.random.nextInt(3);
+                    for (int j = 0; j < count; ++j) {
                         EntityItem entityitem = this.dropItem(new ItemStack(Blocks.WOOL.id(), 1, this.getFleeceColor().blockMeta), 1.0F);
                         entityitem.yd += this.random.nextFloat() * 0.05F;
                         entityitem.xd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
@@ -145,10 +151,10 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
             } else {
                 if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && !this.getSheared() && !this.getPuffed()) {
                     if (!this.world.isClientSide) {
-                            this.setSheared(true);
-                        int count = 2 + this.random.nextInt(3);
+                        this.setSheared(true);
 
-                        for(int j = 0; j < count; ++j) {
+                        int count = 2 + this.random.nextInt(3);
+                        for (int j = 0; j < count; ++j) {
                             EntityItem entityitem = this.dropItem(new ItemStack(Blocks.WOOL.id(), 1, this.getFleeceColor().blockMeta), 1.0F);
                             entityitem.yd += this.random.nextFloat() * 0.05F;
                             entityitem.xd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
@@ -162,8 +168,18 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
                     }
 
                     return true;
+                } else {
+                    if (itemstack != null && itemstack.getItem() instanceof ItemDye) {
+                        if (!this.world.isClientSide) {
+                            DyeColor woolColor = DyeColor.colorFromItemMeta(itemstack.getMetadata());
+                            if (this.getFleeceColor() != woolColor && itemstack.consumeItem(player)) {
+                                this.setFleeceColor(woolColor);
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
                 }
-                return false;
             }
         }
     }
