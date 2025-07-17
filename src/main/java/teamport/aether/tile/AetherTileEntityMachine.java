@@ -22,10 +22,10 @@ import java.util.Random;
 public class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
     protected ItemStack[] containerItemStacks = new ItemStack[3];
-    public int maxEnergyTime = 0;       // burn
-    public int currentEnergyTime = 0;
-    public int maxProcessTime = 200;   // cook
-    public int currentProcessTime = 0;
+    public int maxEnergyTime = 0;       // maxBurnTime
+    public int currentEnergyTime = 0;   // currentBurnTime
+    public int maxProcessTime = 200;    // maxCookTime
+    public int currentProcessTime = 0;  // currentCookTime
 
     public int getContainerSize() {
         return containerItemStacks.length;
@@ -121,7 +121,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     public boolean isProcessing() {
-        return this.currentProcessTime > 0;
+        return this.currentEnergyTime > 0;
     }
 
     //override
