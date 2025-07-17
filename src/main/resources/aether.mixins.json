@@ -34,6 +34,7 @@
     "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
+    "accessors.ScreenContainerAbstractAccessor",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "screens.PlayerLocalMixinAetherScreens"
   ],
