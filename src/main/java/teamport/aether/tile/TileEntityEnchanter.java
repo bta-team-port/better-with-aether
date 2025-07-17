@@ -2,8 +2,8 @@ package teamport.aether.tile;
 
 
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.*;
+import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
@@ -14,12 +14,15 @@ import teamport.aether.lookup.LookupFuelEnchanter;
 // TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityEnchanter extends AetherTileEntityMachine {
 
-    /// missing tick                    -> tick
-    /// missing canSmelt                -> canProcess
-    /// missing smeltItem               -> processItem
-    /// missing updateFurnace           -> updateContainer
-    /// missing getBurnTimeFromItem     -> getEnergyTimeFromItem
-    ///  missing getCookProgressScaled  -> getProgressScale
+    /// canSmelt                -> canProcess
+    /// smeltItem               -> processItem
+    /// updateFurnace           -> updateContainer
+    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
+    /// getCookProgressScaled   -> getProgressScale
+    /// maxEnergyTime           -> maxBurnTime
+    /// currentEnergyTime       -> currentBurnTime
+    /// maxProcessTime          -> maxCookTime
+    /// currentProcessTime      -> currentCookTime
 
     @Override
     public String getNameTranslationKey() {
@@ -28,61 +31,82 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     @Override
     public void tick() {
-//        boolean isBurnTimeHigherThan0 = this.currentBurnTime > 0;
-//        boolean furnaceUpdated = false;
-//        if (this.currentBurnTime > 0) {
-//            --this.currentBurnTime;
-//        }
-//
-//        if (this.worldObj == null || !this.worldObj.isClientSide) {
-//            if ((this.worldObj == null || this.worldObj.getBlockId(this.x, this.y, this.z) == Blocks.FURNACE_STONE_IDLE.id()) && this.currentBurnTime == 0 && this.furnaceItemStacks[0] == null && this.furnaceItemStacks[1] != null && this.furnaceItemStacks[1].itemID == Blocks.COBBLE_NETHERRACK.id()) {
-//                --this.furnaceItemStacks[1].stackSize;
-//                if (this.furnaceItemStacks[1].stackSize <= 0) {
-//                    this.furnaceItemStacks[1] = null;
-//                }
-//
-//                this.updateFurnace(true);
-//                furnaceUpdated = true;
-//            }
-//
-//            if (this.currentBurnTime == 0 && this.furnaceItemStacks[1] != null && this.canSmelt()) {
-//                this.maxBurnTime = this.currentBurnTime = this.getBurnTimeFromItem(this.furnaceItemStacks[1]);
-//                if (this.currentBurnTime > 0) {
-//                    furnaceUpdated = true;
-//                    if (this.furnaceItemStacks[1] != null) {
-//                        if (this.furnaceItemStacks[1].getItem() == Items.BUCKET_LAVA) {
-//                            this.furnaceItemStacks[1] = new ItemStack(Items.BUCKET);
-//                        } else {
-//                            --this.furnaceItemStacks[1].stackSize;
-//                            if (this.furnaceItemStacks[1].stackSize <= 0) {
-//                                this.furnaceItemStacks[1] = null;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            if (this.isBurning() && this.canSmelt()) {
-//                ++this.currentCookTime;
-//                if (this.currentCookTime == this.maxCookTime) {
-//                    this.currentCookTime = 0;
-//                    this.smeltItem();
-//                    furnaceUpdated = true;
-//                }
-//            } else {
-//                this.currentCookTime = 0;
-//            }
-//
-//            if (isBurnTimeHigherThan0 != this.currentBurnTime > 0) {
-//                furnaceUpdated = true;
-//                this.updateFurnace(false);
-//            }
-//        }
-//
-//        if (furnaceUpdated) {
-//            this.setChanged();
-//        }
+        boolean isEnergyTimeHigherThan0 = this.currentEnergyTime > 0;
+        boolean updateMachine = false;
+        if (this.currentEnergyTime > 0) {
+            --this.currentEnergyTime;
+        }
+        if(canProcess()){
+            float percent = 1;
+            int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
+            if(isRepairable(containerItemStacks[0])){
+                int currentDurability = containerItemStacks[0].getMetadata();
+                int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
+                percent = (float) currentDurability / maxDurability;
+            }
+            this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
+        }
 
+        if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
+            this.setChanged();
+        }
+
+    }
+
+    private boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
+        if (this.worldObj == null || !this.worldObj.isClientSide) {
+            updateMachine = eternallyLit(updateMachine);
+
+            if (this.currentEnergyTime == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
+                this.maxEnergyTime = this.currentEnergyTime = this.getEnergyTimeFromItem(this.containerItemStacks[1]);
+                if (this.currentEnergyTime > 0) {
+                    updateMachine = true;
+                    if (this.containerItemStacks[1] != null) {
+                        --this.containerItemStacks[1].stackSize;
+                        if (this.containerItemStacks[1].stackSize <= 0) {
+                            this.containerItemStacks[1] = null;
+                        }
+
+                    }
+                }
+            }
+
+            if (this.isProcessing() && this.canProcess()) {
+                ++this.currentProcessTime;
+                if (this.currentProcessTime == this.maxProcessTime) {
+                    this.currentProcessTime = 0;
+                    this.processItem();
+                    updateMachine = true;
+                }
+            } else {
+                this.currentProcessTime = 0;
+            }
+
+            if (isEnergyTimeHigherThan0 != this.currentEnergyTime > 0) {
+                this.updateContainer(false);
+                updateMachine = true;
+            }
+        }
+        return updateMachine;
+    }
+
+    // TODO replace block of zanite with a better suited item to enable eternal lit enchanter
+    private boolean eternallyLit(boolean updateMachine) {
+        if ((this.worldObj == null
+                || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())
+                && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
+                && this.containerItemStacks[1] != null
+                && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
+        ) {
+            --this.containerItemStacks[1].stackSize;
+            if (this.containerItemStacks[1].stackSize <= 0) {
+                this.containerItemStacks[1] = null;
+            }
+
+            this.updateContainer(true);
+            return true;
+        }
+        return updateMachine;
     }
 
     @Override
@@ -90,8 +114,12 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (this.containerItemStacks[0] == null) {
             return false;
         }
-        ItemStack resultStack = AetherRecipes.ENCHANTER.findOutput(containerItemStacks[0]);
+        ItemStack toProcess = containerItemStacks[0];
+        ItemStack resultStack = AetherRecipes.ENCHANTER.findOutput(toProcess);
         if (resultStack == null) {
+            return false;
+        }
+        if(!isRepairable(toProcess)){
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
@@ -101,11 +129,19 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (!resultItem.isItemEqual(resultStack)) {
             return false;
         }
+
         if (resultItem.stackSize < this.getMaxStackSize()
                 && resultItem.stackSize < resultItem.getMaxStackSize()) {
             return true;
         }
         return resultItem.stackSize < resultStack.getMaxStackSize();
+    }
+
+    private static boolean isRepairable(ItemStack toProcess) {
+        return (toProcess.getItem() instanceof ItemTool && toProcess.getMetadata() != 0)
+                || (toProcess.getItem() instanceof ItemArmor && toProcess.getMetadata() != 0)
+                || (toProcess.getItem() instanceof ItemFireStriker && toProcess.getMetadata() != 0)
+                || (toProcess.getItem() instanceof ItemBow && toProcess.getMetadata() != 0);
     }
 
     @Override
