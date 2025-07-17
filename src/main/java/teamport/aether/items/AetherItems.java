@@ -315,7 +315,7 @@ public final class AetherItems {
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 0));
 
         ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER")));
-        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.chain", itemKey("armor_gloves_chain"), itemID("ARMOR_GLOVES_CHAIN")));
+        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN")));
         ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON")));
         ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD")));
         ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND")));

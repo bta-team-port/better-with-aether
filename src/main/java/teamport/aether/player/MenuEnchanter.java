@@ -1,11 +1,11 @@
 package teamport.aether.player;
 
 import net.minecraft.core.InventoryAction;
+import net.minecraft.core.crafting.ContainerListener;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import net.minecraft.core.player.inventory.slot.SlotFurnace;
 import teamport.aether.tile.TileEntityEnchanter;
 
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
 // TODO implement this
 public class MenuEnchanter extends MenuAbstract {
     public final TileEntityEnchanter enchanter;
-//    private int currentCookTime = 0;
-//    private int currentBurnTime = 0;
-//    private int itemBurnTime = 0;
-//    private int itemCookTime = 0;
+    private int currentProcessTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 0;
+    private int maxEnergyTime = 0;
 
     public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter){
         this.enchanter = tileEntityEnchanter;
         this.addSlot(new Slot(tileEntityEnchanter, 0, 56, 17));
         this.addSlot(new Slot(tileEntityEnchanter, 1, 56, 53));
-        this.addSlot(new SlotFurnace(inventory.player, tileEntityEnchanter, 2, 116, 35));
+        this.addSlot(new Slot(tileEntityEnchanter, 2, 116, 35));
         for(int i = 0; i < 3; ++i) {
             for(int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
@@ -80,6 +80,32 @@ public class MenuEnchanter extends MenuAbstract {
         } else {
             return null;
         }
+    }
+
+    public void broadcastChanges() {
+        super.broadcastChanges();
+
+        for(ContainerListener crafter : this.containerListeners) {
+            if (this.currentProcessTime != this.enchanter.currentProcessTime) {
+                crafter.updateCraftingInventoryInfo(this, 0, this.enchanter.currentProcessTime);
+            }
+
+            if (this.currentEnergyTime != this.enchanter.currentEnergyTime) {
+                crafter.updateCraftingInventoryInfo(this, 1, this.enchanter.currentEnergyTime);
+            }
+
+            if (this.maxProcessTime != this.enchanter.maxProcessTime) {
+                crafter.updateCraftingInventoryInfo(this, 2, this.enchanter.maxProcessTime);
+            }
+
+            if (this.maxEnergyTime != this.enchanter.maxEnergyTime) {
+                crafter.updateCraftingInventoryInfo(this, 3, this.enchanter.maxEnergyTime);
+            }
+        }
+        this.currentProcessTime = this.enchanter.currentProcessTime;
+        this.currentEnergyTime = this.enchanter.currentEnergyTime;
+        this.maxProcessTime = this.enchanter.maxProcessTime;
+        this.maxEnergyTime = this.enchanter.maxEnergyTime;
     }
 
     @Override
