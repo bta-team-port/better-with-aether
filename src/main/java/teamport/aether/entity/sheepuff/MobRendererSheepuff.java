@@ -26,6 +26,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
                 this.setArmorModel(this.wool);
                 this.bindTexture("/assets/aether/textures/entity/sheepuff/sheepuff_fur.png");
             }
+
             float brightness = 1.0F;
             if (!LightmapHelper.isLightmapEnabled() && !Global.accessor.isFullbrightEnabled()) {
                 brightness = entitysheep.getBrightness(f);

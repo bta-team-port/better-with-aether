@@ -9,12 +9,11 @@ import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.sentry.MobSentry;
-import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.command.AetherCommand;
+import teamport.aether.entity.mimic.MobMimic;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
@@ -67,15 +66,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     }
 
     public static void initAchievementsPage() {
-        AchievementPageAether page = new AchievementPageAether(MOD_ID, Blocks.GLOWSTONE.getDefaultStack());
+        AchievementPageAether page = new AchievementPageAether(MOD_ID, AetherBlocks.GRASS_AETHER.getDefaultStack());
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
         page.addAchievement(AetherAchievements.BOUNCE, -2, -2);
         page.addAchievement(AetherAchievements.MOA, 0, -4);
         page.addAchievement(AetherAchievements.PHYG, -2, 0);
         page.addAchievement(AetherAchievements.ENCHANTER, 2, 0);
         page.addAchievement(AetherAchievements.BRONZE, -2, 2);
-        page.addAchievement(AetherAchievements.SILVER, 0, 4);
-        page.addAchievement(AetherAchievements.GOLD, 2, 2);
+        page.addAchievement(AetherAchievements.SILVER, 2, 2);
+        page.addAchievement(AetherAchievements.GOLD, 0, 4);
         page.addAchievement(AetherAchievements.GRAVITITE, 2, -2);
         AchievementPages.register(page);
     }

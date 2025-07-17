@@ -66,7 +66,7 @@ public class MenuEnchanter extends MenuAbstract {
                 }
             }
 
-            if (slot.index >= 3 && slot.index <= 29) {
+            if (slot.index <= 29) {
                 return this.getSlots(30, 9, false);
             }
 

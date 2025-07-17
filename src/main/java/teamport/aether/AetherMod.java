@@ -8,6 +8,7 @@ import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.biome.Biomes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
@@ -34,7 +35,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void beforeGameStart() {
 
-        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{}, new float[]{0.5F, 1.0F, 0.88F}));
+        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{Biomes.PARADISE_PARADISE}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
         AetherConfig.Setup();
