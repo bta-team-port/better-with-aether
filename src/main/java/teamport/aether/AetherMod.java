@@ -3,8 +3,10 @@ package teamport.aether;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.sound.SoundTypes;
+import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,16 +44,12 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         SoundTypes.loadSoundsJson(MOD_ID);
         AetherMod.registerTextures();
-
-        /** these are client-side  only! */
-//        ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
-//        dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
-//        dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
-//        dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
     }
 
     @Override
     public void afterGameStart() {
+        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
+        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
     }
 
     public static void registerTextures() {
