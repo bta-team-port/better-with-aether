@@ -17,6 +17,7 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
+import teamport.aether.particle.ParticleGoldenDust;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("goldendust", (world, x, y, z, xa, ya, za, id) -> new ParticleGoldenDust(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
 
         SoundRepository.registerNamespace(MOD_ID);
@@ -68,14 +70,19 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static void initAchievementsPage() {
         AchievementPageAether page = new AchievementPageAether(MOD_ID, AetherBlocks.GRASS_AETHER.getDefaultStack());
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
-        page.addAchievement(AetherAchievements.BOUNCE, -2, -2);
-        page.addAchievement(AetherAchievements.MOA, 0, -4);
+        page.addAchievement(AetherAchievements.BOUNCE, -2, -1);
         page.addAchievement(AetherAchievements.PHYG, -2, 0);
+        page.addAchievement(AetherAchievements.MOA, -4, 0);
         page.addAchievement(AetherAchievements.ENCHANTER, 2, 0);
-        page.addAchievement(AetherAchievements.BRONZE, -2, 2);
-        page.addAchievement(AetherAchievements.SILVER, 2, 2);
-        page.addAchievement(AetherAchievements.GOLD, 0, 4);
-        page.addAchievement(AetherAchievements.GRAVITITE, 2, -2);
+        page.addAchievement(AetherAchievements.BRONZE, 0, 3);
+        page.addAchievement(AetherAchievements.SILVER, 2, 3);
+        page.addAchievement(AetherAchievements.GOLD, 4, 3);
+        page.addAchievement(AetherAchievements.SKYROOT, 3, 0);
+        page.addAchievement(AetherAchievements.AMBROSIUM, 5, 1);
+        page.addAchievement(AetherAchievements.GRAVITITE, 3, -2);
+        page.addAchievement(AetherAchievements.ALL_MUSIC_DISCS, 4, -4);
+        page.addAchievement(AetherAchievements.MAX_LIFE, -4, 4);
+        page.addAchievement(AetherAchievements.ALL_ACCESSORY_TYPES, -4, -4);
         AchievementPages.register(page);
     }
 }

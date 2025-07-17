@@ -4,6 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.AetherAchievements;
 import teamport.aether.api.HealthHelper;
 
 import static teamport.aether.AetherConfig.EXTRA_HEALTH;
@@ -45,6 +46,7 @@ public class ItemLifeShard extends Item {
         // TODO fix multiplayer desync
         if (extraHealth >= EXTRA_HEALTH - 2) {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime.final", 0.65F, 1.0F);
+            player.triggerAchievement(AetherAchievements.MAX_LIFE);
         } else {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F + addVolume * extraHealthCapped, 0.9F + addPitch * extraHealthCapped);
         }

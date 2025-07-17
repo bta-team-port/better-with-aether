@@ -17,8 +17,8 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
     }
 
     public void animationTick(World world, int x, int y, int z, Random rand) {
-        if (rand.nextInt(20) == 0) {
-            world.spawnParticle("arrowtrail", x, (double) y - 0.10000000149011612, z, 0.0, (double) y / 2, 0.0, 0);
+        if (rand.nextInt(5) == 0) {
+            world.spawnParticle("goldendust", x, (double) y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
         }
     }
 
