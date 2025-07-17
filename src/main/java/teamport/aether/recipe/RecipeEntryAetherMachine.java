@@ -13,6 +13,10 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         super(input, output, time);
     }
 
+    public RecipeEntryAetherMachine() {
+    }
+
+
     public boolean matchesQueryIgnoreExceptions(SearchQuery query) {
         try {
             return this.matchesQuery(query);
