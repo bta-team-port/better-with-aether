@@ -37,20 +37,24 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             --this.currentEnergyTime;
         }
         if(canProcess()){
-            float percent = 1;
-            int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-            if(isRepairable(containerItemStacks[0])){
-                int currentDurability = containerItemStacks[0].getMetadata();
-                int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
-                percent = (float) currentDurability / maxDurability;
-            }
-            this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
+            setMaxProcessTime();
         }
 
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
             this.setChanged();
         }
 
+    }
+
+    private void setMaxProcessTime() {
+        float percent = 1;
+        int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
+        if(isRepairable(containerItemStacks[0])){
+            int currentDurability = containerItemStacks[0].getMetadata();
+            int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
+            percent = (float) currentDurability / maxDurability;
+        }
+        this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
     }
 
     private boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
