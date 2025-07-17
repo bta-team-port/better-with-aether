@@ -43,36 +43,6 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchanted_shooter",
-		"type": "aether:machine",
-		"time": 2000,
-		"input": {
-			"stack": {
-				"id": "aether:item/tool_shooter",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/tool_dart_shooter_enchanted",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/enchanted_shooter_poison",
-		"type": "aether:machine",
-		"time": 2000,
-		"input": {
-			"stack": {
-				"id": "aether:item/tool_dart_shooter_poison",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/tool_dart_shooter_enchanted",
-			"meta": 0
-		}
-	},
-	{
 		"name": "aether:enchanter/enchanted_skyroot_bucket",
 		"type": "aether:machine",
 		"time": 1000,
@@ -113,7 +83,7 @@
 			}
 		},
 		"output": {
-			"id": "aether:item/food_healingstone",
+			"id": "aether:item/food_healing_stone",
 			"meta": 0
 		}
 	},
@@ -168,12 +138,12 @@
 		"time": 2000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_firestriker",
+				"id": "minecraft:item/tool_firestriker_iron",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_firestriker",
+			"id": "minecraft:item/tool_firestriker_iron",
 			"meta": 0
 		}
 	},
@@ -303,12 +273,12 @@
 		"time": 1000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_shovel_stone",
+				"id": "minecraft:item/tool_shovel_tone",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_shovel_stone",
+			"id": "minecraft:item/tool_shovel_tone",
 			"meta": 0
 		}
 	},
@@ -978,12 +948,12 @@
 		"time": 3000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_helmet_chain",
+				"id": "minecraft:item/armor_helmet_chainmail",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_helmet_chain",
+			"id": "minecraft:item/armor_helmet_chainmail",
 			"meta": 0
 		}
 	},
@@ -993,12 +963,12 @@
 		"time": 3000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_chestplate_chain",
+				"id": "minecraft:item/armor_chestplate_chainmail",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_chestplate_chain",
+			"id": "minecraft:item/armor_chestplate_chainmail",
 			"meta": 0
 		}
 	},
@@ -1008,12 +978,12 @@
 		"time": 3000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_leggings_chain",
+				"id": "minecraft:item/armor_leggings_chainmail",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_leggings_chain",
+			"id": "minecraft:item/armor_leggings_chainmail",
 			"meta": 0
 		}
 	},
@@ -1023,12 +993,12 @@
 		"time": 3000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_boots_chain",
+				"id": "minecraft:item/armor_boots_chainmail",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_boots_chain",
+			"id": "minecraft:item/armor_boots_chainmail",
 			"meta": 0
 		}
 	},
@@ -1038,12 +1008,12 @@
 		"time": 3000,
 		"input": {
 			"stack": {
-				"id": "aether:item/armor_gloves_chain",
+				"id": "aether:item/armor_gloves_chainmail",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/armor_gloves_chain",
+			"id": "aether:item/armor_gloves_chainmail",
 			"meta": 0
 		}
 	},
@@ -1568,7 +1538,7 @@
 			}
 		},
 		"output": {
-			"id": "aether:item/record_wish",
+			"id": "aether:item/record_morning",
 			"meta": 0
 		}
 	},
@@ -1583,7 +1553,7 @@
 			}
 		},
 		"output": {
-			"id": "aether:item/record_wish",
+			"id": "aether:item/record_morning",
 			"meta": 0
 		}
 	},
@@ -1598,7 +1568,7 @@
 			}
 		},
 		"output": {
-			"id": "aether:item/record_wish",
+			"id": "aether:item/record_morning",
 			"meta": 0
 		}
 	},
@@ -1613,7 +1583,7 @@
 			}
 		},
 		"output": {
-			"id": "aether:item/record_wish",
+			"id": "aether:item/record_morning",
 			"meta": 0
 		}
 	},
