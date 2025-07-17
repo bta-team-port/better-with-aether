@@ -20,7 +20,7 @@ public abstract class MobAetherAnimal extends MobAnimal implements Creature {
         return 8;
     }
 
-    protected float getBlockPathWeight(int x, int y, int z) {
+    public float getBlockPathWeight(int x, int y, int z) {
         return this.world.getBlockId(x, y - 1, z) == AetherBlocks.GRASS_AETHER.id() ? 10.0F : this.world.getLightBrightness(x, y, z) - 0.5F;
     }
 

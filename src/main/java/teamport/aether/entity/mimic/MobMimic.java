@@ -18,7 +18,7 @@ public class MobMimic extends MobMonster {
 
     }
 
-    protected Entity findPlayerToAttack() {
+    public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }

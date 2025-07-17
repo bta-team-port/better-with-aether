@@ -3,7 +3,6 @@ package teamport.aether.entity.sheepuff;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.animal.MobSheep;
 import net.minecraft.core.util.helper.MathHelper;
 
 public class ModelSheepuff extends ModelQuadruped {
@@ -46,7 +45,7 @@ public class ModelSheepuff extends ModelQuadruped {
     }
 
     public void setLivingAnimations(Mob mob, float limbSwing, float limbYaw, float partialTick) {
-        MobSheep entitySheep = (MobSheep)mob;
+        MobSheepuff entitySheep = (MobSheepuff)mob;
         this.head.y = 6.0F;
         this.isEatingAnimPlaying = false;
         if (entitySheep.getIsSheepEating()) {
