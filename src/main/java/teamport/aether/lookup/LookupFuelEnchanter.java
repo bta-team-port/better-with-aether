@@ -10,6 +10,10 @@ public class LookupFuelEnchanter {
     public static final LookupFuelEnchanter instance = new LookupFuelEnchanter();
     protected final Map<Integer, Integer> fuelList = new HashMap();
 
+    protected LookupFuelEnchanter() {
+        this.register();
+    }
+
     protected void register() {
         this.addFuelEntry(AetherItems.AMBROSIUM.id, 500);
         this.addFuelEntry(AetherBlocks.BLOCK_AMBROSIUM.id(), 4000);
