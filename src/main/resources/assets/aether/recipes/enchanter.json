@@ -1,1770 +1,1650 @@
 [
-  {
-    "name": "aether:enchanter/enchanted_gravitite",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "tile.aether.ore.gravitite",
-        "amount": 1,
-        "meta": 0
-      }
-    },
-    "output": {
-      "key": "tile.aether.block.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/enchanted_dart_gold",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.ammo.dart.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.ammo.dart.enchanted",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/enchanted_dart_poison",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.ammo.dart.poison",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.ammo.dart.enchanted",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/enchanted_shooter",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.dart.shooter",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.dart.shooter.enchanted",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/enchanted_shooter_poison",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.dart.shooter.poison",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.dart.shooter.enchanted",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/enchanted_skyroot_bucket",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.aether.bucket.skyroot.poison",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.bucket.skyroot.remedy",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/quicksoil_glass",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "tile.aether.quicksoil",
-        "amount": 1,
-        "meta": 0
-      }
-    },
-    "output": {
-      "key": "tile.aether.glass.quicksoil",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/healingstone",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "tile.aether.holystone",
-        "amount": 1,
-        "meta": 0
-      }
-    },
-    "output": {
-      "key": "item.aether.food.healingstone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/bow",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.bow",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.bow",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/fishingrod",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.fishingrod",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.fishingrod",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/shears",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shears",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shears",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/firestriker",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.firestriker",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.firestriker",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/shears_steel",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shears.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shears.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/firestriker_steel",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.firestriker.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.firestriker.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/wood_pickaxe",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.wood",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.wood",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/wood_shovel",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.wood",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.wood",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/wood_axe",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.wood",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.wood",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/wood_sword",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.wood",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.wood",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/wood_hoe",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.wood",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.wood",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/stone_pickaxe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.stone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.stone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/stone_shovel",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.stone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.stone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/stone_axe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.stone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.stone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/stone_sword",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.stone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.stone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/stone_hoe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.stone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.stone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_pickaxe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.gold",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_shovel",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.gold",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_axe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.gold",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_sword",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.gold",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_hoe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.gold",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.gold",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_pickaxe",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.iron",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.iron",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_shovel",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.iron",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.iron",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_axe",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.iron",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.iron",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_sword",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.iron",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.iron",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_hoe",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.iron",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.iron",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_pickaxe",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.diamond",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.diamond",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_shovel",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.diamond",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.diamond",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_axe",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.diamond",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.diamond",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_sword",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.diamond",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.diamond",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_hoe",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.diamond",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.diamond",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_pickaxe",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.pickaxe.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.pickaxe.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_shovel",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.shovel.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.shovel.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_axe",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.axe.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.axe.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_sword",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.sword.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.sword.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_hoe",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "key": "item.tool.hoe.steel",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.tool.hoe.steel",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/skyroot_pickaxe",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.pickaxe.skyroot",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.pickaxe.skyroot",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/skyroot_shovel",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.shovel.skyroot",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.shovel.skyroot",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/skyroot_axe",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.axe.skyroot",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.axe.skyroot",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/skyroot_sword",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.sword.skyroot",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.sword.skyroot",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/holystone_pickaxe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.pickaxe.holystone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.pickaxe.holystone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/holystone_shovel",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.shovel.holystone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.shovel.holystone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/holystone_axe",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.axe.holystone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.axe.holystone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/holystone_sword",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.sword.holystone",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.sword.holystone",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_pickaxe",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.pickaxe.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.pickaxe.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_shovel",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.shovel.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.shovel.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_axe",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.axe.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.axe.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_sword",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.sword.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.sword.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_pickaxe",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.pickaxe.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.pickaxe.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_shovel",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.shovel.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.shovel.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_axe",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.axe.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.axe.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_sword",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.tool.sword.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.tool.sword.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/leather_helmet",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "id": "16426",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16426",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/leather_chestplate",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "id": "16427",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16427",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/leather_leggings",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "id": "16428",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16428",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/leather_boots",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "id": "16429",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16429",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/chain_helmet",
-    "type": "aether:machine",
-    "time": 3000,
-    "input": {
-      "stack": {
-        "id": "16430",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16430",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/chain_chestplate",
-    "type": "aether:machine",
-    "time": 3000,
-    "input": {
-      "stack": {
-        "id": "16431",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16431",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/chain_leggings",
-    "type": "aether:machine",
-    "time": 3000,
-    "input": {
-      "stack": {
-        "id": "16432",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16432",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/chain_boots",
-    "type": "aether:machine",
-    "time": 3000,
-    "input": {
-      "stack": {
-        "id": "16433",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16433",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_helmet",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "id": "16434",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16434",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_chestplate",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "id": "16435",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16435",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_leggings",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "id": "16436",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16436",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/iron_boots",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "id": "16437",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16437",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_helmet",
-    "type": "aether:machine",
-    "time": 400,
-    "input": {
-      "stack": {
-        "id": "16430",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16430",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_chestplate",
-    "type": "aether:machine",
-    "time": 400,
-    "input": {
-      "stack": {
-        "id": "16431",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16431",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_leggings",
-    "type": "aether:machine",
-    "time": 400,
-    "input": {
-      "stack": {
-        "id": "16432",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16432",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gold_boots",
-    "type": "aether:machine",
-    "time": 400,
-    "input": {
-      "stack": {
-        "id": "16433",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16433",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_helmet",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "id": "16489",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16489",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_chestplate",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "id": "16490",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16490",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_leggings",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "id": "16491",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16491",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/steel_boots",
-    "type": "aether:machine",
-    "time": 16000,
-    "input": {
-      "stack": {
-        "id": "16492",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16492",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_helmet",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "id": "16438",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16438",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_chestplate",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "id": "16439",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16439",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_leggings",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "id": "16440",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16440",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/diamond_boots",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "id": "16441",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "16441",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_helmet",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.helmet.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.helmet.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_chestplate",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.chestplate.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.chestplate.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_leggings",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.leggings.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.leggings.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/zanite_boots",
-    "type": "aether:machine",
-    "time": 2000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.boots.zanite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.boots.zanite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_helmet",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.helmet.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.helmet.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_chestplate",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.chestplate.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.chestplate.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_leggings",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.leggings.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.leggings.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/gravitite_boots",
-    "type": "aether:machine",
-    "time": 6000,
-    "input": {
-      "stack": {
-        "key": "item.aether.armor.boots.gravitite",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.armor.boots.gravitite",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_blue_13",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18384",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.blue",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_blue_cat",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18385",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.blue",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_blue_blocks",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18386",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.blue",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_blue_chirp",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18387",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.blue",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_silver_far",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18388",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.silver",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_silver_mall",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18389",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.silver",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_silver_mellohi",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18390",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.silver",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_silver_stal",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18391",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.silver",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_pink_strad",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18392",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.pink",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_pink_ward",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18393",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.pink",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_pink_wait",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18394",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.pink",
-      "amount": 1,
-      "meta": 0
-    }
-  },
-  {
-    "name": "aether:enchanter/record_pink_dog",
-    "type": "aether:machine",
-    "time": 1000,
-    "input": {
-      "stack": {
-        "id": "18395",
-        "amount": 1,
-        "meta": -1
-      }
-    },
-    "output": {
-      "key": "item.aether.record.pink",
-      "amount": 1,
-      "meta": 0
-    }
-  }
+	{
+		"name": "aether:enchanter/enchanted_gravitite",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:block/ore_gravitite_holystone"
+			}
+		},
+		"output": {
+			"id": "aether:block/block_gravitite"
+		}
+	},
+	{
+		"name": "aether:enchanter/enchanted_dart_gold",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/ammo_dart_golden",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/ammo_dart_enchanted",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/enchanted_dart_poison",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/ammo_dart_poison",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/ammo_dart_enchanted",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/enchanted_skyroot_bucket",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:item/bucket_skyroot_poison",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/bucket_skyroot_remedy",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/quicksoil_glass",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:block/quicksoil",
+				"meta": 0
+			}
+		},
+		"output": {
+			"id": "aether:block/glass_quicksoil",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/healingstone",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:block/holystone",
+				"meta": 0
+			}
+		},
+		"output": {
+			"id": "aether:item/food_healing_stone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/bow",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_bow",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_bow",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/fishingrod",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_fishingrod",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_fishingrod",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/shears",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shears",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shears",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/firestriker",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_firestriker_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_firestriker_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/shears_steel",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shears_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shears_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/firestriker_steel",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_firestriker_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_firestriker_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/wood_pickaxe",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_wood",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_wood",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/wood_shovel",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_wood",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_wood",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/wood_axe",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_wood",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_wood",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/wood_sword",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_wood",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_wood",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/wood_hoe",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_wood",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_wood",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/stone_pickaxe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_stone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_stone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/stone_shovel",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_tone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_tone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/stone_axe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_stone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_stone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/stone_sword",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_stone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_stone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/stone_hoe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_stone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_stone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_pickaxe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_shovel",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_axe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_sword",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_hoe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_pickaxe",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_shovel",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_axe",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_sword",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_hoe",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_pickaxe",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_shovel",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_axe",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_sword",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_hoe",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_pickaxe",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_pickaxe_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_pickaxe_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_shovel",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_shovel_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_shovel_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_axe",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_axe_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_axe_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_sword",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_sword_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_sword_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_hoe",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/tool_hoe_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/tool_hoe_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/skyroot_pickaxe",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_pickaxe_skyroot",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_pickaxe_skyroot",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/skyroot_shovel",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_shovel_skyroot",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_shovel_skyroot",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/skyroot_axe",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_axe_skyroot",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_axe_skyroot",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/skyroot_sword",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_skyroot",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_skyroot",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/holystone_pickaxe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_pickaxe_holystone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_pickaxe_holystone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/holystone_shovel",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_shovel_holystone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_shovel_holystone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/holystone_axe",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_axe_holystone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_axe_holystone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/holystone_sword",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_holystone",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_holystone",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_pickaxe",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_pickaxe_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_pickaxe_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_shovel",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_shovel_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_shovel_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_axe",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_axe_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_axe_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_sword",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_pickaxe",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_pickaxe_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_pickaxe_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_shovel",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_shovel_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_shovel_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_axe",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_axe_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_axe_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_sword",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/leather_helmet",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_leather",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_leather",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/leather_chestplate",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_leather",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_leather",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/leather_leggings",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_leather",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_leather",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/leather_boots",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_leather",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_leather",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/leather_gloves",
+		"type": "aether:machine",
+		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_leather",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_leather",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/chain_helmet",
+		"type": "aether:machine",
+		"time": 3000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_chainmail",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_chainmail",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/chain_chestplate",
+		"type": "aether:machine",
+		"time": 3000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_chainmail",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_chainmail",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/chain_leggings",
+		"type": "aether:machine",
+		"time": 3000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_chainmail",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_chainmail",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/chain_boots",
+		"type": "aether:machine",
+		"time": 3000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_chainmail",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_chainmail",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/chain_gloves",
+		"type": "aether:machine",
+		"time": 3000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_chainmail",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_chainmail",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_helmet",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_chestplate",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_leggings",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_boots",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/iron_gloves",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_iron",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_iron",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_helmet",
+		"type": "aether:machine",
+		"time": 400,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_chestplate",
+		"type": "aether:machine",
+		"time": 400,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_leggings",
+		"type": "aether:machine",
+		"time": 400,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_boots",
+		"type": "aether:machine",
+		"time": 400,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gold_gloves",
+		"type": "aether:machine",
+		"time": 400,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_gold",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_gold",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_helmet",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_chestplate",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_leggings",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_boots",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/steel_gloves",
+		"type": "aether:machine",
+		"time": 16000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_steel",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_steel",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_helmet",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_helmet_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_helmet_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_chestplate",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_chestplate_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_chestplate_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_leggings",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_leggings_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_leggings_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_boots",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/armor_boots_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "minecraft:item/armor_boots_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/diamond_gloves",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_diamond",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_diamond",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_helmet",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_helmet_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_helmet_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_chestplate",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_chestplate_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_chestplate_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_leggings",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_leggings_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_leggings_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_boots",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_boots_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_boots_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/zanite_gloves",
+		"type": "aether:machine",
+		"time": 2000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_zanite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_zanite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_helmet",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_helmet_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_helmet_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_chestplate",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_chestplate_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_chestplate_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_leggings",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_leggings_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_leggings_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_boots",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_boots_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_boots_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/gravitite_gloves",
+		"type": "aether:machine",
+		"time": 6000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_gravitite",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_gravitite",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_blue_13",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_13",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_aether",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_blue_cat",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_cat",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_aether",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_blue_blocks",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_blocks",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_aether",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_blue_chirp",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_chirp",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_aether",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_silver_far",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_far",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_morning",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_silver_mall",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_mall",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_morning",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_silver_mellohi",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_mellohi",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_morning",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_silver_stal",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_stal",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_morning",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_pink_strad",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_strad",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_dawn",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_pink_ward",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_ward",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_dawn",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_pink_wait",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_wait",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_dawn",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/record_pink_dog",
+		"type": "aether:machine",
+		"time": 1000,
+		"input": {
+			"stack": {
+				"id": "minecraft:item/record_dog",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/record_dawn",
+			"meta": 0
+		}
+	}
 ]

@@ -13,6 +13,10 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         super(input, output, time);
     }
 
+    public RecipeEntryAetherMachine() {
+    }
+
+
     public boolean matchesQueryIgnoreExceptions(SearchQuery query) {
         try {
             return this.matchesQuery(query);
@@ -47,9 +51,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         if(query.scope.getLeft() == SearchQuery.SearchScope.NONE) return true;
         if(query.scope.getLeft() == SearchQuery.SearchScope.NAMESPACE) {
             RecipeNamespace namespace = Registries.RECIPES.getItem(query.scope.getRight());
-            if(namespace == parent.getParent()){
-                return true;
-            }
+            return namespace == parent.getParent();
         } else if (query.scope.getLeft() == SearchQuery.SearchScope.NAMESPACE_GROUP) {
             RecipeGroup<?> group;
             try {
@@ -57,9 +59,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
             } catch (IllegalArgumentException e){
                 group = null;
             }
-            if(group == parent){
-                return true;
-            }
+            return group == parent;
         }
         return false;
     }

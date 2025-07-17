@@ -2,6 +2,7 @@ package teamport.aether;
 
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
@@ -26,13 +27,8 @@ public class AetherRecipes implements RecipeEntrypoint {
     public void onRecipesReady() {
         AETHER.register("enchanter", ENCHANTER);
 //        AETHER.register("freezer", FREEZER);
-        Registries.RECIPES.register("aether", AETHER);
         Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
-
-//        RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
-//        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
-//        RecipeGroupAether ENCHANTER = RecipeBuilder.getRecipeGroup(MOD_ID, "enchanter", new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_IDLE)));
-
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
         initializeRecipes();
     }
 
