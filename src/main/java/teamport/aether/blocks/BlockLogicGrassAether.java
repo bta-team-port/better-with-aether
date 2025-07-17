@@ -49,7 +49,8 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     }
                 }
 
-                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(256) == 0) { //TODO Add condition later to check if its in the aether dimension
+                //TODO Add condition later to check if its in the aether dimension
+                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(256) == 0) {
                     r = rand.nextInt(400);
                     if (r < 200) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
