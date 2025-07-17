@@ -1,20 +1,33 @@
 aether.name=Aether
 achievements.page.aether.desc=Aether Achievements.
+
 achievement.aether.hostile.paradise=Hostile Paradise
 achievement.aether.hostile.paradise.desc=Ascend to the Aether.
+
 achievement.aether.bounce=To Infinity and Beyond!
 achievement.aether.bounce.desc=Bounce on a blue aercloud.
-achievement.aether.moa=Now You're Family
-achievement.aether.moa.desc=Incubate a moa.
+
 achievement.aether.phyg=When Phygs Fly
 achievement.aether.phyg.desc=Fly on a phyg.
+achievement.aether.moa=Now You're Family
+achievement.aether.moa.desc=Incubate a moa.
+
 achievement.aether.enchanter=Do You Believe In Magic?
 achievement.aether.enchanter.desc=Craft an enchanter.
+
 achievement.aether.bronze=Like a Bossaru!
 achievement.aether.bronze.desc=Defeat the bronze dungeon boss.
 achievement.aether.silver=Dethroned
 achievement.aether.silver.desc=Defeat the silver dungeon boss.
 achievement.aether.gold=Extinguished
 achievement.aether.gold.desc=Defeat the gold dungeon boss.
+
+achievement.aether.skyroot=Time to Mine! Again!
+achievement.aether.skyroot.desc=Use skyroot to make a pickaxe.
+achievement.aether.ambrosium=Fuel of the Gods
+achievement.aether.ambrosium.desc=Eat a piece of ambrosium.
 achievement.aether.gravitite=Pink is the New Blue
 achievement.aether.gravitite.desc=Craft a gravitite tool.
+
+achievement.all.musics.discs=
+achievement.all.musics.discs.desc=Collect all aether music discs.

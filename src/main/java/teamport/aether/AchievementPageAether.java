@@ -8,7 +8,6 @@ import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Objects;
@@ -39,8 +38,22 @@ public class AchievementPageAether extends AchievementPage {
     }
 
     @Override
-    public @Nullable IconCoordinate getBackgroundTile(ScreenAchievements screen, int i, Random random, int j, int k) {
-        return getTextureFromBlock(AetherBlocks.COBBLE_HOLYSTONE);
+    public IconCoordinate getBackgroundTile(ScreenAchievements screen, int layer, Random random, int tileX, int tileY) {
+        random.setSeed(random.nextLong() + (long)this.name.hashCode());
+        int offsetY = tileY + random.nextInt(4);
+        int r = random.nextInt(50);
+        IconCoordinate texture = getTextureFromBlock(AetherBlocks.COBBLE_HOLYSTONE);
+        if (offsetY >= 35) {
+            return null;
+        } else if (r == 10) {
+            texture = getTextureFromBlock(AetherBlocks.ORE_GRAVITITE_HOLYSTONE);
+        } else if (r <= 3) {
+            texture = getTextureFromBlock(AetherBlocks.ORE_ZANITE_HOLYSTONE);
+        } else if (r >= 45) {
+            texture = getTextureFromBlock(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE);
+        }
+
+        return texture;
     }
 
     @Override
@@ -59,7 +72,7 @@ public class AchievementPageAether extends AchievementPage {
 
     @Override
     public int backgroundColor() {
-        return 0;
+        return 11316430;
     }
 
     @Override
