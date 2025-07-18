@@ -21,14 +21,16 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeNamespace AETHER = RecipeBuilder.getRecipeNamespace(MOD_ID);
     public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
+    public static final RecipeGroupAether FREEZER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
 
 
     @Override
     public void onRecipesReady() {
         AETHER.register("enchanter", ENCHANTER);
-//        AETHER.register("freezer", FREEZER);
+        AETHER.register("freezer", FREEZER);
         Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
         initializeRecipes();
     }
 
