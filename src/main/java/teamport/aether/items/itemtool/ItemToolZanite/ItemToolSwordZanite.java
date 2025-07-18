@@ -3,7 +3,7 @@ package teamport.aether.items.itemtool.ItemToolZanite;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
-import teamport.aether.items.AetherToolMaterial;
+import teamport.aether.items.itemtool.AetherToolMaterial;
 import teamport.aether.items.itemtool.ItemToolSwordAether;
 
 public class ItemToolSwordZanite extends ItemToolSwordAether {
