@@ -9,7 +9,7 @@
       }
     },
     "output": {
-      "id": "minecraft.block/ice",
+      "id": "minecraft:block/ice",
       "amount": 5
     }
   },
@@ -23,7 +23,7 @@
       }
     },
     "output": {
-      "id": "minecraft.block/ice",
+      "id": "minecraft:block/ice",
       "amount": 5
     }
   },
@@ -44,66 +44,66 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_helm",
     "type": "aether:machine",
-    "time": 500,
+    "time": 16000,
     "input": {
       "stack": {
         "id": "aether:item/armor_helmet_phoenix"
       }
     },
     "output": {
-      "id": "aether:block/armor_helmet_obsidian"
+      "id": "aether:item/armor_helmet_obsidian"
     }
   },
   {
     "name": "aether:freezer/phoenix_to_obsidian_chestplate",
     "type": "aether:machine",
-    "time": 500,
+    "time": 16000,
     "input": {
       "stack": {
         "id": "aether:item/armor_chestplate_phoenix"
       }
     },
     "output": {
-      "id": "aether:block/armor_chestplate_obsidian"
+      "id": "aether:item/armor_chestplate_obsidian"
     }
   },
   {
     "name": "aether:freezer/phoenix_to_obsidian_leggings",
     "type": "aether:machine",
-    "time": 500,
+    "time": 16000,
     "input": {
       "stack": {
         "id": "aether:item/armor_leggings_phoenix"
       }
     },
     "output": {
-      "id": "aether:block/armor_leggings_obsidian"
+      "id": "aether:item/armor_leggings_obsidian"
     }
   },
   {
     "name": "aether:freezer/phoenix_to_obsidian_boots",
     "type": "aether:machine",
-    "time": 500,
+    "time": 16000,
     "input": {
       "stack": {
         "id": "aether:item/armor_boots_phoenix"
       }
     },
     "output": {
-      "id": "aether:block/armor_boots_obsidian"
+      "id": "aether:item/armor_boots_obsidian"
     }
   },
   {
     "name": "aether:freezer/phoenix_to_obsidian_gloves",
     "type": "aether:machine",
-    "time": 500,
+    "time": 16000,
     "input": {
       "stack": {
         "id": "aether:item/armor_gloves_phoenix"
       }
     },
     "output": {
-      "id": "aether:block/armor_gloves_obsidian"
+      "id": "aether:item/armor_gloves_obsidian"
     }
   },
   {
@@ -122,7 +122,7 @@
   {
     "name": "aether:freezer/stone_to_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/stone"
@@ -135,7 +135,7 @@
   {
     "name": "aether:freezer/basalt_to_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/basalt"
@@ -148,7 +148,7 @@
   {
     "name": "aether:freezer/limestone_to_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/limestone"
@@ -161,7 +161,7 @@
   {
     "name": "aether:freezer/granite_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/granite"
@@ -174,7 +174,7 @@
   {
     "name": "aether:freezer/netherrack_to_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 300,
     "input": {
       "stack": {
         "id": "minecraft:block/netherrack"
@@ -187,7 +187,7 @@
   {
     "name": "aether:freezer/cobble_stone_to_cobble_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_stone"
@@ -200,7 +200,7 @@
   {
     "name": "aether:freezer/cooble_basalt_to_cobble_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_basalt"
@@ -213,7 +213,7 @@
   {
     "name": "aether:freezer/cobble_limestone_to_cobble_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_limestone"
@@ -226,7 +226,7 @@
   {
     "name": "aether:freezer/cobble_granite_to_cobble_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_granite"
@@ -239,7 +239,7 @@
   {
     "name": "aether:freezer/cobble_netherrack_to_cobble_permafrost",
     "type": "aether:machine",
-    "time": 50,
+    "time": 300,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_netherrack"
@@ -252,7 +252,7 @@
   {
     "name": "aether:freezer/permaice",
     "type": "aether:machine",
-    "time": 50,
+    "time": 100,
     "input": {
       "stack": {
         "id": "minecraft:block/ice"
@@ -265,20 +265,20 @@
   {
     "name": "aether:freezer/molten_pumice_to_pumice",
     "type": "aether:machine",
-    "time": 50,
+    "time": 400,
     "input": {
       "stack": {
         "id": "minecraft:block/pumice_wet"
       }
     },
     "output": {
-      "id": "minecraft:block/pumice"
+      "id": "minecraft:block/pumice_dry"
     }
   },
   {
     "name": "aether:freezer/nether_coal_to_coal",
     "type": "aether:machine",
-    "time": 1500,
+    "time": 1600,
     "input": {
       "stack": {
         "id": "minecraft:item/nethercoal"
@@ -292,21 +292,21 @@
   {
     "name": "aether:freezer/nether_coal_block_to_coal_block",
     "type": "aether:machine",
-    "time": 1500,
+    "time": 1600,
     "input": {
       "stack": {
-        "id": "minecraft:item/block_nethercoal"
+        "id": "minecraft:block/block_nethercoal"
       }
     },
     "output": {
-      "id": "minecraft:item/block_coal",
+      "id": "minecraft:block/block_coal",
       "amount": 4
     }
   },
   {
     "name": "aether:freezer/igneous_netherrack_to_netherrack",
     "type": "aether:machine",
-    "time": 1500,
+    "time": 1600,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_netherrack_igneous"
@@ -320,7 +320,7 @@
   {
     "name": "aether:freezer/pendant_iron_to_ice_pendant",
     "type": "aether:machine",
-    "time": 2500,
+    "time": 3000,
     "input": {
       "stack": {
         "id": "aether:item/armor_talisman_iron"
