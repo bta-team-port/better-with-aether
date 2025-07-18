@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.AetherToolMaterial;
+import teamport.aether.items.itemtool.AetherToolMaterial;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 @Mixin(value = Mob.class, remap = false)
