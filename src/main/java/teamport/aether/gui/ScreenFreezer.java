@@ -8,6 +8,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
 import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.lookup.LookupFuelFreezer;
 import teamport.aether.player.MenuFreezer;
 import teamport.aether.tile.TileEntityFreezer;
 
@@ -23,7 +24,9 @@ public class ScreenFreezer extends ScreenAetherMachine {
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
-        this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/freezer.png").bind();
+        // TODO gui is missing for freezer
+//        this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/freezer.png").bind();
+        this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/enchanter.png").bind();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
@@ -46,7 +49,7 @@ public class ScreenFreezer extends ScreenAetherMachine {
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
         boolean isIngredient = AetherRecipes.FREEZER.findRecipe(stackInSlot) != null;
-        boolean isFuel = LookupFuelEnchanter.instance.getFuelYield(clickedItemId) > 0;
+        boolean isFuel = LookupFuelFreezer.instance.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {
             return 1;
         }
