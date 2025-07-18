@@ -497,11 +497,11 @@ public final class AetherBlocks {
                 .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true));
 
         FREEZER_IDLE = station
-                .build("freezer.idle", "freezer_idle", blockID("FREEZER_IDLE"), b -> new BlockLogicFurnace(b, false));
+                .build("freezer.idle", "freezer_idle", blockID("FREEZER_IDLE"), b -> new BlockLogicFreezer(b, false));
 
         FREEZER_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFurnace(b, true));
+                .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true));
         //TODO Give freezer functionality the exact same as a furnace/enchanter, with its own recipe list, its fuel is icestone
 
         INCUBATOR_IDLE = station

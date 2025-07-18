@@ -12,7 +12,6 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.gui.IAetherScreens;
-import teamport.aether.tile.TileEntityEnchanter;
 import teamport.aether.tile.TileEntityFreezer;
 
 import java.util.Random;
@@ -24,7 +23,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
     public BlockLogicFreezer(Block<?> block, boolean active) {
         super(block, Material.stone);
         this.isActive = active;
-        block.withEntity(TileEntityEnchanter::new);
+        block.withEntity(TileEntityFreezer::new);
     }
 
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
