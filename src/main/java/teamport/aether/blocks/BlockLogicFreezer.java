@@ -1,5 +1,6 @@
 package teamport.aether.blocks;
 
+import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
@@ -41,29 +42,19 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
 
     // TODO implement animation for freezer
     public void animationTick(World world, int x, int y, int z, Random rand) {
-//        if (this.isActive) {
-//            int l = world.getBlockMetadata(x, y, z);
-//            double poxX = (double) x + (double) 0.5F;
-//            double posY = (double) y + (double) 0.5F + (double) (rand.nextFloat() * 6.0F / 16.0F);
-//            double posZ = (double) z + (double) 0.5F;
-//            double f3 = 0.52F;
-//            double f4 = rand.nextFloat() * 0.6F - 0.3F;
-//            if (l == 4) {
-//                world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-//                world.spawnParticle("flameambrosium", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-//            } else if (l == 5) {
-//                world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-//                world.spawnParticle("flameambrosium", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-//            } else if (l == 2) {
-//                world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
-//                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
-//            } else if (l == 3) {
-//                world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
-//                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
-//            }
-//
-//        }
+        if (this.isActive) {
+            double poxX = (double) x + (double) 0.5F;
+            double posY = (double) y + (double) 1.0F + (double) (rand.nextFloat() * 6.0F / 16.0F);
+            double posZ = (double) z + (double) 0.5F;
+            for (int i = 0; i < 3; i++) {
+                double maxSpeedX = rand.nextGaussian() * 0.05;
+                double maxSpeedZ = rand.nextGaussian() * 0.05;
+                ///  this is not broken, it works, its just that vanilla particles are broken at the time
+                world.spawnParticle("snowshovel", poxX, posY, posZ, maxSpeedX, 0.05F, maxSpeedZ, 0);
+            }
+        }
     }
+
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
