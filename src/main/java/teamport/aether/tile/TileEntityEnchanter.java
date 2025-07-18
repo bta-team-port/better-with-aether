@@ -47,9 +47,9 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     private void setMaxProcessTime() {
-        float percent = 1;
+        float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-        if(isRepairable(containerItemStacks[0])){
+        if(isRepairable(containerItemStacks[0]) && containerItemStacks[0].getMetadata() != 0){
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
@@ -123,7 +123,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (resultStack == null) {
             return false;
         }
-        if(!isRepairable(toProcess)){
+        if(isRepairable(toProcess) && toProcess.getMetadata() == 0){
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
@@ -142,10 +142,15 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     private static boolean isRepairable(ItemStack toProcess) {
-        return (toProcess.getItem() instanceof ItemTool && toProcess.getMetadata() != 0)
-                || (toProcess.getItem() instanceof ItemArmor && toProcess.getMetadata() != 0)
-                || (toProcess.getItem() instanceof ItemFireStriker && toProcess.getMetadata() != 0)
-                || (toProcess.getItem() instanceof ItemBow && toProcess.getMetadata() != 0);
+        Item item = toProcess.getItem();
+        if (item instanceof ItemTool
+                || item instanceof ItemArmor
+                || item instanceof ItemFireStriker
+                || item instanceof ItemBow
+        ) {
+            return true;
+        }
+        return false;
     }
 
     @Override
