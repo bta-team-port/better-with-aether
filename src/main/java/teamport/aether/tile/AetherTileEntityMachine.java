@@ -92,9 +92,9 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
 
     public void writeToNBT(CompoundTag nbttagcompound) {
         super.writeToNBT(nbttagcompound);
-        nbttagcompound.putShort("BurnTime", (short) this.currentEnergyTime);
-        nbttagcompound.putShort("CookTime", (short) this.currentProcessTime);
-        nbttagcompound.putShort("MaxBurnTime", (short) this.maxEnergyTime);
+        nbttagcompound.putShort("EnergyTime", (short) this.currentEnergyTime);
+        nbttagcompound.putShort("ProcessTime", (short) this.currentProcessTime);
+        nbttagcompound.putShort("MaxEnegryTime", (short) this.maxEnergyTime);
         ListTag nbttaglist = new ListTag();
 
         for (int i = 0; i < this.containerItemStacks.length; ++i) {

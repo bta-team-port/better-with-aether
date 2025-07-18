@@ -8,30 +8,33 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
 import teamport.aether.lookup.LookupFuelEnchanter;
-import teamport.aether.player.MenuEnchanter;
-import teamport.aether.tile.TileEntityEnchanter;
+import teamport.aether.lookup.LookupFuelFreezer;
+import teamport.aether.player.MenuFreezer;
+import teamport.aether.tile.TileEntityFreezer;
 
 @Environment(EnvType.CLIENT)
-public class ScreenEnchanter extends ScreenAetherMachine {
+public class ScreenFreezer extends ScreenAetherMachine {
 
-    public final TileEntityEnchanter enchanter;
+    public final TileEntityFreezer freezer;
 
-    public ScreenEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
-        super(new MenuEnchanter(inventory, tileEntityEnchanter));
-        this.enchanter = tileEntityEnchanter;
+    public ScreenFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer) {
+        super(new MenuFreezer(inventory, tileEntityFreezer));
+        this.freezer = tileEntityFreezer;
     }
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
+        // TODO gui is missing for freezer
+//        this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/freezer.png").bind();
         this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/enchanter.png").bind();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
-        if (this.enchanter.isProcessing()) {
-            int fireHeight = this.enchanter.getEnergyTimeRemainingScaled(12);
+        if (this.freezer.isProcessing()) {
+            int fireHeight = this.freezer.getEnergyTimeRemainingScaled(12);
             this.drawTexturedModalRect(j + 56, k + 36 + 12 - fireHeight, 176, 12 - fireHeight, 14, fireHeight + 2);
-            int arrowWidth = this.enchanter.getProcessProgressScaled(24);
+            int arrowWidth = this.freezer.getProcessProgressScaled(24);
             this.drawTexturedModalRect(j + 79, k + 34, 176, 14, arrowWidth + 1, 16);
         }
     }
@@ -39,14 +42,14 @@ public class ScreenEnchanter extends ScreenAetherMachine {
     @Override
     public void drawGuiContainerForegroundLayer() {
         I18n i18n = I18n.getInstance();
-        this.font.drawString(i18n.translateKey("aether.gui.enchanter.title"), 60, 6, 0xFF404040);
+        this.font.drawString(i18n.translateKey("aether.gui.freezer.title"), 60, 6, 0xFF404040);
         this.font.drawString(i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
-        boolean isIngredient = AetherRecipes.ENCHANTER.findRecipe(stackInSlot) != null;
-        boolean isFuel = LookupFuelEnchanter.instance.getFuelYield(clickedItemId) > 0;
+        boolean isIngredient = AetherRecipes.FREEZER.findRecipe(stackInSlot) != null;
+        boolean isFuel = LookupFuelFreezer.instance.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {
             return 1;
         }
