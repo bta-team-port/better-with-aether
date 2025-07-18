@@ -14,11 +14,11 @@ import teamport.aether.tile.TileEntityEnchanter;
 @Environment(EnvType.CLIENT)
 public class ScreenEnchanter extends ScreenAetherMachine {
 
-    public final TileEntityEnchanter enchantInventory;
+    public final TileEntityEnchanter enchanter;
 
     public ScreenEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
         super(new MenuEnchanter(inventory, tileEntityEnchanter));
-        this.enchantInventory = tileEntityEnchanter;
+        this.enchanter = tileEntityEnchanter;
     }
 
     @Override
@@ -28,10 +28,10 @@ public class ScreenEnchanter extends ScreenAetherMachine {
         int j = (width - xSize) / 2;
         int k = (height - ySize) / 2;
         this.drawTexturedModalRect(j, k, 0, 0, this.xSize, this.ySize);
-        if (this.enchantInventory.isProcessing()) {
-            int fireHeight = this.enchantInventory.getEnergyTimeRemainingScaled(12);
+        if (this.enchanter.isProcessing()) {
+            int fireHeight = this.enchanter.getEnergyTimeRemainingScaled(12);
             this.drawTexturedModalRect(j + 56, k + 36 + 12 - fireHeight, 176, 12 - fireHeight, 14, fireHeight + 2);
-            int arrowWidth = this.enchantInventory.getProcessProgressScaled(24);
+            int arrowWidth = this.enchanter.getProcessProgressScaled(24);
             this.drawTexturedModalRect(j + 79, k + 34, 176, 14, arrowWidth + 1, 16);
         }
     }
