@@ -83,6 +83,5 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.PILLAR, 0, MaterialColor.quartz);
         registerManualBlockColor(AetherBlocks.PILLAR_CAPSTONE, 0, MaterialColor.quartz);
 
-
     }
 }
