@@ -1,6 +1,8 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.gui.guidebook.GuidebookSections;
+import net.minecraft.client.gui.guidebook.mobs.GuidebookSectionMob;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Blocks;

@@ -6,15 +6,19 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
+import net.minecraft.client.gui.guidebook.GuidebookSections;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.guidebook.GuidebookSectionEnchanter;
+import teamport.aether.guidebook.GuidebookSectionFreezer;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
@@ -51,6 +55,11 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
+        // TODO add a guidebook section for freezer, enchanter and incubator, fix them up and put them in the proper place
+        // both are currently a bit broken
+        // TODO figure out how to include incubator in guidebook
+//        GuidebookSections.register(new GuidebookSectionEnchanter("aether.guidebook.section.enchanter", new ItemStack(AetherBlocks.ENCHANTER_ACTIVE), 6316128, 4210752));
+//        GuidebookSections.register(new GuidebookSectionFreezer("aether.guidebook.section.freezer", new ItemStack(AetherBlocks.FREEZER_IDLE), 6316128, 4210752));
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
