@@ -2,7 +2,6 @@ package teamport.aether.lookup;
 
 import net.minecraft.core.block.Blocks;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +31,6 @@ public class LookupFuelFreezer {
 
         this.addFuelEntry(Blocks.PERMAICE.id(), 400);
         this.addFuelEntry(AetherBlocks.ICESTONE.id(), 500);
-        this.addFuelEntry(AetherItems.ARMOR_TALISMAN_ICE.id, 8000);
     }
 
     public void addFuelEntry(int id, int fuelYield) {
