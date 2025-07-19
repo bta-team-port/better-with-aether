@@ -279,11 +279,11 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/freezer/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
 
-        dispatcher.addDispatch(new BlockModelTopStateMachine<>(AetherBlocks.INCUBATOR_IDLE)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.INCUBATOR_IDLE)
                 .setTex(0, "aether:block/incubator/idle_top", Side.TOP)
                 .setTex(0, "aether:block/incubator/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelTopStateMachine<>(AetherBlocks.INCUBATOR_ACTIVE)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.INCUBATOR_ACTIVE)
                 .setTex(0, "aether:block/incubator/active_top", Side.TOP)
                 .setTex(0, "aether:block/incubator/bottom", Side.BOTTOM)
                 .setTex(0, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));

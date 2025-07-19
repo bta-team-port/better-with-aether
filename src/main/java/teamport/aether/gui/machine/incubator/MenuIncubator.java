@@ -1,0 +1,112 @@
+package teamport.aether.gui.machine.incubator;
+
+import net.minecraft.core.InventoryAction;
+import net.minecraft.core.crafting.ContainerListener;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.player.inventory.menu.MenuAbstract;
+import net.minecraft.core.player.inventory.slot.Slot;
+import teamport.aether.tile.TileEntityIncubator;
+
+import java.util.List;
+
+public class MenuIncubator extends MenuAbstract {
+    public final TileEntityIncubator incubator;
+    public int currentProcessTime = 0;
+    public int currentEnergyTime = 0;
+    public int maxProcessTime = 0;
+    public int maxEnergyTime = 0;
+
+    public MenuIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator){
+        this.incubator = tileEntityIncubator;
+        this.addSlot(new Slot(tileEntityIncubator, 0, 56, 17));
+        this.addSlot(new Slot(tileEntityIncubator, 1, 56, 53));
+        for(int i = 0; i < 3; ++i) {
+            for(int k = 0; k < 9; ++k) {
+                this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
+            }
+        }
+
+        for(int j = 0; j < 9; ++j) {
+            this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
+        }
+    }
+
+    @Override
+    public List<Integer> getMoveSlots(InventoryAction inventoryAction, Slot slot, int target, Player player) {
+        if (slot.index >= 0 && slot.index <= 3) {
+            return this.getSlots(slot.index, 1, false);
+        } else {
+            if (inventoryAction == InventoryAction.MOVE_ALL) {
+                if (slot.index >= 3 && slot.index <= 30) {
+                    return this.getSlots(3, 27, false);
+                }
+
+                if (slot.index >= 30 && slot.index <= 38) {
+                    return this.getSlots(30, 9, false);
+                }
+            }
+
+            return slot.index >= 3 && slot.index <= 38 ? this.getSlots(3, 36, false) : null;
+        }
+    }
+
+    @Override
+    public List<Integer> getTargetSlots(InventoryAction inventoryAction, Slot slot, int target, Player player) {
+        if (slot.index >= 3 && slot.index <= 39) {
+            if (inventoryAction != InventoryAction.MOVE_ALL) {
+                if (target == 1) {
+                    return this.getSlots(0, 1, false);
+                }
+
+                if (target == 2) {
+                    return this.getSlots(1, 1, false);
+                }
+            }
+
+            if (slot.index <= 29) {
+                return this.getSlots(30, 9, false);
+            }
+
+            if (slot.index >= 31 && slot.index <= 38) {
+                return this.getSlots(3, 27, false);
+            }
+        }
+
+        if (slot.index >= 0 && slot.index <= 2) {
+            return slot.index == 2 ? this.getSlots(3, 36, true) : this.getSlots(3, 36, false);
+        } else {
+            return null;
+        }
+    }
+
+    public void broadcastChanges() {
+        super.broadcastChanges();
+
+        for(ContainerListener crafter : this.containerListeners) {
+            if (this.currentProcessTime != this.incubator.currentProcessTime) {
+                crafter.updateCraftingInventoryInfo(this, 0, this.incubator.currentProcessTime);
+            }
+
+            if (this.currentEnergyTime != this.incubator.currentEnergyTime) {
+                crafter.updateCraftingInventoryInfo(this, 1, this.incubator.currentEnergyTime);
+            }
+
+            if (this.maxProcessTime != this.incubator.maxProcessTime) {
+                crafter.updateCraftingInventoryInfo(this, 2, this.incubator.maxProcessTime);
+            }
+
+            if (this.maxEnergyTime != this.incubator.maxEnergyTime) {
+                crafter.updateCraftingInventoryInfo(this, 3, this.incubator.maxEnergyTime);
+            }
+        }
+        this.currentProcessTime = this.incubator.currentProcessTime;
+        this.currentEnergyTime = this.incubator.currentEnergyTime;
+        this.maxProcessTime = this.incubator.maxProcessTime;
+        this.maxEnergyTime = this.incubator.maxEnergyTime;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {return this.incubator.stillValid(player);}
+}
+
