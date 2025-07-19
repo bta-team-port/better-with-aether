@@ -2,7 +2,6 @@ package teamport.aether.mixin.screens;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
-import net.minecraft.client.gui.container.ScreenInventory;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;

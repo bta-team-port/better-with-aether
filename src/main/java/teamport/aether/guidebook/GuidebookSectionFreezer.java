@@ -18,7 +18,7 @@ import java.util.Objects;
 @Environment(EnvType.CLIENT)
 public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
-    private final List<GuidebookPage> pages = new ArrayList();
+    private final List<GuidebookPage> pages = new ArrayList<>();
     private Pair<String, List<GuidebookPage>> filteredPages = null;
 
     public GuidebookSectionFreezer(String translationKey, ItemStack tabIcon, int bgColor, int fgColor) {
@@ -30,8 +30,8 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
         if (this.filteredPages != null && Objects.equals(this.filteredPages.getLeft(), query.rawQuery)) {
             return (List) this.filteredPages.getRight();
         } else {
-            ArrayList<RecipeEntryAetherMachine> filteredRecipes = new ArrayList();
-            List<RecipeEntryAetherMachine> allRecipes = new ArrayList(AetherRecipes.FREEZER.getAllRecipes());
+            ArrayList<RecipeEntryAetherMachine> filteredRecipes = new ArrayList<>();
+            List<RecipeEntryAetherMachine> allRecipes = new ArrayList<>(AetherRecipes.FREEZER.getAllRecipes());
             allRecipes.removeIf(Objects::isNull);
 
             for (RecipeEntryAetherMachine recipe : allRecipes) {
@@ -40,14 +40,14 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
                 }
             }
 
-            ArrayList<GuidebookPage> filteredPages = new ArrayList();
+            ArrayList<GuidebookPage> filteredPages = new ArrayList<>();
             int filteredRecipeSize = filteredRecipes.size();
             int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, 3);
 
             for (int i = 0; i < filteredPageCount; ++i) {
                 int j = i * 6;
-                ArrayList<RecipeEntryAetherMachine> recipes = new ArrayList(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + 6, filteredRecipeSize)));
-                if (recipes.size() > 0) {
+                ArrayList<RecipeEntryAetherMachine> recipes = new ArrayList<>(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + 6, filteredRecipeSize)));
+                if (!recipes.isEmpty()) {
                     filteredPages.add(new RecipePageFreezer(this, recipes));
                 }
             }
@@ -59,14 +59,14 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
     public void reloadRecipes() {
         this.pages.clear();
-        List<RecipeEntryAetherMachine> allRecipes = new ArrayList(AetherRecipes.FREEZER.getAllRecipes());
+        List<RecipeEntryAetherMachine> allRecipes = new ArrayList<>(AetherRecipes.FREEZER.getAllRecipes());
         allRecipes.removeIf(Objects::isNull);
         int totalRecipes = allRecipes.size();
         int totalPages = MathHelper.ceilInt(totalRecipes, 6);
 
         for (int i = 0; i < totalPages; ++i) {
             int j = i * 6;
-            ArrayList<RecipeEntryAetherMachine> recipes = new ArrayList(allRecipes.subList(Math.min(j, totalRecipes), Math.min(j + 6, totalRecipes)));
+            ArrayList<RecipeEntryAetherMachine> recipes = new ArrayList<>(allRecipes.subList(Math.min(j, totalRecipes), Math.min(j + 6, totalRecipes)));
             this.pages.add(new RecipePageFreezer(this, recipes));
         }
 
