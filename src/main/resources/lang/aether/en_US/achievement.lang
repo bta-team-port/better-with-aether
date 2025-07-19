@@ -4,8 +4,22 @@ achievements.page.aether.desc=Aether Achievements.
 achievement.aether.hostile.paradise=Hostile Paradise
 achievement.aether.hostile.paradise.desc=Ascend to the Aether.
 
+achievement.poison=Feeling Tipsy
+achievement.poison.desc=Get poisoned.
+achievement.remedy=Cure-all
+achievement.remedy.desc=Cure your poison.
+
+achievement.shooter=Take Aim
+achievement.shooter.desc=Craft a dart shooter.
+achievement.zephyr=Sharpshooter
+achievement.zephyr.desc=Take down a zephyr with darts.
+
 achievement.aether.bounce=To Infinity and Beyond!
 achievement.aether.bounce.desc=Bounce on a blue aercloud.
+achievement.gold.cloud=Like a pillow
+achievement.gold.cloud.desc=Collect a gold aercloud.
+achievement.parachute=Skydiver
+achievement.parachute.desc=Use a cloud parachute.
 
 achievement.aether.phyg=When Phygs Fly
 achievement.aether.phyg.desc=Fly on a phyg.
@@ -15,10 +29,18 @@ achievement.aether.moa.desc=Incubate a moa.
 achievement.aether.enchanter=Do You Believe In Magic?
 achievement.aether.enchanter.desc=Craft an enchanter.
 
+achievement.sentry.deployed=Sentry Deployed
+achievement.sentry.deployed.desc=Walk over a sentry trap.
 achievement.aether.bronze=Like a Bossaru!
 achievement.aether.bronze.desc=Defeat the bronze dungeon boss.
+
+achievement.its.a.trap=Its a Trap!
+achievement.its.a.trap.desc=Fall for a mimic trap.
 achievement.aether.silver=Dethroned
 achievement.aether.silver.desc=Defeat the silver dungeon boss.
+
+achievement.ice.deflect=Right Back at Ya!
+achievement.ice.deflect.desc=Hit the sun spirit with a deflected shot.
 achievement.aether.gold=Extinguished
 achievement.aether.gold.desc=Defeat the gold dungeon boss.
 
@@ -26,8 +48,16 @@ achievement.aether.skyroot=Time to Mine! Again!
 achievement.aether.skyroot.desc=Use skyroot to make a pickaxe.
 achievement.aether.ambrosium=Fuel of the Gods
 achievement.aether.ambrosium.desc=Eat a piece of ambrosium.
+achievement.healing.stone=Magic Food
+achievement.healing.stone.desc=Craft a healing stone.
 achievement.aether.gravitite=Pink is the New Blue
 achievement.aether.gravitite.desc=Craft a gravitite tool.
 
-achievement.all.musics.discs=
+achievement.all.musics.discs=Disc Hoarder
 achievement.all.musics.discs.desc=Collect all aether music discs.
+
+achievement.all.accessory.types=Master of all
+achievement.all.accessory.types.desc=Wear an accessory in all 4 slots.
+
+achievement.max.life=Maxing Out
+achievement.max.life.desc=Max out your health.

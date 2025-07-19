@@ -70,19 +70,43 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static void initAchievementsPage() {
         AchievementPageAether page = new AchievementPageAether(MOD_ID, AetherBlocks.GRASS_AETHER.getDefaultStack());
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
-        page.addAchievement(AetherAchievements.BOUNCE, -2, -1);
-        page.addAchievement(AetherAchievements.PHYG, -2, 0);
-        page.addAchievement(AetherAchievements.MOA, -4, 0);
-        page.addAchievement(AetherAchievements.ENCHANTER, 2, 0);
-        page.addAchievement(AetherAchievements.BRONZE, 0, 3);
+
+        page.addAchievement(AetherAchievements.SHOOTER, 1, -3);
+        page.addAchievement(AetherAchievements.ZEPHYR, 2, -5);
+
+        page.addAchievement(AetherAchievements.POISON, -1, -3);
+        page.addAchievement(AetherAchievements.REMEDY, -2, -5);
+
+        page.addAchievement(AetherAchievements.BOUNCE, -2, 0);
+        page.addAchievement(AetherAchievements.GOLD_CLOUD, -3, -2);
+        page.addAchievement(AetherAchievements.PARACHUTE, -4, 0);
+
+        page.addAchievement(AetherAchievements.PHYG, -2, 2);
+        page.addAchievement(AetherAchievements.MOA, -4, 2);
+
+        page.addAchievement(AetherAchievements.ENCHANTER, 5, -1);
+
+        page.addAchievement(AetherAchievements.SENTRY_DEPLOYED, 0, 3);
+        page.addAchievement(AetherAchievements.BRONZE, 0, 5);
+
+        page.addAchievement(AetherAchievements.ITS_A_TRAP, 2, 5);
         page.addAchievement(AetherAchievements.SILVER, 2, 3);
-        page.addAchievement(AetherAchievements.GOLD, 4, 3);
+
+        page.addAchievement(AetherAchievements.ICE_DEFLECT, 4, 3);
+        page.addAchievement(AetherAchievements.GOLD, 4, 5);
+
         page.addAchievement(AetherAchievements.SKYROOT, 3, 0);
-        page.addAchievement(AetherAchievements.AMBROSIUM, 5, 1);
+        page.addAchievement(AetherAchievements.AMBROSIUM, 4, 1);
+        page.addAchievement(AetherAchievements.HEALING_STONE, 6, 1);
+
         page.addAchievement(AetherAchievements.GRAVITITE, 3, -2);
+
         page.addAchievement(AetherAchievements.ALL_MUSIC_DISCS, 4, -4);
-        page.addAchievement(AetherAchievements.MAX_LIFE, -4, 4);
-        page.addAchievement(AetherAchievements.ALL_ACCESSORY_TYPES, -4, -4);
+
+        page.addAchievement(AetherAchievements.MAX_LIFE, 6, 6);
+
+        page.addAchievement(AetherAchievements.ALL_ACCESSORY_TYPES, -2, 6);
+
         AchievementPages.register(page);
     }
 }
