@@ -12,16 +12,14 @@ import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.*;
+import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
@@ -36,25 +34,45 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
     public RecipePageEnchanting(GuidebookSection section, ArrayList<RecipeEntryAetherMachine> recipes) {
         super(section);
         this.recipes = recipes;
-        this.slots = new ArrayList();
-        this.map = new HashMap();
+        this.slots = new ArrayList<>();
+        this.map = new HashMap<>();
         this.tooltipElement = new TooltipElement(mc);
         this.itemElement = new ItemElement(mc);
 
-        for(RecipeEntryAetherMachine recipe : recipes) {
-            List<SlotGuidebook> recipeSlots = new ArrayList();
-            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, (RecipeSymbol)recipe.getInput(), false, recipe));
-            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol((ItemStack)recipe.getOutput()), false, recipe));
+        for (RecipeEntryAetherMachine recipe : recipes) {
+            List<SlotGuidebook> recipeSlots = new ArrayList<>();
+            ItemStack input = recipe.getInput().getStack();
+            ItemStack output = recipe.getOutput();
+            if (
+                    isRepairable(input)
+                 && isRepairable(output)
+                 && output.itemID == input.itemID
+            ) {
+                Random rand = new Random();
+                int damage = Math.round(input.getMaxDamage() * rand.nextFloat());
+                input.setMetadata(damage);
+            }
+            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, (RecipeSymbol) recipe.getInput(), false, recipe));
+            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol((ItemStack) recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
         }
-
     }
+
+    // I use this so many time that I might want to move it to Helper
+    public static boolean isRepairable(ItemStack toProcess) {
+        Item item = toProcess.getItem();
+        return item instanceof ItemTool
+                || item instanceof ItemArmor
+                || item instanceof ItemFireStriker
+                || item instanceof ItemBow;
+    }
+
 
     public void onTick() {
         ++ticks;
 
-        for(SlotGuidebook slot : this.slots) {
+        for (SlotGuidebook slot : this.slots) {
             if (ticks > 20L) {
                 slot.showRandomItem();
                 if (this.slots.get(this.slots.size() - 1) == slot) {
@@ -72,7 +90,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
 
         SlotGuidebook mouseOverSlot = null;
 
-        for(SlotGuidebook slot : this.slots) {
+        for (SlotGuidebook slot : this.slots) {
             this.drawSlot(x + slot.x - 1, y + slot.y - 1, -1);
             if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
                 mouseOverSlot = slot;
@@ -92,7 +110,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
         if (mc.gameSettings.keyShowRecipe.isKeyboardKey(key)) {
             SlotGuidebook hoveringSlot = null;
 
-            for(SlotGuidebook slot : this.slots) {
+            for (SlotGuidebook slot : this.slots) {
                 if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
                     hoveringSlot = slot;
                 }
@@ -109,7 +127,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
         } else if (mc.gameSettings.keyShowUsage.isKeyboardKey(key)) {
             SlotGuidebook hoveringSlot = null;
 
-            for(SlotGuidebook slot : this.slots) {
+            for (SlotGuidebook slot : this.slots) {
                 if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
                     hoveringSlot = slot;
                 }
@@ -136,10 +154,10 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
         super.renderBackground(re, x, y);
         re.bindTexture(re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png"));
 
-        for(int i = 1; i <= this.recipes.size(); ++i) {
-            RecipeEntryAetherMachine recipe = (RecipeEntryAetherMachine)this.recipes.get(i - 1);
-            List<SlotGuidebook> list = (List)this.map.get(recipe);
-            this.drawTexturedModalRect(x + ((SlotGuidebook)list.get(list.size() - 1)).x - 32, y + ((SlotGuidebook)list.get(list.size() - 1)).y, 234, 0, 22, 15);
+        for (int i = 1; i <= this.recipes.size(); ++i) {
+            RecipeEntryAetherMachine recipe = (RecipeEntryAetherMachine) this.recipes.get(i - 1);
+            List<SlotGuidebook> list = (List) this.map.get(recipe);
+            this.drawTexturedModalRect(x + ((SlotGuidebook) list.get(list.size() - 1)).x - 32, y + ((SlotGuidebook) list.get(list.size() - 1)).y, 234, 0, 22, 15);
         }
 
     }
@@ -148,7 +166,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
         super.renderOverlay(re, fr, x, y, mouseX, mouseY, partialTicks);
         SlotGuidebook mouseOverSlot = null;
 
-        for(SlotGuidebook slot : this.slots) {
+        for (SlotGuidebook slot : this.slots) {
             if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
                 mouseOverSlot = slot;
             }
