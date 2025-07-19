@@ -9,9 +9,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
-import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelTopStateMachine<T extends BlockLogic> extends BlockModelStandard<T> {
