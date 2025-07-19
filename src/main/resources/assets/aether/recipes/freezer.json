@@ -172,19 +172,6 @@
     }
   },
   {
-    "name": "aether:freezer/netherrack_to_permafrost",
-    "type": "aether:machine",
-    "time": 300,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/netherrack"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/permafrost"
-    }
-  },
-  {
     "name": "aether:freezer/cobble_stone_to_cobble_permafrost",
     "type": "aether:machine",
     "time": 100,
@@ -230,19 +217,6 @@
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_granite"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/cobble_permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/cobble_netherrack_to_cobble_permafrost",
-    "type": "aether:machine",
-    "time": 300,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/cobble_netherrack"
       }
     },
     "output": {

@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class MobSheepuff extends MobAetherAnimal implements Creature {
     public static final float[][] FLEECE_COLOR_TABLE = new float[][]{{1.0F, 1.0F, 1.0F}, {0.95F, 0.7F, 0.2F}, {0.9F, 0.5F, 0.85F}, {0.6F, 0.7F, 0.95F}, {0.9F, 0.9F, 0.2F}, {0.5F, 0.8F, 0.1F}, {0.95F, 0.7F, 0.8F}, {0.3F, 0.3F, 0.3F}, {0.6F, 0.6F, 0.6F}, {0.3F, 0.6F, 0.7F}, {0.7F, 0.4F, 0.9F}, {0.2F, 0.4F, 0.8F}, {0.5F, 0.4F, 0.3F}, {0.4F, 0.5F, 0.2F}, {0.8F, 0.3F, 0.3F}, {0.1F, 0.1F, 0.1F}};
-    private int growthTimer;
+    public int growthTimer;
     public int timeSheepEating;
     public int prevTimeSheepEating;
 
@@ -37,7 +37,7 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
         return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK);
     }
 
-    protected void defineSynchedData() {
+    public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(16, (byte)0, Byte.class);
         this.entityData.define(17, (byte)0, Byte.class);
@@ -189,11 +189,11 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
         return "mob.sheep";
     }
 
-    protected String getHurtSound() {
+    public String getHurtSound() {
         return "mob.sheep";
     }
 
-    protected String getDeathSound() {
+    public String getDeathSound() {
         return "mob.sheep";
     }
 
@@ -252,7 +252,7 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
 
     }
 
-    protected boolean isMovementBlocked() {
+    public boolean isMovementBlocked() {
         return super.isMovementBlocked() || this.getIsSheepEating();
     }
 
@@ -260,7 +260,7 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
         return this.entityData.getByte(17) != 0;
     }
 
-    protected void setIsSheepEating(boolean value) {
+    public void setIsSheepEating(boolean value) {
         this.entityData.set(17, (byte)(value ? 1 : 0));
     }
 

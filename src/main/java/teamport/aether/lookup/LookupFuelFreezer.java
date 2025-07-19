@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class LookupFuelFreezer {
     public static final LookupFuelFreezer instance = new LookupFuelFreezer();
-    protected final Map<Integer, Integer> fuelList = new HashMap<>();
+    public final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    protected LookupFuelFreezer() {
+    public LookupFuelFreezer() {
         this.register();
     }
 
-    protected void register() {
+    public void register() {
         this.addFuelEntry(Blocks.ICE.id(), 100);
         this.addFuelEntry(Blocks.PERMAFROST.id(), 200);
         // cobbled permafrost

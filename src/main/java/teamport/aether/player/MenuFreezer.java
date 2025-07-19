@@ -12,10 +12,10 @@ import java.util.List;
 
 public class MenuFreezer extends MenuAbstract {
     public final TileEntityFreezer freezer;
-    private int currentProcessTime = 0;
-    private int currentEnergyTime = 0;
-    private int maxProcessTime = 0;
-    private int maxEnergyTime = 0;
+    public int currentProcessTime = 0;
+    public int currentEnergyTime = 0;
+    public int maxProcessTime = 0;
+    public int maxEnergyTime = 0;
 
     public MenuFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer){
         this.freezer = tileEntityFreezer;

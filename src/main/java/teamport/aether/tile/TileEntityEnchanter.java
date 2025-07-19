@@ -46,7 +46,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     }
 
-    private void setMaxProcessTime() {
+    public void setMaxProcessTime() {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
         if(isRepairable(containerItemStacks[0]) && containerItemStacks[0].getMetadata() != 0){
@@ -57,7 +57,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
     }
 
-    private boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
+    public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
@@ -95,7 +95,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     // TODO replace block of zanite with a better suited item to enable eternal lit enchanter
-    private boolean eternallyLit(boolean updateMachine) {
+    public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
                 || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())
                 && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
@@ -114,7 +114,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     @Override
-    protected boolean canProcess() {
+    public boolean canProcess() {
         if (this.containerItemStacks[0] == null) {
             return false;
         }
@@ -141,16 +141,12 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         return resultItem.stackSize < resultStack.getMaxStackSize();
     }
 
-    private static boolean isRepairable(ItemStack toProcess) {
+    public static boolean isRepairable(ItemStack toProcess) {
         Item item = toProcess.getItem();
-        if (item instanceof ItemTool
+        return item instanceof ItemTool
                 || item instanceof ItemArmor
                 || item instanceof ItemFireStriker
-                || item instanceof ItemBow
-        ) {
-            return true;
-        }
-        return false;
+                || item instanceof ItemBow;
     }
 
     @Override
@@ -179,7 +175,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     }
 
     @Override
-    protected void updateContainer(boolean forceLit) {
+    public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
             BlockLogicEnchanter.updateFurnaceBlockState(forceLit | this.currentEnergyTime > 0, this.worldObj, this.x, this.y, this.z);
             return;
@@ -213,12 +209,12 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
                         itemstack.stackSize -= i1;
                         EntityItem entityItem = new EntityItem(
-                                world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2),
+                                world, (float) x + f, (float) y + f1, (float) z + f2,
                                 new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
-                        entityItem.xd = (double) ((float) this.random.nextGaussian() * f3);
-                        entityItem.yd = (double) ((float) this.random.nextGaussian() * f3 + 0.2F);
-                        entityItem.zd = (double) ((float) this.random.nextGaussian() * f3);
+                        entityItem.xd = (float) this.random.nextGaussian() * f3;
+                        entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;
+                        entityItem.zd = (float) this.random.nextGaussian() * f3;
                         world.entityJoinedWorld(entityItem);
                     }
                 }

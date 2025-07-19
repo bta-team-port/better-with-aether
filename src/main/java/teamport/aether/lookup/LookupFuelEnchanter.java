@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class LookupFuelEnchanter {
     public static final LookupFuelEnchanter instance = new LookupFuelEnchanter();
-    protected final Map<Integer, Integer> fuelList = new HashMap<>();
+    public final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    protected LookupFuelEnchanter() {
+    public LookupFuelEnchanter() {
         this.register();
     }
 
-    protected void register() {
+    public void register() {
         this.addFuelEntry(AetherItems.AMBROSIUM.id, 500);
         this.addFuelEntry(AetherBlocks.BLOCK_AMBROSIUM.id(), 4000);
     }
@@ -24,7 +24,7 @@ public class LookupFuelEnchanter {
     }
 
     public int getFuelYield(int id) {
-        return this.fuelList.get(id) == null ? 0 : (Integer)this.fuelList.get(id);
+        return this.fuelList.get(id) == null ? 0 : this.fuelList.get(id);
     }
 
     public Map<Integer, Integer> getFuelList() {

@@ -30,7 +30,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     public void processItem() {}
 
     @Override
-    protected void updateContainer(boolean forceLit){}
+    public void updateContainer(boolean forceLit){}
 
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack){return 0;}

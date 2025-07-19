@@ -13,10 +13,10 @@ import java.util.List;
 // TODO implement this
 public class MenuEnchanter extends MenuAbstract {
     public final TileEntityEnchanter enchanter;
-    private int currentProcessTime = 0;
-    private int currentEnergyTime = 0;
-    private int maxProcessTime = 0;
-    private int maxEnergyTime = 0;
+    public int currentProcessTime = 0;
+    public int currentEnergyTime = 0;
+    public int maxProcessTime = 0;
+    public int maxEnergyTime = 0;
 
     public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter){
         this.enchanter = tileEntityEnchanter;
