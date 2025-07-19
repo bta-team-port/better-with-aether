@@ -120,104 +120,22 @@
     }
   },
   {
-    "name": "aether:freezer/stone_to_permafrost",
+    "name": "aether:freezer/stones_to_permafrost",
     "type": "aether:machine",
     "time": 100,
     "input": {
-      "stack": {
-        "id": "minecraft:block/stone"
-      }
+      "group": "minecraft:stones"
     },
     "output": {
       "id": "minecraft:block/permafrost"
     }
   },
   {
-    "name": "aether:freezer/basalt_to_permafrost",
+    "name": "aether:freezer/cobblestones_to_cobble_permafrost",
     "type": "aether:machine",
     "time": 100,
     "input": {
-      "stack": {
-        "id": "minecraft:block/basalt"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/limestone_to_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/limestone"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/granite_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/granite"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/cobble_stone_to_cobble_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/cobble_stone"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/cobble_permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/cooble_basalt_to_cobble_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/cobble_basalt"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/cobble_permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/cobble_limestone_to_cobble_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/cobble_limestone"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/cobble_permafrost"
-    }
-  },
-  {
-    "name": "aether:freezer/cobble_granite_to_cobble_permafrost",
-    "type": "aether:machine",
-    "time": 100,
-    "input": {
-      "stack": {
-        "id": "minecraft:block/cobble_granite"
-      }
+      "group": "minecraft:cobblestones"
     },
     "output": {
       "id": "minecraft:block/cobble_permafrost"
