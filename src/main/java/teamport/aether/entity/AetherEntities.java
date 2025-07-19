@@ -7,6 +7,7 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityEnchanter;
 import teamport.aether.tile.TileEntityFreezer;
+import teamport.aether.tile.TileEntityIncubator;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -32,9 +33,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobSheepuff.class, NamespaceID.getPermanent(MOD_ID, "sheepuff"), entityKey("sheepuff"));
 
-
-        // TODO register the other 2, incubator and freezer
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
+        EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
     }
 }
