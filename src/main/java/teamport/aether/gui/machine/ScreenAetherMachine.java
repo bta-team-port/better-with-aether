@@ -1,4 +1,4 @@
-package teamport.aether.gui;
+package teamport.aether.gui.machine;
 
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.core.InventoryAction;

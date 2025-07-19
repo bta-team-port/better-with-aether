@@ -1,4 +1,4 @@
-package teamport.aether.gui;
+package teamport.aether.gui.machine.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,9 +7,8 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
-import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelFreezer;
-import teamport.aether.player.MenuFreezer;
 import teamport.aether.tile.TileEntityFreezer;
 
 @Environment(EnvType.CLIENT)
