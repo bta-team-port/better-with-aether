@@ -44,7 +44,7 @@ public class AchievementPageAether extends AchievementPage {
         int r = random.nextInt(50);
         IconCoordinate texture = getTextureFromBlock(AetherBlocks.COBBLE_HOLYSTONE);
         if (offsetY >= 35) {
-            return null;
+            texture = getTextureFromBlock(AetherBlocks.AERCLOUD_WHITE);
         } else if (r == 10) {
             texture = getTextureFromBlock(AetherBlocks.ORE_GRAVITITE_HOLYSTONE);
         } else if (r <= 3) {
@@ -52,7 +52,6 @@ public class AchievementPageAether extends AchievementPage {
         } else if (r >= 45) {
             texture = getTextureFromBlock(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE);
         }
-
         return texture;
     }
 

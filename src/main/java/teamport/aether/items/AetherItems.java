@@ -228,7 +228,7 @@ public final class AetherItems {
         PETAL_AECHOR = new ItemBuilder(MOD_ID).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));
         STICK_SKYROOT = new ItemBuilder(MOD_ID).build(new Item("stick.skyroot", itemKey("stick_skyroot"), itemID("STICK_SKYROOT")));
 
-        AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemFood("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));
+        AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));
         ZANITE = new ItemBuilder(MOD_ID).build(new Item("zanite", itemKey("zanite"), itemID("ZANITE")));
 
         BUCKET_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootEmpty("bucket.skyroot", itemKey("bucket_skyroot"), itemID("BUCKET_SKYROOT")));
