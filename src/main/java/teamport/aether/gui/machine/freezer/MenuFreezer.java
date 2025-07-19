@@ -1,4 +1,4 @@
-package teamport.aether.player;
+package teamport.aether.gui.machine.freezer;
 
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.crafting.ContainerListener;
