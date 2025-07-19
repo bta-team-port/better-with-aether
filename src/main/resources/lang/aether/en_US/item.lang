@@ -147,8 +147,8 @@ item.aether.armor.boots.neptune.desc=A stormy pair of neptune boots.
 
 item.aether.armor.gloves.leather.name=Leather Gloves
 item.aether.armor.gloves.leather.desc=A pair of gloves made from a cow's hide.
-item.aether.armor.gloves.chain.name=Chain Gloves
-item.aether.armor.gloves.chain.desc=A pair of gloves made up of tiny chains. Can be repaired.
+item.aether.armor.gloves.chainmail.name=Chainmail Gloves
+item.aether.armor.gloves.chainmail.desc=A pair of gloves made up of tiny chains. Can be repaired.
 item.aether.armor.gloves.iron.name=Iron Gloves
 item.aether.armor.gloves.iron.desc=A strong pair of iron gloves.
 item.aether.armor.gloves.gold.name=Gold Gloves

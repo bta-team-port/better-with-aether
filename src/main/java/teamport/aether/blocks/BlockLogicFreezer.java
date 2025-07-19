@@ -1,9 +1,8 @@
 package teamport.aether.blocks;
 
-import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
@@ -17,7 +16,7 @@ import teamport.aether.tile.TileEntityFreezer;
 
 import java.util.Random;
 
-public class BlockLogicFreezer extends BlockLogicRotatable {
+public class BlockLogicFreezer extends BlockLogic {
     public final boolean isActive;
     public static boolean keepFreezerInventory = false;
 

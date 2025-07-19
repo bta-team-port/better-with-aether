@@ -36,8 +36,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     @Override
     public void initNamespaces() {
-        // TODO why do we do this twice?
-        RecipeBuilder.initNameSpace(MOD_ID); // already called here
+        RecipeBuilder.initNameSpace(MOD_ID);
         RecipeBuilder.getRecipeNamespace(MOD_ID);
 
 

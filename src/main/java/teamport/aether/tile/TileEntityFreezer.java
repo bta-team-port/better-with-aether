@@ -1,8 +1,8 @@
 package teamport.aether.tile;
 
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
@@ -30,7 +30,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
     /// missing smeltItem               -> processItem
     /// missing updateFurnace           -> updateContainer
     /// missing getBurnTimeFromItem     -> getEnergyTimeFromItem
-    ///  missing getCookProgressScaled  -> getProgressScale
+    /// missing getCookProgressScaled   -> getProgressScale
 
     @Override
     public String getNameTranslationKey() {
@@ -53,7 +53,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         }
     }
 
-    private boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
+    public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
@@ -90,13 +90,12 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         return updateMachine;
     }
 
-    // TODO replace block of zanite with a better suited item to enable eternal lit freezer
-    private boolean eternallyLit(boolean updateMachine) {
+    public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
                 || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.FREEZER_IDLE.id())
                 && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
                 && this.containerItemStacks[1] != null
-                && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
+                && this.containerItemStacks[1].itemID == Blocks.PERMAICE.id()
         ) {
             --this.containerItemStacks[1].stackSize;
             if (this.containerItemStacks[1].stackSize <= 0) {
@@ -164,7 +163,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         }
     }
 
-    protected boolean isBucket(ItemStack itemStack) {
+    public boolean isBucket(ItemStack itemStack) {
         for (Integer id : buckets.keySet()) {
             if (itemStack.getItem().id == id) {
                 return true;
@@ -173,7 +172,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         return false;
     }
 
-    protected ItemStack getBucket() {
+    public ItemStack getBucket() {
         int id = buckets.get(containerItemStacks[0].getItem().id);
         Item item = Item.getItem(id);
         assert (item != null); // something went wrong if that's the case
@@ -182,7 +181,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
 
     @Override
-    protected void updateContainer(boolean forceLit) {
+    public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
             BlockLogicFreezer.updateFurnaceBlockState(forceLit | this.currentEnergyTime > 0, this.worldObj, this.x, this.y, this.z);
             return;
@@ -195,15 +194,6 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         return itemStack == null ? 0 : LookupFuelFreezer.instance.getFuelYield(itemStack.getItem().id);
-    }
-
-    @Override
-    public boolean stillValid(Player entityplayer) {
-        if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-            return entityplayer.distanceToSqr((double) this.x + (double) 0.5F, (double) this.y + (double) 0.5F, (double) this.z + (double) 0.5F) <= (double) 64.0F;
-        } else {
-            return false;
-        }
     }
 
     @Override
@@ -224,13 +214,13 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
                         }
 
                         itemstack.stackSize -= i1;
-                        EntityItem entityItem = new EntityItem(
-                                world, (double) ((float) x + f), (double) ((float) y + f1), (double) ((float) z + f2),
+                        EntityItem entityItem = new EntityItem
+                                (world, (float) x + f, (float) y + f1, (float) z + f2,
                                 new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
-                        entityItem.xd = (double) ((float) this.random.nextGaussian() * f3);
-                        entityItem.yd = (double) ((float) this.random.nextGaussian() * f3 + 0.2F);
-                        entityItem.zd = (double) ((float) this.random.nextGaussian() * f3);
+                        entityItem.xd = (float) this.random.nextGaussian() * f3;
+                        entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;
+                        entityItem.zd = (float) this.random.nextGaussian() * f3;
                         world.entityJoinedWorld(entityItem);
                     }
                 }

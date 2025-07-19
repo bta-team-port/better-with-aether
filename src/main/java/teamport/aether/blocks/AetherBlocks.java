@@ -357,7 +357,8 @@ public final class AetherBlocks {
                 .setLightOpacity(0)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.glass.quicksoil.bottom", "door_glass_quicksoil_bottom", blockID("DOOR_GLASS_QUICKSOIL_BOTTOM"), block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
+                .build("door.glass.quicksoil.bottom", "door_glass_quicksoil_bottom", blockID("DOOR_GLASS_QUICKSOIL_BOTTOM"),
+                        block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
 
         DOOR_GLASS_QUICKSOIL_TOP = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -366,7 +367,8 @@ public final class AetherBlocks {
                 .setLightOpacity(0)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.glass.quicksoil.top", "door_glass_quicksoil_top", blockID("DOOR_GLASS_QUICKSOIL_TOP"), block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
+                .build("door.glass.quicksoil.top", "door_glass_quicksoil_top", blockID("DOOR_GLASS_QUICKSOIL_TOP"),
+                        block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM));
 
         TRAPDOOR_GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
@@ -386,7 +388,7 @@ public final class AetherBlocks {
 
         TALLGRASS_AETHER = flower
                 .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
-                .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), BlockLogicTallGrassAether::new);
+                .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), (b) -> (BlockLogicTallGrassAether)(new BlockLogicTallGrassAether(b)).setKilledByWeather());
 
 
         PLANKS_SKYROOT = wood
@@ -419,11 +421,11 @@ public final class AetherBlocks {
         DOOR_PLANKS_SKYROOT_BOTTOM = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.cloth, false, false, () -> AetherItems.DOOR_SKYROOT));
+                .build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.ice, false, false, () -> AetherItems.DOOR_SKYROOT));
         DOOR_PLANKS_SKYROOT_TOP = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.cloth, true, false, () -> AetherItems.DOOR_SKYROOT));
+                .build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.ice, true, false, () -> AetherItems.DOOR_SKYROOT));
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
