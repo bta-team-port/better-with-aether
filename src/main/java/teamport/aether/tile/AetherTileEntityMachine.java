@@ -21,11 +21,13 @@ import java.util.Random;
 // TODO all function that incubator, freezer and enchanter share need to be implemented
 public class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
-    public ItemStack[] containerItemStacks = new ItemStack[3];
+    public ItemStack[] containerItemStacks;
     public int maxEnergyTime = 0;       // maxBurnTime
     public int currentEnergyTime = 0;   // currentBurnTime
     public int maxProcessTime = 200;    // maxCookTime
     public int currentProcessTime = 0;  // currentCookTime
+
+    public AetherTileEntityMachine(){this.containerItemStacks = new ItemStack[3];}
 
     public int getContainerSize() {
         return containerItemStacks.length;

@@ -13,7 +13,6 @@ import teamport.aether.lookup.LookupFuelEnchanter;
 
 // TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityEnchanter extends AetherTileEntityMachine {
-
     /// canSmelt                -> canProcess
     /// smeltItem               -> processItem
     /// updateFurnace           -> updateContainer

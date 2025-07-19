@@ -7,13 +7,17 @@ import net.minecraft.core.world.World;
 
 // TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityIncubator extends AetherTileEntityMachine {
+    /// canSmelt                -> canProcess
+    /// smeltItem               -> processItem
+    /// updateFurnace           -> updateContainer
+    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
+    /// getCookProgressScaled   -> getProgressScale
+    /// maxEnergyTime           -> maxBurnTime
+    /// currentEnergyTime       -> currentBurnTime
+    /// maxProcessTime          -> maxCookTime
+    /// currentProcessTime      -> currentCookTime
 
-    /// missing tick                    -> tick
-    /// missing canSmelt                -> canProcess
-    /// missing smeltItem               -> processItem
-    /// missing updateFurnace           -> updateContainer
-    /// missing getBurnTimeFromItem     -> getEnergyTimeFromItem
-    ///  missing getCookProgressScaled  -> getProgressScale
+    public TileEntityIncubator(){this.containerItemStacks = new ItemStack[2];}
 
     @Override
     public String getNameTranslationKey(){

@@ -25,12 +25,15 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         buckets.put(AetherItems.BUCKET_SKYROOT_WATER.id, AetherItems.BUCKET_SKYROOT.id);
     }
 
-    /// missing tick                    -> tick
-    /// missing canSmelt                -> canProcess
-    /// missing smeltItem               -> processItem
-    /// missing updateFurnace           -> updateContainer
-    /// missing getBurnTimeFromItem     -> getEnergyTimeFromItem
-    /// missing getCookProgressScaled   -> getProgressScale
+    /// canSmelt                -> canProcess
+    /// smeltItem               -> processItem
+    /// updateFurnace           -> updateContainer
+    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
+    /// getCookProgressScaled   -> getProgressScale
+    /// maxEnergyTime           -> maxBurnTime
+    /// currentEnergyTime       -> currentBurnTime
+    /// maxProcessTime          -> maxCookTime
+    /// currentProcessTime      -> currentCookTime
 
     @Override
     public String getNameTranslationKey() {
