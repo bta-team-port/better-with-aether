@@ -101,7 +101,7 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
 
     @Override
     public RecipeJsonAdapter<?> getAdapter() {
-        return new RecipeProcessorJsonAdapter();
+        return new RecipeMachineJsonAdapter();
     }
 
 }
