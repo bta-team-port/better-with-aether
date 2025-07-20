@@ -8,7 +8,7 @@ import net.minecraft.core.item.ItemStack;
 
 import java.lang.reflect.Type;
 
-public class RecipeMachineJsonAdapter implements RecipeJsonAdapter<RecipeEntryAetherMachine> {
+public class RecipeAetherMachineJsonAdapter implements RecipeJsonAdapter<RecipeEntryAetherMachine> {
     @Override
     public RecipeEntryAetherMachine deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject obj = json.getAsJsonObject();
