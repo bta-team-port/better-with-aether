@@ -19,8 +19,8 @@ public class MenuIncubator extends MenuAbstract {
 
     public MenuIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator){
         this.incubator = tileEntityIncubator;
-        this.addSlot(new Slot(tileEntityIncubator, 0, 56, 17));
-        this.addSlot(new Slot(tileEntityIncubator, 1, 56, 53));
+        this.addSlot(new Slot(tileEntityIncubator, 0, 73, 17));
+        this.addSlot(new Slot(tileEntityIncubator, 1, 73, 53));
         for(int i = 0; i < 3; ++i) {
             for(int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
