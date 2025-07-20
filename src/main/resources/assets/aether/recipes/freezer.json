@@ -47,11 +47,13 @@
     "time": 16000,
     "input": {
       "stack": {
-        "id": "aether:item/armor_helmet_phoenix"
+        "id": "aether:item/armor_helmet_phoenix",
+        "meta" : -1
       }
     },
     "output": {
-      "id": "aether:item/armor_helmet_obsidian"
+      "id": "aether:item/armor_helmet_obsidian",
+      "meta" : -1
     }
   },
   {
@@ -60,11 +62,13 @@
     "time": 16000,
     "input": {
       "stack": {
-        "id": "aether:item/armor_chestplate_phoenix"
+        "id": "aether:item/armor_chestplate_phoenix",
+        "meta" : -1
       }
     },
     "output": {
-      "id": "aether:item/armor_chestplate_obsidian"
+      "id": "aether:item/armor_chestplate_obsidian",
+      "meta" : -1
     }
   },
   {
@@ -73,11 +77,13 @@
     "time": 16000,
     "input": {
       "stack": {
-        "id": "aether:item/armor_leggings_phoenix"
+        "id": "aether:item/armor_leggings_phoenix",
+        "meta" : -1
       }
     },
     "output": {
-      "id": "aether:item/armor_leggings_obsidian"
+      "id": "aether:item/armor_leggings_obsidian",
+      "meta" : -1
     }
   },
   {
@@ -86,11 +92,13 @@
     "time": 16000,
     "input": {
       "stack": {
-        "id": "aether:item/armor_boots_phoenix"
+        "id": "aether:item/armor_boots_phoenix",
+        "meta" : -1
       }
     },
     "output": {
-      "id": "aether:item/armor_boots_obsidian"
+      "id": "aether:item/armor_boots_obsidian",
+      "meta" : -1
     }
   },
   {
@@ -99,11 +107,13 @@
     "time": 16000,
     "input": {
       "stack": {
-        "id": "aether:item/armor_gloves_phoenix"
+        "id": "aether:item/armor_gloves_phoenix",
+        "meta" : -1
       }
     },
     "output": {
-      "id": "aether:item/armor_gloves_obsidian"
+      "id": "aether:item/armor_gloves_obsidian",
+      "meta" : -1
     }
   },
   {

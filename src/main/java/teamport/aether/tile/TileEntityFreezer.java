@@ -10,6 +10,7 @@ import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicFreezer;
 import teamport.aether.items.AetherItems;
+import teamport.aether.items.ItemHelper;
 import teamport.aether.lookup.LookupFuelFreezer;
 
 import java.util.HashMap;
@@ -139,6 +140,9 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {
+            if(ItemHelper.isRepairable(containerItemStacks[0]) && ItemHelper.isRepairable(processedItem)){
+                processedItem.setMetadata(containerItemStacks[0].getMetadata());
+            }
             this.containerItemStacks[2] = processedItem.copy();
         } else if (this.containerItemStacks[2] != null && processedItem != null && this.containerItemStacks[2].itemID == processedItem.itemID) {
             ItemStack resultItem = this.containerItemStacks[2];
@@ -147,7 +151,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
 
         if (isBucket(containerItemStacks[0])) {
-            this.containerItemStacks[0] = this.getBucket();
+            this.containerItemStacks[0] = this.getBucket(containerItemStacks[0]);
         } else {
             --this.containerItemStacks[0].stackSize;
             if (this.containerItemStacks[0].stackSize <= 0) {
@@ -169,8 +173,8 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         return false;
     }
 
-    public ItemStack getBucket() {
-        int id = buckets.get(containerItemStacks[0].getItem().id);
+    public ItemStack getBucket(ItemStack stack) {
+        int id = buckets.get(stack.getItem().id);
         Item item = Item.getItem(id);
         assert (item != null); // something went wrong if that's the case
         return new ItemStack(item, 1);
