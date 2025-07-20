@@ -59,13 +59,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
-        // TODO add a guidebook section for freezer, enchanter and incubator, fix them up and put them in the proper place
-        // both are currently a bit broken
-        // TODO figure out how to include incubator in guidebook
-        // TODO move this to a mixin, to avoid potential bugs from blindsiding us
-        GuidebookSections.init();
-        GuidebookSections.register(new GuidebookSectionEnchanter("aether.guidebook.section.enchanter", new ItemStack(AetherBlocks.ENCHANTER_ACTIVE), 0x606060,   0x00A29C));
-        GuidebookSections.register(new GuidebookSectionFreezer("aether.guidebook.section.freezer", new ItemStack(AetherBlocks.FREEZER_ACTIVE), 0x6E6E50, 0Xbacce5));
 
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
