@@ -3,7 +3,7 @@
 The legendary dimension is finally here for Better Than Adventure!
 New dimension, plethora of blocks and items.
 3 dungeons and bosses to conquer.
-Brand new compatibility between the two as well.
+Brand-new compatibility between the two as well.
 
 "This mod is an Aether addon made to make the original Aether mod compatible with BTA. We have no relation to the Aether team or the BTA team.
 
