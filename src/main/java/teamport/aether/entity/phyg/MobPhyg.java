@@ -53,7 +53,6 @@ public class MobPhyg extends MobAnimal {
         }
 
     }
-
     public void jump() {
         this.yd = 0.6;
     }
@@ -121,6 +120,6 @@ public class MobPhyg extends MobAnimal {
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length ? Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK) : false;
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK);
     }
 }
