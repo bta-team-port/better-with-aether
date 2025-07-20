@@ -3,11 +3,11 @@ package teamport.aether.tile;
 
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.*;
-import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicEnchanter;
+import teamport.aether.items.ItemHelper;
 import teamport.aether.lookup.LookupFuelEnchanter;
 
 
@@ -48,7 +48,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     public void setMaxProcessTime() {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-        if(isRepairable(containerItemStacks[0]) && containerItemStacks[0].getMetadata() != 0){
+        if(ItemHelper.isRepairable(containerItemStacks[0]) && containerItemStacks[0].getMetadata() != 0){
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
@@ -122,7 +122,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (resultStack == null) {
             return false;
         }
-        if(isRepairable(toProcess) && toProcess.getMetadata() == 0){
+        if(ItemHelper.isRepairable(toProcess) && toProcess.getMetadata() == 0){
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
@@ -138,14 +138,6 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             return true;
         }
         return resultItem.stackSize < resultStack.getMaxStackSize();
-    }
-
-    public static boolean isRepairable(ItemStack toProcess) {
-        Item item = toProcess.getItem();
-        return item instanceof ItemTool
-                || item instanceof ItemArmor
-                || item instanceof ItemFireStriker
-                || item instanceof ItemBow;
     }
 
     @Override

@@ -17,6 +17,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.items.ItemHelper;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
@@ -44,8 +45,8 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
             if (
-                    isRepairable(input)
-                 && isRepairable(output)
+                    ItemHelper.isRepairable(input)
+                 && ItemHelper.isRepairable(output)
                  && output.itemID == input.itemID
             ) {
                 Random rand = new Random();
@@ -58,16 +59,6 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
             this.slots.addAll(recipeSlots);
         }
     }
-
-    // I use this so many time that I might want to move it to Helper
-    public static boolean isRepairable(ItemStack toProcess) {
-        Item item = toProcess.getItem();
-        return item instanceof ItemTool
-                || item instanceof ItemArmor
-                || item instanceof ItemFireStriker
-                || item instanceof ItemBow;
-    }
-
 
     public void onTick() {
         ++ticks;
