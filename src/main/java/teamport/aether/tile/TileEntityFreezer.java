@@ -1,7 +1,6 @@
 package teamport.aether.tile;
 
 
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -225,9 +224,4 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             }
         }
     }
-
-    @Override
-    public void sortContainer() {
-    }
-
 }
