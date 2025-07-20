@@ -50,8 +50,9 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
                  && output.itemID == input.itemID
             ) {
                 Random rand = new Random();
-                int damage = Math.round(input.getMaxDamage() * rand.nextFloat());
-                input.setMetadata(damage);
+                int damage = Math.round(input.getMaxDamage() * rand.nextFloat()) - 1;
+                int clamp_damage  = Math.min(damage, input.getMaxDamage());
+                input.setMetadata(clamp_damage );
             }
             recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, recipe.getInput(), false, recipe));
             recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
