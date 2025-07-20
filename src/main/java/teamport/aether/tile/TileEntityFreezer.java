@@ -1,7 +1,6 @@
 package teamport.aether.tile;
 
 
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -98,13 +97,8 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
                 || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.FREEZER_IDLE.id())
                 && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
                 && this.containerItemStacks[1] != null
-                && this.containerItemStacks[1].itemID == Blocks.PERMAICE.id()
+                && this.containerItemStacks[1].itemID == AetherItems.ARMOR_TALISMAN_ICE.id
         ) {
-            --this.containerItemStacks[1].stackSize;
-            if (this.containerItemStacks[1].stackSize <= 0) {
-                this.containerItemStacks[1] = null;
-            }
-
             this.updateContainer(true);
             return true;
         }
@@ -230,9 +224,4 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             }
         }
     }
-
-    @Override
-    public void sortContainer() {
-    }
-
 }

@@ -22,9 +22,6 @@ public class AetherBlockTags {
 
     public static Tag<Block<?>> AETHER_JAR_RENDERING = Tag.of("aether_jar_dirt");
 
-    public AetherBlockTags() {
-    }
-
     static {
         Field[] var0 = BlockTags.class.getDeclaredFields();
 

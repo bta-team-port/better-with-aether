@@ -216,9 +216,9 @@ public final class AetherItems {
         KEY_SILVER = new ItemBuilder(MOD_ID).build(new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
         KEY_GOLD = new ItemBuilder(MOD_ID).build(new Item("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
 
-        EGG_MOA_BLUE = new ItemBuilder(MOD_ID).build(new Item("egg.moa.blue", itemKey("egg_moa_blue"), itemID("EGG_MOA_BLUE")));
-        EGG_MOA_WHITE = new ItemBuilder(MOD_ID).build(new Item("egg.moa.white", itemKey("egg_moa_white"), itemID("EGG_MOA_WHITE")));
-        EGG_MOA_BLACK = new ItemBuilder(MOD_ID).build(new Item("egg.moa.black", itemKey("egg_moa_black"), itemID("EGG_MOA_BLACK")));
+        EGG_MOA_BLUE = new ItemBuilder(MOD_ID).build(new Item("egg.moa.blue", itemKey("egg_moa_blue"), itemID("EGG_MOA_BLUE"))).setMaxStackSize(16);
+        EGG_MOA_WHITE = new ItemBuilder(MOD_ID).build(new Item("egg.moa.white", itemKey("egg_moa_white"), itemID("EGG_MOA_WHITE"))).setMaxStackSize(16);
+        EGG_MOA_BLACK = new ItemBuilder(MOD_ID).build(new Item("egg.moa.black", itemKey("egg_moa_black"), itemID("EGG_MOA_BLACK"))).setMaxStackSize(16);
 
         RECORD_AETHER = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether.tune", "Emile van Kriken"));
         RECORD_MORNING = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.morning", itemKey("record_morning"), itemID("RECORD_MORNING"), "aether:a.morning.wish", "Emile van Kriken"));
@@ -341,32 +341,32 @@ public final class AetherItems {
         //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system built into bta for that now
 
 
-        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN")));
-        ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE")));
-        ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD")));
+        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"))).setMaxStackSize(1);
         //TODO all talismans need their effects and also work with the new armor system, regen stone heals half a heart every 5 seconds, iron bubble gives water breathing, feather gold makes you fall like a chicken
 
-        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER")));
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN")));
-        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON")));
-        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD")));
-        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND")));
-        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL")));
-        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE")));
-        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE")));
-        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE")));
+        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"))).setMaxStackSize(1);
         //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
         //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
 
-        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY")));
-        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new Item("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET")));
-        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY")));
+        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"))).setMaxStackSize(1);
+        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new Item("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"))).setMaxStackSize(1);
+        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"))).setMaxStackSize(1);
         //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
-        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE")));
-        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED")));
-        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new Item("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW")));
-        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE")));
+        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"))).setMaxStackSize(1);
+        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"))).setMaxStackSize(1);
+        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new Item("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"))).setMaxStackSize(1);
+        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"))).setMaxStackSize(1);
         //TODO Decorative capes, potential to add cape color for each wool color,
 
 
@@ -377,8 +377,8 @@ public final class AetherItems {
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
 
-        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD")));
-        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD")));
+        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"))).setMaxStackSize(1);
+        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"))).setMaxStackSize(1);
         //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
@@ -395,7 +395,6 @@ public final class AetherItems {
 //                .build(new Item("BLANK", "aether:item/blank", ID));
 
     }
-
     // maybe for later when cleanign up
     public static void registerOther() {}
     public static void registerTool() {}

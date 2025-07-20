@@ -12,11 +12,12 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 
 @Environment(EnvType.CLIENT)
-public class BlockModelTopStateMachine<T extends BlockLogic> extends BlockModelStandard<T> {
-    public BlockModelTopStateMachine(Block<T> block) {
+public class BlockModelFreezer<T extends BlockLogic> extends BlockModelStandard<T> {
+    public BlockModelFreezer(Block<T> block) {
         super(block);
     }
 
+    // TODO make the lid rotate with blocks rotation
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         if (side.getId() == Side.TOP.getId()) {
             IconCoordinate texture = this.blockTextures.get(Side.TOP);
