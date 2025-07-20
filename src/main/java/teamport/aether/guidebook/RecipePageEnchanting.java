@@ -52,8 +52,8 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
                 int damage = Math.round(input.getMaxDamage() * rand.nextFloat());
                 input.setMetadata(damage);
             }
-            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, (RecipeSymbol) recipe.getInput(), false, recipe));
-            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol((ItemStack) recipe.getOutput()), false, recipe));
+            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, recipe.getInput(), false, recipe));
+            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
         }
@@ -117,7 +117,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
             }
 
             if (hoveringSlot != null && hoveringSlot.hasItem()) {
-                String query = "r:" + hoveringSlot.getItemStack().getDisplayName() + "!";
+                String query = "r:" + Objects.requireNonNull(hoveringSlot.getItemStack()).getDisplayName() + "!";
                 GuidebookPageManager.searchQuery = SearchQuery.resolve(query);
                 GuidebookPageSearch.searchField.setText(query);
                 ScreenGuidebook.getPageManager().updatePages();
@@ -134,7 +134,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
             }
 
             if (hoveringSlot != null && hoveringSlot.hasItem()) {
-                String query = "u:" + hoveringSlot.getItemStack().getDisplayName() + "!";
+                String query = "u:" + Objects.requireNonNull(hoveringSlot.getItemStack()).getDisplayName() + "!";
                 GuidebookPageManager.searchQuery = SearchQuery.resolve(query);
                 GuidebookPageSearch.searchField.setText(query);
                 ScreenGuidebook.getPageManager().updatePages();
@@ -155,9 +155,9 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
         re.bindTexture(re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png"));
 
         for (int i = 1; i <= this.recipes.size(); ++i) {
-            RecipeEntryAetherMachine recipe = (RecipeEntryAetherMachine) this.recipes.get(i - 1);
-            List<SlotGuidebook> list = (List) this.map.get(recipe);
-            this.drawTexturedModalRect(x + ((SlotGuidebook) list.get(list.size() - 1)).x - 32, y + ((SlotGuidebook) list.get(list.size() - 1)).y, 234, 0, 22, 15);
+            RecipeEntryAetherMachine recipe = this.recipes.get(i - 1);
+            List<SlotGuidebook> list = this.map.get(recipe);
+            this.drawTexturedModalRect(x + list.get(list.size() - 1).x - 32, y + list.get(list.size() - 1).y, 234, 0, 22, 15);
         }
 
     }

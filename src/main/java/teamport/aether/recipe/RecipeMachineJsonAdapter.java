@@ -12,8 +12,8 @@ public class RecipeMachineJsonAdapter implements RecipeJsonAdapter<RecipeEntryAe
     @Override
     public RecipeEntryAetherMachine deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject obj = json.getAsJsonObject();
-        RecipeSymbol input = (RecipeSymbol)context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
-        ItemStack output = (ItemStack)context.deserialize(obj.get("output").getAsJsonObject(), ItemStack.class);
+        RecipeSymbol input = context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
+        ItemStack output = context.deserialize(obj.get("output").getAsJsonObject(), ItemStack.class);
         int time = obj.get("time").getAsInt();
         return new RecipeEntryAetherMachine(input, output, time);
     }

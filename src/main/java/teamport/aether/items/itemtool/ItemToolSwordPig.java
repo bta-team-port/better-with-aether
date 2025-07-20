@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
+import teamport.aether.entity.phyg.MobPhyg;
 
 import java.util.Random;
 
@@ -17,7 +18,7 @@ public class ItemToolSwordPig extends ItemToolSword {
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target instanceof MobPig || target instanceof MobZombiePig) {
+        if (target instanceof MobPig || target instanceof MobZombiePig || target instanceof MobPhyg) {
             Random random = new Random();
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
             double dy = target.y + 0.5 + (random.nextDouble() * 0.5) - 0.25;
