@@ -1,0 +1,13 @@
+[
+  {
+    "name": "aether:incubator/hatch_ckicken",
+    "type": "aether:incubator",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "minecraft:item/bucket_water"
+      }
+    },
+    "output": "minecraft:chicken"
+  }
+]
