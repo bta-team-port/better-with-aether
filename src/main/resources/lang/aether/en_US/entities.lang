@@ -1,5 +1,6 @@
 #Passive
 
+aether.entity.phyg=Phyg
 aether.phyg.name=Phyg
 aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
 

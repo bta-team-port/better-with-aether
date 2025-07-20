@@ -26,6 +26,7 @@
     "armor.wolf.MobWolfMixinFireImmunity",
     "armor.wolf.MobWolfMixinZaniteResistance",
     "armor.wolf.MobWolfNoKnockback",
+    "item.ItemSaddleMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
     "screens.PlayerMixinAetherScreens"
