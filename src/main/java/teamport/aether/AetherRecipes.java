@@ -11,7 +11,9 @@ import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
+import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.recipe.RecipeGroupAether;
+import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
@@ -22,15 +24,19 @@ public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeNamespace AETHER = RecipeBuilder.getRecipeNamespace(MOD_ID);
     public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
     public static final RecipeGroupAether FREEZER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
+    public static final RecipeGroupIncubator INCUBATOR = new RecipeGroupIncubator(new RecipeSymbol(new ItemStack(AetherBlocks.INCUBATOR_ACTIVE.getDefaultStack())));
 
 
     @Override
     public void onRecipesReady() {
         AETHER.register("enchanter", ENCHANTER);
         AETHER.register("freezer", FREEZER);
-        Registries.RECIPE_TYPES.register("aether:machine",RecipeEntryAetherMachine.class);
+        AETHER.register("incubator", INCUBATOR);
+        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
+        Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
         initializeRecipes();
     }
 
@@ -181,8 +187,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         templateStairs.addInput('X', AetherBlocks.CARVED_ANGELIC).create("angelic_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_ANGELIC, 6));
         templateStairs.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_HELLFIRE, 6));
         templateStairs.addInput('X', AetherBlocks.BRICK_ZANITE).create("zanite_brick_stairs", new ItemStack(AetherBlocks.STAIRS_BRICK_ZANITE, 6));
-
-
 
 
         // Crafting Recipes Items
