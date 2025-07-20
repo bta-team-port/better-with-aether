@@ -2,12 +2,23 @@
   {
     "name": "aether:incubator/hatch_ckicken",
     "type": "aether:incubator",
-    "time": 500,
+    "time": 200,
     "input": {
       "stack": {
-        "id": "minecraft:item/bucket_water"
+        "id": "minecraft:item/egg_chicken"
       }
     },
     "output": "minecraft:chicken"
+  },
+  {
+    "name": "aether:incubator/hatch_slime",
+    "type": "aether:incubator",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "minecraft:item/slimeball"
+      }
+    },
+    "output": "minecraft:slime"
   }
 ]
