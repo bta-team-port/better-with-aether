@@ -5,14 +5,13 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
 import teamport.aether.lookup.LookupFuelIncubator;
-import teamport.aether.lookup.LookupRecipeIncubator;
 
 // TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityIncubator extends AetherTileEntityMachine {
@@ -41,7 +40,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             --this.currentEnergyTime;
         }
         if(canProcess()){
-            this.maxProcessTime = 100;
+            this.maxProcessTime = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]).getData();
         }
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
             this.setChanged();
@@ -79,6 +78,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
             if (isEnergyTimeHigherThan0 != this.currentEnergyTime > 0) {
                 this.updateContainer(false);
+                updateMachine = true;
+            }
+
+            if(containerItemStacks[0] == null){
                 updateMachine = true;
             }
 
@@ -149,10 +152,11 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if(!this.canProcess()){
             return;
         }
-        Class<? extends Entity> entityClazz = LookupRecipeIncubator.instance.getEntity(containerItemStacks[0].getItem().id);
+        Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
         if(entityClazz == null) return;
         Entity entity =  EntityDispatcher.createEntityInWorld(entityClazz, worldObj);
-        entity.moveTo(this.x, this.y + 2, this.z, 0.0F, 0.0F);
+        // TODO change this back to y+2 and x
+        entity.moveTo(this.x + 1, this.y, this.z, 0.0F, 0.0F);
         worldObj.entityJoinedWorld(entity);
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) containerItemStacks[0] = null;
@@ -163,9 +167,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (this.containerItemStacks[0] == null) {
             return false;
         }
-        // TODO change this to to a lookup in recipe.json
-        return LookupRecipeIncubator.instance.getEntity(containerItemStacks[0].getItem().id) != null;
+        return AetherRecipes.INCUBATOR.findOutput(this.containerItemStacks[0]) != null;
     }
+
+
 
     @Override
     public void updateContainer(boolean forceLit) {
@@ -182,15 +187,6 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         // just in case where will be more options later
         return itemStack == null ? 0 : LookupFuelIncubator.instance.getFuelYield(itemStack.getItem().id);
-    }
-
-    @Override
-    public boolean stillValid(Player entityplayer) {
-        if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
-            return entityplayer.distanceToSqr((double)this.x + (double)0.5F, (double)this.y + (double)0.5F, (double)this.z + (double)0.5F) <= (double)64.0F;
-        } else {
-            return false;
-        }
     }
 
     @Override
