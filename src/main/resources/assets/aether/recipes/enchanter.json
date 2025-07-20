@@ -1468,183 +1468,39 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/record_blue_13",
+		"name": "aether:enchanter/record_morning",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
-			"stack": {
-				"id": "minecraft:item/record_13",
-				"meta": -1
-			}
+          "group": "aether:record_aether"
 		},
 		"output": {
 			"id": "aether:item/record_aether",
 			"meta": 0
 		}
 	},
-	{
-		"name": "aether:enchanter/record_blue_cat",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_cat",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_aether",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_blue_blocks",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_blocks",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_aether",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_blue_chirp",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_chirp",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_aether",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_silver_far",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_far",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_morning",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_silver_mall",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_mall",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_morning",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_silver_mellohi",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_mellohi",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_morning",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_silver_stal",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_stal",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_morning",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_pink_strad",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_strad",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_dawn",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_pink_ward",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_ward",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_dawn",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_pink_wait",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_wait",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_dawn",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_pink_dog",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/record_dog",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/record_dawn",
-			"meta": 0
-		}
-	}
+    {
+      "name": "aether:enchanter/record_morning",
+      "type": "aether:machine",
+      "time": 1000,
+      "input": {
+        "group": "aether:record_dawn"
+      },
+      "output": {
+        "id": "aether:item/record_dawn",
+        "meta": 0
+      }
+    },
+    {
+      "name": "aether:enchanter/record_morning",
+      "type": "aether:machine",
+      "time": 1000,
+      "input": {
+        "group": "aether:record_morning"
+      },
+      "output": {
+        "id": "aether:item/record_morning",
+        "meta": 0
+      }
+    }
 ]
