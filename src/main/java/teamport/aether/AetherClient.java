@@ -65,7 +65,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         // TODO move this to a mixin, to avoid potential bugs from blindsiding us
         GuidebookSections.init();
         GuidebookSections.register(new GuidebookSectionEnchanter("aether.guidebook.section.enchanter", new ItemStack(AetherBlocks.ENCHANTER_ACTIVE), 0x606060,   0x00A29C));
-        GuidebookSections.register(new GuidebookSectionFreezer("aether.guidebook.section.freezer", new ItemStack(AetherBlocks.FREEZER_IDLE), 0x6E6E50, 0XB6B6B6));
+        GuidebookSections.register(new GuidebookSectionFreezer("aether.guidebook.section.freezer", new ItemStack(AetherBlocks.FREEZER_ACTIVE), 0x6E6E50, 0Xbacce5));
+
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
@@ -76,19 +77,16 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         MobInfoRegistry.register(MobMimic.class, "aether.mimic.name", "aether.mimic.desc", 20, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
 
-                MobInfoRegistry.register(MobPhow.class, "aether.phow.name", "aether.phow.desc",
-                10, 100, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobPhow.class, "aether.phow.name", "aether.phow.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                         new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
                                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
-        MobInfoRegistry.register(MobPhyg.class, "aether.phyg.name", "aether.phyg.desc",
-                10, 100, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobPhyg.class, "aether.phyg.name", "aether.phyg.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                         new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,2),
                         new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
-        MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc",
-                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL),
-                        1.0f, 0 ,2)});
+        MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});
     }
 
     @Override

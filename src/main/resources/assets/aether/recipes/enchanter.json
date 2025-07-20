@@ -78,7 +78,7 @@
 		"time": 1000,
 		"input": {
 			"stack": {
-				"id": "aether:block/holystone",
+				"id": "aether:block/cobble_holystone",
 				"meta": 0
 			}
 		},

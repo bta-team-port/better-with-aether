@@ -52,6 +52,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_OAK_GOLDEN.getDefaultStack());
 
+        Registries.ITEM_GROUPS.getItem("minecraft:stones").add(AetherBlocks.HOLYSTONE.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:cobblestones").add(AetherBlocks.COBBLE_HOLYSTONE.getDefaultStack());
 
         Registries.ITEM_GROUPS.getItem("minecraft:grasses").add(AetherBlocks.GRASS_AETHER.getDefaultStack());
