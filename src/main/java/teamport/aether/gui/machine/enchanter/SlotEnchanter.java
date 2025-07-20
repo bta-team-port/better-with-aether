@@ -6,7 +6,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
 
 public class SlotEnchanter extends Slot {
-    private Player thePlayer;
+    public Player thePlayer;
 
     public SlotEnchanter(Player theplayer, Container container, int index, int x, int y) {
         super(container, index, x, y);

@@ -53,7 +53,7 @@ public class MobPhow extends MobAetherAnimal {
         this.yd = 0.6;
     }
 
-    protected void dropDeathItems() {
+    public void dropDeathItems() {
         if (this.getSaddled()) {
             this.dropItem(Items.SADDLE.id, 1);
         }

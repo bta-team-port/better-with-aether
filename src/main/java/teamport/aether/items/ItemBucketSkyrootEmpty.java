@@ -2,6 +2,7 @@ package teamport.aether.items;
 
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -10,6 +11,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import teamport.aether.entity.phow.MobPhow;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,6 +46,14 @@ public class ItemBucketSkyrootEmpty extends Item {
         return itemstack;
     }
 
+    public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
+        if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
+            ItemBucketSkyrootEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
+            return true;
+        }
+        return false;
+    }
+
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
         if (itemStack.stackSize <= 1) {
             int x = blockX + direction.getOffsetX();
@@ -51,7 +61,7 @@ public class ItemBucketSkyrootEmpty extends Item {
             int z = blockZ + direction.getOffsetZ();
             if (world.getBlockMaterial(x, y, z) == Material.water && world.getBlockMetadata(x, y, z) == 0) {
                 world.setBlockWithNotify(x, y, z, 0);
-                itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
+                itemStack.itemID = AetherItems.BUCKET_SKYROOT_WATER.id;
             } else {
                 AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
                 List<MobCow> entities = world.getEntitiesWithinAABB(MobCow.class, box);
@@ -59,8 +69,13 @@ public class ItemBucketSkyrootEmpty extends Item {
                     itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
                 }
             }
+                AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
+                List<MobPhow> entities = world.getEntitiesWithinAABB(MobPhow.class, box);
+                if (!entities.isEmpty()) {
+                    itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
+                }
+            }
         }
-    }
 
     public static boolean useBucket(Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {

@@ -7,7 +7,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.AetherAchievements;
 
 public class ItemAmbrosium extends ItemFood {
-    private final int ticksPerHeal;
+    public final int ticksPerHeal;
 
     public ItemAmbrosium(String name, String namespaceId, int id, int healAmount, int ticksPerHeal, boolean favouriteWolfMeat, int maxStackSize) {
         super(name, namespaceId, id, healAmount, ticksPerHeal, favouriteWolfMeat, maxStackSize);

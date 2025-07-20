@@ -28,10 +28,10 @@ public class RecipePageFreezer extends RecipePage<RecipeEntryAetherMachine> {
     public static final int RECIPES_PER_PAGE = 6;
     public List<SlotGuidebook> slots;
     public Map<RecipeEntryAetherMachine, List<SlotGuidebook>> map;
-    private final TooltipElement tooltipElement;
-    private final ItemElement itemElement;
-    private static final Minecraft mc = Minecraft.getMinecraft();
-    private static long ticks = 0L;
+    public final TooltipElement tooltipElement;
+    public final ItemElement itemElement;
+    public static final Minecraft mc = Minecraft.getMinecraft();
+    public static long ticks = 0L;
 
     public RecipePageFreezer(GuidebookSection section, ArrayList<RecipeEntryAetherMachine> recipes) {
         super(section);
@@ -65,7 +65,7 @@ public class RecipePageFreezer extends RecipePage<RecipeEntryAetherMachine> {
 
     }
 
-    protected void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    public void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.recipes.isEmpty()) {
             this.drawStringCenteredNoShadow(fr, I18n.getInstance().translateKey("guidebook.section.search.error.no_recipes"), x + 79, y + 110, -8355712);
         }
@@ -132,7 +132,7 @@ public class RecipePageFreezer extends RecipePage<RecipeEntryAetherMachine> {
         super.render(re, fr, x, y, mouseX, mouseY, partialTicks);
     }
 
-    protected void renderBackground(TextureManager re, int x, int y) {
+    public void renderBackground(TextureManager re, int x, int y) {
         super.renderBackground(re, x, y);
         re.bindTexture(re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png"));
 
@@ -144,7 +144,7 @@ public class RecipePageFreezer extends RecipePage<RecipeEntryAetherMachine> {
 
     }
 
-    protected void renderOverlay(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    public void renderOverlay(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.renderOverlay(re, fr, x, y, mouseX, mouseY, partialTicks);
         SlotGuidebook mouseOverSlot = null;
 

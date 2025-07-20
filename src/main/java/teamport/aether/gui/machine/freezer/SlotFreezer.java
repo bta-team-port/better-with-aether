@@ -6,7 +6,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
 
 public class SlotFreezer extends Slot {
-    private Player thePlayer;
+    public Player thePlayer;
 
     public SlotFreezer(Player theplayer, Container container, int index, int x, int y) {
         super(container, index, x, y);

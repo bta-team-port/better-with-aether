@@ -18,8 +18,8 @@ import java.util.Objects;
 @Environment(EnvType.CLIENT)
 public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
-    private final List<GuidebookPage> pages = new ArrayList<>();
-    private Pair<String, List<GuidebookPage>> filteredPages = null;
+    public final List<GuidebookPage> pages = new ArrayList<>();
+    public Pair<String, List<GuidebookPage>> filteredPages = null;
 
     public GuidebookSectionFreezer(String translationKey, ItemStack tabIcon, int bgColor, int fgColor) {
         super(translationKey, tabIcon, bgColor, fgColor);
