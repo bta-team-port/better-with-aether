@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 public class MobRendererMimic extends MobRenderer<MobMimic> {
     public MobRendererMimic() {
-        super(new ModelMimic(), 0.5F);
+        super(new ModelMimic(), 0.7F);
     }
 
     public void setupScale(MobMimic entity, float partialTick) {
