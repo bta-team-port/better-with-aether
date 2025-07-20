@@ -12,10 +12,13 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.entity.mimic.MobMimic;
+import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.guidebook.GuidebookSectionEnchanter;
 import teamport.aether.guidebook.GuidebookSectionFreezer;
@@ -71,6 +74,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         MobInfoRegistry.register(MobMimic.class, "aether.mimic.name", "aether.mimic.desc", 20, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
+
+                MobInfoRegistry.register(MobPhow.class, "aether.phow.name", "aether.phow.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{
+                        new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
+                                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+
+        MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL),
+                        1.0f, 0 ,2)});
     }
 
     @Override

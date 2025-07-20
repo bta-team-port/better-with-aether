@@ -2,6 +2,7 @@ package teamport.aether.entity;
 
 import net.minecraft.core.util.collection.NamespaceID;
 import teamport.aether.entity.mimic.MobMimic;
+import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
@@ -32,6 +33,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobZephyr.class, NamespaceID.getPermanent(MOD_ID, "zephyr"), entityKey("zephyr"));
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobSheepuff.class, NamespaceID.getPermanent(MOD_ID, "sheepuff"), entityKey("sheepuff"));
+        EntityHelper.createEntity(MobPhow.class, NamespaceID.getPermanent(MOD_ID, "phow"), entityKey("phow"));
+
 
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));

@@ -13,16 +13,23 @@ import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
-import teamport.aether.entity.mimic.*;
+import teamport.aether.entity.mimic.MobMimic;
+import teamport.aether.entity.mimic.MobRendererMimic;
+import teamport.aether.entity.phow.MobPhow;
+import teamport.aether.entity.phow.MobRendererPhow;
+import teamport.aether.entity.phow.ModelPhow;
+import teamport.aether.entity.phow.ModelPhowWings;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 import teamport.aether.entity.projectile.ProjectileWindball;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
-import teamport.aether.entity.sentry.*;
+import teamport.aether.entity.sentry.MobRendererSentry;
+import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.*;
-import teamport.aether.entity.zephyr.*;
+import teamport.aether.entity.zephyr.MobRendererZephyr;
+import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
@@ -487,6 +494,8 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
+
+        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), new ModelPhowWings(), 0.7F));
 
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 

@@ -97,8 +97,8 @@ item.aether.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa f
 
 item.aether.parachute.cloud.name=Cloud Parachute
 item.aether.parachute.cloud.desc=Gently glide down when activated. Works if you fall out of The Aether.
-item.aether.parachute.cloud.gold.name=Golden Parachute
-item.aether.parachute.cloud.gold.desc=Gently glide down when activated. Works if you fall out of The Aether.
+item.aether.parachute.cloud.gold.name=Gold Cloud Parachute
+item.aether.parachute.cloud.gold.desc=A longer-lasting variant of the cloud parachute.
 
 #Armor
 item.aether.armor.helmet.zanite.name=Zanite Helmet
