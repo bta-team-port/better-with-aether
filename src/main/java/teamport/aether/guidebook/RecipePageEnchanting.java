@@ -49,6 +49,7 @@ public class RecipePageEnchanting extends RecipePage<RecipeEntryAetherMachine> {
                  && ItemHelper.isRepairable(output)
                  && output.itemID == input.itemID
             ) {
+                // TODO the clamp does not work correctly, check if swords are part of repairables
                 Random rand = new Random();
                 int damage = Math.round(input.getMaxDamage() * rand.nextFloat()) - 1;
                 int clamp_damage  = Math.min(damage, input.getMaxDamage());
