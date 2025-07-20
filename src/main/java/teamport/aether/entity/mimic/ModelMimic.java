@@ -24,7 +24,7 @@ public class ModelMimic extends ModelBase {
             this.rightLeg.addBox(-1.5F, 0.0F, -1.5F, 3, 7, 3);
 
             this.box.setRotationPoint(0, 17.0F, 0);
-            this.boxLid.setRotationPoint(0, 12.0F, 4F);
+            this.boxLid.setRotationPoint(0, 12.0F, 4.0F);
 
             this.leftLeg.setRotationPoint(-2.0F, 17.0F, 0);
             this.rightLeg.setRotationPoint(2.0F, 17.0F, 0);

@@ -17,6 +17,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.phow.MobPhow;
+import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
@@ -79,6 +80,11 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 10, 100, new MobInfoRegistry.MobDrop[]{
                         new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
                                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+
+        MobInfoRegistry.register(MobPhyg.class, "aether.phyg.name", "aether.phyg.desc",
+                10, 100, new MobInfoRegistry.MobDrop[]{
+                        new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,2),
+                        new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc",
                 10, 100, new MobInfoRegistry.MobDrop[]{new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL),

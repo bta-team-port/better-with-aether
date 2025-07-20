@@ -18,7 +18,9 @@ import teamport.aether.entity.mimic.MobRendererMimic;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phow.MobRendererPhow;
 import teamport.aether.entity.phow.ModelPhow;
-import teamport.aether.entity.phow.ModelPhowWings;
+import teamport.aether.entity.phyg.MobPhyg;
+import teamport.aether.entity.phyg.MobRendererPhyg;
+import teamport.aether.entity.phyg.ModelPhyg;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.entity.projectile.ProjectileHammerHead;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
@@ -495,7 +497,10 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
 
-        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), new ModelPhowWings(), 0.7F));
+        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), new ModelPhow(), 0.7F));
+
+        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), new ModelPhyg(), 0.7F));
+
 
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 

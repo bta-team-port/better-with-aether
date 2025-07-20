@@ -1,19 +1,21 @@
-package teamport.aether.entity.phow;
+package teamport.aether.entity.phyg;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.MobAetherAnimal;
-import teamport.aether.items.AetherItems;
 
-public class MobPhow extends MobAetherAnimal {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MobPhyg extends MobAnimal {
     public float wingFold;
     public float wingAngle;
     public float aimingForFold;
@@ -21,12 +23,15 @@ public class MobPhow extends MobAetherAnimal {
     public int jrem;
     public boolean jpress;
     public int ticks;
-    public MobPhow(World world) {
+    public List<WeightedRandomLootObject> burningMobDrops = new ArrayList<>();
+
+    public MobPhyg(World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "phow");
-        this.setSize(0.9F, 1.3F);
-        this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "phyg");
+        this.setSize(0.9F, 0.9F);
+        this.mobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_RAW.getDefaultStack(), 1, 2));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+        this.burningMobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_COOKED.getDefaultStack(), 1, 2));
     }
 
     public void tick() {
@@ -53,12 +58,53 @@ public class MobPhow extends MobAetherAnimal {
         this.yd = 0.6;
     }
 
-    protected void dropDeathItems() {
+    public void defineSynchedData() {
+        this.entityData.define(16, (byte)0, Byte.class);
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Saddle", this.getSaddled());
+    }
+
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setSaddled(tag.getBoolean("Saddle"));
+    }
+
+    public String getLivingSound() {
+        return "mob.pig";
+    }
+
+    public String getHurtSound() {
+        return "mob.pig";
+    }
+
+    public String getDeathSound() {
+        return "mob.pigdeath";
+    }
+
+    public boolean interact(@NotNull Player player) {
+        if (super.interact(player)) {
+            return true;
+        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
+            return false;
+        } else {
+            player.startRiding(this);
+            return true;
+        }
+    }
+
+    public void dropDeathItems() {
         if (this.getSaddled()) {
             this.dropItem(Items.SADDLE.id, 1);
         }
 
         super.dropDeathItems();
+    }
+
+    public List<WeightedRandomLootObject> getMobDrops() {
+        return this.remainingFireTicks > 0 ? this.burningMobDrops : this.mobDrops;
     }
 
     public boolean getSaddled() {
@@ -74,54 +120,7 @@ public class MobPhow extends MobAetherAnimal {
 
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(16, (byte)0, Byte.class);
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putBoolean("Saddle", this.getSaddled());
-    }
-
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        this.setSaddled(tag.getBoolean("Saddle"));
-    }
-
-    public String getLivingSound() {
-        return "mob.cow";
-    }
-
-    public String getHurtSound() {
-        return "mob.cowhurt";
-    }
-
-    public String getDeathSound() {
-        return "mob.cowhurt";
-    }
-
-    public float getSoundVolume() {
-        return 0.4F;
-    }
-
-    public boolean interact(@NotNull Player player) {
-        ItemStack itemstack = player.inventory.getCurrentItem();
-        if (itemstack != null && itemstack.itemID == Items.BUCKET.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(Items.BUCKET_MILK));
-            return true;
-        } else if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
-            return true;
-        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
-            return false;
-        } else {
-            player.startRiding(this);
-            return true;
-        }
-    }
-
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length ? Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK) : false;
     }
 }
