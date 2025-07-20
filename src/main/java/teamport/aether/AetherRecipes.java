@@ -12,7 +12,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 import teamport.aether.recipe.RecipeEntryIncubator;
-import teamport.aether.recipe.RecipeGroupAether;
+import teamport.aether.recipe.RecipeGroupAetherMachine;
 import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
@@ -22,8 +22,8 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeNamespace AETHER = RecipeBuilder.getRecipeNamespace(MOD_ID);
-    public static final RecipeGroupAether ENCHANTER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
-    public static final RecipeGroupAether FREEZER = new RecipeGroupAether(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
+    public static final RecipeGroupAetherMachine ENCHANTER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
+    public static final RecipeGroupAetherMachine FREEZER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
     public static final RecipeGroupIncubator INCUBATOR = new RecipeGroupIncubator(new RecipeSymbol(new ItemStack(AetherBlocks.INCUBATOR_ACTIVE.getDefaultStack())));
 
 

@@ -4,8 +4,8 @@ import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 
-public class RecipeGroupAether extends RecipeGroup<RecipeEntryAetherMachine> {
-    public RecipeGroupAether(RecipeSymbol machine) {
+public class RecipeGroupAetherMachine extends RecipeGroup<RecipeEntryAetherMachine> {
+    public RecipeGroupAetherMachine(RecipeSymbol machine) {
         super(machine);
     }
 
