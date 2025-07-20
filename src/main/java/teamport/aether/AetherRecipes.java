@@ -78,6 +78,24 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.register("aether:orange_wool", Registries.stackListOf(new ItemStack(Blocks.WOOL, 1, 1), new ItemStack(Blocks.WOOL, 1, 4), new ItemStack(Blocks.WOOL, 1, 12)));
         Registries.ITEM_GROUPS.register("aether:black_wool", Registries.stackListOf(new ItemStack(Blocks.WOOL, 1, 7), new ItemStack(Blocks.WOOL, 1, 15)));
 
+
+        Registries.ITEM_GROUPS.register("aether:record_aether", Registries.stackListOf(
+                new ItemStack(Items.RECORD_13),
+                new ItemStack(Items.RECORD_BLOCKS),
+                new ItemStack(Items.RECORD_CAT),
+                new ItemStack(Items.RECORD_CHIRP)));
+
+        Registries.ITEM_GROUPS.register("aether:record_dawn", Registries.stackListOf(
+                new ItemStack(Items.RECORD_DOG),
+                new ItemStack(Items.RECORD_STRAD),
+                new ItemStack(Items.RECORD_WAIT),
+                new ItemStack(Items.RECORD_WARD)));
+
+        Registries.ITEM_GROUPS.register("aether:record_morning", Registries.stackListOf(
+                new ItemStack(Items.RECORD_FAR),
+                new ItemStack(Items.RECORD_MALL),
+                new ItemStack(Items.RECORD_MELLOHI),
+                new ItemStack(Items.RECORD_STAL)));
     }
 
     public void initializeRecipes() {
