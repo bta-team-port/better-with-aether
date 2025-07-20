@@ -32,6 +32,7 @@
     "screens.PlayerMixinAetherScreens"
   ],
   "client": [
+    "GuidebookMixinInclude",
     "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
