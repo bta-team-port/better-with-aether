@@ -1,4 +1,4 @@
-package teamport.aether.api;
+package teamport.aether.helper;
 
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;

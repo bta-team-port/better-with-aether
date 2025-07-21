@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.api.HealthHelper;
+import teamport.aether.helper.HealthHelper;
 
 @Mixin(value = PlayerList.class)
 public class PlayerListMixinKeepEHPonDeath {

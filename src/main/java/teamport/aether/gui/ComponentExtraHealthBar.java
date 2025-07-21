@@ -12,7 +12,7 @@ import net.minecraft.core.item.ItemBucketIceCream;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.player.gamemode.Gamemode;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.api.HealthHelper;
+import teamport.aether.helper.HealthHelper;
 
 import java.util.Random;
 

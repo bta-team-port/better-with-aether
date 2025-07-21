@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherClient;
-import teamport.aether.api.HealthHelper;
+import teamport.aether.helper.HealthHelper;
 import teamport.aether.mixin.accessors.ItemsAccessor;
 
 @Mixin(value = Minecraft.class, remap = false)

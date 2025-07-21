@@ -1,4 +1,4 @@
-package teamport.aether.api;
+package teamport.aether.items;
 
 public interface IVariableHealthPlayer {
     int aether$getExtraHealth();

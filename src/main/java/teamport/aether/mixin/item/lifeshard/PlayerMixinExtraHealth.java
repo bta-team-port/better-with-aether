@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.api.IVariableHealthPlayer;
+import teamport.aether.items.IVariableHealthPlayer;
 
 import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 

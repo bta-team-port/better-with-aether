@@ -1,6 +1,7 @@
-package teamport.aether.api;
+package teamport.aether.helper;
 
 import net.minecraft.core.entity.player.Player;
+import teamport.aether.items.IVariableHealthPlayer;
 
 public class HealthHelper {
 

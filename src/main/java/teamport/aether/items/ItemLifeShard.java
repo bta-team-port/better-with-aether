@@ -5,7 +5,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherAchievements;
-import teamport.aether.api.HealthHelper;
+import teamport.aether.helper.HealthHelper;
 
 import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 
