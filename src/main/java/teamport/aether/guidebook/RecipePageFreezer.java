@@ -22,7 +22,7 @@ import java.util.*;
 @Environment(EnvType.CLIENT)
 public class RecipePageFreezer extends RecipePageAetherMachines {
 
-    public RecipePageFreezer(GuidebookSection section, ArrayList<RecipeEntryAetherMachine> recipes) {
+    public RecipePageFreezer(GuidebookSection section, List<RecipeEntryAetherMachine> recipes) {
         super(section, recipes);
     }
 
