@@ -134,7 +134,7 @@
     "type": "aether:machine",
     "time": 100,
     "input": {
-      "group": "minecraft:stones"
+      "group": "aether:stones"
     },
     "output": {
       "id": "minecraft:block/permafrost"
@@ -145,7 +145,7 @@
     "type": "aether:machine",
     "time": 100,
     "input": {
-      "group": "minecraft:cobblestones"
+      "group": "aether:cobblestones"
     },
     "output": {
       "id": "minecraft:block/cobble_permafrost"
