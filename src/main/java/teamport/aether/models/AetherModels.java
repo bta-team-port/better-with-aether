@@ -219,16 +219,38 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/pillar_capstone/top", Side.TOP, Side.BOTTOM));
 
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON)
-                .setTex(0, "aether:block/chest/dungeon/front", Side.NORTH)
-                .setTex(0, "aether:block/chest/dungeon/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "aether:block/chest/dungeon/top", Side.TOP, Side.BOTTOM));
+        //
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON)
+                .setTex(0, "minecraft:block/chest/planks_gray/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_gray/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_gray/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_LOCKED)
-                .setTex(0, "aether:block/chest/dungeon/front", Side.NORTH)
-                .setTex(0, "aether:block/chest/dungeon/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "aether:block/chest/dungeon/top", Side.TOP, Side.BOTTOM));
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED)
+                .setTex(0, "minecraft:block/chest/planks_gray/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_gray/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_gray/top", Side.TOP, Side.BOTTOM));
 
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON)
+                .setTex(0, "minecraft:block/chest/planks_orange/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_orange/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_orange/top", Side.TOP, Side.BOTTOM));
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED)
+                .setTex(0, "minecraft:block/chest/planks_orange/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_orange/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_orange/top", Side.TOP, Side.BOTTOM));
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON)
+                .setTex(0, "minecraft:block/chest/planks_red/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_red/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_red/top", Side.TOP, Side.BOTTOM));
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED)
+                .setTex(0, "minecraft:block/chest/planks_red/front", Side.NORTH)
+                .setTex(0, "minecraft:block/chest/planks_red/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "minecraft:block/chest/planks_red/top", Side.TOP, Side.BOTTOM));
+
+        //
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_LOCKED)
                 .setAllTextures(0, "aether:block/carved"));

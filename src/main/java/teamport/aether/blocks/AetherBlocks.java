@@ -137,8 +137,12 @@ public final class AetherBlocks {
 
     public static Block<?> CHEST_MIMIC;
 
-    public static Block<?> CHEST_DUNGEON;
-    public static Block<?> CHEST_DUNGEON_LOCKED;
+    public static Block<?> BRONZE_CHEST_DUNGEON;
+    public static Block<?> BRONZE_CHEST_DUNGEON_LOCKED;
+    public static Block<?> SILVER_CHEST_DUNGEON;
+    public static Block<?> SILVER_CHEST_DUNGEON_LOCKED;
+    public static Block<?> GOLD_CHEST_DUNGEON;
+    public static Block<?> GOLD_CHEST_DUNGEON_LOCKED;
 
     public static Block<?> CARVED_STONE_LOCKED;
     public static Block<?> CARVED_ANGELIC_LOCKED;
@@ -598,11 +602,29 @@ public final class AetherBlocks {
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
 
-        CHEST_DUNGEON = stone
-                .build("chest.dungeon", "chest_dungeon", blockID("CHEST_DUNGEON"), BlockLogicChestDungeon::new);
+        BRONZE_CHEST_DUNGEON = stone
+                .build("bronze.chest.dungeon", "bronze_chest_dungeon",
+                        blockID("BRONZE_CHEST_DUNGEON"),b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack()));
 
-        CHEST_DUNGEON_LOCKED = dungeonStoneLocked
-                .build("chest.dungeon.locked", "chest_dungeon_locked", blockID("CHEST_DUNGEON_LOCKED"), BlockLogicChestDungeon::new);
+        BRONZE_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+                  .build("bronze.chest.dungeon.locked", "bronze_chest_dungeon_locked",
+                          blockID("BRONZE_CHEST_DUNGEON_LOCKED"), b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack()));
+
+        SILVER_CHEST_DUNGEON = stone
+                .build("silver.chest.dungeon", "silver_chest_dungeon",
+                        blockID("SILVER_CHEST_DUNGEON"),b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack()));
+
+        SILVER_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+                .build("silver.chest.dungeon.locked", "silver.chest_dungeon_locked",
+                        blockID("SILVER_CHEST_DUNGEON_LOCKED"), b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack()));
+
+        GOLD_CHEST_DUNGEON = stone
+                .build("gold.chest.dungeon", "gold.chest_dungeon",
+                        blockID("GOLD_CHEST_DUNGEON"),b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack()));
+
+        GOLD_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+                .build("gold.chest.dungeon.locked", "gold_chest_dungeon_locked",
+                        blockID("GOLD_CHEST_DUNGEON_LOCKED"), b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack()));
         //TODO Both chests need a custom tile entity and locked chest able to be unlocked with key to turn into normal one, possibly based on meta data? 0 bronze, 1 silver, 2 gold
 
 
