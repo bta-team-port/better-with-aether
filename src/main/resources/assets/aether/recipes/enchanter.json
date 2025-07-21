@@ -1,6 +1,6 @@
 [
 	{
-		"name": "aether:enchanter/enchanted_gravitite",
+		"name": "aether:enchanter/enchant_ore_gravitite_to_gravitite",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -13,7 +13,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchanted_dart_gold",
+		"name": "aether:enchanter/enchant_gold_dart",
 		"type": "aether:machine",
 		"time": 500,
 		"input": {
@@ -28,7 +28,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchanted_dart_poison",
+		"name": "aether:enchanter/enchant_dart_poison",
 		"type": "aether:machine",
 		"time": 500,
 		"input": {
@@ -43,7 +43,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchanted_skyroot_bucket",
+		"name": "aether:enchanter/enchant_poison_to_remedy",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -58,7 +58,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/quicksoil_glass",
+		"name": "aether:enchanter/smelt_quicksoil_to_glass",
 		"type": "aether:machine",
 		"time": 500,
 		"input": {
@@ -73,7 +73,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/healingstone",
+		"name": "aether:enchanter/enchant_holystone_to_healingstone",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -88,367 +88,337 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_pickaxe",
+		"name": "aether:enchanter/repair_lance_valkyrie",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_valkyrie",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_valkyrie",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_shovel_valkyrie",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_shovel_valkyrie",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_shovel_valkyrie",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_pickaxe_valkyrie",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_pickaxe_valkyrie",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_pickaxe_valkyrie",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_axe_valkyrie",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_axe_valkyrie",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_axe_valkyrie",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_hammer_of_notch",
 		"type": "aether:machine",
 		"time": 6000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_pickaxe_diamond",
+				"id": "aether:item/tool_hammer_notch",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_pickaxe_diamond",
+			"id": "aether:item/tool_hammer_notch",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_shovel",
+		"name": "aether:enchanter/repair_phoenix_bow",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_bow_phoenix",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_bow_phoenix",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_pig_slayer",
 		"type": "aether:machine",
 		"time": 6000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_shovel_diamond",
+				"id": "aether:item/tool_sword_pig",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_shovel_diamond",
+			"id": "aether:item/tool_sword_pig",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_axe",
+		"name": "aether:enchanter/repair_vampire_blade",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_vampire",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_vampire",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_flame_sword",
 		"type": "aether:machine",
 		"time": 6000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_axe_diamond",
+				"id": "aether:item/tool_sword_flame",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_axe_diamond",
+			"id": "aether:item/tool_sword_flame",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_sword",
+		"name": "aether:enchanter/repair_holy_sword",
 		"type": "aether:machine",
 		"time": 6000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_sword_diamond",
+				"id": "aether:item/tool_sword_holy",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_sword_diamond",
+			"id": "aether:item/tool_sword_holy",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_hoe",
+		"name": "aether:enchanter/repair_lighting_sword",
+		"type": "aether:machine",
+		"time": 9600,
+		"input": {
+			"stack": {
+				"id": "aether:item/tool_sword_lightning",
+				"meta": -1
+			}
+		},
+		"output": {
+			"id": "aether:item/tool_sword_lightning",
+			"meta": 0
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_cloud_staff",
 		"type": "aether:machine",
 		"time": 6000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/tool_hoe_diamond",
+				"id": "aether:item/tool_staff_cloud",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/tool_hoe_diamond",
+			"id": "aether:item/tool_staff_cloud",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/gravitite_pickaxe",
+		"name": "aether:enchanter/repair_helmet_neptune",
 		"type": "aether:machine",
-		"time": 6000,
+		"time": 9600,
 		"input": {
 			"stack": {
-				"id": "aether:item/tool_pickaxe_gravitite",
+				"id": "aether:item/armor_helmet_neptune",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/tool_pickaxe_gravitite",
+			"id": "aether:item/armor_helmet_neptune",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/gravitite_shovel",
+		"name": "aether:enchanter/repair_chestplate_neptune",
 		"type": "aether:machine",
-		"time": 6000,
+		"time": 9600,
 		"input": {
 			"stack": {
-				"id": "aether:item/tool_shovel_gravitite",
+				"id": "aether:item/armor_chestplate_neptune",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/tool_shovel_gravitite",
+			"id": "aether:item/armor_chestplate_neptune",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/gravitite_axe",
+		"name": "aether:enchanter/repair_leggings_neptune",
 		"type": "aether:machine",
-		"time": 6000,
+		"time": 9600,
 		"input": {
 			"stack": {
-				"id": "aether:item/tool_axe_gravitite",
+				"id": "aether:item/armor_leggings_neptune",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/tool_axe_gravitite",
+			"id": "aether:item/armor_leggings_neptune",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/gravitite_sword",
+		"name": "aether:enchanter/repair_boots_neptune",
 		"type": "aether:machine",
-		"time": 6000,
+		"time": 9600,
 		"input": {
 			"stack": {
-				"id": "aether:item/tool_sword_gravitite",
+				"id": "aether:item/armor_boots_neptune",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/tool_sword_gravitite",
+			"id": "aether:item/armor_boots_neptune",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/chain_helmet",
+		"name": "aether:enchanter/repair_gloves_neptune",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 9600,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_helmet_chainmail",
+				"id": "aether:item/armor_gloves_neptune",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_helmet_chainmail",
+			"id": "aether:item/armor_gloves_neptune",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/chain_chestplate",
+		"name": "aether:enchanter/repair_helmet_phoenix",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 12000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_chestplate_chainmail",
+				"id": "aether:item/armor_helmet_phoenix",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_chestplate_chainmail",
+			"id": "aether:item/armor_helmet_phoenix",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/chain_leggings",
+		"name": "aether:enchanter/repair_chestplate_phoenix",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 12000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_leggings_chainmail",
+				"id": "aether:item/armor_chestplate_phoenix",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_leggings_chainmail",
+			"id": "aether:item/armor_chestplate_phoenix",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/chain_boots",
+		"name": "aether:enchanter/repair_leggings_phoenix",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 12000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_boots_chainmail",
+				"id": "aether:item/armor_leggings_phoenix",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_boots_chainmail",
+			"id": "aether:item/armor_leggings_phoenix",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/chain_gloves",
+		"name": "aether:enchanter/repair_boots_phoenix",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 12000,
 		"input": {
 			"stack": {
-				"id": "aether:item/armor_gloves_chainmail",
+				"id": "aether:item/armor_boots_phoenix",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "aether:item/armor_gloves_chainmail",
+			"id": "aether:item/armor_boots_phoenix",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_helmet",
+		"name": "aether:enchanter/repair_gloves_phoenix",
 		"type": "aether:machine",
-		"time": 6000,
+		"time": 12000,
 		"input": {
 			"stack": {
-				"id": "minecraft:item/armor_helmet_diamond",
+				"id": "aether:item/armor_gloves_phoenix",
 				"meta": -1
 			}
 		},
 		"output": {
-			"id": "minecraft:item/armor_helmet_diamond",
+			"id": "aether:item/armor_gloves_phoenix",
 			"meta": 0
 		}
 	},
 	{
-		"name": "aether:enchanter/diamond_chestplate",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/armor_chestplate_diamond",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "minecraft:item/armor_chestplate_diamond",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/diamond_leggings",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/armor_leggings_diamond",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "minecraft:item/armor_leggings_diamond",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/diamond_boots",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/armor_boots_diamond",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "minecraft:item/armor_boots_diamond",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/diamond_gloves",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_gloves_diamond",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_gloves_diamond",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/gravitite_helmet",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_helmet_gravitite",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_helmet_gravitite",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/gravitite_chestplate",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_chestplate_gravitite",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_chestplate_gravitite",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/gravitite_leggings",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_leggings_gravitite",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_leggings_gravitite",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/gravitite_boots",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_boots_gravitite",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_boots_gravitite",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/gravitite_gloves",
-		"type": "aether:machine",
-		"time": 6000,
-		"input": {
-			"stack": {
-				"id": "aether:item/armor_gloves_gravitite",
-				"meta": -1
-			}
-		},
-		"output": {
-			"id": "aether:item/armor_gloves_gravitite",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/record_morning",
+		"name": "aether:enchanter/enchant_record_morning",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -460,7 +430,7 @@
 		}
 	},
     {
-      "name": "aether:enchanter/record_morning",
+      "name": "aether:enchanter/enchant_record_morning",
       "type": "aether:machine",
       "time": 1000,
       "input": {
@@ -472,7 +442,7 @@
       }
     },
     {
-      "name": "aether:enchanter/record_morning",
+      "name": "aether:enchanter/enchant_record_morning",
       "type": "aether:machine",
       "time": 1000,
       "input": {
@@ -484,7 +454,7 @@
       }
     },
 	{
-		"name": "aether:enchanter/icestone",
+		"name": "aether:enchanter/enchant_permafrost_to_icestone",
 		"type": "aether:machine",
 		"time": 500,
 		"input": {
@@ -498,7 +468,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/saplings",
+		"name": "aether:enchanter/enchant_overworld_to_aether_sapling",
 		"type": "aether:machine",
 		"time": 500,
 		"input": {
@@ -510,7 +480,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/saplings",
+		"name": "aether:enchanter/transmog_skyroot_to_golden_saplings",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -526,7 +496,7 @@
 	{
 		"name": "aether:enchanter/holyfy_cobble_stone",
 		"type": "aether:machine",
-		"time": 500,
+		"time": 1000,
 		"input": {
 			"stack": {
 				"id": "minecraft:block/cobble_netherrack"
@@ -540,7 +510,7 @@
 	{
 		"name": "aether:enchanter/holyfy_stone",
 		"type": "aether:machine",
-		"time": 500,
+		"time": 1000,
 		"input": {
 			"stack": {
 				"id": "minecraft:block/netherrack"
@@ -552,9 +522,9 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/armor_trimm_gravitite",
+		"name": "aether:enchanter/synthesize_gravitite",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 3600,
 		"input": {
 			"stack": {
 				"id": "aether:block/block_gravitite"
@@ -566,9 +536,9 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/armor_trimm_diamond",
+		"name": "aether:enchanter/synthesize_diamond",
 		"type": "aether:machine",
-		"time": 3000,
+		"time": 3600,
 		"input": {
 			"stack": {
 				"id": "minecraft:item/diamond"
@@ -580,7 +550,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/jesus_bread",
+		"name": "aether:enchanter/synthesize_bread",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -594,7 +564,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/jesus_fish",
+		"name": "aether:enchanter/synthesize_fish",
 		"type": "aether:machine",
 		"time": 1000,
 		"input": {
@@ -605,6 +575,71 @@
 		"output": {
 			"id": "minecraft:item/food_fish_raw",
 			"amount": 2
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_obsidian_helmet",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_helmet_obsidian"
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_helmet_obsidian"
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_obsidian_helmet",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_chestplate_obsidian"
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_chestplate_obsidian"
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_obsidian_leggings",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_leggings_obsidian"
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_leggings_obsidian"
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_obsidian_boots",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_boots_obsidian"
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_boots_obsidian"
+		}
+	},
+	{
+		"name": "aether:enchanter/repair_obsidian_gloves",
+		"type": "aether:machine",
+		"time": 12000,
+		"input": {
+			"stack": {
+				"id": "aether:item/armor_gloves_obsidian"
+			}
+		},
+		"output": {
+			"id": "aether:item/armor_gloves_obsidian"
 		}
 	}
 ]

@@ -2,29 +2,12 @@
   {
     "name": "aether:freezer/water_bucket_to_ice",
     "type": "aether:machine",
-    "time": 500,
+    "time": 100,
     "input": {
-      "stack": {
-        "id": "minecraft:item/bucket_water"
-      }
+      "group": "aether:water_buckets"
     },
     "output": {
-      "id": "minecraft:block/ice",
-      "amount": 5
-    }
-  },
-  {
-    "name": "aether:freezer/water_skyroot_bucket_ice",
-    "type": "aether:machine",
-    "time": 500,
-    "input": {
-      "stack": {
-        "id": "aether:item/bucket_skyroot_water"
-      }
-    },
-    "output": {
-      "id": "minecraft:block/ice",
-      "amount": 5
+      "id": "minecraft:block/ice"
     }
   },
   {
