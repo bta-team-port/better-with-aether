@@ -102,6 +102,11 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     private static void freezerGroups(){
+        Registries.ITEM_GROUPS.register("aether:water_buckets", Registries.stackListOf(
+             new ItemStack(Items.BUCKET_WATER),
+             new ItemStack(AetherItems.BUCKET_SKYROOT_WATER)
+        ));
+
         Registries.ITEM_GROUPS.register("aether:stones", Registries.stackListOf(
              new ItemStack(Blocks.BASALT),
              new ItemStack(Blocks.GRANITE),
