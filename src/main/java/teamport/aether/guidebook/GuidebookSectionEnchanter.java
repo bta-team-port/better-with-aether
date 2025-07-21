@@ -53,13 +53,14 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
         return filteredPages;
     }
 
-    private List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
+
+    private static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
         List<RecipeEntryAetherMachine> new_recipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
         for(RecipeEntryAetherMachine recipe : recipes){
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
-            if(Repairable.instance.isRepairable(input) && Repairable.instance.isRepairable(output) && input.itemID == output.itemID){
+            if((Repairable.instance.isRepairable(input) && Repairable.instance.isRepairable(output) && input != null && input.itemID == output.itemID)){
                 repairable.add(recipe);
             }else{
                 new_recipes.add(recipe);
@@ -74,7 +75,6 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
         new_recipes.addAll(repairable);
         return new_recipes;
     }
-
 
     public void reloadRecipes() {
         this.pages.clear();
