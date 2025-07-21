@@ -7,8 +7,8 @@ import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicEnchanter;
-import teamport.aether.items.ItemHelper;
 import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.lookup.Repairable;
 
 
 // TODO implement the class, this should be mostly a port from 7.2
@@ -48,7 +48,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     public void setMaxProcessTime() {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-        if(ItemHelper.isRepairable(containerItemStacks[0]) && containerItemStacks[0].getMetadata() != 0){
+        if(Repairable.instance.isRepairable((containerItemStacks[0])) && containerItemStacks[0].getMetadata() != 0){
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
@@ -122,7 +122,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (resultStack == null) {
             return false;
         }
-        if(ItemHelper.isRepairable(toProcess) && toProcess.getMetadata() == 0){
+        if(Repairable.instance.isRepairable(toProcess) && toProcess.getMetadata() == 0){
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
