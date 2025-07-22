@@ -1,4 +1,4 @@
-package teamport.aether.guidebook;
+package teamport.aether.guidebook.enchanter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
