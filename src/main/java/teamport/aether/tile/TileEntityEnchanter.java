@@ -11,7 +11,6 @@ import teamport.aether.lookup.LookupFuelEnchanter;
 import teamport.aether.lookup.Repairable;
 
 
-// TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     /// canSmelt                -> canProcess

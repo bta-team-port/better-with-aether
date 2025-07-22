@@ -1,4 +1,4 @@
-package teamport.aether.guidebook;
+package teamport.aether.guidebook.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,7 +41,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
             List<GuidebookPage> filteredPages = new ArrayList<>();
             int filteredRecipeSize = filteredRecipes.size();
-            int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, 3);
+            int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, 6);
 
             for (int i = 0; i < filteredPageCount; ++i) {
                 int j = i * 6;
