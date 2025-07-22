@@ -3,21 +3,19 @@ package teamport.aether.guidebook.incubator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ItemElement;
 import net.minecraft.client.gui.TooltipElement;
-import net.minecraft.client.gui.guidebook.RecipePage;
-import net.minecraft.client.gui.guidebook.SlotGuidebook;
+import net.minecraft.client.gui.guidebook.*;
+import net.minecraft.client.gui.guidebook.search.GuidebookPageSearch;
 import net.minecraft.client.option.enums.DescriptionPromptEnum;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
+import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherMod;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
@@ -99,6 +97,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
             this.slots.add(recipeSlot);
         }
     }
+
     public boolean getIsMouseOverSlot(Slot slot, int x, int y, int mouseX, int mouseY) {
         return mouseX >= x + slot.x - 1 && mouseX < x + slot.x + 16 + 1 && mouseY >= y + slot.y - 1 && mouseY < y + slot.y + 16 + 1;
     }
@@ -125,7 +124,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
     private static String[] createDescLines(Font fr, String languageKey) {
         String[] words = I18n.getInstance().translateKey(languageKey).split(" ");
-        List<String> lines = new ArrayList();
+        List<String> lines = new ArrayList<>();
         StringBuilder line = new StringBuilder();
 
         for(String word : words) {
@@ -153,6 +152,47 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
         lines.add(line.toString());
         return (String[])lines.toArray(new String[0]);
+    }
+
+    public boolean keyTyped(char c, int key, int x, int y, int mouseX, int mouseY) {
+        super.keyTyped(c, key, x, y, mouseX, mouseY);
+        if (mc.gameSettings.keyShowRecipe.isKeyboardKey(key)) {
+            SlotGuidebook hoveringSlot = null;
+
+            for (SlotGuidebook slot : this.slots) {
+                if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
+                    hoveringSlot = slot;
+                }
+            }
+
+            if (hoveringSlot != null && hoveringSlot.hasItem()) {
+                String query = "r:" + Objects.requireNonNull(hoveringSlot.getItemStack()).getDisplayName() + "!";
+                GuidebookPageManager.searchQuery = SearchQuery.resolve(query);
+                GuidebookPageSearch.searchField.setText(query);
+                ScreenGuidebook.getPageManager().updatePages();
+                ScreenGuidebook.getPageManager().setCurrentPage(ScreenGuidebook.getPageManager().getSectionIndex(GuidebookSections.CRAFTING), true);
+                return true;
+            }
+        } else if (mc.gameSettings.keyShowUsage.isKeyboardKey(key)) {
+            SlotGuidebook hoveringSlot = null;
+
+            for (SlotGuidebook slot : this.slots) {
+                if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
+                    hoveringSlot = slot;
+                }
+            }
+
+            if (hoveringSlot != null && hoveringSlot.hasItem()) {
+                String query = "u:" + Objects.requireNonNull(hoveringSlot.getItemStack()).getDisplayName() + "!";
+                GuidebookPageManager.searchQuery = SearchQuery.resolve(query);
+                GuidebookPageSearch.searchField.setText(query);
+                ScreenGuidebook.getPageManager().updatePages();
+                ScreenGuidebook.getPageManager().setCurrentPage(ScreenGuidebook.getPageManager().getSectionIndex(GuidebookSections.CRAFTING), true);
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
