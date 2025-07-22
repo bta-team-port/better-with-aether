@@ -8,7 +8,6 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobZephyr;
-import teamport.aether.tile.TileEntityChestLocked;
 import teamport.aether.tile.TileEntityEnchanter;
 import teamport.aether.tile.TileEntityFreezer;
 import teamport.aether.tile.TileEntityIncubator;
@@ -43,6 +42,5 @@ public final class AetherEntities {
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
         EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
-        EntityHelper.createTileEntity(TileEntityChestLocked.class, NamespaceID.getPermanent(MOD_ID, "chest_locked"));
     }
 }
