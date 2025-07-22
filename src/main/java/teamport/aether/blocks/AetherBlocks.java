@@ -550,12 +550,15 @@ public final class AetherBlocks {
                 .build("stairs.brick.zanite", "stairs_brick_zanite", blockID("STAIRS_BRICK_ZANITE"), b -> new BlockLogicStairs(b, BRICK_ZANITE));
 
         CARVED_STONE = stone
+                .setHardness(1.5F)
                 .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogic(b, Material.stone));
         SLAB_CARVED_STONE = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.stone", "slab_carved_stone", blockID("SLAB_CARVED_STONE"), b -> new BlockLogicSlab(b, CARVED_STONE));
         STAIRS_CARVED_STONE = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.stone", "stairs_carved_stone", blockID("STAIRS_CARVED_STONE"), b -> new BlockLogicStairs(b, CARVED_STONE));
@@ -565,44 +568,53 @@ public final class AetherBlocks {
 
 
         CARVED_ANGELIC = stone
+                .setHardness(1.5F)
                 .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogic(b, Material.stone));
         SLAB_CARVED_ANGELIC = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.angelic", "slab_carved_angelic", blockID("SLAB_CARVED_ANGELIC"), b -> new BlockLogicSlab(b, CARVED_ANGELIC));
         STAIRS_CARVED_ANGELIC = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.angelic", "stairs_carved_angelic", blockID("STAIRS_CARVED_ANGELIC"), b -> new BlockLogicStairs(b, CARVED_ANGELIC));
         CARVED_ANGELIC_LIGHT = stone
+                .setHardness(1.5F)
                 .setLuminance(11)
                 .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
         CARVED_HELLFIRE = stone
+                .setHardness(1.5F)
                 .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogic(b, Material.stone));
         SLAB_CARVED_HELLFIRE = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.hellfire", "slab_carved_hellfire", blockID("SLAB_CARVED_HELLFIRE"), b -> new BlockLogicSlab(b, CARVED_HELLFIRE));
         STAIRS_CARVED_HELLFIRE = stone
+                .setHardness(1.5F)
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.hellfire", "stairs_carved_hellfire", blockID("STAIRS_CARVED_HELLFIRE"), b -> new BlockLogicStairs(b, CARVED_HELLFIRE));
         CARVED_HELLFIRE_LIGHT = stone
+                .setHardness(1.5F)
                 .setLuminance(11)
                 .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
         PILLAR = stone
-                .setHardness(0.5F)
+                .setHardness(1.5F)
                 .build("pillar", "pillar", blockID("PILLAR"), b -> new BlockLogicAxisAligned(b, Material.stone));
         PILLAR_CAPSTONE = stone
-                .setHardness(0.5F)
+                .setHardness(1.5F)
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
 
         BRONZE_CHEST_DUNGEON = stone
+                .setHardness(1.5F)
                 .build("chest.dungeon.bronze", "chest_dungeon_bronze", blockID("CHEST_DUNGEON_BRONZE"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), false, BRONZE_CHEST_DUNGEON));
 
@@ -611,6 +623,7 @@ public final class AetherBlocks {
                           b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, BRONZE_CHEST_DUNGEON));
 
         SILVER_CHEST_DUNGEON = stone
+                .setHardness(1.5F)
                 .build("chest.dungeon.silver", "chest_dungeon_silver", blockID("CHEST_DUNGEON_SILVER"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), false, SILVER_CHEST_DUNGEON));
 
@@ -619,6 +632,7 @@ public final class AetherBlocks {
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), true, SILVER_CHEST_DUNGEON));
 
         GOLD_CHEST_DUNGEON = stone
+                .setHardness(1.5F)
                 .build("chest.dungeon.gold", "chest_dungeon_gold", blockID("CHEST_DUNGEON_GOLD"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), false, GOLD_CHEST_DUNGEON));
 
@@ -673,6 +687,4 @@ public final class AetherBlocks {
 
         new AetherBlockDetails().initializeBlockDetails();
     }
-
-
 }

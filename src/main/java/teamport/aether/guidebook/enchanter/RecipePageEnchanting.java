@@ -1,36 +1,47 @@
-package teamport.aether.guidebook;
+package teamport.aether.guidebook.enchanter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ItemElement;
-import net.minecraft.client.gui.TooltipElement;
 import net.minecraft.client.gui.guidebook.*;
-import net.minecraft.client.gui.guidebook.search.GuidebookPageSearch;
-import net.minecraft.client.option.enums.DescriptionPromptEnum;
-import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
-import net.minecraft.core.data.registry.recipe.SearchQuery;
-import net.minecraft.core.lang.I18n;
-import net.minecraft.core.player.inventory.slot.Slot;
+import net.minecraft.core.item.*;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.guidebook.RecipePageAetherMachines;
+import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
 
 @Environment(EnvType.CLIENT)
-public class RecipePageFreezer extends RecipePageAetherMachines {
+public class RecipePageEnchanting extends RecipePageAetherMachines {
 
-    public RecipePageFreezer(GuidebookSection section, List<RecipeEntryAetherMachine> recipes) {
+    public RecipePageEnchanting(GuidebookSection section, List<RecipeEntryAetherMachine> recipes) {
         super(section, recipes);
     }
 
     @Override
     public void buildSlots(List<RecipeEntryAetherMachine> recipes){
-        for(RecipeEntryAetherMachine recipe : recipes) {
+        for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
-            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, recipe.getInput(), false, recipe));
+            RecipeSymbol varientRecipeInput = recipe.getInput();
+            ItemStack input = varientRecipeInput.getStack();
+            ItemStack output = recipe.getOutput();
+            if (
+                    Repairable.instance.isRepairable(input)
+                 && Repairable.instance.isRepairable(output)
+                 && output.itemID == input.itemID
+            ) {
+                List<ItemStack> variations = new ArrayList<>();
+                for(int i = 1; i < 10; i++){
+                    int damage = Math.round(input.getMaxDamage() / 10.0f * i);
+                    input.setMetadata(damage);
+                    ItemStack stack = input.copy();
+                    variations.add(stack);
+                }
+                varientRecipeInput = new RecipeSymbol(variations);
+            }
+            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varientRecipeInput , false, recipe));
             recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
@@ -42,7 +53,7 @@ public class RecipePageFreezer extends RecipePageAetherMachines {
         super.renderBackground(re, x, y);
         re.bindTexture(re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png"));
 
-        for(int i = 1; i <= this.recipes.size(); ++i) {
+        for (int i = 1; i <= this.recipes.size(); ++i) {
             RecipeEntryAetherMachine recipe = this.recipes.get(i - 1);
             List<SlotGuidebook> list = this.map.get(recipe);
             int posX = x + list.get(list.size() - 1).x - 32;
@@ -60,8 +71,23 @@ public class RecipePageFreezer extends RecipePageAetherMachines {
             String timeString = buildTime.toString();
             int alignRight = (timeString.length() > 2 ? -1 : 3);
 
+            // move the text below the arrow
+            int adjY = 0;
+            if(
+                    Repairable.instance.isRepairable(recipe.getInput().getStack())
+                 && Repairable.instance.isRepairable(recipe.getOutput())
+                 && recipe.getInput().getStack().getItem().id == recipe.getOutput().getItem().id
+            ){
+                GL11.glPushMatrix();
+                GL11.glTranslatef(posX - 1 , posY - 1, 0.0f);
+                GL11.glScalef(0.85f,0.93f,1.0f);
+                this.drawStringNoShadow(mc.font, "max", 0, 0, -12566464);
+                GL11.glPopMatrix();
+                adjY = 11;
+            }
+
             GL11.glPushMatrix();
-            GL11.glTranslatef(posX + alignRight , posY - 1, 0.0f);
+            GL11.glTranslatef(posX + alignRight , posY - 1 + adjY, 0.0f);
             GL11.glScalef(0.85f,0.93f,1.0f);
             this.drawStringNoShadow(mc.font, timeString, 0, 0, -12566464);
             GL11.glPopMatrix();

@@ -4,6 +4,7 @@ import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,5 +29,15 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
             }
         }
         return null;
+    }
+
+    public boolean isOutput(Class<? extends Entity> aClass) {
+        for(RecipeEntryIncubator recipe: getAllRecipes()){
+            String entityName = recipe.getOutput();
+            Class<? extends Entity> entity = EntityDispatcher.classForId(entityName);
+            if(entity == null) continue;
+            if(entity.equals(aClass)) return true;
+        }
+        return false;
     }
 }

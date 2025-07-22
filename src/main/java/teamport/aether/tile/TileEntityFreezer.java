@@ -15,7 +15,6 @@ import teamport.aether.lookup.Repairable;
 
 import java.util.HashMap;
 
-// TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityFreezer extends AetherTileEntityMachine {
     public static final HashMap<Integer, Integer> buckets = new HashMap<>();
 
