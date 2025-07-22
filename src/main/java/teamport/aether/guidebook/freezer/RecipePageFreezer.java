@@ -1,20 +1,12 @@
-package teamport.aether.guidebook;
+package teamport.aether.guidebook.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ItemElement;
-import net.minecraft.client.gui.TooltipElement;
 import net.minecraft.client.gui.guidebook.*;
-import net.minecraft.client.gui.guidebook.search.GuidebookPageSearch;
-import net.minecraft.client.option.enums.DescriptionPromptEnum;
-import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
-import net.minecraft.core.data.registry.recipe.SearchQuery;
-import net.minecraft.core.lang.I18n;
-import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
