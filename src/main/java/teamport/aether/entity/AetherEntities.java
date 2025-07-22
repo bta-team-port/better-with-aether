@@ -6,6 +6,7 @@ import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
+import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityChestLocked;
 import teamport.aether.tile.TileEntityEnchanter;
@@ -37,7 +38,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobSheepuff.class, NamespaceID.getPermanent(MOD_ID, "sheepuff"), entityKey("sheepuff"));
         EntityHelper.createEntity(MobPhow.class, NamespaceID.getPermanent(MOD_ID, "phow"), entityKey("phow"));
         EntityHelper.createEntity(MobPhyg.class, NamespaceID.getPermanent(MOD_ID, "phyg"), entityKey("phyg"));
-
+        EntityHelper.createEntity(MobSwet.class, NamespaceID.getPermanent(MOD_ID, "swet"), entityKey("swet"));
 
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));

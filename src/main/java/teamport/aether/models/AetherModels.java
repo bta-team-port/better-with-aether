@@ -21,15 +21,14 @@ import teamport.aether.entity.phow.ModelPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.phyg.MobRendererPhyg;
 import teamport.aether.entity.phyg.ModelPhyg;
-import teamport.aether.entity.projectile.ProjectileDart;
-import teamport.aether.entity.projectile.ProjectileHammerHead;
-import teamport.aether.entity.projectile.ProjectileKnifeLightning;
-import teamport.aether.entity.projectile.ProjectileWindball;
+import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.sentry.MobRendererSentry;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.*;
+import teamport.aether.entity.swet.MobRendererSwet;
+import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobRendererZephyr;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
@@ -221,35 +220,34 @@ public class AetherModels implements ModelEntrypoint {
 
         //
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON)
-                .setTex(0, "minecraft:block/chest/planks_gray/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_gray/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_gray/top", Side.TOP, Side.BOTTOM));
+                .setTex(0, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED)
-                .setTex(0, "minecraft:block/chest/planks_gray/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_gray/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_gray/top", Side.TOP, Side.BOTTOM));
+                .setTex(0, "aether:block/chest/dungeon_bronze/front_locked", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON)
-                .setTex(0, "minecraft:block/chest/planks_orange/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_orange/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_orange/top", Side.TOP, Side.BOTTOM));
+                .setTex(0, "aether:block/chest/dungeon_silver/front", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED)
-                .setTex(0, "minecraft:block/chest/planks_orange/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_orange/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_orange/top", Side.TOP, Side.BOTTOM));
+                .setTex(0, "aether:block/chest/dungeon_silver/front_locked", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON)
-                .setTex(0, "minecraft:block/chest/planks_red/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_red/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_red/top", Side.TOP, Side.BOTTOM));
+                .setTex(0, "aether:block/chest/dungeon_gold/front", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED)
-                .setTex(0, "minecraft:block/chest/planks_red/front", Side.NORTH)
-                .setTex(0, "minecraft:block/chest/planks_red/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(0, "minecraft:block/chest/planks_red/top", Side.TOP, Side.BOTTOM));
-
+                .setTex(0, "aether:block/chest/dungeon_gold/front_locked", Side.NORTH)
+                .setTex(0, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(0, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
         //
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_LOCKED)
@@ -484,8 +482,8 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_HEALING_STONE, null).setIcon("aether:item/food_healing_stone"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_gold"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_blue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_blue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_gold"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.LIFESHARD, null).setIcon("aether:item/food_lifeshard"));
 
@@ -511,6 +509,7 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(ProjectileWindball.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
 
+        ModelHelper.setEntityModel(ProjectileFireElement.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(4.0F).setFullBright());
 
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
@@ -523,6 +522,7 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), new ModelPhyg(), 0.7F));
 
+        ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
 
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
 

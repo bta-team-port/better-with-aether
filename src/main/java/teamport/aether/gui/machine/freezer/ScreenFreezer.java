@@ -23,7 +23,6 @@ public class ScreenFreezer extends ScreenAetherMachine {
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
-        // TODO gui is missing for freezer
         this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/freezer.png").bind();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int j = (width - xSize) / 2;

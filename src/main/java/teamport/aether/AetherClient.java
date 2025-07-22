@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
-import net.minecraft.client.gui.guidebook.GuidebookSections;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
@@ -21,8 +20,6 @@ import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
-import teamport.aether.guidebook.GuidebookSectionEnchanter;
-import teamport.aether.guidebook.GuidebookSectionFreezer;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
@@ -71,12 +68,12 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
 
         MobInfoRegistry.register(MobPhow.class, "aether.phow.name", "aether.phow.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
-                        new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
-                                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobPhyg.class, "aether.phyg.name", "aether.phyg.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
-                        new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,2),
-                        new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.FOOD_PORKCHOP_RAW), 1.0f, 1 ,2),
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc", 10, 100, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});

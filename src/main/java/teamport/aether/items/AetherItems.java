@@ -307,7 +307,6 @@ public final class AetherItems {
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), itemID("ARMOR_CHESTPLATE_PHOENIX"), AetherArmorMaterial.PHOENIX, 2));
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), itemID("ARMOR_LEGGINGS_PHOENIX"), AetherArmorMaterial.PHOENIX, 1));
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), itemID("ARMOR_BOOTS_PHOENIX"), AetherArmorMaterial.PHOENIX, 0));
-        // TODO obsidian armor is craftable by freezing phoenix armor in a freezer
 
         ARMOR_HELMET_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.neptune", itemKey("armor_helmet_neptune"), itemID("ARMOR_HELMET_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 3));
         ARMOR_CHESTPLATE_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.neptune", itemKey("armor_chestplate_neptune"), itemID("ARMOR_CHESTPLATE_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 2));
