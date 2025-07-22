@@ -76,7 +76,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
             if (this.isProcessing() && this.canProcess()) {
                 ++this.currentProcessTime;
-                if (this.currentProcessTime == this.maxProcessTime) {
+                if (this.currentProcessTime >= this.maxProcessTime) {
                     this.currentProcessTime = 0;
                     this.processItem();
                     updateMachine = true;
