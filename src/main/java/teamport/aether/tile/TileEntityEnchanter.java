@@ -13,6 +13,7 @@ import teamport.aether.lookup.Repairable;
 
 // TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityEnchanter extends AetherTileEntityMachine {
+
     /// canSmelt                -> canProcess
     /// smeltItem               -> processItem
     /// updateFurnace           -> updateContainer
@@ -53,6 +54,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
         }
+//        updateOnItemChange();
         this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
     }
 
@@ -76,7 +78,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
             if (this.isProcessing() && this.canProcess()) {
                 ++this.currentProcessTime;
-                if (this.currentProcessTime == this.maxProcessTime) {
+                if (this.currentProcessTime >= this.maxProcessTime) {
                     this.currentProcessTime = 0;
                     this.processItem();
                     updateMachine = true;
