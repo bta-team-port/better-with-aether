@@ -16,7 +16,7 @@ import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 public class PlayerMixinExtraHealth
         implements IVariableHealthPlayer {
     @Unique
-    public int extraHealth = EXTRA_HEALTH;
+    public int extraHealth = 0;
 
     //###############################  ItemLifeShard  ###############################
 
