@@ -8,32 +8,25 @@ import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.option.enums.DescriptionPromptEnum;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
-import net.minecraft.core.data.registry.recipe.RecipeSymbol;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
-import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherMod;
-import teamport.aether.lookup.Repairable;
-import teamport.aether.recipe.RecipeEntryAetherMachine;
 import teamport.aether.recipe.RecipeEntryIncubator;
-import teamport.aether.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static teamport.aether.util.Pair.pair;
-
 public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
     private final List<SlotGuidebook> slots;
     private final TooltipElement tooltipElement;
     private final ItemElement itemElement;
-    public Map<RecipeEntryIncubator, Pair<SlotGuidebook, String>> map;
+    public Map<RecipeEntryIncubator, SlotGuidebook> map;
     public static final Minecraft mc = Minecraft.getMinecraft();
+    public static String root = "aether.guidebook.section.incubator";
 
     public RecipePageIncubator(GuidebookIncubatorSection section, List<RecipeEntryIncubator> recipes) {
         super(section);
@@ -52,11 +45,47 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
 
         SlotGuidebook mouseOverSlot = null;
-
-        for (SlotGuidebook slot : this.slots) {
+        for (RecipeEntryIncubator recipe : recipes) {
+            SlotGuidebook slot = map.get(recipe);
             this.drawSlot(x + slot.x - 1, y + slot.y - 1, -1);
             if (this.getIsMouseOverSlot(slot, x, y, mouseX, mouseY)) {
                 mouseOverSlot = slot;
+            }
+
+            String[] substrings = recipe.getOutput().split(":");
+            String entityName = substrings.length > 1 ? substrings[1] : substrings[0];
+            String title = "Hatch " + entityName;
+
+            StringBuilder buildTime = new StringBuilder();
+            int time = Math.round(recipe.getData() / 20.0F);
+            if(time >= 60){
+                time = Math.round(time / 60.0f);
+                buildTime.append(time).append(" min");
+            }else{
+                buildTime.append(time).append(" sec");
+            }
+            String duration = buildTime.toString();
+            String[] description;
+
+
+            boolean discovered = slot.getIsDiscovered(mc.thePlayer);
+            if(discovered){
+                description = createDescLines(fr, root + "." + entityName);
+            }else{
+                description = createDescLines(fr, "aether.guidebook.section.incubator.undiscovered");
+                title = (new String(new char[title.length()])).replace("\u0000", "?");
+                duration = (new String(new char[duration.length()])).replace("\u0000", "?");
+            }
+
+            int yOffset = y + slot.y - 1 - 10;
+            int xOffset = x + slot.x - 1 + 30;
+            this.drawStringNoShadow(fr, title, xOffset, yOffset, 0);
+            yOffset += 10;
+            this.drawStringNoShadow(fr, "Duration: " + duration, xOffset, yOffset, 0);
+            yOffset += 10;
+            for(String descLine : description) {
+                this.drawStringNoShadow(fr, descLine, xOffset, yOffset, 5263440);
+                yOffset += 10;
             }
             this.itemElement.render(slot.getItemStack(), x + slot.x, y + slot.y, mouseOverSlot==slot, slot);
         }
@@ -64,16 +93,9 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
     public void buildSlots(List<RecipeEntryIncubator> recipes){
         for (RecipeEntryIncubator recipe : recipes) {
-            String[] entityName = recipe.getOutput().split(":");
-            if(entityName.length <= 1){
-                AetherMod.LOGGER.error("Failed to parse the creatures name '{}'!", recipe.getOutput());
-                throw new IndexOutOfBoundsException();
-            }
-            String languageKey = "aether.guidebook.section.incubator" + "." + entityName[1];
-            String text = I18n.getInstance().translateKey(languageKey);
             int yOffset = 32 * (this.map.size() + 1) - 16;
             SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput() , false, recipe);
-            this.map.put(recipe, pair(recipeSlot, text));
+            this.map.put(recipe, recipeSlot);
             this.slots.add(recipeSlot);
         }
     }
@@ -99,7 +121,38 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
                 }
             }
         }
+    }
 
+    private static String[] createDescLines(Font fr, String languageKey) {
+        String[] words = I18n.getInstance().translateKey(languageKey).split(" ");
+        List<String> lines = new ArrayList();
+        StringBuilder line = new StringBuilder();
+
+        for(String word : words) {
+            if (fr.getStringWidth(line + " " + word) > 100) {
+                lines.add(line.toString());
+                line = new StringBuilder();
+            }
+
+            if (word.contains("\n")) {
+                String safeWord = word.replace("\r", "");
+                String[] wordParts = safeWord.split("\n");
+
+                for(int i = 0; i < wordParts.length; ++i) {
+                    if (i > 0) {
+                        lines.add(line.toString());
+                        line = new StringBuilder();
+                    }
+
+                    line.append(wordParts[i]).append(" ");
+                }
+            } else {
+                line.append(word).append(" ");
+            }
+        }
+
+        lines.add(line.toString());
+        return (String[])lines.toArray(new String[0]);
     }
 
 }
