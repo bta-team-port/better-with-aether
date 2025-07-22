@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-// TODO all function that incubator, freezer and enchanter share need to be implemented
 public class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
     public ItemStack[] containerItemStacks;
