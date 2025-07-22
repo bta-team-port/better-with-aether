@@ -54,7 +54,6 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
         }
-//        updateOnItemChange();
         this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
     }
 
