@@ -61,7 +61,7 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
             int j = i * entryPerPage;
             List<RecipeEntryIncubator> recipes = new ArrayList<>(allRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + entryPerPage, filteredRecipeSize)));
             if(!recipes.isEmpty()){
-                this.pages.add(new RecipePageIncubator(this, recipes));
+                filteredPages.add(new RecipePageIncubator(this, recipes));
             }
         }
         this.filteredPages = Pair.of(searchQuery.rawQuery, filteredPages);
