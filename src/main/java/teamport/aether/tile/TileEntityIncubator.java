@@ -13,7 +13,6 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
 import teamport.aether.lookup.LookupFuelIncubator;
 
-// TODO implement the class, this should be mostly a port from 7.2
 public class TileEntityIncubator extends AetherTileEntityMachine {
     /// canSmelt                -> canProcess
     /// smeltItem               -> processItem
