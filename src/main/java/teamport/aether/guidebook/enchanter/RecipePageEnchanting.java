@@ -1,4 +1,4 @@
-package teamport.aether.guidebook;
+package teamport.aether.guidebook.enchanter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,6 +7,7 @@ import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.*;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.guidebook.RecipePageAetherMachines;
 import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
