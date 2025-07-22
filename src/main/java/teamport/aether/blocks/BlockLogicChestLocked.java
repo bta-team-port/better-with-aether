@@ -14,13 +14,13 @@ import net.minecraft.core.world.World;
 public class BlockLogicChestLocked extends BlockLogicRotatable {
     protected ItemStack key;
     boolean locked;
-    public Block<?> blockToBecome;
+    public Block<?> unlockedChest;
 
-    public BlockLogicChestLocked(Block<BlockLogic> block, ItemStack key, boolean locked, Block<?> blockToBecome) {
+    public BlockLogicChestLocked(Block<BlockLogic> block, ItemStack key, boolean locked, Block<?> unlockedChest) {
         super(block, Material.stone);
         this.key = key;
         this.locked = locked;
-        this.blockToBecome = blockToBecome;
+        this.unlockedChest = unlockedChest;
         block.withEntity(TileEntityChest::new);
     }
 
@@ -31,9 +31,9 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
             ItemStack item = player.getHeldItem();
             if(item != null && item.itemID == key.itemID){
                 item.consumeItem(player);
-                // some sound effect
+                // TODO figure out what sound efect to play
 //                world.playSoundEffect(player, 1003, x, y, z, 0);
-                world.setBlockAndMetadataWithNotify(x, y, z, blockToBecome.id(), world.getBlockMetadata(x,y,z));
+                world.setBlockAndMetadataWithNotify(x, y, z, unlockedChest.id(), world.getBlockMetadata(x,y,z));
                 return true;
             }
             return true;
