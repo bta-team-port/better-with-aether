@@ -8,6 +8,7 @@ import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
@@ -26,13 +27,11 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-
         if (this.locked && !player.gamemode.isPlayerInvulnerable()) {
             ItemStack item = player.getHeldItem();
             if(item != null && item.itemID == key.itemID){
                 item.consumeItem(player);
-                // some sound effect
-//                world.playSoundEffect(player, 1003, x, y, z, 0);
+                world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 0.5f, 1.5f);
                 world.setBlockAndMetadataWithNotify(x, y, z, blockToBecome.id(), world.getBlockMetadata(x,y,z));
                 return true;
             }
