@@ -29,15 +29,25 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     @Override
     public void onRecipesReady() {
+        AetherRecipes.workbenchRecipes();
+        AetherRecipes.furnaceRecipes();
+        AetherRecipes.blastFurnaceRecipes();
+        AetherRecipes.trommelRecipes();
+        AetherRecipes.aetherMachinesRecipes();
+    }
+
+    private static void aetherMachinesRecipes() {
+        // registers groups
         AETHER.register("enchanter", ENCHANTER);
         AETHER.register("freezer", FREEZER);
         AETHER.register("incubator", INCUBATOR);
+        // registerd recipe types
         Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
         Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
-        DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
+
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
-        initializeRecipes();
+        DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
     }
 
     @Override
@@ -49,6 +59,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         AetherRecipes.capeMaterialGroups();
         AetherRecipes.enchanterGroups();
         AetherRecipes.freezerGroups();
+        AetherRecipes.trommelGroups();
     }
     private static void oreGemGroups() {
         Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE, Items.DIAMOND));
@@ -157,7 +168,15 @@ public class AetherRecipes implements RecipeEntrypoint {
                 new ItemStack(Items.RECORD_STAL)));
     }
 
-    public void initializeRecipes() {
+    public static void trommelGroups() {
+        Registries.ITEM_GROUPS.register("aether:dirts", Registries.stackListOf(
+                new ItemStack((AetherBlocks.DIRT_AETHER)),
+                new ItemStack((AetherBlocks.PATH_DIRT_AETHER)),
+                new ItemStack((AetherBlocks.GRASS_AETHER))
+        ));
+    }
+
+    private static void workbenchRecipes() {
         AetherRecipes.plankRecipes();
         AetherRecipes.aetherMachineRecipes();
         AetherRecipes.quickGlassRecipes();
@@ -169,13 +188,12 @@ public class AetherRecipes implements RecipeEntrypoint {
         AetherRecipes.armorRecipes();
         AetherRecipes.glovesRecipes();
         AetherRecipes.pendantRecipes();
-        AetherRecipes.blastFurnaceRecipes();
-        AetherRecipes.trommelRecipes();
 
         // these did not fit anywhere specific
 
-        RecipeBuilderShaped templateItemtoBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "XXX", "XXX");
-        templateItemtoBlock.addInput('X', AetherItems.ZANITE).create("block_of_zanite", new ItemStack(AetherBlocks.BLOCK_ZANITE, 1));
+        RecipeBuilder.Shaped(MOD_ID, "XXX", "XXX", "XXX")
+                .addInput('X', AetherItems.ZANITE)
+                .create("block_of_zanite", new ItemStack(AetherBlocks.BLOCK_ZANITE, 1));
 
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.AMBROSIUM).create("block_of_ambrosium", new ItemStack(AetherBlocks.BLOCK_AMBROSIUM, 1));
@@ -189,11 +207,14 @@ public class AetherRecipes implements RecipeEntrypoint {
         templateFlowertoDye.addInput('X', AetherBlocks.FLOWER_WHITE).create("flower_white_to_dye", new ItemStack(Items.DYE, 2, 7));
         templateFlowertoDye.addInput('X', AetherBlocks.FLOWER_PURPLE).create("flower_purple_to_dye", new ItemStack(Items.DYE, 2, 5));
 
-        RecipeBuilderShaped templateBricks = new RecipeBuilderShaped(MOD_ID, "XX", "XX");
-        templateBricks.addInput('X', AetherItems.ZANITE).create("zanite_bricks", new ItemStack(AetherBlocks.BRICK_ZANITE, 4));
+        RecipeBuilder.Shaped(MOD_ID, "XX", "XX")
+                .addInput('X', AetherItems.ZANITE)
+                .create("zanite_bricks", new ItemStack(AetherBlocks.BRICK_ZANITE, 4));
 
-        RecipeBuilderShaped templateStacked = new RecipeBuilderShaped(MOD_ID, "X", "S");
-        templateStacked.addInput('X', AetherItems.AMBROSIUM).addInput('S', AetherItems.STICK_SKYROOT).create("ambrosium_torch", new ItemStack(AetherBlocks.TORCH_AMBROSIUM, 2));
+        RecipeBuilder.Shaped(MOD_ID, "X", "S")
+                .addInput('X', AetherItems.AMBROSIUM)
+                .addInput('S', AetherItems.STICK_SKYROOT)
+                .create("ambrosium_torch", new ItemStack(AetherBlocks.TORCH_AMBROSIUM, 2));
 
 
         RecipeBuilder.Shaped(MOD_ID, " C ", "BSB", " M ")
@@ -212,8 +233,8 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('S', Items.STICK)
                 .addInput('Z', AetherItems.ZANITE)
                 .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
-
     }
+
     private static void quickGlassRecipes() {
         RecipeBuilder.Shaped(MOD_ID, "PP", "PP", "PP")
                 .addInput('P', AetherBlocks.GLASS_QUICKSOIL)
@@ -277,11 +298,14 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .create("incubator", new ItemStack(AetherBlocks.INCUBATOR_IDLE, 1));
     }
     private static void plankRecipes() {
-        RecipeBuilderShaped jukebox = new RecipeBuilderShaped(MOD_ID, "XXX", "XGX", "XXX");
-        jukebox.addInput('X', "minecraft:planks").addInput('G', "aether:gems").create("jukebox", new ItemStack(Blocks.JUKEBOX, 1));
+        RecipeBuilder.Shaped(MOD_ID, "XXX", "XGX", "XXX")
+                .addInput('X', "minecraft:planks")
+                .addInput('G', "aether:gems")
+                .create("jukebox", new ItemStack(Blocks.JUKEBOX, 1));
 
-        RecipeBuilderShaped sticks = new RecipeBuilderShaped(MOD_ID, "X X", "XXX", "X X");
-        sticks.addInput('X', "aether:sticks").create("ladder", new ItemStack(Blocks.LADDER_OAK, 2));
+        RecipeBuilder.Shaped(MOD_ID, "X X", "XXX", "X X")
+                .addInput('X', "aether:sticks")
+                .create("ladder", new ItemStack(Blocks.LADDER_OAK, 2));
 
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_SKYROOT).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT, 4));
@@ -318,8 +342,9 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('P', AetherBlocks.PLANKS_SKYROOT)
                 .create("skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT, 1));
 
-        RecipeBuilderShaped templateStack = new RecipeBuilderShaped(MOD_ID, "X", "X");
-        templateStack.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_sticks", new ItemStack(AetherItems.STICK_SKYROOT, 4));
+        RecipeBuilder.Shaped(MOD_ID, "X", "X")
+                .addInput('X', AetherBlocks.PLANKS_SKYROOT)
+                .create("skyroot_sticks", new ItemStack(AetherItems.STICK_SKYROOT, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "X  ", " X ", "  X")
                 .addInput('X', AetherBlocks.PLANKS_SKYROOT)
@@ -396,29 +421,25 @@ public class AetherRecipes implements RecipeEntrypoint {
         Pendant.addInput('X', AetherItems.ZANITE).addInput('S', Items.STRING).create("zanite_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_ZANITE, 1));
         Pendant.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', Items.STRING).create("gravitite_pendant", new ItemStack(AetherItems.ARMOR_TALISMAN_GRAVITITE, 1));
     }
-    private static void blastFurnaceRecipes() {
+
+    private static void furnaceRecipes(){
         RecipeBuilder.Furnace(MOD_ID)
                 .setInput(AetherBlocks.COBBLE_HOLYSTONE)
                 .create("cobble_holystone_to_holystone", AetherBlocks.HOLYSTONE.getDefaultStack());
+    }
+
+    private static void blastFurnaceRecipes() {
+
 
         RecipeBuilder.BlastFurnace(MOD_ID)
                 .setInput(AetherBlocks.COBBLE_HOLYSTONE)
                 .create("cobble_holystone_to_holystone", AetherBlocks.HOLYSTONE.getDefaultStack());
     }
+
+
     private static void trommelRecipes() {
         RecipeBuilder.Trommel(MOD_ID)
-                .setInput(AetherBlocks.GRASS_AETHER)
-                .addEntry(new WeightedRandomLootObject(Items.AMMO_PEBBLE.getDefaultStack(), 1, 3), 60.24)
-                .addEntry(new WeightedRandomLootObject(Items.CLAY.getDefaultStack(), 1, 5), 24.10)
-                .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1, 3), 12.05)
-                .addEntry(new WeightedRandomLootObject(Items.SULPHUR.getDefaultStack(), 1), 2.41)
-                .addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1), 0.60)
-                .addEntry(new WeightedRandomLootObject(Items.BONE.getDefaultStack(), 1), 0.30)
-                .addEntry(new WeightedRandomLootObject(AetherItems.STICK_SKYROOT.getDefaultStack(), 1), 0.30)
-                .create("trommel_aether_grass");
-
-        RecipeBuilder.Trommel(MOD_ID)
-                .setInput(AetherBlocks.DIRT_AETHER)
+                .setInput("aether:dirts")
                 .addEntry(new WeightedRandomLootObject(Items.AMMO_PEBBLE.getDefaultStack(), 1, 3), 60.24)
                 .addEntry(new WeightedRandomLootObject(Items.CLAY.getDefaultStack(), 1, 5), 24.10)
                 .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1, 3), 12.05)
