@@ -165,11 +165,21 @@ tile.aether.carved.hellfire.light.locked.desc=Unbreakable gold dungeon block tha
 
 tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
-tile.aether.chest.dungeon.name=Treasure Chest
-tile.aether.chest.dungeon.desc=A chest filled with mysterious loot.
-tile.aether.chest.dungeon.locked.name=Locked Treasure Chest
-tile.aether.chest.dungeon.locked.desc=A locked chest filled with mysterious loot.
-tile.aether.chest.dungeon.locked.fail=The chest does not budge.
+
+tile.aether.chest.dungeon.bronze.name=Bronze Treasure Chest
+tile.aether.chest.dungeon.bronze.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.bronze.locked.name=Locked Bronze Treasure Chest
+tile.aether.chest.dungeon.bronze.locked.desc=A locked chest filled with mysterious loot.
+
+tile.aether.chest.dungeon.silver.name=Silver Treasure Chest
+tile.aether.chest.dungeon.silver.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.silver.locked.name=Locked Silver Treasure Chest
+tile.aether.chest.dungeon.silver.locked.desc=A locked chest filled with mysterious loot.
+
+tile.aether.chest.dungeon.gold.name=Gold Treasure Chest
+tile.aether.chest.dungeon.gold.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.gold.locked.name=Locked Gold Treasure Chest
+tile.aether.chest.dungeon.gold.locked.desc=A locked chest filled with mysterious loot.
 
 #Misc
 tile.aether.glass.quicksoil.name=Quicksoil Glass

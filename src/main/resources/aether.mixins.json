@@ -10,6 +10,7 @@
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
+    "accessors.MobAccessor",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
     "armor.player.gravitite.PlayerMixinFallImmuniy",

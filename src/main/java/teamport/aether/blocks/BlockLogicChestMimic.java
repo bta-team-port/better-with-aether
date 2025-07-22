@@ -65,6 +65,5 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.entityJoinedWorld(mimic);
         return true;
     }
-    //TODO Replace with mimic mob once done
 
 }

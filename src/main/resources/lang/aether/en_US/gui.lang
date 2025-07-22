@@ -23,3 +23,5 @@ aether.gui.lorebook.unknown=This book lacks any information on this item.
 aether.gui.incubator.title=Incubator
 aether.gui.enchanter.title=Enchanter
 aether.gui.freezer.title=Freezer
+
+aether.container.locked.chest.name=Dungeon Chest
