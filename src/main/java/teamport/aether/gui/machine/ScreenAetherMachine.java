@@ -24,11 +24,13 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
         super(container);
     }
 
+    public abstract int getTargetSlot(ItemStack stackInSlot, int clickedItemId);
+
     /**
     * @implNote
      * This function is a direct copy of its parent. This allows aether machines an entry to check what slot
      * a given item targets. As such only change the function to keep up to date with its parent.
-     * Additional machines can be checked in targetEtherMachines. All aether machine screens need to inherit from
+     * Additional machines can be checked in getTargetSlot. All aether machine screens need to inherit from
      * this class for it work.
     * */
     @Override
@@ -194,6 +196,4 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
             }
         }
     }
-
-    public abstract int getTargetSlot(ItemStack stackInSlot, int clickedItemId);
 }
