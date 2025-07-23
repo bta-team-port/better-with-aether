@@ -11,6 +11,7 @@
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MobAccessor",
+    "accessory.MenuInventoryMixinAdjustCrafting",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
     "armor.player.gravitite.PlayerMixinFallImmuniy",
@@ -39,6 +40,8 @@
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
     "accessors.ScreenContainerAbstractAccessor",
+    "accessory.ScreenInventoryCreativeMixinAccessory",
+    "accessory.ScreenInventoryMixinAccessory",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "screens.PlayerLocalMixinAetherScreens"
   ],
