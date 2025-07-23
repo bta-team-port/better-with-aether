@@ -10,6 +10,7 @@
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
+    "accessors.MenuAbstractAccessor",
     "accessors.MobAccessor",
     "accessory.MenuInventoryMixinAdjustCrafting",
     "armor.EntityMixinIgnitionImmunity",
