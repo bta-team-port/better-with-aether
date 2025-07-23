@@ -37,7 +37,6 @@
     "GuidebookPageMobMixinIncubatorInfo",
     "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
-    "SlotGuidebookMixinFix",
     "accessors.HudComponentsAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
