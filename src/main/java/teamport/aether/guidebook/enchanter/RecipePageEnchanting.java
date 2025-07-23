@@ -7,6 +7,7 @@ import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.*;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.guidebook.AetherSlotGuidebook;
 import teamport.aether.guidebook.RecipePageAetherMachines;
 import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -41,8 +42,8 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
                 }
                 varientRecipeInput = new RecipeSymbol(variations);
             }
-            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varientRecipeInput , false, recipe));
-            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
+            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varientRecipeInput , false, recipe));
+            recipeSlots.add(new AetherSlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
         }
