@@ -2,18 +2,18 @@
 
 aether.entity.phyg=Phyg
 aether.phyg.name=Phyg
-aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found commonly anywhere.
+aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found anywhere in the aether.
 
 aether.entity.sheepuff=Sheepuff
 aether.sheepuff.name=Sheepuff
-aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found commonly anywhere.
+aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found anywhere in the aether.
 
 aether.entity.phow=Phow
 aether.phow.name=Phow
-aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found commonly anywhere.
+aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found anywhere in the aether.
 
 aether.aerbunny.name=Aerbunny
-aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found commonly anywhere.
+aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
 
 aether.moa.blue.name=Blue Moa
 aether.moa.blue.desc=
@@ -28,15 +28,15 @@ aether.aerwhale.desc=Aerwhales are a large
 #Hostile
 
 aether.swet.blue.name=Blue Swet
-aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere.
+aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere in the aether..
 aether.swet.gold.name=Gold Swet
-aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere.
+aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether..
 
 aether.cockatrice.name=Cockatrice
 aether.cockatrice.desc=
 
 aether.aechorplant.name=Aechor Plant
-aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether, and shoot poison darts to deter anything from coming near.
+aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison darts to deter anything from coming near.
 
 aether.entity.zephyr=Zephyr
 aether.zephyr.name=Zephyr
