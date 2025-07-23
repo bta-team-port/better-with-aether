@@ -6,6 +6,7 @@ import net.minecraft.client.gui.guidebook.*;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.guidebook.AetherSlotGuidebook;
 import teamport.aether.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
@@ -22,8 +23,8 @@ public class RecipePageFreezer extends RecipePageAetherMachines {
     public void buildSlots(List<RecipeEntryAetherMachine> recipes){
         for(RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
-            recipeSlots.add(new SlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, recipe.getInput(), false, recipe));
-            recipeSlots.add(new SlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
+            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, recipe.getInput(), false, recipe));
+            recipeSlots.add(new AetherSlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
         }
