@@ -36,6 +36,15 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         buildSlots(recipes);
     }
 
+    public void buildSlots(List<RecipeEntryIncubator> recipes){
+        for (RecipeEntryIncubator recipe : recipes) {
+            int yOffset = 32 * (this.map.size() + 1) - 16;
+            SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput() , false, recipe);
+            this.map.put(recipe, recipeSlot);
+            this.slots.add(recipeSlot);
+        }
+    }
+
     @Override
     protected void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.recipes.isEmpty()) {
@@ -86,15 +95,6 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
                 yOffset += 10;
             }
             this.itemElement.render(slot.getItemStack(), x + slot.x, y + slot.y, mouseOverSlot==slot, slot);
-        }
-    }
-
-    public void buildSlots(List<RecipeEntryIncubator> recipes){
-        for (RecipeEntryIncubator recipe : recipes) {
-            int yOffset = 32 * (this.map.size() + 1) - 16;
-            SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput() , false, recipe);
-            this.map.put(recipe, recipeSlot);
-            this.slots.add(recipeSlot);
         }
     }
 
