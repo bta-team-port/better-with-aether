@@ -280,7 +280,7 @@ public final class AetherItems {
         AMMO_DART_GOLDEN = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN")));
         AMMO_DART_POISON = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON")));
         AMMO_DART_ENCHANTED = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED")));
-        //TODO Poison darts need to be added and given their effect when they hit something, enchanted darts need their ability to be more accurate and do more damage
+        //TODO Poison darts need to be added and given their effect when they hit something
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID).build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER")));
 
@@ -376,8 +376,8 @@ public final class AetherItems {
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
 
-        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"))).setMaxStackSize(1);
-        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new Item("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"))).setMaxStackSize(1);
+        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
+        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
         //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));

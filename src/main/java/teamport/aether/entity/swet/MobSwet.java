@@ -39,7 +39,6 @@ public class MobSwet extends Mob implements Enemy {
         }
 
     public void setSlimeSize(int i) {
-        this.entityData.set(16, (byte)i);
         this.setSize(0.5F * (float)i, 0.5F * (float)i);
         this.setHealthRaw(this.getMaxHealth());
         this.setPos(this.x, this.y, this.z);
@@ -138,6 +137,7 @@ public class MobSwet extends Mob implements Enemy {
         int i = this.getSlimeSize();
         if (i > 1 && this.canEntityBeSeen(player) && (double)this.distanceTo(player) < 0.6 * (double)i && player.hurt(this, i, DamageType.COMBAT)) {
             this.world.playSoundAtEntity(null, this, "mob.slimeattack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            player.startRiding(this);
         }
 
     }

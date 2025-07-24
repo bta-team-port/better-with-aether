@@ -16,16 +16,16 @@ public class BlockLogicSaplingSkyroot extends BlockLogicSaplingBase {
     }
 
     public boolean mayPlaceOn(int blockId) {
-        return Blocks.blocksList[blockId] == null ? false : Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES);
+        return Blocks.blocksList[blockId] != null && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES));
     }
 
 
     @Override
     public void growTree(World world, int x, int y, int z, Random random) {
-        world.setBlock(x, y, z, 0);
+        world.setBlockWithNotify(x, y, z, 0);
         WorldFeature tree = new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
         if (!tree.place(world, random, x, y, z)) {
-            world.setBlock(x, y, z, this.id());
+            world.setBlockWithNotify(x, y, z, this.id());
             }
     }
 }

@@ -32,7 +32,7 @@ public class MobRendererPhow extends MobRenderer<MobPhow> {
     }
 
     public boolean renderSaddledPhow(MobPhow entity, int i, float f) {
-        this.bindTexture("/assets/minecraft/textures/entity/saddle.png");
+        this.bindTexture("/assets/aether/textures/entity/phow/phow_saddle.png");
         return i == 0 && entity != null && entity.getSaddled();
     }
 
