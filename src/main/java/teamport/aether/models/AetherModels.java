@@ -15,6 +15,8 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.mimic.MobRendererMimic;
+import teamport.aether.entity.parachute.EntityParachute;
+import teamport.aether.entity.parachute.EntityRendererParachute;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phow.MobRendererPhow;
 import teamport.aether.entity.phow.ModelPhow;
@@ -512,7 +514,9 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileFireElement.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(4.0F).setFullBright());
 
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
+
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
+
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
 
@@ -529,6 +533,9 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
 
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
+
+
+        ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
 
 
 
