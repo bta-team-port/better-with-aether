@@ -1,20 +1,20 @@
 package teamport.aether.accessory;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.accessory.api.Accessory;
 
 public class SlotAccessory extends Slot {
 
     // 0 -> gloves
     // 1 -> cape
     // 2 -> accessory:  pendant, healing stone, etc.
-    // 3 -> wildcard:   compass, clock, calander
+    // 3 -> wildcard:   compass, clock, calendar
 
     // empty slot equipment
     private static final String[] accessoryOutline = new String[]{
@@ -24,6 +24,7 @@ public class SlotAccessory extends Slot {
             "aether:item/armor_wildcard_outline",
     };
 
+    // TODO add inventory equipment achievements
     private final MenuInventory menu;
     private final int armorType;
 
@@ -39,10 +40,10 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         // we use 3 for wildcard, we allow anything here
-        if (this.armorType == 6) {
+        if (this.armorType == 3) {
             return true;
         } else {
-            return itemstack.getItem() instanceof IArmorItem && ((IArmorItem)itemstack.getItem()).getArmorPiece() == this.armorType;
+            return itemstack.getItem() instanceof Accessory && ((Accessory)itemstack.getItem()).getAccessoryTypes() == this.armorType;
         }
     }
 
@@ -60,7 +61,7 @@ public class SlotAccessory extends Slot {
     }
 
     public String getItemIcon() {
-        return accessoryOutline[this.armorType - 3];
+        return accessoryOutline[this.armorType];
     }
 
 }
