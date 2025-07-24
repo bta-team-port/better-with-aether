@@ -40,13 +40,10 @@ public class MenuInventoryMixinAddSlotAdjSlot {
                 slot.x += 8;
             }
         }
-
         // adding new accessories
         for(int i = 0; i < 4; ++i) {
-            int armorType = 6 - i;
-            ((MenuAbstractAccessor)menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 1 - i, 80, 8 + i * 18, armorType));
+            ((MenuAbstractAccessor)menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, i));
         }
-
-
     }
+
 }
