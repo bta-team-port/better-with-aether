@@ -12,6 +12,7 @@
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
     "accessors.MobAccessor",
+    "accessory.ContainerInventoryMixinAccessory",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
