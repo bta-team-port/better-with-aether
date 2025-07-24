@@ -1,4 +1,4 @@
-package teamport.aether.guidebook.enchanter;
+package teamport.aether.gui.guidebook.enchanter;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,8 +7,8 @@ import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.*;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.guidebook.AetherSlotGuidebook;
-import teamport.aether.guidebook.RecipePageAetherMachines;
+import teamport.aether.gui.guidebook.AetherSlotGuidebook;
+import teamport.aether.gui.guidebook.RecipePageAetherMachines;
 import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
