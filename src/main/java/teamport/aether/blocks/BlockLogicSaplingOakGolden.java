@@ -20,10 +20,10 @@ public class BlockLogicSaplingOakGolden extends BlockLogicSaplingBase {
 
     @Override
     public void growTree(World world, int x, int y, int z, Random random) {
-        world.setBlock(x, y, z, 0);
+        world.setBlockWithNotify(x, y, z, 0);
         WorldFeature tree = new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id());
         if (!tree.place(world, random, x, y, z)) {
-            world.setBlock(x, y, z, this.id());
+            world.setBlockWithNotify(x, y, z, this.id());
         }
     }
 

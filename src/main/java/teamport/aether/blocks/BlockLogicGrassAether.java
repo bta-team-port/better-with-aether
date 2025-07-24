@@ -71,12 +71,12 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
 
     public boolean onBonemealUsed(ItemStack itemstack,  Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         Random random = new Random();
-        for (int l = 0; l < 16; ++l) {
+        for (int l = 0; l < 32; ++l) {
             Block<?> plantBlock = new Block[]{AetherBlocks.FLOWER_PURPLE, AetherBlocks.TALLGRASS_AETHER, AetherBlocks.FLOWER_WHITE, AetherBlocks.TALLGRASS_AETHER}[random.nextInt(4)];
 
-            int x = blockX + random.nextInt(8) - random.nextInt(8);
-            int y = blockY + random.nextInt(4) - random.nextInt(4);
-            int z = blockZ + random.nextInt(8) - random.nextInt(8);
+            int x = blockX += random.nextInt(3) - 1;
+            int y = blockY += (random.nextInt(3) - 1) * random.nextInt(3) / 2;
+            int z = blockZ += random.nextInt(3) - 1;
 
             if (world.isAirBlock(x, y, z) && (plantBlock.canBlockStay(world, x, y, z))) {
                 world.setBlockWithNotify(x, y, z, plantBlock.id());

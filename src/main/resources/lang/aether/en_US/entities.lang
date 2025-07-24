@@ -12,6 +12,7 @@ aether.entity.phow=Phow
 aether.phow.name=Phow
 aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found anywhere in the aether.
 
+aether.entity.aerbunny=Aerbunny
 aether.aerbunny.name=Aerbunny
 aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
 
@@ -47,7 +48,7 @@ aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will thr
 
 aether.entity.mimic=Mimic
 aether.mimic.name=Mimic
-aether.mimic.desc=A common trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
+aether.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
 aether.entity.sentry=Sentry
 aether.sentry.name=Sentry

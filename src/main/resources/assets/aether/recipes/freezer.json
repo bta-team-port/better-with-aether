@@ -27,7 +27,7 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_helm",
     "type": "aether:machine",
-    "time": 16000,
+    "time": 5000,
     "input": {
       "stack": {
         "id": "aether:item/armor_helmet_phoenix",
@@ -42,7 +42,7 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_chestplate",
     "type": "aether:machine",
-    "time": 16000,
+    "time": 5000,
     "input": {
       "stack": {
         "id": "aether:item/armor_chestplate_phoenix",
@@ -57,7 +57,7 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_leggings",
     "type": "aether:machine",
-    "time": 16000,
+    "time": 5000,
     "input": {
       "stack": {
         "id": "aether:item/armor_leggings_phoenix",
@@ -72,7 +72,7 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_boots",
     "type": "aether:machine",
-    "time": 16000,
+    "time": 5000,
     "input": {
       "stack": {
         "id": "aether:item/armor_boots_phoenix",
@@ -87,7 +87,7 @@
   {
     "name": "aether:freezer/phoenix_to_obsidian_gloves",
     "type": "aether:machine",
-    "time": 16000,
+    "time": 5000,
     "input": {
       "stack": {
         "id": "aether:item/armor_gloves_phoenix",

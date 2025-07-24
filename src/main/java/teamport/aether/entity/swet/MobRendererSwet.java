@@ -30,11 +30,10 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
     }
 
     protected void scaleSlime(MobSwet entityslime, float f) {
-        int i = entityslime.getSlimeSize();
-        float f1 = (entityslime.oSquish + (entityslime.squish - entityslime.oSquish) * f) / ((float)i * 0.5F + 1.0F);
-        float f2 = 1.0F / (f1 + 1.0F);
-        float f3 = (float)i;
-        GL11.glScalef(f2 * f3, 1.0F / f2 * f3, f2 * f3);
+        float f2 = 1.0F;
+        float f1 = 1.0F;
+        float f3 = 1.5F;
+        GL11.glScalef(f2 * f3, f1 * f3, f2 * f3);
     }
 
     protected void setupScale(MobSwet entity, float partialTick) {
