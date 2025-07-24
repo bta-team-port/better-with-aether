@@ -508,7 +508,6 @@ public final class AetherBlocks {
         FREEZER_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true));
-        //TODO Give freezer functionality the exact same as a furnace/enchanter, with its own recipe list, its fuel is icestone
 
         INCUBATOR_IDLE = station
                 .build("incubator.idle", "incubator_idle", blockID("INCUBATOR_IDLE"), b -> new BlockLogicIncubator(b, false));
@@ -516,7 +515,6 @@ public final class AetherBlocks {
         INCUBATOR_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("incubator.active", "incubator_active", blockID("INCUBATOR_ACTIVE"), b -> new BlockLogicIncubator(b, true));
-        //TODO Give Incubator functionality, you can place moa eggs or chicken eggs and slowly cook and then spawn the mob when done, take ambrosium torches as fuel, Has no output
 
 
         ORE_AMBROSIUM_HOLYSTONE = ores
