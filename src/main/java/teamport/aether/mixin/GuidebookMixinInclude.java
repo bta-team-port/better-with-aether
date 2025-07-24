@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.guidebook.enchanter.GuidebookSectionEnchanter;
-import teamport.aether.guidebook.freezer.GuidebookSectionFreezer;
-import teamport.aether.guidebook.incubator.GuidebookIncubatorSection;
+import teamport.aether.gui.guidebook.enchanter.GuidebookSectionEnchanter;
+import teamport.aether.gui.guidebook.freezer.GuidebookSectionFreezer;
+import teamport.aether.gui.guidebook.incubator.GuidebookIncubatorSection;
 
 @Mixin(value = GuidebookSections.class, remap = false)
 public abstract class GuidebookMixinInclude {

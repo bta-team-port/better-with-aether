@@ -1,4 +1,4 @@
-package teamport.aether.guidebook;
+package teamport.aether.gui.guidebook;
 
 import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.core.data.registry.recipe.RecipeEntryBase;
