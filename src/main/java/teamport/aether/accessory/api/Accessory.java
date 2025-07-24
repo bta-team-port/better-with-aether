@@ -7,10 +7,9 @@ public interface Accessory {
     /**
      * Determines what accessory slots your item goes to
      *
-     * @param item The instance being accessed specifically.
-     * @return Accessory Type String array
+     * @return accessory slot
      */
-    String[] getAccessoryTypes(ItemStack item);
+    int getAccessoryTypes();
 
     /**
      * Called when accessory is inserted into a slot, or the player who had it in a slot is just loaded
