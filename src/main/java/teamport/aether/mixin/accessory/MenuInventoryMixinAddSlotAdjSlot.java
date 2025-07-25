@@ -19,6 +19,7 @@ import teamport.aether.items.accessory.Accessory;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = MenuInventory.class, remap = false)
@@ -53,24 +54,27 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
     }
 
-    /**
+    /** Colin:
+     * in the MAIN inventory (not including armor or crafting slots)
+     * IDK what target does, but it always seems to be 0 for me
+     *
+     * @reason
+     * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
+     * a such the target is always the inventory. To fix this a mixin is needed.
+     *
      * @implNote
-     * Should the targeting break, then the ScreenContainerAbstractMixinTargetFix need
-     * to be fixed, more details there.
-     * */
-
-//    @Inject(method = "getTargetSlots", at=@At("RETURN"), cancellable = true)
-//    public void getTargetSlots(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-//        // in the MAIN inventory (not including armor or crafting slots)
-//        // IDK what target does, but it always seems to be 0 for me
-//        //TODO figure out how this system works
-//        if (slot.index >= 9 && slot.index <= 44 && slot.getItemStack() != null && slot.getItemStack().getItem() instanceof Accessory && target == 2) {
-//            MenuInventory menu = (MenuInventory) (Object) this;
-//            List<Integer> target_slots = menu.getSlots(45, 4, false);
-//            target_slots.addAll(cir.getReturnValue());
-//            cir.setReturnValue(target_slots);
-//        }
-//    }
+     * Due to gloves beeing now an armor piece target can return 0 or 2
+     */
+    @Inject(method = "getTargetSlots", at=@At("HEAD"), cancellable = true)
+    public void getTargetSlots(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
+        // TODO MIXIN into ScreenContainerAbstract and fix the targeting, so it wont cause problems down the line
+        if (slot.index >= 9 && slot.index <= 44 && slot.getItemStack() != null && slot.getItemStack().getItem() instanceof Accessory) {
+            Accessory armorItem = (Accessory)slot.getItemStack().getItem();
+            List<Integer> ints = new ArrayList();
+            ints.add(41 + armorItem.getAccessoryTypes());
+            cir.setReturnValue(ints);
+        }
+    }
 
 
 }
