@@ -36,6 +36,7 @@ public class ScreenInventoryCreativeMixinNewInv{
         ci.cancel();
     }
 
+    // TODO lookup ContainerInventoryMixinIncArmorInv for more info
     // make delete the accessory when shift clicking the delete button
     @WrapOperation(method = "buttonClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;getContainerSize()I", ordinal = 0))
     public int removeAccessoriesToo(ContainerInventory instance, Operation<Integer> original){

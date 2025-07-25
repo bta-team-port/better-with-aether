@@ -13,7 +13,6 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -39,16 +38,21 @@ public class MenuInventoryMixinAddSlotAdjSlot {
     )
     public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
-        // fixing the crafting inventory
         for (Slot slot : menu.slots) {
             Container contain = slot.getContainer();
+            // fixing the crafting inventory
             if (contain instanceof ContainerCrafting) {
                 slot.x += 11;
-                continue;
             }
             if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
+            // TODO check ContainerInventoryMixinIncArmor
+//             fixing the index of the armor slot
+//            if(slot instanceof SlotArmor){
+//                slot = new SlotArmor(menu, slot.getContainer(), slot.index - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
+//            }
+
         }
 
         // adding new accessories
@@ -58,6 +62,8 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
     }
 
+
+    // TODO fix this
     /**
      * Colin:
      * in the MAIN inventory (not including armor or crafting slots)
@@ -85,11 +91,6 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             return;
         }
         ints.add(46);
-    }
-
-    @Unique
-    private boolean isQuiver(ItemStack stack) {
-        return stack != null && (stack.itemID == Items.ARMOR_QUIVER.id || stack.itemID == Items.ARMOR_BOOTS_GOLD.id);
     }
 
 }
