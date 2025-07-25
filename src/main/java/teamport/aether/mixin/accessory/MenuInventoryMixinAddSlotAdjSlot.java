@@ -1,8 +1,10 @@
 package teamport.aether.mixin.accessory;
 
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.*;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -11,6 +13,7 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,55 +29,67 @@ import java.util.List;
 public class MenuInventoryMixinAddSlotAdjSlot {
 
 
-    @Shadow public ContainerInventory inventory;
+    @Shadow
+    public ContainerInventory inventory;
 
     @Inject(method = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V",
-            at= @At(value = "INVOKE",
+            at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"
             )
     )
-    public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci){
+    public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
         // fixing the crafting inventory
-        for(Slot slot: menu.slots){
+        for (Slot slot : menu.slots) {
             Container contain = slot.getContainer();
-            if(contain instanceof ContainerCrafting){
+            if (contain instanceof ContainerCrafting) {
                 slot.x += 11;
                 continue;
             }
-            if(slot instanceof SlotResult){
+            if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
         }
 
         // adding new accessories
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             int armorPiece = 4 + i;
-            ((MenuAbstractAccessor)menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, armorPiece));
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, armorPiece));
         }
     }
 
-    /** Colin:
+    /**
+     * Colin:
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me
      *
-     * @reason
-     * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
+     * @reason So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
      * a such the target is always the inventory. To fix this a mixin is needed.
-     *
-     * @implNote
-     * Due to gloves beeing now an armor piece target can return 0 or 2
+     * @implNote Due to gloves beeing now an armor piece target can return 0 or 2
      */
-    @Inject(method = "getTargetSlots", at=@At("HEAD"), cancellable = true)
-    public void getTargetSlots(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
+    @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
+    public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
         // TODO MIXIN into ScreenContainerAbstract and fix the targeting, so it wont cause problems down the line
         if (slot.index >= 9 && slot.index <= 44 && slot.getItemStack() != null && slot.getItemStack().getItem() instanceof Accessory) {
-            Accessory armorItem = (Accessory)slot.getItemStack().getItem();
-            List<Integer> ints = new ArrayList();
+            Accessory armorItem = (Accessory) slot.getItemStack().getItem();
+            List<Integer> ints = new ArrayList<>();
             ints.add(41 + armorItem.getAccessoryTypes());
             cir.setReturnValue(ints);
         }
     }
 
+    // prevents the equipment of a second quiver in the cape slot through shift clicking
+    @Inject(method = "getTargetSlots", at= @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
+    public void quiverTarget(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir, @Local IArmorItem armorItem, @Local List<Integer> ints) {
+        if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
+            return;
+        }
+        ints.add(46);
+    }
+
+    @Unique
+    private boolean isQuiver(ItemStack stack) {
+        return stack != null && (stack.itemID == Items.ARMOR_QUIVER.id || stack.itemID == Items.ARMOR_BOOTS_GOLD.id);
+    }
 
 }
