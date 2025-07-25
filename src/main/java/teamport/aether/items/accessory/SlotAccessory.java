@@ -1,6 +1,9 @@
 package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemQuiver;
+import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -11,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 public class SlotAccessory extends Slot {
 
     // 4 -> gloves
-    // 5 -> cape
+    // 5 -> cape:       cape, quiver
     // 6 -> accessory:  pendant, healing stone, etc.
     // 7 -> wildcard:   compass, clock, calendar
 
@@ -41,9 +44,13 @@ public class SlotAccessory extends Slot {
         // we use 3 for wildcard, we allow anything here
         if (this.armorType == 7) {
             return true;
-        } else {
-            return itemstack.getItem() instanceof Accessory && ((Accessory)itemstack.getItem()).getAccessoryTypes() == this.armorType;
         }
+        // allow quiver to be placed in the cape slot
+        Item item = itemstack.getItem();
+        if (this.armorType == 5 && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
+            return true;
+        }
+        return item instanceof Accessory && ((Accessory) item).getAccessoryTypes() == this.armorType;
     }
 
     // TODO figure out what to do here
