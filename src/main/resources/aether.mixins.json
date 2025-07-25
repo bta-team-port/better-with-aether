@@ -44,7 +44,6 @@
     "accessors.HudComponentsAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinCapeRender",
-    "accessory.ScreenContainerAbstractMixinTargetFix",
     "accessory.ScreenInventoryCreativeMixinNewInv",
     "accessory.ScreenInventoryMixinNewInv",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
