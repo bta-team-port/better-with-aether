@@ -1,9 +1,11 @@
 package teamport.aether.items.itemtool;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
 
@@ -16,35 +18,44 @@ public class ItemBowPhoenix extends ItemBow {
     }
 
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-        ItemStack quiverSlot = entityplayer.inventory.armorItemInSlot(2);
+        int index = findActiveQuiver(entityplayer, 2);
+        ItemStack quiverSlot = entityplayer.inventory.armorItemInSlot(index);
         if (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) {
-            entityplayer.inventory.armorItemInSlot(2).damageItem(1, entityplayer);
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
-            }
-        } else if (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) {
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
-            }
-        } else if (entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_GOLD.id)) {
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
-            }
-        } else if (entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW.id)) {
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
-            }
+            entityplayer.inventory.armorItemInSlot(index).damageItem(1, entityplayer);
+            shootArrow(itemstack, world, entityplayer);
+        } else if ((quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
+                entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW_GOLD.id)
+                || entityplayer.inventory.consumeInventoryItem(Items.AMMO_ARROW.id)) {
+            shootArrow(itemstack, world, entityplayer);
         }
-
         return itemstack;
     }
 
+    private static void shootArrow(ItemStack itemstack, World world, Player entityplayer) {
+        itemstack.damageItem(1, entityplayer);
+        playRandomBowSound(world, entityplayer);
+        joinArrow(world, entityplayer);
+    }
+
+    private static void playRandomBowSound(World world, Player entityplayer) {
+        world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+    }
+
+    private static void joinArrow(World world, Player entityplayer) {
+        if (!world.isClientSide) {
+            world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
+        }
+    }
+
+    public int findActiveQuiver(Player entityplayer, int index){
+        ItemStack bodyItem = entityplayer.inventory.armorItemInSlot(index);
+        if(
+                bodyItem == null
+                        ||(bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id
+                        && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())
+        ){
+            return 5;
+        }
+        return 2;
+    }
 }
