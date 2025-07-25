@@ -343,7 +343,7 @@ public final class AetherItems {
         //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system built into bta for that now
 
 
-        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen", 6));
+        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen", 6));
         ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble",6));
         ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold",6));
         //TODO all talismans need their effects and also work with the new armor system, regen stone heals half a heart every 5 seconds, iron bubble gives water breathing, feather gold makes you fall like a chicken

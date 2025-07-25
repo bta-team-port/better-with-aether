@@ -1,11 +1,9 @@
 package teamport.aether.items.itemtool;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
 

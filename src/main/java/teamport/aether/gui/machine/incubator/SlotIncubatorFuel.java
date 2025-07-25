@@ -1,6 +1,5 @@
 package teamport.aether.gui.machine.incubator;
 
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
 
