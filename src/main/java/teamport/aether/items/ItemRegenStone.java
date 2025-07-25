@@ -4,11 +4,12 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.items.accessory.ItemAccessory;
 
-public class ItemRegenStone extends Item {
+public class ItemRegenStone extends ItemAccessory {
 
-    public ItemRegenStone(String translationKey, String namespaceId, int id) {
-        super(translationKey, namespaceId, id);
+    public ItemRegenStone(String translationKey, String namespaceId, int id, String name, int accessorySlot) {
+        super(translationKey, namespaceId, id, name, accessorySlot);
     }
 
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
