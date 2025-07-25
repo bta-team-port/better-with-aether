@@ -21,22 +21,22 @@ public class AetherArmorMaterial {
             45f,
             45f,
             45f,
-            130f);
+            134f);
 
     public static final ArmorMaterial PHOENIX = ArmorHelper.createArmorMaterial(MOD_ID,
             "phoenix",
             800,
             45f,
             45f,
-            130f,
+            134f,
             45f);
 
     public static final ArmorMaterial OBSIDIAN = ArmorHelper.createArmorMaterial(MOD_ID,
             "obsidian",
             1200,
             45f,
-            130f,
-            130f,
+            134f,
+            134f,
             0f);
 
     public static final ArmorMaterial NEPTUNE = ArmorHelper.createArmorMaterial(MOD_ID,
