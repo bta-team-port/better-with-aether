@@ -2,9 +2,12 @@ package teamport.aether.items;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.*;
+import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.accessory.ItemAccessory;
+import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.itemtool.*;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolAxeGravitite;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolPickaxeGravitite;
@@ -313,17 +316,17 @@ public final class AetherItems {
         ARMOR_LEGGINGS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.neptune", itemKey("armor_leggings_neptune"), itemID("ARMOR_LEGGINGS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 1));
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 0));
 
-        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER")));
-        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN")));
-        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON")));
-        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD")));
-        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND")));
-        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL")));
-        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE")));
-        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE")));
-        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN")));
-        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX")));
-        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new Item("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE")));
+        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"),ArmorMaterial.LEATHER,0));
+        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"),ArmorMaterial.CHAINMAIL,0));
+        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON,0));
+        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD,0));
+        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND,0));
+        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL,0));
+        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE,0));
+        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE,0));
+        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,0));
+        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,0));
+        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,0));
         //TODO Gloves need their system added and be wearable
 
 
@@ -340,32 +343,32 @@ public final class AetherItems {
         //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system built into bta for that now
 
 
-        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen", 2));
+        ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble",2));
+        ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold",2));
         //TODO all talismans need their effects and also work with the new armor system, regen stone heals half a heart every 5 seconds, iron bubble gives water breathing, feather gold makes you fall like a chicken
 
-        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"))).setMaxStackSize(1);
-        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new Item("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"))).setMaxStackSize(1);
+        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER,2));
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL,2));
+        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON,2));
+        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD,2));
+        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND,2));
+        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL,2));
+        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE,2));
+        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE,2));
+        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice",2));
         //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
         //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
 
-        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"))).setMaxStackSize(1);
-        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new Item("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"))).setMaxStackSize(1);
-        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new Item("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"))).setMaxStackSize(1);
+        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"),"agility", 1));
+        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 1));
+        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 1));
         //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
-        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"))).setMaxStackSize(1);
-        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new Item("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"))).setMaxStackSize(1);
-        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new Item("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"))).setMaxStackSize(1);
-        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new Item("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"))).setMaxStackSize(1);
+        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white",1));
+        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 1));
+        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 1));
+        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"),"blue", 1));
         //TODO Decorative capes, potential to add cape color for each wool color,
 
 
