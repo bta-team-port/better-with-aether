@@ -20,7 +20,7 @@ public class ItemAccessoryGloves extends ItemAccessory implements IArmorItem {
 
     @Override
     public int armorPieceProtection(){
-        return 1;
+        return 3;
     }
 
     @Override
