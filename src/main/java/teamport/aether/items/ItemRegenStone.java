@@ -1,7 +1,6 @@
 package teamport.aether.items;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.items.accessory.ItemAccessory;
