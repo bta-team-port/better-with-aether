@@ -78,7 +78,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
     }
 
-    // prevents the equipment of a second quiver in the cape slot through shift clicking
+    // allow quiver to be shift clicked in either the body or the cape slot
     @Inject(method = "getTargetSlots", at= @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
     public void quiverTarget(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir, @Local IArmorItem armorItem, @Local List<Integer> ints) {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
