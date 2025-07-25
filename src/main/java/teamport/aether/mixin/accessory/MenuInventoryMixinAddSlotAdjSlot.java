@@ -48,7 +48,8 @@ public class MenuInventoryMixinAddSlotAdjSlot {
 
         // adding new accessories
         for(int i = 0; i < 4; ++i) {
-            ((MenuAbstractAccessor)menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, i));
+            int armorPiece = 4 + i;
+            ((MenuAbstractAccessor)menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, armorPiece));
         }
     }
 

@@ -10,10 +10,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class SlotAccessory extends Slot {
 
-    // 0 -> gloves
-    // 1 -> cape
-    // 2 -> accessory:  pendant, healing stone, etc.
-    // 3 -> wildcard:   compass, clock, calendar
+    // 4 -> gloves
+    // 5 -> cape
+    // 6 -> accessory:  pendant, healing stone, etc.
+    // 7 -> wildcard:   compass, clock, calendar
 
     // empty slot equipment
     private static final String[] accessoryOutline = new String[]{
@@ -39,7 +39,7 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         // we use 3 for wildcard, we allow anything here
-        if (this.armorType == 3) {
+        if (this.armorType == 7) {
             return true;
         } else {
             return itemstack.getItem() instanceof Accessory && ((Accessory)itemstack.getItem()).getAccessoryTypes() == this.armorType;
@@ -60,7 +60,7 @@ public class SlotAccessory extends Slot {
     }
 
     public String getItemIcon() {
-        return accessoryOutline[this.armorType];
+        return accessoryOutline[this.armorType - 4];
     }
 
 }
