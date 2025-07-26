@@ -29,17 +29,17 @@ public class ItemBowPhoenix extends ItemBow {
         return itemstack;
     }
 
-    private static void shootArrow(ItemStack itemstack, World world, Player entityplayer) {
+    public static void shootArrow(ItemStack itemstack, World world, Player entityplayer) {
         itemstack.damageItem(1, entityplayer);
         playRandomBowSound(world, entityplayer);
         joinArrow(world, entityplayer);
     }
 
-    private static void playRandomBowSound(World world, Player entityplayer) {
+    public static void playRandomBowSound(World world, Player entityplayer) {
         world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 1.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
     }
 
-    private static void joinArrow(World world, Player entityplayer) {
+    public static void joinArrow(World world, Player entityplayer) {
         if (!world.isClientSide) {
             world.entityJoinedWorld(new ProjectileArrowFlaming(world, entityplayer, true, 0));
         }

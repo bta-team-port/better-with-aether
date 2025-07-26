@@ -6,7 +6,7 @@ import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
-    protected ModelBase modelCloud;
+    public ModelBase modelCloud;
     public EntityRendererParachute() {
         this.shadowSize = 0.0F;
         this.modelCloud = new ModelParachute();

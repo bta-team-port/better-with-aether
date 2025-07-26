@@ -6,7 +6,7 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemAccessoryGloves extends ItemAccessory implements IArmorItem {
-    private final ArmorMaterial material;
+    public final ArmorMaterial material;
 
     public ItemAccessoryGloves(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material, accessoryPiece);

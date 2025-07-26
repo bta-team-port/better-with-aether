@@ -11,7 +11,6 @@ public class ModelParachute extends ModelBase {
         this.body.addBox(-8.0F, -8.0F, -8.0F, 16, 16, 16);
         Cube height = this.body;
         height.y += (float)(-12);
-
     }
 
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {

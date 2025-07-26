@@ -73,7 +73,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
     }
 
-    private static void filterRecipe(SearchQuery query, List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
+    public static void filterRecipe(SearchQuery query, List<RecipeEntryAetherMachine> allRecipes, List<RecipeEntryAetherMachine> filteredRecipes) {
         for (RecipeEntryAetherMachine recipe : allRecipes) {
             if (recipe.matchesQueryIgnoreExceptions(query)) {
                 filteredRecipes.add(recipe);
@@ -81,7 +81,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
         }
     }
 
-    private static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
+    public static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
         List<RecipeEntryAetherMachine> new_recipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
         for(RecipeEntryAetherMachine recipe : recipes){

@@ -15,7 +15,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         super(block, Material.cloth);
     }
 
-    @Override
+
     public int getPistonPushReaction(World world, int x, int y, int z) {
         return 1;
     }
@@ -36,7 +36,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         entity.fallDistance = 0.0F;
     }
 
-    @Override
+
     public boolean isSolidRender() {
         return false;
     }
@@ -46,10 +46,12 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (entity.yd < 0.0) {
-            entity.yd *= 0.005;
-            entity.fallDistance = 0.0F;
+        if (!entity.isSneaking()) {
+            if (entity.yd < 0.0) {
+                entity.yd *= 0.005;
+            }
         }
+        entity.fallDistance = 0.0F;
     }
 
 }

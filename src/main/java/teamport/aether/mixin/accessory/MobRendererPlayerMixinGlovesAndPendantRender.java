@@ -23,7 +23,7 @@ import teamport.aether.items.accessory.ItemAccessoryPendant;
 abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player>{
 
     @Unique
-    private final ModelBiped modelAccessories = new ModelBiped(1.0F);
+    public final ModelBiped modelAccessories = new ModelBiped(1.0F);
 
     public MobRendererPlayerMixinGlovesAndPendantRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
@@ -31,7 +31,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
 
     // TODO fix the gloves in the first person
     // TODO fix pendant also being rendered when gloves are equipped
-    @Inject(method = "drawFirstPersonHand", at = @At("TAIL"))
+    @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
     public void callDrawFirstPersonHandAfter(Player player, boolean isLeft, CallbackInfo ci) {
         for (ItemStack itemStack : player.inventory.armorInventory) {
             if (itemStack == null) continue;
@@ -48,14 +48,27 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
                 this.modelAccessories.armRight.visible = false;
             }
         }
+        ci.cancel();
     }
 
-    @ModifyArg(method = "prepareArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
-    public int getArmorItemNotNegative(int i, @Local int renderPass) {
+    //TODO Fix this so that the player becomes invisible wearing the invis cape
+
+    //    @Inject(method = "drawFirstPersonHand", at = @At("HEAD"), cancellable = true)
+//    public void callDrawFirstPersonHandBefore(Player player, boolean isLeft, CallbackInfo ci) {
+//        if (((IAetherAccessories)player).aether$getInvisible()) ci.cancel();
+//    }
+
+//    @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"), cancellable = true)
+//    public void renderPlayer(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+//        if (((IAetherAccessories)entity).aether$getInvisible()) ci.cancel();
+//    }
+
+    @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
+    public int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3-renderPass;
     }
 
-    @Inject(method = "prepareArmor", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "prepareArmor*", at = @At("HEAD"), cancellable = true)
     public void setArmorModel(Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
         this.modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
         this.modelAccessories.sneaking = player.isSneaking();

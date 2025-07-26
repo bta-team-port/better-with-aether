@@ -36,7 +36,7 @@ public class EntityParachute extends Entity {
         }
     }
 
-    protected void causeFallDamage(float distance) {
+    public void causeFallDamage(float distance) {
     }
 
     @Override

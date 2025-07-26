@@ -16,8 +16,8 @@ public class MobSwet extends Mob implements Enemy {
     public static final int DATA_SLIME_SIZE = 16;
     public float squish;
     public float oSquish;
-    private int jumpDelay = 0;
-    private boolean sizeSet = false;
+    public int jumpDelay = 0;
+    public boolean sizeSet = false;
 
     public MobSwet(World world) {
         super(world);
