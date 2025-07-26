@@ -15,6 +15,7 @@
     "accessors.SlotArmorAccessor",
     "accessory.ContainerInventoryMixinIncArmorInv",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
+    "accessory.PlayerMixinTickable",
     "accessory.quiver.ItemBowMixinQuiverSlotFix",
     "accessory.quiver.PlayerMixinNextArrow",
     "armor.EntityMixinIgnitionImmunity",
