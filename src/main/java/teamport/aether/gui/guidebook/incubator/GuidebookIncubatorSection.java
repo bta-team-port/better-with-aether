@@ -18,7 +18,7 @@ import java.util.Objects;
 @Environment(EnvType.CLIENT)
 public class GuidebookIncubatorSection extends SearchableGuidebookSection {
     public final List<GuidebookPage> pages = new ArrayList<>();
-    private Pair<String, List<GuidebookPage>> filteredPages = null;
+    public Pair<String, List<GuidebookPage>> filteredPages = null;
     public static int entryPerPage = 3;
 
     public GuidebookIncubatorSection(String translationKey, ItemStack tabIcon, int bgColor, int fgColor) {
@@ -26,7 +26,7 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
         this.reloadRecipes();
     }
 
-    private void reloadRecipes() {
+    public void reloadRecipes() {
         this.pages.clear();
         List<RecipeEntryIncubator> allRecipes = new ArrayList<>(AetherRecipes.INCUBATOR.getAllRecipes());
         allRecipes.removeIf(Objects::isNull);

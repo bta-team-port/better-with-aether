@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class BlockLogicChestLocked extends BlockLogicRotatable {
-    protected ItemStack key;
+    public ItemStack key;
     boolean locked;
     public Block<?> unlockedChest;
 

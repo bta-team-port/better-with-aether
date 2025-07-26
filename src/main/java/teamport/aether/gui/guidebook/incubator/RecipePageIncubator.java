@@ -18,9 +18,9 @@ import java.util.*;
 
 public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
-    private final List<SlotGuidebook> slots;
-    private final TooltipElement tooltipElement;
-    private final ItemElement itemElement;
+    public final List<SlotGuidebook> slots;
+    public final TooltipElement tooltipElement;
+    public final ItemElement itemElement;
     public Map<RecipeEntryIncubator, SlotGuidebook> map;
     public static final Minecraft mc = Minecraft.getMinecraft();
     public static String root = "aether.guidebook.section.incubator";
@@ -45,7 +45,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
     }
 
     @Override
-    protected void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
+    public void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.recipes.isEmpty()) {
             this.drawStringCenteredNoShadow(fr, I18n.getInstance().translateKey("guidebook.section.search.error.no_recipes"), x + 79, y + 110, -8355712);
         }
@@ -121,7 +121,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
     }
 
-    private static String[] createDescLines(Font fr, String languageKey) {
+    public static String[] createDescLines(Font fr, String languageKey) {
         String[] words = I18n.getInstance().translateKey(languageKey).split(" ");
         List<String> lines = new ArrayList<>();
         StringBuilder line = new StringBuilder();

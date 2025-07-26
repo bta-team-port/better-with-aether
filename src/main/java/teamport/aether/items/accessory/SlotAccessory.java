@@ -1,10 +1,7 @@
 package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemQuiver;
-import net.minecraft.core.item.ItemQuiverEndless;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.*;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
@@ -14,21 +11,20 @@ import org.jetbrains.annotations.Nullable;
 public class SlotAccessory extends Slot {
 
     // 4 -> gloves
-    // 5 -> cape:       cape, quiver
-    // 6 -> accessory:  pendant, healing stone, etc.
-    // 7 -> wildcard:   compass, clock, calendar
+    // 5 -> cape: cape, quiver
+    // 6 & 7 -> wildcard:  pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
-    private static final String[] accessoryOutline = new String[]{
+    public static final String[] accessoryOutline = new String[]{
             "aether:item/armor_gloves_outline",
             "aether:item/armor_capes_outline",
-            "aether:item/armor_jewellery_outline",
+            "aether:item/armor_wildcard_outline",
             "aether:item/armor_wildcard_outline",
     };
 
     // TODO add inventory equipment achievements
-    private final MenuInventory menu;
-    private final int armorType;
+    public final MenuInventory menu;
+    public final int armorType;
 
     public SlotAccessory(MenuInventory menu, Container container, int index, int x, int y, int armorType) {
         super(container, index, x, y);
@@ -41,7 +37,7 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we use 3 for wildcard, we allow anything here
+        // we use 3 for wildcard, we should only allow specific items here, listed under 6 & 7
         if (this.armorType == 7) {
             return true;
         }

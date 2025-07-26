@@ -3,9 +3,9 @@ package teamport.aether.items.accessory;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.material.ArmorMaterial;
 
-public class ItemAccessory extends Item implements Accessory{
-    private final int accessoryPiece;
-    private final String name;
+public class ItemAccessory extends Item implements Accessory {
+    public final int accessoryPiece;
+    public final String name;
 
     public ItemAccessory(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id);

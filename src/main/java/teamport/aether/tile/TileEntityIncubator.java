@@ -46,7 +46,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         }
     }
 
-    private boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
+    public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
