@@ -1,4 +1,4 @@
-package teamport.aether.guidebook.incubator;
+package teamport.aether.gui.guidebook.incubator;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

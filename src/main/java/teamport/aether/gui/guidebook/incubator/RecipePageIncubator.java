@@ -1,4 +1,4 @@
-package teamport.aether.guidebook.incubator;
+package teamport.aether.gui.guidebook.incubator;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ItemElement;
@@ -12,7 +12,6 @@ import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.AetherMod;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
 import java.util.*;
