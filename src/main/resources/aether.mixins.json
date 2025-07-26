@@ -50,6 +50,7 @@
     "accessory.MobRendererPlayerMixinGlovesAndPendantRender",
     "accessory.ScreenInventoryCreativeMixinNewInv",
     "accessory.ScreenInventoryMixinNewInv",
+    "accessory.ScreenInventoryMixinShowClockButton",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "screens.PlayerLocalMixinAetherScreens"
   ],
