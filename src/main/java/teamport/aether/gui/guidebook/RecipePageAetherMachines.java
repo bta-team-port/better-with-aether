@@ -1,4 +1,4 @@
-package teamport.aether.guidebook;
+package teamport.aether.gui.guidebook;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ItemElement;

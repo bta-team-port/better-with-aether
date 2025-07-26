@@ -1,4 +1,4 @@
-package teamport.aether.guidebook.freezer;
+package teamport.aether.gui.guidebook.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

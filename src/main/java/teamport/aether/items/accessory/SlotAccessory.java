@@ -1,7 +1,9 @@
-package teamport.aether.accessory;
+package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemQuiver;
+import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -11,19 +13,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class SlotAccessory extends Slot {
 
-    // 0 -> gloves
-    // 1 -> cape
-    // 2 -> accessory:  pendant, healing stone, etc.
-    // 3 -> wildcard:   compass, clock, calander
+    // 4 -> gloves
+    // 5 -> cape:       cape, quiver
+    // 6 -> accessory:  pendant, healing stone, etc.
+    // 7 -> wildcard:   compass, clock, calendar
 
     // empty slot equipment
     private static final String[] accessoryOutline = new String[]{
             "aether:item/armor_gloves_outline",
             "aether:item/armor_capes_outline",
-            "aether:item/armor_accessory_outline",
+            "aether:item/armor_jewellery_outline",
             "aether:item/armor_wildcard_outline",
     };
 
+    // TODO add inventory equipment achievements
     private final MenuInventory menu;
     private final int armorType;
 
@@ -39,11 +42,15 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         // we use 3 for wildcard, we allow anything here
-        if (this.armorType == 6) {
+        if (this.armorType == 7) {
             return true;
-        } else {
-            return itemstack.getItem() instanceof IArmorItem && ((IArmorItem)itemstack.getItem()).getArmorPiece() == this.armorType;
         }
+        // allow quiver to be placed in the cape slot
+        Item item = itemstack.getItem();
+        if (this.armorType == 5 && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
+            return true;
+        }
+        return item instanceof Accessory && ((Accessory) item).getAccessoryTypes() == this.armorType;
     }
 
     // TODO figure out what to do here
@@ -60,7 +67,7 @@ public class SlotAccessory extends Slot {
     }
 
     public String getItemIcon() {
-        return accessoryOutline[this.armorType - 3];
+        return accessoryOutline[this.armorType - 4];
     }
 
 }
