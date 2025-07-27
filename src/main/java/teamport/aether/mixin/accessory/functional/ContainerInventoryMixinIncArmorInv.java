@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.functional;
 
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.player.Player;

@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.functional;
 
 
 import com.llamalad7.mixinextras.sugar.Local;

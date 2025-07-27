@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.quiver;
+package teamport.aether.mixin.accessory.render;
 
 public class MobRendererPlayerMixinCapeQuiver {
 }
