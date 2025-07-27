@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
+import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -62,9 +63,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     }
 
     private static void registerNewTagForItems() {
-        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItems.ACCESSORY});
-        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItems.ACCESSORY});
-        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItems.ACCESSORY});
+        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.ACCESSORY});
+        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.ACCESSORY});
+        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.ACCESSORY});
     }
 
     private static void registerNewFurnaceFuel() {

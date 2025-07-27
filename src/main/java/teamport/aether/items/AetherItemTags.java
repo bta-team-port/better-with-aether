@@ -13,6 +13,7 @@ public class AetherItemTags {
 
     public static Tag<Item> MOAS_FAVOURITE_ITEM = Tag.of("moas_favourite_item");
     public static Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
+    public static Tag<Item> ACCESSORY = Tag.of("accessory"); // only assign to vanilla items
 
     static {
         Field[] var0 = ItemTags.class.getDeclaredFields();
