@@ -23,7 +23,7 @@ public class SlotAccessory extends Slot {
             "aether:item/armor_gloves_outline",
             "aether:item/armor_capes_outline",
             "aether:item/armor_wildcard_outline",
-            "aether:item/armor_wildcard_outline",
+            "aether:item/armor_thin_wildcard_outline",
     };
 
     // TODO add inventory equipment achievements
