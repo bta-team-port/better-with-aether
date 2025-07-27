@@ -2,8 +2,13 @@ package teamport.aether.entity.sheepuff;
 
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.util.helper.MathHelper;
 
 public class ModelSheepuffWool extends ModelQuadruped {
+    boolean isEatingAnimPlaying;
+    float headBobTime;
+
     public ModelSheepuffWool() {
         super(12, 0.0F);
         this.head = new Cube(0, 0);
@@ -25,6 +30,51 @@ public class ModelSheepuffWool extends ModelQuadruped {
         this.leg4 = new Cube(0, 16);
         this.leg4.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, f);
         this.leg4.setRotationPoint(3.0F, 12.0F, -5.0F);
+    }
+
+    public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+        super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
+        float desiredRotateAngleX = headPitch / 57.29578F;
+        float desiredRotateAngleY = headYaw / 57.29578F;
+        if (this.isEatingAnimPlaying) {
+            float partPercentage;
+            if (this.headBobTime < 5.0F) {
+                partPercentage = this.headBobTime / 5.0F;
+                this.head.xRot = desiredRotateAngleX * (1.0F - partPercentage) + 1.0472F * partPercentage;
+                this.head.yRot = desiredRotateAngleY * (1.0F - partPercentage);
+            } else if (this.headBobTime < 35.0F) {
+                this.head.xRot = 1.0472F;
+                this.head.yRot = 0.0F;
+            } else if (this.headBobTime < 40.0F) {
+                partPercentage = (this.headBobTime - 35.0F) / 5.0F;
+                this.head.xRot = desiredRotateAngleX * partPercentage + 1.0472F * (1.0F - partPercentage);
+                this.head.yRot = desiredRotateAngleY * partPercentage;
+            }
+        } else {
+            this.head.xRot = desiredRotateAngleX;
+            this.head.yRot = desiredRotateAngleY;
+        }
+
+    }
+
+    public void setLivingAnimations(Mob mob, float limbSwing, float limbYaw, float partialTick) {
+        MobSheepuff entitySheep = (MobSheepuff)mob;
+        this.head.y = 6.0F;
+        this.isEatingAnimPlaying = false;
+        if (entitySheep.getIsSheepEating()) {
+            this.headBobTime = (float)entitySheep.prevTimeSheepEating + (float)(entitySheep.timeSheepEating - entitySheep.prevTimeSheepEating) * partialTick;
+            this.isEatingAnimPlaying = true;
+            if (this.headBobTime < 5.0F) {
+                this.head.y = 6.0F + 2.0F * (this.headBobTime + 1.0F);
+            } else if (this.headBobTime < 35.0F) {
+                this.head.y = 16.0F + MathHelper.sin(this.headBobTime * 0.05F * 30.5F) / 3.0F;
+            } else if (this.headBobTime < 40.0F) {
+                this.head.y = 16.0F - 2.0F * (this.headBobTime - 34.0F);
+            }
+        } else {
+            this.headBobTime = 0.0F;
+        }
+
     }
 
 
