@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.MobAetherAnimal;
+import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
@@ -193,6 +194,6 @@ public class MobPhyg extends MobAetherAnimal {
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK);
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 }

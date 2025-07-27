@@ -12,8 +12,7 @@ import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
 public class AetherItemTags {
 
     public static Tag<Item> MOAS_FAVOURITE_ITEM = Tag.of("moas_favourite_item");
-    public static Tag<Item> PIGS_FAVOURITE_ITEM = Tag.of("pigs_favourite_item");
-    public static Tag<Item> SHEEPS_FAVOURITE_ITEM = Tag.of("sheeps_favourite_item");
+    public static Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
 
     static {
         Field[] var0 = ItemTags.class.getDeclaredFields();

@@ -152,7 +152,7 @@ public class MobZephyr extends MobFlying implements Enemy {
 
         for (int i = 1; (double) i < d3; ++i) {
             axisalignedbb.move(d4, d5, d6);
-            if (this.world.getCubes(this, axisalignedbb).size() > 0) {
+            if (!this.world.getCubes(this, axisalignedbb).isEmpty()) {
                 return false;
             }
         }
@@ -167,11 +167,8 @@ public class MobZephyr extends MobFlying implements Enemy {
                     this.targetedEntity = attacker;
                     this.aggroCooldown = 60;
                 }
-
-                return true;
-            } else {
-                return true;
             }
+            return true;
         } else {
             return false;
         }

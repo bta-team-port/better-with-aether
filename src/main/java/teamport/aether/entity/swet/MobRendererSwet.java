@@ -7,8 +7,8 @@ import org.lwjgl.opengl.GL11;
 public class MobRendererSwet extends MobRenderer<MobSwet> {
     public final ModelBase scaleAmount;
 
-    public MobRendererSwet(ModelBase modelbase, ModelBase modelbase1, float f) {
-        super(modelbase, shadowSize);
+    public MobRendererSwet(ModelBase modelbase, ModelBase modelbase1, float shadowsize) {
+        super(modelbase, shadowsize);
         this.scaleAmount = modelbase1;
     }
 

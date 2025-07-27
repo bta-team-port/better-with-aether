@@ -18,6 +18,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.MobAetherAnimal;
+import teamport.aether.items.AetherItemTags;
 
 import java.util.Random;
 
@@ -34,7 +35,7 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK);
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
     public void defineSynchedData() {
@@ -92,6 +93,10 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
                 this.setIsSheepEating(true);
             }
 
+            if ((blockBelow == Blocks.GRASS || blockBelow == Blocks.GRASS_RETRO) && !this.world.isClientSide) {
+                this.setIsSheepEating(true);
+            }
+
             this.timeSheepEating = 0;
             this.prevTimeSheepEating = 0;
         }
@@ -109,6 +114,13 @@ public class MobSheepuff extends MobAetherAnimal implements Creature {
             if (this.prevTimeSheepEating == 35 && (blockBelow == AetherBlocks.GRASS_AETHER) && !this.world.isClientSide) {
                 this.world.playBlockEvent(null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
                 this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, AetherBlocks.DIRT_AETHER.id());
+                this.setPuffed(true);
+                this.setSheared(false);
+            }
+
+            if (this.prevTimeSheepEating == 35 && (blockBelow == Blocks.GRASS || blockBelow == Blocks.GRASS_RETRO) && !this.world.isClientSide) {
+                this.world.playBlockEvent(null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
+                this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, Blocks.DIRT.id());
                 this.setPuffed(true);
                 this.setSheared(false);
             }
