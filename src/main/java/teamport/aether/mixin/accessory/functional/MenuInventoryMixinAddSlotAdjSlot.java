@@ -51,43 +51,58 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
-            /*
-            * because getContainerSize now returns 44, the index and armor slots needs to be adjusted.
-            * */
+             //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
             if(slot instanceof SlotArmor){
                 SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor)slot).getSlot() - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
                 newArmorSlot.index = i;
                 menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
             }
-
         }
 
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
             int armorPiece = 4 + i;
-            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 1 - i, 80, 8 + i * 18, armorPiece));
+            // staring where armor ends
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, armorPiece));
         }
     }
 
 
 
-    // TODO fix this
+    // TODO make the target 2 when its an accessory
     /**
-     * Colin:
      * in the MAIN inventory (not including armor or crafting slots)
-     * IDK what target does, but it always seems to be 0 for me
-     *
-     * @reason So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
-     * a such the target is always the inventory. To fix this a mixin is needed.
-     * @implNote Due to gloves beeing now an armor piece target can return 0 or 2
+     * IDK what target does, but it always seems to be 0 for me - Colin
+     * <br>
+     * <br>
+     * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
+     * as such the target is always the inventory. To fix this a mixin is needed.
+     * I could not find a good way to mix into it. - Redart15
+     * <br>
+     * <br>
+     * <strong>Note:</strong> Due to gloves being an armor piece,
+     *  target can return 0 or 2 for accessories.
      */
     @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
     public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        // TODO MIXIN into ScreenContainerAbstract and fix the targeting, so it wont cause problems down the line
-        if (slot.index >= 9 && slot.index <= 44 && slot.getItemStack() != null && slot.getItemStack().getItem() instanceof Accessory) {
+        if (
+                slot.index >= 9
+                && slot.index <= 44
+                && slot.getItemStack() != null
+                && slot.getItemStack().getItem() instanceof Accessory
+        ) {
+            int STARTING_INDEX = 41;
             Accessory armorItem = (Accessory) slot.getItemStack().getItem();
             List<Integer> ints = new ArrayList<>();
-            ints.add(41 + armorItem.getAccessoryTypes());
+            int accessorySlot = armorItem.getAccessorySlot();
+
+            if(accessorySlot >= 6){
+                // insert into wildcard slot
+                ints.add(STARTING_INDEX + 6);
+                ints.add(STARTING_INDEX + 7);
+            }else{
+                ints.add(STARTING_INDEX + accessorySlot);
+            }
             cir.setReturnValue(ints);
         }
     }
@@ -98,6 +113,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
         }
+        // 41 starting index, 5th slot is capeslot
         ints.add(46);
     }
 
