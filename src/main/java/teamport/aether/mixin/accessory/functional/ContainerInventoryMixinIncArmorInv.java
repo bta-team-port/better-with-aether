@@ -42,18 +42,10 @@ public class ContainerInventoryMixinIncArmorInv {
         }
     }
 
-    // TODO fix it
-    /**
-     * @reason
-     * Right now the size of inventory + armorInv < inventory + actualArmorInv.
-     * This results additional mixin to wrap these calls and adjust the values manually.
-     * I attempted to fix this however the game just crashes with an index out of bounds 8.
-     * I could not figure out how to fix it and left it be for now - Redart15
-     * */
-//    @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
-//    private int modifyContainerSize(int original) {
-//        return 4 + 4;
-//    }
+    @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
+    private int modifyContainerSize(int original) {
+        return 4 + 4;
+    }
 
     @Inject(method = "setItem", at = @At("HEAD"))
     public void onSetInventoryItem(int index, ItemStack newItem, CallbackInfo ci) {

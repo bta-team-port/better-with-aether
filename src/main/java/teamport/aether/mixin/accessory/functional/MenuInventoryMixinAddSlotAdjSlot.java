@@ -10,6 +10,7 @@ import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
+import net.minecraft.core.player.inventory.slot.SlotArmor;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,6 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.accessory.Accessory;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
+import teamport.aether.mixin.accessors.SlotAccessor;
+import teamport.aether.mixin.accessors.SlotArmorAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +30,9 @@ import java.util.List;
 @Mixin(value = MenuInventory.class, remap = false)
 public class MenuInventoryMixinAddSlotAdjSlot {
 
-
     @Shadow
     public ContainerInventory inventory;
+
 
     @Inject(method = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V",
             at = @At(value = "INVOKE",
@@ -38,7 +41,8 @@ public class MenuInventoryMixinAddSlotAdjSlot {
     )
     public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
-        for (Slot slot : menu.slots) {
+        for(int i = 0; i < menu.slots.size(); i ++){
+            Slot slot = menu.slots.get(i);
             Container contain = slot.getContainer();
             // fixing the crafting inventory
             if (contain instanceof ContainerCrafting) {
@@ -47,20 +51,24 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
-            // TODO check ContainerInventoryMixinIncArmor
-//             fixing the index of the armor slot
-//            if(slot instanceof SlotArmor){
-//                slot = new SlotArmor(menu, slot.getContainer(), slot.index - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
-//            }
+            /*
+            * because getContainerSize now returns 44, the index and armor slots needs to be adjusted.
+            * */
+            if(slot instanceof SlotArmor){
+                SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor)slot).getSlot() - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
+                newArmorSlot.index = i;
+                menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
+            }
 
         }
 
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
             int armorPiece = 4 + i;
-            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, armorPiece));
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 1 - i, 80, 8 + i * 18, armorPiece));
         }
     }
+
 
 
     // TODO fix this
