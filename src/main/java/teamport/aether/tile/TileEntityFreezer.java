@@ -135,6 +135,10 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             return;
         }
         ItemStack processedItem = AetherRecipes.FREEZER.findOutput(containerItemStacks[0]);
+        if(processedItem != null && processedItem.isItemStackDamageable()){
+            processedItem.setCustomName(containerItemStacks[0].getCustomName());
+            processedItem.setCustomColor(containerItemStacks[0].getCustomColor());
+        }
 
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {
