@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.AetherMod;
 import teamport.aether.items.accessory.Accessory;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
@@ -27,7 +28,7 @@ import teamport.aether.mixin.accessors.SlotArmorAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static teamport.aether.lookup.LookupMagicNumbers.*;
+import static teamport.aether.items.accessory.SlotAccessory.*;
 
 @Mixin(value = MenuInventory.class, remap = false)
 public class MenuInventoryMixinAddSlotAdjSlot {
@@ -97,11 +98,11 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             List<Integer> ints = new ArrayList<>();
             int accessorySlot = armorItem.getAccessorySlot();
 
-            if(accessorySlot >= WILDCARD_1_SLOT){
-                ints.add(WILDCARD_1_INDEX);
-                ints.add(WILDCARD_2_SLOT_INDEX);
+            if(accessorySlot >= SlotAccessory.WILDCARD_1_SLOT){
+                ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_1_SLOT);
+                ints.add(AetherMod.ARMOR_START_INDEX+ WILDCARD_2_SLOT);
             }else{
-                ints.add(ARMOR_START_INDEX + accessorySlot);
+                ints.add(AetherMod.ARMOR_START_INDEX + accessorySlot);
             }
             cir.setReturnValue(ints);
         }
@@ -113,7 +114,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
         }
-        ints.add(CAPE_INDEX);
+        ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
     }
 
 }

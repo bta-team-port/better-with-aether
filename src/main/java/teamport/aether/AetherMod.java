@@ -30,6 +30,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static MobFireflyCluster.FireflyColor SILVER;
 
+    // for slots
+    public static final byte ARMOR_START_INDEX = 41;
 
     @Override
     public void onInitialize() {
