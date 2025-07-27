@@ -35,7 +35,10 @@ public class MobMoa extends MobAetherAnimal {
         this.jumpsRemaining = 2;
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+    }
 
+    public int getMaxHealth() {
+        return 40;
     }
 
     public int getAmbientSoundInterval() {

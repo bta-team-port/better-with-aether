@@ -6,8 +6,9 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 public class MobRendererMoa extends MobRenderer<MobMoa> {
-    public MobRendererMoa(ModelBase modelbase, float f) {
-        super(modelbase, f);
+
+    public MobRendererMoa(ModelBase modelbase, float shadowSize) {
+        super(modelbase, shadowSize);
         this.setArmorModel(modelbase);
     }
 

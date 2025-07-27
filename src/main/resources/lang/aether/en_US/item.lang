@@ -57,7 +57,7 @@ item.aether.tool.sword.lightning.name=Lightning Sword
 item.aether.tool.sword.lightning.desc=An elemental blade imbued with the power of electricity.
 
 item.aether.tool.staff.nature.name=Nature Staff
-item.aether.tool.staff.nature.desc=Allows the user to control a moa with full authority.
+item.aether.tool.staff.nature.desc=Allows the user to control any mob with full authority.
 item.aether.tool.staff.cloud.name=Cloud Staff
 item.aether.tool.staff.cloud.desc=Summon two mini zephyrs to help defend.
 
