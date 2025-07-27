@@ -27,6 +27,6 @@ public class ItemAccessoryGloves extends ItemAccessory implements IArmorItem {
 
     @Override
     public int getArmorPiece() {
-        return this.getAccessoryTypes();
+        return this.getAccessorySlot();
     }
 }

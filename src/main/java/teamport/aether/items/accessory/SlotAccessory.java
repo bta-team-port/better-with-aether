@@ -50,7 +50,7 @@ public class SlotAccessory extends Slot {
         if (this.armorType == 5 && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
             return true;
         }
-        return item instanceof Accessory && ((Accessory) item).getAccessoryTypes() == this.armorType;
+        return item instanceof Accessory && ((Accessory) item).getAccessorySlot() == this.armorType;
     }
 
     // TODO figure out what to do here
