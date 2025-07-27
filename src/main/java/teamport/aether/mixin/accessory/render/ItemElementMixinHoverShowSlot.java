@@ -33,7 +33,7 @@ public class ItemElementMixinHoverShowSlot {
     }
 
 
-    // TODO the coordinates are off, and inconsistent between screen resolutions
+    // TODO make it so when hovering over a slot it shows where to go, currently the coordinates are off, and its inconsistent between screen resolutions
     @Redirect(
             method = "Lnet/minecraft/client/gui/ItemElement;render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
             at = @At(
