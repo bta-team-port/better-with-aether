@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.functional;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;

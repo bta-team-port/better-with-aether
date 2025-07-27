@@ -15,14 +15,14 @@ public class SlotAccessory extends Slot {
 
     // 4 -> gloves
     // 5 -> cape:       cape, quiver
-    // 6 -> accessory:  pendant, healing stone, etc.
-    // 7 -> wildcard:   compass, clock, calendar
+    // 6 -> wildcard:   pendant, healing stone, compass, clock, calendar, etc.
+    // 7 -> wildcard:   pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     private static final String[] accessoryOutline = new String[]{
             "aether:item/armor_gloves_outline",
             "aether:item/armor_capes_outline",
-            "aether:item/armor_jewellery_outline",
+            "aether:item/armor_wildcard_outline",
             "aether:item/armor_wildcard_outline",
     };
 
@@ -41,8 +41,8 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we use 3 for wildcard, we allow anything here
-        if (this.armorType == 7) {
+        // we use 6 & 7 for wildcard, we allow anything here
+        if (this.armorType == 7 || this.armorType == 6) {
             return true;
         }
         // allow quiver to be placed in the cape slot
