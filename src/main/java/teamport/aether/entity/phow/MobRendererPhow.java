@@ -4,9 +4,9 @@ import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 
 public class MobRendererPhow extends MobRenderer<MobPhow> {
-    public MobRendererPhow(ModelBase modelbase, ModelBase modelBase2, float f) {
+    public MobRendererPhow(ModelBase modelbase, float f) {
         super(modelbase, f);
-        this.setArmorModel(modelBase2);
+        this.setArmorModel(modelbase);
     }
 
     public float limbSway(MobPhow cow, float partialTick) {

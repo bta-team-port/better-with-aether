@@ -1,6 +1,6 @@
 [
   {
-    "name": "aether:incubator/hatch_ckicken",
+    "name": "aether:incubator/hatch_chicken",
     "type": "aether:incubator",
     "time": 200,
     "input": {
@@ -20,5 +20,38 @@
       }
     },
     "output": "minecraft:slime"
+  },
+  {
+    "name": "aether:incubator/hatch_moa_blue",
+    "type": "aether:incubator",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "aether:item/egg_moa_blue"
+      }
+    },
+    "output": "aether:moa"
+  },
+  {
+    "name": "aether:incubator/hatch_moa_white",
+    "type": "aether:incubator",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "aether:item/egg_moa_white"
+      }
+    },
+    "output": "aether:moa"
+  },
+  {
+    "name": "aether:incubator/hatch_moa_black",
+    "type": "aether:incubator",
+    "time": 500,
+    "input": {
+      "stack": {
+        "id": "aether:item/egg_moa_black"
+      }
+    },
+    "output": "aether:moa"
   }
 ]

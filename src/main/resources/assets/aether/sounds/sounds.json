@@ -12,6 +12,12 @@
       "mob/zephyr/shoot.ogg"
     ]
   },
+  "mob.moa": {
+    "subtitle": "subtitles.mob.moa",
+    "sounds": [
+      "mob/moa/moa.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {

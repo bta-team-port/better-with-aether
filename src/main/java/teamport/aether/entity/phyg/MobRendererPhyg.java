@@ -4,9 +4,9 @@ import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 
 public class MobRendererPhyg extends MobRenderer<MobPhyg> {
-    public MobRendererPhyg(ModelBase modelbase, ModelBase modelbase1, float f) {
+    public MobRendererPhyg(ModelBase modelbase, float f) {
         super(modelbase, f);
-        this.setArmorModel(modelbase1);
+        this.setArmorModel(modelbase);
     }
 
     public boolean renderSaddledPig(MobPhyg entity, int i, float f) {
