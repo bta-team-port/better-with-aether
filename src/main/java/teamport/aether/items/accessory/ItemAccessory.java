@@ -22,7 +22,7 @@ public class ItemAccessory extends Item implements Accessory{
     }
 
     @Override
-    public int getAccessoryTypes() {
+    public int getAccessorySlot() {
         return this.accessoryPiece;
     }
 
