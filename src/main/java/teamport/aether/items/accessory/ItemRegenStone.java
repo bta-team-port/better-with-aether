@@ -1,9 +1,7 @@
-package teamport.aether.items;
+package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.accessory.api.TickableWhileWorn;
-import teamport.aether.items.accessory.ItemAccessory;
 
 public class ItemRegenStone extends ItemAccessory implements TickableWhileWorn {
 
