@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.render;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.render.entity.MobRenderer;

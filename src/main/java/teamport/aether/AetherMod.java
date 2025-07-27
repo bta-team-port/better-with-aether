@@ -1,14 +1,14 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.gui.guidebook.GuidebookSections;
-import net.minecraft.client.gui.guidebook.mobs.GuidebookSectionMob;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
@@ -30,6 +30,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static MobFireflyCluster.FireflyColor SILVER;
 
+    // for slots
+    public static final byte ARMOR_START_INDEX = 41;
 
     @Override
     public void onInitialize() {
@@ -55,7 +57,17 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public void afterGameStart() {
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
+        registerNewFurnaceFuel();
+        registerNewTagForItems();
+    }
 
+    private static void registerNewTagForItems() {
+        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItems.ACCESSORY});
+        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItems.ACCESSORY});
+        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItems.ACCESSORY});
+    }
+
+    private static void registerNewFurnaceFuel() {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 150);
@@ -77,12 +89,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOOTER.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.BUCKET_SKYROOT.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT.id, 300);
-
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
-
-
     }
 
     public static void registerTextures() {
