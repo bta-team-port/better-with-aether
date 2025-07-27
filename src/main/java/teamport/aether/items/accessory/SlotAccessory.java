@@ -11,14 +11,12 @@ import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 
-import static teamport.aether.lookup.LookupMagicNumbers.*;
-
 public class SlotAccessory extends Slot {
-
-    // 4 -> gloves
-    // 5 -> cape:       cape, quiver
-    // 6 -> wildcard:   pendant, healing stone, compass, clock, calendar, etc.
-    // 7 -> wildcard:   pendant, healing stone, compass, clock, calendar, etc.
+    // armorType
+    public static final byte GLOVES_SLOT = 4;
+    public static final byte CAPE_SLOT = 5;       // cape, quiver
+    public static final byte WILDCARD_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte WILDCARD_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     private static final String[] accessoryOutline = new String[]{
@@ -43,7 +41,7 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we use 6 & 7 for wildcard, we allow anything here
+        // we allow anything here
         if (this.armorType == WILDCARD_1_SLOT || this.armorType == WILDCARD_2_SLOT) {
             return true;
         }
