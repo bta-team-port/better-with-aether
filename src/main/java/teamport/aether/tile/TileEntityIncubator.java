@@ -154,7 +154,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
         if(entityClazz == null) return;
         Entity entity =  EntityDispatcher.createEntityInWorld(entityClazz, worldObj);
-        entity.moveTo(this.x, this.y + 2, this.z, 0.0F, 0.0F);
+        entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
         worldObj.entityJoinedWorld(entity);
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) containerItemStacks[0] = null;
