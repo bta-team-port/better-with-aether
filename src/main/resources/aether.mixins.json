@@ -49,6 +49,7 @@
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
     "accessors.ScreenContainerAbstractAccessor",
+    "accessory.render.ItemElementMixinHoverShowSlot",
     "accessory.render.MobRendererMixinExtendArmor",
     "accessory.render.MobRendererPlayerMixinCapeRender",
     "accessory.render.MobRendererPlayerMixinGlovesAndPendantRender",
