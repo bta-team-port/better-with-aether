@@ -9,7 +9,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.AetherRecipes;
-import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.ArrayList;
@@ -87,7 +86,13 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
         for(RecipeEntryAetherMachine recipe : recipes){
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
-            if(Repairable.instance.isRepairable(input) && Repairable.instance.isRepairable(output) && input != null){
+            if(
+                    input != null
+                    && output != null
+                    && input.isItemStackDamageable()
+                    && output.isItemStackDamageable()
+                    && output.itemID == input.itemID
+            ){
                 repairable.add(recipe);
             }else{
                 new_recipes.add(recipe);

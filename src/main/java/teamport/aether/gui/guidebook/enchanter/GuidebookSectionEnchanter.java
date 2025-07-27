@@ -5,12 +5,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.GuidebookPage;
 import net.minecraft.client.gui.guidebook.GuidebookSection;
 import net.minecraft.client.gui.guidebook.SearchableGuidebookSection;
+import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.item.*;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherRecipes;
-import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
@@ -57,21 +58,33 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
     private static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
         List<RecipeEntryAetherMachine> new_recipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
+
+        // collect all repairable to separate list
         for(RecipeEntryAetherMachine recipe : recipes){
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
-            if((Repairable.instance.isRepairable(input) && Repairable.instance.isRepairable(output) && input != null && input.itemID == output.itemID)){
+            if(
+                    input != null
+                    && output != null
+                    && input.isItemStackDamageable()
+                    && output.isItemStackDamageable()
+                    && output.itemID == input.itemID
+            ){
+//                recipe = new RecipeEntryAetherMachine(getDamagedVariety(recipe), recipe.getOutput(), recipe.getData());
                 repairable.add(recipe);
             }else{
                 new_recipes.add(recipe);
             }
         }
+
+        // sort the recipe
         repairable.sort(new Comparator<RecipeEntryAetherMachine>() {
             @Override
             public int compare(RecipeEntryAetherMachine self, RecipeEntryAetherMachine other) {
                 return self.getInput().getStack().getDisplayName().compareTo(other.getInput().getStack().getDisplayName());
             }
         });
+
         new_recipes.addAll(repairable);
         return new_recipes;
     }

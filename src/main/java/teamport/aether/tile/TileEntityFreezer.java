@@ -11,7 +11,6 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicFreezer;
 import teamport.aether.items.AetherItems;
 import teamport.aether.lookup.LookupFuelFreezer;
-import teamport.aether.lookup.Repairable;
 
 import java.util.HashMap;
 
@@ -139,7 +138,11 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {
-            if(Repairable.instance.isRepairable(containerItemStacks[0]) && Repairable.instance.isRepairable(processedItem)){
+            if(
+                    containerItemStacks[0] != null
+                    && containerItemStacks[0].isItemStackDamageable()
+                    && processedItem.isItemStackDamageable()
+            ){
                 processedItem.setMetadata(containerItemStacks[0].getMetadata());
             }
             this.containerItemStacks[2] = processedItem.copy();
