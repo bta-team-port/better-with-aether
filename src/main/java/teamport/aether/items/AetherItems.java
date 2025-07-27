@@ -228,7 +228,7 @@ public final class AetherItems {
         RECORD_DAWN = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending.dawn", "Emile van Kriken"));
 
         AMBER = new ItemBuilder(MOD_ID).build(new Item("amber", itemKey("amber"), itemID("AMBER")));
-        PETAL_AECHOR = new ItemBuilder(MOD_ID).setTags(AetherItemTags.MOAS_FAVORITE_ITEM).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));
+        PETAL_AECHOR = new ItemBuilder(MOD_ID).setTags(AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));
         STICK_SKYROOT = new ItemBuilder(MOD_ID).build(new Item("stick.skyroot", itemKey("stick_skyroot"), itemID("STICK_SKYROOT")));
 
         AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));
@@ -337,7 +337,7 @@ public final class AetherItems {
         TOOL_SWORD_HOLY = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.SPECIAL));
         TOOL_SWORD_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL));
 
-        TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
+        TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.PIGS_FAVOURITE_ITEM, AetherItemTags.SHEEPS_FAVOURITE_ITEM, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
         //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
         //TODO Nature staff should either be removed or reworked, og use was luring moas but we have a system built into bta for that now
