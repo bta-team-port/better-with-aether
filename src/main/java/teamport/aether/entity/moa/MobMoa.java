@@ -3,6 +3,7 @@ package teamport.aether.entity.moa;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -22,15 +23,17 @@ public class MobMoa extends MobAetherAnimal {
     public float oFlap;
     public float flapping = 1.0F;
     public int eggTimer;
+    public Item eggColor;
     public int jumpsRemaining;
     public boolean jumpPressed;
-    public int ticks;
+
     public MobMoa(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa");
-        this.jumpsRemaining = 3;
+        this.jumpsRemaining = 2;
+        this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
 
     }
@@ -60,9 +63,7 @@ public class MobMoa extends MobAetherAnimal {
         this.oFlapSpeed = this.flapSpeed;
         this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3);
 
-        if (this.onGround ) {
-            this.jumpsRemaining = 3;
-        }
+        this.onGround();
 
         if (this.flapSpeed < 0.0F) {
             this.flapSpeed = 0.0F;
@@ -85,10 +86,16 @@ public class MobMoa extends MobAetherAnimal {
 
         if (!this.world.isClientSide && --this.eggTimer <= 0) {
             this.world.playSoundAtEntity(null, this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.dropItem(AetherItems.EGG_MOA_BLUE.id, 1);
+            this.dropItem(this.eggColor.id, 1);
             this.eggTimer = this.random.nextInt(6000) + 6000;
         }
 
+    }
+
+    public void onGround() {
+        if (this.onGround ) {
+            this.jumpsRemaining = 2;
+        }
     }
 
     public double getRideHeight() {
@@ -101,7 +108,7 @@ public class MobMoa extends MobAetherAnimal {
                 this.moveSpeed = 0.0F;
                 this.moveStrafing = 0.0F;
                 this.isJumping = false;
-                this.footSize = 1.0f;
+                this.footSize = 1.5f;
                 ((EntityAccessor) this.passenger).setFallDistance(0.0F);
                 this.yRotO = this.yRot = this.passenger.yRot;
                 this.xRotO = this.xRot = this.passenger.xRot;
@@ -133,7 +140,6 @@ public class MobMoa extends MobAetherAnimal {
                     this.onGround = false;
                     this.yd = 1.4;
                     this.jumpPressed = true;
-                    --this.jumpsRemaining;
                 } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
                     this.yd = 0.5;
                     this.jumpPressed = true;
@@ -156,7 +162,7 @@ public class MobMoa extends MobAetherAnimal {
                 }
 
             } else {
-                this.footSize = 0.5f;
+                this.footSize = 1.0f;
                 super.updateAI();
             }
         }

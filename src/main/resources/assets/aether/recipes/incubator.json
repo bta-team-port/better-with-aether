@@ -24,7 +24,7 @@
   {
     "name": "aether:incubator/hatch_moa_blue",
     "type": "aether:incubator",
-    "time": 500,
+    "time": 1000,
     "input": {
       "stack": {
         "id": "aether:item/egg_moa_blue"
@@ -35,23 +35,23 @@
   {
     "name": "aether:incubator/hatch_moa_white",
     "type": "aether:incubator",
-    "time": 500,
+    "time": 1000,
     "input": {
       "stack": {
         "id": "aether:item/egg_moa_white"
       }
     },
-    "output": "aether:moa"
+    "output": "aether:moa_white"
   },
   {
     "name": "aether:incubator/hatch_moa_black",
     "type": "aether:incubator",
-    "time": 500,
+    "time": 1000,
     "input": {
       "stack": {
         "id": "aether:item/egg_moa_black"
       }
     },
-    "output": "aether:moa"
+    "output": "aether:moa_black"
   }
 ]

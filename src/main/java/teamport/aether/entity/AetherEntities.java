@@ -3,6 +3,8 @@ package teamport.aether.entity;
 import net.minecraft.core.util.collection.NamespaceID;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.moa.MobMoa;
+import teamport.aether.entity.moa.MobMoaBlack;
+import teamport.aether.entity.moa.MobMoaWhite;
 import teamport.aether.entity.parachute.EntityParachute;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
@@ -41,6 +43,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobPhyg.class, NamespaceID.getPermanent(MOD_ID, "phyg"), entityKey("phyg"));
         EntityHelper.createEntity(MobSwet.class, NamespaceID.getPermanent(MOD_ID, "swet"), entityKey("swet"));
         EntityHelper.createEntity(MobMoa.class, NamespaceID.getPermanent(MOD_ID, "moa"), entityKey("moa"));
+        EntityHelper.createEntity(MobMoaWhite.class, NamespaceID.getPermanent(MOD_ID, "moa_white"), entityKey("moa_white"));
+        EntityHelper.createEntity(MobMoaBlack.class, NamespaceID.getPermanent(MOD_ID, "moa_black"), entityKey("moa_black"));
 
 
 

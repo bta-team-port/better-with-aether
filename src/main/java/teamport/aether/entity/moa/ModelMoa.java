@@ -6,6 +6,7 @@ import net.minecraft.core.util.helper.MathHelper;
 
 public class ModelMoa extends ModelBase {
     public Cube head;
+    public Cube palate;
     public Cube body;
     public Cube legs;
     public Cube legs2;
@@ -22,6 +23,11 @@ public class ModelMoa extends ModelBase {
         this.head = new Cube(0, 13);
         this.head.addBox(-2.0F, -4.0F, -6.0F, 4, 4, 8, 0.0F);
         this.head.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
+
+        this.palate = new Cube(24, 13);
+        this.palate.addBox(-2.0F, -1.0F, -6.0F, 4, 0, 8, -0.1F);
+        this.palate.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
+
         this.jaw = new Cube(24, 13);
         this.jaw.addBox(-2.0F, -1.0F, -6.0F, 4, 1, 8, -0.1F);
         this.jaw.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
@@ -34,12 +40,14 @@ public class ModelMoa extends ModelBase {
         this.legs2 = new Cube(22, 0);
         this.legs2.addBox(-1.0F, -1.0F, -1.0F, 2, 9, 2);
         this.legs2.setRotationPoint(2.0F, byte0, 1.0F);
+
         this.wings = new Cube(52, 0);
-        this.wings.addBox(-1.0F, -0.0F, -1.0F, 1, 8, 4);
+        this.wings.addBox(-1.01F, -0.0F, -1.0F, 1, 8, 4);
         this.wings.setRotationPoint(-3.0F, (float) (-4 + byte0), 0.0F);
         this.wings2 = new Cube(52, 0);
-        this.wings2.addBox(0.0F, -0.0F, -1.0F, 1, 8, 4);
+        this.wings2.addBox(0.01F, -0.0F, -1.0F, 1, 8, 4);
         this.wings2.setRotationPoint(3.0F, (float) (-4 + byte0), 0.0F);
+
         this.neck = new Cube(44, 0);
         this.neck.addBox(-1.0F, -6.0F, -1.0F, 2, 6, 2);
         this.neck.setRotationPoint(0.0F, (float) (-2 + byte0), -4.0F);
@@ -63,6 +71,7 @@ public class ModelMoa extends ModelBase {
     public void render(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
         this.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
         this.head.render(scale);
+        this.palate.render(scale);
         this.jaw.render(scale);
         this.body.render(scale);
         this.legs.render(scale);
@@ -79,6 +88,8 @@ public class ModelMoa extends ModelBase {
         float f6 = 3.141592653589793238462643383279F; // Pi
         this.head.xRot = headPitch / 57.29578F;
         this.head.yRot = headYaw / 57.29578F;
+        this.palate.xRot = this.head.xRot;
+        this.palate.yRot = this.head.yRot;
         this.jaw.xRot = this.head.xRot;
         this.jaw.yRot = this.head.yRot;
         this.body.xRot = 1.5707964F;
@@ -114,6 +125,8 @@ public class ModelMoa extends ModelBase {
         this.feather3.xRot = 0.25F;
         this.neck.xRot = 0.0F;
         this.neck.yRot = this.head.yRot;
+        Cube var10000 = this.jaw;
+        var10000.xRot += 0.35F;
     }
     
     
