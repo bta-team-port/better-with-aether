@@ -1,14 +1,14 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.gui.guidebook.GuidebookSections;
-import net.minecraft.client.gui.guidebook.mobs.GuidebookSectionMob;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
+import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
@@ -58,8 +58,13 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
         registerNewFurnaceFuel();
+        registerNewTagForItems();
+    }
 
-
+    private static void registerNewTagForItems() {
+        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItems.ACCESSORY});
+        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItems.ACCESSORY});
+        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItems.ACCESSORY});
     }
 
     private static void registerNewFurnaceFuel() {
