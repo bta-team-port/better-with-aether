@@ -11,6 +11,8 @@ import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 
+import static teamport.aether.lookup.LookupMagicNumbers.*;
+
 public class SlotAccessory extends Slot {
 
     // 4 -> gloves
@@ -42,12 +44,12 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         // we use 6 & 7 for wildcard, we allow anything here
-        if (this.armorType == 7 || this.armorType == 6) {
+        if (this.armorType == WILDCARD_1_SLOT || this.armorType == WILDCARD_2_SLOT) {
             return true;
         }
         // allow quiver to be placed in the cape slot
         Item item = itemstack.getItem();
-        if (this.armorType == 5 && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
+        if (this.armorType == CAPE_SLOT && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
             return true;
         }
         return item instanceof Accessory && ((Accessory) item).getAccessorySlot() == this.armorType;
@@ -66,6 +68,7 @@ public class SlotAccessory extends Slot {
         super.set(itemstack);
     }
 
+    // cause of the armor offset
     public String getItemIcon() {
         return accessoryOutline[this.armorType - 4];
     }

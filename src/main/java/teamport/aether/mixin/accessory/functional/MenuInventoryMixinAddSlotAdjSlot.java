@@ -27,6 +27,8 @@ import teamport.aether.mixin.accessors.SlotArmorAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static teamport.aether.lookup.LookupMagicNumbers.*;
+
 @Mixin(value = MenuInventory.class, remap = false)
 public class MenuInventoryMixinAddSlotAdjSlot {
 
@@ -91,17 +93,15 @@ public class MenuInventoryMixinAddSlotAdjSlot {
                 && slot.getItemStack() != null
                 && slot.getItemStack().getItem() instanceof Accessory
         ) {
-            int STARTING_INDEX = 41;
             Accessory armorItem = (Accessory) slot.getItemStack().getItem();
             List<Integer> ints = new ArrayList<>();
             int accessorySlot = armorItem.getAccessorySlot();
 
-            if(accessorySlot >= 6){
-                // insert into wildcard slot
-                ints.add(STARTING_INDEX + 6);
-                ints.add(STARTING_INDEX + 7);
+            if(accessorySlot >= WILDCARD_1_SLOT){
+                ints.add(WILDCARD_1_INDEX);
+                ints.add(WILDCARD_2_SLOT_INDEX);
             }else{
-                ints.add(STARTING_INDEX + accessorySlot);
+                ints.add(ARMOR_START_INDEX + accessorySlot);
             }
             cir.setReturnValue(ints);
         }
@@ -113,8 +113,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
         }
-        // 41 starting index, 5th slot is capeslot
-        ints.add(46);
+        ints.add(CAPE_INDEX);
     }
 
 }

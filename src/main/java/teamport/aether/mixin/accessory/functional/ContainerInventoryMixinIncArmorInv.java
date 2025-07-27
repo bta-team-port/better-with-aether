@@ -26,6 +26,7 @@ public class ContainerInventoryMixinIncArmorInv {
     }
 
     // change hardcoded size of the armor inventory
+    // TODO change the 4+4 to armor.lenght
     @ModifyConstant(method = "readFromNBT", constant = @Constant(intValue = 4), require = 1)
     private int modifyArmourSize(int original) {
         return 4 + 4;
@@ -42,6 +43,7 @@ public class ContainerInventoryMixinIncArmorInv {
         }
     }
 
+    // TODO change the 4+4 to armor.lenght
     @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
     private int modifyContainerSize(int original) {
         return 4 + 4;
