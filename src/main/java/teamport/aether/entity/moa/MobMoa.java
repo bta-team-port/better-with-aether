@@ -221,7 +221,7 @@ public class MobMoa extends MobAetherAnimal {
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVORITE_ITEM);
+        return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM);
     }
 
 }

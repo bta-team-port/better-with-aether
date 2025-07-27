@@ -8,6 +8,8 @@
     "BlockLogicPathDirtMixin",
     "EntityMixin",
     "ItemToolShovelMixin",
+    "MobPigMixin",
+    "MobSheepMixin",
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
