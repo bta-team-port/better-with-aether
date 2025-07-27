@@ -1,14 +1,12 @@
 package teamport.aether.items;
 
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.accessory.ItemAccessory;
-import teamport.aether.items.accessory.ItemAccessoryGloves;
+import teamport.aether.items.accessory.*;
 import teamport.aether.items.itemtool.*;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolAxeGravitite;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolPickaxeGravitite;
@@ -191,9 +189,6 @@ public final class AetherItems {
 
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
-
-    // tags
-    public static Tag<Item> ACCESSORY = Tag.of("accessory");
 
     public static boolean hasInit = false;
 

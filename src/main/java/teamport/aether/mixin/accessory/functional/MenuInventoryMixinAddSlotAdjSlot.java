@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
-import teamport.aether.items.AetherItems;
+import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.accessory.Accessory;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
@@ -94,7 +94,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
         ItemStack itemStack = slot.getItemStack();
         if (itemStack == null) return;
-        boolean isAccessory = itemStack.getItem().hasTag(AetherItems.ACCESSORY);
+        boolean isAccessory = itemStack.getItem().hasTag(AetherItemTags.ACCESSORY);
         List<Integer> ints = new ArrayList<>();
         if (itemStack.getItem() instanceof Accessory) {
             Accessory armorItem = (Accessory) itemStack.getItem();
