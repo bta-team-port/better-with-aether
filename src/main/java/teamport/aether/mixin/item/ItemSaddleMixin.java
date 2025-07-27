@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 
@@ -22,17 +23,25 @@ public class ItemSaddleMixin extends Item {
     @Inject(method = "useItemOnEntity", at = @At("HEAD"), cancellable = true)
     public void callOnItemUse(ItemStack itemstack, Mob entityliving, Player entityPlayer, CallbackInfoReturnable<Boolean> info) {
         if (entityliving instanceof MobPhyg && itemstack.consumeItem(entityPlayer)) {
-            MobPhyg entitypig = (MobPhyg)entityliving;
-            if (!entitypig.getSaddled()) {
-                entitypig.setSaddled(true);
+            MobPhyg entity = (MobPhyg)entityliving;
+            if (!entity.getSaddled()) {
+                entity.setSaddled(true);
                 entityPlayer.swingItem();
                 info.setReturnValue(true);
             }
         }
         if (entityliving instanceof MobPhow && itemstack.consumeItem(entityPlayer)) {
-            MobPhow entitycow = (MobPhow)entityliving;
-            if (!entitycow.getSaddled()) {
-                entitycow.setSaddled(true);
+            MobPhow entity = (MobPhow)entityliving;
+            if (!entity.getSaddled()) {
+                entity.setSaddled(true);
+                entityPlayer.swingItem();
+                info.setReturnValue(true);
+            }
+        }
+        if (entityliving instanceof MobMoa && itemstack.consumeItem(entityPlayer)) {
+            MobMoa entity = (MobMoa)entityliving;
+            if (!entity.getSaddled()) {
+                entity.setSaddled(true);
                 entityPlayer.swingItem();
                 info.setReturnValue(true);
             }

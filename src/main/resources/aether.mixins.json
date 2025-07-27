@@ -8,7 +8,6 @@
     "BlockLogicPathDirtMixin",
     "EntityMixin",
     "ItemToolShovelMixin",
-    "PlayerAgilityCapeMixin",
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",

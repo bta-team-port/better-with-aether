@@ -228,7 +228,7 @@ public final class AetherItems {
         RECORD_DAWN = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending.dawn", "Emile van Kriken"));
 
         AMBER = new ItemBuilder(MOD_ID).build(new Item("amber", itemKey("amber"), itemID("AMBER")));
-        PETAL_AECHOR = new ItemBuilder(MOD_ID).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));
+        PETAL_AECHOR = new ItemBuilder(MOD_ID).setTags(AetherItemTags.MOAS_FAVORITE_ITEM).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));
         STICK_SKYROOT = new ItemBuilder(MOD_ID).build(new Item("stick.skyroot", itemKey("stick_skyroot"), itemID("STICK_SKYROOT")));
 
         AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));

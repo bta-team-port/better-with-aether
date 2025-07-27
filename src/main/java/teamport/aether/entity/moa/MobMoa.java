@@ -1,58 +1,98 @@
-package teamport.aether.entity.phow;
+package teamport.aether.entity.moa;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.MobAetherAnimal;
+import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobPhow extends MobAetherAnimal {
-    public float wingFold;
-    public float wingAngle;
-    public float aimingForFold;
-    public int jumps;
-    public int jrem;
-    public boolean jpress;
+public class MobMoa extends MobAetherAnimal {
+    public float flap = 0.0F;
+    public float flapSpeed = 0.0F;
+    public float oFlapSpeed;
+    public float oFlap;
+    public float flapping = 1.0F;
+    public int eggTimer;
+    public int jumpsRemaining;
+    public boolean jumpPressed;
     public int ticks;
-    public MobPhow(World world) {
+    public MobMoa(@Nullable World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "phow");
-        this.setSize(0.9F, 1.3F);
-        this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
+        this.setSize(1.0F, 2.0F);
+        this.eggTimer = this.random.nextInt(6000) + 6000;
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa");
+        this.jumpsRemaining = 3;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+
+    }
+
+    public int getAmbientSoundInterval() {
+        return 240;
+    }
+
+    public void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(16, (byte)0, Byte.class);
+    }
+
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Saddle", this.getSaddled());
+    }
+
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setSaddled(tag.getBoolean("Saddle"));
     }
 
     public void tick() {
         super.tick();
-        if (this.onGround) {
-            this.aimingForFold = 0.1F;
-            this.jpress = false;
-            this.jrem = this.jumps;
-        } else {
-            this.aimingForFold = 1.0F;
+        this.oFlap = this.flap;
+        this.oFlapSpeed = this.flapSpeed;
+        this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3);
+
+        if (this.onGround ) {
+            this.jumpsRemaining = 3;
         }
 
-        ++this.ticks;
-        this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
-        this.wingFold += (this.aimingForFold - this.wingFold) / 5.0F;
-        this.fallDistance = 0.0F;
-        if (this.yd < -0.2) {
-            this.yd = -0.2;
+        if (this.flapSpeed < 0.0F) {
+            this.flapSpeed = 0.0F;
+        }
+
+        if (this.flapSpeed > 1.0F) {
+            this.flapSpeed = 1.0F;
+        }
+
+        if (!this.onGround && this.flapping < 1.0F) {
+            this.flapping = 1.0F;
+        }
+
+        this.flapping = (float)((double)this.flapping * 0.9);
+        if (!this.onGround && this.yd < 0.0) {
+            this.yd *= 0.6;
+        }
+
+        this.flap += this.flapping * 2.0F;
+
+        if (!this.world.isClientSide && --this.eggTimer <= 0) {
+            this.world.playSoundAtEntity(null, this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(AetherItems.EGG_MOA_BLUE.id, 1);
+            this.eggTimer = this.random.nextInt(6000) + 6000;
         }
 
     }
 
     public double getRideHeight() {
-        return this.bbHeight;
+        return this.bbHeight - 0.6f;
     }
 
     public void updateAI() {
@@ -92,20 +132,20 @@ public class MobPhow extends MobAetherAnimal {
                 if (this.onGround && ((MobAccessor) mob).getJumping()) {
                     this.onGround = false;
                     this.yd = 1.4;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
                 } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
                     this.yd = 0.5;
-                    this.jpress = true;
-                    --this.jrem;
-                } else if (this.jrem > 0 && !this.jpress && ((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
+                } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
                     this.yd = 1.2;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
                 }
 
-                if (this.jpress && !((MobAccessor) mob).getJumping()) {
-                    this.jpress = false;
+                if (this.jumpPressed && !((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = false;
                 }
 
                 double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
@@ -126,6 +166,32 @@ public class MobPhow extends MobAetherAnimal {
         this.yd = 0.6;
     }
 
+    public void causeFallDamage(float distance) {
+    }
+
+    public String getLivingSound() {
+        return "aether:mob.moa";
+    }
+
+    public String getHurtSound() {
+        return "aether:mob.moa";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.moa";
+    }
+
+    public boolean interact(@NotNull Player player) {
+        if (super.interact(player)) {
+            return true;
+        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
+            return false;
+        } else {
+            player.startRiding(this);
+            return true;
+        }
+    }
+
     public void dropDeathItems() {
         if (this.getSaddled()) {
             this.dropItem(Items.SADDLE.id, 1);
@@ -133,6 +199,7 @@ public class MobPhow extends MobAetherAnimal {
 
         super.dropDeathItems();
     }
+
 
     public boolean getSaddled() {
         return (this.entityData.getByte(16) & 1) != 0;
@@ -147,54 +214,8 @@ public class MobPhow extends MobAetherAnimal {
 
     }
 
-    public void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(16, (byte)0, Byte.class);
-    }
-
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putBoolean("Saddle", this.getSaddled());
-    }
-
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        this.setSaddled(tag.getBoolean("Saddle"));
-    }
-
-    public String getLivingSound() {
-        return "mob.cow";
-    }
-
-    public String getHurtSound() {
-        return "mob.cowhurt";
-    }
-
-    public String getDeathSound() {
-        return "mob.cowhurt";
-    }
-
-    public float getSoundVolume() {
-        return 0.4F;
-    }
-
-    public boolean interact(@NotNull Player player) {
-        ItemStack itemstack = player.inventory.getCurrentItem();
-        if (itemstack != null && itemstack.itemID == Items.BUCKET.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(Items.BUCKET_MILK));
-            return true;
-        } else if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
-            return true;
-        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
-            return false;
-        } else {
-            player.startRiding(this);
-            return true;
-        }
-    }
-
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
+        return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVORITE_ITEM);
     }
+
 }

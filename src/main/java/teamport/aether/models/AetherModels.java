@@ -15,6 +15,9 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.mimic.MobRendererMimic;
+import teamport.aether.entity.moa.MobMoa;
+import teamport.aether.entity.moa.MobRendererMoa;
+import teamport.aether.entity.moa.ModelMoa;
 import teamport.aether.entity.parachute.EntityParachute;
 import teamport.aether.entity.parachute.EntityRendererParachute;
 import teamport.aether.entity.phow.MobPhow;
@@ -522,9 +525,11 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
 
-        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), new ModelPhow(), 0.7F));
+        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), 0.7F));
 
-        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), new ModelPhyg(), 0.7F));
+        ModelHelper.setEntityModel(MobMoa.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
+
+        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), 0.7F));
 
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
 

@@ -39,7 +39,6 @@ public class MobPhyg extends MobAetherAnimal {
 
     public void tick() {
         super.tick();
-        super.rideTick();
         if (this.onGround) {
             this.aimingForFold = 0.1F;
             this.jpress = false;
@@ -58,12 +57,14 @@ public class MobPhyg extends MobAetherAnimal {
 
     }
 
-    public void rideTick() {
+
+    public void updateAI() {
         if (!this.world.isClientSide) {
             if (this.passenger != null && this.passenger instanceof Player) {
                 this.moveSpeed = 0.0F;
                 this.moveStrafing = 0.0F;
                 this.isJumping = false;
+                this.footSize = 1.0f;
                 ((EntityAccessor) this.passenger).setFallDistance(0.0F);
                 this.yRotO = this.yRot = this.passenger.yRot;
                 this.xRotO = this.xRot = this.passenger.xRot;
@@ -118,7 +119,8 @@ public class MobPhyg extends MobAetherAnimal {
                 }
 
             } else {
-                super.rideTick();
+                this.footSize = 0.5f;
+                super.updateAI();
             }
         }
     }
