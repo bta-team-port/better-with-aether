@@ -33,11 +33,4 @@ public class ScreenInventoryCreativeMixinNewInv{
         font.drawString(I18n.getInstance().translateKey("gui.inventory.label.crafting"), 98, 16, 4210752);
         ci.cancel();
     }
-
-    // TODO lookup ContainerInventoryMixinIncArmorInv for more info
-    // make delete the accessory when shift clicking the delete button
-    @WrapOperation(method = "buttonClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;getContainerSize()I", ordinal = 0))
-    public int removeAccessoriesToo(ContainerInventory instance, Operation<Integer> original){
-        return original.call(instance) + 4;
-    }
 }
