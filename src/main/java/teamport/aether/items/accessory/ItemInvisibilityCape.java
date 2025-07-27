@@ -1,8 +1,7 @@
-package teamport.aether.items;
+package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.entity.IAetherAccessories;
 
 public class ItemInvisibilityCape extends ItemAccessory {
