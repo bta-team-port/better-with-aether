@@ -1,17 +1,15 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.accessory.render;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 
 @Mixin(value = Player.class, remap = false)
 abstract public class PlayerAgilityCapeMixin extends Mob {
 
-     @Shadow public MenuInventory inventory;
+//     @Shadow public MenuInventory inventory;
 
     public PlayerAgilityCapeMixin(World world) {
         super(world);
