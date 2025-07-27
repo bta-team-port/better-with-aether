@@ -1,6 +1,7 @@
 package teamport.aether.items;
 
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
@@ -190,6 +191,10 @@ public final class AetherItems {
 
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
+
+    // tags
+    public static Tag<Item> ACCESSORY = Tag.of("accessory");
+
     public static boolean hasInit = false;
 
     public static void init(){
@@ -204,6 +209,8 @@ public final class AetherItems {
     }
 
     public static void initializeItems() {
+
+
         // TODO maybe moving some item initialization in their own method
         AetherItems.registerArmor();
         AetherItems.registerTool();
