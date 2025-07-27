@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.functional;
 
 
 import com.llamalad7.mixinextras.sugar.Local;
@@ -10,6 +10,7 @@ import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
+import net.minecraft.core.player.inventory.slot.SlotArmor;
 import net.minecraft.core.player.inventory.slot.SlotResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,19 +18,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.AetherMod;
+import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.Accessory;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
+import teamport.aether.mixin.accessors.SlotAccessor;
+import teamport.aether.mixin.accessors.SlotArmorAccessor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static teamport.aether.items.accessory.SlotAccessory.*;
+
 @Mixin(value = MenuInventory.class, remap = false)
 public class MenuInventoryMixinAddSlotAdjSlot {
 
-
     @Shadow
     public ContainerInventory inventory;
+
 
     @Inject(method = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V",
             at = @At(value = "INVOKE",
@@ -38,7 +45,8 @@ public class MenuInventoryMixinAddSlotAdjSlot {
     )
     public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
-        for (Slot slot : menu.slots) {
+        for(int i = 0; i < menu.slots.size(); i ++){
+            Slot slot = menu.slots.get(i);
             Container contain = slot.getContainer();
             // fixing the crafting inventory
             if (contain instanceof ContainerCrafting) {
@@ -47,41 +55,63 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
-            // TODO check ContainerInventoryMixinIncArmor
-//             fixing the index of the armor slot
-//            if(slot instanceof SlotArmor){
-//                slot = new SlotArmor(menu, slot.getContainer(), slot.index - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
-//            }
-
+             //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
+            if(slot instanceof SlotArmor){
+                SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor)slot).getSlot() - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
+                newArmorSlot.index = i;
+                menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
+            }
         }
 
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
             int armorPiece = 4 + i;
-            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() + i, 80, 8 + i * 18, armorPiece));
+            // staring where armor ends
+            ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, armorPiece));
         }
     }
 
 
-    // TODO fix this
+
+    // TODO make the target 2 when its an accessory
     /**
-     * Colin:
      * in the MAIN inventory (not including armor or crafting slots)
-     * IDK what target does, but it always seems to be 0 for me
-     *
-     * @reason So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
-     * a such the target is always the inventory. To fix this a mixin is needed.
-     * @implNote Due to gloves beeing now an armor piece target can return 0 or 2
+     * IDK what target does, but it always seems to be 0 for me - Colin
+     * <br>
+     * <br>
+     * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
+     * as such the target is always the inventory. To fix this a mixin is needed.
+     * I could not find a good way to mix into it. - Redart15
+     * <br>
+     * <br>
+     * <strong>Note:</strong> Due to gloves being an armor piece,
+     *  target can return 0 or 2 for accessories.
      */
     @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
     public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        // TODO MIXIN into ScreenContainerAbstract and fix the targeting, so it wont cause problems down the line
-        if (slot.index >= 9 && slot.index <= 44 && slot.getItemStack() != null && slot.getItemStack().getItem() instanceof Accessory) {
-            Accessory armorItem = (Accessory) slot.getItemStack().getItem();
-            List<Integer> ints = new ArrayList<>();
-            ints.add(41 + armorItem.getAccessoryTypes());
+        if (slot.index < 9 || slot.index > 44 || target == 1) {
+            return;
+        }
+        ItemStack itemStack = slot.getItemStack();
+        if (itemStack == null) return;
+        boolean isAccessory = itemStack.getItem().hasTag(AetherItems.ACCESSORY);
+        List<Integer> ints = new ArrayList<>();
+        if (itemStack.getItem() instanceof Accessory) {
+            Accessory armorItem = (Accessory) itemStack.getItem();
+            int accessorySlot = armorItem.getAccessorySlot();
+            if (accessorySlot >= SlotAccessory.WILDCARD_1_SLOT) {
+                ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_1_SLOT);
+                ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_2_SLOT);
+            } else {
+                ints.add(AetherMod.ARMOR_START_INDEX + accessorySlot);
+            }
+            cir.setReturnValue(ints);
+        } else if (isAccessory) {
+            ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_1_SLOT);
+            ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_2_SLOT);
             cir.setReturnValue(ints);
         }
+
     }
 
     // allow quiver to be shift clicked in either the body or the cape slot
@@ -90,7 +120,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
         }
-        ints.add(46);
+        ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
     }
 
 }

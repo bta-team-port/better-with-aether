@@ -8,7 +8,6 @@ import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicEnchanter;
 import teamport.aether.lookup.LookupFuelEnchanter;
-import teamport.aether.lookup.Repairable;
 
 
 public class TileEntityEnchanter extends AetherTileEntityMachine {
@@ -48,7 +47,11 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     public void setMaxProcessTime() {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-        if(Repairable.instance.isRepairable((containerItemStacks[0])) && containerItemStacks[0].getMetadata() != 0){
+        if(
+                containerItemStacks[0] != null
+                && containerItemStacks[0].isItemStackDamageable()
+                && containerItemStacks[0].getMetadata() != 0
+        ){
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
@@ -122,7 +125,10 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (resultStack == null) {
             return false;
         }
-        if(Repairable.instance.isRepairable(toProcess) && toProcess.getMetadata() == 0){
+        if(toProcess.isItemStackDamageable()
+//                Repairable.instance.isRepairable(toProcess)
+                        && toProcess.getMetadata() == 0
+        ){
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
@@ -146,6 +152,11 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             return;
         }
         ItemStack processedItem = AetherRecipes.ENCHANTER.findOutput(containerItemStacks[0]);
+        if(processedItem != null && processedItem.isItemStackDamageable()){
+            processedItem.setCustomName(containerItemStacks[0].getCustomName());
+            processedItem.setCustomColor(containerItemStacks[0].getCustomColor());
+
+        }
 
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {

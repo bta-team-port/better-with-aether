@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.functional;
 
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.player.Player;
@@ -26,6 +26,7 @@ public class ContainerInventoryMixinIncArmorInv {
     }
 
     // change hardcoded size of the armor inventory
+    // TODO change the 4+4 to armor.lenght
     @ModifyConstant(method = "readFromNBT", constant = @Constant(intValue = 4), require = 1)
     private int modifyArmourSize(int original) {
         return 4 + 4;
@@ -42,18 +43,11 @@ public class ContainerInventoryMixinIncArmorInv {
         }
     }
 
-    // TODO fix it
-    /**
-     * @reason
-     * Right now the size of inventory + armorInv < inventory + actualArmorInv.
-     * This results additional mixin to wrap these calls and adjust the values manually.
-     * I attempted to fix this however the game just crashes with an index out of bounds 8.
-     * I could not figure out how to fix it and left it be for now - Redart15
-     * */
-//    @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
-//    private int modifyContainerSize(int original) {
-//        return 4 + 4;
-//    }
+    // TODO change the 4+4 to armor.lenght
+    @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
+    private int modifyContainerSize(int original) {
+        return 4 + 4;
+    }
 
     @Inject(method = "setItem", at = @At("HEAD"))
     public void onSetInventoryItem(int index, ItemStack newItem, CallbackInfo ci) {

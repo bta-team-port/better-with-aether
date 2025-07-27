@@ -9,7 +9,7 @@ public interface Accessory {
      *
      * @return accessory slot
      */
-    int getAccessoryTypes();
+    int getAccessorySlot();
 
     /**
      * Called when accessory is inserted into a slot, or the player who had it in a slot is just loaded

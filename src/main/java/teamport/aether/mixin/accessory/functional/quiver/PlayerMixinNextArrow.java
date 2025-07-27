@@ -1,20 +1,23 @@
-package teamport.aether.mixin.accessory.quiver;
+package teamport.aether.mixin.accessory.functional.quiver;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.core.item.ItemBow;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = ItemBow.class, remap = false)
-public class ItemBowMixinQuiverSlotFix {
+@Mixin(value = Player.class, remap = false)
+public class PlayerMixinNextArrow {
 
+
+    @Shadow public ContainerInventory inventory;
 
     @WrapOperation(
-            method = "onUseItem",
+            method = "getNextArrow",
             at=@At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"

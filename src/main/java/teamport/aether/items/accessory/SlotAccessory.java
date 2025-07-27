@@ -1,7 +1,10 @@
 package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.*;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemQuiver;
+import net.minecraft.core.item.ItemQuiverEndless;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
@@ -9,10 +12,11 @@ import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 
 public class SlotAccessory extends Slot {
-
-    // 4 -> gloves
-    // 5 -> cape: cape, quiver
-    // 6 & 7 -> wildcard:  pendant, healing stone, compass, clock, calendar, etc.
+    // armorType
+    public static final byte GLOVES_SLOT = 4;
+    public static final byte CAPE_SLOT = 5;       // cape, quiver
+    public static final byte WILDCARD_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte WILDCARD_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     public static final String[] accessoryOutline = new String[]{
@@ -37,16 +41,16 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we use 3 for wildcard, we should only allow specific items here, listed under 6 & 7
-        if (this.armorType == 7) {
+        // we allow anything here
+        if (this.armorType == WILDCARD_1_SLOT || this.armorType == WILDCARD_2_SLOT) {
             return true;
         }
         // allow quiver to be placed in the cape slot
         Item item = itemstack.getItem();
-        if (this.armorType == 5 && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
+        if (this.armorType == CAPE_SLOT && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
             return true;
         }
-        return item instanceof Accessory && ((Accessory) item).getAccessoryTypes() == this.armorType;
+        return item instanceof Accessory && ((Accessory) item).getAccessorySlot() == this.armorType;
     }
 
     // TODO figure out what to do here
@@ -62,6 +66,7 @@ public class SlotAccessory extends Slot {
         super.set(itemstack);
     }
 
+    // cause of the armor offset
     public String getItemIcon() {
         return accessoryOutline[this.armorType - 4];
     }

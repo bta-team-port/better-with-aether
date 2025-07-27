@@ -6,10 +6,10 @@ import net.minecraft.client.gui.guidebook.*;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.*;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
-import teamport.aether.lookup.Repairable;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
@@ -22,32 +22,17 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
     }
 
     @Override
-    public void buildSlots(List<RecipeEntryAetherMachine> recipes){
+    public void buildSlots(List<RecipeEntryAetherMachine> recipes) {
         for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
-            RecipeSymbol varientRecipeInput = recipe.getInput();
-            ItemStack input = varientRecipeInput.getStack();
-            ItemStack output = recipe.getOutput();
-            if (
-                    Repairable.instance.isRepairable(input)
-                 && Repairable.instance.isRepairable(output)
-                 && output.itemID == input.itemID
-            ) {
-                List<ItemStack> variations = new ArrayList<>();
-                for(int i = 1; i < 10; i++){
-                    int damage = Math.round(input.getMaxDamage() / 10.0f * i);
-                    input.setMetadata(damage);
-                    ItemStack stack = input.copy();
-                    variations.add(stack);
-                }
-                varientRecipeInput = new RecipeSymbol(variations);
-            }
-            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varientRecipeInput , false, recipe));
+            RecipeSymbol varietyItem = getDamagedVariety(recipe);
+            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varietyItem, false, recipe));
             recipeSlots.add(new AetherSlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
             this.map.put(recipe, recipeSlots);
             this.slots.addAll(recipeSlots);
         }
     }
+
 
     @Override
     public void renderBackground(TextureManager re, int x, int y) {
@@ -60,41 +45,71 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
             int posX = x + list.get(list.size() - 1).x - 32;
             int posY = y + list.get(list.size() - 1).y;
             this.drawTexturedModalRect(posX, posY, 234, 0, 22, 15);
-
-            StringBuilder buildTime = new StringBuilder();
-            int time = Math.round(recipe.getData() / 20.0F);
-            if(time >= 60){
-                time = Math.round(time / 60.0f);
-                buildTime.append(time).append("m");
-            }else{
-                buildTime.append(time).append("s");
-            }
-            String timeString = buildTime.toString();
+            String timeString = getTimeAsString(recipe.getData());
             int alignRight = (timeString.length() > 2 ? -1 : 3);
 
             // move the text below the arrow
             int adjY = 0;
-            if(
-                    Repairable.instance.isRepairable(recipe.getInput().getStack())
-                 && Repairable.instance.isRepairable(recipe.getOutput())
-                 && recipe.getInput().getStack().getItem().id == recipe.getOutput().getItem().id
-            ){
+            ItemStack input = recipe.getInput().getStack();
+            ItemStack output = recipe.getOutput();
+            if (
+                    input != null
+                    && output != null
+                    && input.isItemStackDamageable()
+                    && output.isItemStackDamageable()
+                    && output.itemID == input.itemID
+            ) {
                 GL11.glPushMatrix();
-                GL11.glTranslatef(posX - 1 , posY - 1, 0.0f);
-                GL11.glScalef(0.85f,0.93f,1.0f);
+                GL11.glTranslatef(posX - 1, posY - 1, 0.0f);
+                GL11.glScalef(0.85f, 0.93f, 1.0f);
                 this.drawStringNoShadow(mc.font, "max", 0, 0, -12566464);
                 GL11.glPopMatrix();
                 adjY = 11;
             }
 
             GL11.glPushMatrix();
-            GL11.glTranslatef(posX + alignRight , posY - 1 + adjY, 0.0f);
-            GL11.glScalef(0.85f,0.93f,1.0f);
+            GL11.glTranslatef(posX + alignRight, posY - 1 + adjY, 0.0f);
+            GL11.glScalef(0.85f, 0.93f, 1.0f);
             this.drawStringNoShadow(mc.font, timeString, 0, 0, -12566464);
             GL11.glPopMatrix();
             re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png").bind();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
+    }
+
+    private static String getTimeAsString(int data) {
+        StringBuilder buildTime = new StringBuilder();
+        int time = Math.round(data / 20.0F);
+        if (time >= 60) {
+            time = Math.round(time / 60.0f);
+            buildTime.append(time).append("m");
+        } else {
+            buildTime.append(time).append("s");
+        }
+        return buildTime.toString();
+    }
+
+    private static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+        RecipeSymbol varientRecipeInput = recipe.getInput();
+        ItemStack input = varientRecipeInput.getStack();
+        ItemStack output = recipe.getOutput();
+        if (
+                input != null
+                        && output != null
+                        && input.isItemStackDamageable()
+                        && output.isItemStackDamageable()
+                        && output.itemID == input.itemID
+        ) {
+            List<ItemStack> variations = new ArrayList<>();
+            for(int i = 1; i < 10; i++){
+                int damage = Math.round(input.getMaxDamage() / 10.0f * i);
+                input.setMetadata(damage);
+                ItemStack stack = input.copy();
+                variations.add(stack);
+            }
+            varientRecipeInput = new RecipeSymbol(variations);
+        }
+        return varientRecipeInput;
     }
 }

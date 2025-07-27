@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory;
+package teamport.aether.mixin.accessory.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.MobRenderer;

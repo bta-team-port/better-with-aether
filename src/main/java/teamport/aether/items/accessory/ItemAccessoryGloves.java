@@ -11,7 +11,8 @@ public class ItemAccessoryGloves extends ItemAccessory implements IArmorItem {
     public ItemAccessoryGloves(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material, accessoryPiece);
         this.material = material;
-        this.setMaxDamage((int)ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability);
+        float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
+        this.setMaxDamage((int)Math.ceil(maxDurability));
     }
 
     @Override
@@ -26,6 +27,6 @@ public class ItemAccessoryGloves extends ItemAccessory implements IArmorItem {
 
     @Override
     public int getArmorPiece() {
-        return this.getAccessoryTypes();
+        return this.getAccessorySlot();
     }
 }
