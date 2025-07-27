@@ -16,12 +16,12 @@ aether.entity.aerbunny=Aerbunny
 aether.aerbunny.name=Aerbunny
 aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
 
-aether.moa.blue.name=Blue Moa
-aether.moa.blue.desc=
+aether.moa.name=Blue Moa
+aether.moa.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
 aether.moa.white.name=White Moa
-aether.moa.white.desc=
+aether.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 4 midair jumps.
 aether.moa.black.name=Black Moa
-aether.moa.black.desc=
+aether.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 8 midair jumps.
 
 aether.aerwhale.name=Aerwhale
 aether.aerwhale.desc=Aerwhales are a large

@@ -28,7 +28,7 @@ public class MobZephyr extends MobFlying implements Enemy {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "zephyr");
         this.setSize(5.0F, 4.0F);
-        this.scoreValue = 1000;
+        this.scoreValue = 500;
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_WHITE.getDefaultStack(), 0, 6));
     }
 

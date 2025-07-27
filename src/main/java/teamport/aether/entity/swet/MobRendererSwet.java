@@ -8,7 +8,7 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
     public final ModelBase scaleAmount;
 
     public MobRendererSwet(ModelBase modelbase, ModelBase modelbase1, float f) {
-        super(modelbase, f);
+        super(modelbase, shadowSize);
         this.scaleAmount = modelbase1;
     }
 

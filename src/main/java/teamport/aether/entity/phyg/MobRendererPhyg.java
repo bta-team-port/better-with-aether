@@ -4,8 +4,8 @@ import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 
 public class MobRendererPhyg extends MobRenderer<MobPhyg> {
-    public MobRendererPhyg(ModelBase modelbase, float f) {
-        super(modelbase, f);
+    public MobRendererPhyg(ModelBase modelbase, float shadowSize) {
+        super(modelbase, shadowSize);
         this.setArmorModel(modelbase);
     }
 
