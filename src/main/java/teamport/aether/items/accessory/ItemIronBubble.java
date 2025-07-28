@@ -17,7 +17,7 @@ public class ItemIronBubble extends ItemAccessory{
         Player player = (Player) entity;
         if (
                 slotId < player.inventory.mainInventory.length
-                && slotId - player.inventory.mainInventory.length >= WILDCARD_1_SLOT
+                || slotId - player.inventory.mainInventory.length < WILDCARD_1_SLOT
         ) {
             return;
         }

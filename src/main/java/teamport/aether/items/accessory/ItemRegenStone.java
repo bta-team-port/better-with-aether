@@ -21,8 +21,8 @@ public class ItemRegenStone extends ItemAccessory{
         Player player = (Player) entity;
         if (
                 slotId < player.inventory.mainInventory.length
-                && slotId - player.inventory.mainInventory.length >= WILDCARD_1_SLOT
-                && player.gamemode.isPlayerInvulnerable()
+                || slotId - player.inventory.mainInventory.length < WILDCARD_1_SLOT
+                || player.gamemode.isPlayerInvulnerable()
         ) {
             return;
         }
