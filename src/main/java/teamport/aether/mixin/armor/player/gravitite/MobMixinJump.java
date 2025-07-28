@@ -38,7 +38,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
         Player player = (Player) (Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) == 5) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) >= 5) {
             yd = 1.05;
             fallDistance = 0.0F;
         }
