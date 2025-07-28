@@ -20,7 +20,7 @@ import teamport.aether.items.AetherArmorMaterial;
 public abstract class MobMixinJump extends Entity {
 
     @Shadow
-    public boolean isJumping;
+    protected boolean isJumping;
 
     @Unique
     public boolean usedDoubleJump = false;
@@ -38,7 +38,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
         Player player = (Player) (Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) == 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) == 5) {
             yd = 1.05;
             fallDistance = 0.0F;
         }
@@ -57,7 +57,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
 
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 4) return;
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) return;
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;

@@ -26,7 +26,7 @@ public abstract class PlayerMixinFallImmuniy extends Mob {
 
     @Inject(method = "causeFallDamage", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
     public void aether$causeFallDamage(float distance, CallbackInfo ci) {
-        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.GRAVITITE) >= 4){
+        if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.GRAVITITE) >= 5){
             int damage = (int)Math.ceil(distance - 13.0F);
             if(damage  > 0) aether$damageArmourGravitite(damage);
             ci.cancel();

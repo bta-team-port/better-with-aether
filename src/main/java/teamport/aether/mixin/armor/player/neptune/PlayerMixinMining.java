@@ -16,7 +16,7 @@ public class PlayerMixinMining {
     )
     public float modifyWaterSlowdownConstant(float original) {
         Player player = (Player) (Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return original;
         }
         return 1.0F;

@@ -21,7 +21,7 @@ public class PlayerMixinBlastImmunity {
     public void negateDamage(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir){
         if(   type == null
            || !type.equals(DamageType.BLAST)
-           || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 4
+           || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 5
         ){
             return;
         }

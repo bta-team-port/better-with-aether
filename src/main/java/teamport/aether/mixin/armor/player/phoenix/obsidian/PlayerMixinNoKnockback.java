@@ -24,7 +24,7 @@ public abstract class PlayerMixinNoKnockback extends Mob{
     // prevent any type of knockback
     @Override
     public void fling(double xd, double yd, double zd, float pushTime) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
             return;
         }
         super.fling(xd, yd, zd, pushTime);
@@ -32,7 +32,7 @@ public abstract class PlayerMixinNoKnockback extends Mob{
 
     @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
-        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 4) {
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
             return;
         }
         super.knockBack(entity, damage, xd, yd);
