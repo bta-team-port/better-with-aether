@@ -14,24 +14,27 @@ public class ItemInvisibilityCape extends ItemAccessory {
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
+    // TODO make the player visible when the item is dragged away from the armor slot
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId < player.inventory.mainInventory.length
-                && slotId - player.inventory.mainInventory.length != CAPE_SLOT
+                slotId > player.inventory.mainInventory.length
+                && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
+            ((IAetherAccessories)player).aether$setInvisible(true);
             return;
         }
-    }
-
-    @Override
-    public void onAccessoryAdded(Player player, ItemStack accessory) {
-        ((IAetherAccessories)player).aether$setInvisible(true);
-    }
-
-    @Override
-    public void onAccessoryRemoved(Player player, ItemStack accessory) {
         ((IAetherAccessories)player).aether$setInvisible(false);
     }
+
+//    @Override
+//    public void onAccessoryAdded(Player player, ItemStack accessory) {
+//        ((IAetherAccessories)player).aether$setInvisible(true);
+//    }
+//
+//    @Override
+//    public void onAccessoryRemoved(Player player, ItemStack accessory) {
+//        ((IAetherAccessories)player).aether$setInvisible(false);
+//    }
 
 }
