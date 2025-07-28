@@ -48,6 +48,7 @@
     "HudComponentsMixinExtraHealth",
     "PlayerControllerValkToolsReachMixin",
     "accessors.HudComponentsAccessor",
+    "accessors.ItemDragHandlerAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.render.ItemElementMixinHoverShowSlot",
     "accessory.render.MobRendererMixinExtendArmor",
