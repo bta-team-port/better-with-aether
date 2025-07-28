@@ -680,7 +680,7 @@ public final class AetherBlocks {
                 .setLuminance(14)
                 .setVisualUpdateOnMetadata()
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-                .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"), b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER));
+                .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"), b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER)).withDisabledStats();
         //TODO Needs its own cluster entity, so it can be picked up from broken firefly jar
 
         new AetherBlockDetails().initializeBlockDetails();
