@@ -1,6 +1,7 @@
 package teamport.aether.items.itemtool;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -16,6 +17,7 @@ public class ItemToolSwordAether extends ItemToolSword {
     }
 
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
-        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SWORD);
+        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SWORD) || block.hasTag(BlockTags.MINEABLE_BY_SWORD);
     }
+
 }
