@@ -19,8 +19,10 @@ import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryPendant;
 
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+
 @Mixin(value = MobRendererPlayer.class, remap = false)
-abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player>{
+abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
 
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.0F);
@@ -33,22 +35,20 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
     // TODO fix pendant also being rendered when gloves are equipped
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
     public void callDrawFirstPersonHandAfter(Player player, boolean isLeft, CallbackInfo ci) {
-        for (ItemStack itemStack : player.inventory.armorInventory) {
-            if (itemStack == null) continue;
+        ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
+        if (itemStack != null && itemStack.getItem() instanceof ItemAccessoryGloves) {
             Item item = itemStack.getItem();
-            if (item instanceof ItemAccessoryGloves) {
-                String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png",item.namespaceID.namespace(), ((ItemAccessory) item).name());
-                if (renderDispatcher.textureManager == null) continue;
-                renderDispatcher.textureManager.loadTexture(path).bind();
-                this.modelAccessories.onGround = 0.0f;
-                this.modelAccessories.isRiding = false;
-                this.modelAccessories.armRight.visible = true;
-                this.modelAccessories.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.065f);
-                this.modelAccessories.armRight.render(0.065f);
-                this.modelAccessories.armRight.visible = false;
-            }
+            String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((ItemAccessory) item).name());
+//            String path = String.format("/assets/%s/textures/armor/armor_gloves_%s.png", item.namespaceID.namespace(), ((ItemAccessory) item).name());
+            if (renderDispatcher.textureManager == null) return;
+            renderDispatcher.textureManager.loadTexture(path).bind();
+            this.modelAccessories.onGround = 0.0f;
+            this.modelAccessories.isRiding = false;
+            this.modelAccessories.armRight.visible = true;
+            this.modelAccessories.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+            this.modelAccessories.armRight.render(0.0625f);
+            this.modelAccessories.armRight.visible = false;
         }
-        ci.cancel();
     }
 
     //TODO Fix this so that the player becomes invisible wearing the invis cape
@@ -65,7 +65,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
 
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
     public int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
-        return (renderPass > 3) ? renderPass : 3-renderPass;
+        return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
 
     @Inject(method = "prepareArmor*", at = @At("HEAD"), cancellable = true)
@@ -86,7 +86,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         if (!(item instanceof ItemAccessoryGloves) && !(item instanceof ItemAccessoryPendant)) {
             return;
         }
-        String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png",item.namespaceID.namespace(),  ((ItemAccessory)item).name());
+        String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((ItemAccessory) item).name());
         renderDispatcher.textureManager.loadTexture(path).bind();
         this.setArmorModel(this.modelAccessories);
         info.setReturnValue(true);
