@@ -16,6 +16,9 @@ import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolAxeHolystone;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolPickaxeHolystone;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolShovelHolystone;
 import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolSwordHolystone;
+import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolAxeValkyrie;
+import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolPickaxeValkyrie;
+import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolShovelValkyrie;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolAxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolPickaxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
@@ -270,9 +273,9 @@ public final class AetherItems {
         TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.GRAVITITE));
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.VALKYRIE));
-        TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.VALKYRIE));
-        TOOL_PICKAXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
-        TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeAether("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+        TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+        TOOL_PICKAXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+        TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
 
         TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING")));
         //TODO Lightning knife model is a bit broken
