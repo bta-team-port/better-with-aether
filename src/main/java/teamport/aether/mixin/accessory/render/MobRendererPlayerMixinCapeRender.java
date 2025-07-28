@@ -21,6 +21,7 @@ abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
         super(model, shadowSize);
     }
 
+    // TODO render quiver on top of the cape maybe?
     @Inject(
             method = "renderSpecials",
             at = @At(
