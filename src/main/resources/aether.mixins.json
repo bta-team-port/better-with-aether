@@ -20,7 +20,6 @@
     "accessory.functional.ContainerInventoryMixinIncArmorInv",
     "accessory.functional.ContainerInventoryMixinTickableArmorInventory",
     "accessory.functional.MenuInventoryMixinAddSlotAdjSlot",
-    "accessory.functional.PlayerMixinTickable",
     "accessory.functional.invisibilitycape.PlayerMixinInvisibility",
     "accessory.functional.quiver.ItemBowMixinQuiverSlotFix",
     "accessory.functional.quiver.PlayerMixinNextArrow",
