@@ -33,6 +33,5 @@ public abstract class SkyrootSwordDropMultiplier {
         if (material != null && material == AetherToolMaterial.SKYROOT) {
             dropDeathItems();
         }
-        dropDeathItems();
     }
 }
