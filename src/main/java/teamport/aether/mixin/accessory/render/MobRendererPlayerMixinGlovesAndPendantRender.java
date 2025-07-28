@@ -19,6 +19,8 @@ import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryPendant;
 
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
 
