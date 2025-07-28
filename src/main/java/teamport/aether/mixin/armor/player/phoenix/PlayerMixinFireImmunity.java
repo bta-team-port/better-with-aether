@@ -30,7 +30,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci) {
-        if (fireResistanceCount() >= 4) {
+        if (fireResistanceCount() >= 5) {
             // lava damage is 4 points
             aether$damageArmourWithEffect(4);
             ci.cancel();
@@ -39,7 +39,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci) {
-        if (fireResistanceCount() >= 4) {
+        if (fireResistanceCount() >= 5) {
             // fire damage is 1 points
             aether$damageArmourWithEffect(1);
             ci.cancel();
@@ -48,7 +48,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Override
     public void burn(int damage) {
-        if (fireResistanceCount() >= 4) {
+        if (fireResistanceCount() >= 5) {
             // burn damage is 4 points
             aether$damageArmourWithEffect(1);
             return;
@@ -58,7 +58,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Override
     public void thunderHit(EntityLightning bolt) {
-        if (fireResistanceCount() >= 4) {
+        if (fireResistanceCount() >= 5) {
             // we only negate the burn but the player takes the lightning damage
             this.hurt(null, 5, DamageType.FIRE);
             aether$damageArmourWithEffect(5);
