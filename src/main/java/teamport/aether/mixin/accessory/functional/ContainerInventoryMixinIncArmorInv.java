@@ -42,28 +42,30 @@ public class ContainerInventoryMixinIncArmorInv {
         }
     }
 
-    // TODO change the 4+4 to armor.lenght
+
     @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
     private int modifyContainerSize(int original) {
         return this.armorInventory.length;
     }
 
+
+    // TODO this just does not work, currently no way to know from what slot an item came, only where it goes
     @Inject(method = "setItem", at = @At("HEAD"))
     public void onSetInventoryItem(int index, ItemStack newItem, CallbackInfo ci) {
         if (index < this.mainInventory.length) {
             return;
         }
-        if (index >= this.armorInventory.length) {
-            ItemStack oldItem = this.armorInventory[index - this.mainInventory.length];
+        ContainerInventory cont = (ContainerInventory)(Object) this;
 
-            // this is only called when we SWAP an item
-            if (oldItem != null && oldItem.getItem() instanceof Accessory) {
-                ((Accessory) oldItem.getItem()).onAccessoryRemoved(player, oldItem);
-            }
+        ItemStack oldItem = this.armorInventory[index - this.mainInventory.length];
 
-            if (newItem != null && newItem.getItem() instanceof Accessory) {
-                ((Accessory) newItem.getItem()).onAccessoryAdded(player, newItem);
-            }
+        // this is only called when we SWAP an item
+        if (oldItem != null && oldItem.getItem() instanceof Accessory) {
+            ((Accessory) oldItem.getItem()).onAccessoryRemoved(player, oldItem);
+        }
+
+        if (newItem != null && newItem.getItem() instanceof Accessory) {
+            ((Accessory) newItem.getItem()).onAccessoryAdded(player, newItem);
         }
     }
 }
