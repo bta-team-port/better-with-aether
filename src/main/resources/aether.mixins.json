@@ -48,7 +48,9 @@
   "client": [
     "GuidebookMixinInclude",
     "HudComponentsMixinExtraHealth",
+    "MinecraftMixinAddNewAchievements",
     "PlayerControllerValkToolsReachMixin",
+    "accessors.HudComponentAccessor",
     "accessors.HudComponentsAccessor",
     "accessors.ItemDragHandlerAccessor",
     "accessors.ScreenContainerAbstractAccessor",

@@ -26,11 +26,6 @@ public class HudComponentsMixinExtraHealth {
                                     ComponentAnchor.TOP_LEFT,
                                     ComponentAnchor.BOTTOM_LEFT), i + 1));
         }
-
-        // in case we ever decide to move the oxygena nd firebar above armor
-//        HudComponent oxygen = HudComponents.INSTANCE.getComponent("oxygen_bar");
-//        HudComponents.INSTANCE.getComponents().remove(oxygen);
-//        HudComponents.register(new HudComponentOxygenBar("oxygen_bar", new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)));
     }
 
 }
