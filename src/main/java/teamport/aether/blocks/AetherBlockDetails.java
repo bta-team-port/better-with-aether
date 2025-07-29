@@ -64,6 +64,8 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.CARVED_STONE_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CARVED_STONE_LIGHT_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CARVED_STONE_TRAPPED, 0, MaterialColor.stone);
+        registerManualBlockColor(AetherBlocks.BRONZE_CHEST_DUNGEON, 0, MaterialColor.stone);
+        registerManualBlockColor(AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED, 0, MaterialColor.stone);
 
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_LIGHT, 0, MaterialColor.grassScorched);
@@ -72,6 +74,9 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_LOCKED, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_TRAPPED, 0, MaterialColor.grassScorched);
+        registerManualBlockColor(AetherBlocks.SILVER_CHEST_DUNGEON, 0, MaterialColor.grassScorched);
+        registerManualBlockColor(AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED, 0, MaterialColor.grassScorched);
+
 
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_LIGHT, 0, MaterialColor.brick);
@@ -79,6 +84,8 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.SLAB_CARVED_HELLFIRE, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_LOCKED, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED, 0, MaterialColor.brick);
+        registerManualBlockColor(AetherBlocks.GOLD_CHEST_DUNGEON, 0, MaterialColor.brick);
+        registerManualBlockColor(AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED, 0, MaterialColor.brick);
 
         registerManualBlockColor(AetherBlocks.PILLAR, 0, MaterialColor.quartz);
         registerManualBlockColor(AetherBlocks.PILLAR_CAPSTONE, 0, MaterialColor.quartz);
