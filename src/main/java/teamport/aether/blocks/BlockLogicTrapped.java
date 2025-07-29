@@ -7,6 +7,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
+import teamport.aether.AetherAchievements;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -48,6 +49,8 @@ public class BlockLogicTrapped extends BlockLogic {
                         continue;
                     }
                     world.entityJoinedWorld(monster);
+                    player.triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
+
                     mobs--;
 
                     for (int l = 0; l < 8; ++l) {
