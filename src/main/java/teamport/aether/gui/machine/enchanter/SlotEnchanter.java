@@ -4,6 +4,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
+import teamport.aether.AetherAchievements;
+import teamport.aether.items.AetherItems;
 
 public class SlotEnchanter extends Slot {
     public Player thePlayer;
@@ -15,7 +17,9 @@ public class SlotEnchanter extends Slot {
 
     @Override
     public void onTake(ItemStack itemstack){
-        // check for achievement
+        if (itemstack.itemID == AetherItems.FOOD_HEALING_STONE.id) {
+            this.thePlayer.addStat(AetherAchievements.HEALING_STONE, 1);
+        }
     }
 
     // prevent item to be put in the output slot

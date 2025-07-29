@@ -228,7 +228,7 @@ public final class AetherItems {
     }
 
     public static void registerOther() {
-        MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), itemID("MEDAL_VICTORY")));
+        MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), itemID("MEDAL_VICTORY"))).setMaxStackSize(10);
 
         KEY_BRONZE = new ItemBuilder(MOD_ID).build(new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
         KEY_SILVER = new ItemBuilder(MOD_ID).build(new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
