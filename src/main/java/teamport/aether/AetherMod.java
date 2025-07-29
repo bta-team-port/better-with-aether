@@ -66,6 +66,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.ACCESSORY});
         Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.ACCESSORY});
         Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.ACCESSORY});
+        Items.MAP.withTags(new Tag[]{AetherItemTags.ACCESSORY});
     }
 
     private static void registerNewFurnaceFuel() {
