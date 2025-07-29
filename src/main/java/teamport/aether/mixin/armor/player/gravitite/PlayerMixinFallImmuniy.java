@@ -28,7 +28,7 @@ public abstract class PlayerMixinFallImmuniy extends Mob {
     public void aether$causeFallDamage(float distance, CallbackInfo ci) {
         if(ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.GRAVITITE) >= 5){
             int damage = (int)Math.ceil(distance - 13.0F);
-            if(damage  > 0) aether$damageArmourGravitite(damage);
+            if(damage > 0) aether$damageArmourGravitite(damage);
             ci.cancel();
         }
     }
