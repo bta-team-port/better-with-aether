@@ -7,16 +7,27 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.EntityPainting;
+import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
+import net.minecraft.core.enums.MobCategory;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
-import net.minecraft.core.world.biome.Biomes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
+import teamport.aether.entity.aerwhale.MobAerwhale;
+import teamport.aether.entity.cockatrice.MobCockatrice;
+import teamport.aether.entity.moa.MobMoa;
+import teamport.aether.entity.moa.MobMoaBlack;
+import teamport.aether.entity.moa.MobMoaWhite;
+import teamport.aether.entity.phow.MobPhow;
+import teamport.aether.entity.phyg.MobPhyg;
+import teamport.aether.entity.sheepuff.MobSheepuff;
+import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -43,7 +54,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void beforeGameStart() {
 
-        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{Biomes.PARADISE_PARADISE}, new float[]{0.5F, 1.0F, 0.88F}));
+        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherDimension.AETHER_AETHER}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
         AetherConfig.Setup();
@@ -58,6 +69,19 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
+
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 41));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 21));
+
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
+
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
         registerNewFurnaceFuel();

@@ -2,7 +2,6 @@ package teamport.aether.world;
 
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
-import net.minecraft.core.world.biome.Biomes;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
@@ -11,6 +10,8 @@ import teamport.aether.blocks.AetherBlocks;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static net.minecraft.core.world.biome.Biomes.register;
 
 public class AetherDimension {
 
@@ -24,7 +25,7 @@ public class AetherDimension {
         return dimensionPlacementBlacklist.get(dimension);
     }
 
-    public static Biome biomeAether;
+    public static Biome AETHER_AETHER;
     public static WorldType worldTypeAether;
     public static Dimension dimensionAether;
     public static boolean hasInit = false;
@@ -39,9 +40,10 @@ public class AetherDimension {
     }
 
     public static void initializeDimension() {
-        biomeAether = Biomes.register("aether:aether", new BiomeAether("aether").setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
+        AETHER_AETHER = register("aether:aether", (new BiomeAether("aether")).setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
+
         worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
         });
         dimensionAether = new Dimension("aether", Dimension.OVERWORLD, 1f, AetherBlocks.PORTAL_AETHER, worldTypeAether);

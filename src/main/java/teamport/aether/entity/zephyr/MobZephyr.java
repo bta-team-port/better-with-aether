@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
@@ -191,7 +192,9 @@ public class MobZephyr extends MobFlying implements Enemy {
     }
 
     public boolean canSpawnHere() {
-        return false;
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(20) == 0
+                && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
+
     }
     //TODO Add in aether blocktag for spawning when its possible later
 
