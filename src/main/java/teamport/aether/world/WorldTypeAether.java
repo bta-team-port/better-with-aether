@@ -7,7 +7,6 @@ import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.biome.provider.BiomeProviderSingleBiome;
 import net.minecraft.core.world.config.season.SeasonConfig;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
-import net.minecraft.core.world.generate.chunk.perlin.overworld.floating.ChunkGeneratorOverworldFloating;
 import net.minecraft.core.world.season.Seasons;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
@@ -70,13 +69,13 @@ public abstract class WorldTypeAether extends WorldType {
 
     @Override
     public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderSingleBiome(AetherDimension.biomeAether, 0.0, 0.0, 0.0);
+        return new BiomeProviderSingleBiome(AetherDimension.AETHER_AETHER, 0.0, 0.0, 0.0);
     }
 
     @Override
     public ChunkGenerator createChunkGenerator(World world) {
         //TODO Fix and then switch to the aether Chunk Generator
-        return new ChunkGeneratorOverworldFloating(world);
+        return new ChunkGeneratorAether(world);
     }
 
     @Override

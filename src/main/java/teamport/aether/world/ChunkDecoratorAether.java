@@ -106,7 +106,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             ++treeDensity;
         }
 
-        if (biome == AetherDimension.biomeAether) {
+        if (biome == AetherDimension.AETHER_AETHER) {
             treeDensity += k4 + 5;
         }
 
@@ -129,7 +129,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int oceanY;
 
         byte byte0 = 0;
-        if (biome == AetherDimension.biomeAether) {
+        if (biome == AetherDimension.AETHER_AETHER) {
             byte0 = 2;
         }
 
@@ -142,7 +142,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         byte byte1 = 0;
-        if (biome == AetherDimension.biomeAether) {
+        if (biome == AetherDimension.AETHER_AETHER) {
             byte1 = 2;
         }
 

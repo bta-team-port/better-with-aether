@@ -11,10 +11,14 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.SpawnListEntry;
+import net.minecraft.core.enums.MobCategory;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
+import teamport.aether.entity.aerwhale.MobAerwhale;
+import teamport.aether.entity.cockatrice.MobCockatrice;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobMoaBlack;
@@ -23,10 +27,12 @@ import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
+import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.AetherWorldTypes;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -65,6 +71,19 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER)
                 .setHasAurora(true).setHasClouds(true).setHasGround(false).setHasSky(true));
+
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
+
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 51));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 41));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 21));
+
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
 
 
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{

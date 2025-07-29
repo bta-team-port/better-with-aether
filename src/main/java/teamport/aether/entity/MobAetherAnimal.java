@@ -32,7 +32,7 @@ public abstract class MobAetherAnimal extends MobAnimal implements Creature {
         if (Blocks.blocksList[id] == null) {
             return false;
         } else {
-            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(x, y, z) > 8 && super.canSpawnHere();
+            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN) && this.world.getFullBlockLightValue(x, y, z) > 8;
         }
     }
 
