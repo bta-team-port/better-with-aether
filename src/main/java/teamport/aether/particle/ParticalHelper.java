@@ -14,13 +14,12 @@ public class ParticalHelper {
             double dx = random.nextGaussian() * 0.02;
             double dy = random.nextGaussian() * 0.02;
             double dz = random.nextGaussian() * 0.02;
-            // TODO again what is the data field used for?
             world.spawnParticle(
                     "snowshovel",
                     x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                     y - bbHeight + (double) (random.nextFloat() * width),
                     z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
-                    dx, dy, dz, 2
+                    dx, dy, dz, 0
             );
         }
     }
@@ -29,13 +28,12 @@ public class ParticalHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        // TODO figure out what data is
         world.spawnParticle(
                 "flame",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
                 z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                dx, dy, dz, 2
+                dx, dy, dz, 0
         );
     }
 }
