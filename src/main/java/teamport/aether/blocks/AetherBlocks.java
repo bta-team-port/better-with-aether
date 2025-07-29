@@ -7,11 +7,11 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
-import net.minecraft.core.world.Dimension;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -247,7 +247,7 @@ public final class AetherBlocks {
                 .setResistance(-1.0f)
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortal(b, Dimension.OVERWORLD, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
+                .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortal(b, AetherDimension.dimensionAether, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
         //TODO Portal Model and texture are a bit broken atm, and portal doesn't seem to every light up
 
 

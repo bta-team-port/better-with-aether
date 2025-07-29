@@ -27,18 +27,24 @@ public class AetherDimension {
     public static Biome biomeAether;
     public static WorldType worldTypeAether;
     public static Dimension dimensionAether;
+    public static boolean hasInit = false;
 
-    public void initializeDimension() {
-        biomeAether = Biomes.register("aether:aether.aether", new BiomeAether("aether.aether").setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
+
+    public static void init() {
+        if(!hasInit){
+            hasInit = true;
+            initializeDimension();
+        }
+
+    }
+
+    public static void initializeDimension() {
+        biomeAether = Biomes.register("aether:aether", new BiomeAether("aether").setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
-
         worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
         });
-//        dimensionAether = new Dimension("aether", Dimension.OVERWORLD, 3f, AetherBlocks.PORTAL_AETHER, new WorldTypeAether("worldtype.aether") {
-//        }).defaultWorldType(new WorworldTypeAether);
-
-        // This is here so that the dimension is created and added to the dimension list before the Server even launches, it'll crash otherwise
+        dimensionAether = new Dimension("aether", Dimension.OVERWORLD, 1f, AetherBlocks.PORTAL_AETHER, worldTypeAether);
         Dimension.registerDimension(AetherDimensionID, dimensionAether);
     }
 

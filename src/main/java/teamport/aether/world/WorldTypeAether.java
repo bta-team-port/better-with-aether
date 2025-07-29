@@ -89,25 +89,6 @@ public abstract class WorldTypeAether extends WorldType {
         return this.getTimeOfDay(world, tick, partialTick);
     }
 
-
-    public float[] getColorsSunriseSunset(float timeOfDay, float partialTick) {
-        float f2 = 0.4F;
-        float f3 = MathHelper.cos(timeOfDay * 3.141593F * 2.0F) - 0.0F;
-        float f4 = -0.0F;
-        if (f3 >= f4 - f2 && f3 <= f4 + f2) {
-            float f5 = (f3 - f4) / f2 * 0.5F + 0.5F;
-            float f6 = 1.0F - (1.0F - MathHelper.sin(f5 * 3.141593F)) * 0.99F;
-            f6 *= f6;
-            this.colorsSunriseSunset[0] = f5 * 0.3F + 0.1F;
-            this.colorsSunriseSunset[1] = f5 * f5 * 0.7F + 0.2F;
-            this.colorsSunriseSunset[2] = f5 * f5 * 0.7F + 0.2F;
-            this.colorsSunriseSunset[3] = f6;
-            return this.colorsSunriseSunset;
-        } else {
-            return null;
-        }
-    }
-
     @Override
     public int getSkyDarken(World world, long tick, float partialTick) { //TODO REPLACE WITH SUN SPIRIT STUFF
         float f1 = this.getCelestialAngle(world, tick, partialTick);
