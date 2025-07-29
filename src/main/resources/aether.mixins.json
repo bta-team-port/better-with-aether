@@ -19,6 +19,7 @@
     "accessors.MobAccessor",
     "accessors.SlotAccessor",
     "accessors.SlotArmorAccessor",
+    "accessory.functional.BlockLogicFarmlandLeatherPendantMixin",
     "accessory.functional.ContainerInventoryMixinIncArmorInv",
     "accessory.functional.ContainerInventoryMixinTickableArmorInventory",
     "accessory.functional.MenuInventoryMixinAddSlotAdjSlot",
