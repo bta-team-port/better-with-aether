@@ -43,20 +43,26 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if(this.armorType == GLOVES_SLOT && item instanceof Accessory){
+        if (item instanceof Accessory) {
+            Accessory accessory = (Accessory) item;
+            int index = accessory.getAccessorySlot();
+            if(index == armorType) return true;
+            return (
+                    (index == WILDCARD_1_SLOT && this.armorType == WILDCARD_2_SLOT)
+                    || (index == WILDCARD_2_SLOT && this.armorType == WILDCARD_1_SLOT)
+            );
+        }
+        if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
         }
-        if (this.armorType == CAPE_SLOT && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
-            return true;
-        }
-        return (item instanceof Accessory || item.hasTag(AetherItemTags.ACCESSORY) && this.armorType >= WILDCARD_1_SLOT);
+        return item.hasTag(AetherItemTags.ACCESSORY) && this.armorType >= WILDCARD_1_SLOT;
     }
 
     // TODO figure out what to do here
     public void setChanged() {
         super.setChanged();
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
-            Player player = ((ContainerInventory)this.container).player;
+            Player player = ((ContainerInventory) this.container).player;
             player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
         }
     }
