@@ -24,6 +24,6 @@ public interface Accessory {
      * @param player EntityPlayer who removed the accessory
      * @param accessory accessory which was removed
      */
-    default void onAccessoryRemoved(Player player, ItemStack accessory) {
+    default void onAccessorySwapped(Player player, ItemStack accessory) {
     }
 }

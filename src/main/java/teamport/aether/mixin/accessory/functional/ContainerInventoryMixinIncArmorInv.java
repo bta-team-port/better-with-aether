@@ -61,7 +61,7 @@ public class ContainerInventoryMixinIncArmorInv {
 
         // this is only called when we SWAP an item
         if (oldItem != null && oldItem.getItem() instanceof Accessory) {
-            ((Accessory) oldItem.getItem()).onAccessoryRemoved(player, oldItem);
+            ((Accessory) oldItem.getItem()).onAccessorySwapped(player, oldItem);
         }
 
         if (newItem != null && newItem.getItem() instanceof Accessory) {

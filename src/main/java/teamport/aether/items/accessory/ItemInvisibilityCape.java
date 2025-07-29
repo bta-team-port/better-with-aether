@@ -33,7 +33,7 @@ public class ItemInvisibilityCape extends ItemAccessory {
 //    }
 //
 //    @Override
-//    public void onAccessoryRemoved(Player player, ItemStack accessory) {
+//    public void onAccessorySwapped(Player player, ItemStack accessory) {
 //        ((IAetherAccessories)player).aether$setInvisible(false);
 //    }
 
