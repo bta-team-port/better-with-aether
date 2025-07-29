@@ -17,6 +17,7 @@ public class LookupAccessoryIcons {
 
     public LookupAccessoryIcons(){this.register();}
 
+    // TODO needs a better system, it a bit cumbersome right now
     public void register() {
         addEntry(ItemAccessoryPendant.class, "armor_pendant_outline");
         addEntry(ItemRegenStone.class, "armor_stone_outline");
