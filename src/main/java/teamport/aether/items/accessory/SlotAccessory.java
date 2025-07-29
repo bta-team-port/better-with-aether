@@ -10,6 +10,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.items.AetherItemTags;
 
 public class SlotAccessory extends Slot {
     // armorType
@@ -41,16 +42,14 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we allow anything here
-        if (this.armorType == WILDCARD_1_SLOT || this.armorType == WILDCARD_2_SLOT) {
+        Item item = itemstack.getItem();
+        if(this.armorType == GLOVES_SLOT && item instanceof Accessory){
             return true;
         }
-        // allow quiver to be placed in the cape slot
-        Item item = itemstack.getItem();
         if (this.armorType == CAPE_SLOT && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
             return true;
         }
-        return item instanceof Accessory && ((Accessory) item).getAccessorySlot() == this.armorType;
+        return (item instanceof Accessory || item.hasTag(AetherItemTags.ACCESSORY) && this.armorType >= WILDCARD_1_SLOT);
     }
 
     // TODO figure out what to do here
