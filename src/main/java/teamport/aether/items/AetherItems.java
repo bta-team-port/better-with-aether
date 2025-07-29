@@ -387,7 +387,7 @@ public final class AetherItems {
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND,6));
         ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL,6));
         ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE,6));
-        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE,6));
+        ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE,6));
         ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice",6));
         //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
         //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
