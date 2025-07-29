@@ -14,9 +14,6 @@ public class ItemRegenStone extends ItemAccessory{
     }
 
 
-    // only heal if it's the first equipped, since in the OG mod effect doesn't stack.
-    // also don't heal when player has max health, since that causes hearts flash
-    // Not sure if this is supposed to heal life crystal hearts, so I added that. - Cookie
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
@@ -24,6 +21,7 @@ public class ItemRegenStone extends ItemAccessory{
                 || slotId - player.inventory.mainInventory.length < WILDCARD_1_SLOT
                 || player.gamemode.isPlayerInvulnerable()
         ) {
+            itemstack.setMetadata(0);
             return;
         }
         itemstack.setMetadata(itemstack.getMetadata() + 1);
