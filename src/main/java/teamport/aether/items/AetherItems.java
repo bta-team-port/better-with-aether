@@ -43,107 +43,106 @@ public final class AetherItems {
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;
-
     public static Item KEY_SILVER;
     public static Item KEY_GOLD;
-    public static Item EGG_MOA_BLUE;
 
+    public static Item EGG_MOA_BLUE;
     public static Item EGG_MOA_WHITE;
     public static Item EGG_MOA_BLACK;
-    public static Item RECORD_AETHER;
 
+    public static Item RECORD_AETHER;
     public static Item RECORD_MORNING;
     public static Item RECORD_DAWN;
-    public static Item AMBER;
 
+    public static Item AMBER;
     public static Item PETAL_AECHOR;
     public static Item STICK_SKYROOT;
-    public static Item AMMO_DART_GOLDEN;
 
+    public static Item AMMO_DART_GOLDEN;
     public static Item AMMO_DART_POISON;
     public static Item AMMO_DART_ENCHANTED;
     public static Item TOOL_SHOOTER;
 
     public static Item AMBROSIUM;
-
     public static Item ZANITE;
-    public static Item BUCKET_SKYROOT;
 
+    public static Item BUCKET_SKYROOT;
     public static Item BUCKET_SKYROOT_WATER;
     public static Item BUCKET_SKYROOT_MILK;
     public static Item BUCKET_SKYROOT_POISON;
     public static Item BUCKET_SKYROOT_REMEDY;
     public static Item BUCKET_SKYROOT_ICECREAM;
+
     public static Item FOOD_HEALING_STONE;
 
     public static Item TOOL_PICKAXE_SKYROOT;
-
     public static Item TOOL_SHOVEL_SKYROOT;
     public static Item TOOL_AXE_SKYROOT;
     public static Item TOOL_SWORD_SKYROOT;
-    public static Item TOOL_PICKAXE_HOLYSTONE;
 
+    public static Item TOOL_PICKAXE_HOLYSTONE;
     public static Item TOOL_SHOVEL_HOLYSTONE;
     public static Item TOOL_AXE_HOLYSTONE;
     public static Item TOOL_SWORD_HOLYSTONE;
-    public static Item TOOL_PICKAXE_ZANITE;
 
+    public static Item TOOL_PICKAXE_ZANITE;
     public static Item TOOL_SHOVEL_ZANITE;
     public static Item TOOL_AXE_ZANITE;
     public static Item TOOL_SWORD_ZANITE;
-    public static Item TOOL_PICKAXE_GRAVITITE;
 
+    public static Item TOOL_PICKAXE_GRAVITITE;
     public static Item TOOL_SHOVEL_GRAVITITE;
     public static Item TOOL_AXE_GRAVITITE;
     public static Item TOOL_SWORD_GRAVITITE;
-    public static Item TOOL_PICKAXE_VALKYRIE;
 
+    public static Item TOOL_PICKAXE_VALKYRIE;
     public static Item TOOL_SHOVEL_VALKYRIE;
     public static Item TOOL_AXE_VALKYRIE;
     public static Item TOOL_SWORD_VALKYRIE;
-    public static Item ARMOR_HELMET_ZANITE;
 
+    public static Item ARMOR_HELMET_ZANITE;
     public static Item ARMOR_CHESTPLATE_ZANITE;
     public static Item ARMOR_LEGGINGS_ZANITE;
     public static Item ARMOR_BOOTS_ZANITE;
-    public static Item ARMOR_HELMET_GRAVITITE;
 
+    public static Item ARMOR_HELMET_GRAVITITE;
     public static Item ARMOR_CHESTPLATE_GRAVITITE;
     public static Item ARMOR_LEGGINGS_GRAVITITE;
     public static Item ARMOR_BOOTS_GRAVITITE;
-    public static Item ARMOR_HELMET_OBSIDIAN;
 
+    public static Item ARMOR_HELMET_OBSIDIAN;
     public static Item ARMOR_CHESTPLATE_OBSIDIAN;
     public static Item ARMOR_LEGGINGS_OBSIDIAN;
     public static Item ARMOR_BOOTS_OBSIDIAN;
-    public static Item ARMOR_HELMET_PHOENIX;
 
+    public static Item ARMOR_HELMET_PHOENIX;
     public static Item ARMOR_CHESTPLATE_PHOENIX;
     public static Item ARMOR_LEGGINGS_PHOENIX;
     public static Item ARMOR_BOOTS_PHOENIX;
-    public static Item ARMOR_HELMET_NEPTUNE;
 
+    public static Item ARMOR_HELMET_NEPTUNE;
     public static Item ARMOR_CHESTPLATE_NEPTUNE;
     public static Item ARMOR_LEGGINGS_NEPTUNE;
     public static Item ARMOR_BOOTS_NEPTUNE;
+
     public static Item TOOL_SWORD_PIG;
-
     public static Item TOOL_SWORD_VAMPIRE;
-    public static Item TOOL_SWORD_FLAME;
 
+    public static Item TOOL_SWORD_FLAME;
     public static Item TOOL_SWORD_HOLY;
     public static Item TOOL_SWORD_LIGHTNING;
+
     public static Item TOOL_STAFF_NATURE;
-
     public static Item TOOL_STAFF_CLOUD;
-    public static Item TOOL_KNIFE_LIGHTNING;
 
+    public static Item TOOL_KNIFE_LIGHTNING;
     public static Item TOOL_HAMMER_NOTCH;
     public static Item AMMO_HAMMER_HEAD;
     public static Item TOOL_BOW_PHOENIX;
-    public static Item TOOL_SHIELD_REPULSION;
-    public static Item ARMOR_GLOVES_LEATHER;
 
+    public static Item ARMOR_SHIELD_REPULSION;
+
+    public static Item ARMOR_GLOVES_LEATHER;
     public static Item ARMOR_GLOVES_CHAIN;
     public static Item ARMOR_GLOVES_IRON;
     public static Item ARMOR_GLOVES_GOLD;
@@ -154,8 +153,8 @@ public final class AetherItems {
     public static Item ARMOR_GLOVES_OBSIDIAN;
     public static Item ARMOR_GLOVES_PHOENIX;
     public static Item ARMOR_GLOVES_NEPTUNE;
-    public static Item ARMOR_TALISMAN_LEATHER;
 
+    public static Item ARMOR_TALISMAN_LEATHER;
     public static Item ARMOR_TALISMAN_CHAIN;
     public static Item ARMOR_TALISMAN_IRON;
     public static Item ARMOR_TALISMAN_GOLD;
@@ -164,32 +163,48 @@ public final class AetherItems {
     public static Item ARMOR_TALISMAN_ZANITE;
     public static Item ARMOR_TALISMAN_GRAVITITE;
     public static Item ARMOR_TALISMAN_ICE;
-    public static Item ARMOR_TALISMAN_BUBBLE;
 
+    public static Item ARMOR_TALISMAN_BUBBLE;
     public static Item ARMOR_TALISMAN_FEATHER_GOLD;
     public static Item ARMOR_TALISMAN_REGEN;
-    public static Item ARMOR_CAPE_SWET;
 
+    public static Item ARMOR_CAPE_SWET;
     public static Item ARMOR_CAPE_INVISIBILITY;
     public static Item ARMOR_CAPE_AGILITY;
+
+    public static Item ARMOR_CAPE_BLACK;
     public static Item ARMOR_CAPE_RED;
-
-    public static Item ARMOR_CAPE_YELLOW;
+    public static Item ARMOR_CAPE_GREEN;
+    public static Item ARMOR_CAPE_BROWN;
     public static Item ARMOR_CAPE_BLUE;
+    public static Item ARMOR_CAPE_PURPLE;
+    public static Item ARMOR_CAPE_CYAN;
+    public static Item ARMOR_CAPE_SILVER;
+    public static Item ARMOR_CAPE_GRAY;
+    public static Item ARMOR_CAPE_PINK;
+    public static Item ARMOR_CAPE_LIME;
+    public static Item ARMOR_CAPE_YELLOW;
+    public static Item ARMOR_CAPE_LIGHTBLUE;
+    public static Item ARMOR_CAPE_MAGENTA;
+    public static Item ARMOR_CAPE_ORANGE;
     public static Item ARMOR_CAPE_WHITE;
-    public static Item FOOD_GUMMY_BLUE;
 
+    public static Item FOOD_GUMMY_BLUE;
     public static Item FOOD_GUMMY_GOLD;
+
     public static Item PARACHUTE_CLOUD;
     public static Item PARACHUTE_CLOUD_GOLD;
+
     public static Item LIFESHARD;
+
     public static Item LANTERN_FIREFLY_SILVER;
+
     public static Item DOOR_SKYROOT;
     public static Item DOOR_GLASS_AMBROSIUM;
+
     public static Item AMMO_WINDBALL;
 
     public static Item PROJECTILE_FIRE;
-
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
 
@@ -207,17 +222,12 @@ public final class AetherItems {
     }
 
     public static void initializeItems() {
-
-
-        // TODO maybe moving some item initialization in their own method
         AetherItems.registerArmor();
         AetherItems.registerTool();
-        AetherItems.registerFood();
         AetherItems.registerOther();
+    }
 
-
-
-
+    public static void registerOther() {
         MEDAL_VICTORY = new ItemBuilder(MOD_ID).build(new Item("medal.victory", itemKey("medal_victory"), itemID("MEDAL_VICTORY")));
 
         KEY_BRONZE = new ItemBuilder(MOD_ID).build(new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
@@ -239,6 +249,29 @@ public final class AetherItems {
         AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));
         ZANITE = new ItemBuilder(MOD_ID).build(new Item("zanite", itemKey("zanite"), itemID("ZANITE")));
 
+        FOOD_HEALING_STONE = new ItemBuilder(MOD_ID).build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 1, false, 16));
+
+        FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), itemID("FOOD_GUMMY_BLUE"), 20, 1, false, 8));
+        FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), itemID("FOOD_GUMMY_GOLD"), 40, 1, false, 4));
+
+        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
+
+        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
+        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
+        //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
+
+        LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
+        DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
+        DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));
+
+        AMMO_WINDBALL = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.windball", itemKey("ammo_windball"), itemID("AMMO_WINDBALL")));
+        PROJECTILE_FIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.fire", itemKey("projectile_fire"), itemID("PROJECTILE_FIRE")));
+        PROJECTILE_ICE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.ice", itemKey("projectile_ice"), itemID("PROJECTILE_ICE")));
+        PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.lightning", itemKey("projectile_lightning"), itemID("PROJECTILE_LIGHTNING")));
+        //TODO These are to be used as the textures for the projectile the zephyrs shoot (windball), and the other 3 as the boss projectiles that bounce off walls and can be deflected back
+    }
+
+    public static void registerTool() {
         BUCKET_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootEmpty("bucket.skyroot", itemKey("bucket_skyroot"), itemID("BUCKET_SKYROOT")));
         BUCKET_SKYROOT_WATER = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.water", itemKey("bucket_skyroot_water"), itemID("BUCKET_SKYROOT_WATER"), Blocks.FLUID_WATER_FLOWING)).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_MILK = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.milk", itemKey("bucket_skyroot_milk"), itemID("BUCKET_SKYROOT_MILK"), null)).setContainerItem(BUCKET_SKYROOT);
@@ -248,10 +281,6 @@ public final class AetherItems {
         //TODO Poison and remedy buckets need to be drinkable and give effects
 
 
-        /**
-         SUGGESTION all tool do extremely poorly outside of aether, maybe scale them down to a specific tool tier?
-         An example can be found in ItemToolAxeZanite
-         */
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.SKYROOT));
         TOOL_SHOVEL_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.SKYROOT));
         TOOL_PICKAXE_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.SKYROOT));
@@ -292,9 +321,19 @@ public final class AetherItems {
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID).build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER")));
 
-        TOOL_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new ItemShield("tool.shield.repulsion", itemKey("tool_shield_repulsion"), itemID("TOOL_SHIELD_REPULSION"), "shield",6));
-        //TODO Shield needs its ability to activate when held, blocks all projectiles from hitting you
+        TOOL_SWORD_PIG = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.SPECIAL));
+        TOOL_SWORD_VAMPIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.SPECIAL));
 
+        TOOL_SWORD_FLAME = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.SPECIAL));
+        TOOL_SWORD_HOLY = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.SPECIAL));
+        TOOL_SWORD_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL));
+
+        TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
+        TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
+        //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
+    }
+
+    public static void registerArmor() {
 
         ARMOR_HELMET_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.helmet.zanite", itemKey("armor_helmet_zanite"), itemID("ARMOR_HELMET_ZANITE"), AetherArmorMaterial.ZANITE, 3));
         ARMOR_CHESTPLATE_ZANITE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.chestplate.zanite", itemKey("armor_chestplate_zanite"), itemID("ARMOR_CHESTPLATE_ZANITE"), AetherArmorMaterial.ZANITE, 2));
@@ -332,23 +371,14 @@ public final class AetherItems {
         ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,4));
         ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,4));
         ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,4));
-        //TODO Gloves need their system added and be wearable
 
-
-        TOOL_SWORD_PIG = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.SPECIAL));
-        TOOL_SWORD_VAMPIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.SPECIAL));
-
-        TOOL_SWORD_FLAME = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.SPECIAL));
-        TOOL_SWORD_HOLY = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.SPECIAL));
-        TOOL_SWORD_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL));
-
-        TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
-        TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
-        //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen", 6));
         ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new ItemIronBubble("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble",6));
         ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new ItemGoldenFeather("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold",6));
+
+        ARMOR_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new ItemShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield",6));
+        //TODO Shield needs its ability to activate when held, blocks all projectiles from hitting you
 
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER,6));
         ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessoryPendant("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL,6));
@@ -367,42 +397,23 @@ public final class AetherItems {
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCape("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
         //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
-        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white",5));
+        ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black",5));
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5));
-        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 5));
+        ARMOR_CAPE_GREEN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green",5));
+        ARMOR_CAPE_BROWN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown",5));
         ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue", 5));
-        //TODO Decorative capes, potential to add cape color for each wool color,
-
-
-        FOOD_HEALING_STONE = new ItemBuilder(MOD_ID).build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 1, false, 16));
-
-        FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), itemID("FOOD_GUMMY_BLUE"), 20, 1, false, 8));
-        FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID).build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), itemID("FOOD_GUMMY_GOLD"), 40, 1, false, 4));
-
-        LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
-
-        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
-        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
-        //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
-
-        LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
-        DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
-        DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));
-
-        AMMO_WINDBALL = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.windball", itemKey("ammo_windball"), itemID("AMMO_WINDBALL")));
-        PROJECTILE_FIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.fire", itemKey("projectile_fire"), itemID("PROJECTILE_FIRE")));
-        PROJECTILE_ICE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.ice", itemKey("projectile_ice"), itemID("PROJECTILE_ICE")));
-        PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.lightning", itemKey("projectile_lightning"), itemID("PROJECTILE_LIGHTNING")));
-        //TODO These are to be used as the textures for the projectile the zephyrs shoot (windball), and the other 3 as the boss projectiles that bounce off walls and can be deflected back
-
-//        BLANK = new ItemBuilder(MOD_ID)
-//                .build(new Item("BLANK", "aether:item/blank", ID));
+        ARMOR_CAPE_PURPLE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple",5));
+        ARMOR_CAPE_CYAN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan",5));
+        ARMOR_CAPE_SILVER = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver",5));
+        ARMOR_CAPE_GRAY = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray",5));
+        ARMOR_CAPE_PINK = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink",5));
+        ARMOR_CAPE_LIME = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime",5));
+        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 5));
+        ARMOR_CAPE_LIGHTBLUE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue",5));
+        ARMOR_CAPE_MAGENTA = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta",5));
+        ARMOR_CAPE_ORANGE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange",5));
+        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white",5));
 
     }
-    // maybe for later when cleanign up
-    public static void registerOther() {}
-    public static void registerTool() {}
-    public static void registerFood() {}
-    public static void registerArmor() {}
 
 }

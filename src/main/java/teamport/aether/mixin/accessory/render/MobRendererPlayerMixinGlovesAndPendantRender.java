@@ -5,9 +5,11 @@ import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
+import net.minecraft.client.render.model.ModelPlayer;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,8 +28,8 @@ import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
 
-    @Shadow private ModelBiped modelBipedMain;
     @Shadow @Final private ModelBiped modelArmorChestplate;
+    @Shadow private ModelBiped modelBipedMain;
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.0F);
 
@@ -35,7 +37,6 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         super(model, shadowSize);
     }
 
-    // TODO fix the gloves in the first person
     // TODO fix armor not shaking with the player when punching in third person
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
     public void callDrawFirstPersonHandAfter(Player player, boolean isLeft, CallbackInfo ci) {
@@ -48,13 +49,19 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
             this.modelAccessories.onGround = 0.0f;
             this.modelAccessories.isRiding = false;
             this.modelAccessories.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
-            if (isLeft) {
-                this.modelAccessories.armLeft.visible = true;
-                this.modelAccessories.armLeft.render(0.0625F);
-            } else {
-                this.modelAccessories.armRight.visible = true;
-                this.modelAccessories.armRight.render(0.0625F);
+
+            if (this.modelBipedMain instanceof ModelPlayer) {
+                if (isLeft) {
+                    GL11.glDisable(GL11.GL_CULL_FACE);
+                    this.modelAccessories.armLeft.visible = true;
+                    this.modelAccessories.armLeft.render(0.0625F);
+                } else {
+                    GL11.glDisable(GL11.GL_CULL_FACE);
+                    this.modelAccessories.armRight.visible = true;
+                    this.modelAccessories.armRight.render(0.0625F);
+                }
             }
+
             this.modelAccessories.armLeft.visible = false;
             this.modelAccessories.armRight.visible = false;
         }

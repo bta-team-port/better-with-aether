@@ -22,7 +22,6 @@ public class SlotAccessory extends Slot {
     public static final String[] accessoryOutline = new String[]{
             "aether:item/armor_gloves_outline",
             "aether:item/armor_capes_outline",
-//            "aether:item/armor_wildcard_outline",
             "aether:item/armor_thin_wildcard_outline",
             "aether:item/armor_thin_wildcard_outline",
     };

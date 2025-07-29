@@ -409,7 +409,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_HAMMER_NOTCH, null).setIcon("aether:item/tool_hammer_notch").setFull3D());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_HAMMER_HEAD, null).setIcon("aether:item/notch_wave"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHIELD_REPULSION, null).setIcon("aether:item/tool_shield_repulsion"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_SHIELD_REPULSION, null).setIcon("aether:item/tool_shield_repulsion"));
         dispatcher.addDispatch(new ItemModelBow(AetherItems.TOOL_BOW_PHOENIX, null).setIcon("aether:item/tool_bow_phoenix"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_GOLDEN, null).setIcon("aether:item/dart_golden"));
@@ -484,10 +484,23 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_AGILITY, null).setIcon("aether:item/armor_cape_agility"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SWET, null).setIcon("aether:item/armor_cape_swet"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_INVISIBILITY, null).setIcon("aether:item/armor_cape_invisibility"));
+
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_WHITE, null).setIcon("aether:item/armor_cape_white"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_SILVER, null).setIcon("aether:item/armor_cape_silver"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_GRAY, null).setIcon("aether:item/armor_cape_gray"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_BLACK, null).setIcon("aether:item/armor_cape_black"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_BROWN, null).setIcon("aether:item/armor_cape_brown"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_RED, null).setIcon("aether:item/armor_cape_red"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_YELLOW, null).setIcon("aether:item/armor_cape_yellow"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_ORANGE, null).setIcon("aether:item/armor_cape_orange"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_LIME, null).setIcon("aether:item/armor_cape_lime"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_GREEN, null).setIcon("aether:item/armor_cape_green"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_CYAN, null).setIcon("aether:item/armor_cape_cyan"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_BLUE, null).setIcon("aether:item/armor_cape_blue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_LIGHTBLUE, null).setIcon("aether:item/armor_cape_lightblue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PURPLE, null).setIcon("aether:item/armor_cape_purple"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_MAGENTA, null).setIcon("aether:item/armor_cape_magenta"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PINK, null).setIcon("aether:item/armor_cape_pink"));
 
 
 
