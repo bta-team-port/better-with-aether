@@ -21,8 +21,9 @@ public abstract class SlotCraftingAchievementMixin {
         if (itemstack.itemID == AetherItems.TOOL_PICKAXE_SKYROOT.id) {
             this.thePlayer.addStat(AetherAchievements.SKYROOT, 1);
         }
-        if (itemstack.itemID == AetherItems.TOOL_PICKAXE_SKYROOT.id || itemstack.itemID == AetherItems.TOOL_SHOVEL_GRAVITITE.id || itemstack.itemID == AetherItems.TOOL_AXE_GRAVITITE.id || itemstack.itemID == AetherItems.TOOL_SWORD_GRAVITITE.id
-                || itemstack.itemID == AetherItems.ARMOR_HELMET_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_LEGGINGS_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_CHESTPLATE_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_BOOTS_GRAVITITE.id ) {
+        if (itemstack.itemID == AetherItems.TOOL_PICKAXE_GRAVITITE.id || itemstack.itemID == AetherItems.TOOL_SHOVEL_GRAVITITE.id || itemstack.itemID == AetherItems.TOOL_AXE_GRAVITITE.id || itemstack.itemID == AetherItems.TOOL_SWORD_GRAVITITE.id
+                || itemstack.itemID == AetherItems.ARMOR_HELMET_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_LEGGINGS_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_CHESTPLATE_GRAVITITE.id || itemstack.itemID == AetherItems.ARMOR_BOOTS_GRAVITITE.id
+                || itemstack.itemID == AetherItems.ARMOR_TALISMAN_GRAVITITE.id) {
             this.thePlayer.addStat(AetherAchievements.GRAVITITE, 1);
         }
         if (itemstack.itemID == AetherBlocks.ENCHANTER_IDLE.id()) {

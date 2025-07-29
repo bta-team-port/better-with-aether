@@ -5,12 +5,15 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherAchievements;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
+import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.lookup.LookupFuelIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
@@ -23,6 +26,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     /// currentEnergyTime       -> currentBurnTime
     /// maxProcessTime          -> maxCookTime
     /// currentProcessTime      -> currentCookTime
+    Player thePlayer;
 
     public TileEntityIncubator(){this.containerItemStacks = new ItemStack[2];}
 
@@ -152,10 +156,19 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
         Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
+
         if(entityClazz == null) return;
         Entity entity =  EntityDispatcher.createEntityInWorld(entityClazz, worldObj);
         entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
+        
         worldObj.entityJoinedWorld(entity);
+
+        thePlayer = worldObj.getClosestPlayerToEntity(entity, 16);
+        if (thePlayer != null) {
+            if (entityClazz == MobMoa.class) {
+                thePlayer.triggerAchievement(AetherAchievements.MOA);
+            }
+        }
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) containerItemStacks[0] = null;
     }

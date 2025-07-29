@@ -35,7 +35,7 @@
   {
     "name": "aether:incubator/hatch_moa_white",
     "type": "aether:incubator",
-    "time": 1000,
+    "time": 2000,
     "input": {
       "stack": {
         "id": "aether:item/egg_moa_white"
@@ -46,7 +46,7 @@
   {
     "name": "aether:incubator/hatch_moa_black",
     "type": "aether:incubator",
-    "time": 1000,
+    "time": 4000,
     "input": {
       "stack": {
         "id": "aether:item/egg_moa_black"
