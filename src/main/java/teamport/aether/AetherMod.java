@@ -31,6 +31,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static MobFireflyCluster.FireflyColor SILVER;
 
+
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
@@ -51,7 +52,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherItems.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
-        AetherMod.registerTextures();
+//        AetherMod.registerTextures();
     }
 
     @Override
@@ -96,13 +97,13 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
     }
 
-    public static void registerTextures() {
-        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
-            try {
-                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
-            } catch (URISyntaxException | IOException e) {
-                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
-            }
-        }
-    }
+//    public static void registerTextures() {
+//        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
+//            try {
+//                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
+//            } catch (URISyntaxException | IOException e) {
+//                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+//            }
+//        }
+//    }
 }

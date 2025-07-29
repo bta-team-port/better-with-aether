@@ -7,6 +7,7 @@ import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
+import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
@@ -48,6 +49,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();
+        AetherClient.registerTextures();
+
 
         try {
             TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, false);
@@ -135,5 +138,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         page.addAchievement(AetherAchievements.ALL_ACCESSORY_TYPES, -2, 6);
 
         AchievementPages.register(page);
+    }
+
+    public static void registerTextures() {
+        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
+            try {
+                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
+            } catch (URISyntaxException | IOException e) {
+                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
+            }
+        }
     }
 }
