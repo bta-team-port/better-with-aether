@@ -6,6 +6,7 @@
   "mixins": [
     "BlockLogicMossMixin",
     "BlockLogicPathDirtMixin",
+    "EntityItemPickupAchievementMixin",
     "EntityMixin",
     "ItemToolShovelMixin",
     "MobPigMixin",
