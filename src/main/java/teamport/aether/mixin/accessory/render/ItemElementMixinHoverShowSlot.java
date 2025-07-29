@@ -1,5 +1,6 @@
 package teamport.aether.mixin.accessory.render;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ItemElement;
 import net.minecraft.client.gui.container.ScreenInventory;
@@ -66,10 +67,10 @@ public class ItemElementMixinHoverShowSlot {
                     ordinal = 0
             )
     )
-    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon) {
+    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot) {
         Minecraft mc = Minecraft.getMinecraft();
         if (
-                this.slot.index >= ARMOR_START_INDEX + WILDCARD_1_SLOT
+                currectSlot.index >= ARMOR_START_INDEX + WILDCARD_1_SLOT
                         && (mc.currentScreen instanceof ScreenInventory || mc.currentScreen instanceof ScreenInventoryCreative)
         ) {
             String root = "aether:item/wildcard/";
@@ -90,8 +91,6 @@ public class ItemElementMixinHoverShowSlot {
                         return;
                     }
                 }
-                instance.drawTexturedIcon(x, y, 16, 16, defaultIcon);
-                return;
             }
 
             Slot slot = ((ScreenInventory) mc.currentScreen).getSlotAtPosition(mouseX, mouseY);

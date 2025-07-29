@@ -23,7 +23,7 @@ import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryPendant;
 
-import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.*;
 
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
@@ -78,9 +78,9 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         this.modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
         this.modelAccessories.sneaking = player.isSneaking();
         this.modelAccessories.isRiding = player.isPassenger();
-        this.modelAccessories.body.visible = renderPass == 6 || renderPass == 7;
-        this.modelAccessories.armLeft.visible = renderPass == 4;
-        this.modelAccessories.armRight.visible = renderPass == 4;
+        this.modelAccessories.body.visible = renderPass == WILDCARD_1_SLOT || renderPass == WILDCARD_2_SLOT;
+        this.modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
+        this.modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
 
         ItemStack itemStack = player.inventory.armorInventory[renderPass];
         if (itemStack == null) {
