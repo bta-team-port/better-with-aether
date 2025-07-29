@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.ContainerHelper;
-import teamport.aether.particle.ParticalHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
+import teamport.aether.particle.ParticalHelper;
 
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinFireImmunity extends Mob {
@@ -26,6 +26,19 @@ public class PlayerMixinFireImmunity extends Mob {
 
     public PlayerMixinFireImmunity(@Nullable World world) {
         super(world);
+    }
+
+
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tick(CallbackInfo ci) {
+        if (fireResistanceCount() >= 3 && random.nextInt(6) == 0) {
+            ParticalHelper.spawnFlameParticles(world, x, y, z, bbHeight, bbWidth);
+        }
+
+        if (fireResistanceCount() >= 5 && random.nextInt(3) == 0) {
+            ParticalHelper.spawnFlameParticles(world, x, y, z, bbHeight, bbWidth);
+        }
     }
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
@@ -78,7 +91,10 @@ public class PlayerMixinFireImmunity extends Mob {
         Player player = (Player) (Object) this;
         if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
             player.inventory.damageArmor(damage);
+            if (random.nextInt(6) == 0) {
+                this.world.playSoundAtEntity(null, this, "random.fizz", 0.5F, 0.8F / (this.random.nextFloat() * 0.2F + 0.9F));
+            }
         }
-        ParticalHelper.spawnFlameParticles(world,  x, y, z, bbHeight, bbWidth);
+        ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
     }
 }
