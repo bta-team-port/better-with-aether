@@ -13,6 +13,7 @@ import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.entity.valkyrie.MobValkyrie;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityEnchanter;
 import teamport.aether.tile.TileEntityFreezer;
@@ -41,6 +42,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobZephyr.class, NamespaceID.getPermanent(MOD_ID, "zephyr"), entityKey("zephyr"));
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobCockatrice.class, NamespaceID.getPermanent(MOD_ID, "cockatrice"), entityKey("cockatrice"));
+        EntityHelper.createEntity(MobValkyrie.class, NamespaceID.getPermanent(MOD_ID, "valkyrie"), entityKey("valkyrie"));
 
         EntityHelper.createEntity(MobSheepuff.class, NamespaceID.getPermanent(MOD_ID, "sheepuff"), entityKey("sheepuff"));
         EntityHelper.createEntity(MobPhow.class, NamespaceID.getPermanent(MOD_ID, "phow"), entityKey("phow"));
@@ -50,7 +52,6 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobMoaWhite.class, NamespaceID.getPermanent(MOD_ID, "moa_white"), entityKey("moa_white"));
         EntityHelper.createEntity(MobMoaBlack.class, NamespaceID.getPermanent(MOD_ID, "moa_black"), entityKey("moa_black"));
         EntityHelper.createEntity(MobAerwhale.class, NamespaceID.getPermanent(MOD_ID, "aerwhale"), entityKey("aerwhale"));
-
 
 
         EntityHelper.createEntity(EntityParachute.class, NamespaceID.getPermanent(MOD_ID, "parachute"), entityKey("parachute"));
