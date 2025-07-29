@@ -24,7 +24,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$lavaImmunity(CallbackInfo ci) {
         if(isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnFlameParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -33,7 +33,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$fireImmunity(CallbackInfo ci) {
         if (isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnFlameParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -42,7 +42,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void thunderHit(EntityLightning bolt){
         if(isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnFlameParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             return;
         }
         super.thunderHit(bolt);
@@ -52,7 +52,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void burn(int damage) {
         if (isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnFlameParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticalHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
         super.burn(damage);
