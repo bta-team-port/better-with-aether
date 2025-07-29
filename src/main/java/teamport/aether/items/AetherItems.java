@@ -275,8 +275,8 @@ public final class AetherItems {
         BUCKET_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootEmpty("bucket.skyroot", itemKey("bucket_skyroot"), itemID("BUCKET_SKYROOT")));
         BUCKET_SKYROOT_WATER = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.water", itemKey("bucket_skyroot_water"), itemID("BUCKET_SKYROOT_WATER"), Blocks.FLUID_WATER_FLOWING)).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_MILK = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.milk", itemKey("bucket_skyroot_milk"), itemID("BUCKET_SKYROOT_MILK"), null)).setContainerItem(BUCKET_SKYROOT);
-        BUCKET_SKYROOT_REMEDY = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), itemID("BUCKET_SKYROOT_REMEDY"), null)).setContainerItem(BUCKET_SKYROOT);
-        BUCKET_SKYROOT_POISON = new ItemBuilder(MOD_ID).build(new ItemBucketSkyroot("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), itemID("BUCKET_SKYROOT_POISON"), null)).setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_REMEDY = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootRemedy("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), itemID("BUCKET_SKYROOT_REMEDY"))).setContainerItem(BUCKET_SKYROOT);
+        BUCKET_SKYROOT_POISON = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootPoison("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), itemID("BUCKET_SKYROOT_POISON"))).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_ICECREAM = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootIceCream("bucket.skyroot.icecream", itemKey("bucket_skyroot_icecream"), itemID("BUCKET_SKYROOT_ICECREAM"), 10, 4)).setContainerItem(BUCKET_SKYROOT);
         //TODO Poison and remedy buckets need to be drinkable and give effects
 
