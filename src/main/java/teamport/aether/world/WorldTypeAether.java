@@ -16,7 +16,6 @@ import net.minecraft.core.world.wind.WindProviderGeneric;
 import teamport.aether.blocks.AetherBlocks;
 
 public abstract class WorldTypeAether extends WorldType {
-    public final float[] colorsSunriseSunset = new float[4];
 
     public WorldTypeAether(String languageKey) {
         super(Properties.of(languageKey)
@@ -71,11 +70,12 @@ public abstract class WorldTypeAether extends WorldType {
 
     @Override
     public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderSingleBiome(AetherDimension.biomeAether, 0.5, 0.5, 0.5);
+        return new BiomeProviderSingleBiome(AetherDimension.biomeAether, 0.0, 0.0, 0.0);
     }
 
     @Override
     public ChunkGenerator createChunkGenerator(World world) {
+        //TODO Fix and then switch to the aether Chunk Generator
         return new ChunkGeneratorOverworldFloating(world);
     }
 
