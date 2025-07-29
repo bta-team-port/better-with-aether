@@ -210,8 +210,8 @@ item.aether.armor.talisman.feather.gold.desc=Lets you gently float to the ground
 item.aether.armor.talisman.regen.name=Regeneration Stone
 item.aether.armor.talisman.regen.desc=Regenerates your health over time.
 
-item.aether.tool.shield.repulsion.name=Shield of Repulsion
-item.aether.tool.shield.repulsion.desc=While standing still, all projectiles will bounce off of you.
+item.aether.armor.shield.repulsion.name=Shield of Repulsion
+item.aether.armor.shield.repulsion.desc=While standing still, all projectiles will bounce off of you.
 
 item.aether.armor.cape.swet.name=Swet Cape
 item.aether.armor.cape.swet.desc=Rare decorative cape with an emblem of a swet.
@@ -219,14 +219,42 @@ item.aether.armor.cape.invisibility.name=Invisibility Cloak
 item.aether.armor.cape.invisibility.desc=Go invisible with this neat cloak.
 item.aether.armor.cape.agility.name=Agility Cape
 item.aether.armor.cape.agility.desc=Walk up blocks with this handy cape.
+
 item.aether.armor.cape.white.name=White Cape
-item.aether.armor.cape.white.desc=White colored decorative cape.
+item.aether.armor.cape.white.desc=Decorative cape colored white.
+item.aether.armor.cape.silver.name=Light Gray Cape
+item.aether.armor.cape.silver.desc=Decorative cape colored light gray.
+item.aether.armor.cape.gray.name=Gray Cape
+item.aether.armor.cape.gray.desc=Decorative cape colored gray.
+item.aether.armor.cape.black.name=Black Cape
+item.aether.armor.cape.black.desc=Decorative cape colored black.
+
 item.aether.armor.cape.red.name=Red Cape
-item.aether.armor.cape.red.desc=Red colored decorative cape.
+item.aether.armor.cape.red.desc=Decorative cape colored red.
 item.aether.armor.cape.yellow.name=Yellow Cape
-item.aether.armor.cape.yellow.desc=Yellow colored decorative cape.
+item.aether.armor.cape.yellow.desc=Decorative cape colored yellow.
+item.aether.armor.cape.orange.name=Orange Cape
+item.aether.armor.cape.orange.desc=Decorative cape colored orange.
+item.aether.armor.cape.brown.name=Brown Cape
+item.aether.armor.cape.brown.desc=Decorative cape colored brown.
+
+item.aether.armor.cape.lime.name=Lime Cape
+item.aether.armor.cape.lime.desc=Decorative cape colored lime.
+item.aether.armor.cape.green.name=Green Cape
+item.aether.armor.cape.green.desc=Decorative cape colored green.
+item.aether.armor.cape.cyan.name=Cyan Cape
+item.aether.armor.cape.cyan.desc=Decorative cape colored cyan.
 item.aether.armor.cape.blue.name=Blue Cape
-item.aether.armor.cape.blue.desc=Blue colored decorative cape.
+item.aether.armor.cape.blue.desc=Decorative cape colored blue.
+
+item.aether.armor.cape.lightblue.name=Light Blue Cape
+item.aether.armor.cape.lightblue.desc=Decorative cape colored light blue.
+item.aether.armor.cape.purple.name=Purple Cape
+item.aether.armor.cape.purple.desc=Decorative cape colored purple.
+item.aether.armor.cape.magenta.name=Magenta Cape
+item.aether.armor.cape.magenta.desc=Decorative cape colored magenta.
+item.aether.armor.cape.pink.name=Pink Cape
+item.aether.armor.cape.pink.desc=Decorative cape colored pink.
 
 #Misc
 item.aether.book.lore.overworld.name=Book of Lore : Volume Overworld
