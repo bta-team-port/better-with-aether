@@ -19,6 +19,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherEntities.init();
         AetherBlocks.init();
         AetherItems.init();
+        AetherDimension.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
         AetherMod.registerTextures();
