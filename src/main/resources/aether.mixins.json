@@ -10,6 +10,7 @@
     "ItemToolShovelMixin",
     "MobPigMixin",
     "MobSheepMixin",
+    "SlotCraftingAchievementMixin",
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
