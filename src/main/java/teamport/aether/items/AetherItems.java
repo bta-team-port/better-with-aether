@@ -392,7 +392,7 @@ public final class AetherItems {
         //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
         //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
 
-        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
+        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCape("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCape("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
         //TODO Capes are equipped in the cape slot, agility cape lets you walk up 1 block without jumping, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
