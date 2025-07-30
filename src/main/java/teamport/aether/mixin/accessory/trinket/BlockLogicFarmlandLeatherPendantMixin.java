@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.functional;
+package teamport.aether.mixin.accessory.trinket;
 
 import net.minecraft.core.block.BlockLogicFarmland;
 import net.minecraft.core.entity.Entity;

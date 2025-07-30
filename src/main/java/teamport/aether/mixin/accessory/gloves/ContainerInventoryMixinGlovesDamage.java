@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.functional.gloves;
+package teamport.aether.mixin.accessory.gloves;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.entity.Entity;

@@ -1,5 +1,7 @@
 package teamport.aether.mixin.armor.player.phoenix.obsidian;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -23,9 +25,9 @@ public class PlayerMixinExtraFallDamage extends Mob {
         super(world);
     }
 
-    @Inject(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"), cancellable = true)
-    public void aether$causeFallDamage(float distance, CallbackInfo ci) {
+    @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"))
+    public void aether$causeFallDamage(Player instance, float distance, Operation<Void> original) {
         float totalProtectionOfMaterial = ContainerHelper.getTotalEquippedArmorProtection(inventory, AetherArmorMaterial.OBSIDIAN);
-        super.causeFallDamage((1 + totalProtectionOfMaterial) * distance);
+        original.call(instance, (1 + totalProtectionOfMaterial) * distance);
     }
 }

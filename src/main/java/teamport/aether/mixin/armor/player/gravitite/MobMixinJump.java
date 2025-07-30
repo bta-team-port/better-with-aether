@@ -1,8 +1,11 @@
 package teamport.aether.mixin.armor.player.gravitite;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
@@ -69,5 +72,25 @@ public abstract class MobMixinJump extends Entity {
         }
 
         isJumpingPrev = isJumping;
+    }
+
+
+    @WrapOperation(
+            method = "causeFallDamage",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z")
+    )
+    public boolean negateFallDamage(Mob instance, Entity attacker, int damage, DamageType type, Operation<Boolean> original) {
+        if (!(instance instanceof Player)) {
+            return original.call(instance, attacker, damage, type);
+        }
+        Player player = (Player) instance;
+        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) {
+            return original.call(instance, attacker, damage, type);
+        }
+        damage = damage - 13;
+        if (damage > 0) player.inventory.damageArmor((int) Math.ceil((double) damage / (double) 5.0F));
+        return false;
     }
 }
