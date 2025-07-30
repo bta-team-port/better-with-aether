@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.render;
+package teamport.aether.mixin.accessory.trinket;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.functional.invisibilitycape;
+package teamport.aether.mixin.accessory.cape.invisibilitycape;
 
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.tessellator.Tessellator;
