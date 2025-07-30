@@ -16,8 +16,8 @@ public class SlotAccessory extends Slot {
     // armorType
     public static final byte GLOVES_SLOT = 4;
     public static final byte CAPE_SLOT = 5;       // cape, quiver
-    public static final byte WILDCARD_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
-    public static final byte WILDCARD_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte TRINKET_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     public static final String[] accessoryOutline = new String[]{
@@ -43,19 +43,13 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item instanceof Accessory) {
-            Accessory accessory = (Accessory) item;
-            int index = accessory.getAccessorySlot();
-            if(index == armorType) return true;
-            return (
-                    (index == WILDCARD_1_SLOT && this.armorType == WILDCARD_2_SLOT)
-                    || (index == WILDCARD_2_SLOT && this.armorType == WILDCARD_1_SLOT)
-            );
+        if (item instanceof Accessory && !item.hasTag(AetherItemTags.TRINKET)) {
+            return ((Accessory) item).getAccessorySlot() == this.armorType;
         }
         if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
         }
-        return item.hasTag(AetherItemTags.ACCESSORY) && this.armorType >= WILDCARD_1_SLOT;
+        return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
     }
 
     // TODO figure out what to do here

@@ -1,16 +1,17 @@
-package teamport.aether.items.accessory;
+package teamport.aether.items.accessory.trinket;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.items.accessory.ItemAccessoryTrinket;
 
-import static teamport.aether.items.accessory.SlotAccessory.WILDCARD_1_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemRegenStone extends ItemAccessory{
+public class ItemRegenStone extends ItemAccessoryTrinket {
 
-    public ItemRegenStone(String translationKey, String namespaceId, int id, String name, int accessorySlot) {
-        super(translationKey, namespaceId, id, name, accessorySlot);
+    public ItemRegenStone(String translationKey, String namespaceId, int id, String name) {
+        super(translationKey, namespaceId, id, name);
     }
 
 
@@ -18,7 +19,7 @@ public class ItemRegenStone extends ItemAccessory{
         Player player = (Player) entity;
         if (
                 slotId < player.inventory.mainInventory.length
-                || slotId - player.inventory.mainInventory.length < WILDCARD_1_SLOT
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
                 || player.gamemode.isPlayerInvulnerable()
         ) {
             itemstack.setMetadata(0);
