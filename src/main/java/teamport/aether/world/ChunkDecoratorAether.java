@@ -13,10 +13,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 import teamport.aether.blocks.BlockLogicOreZanite;
-import teamport.aether.gen.feature.WorldFeatureClouds;
-import teamport.aether.gen.feature.WorldFeatureQuicksoil;
-import teamport.aether.gen.feature.WorldFeatureTreeAether;
-import teamport.aether.gen.feature.WorldFeatureTreeGoldenOak;
+import teamport.aether.gen.feature.*;
 
 import java.util.Random;
 
@@ -144,14 +141,14 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         if (rand.nextInt(7) == 0) {
             k4 = k + rand.nextInt(16);
-            l7 = rand.nextInt(64) + 128;
+            l7 = rand.nextInt(192) + 32;
             k17 = l + rand.nextInt(16);
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, k4, l7, k17);
         }
 
         if (rand.nextInt(50) == 0) {
             k4 = k + rand.nextInt(16);
-            l7 = rand.nextInt(32) + 32;
+            l7 = rand.nextInt(64) + 8;
             k17 = l + rand.nextInt(16);
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, k4, l7, k17);
         }
@@ -162,13 +159,16 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 //            j20 = l + rand.nextInt(16);
 //            (new AetherGenDungeonBronze(AetherBlocks.LockedDungeonStone.id, AetherBlocks.LockedLightDungeonStone.id, AetherBlocks.DungeonStone.id, AetherBlocks.LightDungeonStone.id, AetherBlocks.Holystone.id, 2, AetherBlocks.Holystone.id, 0, 16, true)).place(this.world, rand, l7, k17, j20);
 //        }
-//
-//        if (rand.nextInt(500) == 0) {
-//            k4 = k + rand.nextInt(16);
-//            l7 = rand.nextInt(32) + 64;
-//            k17 = l + rand.nextInt(16);
-//            (new AetherGenDungeonSilver(AetherBlocks.LockedDungeonStone.id, AetherBlocks.LockedLightDungeonStone.id, AetherBlocks.DungeonStone.id, AetherBlocks.LightDungeonStone.id, AetherBlocks.Holystone.id, 2, AetherBlocks.Holystone.id, 0, AetherBlocks.Pillar.id)).place(this.world, rand, k4, l7, k17);
-//        }
+
+        
+
+
+        if (rand.nextInt(500) == 0) {
+            k4 = k + rand.nextInt(16);
+            l7 = rand.nextInt(128) + 64;
+           k17 = l + rand.nextInt(16);
+            (new WorldFeatureAetherDungeonSilver()).place(this.world, rand, k4, l7, k17);
+        }
 
         if (rand.nextInt(5) == 0) {
             for (k4 = k; k4 < k + 16; ++k4) {
