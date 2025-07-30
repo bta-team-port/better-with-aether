@@ -6,18 +6,18 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.World;
 
-import static teamport.aether.items.accessory.SlotAccessory.WILDCARD_1_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemGravititePendant extends ItemAccessoryPendant {
+public class ItemGravititePendant extends ItemAccessoryTrinket {
 
 
-    public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial name, int accessoryPiece) {
-        super(translationKey, namespaceId, id, name, accessoryPiece);
+    public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial name) {
+        super(translationKey, namespaceId, id, name);
     }
 
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
-        if (slotId < player.inventory.mainInventory.length || slotId - player.inventory.mainInventory.length < WILDCARD_1_SLOT) {
+        if (slotId < player.inventory.mainInventory.length || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT) {
             return;
         }
 
