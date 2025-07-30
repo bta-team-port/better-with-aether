@@ -68,7 +68,7 @@ public class MobSwet extends Mob implements Enemy {
     public void rideTick() {
         super.rideTick();
         if (this.passenger != null && this.kickoff) {
-            this.passenger.setPassenger(this);
+            this.passenger.startRiding(this);
             this.kickoff = false;
         }
 
@@ -110,10 +110,6 @@ public class MobSwet extends Mob implements Enemy {
 
     }
 
-    public boolean canDespawn() {
-        return true;
-    }
-
     public void onGround() {
         if (!this.friendly) {
             if (this.hops >= 3 && this.getHealth() > 0) {
@@ -140,7 +136,7 @@ public class MobSwet extends Mob implements Enemy {
         if (this.passenger != null) {
             Entity var10000 = this.passenger;
             var10000.y += this.passenger.heightOffset - 0.3F;
-            this.passenger.setPassenger(this);
+            this.passenger.startRiding(this);
         }
 
         this.remove();
@@ -158,23 +154,23 @@ public class MobSwet extends Mob implements Enemy {
         this.zd = entity.zd;
         this.setSize(entity.bbWidth, entity.bbHeight);
         this.setPos(this.x, this.y, this.z);
-        entity.setPassenger(this);
+        entity.startRiding(this);
         this.y = this.random.nextFloat() * 360.0F;
     }
 
-    public boolean damage(Entity entity, int i) {
+    public boolean hurt(Entity entity, int damage, DamageType damageType) {
         if (this.hops == 3 && entity == null && this.getHealth() > 1) {
             this.setHealthRaw(1);
         }
 
-        boolean flag = super.hurt(entity, i, DamageType.COMBAT);
+        boolean flag = super.hurt(entity, damage, DamageType.COMBAT);
         if (flag && this.passenger != null && this.passenger instanceof Mob) {
             if (entity != null && this.passenger == entity) {
                 if (this.random.nextInt(3) == 0) {
                     this.kickoff = true;
                 }
             } else {
-                this.passenger.hurt(null, i, DamageType.COMBAT);
+                this.passenger.hurt(null, damage, DamageType.COMBAT);
                 if (this.getHealth() <= 0) {
                     this.kickoff = true;
                 }
@@ -192,7 +188,7 @@ public class MobSwet extends Mob implements Enemy {
             }
         }
 
-        if (this.friendly && this.getCurrentTarget() instanceof Player) {
+        if (this.friendly && this.currentTarget instanceof Player) {
             this.currentTarget = null;
         }
 
@@ -205,8 +201,8 @@ public class MobSwet extends Mob implements Enemy {
             this.moveStrafing = 0.0F;
             this.isJumping = false;
             ((EntityAccessor) this.passenger).setFallDistance(0.0F);
-            this.yo = this.y = this.passenger.y;
-            this.xo = this.x = 0.0F;
+            this.yRotO = (float) (this.y = this.passenger.y);
+            this.xRotO = (float) (this.x = 0.0F);
             Mob mob = (Mob) this.passenger;
             float f = 3.141593F;
             float f1 = f / 180.0F;
@@ -214,34 +210,34 @@ public class MobSwet extends Mob implements Enemy {
             if (!this.onGround) {
                 if (((MobAccessor) mob).getForwardVelocity() > 0.1F) {
                     if (this.textureNum == 1) {
-                        this.xd += ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.125;
+                        this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.125;
                     } else {
-                        this.xd += ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.325;
+                        this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.325;
                     }
-                    this.zd += ((MobAccessor) mob).getForwardVelocity() * Math.cos(f2) * 0.125;
+                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f2) * 0.125;
                 } else if (((MobAccessor) mob).getForwardVelocity() < -0.1F) {
                     if (this.textureNum == 1) {
-                        this.xd += ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.125;
+                        this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.125;
                     } else {
-                        this.xd += ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.325;
+                        this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f2) * 0.325;
                     }
-                    this.zd += ((MobAccessor) mob).getForwardVelocity() * Math.cos(f2) * 0.125;
+                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f2) * 0.125;
                 }
 
                 if (((MobAccessor) mob).getHorizontalVelocity() > 0.1F) {
                     if (this.textureNum == 1) {
-                        this.xd += ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.125;
+                        this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.125;
                     } else {
-                        this.xd += ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.325;
+                        this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.325;
                     }
-                    this.zd += ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f2) * 0.125;
+                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f2) * 0.125;
                 } else if (((MobAccessor) mob).getHorizontalVelocity() < -0.1F) {
                     if (this.textureNum == 1) {
-                        this.xd += ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.125;
+                        this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.125;
                     } else {
-                        this.xd += ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.325;
+                        this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f2) * 0.325;
                     }
-                    this.zd += ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f2) * 0.125;
+                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f2) * 0.125;
                 }
 
                 if (this.yd < 0.05000000074505806 && this.flutter > 0 && ((MobAccessor) mob).getJumping()) {
@@ -291,6 +287,8 @@ public class MobSwet extends Mob implements Enemy {
     }
 
     protected void updateAI() {
+        ++this.entityAge;
+        this.tryToDespawn();
         if (this.friendly && this.passenger != null) {
             this.d_2();
         } else {
@@ -304,11 +302,11 @@ public class MobSwet extends Mob implements Enemy {
                 }
             }
 
-            if (this.getCurrentTarget() != null && this.passenger == null && this.getHealth() > 0) {
-                this.lookAt(this.getCurrentTarget(), 10.0F, 10.0F);
+            if (this.currentTarget != null && this.passenger == null && this.getHealth() > 0) {
+                this.lookAt(this.currentTarget, 10.0F, 10.0F);
             }
 
-            if (this.getCurrentTarget() != null && this.getCurrentTarget().removed) {
+            if (this.currentTarget != null && this.currentTarget.removed) {
                 this.currentTarget = null;
             }
 
@@ -324,14 +322,14 @@ public class MobSwet extends Mob implements Enemy {
                     this.hops = 0;
                 }
 
-                if (this.getCurrentTarget() == null && this.passenger == null) {
+                if (this.currentTarget == null && this.passenger == null) {
                     Entity entity = this.getPrey();
                     if (entity != null) {
                         this.currentTarget = entity;
                     }
-                } else if (this.getCurrentTarget() != null && this.passenger == null) {
-                    if (this.distanceTo(this.getCurrentTarget()) <= 9.0F) {
-                        if (this.onGround && this.canEntityBeSeen(this.getCurrentTarget())) {
+                } else if (this.currentTarget != null && this.passenger == null) {
+                    if (this.distanceTo(this.currentTarget) <= 9.0F) {
+                        if (this.onGround && this.canEntityBeSeen(this.currentTarget)) {
                             this.splotch();
                             this.flutter = 10;
                             this.isJumping = true;
@@ -343,7 +341,7 @@ public class MobSwet extends Mob implements Enemy {
                         this.isJumping = false;
                         this.moveForward = 0.0F;
                     }
-                } else if (this.passenger != null && this.onGround) {
+                } else if (this.onGround) {
                     if (this.hops == 0) {
                         this.splotch();
                         this.onGround = false;
@@ -430,9 +428,9 @@ public class MobSwet extends Mob implements Enemy {
     }
 
     public boolean collidesWith(Entity entity) {
-        if (this.hops == 0 && this.passenger == null && this.getCurrentTarget() != null && entity != null && entity == this.getCurrentTarget() && (!(entity.vehicle instanceof MobSwet))) {
+        if (this.hops == 0 && this.passenger == null && this.currentTarget != null && entity != null && entity == this.currentTarget && (!(entity.vehicle instanceof MobSwet))) {
             if (entity.passenger != null) {
-                entity.passenger.setPassenger(entity);
+                entity.passenger.startRiding(entity);
             }
 
             this.capturePrey(entity);
