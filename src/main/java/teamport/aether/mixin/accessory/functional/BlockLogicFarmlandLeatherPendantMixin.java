@@ -10,17 +10,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.items.AetherItems;
 
-import static teamport.aether.items.accessory.SlotAccessory.WILDCARD_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.WILDCARD_2_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.*;
 
 @Mixin(value = BlockLogicFarmland.class, remap = false)
 public class BlockLogicFarmlandLeatherPendantMixin {
     @Inject(method = "onEntityWalking", at = @At(value = "HEAD"), cancellable = true)
     public void onEntityWalking(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
-        if (((Player) entity).inventory.armorInventory[WILDCARD_1_SLOT] != null && ((Player) entity).inventory.armorInventory[WILDCARD_1_SLOT].getItem().equals(AetherItems.ARMOR_TALISMAN_LEATHER)) {
+        if (((Player) entity).inventory.armorInventory[TRINKET_1_SLOT] != null && ((Player) entity).inventory.armorInventory[TRINKET_1_SLOT].getItem().equals(AetherItems.ARMOR_TALISMAN_LEATHER)) {
             ci.cancel();
         }
-        if (((Player) entity).inventory.armorInventory[WILDCARD_2_SLOT] != null && ((Player) entity).inventory.armorInventory[WILDCARD_2_SLOT].getItem().equals(AetherItems.ARMOR_TALISMAN_LEATHER)) {
+        if (((Player) entity).inventory.armorInventory[TRINKET_2_SLOT] != null && ((Player) entity).inventory.armorInventory[TRINKET_2_SLOT].getItem().equals(AetherItems.ARMOR_TALISMAN_LEATHER)) {
             ci.cancel();
         }
     }
