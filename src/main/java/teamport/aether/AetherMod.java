@@ -1,8 +1,9 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.client.gui.hud.component.ComponentAnchor;
+import net.minecraft.client.gui.hud.component.HudComponents;
+import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.tag.Tag;
@@ -19,11 +20,10 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
+import teamport.aether.mixin.accessors.HudComponentAccessor;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
+import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -61,13 +61,17 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
         registerNewFurnaceFuel();
         registerNewTagForItems();
+
+//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
     }
 
     private static void registerNewTagForItems() {
-        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.ACCESSORY});
-        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.ACCESSORY});
-        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.ACCESSORY});
-        Items.MAP.withTags(new Tag[]{AetherItemTags.ACCESSORY});
+        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.TRINKET});
+        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.TRINKET});
+        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.TRINKET});
+        Items.MAP.withTags(new Tag[]{AetherItemTags.TRINKET});
     }
 
     private static void registerNewFurnaceFuel() {
