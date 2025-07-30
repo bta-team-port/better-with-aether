@@ -1,5 +1,7 @@
 package teamport.aether.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
@@ -46,6 +48,7 @@ import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
+@Environment(EnvType.CLIENT)
 public class AetherModels implements ModelEntrypoint {
 
     @Override

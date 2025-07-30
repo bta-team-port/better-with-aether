@@ -384,14 +384,12 @@ public final class AetherItems {
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
         ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
-        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
-        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
-        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL));
-        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE));
+        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
+        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
+        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL));
+        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE));
         ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE));
-        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice"));
-        //TODO all necklaces can be equipped in ? talisman slot, ice one freezes water and lava into ice and obsidian as you walk over them, zanite one increases mining speed as you mine and its durability goes down
-        //TODO gold one will grant silk touch effect to you and lose durability as you mine, other ones can be cosmetic if uses cant be thought of
+        ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice"));
 
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCape("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));

@@ -1,5 +1,7 @@
 package teamport.aether.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
@@ -16,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
+@Environment(EnvType.CLIENT)
 public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStandard<T> {
     public IconCoordinate snowSide = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side");
 
