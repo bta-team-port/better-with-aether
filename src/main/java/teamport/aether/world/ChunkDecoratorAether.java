@@ -46,18 +46,18 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int l7;
         int k17;
         int j20;
-//        if (gumCount < 800) {
-//            ++gumCount;
-//        } else if (rand.nextInt(32) == 0) {
-//            boolean flag;
-//            l7 = k + rand.nextInt(16) + 8;
-//            k17 = rand.nextInt(64) + 32;
-//            j20 = l + rand.nextInt(16) + 8;
-//            flag = (new AetherGenGumdrop()).place(this.world, rand, l7, k17, j20);
-//            if (flag) {
-//                gumCount = 0;
-//            }
-//        }
+        if (gumCount < 800) {
+            ++gumCount;
+        } else if (rand.nextInt(32) == 0) {
+            boolean flag;
+            l7 = k + rand.nextInt(16) + 8;
+            k17 = rand.nextInt(128) + 64;
+            j20 = l + rand.nextInt(16) + 8;
+            flag = (new WorldFeatureAetherDungeonGold()).place(this.world, rand, l7, k17, j20);
+            if (flag) {
+                gumCount = 0;
+            }
+        }
 
         int k4;
         if (rand.nextInt(3) == 0) {
@@ -160,10 +160,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 //            (new AetherGenDungeonBronze(AetherBlocks.LockedDungeonStone.id, AetherBlocks.LockedLightDungeonStone.id, AetherBlocks.DungeonStone.id, AetherBlocks.LightDungeonStone.id, AetherBlocks.Holystone.id, 2, AetherBlocks.Holystone.id, 0, 16, true)).place(this.world, rand, l7, k17, j20);
 //        }
 
-        
-
-
-        if (rand.nextInt(500) == 0) {
+        if (rand.nextInt(1000) == 0) {
             k4 = k + rand.nextInt(16);
             l7 = rand.nextInt(128) + 64;
            k17 = l + rand.nextInt(16);
