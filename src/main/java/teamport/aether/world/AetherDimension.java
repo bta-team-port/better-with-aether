@@ -26,8 +26,8 @@ public class AetherDimension {
     }
 
     public static Biome AETHER_PLAINS;
-    public static WorldType worldTypeAether;
-    public static Dimension dimensionAether;
+    public static WorldType AETHER_DEFAULT;
+    public static Dimension AETHER;
     public static boolean hasInit = false;
 
 
@@ -44,10 +44,10 @@ public class AetherDimension {
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
 
-        worldTypeAether = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
+        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
         });
-        dimensionAether = new Dimension("aether", Dimension.OVERWORLD, 1f, AetherBlocks.PORTAL_AETHER, worldTypeAether);
-        Dimension.registerDimension(AetherDimensionID, dimensionAether);
+        AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
+        Dimension.registerDimension(AetherDimensionID, AETHER);
     }
 
 }
