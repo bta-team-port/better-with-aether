@@ -19,12 +19,6 @@ public abstract class MinecraftMixinKeepEHPonDeath {
     @Shadow
     public PlayerLocal thePlayer;
 
-    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/achievement/stat/StatList;init()V"))
-    public void initStats(CallbackInfo ci) {
-        ItemsAccessor.invokeInitStats();
-        AetherClient.initAchievementsPage();
-    }
-
     // preserves the extra Health on death
     @Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/player/PlayerLocal;setGamemode(Lnet/minecraft/core/player/gamemode/Gamemode;)V"), remap = false)
     public void keepExtraHealthClient(boolean multiplayer, int targetDimension, CallbackInfo ci, @Local Player previousPlayer) {

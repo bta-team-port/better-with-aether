@@ -96,7 +96,6 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         return updateMachine;
     }
 
-    // TODO replace block of zanite with a better suited item to enable eternal lit enchanter
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
                 || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())

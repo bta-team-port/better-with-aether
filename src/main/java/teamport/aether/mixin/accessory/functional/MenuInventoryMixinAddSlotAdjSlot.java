@@ -94,21 +94,21 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
         ItemStack itemStack = slot.getItemStack();
         if (itemStack == null) return;
-        boolean isAccessory = itemStack.getItem().hasTag(AetherItemTags.ACCESSORY);
+        boolean isAccessory = itemStack.getItem().hasTag(AetherItemTags.TRINKET);
         List<Integer> ints = new ArrayList<>();
         if (itemStack.getItem() instanceof Accessory) {
             Accessory armorItem = (Accessory) itemStack.getItem();
             int accessorySlot = armorItem.getAccessorySlot();
-            if (accessorySlot >= SlotAccessory.WILDCARD_1_SLOT) {
-                ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_1_SLOT);
-                ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_2_SLOT);
+            if (accessorySlot >= SlotAccessory.TRINKET_1_SLOT) {
+                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
+                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
             } else {
                 ints.add(AetherMod.ARMOR_START_INDEX + accessorySlot);
             }
             cir.setReturnValue(ints);
         } else if (isAccessory) {
-            ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_1_SLOT);
-            ints.add(AetherMod.ARMOR_START_INDEX + WILDCARD_2_SLOT);
+            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
+            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
             cir.setReturnValue(ints);
         }
 
