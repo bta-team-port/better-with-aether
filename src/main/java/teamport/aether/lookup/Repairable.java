@@ -11,7 +11,7 @@ public class Repairable {
     public static final Repairable instance = new Repairable();
     public final Set<Class> registry = new HashSet<>();
 
-    private Repairable() {
+    public Repairable() {
         this.init();
     }
 

@@ -11,11 +11,11 @@ import net.minecraft.core.world.noise.PerlinNoise;
 import java.util.Random;
 
 public class SurfaceGeneratorAether implements SurfaceGenerator {
-    private final World world;
-    private final BasePerlinNoise<?> soilNoise;
-    private final BasePerlinNoise<?> mainNoise;
+    public final World world;
+    public final BasePerlinNoise<?> soilNoise;
+    public final BasePerlinNoise<?> mainNoise;
 
-    protected SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise, BasePerlinNoise<?> mainNoise) {
+    public SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise, BasePerlinNoise<?> mainNoise) {
         this.world = world;
         this.soilNoise = soilNoise;
         this.mainNoise = mainNoise;

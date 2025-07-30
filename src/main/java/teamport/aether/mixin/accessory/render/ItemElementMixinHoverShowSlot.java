@@ -34,9 +34,9 @@ import static teamport.aether.items.accessory.SlotAccessory.*;
 @Mixin(value = ItemElement.class, remap = false)
 public class ItemElementMixinHoverShowSlot {
 
-    @Unique private Slot slot;
-    @Unique private byte tick = 0;
-    @Unique private Random random = new Random();
+    @Unique public Slot slot;
+    @Unique public byte tick = 0;
+    @Unique public Random random = new Random();
 
     @Unique private static final Map<Class<? extends Item>, String> CLASS_OUTLINE_TEXTURES = new HashMap<>();
     @Unique private static final Map<Integer, String> ID_OUTLINE_TEXTURES = new HashMap<>();
@@ -55,19 +55,19 @@ public class ItemElementMixinHoverShowSlot {
 
     // capture slot for later
     @Inject(method = "render*", at = @At("HEAD"))
-    private void captureRenderArgs(ItemStack itemStack, int x, int y, boolean isSelected, Slot slot, CallbackInfo ci) {
+    public void captureRenderArgs(ItemStack itemStack, int x, int y, boolean isSelected, Slot slot, CallbackInfo ci) {
         this.slot = slot;
     }
 
     @Redirect(
-            method = "Lnet/minecraft/client/gui/ItemElement;render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
+            method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V",
                     ordinal = 0
             )
     )
-    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot) {
+    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local(argsOnly = true) Slot currectSlot) {
         Minecraft mc = Minecraft.getMinecraft();
         if (
                 currectSlot.index >= ARMOR_START_INDEX + WILDCARD_1_SLOT

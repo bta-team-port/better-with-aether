@@ -16,7 +16,7 @@ import static net.minecraft.core.world.biome.Biomes.register;
 public class AetherDimension {
 
     public static int AetherDimensionID = 3;
-    private static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
+    public static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension){
         if (!dimensionPlacementBlacklist.containsKey(dimension)){

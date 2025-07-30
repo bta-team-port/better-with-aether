@@ -78,7 +78,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
 
     }
 
-    private static String getTimeAsString(int data) {
+    public static String getTimeAsString(int data) {
         StringBuilder buildTime = new StringBuilder();
         int time = Math.round(data / 20.0F);
         if (time >= 60) {
@@ -90,7 +90,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         return buildTime.toString();
     }
 
-    private static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+    public static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
         ItemStack output = recipe.getOutput();

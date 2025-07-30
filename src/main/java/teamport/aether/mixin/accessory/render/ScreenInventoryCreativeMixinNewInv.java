@@ -28,7 +28,7 @@ public class ScreenInventoryCreativeMixinNewInv{
 
     // adjust text position
     @Inject(method = "drawGuiContainerForegroundLayer", at=@At("HEAD"), cancellable = true)
-    protected void fixLabelPlacement(CallbackInfo ci) {
+    public void fixLabelPlacement(CallbackInfo ci) {
         Font font = Minecraft.getMinecraft().font;
         font.drawString(I18n.getInstance().translateKey("gui.inventory.label.crafting"), 98, 16, 4210752);
         ci.cancel();

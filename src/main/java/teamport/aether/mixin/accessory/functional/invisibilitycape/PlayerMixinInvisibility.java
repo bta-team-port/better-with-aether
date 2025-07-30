@@ -8,7 +8,7 @@ import teamport.aether.items.IAetherAccessories;
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinInvisibility implements IAetherAccessories {
     @Unique
-    private boolean invisible;
+    public boolean invisible;
 
     @Unique
     public void aether$setInvisible(boolean invisible) {

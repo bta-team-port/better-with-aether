@@ -6,13 +6,13 @@ import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.PerlinNoise;
 
 public class DensityGeneratorAether implements DensityGenerator {
-    private final World world;
+    public final World world;
 
-    private final PerlinNoise minLimitNoise;
-    private final PerlinNoise maxLimitNoise;
-    private final PerlinNoise mainNoise;
-    private final PerlinNoise scaleNoise;
-    private final PerlinNoise depthNoise;
+    public final PerlinNoise minLimitNoise;
+    public final PerlinNoise maxLimitNoise;
+    public final PerlinNoise mainNoise;
+    public final PerlinNoise scaleNoise;
+    public final PerlinNoise depthNoise;
 
     public DensityGeneratorAether(World world)
     {
