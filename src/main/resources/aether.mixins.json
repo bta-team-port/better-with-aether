@@ -33,6 +33,7 @@
     "armor.player.neptune.MobMixinSwimming",
     "armor.player.neptune.PlayerMixinMining",
     "armor.player.phoenix.PlayerMixinFireImmunity",
+    "armor.player.phoenix.obsidian.MobMixinDrowning",
     "armor.player.phoenix.obsidian.PlayerMixinBlastImmunity",
     "armor.player.phoenix.obsidian.PlayerMixinExtraFallDamage",
     "armor.player.phoenix.obsidian.PlayerMixinNoKnockback",
