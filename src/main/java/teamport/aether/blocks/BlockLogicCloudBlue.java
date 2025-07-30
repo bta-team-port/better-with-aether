@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.AetherAchievements;
 
-public class BlockLogicCloudBlue extends BlockLogicCloudBase{
+public class BlockLogicCloudBlue extends BlockLogicCloudBase {
     public BlockLogicCloudBlue(Block<?> block) {
         super(block);
     }
@@ -24,7 +24,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase{
 
     @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getPermanentBB(x, y, z, 0, y, 0);
+        return AABB.getPermanentBB(x, y, z, x, y, z);
     }
 
     @Override
