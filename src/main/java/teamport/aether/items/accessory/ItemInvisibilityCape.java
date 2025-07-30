@@ -26,15 +26,4 @@ public class ItemInvisibilityCape extends ItemAccessory {
         }
         ((IAetherAccessories)player).aether$setInvisible(false);
     }
-
-//    @Override
-//    public void onAccessoryAdded(Player player, ItemStack accessory) {
-//        ((IAetherAccessories)player).aether$setInvisible(true);
-//    }
-//
-//    @Override
-//    public void onAccessorySwapped(Player player, ItemStack accessory) {
-//        ((IAetherAccessories)player).aether$setInvisible(false);
-//    }
-
 }
