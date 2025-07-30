@@ -1,5 +1,7 @@
 package teamport.aether.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.BlockModelCrossedSquares;
@@ -10,11 +12,11 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 
+@Environment(EnvType.CLIENT)
 public class BlockModelAetherTallgrass<T extends BlockLogic> extends BlockModelCrossedSquares<T> {
     public BlockModelAetherTallgrass(Block<T> block) {
         super(block);
     }
-
 
     public boolean render(Tessellator tessellator, int x, int y, int z) {
         float brightness = 1.0F;

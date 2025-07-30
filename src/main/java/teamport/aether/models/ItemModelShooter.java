@@ -1,5 +1,7 @@
 package teamport.aether.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.ItemRenderer;
@@ -15,6 +17,7 @@ import net.minecraft.core.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.items.AetherItems;
 
+@Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {
     public ItemModelShooter(Item item, String namespace) {
         super(item, namespace);
