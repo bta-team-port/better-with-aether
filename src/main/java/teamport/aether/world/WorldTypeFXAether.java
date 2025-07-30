@@ -12,10 +12,6 @@ public class WorldTypeFXAether extends WorldTypeFX {
         super(worldType);
     }
 
-    public WorldTypeFX setCloudHeight(float cloudHeight) {
-        return this;
-    }
-
     public boolean hasGround() {
         return false;
     }
