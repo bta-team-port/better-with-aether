@@ -10,13 +10,14 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.items.AetherItemTags;
 
 public class SlotAccessory extends Slot {
     // armorType
     public static final byte GLOVES_SLOT = 4;
     public static final byte CAPE_SLOT = 5;       // cape, quiver
-    public static final byte WILDCARD_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
-    public static final byte WILDCARD_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte TRINKET_1_SLOT = 6; // pendant, healing stone, compass, clock, calendar, etc.
+    public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
     public static final String[] accessoryOutline = new String[]{
@@ -41,23 +42,21 @@ public class SlotAccessory extends Slot {
     }
 
     public boolean mayPlace(ItemStack itemstack) {
-        // we allow anything here
-        if (this.armorType == WILDCARD_1_SLOT || this.armorType == WILDCARD_2_SLOT) {
-            return true;
-        }
-        // allow quiver to be placed in the cape slot
         Item item = itemstack.getItem();
-        if (this.armorType == CAPE_SLOT && (item instanceof ItemQuiverEndless || item instanceof ItemQuiver)) {
+        if (item instanceof Accessory && !item.hasTag(AetherItemTags.TRINKET)) {
+            return ((Accessory) item).getAccessorySlot() == this.armorType;
+        }
+        if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
         }
-        return item instanceof Accessory && ((Accessory) item).getAccessorySlot() == this.armorType;
+        return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
     }
 
     // TODO figure out what to do here
     public void setChanged() {
         super.setChanged();
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
-            Player player = ((ContainerInventory)this.container).player;
+            Player player = ((ContainerInventory) this.container).player;
             player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
         }
     }

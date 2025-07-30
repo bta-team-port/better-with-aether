@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
-import teamport.aether.items.accessory.ItemAccessoryPendant;
+import teamport.aether.items.accessory.ItemAccessoryTrinket;
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
@@ -78,7 +78,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         this.modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
         this.modelAccessories.sneaking = player.isSneaking();
         this.modelAccessories.isRiding = player.isPassenger();
-        this.modelAccessories.body.visible = renderPass == WILDCARD_1_SLOT || renderPass == WILDCARD_2_SLOT;
+        this.modelAccessories.body.visible = renderPass == TRINKET_1_SLOT || renderPass == TRINKET_2_SLOT;
         this.modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
         this.modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
 
@@ -88,7 +88,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         }
 
         Item item = itemStack.getItem();
-        if (!(item instanceof ItemAccessoryGloves) && !(item instanceof ItemAccessoryPendant)) {
+        if (!(item instanceof ItemAccessoryGloves) && !(item instanceof ItemAccessoryTrinket)) {
             return;
         }
 
