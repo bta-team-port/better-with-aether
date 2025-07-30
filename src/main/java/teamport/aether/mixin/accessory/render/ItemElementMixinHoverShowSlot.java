@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.accessory.*;
-import teamport.aether.lookup.LookupAccessoryIcons;
+import teamport.aether.lookup.LookupTrinketIcons;
 
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.items.accessory.SlotAccessory.*;
@@ -29,8 +29,8 @@ import static teamport.aether.items.accessory.SlotAccessory.*;
 abstract public class ItemElementMixinHoverShowSlot extends Gui {
 
     @Unique int tick = 0;
-    @Unique String currentIconPath_WILDCARD_1 = LookupAccessoryIcons.instance.getRandomEntry();
-    @Unique String currentIconPath_WILDCARD_2 = LookupAccessoryIcons.instance.getRandomEntry();
+    @Unique String currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
+    @Unique String currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
 
     @Shadow
     Minecraft mc;
@@ -45,17 +45,17 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
     )
     public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot) {
         if (
-                currectSlot.index >= ARMOR_START_INDEX + WILDCARD_1_SLOT
+                currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
                 && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)
         ) {
             tick++;
             if(tick > 600){ // 3000
                 tick = 0;
-                currentIconPath_WILDCARD_1 = LookupAccessoryIcons.instance.getRandomEntry();
-                currentIconPath_WILDCARD_2 = LookupAccessoryIcons.instance.getRandomEntry();
+                currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
+                currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
             }
             String root = "aether:item/wildcard/";
-            defaultIcon = TextureRegistry.getTexture(root + (currectSlot.index > ARMOR_START_INDEX + WILDCARD_1_SLOT ? currentIconPath_WILDCARD_2: currentIconPath_WILDCARD_1));
+            defaultIcon = TextureRegistry.getTexture(root + (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1));
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
@@ -67,8 +67,8 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 ItemStack hoverStack = ((MenuInventory)((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof Accessory || item.hasTag(AetherItemTags.ACCESSORY)) {
-                        String iconPath = LookupAccessoryIcons.instance.getEntry(item);
+                    if (item instanceof Accessory || item.hasTag(AetherItemTags.TRINKET)) {
+                        String iconPath = LookupTrinketIcons.instance.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(root + iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
@@ -81,8 +81,8 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 ItemStack hoverStack = slot.getItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof Accessory || item.hasTag(AetherItemTags.ACCESSORY)) {
-                        String iconPath = LookupAccessoryIcons.instance.getEntry(item);
+                    if (item instanceof Accessory || item.hasTag(AetherItemTags.TRINKET)) {
+                        String iconPath = LookupTrinketIcons.instance.getEntry(item);
                         IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(root + iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
