@@ -61,6 +61,7 @@
     "accessory.ScreenInventoryCreativeMixinNewInv",
     "accessory.ScreenInventoryMixinNewInv",
     "accessory.cape.MobRendererPlayerMixinCapeRender",
+    "accessory.cape.invisibilitycape.EntityRendererMixin",
     "accessory.cape.invisibilitycape.MobRenderPlayerMixinInvisibility",
     "accessory.cape.invisibilitycape.PlayerLocalMixinInvisibility",
     "accessory.gloves.MobRendererMixinExtendArmor",
