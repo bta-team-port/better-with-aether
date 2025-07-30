@@ -27,7 +27,7 @@ public class MobSwet extends Mob implements Enemy {
     public boolean textureSet;
     public boolean gotrider;
     public boolean kickoff;
-    public boolean friendly;
+    public boolean friendly = false;
     public Entity currentTarget;
 
     public MobSwet(World world) {
