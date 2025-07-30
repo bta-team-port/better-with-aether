@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class WorldFeatureQuicksoil extends WorldFeature {
 
-    private final int blockId;
+    public final int blockId;
 
     public WorldFeatureQuicksoil(int blockId) {
         this.blockId = blockId;
