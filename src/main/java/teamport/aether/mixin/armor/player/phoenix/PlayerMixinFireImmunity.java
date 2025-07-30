@@ -32,6 +32,9 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
+        if(this.isInLava() || this.isInWater()){
+            return;
+        }
         if (fireResistanceCount() >= 3 && random.nextInt(6) == 0) {
             ParticalHelper.spawnFlameParticles(world, x, y, z, bbHeight, bbWidth);
         }
@@ -62,7 +65,7 @@ public class PlayerMixinFireImmunity extends Mob {
     @Override
     public void burn(int damage) {
         if (fireResistanceCount() >= 5) {
-            // burn damage is 4 points
+            // burn damage is 1 points
             aether$damageArmourWithEffect(1);
             return;
         }
