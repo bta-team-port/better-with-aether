@@ -43,7 +43,7 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                     ordinal = 0
             )
     )
-    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot) {
+    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot, @Local ItemStack itemStack) {
         if (
                 currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
                 && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)
@@ -54,7 +54,8 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
                 currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
             }
-            String root = "aether:item/wildcard/";
+            //TODO make it possible to load other mods outlines as well
+            String root = String.format("%s:item/wildcard/", "aether");
             defaultIcon = TextureRegistry.getTexture(root + (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1));
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
