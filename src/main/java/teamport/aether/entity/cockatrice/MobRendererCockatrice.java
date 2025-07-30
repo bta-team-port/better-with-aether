@@ -18,7 +18,7 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
         return (MathHelper.sin(flap) + 1.0F) * flapSpeed;
     }
 
-    protected boolean setCockatriceGlowBrightness(MobCockatrice entity, int renderPass, float partialTick) {
+    public boolean setCockatriceGlowBrightness(MobCockatrice entity, int renderPass, float partialTick) {
         if (renderPass == 0) {
             this.bindTexture("/assets/aether/textures/entity/cockatrice/glow/" + entity.getTextureReference() + ".png");
             float brightness = entity.getBrightness(1.0F);

@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
 public class MobValkyrie extends MobMonster implements Enemy {
-    private static final ItemStack defaultHeldItem;
+    public static final ItemStack defaultHeldItem;
     public MobValkyrie(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");

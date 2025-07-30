@@ -6,7 +6,7 @@ import net.minecraft.core.world.generate.chunk.perlin.TerrainGeneratorLerp;
 import net.minecraft.core.world.type.WorldType;
 
 public class TerrainGeneratorAether extends TerrainGeneratorLerp {
-    private final DensityGenerator densityGenerator;
+    public final DensityGenerator densityGenerator;
 
     public TerrainGeneratorAether(World world) {
         super(world);
@@ -19,7 +19,7 @@ public class TerrainGeneratorAether extends TerrainGeneratorLerp {
     }
 
     @Override
-    protected int getBlockAt(int x, int y, int z, double density) {
+    public int getBlockAt(int x, int y, int z, double density) {
         WorldType type = this.world.getWorldType();
         return density > 4 ? type.getFillerBlockId() : 0;
     }

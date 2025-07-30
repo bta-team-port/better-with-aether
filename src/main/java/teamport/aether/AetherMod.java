@@ -74,9 +74,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
         AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
 
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 51));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 41));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 21));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 25));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 12));
+        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 6));
 
         AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
         AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
@@ -88,13 +88,13 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         registerNewTagForItems();
     }
 
-    private static void registerNewTagForItems() {
+    public static void registerNewTagForItems() {
         Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.ACCESSORY});
         Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.ACCESSORY});
         Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.ACCESSORY});
     }
 
-    private static void registerNewFurnaceFuel() {
+    public static void registerNewFurnaceFuel() {
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 150);

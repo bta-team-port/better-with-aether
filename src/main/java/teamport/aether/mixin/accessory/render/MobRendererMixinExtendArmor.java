@@ -13,7 +13,7 @@ public class MobRendererMixinExtendArmor {
     @Shadow @Final private Minecraft mc;
 
     @ModifyConstant(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", constant = @Constant(intValue = 4))
-    private int replace4WithArmorSize(int value) {
+    public int replace4WithArmorSize(int value) {
         return this.mc.thePlayer.inventory.armorInventory.length;
     }
 

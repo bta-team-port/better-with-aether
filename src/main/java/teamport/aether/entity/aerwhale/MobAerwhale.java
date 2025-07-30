@@ -17,11 +17,11 @@ public class MobAerwhale extends MobAetherAnimal {
         this.yd *= 0.0;
     }
 
-    protected void causeFallDamage(float distance) {
+    public void causeFallDamage(float distance) {
     }
 
     public boolean canSpawnHere() {
-        return this.random.nextInt(65) == 0 && super.canSpawnHere();
+        return false;
     }
 
 }

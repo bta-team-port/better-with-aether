@@ -69,7 +69,7 @@ public abstract class WorldTypeAether extends WorldType {
 
     @Override
     public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderSingleBiome(AetherDimension.AETHER_AETHER, 0.0, 0.0, 0.0);
+        return new BiomeProviderSingleBiome(AetherDimension.AETHER_AETHER, 0.5, 0.5, 0.5);
     }
 
     @Override

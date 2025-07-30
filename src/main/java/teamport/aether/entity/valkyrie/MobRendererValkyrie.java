@@ -11,7 +11,7 @@ public class MobRendererValkyrie extends MobRenderer<MobValkyrie> {
         this.setArmorModel(new ModelValkyrie(0.01F));
     }
 
-    protected boolean setHaloBrightness(MobValkyrie valkyrie, int renderPass) {
+    public boolean setHaloBrightness(MobValkyrie valkyrie, int renderPass) {
         if (renderPass == 0) {
             this.bindTexture("/assets/aether/textures/entity/valkyrie/halo.png");
             float brightness = valkyrie.getBrightness(1.0F);
@@ -30,7 +30,7 @@ public class MobRendererValkyrie extends MobRenderer<MobValkyrie> {
         }
     }
 
-    protected boolean prepareArmor(MobValkyrie valkyrie, int renderPass, float partialTick) {
+    public boolean prepareArmor(MobValkyrie valkyrie, int renderPass, float partialTick) {
         return this.setHaloBrightness(valkyrie, renderPass);
     }
 

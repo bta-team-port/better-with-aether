@@ -53,7 +53,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
         this.flap += this.flapping * 2.0F;
     }
 
-    protected void defineSynchedData() {
+    public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(15, this.attackTime, Integer.class);
     }
@@ -67,7 +67,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
         super.onLivingUpdate();
     }
 
-    protected void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NotNull Entity entity, float distance) {
         if (distance < 10.0F) {
             double d = entity.x - this.x;
             double d1 = entity.z - this.z;
