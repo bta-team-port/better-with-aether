@@ -18,7 +18,7 @@ public class BlockLogicPortalAether extends BlockLogicPortal {
 
     public boolean tryToCreatePortal(World world, int x, int y, int z, @Nullable DyeColor color) {
         if (color == null) {
-            color = DyeColor.LIGHT_BLUE;
+            color = DyeColor.BLUE;
         }
 
         int[] bounds = this.getPortalDims(world, x, y, z, false);
@@ -81,6 +81,6 @@ public class BlockLogicPortalAether extends BlockLogicPortal {
     }
 
     public DyeColor fromMetadata(int meta) {
-        return (meta & 8) == 0 ? DyeColor.LIGHT_BLUE : DyeColor.colorFromBlockMeta((meta & 240) >> 4);
+        return (meta & 8) == 0 ? DyeColor.BLUE : DyeColor.colorFromBlockMeta((meta & 240) >> 4);
     }
 }

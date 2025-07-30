@@ -2,6 +2,7 @@ package teamport.aether.entity.swet;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -34,7 +35,6 @@ public class MobSwet extends Mob implements Enemy {
         super(world);
         this.heightOffset = 0.0F;
         this.scoreValue = 100;
-        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0, 2));
         this.setSize(0.8F, 0.8F);
         this.setPos(this.x, this.y, this.z);
         this.hops = 0;
@@ -45,8 +45,11 @@ public class MobSwet extends Mob implements Enemy {
         if (!this.textureSet) {
             if (this.random.nextInt(2) == 0) {
                 this.textureNum = 2;
+                this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 0, 2));
             } else {
                 this.textureNum = 1;
+                this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0, 2));
+
             }
             this.textureSet = true;
         }
