@@ -1,12 +1,12 @@
 package teamport.aether.entity.valkyrie;
 
 import net.minecraft.client.render.LightmapHelper;
-import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.model.ModelBase;
+import net.minecraft.client.render.entity.MobRendererBiped;
+import net.minecraft.client.render.model.ModelBiped;
 import org.lwjgl.opengl.GL11;
 
-public class MobRendererValkyrie extends MobRenderer<MobValkyrie> {
-    public MobRendererValkyrie(ModelBase model, float shadowSize) {
+public class MobRendererValkyrie extends MobRendererBiped<MobValkyrie> {
+    public MobRendererValkyrie(ModelBiped model, float shadowSize) {
         super(model, shadowSize);
         this.setArmorModel(new ModelValkyrie(0.01F));
     }

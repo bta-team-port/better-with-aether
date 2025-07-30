@@ -39,7 +39,7 @@ public class ModelValkyrie extends ModelBiped {
         this.bipedBody2.addBox(-3.0F, 0.5F, -1.25F, 6, 5, 3, expandAmount + 0.75F);
         this.bipedBody2.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.armRight = new Cube(30, 16);
-        this.armRight.addBox(-3.0F, -1.5F, -1.5F, 3, 12, 3, expandAmount);
+        this.armRight.addBox(-2.0F, -1.5F, -1.5F, 3, 12, 3, expandAmount);
         this.armRight.setRotationPoint(-4.0F, 1.5F, 0.0F);
         this.armLeft = new Cube(30, 16);
         this.armLeft.mirror = true;
