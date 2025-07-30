@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.functional;
+package teamport.aether.mixin.accessory;
 
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
