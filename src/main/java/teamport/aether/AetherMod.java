@@ -54,7 +54,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void beforeGameStart() {
 
-        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherDimension.AETHER_AETHER}, new float[]{0.5F, 1.0F, 0.88F}));
+        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherDimension.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
         //TODO Replace biome here with aether biome once added
 
         AetherConfig.Setup();
@@ -69,18 +69,18 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 51));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 51));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 51));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 51));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
 
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 25));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 12));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 6));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 25));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 12));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 6));
 
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
-        AetherDimension.AETHER_AETHER.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
 
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));

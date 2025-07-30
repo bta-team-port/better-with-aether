@@ -191,6 +191,10 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             l7 += k4 + 5;
         }
 
+        if (biome == AetherDimension.AETHER_PLAINS) {
+            l7 += k4 + 5;
+        }
+
         if (biome == Biomes.OVERWORLD_RAINFOREST) {
             l7 += k4 + 5;
         }

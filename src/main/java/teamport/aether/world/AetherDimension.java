@@ -25,7 +25,7 @@ public class AetherDimension {
         return dimensionPlacementBlacklist.get(dimension);
     }
 
-    public static Biome AETHER_AETHER;
+    public static Biome AETHER_PLAINS;
     public static WorldType worldTypeAether;
     public static Dimension dimensionAether;
     public static boolean hasInit = false;
@@ -40,7 +40,7 @@ public class AetherDimension {
     }
 
     public static void initializeDimension() {
-        AETHER_AETHER = register("aether:aether", (new BiomeAether("aether")).setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
+        AETHER_PLAINS = register("aether:plains", (new BiomeAether("aether.plains")).setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
 

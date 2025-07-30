@@ -64,7 +64,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public void afterClientStart() {
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER)
-                .setHasAurora(true).setHasClouds(true).setHasGround(false).setHasSky(true));
+                .setHasAurora(true).setHasClouds(true).setHasGround(false).setHasSky(true).setCloudHeight(-128.0f));
 
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
