@@ -6,7 +6,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.util.Pair;
+import teamport.aether.helper.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -3,7 +3,7 @@ package teamport.aether.gen.feature;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.util.Pair;
+import teamport.aether.helper.Pair;
 
 import java.util.Random;
 

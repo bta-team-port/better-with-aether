@@ -59,5 +59,23 @@
     "sounds": [
       "life.shard.chime.final.ogg"
     ]
+  },
+  "portal": {
+    "subtitle": "subtitles.aether.portal",
+    "sounds": [
+      "portal.ogg"
+    ]
+  },
+  "travel": {
+    "subtitle": "subtitles.aether.portal.travel",
+    "sounds": [
+      "travel.ogg"
+    ]
+  },
+  "trigger": {
+    "subtitle": "subtitles.aether.portal.trigger",
+    "sounds": [
+      "trigger.ogg"
+    ]
   }
 }

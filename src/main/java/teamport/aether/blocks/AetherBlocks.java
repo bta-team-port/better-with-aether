@@ -247,8 +247,8 @@ public final class AetherBlocks {
                 .setResistance(-1.0f)
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortal(b, AetherDimension.dimensionAether, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
-        //TODO Portal Model and texture are a bit broken atm, and portal doesn't seem to every light up
+                .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortalAether(b, AetherDimension.AETHER, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
+        //TODO Portal doesn't light, and missing travel and trigger sounds
 
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)

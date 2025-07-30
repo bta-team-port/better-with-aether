@@ -29,10 +29,28 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         }
     }
 
-    public void scaleSlime(MobSwet entityslime, float f) {
+    public void scaleSlime(MobSwet entityswets, float f) {
         float f2 = 1.0F;
         float f1 = 1.0F;
         float f3 = 1.5F;
+        if (!entityswets.onGround) {
+            if (entityswets.yd > 0.8500000238418579) {
+                f1 = 1.425F;
+                f2 = 0.575F;
+            } else if (entityswets.yd < -0.8500000238418579) {
+                f1 = 0.575F;
+                f2 = 1.425F;
+            } else {
+                float f4 = (float) entityswets.yd * 0.5F;
+                f1 += f4;
+                f2 -= f4;
+            }
+        }
+
+        if (entityswets.passenger != null) {
+            f3 = 1.5F + (entityswets.passenger.bbWidth + entityswets.passenger.bbHeight) * 0.75F;
+        }
+
         GL11.glScalef(f2 * f3, f1 * f3, f2 * f3);
     }
 

@@ -1,6 +1,6 @@
 package teamport.aether.gen.feature;
 
-import teamport.aether.util.Pair;
+import teamport.aether.helper.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
