@@ -330,7 +330,7 @@ public final class AetherItems {
 
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
-        //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with ice projectiles,
+        //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with cloud projectiles,
     }
 
     public static void registerArmor() {
