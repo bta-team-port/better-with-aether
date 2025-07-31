@@ -32,8 +32,8 @@ import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
-import teamport.aether.world.AetherDimension;
 import teamport.aether.mixin.accessors.HudComponentAccessor;
+import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
@@ -69,15 +69,15 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 51));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 51));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 51));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerbunny.class, 51));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerwhale.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerbunny.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).add(new SpawnListEntry(MobAerwhale.class, 5));
 
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 25));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 12));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 6));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoa.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoaWhite.class, 51));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoaBlack.class, 26));
 
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));

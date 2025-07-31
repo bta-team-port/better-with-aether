@@ -191,7 +191,7 @@ public class MobAerbunny extends MobAetherAnimal {
             }
         } else if (this.onGround) {
             this.grab = false;
-            this.world.playSoundAtEntity(null, this, "aether:mobs.aerbunny.aerbunnyLand", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0));
 
             for (i = 0; i < list.size(); ++i) {
@@ -286,7 +286,7 @@ public class MobAerbunny extends MobAetherAnimal {
     }
 
     public String getLivingSound() {
-        return "aether:mob.aerbunny";
+        return "aether:mob.aerbunny.lift";
     }
 
     protected String getHurtSound() {
@@ -294,7 +294,7 @@ public class MobAerbunny extends MobAetherAnimal {
     }
 
     protected String getDeathSound() {
-        return "aether:mob.aerbunny.die";
+        return "aether:mob.aerbunny.death";
     }
     
 }
