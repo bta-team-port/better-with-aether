@@ -198,7 +198,7 @@ public class MobSwet extends Mob implements Enemy {
         return flag;
     }
 
-    public void d_2() {
+    public void updateAI() {
         if (this.passenger != null && this.passenger instanceof Mob) {
             this.moveForward = 0.0F;
             this.moveStrafing = 0.0F;
@@ -289,11 +289,11 @@ public class MobSwet extends Mob implements Enemy {
 
     }
 
-    protected void updateAI() {
+    public void onLivingUpdate() {
         ++this.entityAge;
         this.tryToDespawn();
         if (this.friendly && this.passenger != null) {
-            this.d_2();
+            this.updateAI();
         } else {
             if (!this.onGround && this.isJumping) {
                 this.isJumping = false;

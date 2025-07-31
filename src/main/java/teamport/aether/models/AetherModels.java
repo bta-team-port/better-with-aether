@@ -15,6 +15,9 @@ import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
+import teamport.aether.entity.aerbunny.MobAerbunny;
+import teamport.aether.entity.aerbunny.MobRendererAerbunny;
+import teamport.aether.entity.aerbunny.ModelAerbunny;
 import teamport.aether.entity.aerwhale.MobAerwhale;
 import teamport.aether.entity.aerwhale.MobRendererAerwhale;
 import teamport.aether.entity.aerwhale.ModelAerwhale;
@@ -41,7 +44,9 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.*;
 import teamport.aether.entity.swet.MobRendererSwet;
 import teamport.aether.entity.swet.MobSwet;
-import teamport.aether.entity.valkyrie.*;
+import teamport.aether.entity.valkyrie.MobRendererValkyrie;
+import teamport.aether.entity.valkyrie.MobValkyrie;
+import teamport.aether.entity.valkyrie.ModelValkyrie;
 import teamport.aether.entity.zephyr.MobRendererZephyr;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
@@ -554,6 +559,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMoa.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), 0.7F));
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
+        ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
 
 
 
