@@ -74,7 +74,6 @@ public abstract class WorldTypeAether extends WorldType {
 
     @Override
     public ChunkGenerator createChunkGenerator(World world) {
-        //TODO Fix and then switch to the aether Chunk Generator
         return new ChunkGeneratorAether(world);
     }
 

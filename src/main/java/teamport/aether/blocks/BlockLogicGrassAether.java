@@ -17,6 +17,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 
@@ -49,8 +50,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     }
                 }
 
-                //TODO Add condition later to check if its in the aether dimension
-                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(256) == 0) {
+                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(256) == 0 && (world.dimension == AetherDimension.AETHER)) {
                     r = rand.nextInt(400);
                     if (r < 200) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();

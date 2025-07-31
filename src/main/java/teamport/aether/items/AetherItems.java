@@ -259,7 +259,6 @@ public final class AetherItems {
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
-        //TODO Parachutes on use spawn a cloud entity below you that makes you fall slowly, gold one has 20 uses, when you land it goes away
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
