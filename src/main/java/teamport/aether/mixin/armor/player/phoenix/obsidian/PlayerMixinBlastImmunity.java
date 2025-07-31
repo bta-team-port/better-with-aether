@@ -26,7 +26,6 @@ public class PlayerMixinBlastImmunity {
             return;
         }
         this.inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));
-        // TODO figure out what value to return
         cir.setReturnValue(false);
     }
 
