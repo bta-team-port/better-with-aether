@@ -15,7 +15,7 @@ public class PlayerLocalMixinInvisibility implements IAetherAccessories {
         this.invisible = invisible;
     }
     @Unique
-    public boolean aether$getInvisible() {
+    public boolean aether$isInvisible() {
         return invisible;
     }
 }
