@@ -21,8 +21,8 @@ abstract public class PlayerMixinPendantFallDamageModifier {
         Mob mob = (Mob) (Object)this;
         if(mob instanceof Player){
             Player player = (Player) mob;
-            return damage - ContainerHelper.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2;
+            return Math.ceil(damage - ContainerHelper.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2);
         }
-        return damage;
+        return original.call(damage);
     }
 }

@@ -1,4 +1,4 @@
-package teamport.aether.items.accessory;
+package teamport.aether.items.accessory.trinket;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -6,7 +6,6 @@ import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.trinket.ItemShield;
 
 import java.util.List;
 
