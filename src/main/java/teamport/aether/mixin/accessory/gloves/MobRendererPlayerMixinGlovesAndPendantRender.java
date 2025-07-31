@@ -25,10 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryTrinket;
-import teamport.aether.items.accessory.ItemRepulsionShield;
+import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
 import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
 import teamport.aether.items.accessory.trinket.ItemIronBubble;
 import teamport.aether.items.accessory.trinket.ItemRegenStone;
+
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 

@@ -19,13 +19,13 @@ public abstract class WorldMixinHardToSpot {
     public void hardToSeePlayer(Entity attacker, double radius, CallbackInfoReturnable<Player> cir){
         Player player = this.getClosestPlayer(attacker.x, attacker.y, attacker.z, radius);
         if (
-                player == null
-                || !((IAetherAccessories) player).aether$getInvisible()
-                || attacker instanceof EnemyBoss
+                player != null
+                        && ((IAetherAccessories) player).aether$isInvisible()
+                        && !(attacker instanceof EnemyBoss)
         ) {
-            cir.setReturnValue(player);
+            cir.setReturnValue(this.getClosestPlayer(attacker.x, attacker.y, attacker.z, 2.0F));
+            return;
         }
-        cir.setReturnValue(this.getClosestPlayer(attacker.x, attacker.y, attacker.z, 2.0F));
+        cir.setReturnValue(player);
     }
-
 }
