@@ -8,7 +8,6 @@ import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
-// TODO, not the right class but I will forgett otherwise, make golden tree, fall golden leaves
 public class WorldFeatureTreeGoldenOak extends WorldFeature {
     public int leavesID;
     public int logID;

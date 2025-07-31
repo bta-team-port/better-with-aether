@@ -12,9 +12,6 @@ import teamport.aether.items.IAetherAccessories;
 @Mixin(value = MobRendererPlayer.class, remap = false)
 public class MobRenderPlayerMixinInvisibility {
 
-
-    //TODO Fix this so that the player becomes invisible wearing the invis cape
-
     @Inject(method = "drawFirstPersonHand", at = @At("HEAD"), cancellable = true)
     public void callDrawFirstPersonHandBefore(Player player, boolean isLeft, CallbackInfo ci) {
         if (((IAetherAccessories)player).aether$getInvisible()) ci.cancel();
