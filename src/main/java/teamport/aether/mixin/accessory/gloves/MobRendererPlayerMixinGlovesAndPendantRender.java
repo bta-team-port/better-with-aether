@@ -26,6 +26,9 @@ import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryTrinket;
 import teamport.aether.items.accessory.ItemRepulsionShield;
+import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
+import teamport.aether.items.accessory.trinket.ItemIronBubble;
+import teamport.aether.items.accessory.trinket.ItemRegenStone;
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
@@ -91,19 +94,27 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
 
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
-        if (armorStack == null) return;
-
-        Item item = armorStack.getItem();
-        if (!(item instanceof ItemAccessoryGloves) && !(item instanceof ItemAccessoryTrinket)) return;
-
-        String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((ItemAccessory) item).name());
-
-        if (item instanceof ItemRepulsionShield && (renderPass == TRINKET_1_SLOT || renderPass == TRINKET_2_SLOT)) {
-            path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
+        if (armorStack == null) {
+            return;
         }
 
-        renderDispatcher.textureManager.loadTexture(path).bind();
-        setArmorModel(modelAccessories);
+        Item item = armorStack.getItem();
+
+        if ((item instanceof ItemRegenStone || item instanceof ItemIronBubble || item instanceof ItemGoldenFeather)) {
+            return;
+        }
+
+        if ((item instanceof ItemAccessoryGloves) || (item instanceof ItemAccessoryTrinket)) {
+            String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((ItemAccessory) item).name());
+            renderDispatcher.textureManager.loadTexture(path).bind();
+            setArmorModel(modelAccessories);
+        }
+
+        if (item instanceof ItemRepulsionShield) {
+           String path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
+            renderDispatcher.textureManager.loadTexture(path).bind();
+            setArmorModel(modelAccessories);
+        }
 
         info.setReturnValue(true);
     }
