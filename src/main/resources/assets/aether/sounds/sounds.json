@@ -18,6 +18,31 @@
       "mob/moa/moa.ogg"
     ]
   },
+  "mob.aerbunny.hurt": {
+    "subtitle": "subtitles.mob.aerbunny.hurt",
+    "sounds": [
+      "mob/aerbunny/hurt1.ogg",
+      "mob/aerbunny/hurt2.ogg"
+    ]
+  },
+  "mob.aerbunny.death": {
+    "subtitle": "subtitles.mob.aerbunny.death",
+    "sounds": [
+      "mob/aerbunny/death.ogg"
+    ]
+  },
+  "mob.aerbunny.lift": {
+    "subtitle": "subtitles.mob.aerbunny.lift",
+    "sounds": [
+      "mob/aerbunny/lift.ogg"
+    ]
+  },
+  "mob.aerbunny.land": {
+    "subtitle": "subtitles.mob.aerbunny.land",
+    "sounds": [
+      "mob/aerbunny/land.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {
