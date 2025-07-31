@@ -36,6 +36,7 @@ import teamport.aether.mixin.accessors.HudComponentAccessor;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
+import static net.minecraft.client.gui.hud.component.HudComponents.OXYGEN_BAR;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -89,6 +90,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
 //        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
         ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("fire_bar")).setLayout(new LayoutSnap(OXYGEN_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
 //        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
     }
 
