@@ -13,10 +13,11 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
+import turniplabs.halplibe.util.BlockInitEntrypoint;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
-public final class AetherBlocks {
+public final class AetherBlocks implements BlockInitEntrypoint {
 
 
     public static int blockID =  AetherConfig.blockIDs;
@@ -31,7 +32,7 @@ public final class AetherBlocks {
     }
 
 
-    public static Block<BlockLogicPortal> PORTAL_AETHER;
+    public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
     public static Block<?> GRASS_AETHER;
     public static Block<?> DIRT_AETHER;
@@ -685,5 +686,14 @@ public final class AetherBlocks {
         //TODO Needs its own cluster entity, so it can be picked up from broken firefly jar
 
         new AetherBlockDetails().initializeBlockDetails();
+    }
+
+    @Override
+    public void afterBlockInit() {
+        init();
+        AetherDimension.init();
+
+        PORTAL_AETHER.getLogic().targetDimension = AetherDimension.AETHER;
+
     }
 }

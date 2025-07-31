@@ -46,6 +46,7 @@ public class AetherDimension {
 
         AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
         });
+
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
         Dimension.registerDimension(AetherDimensionID, AETHER);
     }

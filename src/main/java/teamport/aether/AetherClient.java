@@ -16,6 +16,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
+import teamport.aether.entity.aerbunny.MobAerbunny;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobMoaBlack;
@@ -96,6 +97,9 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});
+
+        MobInfoRegistry.register(MobAerbunny.class, "aether.aerbunny.name", "aether.aerbunny.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
     }
 
     @Override
