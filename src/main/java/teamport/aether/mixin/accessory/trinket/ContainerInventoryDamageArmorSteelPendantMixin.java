@@ -53,8 +53,7 @@ public abstract class ContainerInventoryDamageArmorSteelPendantMixin {
         int random = aether_steelMixinRandom.nextInt(4);
         boolean toolProtected = hasSteelOne && hasSteelTwo ? random < 2 : random == 0;
 
-        if (toolProtected) {
-            System.out.println("Armor protected");
+        if ((hasSteelOne || hasSteelTwo) && toolProtected) {
             if (hasSteelOne) trinketOne.damageItem(1, player);
             if (hasSteelTwo) trinketTwo.damageItem(1, player);
             ci.cancel();

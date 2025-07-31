@@ -378,11 +378,12 @@ public final class AetherItems {
         ARMOR_TALISMAN_BUBBLE = new ItemBuilder(MOD_ID).build(new ItemIronBubble("armor.talisman.bubble", itemKey("armor_talisman_bubble"), itemID("ARMOR_TALISMAN_BUBBLE"), "bubble"));
         ARMOR_TALISMAN_FEATHER_GOLD = new ItemBuilder(MOD_ID).build(new ItemGoldenFeather("armor.talisman.feather.gold", itemKey("armor_talisman_feather_gold"), itemID("ARMOR_TALISMAN_FEATHER_GOLD"), "feather_gold"));
 
-        ARMOR_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new ItemShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield"));
-        //TODO Shield needs its ability to activate when held, blocks all projectiles from hitting you
+
+        ARMOR_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield"));
+
 
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
         ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
@@ -392,7 +393,7 @@ public final class AetherItems {
         ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice"));
 
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCape("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
-        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
+        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemSwetCape("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCape("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
         //TODO Capes are equipped in the cape slot, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 

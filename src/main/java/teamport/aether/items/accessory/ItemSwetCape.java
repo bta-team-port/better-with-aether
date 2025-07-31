@@ -1,0 +1,37 @@
+package teamport.aether.items.accessory;
+
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.items.IAetherAccessories;
+
+import java.util.List;
+
+import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
+
+public class ItemSwetCape extends ItemAccessory {
+    public ItemSwetCape(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
+        super(translationKey, namespaceId, id, name, accessoryPiece);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack itemstack, @NotNull World world, @NotNull Entity entity, int slotId, boolean flag) {
+        Player player = (Player) entity;
+        List<MobSwet> list = world.getEntitiesWithinAABB(MobSwet.class, entity.bb.grow(6.0D, 3.0D, 6.0D));
+
+        if (slotId > player.inventory.mainInventory.length && slotId - player.inventory.mainInventory.length == CAPE_SLOT) {
+            for (MobSwet swet : list) {
+                swet.friendly = true;
+            }
+
+            return;
+        }
+
+        for (MobSwet swet : list) {
+            swet.friendly = false;
+        }
+    }
+}

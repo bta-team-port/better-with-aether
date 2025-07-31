@@ -211,7 +211,7 @@ item.aether.armor.talisman.regen.name=Regeneration Stone
 item.aether.armor.talisman.regen.desc=Regenerates your health over time.
 
 item.aether.armor.shield.repulsion.name=Shield of Repulsion
-item.aether.armor.shield.repulsion.desc=While standing still, all projectiles will bounce off of you.
+item.aether.armor.shield.repulsion.desc=A shield to repulse projectiles. Can either be worn or held.
 
 item.aether.armor.cape.swet.name=Swet Cape
 item.aether.armor.cape.swet.desc=Rare decorative cape with an emblem of a swet.

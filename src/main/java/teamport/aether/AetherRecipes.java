@@ -4,8 +4,12 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.data.registry.Registries;
+import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryCrafting;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryRepairable;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryScrap;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
@@ -25,7 +29,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     public static final RecipeGroupAetherMachine ENCHANTER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
     public static final RecipeGroupAetherMachine FREEZER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
     public static final RecipeGroupIncubator INCUBATOR = new RecipeGroupIncubator(new RecipeSymbol(new ItemStack(AetherBlocks.INCUBATOR_ACTIVE.getDefaultStack())));
-
+    public static  final RecipeGroup<RecipeEntryCrafting<?, ?>> WORKBENCH = (RecipeGroup<RecipeEntryCrafting<?, ?>>) RecipeBuilder.getRecipeGroup(MOD_ID, "workbench", new RecipeSymbol(Blocks.WORKBENCH.getDefaultStack()));
 
     @Override
     public void onRecipesReady() {
@@ -41,6 +45,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         AETHER.register("enchanter", ENCHANTER);
         AETHER.register("freezer", FREEZER);
         AETHER.register("incubator", INCUBATOR);
+        AETHER.register("workbench", WORKBENCH);
         // registered recipe types
         Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
         Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
@@ -201,6 +206,25 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('S', Items.STICK)
                 .addInput('Z', AetherItems.ZANITE)
                 .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
+
+        WORKBENCH.register("repair_chainmail_gloves",
+                new RecipeEntryRepairable(new ItemStack(
+                        AetherItems.ARMOR_GLOVES_CHAIN),
+                        new RecipeSymbol(Items.CHAINLINK.getDefaultStack()))
+        );
+
+        WORKBENCH.register("repair_chainmail_talisman",
+                new RecipeEntryRepairable(new ItemStack(
+                        AetherItems.ARMOR_TALISMAN_CHAIN),
+                        new RecipeSymbol(Items.CHAINLINK.getDefaultStack()))
+        );
+
+        WORKBENCH.register("scrap_chainmail_gloves",
+                new RecipeEntryScrap(AetherItems.ARMOR_GLOVES_CHAIN, Items.CHAINLINK, 4));
+
+        WORKBENCH.register("scrap_chainmail_talisman",
+                new RecipeEntryScrap(AetherItems.ARMOR_TALISMAN_CHAIN, Items.CHAINLINK, 2)
+        );
     }
 
     public static void quickGlassRecipes() {
