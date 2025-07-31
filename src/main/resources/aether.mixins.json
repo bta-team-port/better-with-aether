@@ -22,7 +22,7 @@
     "accessory.ContainerInventoryMixinIncArmorInv",
     "accessory.ContainerInventoryMixinTickableArmorInventory",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
-    "accessory.cape.invisibilitycape.MobPathfinderMixinShortSight",
+    "accessory.cape.invisibilitycape.MobMixinChaseTicks",
     "accessory.cape.invisibilitycape.PlayerMixinInvisibility",
     "accessory.cape.invisibilitycape.WorldMixinHardToSpot",
     "accessory.gloves.ContainerInventoryMixinGlovesDamage",
