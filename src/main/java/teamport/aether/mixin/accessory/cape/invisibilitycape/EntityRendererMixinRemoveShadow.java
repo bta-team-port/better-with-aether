@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.items.IAetherAccessories;
 
 @Mixin(value = EntityRenderer.class, remap = false)
-abstract public class EntityRendererMixin<T extends Entity> {
+abstract public class EntityRendererMixinRemoveShadow<T extends Entity> {
 
     @Inject(method = "renderShadow", at = @At("HEAD"), cancellable = true)
-    private void onRenderShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, CallbackInfo ci) {
+    private void removeShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, CallbackInfo ci) {
         if (entity instanceof Player && ((IAetherAccessories)entity).aether$getInvisible()) {
             ci.cancel();
         }
