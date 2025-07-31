@@ -34,7 +34,6 @@ public abstract class MobMixinSwimming extends Entity {
         yd *= 0.98;
     }
 
-    // TODO maybe target in some other way
     @ModifyConstant(
             method = "moveEntityWithHeading",
             constant = @Constant(floatValue = 0.02f),
@@ -61,7 +60,6 @@ public abstract class MobMixinSwimming extends Entity {
         return this.speed * 0.4f;
     }
 
-    // TODO maybe target in some other way
     @ModifyConstant(method = "onLivingUpdate", constant = @Constant(doubleValue = 0.04, ordinal = 0))
     public double aether$changeRisingSpeed(double constant) {
         if (!((Mob)(Object) this instanceof Player)) {

@@ -33,8 +33,7 @@ public abstract class MobMixinBlastImmunity {
         if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) {
             return;
         }
-        // TODO figure out what value to return
-        cir.setReturnValue(true);
+        cir.setReturnValue(false);
     }
 
 
