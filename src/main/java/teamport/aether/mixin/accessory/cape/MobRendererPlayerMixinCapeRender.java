@@ -2,6 +2,8 @@ package teamport.aether.mixin.accessory.cape;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.items.accessory.ItemAccessory;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
 
