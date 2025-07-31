@@ -454,46 +454,6 @@
       }
     },
 	{
-		"name": "aether:enchanter/enchant_permafrost_to_icestone",
-		"type": "aether:machine",
-		"time": 500,
-		"input": {
-			"stack": {
-				"id": "minecraft:block/permafrost"
-			}
-		},
-		"output": {
-			"id": "aether:block/icestone",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/enchant_overworld_to_aether_sapling",
-		"type": "aether:machine",
-		"time": 500,
-		"input": {
-			"group": "aether:saplings"
-		},
-		"output": {
-			"id": "aether:block/sapling_skyroot",
-			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/transmog_skyroot_to_golden_saplings",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "aether:block/sapling_skyroot"
-			}
-		},
-		"output": {
-			"id": "aether:block/sapling_oak_golden",
-			"meta": 0
-		}
-	},
-	{
 		"name": "aether:enchanter/holyfy_cobble_stone",
 		"type": "aether:machine",
 		"time": 1000,
@@ -519,62 +479,6 @@
 		"output": {
 			"id": "aether:block/holystone",
 			"meta": 0
-		}
-	},
-	{
-		"name": "aether:enchanter/synthesize_gravitite",
-		"type": "aether:machine",
-		"time": 3600,
-		"input": {
-			"stack": {
-				"id": "aether:block/block_gravitite"
-			}
-		},
-		"output": {
-			"id": "aether:block/block_gravitite",
-			"amount": 2
-		}
-	},
-	{
-		"name": "aether:enchanter/synthesize_diamond",
-		"type": "aether:machine",
-		"time": 3600,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/diamond"
-			}
-		},
-		"output": {
-			"id": "minecraft:item/diamond",
-			"amount": 2
-		}
-	},
-	{
-		"name": "aether:enchanter/synthesize_bread",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/food_bread"
-			}
-		},
-		"output": {
-			"id": "minecraft:item/food_bread",
-			"amount": 2
-		}
-	},
-	{
-		"name": "aether:enchanter/synthesize_fish",
-		"type": "aether:machine",
-		"time": 1000,
-		"input": {
-			"stack": {
-				"id": "minecraft:item/food_fish_raw"
-			}
-		},
-		"output": {
-			"id": "minecraft:item/food_fish_raw",
-			"amount": 2
 		}
 	},
 	{
