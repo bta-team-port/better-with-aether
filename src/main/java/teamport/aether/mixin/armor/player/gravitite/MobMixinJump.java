@@ -90,7 +90,7 @@ public abstract class MobMixinJump extends Entity {
             return original.call(instance, attacker, damage, type);
         }
         damage = damage - 13;
-        if (damage > 0) player.inventory.damageArmor((int) Math.ceil((double) damage / (double) 5.0F));
+        player.inventory.damageArmor(damage > 0 ? damage : 4);
         return false;
     }
 }
