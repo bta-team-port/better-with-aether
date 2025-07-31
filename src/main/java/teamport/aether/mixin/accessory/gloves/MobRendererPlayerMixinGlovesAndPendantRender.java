@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.accessory.ItemAccessory;
 import teamport.aether.items.accessory.ItemAccessoryGloves;
 import teamport.aether.items.accessory.ItemAccessoryTrinket;
-import teamport.aether.items.accessory.ItemRepulsionShield;
+import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
