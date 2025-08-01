@@ -401,7 +401,6 @@ public final class AetherItems {
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCapeArmor("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility",  5));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemSwetCapeArmor("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet",  5));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"),"invisible",  5));
-        //TODO Capes are equipped in the cape slot, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
         ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black",5));
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5));

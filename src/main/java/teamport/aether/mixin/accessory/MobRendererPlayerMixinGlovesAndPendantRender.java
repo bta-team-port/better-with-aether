@@ -41,6 +41,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
 
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.0F);
+    public final ModelBiped shield = new ModelBiped(1.5F);
 
     public MobRendererPlayerMixinGlovesAndPendantRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
@@ -84,32 +85,42 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
 
-    @Inject(method = "prepareArmor*", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
     public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
-        modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
-        modelAccessories.sneaking = player.isSneaking();
-        modelAccessories.isRiding = player.isPassenger();
-        modelAccessories.body.visible = renderPass == TRINKET_1_SLOT || (renderPass == TRINKET_2_SLOT && player.inventory.armorInventory[TRINKET_1_SLOT] == null);
-        modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
-        modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
-
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
-        if (armorStack == null || armorStack.getItem() instanceof ItemTrinket) {
+        if (armorStack != null && armorStack.getItem() instanceof IAccessory) {
+            Item item = armorStack.getItem();
+            if ((item instanceof ItemGloves) || (item instanceof ItemPendant)) {
+                String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+                modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
+                modelAccessories.sneaking = player.isSneaking();
+                modelAccessories.isRiding = player.isPassenger();
+                modelAccessories.body.visible = renderPass == TRINKET_1_SLOT || (renderPass == TRINKET_2_SLOT && player.inventory.armorInventory[TRINKET_1_SLOT] == null);
+                modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
+                modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
+                renderDispatcher.textureManager.loadTexture(path).bind();
+                setArmorModel(modelAccessories);
+                info.setReturnValue(true);
+                return;
+            }
+        }
+        info.setReturnValue(false);
+    }
+
+
+    @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;"), cancellable = true)
+    public void setShield(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+        ItemStack armorStack = player.inventory.armorInventory[renderPass];
+        if (armorStack == null || !(armorStack.getItem() instanceof IAccessory)) {
             return;
         }
         Item item = armorStack.getItem();
-        if ((item instanceof ItemGloves) || (item instanceof ItemPendant)) {
-            String path = String.format("/assets/%s/textures/armor/%s_pendant_and_gloves.png", item.namespaceID.namespace(), ((IAccessory)item).name());
-            renderDispatcher.textureManager.loadTexture(path).bind();
-            setArmorModel(modelAccessories);
-        }
-
         if (item instanceof ItemRepulsionShield) {
-           String path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
+            String path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
             renderDispatcher.textureManager.loadTexture(path).bind();
-            setArmorModel(modelAccessories);
+            setArmorModel(shield);
+            info.setReturnValue(true);
         }
-
-        info.setReturnValue(true);
     }
+    
 }
