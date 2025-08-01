@@ -18,7 +18,9 @@ import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
+import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
+import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +103,14 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     protected void stateAwake() {
         assert world != null;
 
-//        if (world.players
-//            .stream()
-//            .noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)
-//        )   {
-//            this.currentState = State.ASLEEP;
-//            returnToPedestal();
-//            return;
-//        }
+        if (world.players
+            .stream()
+            .noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)
+        )   {
+            this.currentState = State.ASLEEP;
+            returnToHome();
+            return;
+        }
 
         if (target == null || world.rand.nextInt(10) == 0) {
             this.target = findPlayerToAttack();
@@ -121,7 +123,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
 
         } else {
-            //if (this.distanceToSqr(target) > AetherDimension.bossDetectionRangeSQR) target = null;
+            if (this.distanceToSqr(target) > AetherDimension.bossDetectionRangeSQR) target = null;
         }
 
         if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
@@ -333,16 +335,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 }
             }
         }
-
-//        if (this.blocksDestroyOnDeath != null) {
-//            world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
-//
-//            for (Vec3 coordinate : this.blocksDestroyOnDeath) {
-//                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-//                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-//                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
-//            }
-//        }
 
         super.onDeath(murderer);
     }
