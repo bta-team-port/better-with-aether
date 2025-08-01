@@ -89,7 +89,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
         modelAccessories.sneaking = player.isSneaking();
         modelAccessories.isRiding = player.isPassenger();
-        modelAccessories.body.visible = renderPass == TRINKET_1_SLOT || renderPass == TRINKET_2_SLOT;
+        modelAccessories.body.visible = renderPass == TRINKET_1_SLOT || (renderPass == TRINKET_2_SLOT && player.inventory.armorInventory[TRINKET_1_SLOT] == null);
         modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
         modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
 
