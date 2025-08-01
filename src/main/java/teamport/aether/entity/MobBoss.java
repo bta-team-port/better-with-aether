@@ -1,13 +1,13 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.BlockCoordinate;
 
-public class MobBoss extends Mob implements EnemyBoss {
+public class MobBoss extends MobMonster implements EnemyBoss {
     protected static String translationKey = "MISSING";
     public MobBoss(@Nullable World world) {
         super(world);

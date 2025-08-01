@@ -1,5 +1,6 @@
 package teamport.aether.entity.projectile;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
@@ -8,116 +9,167 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.sunspirit.MobBossSunspirit;
 
 public class ProjectileFireElement extends Projectile {
-    public static final double FIREBALL_SPEED = 1.0;
+    public int bounceCount = 0;
+    public float initialSpeed = 0.5F;
+    public int ticksLived = 0;
 
     public ProjectileFireElement(World world) {
         super(world);
-        this.setSize(1.0F, 1.0F);
+        this.initProjectile();
     }
 
-    public ProjectileFireElement(World world, double x, double y, double z, double vX, double vY, double vZ) {
-        super(world);
-        this.setSize(1.0F, 1.0F);
-        this.moveTo(x, y, z, this.yRot, this.xRot);
-        this.setPos(x, y, z);
-        this.setVelocity(vX, vY, vZ, 1.0);
+    public ProjectileFireElement(World world, Mob owner) {
+        super(world, owner);
+        this.initProjectile();
     }
 
-    public ProjectileFireElement(World world, Mob owner, double vX, double vY, double vZ) {
-        super(world);
-        this.setSize(1.0F, 1.0F);
-        this.moveTo(owner.x, owner.y, owner.z, owner.yRot, owner.xRot);
-        this.setPos(this.x, this.y, this.z);
-        this.owner = owner;
-        this.heightOffset = 0.0F;
-        vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
-        vY += this.random.nextGaussian() * 0.4;
-        vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
-        this.setVelocity(vX, vY, vZ, 1.0);
+    public ProjectileFireElement(World world, double x, double y, double z) {
+        super(world, x, y, z);
+        this.initProjectile();
     }
 
-    public void setVelocity(double vX, double vY, double vZ, double speed) {
-        double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
-        if (velocity != 0.0) {
-            this.xd = vX / velocity;
-            this.yd = vY / velocity;
-            this.zd = vZ / velocity;
-        } else {
-            this.xd = 0.0;
-            this.yd = 0.0;
-            this.zd = 0.0;
-        }
-    }
-
-    public void initProjectile() {
-        this.damage = 0;
+    @Override
+    protected void initProjectile() {
+        super.initProjectile();
+        this.damage = 2;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
+        this.setSize(1.0F, 1.0F);
     }
 
+    @Override
     public void tick() {
-        this.world.spawnParticle("flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-        this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
         super.tick();
-    }
+        ticksLived++;
+        this.remainingFireTicks = 10;
 
-    public void onHit(HitResult result) {
-        if (this.tickCount > 5) {
-            if (!this.world.isClientSide) {
-                if (result.entity != null) {
-                    //TODO enable again once fire boss is added
-//                    if (result.entity instanceof MobSunSpirit) {
-//                        this.remove();
-//                    } else {
-                    result.entity.hurt(this.owner, this.damage, DamageType.FIRE);
-                }
-            }
-
-            this.world.createExplosion(this.owner, this.x, this.y + (double) (this.bbHeight / 2.0F), this.z, 1.5F, true, true);
+        int maxBounces = 10;
+        int maxTicks = 600;
+        if (!this.world.isClientSide && (ticksLived > maxTicks || bounceCount >= maxBounces)) {
+            this.remove();
+            return;
         }
 
-        this.remove();
+        if (this.world.isClientSide) {
+            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+        }
     }
 
+    @Override
+    public void onHit(HitResult hitResult) {
+        if (!this.world.isClientSide) {
+            if (hitResult.entity instanceof Mob) {
+                if (hitResult.entity instanceof MobBossSunspirit) {
+                    this.remove();
+                }
+                hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
+                hitResult.entity.remainingFireTicks = 10;
+                this.remove();
+                return;
+            }
 
+            if (hitResult.side != null) {
+                switch (hitResult.side) {
+                    case BOTTOM:
+                    case TOP:
+                        this.yd = -this.yd * 1.0F;
+                        break;
+                    case NORTH:
+                    case SOUTH:
+                        this.zd = -this.zd * 1.0F;
+                        break;
+                    case WEST:
+                    case EAST:
+                        this.xd = -this.xd * 1.0F;
+                        break;
+                }
+                bounceCount++;
+            }
+        }
+    }
+
+    @Override
+    public void setHeading(double newMotionX, double newMotionY, double newMotionZ, float speed, float randomness) {
+        super.setHeading(newMotionX, newMotionY, newMotionZ, initialSpeed, randomness);
+    }
+
+    @Override
     public void afterTick() {
-        super.afterTick();
-        this.world.spawnParticle("largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+        this.x += this.xd;
+        this.y += this.yd;
+        this.z += this.zd;
+        float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
+        this.yRot = (float)(Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
+
+        for(this.xRot = (float)(Math.atan2(this.yd, f) * 180.0 / Math.PI); this.xRot - this.xRotO < -180.0F; this.xRotO -= 360.0F) {
+        }
+
+        while(this.xRot - this.xRotO >= 180.0F) {
+            this.xRotO += 360.0F;
+        }
+
+        while(this.yRot - this.yRotO < -180.0F) {
+            this.yRotO -= 360.0F;
+        }
+
+        while(this.yRot - this.yRotO >= 180.0F) {
+            this.yRotO += 360.0F;
+        }
+
+        this.xRot = this.xRotO + (this.xRot - this.xRotO) * 0.2F;
+        this.yRot = this.yRotO + (this.yRot - this.yRotO) * 0.2F;
+
+        if (this.isInWater()) {
+            this.waterTick();
+        }
+
+
+        this.setPos(this.x, this.y, this.z);
     }
 
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.bounceCount = tag.getInteger("bounceCount");
+        this.ticksLived = tag.getInteger("ticksLived");
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("bounceCount", this.bounceCount);
+        tag.putInt("ticksLived", this.ticksLived);
+    }
+
+    @Override
     public boolean isPickable() {
         return true;
     }
 
+    @Override
     public float getPickRadius() {
         return 1.0F;
     }
 
-    public boolean hurt(Entity entity, int i, DamageType type) {
-        this.markHurt();
-        if (entity != null) {
-            Vec3 lookAngle = entity.getLookAngle();
-            if (entity instanceof Mob) {
-                this.owner = (Mob)entity;
+    @Override
+    public boolean hurt(Entity entity, int damage, DamageType type) {
+        if (!this.world.isClientSide) {
+            if (entity != null) {
+                if (entity instanceof Mob) {
+                    this.owner = (Mob)entity;
+                }
+                Vec3 lookAngle = entity.getLookAngle();
+                if (lookAngle != null) {
+                    this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, initialSpeed, 0.0F);
+                    bounceCount++;
+                }
+                return true;
             }
-
-            if (lookAngle != null) {
-                this.setVelocity(lookAngle.x, lookAngle.y, lookAngle.z, 1.0);
-            }
-
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
-
-    public void lerpMotion(double xd, double yd, double zd) {
-        this.xd = xd;
-        this.yd = yd;
-        this.zd = zd;
-    }
-
-
 }
