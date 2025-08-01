@@ -1,8 +1,11 @@
 package teamport.aether.entity.projectile;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.particle.ParticleItemBreaking;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
@@ -30,12 +33,21 @@ public class ProjectileKnifeLightning extends Projectile {
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
-            hitResult.entity.world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y + 0.5, hitResult.entity.z));
+            world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y, hitResult.entity.z));
             doEffect();
             this.remove();
         }
 
         if (hitResult.hitType == HitResult.HitType.TILE) {
+            world.entityJoinedWorld(
+                new EntityLightning(
+                    world,
+                    hitResult.x + hitResult.side.getOffsetX(),
+                    hitResult.y + hitResult.side.getOffsetY(),
+                    hitResult.z + hitResult.side.getOffsetZ()
+                )
+            );
+
             doEffect();
             this.remove();
         }
@@ -43,12 +55,26 @@ public class ProjectileKnifeLightning extends Projectile {
     }
 
     public void doEffect() {
-        world.entityJoinedWorld(new EntityLightning(world, this.x, this.y + 0.5, this.z));
         for (int j = 0; j < 8; ++j) {
-            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("splash", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle(
+                "item",
+                this.x, this.y, this.z,
+                world.rand.nextFloat(),
+                world.rand.nextFloat(),
+                world.rand.nextFloat(),
+                AetherItems.TOOL_KNIFE_LIGHTNING.id
+            );
+        }
+
+        for (int j = 0; j < 16; j++) {
+            world.spawnParticle(
+                "lightiningknife",
+                this.x, this.y, this.z,
+                world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
+                world.rand.nextFloat() * 0.25F * -1,
+                world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
+                0
+            );
         }
     }
 }
