@@ -13,7 +13,6 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,10 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
-import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
-
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
@@ -36,11 +33,11 @@ import static teamport.aether.items.accessory.SlotAccessory.*;
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
 
-    @Shadow @Final private ModelBiped modelArmorChestplate;
     @Shadow private ModelBiped modelBipedMain;
 
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.0F);
+    @Unique
     public final ModelBiped shield = new ModelBiped(1.5F);
 
     public MobRendererPlayerMixinGlovesAndPendantRender(ModelBase model, float shadowSize) {
