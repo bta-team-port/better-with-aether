@@ -19,14 +19,14 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryDamageArmorSteelPendantMixin {
     @Unique
-    private final Random aether_steelMixinRandom = new Random();
+    public final Random aether_steelMixinRandom = new Random();
 
     @Shadow public ItemStack[] armorInventory;
 
     @Shadow public Player player;
 
     @Inject(method = "damageArmor(I)V", at = @At("HEAD"), cancellable = true)
-    private void aether_damageArmorOne(int amount, CallbackInfo ci) {
+    public void aether_damageArmorOne(int amount, CallbackInfo ci) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         boolean hasSteelOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);
@@ -44,7 +44,7 @@ public abstract class ContainerInventoryDamageArmorSteelPendantMixin {
     }
 
     @Inject(method = "damageArmor(II)V", at = @At("HEAD"), cancellable = true)
-    private void aether_DamageArmorTwo(int damage, int armorSlot, CallbackInfo ci) {
+    public void aether_DamageArmorTwo(int damage, int armorSlot, CallbackInfo ci) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         boolean hasSteelOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);

@@ -14,7 +14,7 @@ public class LookupTrinketIcons {
     public  static final LookupTrinketIcons instance = new LookupTrinketIcons();
     public final Map<NamespaceID, String> ID_OUTLINE_TEXTURES = new HashMap<>();
     public final List<String> LIST_TEXTURE = new ArrayList<>();
-    private static final Random random = new Random();
+    public static final Random random = new Random();
 
     public LookupTrinketIcons(){this.register();}
 

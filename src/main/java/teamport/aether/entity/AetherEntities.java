@@ -5,6 +5,7 @@ import teamport.aether.entity.aerbunny.MobAerbunny;
 import teamport.aether.entity.aerwhale.MobAerwhale;
 import teamport.aether.entity.cockatrice.MobCockatrice;
 import teamport.aether.entity.mimic.MobMimic;
+import teamport.aether.entity.minicloud.MobMinicloud;
 import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobMoaBlack;
 import teamport.aether.entity.moa.MobMoaWhite;
@@ -14,6 +15,7 @@ import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.entity.valkyrie.MobBossValkyrie;
 import teamport.aether.entity.valkyrie.MobValkyrie;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityEnchanter;
@@ -44,6 +46,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobCockatrice.class, NamespaceID.getPermanent(MOD_ID, "cockatrice"), entityKey("cockatrice"));
         EntityHelper.createEntity(MobValkyrie.class, NamespaceID.getPermanent(MOD_ID, "valkyrie"), entityKey("valkyrie"));
+        EntityHelper.createEntity(MobBossValkyrie.class, NamespaceID.getPermanent(MOD_ID, "boss_valkyrie"), entityKey("boss_valkyrie"));
 
         EntityHelper.createEntity(MobSheepuff.class, NamespaceID.getPermanent(MOD_ID, "sheepuff"), entityKey("sheepuff"));
         EntityHelper.createEntity(MobPhow.class, NamespaceID.getPermanent(MOD_ID, "phow"), entityKey("phow"));
@@ -58,6 +61,7 @@ public final class AetherEntities {
 
 
         EntityHelper.createEntity(EntityParachute.class, NamespaceID.getPermanent(MOD_ID, "parachute"), entityKey("parachute"));
+        EntityHelper.createEntity(MobMinicloud.class, NamespaceID.getPermanent(MOD_ID, "minicloud"), entityKey("minicloud"));
 
 
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));

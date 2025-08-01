@@ -329,7 +329,7 @@ public final class AetherItems {
         TOOL_SWORD_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL));
 
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
-        TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new Item("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
+        TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
         //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with cloud projectiles,
     }
 
@@ -394,7 +394,6 @@ public final class AetherItems {
         ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCape("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
         ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemSwetCape("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCape("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
-        //TODO Capes are equipped in the cape slot, swet cape is decorative, invisibility cape turns you invisible and enemies wont aggro unless hit, like creative
 
         ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black",5));
         ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5));

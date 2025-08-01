@@ -31,7 +31,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
 
     @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
+    public void tick(CallbackInfo ci) {
         if(this.isInLava() || this.isInWater()){
             return;
         }

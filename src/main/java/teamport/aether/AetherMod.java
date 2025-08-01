@@ -37,7 +37,6 @@ import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
-import static net.minecraft.client.gui.hud.component.HudComponents.OXYGEN_BAR;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -95,7 +94,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 //        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
     }
 
-    private static void registerNewTagForItems() {
+    public static void registerNewTagForItems() {
         Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.TRINKET});
         Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.TRINKET});
         Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.TRINKET});

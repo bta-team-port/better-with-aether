@@ -289,11 +289,11 @@ public class MobAerbunny extends MobAetherAnimal {
         return "aether:mob.aerbunny.lift";
     }
 
-    protected String getHurtSound() {
+    public String getHurtSound() {
         return "aether:mob.aerbunny.hurt";
     }
 
-    protected String getDeathSound() {
+    public String getDeathSound() {
         return "aether:mob.aerbunny.death";
     }
     

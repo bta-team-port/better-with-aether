@@ -14,8 +14,6 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Mob.class, remap = false)
 abstract public class PlayerMixinPendantFallDamageModifier {
 
-    @Shadow protected boolean isJumping;
-
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Ljava/lang/Math;ceil(D)D"))
     public double modifyDamageTaken(double damage, Operation<Double> original){
         Mob mob = (Mob) (Object)this;

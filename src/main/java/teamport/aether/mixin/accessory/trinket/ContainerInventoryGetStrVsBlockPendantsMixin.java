@@ -26,7 +26,7 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
     @Shadow protected int currentItem;
 
     @Inject(method = "getStrVsBlock", at = @At("HEAD"), cancellable = true)
-    private void aether_getStrVsBlock(Block<?> block, CallbackInfoReturnable<Float> cir) {
+    public void aether_getStrVsBlock(Block<?> block, CallbackInfoReturnable<Float> cir) {
         if (mainInventory[currentItem] == null) return;
         float baseSpeed = mainInventory[currentItem].getStrVsBlock(block);
 
