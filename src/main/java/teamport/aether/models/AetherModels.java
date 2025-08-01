@@ -9,6 +9,7 @@ import net.minecraft.client.render.block.model.*;
 import net.minecraft.client.render.entity.EntityRendererFallingBlock;
 import net.minecraft.client.render.entity.EntityRendererSprite;
 import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
@@ -48,6 +49,8 @@ import teamport.aether.entity.sheepuff.*;
 import teamport.aether.entity.slider.MobBossSlider;
 import teamport.aether.entity.slider.MobRendererSlider;
 import teamport.aether.entity.slider.ModelSlider;
+import teamport.aether.entity.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.sunspirit.ModelSunspirit;
 import teamport.aether.entity.swet.MobRendererSwet;
 import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.valkyrie.MobBossValkyrie;
@@ -562,6 +565,7 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossSunspirit.class, () -> new MobRendererBiped<>(new ModelSunspirit(0.0F, 0.0F), 0.4F));
 
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
