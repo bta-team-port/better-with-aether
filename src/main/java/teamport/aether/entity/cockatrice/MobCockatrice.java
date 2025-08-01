@@ -121,6 +121,10 @@ public class MobCockatrice extends MobMonster implements Enemy {
         return "aether:mob.moa";
     }
 
+    public float getSoundVolume() {
+        return 0.5F;
+    }
+
     public void playLivingSound() {
         this.world.playSoundAtEntity(null, this, this.getLivingSound(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
