@@ -22,14 +22,6 @@ public class MobMinicloud extends MobFlying {
     public double targetY;
     public double targetZ;
 
-    public MobMinicloud(World world) {
-        super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "minicloud");
-        this.setSize(0.0F, 0.0F);
-        this.noPhysics = true;
-        this.pushTime = 1.75F;
-    }
-
     public MobMinicloud(World world, Player ep, boolean flag) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "minicloud");
@@ -41,12 +33,13 @@ public class MobMinicloud extends MobFlying {
         this.setPos(this.targetX, this.targetY, this.targetZ);
         this.xRot = this.dude.xRot;
         this.yRot = this.dude.yRot;
+        this.noPhysics = true;
         this.pushTime = 1.75F;
         this.animateHurt();
     }
 
-    public boolean shouldRender(double d) {
-        return true;
+    public boolean collidesWith(Entity entity) {
+        return false;
     }
 
     public void getTargetPos() {
