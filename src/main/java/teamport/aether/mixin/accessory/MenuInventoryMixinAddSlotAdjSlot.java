@@ -47,7 +47,7 @@ public class MenuInventoryMixinAddSlotAdjSlot {
     )
     public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
-        for(int i = 0; i < menu.slots.size(); i ++){
+        for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
             Container contain = slot.getContainer();
             // fixing the crafting inventory
@@ -57,9 +57,9 @@ public class MenuInventoryMixinAddSlotAdjSlot {
             if (slot instanceof SlotResult) {
                 slot.x += 8;
             }
-             //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
-            if(slot instanceof SlotArmor){
-                SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor)slot).getSlot() - 4, slot.x, slot.y, ((SlotArmorAccessor)slot).getArmorType());
+            //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
+            if (slot instanceof SlotArmor) {
+                SlotArmor newArmorSlot = new SlotArmor(menu, slot.getContainer(), ((SlotAccessor) slot).getSlot() - 4, slot.x, slot.y, ((SlotArmorAccessor) slot).getArmorType());
                 newArmorSlot.index = i;
                 menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
             }
@@ -74,7 +74,6 @@ public class MenuInventoryMixinAddSlotAdjSlot {
     }
 
 
-
     /**
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me - Colin
@@ -86,27 +85,30 @@ public class MenuInventoryMixinAddSlotAdjSlot {
      */
     @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
     public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        if (slot.index < 9 || slot.index > 44 || target != 2) {
+        if (slot.index < 9
+                || slot.index > 44
+                || target == 1
+                || slot.getItemStack() == null
+                || !(slot.getItemStack().getItem() instanceof IAccessory)
+//                || target != 2
+        ) {
             return;
         }
-        ItemStack itemStack = slot.getItemStack();
-        if (itemStack == null) return;
+        IAccessory accessory = (IAccessory)slot.getItemStack().getItem();
         List<Integer> ints = new ArrayList<>();
-        if(itemStack.getItem() instanceof IAccessory){
-            IAccessory accessory = (IAccessory) itemStack.getItem();
-            if(accessory instanceof ItemAccessoryArmor){
-                ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
-            }
-            if(((Item) accessory).hasTag(AetherItemTags.TRINKET)){
-                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
-                ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
-            }
-            cir.setReturnValue(ints);
+        if (accessory instanceof ItemAccessoryArmor) {
+            ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
         }
+        if (((Item) accessory).hasTag(AetherItemTags.TRINKET)) {
+            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
+            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
+        }
+        cir.setReturnValue(ints);
+
     }
 
     // allow quiver to be shift clicked in either the body or the cape slot
-    @Inject(method = "getTargetSlots", at= @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
+    @Inject(method = "getTargetSlots", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
     public void quiverTarget(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir, @Local IArmorItem armorItem, @Local List<Integer> ints) {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
