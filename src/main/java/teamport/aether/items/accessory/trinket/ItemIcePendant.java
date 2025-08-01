@@ -4,9 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import teamport.aether.items.accessory.ItemAccessoryTrinket;
@@ -17,8 +15,7 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 public class ItemIcePendant extends ItemAccessoryTrinket {
     public ItemIcePendant(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
-        float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * ArmorMaterial.IRON.durability;
-        this.setMaxDamage((int) Math.ceil(maxDurability));
+        this.setMaxDamage(256);
     }
 
     @Override

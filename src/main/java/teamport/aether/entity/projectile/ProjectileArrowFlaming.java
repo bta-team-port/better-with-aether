@@ -3,6 +3,7 @@ package teamport.aether.entity.projectile;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
@@ -69,6 +70,15 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
                 }
+
+                if (hitResult.entity instanceof MobCreeper) {
+                    MobCreeper entityCreeper = (MobCreeper) hitResult.entity;
+                    entityCreeper.setTarget(entityCreeper);
+                    hitResult.entity.fireHurt();
+                    return;
+                }
+
+                hitResult.entity.fireHurt();
 
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
