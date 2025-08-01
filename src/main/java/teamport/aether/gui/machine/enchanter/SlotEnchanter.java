@@ -20,6 +20,7 @@ public class SlotEnchanter extends Slot {
         if (itemstack.itemID == AetherItems.FOOD_HEALING_STONE.id) {
             this.thePlayer.addStat(AetherAchievements.HEALING_STONE, 1);
         }
+        super.onTake(itemstack);
     }
 
     // prevent item to be put in the output slot
