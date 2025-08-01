@@ -2,7 +2,6 @@ package teamport.aether.entity.slider;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
@@ -15,15 +14,17 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EnemyBoss;
+import teamport.aether.entity.MobBoss;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class MobBossSlider extends MobFlying implements EnemyBoss {
+public class MobBossSlider extends MobBoss implements EnemyBoss {
     public float deformX;
     public int deformY;
     public int deformZ = 1;
@@ -56,7 +57,6 @@ public class MobBossSlider extends MobFlying implements EnemyBoss {
 
         this.setSize(2.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
-
     }
 
     @Override
@@ -323,7 +323,7 @@ public class MobBossSlider extends MobFlying implements EnemyBoss {
         }
 
         //AetherDimension.dugeonMap.remove(dungeonID);
-        //AetherMod.LOGGER.info(personalBossName + " of ID " + dungeonID + " has been slain!");
+        AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
 
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {
@@ -367,13 +367,6 @@ public class MobBossSlider extends MobFlying implements EnemyBoss {
         }
 
         return false;
-    }
-
-    public String bossName;
-
-    @Override
-    public void returnToPedestal() {
-
     }
 
     public int getMaxHealth() {
