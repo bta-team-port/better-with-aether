@@ -32,7 +32,7 @@ public abstract class ItemToolOnBlockDestroyedPendantsMixin extends Item {
     @Shadow public abstract boolean isSilkTouch();
 
     @Inject(method = "onBlockDestroyed", at = @At("HEAD"), cancellable = true)
-    private void aether_onBlockDestroyedSteelPendant(@NotNull World world, ItemStack stack, int i, int x, int y, int z, Side side, Mob mob, CallbackInfoReturnable<Boolean> cir) {
+    public void aether_onBlockDestroyedSteelPendant(@NotNull World world, ItemStack stack, int i, int x, int y, int z, Side side, Mob mob, CallbackInfoReturnable<Boolean> cir) {
         Player player = mob instanceof Player ? (Player)mob : null;
         Block<?> block = Blocks.blocksList[i];
 

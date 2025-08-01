@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
 public class MobValkyrie extends MobMonster implements Enemy {
-    public static final ItemStack defaultHeldItem;
     public MobValkyrie(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
@@ -37,10 +36,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
     }
 
     public ItemStack getHeldItem() {
-        return defaultHeldItem;
+        return new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1);
     }
 
-    static {
-        defaultHeldItem = new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1);
-    }
 }

@@ -26,7 +26,7 @@ public class EntityMixin {
     }
 
     @Redirect(method = "move(DDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/util/helper/MathHelper;floor(D)I", ordinal = 5))
-    private int extendBlockRange(double xd, double yd, double zd){
+    public int extendBlockRange(double xd, double yd, double zd){
         return MathHelper.floor(((Entity)(Object)this).bb.minY + 0.001 + deltaY);
     }
 

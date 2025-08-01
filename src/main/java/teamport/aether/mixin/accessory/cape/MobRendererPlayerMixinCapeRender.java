@@ -29,7 +29,7 @@ abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
             method = "renderSpecials*",
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z", ordinal = 0)
     )
-    private void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local LocalBooleanRef renderCape) {
+    public void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local LocalBooleanRef renderCape) {
         ItemStack itemStack = player.inventory.armorItemInSlot(5);
         if (itemStack == null) return;
         if (!(itemStack.getItem() instanceof ItemAccessory)) return;

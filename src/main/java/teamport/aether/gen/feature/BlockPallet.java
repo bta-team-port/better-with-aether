@@ -41,9 +41,9 @@ public class BlockPallet {
     }
 
     public static class Entry {
-        private double accumulatedWeight;
-        private Pair<Integer, Integer> object;
-        private double weight;
+        public double accumulatedWeight;
+        public Pair<Integer, Integer> object;
+        public double weight;
 
         public double getWeight() {
             return this.weight;

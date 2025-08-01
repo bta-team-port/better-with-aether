@@ -27,7 +27,7 @@ public class ContainerInventoryMixinIncArmorInv {
 
     // change hardcoded size of the armor inventory
     @ModifyConstant(method = "readFromNBT", constant = @Constant(intValue = 4), require = 1)
-    private int modifyArmourSize(int original) {
+    public int modifyArmourSize(int original) {
         return 4 + 4;
     }
 
@@ -44,7 +44,7 @@ public class ContainerInventoryMixinIncArmorInv {
 
 
     @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
-    private int modifyContainerSize(int original) {
+    public int modifyContainerSize(int original) {
         return this.armorInventory.length;
     }
 

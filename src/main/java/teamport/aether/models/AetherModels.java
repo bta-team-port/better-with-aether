@@ -8,6 +8,7 @@ import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.*;
 import net.minecraft.client.render.entity.EntityRendererFallingBlock;
 import net.minecraft.client.render.entity.EntityRendererSprite;
+import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
@@ -25,6 +26,8 @@ import teamport.aether.entity.cockatrice.MobCockatrice;
 import teamport.aether.entity.cockatrice.MobRendererCockatrice;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.mimic.MobRendererMimic;
+import teamport.aether.entity.minicloud.MobMinicloud;
+import teamport.aether.entity.minicloud.ModelMinicloud;
 import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobRendererMoa;
 import teamport.aether.entity.moa.ModelMoa;
@@ -44,6 +47,7 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.*;
 import teamport.aether.entity.swet.MobRendererSwet;
 import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.entity.valkyrie.MobBossValkyrie;
 import teamport.aether.entity.valkyrie.MobRendererValkyrie;
 import teamport.aether.entity.valkyrie.MobValkyrie;
 import teamport.aether.entity.valkyrie.ModelValkyrie;
@@ -552,6 +556,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
 
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
@@ -565,6 +570,7 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
+        ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
 
 
 

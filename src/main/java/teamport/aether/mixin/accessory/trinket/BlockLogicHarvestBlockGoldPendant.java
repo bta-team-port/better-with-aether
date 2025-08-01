@@ -27,7 +27,7 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
     @Shadow public abstract void dropBlockWithCause(World world, EnumDropCause cause, int x, int y, int z, int meta, TileEntity tileEntity, Player player);
 
     @Inject(method = "harvestBlock", at = @At("HEAD"), cancellable = true)
-    private void aether_harvestBlock(World world, @NotNull Player player, int x, int y, int z, int meta, TileEntity tileEntity, CallbackInfo ci) {
+    public void aether_harvestBlock(World world, @NotNull Player player, int x, int y, int z, int meta, TileEntity tileEntity, CallbackInfo ci) {
         ItemStack heldItemStack = player.inventory.getCurrentItem();
         Item heldItem = heldItemStack != null ? Item.itemsList[heldItemStack.itemID] : null;
         if (heldItem == null) return;
