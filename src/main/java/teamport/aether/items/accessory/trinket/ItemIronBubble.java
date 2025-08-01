@@ -4,11 +4,11 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.ItemAccessoryTrinket;
+import teamport.aether.items.accessory.ItemTrinket;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemIronBubble extends ItemAccessoryTrinket {
+public class ItemIronBubble extends ItemTrinket {
     public ItemIronBubble(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }

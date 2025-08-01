@@ -1,16 +1,16 @@
-package teamport.aether.items;
+package teamport.aether.items.accessory.cape;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.ItemAccessory;
+import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
 
-public class ItemAgilityCape extends ItemAccessory {
+public class ItemAgilityCapeArmor extends ItemAccessoryArmor {
 
-    public ItemAgilityCape(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
+    public ItemAgilityCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 

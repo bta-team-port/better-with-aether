@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.IAetherAccessories;
+import teamport.aether.items.accessory.IAetherInvisibility;
 
 @Mixin(value = MobPathfinder.class, remap = false)
 abstract public class MobPathfinderMixinForgetPlayerWhenToFar {
@@ -27,7 +27,7 @@ abstract public class MobPathfinderMixinForgetPlayerWhenToFar {
         if (
                 this.target != null
                 && target instanceof Player
-                && ((IAetherAccessories) target).aether$isInvisible()
+                && ((IAetherInvisibility) target).aether$isInvisible()
         ) {
             MobPathfinder mob = (MobPathfinder) (Object) this;
             float distanceToEntity = this.target.distanceTo(mob);

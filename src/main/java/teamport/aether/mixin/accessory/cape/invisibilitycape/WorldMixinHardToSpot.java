@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.entity.EnemyBoss;
-import teamport.aether.items.IAetherAccessories;
+import teamport.aether.items.accessory.IAetherInvisibility;
 
 @Mixin(value = World.class, remap = false)
 public abstract class WorldMixinHardToSpot {
@@ -20,7 +20,7 @@ public abstract class WorldMixinHardToSpot {
         Player player = this.getClosestPlayer(attacker.x, attacker.y, attacker.z, radius);
         if (
                 player != null
-                        && ((IAetherAccessories) player).aether$isInvisible()
+                        && ((IAetherInvisibility) player).aether$isInvisible()
                         && !(attacker instanceof EnemyBoss)
         ) {
             cir.setReturnValue(this.getClosestPlayer(attacker.x, attacker.y, attacker.z, 2.0F));

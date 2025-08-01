@@ -4,12 +4,12 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.ItemAccessoryTrinket;
+import teamport.aether.items.accessory.ItemTrinket;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemGoldenFeather extends ItemAccessoryTrinket {
-    public ItemGoldenFeather(String translationKey, String namespaceId, int id, String name) {
+public class ItemGoldenFeather extends ItemTrinket {
+    public ItemGoldenFeather(String translationKey, String namespaceId, int id, String name ) {
         super(translationKey, namespaceId, id, name);
     }
 

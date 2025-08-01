@@ -7,6 +7,13 @@ import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.accessory.*;
+import teamport.aether.items.accessory.cape.ItemAgilityCapeArmor;
+import teamport.aether.items.accessory.cape.ItemInvisibilityCapeArmor;
+import teamport.aether.items.accessory.cape.ItemSwetCapeArmor;
+import teamport.aether.items.accessory.pendant.ItemPendant;
+import teamport.aether.items.accessory.pendant.ItemGravititePendant;
+import teamport.aether.items.accessory.pendant.ItemIcePendant;
+import teamport.aether.items.accessory.trinket.ItemIronBubble;
 import teamport.aether.items.accessory.trinket.*;
 import teamport.aether.items.itemtool.*;
 import teamport.aether.items.itemtool.ItemToolGravitite.ItemToolAxeGravitite;
@@ -360,17 +367,17 @@ public final class AetherItems {
         ARMOR_LEGGINGS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.neptune", itemKey("armor_leggings_neptune"), itemID("ARMOR_LEGGINGS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 1));
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 0));
 
-        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"),ArmorMaterial.LEATHER,4));
-        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"),ArmorMaterial.CHAINMAIL,4));
-        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON,4));
-        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD,4));
-        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND,4));
-        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL,4));
-        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE,4));
-        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE,4));
-        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,4));
-        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,4));
-        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemAccessoryGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,4));
+        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"),ArmorMaterial.LEATHER,4));
+        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"),ArmorMaterial.CHAINMAIL,4));
+        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON,4));
+        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD,4));
+        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND,4));
+        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL,4));
+        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE,4));
+        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE,4));
+        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,4));
+        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,4));
+        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,4));
 
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen"));
@@ -381,37 +388,36 @@ public final class AetherItems {
         ARMOR_SHIELD_REPULSION = new ItemBuilder(MOD_ID).build(new ItemRepulsionShield("armor.shield.repulsion", itemKey("armor_shield_repulsion"), itemID("ARMOR_SHIELD_REPULSION"), "shield"));
 
 
-        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
-        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemAccessoryTrinket("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
-        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
-        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
-        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL));
-        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemDamageablePendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE));
+        ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+        ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
+        ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
+        ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
+        ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), ArmorMaterial.STEEL));
+        ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"),AetherArmorMaterial.ZANITE));
         ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE));
         ARMOR_TALISMAN_ICE = new ItemBuilder(MOD_ID).build(new ItemIcePendant("armor.talisman.ice", itemKey("armor_talisman_ice"), itemID("ARMOR_TALISMAN_ICE"), "ice"));
 
-        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCape("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility", 5));
-        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemSwetCape("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
-        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCape("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
+        ARMOR_CAPE_AGILITY = new ItemBuilder(MOD_ID).build(new ItemAgilityCapeArmor("armor.cape.agility", itemKey("armor_cape_agility"), itemID("ARMOR_CAPE_AGILITY"), "agility",  5));
+        ARMOR_CAPE_SWET = new ItemBuilder(MOD_ID).build(new ItemSwetCapeArmor("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet",  5));
+        ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID).build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"),"invisible",  5));
 
-        ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black",5));
-        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5));
-        ARMOR_CAPE_GREEN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green",5));
-        ARMOR_CAPE_BROWN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown",5));
-        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue", 5));
-        ARMOR_CAPE_PURPLE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple",5));
-        ARMOR_CAPE_CYAN = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan",5));
-        ARMOR_CAPE_SILVER = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver",5));
-        ARMOR_CAPE_GRAY = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray",5));
-        ARMOR_CAPE_PINK = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink",5));
-        ARMOR_CAPE_LIME = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime",5));
-        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 5));
-        ARMOR_CAPE_LIGHTBLUE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue",5));
-        ARMOR_CAPE_MAGENTA = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta",5));
-        ARMOR_CAPE_ORANGE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange",5));
-        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new ItemAccessory("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white",5));
-
+        ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.black", itemKey("armor_cape_black"), itemID("ARMOR_CAPE_BLACK"), "black",5));
+        ARMOR_CAPE_RED = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.red", itemKey("armor_cape_red"), itemID("ARMOR_CAPE_RED"), "red", 5));
+        ARMOR_CAPE_GREEN = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.green", itemKey("armor_cape_green"), itemID("ARMOR_CAPE_GREEN"), "green",5));
+        ARMOR_CAPE_BROWN = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.brown", itemKey("armor_cape_brown"), itemID("ARMOR_CAPE_BROWN"), "brown",5));
+        ARMOR_CAPE_BLUE = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.blue", itemKey("armor_cape_blue"), itemID("ARMOR_CAPE_BLUE"), "blue", 5));
+        ARMOR_CAPE_PURPLE = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.purple", itemKey("armor_cape_purple"), itemID("ARMOR_CAPE_PURPLE"), "purple",5));
+        ARMOR_CAPE_CYAN = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.cyan", itemKey("armor_cape_cyan"), itemID("ARMOR_CAPE_CYAN"), "cyan",5));
+        ARMOR_CAPE_SILVER = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.silver", itemKey("armor_cape_silver"), itemID("ARMOR_CAPE_SILVER"), "silver",5));
+        ARMOR_CAPE_GRAY = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.gray", itemKey("armor_cape_gray"), itemID("ARMOR_CAPE_GRAY"), "gray",5));
+        ARMOR_CAPE_PINK = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.pink", itemKey("armor_cape_pink"), itemID("ARMOR_CAPE_PINK"), "pink",5));
+        ARMOR_CAPE_LIME = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.lime", itemKey("armor_cape_lime"), itemID("ARMOR_CAPE_LIME"), "lime",5));
+        ARMOR_CAPE_YELLOW = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.yellow", itemKey("armor_cape_yellow"), itemID("ARMOR_CAPE_YELLOW"), "yellow", 5));
+        ARMOR_CAPE_LIGHTBLUE = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.lightblue", itemKey("armor_cape_lightblue"), itemID("ARMOR_CAPE_LIGHTBLUE"), "lightblue",5));
+        ARMOR_CAPE_MAGENTA = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.magenta", itemKey("armor_cape_magenta"), itemID("ARMOR_CAPE_MAGENTA"), "magenta",5));
+        ARMOR_CAPE_ORANGE = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.orange", itemKey("armor_cape_orange"), itemID("ARMOR_CAPE_ORANGE"), "orange",5));
+        ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID).build(new ItemAccessoryArmor("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white",5));
     }
 
 }

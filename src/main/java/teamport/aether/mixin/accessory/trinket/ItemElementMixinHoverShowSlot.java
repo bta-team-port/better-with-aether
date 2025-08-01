@@ -54,9 +54,7 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
                 currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
             }
-            //TODO make it possible to load other mods outlines as well
-            String root = String.format("%s:item/wildcard/", "aether");
-            defaultIcon = TextureRegistry.getTexture(root + (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1));
+            defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1);
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
@@ -68,9 +66,9 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 ItemStack hoverStack = ((MenuInventory)((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof Accessory || item.hasTag(AetherItemTags.TRINKET)) {
+                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
                         String iconPath = LookupTrinketIcons.instance.getEntry(item);
-                        IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(root + iconPath) : defaultIcon;
+                        IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
                     }
@@ -82,9 +80,9 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 ItemStack hoverStack = slot.getItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
-                    if (item instanceof Accessory || item.hasTag(AetherItemTags.TRINKET)) {
+                    if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {
                         String iconPath = LookupTrinketIcons.instance.getEntry(item);
-                        IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(root + iconPath) : defaultIcon;
+                        IconCoordinate displayIcon = iconPath != null ? TextureRegistry.getTexture(iconPath) : defaultIcon;
                         instance.drawTexturedIcon(x, y, 16, 16, displayIcon);
                         return;
                     }
