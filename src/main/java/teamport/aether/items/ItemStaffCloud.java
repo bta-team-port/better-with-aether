@@ -17,7 +17,7 @@ public class ItemStaffCloud extends Item {
         this.setMaxDamage(60);
     }
 
-    private ItemStack useCloudStaff(ItemStack itemstack, World world, Player entityplayer) {
+    public ItemStack useCloudStaff(ItemStack itemstack, World world, Player entityplayer) {
         if (!this.cloudsExist(world, entityplayer)) {
 
             MobMinicloud c1 = new MobMinicloud(world, entityplayer, false);
@@ -34,7 +34,7 @@ public class ItemStaffCloud extends Item {
         return world.isClientSide ? itemstack : useCloudStaff(itemstack, world, entityplayer);
     }
 
-    private boolean cloudsExist(World world, Player entityplayer) {
+    public boolean cloudsExist(World world, Player entityplayer) {
         List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.bb.expand(128.0, 128.0, 128.0));
 
         for (Entity entity1 : list) {

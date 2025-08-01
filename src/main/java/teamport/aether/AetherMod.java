@@ -28,7 +28,6 @@ import teamport.aether.entity.moa.MobMoaWhite;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sheepuff.MobSheepuff;
-import teamport.aether.entity.swet.MobSwet;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
@@ -75,12 +74,12 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerbunny.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).add(new SpawnListEntry(MobAerwhale.class, 5));
 
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoa.class, 102));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoaWhite.class, 51));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).add(new SpawnListEntry(MobMoaBlack.class, 26));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 102));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 51));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 26));
 
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
+//        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
 
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));

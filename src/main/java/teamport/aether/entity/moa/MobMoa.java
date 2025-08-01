@@ -45,6 +45,10 @@ public class MobMoa extends MobAetherAnimal {
         return 240;
     }
 
+    public float getSoundVolume() {
+        return 0.5F;
+    }
+
     public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(16, (byte)0, Byte.class);

@@ -3,10 +3,12 @@ package teamport.aether.entity.aerbunny;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -15,6 +17,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pathfinder.Path;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.MobAetherAnimal;
+import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
@@ -35,6 +38,10 @@ public class MobAerbunny extends MobAetherAnimal {
         this.age = this.random.nextInt(64);
         this.mate = 0;
         this.mobDrops.add(new WeightedRandomLootObject(Items.STRING.getDefaultStack(), 1));
+    }
+
+    public boolean isFavouriteItem(ItemStack itemStack) {
+        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
     public int getMaxHealth() {
