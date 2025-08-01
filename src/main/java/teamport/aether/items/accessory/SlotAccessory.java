@@ -43,8 +43,8 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item instanceof Accessory && !item.hasTag(AetherItemTags.TRINKET)) {
-            return ((Accessory) item).getAccessorySlot() == this.armorType;
+        if (item instanceof ItemAccessoryArmor) {
+            return ((ItemAccessoryArmor)item).getSlotID() == this.armorType;
         }
         if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
