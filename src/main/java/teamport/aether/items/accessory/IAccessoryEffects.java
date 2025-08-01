@@ -3,15 +3,7 @@ package teamport.aether.items.accessory;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 
-// TODO  trinket don't need getAccessorySlot, this need to be untangled
-public interface Accessory {
-    /**
-     * Determines what accessory slots your item goes to
-     *
-     * @return accessory slot
-     */
-    int getAccessorySlot();
-
+public interface IAccessoryEffects {
     /**
      * Called when accessory is inserted into a slot, or the player who had it in a slot is just loaded
      * @param player EntityPlayer who added the accessory
