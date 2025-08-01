@@ -9,7 +9,7 @@ public interface IAccessoryEffects {
      * @param player EntityPlayer who added the accessory
      * @param accessory accessory which was added
      */
-    default void onAccessoryAdded(Player player, ItemStack accessory) {
+    default void addEffect(Player player, ItemStack accessory) {
     }
 
     /**
@@ -17,6 +17,6 @@ public interface IAccessoryEffects {
      * @param player EntityPlayer who removed the accessory
      * @param accessory accessory which was removed
      */
-    default void onAccessorySwapped(Player player, ItemStack accessory) {
+    default void removeEffect(Player player, ItemStack accessory) {
     }
 }

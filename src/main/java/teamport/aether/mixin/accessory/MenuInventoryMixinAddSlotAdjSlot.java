@@ -75,23 +75,18 @@ public class MenuInventoryMixinAddSlotAdjSlot {
 
 
 
-    // TODO make the target 2 when its an accessory
     /**
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me - Colin
      * <br>
      * <br>
      * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
-     * as such the target is always the inventory. To fix this a mixin is needed.
-     * I could not find a good way to mix into it. - Redart15
-     * <br>
-     * <br>
-     * <strong>Note:</strong> Due to gloves being an armor piece,
-     *  target can return 0 or 2 for accessories.
+     * as such the target is always the inventory. ScreenContainerAbstractMixinTargetAccessory
+     * alters the target to be always 2 for accessories - Redart15
      */
     @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
     public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        if (slot.index < 9 || slot.index > 44 || target == 1) {
+        if (slot.index < 9 || slot.index > 44 || target != 2) {
             return;
         }
         ItemStack itemStack = slot.getItemStack();

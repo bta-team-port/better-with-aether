@@ -29,11 +29,11 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
         ((IAetherInvisibility)player).aether$setInvisible(false);
     }
 
-    public void onAccessoryAdded(Player player, ItemStack accessory) {
+    public void addEffect(Player player, ItemStack accessory) {
         ((IAetherInvisibility)player).aether$setInvisible(true);
     }
 
-    public void onAccessorySwapped(Player player, ItemStack accessory) {
+    public void removeEffect(Player player, ItemStack accessory) {
         ((IAetherInvisibility)player).aether$setInvisible(false);
     }
 
