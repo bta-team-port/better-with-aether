@@ -13,6 +13,7 @@ public class ItemPendant extends Item implements IAccessory {
     public ItemPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
         super(translationKey, namespaceId, id);
         this.name = material.identifier.value();
+        this.maxStackSize = 1;
         float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.withTags(new Tag[]{AetherItemTags.TRINKET});
