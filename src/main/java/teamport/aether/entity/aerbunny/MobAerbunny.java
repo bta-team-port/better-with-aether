@@ -263,28 +263,30 @@ public class MobAerbunny extends MobAetherAnimal {
     }
 
     //TODO Currently cant interact with it again to dismount it
-    public boolean interact(Player entityplayer) {
-        this.yRot = entityplayer.yRot;
-        if (this.vehicle != null) {
-            this.yBodyRot = this.vehicle.getYRotDelta();
-            this.yRot = this.vehicle.getYRotDelta();
-        }
+    public boolean interact(@NotNull Player entityplayer) {
+        if (!this.world.isClientSide) {
+            if (this.vehicle == entityplayer) {
+                this.grab = false;
+                this.ejectRider();
+                if (this.vehicle != null) {
+                    this.vehicle = null;
+                }
+                return true;
+            }
 
-        this.startRiding(entityplayer);
-        if (this.vehicle == null) {
+            this.startRiding(entityplayer);
             this.grab = true;
-        } else {
             this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.xd = entityplayer.xd * 5.0;
+            this.yd = entityplayer.yd / 2.0 + 0.5;
+            this.zd = entityplayer.zd * 5.0;
+            this.isJumping = false;
+            this.moveForward = 0.0F;
+            this.moveStrafing = 0.0F;
+            this.setPathToEntity(null);
+            return true;
         }
-
-        this.isJumping = false;
-        this.moveForward = 0.0F;
-        this.moveStrafing = 0.0F;
-        this.setPathToEntity(null);
-        this.xd = entityplayer.xd * 5.0;
-        this.yd = entityplayer.yd / 2.0 + 0.5;
-        this.zd = entityplayer.zd * 5.0;
-        return true;
+        return false;
     }
 
     public void proceed() {
