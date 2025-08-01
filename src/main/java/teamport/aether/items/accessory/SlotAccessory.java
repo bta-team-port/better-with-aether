@@ -52,7 +52,6 @@ public class SlotAccessory extends Slot {
         return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
     }
 
-    // TODO figure out what to do here
     public void setChanged() {
         super.setChanged();
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
