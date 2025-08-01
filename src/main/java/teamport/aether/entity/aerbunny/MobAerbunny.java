@@ -262,7 +262,6 @@ public class MobAerbunny extends MobAetherAnimal {
 
     }
 
-    //TODO Currently cant interact with it again to dismount it
     public boolean interact(@NotNull Player entityplayer) {
         if (!this.world.isClientSide) {
             if (this.vehicle == entityplayer) {
