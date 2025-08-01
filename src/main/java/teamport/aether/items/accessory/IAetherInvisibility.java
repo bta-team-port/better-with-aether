@@ -1,6 +1,6 @@
-package teamport.aether.items;
+package teamport.aether.items.accessory;
 
-public interface IAetherAccessories {
+public interface IAetherInvisibility {
     void aether$setInvisible(boolean invisible);
     boolean aether$isInvisible();
 }

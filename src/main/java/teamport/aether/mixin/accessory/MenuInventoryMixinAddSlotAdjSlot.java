@@ -20,7 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
 import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.Accessory;
+import teamport.aether.items.accessory.IAccessory;
+import teamport.aether.items.accessory.ItemAccessoryArmor;
+import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 import teamport.aether.mixin.accessors.SlotAccessor;
@@ -73,45 +75,34 @@ public class MenuInventoryMixinAddSlotAdjSlot {
 
 
 
-    // TODO make the target 2 when its an accessory
     /**
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me - Colin
      * <br>
      * <br>
      * So the target is 0 because the ScreenContainerAbstract is not resolving the targeting correctly
-     * as such the target is always the inventory. To fix this a mixin is needed.
-     * I could not find a good way to mix into it. - Redart15
-     * <br>
-     * <br>
-     * <strong>Note:</strong> Due to gloves being an armor piece,
-     *  target can return 0 or 2 for accessories.
+     * as such the target is always the inventory. ScreenContainerAbstractMixinTargetAccessory
+     * alters the target to be always 2 for accessories - Redart15
      */
     @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
     public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        if (slot.index < 9 || slot.index > 44 || target == 1) {
+        if (slot.index < 9 || slot.index > 44 || target != 2) {
             return;
         }
         ItemStack itemStack = slot.getItemStack();
         if (itemStack == null) return;
-        boolean isAccessory = itemStack.getItem().hasTag(AetherItemTags.TRINKET);
         List<Integer> ints = new ArrayList<>();
-        if (itemStack.getItem() instanceof Accessory) {
-            Accessory armorItem = (Accessory) itemStack.getItem();
-            int accessorySlot = armorItem.getAccessorySlot();
-            if (accessorySlot >= SlotAccessory.TRINKET_1_SLOT) {
+        if(itemStack.getItem() instanceof IAccessory){
+            IAccessory accessory = (IAccessory) itemStack.getItem();
+            if(accessory instanceof ItemAccessoryArmor){
+                ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
+            }
+            if(((Item) accessory).hasTag(AetherItemTags.TRINKET)){
                 ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
                 ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
-            } else {
-                ints.add(AetherMod.ARMOR_START_INDEX + accessorySlot);
             }
             cir.setReturnValue(ints);
-        } else if (isAccessory) {
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
-            cir.setReturnValue(ints);
         }
-
     }
 
     // allow quiver to be shift clicked in either the body or the cape slot

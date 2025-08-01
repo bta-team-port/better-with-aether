@@ -5,19 +5,18 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.ItemAccessoryTrinket;
+import teamport.aether.items.accessory.IAccessoryEffects;
+import teamport.aether.items.accessory.ItemTrinket;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemRegenStone extends ItemAccessoryTrinket {
-    public int defaultTime = 150;
+public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
 
     public ItemRegenStone(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }
 
 
-    // TODO change it to write to nbt tag
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         CompoundTag tag = itemstack.getData();
@@ -41,10 +40,8 @@ public class ItemRegenStone extends ItemAccessoryTrinket {
     }
 
 
-
-
     @Override
-    public void onAccessoryAdded(Player player, ItemStack accessory) {
+    public void addEffect(Player player, ItemStack accessory) {
         accessory.setMetadata(0);
     }
 }

@@ -43,8 +43,8 @@ public class SlotAccessory extends Slot {
 
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item instanceof Accessory && !item.hasTag(AetherItemTags.TRINKET)) {
-            return ((Accessory) item).getAccessorySlot() == this.armorType;
+        if (item instanceof ItemAccessoryArmor) {
+            return ((ItemAccessoryArmor)item).getSlotID() == this.armorType;
         }
         if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
@@ -52,7 +52,6 @@ public class SlotAccessory extends Slot {
         return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
     }
 
-    // TODO figure out what to do here
     public void setChanged() {
         super.setChanged();
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {

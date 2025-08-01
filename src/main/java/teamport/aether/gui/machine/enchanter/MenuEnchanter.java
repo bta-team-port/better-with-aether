@@ -10,7 +10,6 @@ import teamport.aether.tile.TileEntityEnchanter;
 
 import java.util.List;
 
-// TODO implement this
 public class MenuEnchanter extends MenuAbstract {
     public final TileEntityEnchanter enchanter;
     public int currentProcessTime = 0;

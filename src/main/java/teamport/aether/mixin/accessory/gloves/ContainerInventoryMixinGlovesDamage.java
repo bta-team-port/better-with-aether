@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.DamageType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import teamport.aether.items.accessory.ItemAccessoryGloves;
+import teamport.aether.items.accessory.ItemGloves;
 
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 
@@ -21,7 +21,7 @@ public abstract class ContainerInventoryMixinGlovesDamage {
         if(inv.armorInventory[GLOVES_SLOT] == null){
             return 1;
         }
-        ArmorMaterial material = ((ItemAccessoryGloves) inv.armorInventory[GLOVES_SLOT].getItem()).getArmorMaterial();
+        ArmorMaterial material = ((ItemGloves) inv.armorInventory[GLOVES_SLOT].getItem()).getArmorMaterial();
         float totalProtection = 0;
         for(DamageType damageType: DamageType.values()){
             totalProtection += material.getProtection(damageType);
