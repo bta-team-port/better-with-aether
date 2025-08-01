@@ -15,6 +15,12 @@ import static net.minecraft.core.world.biome.Biomes.register;
 
 public class AetherDimension {
 
+
+    public static final int bossDetectionRange = 100;
+    public static final int bossDetectionRangeSQR = 10000;
+    public static final int dungeonRadius = 300;
+    public static final int dungeonRadiusSQR = dungeonRadius * dungeonRadius;
+
     public static int AetherDimensionID = 3;
     public static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
 
