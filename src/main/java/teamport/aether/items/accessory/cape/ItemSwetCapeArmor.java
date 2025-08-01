@@ -1,4 +1,4 @@
-package teamport.aether.items.accessory;
+package teamport.aether.items.accessory.cape;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -6,14 +6,14 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.swet.MobSwet;
-import teamport.aether.items.IAetherAccessories;
+import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 import java.util.List;
 
 import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
 
-public class ItemSwetCape extends ItemAccessory {
-    public ItemSwetCape(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
+public class ItemSwetCapeArmor extends ItemAccessoryArmor {
+    public ItemSwetCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 

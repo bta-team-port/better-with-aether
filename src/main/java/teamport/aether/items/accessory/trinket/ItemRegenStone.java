@@ -5,11 +5,12 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.items.accessory.ItemAccessoryTrinket;
+import teamport.aether.items.accessory.IAccessoryEffects;
+import teamport.aether.items.accessory.ItemTrinket;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemRegenStone extends ItemAccessoryTrinket {
+public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
     public int defaultTime = 150;
 
     public ItemRegenStone(String translationKey, String namespaceId, int id, String name) {
@@ -39,8 +40,6 @@ public class ItemRegenStone extends ItemAccessoryTrinket {
             }
         }
     }
-
-
 
 
     @Override
