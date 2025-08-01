@@ -160,8 +160,8 @@ public class ModelValkyrie extends ModelBiped {
         this.halo.setRotationPoint(0.0F, 0.0F, 0.0F);
     }
 
-    public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-        this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
+    public void render(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
+        this.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
         this.head.render(scale);
         this.body.render(scale);
         this.armRight.render(scale);
@@ -199,16 +199,16 @@ public class ModelValkyrie extends ModelBiped {
 
     }
 
-    public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-        super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
-        this.head.yRot = headYaw / 57.29578F;
-        this.head.xRot = headPitch / 57.29578F;
-        this.armRight.xRot = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 2.0F * limbYaw * 0.5F;
-        this.armLeft.xRot = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbYaw * 0.5F;
+    public void setupAnimation(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
+        super.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
+        this.head.yRot = headyRot / 57.29578F;
+        this.head.xRot = headxRot / 57.29578F;
+        this.armRight.xRot = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 2.0F * limbyRot * 0.5F;
+        this.armLeft.xRot = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbyRot * 0.5F;
         this.armRight.zRot = 0.05F;
         this.armLeft.zRot = -0.05F;
-        this.legRight.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw;
-        this.legLeft.xRot = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 1.4F * limbYaw;
+        this.legRight.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbyRot;
+        this.legLeft.xRot = MathHelper.cos(limbSwing * 0.6662F + 3.141593F) * 1.4F * limbyRot;
         this.legRight.yRot = 0.0F;
         this.legLeft.yRot = 0.0F;
 
@@ -243,15 +243,36 @@ public class ModelValkyrie extends ModelBiped {
 
         this.armRight.yRot = 0.0F;
         this.armLeft.yRot = 0.0F;
+        if (this.onGround > -9990.0F) {
+            float f6 = this.onGround;
+            this.bipedBody2.yRot = this.body.yRot = MathHelper.sin(MathHelper.sqrt(f6) * 3.141593F * 2.0F) * 0.2F;
+            var10000 = this.armRight;
+            var10000.yRot += this.body.yRot;
+            var10000 = this.armLeft;
+            var10000.yRot += this.body.yRot;
+            var10000 = this.armLeft;
+            var10000.xRot += this.body.yRot;
+            f6 = 1.0F - this.onGround;
+            f6 *= f6;
+            f6 *= f6;
+            f6 = 1.0F - f6;
+            float f7 = MathHelper.sin(f6 * 3.141593F);
+            float f8 = MathHelper.sin(this.onGround * 3.141593F) * -(this.head.xRot - 0.7F) * 0.75F;
+            var10000 = this.armRight;
+            var10000.xRot = (float) ((double) var10000.xRot - ((double) f7 * 1.2 + (double) f8));
+            var10000 = this.armRight;
+            var10000.yRot += this.body.yRot * 2.0F;
+            this.armRight.zRot = MathHelper.sin(this.onGround * 3.141593F) * -0.4F;
+        }
 
         var10000 = this.armRight;
-        var10000.zRot += MathHelper.cos(limbPitch * 0.09F) * 0.05F + 0.05F;
+        var10000.zRot += MathHelper.cos(limbxRot * 0.09F) * 0.05F + 0.05F;
         var10000 = this.armLeft;
-        var10000.zRot -= MathHelper.cos(limbPitch * 0.09F) * 0.05F + 0.05F;
+        var10000.zRot -= MathHelper.cos(limbxRot * 0.09F) * 0.05F + 0.05F;
         var10000 = this.armRight;
-        var10000.xRot += MathHelper.sin(limbPitch * 0.067F) * 0.05F;
+        var10000.xRot += MathHelper.sin(limbxRot * 0.067F) * 0.05F;
         var10000 = this.armLeft;
-        var10000.xRot -= MathHelper.sin(limbPitch * 0.067F) * 0.05F;
+        var10000.xRot -= MathHelper.sin(limbxRot * 0.067F) * 0.05F;
 
         this.bipedRightArm2.zRot = this.armRight.zRot;
         this.bipedRightArm2.yRot = this.armRight.yRot;
