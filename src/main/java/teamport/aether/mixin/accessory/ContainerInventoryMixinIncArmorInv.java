@@ -8,7 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.accessory.Accessory;
+import teamport.aether.items.accessory.IAccessory;
+import teamport.aether.items.accessory.IAccessoryEffects;
 
 
 @Mixin(value = ContainerInventory.class, remap = false)
@@ -36,8 +37,8 @@ public class ContainerInventoryMixinIncArmorInv {
     public void activateAccessories(ListTag nbttaglist, CallbackInfo ci) {
         ContainerInventory inv = (ContainerInventory) (Object) this;
         for (ItemStack item : inv.armorInventory) {
-            if (item != null && item.getItem() instanceof Accessory) {
-                ((Accessory) item.getItem()).onAccessoryAdded(inv.player, item);
+            if (item != null && item.getItem() instanceof IAccessoryEffects) {
+                ((IAccessoryEffects) item.getItem()).onAccessoryAdded(inv.player, item);
             }
         }
     }
@@ -60,12 +61,12 @@ public class ContainerInventoryMixinIncArmorInv {
         ItemStack oldItem = this.armorInventory[index - this.mainInventory.length];
 
         // this is only called when we SWAP an item
-        if (oldItem != null && oldItem.getItem() instanceof Accessory) {
-            ((Accessory) oldItem.getItem()).onAccessorySwapped(player, oldItem);
+        if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects) {
+            ((IAccessoryEffects) oldItem.getItem()).onAccessorySwapped(player, oldItem);
         }
 
-        if (newItem != null && newItem.getItem() instanceof Accessory) {
-            ((Accessory) newItem.getItem()).onAccessoryAdded(player, newItem);
+        if (newItem != null && newItem.getItem() instanceof IAccessoryEffects) {
+            ((IAccessoryEffects) newItem.getItem()).onAccessoryAdded(player, newItem);
         }
     }
 }
