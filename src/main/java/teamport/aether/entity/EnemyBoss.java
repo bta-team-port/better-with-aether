@@ -1,15 +1,23 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.item.ItemStack;
+import teamport.aether.helper.BlockCoordinate;
 
 import javax.annotation.Nullable;
 
 public interface EnemyBoss {
+    @Nullable
+    Integer dungeonID = null;
+    @Nullable
+    String bossName = null;
 
-    int dungeonID = -1;
-    String getBossName = "";
+    String getBossTitle();
+
     @Nullable
     ItemStack trophy = null;
 
-    void returnToPedestal();
+    void returnToHome();
+
+    @Nullable
+    BlockCoordinate returnPoint = null;
 }
