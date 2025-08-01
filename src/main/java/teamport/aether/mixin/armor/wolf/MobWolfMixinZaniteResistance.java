@@ -1,9 +1,11 @@
 package teamport.aether.mixin.armor.wolf;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,4 +44,7 @@ public abstract class MobWolfMixinZaniteResistance extends MobAnimal{
         super.damageEntity(newDamage, damageType);
         ci.cancel();
     }
+
+
+    @WrapOperation(method = "damageEntity", at = )
 }
