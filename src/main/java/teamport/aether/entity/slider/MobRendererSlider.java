@@ -15,14 +15,14 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         if (renderPass != 0) {
             return false;
         } else {
-            if (slider.awake) {
-                if (slider.criticalCondition()) {
+            if (slider.isAwake() && !slider.doingSlam()) {
+                if (slider.isAngry()) {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
                 } else {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_glow.png");
                 }
             } else {
-                if (slider.criticalCondition()) {
+                if (slider.isAngry()) {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_red_glow.png");
                 } else {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_glow.png");
@@ -38,9 +38,9 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         }
     }
 
-    public void setupScale(MobBossSlider entity, float partialTick) {
-        if (entity.harvey > 0.01F) {
-            GL11.glRotatef(entity.harvey * -30.0F, (float) entity.rennis, 0.0F, (float) entity.dennis);
+    public void setupScale(MobBossSlider slider, float partialTick) {
+        if (slider.deformX > 0.01F) {
+            GL11.glRotatef(slider.deformX * -30.0F, (float) slider.deformY, 0.0F, (float) slider.deformZ);
         }
 
     }

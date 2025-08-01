@@ -6,8 +6,9 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.EnemyBoss;
+import teamport.aether.entity.MobBoss;
 
-public class MobBossSunspirit extends MobMonster implements EnemyBoss {
+public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     public MobBossSunspirit(@Nullable World world) {
         super(world);
         this.setSize(2.25F, 2.5F);
@@ -29,5 +30,4 @@ public class MobBossSunspirit extends MobMonster implements EnemyBoss {
         }
         return "/assets/aether/textures/entity/boss_sunspirit/sunspirit.png";
     }
-
 }
