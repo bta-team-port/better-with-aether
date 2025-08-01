@@ -4,6 +4,7 @@ import net.minecraft.core.item.ItemStack;
 import teamport.aether.helper.BlockCoordinate;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public interface EnemyBoss {
     @Nullable
@@ -20,4 +21,7 @@ public interface EnemyBoss {
 
     @Nullable
     BlockCoordinate returnPoint = null;
+
+    @Nullable
+    List<BlockCoordinate> blocksDestroyOnDeath = null;
 }
