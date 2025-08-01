@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.gloves;
+package teamport.aether.mixin.accessory;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
