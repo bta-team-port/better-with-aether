@@ -54,7 +54,6 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                 currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
                 currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
             }
-            //TODO make it possible to load other mods outlines as well);
             defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1);
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();

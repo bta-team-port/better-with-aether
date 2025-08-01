@@ -25,7 +25,6 @@ public class ScreenIncubator extends ScreenAetherMachine {
 
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
-        // TODO maybe at some point add a custom incubator inventory
         this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/incubator.png").bind();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         int x = (width - xSize) / 2;
@@ -47,7 +46,6 @@ public class ScreenIncubator extends ScreenAetherMachine {
         this.font.drawString(i18n.translateKey("gui.furnace.label.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
-    // TODO implement the function once recipe are in place
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
         if(stackInSlot == null) return 0;
