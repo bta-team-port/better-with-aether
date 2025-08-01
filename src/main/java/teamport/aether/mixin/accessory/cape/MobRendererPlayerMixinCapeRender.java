@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.accessory.ItemAccessory;
+import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
@@ -32,9 +32,9 @@ abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
     private void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local LocalBooleanRef renderCape) {
         ItemStack itemStack = player.inventory.armorItemInSlot(5);
         if (itemStack == null) return;
-        if (!(itemStack.getItem() instanceof ItemAccessory)) return;
+        if (!(itemStack.getItem() instanceof ItemAccessoryArmor)) return;
         Item item = itemStack.getItem();
-        String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessory)item).name());
+        String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor)item).name());
         this.renderDispatcher.textureManager.loadTexture(path).bind();
         renderCape.set(true);
     }

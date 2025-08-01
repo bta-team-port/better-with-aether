@@ -20,7 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
 import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.Accessory;
+import teamport.aether.items.accessory.IAccessory;
+import teamport.aether.items.accessory.ItemAccessoryArmor;
+import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 import teamport.aether.mixin.accessors.SlotAccessor;
@@ -94,24 +96,18 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         }
         ItemStack itemStack = slot.getItemStack();
         if (itemStack == null) return;
-        boolean isAccessory = itemStack.getItem().hasTag(AetherItemTags.TRINKET);
         List<Integer> ints = new ArrayList<>();
-        if (itemStack.getItem() instanceof Accessory) {
-            Accessory armorItem = (Accessory) itemStack.getItem();
-            int accessorySlot = armorItem.getAccessorySlot();
-            if (accessorySlot >= SlotAccessory.TRINKET_1_SLOT) {
+        if(itemStack.getItem() instanceof IAccessory){
+            IAccessory accessory = (IAccessory) itemStack.getItem();
+            if(accessory instanceof ItemAccessoryArmor){
+                ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
+            }
+            if(((Item) accessory).hasTag(AetherItemTags.TRINKET)){
                 ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
                 ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
-            } else {
-                ints.add(AetherMod.ARMOR_START_INDEX + accessorySlot);
             }
             cir.setReturnValue(ints);
-        } else if (isAccessory) {
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
-            ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
-            cir.setReturnValue(ints);
         }
-
     }
 
     // allow quiver to be shift clicked in either the body or the cape slot
