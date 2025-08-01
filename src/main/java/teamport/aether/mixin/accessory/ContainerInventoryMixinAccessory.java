@@ -71,9 +71,8 @@ public class ContainerInventoryMixinAccessory {
         if (index < this.mainInventory.length) {
             return;
         }
-        ContainerInventory cont = (ContainerInventory)(Object) this;
         ItemStack itemStack = this.armorInventory[index - this.mainInventory.length];
-        if(itemStack != null && itemStack.getItem() instanceof IAccessory){
+        if(itemStack != null && itemStack.getItem() instanceof IAccessoryEffects){
             ((IAccessoryEffects) itemStack.getItem()).removeEffect(player, itemStack);
         }
     }
