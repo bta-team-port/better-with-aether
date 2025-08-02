@@ -78,6 +78,8 @@ public class MobBoss extends MobMonster implements EnemyBoss {
                 CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
                 list.add(BlockCoordinate.fromCompoundTag(blockNBT));
             }
+
+            blocksDestroyOnDeath = list;
         }
 
         super.readAdditionalSaveData(tag);
