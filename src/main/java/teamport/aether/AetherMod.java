@@ -18,6 +18,7 @@ import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.aerbunny.MobAerbunny;
 import teamport.aether.entity.aerwhale.MobAerwhale;
@@ -61,6 +62,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherBlocks.init();
         AetherItems.init();
         AetherDimension.init();
+        AetherEffects.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
 //        AetherMod.registerTextures();
