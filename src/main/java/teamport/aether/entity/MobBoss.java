@@ -1,16 +1,53 @@
 package teamport.aether.entity;
 
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.IntTag;
+import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.MobMonster;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.BlockCoordinate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MobBoss extends MobMonster implements EnemyBoss {
     protected static String translationKey = "MISSING";
+
+    @Nullable
+    protected Integer dungeonID = null;
+    protected String bossName = "Nullius Primus";
+
+    @Nullable
+    protected BlockCoordinate returnPoint = null;
+
+    @Nullable
+    protected ItemStack trophy = null;
+
+    protected List<BlockCoordinate> blocksDestroyOnDeath = null;
+
+
     public MobBoss(@Nullable World world) {
         super(world);
+    }
+
+    @Override
+    public void addDestroyOnDeathBlock(BlockCoordinate coord) {
+        blocksDestroyOnDeath.add(coord);
+    }
+
+    @Override
+    public String getBossTitle() {
+        return bossName + ", The " +  I18n.getInstance().translateKey(translationKey);
+    }
+
+    @Override
+    public String getBossName() {
+        return bossName;
     }
 
     @Override
@@ -29,8 +66,52 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    public String getBossTitle() {
-        return bossName + ", The " +  I18n.getInstance().translateKey(translationKey);
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        returnPoint = BlockCoordinate.fromCompoundTag(tag.getCompound("returnPoint"));
+        dungeonID = tag.getInteger("dungeonID");
+        bossName = tag.getString("bossName");
+
+        CompoundTag blockListNBT = tag.getCompound("blocksDestroyOnDeath");
+        if (blockListNBT != null) {
+            List<BlockCoordinate> list = new ArrayList<>();
+            for (int i = 0; i < blockListNBT.getInteger("length"); i++) {
+                CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
+                list.add(BlockCoordinate.fromCompoundTag(blockNBT));
+            }
+        }
+
+        super.readAdditionalSaveData(tag);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        tag.put("bossName", new StringTag(bossName));
+
+        if (dungeonID != null) {
+            tag.put("dungeonID", new IntTag(dungeonID));
+        }
+
+        if (returnPoint != null) {
+            tag.put("returnPoint", returnPoint.toCompoundTag());
+        }
+
+        if (trophy != null) {
+            CompoundTag trophyNBT = new CompoundTag();
+            trophy.writeToNBT(trophyNBT);
+            tag.put("trophy", trophyNBT);
+        }
+
+        if (blocksDestroyOnDeath != null && !blocksDestroyOnDeath.isEmpty()) {
+            CompoundTag blockList = new CompoundTag();
+            int idx = 0;
+            for (BlockCoordinate block : blocksDestroyOnDeath) {
+                blockList.put(String.valueOf(idx++), block.toCompoundTag());
+            }
+            blockList.put("length", new IntTag(idx));
+            tag.put("blocksDestroyOnDeath", blockList);
+        }
+
+        super.addAdditionalSaveData(tag);
     }
 
     @Override
