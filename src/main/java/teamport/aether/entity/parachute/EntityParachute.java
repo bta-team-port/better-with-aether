@@ -25,7 +25,7 @@ public class EntityParachute extends Mob {
         double x = this.x + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double y = this.bb.minY - 0.5 + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
-        world.spawnParticle("white_cloud_smoke", x, y, z, 0.0, 0.0, 0.0, 0);
+        world.spawnParticle("explode", x, y, z, 0.0, 0.0, 0.0, 0);
 
         if (this.passenger == null) {
             this.remove();
