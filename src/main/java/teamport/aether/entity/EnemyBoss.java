@@ -7,21 +7,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public interface EnemyBoss {
-    @Nullable
-    Integer dungeonID = null;
-    @Nullable
-    String bossName = null;
-
     String getBossTitle();
 
-    @Nullable
-    ItemStack trophy = null;
+    String getBossName();
 
     void returnToHome();
 
-    @Nullable
-    BlockCoordinate returnPoint = null;
+    void addDestroyOnDeathBlock(BlockCoordinate coord);
 
-    @Nullable
-    List<BlockCoordinate> blocksDestroyOnDeath = null;
+    boolean canFight();
 }
