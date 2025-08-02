@@ -303,8 +303,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 if (!((Player)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((Player) attacker);
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
             }
+
             if (!this.isAwake()) {
-                String message = "<"+((Player)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.slider.hit.fail");
+                String message = "<"+((Player)attacker).getDisplayName()+"> "+ I18n.getInstance().translateKey("aether.entity.boss_slider.hit_fail");
                 ((Player)attacker).sendTranslatedChatMessage(message);
             }
         }

@@ -60,13 +60,16 @@ aether.valkyrie.desc=A beautiful soldier that can teleport around you, found roa
 
 # Bosses
 
-aether.boss.slider.name=Slider
-aether.boss.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
-aether.boss.slider.hit.fail=Hmm. Perhaps I need to attack it with a pickaxe?
+aether.entity.boss_slider=Slider
+aether.entity.boss_slider.title=%s, The Slider
+aether.entity.boss_slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
+aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
 
-aether.boss.valkyrie.queen.name=Valkyrie Queen
-aether.boss.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
+aether.entity.boss_valkyrie=Valkyrie Queen
+aether.entity.boss_valkyrie.title=%s, The Valkyrie Queen
+aether.entity.boss_valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 
-aether.entity.boss.sunspirit=Sun Spirit
-aether.boss.sunspirit.name=Sun Spirit
-aether.boss.sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.
+aether.entity.boss_sunspirit=Sun Spirit
+aether.entity.boss_sunspirit.title=%s, The Sun Spirit
+aether.entity.boss_sunspirit.name=Sun Spirit
+aether.entity.boss_sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.

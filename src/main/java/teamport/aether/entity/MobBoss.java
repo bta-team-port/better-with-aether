@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobBoss extends MobMonster implements EnemyBoss {
-    protected static String translationKey = "MISSING";
 
     @Nullable
     protected Integer dungeonID = null;
@@ -42,7 +42,8 @@ public class MobBoss extends MobMonster implements EnemyBoss {
 
     @Override
     public String getBossTitle() {
-        return bossName + ", The " +  I18n.getInstance().translateKey(translationKey);
+        final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
+        return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
     }
 
     @Override
