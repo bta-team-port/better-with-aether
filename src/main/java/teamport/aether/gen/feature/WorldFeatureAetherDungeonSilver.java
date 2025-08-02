@@ -2,10 +2,14 @@ package teamport.aether.gen.feature;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.valkyrie.MobBossValkyrie;
+import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.AetherItems;
 
 import java.util.Random;
@@ -305,6 +309,38 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         // Throne
         drawPlane(world, random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, true);
         drawShell(world, random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, true);
+
+        // Chest hole
+        drawVolume(world, 0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true);
+
+        MobBossValkyrie boss = new MobBossValkyrie(world);
+        boss.moveTo( x - 15, y + 4, z + 42, 0f,0f);
+        boss.setReturnPoint(new BlockCoordinate( x - 15, y + 4, z + 42));
+
+        boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
+        world.setBlockAndMetadataWithNotify(x - 15, y, z + 42, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, x - 15, y, z + 42);
+        for (int i = 0; i < 6 + random.nextInt(6); i++) {
+            inventory.setItem(
+                random.nextInt(inventory.getContainerSize()),
+                LOOT_RARE.getRandom().getItemStack(random)
+            );
+        }
+
+        BlockCoordinate[] treasureDoor = {
+                new BlockCoordinate(x - 14, y + 2, z + 41),
+                new BlockCoordinate(x - 14, y + 2, z + 42),
+                new BlockCoordinate(x - 14, y + 2, z + 43),
+                new BlockCoordinate(x - 15, y + 2, z + 41),
+                new BlockCoordinate(x - 15, y + 2, z + 42),
+                new BlockCoordinate(x - 15, y + 2, z + 43),
+        };
+
+        for (BlockCoordinate doorBlock : treasureDoor) {
+            boss.addDestroyOnDeathBlock(doorBlock);
+        }
+
+        world.entityJoinedWorld(boss);
 
         setBlock(world, x - 11, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true);
         setBlock(world, x - 11, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true);
