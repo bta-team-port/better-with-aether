@@ -2,11 +2,16 @@ package teamport.aether.gen.feature;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.slider.MobBossSlider;
+import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
@@ -173,9 +178,35 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         drawShell(world, random, carvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
         this.addSolidBox(world, 0, 0,x + 7, y - 1, z + 7, 2, 2, 2, true);
 
-        int x2;
-        int y2;
-        int z2;
+        int x2 = x + 7 + random.nextInt(2);
+        int y2 = y - 1;
+        int z2 = z + 7 + random.nextInt(2);
+
+        world.setBlockAndMetadataWithNotify(x2, y2, z2, AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, x2, y2, z2);
+
+        for (int i = 0; i < 6 + random.nextInt(6); i++) {
+            inventory.setItem(
+                random.nextInt(inventory.getContainerSize()),
+                LOOT_RARE.getRandom().getItemStack(random)
+            );
+        }
+
+        MobBossSlider boss = new MobBossSlider(world);
+        boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
+        boss.setReturnPoint(new BlockCoordinate(x + 8, y + 2, z + 8));
+        boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
+
+        BlockCoordinate[] treasureDoor = new BlockCoordinate[] {
+            new BlockCoordinate(x + 7, y +1, z + 7),
+            new BlockCoordinate(x + 8, y +1, z + 7),
+            new BlockCoordinate(x + 7, y +1, z + 8),
+            new BlockCoordinate(x + 8, y +1, z + 8),
+        };
+
+        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
+
+        world.entityJoinedWorld(boss);
 
         x2 = x + 20;
         y2 = y;

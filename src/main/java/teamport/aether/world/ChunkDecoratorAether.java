@@ -153,12 +153,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
         }
 
-//        for (j4 = 0; j4 < 2; ++j4) {
-//            k7 = x + rand.nextInt(16);
-//            k4 = 32 + rand.nextInt(64);
-//            treeDensity = z + rand.nextInt(16);
-//            (new WorldFeatureAetherDungeonBronze()).place(this.world, rand, k7, k4, treeDensity);
-//        }
+        for (j4 = 0; j4 < 2; ++j4) {
+            k7 = x + rand.nextInt(16);
+            k4 = 32 + rand.nextInt(64);
+            treeDensity = z + rand.nextInt(16);
+            (new WorldFeatureAetherDungeonBronze()).place(this.world, rand, k7, k4, treeDensity);
+        }
 
         if (rand.nextInt(1000) == 0) {
             j4 = x + rand.nextInt(16);

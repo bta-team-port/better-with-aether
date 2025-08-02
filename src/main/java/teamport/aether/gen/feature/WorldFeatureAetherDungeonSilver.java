@@ -12,6 +12,7 @@ import teamport.aether.entity.valkyrie.MobBossValkyrie;
 import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.AetherItems;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBase {
@@ -328,17 +329,15 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         }
 
         BlockCoordinate[] treasureDoor = {
-                new BlockCoordinate(x - 14, y + 2, z + 41),
-                new BlockCoordinate(x - 14, y + 2, z + 42),
-                new BlockCoordinate(x - 14, y + 2, z + 43),
-                new BlockCoordinate(x - 15, y + 2, z + 41),
-                new BlockCoordinate(x - 15, y + 2, z + 42),
-                new BlockCoordinate(x - 15, y + 2, z + 43),
+            new BlockCoordinate(x - 14, y + 2, z + 41),
+            new BlockCoordinate(x - 14, y + 2, z + 42),
+            new BlockCoordinate(x - 14, y + 2, z + 43),
+            new BlockCoordinate(x - 15, y + 2, z + 41),
+            new BlockCoordinate(x - 15, y + 2, z + 42),
+            new BlockCoordinate(x - 15, y + 2, z + 43),
         };
 
-        for (BlockCoordinate doorBlock : treasureDoor) {
-            boss.addDestroyOnDeathBlock(doorBlock);
-        }
+        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
 
         world.entityJoinedWorld(boss);
 
