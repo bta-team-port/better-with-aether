@@ -26,7 +26,9 @@ public class ItemGravititePendant extends ItemPendant implements IArmorItem {
                 || player.gamemode.isPlayerInvulnerable()
                 || player.isInWater()
                 || player.isSneaking()
-                || player.onGround
+
+                //TODO Fix this so that when the player is riding and/or has a passenger talisman doesnt work
+//                || player.getPassenger() == entity
         ) {
             return;
         }
