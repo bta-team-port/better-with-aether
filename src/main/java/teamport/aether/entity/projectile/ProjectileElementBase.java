@@ -10,27 +10,27 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.sunspirit.MobBossSunspirit;
 
-public class ProjectileFireElement extends Projectile {
+public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
     public int ticksLived = 0;
 
-    public ProjectileFireElement(World world) {
+    public ProjectileElementBase(World world) {
         super(world);
         this.initProjectile();
     }
 
-    public ProjectileFireElement(World world, Mob owner) {
+    public ProjectileElementBase(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
     }
 
-    public ProjectileFireElement(World world, double x, double y, double z) {
+    public ProjectileElementBase(World world, double x, double y, double z) {
         super(world, x, y, z);
         this.initProjectile();
     }
+
 
     @Override
     protected void initProjectile() {
@@ -38,24 +38,18 @@ public class ProjectileFireElement extends Projectile {
         this.damage = 2;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
-        this.setSize(1.0F, 1.0F);
+        this.setSize(0.5F, 0.5F);
     }
 
     @Override
     public void tick() {
         super.tick();
         ticksLived++;
-        this.remainingFireTicks = 10;
 
-        int maxBounces = 10;
-        int maxTicks = 600;
+        int maxBounces = 20;
+        int maxTicks = 1200;
         if (!this.world.isClientSide && (ticksLived > maxTicks || bounceCount >= maxBounces)) {
             this.remove();
-            return;
-        }
-
-        if (this.world.isClientSide) {
-            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
         }
     }
 
@@ -63,11 +57,6 @@ public class ProjectileFireElement extends Projectile {
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
             if (hitResult.entity instanceof Mob) {
-                if (hitResult.entity instanceof MobBossSunspirit) {
-                    this.remove();
-                }
-                hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
-                hitResult.entity.remainingFireTicks = 10;
                 this.remove();
                 return;
             }
@@ -165,7 +154,7 @@ public class ProjectileFireElement extends Projectile {
                 Vec3 lookAngle = entity.getLookAngle();
                 if (lookAngle != null) {
                     this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, initialSpeed, 0.0F);
-                    bounceCount++;
+                    bounceCount = 19;
                 }
                 return true;
             }
