@@ -5,9 +5,10 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.MobBoss;
 import teamport.aether.items.AetherItems;
 
-public class MobBossValkyrie extends MobValkyrie {
+public class MobBossValkyrie extends MobBoss {
 
     public MobBossValkyrie(@Nullable World world) {
         super(world);
