@@ -18,7 +18,6 @@ import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
-import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 
@@ -352,13 +351,11 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public boolean isAwake() {return this.currentState != State.ASLEEP;}
     public boolean doingSlam() {return this.currentState == State.SLAM;}
 
-    public boolean tryAwake() {
+    public void tryAwake() {
         if (this.currentState != State.SLAM) {
             this.currentState = State.AWAKE;
-            return true;
         }
 
-        return false;
     }
 
     public int getMaxHealth() {

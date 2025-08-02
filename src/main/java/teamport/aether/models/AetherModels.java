@@ -551,7 +551,9 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(ProjectileHammerHead.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD));
         ModelHelper.setEntityModel(ProjectileWindball.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
-        ModelHelper.setEntityModel(ProjectileFireElement.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(4.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementFire.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(3.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
