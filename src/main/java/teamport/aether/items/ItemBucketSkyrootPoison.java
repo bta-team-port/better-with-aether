@@ -4,7 +4,13 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import sunsetsatellite.catalyst.effects.api.effect.Effect;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.AetherAchievements;
+import teamport.aether.effect.AetherEffects;
+
+import java.util.Random;
 
 public class ItemBucketSkyrootPoison extends Item {
     public ItemBucketSkyrootPoison(String name, String namespaceId, int id) {
@@ -12,9 +18,12 @@ public class ItemBucketSkyrootPoison extends Item {
         this.maxStackSize = 1;
     }
 
-    //TODO Add in poisoning here when effect is added
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         entityplayer.triggerAchievement(AetherAchievements.POISON);
+        IHasEffects effectPlayer = (IHasEffects) entityplayer;
+        EffectStack stack = new EffectStack(effectPlayer, AetherEffects.poisonEffect, 1);
+        stack.start(effectPlayer.getContainer());
+        effectPlayer.getContainer().add(stack);
         return new ItemStack(AetherItems.BUCKET_SKYROOT);
     }
 
