@@ -1,0 +1,26 @@
+[
+  {
+    "name": "minecraft:workbench/repair_chainmail_gloves",
+    "type": "minecraft:crafting/repairable",
+    "input": {
+      "id": "aether:item/armor_gloves_chainmail"
+    },
+    "repairMaterial": {
+      "stack": {
+        "id": "minecraft:item/chainlink"
+      }
+    }
+  },
+  {
+    "name": "minecraft:workbench/repair_chainmail_talisman",
+    "type": "minecraft:crafting/repairable",
+    "input": {
+      "id": "aether:item/armor_talisman_chainmail"
+    },
+    "repairMaterial": {
+      "stack": {
+        "id": "minecraft:item/chainlink"
+      }
+    }
+  }
+]

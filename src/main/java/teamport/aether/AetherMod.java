@@ -87,10 +87,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         registerNewFurnaceFuel();
         registerNewTagForItems();
 
-//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("fire_bar")).setLayout(new LayoutSnap(OXYGEN_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
     }
 
     public static void registerNewTagForItems() {
