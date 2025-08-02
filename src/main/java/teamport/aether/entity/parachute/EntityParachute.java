@@ -19,6 +19,7 @@ public class EntityParachute extends Mob {
         return false;
     }
 
+    @Override
     public void tick() {
         super.tick();
 
@@ -35,6 +36,9 @@ public class EntityParachute extends Mob {
         if (this.yd < -0.2) {
             this.yd *= 0.5F;
         }
+
+        this.xd *= 0.9F;
+        this.zd *= 0.9F;
 
         if (this.onGround) {
             this.ejectRider();
@@ -91,12 +95,4 @@ public class EntityParachute extends Mob {
         return false;
     }
 
-    @Override
-    public Entity ejectRider() {
-        if (this.passenger != null) {
-            this.passenger.ejectRider();
-            this.remove(); // Despawn instantly on dismount
-        }
-        return null;
-    }
 }
