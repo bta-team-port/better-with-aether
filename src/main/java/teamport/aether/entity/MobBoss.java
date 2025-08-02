@@ -36,6 +36,11 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
+    public boolean canFight() {
+        return isAlive();
+    }
+
+    @Override
     public void addDestroyOnDeathBlock(BlockCoordinate coord) {
         blocksDestroyOnDeath.add(coord);
     }

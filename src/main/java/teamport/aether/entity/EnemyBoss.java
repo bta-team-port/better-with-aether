@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public interface EnemyBoss {
-
     String getBossTitle();
 
     String getBossName();
@@ -15,4 +14,6 @@ public interface EnemyBoss {
     void returnToHome();
 
     void addDestroyOnDeathBlock(BlockCoordinate coord);
+
+    boolean canFight();
 }
