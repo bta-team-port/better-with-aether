@@ -1,5 +1,8 @@
 package teamport.aether.helper;
 
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.IntTag;
+
 public class BlockCoordinate {
     public Integer x;
     public Integer y;
@@ -27,4 +30,20 @@ public class BlockCoordinate {
         );
     }
 
+    public CompoundTag toCompoundTag() {
+        CompoundTag result = new CompoundTag();
+        result.put("x", new IntTag(x));
+        result.put("y", new IntTag(y));
+        result.put("z", new IntTag(z));
+
+        return  result;
+    }
+
+    public static BlockCoordinate fromCompoundTag(CompoundTag tag) {
+        return new BlockCoordinate(
+            tag.getInteger("x"),
+            tag.getInteger("y"),
+            tag.getInteger("z")
+        );
+    }
 }
