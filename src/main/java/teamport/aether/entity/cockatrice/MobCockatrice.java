@@ -27,6 +27,10 @@ public class MobCockatrice extends MobMonster implements Enemy {
 
     }
 
+    public int getMaxSpawnedInChunk() {
+        return 2;
+    }
+
     public void tick() {
         super.tick();
         this.oFlap = this.flap;

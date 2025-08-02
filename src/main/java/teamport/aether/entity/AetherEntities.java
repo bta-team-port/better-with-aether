@@ -10,6 +10,7 @@ import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobMoaBlack;
 import teamport.aether.entity.moa.MobMoaWhite;
 import teamport.aether.entity.parachute.EntityParachute;
+import teamport.aether.entity.parachute.EntityParachuteGold;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
@@ -66,6 +67,7 @@ public final class AetherEntities {
 
 
         EntityHelper.createEntity(EntityParachute.class, NamespaceID.getPermanent(MOD_ID, "parachute"), entityKey("parachute"));
+        EntityHelper.createEntity(EntityParachuteGold.class, NamespaceID.getPermanent(MOD_ID, "parachute_gold"), entityKey("parachute_gold"));
         EntityHelper.createEntity(MobMinicloud.class, NamespaceID.getPermanent(MOD_ID, "minicloud"), entityKey("minicloud"));
 
 
