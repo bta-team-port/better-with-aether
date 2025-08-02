@@ -172,6 +172,8 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
             );
         }
 
+        MobBossSunspirit boss = new MobBossSunspirit(world);
+
         BlockCoordinate[] bossDoor = {
                 new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z -1),
                 new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z -1),
@@ -185,15 +187,12 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
                 new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z +1),
                 new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z +1),
         };
+        Arrays.stream(bossDoor).forEach(boss::addDestroyOnDeathBlock);
 
-        MobBossSunspirit boss = new MobBossSunspirit(world);
         boss.moveTo(x, y + (double) radius / 2 + 2, z, 0f,0f);
         boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
         boss.setReturnPoint(new BlockCoordinate(x, y + radius / 2 + 2, z));
 
-        for (BlockCoordinate doorBlock : bossDoor) {
-            boss.addDestroyOnDeathBlock(doorBlock);
-        }
         world.entityJoinedWorld(boss);
 
         return true;
