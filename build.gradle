@@ -96,7 +96,8 @@ dependencies {
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
 //	modImplementation(files("dependencies/btwaila-1.2.1-7.3_01.jar"))
-	modImplementation(files("dependencies/catalyst-core-2.0.3-7.3_03.jar"))
+	modImplementation(files("dependencies/catalyst-core-2.1.3-7.3_04.jar"))
+	modImplementation(files("dependencies/catalyst-effects-2.0.1-7.3_04.jar"))
 //	modImplementation(files("dependencies/tmb-1.1.1-7.3_03.jar"))
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
