@@ -65,7 +65,6 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobAerbunny.class, NamespaceID.getPermanent(MOD_ID, "aerbunny"), entityKey("aerbunny"));
 
 
-
         EntityHelper.createEntity(EntityParachute.class, NamespaceID.getPermanent(MOD_ID, "parachute"), entityKey("parachute"));
         EntityHelper.createEntity(EntityParachuteGold.class, NamespaceID.getPermanent(MOD_ID, "parachute_gold"), entityKey("parachute_gold"));
         EntityHelper.createEntity(MobMinicloud.class, NamespaceID.getPermanent(MOD_ID, "minicloud"), entityKey("minicloud"));

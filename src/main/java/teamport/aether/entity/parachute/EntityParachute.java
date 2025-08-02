@@ -1,10 +1,10 @@
 package teamport.aether.entity.parachute;
 
-import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
@@ -20,73 +20,62 @@ public class EntityParachute extends Mob {
     }
 
     public void tick() {
-        this.checkOnWater(true);
-        this.pushTime *= 0.98F;
-        if (this.pushTime < 0.05F || (double)this.pushTime < 0.25 && this.onGround) {
-            this.pushTime = 0.0F;
+        super.tick();
+
+        double x = this.x + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
+        double y = this.bb.minY - 0.5 + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
+        double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
+        world.spawnParticle("white_cloud_smoke", x, y, z, 0.0, 0.0, 0.0, 0);
+
+        if (this.passenger == null) {
+            this.remove();
         }
 
-        this.xo = this.x;
-        this.yo = this.y;
-        this.zo = this.z;
-        this.yd -= 0.04;
         this.move(this.xd, this.yd, this.zd);
-        this.xd *= 0.98;
-        this.yd *= 0.1;
-        this.zd *= 0.98;
+        if (this.yd < -0.2) {
+            this.yd *= 0.5F;
+        }
 
         if (this.onGround) {
             this.ejectRider();
             this.remove();
         }
-        super.tick();
-    }
-
-    public boolean interact(@NotNull Player player) {
-        player.startRiding(this);
-        return true;
     }
 
     public void updateAI() {
-        if (!this.world.isClientSide) {
-            if (this.passenger != null && this.passenger instanceof Player) {
-                this.moveSpeed = 0.0F;
-                this.moveStrafing = 0.0F;
-                ((EntityAccessor) this.passenger).setFallDistance(0.0F);
-                Player mob = (Player) this.passenger;
-                float f = 3.141593F;
-                float f1 = f / 180.0F;
-                float f5;
-                float capSpeed = 16;
-                if (((MobAccessor) mob).getForwardVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776) / capSpeed;
-                    this.zd += (((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776) / capSpeed;
-                } else if (((MobAccessor) mob).getForwardVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776) / capSpeed;
-                    this.zd += (((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776) / capSpeed;
+        if (!this.world.isClientSide && this.passenger != null) {
+            this.moveSpeed = 0.0F;
+            this.moveStrafing = 0.0F;
+            this.passenger.fallDistance = 0.0F;
+            Player player = (Player) this.passenger;
+            float f = 3.141593F;
+            float f1 = f / 180.0F;
+
+            float forward = ((MobAccessor) player).getForwardVelocity();
+            float strafe = ((MobAccessor) player).getHorizontalVelocity();
+
+            if (Math.abs(forward) > 0.1F || Math.abs(strafe) > 0.1F) {
+                float f5 = player.yRot * f1;
+                float moveX = (float) ((-forward * Math.sin(f5) + strafe * Math.cos(f5)) * 0.6F / 6.0F);
+                float moveZ = (float) ((forward * Math.cos(f5) + strafe * Math.sin(f5)) * 0.6F / 6.0F);
+
+                float magnitude = (float)Math.sqrt(moveX * moveX + moveZ * moveZ);
+                if (magnitude > 0.1F) {
+                    moveX /= magnitude;
+                    moveZ /= magnitude;
+                    moveX *= 0.6F / 6.0F;
+                    moveZ *= 0.6F / 6.0F;
                 }
 
-                if (((MobAccessor) mob).getHorizontalVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776) / capSpeed;
-                    this.zd += (((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776) / capSpeed;
-                } else if (((MobAccessor) mob).getHorizontalVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776) / capSpeed;
-                    this.zd += (((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776) / capSpeed;
-                }
+                this.xd = this.xd * 0.6F + moveX * 0.4F;
+                this.zd = this.zd * 0.6F + moveZ * 0.4F;
+            }
 
-                double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
-                if (d > 0.375) {
-                    double d1 = 0.375 / d;
-                    this.xd *= d1 / capSpeed;
-                    this.zd *= d1 / capSpeed;
-                }
-
-            } else {
-                super.updateAI();
+            double speed = Math.sqrt(this.xd * this.xd + this.zd * this.zd);
+            if (speed > 0.65F) {
+                double factor = 0.65F / speed;
+                this.xd *= factor;
+                this.zd *= factor;
             }
         }
     }
@@ -98,18 +87,16 @@ public class EntityParachute extends Mob {
     public void causeFallDamage(float distance) {
     }
 
-    @Override
-    public void defineSynchedData() {
-
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        return false;
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-
-    }
-
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
-
+    public Entity ejectRider() {
+        if (this.passenger != null) {
+            this.passenger.ejectRider();
+            this.remove(); // Despawn instantly on dismount
+        }
+        return null;
     }
 }
