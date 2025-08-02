@@ -7,6 +7,9 @@ import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
+import net.minecraft.client.gui.hud.component.ComponentAnchor;
+import net.minecraft.client.gui.hud.component.HudComponents;
+import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
@@ -26,6 +29,7 @@ import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.mixin.accessors.HudComponentAccessor;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
@@ -37,6 +41,7 @@ import turniplabs.halplibe.util.ClientStartEntrypoint;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
 import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -102,6 +107,13 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         MobInfoRegistry.register(MobAerbunny.class, "aether.aerbunny.name", "aether.aerbunny.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
+
+        //        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("fire_bar")).setLayout(new LayoutSnap(OXYGEN_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
+//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
+
+
     }
 
     @Override
