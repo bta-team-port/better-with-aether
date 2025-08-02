@@ -10,20 +10,17 @@ import teamport.aether.items.accessory.IAccessory;
 public class ItemPendant extends Item implements IAccessory {
     private final String name;
 
-    public ItemPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
+    public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
         super(translationKey, namespaceId, id);
-        this.name = material.identifier.value();
+        this.name = name;
         this.maxStackSize = 1;
         float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.withTags(new Tag[]{AetherItemTags.TRINKET});
     }
 
-    public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
-        super(translationKey, namespaceId, id);
-        this.name = name;
-        float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
-        this.setMaxDamage((int) Math.ceil(maxDurability));
+    public ItemPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
+        this(translationKey, namespaceId, id, material.identifier.value(), material);
     }
 
     @Override

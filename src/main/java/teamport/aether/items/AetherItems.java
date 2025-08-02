@@ -389,7 +389,7 @@ public final class AetherItems {
 
 
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.chain", itemKey("armor_talisman_chain"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
         ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));
