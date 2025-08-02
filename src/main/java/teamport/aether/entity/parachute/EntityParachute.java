@@ -19,7 +19,7 @@ public class EntityParachute extends Mob {
         return false;
     }
 
-    @Override
+
     public void tick() {
         super.tick();
 
