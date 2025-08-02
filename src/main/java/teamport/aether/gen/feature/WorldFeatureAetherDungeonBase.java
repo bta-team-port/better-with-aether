@@ -1,8 +1,13 @@
 package teamport.aether.gen.feature;
 
+import net.minecraft.core.WeightedRandomBag;
+import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.Pair;
 
 import java.util.Random;
@@ -76,6 +81,22 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
 //    public static ItemStack makeTreasureChest(LootTable lootTable, int quantity, World world, int x, int y, int z){
 //        return makeTreasureChest(lootTable, quantity, null, null, false, world, x, y, z);
 //    }
+
+    public void placeChestOrMimic(World world, Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable, int quantity, int x, int y, int z) {
+        if (random.nextInt(2) == 0) {
+            setBlock(world, x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0, true);
+            Container inventory = BlockLogicChest.getInventory(world, x, y, z);
+
+            for (int i = 0; i < quantity; i++) {
+                inventory.setItem(
+                    random.nextInt(inventory.getContainerSize()),
+                    lootTable.getRandom().getItemStack(random)
+                );
+            }
+        }
+
+        else setBlock(world, x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true);
+    }
 
     public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
         double d3 = x - x1;

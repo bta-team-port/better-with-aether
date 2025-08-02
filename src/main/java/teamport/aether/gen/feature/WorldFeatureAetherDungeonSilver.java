@@ -1,9 +1,12 @@
 package teamport.aether.gen.feature;
 
+import net.minecraft.core.WeightedRandomBag;
+import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.AetherItems;
 
 import java.util.Random;
 
@@ -17,6 +20,202 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
+
+    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL = new WeightedRandomBag<>();
+    static {
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack(), 1, 1)
+                    .setRandomMetadata(120, 257),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SHOOTER.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.EGG_MOA_BLUE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 5)
+                        .setRandomMetadata(1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 3)
+                        .setRandomMetadata(1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 3)
+                        .setRandomMetadata(1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.RECORD_AETHER.getDefaultStack(), 1, 1),
+                80.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack(), 1, 1),
+                60.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_ZANITE.getDefaultStack(), 1, 1)
+                        .setRandomMetadata(120, AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage()),
+                98.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_ZANITE.getDefaultStack(), 1, 1)
+                        .setRandomMetadata(120, AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage()),
+                98.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_ZANITE.getDefaultStack(), 1, 1)
+                        .setRandomMetadata(120, AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage()),
+                98.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_ZANITE.getDefaultStack(), 1, 1)
+                        .setRandomMetadata(120, AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage()),
+                98.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_IRON.getDefaultStack(), 1, 1),
+                96.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_GOLD.getDefaultStack(), 1, 1),
+                90.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack(), 1, 1),
+                85.0
+        );
+
+        LOOT_NORMAL.addEntry(
+                new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 24),
+                100.0
+        );
+    }
+
+    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
+    static {
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 16),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 16),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_KNIFE_LIGHTNING.getDefaultStack(), 1, 16),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_AXE_VALKYRIE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VALKYRIE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_VALKYRIE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_VALKYRIE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_FEATHER_GOLD.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_NEPTUNE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_NEPTUNE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_NEPTUNE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_NEPTUNE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_NEPTUNE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack(), 1, 1),
+                100.0
+        );
+    }
+
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
 
@@ -205,25 +404,19 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         int chestCount = 0;
         if (random.nextInt(3) == 0){
             chestCount++;
-            placeChestOrMimic(world, random,x - 3, y + 2, z + 3);
+            placeChestOrMimic(world, random, LOOT_NORMAL, 8, x - 3, y + 2, z + 3);
         }
         if (random.nextInt(3) == 0){
+            placeChestOrMimic(world, random, LOOT_NORMAL, 8, x - 4, y + 2, z + 3);
             chestCount++;
-            placeChestOrMimic(world, random,x - 4, y + 2, z + 3);
         }
         if (random.nextInt(3) == 0 && chestCount < 2){
+            placeChestOrMimic(world, random, LOOT_NORMAL, 8, x - 3, y + 2, z + 4);
             chestCount++;
-            placeChestOrMimic(world, random,x - 3, y + 2, z + 4);
         }
-        if (random.nextInt(3) == 0 && chestCount < 2){
-            placeChestOrMimic(world, random,x - 4, y + 2, z + 4);
+        if (random.nextInt(3) == 0 && chestCount < 2) {
+            placeChestOrMimic(world, random, LOOT_NORMAL, 8, x - 4, y + 2, z + 4);
         }
-    }
-
-    public void placeChestOrMimic(World world, Random random, int x, int y, int z) {
-//        if (random.nextInt(2) == 0) makeTreasureChest(lootTableSilverNormal, random.nextInt(16), world, x, y, z);
-//        else
-        setBlock(world, x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true);
     }
 
     public void createStaircaseRoom(World world, Random random, int x, int y, int z, boolean forceWalls, boolean forceOpen){
