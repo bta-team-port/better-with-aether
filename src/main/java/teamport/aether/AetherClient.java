@@ -8,7 +8,9 @@ import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
+import net.minecraft.client.gui.hud.component.HudComponent;
 import net.minecraft.client.gui.hud.component.HudComponents;
+import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -29,6 +31,7 @@ import teamport.aether.entity.phyg.MobPhyg;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.mixin.accessors.HudComponentAccessor;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
@@ -47,9 +50,11 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
+    public static HudComponent BOSS_BAR;
 
     @Override
     public void beforeClientStart() {
+
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
@@ -73,6 +78,12 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
+        BOSS_BAR = HudComponents.register(
+                new ComponentBossBar(
+                        "aether.boss.bar",
+                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
+                )
+        );
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER)
                 .setHasAurora(true).setHasClouds(true).setHasGround(false).setHasSky(true).setCloudHeight(-128.0f));
