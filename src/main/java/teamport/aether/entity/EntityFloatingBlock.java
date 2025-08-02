@@ -14,7 +14,6 @@ import teamport.aether.blocks.BlockLogicOreGravitite;
 
 
 // TODO fix multiplayer desync
-// TODO make it slow down when hiting cobwebs
 
 ///  all the comment were made to understand what the logic does
 public class EntityFloatingBlock extends EntityFallingBlock {
