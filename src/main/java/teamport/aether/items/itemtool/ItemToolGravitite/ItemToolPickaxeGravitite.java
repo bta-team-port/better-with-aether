@@ -30,7 +30,7 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
         Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
         if (block == null
-//                || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+                || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 || player.isSneaking()
                 || block.getHardness() < 0
                 || nextBlock != null
