@@ -33,7 +33,9 @@ import teamport.aether.entity.moa.MobMoa;
 import teamport.aether.entity.moa.MobRendererMoa;
 import teamport.aether.entity.moa.ModelMoa;
 import teamport.aether.entity.parachute.EntityParachute;
+import teamport.aether.entity.parachute.EntityParachuteGold;
 import teamport.aether.entity.parachute.EntityRendererParachute;
+import teamport.aether.entity.parachute.EntityRendererParachuteGold;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phow.MobRendererPhow;
 import teamport.aether.entity.phow.ModelPhow;
@@ -581,6 +583,7 @@ public class AetherModels implements ModelEntrypoint {
 
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
+        ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
         ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
 
 
