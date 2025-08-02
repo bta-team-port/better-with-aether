@@ -14,9 +14,10 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 public class ItemIcePendant extends ItemPendant {
     public ItemIcePendant(String translationKey, String namespaceId, int id, String name) {
-        super(translationKey, namespaceId, id,name, ArmorMaterial.IRON);
+        super(translationKey, namespaceId, id, name, ArmorMaterial.IRON);
     }
 
+    // TODO need to account for player velocity, up to |v| = 10, anymore seem to be overkill
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
