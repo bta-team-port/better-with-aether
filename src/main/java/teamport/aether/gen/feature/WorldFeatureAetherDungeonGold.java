@@ -1,12 +1,19 @@
 package teamport.aether.gen.feature;
 
+import net.minecraft.core.WeightedRandomBag;
+import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.sunspirit.MobBossSunspirit;
+import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.helper.Pair;
+import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +40,85 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
             new Pair<>(32, new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())),
             new Pair<>(84, new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true))
     };
+
+    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
+
+    static {
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAIN.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PIG.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_PHOENIX.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_PHOENIX.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_PHOENIX.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_PHOENIX.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_PHOENIX.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.LIFESHARD.getDefaultStack(), 1, 1),
+                100.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_GRAVITITE.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_GRAVITITE.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_GRAVITITE.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_GRAVITITE.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_GRAVITITE.getDefaultStack(), 1, 1),
+                99.0
+        );
+
+        LOOT_RARE.addEntry(
+                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_OBSIDIAN.getDefaultStack(), 1, 1),
+                100.0
+        );
+    }
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
@@ -75,7 +161,40 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         YRoomHeight = 5;
         ZRoomLength = 7;
         drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x -1 +radius, y +1 +radius/2, z +ZRoomLength/2, true);
-        world.setBlockMetadataWithNotify(x -4 +radius, y +2 +radius/2, z, 4);
+
+        world.setBlockAndMetadataWithNotify(x -4 +radius, y +2 +radius/2, z, AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, x -4 +radius, y +2 +radius/2, z);
+
+        for (int i = 0; i < 6 + random.nextInt(6); i++) {
+            inventory.setItem(
+                random.nextInt(inventory.getContainerSize()),
+                LOOT_RARE.getRandom().getItemStack(random)
+            );
+        }
+
+        BlockCoordinate[] bossDoor = {
+                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z -1),
+                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z -1),
+                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z -1),
+
+                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z),
+                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z),
+                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z),
+
+                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z +1),
+                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z +1),
+                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z +1),
+        };
+
+        MobBossSunspirit boss = new MobBossSunspirit(world);
+        boss.moveTo(x, y + (double) radius / 2 + 2, z, 0f,0f);
+        boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
+        boss.setReturnPoint(new BlockCoordinate(x, y + radius / 2 + 2, z));
+
+        for (BlockCoordinate doorBlock : bossDoor) {
+            boss.addDestroyOnDeathBlock(doorBlock);
+        }
+        world.entityJoinedWorld(boss);
 
         return true;
     }

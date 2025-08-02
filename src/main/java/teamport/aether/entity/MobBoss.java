@@ -28,7 +28,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     @Nullable
     protected ItemStack trophy = null;
 
-    protected List<BlockCoordinate> blocksDestroyOnDeath = null;
+    protected List<BlockCoordinate> blocksDestroyOnDeath = new ArrayList<>();
 
 
     public MobBoss(@Nullable World world) {
@@ -38,6 +38,16 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     @Override
     public boolean canFight() {
         return isAlive();
+    }
+
+    @Override
+    public void setTrophy(ItemStack itemStack) {
+        trophy = itemStack;
+    }
+
+    @Override
+    public ItemStack getTrophy() {
+        return trophy;
     }
 
     @Override
@@ -57,8 +67,17 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
+    protected boolean canDespawn() {
+        return false;
+    }
+
+    @Override
     public void onDeath(Entity entityKilledBy) {
         super.onDeath(entityKilledBy);
+
+        if (trophy != null) {
+            world.dropItem((int) x, (int) y, (int) z, trophy);
+        }
 
         if (blocksDestroyOnDeath != null) {
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
@@ -86,6 +105,11 @@ public class MobBoss extends MobMonster implements EnemyBoss {
             }
 
             blocksDestroyOnDeath = list;
+        }
+
+        CompoundTag trophyNBT = tag.getCompound("trophy");
+        if (trophyNBT != null) {
+            trophy = ItemStack.readItemStackFromNbt(trophyNBT);
         }
 
         super.readAdditionalSaveData(tag);
@@ -126,5 +150,10 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     public void returnToHome() {
         if (returnPoint == null) return;
         moveTo(returnPoint.x, returnPoint.y, returnPoint.z, 0, 0);
+    }
+
+    @Override
+    public void setReturnPoint(@Nullable BlockCoordinate returnPoint) {
+        this.returnPoint = returnPoint;
     }
 }

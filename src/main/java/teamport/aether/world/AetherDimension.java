@@ -1,11 +1,14 @@
 package teamport.aether.world;
 
+import net.minecraft.core.WeightedRandomBag;
+import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,8 +17,6 @@ import java.util.List;
 import static net.minecraft.core.world.biome.Biomes.register;
 
 public class AetherDimension {
-
-
     public static final int bossDetectionRange = 100;
     public static final int bossDetectionRangeSQR = 10000;
     public static final int dungeonRadius = 300;
