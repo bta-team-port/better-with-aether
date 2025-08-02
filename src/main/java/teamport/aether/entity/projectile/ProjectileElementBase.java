@@ -5,7 +5,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.helper.DamageType;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
@@ -38,7 +37,7 @@ public class ProjectileElementBase extends Projectile {
         this.damage = 2;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
-        this.setSize(0.5F, 0.5F);
+        this.setSize(0.5F, 1.0F);
     }
 
     @Override
@@ -91,26 +90,7 @@ public class ProjectileElementBase extends Projectile {
         this.x += this.xd;
         this.y += this.yd;
         this.z += this.zd;
-        float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
         this.yRot = (float)(Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
-
-        for(this.xRot = (float)(Math.atan2(this.yd, f) * 180.0 / Math.PI); this.xRot - this.xRotO < -180.0F; this.xRotO -= 360.0F) {
-        }
-
-        while(this.xRot - this.xRotO >= 180.0F) {
-            this.xRotO += 360.0F;
-        }
-
-        while(this.yRot - this.yRotO < -180.0F) {
-            this.yRotO -= 360.0F;
-        }
-
-        while(this.yRot - this.yRotO >= 180.0F) {
-            this.yRotO += 360.0F;
-        }
-
-        this.xRot = this.xRotO + (this.xRot - this.xRotO) * 0.2F;
-        this.yRot = this.yRotO + (this.yRot - this.yRotO) * 0.2F;
 
         if (this.isInWater()) {
             this.waterTick();
