@@ -315,6 +315,11 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     @Override
+    public boolean canFight() {
+        return isAlive() && isAwake();
+    }
+
+    @Override
     protected boolean isMovementBlocked() {
         return super.isMovementBlocked() || !isAwake();
     }
@@ -399,7 +404,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        currentState = State.valueOf(tag.getString("state"));
+        try { currentState = State.valueOf(tag.getString("state")); }
+        catch (IllegalArgumentException e) { currentState = State.ASLEEP; }
+
         attackCoolDown = tag.getInteger("attackCoolDown");
         allowedToMove = tag.getBoolean("allowedToMove");
         super.readAdditionalSaveData(tag);
