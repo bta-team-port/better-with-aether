@@ -13,7 +13,12 @@ public interface EnemyBoss {
 
     void returnToHome();
 
+    void setReturnPoint(BlockCoordinate coord);
+
     void addDestroyOnDeathBlock(BlockCoordinate coord);
 
     boolean canFight();
+
+    void setTrophy(ItemStack itemStack);
+    ItemStack getTrophy();
 }
