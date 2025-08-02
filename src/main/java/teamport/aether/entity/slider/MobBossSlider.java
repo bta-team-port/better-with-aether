@@ -1,5 +1,6 @@
 package teamport.aether.entity.slider;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -35,7 +36,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static final int maxAttackCoolDown = 60;
     public static final float baseSpeed = 1.375F;
 
+    public float momentumX, momentumY, momentumZ = 0F;
     public int attackCoolDown = 0;
+    public boolean allowedToMove;
+
     private final ArrayList<Player> creativeAttackersList = new ArrayList<>();
     public Entity target;
 
@@ -97,8 +101,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     protected void stateASleep() { /* ZZZ... */}
 
-    public boolean allowedToMove;
-    public float momentumX, momentumY, momentumZ = 0F;
     protected void stateAwake() {
         assert world != null;
 
@@ -395,4 +397,19 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         }
     }
 
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        currentState = State.valueOf(tag.getString("state"));
+        attackCoolDown = tag.getInteger("attackCoolDown");
+        allowedToMove = tag.getBoolean("allowedToMove");
+        super.readAdditionalSaveData(tag);
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        tag.putString("state", currentState.toString());
+        tag.putInt("attackCoolDown", attackCoolDown);
+        tag.putBoolean("allowedToMove", allowedToMove);
+        super.addAdditionalSaveData(tag);
+    }
 }
