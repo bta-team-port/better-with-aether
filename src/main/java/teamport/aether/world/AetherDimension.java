@@ -56,12 +56,12 @@ public class AetherDimension {
     }
 
     public static void initializeDimension() {
-        AETHER_PLAINS = register("aether:plains", (new BiomeAether("aether.plains")).setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
+        AETHER_PLAINS = register("aether:plains", (new BiomeAether("aether.plains"))
+                .setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM, Weathers.OVERWORLD_FOG))
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
 
-        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether("worldType.aether.default") {
-        });
+        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.default")));
 
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
         Dimension.registerDimension(AetherDimensionID, AETHER);

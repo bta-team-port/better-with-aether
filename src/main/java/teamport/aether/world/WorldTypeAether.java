@@ -14,19 +14,21 @@ import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
 import teamport.aether.blocks.AetherBlocks;
 
-public abstract class WorldTypeAether extends WorldType {
-
-    public WorldTypeAether(String languageKey) {
-        super(Properties.of(languageKey)
-                .defaultWeather(Weathers.OVERWORLD_CLEAR)
-                .windManager(new WindProviderGeneric())
-                .brightnessRamp(createLightRamp())
-                .seasonConfig(SeasonConfig.builder().withSingleSeason(Seasons.NULL).build())
-                .dayNightCycleTicks(Global.DAY_LENGTH_TICKS)
-        );
+public class WorldTypeAether extends WorldType {
+    public WorldTypeAether(WorldType.Properties properties) {
+        super(properties);
     }
 
-    public static float[] createLightRamp() {
+    public static WorldType.Properties defaultProperties(String translationKey) {
+        return Properties.of(translationKey)
+                .defaultWeather(Weathers.OVERWORLD_CLEAR)
+                .brightnessRamp(getLightRamp())
+                .windManager(new WindProviderGeneric())
+                .seasonConfig(SeasonConfig.builder().withSingleSeason(Seasons.NULL).build())
+                .dayNightCycleTicks(Global.DAY_LENGTH_TICKS);
+    }
+
+    public static float[] getLightRamp() {
         float[] brightnessRamp = new float[32];
         float f = 0.05F;
 
