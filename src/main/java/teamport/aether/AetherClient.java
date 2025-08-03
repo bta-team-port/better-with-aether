@@ -31,10 +31,7 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.gui.ComponentBossBar;
-import teamport.aether.particle.ParticleDartEnchanted;
-import teamport.aether.particle.ParticleFlameAmbrosium;
-import teamport.aether.particle.ParticleGoldenDust;
-import teamport.aether.particle.ParticleLightningKnife;
+import teamport.aether.particle.*;
 import teamport.aether.world.AetherWorldTypes;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -58,6 +55,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("goldendust", (world, x, y, z, xa, ya, za, id) -> new ParticleGoldenDust(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
+        dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
 
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();
