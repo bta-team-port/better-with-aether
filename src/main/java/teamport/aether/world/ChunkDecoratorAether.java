@@ -125,28 +125,28 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureOre(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        if (rand.nextInt(50) == 0) {
+        if (rand.nextInt(12) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(32) + 224;
             k4 = z + rand.nextInt(16);
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, j4, k7, k4);
         }
 
-        if (rand.nextInt(13) == 0) {
+        if (rand.nextInt(12) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(64) + 128;
             k4 = z + rand.nextInt(16);
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, j4, k7, k4);
         }
 
-        if (rand.nextInt(7) == 0) {
+        if (rand.nextInt(6) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(192) + 32;
             k4 = z + rand.nextInt(16);
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, j4, k7, k4);
         }
 
-        if (rand.nextInt(50) == 0) {
+        if (rand.nextInt(18) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(64) + 8;
             k4 = z + rand.nextInt(16);
