@@ -51,6 +51,7 @@
     "armor.wolf.MobWolfNoKnockback",
     "dimension.BlockCreatePortalMixin",
     "dimension.SaveHandlerMixin",
+    "item.ItemBlockMixin",
     "item.ItemSaddleMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
