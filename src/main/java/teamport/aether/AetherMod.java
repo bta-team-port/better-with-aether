@@ -69,7 +69,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobAerbunny.class, 102));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).add(new SpawnListEntry(MobAerwhale.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).add(new SpawnListEntry(MobAerwhale.class, 10));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).add(new SpawnListEntry(MobFireflyCluster.class, 10));
 
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoa.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaWhite.class, 51));

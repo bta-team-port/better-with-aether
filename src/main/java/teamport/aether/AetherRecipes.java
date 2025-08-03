@@ -207,7 +207,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Clouds.addInput('X', AetherBlocks.AERCLOUD_GOLD).create("cloud_parachute_gold", new ItemStack(AetherItems.PARACHUTE_CLOUD_GOLD, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "Z", "S")
-                .addInput('S', Items.STICK)
+                .addInput('S', AetherItems.STICK_SKYROOT)
                 .addInput('Z', AetherItems.ZANITE)
                 .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
     }
@@ -226,7 +226,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.ZANITE).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
-                .addInput('S', Items.STICK)
+                .addInput('S', AetherItems.STICK_SKYROOT)
                 .addInput('A', AetherItems.AMBER)
                 .addInput('F', Items.FEATHER_CHICKEN)
                 .create("dart_golden", new ItemStack(AetherItems.AMMO_DART_GOLDEN, 4));
@@ -235,11 +235,6 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('D', AetherItems.AMMO_DART_GOLDEN)
                 .addInput('P', AetherItems.PETAL_AECHOR)
                 .create("dart_poison", new ItemStack(AetherItems.AMMO_DART_POISON, 4));
-
-        RecipeBuilder.Shaped(MOD_ID, "Z", "S")
-                .addInput('S', Items.STICK)
-                .addInput('Z', AetherItems.ZANITE)
-                .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
     }
     public static void capeRecipes() {
         RecipeBuilderShaped Capes = new RecipeBuilderShaped(MOD_ID, "CC", "WW", "WW");
