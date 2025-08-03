@@ -1,9 +1,6 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.gui.hud.component.ComponentAnchor;
-import net.minecraft.client.gui.hud.component.HudComponents;
-import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.tag.Tag;
@@ -18,6 +15,7 @@ import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.aerbunny.MobAerbunny;
 import teamport.aether.entity.aerwhale.MobAerwhale;
@@ -31,11 +29,9 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
-import teamport.aether.mixin.accessors.HudComponentAccessor;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
-import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -61,6 +57,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherBlocks.init();
         AetherItems.init();
         AetherDimension.init();
+        AetherEffects.init();
 
         SoundTypes.loadSoundsJson(MOD_ID);
 //        AetherMod.registerTextures();

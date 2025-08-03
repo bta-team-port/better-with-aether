@@ -1,21 +1,23 @@
 package teamport.aether.items;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemFood;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.AetherAchievements;
+import teamport.aether.effect.AetherEffects;
 
-public class ItemBucketSkyrootRemedy extends ItemFood {
+public class ItemBucketSkyrootRemedy extends Item {
     public ItemBucketSkyrootRemedy(String name, String namespaceId, int id) {
-        super(name, namespaceId, id, 1, 1, false, 1);
+        super(name, namespaceId, id);
         this.maxStackSize = 1;
     }
 
-    //TODO Cure poison effect
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-        entityplayer.eatFood(this);
         entityplayer.triggerAchievement(AetherAchievements.REMEDY);
+        IHasEffects effectPlayer = (IHasEffects) entityplayer;
+        AetherEffects.fixedAdd(effectPlayer, AetherEffects.remedyEffect, 1);
         return new ItemStack(AetherItems.BUCKET_SKYROOT);
     }
 
