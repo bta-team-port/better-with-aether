@@ -7,16 +7,18 @@ import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.EffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
+import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.List;
 import java.util.Random;
 
 public class PoisonEffect extends Effect implements IHudVisibility {
-    private EffectRenderer renderer = new PoisonEffectRenderer();
-    private final Random random = new Random();
+    public EffectRenderer renderer = new PoisonEffectRenderer();
+    public final Random random = new Random();
     public String PATH_HEART;
-    private final int tint;
-    double slideX, slideZ;
+    public final int tint;
+    public double rotD;
+    public double motD;
 
     public PoisonEffect(AetherEffectBuilder builder) {
         this(
@@ -45,8 +47,6 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if(effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
-        this.slideX = random.nextGaussian() * 0.013;
-        this.slideZ = random.nextGaussian() * 0.013;
     }
 
     @Override
@@ -61,7 +61,15 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
-        ((Mob)effectContainer.getParent()).fling(slideX, 0, slideZ, 1);
+        double gauss = ((EntityAccessor) effectContainer.getParent()).getRandom().nextGaussian();
+        double newMotD = 0.1 * gauss;
+        motD = 0.2 * newMotD + (1.0 - 0.2) * motD;
+        ((Mob) effectContainer.getParent()).xd += motD;
+        ((Mob) effectContainer.getParent()).zd += motD;
+        double newRotD = 0.7853981633974483 * gauss;
+        rotD = 0.125 * newRotD + (1.0 - 0.125) * rotD;
+        ((Mob) effectContainer.getParent()).yRot = (float) ((double) ((Mob) effectContainer.getParent()).yRot + rotD);
+        ((Mob) effectContainer.getParent()).xRot = (float) ((double) ((Mob) effectContainer.getParent()).xRot + rotD);
     }
 
     @Override
