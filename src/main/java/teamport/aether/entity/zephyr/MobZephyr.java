@@ -128,7 +128,7 @@ public class MobZephyr extends MobFlying implements Enemy {
                 if (this.attackCharge == 20) {
                     this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     ProjectileWindball windball = new ProjectileWindball(this.world, this, vX, vY, vZ);
-                    windball.setPos(this.x + vec3.x * d8, this.y + (double) (this.bbHeight / 2.0F) + 0.5, this.z + vec3.z * d8 );
+                    windball.setPos(this.x + vec3.x * d8, this.y + (double) (this.bbHeight / 2.0F) - 0.5, this.z + vec3.z * d8 );
                     this.world.entityJoinedWorld(windball);
                     this.attackCharge = -40;
                 }
