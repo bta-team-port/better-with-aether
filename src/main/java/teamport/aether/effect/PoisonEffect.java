@@ -61,7 +61,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
-        ((Mob)effectContainer.getParent()).fling(slideX, 0, slideZ, 1);
+        ((Mob)effectContainer.getParent()).push(slideX, 0, slideZ);
     }
 
     @Override
