@@ -44,7 +44,6 @@ import turniplabs.halplibe.util.ClientStartEntrypoint;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
 import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -54,7 +53,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void beforeClientStart() {
-
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
@@ -118,11 +116,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         MobInfoRegistry.register(MobAerbunny.class, "aether.aerbunny.name", "aether.aerbunny.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
-
-        //        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("fire_bar")).setLayout(new LayoutSnap(OXYGEN_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
-//        ((HudComponentAccessor) HudComponents.INSTANCE.getComponent("oxygen_bar")).setLayout(new LayoutSnap(HOTBAR, ComponentAnchor.TOP_RIGHT, ComponentAnchor.BOTTOM_RIGHT));
 
 
     }
