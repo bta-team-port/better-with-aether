@@ -14,6 +14,8 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile {
@@ -192,6 +194,10 @@ public class ProjectileDart extends Projectile {
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
+                if (dartType == 1) {
+                    IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
+                    AetherEffects.fixedAdd(effectPlayer, AetherEffects.poisonEffect, 10);
+                }
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
                 }
