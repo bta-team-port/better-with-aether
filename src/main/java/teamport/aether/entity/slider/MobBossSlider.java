@@ -232,10 +232,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         if (entityplayer == null) return null;
 
         if ((this.canEntityBeSeen(entityplayer) && entityplayer.gamemode.areMobsHostile())) {
-            if (!((AetherBossList) entityplayer).aether$getBossList().contains(this)) {
-                ((AetherBossList) entityplayer).aether$getBossList().add(this);
-            }
-
+            ((AetherBossList) entityplayer).aether$TryAddBossList(this);
             return entityplayer;
         }
 
