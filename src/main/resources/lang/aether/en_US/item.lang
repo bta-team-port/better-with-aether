@@ -1,4 +1,7 @@
 #Tools
+item.aether.tool.dungeon_compass.name=Dungeon Compass
+item.aether.tool.dungeon_compass.desc=Points towards something yet unknown.
+
 item.aether.tool.pickaxe.skyroot.name=Skyroot Pickaxe
 item.aether.tool.pickaxe.skyroot.desc=Pick some holystone with this doubling wooden tool.
 item.aether.tool.pickaxe.holystone.name=Holystone Pickaxe
