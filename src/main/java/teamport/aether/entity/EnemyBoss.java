@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public interface EnemyBoss {
+
+    void setDungeonID(int id);
     String getBossTitle();
 
     String getBossName();
