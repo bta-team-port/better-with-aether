@@ -35,7 +35,7 @@ import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
 import teamport.aether.particle.ParticleLightningKnife;
-import teamport.aether.world.AetherWorldTypes;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
@@ -81,8 +81,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 )
         );
 
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER)
-                .setHasAurora(true).setHasClouds(true).setHasGround(false).setHasSky(true).setCloudHeight(-128.0f));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_DEFAULT).setCloudHeight(8.0f)
+                .setHasAurora(true).setHasGround(false));
 
         MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
