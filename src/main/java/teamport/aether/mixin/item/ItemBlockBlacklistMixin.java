@@ -30,7 +30,6 @@ public class ItemBlockBlacklistMixin {
         List<Integer> BLACKLIST = AetherDimension.getDimensionBlacklist(dim);
 
         if (BLACKLIST.contains(block.id()))  {
-            Minecraft.getMinecraft().thePlayer.sendMessage("HELLO");
             blockX += side.getOffsetX();
             blockY += side.getOffsetY();
             blockZ += side.getOffsetZ();
