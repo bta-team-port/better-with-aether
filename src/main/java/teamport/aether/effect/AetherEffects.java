@@ -60,7 +60,7 @@ public class AetherEffects {
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
     }
 
-    public static Effect resolveDominantEffect(Player player) {
+    public static EffectStack resolveDominantEffect(Player player) {
         EffectStack dominant = null;
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
             if (dominant == null) dominant = effectStack;
@@ -68,7 +68,7 @@ public class AetherEffects {
             int dominantPotency = dominant.getAmount() * dominant.getDuration();
             if (effectStackPotency > dominantPotency) dominant = effectStack;
         }
-        return dominant != null ? dominant.getEffect() : null;
+        return dominant;
     }
 
 

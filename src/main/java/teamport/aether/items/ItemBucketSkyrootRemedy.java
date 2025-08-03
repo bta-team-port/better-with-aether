@@ -17,7 +17,7 @@ public class ItemBucketSkyrootRemedy extends Item {
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         entityplayer.triggerAchievement(AetherAchievements.REMEDY);
         IHasEffects effectPlayer = (IHasEffects) entityplayer;
-        AetherEffects.fixedAdd(effectPlayer, AetherEffects.remedyEffect, 10);
+        AetherEffects.fixedAdd(effectPlayer, AetherEffects.remedyEffect, 1);
         return new ItemStack(AetherItems.BUCKET_SKYROOT);
     }
 

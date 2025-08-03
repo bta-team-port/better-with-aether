@@ -109,8 +109,8 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
     }
 
     private static String getPath(Player player) {
-        Effect effect = AetherEffects.resolveDominantEffect(player);
-        if(!(effect instanceof IHudVisibility)) return "minecraft:gui/hud/heart/";
+        EffectStack effect = AetherEffects.resolveDominantEffect(player);
+        if(effect == null || !(effect.getEffect() instanceof IHudVisibility)) return "minecraft:gui/hud/heart/";
         return ((IHudVisibility) effect).getPath();
     }
 
