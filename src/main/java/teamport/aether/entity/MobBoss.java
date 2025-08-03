@@ -11,6 +11,7 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherMod;
 import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.world.AetherDimension;
 
@@ -79,7 +80,8 @@ public class MobBoss extends MobMonster implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        super.onDeath(entityKilledBy);
+        assert world != null;
+        AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
 
         AetherDimension.dungeonMap.remove(dungeonID);
 
@@ -96,6 +98,17 @@ public class MobBoss extends MobMonster implements EnemyBoss {
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
             }
         }
+
+        // try triggering the propagate on dungeon blocks.
+        for (int x1 = -3; x1 < 3; x1++) {
+            for (int z1 = -3; z1 < 3; z1++) {
+                for (int y1 = -3; y1 < 3; y1++) {
+                    world.notifyBlockChange((int) x + x1, (int) y + y1, (int) z + z1, world.getBlockId((int) x + x1, (int) y + y1, (int) z + z1));
+                }
+            }
+        }
+
+        super.onDeath(entityKilledBy);
     }
 
     @Override
