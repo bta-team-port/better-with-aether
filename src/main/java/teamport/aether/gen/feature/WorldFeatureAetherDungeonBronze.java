@@ -13,6 +13,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.slider.MobBossSlider;
 import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,7 +172,9 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
+        if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
         if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
         this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
@@ -196,6 +199,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
         boss.setReturnPoint(new BlockCoordinate(x + 8, y + 2, z + 8));
         boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
+        boss.setDungeonID(dungeonID);
 
         BlockCoordinate[] treasureDoor = new BlockCoordinate[] {
             new BlockCoordinate(x + 7, y +1, z + 7),

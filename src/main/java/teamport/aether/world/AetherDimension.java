@@ -1,14 +1,12 @@
 package teamport.aether.world;
 
-import net.minecraft.core.WeightedRandomBag;
-import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.helper.BlockCoordinate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +19,18 @@ public class AetherDimension {
     public static final int bossDetectionRangeSQR = 10000;
     public static final int dungeonRadius = 300;
     public static final int dungeonRadiusSQR = dungeonRadius * dungeonRadius;
+
+    public static final HashMap<Integer, BlockCoordinate> dungeonMap = new HashMap<>();
+
+    public static int registerDungeonToMap(int x, int y, int z){
+        int id = dungeonMap.size();
+        while (dungeonMap.get(id) != null) {
+            id++;
+        }
+
+        dungeonMap.put(id, new BlockCoordinate(x, y, z));
+        return id;
+    }
 
     public static int AetherDimensionID = 3;
     public static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
@@ -36,7 +46,6 @@ public class AetherDimension {
     public static WorldType AETHER_DEFAULT;
     public static Dimension AETHER;
     public static boolean hasInit = false;
-
 
     public static void init() {
         if(!hasInit){

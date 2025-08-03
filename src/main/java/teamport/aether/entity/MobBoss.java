@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,11 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
+    public void setDungeonID(int id) {
+        dungeonID = id;
+    }
+
+    @Override
     public String getBossTitle() {
         final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
         return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
@@ -74,6 +80,8 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     @Override
     public void onDeath(Entity entityKilledBy) {
         super.onDeath(entityKilledBy);
+
+        AetherDimension.dungeonMap.remove(dungeonID);
 
         if (trophy != null) {
             world.dropItem((int) x, (int) y, (int) z, trophy);

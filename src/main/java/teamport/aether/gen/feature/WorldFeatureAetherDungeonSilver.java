@@ -11,6 +11,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.valkyrie.MobBossValkyrie;
 import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -223,6 +224,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
+        if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
 
         for (int i = 0; i < 120; i++) {
             new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65));
@@ -317,6 +320,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
         MobBossValkyrie boss = new MobBossValkyrie(world);
         boss.moveTo( x - 15, y + 4, z + 42, 0f,0f);
         boss.setReturnPoint(new BlockCoordinate( x - 15, y + 4, z + 42));
+        boss.setDungeonID(dungeonID);
 
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
         world.setBlockAndMetadataWithNotify(x - 15, y, z + 42, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
