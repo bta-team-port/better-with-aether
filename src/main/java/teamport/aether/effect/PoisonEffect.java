@@ -55,7 +55,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
         EffectStack newStack = new EffectStack((IHasEffects) effectContainer.getParent(), AetherEffects.poisonEffect, effectStack.getAmount() - 1);
         newStack.start(effectContainer);
         effectContainer.add(newStack);
-        ((Mob) effectContainer.getParent()).hurt(null, 4, DamageType.GENERIC);
+        ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
     @Override
