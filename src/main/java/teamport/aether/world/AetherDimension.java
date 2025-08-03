@@ -1,5 +1,6 @@
 package teamport.aether.world;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
@@ -33,13 +34,17 @@ public class AetherDimension {
     }
 
     public static int AetherDimensionID = 3;
-    public static final HashMap<Dimension, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
+    public static final HashMap<Integer, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
 
-    public static List<Integer> getDimensionBlacklist(Dimension dimension){
-        if (!dimensionPlacementBlacklist.containsKey(dimension)){
-            dimensionPlacementBlacklist.put(dimension, new ArrayList<>());
+    public static List<Integer> getDimensionBlacklist(Dimension dimension) {
+        return getDimensionBlacklist(dimension.id);
+    }
+
+        public static List<Integer> getDimensionBlacklist(Integer dimensionID){
+        if (!dimensionPlacementBlacklist.containsKey(dimensionID)){
+            dimensionPlacementBlacklist.put(dimensionID, new ArrayList<>());
         }
-        return dimensionPlacementBlacklist.get(dimension);
+        return dimensionPlacementBlacklist.get(dimensionID);
     }
 
     public static Biome AETHER_PLAINS;
@@ -65,6 +70,30 @@ public class AetherDimension {
 
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
         Dimension.registerDimension(AetherDimensionID, AETHER);
-    }
 
+        List<Integer> AETHER_BLACKLIST = AetherDimension.getDimensionBlacklist(AetherDimension.AETHER);
+        AETHER_BLACKLIST.add(Blocks.FIRE.id());
+        AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_FLOWING.id());
+        AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
+        AETHER_BLACKLIST.add(Blocks.TORCH_COAL.id());
+        AETHER_BLACKLIST.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+        AETHER_BLACKLIST.add(Blocks.NETHERRACK.id());
+        AETHER_BLACKLIST.add(Blocks.NETHERRACK_CARVED.id());
+        AETHER_BLACKLIST.add(Blocks.NETHERRACK_POLISHED.id());
+        AETHER_BLACKLIST.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+
+        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK.id());
+        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+
+        AETHER_BLACKLIST.add(Blocks.BRICK_NETHERRACK.id());
+        AETHER_BLACKLIST.add(Blocks.SLAB_BRICK_NETHERRACK.id());
+        AETHER_BLACKLIST.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
+
+        AETHER_BLACKLIST.add(Blocks.SOULSAND.id());
+        AETHER_BLACKLIST.add(Blocks.SOULSCHIST.id());
+        AETHER_BLACKLIST.add(Blocks.PORTAL_NETHER.id());
+        AETHER_BLACKLIST.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
+        AETHER_BLACKLIST.add(Blocks.BLOCK_NETHER_COAL.id());
+    }
 }
