@@ -5,6 +5,7 @@ import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -15,53 +16,73 @@ public class AetherEffects {
     public static RemedyEffect remedyEffect;
     private static boolean hasInit = false;
 
-    public static void init(){
-        if(!hasInit){
+    public static void init() {
+        if (!hasInit) {
             hasInit = true;
             initializeItems();
         }
     }
 
     private static void initializeItems() {
-       assigneEffects();
-       registerEffects();
+        assigneEffects();
+        registerEffects();
     }
 
     /**
-     * @implNote
-     * The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
+     * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
 
-    private static void assigneEffects(){
-        poisonEffect = new PoisonEffect(
-                "effect.aether.poison",
-                MOD_ID+":poison",
-                "poison.png",
-                0x000000,
-                new ArrayList<Modifier<?>>(),
-                EffectTimeType.KEEP,
-                120, 10
-        );
-        remedyEffect = new RemedyEffect(
-                "effect.aether.remedy",
-                MOD_ID+":remedy",
-                "remedy.png",
-                0x000000,
-                new ArrayList<Modifier<?>>(), EffectTimeType.RESET,
-                60, 1);
+    private static void assigneEffects() {
+        //TODO change the icon once we have better ones
+        poisonEffect = new AetherEffectBuilder()
+                .init("effect.aether.poison", MOD_ID + ":poison", "amber.png")
+                .setEffectTimeType(EffectTimeType.KEEP)
+                .setColor(0x000000)
+                .setDefaultDuration(120)
+                .setMaxStack(10)
+                .setTint(0x9A009A)
+                .setHeartPath("aether:gui/hud/poison/")
+                .build(PoisonEffect::new);
+
+
+        remedyEffect = new AetherEffectBuilder()
+                .init("effect.aether.remedy", MOD_ID + ":remedy", "diamond.png")
+                .setEffectTimeType(EffectTimeType.RESET)
+                .setDefaultDuration(60)
+                .setMaxStack(1)
+                .setTint(0x99FF99)
+                .setHeartPath("minecraft:gui/hud/heart/")
+                .build(RemedyEffect::new);
     }
 
-    private static void registerEffects(){
+    private static void registerEffects() {
         Effects.getInstance().register(poisonEffect.id, poisonEffect);
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
     }
 
-    public static Effect resolveDominantEffect(Player player){
+    public static Effect resolveDominantEffect(Player player) {
         EffectStack dominant = null;
-        for(EffectStack effectStack: ((IHasEffects)player).getContainer().getEffects()){
-            if(dominant == null) dominant = effectStack;
-            if(effectStack.getAmount() > dominant.getAmount()) dominant = effectStack;
+        for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
+            if (dominant == null) dominant = effectStack;
+            int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
+            int dominantPotency = dominant.getAmount() * dominant.getDuration();
+            if (effectStackPotency > dominantPotency) dominant = effectStack;
         }
         return dominant != null ? dominant.getEffect() : null;
+    }
+
+
+    public static void fixedAdd(IHasEffects player, Effect newEffect, int amount) {
+        List<EffectStack> effects = player.getContainer().getEffects();
+        for(EffectStack effect : effects) {
+            if (effect.getEffect() == newEffect) {
+                if(effect.getAmount() + amount >= effect.getEffect().getMaxStack()){
+                    amount = effect.getEffect().getMaxStack() - effect.getAmount();
+                }
+            }
+        }
+        EffectStack stack = new EffectStack(player, newEffect, amount);
+        stack.start(player.getContainer());
+        player.getContainer().add(stack);
     }
 }
