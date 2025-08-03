@@ -3,9 +3,9 @@ effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
 
 #Music
-aether:ascending.dawn=Ascending Dawn
-aether:a.morning.wish=A Morning Wish
-aether:aether.tune=Aether Tune
+aether\:ascending.dawn=Ascending Dawn
+aether\:a.morning.wish=A Morning Wish
+aether\:aether.tune=Aether Tune
 
 ascending.dawn=Ascending Dawn
 a.morning.wish=A Morning Wish
