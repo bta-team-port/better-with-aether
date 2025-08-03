@@ -39,9 +39,6 @@ import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static teamport.aether.AetherMod.MOD_ID;
 import static teamport.aether.AetherMod.LOGGER;
 

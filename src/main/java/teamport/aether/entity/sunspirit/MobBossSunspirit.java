@@ -26,10 +26,12 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     }
 
     public Entity findPlayerToAttack() {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
-
-        ((AetherBossList) entityplayer).aether$TryAddBossList(this);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
+        Player player = this.world.getClosestPlayerToEntity(this, 16.0);
+        if (player != null && canEntityBeSeen(player)) {
+            ((AetherBossList) player).aether$TryAddBossList(this);
+            return player;
+        }
+        return null;
     }
 
     public float getBrightness(float partialTick) {
@@ -81,9 +83,11 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        StackTraceElement caller = Thread.currentThread().getStackTrace()[1];
-        Minecraft.getMinecraft().thePlayer.sendChatMessage(caller.getClassName());
-        return caller.getClassName().equals(ProjectileElementIce.class.getName());
+        if (attacker instanceof ProjectileElementIce) {
+            super.hurt(attacker, damage, type);
+            return true;
+        }
+        return false;
     }
 
 
