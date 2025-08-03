@@ -40,6 +40,13 @@ public abstract class PlayerLocalBossListMixin extends Player implements AetherB
     }
 
     @Override
+    public void aether$TryAddBossList(Mob mob) {
+        if (!aether$bossList.contains(mob)) {
+            aether$bossList.add(mob);
+        }
+    }
+
+    @Override
     public void attackTargetEntityWithCurrentItem(Entity entity) {
         if ((entity instanceof EnemyBoss && entity instanceof Mob) && !aether$bossList.contains(entity))  {
             aether$bossList.add((Mob) entity);
