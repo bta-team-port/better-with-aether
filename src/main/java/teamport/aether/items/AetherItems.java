@@ -83,6 +83,8 @@ public final class AetherItems {
 
     public static Item FOOD_HEALING_STONE;
 
+    public static Item TOOL_DUNGEON_COMPASS;
+
     public static Item TOOL_PICKAXE_SKYROOT;
     public static Item TOOL_SHOVEL_SKYROOT;
     public static Item TOOL_AXE_SKYROOT;
@@ -338,6 +340,9 @@ public final class AetherItems {
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
         //TODO Cloud staff when used should spawn 2 cloud allies on your shoulders that attack enemies with cloud projectiles,
+
+        TOOL_DUNGEON_COMPASS = new ItemBuilder(MOD_ID).build(new Item("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS")));
+
     }
 
     public static void registerArmor() {
