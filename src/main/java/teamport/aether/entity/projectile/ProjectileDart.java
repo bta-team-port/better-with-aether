@@ -17,9 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile {
-    public static final int TYPE_GOLDEN = 0;
-    public static final int TYPE_POISON = 1;
-    public static final int TYPE_ENCHANTED = 2;
     public int mobsHit;
     public int xTile;
     public int yTile;

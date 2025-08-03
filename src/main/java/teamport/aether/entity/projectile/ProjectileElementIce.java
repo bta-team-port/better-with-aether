@@ -5,7 +5,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 
-public class ProjectileElementIce extends ProjectileElementBase{
+public class ProjectileElementIce extends ProjectileElementBase {
     public ProjectileElementIce(World world) {
         super(world);
     }
@@ -13,7 +13,7 @@ public class ProjectileElementIce extends ProjectileElementBase{
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
-        this.defaultProjectileSpeed = 0.5F;
+        this.initialSpeed = 0.25F;
     }
 
     public ProjectileElementIce(World world, double x, double y, double z) {
@@ -23,10 +23,13 @@ public class ProjectileElementIce extends ProjectileElementBase{
     @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
-            if (hitResult.entity instanceof Mob) {
-                hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
-                this.remove();
-                return;
+            if (ticksLived < 40) {
+                if (hitResult.entity instanceof ProjectileElementBase) {
+                } else if (hitResult.entity instanceof Mob) {
+                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                    this.remove();
+                    return;
+                }
             }
 
             if (hitResult.side != null) {
