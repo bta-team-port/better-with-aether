@@ -2,7 +2,6 @@ package teamport.aether.mixin.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
@@ -21,7 +20,7 @@ import teamport.aether.world.AetherDimension;
 import java.util.List;
 
 @Mixin(value = ItemBlock.class, remap = false)
-public class ItemBlockMixin {
+public class ItemBlockBlacklistMixin {
 
     @Shadow @NotNull protected Block<?> block;
 
