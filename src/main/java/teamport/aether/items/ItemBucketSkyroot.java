@@ -37,7 +37,9 @@ public class ItemBucketSkyroot extends Item {
                 int x = rayTraceResult.x;
                 int y = rayTraceResult.y;
                 int z = rayTraceResult.z;
-                if (world.canMineBlock(player, x, y, z)) {
+                if (!world.canMineBlock(player, x, y, z)) {
+                    return stack;
+                } else {
                     Block<?> block = world.getBlock(x, y, z);
                     if (block != null && !block.hasTag(BlockTags.PLACE_OVERWRITES) && !block.hasTag(BlockTags.BROKEN_BY_FLUIDS)) {
                         Side side = rayTraceResult.side;
