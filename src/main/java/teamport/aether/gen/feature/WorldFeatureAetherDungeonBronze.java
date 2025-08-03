@@ -179,7 +179,8 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
         if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
-        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
+
+        int dungeonID = AetherDimension.registerDungeonToMap(x + 8, y + 2, z + 8);
 
         drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
         this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
@@ -204,6 +205,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
         boss.setReturnPoint(new BlockCoordinate(x + 8, y + 2, z + 8));
         boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
+
         boss.setDungeonID(dungeonID);
 
         BlockCoordinate[] treasureDoor = new BlockCoordinate[] {
@@ -220,7 +222,9 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         x2 = x + 20;
         y2 = y;
         z2 = z + 2;
+
         if (!this.isBoxSolid(world, x2, y2, z2, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12)) {
+            this.addSquareTube(world, random, holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
             return true;
         }
 
@@ -229,7 +233,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         this.addSquareTube(world, random, holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
 
         findNextRoom(world, random, x2, y2, z2);
-        System.out.println(x + " " + y + " " + z);
         return true;
     }
 
@@ -237,14 +240,16 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         int tries = 3;
         ArrayList<Integer> dirList = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
         int index = random.nextInt(dirList.size()-1);
+
         boolean finished = true;
         while (finished && tries --> 0) {
             finished = this.placeNextRoom(world, random, x, y, z, dirList.get(index));
             index = random.nextInt(dirList.size()-1);
             dirList.remove(index);
         }
+
         if (!finished) return true;
-        this.endCorridor(world, random, x, y, z, random.nextInt(3));
+        endCorridor(world, random, x, y, z, random.nextInt(3));
         return false;
     }
 
@@ -380,6 +385,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         int blockX;
         int blockY;
         int blockZ;
+
         for (int i = 0; i < length3; i++) {
             int x3 = startX + direction3.getOffsetX() * i;
             int y3 = startY + direction3.getOffsetY() * i;

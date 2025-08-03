@@ -1,9 +1,11 @@
 package teamport.aether.entity.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
@@ -17,8 +19,10 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherBossList;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
+import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 
@@ -232,12 +236,13 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         if (entityplayer == null) return null;
 
         if ((this.canEntityBeSeen(entityplayer) && entityplayer.gamemode.areMobsHostile())) {
-            //if (!((IPlayerBossList) entityplayer).aether$getBossList().contains(this)) {
-            //    ((IPlayerBossList) entityplayer).aether$getBossList().add(this);
-            //}
+            if (!((AetherBossList) entityplayer).aether$getBossList().contains(this)) {
+                ((AetherBossList) entityplayer).aether$getBossList().add(this);
+            }
 
             return entityplayer;
         }
+
         return null;
     }
 
@@ -294,6 +299,12 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     @Override
+    public boolean isOnFire() { return false; }
+
+    @Override
+    public void fireHurt() {}
+
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if(this.isAwake() && type == DamageType.BLAST) return super.hurt(attacker, damage/4, type);
 
@@ -322,28 +333,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     @Override
     protected boolean isMovementBlocked() {
         return super.isMovementBlocked() || !isAwake();
-    }
-
-    @Override
-    public void onDeath(Entity murderer) {
-        assert this.world != null;
-        if (trophy != null) {
-            this.world.dropItem((int) x, (int) y, (int) z, trophy);
-        }
-
-        //AetherDimension.dugeonMap.remove(dungeonID);
-        AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
-
-        // try triggering the propagate on dungeon blocks.
-        for (int x1 = -3; x1 < 3; x1++) {
-            for (int z1 = -3; z1 < 3; z1++) {
-                for (int y1 = -3; y1 < 3; y1++) {
-                    world.notifyBlockChange((int) x + x1, (int) y + y1, (int) z + z1, world.getBlockId((int) x + x1, (int) y + y1, (int) z + z1));
-                }
-            }
-        }
-
-        super.onDeath(murderer);
     }
 
     public float getSpeedModifier(Entity target){

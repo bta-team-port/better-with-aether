@@ -225,7 +225,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
-        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
+
+        int dungeonID = AetherDimension.registerDungeonToMap(x - 15, y + 4, z + 42);
 
         for (int i = 0; i < 120; i++) {
             new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65));
