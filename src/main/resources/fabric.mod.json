@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "aether",
-  "version": "1.0.0",
+  "version": "0.1.0",
 
   "name": "Aether",
   "description": "The legendary dimension is finally here for Better Than Adventure!",
@@ -63,7 +63,9 @@
   ],
   "accessWidener": "aether.accesswidener",
   "depends": {
-    "fabricloader": ">=0.15.5"
+    "fabricloader": ">=0.15.5",
+    "catalyst-effects": ">=2.0.1",
+    "catalyst-core": ">=2.1.3"
   },
   "suggests": {
   }

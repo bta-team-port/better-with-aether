@@ -4,7 +4,7 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
+import static teamport.aether.AetherMod.LOGGER;
 
 @Environment(EnvType.SERVER)
 public class AetherServer implements DedicatedServerModInitializer {
