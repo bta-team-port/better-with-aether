@@ -80,6 +80,7 @@
     "accessory.cape.invisibilitycape.PlayerLocalMixinInvisibility",
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
+    "dimension.HostileParadiseMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "screens.PlayerLocalMixinAetherScreens",
     "screens.PortalLoadingScreenMixin"
