@@ -158,7 +158,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
         drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true);
         drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true);
         drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +YRoomHeight-2 +radius/2, z +radius/2, true);
-        drawVolume(world, 0, 0,Direction.WEST, (int) (radius*2), Direction.NORTH, 3, Direction.UP, 3,x -radius +xRoomLength, y +2 +radius/2, z +1, true);
+        drawVolume(world, 0, 0,Direction.WEST, radius*2, Direction.NORTH, 3, Direction.UP, 3,x -radius +xRoomLength, y +2 +radius/2, z +1, true);
 
         // chest room
         xRoomLength = 7;
