@@ -1,11 +1,6 @@
 package teamport.aether.blocks;
 
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialColor;
-import teamport.aether.world.AetherDimension;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.minecraft.core.block.BlockLogicMoss.stoneToMossMap;
 import static net.minecraft.core.block.material.MaterialColor.registerManualBlockColor;
