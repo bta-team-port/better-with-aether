@@ -56,6 +56,7 @@
     "screens.PlayerMixinAetherScreens"
   ],
   "client": [
+    "DynamicTexturesMixin",
     "GuidebookMixinInclude",
     "HudComponentsMixinExtraHealth",
     "MinecraftMixinAddNewAchievements",
