@@ -119,14 +119,4 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
     }
-
-//    public static void registerTextures() {
-//        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
-//            try {
-//                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
-//            } catch (URISyntaxException | IOException e) {
-//                AetherMod.LOGGER.error("Failed to initialize texture files!", e);
-//            }
-//        }
-//    }
 }

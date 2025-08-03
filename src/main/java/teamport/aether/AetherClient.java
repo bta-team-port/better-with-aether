@@ -42,8 +42,8 @@ import turniplabs.halplibe.util.ClientStartEntrypoint;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
+import static teamport.aether.AetherMod.LOGGER;
 
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
@@ -62,14 +62,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();
         AetherClient.registerTextures();
-
-
-        try {
-            TextureRegistry.initializeAllFiles(MOD_ID, TextureRegistry.particleAtlas, false);
-        } catch (URISyntaxException | IOException e) {
-            LOGGER.error("Failed to initialize textures!");
-        }
-
     }
 
     @Override
@@ -170,7 +162,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
             try {
                 TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
-            } catch (URISyntaxException | IOException e) {
+            } catch (Exception e) {
                 AetherMod.LOGGER.error("Failed to initialize texture files!", e);
             }
         }
