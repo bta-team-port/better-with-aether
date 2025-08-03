@@ -35,8 +35,8 @@ public abstract class LavaBucketMixin extends Item{
     }
 
     @Inject(method = "onUseItem", at = @At("HEAD"), cancellable = true)
-    public void callOnItemRightClick(ItemStack stack, World world, Player player, CallbackInfoReturnable<ItemStack> info) {
-        if (world.dimension == Dimension.NETHER && blockToPlace.hasTag(BlockTags.IS_WATER)) {
+    public void netherAttemptPlaceWater(ItemStack stack, World world, Player player, CallbackInfoReturnable<ItemStack> info) {
+        if (world.dimension == Dimension.NETHER && blockToPlace != null && blockToPlace.hasTag(BlockTags.IS_WATER)) {
 
             float pitch = player.xRotO + (player.xRot - player.xRotO);
             float yaw = player.yRotO + (player.yRot - player.yRotO);
@@ -90,8 +90,8 @@ public abstract class LavaBucketMixin extends Item{
     }
 
     @Inject(method = "onUseItem", at = @At("HEAD"), cancellable = true)
-    public void callOnItemRightClick2(ItemStack stack, World world, Player player, CallbackInfoReturnable<ItemStack> info) {
-        if (world.dimension == AetherDimension.AETHER && blockToPlace.hasTag(BlockTags.IS_LAVA)) {
+    public void aetherAttemptPlaceLava(ItemStack stack, World world, Player player, CallbackInfoReturnable<ItemStack> info) {
+        if (world.dimension == AetherDimension.AETHER && blockToPlace != null && blockToPlace.hasTag(BlockTags.IS_LAVA)) {
 
             float pitch = player.xRotO + (player.xRot - player.xRotO);
             float yaw = player.yRotO + (player.yRot - player.yRotO);
