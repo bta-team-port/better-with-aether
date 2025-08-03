@@ -1,8 +1,11 @@
 package teamport.aether.entity.sunspirit;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +21,20 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
         this.setSize(2.25F, 2.5F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_sunspirit");
         this.fireImmune = true;
+        this.maxHurtTime = 20;
+    }
+
+    public Entity findPlayerToAttack() {
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
+    }
+
+    public float getBrightness(float partialTick) {
+        return 1.0F;
+    }
+
+    public int getLightmapCoord(float partialTick) {
+        return this.world.getLightmapCoord(15, 15);
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
@@ -58,6 +75,12 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("timesShot", this.timesShot);
+    }
+
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        StackTraceElement caller = Thread.currentThread().getStackTrace()[1];
+        Minecraft.getMinecraft().thePlayer.sendChatMessage(caller.getClassName());
+        return caller.getClassName().equals(ProjectileElementIce.class.getName());
     }
 
 

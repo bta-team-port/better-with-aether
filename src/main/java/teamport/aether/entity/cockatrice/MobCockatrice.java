@@ -11,7 +11,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.projectile.ProjectileDart;
+import teamport.aether.entity.projectile.ProjectileDartPoison;
 
 public class MobCockatrice extends MobMonster implements Enemy {
     public float flap = 0.0F;
@@ -28,7 +28,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
     }
 
     public int getMaxSpawnedInChunk() {
-        return 2;
+        return 1;
     }
 
     public void tick() {
@@ -77,7 +77,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
             double d1 = entity.z - this.z;
             if (this.attackTime == 0) {
                 if (!this.world.isClientSide) {
-                    ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
+                    ProjectileDartPoison dart = new ProjectileDartPoison(this.world, this, false);
                     double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - dart.y;
                     float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
                     world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));

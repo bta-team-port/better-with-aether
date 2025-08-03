@@ -34,8 +34,7 @@ public class ProjectileElementFire extends ProjectileElementBase {
     @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
-            if (hitResult.entity instanceof MobBossSunspirit) {
-                this.remove();
+            if (hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase) {
             } else if (hitResult.entity instanceof Mob) {
                 hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
                 hitResult.entity.remainingFireTicks = 100;
