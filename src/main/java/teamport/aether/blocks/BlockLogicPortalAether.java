@@ -1,5 +1,6 @@
 package teamport.aether.blocks;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicPortal;
 import net.minecraft.core.sound.SoundCategory;
@@ -14,43 +15,6 @@ public class BlockLogicPortalAether extends BlockLogicPortal {
 
     public BlockLogicPortalAether(Block<?> block, Dimension targetDimension, Block<?> portalMaterial, Block<?> portalTrigger) {
         super(block, targetDimension, portalMaterial, portalTrigger);
-    }
-
-    public boolean tryToCreatePortal(World world, int x, int y, int z, @Nullable DyeColor color) {
-        if (color == null) {
-            color = DyeColor.BLUE;
-        }
-
-        int[] bounds = this.getPortalDims(world, x, y, z, false);
-        if (bounds == null) {
-            return false;
-        } else {
-            x = bounds[1];
-            y = bounds[2];
-            z = bounds[3];
-            world.noNeighborUpdate = true;
-
-            int ra;
-            int ry;
-            int _x;
-            for(ra = 1; ra < bounds[4]; ++ra) {
-                for(ry = 1; ry < bounds[5]; ++ry) {
-                    _x = x + (bounds[0] == 0 ? ra : 0);
-                    int _y = y + ry;
-                    int _z = z + (bounds[0] == 1 ? ra : 0);
-                    world.setBlockAndMetadata(_x, _y, _z, this.block.id(), bounds[0] & 1);
-                }
-            }
-
-            ra = x + (bounds[0] == 0 ? 1 : 0);
-            ry = y + 1;
-            _x = z + (bounds[0] == 1 ? 1 : 0);
-            world.setBlockMetadata(ra, ry, _x, bounds[0] & 15 | 2);
-            this.setColor(world, ra, ry, _x, color);
-            world.markBlocksDirty(x + (bounds[0] == 0 ? 1 : 0), y + 1, z + (bounds[0] == 1 ? 1 : 0), x + (bounds[0] == 0 ? bounds[4] : 0), y + bounds[5], z + (bounds[0] == 1 ? bounds[4] : 0));
-            world.noNeighborUpdate = false;
-            return true;
-        }
     }
 
     public void animationTick(World world, int x, int y, int z, Random rand) {

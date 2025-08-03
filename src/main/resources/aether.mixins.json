@@ -49,6 +49,7 @@
     "armor.wolf.MobWolfMixinFireImmunity",
     "armor.wolf.MobWolfMixinZaniteResistance",
     "armor.wolf.MobWolfNoKnockback",
+    "dimension.BlockCreatePortalMixin",
     "dimension.SaveHandlerMixin",
     "item.ItemSaddleMixin",
     "item.SkyrootSwordDropMultiplier",
@@ -58,9 +59,9 @@
   "client": [
     "DynamicTexturesMixin",
     "GuidebookMixinInclude",
-    "HudMixinEffect",
     "HudComponentHealthBarMixin",
     "HudComponentsMixinExtraHealth",
+    "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
     "PlayerControllerValkToolsReachMixin",
     "PlayerLocalBossListMixin",
