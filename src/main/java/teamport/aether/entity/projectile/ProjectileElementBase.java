@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
@@ -13,7 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
-    public int ticksLived = 0;
+    protected int maxBounces = 20;
+
+    protected String[] particles = {"explode"};
 
     public ProjectileElementBase(World world) {
         super(world);
@@ -43,13 +46,23 @@ public class ProjectileElementBase extends Projectile {
     @Override
     public void tick() {
         super.tick();
-        ticksLived++;
 
-        int maxBounces = 20;
-        int maxTicks = 1200;
-        if (!this.world.isClientSide && (ticksLived > maxTicks || bounceCount >= maxBounces)) {
+        if (!this.world.isClientSide &&  bounceCount >= maxBounces) {
+            doExplosion();
             this.remove();
         }
+    }
+
+    public void doExplosion() {
+        for (int particle = 0; particle < 12; particle++) {
+            double XParticle = x + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double ZParticle = z + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+
+            world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0,0,0,0);
+        }
+
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.25F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
     @Override
@@ -104,14 +117,12 @@ public class ProjectileElementBase extends Projectile {
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.bounceCount = tag.getInteger("bounceCount");
-        this.ticksLived = tag.getInteger("ticksLived");
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("bounceCount", this.bounceCount);
-        tag.putInt("ticksLived", this.ticksLived);
     }
 
     @Override
@@ -139,6 +150,7 @@ public class ProjectileElementBase extends Projectile {
                 return true;
             }
         }
+
         return false;
     }
 }

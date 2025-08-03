@@ -39,42 +39,23 @@ public class ProjectileElementIce extends ProjectileElementBase {
     @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
-            if (ticksLived < 40) {
-                if (hitResult.entity instanceof ProjectileElementBase) {
-                }
-                else if (hitResult.entity instanceof MobBossSunspirit) {
+            if (!(hitResult.entity instanceof ProjectileElementBase)) {
+                if (hitResult.entity instanceof MobBossSunspirit) {
                     if (hasBeenHitByPlayer) {
                         hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
                         this.remove();
-                        return;
+                    } else {
+                        super.onHit(hitResult);
                     }
-                    return;
-                }
-                else if (hitResult.entity instanceof Mob) {
+
+                } else if (hitResult.entity instanceof Mob) {
                     hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                     this.remove();
-                    return;
                 }
-            }
-
-            if (hitResult.side != null) {
-                switch (hitResult.side) {
-                    case BOTTOM:
-                    case TOP:
-                        this.yd = -this.yd * 1.0F;
-                        break;
-                    case NORTH:
-                    case SOUTH:
-                        this.zd = -this.zd * 1.0F;
-                        break;
-                    case WEST:
-                    case EAST:
-                        this.xd = -this.xd * 1.0F;
-                        break;
-                }
-                bounceCount++;
             }
         }
+
+        super.onHit(hitResult);
     }
 
 }
