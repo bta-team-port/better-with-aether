@@ -124,7 +124,8 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
-        int dungeonID = AetherDimension.registerDungeonToMap(x, y, z);
+
+        int dungeonID = AetherDimension.registerDungeonToMap(x, y + radius/2 + 2, z);
 
         // place main spheroid
         drawSpheroid(world, random, x, y + 15, z, radius, (int) (radius * 1.12), radius, holystone, true);
