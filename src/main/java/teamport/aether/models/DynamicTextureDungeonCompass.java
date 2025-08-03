@@ -16,7 +16,7 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
     private double delta;
     private double scaleFactor;
 
-    private final Color needleColor = new Color().setRGB(85, 240, 220);
+    private final Color needleColor = new Color().setRGB(255, 222, 60);
 
     public DynamicTextureDungeonCompass(Minecraft minecraft, IconCoordinate iconCoordinate) {
         super(iconCoordinate);
