@@ -1,9 +1,6 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.gui.hud.component.ComponentAnchor;
-import net.minecraft.client.gui.hud.component.HudComponents;
-import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.data.tag.Tag;
@@ -32,11 +29,9 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
-import teamport.aether.mixin.accessors.HudComponentAccessor;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
-import static net.minecraft.client.gui.hud.component.HudComponents.HOTBAR;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {

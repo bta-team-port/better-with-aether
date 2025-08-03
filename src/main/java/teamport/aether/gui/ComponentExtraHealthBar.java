@@ -8,10 +8,14 @@ import net.minecraft.client.gui.hud.HudIngame;
 import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBucketIceCream;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.player.gamemode.Gamemode;
 import org.lwjgl.opengl.GL11;
+import sunsetsatellite.catalyst.effects.api.effect.Effect;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.HealthHelper;
 
 import java.util.Random;
@@ -19,9 +23,7 @@ import java.util.Random;
 // this is a mystery to me
 @Environment(EnvType.CLIENT)
 public class ComponentExtraHealthBar extends HudComponentMovable {
-    public int[][] rgbColors = {{246, 34, 23},{255, 215, 0}};
-
-    public static final String PATH_HEART = "minecraft:gui/hud/heart/";
+    public static final String PREVIEW = "minecraft:gui/hud/heart/";
     public final Random random = new Random();
     public int barCount;
 
@@ -37,25 +39,27 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
 
     @Override
     public void render(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick) {
-
+        Player player = mc.thePlayer;
         // copied from HealthBar ---------------------------------------------------------------------------------------
         int x = this.getLayout().getComponentX(mc, this, xSizeScreen);
         int y = this.getLayout().getComponentY(mc, this, ySizeScreen);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glDisable(3042);
-        boolean heartsFlash = mc.thePlayer.heartsFlashTime / 3 % 2 == 1;
-        if (mc.thePlayer.heartsFlashTime < 10) {
+
+        boolean heartsFlash = player.heartsFlashTime / 3 % 2 == 1;
+        if (player.heartsFlashTime < 10) {
             heartsFlash = false;
         }
-        int health = mc.thePlayer.getHealth();
-        int prevHealth = mc.thePlayer.prevHealth;
+        int health = player.getHealth();
+        int prevHealth = player.prevHealth;
         this.random.setSeed((long) hud.updateCounter * 312871L);
-        boolean isHardcore = mc.thePlayer.getGamemode() == Gamemode.hardcore;
+        boolean isHardcore = player.getGamemode() == Gamemode.hardcore;
         //--------------------------------------------------------------------------------------------------------------
         String hardcoreHearths = isHardcore ? "hardcore_" : "";
+        String PATH_HEART = getPath(player);
         String guiHeart = PATH_HEART + hardcoreHearths;
         //--------------------------------------------------------------------------------------------------------------
-        int totalHealth = HealthHelper.getMaxHealth(mc.thePlayer);
+        int totalHealth = HealthHelper.getMaxHealth(player);
         int renderHealth = Math.min(totalHealth - barCount * 20, 20);
         int renderHeart = (renderHealth + 1) / 2;
         if (renderHeart == 0) return;
@@ -86,22 +90,28 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
 
             // healing -------------------------------------------------------------------------------------------------
             if (
-                    mc.thePlayer.inventory.getCurrentItem() == null
-                            || (!(mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood)
-                            && !(mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream))
+                    player.inventory.getCurrentItem() == null
+                            || (!(player.inventory.getCurrentItem().getItem() instanceof ItemFood)
+                            && !(player.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream))
                             || !((Boolean) mc.gameSettings.foodHealthRegenOverlay.value)
             ) {
                 continue;
             }
             int healing;
-            if (mc.thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood)  {healing = ((ItemFood) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();}
-            else                                                                        {healing = ((ItemBucketIceCream) mc.thePlayer.inventory.getCurrentItem().getItem()).getHealAmount();}
+            if (player.inventory.getCurrentItem().getItem() instanceof ItemFood)  {healing = ((ItemFood) player.inventory.getCurrentItem().getItem()).getHealAmount();}
+            else                                                                  {healing = ((ItemBucketIceCream) player.inventory.getCurrentItem().getItem()).getHealAmount();}
             if (currentHeart < barhealth)                      {continue;}
             if (currentHeart == barhealth)                     {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_half_right"));}
             else if (currentHeart < barhealth + healing)       {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_full"));}
             else if (currentHeart == barhealth + healing)      {hud.drawGuiIcon(xHeart, yHeart, 9, 9, TextureRegistry.getTexture(guiHeart + "preview_half"));}
             // ---------------------------------------------------------------------------------------------------------
         }
+    }
+
+    private static String getPath(Player player) {
+        Effect effect = AetherEffects.resolveDominantEffect(player);
+        if(!(effect instanceof IHudVisibility)) return "minecraft:gui/hud/heart/";
+        return ((IHudVisibility) effect).getPath();
     }
 
 
@@ -114,12 +124,12 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
         int health = 11 - barCount;
         for (int i = 0; i < 10; ++i) {
             int xHeart = x + (i) * 8;
-            gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "container"));
+            gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PREVIEW + "container"));
             if (i * 2 + 1 < health) {
-                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "full"));
+                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PREVIEW + "full"));
             }
             if (i * 2 + 1 == health) {
-                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PATH_HEART + "half"));
+                gui.drawGuiIcon(xHeart, y, 9, 9, TextureRegistry.getTexture(PREVIEW + "half"));
             }
         }
 
