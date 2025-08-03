@@ -165,6 +165,11 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
             new WeightedRandomLootObject(AetherItems.STICK_SKYROOT.getDefaultStack(), 1, 1),
             100.0
         );
+
+        LOOT_RARE.addEntry(
+            new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack(), 1, 1),
+            50.0
+        );
     }
 
     public static final int roomCountMax = 13;
