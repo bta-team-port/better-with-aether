@@ -1,11 +1,9 @@
 package teamport.aether.entity.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
@@ -17,12 +15,10 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherBossList;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
-import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 
