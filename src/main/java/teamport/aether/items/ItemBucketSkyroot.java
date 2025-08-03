@@ -34,12 +34,10 @@ public class ItemBucketSkyroot extends Item {
             double reachDistance = player.getGamemode().getBlockReachDistance();
             HitResult rayTraceResult = player.rayTrace(reachDistance, 1.0F, false, false);
             if (rayTraceResult != null && rayTraceResult.hitType == HitResult.HitType.TILE) {
-                int x = rayTraceResult.x;
-                int y = rayTraceResult.y;
-                int z = rayTraceResult.z;
-                if (!world.canMineBlock(player, x, y, z)) {
-                    return stack;
-                } else {
+                int x = rayTraceResult.side.getOffsetX() + rayTraceResult.x;
+                int y = rayTraceResult.side.getOffsetY() + rayTraceResult.y;
+                int z = rayTraceResult.side.getOffsetZ() + rayTraceResult.z;
+                if (world.canMineBlock(player, x, y, z)) {
                     Block<?> block = world.getBlock(x, y, z);
                     if (block != null && !block.hasTag(BlockTags.PLACE_OVERWRITES) && !block.hasTag(BlockTags.BROKEN_BY_FLUIDS)) {
                         Side side = rayTraceResult.side;
@@ -50,11 +48,22 @@ public class ItemBucketSkyroot extends Item {
 
                     if (y >= 0 && y < world.getHeightBlocks()) {
                         if (world.isAirBlock(x, y, z) || !world.getBlockMaterial(x, y, z).isSolid()) {
-                            if (world.dimension == Dimension.NETHER && this.blockToPlace == Blocks.FLUID_WATER_FLOWING) {
-                                world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (double) z + 0.5, (double) y + 0.5, (double) x + 0.5, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+                            if (world.dimension == Dimension.NETHER && blockToPlace != null && blockToPlace.hasTag(BlockTags.IS_WATER)) {
 
-                                for (int l = 0; l < 8; ++l) {
-                                    world.spawnParticle("largesmoke", (double) x + Math.random(), (double) y + Math.random(), (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+                                if (world.getBlockId(x, y, z) != 0) {
+                                    return stack;
+                                }
+
+                                player.swingItem();
+                                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
+                                for (int i = 0; i < 8; ++i) {
+                                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + .2, (double)z + Math.random(), 0.0, 0.0, 0.0, 0);
+                                }
+
+                                world.setBlockWithNotify(x, y, z, 0);
+
+                                if (player.getGamemode().consumeBlocks()) {
+                                    return new ItemStack(AetherItems.BUCKET_SKYROOT);
                                 }
                             } else {
                                 if (this.blockToPlace == Blocks.FLUID_WATER_FLOWING) {
