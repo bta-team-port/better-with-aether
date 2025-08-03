@@ -71,7 +71,7 @@ public class AetherDimension {
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
         Dimension.registerDimension(AetherDimensionID, AETHER);
 
-        List<Integer> AETHER_BLACKLIST = AetherDimension.getDimensionBlacklist(AetherDimension.AETHER);
+        List<Integer> AETHER_BLACKLIST = getDimensionBlacklist(AETHER);
         AETHER_BLACKLIST.add(Blocks.FIRE.id());
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_FLOWING.id());
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
