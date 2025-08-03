@@ -81,7 +81,8 @@
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
-    "screens.PlayerLocalMixinAetherScreens"
+    "screens.PlayerLocalMixinAetherScreens",
+    "screens.PortalLoadingScreenMixin"
   ],
   "server": [
   ],
