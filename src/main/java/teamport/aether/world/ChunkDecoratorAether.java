@@ -225,7 +225,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (k4 = 0; k4 < 2; ++k4) {
             treeDensity = x + rand.nextInt(16) + 8;
             l21 = z + rand.nextInt(16) + 8;
-            WorldFeature worldFeature = rand.nextInt(100) == 0 ? new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);;
+            WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);;
             worldFeature.init(1.0, 1.0, 1.0);
             worldFeature.place(this.world, rand, treeDensity, this.world.getHeightValue(treeDensity, l21), l21);
         }
