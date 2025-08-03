@@ -9,6 +9,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.AetherBossList;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementFire;
@@ -26,6 +27,8 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
 
     public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
+
+        ((AetherBossList) entityplayer).aether$TryAddBossList(this);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
     }
 

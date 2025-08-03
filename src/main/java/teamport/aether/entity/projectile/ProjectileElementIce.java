@@ -1,14 +1,19 @@
 package teamport.aether.entity.projectile;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import teamport.aether.entity.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementIce extends ProjectileElementBase {
     public ProjectileElementIce(World world) {
         super(world);
     }
+
+    protected boolean hasBeenHitByPlayer = false;
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);
@@ -21,11 +26,31 @@ public class ProjectileElementIce extends ProjectileElementBase {
     }
 
     @Override
+    public boolean hurt(Entity entity, int damage, DamageType type) {
+        if (!this.world.isClientSide) {
+            if (entity instanceof Player) {
+                hasBeenHitByPlayer = true;
+            }
+        }
+
+        return super.hurt(entity, damage, type);
+    }
+
+    @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
             if (ticksLived < 40) {
                 if (hitResult.entity instanceof ProjectileElementBase) {
-                } else if (hitResult.entity instanceof Mob) {
+                }
+                else if (hitResult.entity instanceof MobBossSunspirit) {
+                    if (hasBeenHitByPlayer) {
+                        hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+                        this.remove();
+                        return;
+                    }
+                    return;
+                }
+                else if (hitResult.entity instanceof Mob) {
                     hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                     this.remove();
                     return;
