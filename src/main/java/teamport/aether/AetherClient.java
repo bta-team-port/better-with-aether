@@ -31,6 +31,7 @@ import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.gui.ComponentBossBar;
+import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.ParticleDartEnchanted;
 import teamport.aether.particle.ParticleFlameAmbrosium;
 import teamport.aether.particle.ParticleGoldenDust;
@@ -158,7 +159,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static void registerTextures() {
         for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
             try {
-                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
+                TextureHelper.initializeAllFiles(MOD_ID, stitcher, Integer.MAX_VALUE);
             } catch (Exception e) {
                 AetherMod.LOGGER.error("Failed to initialize texture files!", e);
             }
