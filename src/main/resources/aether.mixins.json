@@ -52,7 +52,9 @@
     "dimension.BlockCreatePortalMixin",
     "dimension.SaveHandlerMixin",
     "item.ItemBlockBlacklistMixin",
+    "item.ItemFireStrikerMixin",
     "item.ItemSaddleMixin",
+    "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
     "screens.PlayerMixinAetherScreens"
