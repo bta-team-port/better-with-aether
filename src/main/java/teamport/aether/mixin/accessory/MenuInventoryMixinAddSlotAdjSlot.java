@@ -8,6 +8,7 @@ import net.minecraft.core.item.*;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotArmor;
@@ -34,7 +35,7 @@ import java.util.List;
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
 @Mixin(value = MenuInventory.class, remap = false)
-public class MenuInventoryMixinAddSlotAdjSlot {
+abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
 
     @Shadow
     public ContainerInventory inventory;
@@ -116,4 +117,8 @@ public class MenuInventoryMixinAddSlotAdjSlot {
         ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
     }
 
+    @Override
+    public int getHotbarSlotId(int number) {
+        return 27 + 9 + number;
+    }
 }
