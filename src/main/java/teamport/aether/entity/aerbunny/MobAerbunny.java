@@ -125,7 +125,6 @@ public class MobAerbunny extends MobAetherAnimal {
         if (this.passenger != null) {
             this.gotRider = true;
         }
-
         tag.putBoolean("GotRider", this.gotRider);
         tag.putShort("RepAge", (short) this.age);
         tag.putShort("RepMate", (short) this.mate);
@@ -224,13 +223,12 @@ public class MobAerbunny extends MobAetherAnimal {
         this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
-    public boolean damage(Entity entity, int i) {
-        boolean flag = super.hurt(entity, i, DamageType.COMBAT);
-        if (flag && entity instanceof Player) {
-            this.fear = true;
+    public boolean hurt(Entity entity, int i, DamageType type) {
+        if (this.vehicle == entity) {
+            return false;
+        } else {
+            return super.hurt(entity, i, type);
         }
-
-        return flag;
     }
 
     public Entity findPlayerToRunFrom() {
