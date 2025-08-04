@@ -8,11 +8,13 @@ import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
 import net.minecraft.client.render.model.ModelPlayer;
+import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.helper.GLManager;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
@@ -114,7 +117,19 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         Item item = armorStack.getItem();
         if (item instanceof ItemRepulsionShield) {
             String path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
+
+            shield.holdingLarge = player.getHeldObject() != null;
+            shield.holdingRightHand = player.inventory.getCurrentItem() != null;
+            shield.sneaking = player.isSneaking();
+            shield.isRiding = player.isPassenger();
+
             renderDispatcher.textureManager.loadTexture(path).bind();
+
+            GLManager.glEnable(GL11.GL_CULL_FACE);
+            GLManager.glEnable(GL11.GL_BLEND);
+            GL11.glColor4f(1, 1, 1, 1);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
             setArmorModel(shield);
             info.setReturnValue(true);
         }

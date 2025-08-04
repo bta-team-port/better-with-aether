@@ -1,6 +1,5 @@
 package teamport.aether.items.itemtool;
 
-import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;

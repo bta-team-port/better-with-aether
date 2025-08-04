@@ -28,8 +28,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             case PICK_BLOCK:
                 return new ItemStack[]{new ItemStack(this)};
             default:
-                MobHuman mimic = new MobHuman(world);
-                world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 1.0f, 0.5f);
+                MobMimic mimic = new MobMimic(world);
+                world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS,x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
                 world.setBlockWithNotify(x, y, z, 0);
                 mimic.spawnInit();
                 Player player = world.getClosestPlayer(x, y, z, 16);
@@ -44,7 +44,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
-        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 1.0f, 0.5f);
+        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS,x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
         world.setBlockWithNotify(x, y, z, 0);
         MobMimic mimic = new MobMimic(world);
         mimic.spawnInit();
@@ -55,14 +55,18 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
-        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 1.0f, 0.5f);
         world.setBlockWithNotify(x, y, z, 0);
-        MobMimic mimic = new MobMimic(world);
-        mimic.spawnInit();
-        mimic.absMoveTo(x + 0.5, y, z + 0.5, (player.yRot) - 180.0f, -(player.xRot));
+
+        if (!world.isClientSide) {
+            MobMimic mimic = new MobMimic(world);
+            mimic.spawnInit();
+            mimic.absMoveTo(x + 0.5, y, z + 0.5, (player.yRot) - 180.0f, -(player.xRot));
+            world.entityJoinedWorld(mimic);
+        }
+        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
+
         world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
 
-        world.entityJoinedWorld(mimic);
         return true;
     }
 
