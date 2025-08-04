@@ -48,17 +48,13 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
             double f3 = 0.52F;
             double f4 = rand.nextFloat() * 0.6F - 0.3F;
             if (l == 4) {
-                world.spawnParticle("smoke", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameenchanter", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 5) {
-                world.spawnParticle("smoke", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameenchanter", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 2) {
-                world.spawnParticle("smoke", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 3) {
-                world.spawnParticle("smoke", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
-                world.spawnParticle("flameambrosium", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
+                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
             }
 
         }
