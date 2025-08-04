@@ -48,7 +48,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        if(effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
+        if (effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
         this.slideX = random.nextGaussian() * 0.013;
         this.slideZ = random.nextGaussian() * 0.013;
     }
@@ -62,20 +62,19 @@ public class PoisonEffect extends Effect implements IHudVisibility {
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
+    // TODO change poison particles for player  or maybe make them apply exclusively on the back
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
-//        ((Mob)effectContainer.getParent()).fling(slideX, 0, slideZ, 1);
+        ((Mob) effectContainer.getParent()).fling(slideX, 0, slideZ, 1);
         Mob mob = (Mob) effectContainer.getParent();
-        if(mob.world == null){
+        if (mob.world == null) {
             AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");
             return;
         }
-        double mobY = mob.y + (mob instanceof Player ? - 1.0F : 0.0F);
-        for(int i = 0; i < effectStack.getAmount(); i++){
-            if(random.nextDouble() < 0.1){
-                ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
-            }
+        double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
+        if (random.nextDouble() < 0.1) {
+            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
         }
     }
 
@@ -86,17 +85,17 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     }
 
     @Override
-    public String getPath(){
+    public String getPath() {
         return PATH_HEART;
     }
 
     @Override
-    public int getTint(){
+    public int getTint() {
         return tint;
     }
 
     @Override
-    public EffectRenderer getRenderer(){
+    public EffectRenderer getRenderer() {
         return this.renderer;
     }
 }
