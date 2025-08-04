@@ -5,7 +5,7 @@ import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.gen.feature.WorldFeatureTreeGoldenOak;
+import teamport.aether.world.generate.feature.WorldFeatureTreeGoldenOak;
 
 import java.util.Random;
 

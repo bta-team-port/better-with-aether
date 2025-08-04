@@ -5,13 +5,16 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import net.minecraft.core.world.generate.feature.*;
+import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
+import net.minecraft.core.world.generate.feature.WorldFeatureLake;
+import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import net.minecraft.core.world.noise.PerlinNoise;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 import teamport.aether.blocks.BlockLogicOreZanite;
-import teamport.aether.gen.feature.*;
+import teamport.aether.world.generate.feature.*;
 
 import java.util.Random;
 
