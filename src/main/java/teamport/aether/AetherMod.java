@@ -30,7 +30,7 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
-import teamport.aether.net.NetEntryDart;
+import teamport.aether.net.NetEntryAetherProjectile;
 import teamport.aether.net.NetEntryLightning;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
@@ -62,8 +62,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.init();
         AetherEffects.init();
 
-        NetEntityHandler.registerNetworkEntry(new NetEntryDart(), 33);
         NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
+        NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
 
         SoundTypes.loadSoundsJson(MOD_ID);
 //        AetherMod.registerTextures();

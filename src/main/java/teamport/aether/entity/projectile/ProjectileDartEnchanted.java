@@ -57,6 +57,5 @@ public class ProjectileDartEnchanted extends ProjectileDart {
         if (this.dartBelongsToPlayer()) {
             super.playerTouch(player);
         }
-
     }
 }
