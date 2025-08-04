@@ -150,7 +150,7 @@
   {
     "name": "aether:freezer/molten_pumice_to_pumice",
     "type": "aether:machine",
-    "time": 400,
+    "time": 500,
     "input": {
       "stack": {
         "id": "minecraft:block/pumice_wet"
@@ -163,7 +163,7 @@
   {
     "name": "aether:freezer/nether_coal_to_coal",
     "type": "aether:machine",
-    "time": 1600,
+    "time": 200,
     "input": {
       "stack": {
         "id": "minecraft:item/nethercoal"
@@ -191,7 +191,7 @@
   {
     "name": "aether:freezer/igneous_netherrack_to_netherrack",
     "type": "aether:machine",
-    "time": 1600,
+    "time": 500,
     "input": {
       "stack": {
         "id": "minecraft:block/cobble_netherrack_igneous"
@@ -205,7 +205,7 @@
   {
     "name": "aether:freezer/pendant_iron_to_ice_pendant",
     "type": "aether:machine",
-    "time": 3000,
+    "time": 2500,
     "input": {
       "stack": {
         "id": "aether:item/armor_talisman_iron"

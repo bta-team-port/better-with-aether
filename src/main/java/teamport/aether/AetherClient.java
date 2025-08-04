@@ -32,10 +32,7 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.halplibe_temp.TextureHelper;
-import teamport.aether.particle.ParticleDartEnchanted;
-import teamport.aether.particle.ParticleFlameAmbrosium;
-import teamport.aether.particle.ParticleGoldenDust;
-import teamport.aether.particle.ParticleLightningKnife;
+import teamport.aether.particle.*;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
@@ -52,6 +49,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("flameenchanter", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameEnchanter(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("lightiningknife", (world, x, y, z, xa, ya, za, id) -> new ParticleLightningKnife(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("goldendust", (world, x, y, z, xa, ya, za, id) -> new ParticleGoldenDust(world, x, y, z, xa, ya, za));

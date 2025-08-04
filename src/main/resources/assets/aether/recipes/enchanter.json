@@ -13,9 +13,35 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchant_gold_dart",
+		"name": "aether:enchanter/enchant_ore_zanite_to_zanite",
 		"type": "aether:machine",
 		"time": 500,
+		"input": {
+			"stack": {
+				"id": "aether:block/ore_zanite_holystone"
+			}
+		},
+		"output": {
+			"id": "aether:item/zanite"
+		}
+	},
+	{
+		"name": "aether:enchanter/enchant_ore_ambrosium_to_ambrosium",
+		"type": "aether:machine",
+		"time": 250,
+		"input": {
+			"stack": {
+				"id": "aether:block/ore_ambrosium_holystone"
+			}
+		},
+		"output": {
+			"id": "aether:item/ambrosium"
+		}
+	},
+	{
+		"name": "aether:enchanter/enchant_gold_dart",
+		"type": "aether:machine",
+		"time": 250,
 		"input": {
 			"stack": {
 				"id": "aether:item/ammo_dart_golden",
@@ -30,7 +56,7 @@
 	{
 		"name": "aether:enchanter/enchant_dart_poison",
 		"type": "aether:machine",
-		"time": 500,
+		"time": 250,
 		"input": {
 			"stack": {
 				"id": "aether:item/ammo_dart_poison",
@@ -60,7 +86,7 @@
 	{
 		"name": "aether:enchanter/smelt_quicksoil_to_glass",
 		"type": "aether:machine",
-		"time": 500,
+		"time": 250,
 		"input": {
 			"stack": {
 				"id": "aether:block/quicksoil",
@@ -75,7 +101,7 @@
 	{
 		"name": "aether:enchanter/enchant_holystone_to_healingstone",
 		"type": "aether:machine",
-		"time": 1000,
+		"time": 750,
 		"input": {
 			"stack": {
 				"id": "aether:block/cobble_holystone",
@@ -420,7 +446,7 @@
 	{
 		"name": "aether:enchanter/enchant_record_morning",
 		"type": "aether:machine",
-		"time": 1000,
+		"time": 2500,
 		"input": {
           "group": "aether:record_aether"
 		},
@@ -432,7 +458,7 @@
     {
       "name": "aether:enchanter/enchant_record_morning",
       "type": "aether:machine",
-      "time": 1000,
+      "time": 2500,
       "input": {
         "group": "aether:record_dawn"
       },
@@ -444,7 +470,7 @@
     {
       "name": "aether:enchanter/enchant_record_morning",
       "type": "aether:machine",
-      "time": 1000,
+      "time": 2500,
       "input": {
         "group": "aether:record_morning"
       },
@@ -456,7 +482,7 @@
 	{
 		"name": "aether:enchanter/holyfy_cobble_stone",
 		"type": "aether:machine",
-		"time": 1000,
+		"time": 250,
 		"input": {
 			"stack": {
 				"id": "minecraft:block/cobble_netherrack"
@@ -470,7 +496,7 @@
 	{
 		"name": "aether:enchanter/holyfy_stone",
 		"type": "aether:machine",
-		"time": 1000,
+		"time": 250,
 		"input": {
 			"stack": {
 				"id": "minecraft:block/netherrack"
