@@ -54,7 +54,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
             return;
         }
 
-        AetherMod.LOGGER.info("Saving additional level data.");
+        AetherMod.LOGGER.debug("Saving additional level data.");
         CompoundTag dungeonMapNBT = new CompoundTag();
         AetherDimension.dungeonMap.forEach( (id, coords) -> dungeonMapNBT.put(String.valueOf(id), coords.toCompoundTag()));
         dimensionDataTag.putCompound("aether.dungeon", dungeonMapNBT);
