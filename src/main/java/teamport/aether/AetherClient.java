@@ -20,6 +20,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
+import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.aerbunny.MobAerbunny;
 import teamport.aether.entity.mimic.MobMimic;
 import teamport.aether.entity.moa.MobMoa;
@@ -64,6 +65,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
+        setupCustomBlockLight();
+
         BOSS_BAR = HudComponents.register(
                 new ComponentBossBar(
                         "aether.boss.bar",
@@ -104,8 +107,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         MobInfoRegistry.register(MobAerbunny.class, "aether.aerbunny.name", "aether.aerbunny.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
+    }
 
-
+    public void setupCustomBlockLight() {
+        IBlockAether.of(AetherBlocks.CARVED_STONE_LIGHT).better_with_aether$setEmissionOverride(0);
+        IBlockAether.of(AetherBlocks.CARVED_STONE_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
+        IBlockAether.of(AetherBlocks.CARVED_ANGELIC_LIGHT).better_with_aether$setEmissionOverride(0);
+        IBlockAether.of(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
+        IBlockAether.of(AetherBlocks.CARVED_HELLFIRE_LIGHT).better_with_aether$setEmissionOverride(0);
+        IBlockAether.of(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED).better_with_aether$setEmissionOverride(0);
     }
 
     @Override

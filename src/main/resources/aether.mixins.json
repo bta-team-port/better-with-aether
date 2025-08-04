@@ -66,6 +66,7 @@
     "HudComponentsMixinExtraHealth",
     "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
+    "MobRendererGLCleanUpMixin",
     "PlayerControllerValkToolsReachMixin",
     "PlayerLocalBossListMixin",
     "accessors.ItemDragHandlerAccessor",
@@ -82,6 +83,9 @@
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "dimension.HostileParadiseMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
+    "light.BlockMixin",
+    "light.RenderBlocksCacheMixin",
+    "light.RenderBlocksMixin",
     "screens.PlayerLocalMixinAetherScreens",
     "screens.PortalLoadingScreenMixin"
   ],
