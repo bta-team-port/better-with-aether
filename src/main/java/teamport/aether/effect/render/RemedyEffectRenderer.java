@@ -40,6 +40,7 @@ public class RemedyEffectRenderer implements EffectRenderer {
             Tessellator tessellator = Tessellator.instance;
             GL11.glEnable(3042);
             GL11.glDisable(3553);
+            GL11.glTranslated(0, 0, -1);
             GL11.glBlendFunc(770, 771);
             GL11.glColor4f(r, g, b, alpha);
             tessellator.startDrawingQuads();
