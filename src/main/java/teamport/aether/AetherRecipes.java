@@ -188,6 +188,10 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('X', AetherItems.ZANITE)
                 .create("zanite_bricks", new ItemStack(AetherBlocks.BRICK_ZANITE, 4));
 
+        RecipeBuilder.Shaped(MOD_ID, "XX", "XX")
+                .addInput('X', AetherBlocks.HOLYSTONE)
+                .create("holystone_bricks", new ItemStack(AetherBlocks.BRICK_HOLYSTONE, 4));
+
         RecipeBuilder.Shaped(MOD_ID, "X", "S")
                 .addInput('X', AetherItems.AMBROSIUM)
                 .addInput('S', AetherItems.STICK_SKYROOT)
