@@ -9,6 +9,7 @@ import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.enums.MobCategory;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.entity.NetEntityHandler;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
@@ -29,6 +30,8 @@ import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
+import teamport.aether.net.NetEntryAetherProjectile;
+import teamport.aether.net.NetEntryLightning;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -58,6 +61,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherItems.init();
         AetherDimension.init();
         AetherEffects.init();
+
+        NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
+        NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
 
         SoundTypes.loadSoundsJson(MOD_ID);
 //        AetherMod.registerTextures();

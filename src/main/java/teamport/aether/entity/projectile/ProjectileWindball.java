@@ -1,5 +1,6 @@
 package teamport.aether.entity.projectile;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
@@ -7,8 +8,9 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class ProjectileWindball extends Projectile {
+public class ProjectileWindball extends Projectile implements ProjectileAether {
 
     public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
         super(world);
@@ -21,6 +23,13 @@ public class ProjectileWindball extends Projectile {
         vY += this.random.nextGaussian() * 0.4;
         vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
         this.setVelocity(vX, vY, vZ);
+    }
+
+    public ProjectileWindball(World world, double x, double y, double z) {
+        super(world);
+        this.setSize(1.0F, 1.0F);
+        this.setPos(x, y, z);
+        this.heightOffset = 0.0F;
     }
 
     public void setVelocity(double vX, double vY, double vZ) {
@@ -74,10 +83,16 @@ public class ProjectileWindball extends Projectile {
         return false;
     }
 
-
     public void lerpMotion(double xd, double yd, double zd) {
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
+    }
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        ProjectileWindball windBall = new ProjectileWindball(world, x, y, z);
+        if (hasVelocity) windBall.setHeading(xd, yd, zd, 1, 0);
+        if (owner instanceof Mob) windBall.owner = (Mob) owner;
+        return windBall;
     }
 }
