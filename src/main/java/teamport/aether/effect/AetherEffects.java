@@ -2,6 +2,8 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.gui.IHudVisibility;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class AetherEffects {
 
     public static PoisonEffect poisonEffect;
     public static RemedyEffect remedyEffect;
+    public static RemedyEffect permanentRemedyEffect;
     private static boolean hasInit = false;
 
     public static void init() {
@@ -46,25 +49,38 @@ public class AetherEffects {
         remedyEffect = new AetherEffectBuilder()
                 .init("effect.aether.remedy", MOD_ID + ":remedy", "bucket_skyroot_remedy.png")
                 .setEffectTimeType(EffectTimeType.RESET)
-                .setDefaultDuration(20)
+                .setDefaultDuration(240)
                 .setMaxStack(1)
-                .setTint(0x00d7ca)
-                .setHeartPath("minecraft:gui/hud/heart/")
+                .setTint(0x99FF99)
+                .setHeartPath("aether:gui/hud/remedy/")
+                .build(RemedyEffect::new);
+
+
+        permanentRemedyEffect = new AetherEffectBuilder()
+                .init("effect.aether.permanent.remedy", MOD_ID + ":permanent-remedy", "diamond.png")
+                .setEffectTimeType(EffectTimeType.PERMANENT)
+                .setDefaultDuration(240)
+                .setMaxStack(1)
+                .setTint(0x99FF99)
+                .setHeartPath("aether:gui/hud/remedy/")
                 .build(RemedyEffect::new);
     }
 
     private static void registerEffects() {
         Effects.getInstance().register(poisonEffect.id, poisonEffect);
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
+        Effects.getInstance().register(permanentRemedyEffect.id, permanentRemedyEffect);
     }
 
     public static EffectStack resolveDominantEffect(Player player) {
         EffectStack dominant = null;
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
-            if (dominant == null) dominant = effectStack;
-            int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
-            int dominantPotency = dominant.getAmount() * dominant.getDuration();
-            if (effectStackPotency > dominantPotency) dominant = effectStack;
+            if(effectStack.getEffect() instanceof IHudVisibility){
+                if (dominant == null) dominant = effectStack;
+                int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
+                int dominantPotency = dominant.getAmount() * dominant.getDuration();
+                if (effectStackPotency > dominantPotency) dominant = effectStack;
+            }
         }
         return dominant;
     }

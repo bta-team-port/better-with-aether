@@ -1,11 +1,15 @@
 package teamport.aether.effect;
 
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.EffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
+import teamport.aether.particle.ParticalHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RemedyEffect extends Effect implements IHudVisibility {
@@ -13,7 +17,7 @@ public class RemedyEffect extends Effect implements IHudVisibility {
     public String PATH_HEART;
     private final int tint;
 
-    public String[] preventApplying = new String[]{AetherEffects.poisonEffect.id};
+    public String[] preventApplying = new String[]{AetherEffects.poisonEffect.getNameKey()};
 
     public RemedyEffect(AetherEffectBuilder builder) {
         this(
@@ -41,8 +45,16 @@ public class RemedyEffect extends Effect implements IHudVisibility {
 
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        for (String id : preventApplying) {
-            effectContainer.remove(Effects.getInstance().getItem(id));
+        List<EffectStack> check = new ArrayList<>(effectContainer.getEffects());
+        for(EffectStack stack : check){
+            for(String ids : preventApplying){
+                if(stack.getEffect().getNameKey().equals(ids)){
+                    Mob mob = (Mob) effectContainer.getParent();
+                    double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
+                    ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
+                    effectContainer.remove(stack.getEffect());
+                }
+            }
         }
     }
 
