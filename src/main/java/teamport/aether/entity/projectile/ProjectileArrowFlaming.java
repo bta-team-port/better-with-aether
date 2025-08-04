@@ -1,10 +1,15 @@
 package teamport.aether.entity.projectile;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.MobCreeper;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.entity.projectile.ProjectileArrow;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -13,10 +18,25 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class ProjectileArrowFlaming extends ProjectileArrow {
+public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether {
     public ProjectileArrowFlaming(World world, Mob entityliving, boolean doesArrowBelongToPlayer, int arrowType) {
         super(world, entityliving, doesArrowBelongToPlayer, arrowType);
+    }
+
+    public ProjectileArrowFlaming(World world, double x, double y, double z, int arrowType) {
+        super(world, x, y, z, arrowType);
+        this.mobsHit = 0;
+        this.xTile = -1;
+        this.yTile = -1;
+        this.zTile = -1;
+        this.inTile = 0;
+        this.shake = 0;
+        this.inData = 0;
+        this.stack = new ItemStack(Items.AMMO_ARROW);
+        this.inGround = false;
+        this.doesArrowBelongToPlayer = false;
     }
 
     public void tick() {
@@ -117,5 +137,13 @@ public class ProjectileArrowFlaming extends ProjectileArrow {
             world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id());
         }
         this.remove();
+    }
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        ProjectileArrowFlaming projectile = new ProjectileArrowFlaming(world, x, y, z, meta);
+        if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
+        if (owner instanceof Mob) projectile.owner = (Mob) owner;
+        if (owner instanceof Player) projectile.doesArrowBelongToPlayer = true;
+        return projectile;
     }
 }
