@@ -1,4 +1,4 @@
-package teamport.aether.gen.feature;
+package teamport.aether.world.generate.feature;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;

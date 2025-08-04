@@ -1,11 +1,9 @@
-package teamport.aether.gen.feature;
+package teamport.aether.world.generate.feature;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;

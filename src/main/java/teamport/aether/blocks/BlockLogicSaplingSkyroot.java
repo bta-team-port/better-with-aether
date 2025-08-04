@@ -6,7 +6,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.gen.feature.WorldFeatureTreeAether;
+import teamport.aether.world.generate.feature.WorldFeatureTreeAether;
 
 import java.util.Random;
 

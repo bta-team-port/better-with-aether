@@ -1,4 +1,4 @@
-package teamport.aether.gen.feature;
+package teamport.aether.world.generate.feature;
 
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
