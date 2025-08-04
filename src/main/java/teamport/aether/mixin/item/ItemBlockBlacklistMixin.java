@@ -1,8 +1,9 @@
 package teamport.aether.mixin.item;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.sound.SoundCategory;
@@ -10,6 +11,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,9 +22,11 @@ import teamport.aether.world.AetherDimension;
 import java.util.List;
 
 @Mixin(value = ItemBlock.class, remap = false)
-public class ItemBlockBlacklistMixin {
+public abstract class ItemBlockBlacklistMixin {
 
     @Shadow @NotNull protected Block<?> block;
+
+    @Shadow public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
 
     @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
     private void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
@@ -34,7 +38,21 @@ public class ItemBlockBlacklistMixin {
             blockY += side.getOffsetY();
             blockZ += side.getOffsetZ();
 
-            if (Dimension.getDimensionList().get(player.dimension) == AetherDimension.AETHER){
+            if (Dimension.getDimensionList().get(player.dimension) == AetherDimension.AETHER) {
+                if (block.id() == Blocks.PUMPKIN_CARVED_ACTIVE.id()) {
+                    if (world.canBlockBePlacedAt(this.block.id(), blockX, blockY, blockZ, false, side) && stack.consumeItem(player)) {
+                        int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
+                        if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, Blocks.PUMPKIN_CARVED_IDLE.id(), meta)) {
+                            this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
+
+                            world.playBlockSoundEffect(player, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
+                        }
+
+                        if (player.getGamemode().consumeBlocks()) {
+                            ++stack.stackSize;
+                        }
+                    }
+                }
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
                     world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0, 0);
