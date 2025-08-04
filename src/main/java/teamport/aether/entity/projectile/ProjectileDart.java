@@ -3,10 +3,12 @@ package teamport.aether.entity.projectile;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
@@ -14,11 +16,12 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileDart extends Projectile {
+public class ProjectileDart extends Projectile implements ProjectileAether {
     public int mobsHit;
     public int xTile;
     public int yTile;
@@ -212,6 +215,7 @@ public class ProjectileDart extends Projectile {
                     ((Player)this.owner).addStat(Achievements.TRIPLE_HIT, 1);
                 }
             } else if (!(this instanceof ProjectileDartEnchanted)) {
+                this.defaultGravity = 0.03F;
                 this.xd *= -0.1;
                 this.yd *= -0.1;
                 this.zd *= -0.1;
@@ -303,7 +307,19 @@ public class ProjectileDart extends Projectile {
                     this.remove();
                 }
             }
-
         }
+    }
+
+    @Override
+    public PacketAddEntity getSpawnPacket(Projectile tracked) {
+        return new PacketAddEntity(tracked, this.dartType, tracked.owner == null ? -1 : tracked.owner.id, tracked.xd, tracked.yd, tracked.zd);
+    }
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        ProjectileDart projectile = meta == 2 ? new ProjectileDartEnchanted(world, x, y, z) : new ProjectileDart(world, x, y, z, meta);
+        if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
+        if (owner instanceof Mob) projectile.owner = (Mob) owner;
+        if (owner instanceof Player) projectile.doesDartBelongToPlayer = true;
+        return projectile;
     }
 }
