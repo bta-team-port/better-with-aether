@@ -3,6 +3,7 @@ package teamport.aether.effect;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.gui.IHudVisibility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class AetherEffects {
                 .setDefaultDuration(60)
                 .setMaxStack(1)
                 .setTint(0x99FF99)
-                .setHeartPath("minecraft:gui/hud/heart/")
+                .setHeartPath("aether:gui/hud/remedy/")
                 .build(RemedyEffect::new);
     }
 
@@ -63,10 +64,12 @@ public class AetherEffects {
     public static EffectStack resolveDominantEffect(Player player) {
         EffectStack dominant = null;
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
-            if (dominant == null) dominant = effectStack;
-            int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
-            int dominantPotency = dominant.getAmount() * dominant.getDuration();
-            if (effectStackPotency > dominantPotency) dominant = effectStack;
+            if(effectStack.getEffect() instanceof IHudVisibility){
+                if (dominant == null) dominant = effectStack;
+                int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
+                int dominantPotency = dominant.getAmount() * dominant.getDuration();
+                if (effectStackPotency > dominantPotency) dominant = effectStack;
+            }
         }
         return dominant;
     }
