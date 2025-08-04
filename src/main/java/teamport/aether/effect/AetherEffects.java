@@ -38,7 +38,7 @@ public class AetherEffects {
                 .setColor(0x000000)
                 .setDefaultDuration(60)
                 .setMaxStack(10)
-                .setTint(0x9A009A)
+                .setTint(0xa05cff)
                 .setHeartPath("aether:gui/hud/poison/")
                 .build(PoisonEffect::new);
 
@@ -48,7 +48,7 @@ public class AetherEffects {
                 .setEffectTimeType(EffectTimeType.RESET)
                 .setDefaultDuration(20)
                 .setMaxStack(1)
-                .setTint(0x99FF99)
+                .setTint(0x00d7ca)
                 .setHeartPath("minecraft:gui/hud/heart/")
                 .build(RemedyEffect::new);
     }
