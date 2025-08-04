@@ -20,6 +20,7 @@ public class PoisonEffectRenderer implements EffectRenderer {
 
             mc.textureManager.bindTexture(mc.textureManager.loadTexture("/assets/aether/textures/other/poisonvignette.png"));
             GL11.glColor4f(1.0F, 1.0F, 1.0F, calcAlpha(effectStack));
+            GL11.glTranslated(0, 0, -1);
 
             Tessellator t = Tessellator.instance;
             int z = -1000;
@@ -30,27 +31,27 @@ public class PoisonEffectRenderer implements EffectRenderer {
             t.addVertexWithUV(width, 0, z, 1, 0);
             t.draw();
             GL11.glPopMatrix();
-
-        } else {
-            float alpha = calcAlpha(effectStack);
-            int tint = effect.getTint();
-            float r = (float)(tint >> 16 & 0xFF) / 255.0f;
-            float g = (float)(tint >> 8 & 0xFF) / 255.0f;
-            float b = (float)(tint & 0xFF) / 255.0f;
-
-            GL11.glEnable(3042);
-            GL11.glDisable(3553);
-            GL11.glBlendFunc(770, 771);
-            GL11.glColor4f(r, g, b, alpha);
-            tessellator.startDrawingQuads();
-            tessellator.addVertex(0, height, 0.0);
-            tessellator.addVertex(width, height, 0.0);
-            tessellator.addVertex(width, 0, 0.0);
-            tessellator.addVertex(0, 0, 0.0);
-            tessellator.draw();
-            GL11.glEnable(3553);
-            GL11.glDisable(3042);
+            return;
         }
+        float alpha = calcAlpha(effectStack);
+        int tint = effect.getTint();
+        float r = (float)(tint >> 16 & 0xFF) / 255.0f;
+        float g = (float)(tint >> 8 & 0xFF) / 255.0f;
+        float b = (float)(tint & 0xFF) / 255.0f;
+
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(r, g, b, alpha);
+        GL11.glTranslated(0, 0, -1);
+        tessellator.startDrawingQuads();
+        tessellator.addVertex(0, height, 0.0);
+        tessellator.addVertex(width, height, 0.0);
+        tessellator.addVertex(width, 0, 0.0);
+        tessellator.addVertex(0, 0, 0.0);
+        tessellator.draw();
+        GL11.glEnable(3553);
+        GL11.glDisable(3042);
     }
 
     private static float calcAlpha(EffectStack effectStack) {
