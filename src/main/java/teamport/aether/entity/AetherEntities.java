@@ -13,9 +13,7 @@ import teamport.aether.entity.parachute.EntityParachute;
 import teamport.aether.entity.parachute.EntityParachuteGold;
 import teamport.aether.entity.phow.MobPhow;
 import teamport.aether.entity.phyg.MobPhyg;
-import teamport.aether.entity.projectile.ProjectileDart;
-import teamport.aether.entity.projectile.ProjectileDartEnchanted;
-import teamport.aether.entity.projectile.ProjectileKnifeLightning;
+import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.sentry.MobSentry;
 import teamport.aether.entity.sheepuff.MobSheepuff;
 import teamport.aether.entity.slider.MobBossSlider;
@@ -80,5 +78,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(ProjectileKnifeLightning.class, NamespaceID.getPermanent(MOD_ID, "knife_lightning"), entityKey("knife_lightning"));
         EntityHelper.createEntity(ProjectileDartEnchanted.class, NamespaceID.getPermanent(MOD_ID, "dart_enchanted"), entityKey("dart_enchanted"));
         EntityHelper.createEntity(ProjectileDart.class, NamespaceID.getPermanent(MOD_ID, "dart"), entityKey("dart"));
+        EntityHelper.createEntity(ProjectileArrowFlaming.class, NamespaceID.getPermanent(MOD_ID, "arrow_flaming"), entityKey("arrow_flaming"));
+        EntityHelper.createEntity(ProjectileHammerHead.class, NamespaceID.getPermanent(MOD_ID, "hammer_head"), entityKey("hammer_head"));
+        EntityHelper.createEntity(ProjectileWindball.class, NamespaceID.getPermanent(MOD_ID, "windball"), entityKey("windball"));
     }
 }
