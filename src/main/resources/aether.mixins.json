@@ -82,6 +82,7 @@
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "dimension.HostileParadiseMixin",
+    "dimension.SPBumpToOverworldMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
     "light.RenderBlocksCacheMixin",
@@ -90,6 +91,7 @@
     "screens.PortalLoadingScreenMixin"
   ],
   "server": [
+    "dimension.MPBumpToOverworldMixin"
   ],
   "injectors": {
     "defaultRequire": 1
