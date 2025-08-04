@@ -1,6 +1,5 @@
 package teamport.aether.effect;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
@@ -64,7 +63,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
-    // TODO change poison particles for player  or maybe make them apply exclusively on the back
+    // TODO change poison particles for player or maybe make them apply exclusively on the back
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
@@ -76,7 +75,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
         }
         double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
         if (random.nextDouble() < 0.1) {
-            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
+            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mobY, mob.z, mob.bbHeight / 2, mob.bbWidth);
         }
         if (!(effectContainer.getParent() instanceof Mob)) return;
         double gauss = ((EntityAccessor) effectContainer.getParent()).getRandom().nextGaussian();

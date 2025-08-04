@@ -43,12 +43,12 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    public void setTrophy(ItemStack itemStack) {
+    public void setTrophy(@Nullable ItemStack itemStack) {
         trophy = itemStack;
     }
 
     @Override
-    public ItemStack getTrophy() {
+    public @Nullable ItemStack getTrophy() {
         return trophy;
     }
 

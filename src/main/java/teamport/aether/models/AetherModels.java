@@ -57,10 +57,7 @@ import teamport.aether.entity.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.sunspirit.ModelSunspirit;
 import teamport.aether.entity.swet.MobRendererSwet;
 import teamport.aether.entity.swet.MobSwet;
-import teamport.aether.entity.valkyrie.MobBossValkyrie;
-import teamport.aether.entity.valkyrie.MobRendererValkyrie;
-import teamport.aether.entity.valkyrie.MobValkyrie;
-import teamport.aether.entity.valkyrie.ModelValkyrie;
+import teamport.aether.entity.valkyrie.*;
 import teamport.aether.entity.zephyr.MobRendererZephyr;
 import teamport.aether.entity.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
@@ -574,7 +571,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
 
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0F), 1.5F));
-        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrieBoss(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, () -> new MobRendererBiped<>(new ModelSunspirit(0.0F, 0.0F), 0.4F));
 
 

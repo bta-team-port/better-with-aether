@@ -51,7 +51,7 @@ public class RemedyEffect extends Effect implements IHudVisibility {
                 if(stack.getEffect().getNameKey().equals(ids)){
                     Mob mob = (Mob) effectContainer.getParent();
                     double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
-                    ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
+                    ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mobY, mob.z, mob.bbHeight / 2, mob.bbWidth);
                     effectContainer.remove(stack.getEffect());
                 }
             }
