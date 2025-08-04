@@ -32,6 +32,13 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
         this.heightOffset = 0.0F;
     }
 
+    public ProjectileWindball(World world) {
+        super(world);
+        this.setSize(1.0F, 1.0F);
+        this.setPos(x, y, z);
+        this.heightOffset = 0.0F;
+    }
+
     public void setVelocity(double vX, double vY, double vZ) {
         double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
         if (velocity != 0.0) {
@@ -54,6 +61,10 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
 
     public void tick() {
         super.tick();
+        ++this.ticksInAir;
+        if (ticksInAir > 500) {
+            remove();
+        }
     }
 
     public void onHit(HitResult result) {
