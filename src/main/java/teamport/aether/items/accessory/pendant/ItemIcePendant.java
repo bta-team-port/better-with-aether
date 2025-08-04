@@ -40,12 +40,14 @@ public class ItemIcePendant extends ItemPendant {
                 int xPos = x + radius;
                 int zPos = z + depth;
 
-                if (world.getBlockMaterial(xPos, y - 2, zPos) == Material.water) {
-                    blockExists = true;
-                    world.setBlockWithNotify(xPos, y - 2, zPos, Blocks.ICE.id());
-                } else if (world.getBlockMaterial(xPos, y - 2, zPos) == Material.lava) {
-                    blockExists = true;
-                    world.setBlockWithNotify(xPos, y - 2, zPos, Blocks.OBSIDIAN.id());
+                if (player.isWalking && player.xd > 0.1 || player.zd > 0.1 || player.xd < -0.1 || player.zd < -0.1) {
+                    if (world.getBlockMaterial(xPos, y - 2, zPos) == Material.water) {
+                        blockExists = true;
+                        world.setBlockWithNotify(xPos, y - 2, zPos, Blocks.ICE.id());
+                    } else if (world.getBlockMaterial(xPos, y - 2, zPos) == Material.lava) {
+                        blockExists = true;
+                        world.setBlockWithNotify(xPos, y - 2, zPos, Blocks.OBSIDIAN.id());
+                    }
                 }
             }
         }
