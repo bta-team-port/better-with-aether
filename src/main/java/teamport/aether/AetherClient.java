@@ -56,6 +56,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("goldendust", (world, x, y, z, xa, ya, za, id) -> new ParticleGoldenDust(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
         dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("remedy", (world, x, y, z, xa, ya, za, id) -> new ParticleRemedy(world, x, y, z, xa, ya, za));
 
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();
