@@ -212,6 +212,7 @@ public class ProjectileDart extends Projectile {
                     ((Player)this.owner).addStat(Achievements.TRIPLE_HIT, 1);
                 }
             } else if (!(this instanceof ProjectileDartEnchanted)) {
+                this.defaultGravity = 0.03F;
                 this.xd *= -0.1;
                 this.yd *= -0.1;
                 this.zd *= -0.1;
@@ -303,7 +304,6 @@ public class ProjectileDart extends Projectile {
                     this.remove();
                 }
             }
-
         }
     }
 }
