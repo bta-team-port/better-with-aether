@@ -4,12 +4,12 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.sentry.MobSentry;
+import teamport.aether.entity.valkyrie.MobValkyrie;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
@@ -249,7 +249,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortalAether(b, AetherDimension.AETHER, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
-        //TODO Portal doesn't light, and missing travel and trigger sounds
+        //TODO Missing travel and trigger sounds, will need to mixin into PlayerLocal
 
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)
@@ -666,8 +666,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_STONE.id(), MobSentry.class));
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
-                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_ANGELIC.id(), MobCow.class));
-        //TODO Replace Cow with valkyrie mob
+                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_ANGELIC.id(), MobValkyrie.class));
 
 
         CHEST_MIMIC = wood
@@ -692,7 +691,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public void afterBlockInit() {
         init();
         AetherDimension.init();
-
         PORTAL_AETHER.getLogic().targetDimension = AetherDimension.AETHER;
 
     }
