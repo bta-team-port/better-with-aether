@@ -21,11 +21,11 @@ public abstract class HudMixinEffect {
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="TAIL"))
     public void endRenderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
-        int height = this.mc.resolution.getHeightScreenCoords();
+        int height = this.mc.resolution.getScaledHeightScreenCoords();
         EffectStack stack = AetherEffects.resolveDominantEffect(mc.thePlayer);
         if(stack != null && stack.getEffect() instanceof IHudVisibility){
             EffectRenderer renderer = ((IHudVisibility)stack.getEffect()).getRenderer();
-            renderer.drawEffect(width,height,stack, (IHudVisibility) stack.getEffect());
+            renderer.drawEffect(width, height,stack, (IHudVisibility) stack.getEffect());
         }
 
     }
