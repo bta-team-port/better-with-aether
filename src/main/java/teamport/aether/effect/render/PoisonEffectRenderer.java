@@ -22,11 +22,12 @@ public class PoisonEffectRenderer implements EffectRenderer {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, calcAlpha(effectStack));
 
             Tessellator t = Tessellator.instance;
+            int z = -1000;
             t.startDrawingQuads();
-            t.addVertexWithUV(0, 0, 100, 0, 0);
-            t.addVertexWithUV(0, height, 100, 0, 1);
-            t.addVertexWithUV(width, height, 100, 1, 1);
-            t.addVertexWithUV(width, 0, 100, 1, 0);
+            t.addVertexWithUV(0, 0, z, 0, 0);
+            t.addVertexWithUV(0, height, z, 0, 1);
+            t.addVertexWithUV(width, height, z, 1, 1);
+            t.addVertexWithUV(width, 0, z, 1, 0);
             t.draw();
             GL11.glPopMatrix();
 
