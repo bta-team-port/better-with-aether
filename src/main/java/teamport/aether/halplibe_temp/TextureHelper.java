@@ -28,7 +28,7 @@ public class TextureHelper {
         Optional<Path> optionalPath = modContainer.get().findPath(path);
 
         if (!optionalPath.isPresent()) {
-            HalpLibe.LOGGER.error("Failed to find path to {}! [{}]", path, modId);
+            HalpLibe.LOGGER.debug("Failed to find path to {} [{}]", path, modId);
             return;
         }
         Path p = optionalPath.get();
