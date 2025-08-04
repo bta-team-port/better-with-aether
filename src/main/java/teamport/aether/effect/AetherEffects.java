@@ -2,9 +2,7 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -38,7 +36,7 @@ public class AetherEffects {
                 .init("effect.aether.poison", MOD_ID + ":poison", "amber.png")
                 .setEffectTimeType(EffectTimeType.KEEP)
                 .setColor(0x000000)
-                .setDefaultDuration(120)
+                .setDefaultDuration(60)
                 .setMaxStack(10)
                 .setTint(0x9A009A)
                 .setHeartPath("aether:gui/hud/poison/")
@@ -48,7 +46,7 @@ public class AetherEffects {
         remedyEffect = new AetherEffectBuilder()
                 .init("effect.aether.remedy", MOD_ID + ":remedy", "diamond.png")
                 .setEffectTimeType(EffectTimeType.RESET)
-                .setDefaultDuration(60)
+                .setDefaultDuration(20)
                 .setMaxStack(1)
                 .setTint(0x99FF99)
                 .setHeartPath("minecraft:gui/hud/heart/")
