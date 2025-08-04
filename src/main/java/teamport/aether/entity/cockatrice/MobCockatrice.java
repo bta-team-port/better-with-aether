@@ -78,6 +78,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
             if (this.attackTime == 0) {
                 if (!this.world.isClientSide) {
                     ProjectileDartPoison dart = new ProjectileDartPoison(this.world, this, false);
+                    dart.setPoisonEffectDuration(((short) random.nextInt(2)));
                     double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - dart.y;
                     float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
                     world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));

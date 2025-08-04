@@ -15,6 +15,7 @@ public class AetherEffects {
 
     public static PoisonEffect poisonEffect;
     public static RemedyEffect remedyEffect;
+    public static RemedyEffect permanentRemedyEffect;
     private static boolean hasInit = false;
 
     public static void init() {
@@ -49,7 +50,17 @@ public class AetherEffects {
         remedyEffect = new AetherEffectBuilder()
                 .init("effect.aether.remedy", MOD_ID + ":remedy", "diamond.png")
                 .setEffectTimeType(EffectTimeType.RESET)
-                .setDefaultDuration(60)
+                .setDefaultDuration(240)
+                .setMaxStack(1)
+                .setTint(0x99FF99)
+                .setHeartPath("aether:gui/hud/remedy/")
+                .build(RemedyEffect::new);
+
+
+        permanentRemedyEffect = new AetherEffectBuilder()
+                .init("effect.aether.permanent.remedy", MOD_ID + ":permanent-remedy", "diamond.png")
+                .setEffectTimeType(EffectTimeType.PERMANENT)
+                .setDefaultDuration(240)
                 .setMaxStack(1)
                 .setTint(0x99FF99)
                 .setHeartPath("aether:gui/hud/remedy/")
@@ -59,6 +70,7 @@ public class AetherEffects {
     private static void registerEffects() {
         Effects.getInstance().register(poisonEffect.id, poisonEffect);
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
+        Effects.getInstance().register(permanentRemedyEffect.id, permanentRemedyEffect);
     }
 
     public static EffectStack resolveDominantEffect(Player player) {
