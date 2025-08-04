@@ -3,8 +3,6 @@ package teamport.aether.world;
 import net.minecraft.core.block.BlockLogicSand;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.biome.Biome;
-import net.minecraft.core.world.biome.Biomes;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
 import net.minecraft.core.world.generate.feature.*;
@@ -34,15 +32,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int chunkZ = chunk.zPosition;
         int x = chunkX * 16;
         int z = chunkZ * 16;
-        int y = this.world.getHeightValue(x + 16, z + 16);
-        Biome biome = this.world.getBlockBiome(x + 16, y, z + 16);
         Random rand = new Random(this.world.getRandomSeed());
         rand.setSeed(this.world.getRandomSeed());
         long l1 = rand.nextLong() / 2L * 2L + 1L;
         long l2 = rand.nextLong() / 2L * 2L + 1L;
         rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
 
-        double d = 0.25;
         int k7;
         int k4;
         int treeDensity;
@@ -71,7 +66,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOre(AetherBlocks.DIRT_AETHER.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureOreAether(AetherBlocks.DIRT_AETHER.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 2; ++j4) {
@@ -97,32 +92,32 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
-        for (j4 = 0; j4 < 10; ++j4) {
+        for (j4 = 0; j4 < 20; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOre(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureOreAether(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 20; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOre(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureOreAether(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 15; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(192);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOre(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureOreAether(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 8; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(128);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOre(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureOreAether(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         if (rand.nextInt(12) == 0) {
@@ -180,46 +175,10 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
-        d = 0.5;
-        j4 = (int)((this.treeDensityNoise.get((double)x * d, (double)z * d) / 8.0 + rand.nextDouble() * 4.0 + 4.0) / 3.0);
         k7 = 0;
         if (rand.nextInt(10) == 0) {
             ++k7;
         }
-
-        if (biome == Biomes.OVERWORLD_FOREST) {
-            k7 += j4 + 5;
-        }
-
-        if (biome == AetherDimension.AETHER_PLAINS) {
-            k7 += j4 + 5;
-        }
-
-        if (biome == Biomes.OVERWORLD_RAINFOREST) {
-            k7 += j4 + 5;
-        }
-
-        if (biome == Biomes.OVERWORLD_SEASONAL_FOREST) {
-            k7 += j4 + 2;
-        }
-
-        if (biome == Biomes.OVERWORLD_TAIGA) {
-            k7 += j4 + 5;
-        }
-
-        if (biome == Biomes.OVERWORLD_DESERT) {
-            k7 -= 20;
-        }
-
-        if (biome == Biomes.OVERWORLD_TUNDRA) {
-            k7 -= 20;
-        }
-
-        if (biome == Biomes.OVERWORLD_PLAINS) {
-            k7 -= 20;
-        }
-
-        k7 += j4;
 
         int l21;
         for (k4 = 0; k4 < 2; ++k4) {
@@ -234,7 +193,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             treeDensity = x + rand.nextInt(16) + 8;
             l21 = rand.nextInt(rand.nextInt(248) + 8);
             int l22 = z + rand.nextInt(16) + 8;
-            (new WorldFeatureLiquid(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, treeDensity, l21, l22);
+            (new WorldFeatureLiquidAether(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, treeDensity, l21, l22);
         }
 
         BlockLogicSand.fallInstantly = false;
