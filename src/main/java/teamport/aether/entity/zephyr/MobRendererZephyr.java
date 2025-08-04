@@ -10,7 +10,10 @@ public class MobRendererZephyr extends MobRenderer<MobZephyr> {
     }
 
     public void renderPreview(Tessellator tessellator, MobZephyr mobZephyr, double x, double y, double z, float yaw, float partialTick) {
-        GL11.glScalef(6.0F, 6.0F, 6.0F);
+        GL11.glPushMatrix();
+        GL11.glScalef(0.25F, 0.25F, 0.25F);
+        super.renderPreview(tessellator, mobZephyr, x, y + 2.5, z, yaw, partialTick);
+        GL11.glPopMatrix();
     }
 
     public void setupScale(MobZephyr mobZephyr, float partialTick) {
