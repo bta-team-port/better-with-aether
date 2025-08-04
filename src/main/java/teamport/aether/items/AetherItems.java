@@ -323,9 +323,9 @@ public final class AetherItems {
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX")));
         //TODO potentially add flaming arrow versions of golden arrows/purple arrows
 
-        AMMO_DART_GOLDEN = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN")));
-        AMMO_DART_POISON = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON")));
-        AMMO_DART_ENCHANTED = new ItemBuilder(MOD_ID).build(new Item("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED")));
+        AMMO_DART_GOLDEN = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN"), 0));
+        AMMO_DART_POISON = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON"), 1));
+        AMMO_DART_ENCHANTED = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED"), 2));
         //TODO Poison darts need to be added and given their effect when they hit something
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID).build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER")));
