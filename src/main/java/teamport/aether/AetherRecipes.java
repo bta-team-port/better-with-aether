@@ -81,6 +81,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     public static void extendVanillaGroups() {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("ladder");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("sponge_to_wet_sponge");
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:planks").add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
@@ -171,6 +172,11 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.Shaped(MOD_ID, "XXX", "XXX", "XXX")
                 .addInput('X', AetherItems.ZANITE)
                 .create("block_of_zanite", new ItemStack(AetherBlocks.BLOCK_ZANITE, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, "S", "B")
+                .addInput('S', Blocks.SPONGE_DRY)
+                .addInput('B', "aether:water_buckets")
+                .create("sponge_to_wet_sponge", new ItemStack(Blocks.SPONGE_WET, 1));
 
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.AMBROSIUM).create("block_of_ambrosium", new ItemStack(AetherBlocks.BLOCK_AMBROSIUM, 1));
@@ -336,7 +342,7 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('X', AetherBlocks.PLANKS_SKYROOT)
                 .create("skyroot_sticks", new ItemStack(AetherItems.STICK_SKYROOT, 4));
 
-        RecipeBuilder.Shaped(MOD_ID, "X  ", " X ", "  X")
+        RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
                 .addInput('X', AetherBlocks.PLANKS_SKYROOT)
                 .create("skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
     }
