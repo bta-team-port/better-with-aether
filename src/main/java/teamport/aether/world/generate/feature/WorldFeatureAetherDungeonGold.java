@@ -27,8 +27,8 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
 
     public static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
     static {
-        hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE.id(), 0, 90);
-        hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LIGHT.id(), 0, 10);
+        hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), 0, 90);
+        hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), 0, 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
@@ -123,7 +123,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
+        if (!canPlaceDungeon(x, y, z)) return false;
 
         int dungeonID = AetherDimension.registerDungeonToMap(x, y + radius/2 + 2, z);
 

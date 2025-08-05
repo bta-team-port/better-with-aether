@@ -642,31 +642,31 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         CARVED_STONE_LOCKED = dungeonStoneLocked
-                .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE));
         CARVED_STONE_LIGHT_LOCKED = dungeonStoneLocked
                 .setLuminance(11)
-                .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE_LIGHT));
 
 
         CARVED_ANGELIC_LOCKED = dungeonStoneLocked
-                .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC));
         CARVED_ANGELIC_LIGHT_LOCKED = dungeonStoneLocked
                 .setLuminance(11)
-                .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC_LIGHT));
 
 
         CARVED_HELLFIRE_LOCKED = dungeonStoneLocked
-                .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE));
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
                 .setLuminance(11)
-                .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT));
 
 
         CARVED_STONE_TRAPPED = dungeonStoneLocked
-                .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_STONE.id(), MobSentry.class));
+                .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_STONE_LOCKED, MobSentry.class));
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
-                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_ANGELIC.id(), MobValkyrie.class));
+                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_ANGELIC_LOCKED, MobValkyrie.class));
 
 
         CHEST_MIMIC = wood

@@ -2,23 +2,53 @@ package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
+import teamport.aether.world.AetherDimension;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class BlockLogicTrapped extends BlockLogic {
     public final Class<? extends Entity> monster;
-    public final int replacementBlock;
+    public final Block<?> replacement;
 
-    public BlockLogicTrapped(Block<?> block, int replacementBlock, Class<? extends Entity> monster) {
+    public BlockLogicTrapped(Block<?> block, Block<?> replacement, Class<? extends Entity> monster) {
         super(block, Material.stone);
         this.monster = monster;
-        this.replacementBlock = replacementBlock;
+        this.replacement = replacement;
+    }
+
+    @Override
+    public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return replacement.getBreakResult(world, dropCause, meta, tileEntity);
+    }
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
+        super.onNeighborBlockChange(world, x, y, z, blockId);
+
+        final boolean[] canBreak = {true};
+        AetherDimension.dungeonMap.forEach((id, cords) -> {
+            if (cords.distanceTo(x, y, z) < AetherDimension.dungeonRadius) {
+                canBreak[0] = false;
+            }
+        });
+
+        if (canBreak[0]) {
+            if (replacement.getLogic() instanceof BlockLogicLocked) {
+                world.setBlock(x, y, z, ((BlockLogicLocked) replacement.getLogic()).replacement.id());
+            } else {
+                world.setBlock(x, y, z, replacement.id());
+            }
+        }
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
@@ -62,7 +92,7 @@ public class BlockLogicTrapped extends BlockLogic {
 
                     world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
                     world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);
-                    world.setBlockWithNotify(x, y, z, this.replacementBlock);
+                    world.setBlockWithNotify(x, y, z, this.replacement.id());
                 }
             }
         }

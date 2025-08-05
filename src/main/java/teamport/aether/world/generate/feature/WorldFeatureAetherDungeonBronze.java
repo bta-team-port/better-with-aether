@@ -22,8 +22,8 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
     static {
-        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
-        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
+        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 85);
+        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 5);
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
@@ -175,7 +175,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
+        if (!canPlaceDungeon(x, y, z)) return false;
         if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
 
         int dungeonID = AetherDimension.registerDungeonToMap(x + 8, y + 2, z + 8);
