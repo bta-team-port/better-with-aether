@@ -34,8 +34,9 @@ guidebook.section.mob.swet.blue.desc=Blue swets can be dangerous if they grab yo
 guidebook.section.mob.swet.gold.name=Gold Swet
 guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether..
 
+aether.entity.cockatrice=Cockatrice
 guidebook.section.mob.cockatrice.name=Cockatrice
-guidebook.section.mob.cockatrice.desc=
+guidebook.section.mob.cockatrice.desc=Angry and hostile avian that can be found in dark places. They shoot poison needles out of their mouths.
 
 guidebook.section.mob.aechorplant.name=Aechor Plant
 guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison darts to deter anything from coming near.
@@ -44,8 +45,9 @@ aether.entity.zephyr=Zephyr
 guidebook.section.mob.zephyr.name=Zephyr
 guidebook.section.mob.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
 
-guidebook.section.mob.whirlwind.name=Whirlwind
-guidebook.section.mob.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
+aether.entity.whirly=Whirly
+guidebook.section.mob.whirly.name=Whirly
+guidebook.section.mob.whirly.desc=Uncommon mob found in the aether, it throws out items but can become angry.
 
 aether.entity.mimic=Mimic
 guidebook.section.mob.mimic.name=Mimic
