@@ -5,15 +5,14 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import net.minecraft.core.world.generate.feature.WorldFeature;
-import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
-import net.minecraft.core.world.generate.feature.WorldFeatureLake;
-import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
+import net.minecraft.core.world.generate.feature.*;
 import net.minecraft.core.world.noise.PerlinNoise;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 import teamport.aether.blocks.BlockLogicOreZanite;
+import teamport.aether.noise.Worley;
 import teamport.aether.world.generate.feature.*;
 
 import java.util.Random;
@@ -28,6 +27,11 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
 
+    public static final WorldFeatureAetherDungeonBase[] dungeons = new WorldFeatureAetherDungeonBase[]{
+            new WorldFeatureAetherDungeonGold(),
+            new WorldFeatureAetherDungeonSilver(),
+            new WorldFeatureAetherDungeonBronze()
+    };
 
     public void decorate(Chunk chunk) {
         BlockLogicSand.fallInstantly = true;
@@ -44,16 +48,18 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int k7;
         int k4;
         int treeDensity;
-        if (gumCount < 800) {
-            ++gumCount;
-        } else if (rand.nextInt(32) == 0) {
-            boolean flag;
-            k7 = x + rand.nextInt(16) + 8;
-            k4 = rand.nextInt(128) + 64;
-            treeDensity = z + rand.nextInt(16) + 8;
-            flag = (new WorldFeatureAetherDungeonGold()).place(this.world, rand, k7, k4, treeDensity);
-            if (flag) {
-                gumCount = 0;
+
+        long worldSeed = this.world.getRandomSeed();
+        int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
+        int dungeonType = Worley.isSeed(chunkX, chunkZ, 16, transformedSeed, 3);
+        //System.out.println(transformedSeed);
+        if (dungeonType > -1) {
+            int dungeonX = x + rand.nextInt(16);
+            int dungeonZ = z + rand.nextInt(16);
+            if (dungeons[dungeonType].place(this.world, rand, dungeonX, 128, dungeonZ)) {
+                AetherMod.LOGGER.info("/teleport " + dungeonX + " " + 128 + " " + dungeonZ);
+            }else {
+                AetherMod.LOGGER.info("Failed " + dungeonX + " " + 128 + " " + dungeonZ);
             }
         }
 
@@ -151,7 +157,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
         }
 
-        for (j4 = 0; j4 < 2; ++j4) {
+        //TODO remove
+        /*for (j4 = 0; j4 < 2; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = 32 + rand.nextInt(64);
             treeDensity = z + rand.nextInt(16);
@@ -163,7 +170,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k7 = rand.nextInt(128) + 64;
            k4 = z + rand.nextInt(16);
             (new WorldFeatureAetherDungeonSilver()).place(this.world, rand, j4, k7, k4);
-        }
+        }*/
 
         if (rand.nextInt(5) == 0) {
             for (j4 = x; j4 < x + 16; ++j4) {
