@@ -49,6 +49,8 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.swet.MobRendererSwet;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.valkyrie.*;
+import teamport.aether.entity.monster.whirly.MobRendererWhirly;
+import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
@@ -569,6 +571,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
 
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrieBoss(new ModelValkyrie(), 0.5F));

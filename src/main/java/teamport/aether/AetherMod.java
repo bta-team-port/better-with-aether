@@ -27,6 +27,7 @@ import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.entity.animal.sheepuff.MobSheepuff;
+import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
@@ -85,6 +86,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
 //        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobWhirly.class, 5));
+
 
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
