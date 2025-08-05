@@ -8,6 +8,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
+import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +17,8 @@ import org.spongepowered.asm.mixin.Unique;
 import teamport.aether.AetherMod;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+
+import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class SPBumpToOverworldMixin extends Player {
@@ -46,8 +49,9 @@ public abstract class SPBumpToOverworldMixin extends Player {
 
                 CompoundTag passengerNBT = null;
                 if (getPassenger() != null) {
-                    Entity p = getPassenger();
                     passengerNBT = new CompoundTag();
+                    Entity p = getPassenger();
+                    this.ejectRider();
 
                     p.save(passengerNBT);
                     p.remove();
@@ -57,7 +61,7 @@ public abstract class SPBumpToOverworldMixin extends Player {
                 mc.thePlayer.removed = false;
 
                 float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
-                moveTo(x *= scale, 600, z *= scale, yRot, xRot);
+                moveTo(x *= scale, OVERWORLD_RETURN_HEIGHT, z *= scale, yRot, xRot);
 
                 if (isAlive()) { mc.currentWorld.updateEntityWithOptionalForce(this, false); }
 
@@ -73,7 +77,6 @@ public abstract class SPBumpToOverworldMixin extends Player {
                     p.moveTo(x, y, z, 0f, 0f);
                     world.entityJoinedWorld(p);
 
-                    this.ejectRider();
                     p.startRiding(this);
                 }
             }
