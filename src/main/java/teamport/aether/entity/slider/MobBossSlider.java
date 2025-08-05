@@ -2,6 +2,7 @@ package teamport.aether.entity.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -16,6 +17,8 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicLocked;
+import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.AetherBossList;
 import teamport.aether.entity.EnemyBoss;
 import teamport.aether.entity.MobBoss;
@@ -197,20 +200,34 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.slamY = this.y;
     }
 
+    @Override
+    public boolean collidesWith(Entity entity) {
+        if (Math.abs(this.momentumZ) > 0.05F || Math.abs(this.momentumX) > 0.05F || Math.abs(this.momentumY) > 0.05F) {
+            entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
+            entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
+            if (entity instanceof Player && ((Player) entity).gamemode.isPlayerInvulnerable()) {
+                return super.collidesWith(entity);
+            }
+            doExplosionEffect(entity.world, entity.x, entity.y, entity.z);
+        }
+
+        return super.collidesWith(entity);
+    }
+
     public boolean doBlockSmash(World world, int x, int y, int z) {
         Block<?> block = world.getBlock(x, y, z);
 
         if (block == null) { return  false; }
 
-        //if (block != null && !(block instanceof BlockDungeon) && !(block.blockMaterial instanceof LiquidMaterial)) {
+        if (block != null && !(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked) && !(block.getMaterial() instanceof MaterialLiquid)) {
             block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y,z), world.getTileEntity(x, y, z), null);
             doExplosionEffect(world, x, y, z);
             world.setBlockWithNotify(x, y, z, 0);
 
             return true;
-        //}
+        }
 
-        //return false;
+        return false;
     }
 
     public void doExplosionEffect(World world, double x, double y, double z){
