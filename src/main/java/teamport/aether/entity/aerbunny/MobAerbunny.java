@@ -272,6 +272,10 @@ public class MobAerbunny extends MobAetherAnimal {
                     return true;
                 }
 
+                if (entityplayer.getPassenger() instanceof MobAerbunny) {
+                    return false;
+                }
+
                 this.startRiding(entityplayer);
                 this.grab = true;
                 this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
