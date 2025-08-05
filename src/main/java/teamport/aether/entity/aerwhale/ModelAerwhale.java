@@ -18,9 +18,9 @@ public class ModelAerwhale extends ModelBase {
         this.body3 = new Cube(0, 10);
         this.body3.addBox(-1.5F, -1.5F, 2.5F, 3, 3, 4);
         this.fin1 = new Cube(0, 17);
-        this.fin1.addBox(-7.5F, -0.5F, 2.5F, 8, 1, 4);
+        this.fin1.addBox(-7.5F, -0.5F, 2.49F, 8, 1, 4);
         this.fin2 = new Cube(0, 17);
-        this.fin2.addBox(-0.5F, -0.5F, 2.5F, 8, 1, 4);
+        this.fin2.addBox(-0.5F, -0.5F, 2.49F, 8, 1, 4);
         this.fin3 = new Cube(0, 22);
         this.fin3.addBox(-7.5F, 1.5F, -6.5F, 4, 1, 2);
         this.fin4 = new Cube(0, 22);

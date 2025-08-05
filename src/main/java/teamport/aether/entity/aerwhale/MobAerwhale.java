@@ -1,23 +1,15 @@
 package teamport.aether.entity.aerwhale;
 
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 
 public class MobAerwhale extends MobFlying implements Enemy {
-    public final long checkTimeInterval = 3000L;
-    public final double minTraversalDist = 3.0;
-    public int courseChangeCooldown = 0;
-    public double waypointX;
-    public double waypointY;
-    public double waypointZ;
     public int prevAttackCounter;
     public int attackCounter;
     public double motionYaw;
@@ -27,7 +19,6 @@ public class MobAerwhale extends MobFlying implements Enemy {
     public double checkY = 0.0;
     public double checkZ = 0.0;
     public boolean isStuckWarning = false;
-    public Entity targetedEntity = null;
     public int aggroCooldown;
     public MobAerwhale(World world) {
         super(world);
@@ -37,7 +28,7 @@ public class MobAerwhale extends MobFlying implements Enemy {
         this.aggroCooldown = 0;
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
-        this.setSize(4.0F, 4.0F);
+        this.setSize(8.0F, 4.0F);
         this.speed = 0.5F;
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
@@ -67,11 +58,11 @@ public class MobAerwhale extends MobFlying implements Enemy {
                 if (distances[0] == 50.0) {
                     this.motionYaw *= 0.8999999761581421;
                     this.motionPitch *= 0.8999999761581421;
-                    if (this.y > 100.0) {
+                    if (this.y > 256.0) {
                         this.motionPitch -= 2.0;
                     }
 
-                    if (this.y < 20.0) {
+                    if (this.y < 206.0) {
                         this.motionPitch += 2.0;
                     }
                 } else {
@@ -143,10 +134,6 @@ public class MobAerwhale extends MobFlying implements Enemy {
         this.checkForBeingStuck();
     }
 
-    public double setFlySpeed() {
-        return Math.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-    }
-
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
         float yRot = this.yRot + rotationyRotOffset;
         float pitch = this.yRot + rotationyRotOffset;
@@ -198,21 +185,7 @@ public class MobAerwhale extends MobFlying implements Enemy {
 
     }
 
-    public boolean isCourseTraversable(double d, double d1, double d2, double d3) {
-        double d4 = (this.waypointX - this.x) / d3;
-        double d5 = (this.waypointY - this.y) / d3;
-        double d6 = (this.waypointZ - this.z) / d3;
-        AABB axisalignedbb = this.bb.copy();
 
-        for(int i = 1; (double)i < d3; ++i) {
-            axisalignedbb.move(d4, d5, d6);
-            if (!this.world.getCubes(this, axisalignedbb).isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
     public String getLivingSound() {
         return "aether:mob.aerwhale.call";
     }
