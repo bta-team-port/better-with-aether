@@ -54,6 +54,9 @@ public class ParticalHelper {
     }
 
     public static void spawnPoisonParticles(World world, double x, double y, double z, double bbHeight, double bbWidth) {
+        if (random.nextDouble() >= 0.1) {
+            return;
+        }
         double radius = Math.min(bbWidth * 1.2, bbHeight * 1.2);
         double theta = 0.5f * Math.PI * random.nextDouble();
         double phi = 2 * Math.PI * random.nextDouble();
