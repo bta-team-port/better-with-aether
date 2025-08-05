@@ -5,6 +5,7 @@ import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.mimic.MobMimic;
+import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
 import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
@@ -50,6 +51,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobCockatrice.class, NamespaceID.getPermanent(MOD_ID, "cockatrice"), entityKey("cockatrice"));
         EntityHelper.createEntity(MobValkyrie.class, NamespaceID.getPermanent(MOD_ID, "valkyrie"), entityKey("valkyrie"));
+        EntityHelper.createEntity(MobWhirly.class, NamespaceID.getPermanent(MOD_ID, "whirly"), entityKey("whirly"));
 
         EntityHelper.createEntity(MobBossSlider.class, NamespaceID.getPermanent(MOD_ID, "boss_slider"), entityKey("boss_slider"));
         EntityHelper.createEntity(MobBossValkyrie.class, NamespaceID.getPermanent(MOD_ID, "boss_valkyrie"), entityKey("boss_valkyrie"));
