@@ -20,6 +20,7 @@ public class MobAerwhale extends MobFlying implements Enemy {
     public double checkZ = 0.0;
     public boolean isStuckWarning = false;
     public int aggroCooldown;
+    private int livingSoundTime;
     public MobAerwhale(World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");
@@ -28,7 +29,7 @@ public class MobAerwhale extends MobFlying implements Enemy {
         this.aggroCooldown = 0;
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
-        this.setSize(8.0F, 4.0F);
+        this.setSize(16.0F, 8.0F);
         this.speed = 0.5F;
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
@@ -37,9 +38,6 @@ public class MobAerwhale extends MobFlying implements Enemy {
 
     public void defineSynchedData() {
         this.entityData.define(16, (byte)0, Byte.class);
-    }
-
-    public void baseTick() {
     }
 
     public void tick() {
@@ -53,16 +51,20 @@ public class MobAerwhale extends MobFlying implements Enemy {
             }
         }
 
+        if (random.nextInt(200) == 0) {
+            playLivingSound();
+        }
+
         switch (longest) {
             case 0:
                 if (distances[0] == 50.0) {
                     this.motionYaw *= 0.8999999761581421;
                     this.motionPitch *= 0.8999999761581421;
-                    if (this.y > 256.0) {
+                    if (this.y > 225.0) {
                         this.motionPitch -= 2.0;
                     }
 
-                    if (this.y < 206.0) {
+                    if (this.y < 180.0) {
                         this.motionPitch += 2.0;
                     }
                 } else {
@@ -185,17 +187,16 @@ public class MobAerwhale extends MobFlying implements Enemy {
 
     }
 
-
     public String getLivingSound() {
         return "aether:mob.aerwhale.call";
     }
 
     public String getHurtSound() {
-        return "aether:mob.aerwhale.death";
+        return "aether:mob.aerwhale.call";
     }
 
     public String getDeathSound() {
-        return "aether:mob.aerwhale.death";
+        return "aether:mob.aerwhale.call";
     }
 
     public float getSoundVolume() {
