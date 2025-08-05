@@ -1,61 +1,62 @@
 #Passive
 
 aether.entity.phyg=Phyg
-aether.phyg.name=Phyg
-aether.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found anywhere in the aether.
+guidebook.section.mob.phyg.name=Phyg
+guidebook.section.mob.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found anywhere in the aether.
 
 aether.entity.sheepuff=Sheepuff
-aether.sheepuff.name=Sheepuff
-aether.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found anywhere in the aether.
+guidebook.section.mob.sheepuff.name=Sheepuff
+guidebook.section.mob.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found anywhere in the aether.
 
 aether.entity.phow=Phow
-aether.phow.name=Phow
-aether.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found anywhere in the aether.
+guidebook.section.mob.phow.name=Phow
+guidebook.section.mob.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found anywhere in the aether.
 
 aether.entity.aerbunny=Aerbunny
-aether.aerbunny.name=Aerbunny
-aether.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
+guidebook.section.mob.aerbunny.name=Aerbunny
+guidebook.section.mob.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
 
-aether.moa.name=Blue Moa
-aether.moa.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
-aether.moa.white.name=White Moa
-aether.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 4 midair jumps.
-aether.moa.black.name=Black Moa
-aether.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 8 midair jumps.
+guidebook.section.mob.moa.name=Blue Moa
+guidebook.section.mob.moa.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
+guidebook.section.mob.moa.white.name=White Moa
+guidebook.section.mob.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 4 midair jumps.
+guidebook.section.mob.moa.black.name=Black Moa
+guidebook.section.mob.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 8 midair jumps.
 
-aether.aerwhale.name=Aerwhale
-aether.aerwhale.desc=Aerwhales are a large
+aether.entity.aerwhale=Aerwhale
+guidebook.section.mob.aerwhale.name=Aerwhale
+guidebook.section.mob.aerwhale.desc=Aerwhales are ancient and peaceful creatures known for drifting through the skies.
 
 #Hostile
 
-aether.swet.blue.name=Blue Swet
-aether.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere in the aether..
-aether.swet.gold.name=Gold Swet
-aether.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether..
+guidebook.section.mob.swet.blue.name=Blue Swet
+guidebook.section.mob.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere in the aether..
+guidebook.section.mob.swet.gold.name=Gold Swet
+guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether..
 
-aether.cockatrice.name=Cockatrice
-aether.cockatrice.desc=
+guidebook.section.mob.cockatrice.name=Cockatrice
+guidebook.section.mob.cockatrice.desc=
 
-aether.aechorplant.name=Aechor Plant
-aether.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison darts to deter anything from coming near.
+guidebook.section.mob.aechorplant.name=Aechor Plant
+guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison darts to deter anything from coming near.
 
 aether.entity.zephyr=Zephyr
-aether.zephyr.name=Zephyr
-aether.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
+guidebook.section.mob.zephyr.name=Zephyr
+guidebook.section.mob.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
 
-aether.whirlwind.name=Whirlwind
-aether.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
+guidebook.section.mob.whirlwind.name=Whirlwind
+guidebook.section.mob.whirlwind.desc=Uncommon enemy found anywhere in the aether, they will throw you around so be careful.
 
 aether.entity.mimic=Mimic
-aether.mimic.name=Mimic
-aether.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
+guidebook.section.mob.mimic.name=Mimic
+guidebook.section.mob.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
 aether.entity.sentry=Sentry
-aether.sentry.name=Sentry
-aether.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
+guidebook.section.mob.sentry.name=Sentry
+guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 
-aether.valkyrie.name=Valkyrie
-aether.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
+guidebook.section.mob.valkyrie.name=Valkyrie
+guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
 
 # Bosses

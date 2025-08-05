@@ -5,7 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementFire extends ProjectileElementBase {
 

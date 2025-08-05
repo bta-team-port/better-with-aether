@@ -10,7 +10,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;

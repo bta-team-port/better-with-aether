@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
-import teamport.aether.entity.phyg.MobPhyg;
+import teamport.aether.entity.animal.phyg.MobPhyg;
 
 import java.util.Random;
 

@@ -13,7 +13,7 @@ import teamport.aether.AetherAchievements;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
-import teamport.aether.entity.moa.MobMoa;
+import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.lookup.LookupFuelIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {

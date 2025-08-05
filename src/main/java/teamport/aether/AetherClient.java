@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
-import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponent;
 import net.minecraft.client.gui.hud.component.HudComponents;
@@ -15,22 +14,10 @@ import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
-import net.minecraft.core.block.Blocks;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
-import teamport.aether.entity.aerbunny.MobAerbunny;
-import teamport.aether.entity.mimic.MobMimic;
-import teamport.aether.entity.moa.MobMoa;
-import teamport.aether.entity.moa.MobMoaBlack;
-import teamport.aether.entity.moa.MobMoaWhite;
-import teamport.aether.entity.phow.MobPhow;
-import teamport.aether.entity.phyg.MobPhyg;
-import teamport.aether.entity.sentry.MobSentry;
-import teamport.aether.entity.sheepuff.MobSheepuff;
-import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.*;
@@ -38,8 +25,8 @@ import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
-import static teamport.aether.AetherMod.MOD_ID;
 import static teamport.aether.AetherMod.LOGGER;
+import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
@@ -66,6 +53,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     @Override
     public void afterClientStart() {
         setupCustomBlockLight();
+        AetherMobInfoRegistry.init();
 
         BOSS_BAR = HudComponents.register(
                 new ComponentBossBar(
@@ -76,37 +64,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_DEFAULT).setCloudHeight(8.0f)
                 .setHasAurora(true).setHasGround(false));
-
-        MobInfoRegistry.register(MobSentry.class, "aether.sentry.name", "aether.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
-
-        MobInfoRegistry.register(MobZephyr.class, "aether.zephyr.name", "aether.zephyr.desc", 10, 500, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_WHITE), 1.0f, 0, 6)});
-
-        MobInfoRegistry.register(MobMimic.class, "aether.mimic.name", "aether.mimic.desc", 20, 300, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
-
-        MobInfoRegistry.register(MobPhow.class, "aether.phow.name", "aether.phow.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
-
-        MobInfoRegistry.register(MobPhyg.class, "aether.phyg.name", "aether.phyg.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FOOD_PORKCHOP_RAW), 1.0f, 1 ,2),
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
-
-        MobInfoRegistry.register(MobMoa.class, "aether.moa.name", "aether.moa.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 4)});
-        MobInfoRegistry.register(MobMoaWhite.class, "aether.moa.white.name", "aether.moa.white.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 4)});
-        MobInfoRegistry.register(MobMoaBlack.class, "aether.moa.black.name", "aether.moa.black.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 4)});
-
-        MobInfoRegistry.register(MobSheepuff.class, "aether.sheepuff.name", "aether.sheepuff.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});
-
-        MobInfoRegistry.register(MobAerbunny.class, "aether.aerbunny.name", "aether.aerbunny.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
     }
 
     public void setupCustomBlockLight() {
