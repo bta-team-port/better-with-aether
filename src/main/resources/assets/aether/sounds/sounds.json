@@ -12,6 +12,13 @@
       "mob/zephyr/shoot.ogg"
     ]
   },
+  "mob.aerwhale.call": {
+    "subtitle": "subtitles.mob.aerwhale.call",
+    "sounds": [
+      "mob/aerwhale/call1.ogg",
+      "mob/aerwhale/call2.ogg"
+    ]
+  },
   "mob.moa": {
     "subtitle": "subtitles.mob.moa",
     "sounds": [
