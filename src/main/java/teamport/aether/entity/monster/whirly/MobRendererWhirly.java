@@ -8,9 +8,7 @@ import net.minecraft.client.entity.particle.ParticleSmoke;
 import net.minecraft.client.render.ParticleEngine;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
-import net.minecraft.core.entity.Entity;
 
-import java.util.List;
 import java.util.Random;
 
 public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
@@ -26,7 +24,6 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
         double d4 = (float) entity.y;
         double d5 = (float) entity.z;
 
-        List<Entity> list = entity.world.getEntitiesWithinAABBExcludingEntity(entity, entity.bb.expand(2.5, 2.5, 2.5));
         int i;
         double d6;
         double d7;

@@ -20,6 +20,7 @@ import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobBossValkyrie;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
+import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 
@@ -65,6 +66,8 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobCockatrice.class, "guidebook.section.mob.cockatrice.name", "guidebook.section.mob.cockatrice.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+
+        MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
         
         MobInfoRegistry.register(MobSentry.class, "guidebook.section.mob.sentry.name", "guidebook.section.mob.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
