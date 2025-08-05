@@ -14,7 +14,6 @@ public class AetherEffects {
 
     public static PoisonEffect poisonEffect;
     public static RemedyEffect remedyEffect;
-    public static RemedyEffect permanentRemedyEffect;
     private static boolean hasInit = false;
 
     public static void init() {
@@ -42,6 +41,7 @@ public class AetherEffects {
                 .setDefaultDuration(60)
                 .setMaxStack(10)
                 .setTint(0xa05cff)
+                .setVignette("/assets/aether/textures/other/poisonvignette.png")
                 .setHeartPath("aether:gui/hud/poison/")
                 .build(PoisonEffect::new);
 
@@ -52,24 +52,15 @@ public class AetherEffects {
                 .setDefaultDuration(240)
                 .setMaxStack(1)
                 .setTint(0x99FF99)
+                .setVignette("/assets/aether/textures/other/curevignette.png")
                 .setHeartPath("aether:gui/hud/remedy/")
                 .build(RemedyEffect::new);
 
-
-        permanentRemedyEffect = new AetherEffectBuilder()
-                .init("effect.aether.permanent.remedy", MOD_ID + ":permanent-remedy", "diamond.png")
-                .setEffectTimeType(EffectTimeType.PERMANENT)
-                .setDefaultDuration(240)
-                .setMaxStack(1)
-                .setTint(0x99FF99)
-                .setHeartPath("aether:gui/hud/remedy/")
-                .build(RemedyEffect::new);
     }
 
     private static void registerEffects() {
         Effects.getInstance().register(poisonEffect.id, poisonEffect);
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
-        Effects.getInstance().register(permanentRemedyEffect.id, permanentRemedyEffect);
     }
 
     public static EffectStack resolveDominantEffect(Player player) {
@@ -87,11 +78,12 @@ public class AetherEffects {
 
 
     public static void fixedAdd(IHasEffects player, Effect newEffect, int amount) {
-        List<EffectStack> effects = player.getContainer().getEffects();
-        for(EffectStack effect : effects) {
+        for(EffectStack effect : player.getContainer().getEffects()) {
             if (effect.getEffect() == newEffect) {
                 if(effect.getAmount() + amount >= effect.getEffect().getMaxStack()){
                     amount = effect.getEffect().getMaxStack() - effect.getAmount();
+                    effect.add(amount, player.getContainer());
+                    return;
                 }
             }
         }

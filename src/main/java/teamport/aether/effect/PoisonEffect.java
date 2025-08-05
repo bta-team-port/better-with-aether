@@ -17,17 +17,16 @@ import java.util.List;
 import java.util.Random;
 
 public class PoisonEffect extends Effect implements IHudVisibility {
-    public EffectRenderer renderer = new PoisonEffectRenderer();
+    public EffectRenderer renderer;
     public final Random random = new Random();
     public String PATH_HEART;
-    public final int tint;
     public double rotD;
     public double motD;
 
     public PoisonEffect(AetherEffectBuilder builder) {
         this(
                 builder.getNameKey(), builder.getId(),
-                builder.getImagePath(), builder.getHeartPath(),
+                builder.getImagePath(), builder.getHeartPath(), builder.getVignette(),
                 builder.getModifiers(),
                 builder.getEffectTimeType(),
                 builder.getColor(), builder.getTint(),
@@ -37,22 +36,20 @@ public class PoisonEffect extends Effect implements IHudVisibility {
 
     public PoisonEffect(
             String nameKey, String id,
-            String imagePath, String PATH_HEART,
+            String imagePath, String PATH_HEART, String vignette,
             List<Modifier<?>> modifiers,
             EffectTimeType effectTimeType,
             int color, int tint,
             int defaultDuration, int maxStack
     ) {
         super(nameKey, id, imagePath, color, modifiers, effectTimeType, defaultDuration, maxStack);
-        this.tint = tint;
         this.PATH_HEART = PATH_HEART;
+        renderer = new PoisonEffectRenderer(vignette, tint);
     }
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
-//        this.slideX = random.nextGaussian() * 0.013;
-//        this.slideZ = random.nextGaussian() * 0.013;
     }
 
     @Override
@@ -68,26 +65,26 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
-//        ((Mob) effectContainer.getParent()).fling(slideX, 0, slideZ, 1);
         Mob mob = (Mob) effectContainer.getParent();
-        if (mob.world == null) {
-            AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");
-            return;
+        if (mob.world == null) {AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");return;}
+        if(mob instanceof Player){
+            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y - 2, mob.z, mob.bbHeight, mob.bbWidth);
+        }else {
+            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
         }
-        double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
-        if (random.nextDouble() < 0.1) {
-            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
-        }
-        if (!(effectContainer.getParent() instanceof Mob)) return;
-        double gauss = ((EntityAccessor) effectContainer.getParent()).getRandom().nextGaussian();
+        slideEntity(mob);
+    }
+
+    private void slideEntity(Mob mob) {
+        double gauss = ((EntityAccessor)mob).getRandom().nextGaussian();
         double newMotD = 0.1 * gauss;
         motD = 0.2 * newMotD + (1.0 - 0.2) * motD;
-        ((Mob) effectContainer.getParent()).xd += motD;
-        ((Mob) effectContainer.getParent()).zd += motD;
+        mob.xd += motD;
+        mob.zd += motD;
         double newRotD = 0.7853981633974483 * gauss;
         rotD = 0.125 * newRotD + (1.0 - 0.125) * rotD;
-        ((Mob) effectContainer.getParent()).yRot = (float) ((double) ((Mob) effectContainer.getParent()).yRot + rotD);
-        ((Mob) effectContainer.getParent()).xRot = (float) ((double) ((Mob) effectContainer.getParent()).xRot + rotD);
+        mob.yRot = (float) ((double) mob.yRot + rotD);
+        mob.xRot = (float) ((double) mob.xRot + rotD);
     }
 
     @Override
@@ -99,11 +96,6 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     @Override
     public String getPath() {
         return PATH_HEART;
-    }
-
-    @Override
-    public int getTint() {
-        return tint;
     }
 
     @Override
