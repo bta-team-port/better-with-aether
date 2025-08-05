@@ -158,7 +158,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureAetherDungeonBronze()).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        if (rand.nextInt(1000) == 0) {
+        if (rand.nextInt(750) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(128) + 64;
            k4 = z + rand.nextInt(16);
