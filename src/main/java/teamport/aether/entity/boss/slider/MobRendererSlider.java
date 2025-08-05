@@ -1,0 +1,52 @@
+package teamport.aether.entity.boss.slider;
+
+import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.model.ModelBase;
+import org.lwjgl.opengl.GL11;
+
+public class MobRendererSlider extends MobRenderer<MobBossSlider> {
+
+    public MobRendererSlider(ModelBase model, float shadowSize) {
+        super(model, shadowSize);
+        this.setArmorModel(model);
+    }
+
+    public boolean setEyeBrightness(MobBossSlider slider, int renderPass) {
+        if (renderPass != 0) {
+            return false;
+        } else {
+            if (slider.isAwake() && !slider.doingSlam()) {
+                if (slider.isAngry()) {
+                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
+                } else {
+                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_glow.png");
+                }
+            } else {
+                if (slider.isAngry()) {
+                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_red_glow.png");
+                } else {
+                    this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_glow.png");
+                }
+            }
+
+            float f1 = (1.0F - slider.getBrightness(1.0F)) * 0.5F;
+            GL11.glEnable(3042);
+            GL11.glDisable(3008);
+            GL11.glBlendFunc(770, 771);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
+            return true;
+        }
+    }
+
+    public void setupScale(MobBossSlider slider, float partialTick) {
+        if (slider.deformX > 0.01F) {
+            GL11.glRotatef(slider.deformX * -30.0F, (float) slider.deformY, 0.0F, (float) slider.deformZ);
+        }
+
+    }
+
+    @Override
+    public boolean prepareArmor(MobBossSlider slider, int renderPass, float partialTick) {
+        return this.setEyeBrightness(slider, renderPass);
+    }
+}
