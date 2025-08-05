@@ -24,8 +24,6 @@ import teamport.aether.mixin.accessors.MobAccessor;
 import java.util.List;
 
 public class MobAerbunny extends MobAetherAnimal {
-    public int age;
-    public int mate;
     public boolean grab;
     public boolean fear;
     public boolean gotRider;
@@ -35,8 +33,6 @@ public class MobAerbunny extends MobAetherAnimal {
         super(world);
         this.setSize(0.4F, 0.4F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aerbunny");
-        this.age = this.random.nextInt(64);
-        this.mate = 0;
         this.mobDrops.add(new WeightedRandomLootObject(Items.STRING.getDefaultStack(), 1));
     }
 
@@ -63,50 +59,6 @@ public class MobAerbunny extends MobAetherAnimal {
             }
         }
 
-        if (this.age < 1023) {
-            ++this.age;
-        } else if (this.mate < 127) {
-            ++this.mate;
-        } else {
-            int i = 0;
-            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(16.0, 16.0, 16.0));
-
-            for (Entity entity : list) {
-                if (entity instanceof MobAerbunny) {
-                    ++i;
-                }
-            }
-
-            if (i > 12) {
-                this.proceed();
-                return;
-            }
-
-            List<Entity> list1 = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(1.0, 1.0, 1.0));
-            boolean flag = false;
-
-            for (int k = 0; k < list.size(); ++k) {
-                Entity entity1 = list1.get(k);
-                if (entity1 instanceof MobAerbunny && entity1 != this) {
-                    MobAerbunny entitybunny = (MobAerbunny) entity1;
-                    if (entitybunny.vehicle == null && entitybunny.age >= 1023) {
-                        MobAerbunny entitybunny1 = new MobAerbunny(this.world);
-                        entitybunny1.setPos(this.x, this.y, this.z);
-                        this.world.entityJoinedWorld(entitybunny1);
-                        this.world.playSoundAtEntity(null, this,"mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                        this.proceed();
-                        entitybunny.proceed();
-                        flag = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!flag) {
-                this.mate = this.random.nextInt(16);
-            }
-        }
-
         if (this.puffiness > 0.0F) {
             this.puffiness -= 0.1F;
         } else {
@@ -126,16 +78,12 @@ public class MobAerbunny extends MobAetherAnimal {
             this.gotRider = true;
         }
         tag.putBoolean("GotRider", this.gotRider);
-        tag.putShort("RepAge", (short) this.age);
-        tag.putShort("RepMate", (short) this.mate);
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.fear = tag.getBoolean("Fear");
         this.gotRider = tag.getBoolean("GotRider");
-        this.age = tag.getShort("RepAge");
-        this.mate = tag.getShort("RepMate");
     }
 
     public void onLivingUpdate() {
@@ -291,11 +239,6 @@ public class MobAerbunny extends MobAetherAnimal {
             super.interact(entityplayer);
         }
         return false;
-    }
-
-    public void proceed() {
-        this.mate = 0;
-        this.age = this.random.nextInt(64);
     }
 
     public String getLivingSound() {
