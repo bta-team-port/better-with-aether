@@ -20,8 +20,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
     static {
-        angelic.addEntry(AetherBlocks.CARVED_ANGELIC.id(), 0, 95);
-        angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT.id(), 0, 5);
+        angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 95);
+        angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
@@ -224,7 +224,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeatureAetherDungeonBa
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        if (AetherDimension.dungeonMap.values().stream().anyMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= AetherDimension.dungeonRadiusSQR)) return false;
+        if (!canPlaceDungeon(x, y, z)) return false;
 
         int dungeonID = AetherDimension.registerDungeonToMap(x - 15, y + 4, z + 42);
 
