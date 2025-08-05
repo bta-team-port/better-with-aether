@@ -91,7 +91,8 @@
     "screens.PortalLoadingScreenMixin"
   ],
   "server": [
-    "dimension.MPBumpToOverworldMixin"
+    "dimension.MPBumpToOverworldMixin",
+    "dimension.MPEntityBumpToOverworldMixin"
   ],
   "injectors": {
     "defaultRequire": 1
