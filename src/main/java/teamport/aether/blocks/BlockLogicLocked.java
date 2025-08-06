@@ -52,7 +52,7 @@ public class BlockLogicLocked extends BlockLogic {
         attemptPropagate(world, x, y, z);
     }
 
-    private double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
+    public double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
         double d = x1 - x2;
         double d1 = y1 - y2;
         double d2 = z1 - z2;

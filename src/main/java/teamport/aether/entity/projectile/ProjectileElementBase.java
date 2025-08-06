@@ -14,9 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
-    protected int maxBounces = 20;
+    public int maxBounces = 20;
 
-    protected String[] particles = {"explode"};
+    public String[] particles = {"explode"};
 
     public ProjectileElementBase(World world) {
         super(world);
@@ -39,7 +39,7 @@ public class ProjectileElementBase extends Projectile {
 
 
     @Override
-    protected void initProjectile() {
+    public void initProjectile() {
         super.initProjectile();
         this.damage = 2;
         this.defaultGravity = 0.0F;

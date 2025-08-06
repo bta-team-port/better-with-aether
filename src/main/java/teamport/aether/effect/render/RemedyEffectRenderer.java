@@ -67,7 +67,7 @@ public class RemedyEffectRenderer implements EffectRenderer {
         // TODO a filter with a circle hole that widens during the effect util it covers the screen
     }
 
-    private static float calcAlpha(EffectStack effectStack) {
+    public static float calcAlpha(EffectStack effectStack) {
         float percent = (float)effectStack.getTimeLeft() / (float)(effectStack.getDuration());
         return 0.35F * percent * percent;
     }

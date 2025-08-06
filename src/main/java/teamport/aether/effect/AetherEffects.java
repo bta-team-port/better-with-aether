@@ -2,7 +2,6 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.gui.IHudVisibility;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class AetherEffects {
     public static PoisonEffect poisonEffect;
     public static RemedyEffect remedyEffect;
     public static RemedyEffect permanentRemedyEffect;
-    private static boolean hasInit = false;
+    public static boolean hasInit = false;
 
     public static void init() {
         if (!hasInit) {
@@ -24,8 +23,8 @@ public class AetherEffects {
         }
     }
 
-    private static void initializeItems() {
-        assigneEffects();
+    public static void initializeItems() {
+        assignEffects();
         registerEffects();
     }
 
@@ -33,7 +32,7 @@ public class AetherEffects {
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
 
-    private static void assigneEffects() {
+    public static void assignEffects() {
         //TODO change the icon once we have better ones
         poisonEffect = new AetherEffectBuilder()
                 .init("effect.aether.poison", MOD_ID + ":poison", "petal_aechor.png")
@@ -66,7 +65,7 @@ public class AetherEffects {
                 .build(RemedyEffect::new);
     }
 
-    private static void registerEffects() {
+    public static void registerEffects() {
         Effects.getInstance().register(poisonEffect.id, poisonEffect);
         Effects.getInstance().register(remedyEffect.id, remedyEffect);
         Effects.getInstance().register(permanentRemedyEffect.id, permanentRemedyEffect);

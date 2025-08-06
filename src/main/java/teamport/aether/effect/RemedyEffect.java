@@ -15,7 +15,7 @@ import java.util.List;
 public class RemedyEffect extends Effect implements IHudVisibility {
     public final EffectRenderer renderer = new RemedyEffectRenderer();
     public String PATH_HEART;
-    private final int tint;
+    public final int tint;
 
     public String[] preventApplying = new String[]{AetherEffects.poisonEffect.getNameKey()};
 

@@ -53,7 +53,7 @@ public class PoisonEffectRenderer implements EffectRenderer {
         }
     }
 
-    private static float calcAlpha(EffectStack effectStack) {
+    public static float calcAlpha(EffectStack effectStack) {
         float currentAmount = (float) effectStack.getDuration() * (effectStack.getAmount() - 1);
         float totalTime = (float) effectStack.getDuration() * effectStack.getEffect().getMaxStack();
         float percent = (currentAmount + effectStack.getTimeLeft()) / totalTime;

@@ -81,7 +81,7 @@ public class MobMinicloud extends MobFlying {
         Math.atan2(a, c);
     }
 
-    protected Entity findPlayer() {
+    public Entity findPlayer() {
         return this.world.getClosestPlayerToEntity(this, 16.0);
     }
 

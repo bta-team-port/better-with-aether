@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemGravititePendant extends ItemPendant implements IArmorItem {
-    private final ArmorMaterial material;
+    public final ArmorMaterial material;
 
     public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
         super(translationKey, namespaceId, id, material);
