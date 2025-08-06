@@ -192,7 +192,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             List<Entity> list = world.getEntitiesWithinAABB(Entity.class, boundingBox);
             for (Entity entity : list) {
                 entity.hurt(this, (int) ((baseDamage * 0.50F) * getAngerModifier()), DamageType.FALL);
-                entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.GENERIC);
+                entity.hurt(this, (int) ((baseDamage * 0.75F) * getAngerModifier()), DamageType.COMBAT);
 
                 switch (calculateDirection(entity)) {
                     case NORTH:
@@ -241,7 +241,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public boolean collidesWith(Entity entity) {
         if (blocksToMove > 0.25F) {
             entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
-            entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
+            entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.COMBAT);
             if (entity instanceof Player && ((Player) entity).gamemode.isPlayerInvulnerable()) {
                 return super.collidesWith(entity);
             }
