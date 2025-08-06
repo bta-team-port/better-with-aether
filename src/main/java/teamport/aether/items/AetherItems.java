@@ -61,6 +61,7 @@ public final class AetherItems {
     public static Item RECORD_AETHER;
     public static Item RECORD_MORNING;
     public static Item RECORD_DAWN;
+    public static Item RECORD_NETHER;
 
     public static Item AMBER;
     public static Item PETAL_AECHOR;
@@ -248,9 +249,10 @@ public final class AetherItems {
         EGG_MOA_WHITE = new ItemBuilder(MOD_ID).build(new Item("egg.moa.white", itemKey("egg_moa_white"), itemID("EGG_MOA_WHITE"))).setMaxStackSize(16);
         EGG_MOA_BLACK = new ItemBuilder(MOD_ID).build(new Item("egg.moa.black", itemKey("egg_moa_black"), itemID("EGG_MOA_BLACK"))).setMaxStackSize(16);
 
-        RECORD_AETHER = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether.tune", "Emile van Kriken"));
+        RECORD_AETHER = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether.tune", "Noisestorm"));
         RECORD_MORNING = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.morning", itemKey("record_morning"), itemID("RECORD_MORNING"), "aether:a.morning.wish", "Emile van Kriken"));
         RECORD_DAWN = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending.dawn", "Emile van Kriken"));
+        RECORD_NETHER = new ItemBuilder(MOD_ID).build(new ItemDiscMusic("record.nether", itemKey("record_nether"), itemID("RECORD_NETHER"), "aether:nether.menu", "Emile van Kriken"));
 
         AMBER = new ItemBuilder(MOD_ID).build(new Item("amber", itemKey("amber"), itemID("AMBER")));
         PETAL_AECHOR = new ItemBuilder(MOD_ID).setTags(AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("petal.aechor", itemKey("petal_aechor"), itemID("PETAL_AECHOR")));

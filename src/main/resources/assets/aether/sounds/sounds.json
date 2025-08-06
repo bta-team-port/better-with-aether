@@ -80,6 +80,16 @@
       }
     ]
   },
+  "nether.menu": {
+    "sounds": [
+      {
+        "name": "record/menunether.ogg",
+        "volume": 0.2,
+        "attenuation_distance": 64,
+        "stream": true
+      }
+    ]
+  },
   "life.shard.chime": {
     "subtitle": "subtitles.aether.life.shard.chime",
     "sounds": [
