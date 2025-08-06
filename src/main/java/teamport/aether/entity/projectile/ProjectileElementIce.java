@@ -13,7 +13,7 @@ public class ProjectileElementIce extends ProjectileElementBase {
         super(world);
     }
 
-    protected boolean hasBeenHitByPlayer = false;
+    public boolean hasBeenHitByPlayer = false;
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);

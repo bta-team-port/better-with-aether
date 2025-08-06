@@ -34,7 +34,7 @@ public class MobZephyr extends MobFlying implements Enemy {
     }
 
     @Override
-    protected void defineSynchedData() {
+    public void defineSynchedData() {
         this.entityData.define(16, (byte) 0, Byte.class);
     }
 

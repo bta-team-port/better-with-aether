@@ -193,7 +193,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.duel = tag.getBoolean("Duel");
     }
 
-    protected Entity findPlayerToAttack() {
+    public Entity findPlayerToAttack() {
         return this.world.getDifficulty().canHostileMobsSpawn() && this.duel && this.angerLevel > 0 ? super.findPlayerToAttack() : null;
     }
 
@@ -238,7 +238,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
         }
     }
 
-    protected void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NotNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             this.swingArm();

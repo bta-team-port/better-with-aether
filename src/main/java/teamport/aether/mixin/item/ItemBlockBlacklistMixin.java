@@ -29,7 +29,7 @@ public abstract class ItemBlockBlacklistMixin {
     @Shadow public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
 
     @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
-    private void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
+    public void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
         Dimension dim = Dimension.getDimensionList().get(player.dimension);
         List<Integer> BLACKLIST = AetherDimension.getDimensionBlacklist(dim);
 

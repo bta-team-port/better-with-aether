@@ -10,13 +10,13 @@ import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.world.AetherDimension;
 
 public class DynamicTextureDungeonCompass extends DynamicTexture {
-    private Minecraft mc;
-    private byte[] compassImageData;
-    private double angleFinal;
-    private double delta;
-    private double scaleFactor;
+    public Minecraft mc;
+    public byte[] compassImageData;
+    public double angleFinal;
+    public double delta;
+    public double scaleFactor;
 
-    private final Color needleColor = new Color().setRGB(255, 222, 60);
+    public final Color needleColor = new Color().setRGB(255, 222, 60);
 
     public DynamicTextureDungeonCompass(Minecraft minecraft, IconCoordinate iconCoordinate) {
         super(iconCoordinate);

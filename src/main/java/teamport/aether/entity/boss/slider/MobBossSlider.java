@@ -38,7 +38,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static final float baseDamage = 10F;
     public static final int maxAttackCoolDown = 60;
 
-    private static final int TICKS_PER_SECOND = 20;
+    public static final int TICKS_PER_SECOND = 20;
 
     // blocks per second.
     public static final float baseSpeed = 15;
@@ -50,7 +50,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public int attackCoolDown = 0;
     public boolean allowedToMove;
 
-    private final ArrayList<Player> creativeAttackersList = new ArrayList<>();
+    public final ArrayList<Player> creativeAttackersList = new ArrayList<>();
     public Entity target;
 
     private State currentState = State.ASLEEP;
@@ -59,7 +59,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         SLAM(MobBossSlider::stateSlam),
         ASLEEP(MobBossSlider::stateASleep);
 
-        private final Consumer<MobBossSlider> consumer;
+        public final Consumer<MobBossSlider> consumer;
 
         State(Consumer<MobBossSlider> consumer) {this.consumer = consumer;}
         public Consumer<MobBossSlider> getConsumer() {return this.consumer;}
@@ -126,9 +126,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.currentState.getConsumer().accept(this);
     }
 
-    protected void stateASleep() { /* ZZZ... */}
+    public void stateASleep() { /* ZZZ... */}
 
-    protected void stateAwake() {
+    public void stateAwake() {
         assert world != null;
 
         if (world.players
@@ -174,9 +174,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         }
     }
 
-    protected double slamY = 0;
+    public double slamY = 0;
 
-    protected void stateSlam() {
+    public void stateSlam() {
         assert world != null;
 
         if (allowedToMove) {
@@ -256,7 +256,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
         if (block == null) { return  false; }
 
-        if (block != null && !(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked) && !(block.getMaterial() instanceof MaterialLiquid)) {
+        if (!(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked) && !(block.getMaterial() instanceof MaterialLiquid)) {
             block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y,z), world.getTileEntity(x, y, z), null);
             doExplosionEffect(world, x, y, z);
             world.setBlockWithNotify(x, y, z, 0);
@@ -279,7 +279,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 1.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
-    protected Player findPlayerToAttack() {
+    public Player findPlayerToAttack() {
         assert this.world != null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0F);
 
@@ -344,7 +344,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     @Override
-    protected boolean isMovementBlocked() {
+    public boolean isMovementBlocked() {
         return super.isMovementBlocked() || !isAwake();
     }
 

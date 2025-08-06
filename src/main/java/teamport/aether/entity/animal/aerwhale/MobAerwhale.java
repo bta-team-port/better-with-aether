@@ -20,7 +20,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     public double checkZ = 0.0;
     public boolean isStuckWarning = false;
     public int aggroCooldown;
-    private int livingSoundTime;
+
     public MobAerwhale(World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");

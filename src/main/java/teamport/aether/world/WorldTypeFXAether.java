@@ -8,7 +8,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.type.WorldType;
 
 public class WorldTypeFXAether extends WorldTypeFX {
-    private Float cloudHeight = null;
+    public Float cloudHeight = null;
 
     public WorldTypeFXAether(WorldType worldType) {
         super(worldType);

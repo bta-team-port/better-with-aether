@@ -9,7 +9,7 @@ import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementFire extends ProjectileElementBase {
 
-    protected String[] particles = {"explode", "flame"};
+    public String[] particles = {"explode", "flame"};
 
     public ProjectileElementFire(World world, Mob owner) {
         super(world, owner);

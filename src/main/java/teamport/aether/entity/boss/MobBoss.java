@@ -21,16 +21,16 @@ import java.util.List;
 public class MobBoss extends MobMonster implements EnemyBoss {
 
     @Nullable
-    protected Integer dungeonID = null;
-    protected String bossName = "Nullius Primus";
+    public Integer dungeonID = null;
+    public String bossName = "Nullius Primus";
 
     @Nullable
-    protected BlockCoordinate returnPoint = null;
+    public BlockCoordinate returnPoint = null;
 
     @Nullable
-    protected ItemStack trophy = null;
+    public ItemStack trophy = null;
 
-    protected List<BlockCoordinate> blocksDestroyOnDeath = new ArrayList<>();
+    public List<BlockCoordinate> blocksDestroyOnDeath = new ArrayList<>();
 
 
     public MobBoss(@Nullable World world) {
@@ -74,7 +74,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    protected boolean canDespawn() {
+    public boolean canDespawn() {
         return false;
     }
 

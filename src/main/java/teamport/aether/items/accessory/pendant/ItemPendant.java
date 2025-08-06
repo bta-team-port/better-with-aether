@@ -8,7 +8,7 @@ import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.accessory.IAccessory;
 
 public class ItemPendant extends Item implements IAccessory {
-    private final String name;
+    public final String name;
 
     public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
         super(translationKey, namespaceId, id);

@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.function.Function;
 
 public class AetherEffectBuilder {
-    private String nameKey;
-    private String id;
-    private String imagePath;
-    private int color = 0x000000;
-    private List<Modifier<?>> modifiers = new ArrayList<>();
-    private EffectTimeType effectTimeType;
-    private int defaultDuration = 20;
-    private int maxStack = 1;
-    private int tint;
-    private String heartPath;
+    public String nameKey;
+    public String id;
+    public String imagePath;
+    public int color = 0x000000;
+    public List<Modifier<?>> modifiers = new ArrayList<>();
+    public EffectTimeType effectTimeType;
+    public int defaultDuration = 20;
+    public int maxStack = 1;
+    public int tint;
+    public String heartPath;
 
     public AetherEffectBuilder init(String nameKey, String id, String imagePath){
         this.nameKey = nameKey;
