@@ -4,6 +4,5 @@ import teamport.aether.effect.render.EffectRenderer;
 
 public interface IHudVisibility {
     String getPath();
-    int getTint();
     EffectRenderer getRenderer();
 }

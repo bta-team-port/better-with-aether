@@ -40,7 +40,6 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
         }
     }
 
-    // TODO implement animation for freezer
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (this.isActive) {
             double poxX = (double) x + (double) 0.5F;
