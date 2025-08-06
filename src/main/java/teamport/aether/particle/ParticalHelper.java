@@ -72,10 +72,9 @@ public class ParticalHelper {
         double radius = bbWidth + 0.1;
         for(int i = 0; i < 36; i++){
             double theta = MathHelper.toRadians(10 * i);
-            double posX = x + radius * Math.cos(theta);
-            double posY = y + bbHeight/2;
-            double posZ = z + radius * Math.sin(theta);
-            world.spawnParticle("remedy", posX, posY, posZ, radius * Math.cos(theta) * 0.01, 0, radius * Math.sin(theta) * 0.01, 0);
+            double offX = radius * Math.cos(theta);
+            double offZ = radius * Math.sin(theta);
+            world.spawnParticle("remedy", x, y + bbHeight * 1.2, z, offX * 0.13, 0, offZ * 0.13, 0);
         }
     }
 

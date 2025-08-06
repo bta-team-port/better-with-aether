@@ -12,7 +12,6 @@ import static teamport.aether.AetherMod.MOD_ID;
 @Environment(EnvType.CLIENT)
 public class ParticlePoison extends Particle {
 
-    // TODO figure out to make the particles rise slowly to the top and than pop
     public ParticlePoison(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
         this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/poison");
@@ -42,9 +41,6 @@ public class ParticlePoison extends Particle {
         if (this.age >= this.lifetime) {
             this.remove();
         }
-
-
-
     }
 
 }
