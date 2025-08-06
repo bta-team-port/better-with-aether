@@ -1,23 +1,23 @@
 package teamport.aether.effect;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.EffectRenderer;
-import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.particle.ParticalHelper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
-public class RemedyEffect extends Effect implements IHudVisibility {
+public class RemedyEffect extends Effect implements IHudVisibility, ILockInteractable {
     public final EffectRenderer renderer;
     public String PATH_HEART;
-
-    public String[] preventApplying = new String[]{AetherEffects.poisonEffect.getNameKey()};
 
     public RemedyEffect(AetherEffectBuilder builder) {
         this(
@@ -44,21 +44,6 @@ public class RemedyEffect extends Effect implements IHudVisibility {
     }
 
     @Override
-    public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        List<EffectStack> check = new ArrayList<>(effectContainer.getEffects());
-        for(EffectStack stack : check){
-            for(String ids : preventApplying){
-                if(stack.getEffect().getNameKey().equals(ids)){
-                    Mob mob = (Mob) effectContainer.getParent();
-                    double mobY = mob.y + (mob instanceof Player ? -1.0F : 0.0F);
-                    ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mobY, mob.z, mob.bbHeight, mob.bbWidth);
-                    effectContainer.remove(stack.getEffect());
-                }
-            }
-        }
-    }
-
-    @Override
     public String getPath() {
         return PATH_HEART;
     }
@@ -66,5 +51,31 @@ public class RemedyEffect extends Effect implements IHudVisibility {
     @Override
     public EffectRenderer getRenderer(){
         return this.renderer;
+    }
+
+    @Override
+    public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
+        HashSet<Effect> remove = AetherEffects.LookupLooks.instance.getLockedEffects(this);
+        if(remove == null) return;
+        List<EffectStack> check = new ArrayList<>(effectContainer.getEffects());
+        for(EffectStack stack : check){
+            for(Effect effect : remove){
+                if(effect.equals(stack.getEffect())){
+                    effectContainer.remove(stack.getEffect());
+                    Mob mob = (Mob) effectContainer.getParent();
+                    if (mob instanceof Player) {
+                        ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - 2, mob.z, mob.bbHeight, mob.bbWidth);
+                    } else {
+                        ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void lockTriggered(IHasEffects hasEffects) {
+        Entity entity = (Entity) hasEffects;
+        ParticalHelper.spawnRemedyParticle(entity.world, entity.x, entity.y, entity.z, entity.bbHeight, entity.bbWidth);
     }
 }
