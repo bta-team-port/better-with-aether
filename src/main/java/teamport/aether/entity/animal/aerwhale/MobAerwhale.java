@@ -29,7 +29,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.aggroCooldown = 0;
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
-        this.setSize(16.0F, 8.0F);
+        this.setSize(12.0F, 6.0F);
         this.speed = 0.5F;
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
@@ -205,6 +205,10 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     public int getMaxSpawnedInChunk() {
         return 1;
+    }
+
+    public void spawnInit() {
+        this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
     }
 
     public boolean canSpawnHere() {

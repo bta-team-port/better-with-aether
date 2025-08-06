@@ -201,6 +201,10 @@ public class MobZephyr extends MobFlying implements Enemy {
                 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
     }
 
+    public void spawnInit() {
+        this.moveTo(this.x, this.y + 15, this.z, this.yRot, 0.0F);
+    }
+
     public int getMaxSpawnedInChunk() {
         return 1;
     }
