@@ -99,6 +99,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_BOTTOM;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_TOP;
+    public static Block<?> SIGN_POST_PLANKS_SKYROOT;
+    public static Block<?> SIGN_WALL_PLANKS_SKYROOT;
     public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
     public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT;
     public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT;
@@ -427,11 +429,24 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         DOOR_PLANKS_SKYROOT_BOTTOM = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
+                .setHardness(3.0f)
                 .build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.ice, false, false, () -> AetherItems.DOOR_SKYROOT));
         DOOR_PLANKS_SKYROOT_TOP = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
-                .build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.ice, true, false, () -> AetherItems.DOOR_SKYROOT));
+                .setHardness(3.0f)
+                .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.ice, true, false, () -> AetherItems.DOOR_SKYROOT)).setStatParent(() -> AetherItems.DOOR_SKYROOT);
+
+        SIGN_POST_PLANKS_SKYROOT = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true)).setStatParent(() -> AetherItems.SIGN_SKYROOT);
+        SIGN_WALL_PLANKS_SKYROOT = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false)).setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
@@ -502,21 +517,21 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         ENCHANTER_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true));
+                .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true)).setStatParent(() -> ENCHANTER_IDLE);
 
         FREEZER_IDLE = station
                 .build("freezer.idle", "freezer_idle", blockID("FREEZER_IDLE"), b -> new BlockLogicFreezer(b, false));
 
         FREEZER_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true));
+                .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true)).setStatParent(() -> FREEZER_IDLE);
 
         INCUBATOR_IDLE = station
                 .build("incubator.idle", "incubator_idle", blockID("INCUBATOR_IDLE"), b -> new BlockLogicIncubator(b, false));
 
         INCUBATOR_ACTIVE = station
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("incubator.active", "incubator_active", blockID("INCUBATOR_ACTIVE"), b -> new BlockLogicIncubator(b, true));
+                .build("incubator.active", "incubator_active", blockID("INCUBATOR_ACTIVE"), b -> new BlockLogicIncubator(b, true)).setStatParent(() -> INCUBATOR_IDLE);
 
 
         ORE_AMBROSIUM_HOLYSTONE = ores

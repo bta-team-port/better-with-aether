@@ -213,6 +213,8 @@ public final class AetherItems {
     public static Item DOOR_SKYROOT;
     public static Item DOOR_GLASS_AMBROSIUM;
 
+    public static Item SIGN_SKYROOT;
+
     public static Item AMMO_WINDBALL;
 
     public static Item PROJECTILE_FIRE;
@@ -274,6 +276,8 @@ public final class AetherItems {
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
         DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID).build(new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));
+
+        SIGN_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT")));
 
         AMMO_WINDBALL = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.windball", itemKey("ammo_windball"), itemID("AMMO_WINDBALL")));
         PROJECTILE_FIRE = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("projectile.fire", itemKey("projectile_fire"), itemID("PROJECTILE_FIRE")));
