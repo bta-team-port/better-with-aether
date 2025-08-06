@@ -158,8 +158,8 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/door/skyroot/top", Side.sides));
 
-        dispatcher.addDispatch((new BlockModelEmpty(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
-        dispatcher.addDispatch((new BlockModelEmpty(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
                 .setTex(0, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)

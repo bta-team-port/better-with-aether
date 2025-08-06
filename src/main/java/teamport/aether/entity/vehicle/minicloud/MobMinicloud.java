@@ -114,6 +114,10 @@ public class MobMinicloud extends MobFlying {
                 --this.shotTimer;
             }
 
+            if (this.dead) {
+                this.remove();
+            }
+
             if (this.gotPlayer && this.dude == null) {
                 this.gotPlayer = false;
                 this.dude = (Mob) this.findPlayer();
@@ -158,6 +162,26 @@ public class MobMinicloud extends MobFlying {
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         return (attacker == null || attacker != this.dude) && super.hurt(attacker, damage, type);
+    }
+
+    public String getLivingSound() {
+        return null;
+    }
+
+    public String getHurtSound() {
+        return "aether:mob.zephyr.call";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.zephyr.call";
+    }
+
+    public void playHurtSound() {
+        this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
+    }
+
+    public void playDeathSound() {
+        this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
 
