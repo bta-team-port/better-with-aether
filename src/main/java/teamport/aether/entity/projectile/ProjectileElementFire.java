@@ -30,7 +30,8 @@ public class ProjectileElementFire extends ProjectileElementBase {
             if (!(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase)) {
                 if (hitResult.entity instanceof Mob) {
                     hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
-                    hitResult.entity.remainingFireTicks = 100;
+                    hitResult.entity.maxFireTicks = 200;
+                    hitResult.entity.remainingFireTicks = 200;
                     this.remove();
                     return;
                 }
