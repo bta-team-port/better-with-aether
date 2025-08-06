@@ -37,9 +37,16 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static final float angerThreshold = 0.50F;
     public static final float baseDamage = 10F;
     public static final int maxAttackCoolDown = 60;
-    public static final float baseSpeed = 1.375F;
 
-    public float momentumX, momentumY, momentumZ = 0F;
+    private static final int TICKS_PER_SECOND = 20;
+
+    // blocks per second.
+    public static final float baseSpeed = 15;
+    public static float speed = baseSpeed;
+    public float blocksToMove = 0;
+
+    public Direction moveDirection = null;
+
     public int attackCoolDown = 0;
     public boolean allowedToMove;
 
@@ -72,18 +79,16 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         super.baseTick();
 
         int blocksBroken = 0;
-        if (Math.abs(momentumX) > 1.0F || Math.abs(momentumZ) > 1.0F) {
+        if (blocksToMove > 0) {
             for (int x = -2; x <= 1; x++) {
             for (int z = -2; z <= 1; z++) {
-            for (int y = (momentumY < -0.1) ? -2 : -1; y <= 2; y++) {
+            for (int y = (moveDirection == Direction.DOWN && currentState != State.SLAM) ? -1 : 0 ; y <= 2; y++) {
                 if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z))) {
-                    this.momentumX *= 0.85F;
-                    this.momentumY *= 0.85F;
-                    this.momentumZ *= 0.85F;
+                    blocksToMove -= 0.5F;
 
                     blocksBroken++;
                     if (blocksBroken >= 9) {
-                        if (this.momentumY <= 0) this.momentumY = 0.4125F;
+                        move(0, 0.4125F, 0);
                         this.allowedToMove = false;
                         this.attackCoolDown = maxAttackCoolDown;
                         return;
@@ -92,10 +97,29 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }}}
         }
 
-        this.momentumX *= 0.75F;
-        this.momentumY *= 0.75F;
-        this.momentumZ *= 0.75F;
-        move(this.momentumX, this.momentumY, this.momentumZ);
+        if (moveDirection != null) {
+            float moveAmount = speed/TICKS_PER_SECOND;
+            if (blocksToMove > moveAmount) {
+                move(
+                    moveAmount * moveDirection.getOffsetX(),
+                    moveAmount * moveDirection.getOffsetY(),
+                    moveAmount * moveDirection.getOffsetZ()
+                );
+
+                blocksToMove -= moveAmount;
+            }
+            else {
+                move(
+                    blocksToMove * moveDirection.getOffsetX(),
+                    blocksToMove * moveDirection.getOffsetY(),
+                    blocksToMove * moveDirection.getOffsetZ()
+                );
+
+                blocksToMove = 0;
+            }
+        } else {
+            blocksToMove = 0;
+        }
 
         this.attackCoolDown--;
         if (attackCoolDown <= 0) allowedToMove = true;
@@ -130,19 +154,23 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             if (this.distanceToSqr(target) > AetherDimension.bossDetectionRangeSQR) target = null;
         }
 
-        if (allowedToMove && target != null && (Math.abs(this.momentumX) <= 0.05F && Math.abs(this.momentumY) <= 0.05F && Math.abs(this.momentumZ) <= 0.05F)) {
-            this.speed = baseSpeed * getSpeedModifier(target);
+        if (allowedToMove && target != null && blocksToMove <= 0.05F) {
+            //this.speed = baseSpeed * getSpeedModifier(target);
             this.attackCoolDown = maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
+            allowedToMove = false;
 
             if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && random.nextInt(6) == 0) {
-                chargeDirection(Direction.UP);
+                moveDirection = Direction.UP;
+                blocksToMove = 45;
+
+                speed = baseSpeed * 2;
                 this.attackCoolDown = (int) (maxAttackCoolDown * 0.50F);
                 this.currentState = State.SLAM;
                 return;
             }
 
-            Direction moveDirection = calculateDirection(target);
-            chargeDirection(moveDirection);
+            moveDirection = calculateDirection(target);
+            blocksToMove = Math.max(distanceTo(target), 3);
         }
     }
 
@@ -151,7 +179,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     protected void stateSlam() {
         assert world != null;
 
-        if (allowedToMove) this.momentumY -= baseSpeed;
+        if (allowedToMove) {
+            moveDirection = Direction.DOWN;
+            blocksToMove = 45;
+        }
 
         if (this.slamY == this.y && allowedToMove) {
             final int slamRadius = 5;
@@ -192,8 +223,14 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 doExplosionEffect(world, explosionX, explosionY, explosionZ);
             }
 
-            if (this.momentumY <= 0) this.momentumY = 0.4125F;
+            if (blocksToMove > 0) {
+                move(0, 0.4125F, 0);
+                blocksToMove = 0;
+                moveDirection = null;
+            }
+
             this.currentState = State.AWAKE;
+            speed = baseSpeed;
             this.attackCoolDown = maxAttackCoolDown;
         }
 
@@ -202,7 +239,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (Math.abs(this.momentumZ) > 0.05F || Math.abs(this.momentumX) > 0.05F || Math.abs(this.momentumY) > 0.05F) {
+        if (blocksToMove > 0.75f) {
             entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
             entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
             if (entity instanceof Player && ((Player) entity).gamemode.isPlayerInvulnerable()) {
@@ -271,40 +308,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             return deltaX < 0 ? Direction.EAST : Direction.WEST;
         } else {
             return deltaZ < 0 ? Direction.SOUTH : Direction.NORTH;
-        }
-    }
-
-    protected void chargeDirection(Direction direction) {
-        switch (direction) {
-            case UP:
-                this.allowedToMove = false;
-                this.momentumY += baseSpeed * getSpeedModifier(target);
-                break;
-
-            case DOWN:
-                this.allowedToMove = false;
-                this.momentumY -= baseSpeed * getSpeedModifier(target);
-                break;
-
-            case NORTH:
-                this.allowedToMove = false;
-                this.momentumZ -= speed;
-                break;
-
-            case SOUTH:
-                this.allowedToMove = false;
-                this.momentumZ += speed;
-                break;
-
-            case EAST:
-                this.allowedToMove = false;
-                this.momentumX += speed;
-                break;
-
-            case WEST:
-                this.allowedToMove = false;
-                this.momentumX -= speed;
-                break;
         }
     }
 
