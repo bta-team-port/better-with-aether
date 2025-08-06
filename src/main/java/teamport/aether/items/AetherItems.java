@@ -287,7 +287,6 @@ public final class AetherItems {
         BUCKET_SKYROOT_REMEDY = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootRemedy("bucket.skyroot.remedy", itemKey("bucket_skyroot_remedy"), itemID("BUCKET_SKYROOT_REMEDY"))).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_POISON = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootPoison("bucket.skyroot.poison", itemKey("bucket_skyroot_poison"), itemID("BUCKET_SKYROOT_POISON"))).setContainerItem(BUCKET_SKYROOT);
         BUCKET_SKYROOT_ICECREAM = new ItemBuilder(MOD_ID).build(new ItemBucketSkyrootIceCream("bucket.skyroot.icecream", itemKey("bucket_skyroot_icecream"), itemID("BUCKET_SKYROOT_ICECREAM"), 10, 4)).setContainerItem(BUCKET_SKYROOT);
-        //TODO Poison and remedy buckets need to be drinkable and give effects
 
 
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.SKYROOT));
@@ -326,7 +325,6 @@ public final class AetherItems {
         AMMO_DART_GOLDEN = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.golden", itemKey("ammo_dart_golden"), itemID("AMMO_DART_GOLDEN"), 0));
         AMMO_DART_POISON = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.poison", itemKey("ammo_dart_poison"), itemID("AMMO_DART_POISON"), 1));
         AMMO_DART_ENCHANTED = new ItemBuilder(MOD_ID).build(new ItemDart("ammo.dart.enchanted", itemKey("ammo_dart_enchanted"), itemID("AMMO_DART_ENCHANTED"), 2));
-        //TODO Poison darts need to be added and given their effect when they hit something
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID).build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER")));
 
