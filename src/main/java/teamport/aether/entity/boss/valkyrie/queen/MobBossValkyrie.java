@@ -1,4 +1,4 @@
-package teamport.aether.entity.monster.valkyrie;
+package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;

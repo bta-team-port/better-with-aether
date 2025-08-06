@@ -20,7 +20,7 @@ import teamport.aether.entity.animal.sheepuff.MobSheepuff;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.swet.MobSwet;
-import teamport.aether.entity.monster.valkyrie.MobBossValkyrie;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityEnchanter;

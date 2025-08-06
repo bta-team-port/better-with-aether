@@ -18,7 +18,7 @@ import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.sentry.MobSentry;
-import teamport.aether.entity.monster.valkyrie.MobBossValkyrie;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;

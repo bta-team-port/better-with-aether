@@ -5,6 +5,7 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
+import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
@@ -124,21 +125,39 @@ public class MobCockatrice extends MobMonster implements Enemy {
     public String getDeathSound() {
         return "aether:mob.moa";
     }
-
-    public float getSoundVolume() {
-        return 0.5F;
-    }
+    
 
     public void playLivingSound() {
-        this.world.playSoundAtEntity(null, this, this.getLivingSound(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
+        this.world.playSoundAtEntity(null, this, this.getLivingSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
 
     public void playHurtSound() {
-        this.world.playSoundAtEntity(null, this, this.getHurtSound(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
+        this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
     }
 
     public void playDeathSound() {
-        this.world.playSoundAtEntity(null, this, this.getDeathSound(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
+        this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
+    }
+
+    public boolean canSpawnHere() {
+        int blockX = MathHelper.floor(this.x);
+        int blockY = MathHelper.floor(this.bb.minY);
+        int blockZ = MathHelper.floor(this.z);
+        if (this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 0) {
+            return false;
+        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
+            return false;
+        } else {
+            int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
+            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().doMobsSpawnInDaylight) {
+                blockLight /= 2;
+            }
+
+            if (this.random.nextInt(20) == 0) {
+                return blockLight <= 4 && super.canSpawnHere();
+            }
+        }
+        return false;
     }
 
 }

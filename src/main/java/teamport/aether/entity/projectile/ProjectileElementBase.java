@@ -33,6 +33,10 @@ public class ProjectileElementBase extends Projectile {
         this.initProjectile();
     }
 
+    public ProjectileElementBase(World world, double v, double y, double v1, Mob ep) {
+        super(world);
+    }
+
 
     @Override
     protected void initProjectile() {

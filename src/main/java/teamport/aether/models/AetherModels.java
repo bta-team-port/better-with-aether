@@ -40,6 +40,8 @@ import teamport.aether.entity.boss.slider.MobRendererSlider;
 import teamport.aether.entity.boss.slider.ModelSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.sunspirit.ModelSunspirit;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.boss.valkyrie.queen.MobRendererValkyrieBoss;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.cockatrice.MobRendererCockatrice;
 import teamport.aether.entity.monster.mimic.MobMimic;

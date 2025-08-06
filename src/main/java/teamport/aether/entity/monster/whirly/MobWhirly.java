@@ -3,6 +3,7 @@ package teamport.aether.entity.monster.whirly;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
@@ -16,7 +17,7 @@ import teamport.aether.items.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobWhirly extends MobAetherAnimal {
+public class MobWhirly extends MobAetherAnimal implements Enemy {
     public int entcount = 0;
     public int Life;
     public List<Particle> fluffies;
