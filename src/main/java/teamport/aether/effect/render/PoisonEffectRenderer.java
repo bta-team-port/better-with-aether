@@ -13,7 +13,5 @@ public class PoisonEffectRenderer extends TintEffectRender {
         float totalTime = (float) effectStack.getDuration() * effectStack.getEffect().getMaxStack();
         float percent = (currentAmount + effectStack.getTimeLeft()) / totalTime;
         return 0.35F +  percent / 3.0F;
-
-
     }
 }

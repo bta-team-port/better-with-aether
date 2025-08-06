@@ -10,6 +10,6 @@ public class RemedyEffectRenderer extends TintEffectRender {
     @Override
     public float calcAlpha(EffectStack effectStack) {
         float percent = (float)effectStack.getTimeLeft() / (float)(effectStack.getDuration());
-        return 0.35F * percent * percent;
+        return (float)(Math.pow(percent, 4.0f));
     }
 }
