@@ -1,16 +1,11 @@
 package teamport.aether.particle;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.Particle;
-import net.minecraft.client.entity.particle.ParticleArrowGolden;
-import net.minecraft.client.render.LightmapHelper;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -18,26 +13,37 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class ParticlePoison extends Particle {
 
     // TODO figure out to make the particles rise slowly to the top and than pop
-    public ParticlePoison(World world, double x, double y, double z, double xd, double yd, double zd) {
-        super(world, x, y, z, xd, yd, zd);
+    public ParticlePoison(World world, double x, double y, double z, double xa, double ya, double za) {
+        super(world, x, y, z, xa, ya, za);
         this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/poison");
+        this.xd = this.zd = 0;
+        // rising
+        this.yd = ya + (Math.random() * 0.4F);
+        float speed = 0.15F;
+        float dd = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
+        this.yd = this.yd / (double)dd * (double)speed * 0.4 + 0.1;
     }
 
-    public Particle setPower(float power) {
-        return super.setPower(power);
-    }
 
-    public Particle setScale(float scale) {
-        return super.setScale(scale);
-    }
-
-    @Override
-    public void render(Tessellator t, float partialTick, double xOff, double yOff, double zOff, float xa, float ya, float za, float xa2, float za2) {
-        super.render(t, partialTick, xOff, yOff, zOff, xa, ya, za, xa2, za2);
-    }
 
     public void tick() {
-        super.tick();
+        this.age++;
+        if(this.age + 4 < this.lifetime){
+            this.yo = this.y;
+            this.move(this.xd, this.yd, this.zd);
+            this.yd -= 0.04 * (double)this.gravity;
+            this.yd *= 0.8;
+            return;
+        }
+        if (this.age + 2 >= this.lifetime && this.age < this.lifetime) {
+            this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/poison_pop");
+        }
+        this.setScale(1.1F);
+        if (this.age >= this.lifetime) {
+            this.remove();
+        }
+
+
 
     }
 
