@@ -317,6 +317,9 @@ item.aether.door.skyroot.desc=Every home needs one.
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
 
+item.aether.sign.skyroot.name=Skyroot Sign
+item.aether.sign.skyroot.desc=Sign your land, or put down a notice.
+
 item.aether.ammo.windball.name=Wind Charge
 item.aether.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
 

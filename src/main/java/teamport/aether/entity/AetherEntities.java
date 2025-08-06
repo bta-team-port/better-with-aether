@@ -26,6 +26,7 @@ import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.tile.TileEntityEnchanter;
 import teamport.aether.tile.TileEntityFreezer;
 import teamport.aether.tile.TileEntityIncubator;
+import teamport.aether.tile.TileEntitySignSkyroot;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -76,6 +77,7 @@ public final class AetherEntities {
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
         EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
+        EntityHelper.createTileEntity(TileEntitySignSkyroot.class, NamespaceID.getPermanent(MOD_ID, "sign_skyroot"));
 
         EntityHelper.createEntity(ProjectileKnifeLightning.class, NamespaceID.getPermanent(MOD_ID, "knife_lightning"), entityKey("knife_lightning"));
         EntityHelper.createEntity(ProjectileDartEnchanted.class, NamespaceID.getPermanent(MOD_ID, "dart_enchanted"), entityKey("dart_enchanted"));
