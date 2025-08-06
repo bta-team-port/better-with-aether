@@ -282,6 +282,8 @@ item.aether.record.morning.name=Aether Music Disc
 item.aether.record.morning.desc=§8morning
 item.aether.record.dawn.name=Aether Music Disc
 item.aether.record.dawn.desc=§6dawn
+item.aether.record.nether.name=Aether Music Disc
+item.aether.record.nether.desc=§knether
 
 item.aether.amber.name=Golden Amber
 item.aether.amber.desc=Harvested from a golden oak, useful for darts.

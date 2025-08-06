@@ -3,6 +3,8 @@ package teamport.aether.world.generate.feature;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -45,81 +47,29 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
 
     static {
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAIN.getDefaultStack(), 1, 1),
-                100.0
-        );
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_IRON.getDefaultStack(), 1, 1), 100.0);
 
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1, 1),
-                100.0
-        );
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1, 1), 100.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1, 1), 100.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PIG.getDefaultStack(), 1, 1), 100.0);
 
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PIG.getDefaultStack(), 1, 1),
-                100.0
-        );
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_PHOENIX.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_PHOENIX.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_PHOENIX.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_PHOENIX.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_PHOENIX.getDefaultStack(), 1, 1), 99.0);
 
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_PHOENIX.getDefaultStack(), 1, 1),
-                99.0
-        );
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.LIFESHARD.getDefaultStack(), 1, 1), 100.0);
 
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_PHOENIX.getDefaultStack(), 1, 1),
-                99.0
-        );
+        for(int i = 0; i < 9; ++i) {
+            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_NETHER.id + i])), 10.0);
+        }
 
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_PHOENIX.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_PHOENIX.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_PHOENIX.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.LIFESHARD.getDefaultStack(), 1, 1),
-                100.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_GRAVITITE.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_GRAVITITE.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_GRAVITITE.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_GRAVITITE.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_GRAVITITE.getDefaultStack(), 1, 1),
-                99.0
-        );
-
-        LOOT_RARE.addEntry(
-                new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_OBSIDIAN.getDefaultStack(), 1, 1),
-                100.0
-        );
-    }
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_GRAVITITE.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_GRAVITITE.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_GRAVITITE.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_GRAVITITE.getDefaultStack(), 1, 1), 99.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_GRAVITITE.getDefaultStack(), 1, 1), 99.0);}
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {

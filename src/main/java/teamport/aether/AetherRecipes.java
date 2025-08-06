@@ -132,19 +132,15 @@ public class AetherRecipes implements RecipeEntrypoint {
                 new ItemStack(Items.RECORD_13),
                 new ItemStack(Items.RECORD_BLOCKS),
                 new ItemStack(Items.RECORD_CAT),
-                new ItemStack(Items.RECORD_CHIRP)));
-
-        Registries.ITEM_GROUPS.register("aether:record_dawn", Registries.stackListOf(
                 new ItemStack(Items.RECORD_DOG),
                 new ItemStack(Items.RECORD_STRAD),
                 new ItemStack(Items.RECORD_WAIT),
-                new ItemStack(Items.RECORD_WARD)));
-
-        Registries.ITEM_GROUPS.register("aether:record_morning", Registries.stackListOf(
                 new ItemStack(Items.RECORD_FAR),
                 new ItemStack(Items.RECORD_MALL),
                 new ItemStack(Items.RECORD_MELLOHI),
-                new ItemStack(Items.RECORD_STAL)));
+                new ItemStack(Items.RECORD_WARD),
+                new ItemStack(Items.RECORD_STAL),
+                new ItemStack(Items.RECORD_CHIRP)));
     }
     public static void trommelGroups() {
         Registries.ITEM_GROUPS.register("aether:dirts", Registries.stackListOf(
