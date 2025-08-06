@@ -63,11 +63,7 @@ public class RemedyEffect extends Effect implements IHudVisibility, ILockInterac
                 if(effect.equals(stack.getEffect())){
                     effectContainer.remove(stack.getEffect());
                     Mob mob = (Mob) effectContainer.getParent();
-                    if (mob instanceof Player) {
-                        ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - 2, mob.z, mob.bbHeight, mob.bbWidth);
-                    } else {
-                        ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
-                    }
+                    spawnParticles(mob);
                 }
             }
         }
@@ -75,7 +71,18 @@ public class RemedyEffect extends Effect implements IHudVisibility, ILockInterac
 
     @Override
     public void lockTriggered(IHasEffects hasEffects) {
-        Entity entity = (Entity) hasEffects;
-        ParticalHelper.spawnRemedyParticle(entity.world, entity.x, entity.y, entity.z, entity.bbHeight, entity.bbWidth);
+        if (!(hasEffects instanceof Mob)) {
+            return;
+        }
+        Mob mob = (Mob) hasEffects;
+        spawnParticles(mob);
+    }
+
+    private static void spawnParticles(Mob mob) {
+        if (mob instanceof Player) {
+            ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
+        } else {
+            ParticalHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
+        }
     }
 }
