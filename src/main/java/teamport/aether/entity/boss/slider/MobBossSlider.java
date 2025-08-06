@@ -239,7 +239,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (blocksToMove > 0.75f) {
+        if (blocksToMove > 0.25F) {
             entity.hurt(this, (int) (baseDamage * getAngerModifier()), DamageType.FALL);
             entity.hurt(this, (int) ((baseDamage * .50F) * getAngerModifier()), DamageType.GENERIC);
             if (entity instanceof Player && ((Player) entity).gamemode.isPlayerInvulnerable()) {
