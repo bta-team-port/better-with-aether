@@ -1,9 +1,9 @@
 package teamport.aether.effect;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
@@ -66,17 +66,23 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
         Mob mob = (Mob) effectContainer.getParent();
-        if (mob.world == null) {AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");return;}
-        if(mob instanceof Player){
-            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y - 2, mob.z, mob.bbHeight, mob.bbWidth);
-        }else {
-            ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
+        if (mob.world == null) {
+            AetherMod.LOGGER.warn("PoisonEffect is not applied cause the world is null");
+            return;
+        }
+        if (mob.tickCount % 4 == 0) {
+            if (mob instanceof Player) {
+                Direction dir = Direction.getDirection(mob).getOpposite();
+                ParticalHelper.spawnPoisonParticles(mob.world, mob.x + dir.getOffsetX(), mob.y - 2, mob.z + dir.getOffsetZ(), mob.bbHeight, mob.bbWidth);
+            } else {
+                ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
+            }
         }
         slideEntity(mob);
     }
 
     private void slideEntity(Mob mob) {
-        double gauss = ((EntityAccessor)mob).getRandom().nextGaussian();
+        double gauss = ((EntityAccessor) mob).getRandom().nextGaussian();
         double newMotD = 0.1 * gauss;
         motD = 0.2 * newMotD + (1.0 - 0.2) * motD;
         mob.xd += motD;
