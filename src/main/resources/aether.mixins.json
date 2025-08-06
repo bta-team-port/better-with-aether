@@ -50,6 +50,7 @@
     "armor.wolf.MobWolfMixinZaniteResistance",
     "armor.wolf.MobWolfNoKnockback",
     "dimension.BlockCreatePortalMixin",
+    "dimension.BlockLogicFireMixin",
     "dimension.SaveHandlerMixin",
     "item.ItemBlockBlacklistMixin",
     "item.ItemFireStrikerMixin",
