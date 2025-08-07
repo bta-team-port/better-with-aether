@@ -217,7 +217,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE)
                 .setAllTextures(0, "aether:block/ore/gravitite/holystone"));
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBER)
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.BLOCK_AMBER, true).onRenderLayer(1)
                 .setAllTextures(0, "aether:block/block_amber"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
                 .setAllTextures(0, "aether:block/block_ambrosium"));

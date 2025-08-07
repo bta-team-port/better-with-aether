@@ -234,7 +234,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
     public static void dartAmmoRecipes() {
         RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.ZANITE).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
+        Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
                 .addInput('S', AetherItems.STICK_SKYROOT)
