@@ -546,7 +546,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BLOCK_AMBER = oreBlock
                 .setBlockSound(BlockSounds.STONE)
-                .build("block.amber", "block_amber", blockID("BLOCK_AMBER"), b -> new BlockLogic(b, Material.stone));
+                .build("block.amber", "block_amber", blockID("BLOCK_AMBER"), b -> new BlockLogicTransparent(b, Material.stone));
         BLOCK_AMBROSIUM = oreBlock
                 .setBlockSound(BlockSounds.STONE)
                 .build("block.ambrosium", "block_ambrosium", blockID("BLOCK_AMBROSIUM"), b -> new BlockLogic(b, Material.stone));
