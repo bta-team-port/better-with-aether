@@ -72,11 +72,6 @@ public class ProjectileElementBase extends Projectile {
     @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
-            if (hitResult.entity instanceof Mob) {
-                this.remove();
-                return;
-            }
-
             if (hitResult.side != null) {
                 switch (hitResult.side) {
                     case BOTTOM:
