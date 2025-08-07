@@ -21,6 +21,14 @@ public class MobFireMinion extends MobMonster implements Enemy {
         setSize(1.0f,  2.5f);
     }
 
+    public float getBrightness(float partialTick) {
+        return 1.0F;
+    }
+
+    public int getLightmapCoord(float partialTick) {
+        return this.world.getLightmapCoord(15, 15);
+    }
+
     public int getMaxHealth() {
         return 40;
     }

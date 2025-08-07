@@ -41,6 +41,9 @@ import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.sunspirit.MobRendererSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.boss.valkyrie.queen.MobRendererValkyrieBoss;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
+import teamport.aether.entity.monster.aechorplant.MobRendererAechorPlant;
+import teamport.aether.entity.monster.aechorplant.ModelAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.cockatrice.MobRendererCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
@@ -60,6 +63,7 @@ import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
+import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
@@ -217,6 +221,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE)
                 .setAllTextures(0, "aether:block/ore/gravitite/holystone"));
 
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.BLOCK_AMBER, true).onRenderLayer(1)
+                .setAllTextures(0, "aether:block/block_amber"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
                 .setAllTextures(0, "aether:block/block_ambrosium"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_ZANITE)
@@ -576,10 +582,12 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
+        ModelHelper.setEntityModel(ProjectileArrowFlaming.class, EntityRendererArrowFlaming::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+        ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobSwetGold.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
