@@ -1,4 +1,28 @@
 {
+  "mob.slider.move": {
+    "subtitle": "subtitles.mob.slider.move",
+    "sounds": [
+      "mob/slider/move.ogg"
+    ]
+  },
+  "mob.slider.death": {
+    "subtitle": "subtitles.mob.slider.death",
+    "sounds": [
+      "mob/slider/death.ogg"
+    ]
+  },
+  "mob.slider.collide": {
+    "subtitle": "subtitles.mob.slider.collide",
+    "sounds": [
+      "mob/slider/collide.ogg"
+    ]
+  },
+  "mob.slider.awaken": {
+    "subtitle": "subtitles.mob.slider.awaken",
+    "sounds": [
+      "mob/slider/awaken.ogg"
+    ]
+  },
   "mob.zephyr.call": {
     "subtitle": "subtitles.mob.zephyr.call",
     "sounds": [
