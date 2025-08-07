@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
+import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
@@ -14,13 +15,12 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.items.AetherItems;
 
 import java.util.List;
 
-public class MobAechorPlant extends MobAetherAnimal implements Enemy {
+public class MobAechorPlant extends MobMonster implements Enemy {
     public Mob target;
     public int size;
     public int attTime;
@@ -181,20 +181,22 @@ public class MobAechorPlant extends MobAetherAnimal implements Enemy {
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
-        if (this.world.getDifficulty().canHostileMobsSpawn() && !this.world.isClientSide) {
-            double d1 = this.target.x - this.x;
-            double d2 = this.target.z - this.z;
-            double sqrt = Math.sqrt(d1 * d1 + d2 * d2 + 0.1);
-            double d3 = 1.5 / sqrt;
-            double d4 = 0.1 + sqrt * 0.5 + (this.y - this.target.y) * 0.25;
-            d1 *= d3;
-            d2 *= d3;
-            ProjectileDart dart = new ProjectileDart(this.world, 1);
-            dart.y = this.y + 0.5;
-            this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-            dart.setHeading(d1, d4, d2, 0.285F + (float) d4 * 0.05F, 1.0F);
-            this.world.entityJoinedWorld(dart);
+        if (distance < 10.0F) {
+            double d = entity.x - this.x;
+            double d1 = entity.z - this.z;
+                if (!this.world.isClientSide) {
+                    ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
+                    double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - dart.y;
+                    float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
+                    world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
+                    dart.setHeading(d, d2 + (double)f1, d1, 0.6F, 12.0F);
+                    this.world.entityJoinedWorld(dart);
+                }
+
+            this.yRot = (float)(Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
+            this.hasAttacked = true;
         }
+
     }
 
     public String getHurtSound() {

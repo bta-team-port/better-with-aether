@@ -11,12 +11,13 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.items.AetherItems;
 
-public class MobSwetGold extends MobSwet{
+public class MobSwetGold extends MobSwet {
+
     public MobSwetGold(World world) {
         super(world);
         this.heightOffset = 0.0F;
         this.scoreValue = 400;
-        this.setSize(0.8F, 0.8F);
+        this.setSize(1.6F, 1.6F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
@@ -71,7 +72,7 @@ public class MobSwetGold extends MobSwet{
 
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (!this.friendly) {
-            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                 this.attackTime = 40;
                 entity.hurt(this, 3, DamageType.COMBAT);
             }
