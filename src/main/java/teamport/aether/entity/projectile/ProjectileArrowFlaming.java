@@ -7,7 +7,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.entity.projectile.ProjectileArrow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
@@ -37,6 +36,14 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.stack = new ItemStack(Items.AMMO_ARROW);
         this.inGround = false;
         this.doesArrowBelongToPlayer = false;
+    }
+
+    public float getBrightness(float partialTick) {
+        return 1.0F;
+    }
+
+    public int getLightmapCoord(float partialTick) {
+        return this.world.getLightmapCoord(15, 15);
     }
 
     public void tick() {
@@ -76,7 +83,8 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
                 this.ticksInAir = 0;
             }
         } else {
-            this.world.spawnParticle("flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            this.world.spawnParticle("flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            this.world.spawnParticle("flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             this.world.spawnParticle("smoke", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             this.world.spawnParticle("smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
 
