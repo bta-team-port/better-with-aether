@@ -20,6 +20,8 @@ import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.monster.swet.MobSwet;
+import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
@@ -67,6 +69,11 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobCockatrice.class, "guidebook.section.mob.cockatrice.name", "guidebook.section.mob.cockatrice.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
+
+        MobInfoRegistry.register(MobSwet.class, "guidebook.section.mob.swet.name", "guidebook.section.mob.swet.desc", 16, 200, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_BLUE), 1.0f, 1, 2)});
+        MobInfoRegistry.register(MobSwetGold.class, "guidebook.section.mob.swet.gold.name", "guidebook.section.mob.swet.gold.desc", 26, 400, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(Blocks.GLOWSTONE), 1.0f, 1, 2)});
 
         MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
 

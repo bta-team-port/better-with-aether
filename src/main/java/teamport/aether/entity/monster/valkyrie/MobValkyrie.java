@@ -35,15 +35,6 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.scoreValue = 5000;
     }
 
-    public MobValkyrie(World world, double x, double y, double z, boolean flag) {
-        super(world);
-        this.setSize(0.8F, 2.0F);
-        this.teleTimer = this.random.nextInt(250);
-        this.moveSpeed = 0.5F;
-        this.timeLeft = 1200;
-        this.attackStrength = 7;
-    }
-
     public void causeFallDamage(float distance) {
     }
 
