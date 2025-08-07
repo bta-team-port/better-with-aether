@@ -1,5 +1,6 @@
 package teamport.aether.effect;
 
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import teamport.aether.gui.IHudVisibility;
@@ -116,7 +117,8 @@ public class AetherEffects {
     }
 
 
-    public static void fixedAdd(IHasEffects entity, Effect newEffect, int amount) {
+    public static void add(IHasEffects entity, Effect newEffect, int amount) {
+        if(!(entity instanceof Mob)) return;
         for(EffectStack effect : entity.getContainer().getEffects()) {
             if (effect.getEffect() == newEffect) {
                 if(effect.getAmount() + amount >= effect.getEffect().getMaxStack()){
