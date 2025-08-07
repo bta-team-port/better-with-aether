@@ -158,4 +158,8 @@ public class MobSwet extends MobMonster implements Enemy {
         }
     }
 
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
+
 }
