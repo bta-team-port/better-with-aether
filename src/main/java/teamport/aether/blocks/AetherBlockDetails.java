@@ -49,6 +49,7 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, 0, MaterialColor.paintedYellow);
         registerManualBlockColor(AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP, 0, MaterialColor.paintedYellow);
 
+        registerManualBlockColor(AetherBlocks.BLOCK_AMBER, 0, MaterialColor.gold);
         registerManualBlockColor(AetherBlocks.BLOCK_AMBROSIUM, 0, MaterialColor.gold);
         registerManualBlockColor(AetherBlocks.BLOCK_ZANITE, 0, MaterialColor.paintedPurple);
         registerManualBlockColor(AetherBlocks.BLOCK_GRAVITITE, 0, MaterialColor.paintedPink);

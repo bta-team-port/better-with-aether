@@ -15,8 +15,11 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.items.AetherItems;
 
 public class BlockLogicLogAether extends BlockLogicLog {
-    public BlockLogicLogAether(Block<?> block) {
+    public boolean golden;
+
+    public BlockLogicLogAether(Block<?> block, boolean golden) {
         super(block);
+        this.golden = golden;
     }
 
     @Override
@@ -29,7 +32,16 @@ public class BlockLogicLogAether extends BlockLogicLog {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
             this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
+        } else if (heldItem != null && meta == 0 && this.golden && player.getGamemode().consumeBlocks()) {
+            if (heldItem.getItem().equals(AetherItems.TOOL_AXE_HOLYSTONE)) {
+                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
+            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_ZANITE)) {
+                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
+            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_GRAVITITE)) {
+                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
+            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_VALKYRIE)) {
+                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
+            }
         }
     }
-
 }
