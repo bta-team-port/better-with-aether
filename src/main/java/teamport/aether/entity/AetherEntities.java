@@ -12,6 +12,7 @@ import teamport.aether.entity.animal.sheepuff.MobSheepuff;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.mimic.MobMimic;
@@ -51,6 +52,7 @@ public final class AetherEntities {
     public static void initializeEntities() {
         EntityHelper.createEntity(MobSentry.class, NamespaceID.getPermanent(MOD_ID, "sentry"), entityKey("sentry"));
         EntityHelper.createEntity(MobZephyr.class, NamespaceID.getPermanent(MOD_ID, "zephyr"), entityKey("zephyr"));
+        EntityHelper.createEntity(MobAechorPlant.class, NamespaceID.getPermanent(MOD_ID, "aechorplant"), entityKey("aechorplant"));
         EntityHelper.createEntity(MobMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"), entityKey("mimic"));
         EntityHelper.createEntity(MobSwet.class, NamespaceID.getPermanent(MOD_ID, "swet"), entityKey("swet"));
         EntityHelper.createEntity(MobSwetGold.class, NamespaceID.getPermanent(MOD_ID, "swet_gold"), entityKey("swet_gold"));
