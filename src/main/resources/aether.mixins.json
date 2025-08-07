@@ -64,7 +64,7 @@
     "DynamicTexturesMixin",
     "GuidebookMixinInclude",
     "HudComponentHealthBarMixin",
-    "HudComponentsMixinExtraHealth",
+    "HudComponentEntrypointMixin",
     "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
     "MobRendererGLCleanUpMixin",
