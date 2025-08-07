@@ -20,13 +20,15 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
-import teamport.aether.entity.monster.cockatrice.MobCockatrice;
-import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
+import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.entity.animal.sheepuff.MobSheepuff;
+import teamport.aether.entity.monster.cockatrice.MobCockatrice;
+import teamport.aether.entity.monster.swet.MobSwet;
+import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItemTags;
@@ -84,8 +86,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 26));
 
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
-//        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 5));
-        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 10));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwetGold.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 10));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobWhirly.class, 5));
 
 
