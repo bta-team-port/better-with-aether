@@ -87,5 +87,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(ProjectileArrowFlaming.class, NamespaceID.getPermanent(MOD_ID, "arrow_flaming"), entityKey("arrow_flaming"));
         EntityHelper.createEntity(ProjectileHammerHead.class, NamespaceID.getPermanent(MOD_ID, "hammer_head"), entityKey("hammer_head"));
         EntityHelper.createEntity(ProjectileWindball.class, NamespaceID.getPermanent(MOD_ID, "windball"), entityKey("windball"));
+        EntityHelper.createEntity(ProjectileElementFire.class, NamespaceID.getPermanent(MOD_ID, "projectile_fire"), entityKey("projectile_fire"));
+        EntityHelper.createEntity(ProjectileElementIce.class, NamespaceID.getPermanent(MOD_ID, "projectile_ice"), entityKey("projectile_ice"));
+        EntityHelper.createEntity(ProjectileElementLightning.class, NamespaceID.getPermanent(MOD_ID, "projectile_lightning"), entityKey("projectile_lightning"));
     }
 }
