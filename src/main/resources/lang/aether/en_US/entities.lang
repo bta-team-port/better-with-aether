@@ -72,7 +72,7 @@ guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spir
 
 
 # Bosses
-aether.entity.boss_slider=Sentry
+aether.entity.boss_slider=Slider
 guidebook.section.mob.slider.name=Slider
 guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
