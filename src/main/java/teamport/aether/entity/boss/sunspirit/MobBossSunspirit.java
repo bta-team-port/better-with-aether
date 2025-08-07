@@ -23,10 +23,15 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
         this.setSize(2.25F, 2.5F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_sunspirit");
         this.fireImmune = true;
-        this.maxHurtTime = 20;
+        this.maxHurtTime = 40;
+        this.scoreValue = 100000;
     }
 
     protected void causeFallDamage(float distance) {
+    }
+
+    public int getMaxHealth() {
+        return 1000;
     }
 
     public void moveEntityWithHeading(float moveStrafing, float moveForward) {
@@ -144,10 +149,18 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker instanceof ProjectileElementIce) {
-            super.hurt(attacker, damage, type);
+            super.hurt(attacker, 100, type);
             return true;
         }
         return false;
+    }
+
+    public String getHurtSound() {
+        return "aether:mob.sunspirit.hurt";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.sunspirit.death";
     }
 
 

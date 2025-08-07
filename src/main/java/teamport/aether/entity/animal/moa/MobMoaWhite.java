@@ -5,7 +5,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
-public class MobMoaWhite extends MobMoa {
+public class MobMoaWhite extends MobMoaBlue {
     public MobMoaWhite(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);

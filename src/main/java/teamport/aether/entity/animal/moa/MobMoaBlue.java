@@ -16,7 +16,7 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobMoa extends MobAetherAnimal {
+public class MobMoaBlue extends MobAetherAnimal {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
@@ -27,11 +27,11 @@ public class MobMoa extends MobAetherAnimal {
     public int jumpsRemaining;
     public boolean jumpPressed;
 
-    public MobMoa(@Nullable World world) {
+    public MobMoaBlue(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa");
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
         this.jumpsRemaining = 2;
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));

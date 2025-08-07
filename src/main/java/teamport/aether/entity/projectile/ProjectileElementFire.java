@@ -11,6 +11,11 @@ public class ProjectileElementFire extends ProjectileElementBase {
 
     public String[] particles = {"explode", "flame"};
 
+    public ProjectileElementFire(World world) {
+        super(world);
+        this.initProjectile();
+    }
+
     public ProjectileElementFire(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();

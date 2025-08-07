@@ -17,6 +17,7 @@ public class MobFireMinion extends MobMonster implements Enemy {
         this.attackStrength = 5;
         this.fireImmune = true;
         this.maxFireTicks = 20;
+        this.scoreValue = 1000;
         setSize(1.0f,  2.5f);
     }
 
@@ -52,27 +53,23 @@ public class MobFireMinion extends MobMonster implements Enemy {
     }
 
     public String getLivingSound() {
-        return "mob.zombiepig.zpig";
+        return null;
     }
 
     public String getHurtSound() {
-        return "mob.zombiepig.zpighurt";
+        return "aether:mob.sunspirit.hurt";
     }
 
     public String getDeathSound() {
-        return "mob.zombiepig.zpigdeath";
-    }
-
-    public void playLivingSound() {
-        this.world.playSoundAtEntity(null, this, this.getLivingSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 0.5F - 0.25F);
+        return "aether:mob.sunspirit.death";
     }
 
     public void playHurtSound() {
-        this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 0.5F - 0.25F);
+        this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
     public void playDeathSound() {
-        this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 0.5F - 0.25F);
+        this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
 }

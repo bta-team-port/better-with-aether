@@ -34,6 +34,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
         this.ignoreFrustumCheck = true;
+        this.scoreValue = 0;
     }
 
     public void defineSynchedData() {

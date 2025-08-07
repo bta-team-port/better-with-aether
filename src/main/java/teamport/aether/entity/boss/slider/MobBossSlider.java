@@ -69,7 +69,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         super(world);
         this.yRot = 0.0f;
         this.xRot = 0.0F;
-
+        this.scoreValue = 10000;
         this.setSize(2.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
     }
@@ -296,9 +296,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     // this following functions is the single most annoying solution in this class.
     // If you know better than me, please replace it with something decent. -Khep
     public Direction calculateDirection(Entity entity) {
-        double deltaX =  this.x - entity.x - 0.5;
+        double deltaX =  this.x - entity.x;
         double deltaY =  this.y - entity.y;
-        double deltaZ =  this.z - entity.z - 0.5;
+        double deltaZ =  this.z - entity.z;
 
         if (Math.abs(deltaY) >= entity.bbHeight * 1.25F) {
             return deltaY < 0 ? Direction.UP : Direction.DOWN;
@@ -389,19 +389,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     public @NotNull String getDefaultEntityTexture() {
-        if (isAwake() && !doingSlam()) {
-            if (isAngry()) {
-                return "/assets/aether/textures/entity/boss_slider/slider_awake_red.png";
-            } else {
-                return "/assets/aether/textures/entity/boss_slider/slider_awake.png";
-            }
-        } else {
-            if (isAngry()) {
-                return "/assets/aether/textures/entity/boss_slider/slider_sleep_red.png";
-            } else {
-                return "/assets/aether/textures/entity/boss_slider/slider_sleep.png";
-            }
-        }
+        return "/assets/aether/textures/entity/boss_slider/slider_awake.png";
     }
 
     @Override

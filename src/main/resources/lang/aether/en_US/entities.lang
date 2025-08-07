@@ -16,10 +16,13 @@ aether.entity.aerbunny=Aerbunny
 guidebook.section.mob.aerbunny.name=Aerbunny
 guidebook.section.mob.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
 
-guidebook.section.mob.moa.name=Blue Moa
-guidebook.section.mob.moa.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
+aether.entity.moa_blue=Blue Moa
+guidebook.section.mob.moa.blue.name=Blue Moa
+guidebook.section.mob.moa.blue.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
+aether.entity.moa_white=White Moa
 guidebook.section.mob.moa.white.name=White Moa
 guidebook.section.mob.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 4 midair jumps.
+aether.entity.moa_black=Black Moa
 guidebook.section.mob.moa.black.name=Black Moa
 guidebook.section.mob.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 8 midair jumps.
 
@@ -29,10 +32,12 @@ guidebook.section.mob.aerwhale.desc=Aerwhales are ancient and peaceful creatures
 
 #Hostile
 
+aether.entity.swet.blue=Blue Swet
 guidebook.section.mob.swet.blue.name=Blue Swet
-guidebook.section.mob.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found rarely anywhere in the aether..
+guidebook.section.mob.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found uncommonly anywhere in the aether.
+aether.entity.swet.gold=Gold Swet
 guidebook.section.mob.swet.gold.name=Gold Swet
-guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether..
+guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether.
 
 aether.entity.cockatrice=Cockatrice
 guidebook.section.mob.cockatrice.name=Cockatrice
@@ -57,22 +62,28 @@ aether.entity.sentry=Sentry
 guidebook.section.mob.sentry.name=Sentry
 guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 
+aether.entity.valkyrie=Valkyrie
 guidebook.section.mob.valkyrie.name=Valkyrie
 guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
+aether.entity.fireminion=Fire Minion
+guidebook.section.mob.fireminion.name=Fire Minion
+guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spirit, quick and deadly.
+
 
 # Bosses
-
-aether.entity.boss_slider=Slider
+aether.entity.boss_slider=Sentry
+guidebook.section.mob.slider.name=Slider
+guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
-aether.entity.boss_slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
 
 aether.entity.boss_valkyrie=Valkyrie Queen
+guidebook.section.mob.valkyrie.queen.name=Valkyrie Queen
+guidebook.section.mob.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 aether.entity.boss_valkyrie.title=%s, The Valkyrie Queen
-aether.entity.boss_valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 
 aether.entity.boss_sunspirit=Sun Spirit
+guidebook.section.mob.sunspirit.name=Sun Spirit
+guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
 aether.entity.boss_sunspirit.title=%s, The Sun Spirit
-aether.entity.boss_sunspirit.name=Sun Spirit
-aether.entity.boss_sunspirit.desc=A devastating flaming god that attacks with fire and sometimes ice, found in gold dungeons.
