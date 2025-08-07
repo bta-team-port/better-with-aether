@@ -29,7 +29,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
         this.setSize(0.8F, 2.0F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
-        this.speed = 0.5F;
+        this.moveSpeed = 0.5F;
         this.timeLeft = 1200;
         this.attackStrength = 7;
     }
@@ -38,7 +38,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
         super(world);
         this.setSize(0.8F, 2.0F);
         this.teleTimer = this.random.nextInt(250);
-        this.speed = 0.5F;
+        this.moveSpeed = 0.5F;
         this.timeLeft = 1200;
         this.attackStrength = 7;
     }

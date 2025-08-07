@@ -29,7 +29,7 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
         super(world);
         this.setSize(0.6F, 0.8F);
         this.setPos(this.x, this.y, this.z);
-        this.speed = 0.6F;
+        this.moveSpeed = 0.6F;
         this.Angle = this.random.nextFloat() * 360.0F;
         this.Speed = this.random.nextFloat() * 0.025F + 0.025F;
         this.Curve = (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;

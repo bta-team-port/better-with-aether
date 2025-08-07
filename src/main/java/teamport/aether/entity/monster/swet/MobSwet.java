@@ -56,10 +56,10 @@ public class MobSwet extends Mob implements Enemy {
 
         if (this.textureNum == 1) {
             this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
-            this.speed = 1.5F;
+            this.moveSpeed = 1.5F;
         } else {
             this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
-            this.speed = 3.0F;
+            this.moveSpeed = 3.0F;
         }
 
     }
@@ -406,10 +406,10 @@ public class MobSwet extends Mob implements Enemy {
         this.textureNum = tag.getShort("textureNum");
         if (this.textureNum == 1) {
             this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
-            this.speed = 1.5F;
+            this.moveSpeed = 1.5F;
         } else {
             this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
-            this.speed = 3.0F;
+            this.moveSpeed = 3.0F;
         }
 
     }

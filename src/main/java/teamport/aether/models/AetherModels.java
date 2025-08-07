@@ -39,6 +39,8 @@ import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.slider.MobRendererSlider;
 import teamport.aether.entity.boss.slider.ModelSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.entity.monster.fireminion.ModelFireMinion;
 import teamport.aether.entity.boss.sunspirit.ModelSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.boss.valkyrie.queen.MobRendererValkyrieBoss;
@@ -588,6 +590,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrieBoss(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, () -> new MobRendererBiped<>(new ModelSunspirit(0.0F, 0.0F), 0.4F));
+        ModelHelper.setEntityModel(MobFireMinion.class, () -> new MobRendererBiped<>(new ModelFireMinion(0.0F, 0.0F), 0.4F));
 
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
