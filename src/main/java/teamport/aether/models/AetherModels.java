@@ -60,6 +60,7 @@ import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
+import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
@@ -578,6 +579,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
+        ModelHelper.setEntityModel(ProjectileArrowFlaming.class, EntityRendererArrowFlaming::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
 
