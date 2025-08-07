@@ -509,7 +509,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(0.0f)
                 .setUseInternalLight()
                 .setLuminance(15)
-                .build("torch.ambrosium", "torch_ambrosium", blockID("TORCH_AMBROSIUM"), BlockLogicTorchAmbrosium::new);
+                .build("torch.ambrosium", "torch_ambrosium", blockID("TORCH_AMBROSIUM"), BlockLogicTorchAmbrosium::new)
+                .withTags(BlockTags.BROKEN_BY_FLUIDS);
 
 
         ENCHANTER_IDLE = station
