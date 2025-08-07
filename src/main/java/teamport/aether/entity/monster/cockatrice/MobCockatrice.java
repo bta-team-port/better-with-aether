@@ -25,7 +25,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "cockatrice");
         this.setSize(1.0F, 2.0F);
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
-
+        this.scoreValue = 500;
     }
 
     public int getMaxSpawnedInChunk() {

@@ -50,6 +50,20 @@
       "mob/aerbunny/land.ogg"
     ]
   },
+  "mob.sunspirit.hurt": {
+    "subtitle": "subtitles.mob.sunspirit.hurt",
+    "sounds": [
+      "mob/sunspirit/hurt1.ogg",
+      "mob/sunspirit/hurt2.ogg"
+    ]
+  },
+  "mob.sunspirit.death": {
+    "subtitle": "subtitles.mob.sunspirit.death",
+    "sounds": [
+      "mob/sunspirit/death1.ogg",
+      "mob/sunspirit/death2.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {

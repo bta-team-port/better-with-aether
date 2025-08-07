@@ -2,6 +2,7 @@ package teamport.aether.entity.boss.slider;
 
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
+import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public class MobRendererSlider extends MobRenderer<MobBossSlider> {
@@ -9,6 +10,14 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     public MobRendererSlider(ModelBase model, float shadowSize) {
         super(model, shadowSize);
         this.setArmorModel(model);
+    }
+
+    public void renderPreview(Tessellator tessellator, MobBossSlider slider, double x, double y, double z, float yaw, float partialTick) {
+        GL11.glPushMatrix();
+        GL11.glScalef(0.75F, 0.75F, 0.75F);
+        this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake.png");
+        super.renderPreview(tessellator, slider, x, y + 0.5, z, yaw, partialTick);
+        GL11.glPopMatrix();
     }
 
     public boolean setEyeBrightness(MobBossSlider slider, int renderPass) {

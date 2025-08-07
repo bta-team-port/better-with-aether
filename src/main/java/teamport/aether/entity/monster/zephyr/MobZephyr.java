@@ -33,6 +33,10 @@ public class MobZephyr extends MobFlying implements Enemy {
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_WHITE.getDefaultStack(), 0, 6));
     }
 
+    public int getMaxHealth() {
+        return 10;
+    }
+
     @Override
     public void defineSynchedData() {
         this.entityData.define(16, (byte) 0, Byte.class);

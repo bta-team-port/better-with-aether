@@ -16,6 +16,7 @@ public class MobBossValkyrie extends MobBoss implements Enemy {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_valkyrie");
         this.setSize(0.8F, 2.0F);
+        this.scoreValue = 50000;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1));
     }
 
