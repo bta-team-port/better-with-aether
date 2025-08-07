@@ -32,12 +32,12 @@ guidebook.section.mob.aerwhale.desc=Aerwhales are ancient and peaceful creatures
 
 #Hostile
 
-aether.entity.swet.blue=Blue Swet
-guidebook.section.mob.swet.blue.name=Blue Swet
-guidebook.section.mob.swet.blue.desc=Blue swets can be dangerous if they grab you and jump to their deaths taking you with them. They can be found uncommonly anywhere in the aether.
-aether.entity.swet.gold=Gold Swet
+aether.entity.swet=Blue Swet
+guidebook.section.mob.swet.name=Blue Swet
+guidebook.section.mob.swet.desc=Blue swets can be dangerous if they manage to grab you. They can be found uncommonly anywhere in the aether.
+aether.entity.swet_gold=Gold Swet
 guidebook.section.mob.swet.gold.name=Gold Swet
-guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you pick you up and try going over the edge with you. They can be found rarely anywhere in the aether.
+guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you let them pick you up. They can be found rarely anywhere in the aether.
 
 aether.entity.cockatrice=Cockatrice
 guidebook.section.mob.cockatrice.name=Cockatrice
