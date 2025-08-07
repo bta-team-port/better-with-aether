@@ -214,6 +214,8 @@ tile.aether.block.zanite.name=Block of Zanite
 tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
 tile.aether.block.ambrosium.name=Block of Ambrosium
 tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
+tile.aether.block.amber.name=Block of Amber
+tile.aether.block.amber.desc=A solid block of amber. Antique!
 
 tile.aether.brick.zanite.name=Zanite Bricks
 tile.aether.brick.zanite.desc=Stacked bricks of zanite.

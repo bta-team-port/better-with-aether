@@ -25,7 +25,7 @@ public class MobSwet extends MobMonster implements Enemy {
         super(world);
         this.heightOffset = 0.0F;
         this.scoreValue = 200;
-        this.setSize(0.8F, 0.8F);
+        this.setSize(1.6F, 1.6F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
@@ -42,7 +42,7 @@ public class MobSwet extends MobMonster implements Enemy {
     }
 
     public double getRideHeight() {
-        return this.bbHeight - passenger.heightOffset;
+        return this.bbHeight - 1.2f;
     }
 
     public void tick() {
@@ -113,7 +113,7 @@ public class MobSwet extends MobMonster implements Enemy {
 
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (!this.friendly) {
-            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                 this.attackTime = 40;
                 entity.hurt(this, 2, DamageType.COMBAT);
             }
@@ -123,7 +123,7 @@ public class MobSwet extends MobMonster implements Enemy {
     public void playerTouch(Player player) {
         int i = 2;
         if (!this.friendly) {
-            if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT)) {
+            if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT) && getHealth() > 0 && !dead) {
                 player.startRiding(this);
                 this.splorch();
             }

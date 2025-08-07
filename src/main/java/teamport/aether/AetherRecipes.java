@@ -169,6 +169,10 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('X', AetherItems.ZANITE)
                 .create("block_of_zanite", new ItemStack(AetherBlocks.BLOCK_ZANITE, 1));
 
+        RecipeBuilder.Shaped(MOD_ID, "XXX", "XXX", "XXX")
+                .addInput('X', AetherItems.AMBER)
+                .create("block_of_amber", new ItemStack(AetherBlocks.BLOCK_AMBER, 1));
+
         RecipeBuilder.Shaped(MOD_ID, "S", "B")
                 .addInput('S', Blocks.SPONGE_DRY)
                 .addInput('B', "aether:water_buckets")
@@ -180,6 +184,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilderShaped templateBlocktoItem = new RecipeBuilderShaped(MOD_ID, "X");
         templateBlocktoItem.addInput('X', AetherBlocks.BLOCK_ZANITE).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.ZANITE, 9));
+        templateBlocktoItem.addInput('X', AetherBlocks.BLOCK_AMBER).create("block_of_amber_to_amber", new ItemStack(AetherItems.AMBER, 9));
         templateBlocktoItem.addInput('X', AetherBlocks.BLOCK_AMBROSIUM).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.AMBROSIUM, 8));
 
         RecipeBuilderShaped templateFlowertoDye = new RecipeBuilderShaped(MOD_ID, "X");
@@ -229,7 +234,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
     public static void dartAmmoRecipes() {
         RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.ZANITE).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
+        Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
                 .addInput('S', AetherItems.STICK_SKYROOT)

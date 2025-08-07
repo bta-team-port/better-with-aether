@@ -68,9 +68,8 @@ public class AetherEffects {
      */
 
     private static void assigneEffects() {
-        //TODO change the icon once we have better ones
         poisonEffect = new AetherEffectBuilder()
-                .init("effect.aether.poison", MOD_ID + ":poison", "petal_aechor.png")
+                .init("effect.aether.poison", MOD_ID + ":poison", "icon_poison.png")
                 .setEffectTimeType(EffectTimeType.KEEP)
                 .setColor(0x000000)
                 .setDefaultDuration(60)
@@ -82,7 +81,7 @@ public class AetherEffects {
 
 
         remedyEffect = new AetherEffectBuilder()
-                .init("effect.aether.remedy", MOD_ID + ":remedy", "bucket_skyroot_remedy.png")
+                .init("effect.aether.remedy", MOD_ID + ":remedy", "icon_remedy.png")
                 .setEffectTimeType(EffectTimeType.RESET)
                 .setDefaultDuration(240)
                 .setMaxStack(1)

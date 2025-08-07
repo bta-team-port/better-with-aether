@@ -112,6 +112,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> ORE_GRAVITITE_HOLYSTONE;
 
+    public static Block<?> BLOCK_AMBER;
     public static Block<?> BLOCK_AMBROSIUM;
     public static Block<?> BLOCK_ZANITE;
     public static Block<?> BLOCK_GRAVITITE;
@@ -468,10 +469,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         LOG_SKYROOT = log
-                .build("log.skyroot", "log_skyroot", blockID("LOG_SKYROOT"), BlockLogicLogAether::new);
+                .build("log.skyroot", "log_skyroot", blockID("LOG_SKYROOT"), block -> new BlockLogicLogAether(block, false));
 
         LOG_OAK_GOLDEN = log
-                .build("log.oak.golden", "log_oak_golden", blockID("LOG_OAK_GOLDEN"), BlockLogicLogAether::new);
+                .build("log.oak.golden", "log_oak_golden", blockID("LOG_OAK_GOLDEN"), block -> new BlockLogicLogAether(block, true));
 
 
         LEAVES_SKYROOT = leaves
@@ -543,6 +544,9 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTickOnLoad()
                 .build("ore.gravitite.holystone", "ore_gravitite_holystone", blockID("ORE_GRAVITITE_HOLYSTONE"), b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
 
+        BLOCK_AMBER = oreBlock
+                .setBlockSound(BlockSounds.STONE)
+                .build("block.amber", "block_amber", blockID("BLOCK_AMBER"), b -> new BlockLogicTransparent(b, Material.stone));
         BLOCK_AMBROSIUM = oreBlock
                 .setBlockSound(BlockSounds.STONE)
                 .build("block.ambrosium", "block_ambrosium", blockID("BLOCK_AMBROSIUM"), b -> new BlockLogic(b, Material.stone));
