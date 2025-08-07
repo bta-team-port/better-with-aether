@@ -296,9 +296,9 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     // this following functions is the single most annoying solution in this class.
     // If you know better than me, please replace it with something decent. -Khep
     public Direction calculateDirection(Entity entity) {
-        double deltaX =  this.x - entity.x;
+        double deltaX =  this.x - entity.x - 0.5;
         double deltaY =  this.y - entity.y;
-        double deltaZ =  this.z - entity.z;
+        double deltaZ =  this.z - entity.z - 0.5;
 
         if (Math.abs(deltaY) >= entity.bbHeight * 1.25F) {
             return deltaY < 0 ? Direction.UP : Direction.DOWN;

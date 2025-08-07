@@ -30,7 +30,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
         this.setSize(12.0F, 6.0F);
-        this.speed = 0.5F;
+        this.moveSpeed = 0.5F;
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
         this.ignoreFrustumCheck = true;
