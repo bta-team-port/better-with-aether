@@ -8,8 +8,10 @@ import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponent;
+import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
+import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
@@ -19,12 +21,14 @@ import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
+import teamport.aether.gui.ComponentExtraHealthBar;
 import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.*;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
+import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -54,13 +58,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public void afterClientStart() {
         setupCustomBlockLight();
         AetherMobInfoRegistry.init();
-
-        BOSS_BAR = HudComponents.register(
-                new ComponentBossBar(
-                        "aether.boss.bar",
-                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
-                )
-        );
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_DEFAULT).setCloudHeight(8.0f)
                 .setHasAurora(true).setHasGround(false));
@@ -121,6 +118,27 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         page.addAchievement(AetherAchievements.ALL_ACCESSORY_TYPES, -2, 6);
 
         AchievementPages.register(page);
+    }
+
+    public static void registerHUDComponents() {
+        BOSS_BAR = HudComponents.register(
+                new ComponentBossBar(
+                        "aether.boss.bar",
+                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
+                )
+        );
+
+        int extraBars = (int) Math.ceil(EXTRA_HEALTH / 20.0f);
+        HudComponent previousComponent = HudComponents.HOTBAR;
+        for (int i = 0; i < extraBars + 1; i++){
+            previousComponent = HudComponents.register(
+                    new ComponentExtraHealthBar(
+                            "aetherExtraHealth_bar" +  i,
+                            new LayoutSnap(previousComponent, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT), i )
+            );
+        }
+
+        ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
     }
 
     public static void registerTextures() {
