@@ -26,6 +26,7 @@ import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.entity.animal.sheepuff.MobSheepuff;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
@@ -86,6 +87,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobMoaBlack.class, 26));
 
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobZephyr.class, 5));
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobAechorPlant.class, 10));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwet.class, 10));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobSwetGold.class, 5));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).add(new SpawnListEntry(MobCockatrice.class, 10));
