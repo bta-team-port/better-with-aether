@@ -91,8 +91,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                         maxY = startY;
                     }
                 }
-                int dungeonY = (maxY + max / 2) - 5;
-                dungeons[2].place(this.world, rand, dungeonX, dungeonY , dungeonZ);
+                int dungeonY = Math.max(0, (maxY + max / 2) - 5);
+                dungeons[2].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             }
         }
 
