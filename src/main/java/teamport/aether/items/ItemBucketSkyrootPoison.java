@@ -1,5 +1,6 @@
 package teamport.aether.items;
 
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -17,7 +18,7 @@ public class ItemBucketSkyrootPoison extends Item {
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         entityplayer.triggerAchievement(AetherAchievements.POISON);
         IHasEffects effectPlayer = (IHasEffects) entityplayer;
-        AetherEffects.add(effectPlayer, AetherEffects.poisonEffect, 4);
+        AetherEffects.add((Mob)effectPlayer, AetherEffects.poisonEffect, 4);
         return new ItemStack(AetherItems.BUCKET_SKYROOT);
     }
 
