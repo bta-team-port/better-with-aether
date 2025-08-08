@@ -33,7 +33,8 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
 
     public static boolean canPlaceDungeon(int x, int y, int z) {
         // i multiply the radius by 1.5 as to make sure they never overlap and that there's a gap between them.
-        return AetherDimension.dungeonMap.values().stream().noneMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= Math.pow(AetherDimension.dungeonRadius * 1.5, 2));
+        return true;
+        //return AetherDimension.dungeonMap.values().stream().noneMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= Math.pow(AetherDimension.dungeonRadius * 1.5, 2));
     }
 
     public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
