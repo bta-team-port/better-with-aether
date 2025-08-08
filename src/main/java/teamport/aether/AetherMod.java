@@ -56,15 +56,14 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void beforeGameStart() {
-
-        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherDimension.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
-
         AetherConfig.Setup();
         AetherEntities.init();
         AetherBlocks.init();
         AetherItems.init();
         AetherDimension.init();
         AetherEffects.init();
+
+        SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherDimension.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
 
         NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
         NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
