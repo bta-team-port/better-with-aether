@@ -40,6 +40,14 @@ public class MobSwetGold extends MobSwet implements Enemy {
         this.yd = 0.8;
     }
 
+    public float getBrightness(float partialTick) {
+        return 1.0F;
+    }
+
+    public int getLightmapCoord(float partialTick) {
+        return this.world.getLightmapCoord(15, 15);
+    }
+
     @Override
     public void tick() {
 
