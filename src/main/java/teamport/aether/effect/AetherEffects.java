@@ -71,10 +71,9 @@ public class AetherEffects {
         poisonEffect = new AetherEffectBuilder()
                 .init("effect.aether.poison", MOD_ID + ":poison", "icon_poison.png")
                 .setEffectTimeType(EffectTimeType.KEEP)
-                .setColor(0x000000)
                 .setDefaultDuration(60)
                 .setMaxStack(10)
-                .setTint(0xa05cff)
+                .setTint(0x8218cb)
                 .setVignette("/assets/aether/textures/other/poisonvignette.png")
                 .setHeartPath("aether:gui/hud/poison/")
                 .build(PoisonEffect::new);
@@ -85,7 +84,7 @@ public class AetherEffects {
                 .setEffectTimeType(EffectTimeType.RESET)
                 .setDefaultDuration(240)
                 .setMaxStack(1)
-                .setTint(0x99FF99)
+                .setTint(0x009bc2)
                 .setVignette("/assets/aether/textures/other/curevignette.png")
                 .setHeartPath("aether:gui/hud/remedy/")
                 .build(RemedyEffect::new);
