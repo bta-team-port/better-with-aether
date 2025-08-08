@@ -80,6 +80,8 @@ public final class AetherEntities {
         EntityHelper.createEntity(EntityParachuteGold.class, NamespaceID.getPermanent(MOD_ID, "parachute_gold"), entityKey("parachute_gold"));
         EntityHelper.createEntity(MobMinicloud.class, NamespaceID.getPermanent(MOD_ID, "minicloud"), entityKey("minicloud"));
 
+        EntityHelper.createEntity(EntityFloatingBlock.class, NamespaceID.getPermanent(MOD_ID, "floating_block"), entityKey("floating_block"));
+
 
         EntityHelper.createTileEntity(TileEntityEnchanter.class, NamespaceID.getPermanent(MOD_ID, "enchanter"));
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
