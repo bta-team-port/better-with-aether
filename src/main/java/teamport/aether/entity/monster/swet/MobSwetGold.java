@@ -3,25 +3,28 @@ package teamport.aether.entity.monster.swet;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 
-public class MobSwetGold extends MobSwet {
+public class MobSwetGold extends MobSwet implements Enemy {
 
     public MobSwetGold(World world) {
         super(world);
         this.heightOffset = 0.0F;
         this.scoreValue = 400;
-        this.setSize(1.6F, 1.6F);
+        this.setSize(1.4F, 1.2F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
         this.moveSpeed = 3.0F;
+        this.mobDrops.remove(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
         this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 1, 2));
     }
 
@@ -41,7 +44,7 @@ public class MobSwetGold extends MobSwet {
     public void tick() {
 
         if (random.nextInt(2) == 0) {
-            this.world.spawnParticle("splash", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+            this.world.spawnParticle("goldendust", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
         }
 
         this.oSquish = this.squish;

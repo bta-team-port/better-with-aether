@@ -216,7 +216,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
-        return this.random.nextInt(65) == 0 && this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water) && this.world.getFullBlockLightValue(x, y, z) > 8;
+        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water);
     }
 
 }

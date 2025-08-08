@@ -25,7 +25,7 @@ public class MobSwet extends MobMonster implements Enemy {
         super(world);
         this.heightOffset = 0.0F;
         this.scoreValue = 200;
-        this.setSize(1.6F, 1.6F);
+        this.setSize(1.4F, 1.2F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
@@ -154,8 +154,11 @@ public class MobSwet extends MobMonster implements Enemy {
         if (Blocks.blocksList[id] == null) {
             return false;
         } else {
-            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+            if (world.rand.nextInt(10) == 0) {
+                return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+            }
         }
+        return false;
     }
 
     public int getMaxSpawnedInChunk() {
