@@ -109,7 +109,7 @@ public class WorldTypeAether extends WorldType {
 
     @Override
     public boolean mayRespawn() {
-        return false;
+        return true;
     }
 
 }
