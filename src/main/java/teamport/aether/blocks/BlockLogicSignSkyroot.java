@@ -10,7 +10,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
@@ -110,28 +109,17 @@ public class BlockLogicSignSkyroot extends BlockLogic implements IPaintable {
             if (player.getHeldItem() != null && player.getHeldItem().itemID == Items.DUST_GLOWSTONE.id && !signEntity.isGlowing()) {
                 signEntity.setGlowing(true);
                 if (player.getGamemode().consumeBlocks()) {
-                    --player.getHeldItem().stackSize;
+                    player.getHeldItem().stackSize--;
                 }
-
                 player.addStat(Achievements.LIGHT_SIGN, 1);
                 return true;
-            }
-
-            //TODO Make the sign text able to be dyed, and dont destroy the paintbrush
-            if (player.getHeldItem() != null && (player.getHeldItem().itemID == Items.DYE.id || player.getHeldItem().itemID == Items.PAINTBRUSH.id)) {
-                signEntity.setColor(TextFormatting.GREEN);
-                if (player.getGamemode().consumeBlocks()) {
-                    player.getHeldItem().damageItem(1, player);
-                }
-                return true;
-            }
-
-            if (signEntity.isEditableBy(player)) {
+            } else if (player.getHeldItem() != null && (player.getHeldItem().itemID == Items.DYE.id || player.getHeldItem().itemID == Items.PAINTBRUSH.id)) {
+                return false;
+            } else if (signEntity.isEditableBy(player)) {
                 ((IAetherScreens) player).aether$displaySignSkyrootEditorScreen(signEntity);
                 return true;
             }
         }
-
         return false;
     }
 
