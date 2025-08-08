@@ -20,7 +20,7 @@ public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
             f1 *= 0.45F;
             f1 -= 0.125F;
             f3 = 1.75F + (float) Math.sin(aechorPlant.sinage + 2.0F) * 1.5F;
-        } else if (aechorPlant.seeprey) {
+        } else if (aechorPlant.hasTarget) {
             f1 *= 0.25F;
             f3 = 1.75F + (float) Math.sin(aechorPlant.sinage + 2.0F) * 1.5F;
         } else {
