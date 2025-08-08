@@ -3,7 +3,6 @@ package teamport.aether;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
-import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
@@ -15,6 +14,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
@@ -32,8 +32,8 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
+import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.net.NetEntryAetherProjectile;
 import teamport.aether.net.NetEntryLightning;
 import teamport.aether.world.AetherDimension;
@@ -69,7 +69,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
 
         SoundTypes.loadSoundsJson(MOD_ID);
-//        AetherMod.registerTextures();
     }
 
     @Override
@@ -101,10 +100,20 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     }
 
     public static void registerNewTagForItems() {
-        Items.TOOL_COMPASS.withTags(new Tag[]{AetherItemTags.TRINKET});
-        Items.TOOL_CALENDAR.withTags(new Tag[]{AetherItemTags.TRINKET});
-        Items.TOOL_CLOCK.withTags(new Tag[]{AetherItemTags.TRINKET});
-        Items.MAP.withTags(new Tag[]{AetherItemTags.TRINKET});
+        ItemTrinket.setIcon(Items.TOOL_COMPASS, "aether:item/trinket/armor_compass_outline_alt2");
+        ItemTrinket.setIcon(Items.TOOL_CALENDAR, "aether:item/trinket/armor_calendar_outline");
+        ItemTrinket.setIcon(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline_alt1");
+        ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_outline_map_filled");
+
+        Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.FURNACE_STONE_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+        Blocks.FURNACE_STONE_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+        Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SIGN_POST_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SIGN_POST_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SIGN_WALL_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SIGN_WALL_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
     }
 
     public static void registerNewFurnaceFuel() {

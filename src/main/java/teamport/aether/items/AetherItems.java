@@ -344,7 +344,7 @@ public final class AetherItems {
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID).setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM).build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID).build(new ItemStaffCloud("tool.staff.cloud", itemKey("tool_staff_cloud"), itemID("TOOL_STAFF_CLOUD")));
 
-        TOOL_DUNGEON_COMPASS = new ItemBuilder(MOD_ID).build(new Item("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"))).setMaxStackSize(1);
+        TOOL_DUNGEON_COMPASS = new ItemBuilder(MOD_ID).build(new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_clock_outline_alt1"));
 
     }
 
