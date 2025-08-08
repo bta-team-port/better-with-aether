@@ -1,9 +1,11 @@
 package teamport.aether.entity.animal.aerwhale;
 
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.animal.AmbientCreature;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
@@ -36,6 +38,11 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.ignoreFrustumCheck = true;
         this.scoreValue = 0;
     }
+
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        return false;
+    }
+
 
     public void defineSynchedData() {
         this.entityData.define(16, (byte)0, Byte.class);
