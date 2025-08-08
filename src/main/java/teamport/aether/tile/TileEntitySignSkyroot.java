@@ -55,7 +55,7 @@ public class TileEntitySignSkyroot extends TileEntity {
             if (!s.isEmpty()) {
                 UUIDHelper.runConversionAction(s, (uuid) -> {
                     this.owner = uuid;
-                }, (UUIDHelper.StringFunction)null);
+                }, null);
             }
         } else {
             this.owner = ownerUUID;
