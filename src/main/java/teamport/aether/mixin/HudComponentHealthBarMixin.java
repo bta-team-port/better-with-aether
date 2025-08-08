@@ -13,13 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = HudComponentHealthBar.class, remap = false)
 public class HudComponentHealthBarMixin {
 
-    // TODO incase we have different heart icons enable this
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void noRenderHealthBar(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick, CallbackInfo ci){
         ci.cancel();
     }
 
-    // TODO incase we have different heart icons enable this
     @Inject(method = "renderPreview", at = @At("HEAD"), cancellable = true)
     public void noRenderPreviewHealthBar(Minecraft mc, Gui gui, Layout layout, int xSizeScreen, int ySizeScreen, CallbackInfo ci){
         ci.cancel();

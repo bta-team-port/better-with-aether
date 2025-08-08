@@ -17,7 +17,7 @@ public class ItemBucketSkyrootPoison extends Item {
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         entityplayer.triggerAchievement(AetherAchievements.POISON);
         IHasEffects effectPlayer = (IHasEffects) entityplayer;
-        AetherEffects.fixedAdd(effectPlayer, AetherEffects.poisonEffect, 10);
+        AetherEffects.add(effectPlayer, AetherEffects.poisonEffect, 4);
         return new ItemStack(AetherItems.BUCKET_SKYROOT);
     }
 

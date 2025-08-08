@@ -6,7 +6,7 @@ import teamport.aether.items.AetherItemTags;
 import java.util.Set;
 
 public class ItemTrinket extends Item implements IAccessory {
-    private final String name;
+    public final String name;
     public Set<Integer> slotIDs;
 
     public ItemTrinket(String translationKey, String namespaceId, int id, String name) {

@@ -13,7 +13,7 @@ import teamport.aether.AetherAchievements;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
-import teamport.aether.entity.moa.MobMoa;
+import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.lookup.LookupFuelIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
@@ -165,7 +165,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
         thePlayer = worldObj.getClosestPlayerToEntity(entity, 16);
         if (thePlayer != null) {
-            if (entityClazz == MobMoa.class) {
+            if (entityClazz == MobMoaBlue.class) {
                 thePlayer.triggerAchievement(AetherAchievements.MOA);
             }
         }

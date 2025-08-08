@@ -14,11 +14,12 @@ public class AetherEffectBuilder {
     private String imagePath;
     private int color = 0x000000;
     private List<Modifier<?>> modifiers = new ArrayList<>();
-    private EffectTimeType effectTimeType;
+    private EffectTimeType effectTimeType = EffectTimeType.KEEP;
     private int defaultDuration = 20;
     private int maxStack = 1;
-    private int tint;
-    private String heartPath;
+    private int tint = 0x0;
+    private String heartPath = "minecraft:gui/hud/heart/";
+    private String vignette = "";
 
     public AetherEffectBuilder init(String nameKey, String id, String imagePath){
         this.nameKey = nameKey;
@@ -63,6 +64,11 @@ public class AetherEffectBuilder {
         return this;
     }
 
+    public AetherEffectBuilder setVignette(String vignette){
+        this.vignette = vignette;
+        return this;
+    }
+
     public <T extends Effect> T build(Function<AetherEffectBuilder, T> constructor) {
         return constructor.apply(this);
     }
@@ -78,6 +84,7 @@ public class AetherEffectBuilder {
     public int getMaxStack() { return maxStack; }
     public int getTint(){return tint;}
     public String getHeartPath(){return heartPath;}
+    public String getVignette(){return vignette;}
 
 
 }

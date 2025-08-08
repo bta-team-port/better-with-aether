@@ -11,7 +11,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.phow.MobPhow;
+import teamport.aether.entity.animal.phow.MobPhow;
 
 import java.util.List;
 import java.util.Objects;

@@ -96,6 +96,10 @@ tile.aether.door.planks.skyroot.top.name=Top Skyroot Door
 tile.aether.door.planks.skyroot.top.desc=How did you obtain this!?
 tile.aether.door.planks.skyroot.bottom.name=Bottom Skyroot Door
 tile.aether.door.planks.skyroot.bottom.desc=How did you obtain this!?
+tile.aether.sign.post.planks.skyroot.name=Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.desc=A free standing skyroot sign.
+tile.aether.sign.wall.planks.skyroot.name=Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.desc=A skyroot sign placed on a wall.
 
 tile.aether.ore.ambrosium.holystone.name=Holystone Ambrosium Ore
 tile.aether.ore.ambrosium.holystone.desc=Ambrosium shards embedded in holystone.
@@ -210,6 +214,8 @@ tile.aether.block.zanite.name=Block of Zanite
 tile.aether.block.zanite.desc=A solid block of zanite. Shiny!
 tile.aether.block.ambrosium.name=Block of Ambrosium
 tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
+tile.aether.block.amber.name=Block of Amber
+tile.aether.block.amber.desc=A solid block of amber. Antique!
 
 tile.aether.brick.zanite.name=Zanite Bricks
 tile.aether.brick.zanite.desc=Stacked bricks of zanite.

@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.minicloud.MobMinicloud;
+import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
 
 import java.util.List;
 

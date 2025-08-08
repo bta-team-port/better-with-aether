@@ -14,7 +14,7 @@ import teamport.aether.items.accessory.IAetherInvisibility;
 abstract public class EntityRendererMixinRemoveShadow<T extends Entity> {
 
     @Inject(method = "renderShadow", at = @At("HEAD"), cancellable = true)
-    private void removeShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, CallbackInfo ci) {
+    public void removeShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, CallbackInfo ci) {
         if (entity instanceof Player && ((IAetherInvisibility)entity).aether$isInvisible()) {
             ci.cancel();
         }
