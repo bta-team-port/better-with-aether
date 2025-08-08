@@ -1,5 +1,18 @@
 [
 	{
+		"name": "aether:enchanter/enchant_aercloud_into_gold_aercloud",
+		"type": "aether:machine",
+		"time": 250,
+		"input": {
+			"stack": {
+				"id": "aether:block/aercloud_white"
+			}
+		},
+		"output": {
+			"id": "aether:block/aercloud_gold"
+		}
+	},
+	{
 		"name": "aether:enchanter/enchant_ore_gravitite_to_gravitite",
 		"type": "aether:machine",
 		"time": 1000,

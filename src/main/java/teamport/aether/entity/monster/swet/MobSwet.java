@@ -33,6 +33,10 @@ public class MobSwet extends MobMonster implements Enemy {
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
     }
 
+    public void causeFallDamage(float distance) {
+        super.causeFallDamage(distance / 2);
+    }
+
     public int getMaxHealth() {
         return 16;
     }

@@ -32,10 +32,6 @@ public class MobSwetGold extends MobSwet implements Enemy {
         return 26;
     }
 
-    public void causeFallDamage(float distance) {
-        super.causeFallDamage(distance / 2);
-    }
-
     public void jump() {
         this.yd = 0.8;
     }
