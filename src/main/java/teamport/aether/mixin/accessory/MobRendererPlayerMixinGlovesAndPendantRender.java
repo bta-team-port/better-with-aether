@@ -8,10 +8,10 @@ import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
 import net.minecraft.client.render.model.ModelPlayer;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.MathHelper;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
@@ -121,8 +121,15 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         }
         Item item = armorStack.getItem();
         if (item instanceof ItemRepulsionShield) {
-            String path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
+            double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
+            double yVelocity = Math.abs(player.yd);
 
+            String path;
+            if (velocity > 0.001D || yVelocity > 0.1D) {
+                path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
+            } else {
+                path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
+            }
             renderDispatcher.textureManager.loadTexture(path).bind();
 
             GLManager.glEnable(GL11.GL_CULL_FACE);

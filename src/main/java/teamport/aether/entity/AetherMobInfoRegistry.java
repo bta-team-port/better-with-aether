@@ -39,9 +39,6 @@ public class AetherMobInfoRegistry {
 
     public static void initializeMobInfoRegistry() {
         // Passives
-        MobInfoRegistry.register(MobPhow.class, "guidebook.section.mob.phow.name", "guidebook.section.mob.phow.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobPhyg.class, "guidebook.section.mob.phyg.name", "guidebook.section.mob.phyg.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FOOD_PORKCHOP_RAW), 1.0f, 1 ,2),
@@ -49,6 +46,10 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobSheepuff.class, "guidebook.section.mob.sheepuff.name", "guidebook.section.mob.sheepuff.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});
+
+        MobInfoRegistry.register(MobPhow.class, "guidebook.section.mob.phow.name", "guidebook.section.mob.phow.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobAerbunny.class, "guidebook.section.mob.aerbunny.name", "guidebook.section.mob.aerbunny.desc", 4, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
