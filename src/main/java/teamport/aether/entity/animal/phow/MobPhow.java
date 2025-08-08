@@ -17,7 +17,9 @@ import teamport.aether.mixin.accessors.MobAccessor;
 
 public class MobPhow extends MobAetherAnimal {
     public float wingFold;
+    public float wingFoldO;
     public float wingAngle;
+    public float wingAngleO;
     public float aimingForFold;
     public int jumps;
     public int jrem;
@@ -40,6 +42,9 @@ public class MobPhow extends MobAetherAnimal {
         } else {
             this.aimingForFold = 1.0F;
         }
+
+        this.wingAngleO = this.wingAngle;
+        this.wingFoldO = this.wingFold;
 
         ++this.ticks;
         this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
