@@ -30,7 +30,7 @@
         "id": "aether:item/egg_moa_blue"
       }
     },
-    "output": "aether:moa"
+    "output": "aether:moa_blue"
   },
   {
     "name": "aether:incubator/hatch_moa_white",

@@ -30,8 +30,10 @@ public abstract class EntityItemPickupAchievementMixin {
         if ((this.item.itemID == AetherItems.RECORD_AETHER.id
                 || this.item.itemID == AetherItems.RECORD_DAWN.id
                 || this.item.itemID == AetherItems.RECORD_MORNING.id
+                || this.item.itemID == AetherItems.RECORD_NETHER.id
                 && player.getStat(AetherItems.RECORD_AETHER.getStat(pickUpKey)) > 0
                 && player.getStat(AetherItems.RECORD_DAWN.getStat(pickUpKey)) > 0
+                && player.getStat(AetherItems.RECORD_NETHER.getStat(pickUpKey)) > 0
                 && player.getStat(AetherItems.RECORD_MORNING.getStat(pickUpKey)) > 0)) {
             player.triggerAchievement(AetherAchievements.ALL_MUSIC_DISCS);
         }

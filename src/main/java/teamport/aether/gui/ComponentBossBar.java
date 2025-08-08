@@ -3,35 +3,31 @@ package teamport.aether.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScreenHudDesigner;
 import net.minecraft.client.gui.hud.HudIngame;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
-import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.lang.I18n;
-import net.minecraft.core.lang.text.Text;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.entity.AetherBossList;
-import teamport.aether.entity.EnemyBoss;
+import teamport.aether.entity.boss.AetherBossList;
+import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentBossBar extends HudComponentMovable {
-    private static final int barWidth = 256;
-    private static final int barHeight = 16;
-    private static final int textOffset = -10;
-    private static final int spacing = 13;
+    public static final int barWidth = 256;
+    public static final int barHeight = 16;
+    public static final int textOffset = -10;
+    public static final int spacing = 13;
 
-    private static final int barAmountLimit = 3;
+    public static final int barAmountLimit = 3;
 
     //
 
-    private static int height;
+    public static int height;
 
     public ComponentBossBar(String key, Layout layout) {
         super(key, barWidth, barHeight, layout);
@@ -52,7 +48,7 @@ public class ComponentBossBar extends HudComponentMovable {
         return height;
     }
 
-    private List<Mob> getBossesFromPlayer(Minecraft mc) {
+    public List<Mob> getBossesFromPlayer(Minecraft mc) {
         PlayerLocal player = mc.thePlayer;
         List<Mob> result = new ArrayList<>();
 
@@ -104,7 +100,7 @@ public class ComponentBossBar extends HudComponentMovable {
         String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getBossTitle() : mob.getDisplayName();
         gui.drawStringCentered(mc.font, entityName, textX, textY, 0xFFFFFFFF);
     }
-    private void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
+    public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
         float progress = (float)health/(float)maxHealth;
         int progressWidth = (int)(barWidth*progress);
 
