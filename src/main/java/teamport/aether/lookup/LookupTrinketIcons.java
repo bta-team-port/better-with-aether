@@ -32,10 +32,6 @@ public class LookupTrinketIcons {
         addEntry(AetherItems.ARMOR_TALISMAN_FEATHER_GOLD.namespaceID, "aether:item/trinket/armor_feather_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_BUBBLE.namespaceID, "aether:item/trinket/armor_bubble_outline");
         addEntry(AetherItems.ARMOR_SHIELD_REPULSION.namespaceID, "aether:item/trinket/armor_shield_round_outline");
-        addEntry(Items.TOOL_CLOCK.namespaceID, "aether:item/trinket/armor_clock_outline_alt1");
-        addEntry(Items.TOOL_COMPASS.namespaceID, "aether:item/trinket/armor_compass_outline_alt2");
-        addEntry(Items.TOOL_CALENDAR.namespaceID, "aether:item/trinket/armor_calendar_outline");
-        addEntry(Items.MAP.namespaceID, "aether:item/trinket/armor_outline_map_filled");
     }
 
     public void addEntry(NamespaceID id, String texturePath){
