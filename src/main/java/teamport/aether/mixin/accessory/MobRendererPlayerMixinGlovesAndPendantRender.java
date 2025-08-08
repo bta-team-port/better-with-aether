@@ -38,6 +38,8 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
 
     @Shadow private ModelBiped modelBipedMain;
 
+    @Shadow @Final private ModelBiped modelArmor;
+    @Shadow @Final private ModelBiped modelArmorChestplate;
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.0F);
     @Unique
@@ -75,6 +77,10 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
 
             modelAccessories.armLeft.visible = false;
             modelAccessories.armRight.visible = false;
+            modelAccessories.sneaking = modelBipedMain.sneaking;
+            modelAccessories.holdingRightHand = modelBipedMain.holdingRightHand;
+            modelAccessories.holdingLeftHand = modelBipedMain.holdingLeftHand;
+            modelAccessories.holdingLarge = modelBipedMain.holdingLarge;
         }
 
         ci.cancel();
@@ -107,7 +113,6 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         info.setReturnValue(false);
     }
 
-
     @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;"), cancellable = true)
     public void setShield(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
@@ -117,11 +122,6 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         Item item = armorStack.getItem();
         if (item instanceof ItemRepulsionShield) {
             String path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
-
-            shield.holdingLarge = player.getHeldObject() != null;
-            shield.holdingRightHand = player.inventory.getCurrentItem() != null;
-            shield.sneaking = player.isSneaking();
-            shield.isRiding = player.isPassenger();
 
             renderDispatcher.textureManager.loadTexture(path).bind();
 
@@ -133,6 +133,18 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
             setArmorModel(shield);
             info.setReturnValue(true);
         }
+
+        modelAccessories.holdingLarge = shield.holdingLarge = modelBipedMain.holdingLarge;
+        modelAccessories.holdingRightHand = shield.holdingRightHand = modelBipedMain.holdingRightHand;
+        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelBipedMain.holdingLeftHand;
+        modelAccessories.sneaking = shield.sneaking = modelBipedMain.sneaking;
+        modelAccessories.isRiding = shield.isRiding = modelBipedMain.isRiding;
+
+        float swingProgress = this.getSwingProgress(player, partialTick);
+        modelAccessories.onGround = swingProgress;
+        modelArmor.onGround = swingProgress;
+        modelArmorChestplate.onGround = swingProgress;
+        shield.onGround = swingProgress;
     }
     
 }
