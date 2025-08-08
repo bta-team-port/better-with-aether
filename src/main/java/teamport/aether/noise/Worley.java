@@ -12,14 +12,14 @@ public class Worley {
 
     public static int bound = 0;
 
-    public static int isSeed(int x, int z, int gridSize, int seed, int values) {
+    public static int isSeed(int x, int z, int gridSize, int seed, int values, int padding) {
         int cellX = (int) Math.floor((double) x / gridSize);
         int cellZ = (int) Math.floor((double) z / gridSize);
 
         int s = mix(cellX, cellZ, seed);
         Random cellSeed = new Random(s);
-        int relX = bound + cellSeed.nextInt(gridSize - bound*2);
-        int relZ = bound + cellSeed.nextInt(gridSize - bound*2);
+        int relX = padding + cellSeed.nextInt(gridSize - padding*2);
+        int relZ = padding + cellSeed.nextInt(gridSize - padding*2);
         int distX = cellX * gridSize + relX - x;
         int distZ = cellZ * gridSize + relZ - z;
 
@@ -47,8 +47,7 @@ public class Worley {
         int distX = cellX * gridSize + relX - x;
         int distZ = cellZ * gridSize + relZ - z;
 
-        int i = distX * distX + distZ * distZ;
-        return i;
+        return distX * distX + distZ * distZ;
     }
 
     public static int mix(int a, int b, int c) {
