@@ -6,14 +6,14 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementIce extends ProjectileElementBase {
     public ProjectileElementIce(World world) {
         super(world);
     }
 
-    protected boolean hasBeenHitByPlayer = false;
+    public boolean hasBeenHitByPlayer = false;
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);

@@ -9,6 +9,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.Pair;
+import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 
@@ -28,6 +29,12 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         }
 
         else setBlock(world, x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true);
+    }
+
+    public static boolean canPlaceDungeon(int x, int y, int z) {
+        // i multiply the radius by 1.5 as to make sure they never overlap and that there's a gap between them.
+        return true;
+        //return AetherDimension.dungeonMap.values().stream().noneMatch(dungeon -> distanceToSqr(x, y, z, dungeon.x, dungeon.y, dungeon.z) <= Math.pow(AetherDimension.dungeonRadius * 1.5, 2));
     }
 
     public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {

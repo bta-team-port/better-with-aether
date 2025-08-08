@@ -6,10 +6,12 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.IAccessoryEffects;
 
 
@@ -29,7 +31,7 @@ public class ContainerInventoryMixinAccessory {
 
     // change hardcoded size of the armor inventory
     @ModifyConstant(method = "readFromNBT", constant = @Constant(intValue = 4), require = 1)
-    private int modifyArmourSize(int original) {
+    public int modifyArmourSize(int original) {
         return 4 + 4;
     }
 
@@ -46,7 +48,7 @@ public class ContainerInventoryMixinAccessory {
 
 
     @ModifyConstant(method = "getContainerSize", constant = @Constant(intValue = 4), require = 1)
-    private int modifyContainerSize(int original) {
+    public int modifyContainerSize(int original) {
         return this.armorInventory.length;
     }
 

@@ -8,8 +8,8 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.entity.AetherBossList;
-import teamport.aether.entity.EnemyBoss;
+import teamport.aether.entity.boss.AetherBossList;
+import teamport.aether.entity.boss.EnemyBoss;
 
 import java.util.ArrayList;
 import java.util.List;

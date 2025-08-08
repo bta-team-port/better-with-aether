@@ -50,9 +50,11 @@
     "armor.wolf.MobWolfMixinZaniteResistance",
     "armor.wolf.MobWolfNoKnockback",
     "dimension.BlockCreatePortalMixin",
+    "dimension.BlockLogicFireMixin",
     "dimension.SaveHandlerMixin",
     "item.ItemBlockBlacklistMixin",
     "item.ItemFireStrikerMixin",
+    "item.ItemJarMixin",
     "item.ItemSaddleMixin",
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
@@ -62,8 +64,8 @@
   "client": [
     "DynamicTexturesMixin",
     "GuidebookMixinInclude",
+    "HudComponentEntrypointMixin",
     "HudComponentHealthBarMixin",
-    "HudComponentsMixinExtraHealth",
     "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
     "MobRendererGLCleanUpMixin",
@@ -82,6 +84,7 @@
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "dimension.HostileParadiseMixin",
+    "dimension.SPBumpToOverworldMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
     "light.RenderBlocksCacheMixin",
@@ -90,6 +93,8 @@
     "screens.PortalLoadingScreenMixin"
   ],
   "server": [
+    "dimension.MPBumpToOverworldMixin",
+    "dimension.MPEntityBumpToOverworldMixin"
   ],
   "injectors": {
     "defaultRequire": 1
