@@ -20,6 +20,11 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether {
+
+    public ProjectileArrowFlaming(World world) {
+        super(world);
+    }
+
     public ProjectileArrowFlaming(World world, Mob entityliving, boolean doesArrowBelongToPlayer, int arrowType) {
         super(world, entityliving, doesArrowBelongToPlayer, arrowType);
     }

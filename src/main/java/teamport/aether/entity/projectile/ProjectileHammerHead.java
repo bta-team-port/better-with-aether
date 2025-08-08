@@ -11,6 +11,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class ProjectileHammerHead extends Projectile implements ProjectileAether {
 
+    public ProjectileHammerHead(World world) {
+        super(world);
+    }
+
     public ProjectileHammerHead(World world, Mob owner) {
         super(world, owner);
     }

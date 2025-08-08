@@ -14,6 +14,10 @@ import teamport.aether.items.AetherItems;
 
 public class ProjectileKnifeLightning extends Projectile implements ProjectileAether {
 
+    public ProjectileKnifeLightning(World world) {
+        super(world);
+    }
+
     public ProjectileKnifeLightning(World world, double x, double y, double z) {
         super(world, x, y, z);
         this.modelItem = AetherItems.TOOL_KNIFE_LIGHTNING;
