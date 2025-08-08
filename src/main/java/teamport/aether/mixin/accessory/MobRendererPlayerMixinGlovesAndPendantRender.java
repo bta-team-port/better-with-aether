@@ -49,7 +49,6 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         super(model, shadowSize);
     }
 
-    // TODO fix armor not shaking with the player when punching in third person
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
     public void callDrawFirstPersonHandAfter(@NotNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
