@@ -54,6 +54,7 @@
     "dimension.SaveHandlerMixin",
     "item.ItemBlockBlacklistMixin",
     "item.ItemFireStrikerMixin",
+    "item.ItemJarMixin",
     "item.ItemSaddleMixin",
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
@@ -63,8 +64,8 @@
   "client": [
     "DynamicTexturesMixin",
     "GuidebookMixinInclude",
-    "HudComponentHealthBarMixin",
     "HudComponentEntrypointMixin",
+    "HudComponentHealthBarMixin",
     "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
     "MobRendererGLCleanUpMixin",
