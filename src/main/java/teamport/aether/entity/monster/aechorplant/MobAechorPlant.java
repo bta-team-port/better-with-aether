@@ -1,7 +1,6 @@
 package teamport.aether.entity.monster.aechorplant;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -104,7 +103,6 @@ public class MobAechorPlant extends MobMonster implements Enemy {
 
             if (this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() && this.onGround) {
                 this.hurt(this, 999999, DamageType.FALL);
-                Minecraft.getMinecraft().thePlayer.sendMessage("AAAAAAAAAAAA");
             }
         }
 
@@ -122,15 +120,16 @@ public class MobAechorPlant extends MobMonster implements Enemy {
 
     public void shootTarget(Entity target) {
         if (this.world.getDifficulty().canHostileMobsSpawn() && !this.world.isClientSide) {
-            // DOESN'T FUCKING WORK!!!!
 
             double d1 = this.target.x - this.x;
             double d2 = this.target.z - this.z;
             double sqrt = Math.sqrt(d1 * d1 + d2 * d2 + 0.1);
             double d3 = 1.5 / sqrt;
-            double d4 = 0.1 + sqrt * 0.5 + (this.y - this.target.y) * 0.25;
             d1 *= d3;
             d2 *= d3;
+
+            double dX = target.x - this.x;
+            double dZ = target.z - this.z;
 
             ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
             dart.y = this.y + 0.5;
@@ -138,23 +137,11 @@ public class MobAechorPlant extends MobMonster implements Enemy {
             double h = target.y + (double)target.getHeadHeight() - 0.8 - dart.y;
             float f1 = MathHelper.sqrt(d1 * d1 + d2 * d2) * 0.2F;
 
-            dart.setHeading(d1, h + (double)f1, d1, 0.6F, 12.0F);
+            dart.setHeading(dX, h + (double)f1, dZ, 0.6F, 12.0F);
 
             this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
             this.world.entityJoinedWorld(dart);
         }
-    }
-
-    public void attackEntity(@NotNull Entity entity, float distance) {
-        if (distance < 10.0F) {
-            double deltaX = entity.x - this.x;
-            double deltaZ = entity.z - this.z;
-            if (!this.world.isClientSide) { shootTarget(entity); }
-
-            this.yRot = (float)(Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F;
-            this.hasAttacked = true;
-        }
-
     }
 
     public String getHurtSound() {
