@@ -1,6 +1,7 @@
 package teamport.aether.entity.monster.aechorplant;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -11,6 +12,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -18,45 +20,33 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.projectile.ProjectileDart;
 import teamport.aether.items.AetherItems;
 
-import java.util.List;
-
 public class MobAechorPlant extends MobMonster implements Enemy {
     public Mob target;
     public int size;
-    public int attTime;
+    public int attackCooldown;
     public int smokeTime;
-    public boolean seeprey;
-    public boolean grounded;
-    public boolean noDespawn;
+    public boolean hasTarget;
     public float sinage;
-    public int poisonLeft;
 
     public MobAechorPlant(World world1) {
         super(world1);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aechorplant");
         this.size = this.random.nextInt(3) + 1;
         this.sinage = this.random.nextFloat() * 6.0F;
-        this.smokeTime = this.attTime = 0;
-        this.seeprey = false;
+        this.smokeTime = this.attackCooldown = 0;
+        this.hasTarget = false;
         this.setSize(0.75F + (float) this.size * 0.125F, 0.5F + (float) this.size * 0.075F);
         this.setPos(this.x, this.y, this.z);
-        this.poisonLeft = 2;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
 
     }
-
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
 
     public int getMaxHealth() {
         return 10 + this.size * 2;
     }
 
     public int getMaxSpawnedInChunk() {
-        return 3;
+        return 16;
     }
 
     public boolean canSpawnHere() {
@@ -67,23 +57,16 @@ public class MobAechorPlant extends MobMonster implements Enemy {
     }
 
     public void onLivingUpdate() {
-        if (this.getHealth() > 0 && this.grounded) {
+        if (this.getHealth() > 0 && this.onGround) {
             ++this.entityAge;
             this.tryToDespawn();
         } else {
             super.onLivingUpdate();
-            if (this.getHealth() <= 0) {
-                return;
-            }
-        }
-
-        if (this.onGround) {
-            this.grounded = true;
         }
 
         if (this.hurtTime > 0) {
             this.sinage += 0.9F;
-        } else if (this.seeprey) {
+        } else if (this.hasTarget) {
             this.sinage += 0.3F;
         } else {
             this.sinage += 0.1F;
@@ -93,78 +76,54 @@ public class MobAechorPlant extends MobMonster implements Enemy {
             this.sinage -= 6.283186F;
         }
 
-        int j;
         if (this.target == null) {
-            label107:
-            {
-                List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(10.0, 10.0, 10.0));
-                j = 0;
-
-                Entity entity1;
-                while (true) {
-                    if (j >= list.size()) {
-                        break label107;
-                    }
-
-                    entity1 = list.get(j);
-                    if (entity1 instanceof Mob && !(entity1 instanceof MobAechorPlant) && !(entity1 instanceof MobCreeper)) {
-                        if (!(entity1 instanceof Player)) {
-                            break;
-                        }
-
-                        boolean flag = false;
-                        if (!flag) {
-                            break;
-                        }
-                    }
-
-                    ++j;
-                }
-
-                this.target = (Mob) entity1;
-            }
+            target = findTarget();
         }
 
         if (this.target != null) {
-            if (this.target.isAlive() && !((double) this.target.distanceTo(this) > 12.0)) {
+            if (!this.target.isAlive() || target.distanceTo(this) > 12.0) {
                 this.target = null;
-                this.attTime = 0;
+                this.attackCooldown = 0;
+            } else if (this.attackCooldown >= 20 && canEntityBeSeen(target) && target.distanceTo(this) < 5.5 + size / 2.0) {
+                this.shootTarget(target);
+                this.attackCooldown = -10;
             }
 
-            if (this.target != null && this.attTime >= 20 && this.canEntityBeSeen(this.target) && (double) this.target.distanceTo(this) < 5.5 + (double) this.size / 2.0) {
-                this.shootTarget();
-                this.attTime = -10;
-            }
-
-            if (this.attTime < 20) {
-                ++this.attTime;
+            if (this.attackCooldown < 20) {
+                ++this.attackCooldown;
             }
         }
+
 
         ++this.smokeTime;
-        if (this.smokeTime >= (this.seeprey ? 3 : 8)) {
+        if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
             this.smokeTime = 0;
             int i = MathHelper.floor(this.x);
-            j = MathHelper.floor(this.bb.minY);
+            int j = MathHelper.floor(this.bb.minY);
             int k = MathHelper.floor(this.z);
-            if (this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() && this.grounded) {
-                this.removed = true;
-                this.dropDeathItems();
+
+            if (this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() && this.onGround) {
+                this.hurt(this, 999999, DamageType.FALL);
+                Minecraft.getMinecraft().thePlayer.sendMessage("AAAAAAAAAAAA");
             }
         }
 
-        this.seeprey = this.target != null;
+        this.hasTarget = this.target != null;
     }
 
-    public void remove() {
-        if (!this.noDespawn || this.getHealth() <= 0) {
-            super.remove();
+    public Mob findTarget() {
+        for (Entity mob : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(10.0, 10.0, 10.0))) {
+            if ((mob instanceof Mob) && !(mob instanceof MobAechorPlant) && !(mob instanceof MobCreeper)) {
+                return (Mob) mob;
+            }
         }
-
+        return null;
     }
 
-    public void shootTarget() {
+    public void shootTarget(Entity target) {
         if (this.world.getDifficulty().canHostileMobsSpawn() && !this.world.isClientSide) {
+            // DOESN'T FUCKING WORK!!!!
+
             double d1 = this.target.x - this.x;
             double d2 = this.target.z - this.z;
             double sqrt = Math.sqrt(d1 * d1 + d2 * d2 + 0.1);
@@ -172,28 +131,27 @@ public class MobAechorPlant extends MobMonster implements Enemy {
             double d4 = 0.1 + sqrt * 0.5 + (this.y - this.target.y) * 0.25;
             d1 *= d3;
             d2 *= d3;
-            ProjectileDart dart = new ProjectileDart(this.world, 1);
+
+            ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
             dart.y = this.y + 0.5;
+
+            double h = target.y + (double)target.getHeadHeight() - 0.8 - dart.y;
+            float f1 = MathHelper.sqrt(d1 * d1 + d2 * d2) * 0.2F;
+
+            dart.setHeading(d1, h + (double)f1, d1, 0.6F, 12.0F);
+
             this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-            dart.setHeading(d1, d4, d2, 0.285F + (float) d4 * 0.05F, 1.0F);
             this.world.entityJoinedWorld(dart);
         }
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (distance < 10.0F) {
-            double d = entity.x - this.x;
-            double d1 = entity.z - this.z;
-                if (!this.world.isClientSide) {
-                    ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
-                    double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - dart.y;
-                    float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
-                    world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
-                    dart.setHeading(d, d2 + (double)f1, d1, 0.6F, 12.0F);
-                    this.world.entityJoinedWorld(dart);
-                }
+            double deltaX = entity.x - this.x;
+            double deltaZ = entity.z - this.z;
+            if (!this.world.isClientSide) { shootTarget(entity); }
 
-            this.yRot = (float)(Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
+            this.yRot = (float)(Math.atan2(deltaZ, deltaX) * 180.0 / Math.PI) - 90.0F;
             this.hasAttacked = true;
         }
 
@@ -232,19 +190,25 @@ public class MobAechorPlant extends MobMonster implements Enemy {
         }
     }
 
+    @Override
+    protected boolean canDespawn() {
+        return false;
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
+
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putBoolean("Grounded", this.grounded);
-        tag.putBoolean("NoDespawn", this.noDespawn);
-        tag.putShort("AttTime", (short) this.attTime);
+        tag.putShort("AttTime", (short) this.attackCooldown);
         tag.putShort("Size", (short) this.size);
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.grounded = tag.getBoolean("Grounded");
-        this.noDespawn = tag.getBoolean("NoDespawn");
-        this.attTime = tag.getShort("AttTime");
+        this.attackCooldown = tag.getShort("AttTime");
         this.size = tag.getShort("Size");
         this.setSize(0.75F + (float) this.size * 0.125F, 0.5F + (float) this.size * 0.075F);
         this.setPos(this.x, this.y, this.z);
