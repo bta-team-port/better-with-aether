@@ -51,23 +51,18 @@ public class AetherEffects {
     private static boolean hasInit = false;
 
     public static void init() {
-        if (!hasInit) {
-            hasInit = true;
-            initializeItems();
+        if (hasInit) {
+            return;
         }
-    }
-
-    private static void initializeItems() {
-        assigneEffects();
-        registerEffects();
-        registerLocks();
+        hasInit = true;
+        assignEffects();
+        initEffects();
     }
 
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
-
-    private static void assigneEffects() {
+    private static void assignEffects() {
         poisonEffect = new AetherEffectBuilder()
                 .init("effect.aether.poison", MOD_ID + ":poison", "icon_poison.png")
                 .setEffectTimeType(EffectTimeType.KEEP)
@@ -91,16 +86,32 @@ public class AetherEffects {
 
     }
 
-    private static void registerEffects() {
-        Effects.getInstance().register(poisonEffect.id, poisonEffect);
-        Effects.getInstance().register(remedyEffect.id, remedyEffect);
+    private static void initEffects() {
+        AetherEffects.registerEffect(poisonEffect);
+        AetherEffects.registerEffect(remedyEffect);
+        AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
-    private static void registerLocks() {
-        LookupLooks.instance.addEntry(poisonEffect, remedyEffect);
+    /**
+     * @param effect effect to add to the catalyst effect registry
+     */
+    public static void registerEffect(Effect effect){
+        Effects.getInstance().register(effect.id, effect);
+    }
+
+    /**
+     * @param affected effect that lock will act on
+     * @param lock affected effect won't apply if this effect is present
+     */
+    public static void registerLock(Effect affected, Effect lock){
+        LookupLooks.instance.addEntry(affected, lock);
     }
 
 
+    /**
+     * @param player affected Player
+     * @return most potent EffectStack affecting the player
+     */
     public static EffectStack resolveDominantEffect(Player player) {
         EffectStack dominant = null;
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
@@ -115,24 +126,55 @@ public class AetherEffects {
     }
 
 
-    public static void add(IHasEffects entity, Effect newEffect, int amount) {
-        if(!(entity instanceof Mob)) return;
+    /**
+     * @apiNote If you want aether style effect use this function to add your effects.
+     * @see ILockInteractable
+     * @implNote  Effect can only affect mob if the effect is not locked.
+     * Each effect defined what effect lock it out from being reapplied.
+     * Returns always false if a given effect is locked.
+     *
+     * @param mob affected Mob
+     * @param newEffect Effect affecting the mob
+     * @param amount stack size of the effect
+     * @return true if the effect was applied false otherwise
+     * */
+    public static boolean add(Mob mob, Effect newEffect, int amount) {
+        if(!(mob instanceof IHasEffects)) return false;
+        EffectStack stack = new EffectStack((IHasEffects) mob, newEffect, amount);
+        return AetherEffects.add(mob, stack);
+    }
+
+
+    /**
+     * @apiNote If you want aether style effect use this function to add your effects.
+     * @see ILockInteractable
+     * @implNote  Effect can only affect mob if the effect is not locked.
+     * Each effect defined what effect lock it out from being reapplied.
+     * Returns always false if a given effect is locked.
+     *
+     * @param mob affected Mob
+     * @param newEffect Effect affecting the mob
+     * @return true if the effect was applied false otherwise
+     * */
+    public static boolean add(Mob mob, EffectStack newEffect) {
+        if(!(mob instanceof IHasEffects)) return false;
+        IHasEffects entity = (IHasEffects) mob;
         for(EffectStack effect : entity.getContainer().getEffects()) {
-            if (effect.getEffect() == newEffect) {
-                if(effect.getAmount() + amount >= effect.getEffect().getMaxStack()){
-                    amount = effect.getEffect().getMaxStack() - effect.getAmount();
+            if (effect.getEffect() == newEffect.getEffect()) {
+                if(effect.getAmount() + newEffect.getAmount() >= effect.getEffect().getMaxStack()){
+                    int amount = effect.getEffect().getMaxStack() - effect.getAmount();
                     effect.add(amount, entity.getContainer());
-                    return;
+                    return true;
                 }
             }
         }
-        Effect lock = LookupLooks.instance.getLocker(newEffect);
+        Effect lock = LookupLooks.instance.getLocker(newEffect.getEffect());
         if(lock != null && entity.getContainer().hasEffect(lock) && lock instanceof ILockInteractable){
             ((ILockInteractable) lock).lockTriggered(entity);
-            return;
+            return false;
         }
-        EffectStack stack = new EffectStack(entity, newEffect, amount);
-        stack.start(entity.getContainer());
-        entity.getContainer().add(stack);
+        newEffect.start(entity.getContainer());
+        entity.getContainer().add(newEffect);
+        return true;
     }
 }
