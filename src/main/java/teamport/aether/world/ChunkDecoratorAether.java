@@ -2,12 +2,15 @@ package teamport.aether.world;
 
 import net.minecraft.core.block.BlockLogicSand;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import net.minecraft.core.world.generate.feature.*;
+import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
+import net.minecraft.core.world.generate.feature.WorldFeatureLake;
+import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import net.minecraft.core.world.noise.PerlinNoise;
-import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.BlockLogicOreGravitite;
@@ -20,7 +23,6 @@ import java.util.Random;
 public class ChunkDecoratorAether implements ChunkDecorator {
     public final World world;
     public final PerlinNoise treeDensityNoise;
-    public static int gumCount;
 
     public ChunkDecoratorAether(World world) {
         this.world = world;
@@ -49,17 +51,48 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int k4;
         int treeDensity;
 
-        long worldSeed = this.world.getRandomSeed();
-        int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
-        int dungeonType = Worley.isSeed(chunkX, chunkZ, 16, transformedSeed, 3);
-        //System.out.println(transformedSeed);
-        if (dungeonType > -1) {
-            int dungeonX = x + rand.nextInt(16);
-            int dungeonZ = z + rand.nextInt(16);
-            if (dungeons[dungeonType].place(this.world, rand, dungeonX, 128, dungeonZ)) {
-                AetherMod.LOGGER.info("/teleport " + dungeonX + " " + 128 + " " + dungeonZ);
-            }else {
-                AetherMod.LOGGER.info("Failed " + dungeonX + " " + 128 + " " + dungeonZ);
+        if ((chunkX & 1) == 0 && (chunkZ & 1) == 0) {
+
+            int gridX = MathHelper.floor(chunkX / 2.0F);
+            int gridZ = MathHelper.floor(chunkZ / 2.0F);
+
+            long worldSeed = this.world.getRandomSeed();
+            int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
+            int goldSeed = Worley.isSeed(gridX, gridZ, 11, transformedSeed, 1, 1); // 22 - 2
+            int silverSeed = Worley.isSeed(gridX, gridZ, 8, transformedSeed, 1, 1); // 16 - 2
+            int bronzeSeed = Worley.isSeed(gridX, gridZ, 4, transformedSeed, 1, 0); // 8 - 0
+
+            if (goldSeed > -1) {
+                int dungeonX = x + rand.nextInt(16);
+                int dungeonY = 60 + rand.nextInt(90);
+                int dungeonZ = z + rand.nextInt(16);
+                dungeons[0].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+            } else if (silverSeed > -1) {
+                int dungeonX = x - 15;
+                int dungeonY = 190 + rand.nextInt(30);
+                int dungeonZ = z + 28;
+                dungeons[1].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+            } else if (bronzeSeed > -1) {
+                int dungeonX = x + rand.nextInt(16);
+                int dungeonZ = z + rand.nextInt(16);
+                int max = 0;
+                int maxY = 0;
+                int counter = 0;
+                int startY = 0;
+                for (int i = this.world.worldType.getMinY(); i < this.world.worldType.getMaxY(); i++) {
+                    if (world.getBlockId(dungeonX, i, dungeonZ) != 0) {
+                        counter++;
+                    }else {
+                        counter = 0;
+                        startY = i;
+                    }
+                    if (counter > max) {
+                        max = counter;
+                        maxY = startY;
+                    }
+                }
+                int dungeonY = (maxY + max / 2) - 5;
+                dungeons[2].place(this.world, rand, dungeonX, dungeonY , dungeonZ);
             }
         }
 
@@ -157,21 +190,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
         }
 
-        //TODO remove
-        /*for (j4 = 0; j4 < 2; ++j4) {
-            k7 = x + rand.nextInt(16);
-            k4 = 32 + rand.nextInt(64);
-            treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureAetherDungeonBronze()).place(this.world, rand, k7, k4, treeDensity);
-        }
-
-        if (rand.nextInt(750) == 0) {
-            j4 = x + rand.nextInt(16);
-            k7 = rand.nextInt(128) + 64;
-           k4 = z + rand.nextInt(16);
-            (new WorldFeatureAetherDungeonSilver()).place(this.world, rand, j4, k7, k4);
-        }*/
-
         if (rand.nextInt(5) == 0) {
             for (j4 = x; j4 < x + 16; ++j4) {
                 for (k7 = z; k7 < z + 16; ++k7) {
@@ -194,7 +212,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (k4 = 0; k4 < 2; ++k4) {
             treeDensity = x + rand.nextInt(16) + 8;
             l21 = z + rand.nextInt(16) + 8;
-            WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);;
+            WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
             worldFeature.init(1.0, 1.0, 1.0);
             worldFeature.place(this.world, rand, treeDensity, this.world.getHeightValue(treeDensity, l21), l21);
         }
