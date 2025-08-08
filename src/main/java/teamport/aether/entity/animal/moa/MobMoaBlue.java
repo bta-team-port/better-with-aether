@@ -2,6 +2,7 @@ package teamport.aether.entity.animal.moa;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -16,7 +17,7 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobMoaBlue extends MobAetherAnimal {
+public class MobMoaBlue extends MobAetherAnimal implements Creature {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
