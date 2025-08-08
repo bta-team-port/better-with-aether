@@ -49,7 +49,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         } else if (rand.nextInt(32) == 0) {
             boolean flag;
             k7 = x + rand.nextInt(16) + 8;
-            k4 = rand.nextInt(128) + 64;
+            k4 = rand.nextInt(50) + 156;
             treeDensity = z + rand.nextInt(16) + 8;
             flag = (new WorldFeatureAetherDungeonGold()).place(this.world, rand, k7, k4, treeDensity);
             if (flag) {
