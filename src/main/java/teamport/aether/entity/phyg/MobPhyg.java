@@ -21,7 +21,9 @@ import java.util.List;
 
 public class MobPhyg extends MobAetherAnimal {
     public float wingFold;
+    public float wingFoldO;
     public float wingAngle;
+    public float wingAngleO;
     public float aimingForFold;
     public int jumps;
     public int jrem;
@@ -48,6 +50,9 @@ public class MobPhyg extends MobAetherAnimal {
             this.aimingForFold = 1.0F;
         }
 
+        this.wingAngleO = this.wingAngle;
+        this.wingFoldO = this.wingFold;
+
         ++this.ticks;
         this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
         this.wingFold += (this.aimingForFold - this.wingFold) / 5.0F;
@@ -57,7 +62,6 @@ public class MobPhyg extends MobAetherAnimal {
         }
 
     }
-
 
     public void updateAI() {
         if (!this.world.isClientSide) {
