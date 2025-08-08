@@ -1,0 +1,165 @@
+package teamport.aether.entity.monster.swet;
+
+import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.monster.Enemy;
+import net.minecraft.core.entity.monster.MobMonster;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.AetherItems;
+
+public class MobSwet extends MobMonster implements Enemy {
+    public float squish;
+    public float oSquish;
+    public int jumpDelay;
+    public boolean friendly;
+
+    public MobSwet(World world) {
+        super(world);
+        this.heightOffset = 0.0F;
+        this.scoreValue = 200;
+        this.setSize(1.6F, 1.6F);
+        this.setPos(this.x, this.y, this.z);
+        this.jumpDelay = 20;
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
+        this.moveSpeed = 1.5F;
+        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
+    }
+
+    public int getMaxHealth() {
+        return 16;
+    }
+
+    public void jump() {
+        this.yd = 0.6;
+    }
+
+    public double getRideHeight() {
+        return this.bbHeight - 1.2f;
+    }
+
+    public void tick() {
+        if (random.nextInt(2) == 0) {
+            this.world.spawnParticle("splash", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+        }
+
+        this.oSquish = this.squish;
+        boolean flag = this.onGround;
+        super.tick();
+        if (this.onGround && !flag) {
+            int i = 2;
+
+            for(int j = 0; j < i * 8; ++j) {
+                float f = this.random.nextFloat() * 3.1415927F * 2.0F;
+                double f1 = (double)this.random.nextFloat() * 0.5 + 0.5;
+                double f2 = (double)(MathHelper.sin(f) * (float)i) * 0.5 * f1;
+                double f3 = (double)(MathHelper.cos(f) * (float)i) * 0.5 * f1;
+                this.world.spawnParticle("item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, AetherItems.FOOD_GUMMY_BLUE.id);
+            }
+
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+
+            this.squish = -0.5F;
+        }
+
+        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
+            this.remove();
+        }
+
+        this.squish *= 0.6F;
+    }
+
+    public void updateAI() {
+        this.tryToDespawn();
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
+        if (!this.friendly) {
+            if (entityplayer != null && targetPlayer) {
+                this.lookAt(entityplayer, 10.0F, 20.0F);
+            }
+        }
+
+        if (this.onGround && this.jumpDelay-- <= 0) {
+            if (!targetPlayer) {
+                float rotation = (this.world.rand.nextFloat() - 0.5F) * 90.0F;
+                this.yRot += rotation;
+            }
+
+            this.jumpDelay = this.random.nextInt(20) + 10;
+            if (entityplayer != null) {
+                this.jumpDelay /= 3;
+            }
+
+            this.isJumping = true;
+            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
+
+            this.splorch();
+            this.moveStrafing = 1.0F - this.random.nextFloat() * 2.0F;
+            this.moveForward = 8.0f;
+        } else {
+            this.isJumping = false;
+            if (this.onGround) {
+                this.moveStrafing = this.moveForward = 0.0F;
+            }
+        }
+    }
+
+    public void attackEntity(@NotNull Entity entity, float distance) {
+        if (!this.friendly) {
+            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+                this.attackTime = 40;
+                entity.hurt(this, 2, DamageType.COMBAT);
+            }
+        }
+    }
+
+    public void playerTouch(Player player) {
+        int i = 2;
+        if (!this.friendly) {
+            if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT) && getHealth() > 0 && !dead) {
+                player.startRiding(this);
+                this.splorch();
+            }
+        }
+    }
+
+    public void splorch() {
+        this.world.playSoundAtEntity(null, this, "mob.slimeattack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+    }
+
+    public String getHurtSound() {
+        return "mob.slime";
+    }
+
+    public String getDeathSound() {
+        return "mob.slime";
+    }
+
+    public float getSoundVolume() {
+        return 0.6F;
+    }
+
+    public boolean canSpawnHere() {
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+        int id = this.world.getBlockId(x, y - 1, z);
+        if (Blocks.blocksList[id] == null) {
+            return false;
+        } else {
+            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+        }
+    }
+
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
+
+}

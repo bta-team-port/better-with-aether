@@ -9,7 +9,6 @@ import net.minecraft.client.render.block.model.*;
 import net.minecraft.client.render.entity.EntityRendererFallingBlock;
 import net.minecraft.client.render.entity.EntityRendererSprite;
 import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.item.model.ItemModelBlock;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
@@ -19,48 +18,63 @@ import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
-import teamport.aether.entity.aerbunny.MobAerbunny;
-import teamport.aether.entity.aerbunny.MobRendererAerbunny;
-import teamport.aether.entity.aerbunny.ModelAerbunny;
-import teamport.aether.entity.aerwhale.MobAerwhale;
-import teamport.aether.entity.aerwhale.MobRendererAerwhale;
-import teamport.aether.entity.aerwhale.ModelAerwhale;
-import teamport.aether.entity.cockatrice.MobCockatrice;
-import teamport.aether.entity.cockatrice.MobRendererCockatrice;
-import teamport.aether.entity.mimic.MobMimic;
-import teamport.aether.entity.mimic.MobRendererMimic;
-import teamport.aether.entity.minicloud.MobMinicloud;
-import teamport.aether.entity.minicloud.ModelMinicloud;
-import teamport.aether.entity.moa.MobMoa;
-import teamport.aether.entity.moa.MobRendererMoa;
-import teamport.aether.entity.moa.ModelMoa;
-import teamport.aether.entity.parachute.EntityParachute;
-import teamport.aether.entity.parachute.EntityParachuteGold;
-import teamport.aether.entity.parachute.EntityRendererParachute;
-import teamport.aether.entity.parachute.EntityRendererParachuteGold;
-import teamport.aether.entity.phow.MobPhow;
-import teamport.aether.entity.phow.MobRendererPhow;
-import teamport.aether.entity.phow.ModelPhow;
-import teamport.aether.entity.phyg.MobPhyg;
-import teamport.aether.entity.phyg.MobRendererPhyg;
-import teamport.aether.entity.phyg.ModelPhyg;
+import teamport.aether.entity.animal.aerbunny.MobAerbunny;
+import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
+import teamport.aether.entity.animal.aerbunny.ModelAerbunny;
+import teamport.aether.entity.animal.aerwhale.MobAerwhale;
+import teamport.aether.entity.animal.aerwhale.MobRendererAerwhale;
+import teamport.aether.entity.animal.aerwhale.ModelAerwhale;
+import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.moa.MobRendererMoa;
+import teamport.aether.entity.animal.moa.ModelMoa;
+import teamport.aether.entity.animal.phow.MobPhow;
+import teamport.aether.entity.animal.phow.MobRendererPhow;
+import teamport.aether.entity.animal.phow.ModelPhow;
+import teamport.aether.entity.animal.phyg.MobPhyg;
+import teamport.aether.entity.animal.phyg.MobRendererPhyg;
+import teamport.aether.entity.animal.phyg.ModelPhyg;
+import teamport.aether.entity.animal.sheepuff.*;
+import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.entity.boss.slider.MobRendererSlider;
+import teamport.aether.entity.boss.slider.ModelSlider;
+import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.boss.sunspirit.MobRendererSunspirit;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.boss.valkyrie.queen.MobRendererValkyrieBoss;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
+import teamport.aether.entity.monster.aechorplant.MobRendererAechorPlant;
+import teamport.aether.entity.monster.aechorplant.ModelAechorPlant;
+import teamport.aether.entity.monster.cockatrice.MobCockatrice;
+import teamport.aether.entity.monster.cockatrice.MobRendererCockatrice;
+import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.entity.monster.fireminion.MobRendererFireMinion;
+import teamport.aether.entity.monster.mimic.MobMimic;
+import teamport.aether.entity.monster.mimic.MobRendererMimic;
+import teamport.aether.entity.monster.sentry.MobRendererSentry;
+import teamport.aether.entity.monster.sentry.MobSentry;
+import teamport.aether.entity.monster.swet.MobRendererSwet;
+import teamport.aether.entity.monster.swet.MobSwet;
+import teamport.aether.entity.monster.swet.MobSwetGold;
+import teamport.aether.entity.monster.valkyrie.MobRendererValkyrie;
+import teamport.aether.entity.monster.valkyrie.MobValkyrie;
+import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
+import teamport.aether.entity.monster.whirly.MobRendererWhirly;
+import teamport.aether.entity.monster.whirly.MobWhirly;
+import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
+import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
+import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
-import teamport.aether.entity.sentry.MobRendererSentry;
-import teamport.aether.entity.sentry.MobSentry;
-import teamport.aether.entity.sheepuff.*;
-import teamport.aether.entity.slider.MobBossSlider;
-import teamport.aether.entity.slider.MobRendererSlider;
-import teamport.aether.entity.slider.ModelSlider;
-import teamport.aether.entity.sunspirit.MobBossSunspirit;
-import teamport.aether.entity.sunspirit.ModelSunspirit;
-import teamport.aether.entity.swet.MobRendererSwet;
-import teamport.aether.entity.swet.MobSwet;
-import teamport.aether.entity.valkyrie.*;
-import teamport.aether.entity.zephyr.MobRendererZephyr;
-import teamport.aether.entity.zephyr.MobZephyr;
+import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
+import teamport.aether.entity.vehicle.minicloud.ModelMinicloud;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
+import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
+import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
 import teamport.aether.items.AetherItems;
+import teamport.aether.tile.TileEntityRendererSignSkyroot;
+import teamport.aether.tile.TileEntitySignSkyroot;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
@@ -150,6 +164,9 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/door/skyroot/top", Side.sides));
 
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
                 .setTex(0, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
@@ -204,6 +221,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE)
                 .setAllTextures(0, "aether:block/ore/gravitite/holystone"));
 
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.BLOCK_AMBER, true).onRenderLayer(1)
+                .setAllTextures(0, "aether:block/block_amber"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
                 .setAllTextures(0, "aether:block/block_ambrosium"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_ZANITE)
@@ -384,6 +403,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_AETHER, null).setIcon("aether:item/record_aether"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_MORNING, null).setIcon("aether:item/record_morning"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_DAWN, null).setIcon("aether:item/record_dawn"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_NETHER, null).setIcon("aether:item/record_nether"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMBER, null).setIcon("aether:item/amber"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PETAL_AECHOR, null).setIcon("aether:item/petal_aechor"));
@@ -541,6 +561,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
+
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_ICE, null).setIcon("aether:item/projectile_ice"));
@@ -560,24 +582,29 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
         ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
+        ModelHelper.setEntityModel(ProjectileArrowFlaming.class, EntityRendererArrowFlaming::new);
         ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
 
 
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+        ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
+        ModelHelper.setEntityModel(MobSwetGold.class, () -> new MobRendererSwet(new ModelSlime(4), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
 
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererValkyrieBoss(new ModelValkyrie(), 0.5F));
-        ModelHelper.setEntityModel(MobBossSunspirit.class, () -> new MobRendererBiped<>(new ModelSunspirit(0.0F, 0.0F), 0.4F));
+        ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
+        ModelHelper.setEntityModel(MobFireMinion.class, MobRendererFireMinion::new);
 
 
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
         ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), 0.7F));
-        ModelHelper.setEntityModel(MobMoa.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
+        ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), 0.7F));
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
@@ -595,6 +622,8 @@ public class AetherModels implements ModelEntrypoint {
 
     @Override
     public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
+        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, TileEntityRendererSignSkyroot::new);
+
     }
 
     @Override

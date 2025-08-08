@@ -199,7 +199,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether {
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
                     IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
-                    AetherEffects.fixedAdd(effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                    AetherEffects.add(effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
                 }
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();

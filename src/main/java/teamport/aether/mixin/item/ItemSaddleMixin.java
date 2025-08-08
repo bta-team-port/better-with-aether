@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.entity.moa.MobMoa;
-import teamport.aether.entity.phow.MobPhow;
-import teamport.aether.entity.phyg.MobPhyg;
+import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.phow.MobPhow;
+import teamport.aether.entity.animal.phyg.MobPhyg;
 
 @Mixin(value = ItemSaddle.class, remap = false)
 public class ItemSaddleMixin extends Item {
@@ -38,8 +38,8 @@ public class ItemSaddleMixin extends Item {
                 info.setReturnValue(true);
             }
         }
-        if (entityliving instanceof MobMoa && itemstack.consumeItem(entityPlayer)) {
-            MobMoa entity = (MobMoa)entityliving;
+        if (entityliving instanceof MobMoaBlue && itemstack.consumeItem(entityPlayer)) {
+            MobMoaBlue entity = (MobMoaBlue)entityliving;
             if (!entity.getSaddled()) {
                 entity.setSaddled(true);
                 entityPlayer.swingItem();

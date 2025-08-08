@@ -29,8 +29,8 @@ public abstract class ItemBlockBlacklistMixin {
     @Shadow public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
 
     @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
-    private void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
-        Dimension dim = Dimension.getDimensionList().get(player.dimension);
+    public void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
+        Dimension dim = world.dimension;
         List<Integer> BLACKLIST = AetherDimension.getDimensionBlacklist(dim);
 
         if (BLACKLIST.contains(block.id()))  {
@@ -38,17 +38,19 @@ public abstract class ItemBlockBlacklistMixin {
             blockY += side.getOffsetY();
             blockZ += side.getOffsetZ();
 
-            if (Dimension.getDimensionList().get(player.dimension) == AetherDimension.AETHER) {
+            if (dim == AetherDimension.AETHER) {
                 if (block.id() == Blocks.PUMPKIN_CARVED_ACTIVE.id()) {
                     if (world.canBlockBePlacedAt(this.block.id(), blockX, blockY, blockZ, false, side) && stack.consumeItem(player)) {
                         int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
+
                         if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, Blocks.PUMPKIN_CARVED_IDLE.id(), meta)) {
-                            this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
+                            if (player != null) this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
+                            else this.block.onBlockPlacedByWorld(world, blockX, blockY, blockZ);
 
                             world.playBlockSoundEffect(player, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
                         }
 
-                        if (player.getGamemode().consumeBlocks()) {
+                        if (player != null && player.getGamemode().consumeBlocks()) {
                             ++stack.stackSize;
                         }
                     }

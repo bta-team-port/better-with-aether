@@ -14,9 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
-    protected int maxBounces = 20;
+    public int maxBounces = 20;
 
-    protected String[] particles = {"explode"};
+    public String[] particles = {"explode"};
 
     public ProjectileElementBase(World world) {
         super(world);
@@ -33,9 +33,13 @@ public class ProjectileElementBase extends Projectile {
         this.initProjectile();
     }
 
+    public ProjectileElementBase(World world, double v, double y, double v1, Mob ep) {
+        super(world);
+    }
+
 
     @Override
-    protected void initProjectile() {
+    public void initProjectile() {
         super.initProjectile();
         this.damage = 2;
         this.defaultGravity = 0.0F;
@@ -68,11 +72,6 @@ public class ProjectileElementBase extends Projectile {
     @Override
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
-            if (hitResult.entity instanceof Mob) {
-                this.remove();
-                return;
-            }
-
             if (hitResult.side != null) {
                 switch (hitResult.side) {
                     case BOTTOM:

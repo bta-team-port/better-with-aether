@@ -1,4 +1,28 @@
 {
+  "mob.slider.move": {
+    "subtitle": "subtitles.mob.slider.move",
+    "sounds": [
+      "mob/slider/move.ogg"
+    ]
+  },
+  "mob.slider.death": {
+    "subtitle": "subtitles.mob.slider.death",
+    "sounds": [
+      "mob/slider/death.ogg"
+    ]
+  },
+  "mob.slider.collide": {
+    "subtitle": "subtitles.mob.slider.collide",
+    "sounds": [
+      "mob/slider/collide.ogg"
+    ]
+  },
+  "mob.slider.awaken": {
+    "subtitle": "subtitles.mob.slider.awaken",
+    "sounds": [
+      "mob/slider/awaken.ogg"
+    ]
+  },
   "mob.zephyr.call": {
     "subtitle": "subtitles.mob.zephyr.call",
     "sounds": [
@@ -50,6 +74,20 @@
       "mob/aerbunny/land.ogg"
     ]
   },
+  "mob.sunspirit.hurt": {
+    "subtitle": "subtitles.mob.sunspirit.hurt",
+    "sounds": [
+      "mob/sunspirit/hurt1.ogg",
+      "mob/sunspirit/hurt2.ogg"
+    ]
+  },
+  "mob.sunspirit.death": {
+    "subtitle": "subtitles.mob.sunspirit.death",
+    "sounds": [
+      "mob/sunspirit/death1.ogg",
+      "mob/sunspirit/death2.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {
@@ -75,6 +113,16 @@
       {
         "name": "record/ascending.dawn.ogg",
         "volume": 0.3,
+        "attenuation_distance": 64,
+        "stream": true
+      }
+    ]
+  },
+  "nether.menu": {
+    "sounds": [
+      {
+        "name": "record/menunether.ogg",
+        "volume": 0.2,
         "attenuation_distance": 64,
         "stream": true
       }

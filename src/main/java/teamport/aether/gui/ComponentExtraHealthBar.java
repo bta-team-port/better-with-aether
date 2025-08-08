@@ -108,7 +108,7 @@ public class ComponentExtraHealthBar extends HudComponentMovable {
         }
     }
 
-    private static String getPath(Player player) {
+    public static String getPath(Player player) {
         EffectStack effect = AetherEffects.resolveDominantEffect(player);
         if( effect != null && effect.getEffect() instanceof IHudVisibility){
             return ((IHudVisibility) effect.getEffect()).getPath();

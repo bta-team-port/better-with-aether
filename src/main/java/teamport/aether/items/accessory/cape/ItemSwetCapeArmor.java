@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.swet.MobSwet;
+import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 import java.util.List;

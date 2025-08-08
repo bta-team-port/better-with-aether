@@ -19,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherMod;
 import teamport.aether.world.AetherDimension;
 
+import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
+
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class MPBumpToOverworldMixin extends Player {
     @Shadow public abstract @NotNull String getDisplayName();
@@ -53,7 +55,7 @@ public abstract class MPBumpToOverworldMixin extends Player {
             }
 
             float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
-            moveTo(x * scale, 600, z * scale, yRot, xRot);
+            moveTo(x * scale, OVERWORLD_RETURN_HEIGHT, z * scale, yRot, xRot);
             server.playerList.sendPlayerToOtherDimension((PlayerServer) (Object) this, Dimension.OVERWORLD.id, DyeColor.BLUE, false);
 
             if (passengerNBT != null) {

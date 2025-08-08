@@ -444,7 +444,7 @@
 		}
 	},
 	{
-		"name": "aether:enchanter/enchant_record_morning",
+		"name": "aether:enchanter/enchant_record_aether",
 		"type": "aether:machine",
 		"time": 2500,
 		"input": {
@@ -455,30 +455,6 @@
 			"meta": 0
 		}
 	},
-    {
-      "name": "aether:enchanter/enchant_record_morning",
-      "type": "aether:machine",
-      "time": 2500,
-      "input": {
-        "group": "aether:record_dawn"
-      },
-      "output": {
-        "id": "aether:item/record_dawn",
-        "meta": 0
-      }
-    },
-    {
-      "name": "aether:enchanter/enchant_record_morning",
-      "type": "aether:machine",
-      "time": 2500,
-      "input": {
-        "group": "aether:record_morning"
-      },
-      "output": {
-        "id": "aether:item/record_morning",
-        "meta": 0
-      }
-    },
 	{
 		"name": "aether:enchanter/holyfy_cobble_stone",
 		"type": "aether:machine",

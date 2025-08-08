@@ -18,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherMod;
 import teamport.aether.world.AetherDimension;
 
+import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
+
 @Mixin(value = Entity.class, remap = false)
 public abstract class MPEntityBumpToOverworldMixin {
 
@@ -63,7 +65,7 @@ public abstract class MPEntityBumpToOverworldMixin {
             Entity copy = EntityDispatcher.createEntityFromNBT(data, overworld);
 
             float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
-            copy.moveTo(copy.x * scale, 600, copy.z * scale, copy.yRot, copy.xRot);
+            copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
             overworld.entityJoinedWorld(copy);
         }

@@ -1,0 +1,39 @@
+package teamport.aether.entity.boss.valkyrie.queen;
+
+import net.minecraft.client.render.LightmapHelper;
+import net.minecraft.client.render.entity.MobRendererBiped;
+import net.minecraft.client.render.model.ModelBiped;
+import org.lwjgl.opengl.GL11;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
+
+public class MobRendererValkyrieBoss extends MobRendererBiped<MobBossValkyrie> {
+    public MobRendererValkyrieBoss(ModelBiped model, float shadowSize) {
+        super(model, shadowSize);
+        this.setArmorModel(new ModelValkyrie(0.01F));
+    }
+
+    public boolean setHaloBrightness(MobBossValkyrie valkyrie, int renderPass) {
+        if (renderPass == 0) {
+            this.bindTexture("/assets/aether/textures/entity/boss_valkyrie/halo.png");
+            float brightness = valkyrie.getBrightness(1.0F);
+            if (LightmapHelper.isLightmapEnabled()) {
+                LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
+            }
+
+            float f1 = (1.0F - brightness) * 0.5F;
+            GL11.glEnable(3042);
+            GL11.glDisable(3008);
+            GL11.glBlendFunc(770, 771);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean prepareArmor(MobBossValkyrie valkyrie, int renderPass, float partialTick) {
+        return this.setHaloBrightness(valkyrie, renderPass);
+    }
+
+}

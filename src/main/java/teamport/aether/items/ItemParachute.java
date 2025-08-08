@@ -5,8 +5,8 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherAchievements;
-import teamport.aether.entity.parachute.EntityParachute;
-import teamport.aether.entity.parachute.EntityParachuteGold;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 
 public class ItemParachute extends Item {
     boolean gold;
