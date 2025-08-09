@@ -5,6 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -45,36 +46,15 @@ public class MobSwetGold extends MobSwet implements Enemy {
     }
 
     @Override
-    public void tick() {
-
+    public void doTickEffect() {
         if (random.nextInt(2) == 0) {
             this.world.spawnParticle("goldendust", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
         }
+    }
 
-        this.oSquish = this.squish;
-        boolean flag = this.onGround;
-        super.tick();
-        if (this.onGround && !flag) {
-            int i = 2;
-
-            for(int j = 0; j < i * 8; ++j) {
-                float f = this.random.nextFloat() * 3.1415927F * 2.0F;
-                double f1 = (double)this.random.nextFloat() * 0.5 + 0.5;
-                double f2 = (double)(MathHelper.sin(f) * (float)i) * 0.5 * f1;
-                double f3 = (double)(MathHelper.cos(f) * (float)i) * 0.5 * f1;
-                this.world.spawnParticle("item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, AetherItems.FOOD_GUMMY_GOLD.id);
-            }
-
-            this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
-
-            this.squish = -0.5F;
-        }
-
-        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
-            this.remove();
-        }
-
-        this.squish *= 0.6F;
+    @Override
+    public Item getBounceParticle() {
+        return AetherItems.FOOD_GUMMY_GOLD;
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {

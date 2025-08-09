@@ -68,6 +68,7 @@
     "GuidebookMixinInclude",
     "HudComponentEntrypointMixin",
     "HudComponentHealthBarMixin",
+    "HudIngameMixin",
     "HudMixinEffect",
     "MinecraftMixinAddNewAchievements",
     "MobRendererGLCleanUpMixin",
