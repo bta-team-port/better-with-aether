@@ -10,9 +10,12 @@ import teamport.aether.blocks.AetherBlockTags;
 
 public class ItemToolSwordAether extends ItemToolSword {
 
+    protected ToolMaterial material;
+
     public ItemToolSwordAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
         this.maxStackSize = 1;
+        material = enumtoolmaterial;
         this.setMaxDamage(enumtoolmaterial.getDurability());
     }
 
