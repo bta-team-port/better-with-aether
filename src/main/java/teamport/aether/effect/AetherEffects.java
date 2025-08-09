@@ -13,7 +13,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherEffects {
 
-    protected static class LookupLooks {
+    public static class LookupLooks {
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
         public final Map<Effect, HashSet<Effect>> lockedEffects = new HashMap<>();
@@ -168,13 +168,27 @@ public class AetherEffects {
                 }
             }
         }
-        Effect lock = LookupLooks.instance.getLocker(newEffect.getEffect());
-        if(lock != null && entity.getContainer().hasEffect(lock) && lock instanceof ILockInteractable){
-            ((ILockInteractable) lock).lockTriggered(entity);
-            return false;
-        }
+        if(isLocked(newEffect, ((IHasEffects) mob).getContainer())) return false;
         newEffect.start(entity.getContainer());
         entity.getContainer().add(newEffect);
+        return true;
+    }
+
+
+    public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
+        Effect these = effectStack.getEffect();
+        Effect effect = AetherEffects.LookupLooks.instance.getLocker(these);
+        if(effect == null){
+            return false;
+        }
+        if (!(effectContainer.getParent() instanceof IHasEffects) || !(effectContainer.getParent() instanceof Mob)) {
+            return false;
+        }
+        IHasEffects affected = (IHasEffects) effectContainer.getParent();
+        if(effectContainer.hasEffect(effect) && effect instanceof ILockInteractable){
+            ((ILockInteractable)effect).lockTriggered(affected);
+        }
+        effectContainer.remove(these);
         return true;
     }
 }
