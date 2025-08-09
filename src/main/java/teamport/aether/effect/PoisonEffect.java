@@ -49,6 +49,9 @@ public class PoisonEffect extends Effect implements IHudVisibility {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
+        if(AetherEffects.isLocked(effectStack, effectContainer)){
+            return;
+        }
         if (effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
@@ -61,7 +64,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
-    // TODO change poison particles for player  or maybe make them apply exclusively on the back
+    // TODO Maybe apply poison more frequently, also fix the overlay when the duration is very long
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
@@ -108,4 +111,5 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     public EffectRenderer getRenderer() {
         return this.renderer;
     }
+
 }
