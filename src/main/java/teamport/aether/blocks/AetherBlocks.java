@@ -173,8 +173,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BlockBuilder stone = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
-                .setHardness(2f)
-                .setResistance(5.0f)
+                .setHardness(0.5f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
         BlockBuilder wood = new BlockBuilder(MOD_ID)
@@ -234,7 +233,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setVisualUpdateOnMetadata();
 
         BlockBuilder ores = stone
-                .setHardness(4.0f)
+                .setHardness(3.0f)
                 .setResistance(5.0f);
 
         BlockBuilder station = new BlockBuilder(MOD_ID)
@@ -258,7 +257,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
-                .setHardness(0.6f)
+                .setHardness(0.3f)
                 .setResistance(0.6f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES,
                         BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
@@ -266,14 +265,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.GRAVEL)
-                .setHardness(0.3f)
+                .setHardness(0.2f)
                 .setResistance(0.2f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("dirt.aether", "dirt_aether", blockID("DIRT_AETHER"), b -> new BlockLogicDirtAether(b));
 
         PATH_DIRT_AETHER = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.GRAVEL)
-                .setHardness(0.3f)
+                .setHardness(0.2f)
                 .setResistance(0.2f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)
                 .setUseInternalLight()
