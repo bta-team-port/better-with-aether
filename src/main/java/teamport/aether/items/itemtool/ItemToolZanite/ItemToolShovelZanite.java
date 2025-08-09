@@ -14,13 +14,13 @@ public class ItemToolShovelZanite extends ItemToolShovelAether {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
-        float durability_progress = (float) itemstack.getMetadata() / this.getMaxDamage();
+        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return 1.0F;
+        float durability_progress = ((float) itemstack.getMetadata() / this.getMaxDamage());
 
         // we will 'lerp' between the starting efficiency and the unused 'haste' efficiency of tools
-        float starting_efficiency = this.material.getEfficiency(false);
-        float ending_efficiency = this.material.getEfficiency(true);
+        float base_efficiency = this.material.getEfficiency(false);
+        float haste_efficiency = this.material.getEfficiency(true);
 
-        return (float) (starting_efficiency * (1.0 - durability_progress) + (ending_efficiency * durability_progress));
+        return  base_efficiency + (haste_efficiency - base_efficiency) * durability_progress;
     }
 }
