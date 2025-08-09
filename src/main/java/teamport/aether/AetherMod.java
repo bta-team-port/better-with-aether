@@ -109,11 +109,38 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         Blocks.FURNACE_STONE_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_STONE_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+        Blocks.PERMAICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
+        Blocks.PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.STAIRS_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.STAIRS_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SLAB_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.SLAB_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.FENCE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.FENCE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.FENCE_GATE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.FENCE_GATE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.BUTTON_PLANKS.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.BUTTON_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.TRAPDOOR_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.TRAPDOOR_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.PRESSURE_PLATE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.PRESSURE_PLATE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.CHEST_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.CHEST_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.DOOR_PLANKS_OAK_BOTTOM.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.DOOR_PLANKS_OAK_TOP.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.DOOR_PLANKS_PAINTED_BOTTOM.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.DOOR_PLANKS_PAINTED_TOP.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.SIGN_POST_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.SIGN_POST_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.SIGN_WALL_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.SIGN_WALL_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
     }
 
     public static void registerNewFurnaceFuel() {
