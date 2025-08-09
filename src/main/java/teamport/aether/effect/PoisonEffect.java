@@ -49,7 +49,7 @@ public class PoisonEffect extends Effect implements IHudVisibility {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        if(this.isLocked(effectStack, effectContainer)){
+        if(AetherEffects.isLocked(effectStack, effectContainer)){
             return;
         }
         if (effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
