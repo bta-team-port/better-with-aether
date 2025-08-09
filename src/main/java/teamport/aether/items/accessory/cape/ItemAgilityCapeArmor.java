@@ -28,11 +28,6 @@ public class ItemAgilityCapeArmor extends ItemAccessoryArmor implements IAccesso
     }
 
     @Override
-    public void addEffect(Player player, ItemStack accessory) {
-        player.footSize = 1.0F;
-    }
-
-    @Override
     public void removeEffect(Player player, ItemStack accessory) {
         player.footSize = 0.5F;
     }

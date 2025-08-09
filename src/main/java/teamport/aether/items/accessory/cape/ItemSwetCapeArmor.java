@@ -35,16 +35,6 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
     }
 
     @Override
-    public void addEffect(Player player, ItemStack accessory) {
-        World world = player.world;
-        if(world == null) return;
-        List<MobSwet> list = world.getEntitiesWithinAABB(MobSwet.class, player.bb.grow(6.0D, 3.0D, 6.0D));
-        for (MobSwet swet : list) {
-            swet.friendly = true;
-        }
-    }
-
-    @Override
     public void removeEffect(Player player, ItemStack accessory) {
         World world = player.world;
         if(world == null) return;
