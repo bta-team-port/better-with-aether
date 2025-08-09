@@ -14,8 +14,8 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
 
     public void render(Tessellator tessellator, MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
-        this.bindTexture("/assets/aether/textures/entity/aerwhale/0.png");
         GL11.glTranslatef((float) x, (float) y, (float) z);
+        this.loadEntityTexture(aerwhale);
         float yRot = MathHelper.lerp(aerwhale.yRotO, aerwhale.yRot, partialTick);
         float xRot = MathHelper.lerp(aerwhale.xRotO, aerwhale.xRot, partialTick);
         GL11.glRotatef(90.0F - yRot, 0.0F, 1.0F, 0.0F);
