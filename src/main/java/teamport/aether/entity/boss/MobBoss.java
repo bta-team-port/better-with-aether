@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
 
     @Nullable
     public Integer dungeonID = null;
-    public String bossName = "Nullius Primus";
+    public String bossName = NameGenerator.getRandomName();
 
     @Nullable
     public BlockCoordinate returnPoint = null;

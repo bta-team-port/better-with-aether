@@ -100,6 +100,7 @@ public class ComponentBossBar extends HudComponentMovable {
         String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getBossTitle() : mob.getDisplayName();
         gui.drawStringCentered(mc.font, entityName, textX, textY, 0xFFFFFFFF);
     }
+
     public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
         float progress = (float)health/(float)maxHealth;
         int progressWidth = (int)(barWidth*progress);
