@@ -41,7 +41,7 @@ public class ContainerInventoryMixinAccessory {
         ContainerInventory inv = (ContainerInventory) (Object) this;
         for (ItemStack item : inv.armorInventory) {
             if (item != null && item.getItem() instanceof IAccessoryEffects) {
-                ((IAccessoryEffects) item.getItem()).addEffect(inv.player, item);
+//                ((IAccessoryEffects) item.getItem()).addEffect(inv.player, item);
             }
         }
     }
@@ -97,10 +97,6 @@ public class ContainerInventoryMixinAccessory {
         // this is only called when we SWAP an item
         if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) oldItem.getItem()).removeEffect(player, oldItem);
-        }
-
-        if (newItem != null && newItem.getItem() instanceof IAccessoryEffects) {
-            ((IAccessoryEffects) newItem.getItem()).addEffect(player, newItem);
         }
     }
 }
