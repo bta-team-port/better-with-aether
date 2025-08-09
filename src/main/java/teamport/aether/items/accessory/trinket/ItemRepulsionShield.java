@@ -29,9 +29,8 @@ public class ItemRepulsionShield extends ItemShield {
         // second is if the player is jumping/falling. If either is too
         // high, we return.
         double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
-        double yVelocity = Math.abs(player.yd);
 
-        if (velocity > 0.001D || yVelocity > 0.1D) return;
+        if (velocity > 0.075D || !player.onGround) return;
 
         // Now we do the same as above, just without a cooldown.
         List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, player.bb.grow(1.25D, 1.25D, 1.25D));
