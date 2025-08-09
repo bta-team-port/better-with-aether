@@ -136,9 +136,9 @@ public class MobAerbunny extends MobAetherAnimal {
 
     public boolean hurt(Entity entity, int i, DamageType type) {
         if (this.vehicle == entity) {
-            return super.hurt(entity, i ,type);
-        } else {
             return false;
+        } else {
+            return super.hurt(entity, i ,type);
         }
     }
 

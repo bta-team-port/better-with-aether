@@ -123,7 +123,7 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
             double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
 
             String path;
-            if (velocity > 0.075D || !player.onGround) {
+            if (!player.isSneaking() && (!player.onGround || velocity > 0.075D)) {
                 path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
             } else {
                 path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
