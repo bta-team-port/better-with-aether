@@ -85,6 +85,7 @@
     "accessory.cape.invisibilitycape.PlayerLocalMixinInvisibility",
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
+    "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "dimension.HostileParadiseMixin",
     "dimension.SPBumpToOverworldMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
