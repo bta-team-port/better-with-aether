@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
+import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
@@ -32,19 +33,20 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         }
     }
 
-    public void scaleSlime(MobSwet entityswets, float f) {
+    public void scaleSlime(MobSwet entityswets, float partialTick) {
         float f2 = 1.0F;
         float f1 = 1.0F;
         float f3 = 1.5F;
+        double yd = MathHelper.lerp(entityswets.ydO, entityswets.yd, partialTick);
         if (!entityswets.onGround) {
-            if (entityswets.yd > 0.8500000238418579) {
+            if (yd > 0.8500000238418579) {
                 f1 = 1.425F;
                 f2 = 0.575F;
-            } else if (entityswets.yd < -0.8500000238418579) {
+            } else if (yd < -0.8500000238418579) {
                 f1 = 0.575F;
                 f2 = 1.425F;
             } else {
-                float f4 = (float) entityswets.yd * 0.5F;
+                float f4 = (float) yd * 0.5F;
                 f1 += f4;
                 f2 -= f4;
             }

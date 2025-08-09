@@ -18,7 +18,7 @@ public abstract class HudMixinEffect {
     @Shadow
     protected Minecraft mc;
 
-    @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="TAIL"))
+    @Inject(method = "renderGameOverlay(FZII)V", at = @At(value ="INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;", ordinal = 0))
     public void endRenderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
         int height = this.mc.resolution.getScaledHeightScreenCoords();

@@ -32,6 +32,7 @@ public class TintEffectRender implements EffectRenderer{
         float g = (float)(tint >> 8 & 0xFF) / 255.0f;
         float b = (float)(tint & 0xFF) / 255.0f;
 
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -51,11 +52,12 @@ public class TintEffectRender implements EffectRenderer{
         TextureManager textureManager = Minecraft.getMinecraft().textureManager;
         Tessellator tessellator = Tessellator.instance;
         GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         textureManager.bindTexture(textureManager.loadTexture(vignette));
         GL11.glColor4f(1.0F, 1.0F, 1.0F, alpha);
-        int z = -1000;;
+        int z = -1;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(0, 0, z, 0, 0);
         tessellator.addVertexWithUV(0, height, z, 0, 1);
@@ -63,7 +65,7 @@ public class TintEffectRender implements EffectRenderer{
         tessellator.addVertexWithUV(width, 0, z, 1, 0);
         tessellator.draw();
         GL11.glPopMatrix();
-
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     public float calcAlpha(EffectStack effectStack) {
