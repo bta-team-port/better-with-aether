@@ -233,7 +233,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setVisualUpdateOnMetadata();
 
         BlockBuilder ores = stone
-                .setHardness(3.0f)
+                .setHardness(1.5f)
                 .setResistance(5.0f);
 
         BlockBuilder station = new BlockBuilder(MOD_ID)
