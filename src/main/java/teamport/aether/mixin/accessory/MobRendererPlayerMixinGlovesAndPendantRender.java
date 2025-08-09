@@ -121,10 +121,9 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         Item item = armorStack.getItem();
         if (item instanceof ItemRepulsionShield) {
             double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
-            double yVelocity = Math.abs(player.yd);
 
             String path;
-            if (velocity > 0.001D || yVelocity > 0.1D) {
+            if (velocity > 0.075D || !player.onGround) {
                 path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
             } else {
                 path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
