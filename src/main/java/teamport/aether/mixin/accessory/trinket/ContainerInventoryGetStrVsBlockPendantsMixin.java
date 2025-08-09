@@ -33,21 +33,8 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
         if (baseSpeed <= 1.0F) return;
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        boolean hasDiamondOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_DIAMOND);
-        boolean hasDiamondTwo = trinketTwo != null && trinketTwo.getItem().equals(AetherItems.ARMOR_TALISMAN_DIAMOND);
         boolean hasZaniteOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_ZANITE);
         boolean hasZaniteTwo = trinketTwo != null && trinketTwo.getItem().equals(AetherItems.ARMOR_TALISMAN_ZANITE);
-
-        if (hasDiamondOne || hasDiamondTwo) {
-            float multiplier = 0.0F;
-            if (hasDiamondOne) multiplier += 3.5F;
-            if (hasDiamondTwo) multiplier += 3.5F;
-
-            float f = 1.0F;
-            if (mainInventory[currentItem] != null) f *= mainInventory[currentItem].getStrVsBlock(block) + multiplier;
-
-            cir.setReturnValue(f);
-        }
 
         boolean hasZanite = false;
 
