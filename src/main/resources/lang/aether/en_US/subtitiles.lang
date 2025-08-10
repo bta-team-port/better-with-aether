@@ -19,7 +19,7 @@ subtitles.mob.aerwhale.call=Aerwhale call
 
 subtitles.mob.sunspirit.hurt=Sunspirit hurt
 subtitles.mob.sunspirit.death=Sunspirit death
-mob.slider.awaken=Slider awakens
-mob.slider.collide=Slider collides
-mob.slider.death=Slider death
-mob.slider.move=Slider hurt
+subtitles.mob.slider.awaken=Slider awakens
+subtitles.mob.slider.collide=Slider collides
+subtitles.mob.slider.death=Slider death
+subtitles.mob.slider.move=Slider hurt
