@@ -41,7 +41,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage()), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage()), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 100.0);
 

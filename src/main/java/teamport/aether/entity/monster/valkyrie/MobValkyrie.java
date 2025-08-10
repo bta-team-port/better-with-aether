@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
-public class MobValkyrie extends MobMonster implements Enemy {
+public class    MobValkyrie extends MobMonster implements Enemy {
     public boolean isSwinging;
     public boolean boss;
     public boolean duel;
@@ -236,16 +236,16 @@ public class MobValkyrie extends MobMonster implements Enemy {
             this.swingArm();
             entity.hurt(this, this.attackStrength, DamageType.COMBAT);
             if (this.target != null && entity == this.target && entity instanceof Mob) {
-                Mob e1 = (Mob) entity;
-                if (e1.getHealth() <= 0) {
+                Mob target = (Mob) entity;
+                if (target.getHealth() <= 0) {
                     this.target = null;
                     this.angerLevel = 0;
                     int pokey = this.random.nextInt(3);
                     this.chatTime = 0;
                     if (pokey == 2) {
                         ((Player) entity).sendMessage("You want a medallion? Try being less pathetic.");
-                    } else if (pokey == 1 && e1 instanceof Player) {
-                        Player ep = (Player) e1;
+                    } else if (pokey == 1 && target instanceof Player) {
+                        Player ep = (Player) target;
                         String s = ep.getDisplayName();
                         ((Player) entity).sendMessage("Maybe some day, " + s + "... maybe some day.");
                     } else {
