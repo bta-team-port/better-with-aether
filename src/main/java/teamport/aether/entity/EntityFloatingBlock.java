@@ -3,6 +3,7 @@ package teamport.aether.entity;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
+import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFallingBlock;
 import net.minecraft.core.util.helper.MathHelper;
@@ -10,6 +11,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicOreGravitite;
 
 
@@ -22,10 +24,19 @@ public class EntityFloatingBlock extends EntityFallingBlock {
 
     public EntityFloatingBlock(World world) {
         super(world);
+        this.carriedBlock = new CarriedBlock(this, AetherBlocks.ORE_GRAVITITE_HOLYSTONE, 0, null);
+        this.fallTime = 0;
+        this.setSize(1.0F, 1.0F);
+        this.heightOffset = this.bbHeight / 2.0F;
     }
 
     public EntityFloatingBlock(World world, double x, double y, double z, int blockId, int blockMeta, @Nullable TileEntity tileEntity) {
         super(world, x, y, z, blockId, blockMeta, tileEntity);
+        this.carriedBlock = new CarriedBlock(this, blockId, blockMeta, tileEntity);
+        if (tileEntity != null) {
+            tileEntity.worldObj = null;
+            tileEntity.carriedBlock = this.carriedBlock;
+        }
     }
 
     public void tick() {

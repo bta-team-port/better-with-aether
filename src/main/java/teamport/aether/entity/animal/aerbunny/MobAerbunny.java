@@ -24,6 +24,7 @@ public class MobAerbunny extends MobAetherAnimal {
     public boolean grab;
     public boolean gotRider;
     public float puffiness;
+
     public MobAerbunny(World world) {
         super(world);
         this.setSize(0.4F, 0.4F);
