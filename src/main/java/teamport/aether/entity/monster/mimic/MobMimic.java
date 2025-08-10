@@ -6,7 +6,9 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 
 public class MobMimic extends MobMonster implements Enemy {
@@ -23,6 +25,14 @@ public class MobMimic extends MobMonster implements Enemy {
     public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+    }
+
+    protected void attackEntity(@NotNull Entity entity, float distance) {
+        if (this.attackTime <= 0 && distance < 2.5F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+            this.attackTime = 20;
+            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
+        }
+
     }
 
     public String getHurtSound() {

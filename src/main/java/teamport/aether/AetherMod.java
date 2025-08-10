@@ -73,6 +73,11 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).clear();
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).clear();
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).clear();
+        AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.ambientCreature).clear();
+
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhyg.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobPhow.class, 102));
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).add(new SpawnListEntry(MobSheepuff.class, 102));
