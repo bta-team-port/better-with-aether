@@ -5,7 +5,6 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBucketEmpty;
@@ -76,7 +75,10 @@ public class MobAechorPlant extends MobMonster implements Enemy {
         }
 
         if (this.target == null) {
-            target = findTarget();
+            Player player = world.getClosestPlayer(x, y, z, 16);
+            if (player != null && player.getGamemode().areMobsHostile()) {
+                target = player;
+            }
         }
 
         if (this.target != null) {
@@ -109,13 +111,9 @@ public class MobAechorPlant extends MobMonster implements Enemy {
         this.hasTarget = this.target != null;
     }
 
-    public Mob findTarget() {
-        for (Entity mob : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(10.0, 10.0, 10.0))) {
-            if ((mob instanceof Mob) && !(mob instanceof MobAechorPlant) && !(mob instanceof MobCreeper)) {
-                return (Mob) mob;
-            }
-        }
-        return null;
+    protected Entity findPlayerToAttack() {
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     public void shootTarget(Entity target) {
