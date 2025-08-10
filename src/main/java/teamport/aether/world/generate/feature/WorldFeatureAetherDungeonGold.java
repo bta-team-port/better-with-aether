@@ -47,8 +47,6 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
 
     static {
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_IRON.getDefaultStack(), 1, 1), 100.0);
-
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1, 1), 100.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1, 1), 100.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_PIG.getDefaultStack(), 1, 1), 100.0);
