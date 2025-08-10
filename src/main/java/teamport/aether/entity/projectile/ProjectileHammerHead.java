@@ -33,6 +33,15 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
         this.setPos(x, y, z);
     }
 
+    public void tick() {
+        super.tick();
+        ++this.ticksInAir;
+        if (ticksInAir > 200) {
+            doEffect();
+            remove();
+        }
+    }
+
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
