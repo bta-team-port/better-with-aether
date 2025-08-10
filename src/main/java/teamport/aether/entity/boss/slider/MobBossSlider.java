@@ -175,8 +175,28 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 return;
             }
 
+            int moveAmount;
             moveDirection = calculateDirection(target);
-            blocksToMove = Math.min(25, Math.max(distanceTo(target), 3));
+            switch (moveDirection) {
+                default:
+                case EAST:
+                case WEST:
+                    moveAmount = (int) Math.abs(x - target.x);
+                break;
+
+                case DOWN:
+                case UP:
+                    moveAmount = (int) Math.abs(y - target.y);
+                break;
+
+                case NORTH:
+                case SOUTH:
+                    moveAmount = (int) Math.abs(z - target.z);
+                break;
+            }
+
+            blocksToMove = Math.min(25, Math.max(moveAmount, 3));
+            world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + random.nextFloat(), .45F + random.nextFloat());
         }
     }
 
