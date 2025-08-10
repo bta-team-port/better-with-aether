@@ -30,7 +30,7 @@ public class ModelAerwhale extends ModelBase {
         this.middleBody = new Cube(0, 0);
         this.middleBody.addBox(-2.5F, -2.8F, -2.5F, 5, 5, 5);
         this.middlePleats = new Cube(37, 26);
-        this.middlePleats.addBox(-2.5F, 1.5F, -2.5F, 5, 1, 5, 1/3f);
+        this.middlePleats.addBox(-2.5F, 1.49F, -2.5F, 5, 1, 5, 1/3f);
 
         this.backBody = new Cube(0, 10);
         this.backBody.addBox(-1.5F, -1.5F, 2.5F, 3, 3, 4);
