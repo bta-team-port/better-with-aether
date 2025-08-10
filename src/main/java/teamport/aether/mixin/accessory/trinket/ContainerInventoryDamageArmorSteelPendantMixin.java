@@ -27,16 +27,21 @@ public abstract class ContainerInventoryDamageArmorSteelPendantMixin {
 
     @Inject(method = "damageArmor(I)V", at = @At("HEAD"), cancellable = true)
     public void aether_damageArmorOne(int amount, CallbackInfo ci) {
+        if (player == null || player.inventory == null || player.inventory.armorInventory == null) {
+            return;
+        }
+
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         boolean hasSteelOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);
         boolean hasSteelTwo = trinketTwo != null && trinketTwo.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);
 
+        if (!hasSteelOne && !hasSteelTwo) return;
+
         int random = aether_steelMixinRandom.nextInt(4);
         boolean toolProtected = hasSteelOne && hasSteelTwo ? random < 2 : random == 0;
 
         if (toolProtected) {
-            System.out.println("Armor protected");
             if (hasSteelOne) trinketOne.damageItem(1, player);
             if (hasSteelTwo) trinketTwo.damageItem(1, player);
             ci.cancel();
@@ -44,16 +49,22 @@ public abstract class ContainerInventoryDamageArmorSteelPendantMixin {
     }
 
     @Inject(method = "damageArmor(II)V", at = @At("HEAD"), cancellable = true)
-    public void aether_DamageArmorTwo(int damage, int armorSlot, CallbackInfo ci) {
+    public void aether_damageArmorTwo(int damage, int armorSlot, CallbackInfo ci) {
+        if (player == null || player.inventory == null || player.inventory.armorInventory == null) {
+            return;
+        }
+
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         boolean hasSteelOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);
         boolean hasSteelTwo = trinketTwo != null && trinketTwo.getItem().equals(AetherItems.ARMOR_TALISMAN_STEEL);
 
+        if (!hasSteelOne && !hasSteelTwo) return;
+
         int random = aether_steelMixinRandom.nextInt(4);
         boolean toolProtected = hasSteelOne && hasSteelTwo ? random < 2 : random == 0;
 
-        if ((hasSteelOne || hasSteelTwo) && toolProtected) {
+        if (toolProtected) {
             if (hasSteelOne) trinketOne.damageItem(1, player);
             if (hasSteelTwo) trinketTwo.damageItem(1, player);
             ci.cancel();
