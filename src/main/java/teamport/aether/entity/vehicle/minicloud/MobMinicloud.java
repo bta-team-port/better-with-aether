@@ -2,7 +2,6 @@ package teamport.aether.entity.vehicle.minicloud;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -17,10 +16,19 @@ public class MobMinicloud extends MobFlying {
     public int lifeSpan;
     public boolean gotPlayer;
     public boolean toLeft;
-    public Mob dude;
+    public Player dude;
     public double targetX;
     public double targetY;
     public double targetZ;
+
+    public MobMinicloud(World world) {
+        super(world);
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "minicloud");
+        this.setSize(0.5F, 0.45F);
+        this.noPhysics = true;
+        this.pushTime = 1.75F;
+        this.animateHurt();
+    }
 
     public MobMinicloud(World world, Player ep, boolean flag) {
         super(world);
@@ -120,7 +128,7 @@ public class MobMinicloud extends MobFlying {
 
             if (this.gotPlayer && this.dude == null) {
                 this.gotPlayer = false;
-                this.dude = (Mob) this.findPlayer();
+                this.dude = (Player) this.findPlayer();
             }
 
             if (this.dude != null && this.dude.isAlive()) {
@@ -131,7 +139,7 @@ public class MobMinicloud extends MobFlying {
                     this.zd *= 0.65;
                     this.yRot = this.dude.yRot + (this.toLeft ? 1.0F : -1.0F);
                     this.xRot = this.dude.xRot;
-                    if (this.shotTimer <= 0 && this.dude instanceof Player && ((Player) this.dude).isSwinging) {
+                    if (this.shotTimer <= 0 && this.dude instanceof Player && this.dude.isSwinging) {
                         float spanish = this.yRot - (this.toLeft ? 1.0F : -1.0F);
                         double a = this.x + Math.sin((double) spanish / -57.29577319531843) * 1.6;
                         double b = this.y - 0.25;

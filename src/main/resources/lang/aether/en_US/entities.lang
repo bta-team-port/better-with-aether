@@ -88,3 +88,34 @@ aether.entity.boss_sunspirit=Sun Spirit
 guidebook.section.mob.sunspirit.name=Sun Spirit
 guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
 aether.entity.boss_sunspirit.title=%s, The Sun Spirit
+
+# Misc
+aether.entity.floating_block=floating_block
+
+aether.entity.arrow_flaming=arrow_flaming
+
+aether.entity.dart=dart
+aether.entity.dart_enchanted=dart_enchanted
+
+aether.entity.hammer_head=hammer_head
+
+aether.entity.knife_lightning=knife_lightning
+
+aether.entity.parachute=parachute
+aether.entity.parachute_gold=parachute_gold
+
+aether.entity.projectile_fire=projectile_fire
+aether.entity.projectile_ice=projectile_ice
+aether.entity.projectile_lightning=projectile_lightning
+
+aether.entity.windball=windball
+
+aether.entity.minicloud=Minicloud
+
+
+
+
+
+
+
+
