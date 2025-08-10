@@ -13,15 +13,19 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
 
     public ProjectileHammerHead(World world) {
         super(world);
+        initProjectile();
     }
 
     public ProjectileHammerHead(World world, Mob owner) {
         super(world, owner);
+        initProjectile();
     }
+
     public void initProjectile() {
         this.damage = 10;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 0.99F;
+        this.setSize(1.0F, 1.0F);
     }
 
     public ProjectileHammerHead(World world, double x, double y, double z) {
