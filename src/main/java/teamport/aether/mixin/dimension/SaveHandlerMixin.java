@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value =  SaveHandlerBase.class, remap = false)
@@ -41,7 +41,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
                 if(tag instanceof CompoundTag) {
                     AetherDimension.dungeonMap.put(
                         Integer.parseInt(tag.getTagName()),
-                        BlockCoordinate.fromCompoundTag(((CompoundTag) tag))
+                        WorldFeaturePoint.fromCompoundTag(((CompoundTag) tag))
                     );
                 }
             }

@@ -11,7 +11,8 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeatureAetherDungeonBase;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 
@@ -23,6 +24,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
+
     static {
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 85);
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 5);
@@ -79,7 +81,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        if (!canPlaceDungeon(x, y, z)) return false;
         if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
 
         int dungeonID = AetherDimension.registerDungeonToMap(x + 8, y + 2, z + 8);
@@ -105,16 +106,16 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         MobBossSlider boss = new MobBossSlider(world);
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
-        boss.setReturnPoint(new BlockCoordinate(x + 8, y + 2, z + 8));
+        boss.setReturnPoint(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
 
         boss.setDungeonID(dungeonID);
 
-        BlockCoordinate[] treasureDoor = new BlockCoordinate[] {
-            new BlockCoordinate(x + 7, y +1, z + 7),
-            new BlockCoordinate(x + 8, y +1, z + 7),
-            new BlockCoordinate(x + 7, y +1, z + 8),
-            new BlockCoordinate(x + 8, y +1, z + 8),
+        WorldFeaturePoint[] treasureDoor = new WorldFeaturePoint[] {
+            new WorldFeaturePoint(x + 7, y +1, z + 7),
+            new WorldFeaturePoint(x + 8, y +1, z + 7),
+            new WorldFeaturePoint(x + 7, y +1, z + 8),
+            new WorldFeaturePoint(x + 8, y +1, z + 8),
         };
 
         Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
