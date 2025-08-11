@@ -7,6 +7,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -25,9 +26,10 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
     public float Speed;
     public float Curve;
     public boolean evil;
+
     public MobWhirly(World world) {
         super(world);
-        this.setSize(0.6F, 0.8F);
+        this.setSize(1.0F, 1.5F);
         this.setPos(this.x, this.y, this.z);
         this.moveSpeed = 0.6F;
         this.Angle = this.random.nextFloat() * 360.0F;
@@ -38,10 +40,42 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
         this.fluffies = new ArrayList<>();
     }
 
+    public void spawnInit() {
+        if (random.nextInt(5) == 0) {
+            this.evil = true;
+        }
+    }
+
     public boolean makeStepSound() {
         return false;
     }
 
+    public boolean collidesWith(Entity entity) {
+        float launchSpeed = 0.75F;
+        double distanceTo = entity.distanceTo(x, y, z);
+
+        if (entity != this) {
+            switch (Direction.values()[world.rand.nextInt(Direction.values().length)]) {
+                case NORTH:
+                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
+                    break;
+
+                case SOUTH:
+                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
+                    break;
+
+                case EAST:
+                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    break;
+
+                case WEST:
+                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    break;
+            }
+        }
+
+        return false;
+    }
 
     public void updateAI() {
         if (this.evil) {
