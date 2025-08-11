@@ -36,17 +36,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.scoreValue = 5000;
     }
 
-    public MobValkyrie(World world, double x, double y, double z) {
-        super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
-        this.setSize(0.8F, 2.0F);
-        this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
-        this.moveSpeed = 0.5F;
-        this.timeLeft = 1200;
-        this.attackStrength = 7;
-        this.scoreValue = 5000;
-    }
-
     public void causeFallDamage(float distance) {
     }
 
