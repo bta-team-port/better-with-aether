@@ -78,7 +78,7 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
 
-        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 20, 300, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 40, 300, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
 
 

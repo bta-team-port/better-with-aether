@@ -5,11 +5,14 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.tool.ItemToolAxe;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 public class MobMimic extends MobMonster implements Enemy {
     public MobMimic(World world) {
@@ -35,6 +38,18 @@ public class MobMimic extends MobMonster implements Enemy {
 
     }
 
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+
+        if (attacker instanceof Player) {
+            ItemStack item = ((Player)attacker).inventory.getCurrentItem();
+
+            if (item != null && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)) {
+                return super.hurt(attacker, damage * 2, type);
+            }
+        }
+        return super.hurt(attacker, damage, type);
+    }
+
     public String getHurtSound() {
         return "step.wood";
     }
@@ -48,6 +63,6 @@ public class MobMimic extends MobMonster implements Enemy {
     }
 
     public int getMaxHealth() {
-        return 10;
+        return 40;
     }
 }

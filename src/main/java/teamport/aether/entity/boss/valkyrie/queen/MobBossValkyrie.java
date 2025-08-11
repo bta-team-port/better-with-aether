@@ -6,6 +6,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -33,7 +34,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.setSize(0.8F, 2.0F);
         this.scoreValue = 50000;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1));
-        this.mobDrops.add(new WeightedRandomLootObject(AetherItems.KEY_SILVER.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
         this.attackStrength = 10;
     }
@@ -90,9 +90,9 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         if (this.teleportTimer >= 125) {
             if (this.target != null) {
 
-                this.teleport(this.target.x, this.target.y, this.target.z, 7);
+                this.teleport(this.target.x, this.target.y, this.target.z, 8);
             } else if (this.onGround) {
-                this.teleport(this.x, this.y, this.z, 12 + this.random.nextInt(12));
+                this.teleport(this.x, this.y, this.z, 12);
             } else {
                 this.teleport(this.xo, this.yo, this.zo, 6);
             }
@@ -269,8 +269,9 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
                 this.becomeAngryAt(attacker);
                 boolean flag = super.hurt(attacker, i, type);
                 if (flag && this.getHealth() <= 0) {
-                    this.dead = false;
+                    this.dead = true;
                     ((Player) attacker).triggerAchievement(AetherAchievements.SILVER);
+                    this.world.playSoundEffect(attacker, SoundCategory.ENTITY_SOUNDS, attacker.x, attacker.y, attacker.z, "aether:achievement.silver", 2.0f, 1.0f);
                     ((Player) attacker).sendMessage("You are truly... a mighty warrior...");
                     this.animateHurt();
                 }

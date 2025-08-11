@@ -13,6 +13,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MobMimic;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
@@ -34,6 +35,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 Player player = world.getClosestPlayer(x, y, z, 16);
                 if (player != null) {
                     mimic.absMoveTo(x + 0.5, y, z + 0.5, (player.yRot) - 180F, -player.xRot);
+                    player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
                 }
                 else mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
                 world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
@@ -65,6 +67,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
 
         world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
+
+        player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
 
         return true;
     }
