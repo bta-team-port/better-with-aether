@@ -1,11 +1,9 @@
 package teamport.aether.blocks;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.BlockLogicRotatable;
-import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
@@ -36,6 +34,8 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
                 item.consumeItem(player);
                 world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 0.5f, 1.5f);
                 world.setBlockAndMetadataRaw(x, y, z, unlockedChest.id(), world.getBlockMetadata(x,y,z));
+                world.markBlockNeedsUpdate(x, y, z);
+
                 return true;
             }
             return true;
