@@ -121,18 +121,16 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         this.world = world;
         this.random = random;
         this.bossPosition = this.getPos(x - 15, y + 4, z + 42);
-
-
-        ///#############################################################################################################
-        // TODO move the dungeon in the dungeonMap into the correct place
-        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
-        ///#############################################################################################################
-
         createBaseStructure(x,y,z);
         createInnerDecorations(x,y,z);
-        ///#############################################################################################################
-        // TODO move the boss to the correct point
+        createBossAndTreasure(x, y, z);
+        createOuterDecorations(x, y, z);
+        return true;
+    }
 
+    private void createBossAndTreasure(int x, int y, int z) {
+        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
+        // Place boss, chest and door
         MobBossValkyrie boss = new MobBossValkyrie(world);
         boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
@@ -147,8 +145,6 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
             );
         }
 
-
-
         WorldFeaturePoint[] treasureDoor = {
                 new WorldFeaturePoint(x - 14, y + 2, z + 41),
                 new WorldFeaturePoint(x - 14, y + 2, z + 42),
@@ -158,16 +154,12 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
                 new WorldFeaturePoint(x - 15, y + 2, z + 43),
         };
         for(WorldFeaturePoint pos : treasureDoor){
-            pos.rotateFixPointYAxis(x,y,z, angle);
+            pos.rotateFixPointYAxis(x, y, z, angle);
         }
 
         Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
 
         world.entityJoinedWorld(boss);
-        ///#############################################################################################################
-
-        createOuterDecorations(x, y, z);
-        return true;
     }
 
     public WorldFeaturePoint getPos(int ix, int iy, int iz) {
