@@ -6,7 +6,7 @@ import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
 
 public class DynamicTextureDungeonCompass extends DynamicTexture {
@@ -50,8 +50,8 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
 
         PlayerLocal player = mc.thePlayer;
 
-        BlockCoordinate closestCoord = null;
-        for (BlockCoordinate coord : AetherDimension.dungeonMap.values()) {
+        WorldFeaturePoint closestCoord = null;
+        for (WorldFeaturePoint coord : AetherDimension.dungeonMap.values()) {
             if (closestCoord == null) {
                 closestCoord = coord;
                 continue;

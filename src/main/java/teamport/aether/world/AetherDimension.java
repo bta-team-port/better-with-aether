@@ -7,7 +7,7 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class AetherDimension {
     public static final int dungeonRadius = 300;
     public static final int dungeonRadiusSQR = dungeonRadius * dungeonRadius;
 
-    public static final HashMap<Integer, BlockCoordinate> dungeonMap = new HashMap<>();
+    public static final HashMap<Integer, WorldFeaturePoint> dungeonMap = new HashMap<>();
 
     public static int registerDungeonToMap(int x, int y, int z){
         int id = dungeonMap.size();
@@ -31,7 +31,7 @@ public class AetherDimension {
             id++;
         }
 
-        dungeonMap.put(id, new BlockCoordinate(x, y, z));
+        dungeonMap.put(id, new WorldFeaturePoint(x, y, z));
         return id;
     }
 
