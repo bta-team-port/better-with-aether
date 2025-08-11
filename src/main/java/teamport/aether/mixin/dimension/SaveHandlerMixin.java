@@ -35,16 +35,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
         AetherMod.LOGGER.info("Loading additional level data.");
         CompoundTag data = saveFormat.getDimensionDataRaw(worldDirName, dimensionId);
         if (data != null) {
-            AetherDimension.dungeonMap.clear();
-
-            for (Tag<?> tag: data.getCompound("aether.dungeon").getValues()) {
-                if(tag instanceof CompoundTag) {
-                    AetherDimension.dungeonMap.put(
-                        Integer.parseInt(tag.getTagName()),
-                        WorldFeaturePoint.fromCompoundTag(((CompoundTag) tag))
-                    );
-                }
-            }
+            AetherDimension.dungeonMap.loadFromNBT(data.getCompound("aether.dungeon"));
         }
     }
 
@@ -55,9 +46,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
         }
 
         AetherMod.LOGGER.debug("Saving additional level data.");
-        CompoundTag dungeonMapNBT = new CompoundTag();
-        AetherDimension.dungeonMap.forEach( (id, coords) -> dungeonMapNBT.put(String.valueOf(id), coords.toCompoundTag()));
-        dimensionDataTag.putCompound("aether.dungeon", dungeonMapNBT);
+        dimensionDataTag.putCompound("aether.dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
     }
 
 }

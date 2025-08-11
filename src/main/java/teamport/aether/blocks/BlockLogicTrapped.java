@@ -36,19 +36,21 @@ public class BlockLogicTrapped extends BlockLogic {
         super.onNeighborBlockChange(world, x, y, z, blockId);
 
         final boolean[] canBreak = {true};
-        AetherDimension.dungeonMap.forEach((id, cords) -> {
-            if (cords.distanceTo(x, y, z) < AetherDimension.dungeonRadius) {
-                canBreak[0] = false;
-            }
-        });
+//        AetherDimension.dungeonMap.forEach((id, cords) -> {
+//            if (cords.distanceTo(x, y, z) < AetherDimension.dungeonRadius) {
+//                canBreak[0] = false;
+//            }
+//        });
+//
+//        if (canBreak[0]) {
+//            if (replacement.getLogic() instanceof BlockLogicLocked) {
+//                world.setBlock(x, y, z, ((BlockLogicLocked) replacement.getLogic()).replacement.id());
+//            } else {
+//                world.setBlock(x, y, z, replacement.id());
+//            }
+//        }
 
-        if (canBreak[0]) {
-            if (replacement.getLogic() instanceof BlockLogicLocked) {
-                world.setBlock(x, y, z, ((BlockLogicLocked) replacement.getLogic()).replacement.id());
-            } else {
-                world.setBlock(x, y, z, replacement.id());
-            }
-        }
+        world.setBlock(x, y, z, replacement.id());
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {

@@ -8,6 +8,8 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.DungeonMap;
+import teamport.aether.world.DungeonMapEntry;
 
 public class DynamicTextureDungeonCompass extends DynamicTexture {
     public Minecraft mc;
@@ -51,7 +53,8 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         PlayerLocal player = mc.thePlayer;
 
         WorldFeaturePoint closestCoord = null;
-        for (WorldFeaturePoint coord : AetherDimension.dungeonMap.values()) {
+        for (DungeonMapEntry dungeon : AetherDimension.dungeonMap.values()) {
+            WorldFeaturePoint coord = dungeon.getPosition();
             if (closestCoord == null) {
                 closestCoord = coord;
                 continue;
