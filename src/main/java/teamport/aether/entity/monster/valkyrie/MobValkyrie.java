@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.DoubleTag;
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.monster.Enemy;
@@ -14,7 +15,6 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 
 public class MobValkyrie extends MobPathfinder implements Enemy {
@@ -42,8 +42,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.timeLeft = 1200;
         this.attackStrength = 7;
         this.scoreValue = 5000;
-        this.teleportTimer = this.random.nextInt(250);
-        this.timeLeft = 1200;
         this.safeX = this.x;
         this.safeY = this.y;
         this.safeZ = this.z;
@@ -58,8 +56,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.timeLeft = 1200;
         this.attackStrength = 7;
         this.scoreValue = 5000;
-        this.teleportTimer = this.random.nextInt(250);
-        this.timeLeft = 1200;
         this.safeX = this.x = x;
         this.safeY = this.y = y;
         this.safeZ = this.z = z;
@@ -118,33 +114,36 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         }
 
 
-            if (this.timeLeft <= 0) {
-                this.dead = true;
-                this.animateHurt();
-            }
+        if (this.timeLeft <= 0) {
+            this.dead = true;
+            this.animateHurt();
         }
+    }
 
     public void teleport(double x, double y, double z, int rad) {
-        int a = this.random.nextInt(rad + 1);
-        int b = this.random.nextInt(rad / 2);
-        int c = rad - a;
-        a *= this.random.nextInt(2) * 2 - 1;
-        b *= this.random.nextInt(2) * 2 - 1;
-        c *= this.random.nextInt(2) * 2 - 1;
+        int a = this.random.nextInt(rad + 1) * (this.random.nextInt(2) * 2 - 1);
+        int b = this.random.nextInt(rad / 2) * (this.random.nextInt(2) * 2 - 1);
+        int c = (rad - Math.abs(a)) * (this.random.nextInt(2) * 2 - 1);
         x += a;
         y += b;
         z += c;
-        int newX = (int) Math.floor(x - 0.5);
-        int newY = (int) Math.floor(y - 0.5);
-        int newZ = (int) Math.floor(z - 0.5);
+
+        int newX = (int) Math.floor(x);
+        int newY = (int) Math.floor(y);
+        int newZ = (int) Math.floor(z);
         boolean flag = false;
 
-        for (int q = 0; q < 32 && !flag; ++q) {
-            int i = newX + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
-            int j = newY + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
-            int k = newZ + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
-            if (j <= 124 && j >= 5 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k)
-                    && (i > this.dungeonX && i < this.dungeonX + 20 && j > this.dungeonY && j < this.dungeonY + 12 && k > this.dungeonZ && k < this.dungeonZ + 20)) {
+        int dungeonXMin = (int) (this.x - 10);
+        int dungeonXMax = (int) (this.x + 10);
+        int dungeonZMin = (int) (this.z - 10);
+        int dungeonZMax = (int) (this.z + 10);
+
+        for (int q = 0; q < 128 && !flag; ++q) {
+            int i = newX + (this.random.nextInt(6) - this.random.nextInt(6));
+            int j = (int) this.y;
+            int k = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
+
+            if (j >= 0 && j <= 255 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k) && i >= dungeonXMin && i <= dungeonXMax && k >= dungeonZMin && k <= dungeonZMax) {
                 newX = i;
                 newY = j;
                 newZ = k;
@@ -155,8 +154,11 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         if (!flag) {
             this.teleportFailed();
         } else {
-            this.animateHurt();
-            this.setPos((double) newX + 0.5, (double) newY + 0.5, (double) newZ + 0.5);
+            world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
+            this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
+            this.setPos(newX + 0.5, newY, newZ + 0.5);
             this.xd = 0.0;
             this.yd = 0.0;
             this.zd = 0.0;
@@ -167,20 +169,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
             this.yRot = 0.0F;
             this.setPathToEntity(null);
             this.yBodyRot = this.random.nextFloat() * 360.0F;
-            this.animateHurt();
             this.teleportTimer = this.random.nextInt(40);
         }
-
     }
 
     public boolean isAirySpace(int x, int y, int z) {
-        int blockId = this.world.getBlockId(x, y, z);
-        return blockId == 0 || blockId == AetherBlocks.CARVED_ANGELIC.id() || blockId == AetherBlocks.CARVED_ANGELIC_LIGHT.id() || blockId == AetherBlocks.CARVED_ANGELIC_LOCKED.id() || blockId == AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id() || blockId == AetherBlocks.CARVED_ANGELIC_TRAPPED.id();
-    }
-
-    @Override
-    public boolean canDespawn() {
-        return true;
+        int p = this.world.getBlockId(x, y, z);
+        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null;
     }
 
     @Override
@@ -216,7 +211,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public void updateAI() {
         super.updateAI();
         ++this.teleportTimer;
-        if (this.teleportTimer >= 450) {
+        if (this.teleportTimer >= 250) {
             if (this.target != null) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 7);
             } else if (this.onGround) {
@@ -224,12 +219,12 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
             } else {
                 this.teleport(this.safeX, this.safeY, this.safeZ, 6);
             }
-        } else if (this.teleportTimer >= 446 || !(this.y <= 0.0) && !(this.y <= this.safeY - 16.0)) {
+        } else if (this.teleportTimer >= 200 || !(this.y <= 0.0) && !(this.y <= this.safeY - 16.0)) {
             if (this.teleportTimer % 5 == 0 && this.target != null && !this.canEntityBeSeen(this.target)) {
                 this.teleportTimer += 100;
             }
         } else {
-            this.teleportTimer = 446;
+            this.teleportTimer = 200;
         }
 
         if (this.onGround && this.teleportTimer % 10 == 0) {
@@ -260,7 +255,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public void teleportFailed() {
         this.teleportTimer -= this.random.nextInt(40) + 40;
         if (this.y <= 0.0) {
-            this.teleportTimer = 446;
+            this.teleportTimer = 200;
         }
     }
 
