@@ -4,10 +4,9 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.DoubleTag;
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -15,10 +14,11 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 
-public class MobValkyrie extends MobMonster implements Enemy {
+public class MobValkyrie extends MobPathfinder implements Enemy {
+    public int attackStrength;
     public boolean isSwinging;
     public int teleportTimer;
     public int angerLevel;
@@ -28,11 +28,15 @@ public class MobValkyrie extends MobMonster implements Enemy {
     public double safeY;
     public double safeZ;
     public float sinage;
+    public int dungeonX;
+    public int dungeonY;
+    public int dungeonZ;
 
-    public MobValkyrie(@Nullable World world) {
+
+    public MobValkyrie(World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
-        this.setSize(0.8F, 2.0F);
+        this.setSize(0.8F, 1.9F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
         this.timeLeft = 1200;
@@ -45,7 +49,7 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.safeZ = this.z;
     }
 
-    public MobValkyrie(World world, double x, double y, double z, boolean flag) {
+    public MobValkyrie(World world, double x, double y, double z) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
         this.setSize(0.8F, 2.0F);
@@ -56,12 +60,16 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.scoreValue = 5000;
         this.teleportTimer = this.random.nextInt(250);
         this.timeLeft = 1200;
-        this.safeX = this.x;
-        this.safeY = this.y;
-        this.safeZ = this.z;
+        this.safeX = this.x = x;
+        this.safeY = this.y = y;
+        this.safeZ = this.z = z;
     }
 
     public void causeFallDamage(float distance) {
+    }
+
+    public void spawnInit() {
+        this.teleportTimer = this.random.nextInt(250);
     }
 
     @Override
@@ -135,7 +143,8 @@ public class MobValkyrie extends MobMonster implements Enemy {
             int i = newX + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
             int j = newY + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
             int k = newZ + (this.random.nextInt(rad / 2) - this.random.nextInt(rad / 2));
-            if (j <= 124 && j >= 5 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k)) {
+            if (j <= 124 && j >= 5 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k)
+                    && (i > this.dungeonX && i < this.dungeonX + 20 && j > this.dungeonY && j < this.dungeonY + 12 && k > this.dungeonZ && k < this.dungeonZ + 20)) {
                 newX = i;
                 newY = j;
                 newZ = k;
@@ -161,11 +170,12 @@ public class MobValkyrie extends MobMonster implements Enemy {
             this.animateHurt();
             this.teleportTimer = this.random.nextInt(40);
         }
+
     }
 
     public boolean isAirySpace(int x, int y, int z) {
-        int p = this.world.getBlockId(x, y, z);
-        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null;
+        int blockId = this.world.getBlockId(x, y, z);
+        return blockId == 0 || blockId == AetherBlocks.CARVED_ANGELIC.id() || blockId == AetherBlocks.CARVED_ANGELIC_LIGHT.id() || blockId == AetherBlocks.CARVED_ANGELIC_LOCKED.id() || blockId == AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id() || blockId == AetherBlocks.CARVED_ANGELIC_TRAPPED.id();
     }
 
     @Override
@@ -268,11 +278,9 @@ public class MobValkyrie extends MobMonster implements Enemy {
         tag.putShort("Anger", (short) this.angerLevel);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putShort("TimeLeft", (short) this.timeLeft);
-        ListTag safePos = new ListTag();
-        safePos.addTag(new DoubleTag(this.safeX));
-        safePos.addTag(new DoubleTag(this.safeY));
-        safePos.addTag(new DoubleTag(this.safeZ));
-        tag.put("SafePos", safePos);
+        tag.putInt("DungeonX", this.dungeonX);
+        tag.putInt("DungeonY", this.dungeonY);
+        tag.putInt("DungeonZ", this.dungeonZ);
         tag.put("SafePos", this.newDoubleList(new double[]{this.safeX, this.safeY, this.safeZ}));
     }
 
@@ -282,6 +290,9 @@ public class MobValkyrie extends MobMonster implements Enemy {
         this.angerLevel = tag.getShort("Anger");
         this.teleportTimer = tag.getShort("teleportTimer");
         this.timeLeft = tag.getShort("TimeLeft");
+        this.dungeonX = tag.getInteger("DungeonX");
+        this.dungeonY = tag.getInteger("DungeonY");
+        this.dungeonZ = tag.getInteger("DungeonZ");
         ListTag safePos = tag.getList("SafePos");
         this.safeX = ((DoubleTag) safePos.tagAt(0)).getValue();
         this.safeY = ((DoubleTag) safePos.tagAt(1)).getValue();
