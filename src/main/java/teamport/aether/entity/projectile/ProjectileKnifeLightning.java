@@ -75,7 +75,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
 
         for (int j = 0; j < 16; j++) {
             world.spawnParticle(
-                "lightiningknife",
+                "lightning",
                 this.x, this.y, this.z,
                 world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
                 world.rand.nextFloat() * 0.25F * -1,
