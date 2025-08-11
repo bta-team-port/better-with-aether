@@ -1,8 +1,6 @@
 package teamport.aether.entity.monster.valkyrie;
 
 import com.mojang.nbt.tags.CompoundTag;
-import com.mojang.nbt.tags.DoubleTag;
-import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -24,13 +22,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public int angerLevel;
     public int timeLeft;
     public int chatTime;
-    public double safeX;
-    public double safeY;
-    public double safeZ;
     public float sinage;
-    public int dungeonX;
-    public int dungeonY;
-    public int dungeonZ;
 
 
     public MobValkyrie(World world) {
@@ -42,9 +34,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.timeLeft = 1200;
         this.attackStrength = 7;
         this.scoreValue = 5000;
-        this.safeX = this.x;
-        this.safeY = this.y;
-        this.safeZ = this.z;
     }
 
     public MobValkyrie(World world, double x, double y, double z) {
@@ -56,9 +45,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.timeLeft = 1200;
         this.attackStrength = 7;
         this.scoreValue = 5000;
-        this.safeX = this.x = x;
-        this.safeY = this.y = y;
-        this.safeZ = this.z = z;
     }
 
     public void causeFallDamage(float distance) {
@@ -217,9 +203,9 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
             } else if (this.onGround) {
                 this.teleport(this.x, this.y, this.z, 12 + this.random.nextInt(12));
             } else {
-                this.teleport(this.safeX, this.safeY, this.safeZ, 6);
+                this.teleport(this.xo, this.yo, this.zo, 6);
             }
-        } else if (this.teleportTimer >= 200 || !(this.y <= 0.0) && !(this.y <= this.safeY - 16.0)) {
+        } else if (this.teleportTimer >= 200 || !(this.y <= 0.0) && !(this.y <= this.yo - 16.0)) {
             if (this.teleportTimer % 5 == 0 && this.target != null && !this.canEntityBeSeen(this.target)) {
                 this.teleportTimer += 100;
             }
@@ -228,9 +214,9 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         }
 
         if (this.onGround && this.teleportTimer % 10 == 0) {
-            this.safeX = this.x;
-            this.safeY = this.y;
-            this.safeZ = this.z;
+            this.xo = this.x;
+            this.yo = this.y;
+            this.zo = this.z;
         }
 
         if (this.target != null && !this.target.isAlive()) {
@@ -273,10 +259,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         tag.putShort("Anger", (short) this.angerLevel);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putShort("TimeLeft", (short) this.timeLeft);
-        tag.putInt("DungeonX", this.dungeonX);
-        tag.putInt("DungeonY", this.dungeonY);
-        tag.putInt("DungeonZ", this.dungeonZ);
-        tag.put("SafePos", this.newDoubleList(new double[]{this.safeX, this.safeY, this.safeZ}));
     }
 
     @Override
@@ -285,13 +267,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.angerLevel = tag.getShort("Anger");
         this.teleportTimer = tag.getShort("teleportTimer");
         this.timeLeft = tag.getShort("TimeLeft");
-        this.dungeonX = tag.getInteger("DungeonX");
-        this.dungeonY = tag.getInteger("DungeonY");
-        this.dungeonZ = tag.getInteger("DungeonZ");
-        ListTag safePos = tag.getList("SafePos");
-        this.safeX = ((DoubleTag) safePos.tagAt(0)).getValue();
-        this.safeY = ((DoubleTag) safePos.tagAt(1)).getValue();
-        this.safeZ = ((DoubleTag) safePos.tagAt(2)).getValue();
     }
 
     @Override
