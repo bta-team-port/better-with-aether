@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
+import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.items.AetherItems;
 
 public class MobBossValkyrie extends MobBoss implements EnemyBoss {
@@ -88,6 +89,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         ++this.teleportTimer;
         if (this.teleportTimer >= 125) {
             if (this.target != null) {
+
                 this.teleport(this.target.x, this.target.y, this.target.z, 7);
             } else if (this.onGround) {
                 this.teleport(this.x, this.y, this.z, 12 + this.random.nextInt(12));
@@ -250,7 +252,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public boolean hurt(Entity attacker, int i, DamageType type) {
         if (attacker instanceof Player && this.world.getDifficulty().canHostileMobsSpawn()) {
             if (!this.duel || !this.world.getDifficulty().canHostileMobsSpawn()) {
-                this.animateHurt();
                 int pokey = this.random.nextInt(2);
                 if (pokey == 1) {
                     ((Player) attacker).sendMessage("Sorry, I don't fight with weaklings.");
@@ -289,6 +290,24 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     @Override
     public void attackEntity(@NotNull Entity entity, float distance) {
+        if (this.getHealth() < this.getMaxHealth() / 2) {
+            if (distance > 5.0F) {
+                double d = entity.x - this.x;
+                double d1 = entity.z - this.z;
+                if (this.attackTime == 0) {
+                    if (!this.world.isClientSide) {
+                        ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
+                        elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+                        this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
+                        this.world.entityJoinedWorld(elementLightning);
+                    }
+                    this.attackTime = 50;
+                }
+                this.yRot = (float) (Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
+                this.hasAttacked = true;
+            }
+        }
+
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             this.swingArm();

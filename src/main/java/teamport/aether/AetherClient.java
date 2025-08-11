@@ -42,7 +42,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("flameenchanter", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameEnchanter(world, x, y, z, xa, ya, za));
-        dispatcher.addDispatch("lightiningknife", (world, x, y, z, xa, ya, za, id) -> new ParticleLightningKnife(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("lightning", (world, x, y, z, xa, ya, za, id) -> new ParticleLightningKnife(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("darttrail", (world, x, y, z, xa, ya, za, id) -> new ParticleDartEnchanted(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("goldendust", (world, x, y, z, xa, ya, za, id) -> new ParticleGoldenDust(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
