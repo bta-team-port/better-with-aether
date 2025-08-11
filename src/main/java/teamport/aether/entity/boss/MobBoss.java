@@ -16,6 +16,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.DungeonMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,6 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    public void addDestroyOnDeathBlock(WorldFeaturePoint coord) {
-        blocksDestroyOnDeath.add(coord);
-    }
-
-    @Override
     public void setDungeonID(int id) {
         dungeonID = id;
     }
@@ -85,23 +81,24 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         assert world != null;
         AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
 
-        AetherDimension.dungeonMap.remove(dungeonID);
-
         if (trophy != null) {
             world.dropItem((int) x, (int) y, (int) z, trophy);
         }
 
-        if (blocksDestroyOnDeath != null) {
-            world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
+        world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
+        AetherDimension.dungeonMap.remove(dungeonID, world);
 
-            for (WorldFeaturePoint coordinate : blocksDestroyOnDeath) {
-                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-                // TODO trapdoor would be nice, however some more logic will be required
-//                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 0);
-                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
-            }
-        }
+//        if (blocksDestroyOnDeath != null) {
+//            world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
+//
+//            for (WorldFeaturePoint coordinate : blocksDestroyOnDeath) {
+//                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
+//                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
+//                // TODO trapdoor would be nice, however some more logic will be required
+////                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 0);
+//                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
+//            }
+//        }
 
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {
@@ -120,17 +117,6 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         returnPoint = WorldFeaturePoint.fromCompoundTag(tag.getCompound("returnPoint"));
         dungeonID = tag.getInteger("dungeonID");
         bossName = tag.getString("bossName");
-
-        CompoundTag blockListNBT = tag.getCompound("blocksDestroyOnDeath");
-        if (blockListNBT != null) {
-            List<WorldFeaturePoint> list = new ArrayList<>();
-            for (int i = 0; i < blockListNBT.getInteger("length"); i++) {
-                CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
-                list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
-            }
-
-            blocksDestroyOnDeath = list;
-        }
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
         if (trophyNBT != null) {
@@ -156,16 +142,6 @@ public class MobBoss extends MobMonster implements EnemyBoss {
             CompoundTag trophyNBT = new CompoundTag();
             trophy.writeToNBT(trophyNBT);
             tag.put("trophy", trophyNBT);
-        }
-
-        if (blocksDestroyOnDeath != null && !blocksDestroyOnDeath.isEmpty()) {
-            CompoundTag blockList = new CompoundTag();
-            int idx = 0;
-            for (WorldFeaturePoint block : blocksDestroyOnDeath) {
-                blockList.put(String.valueOf(idx++), block.toCompoundTag());
-            }
-            blockList.put("length", new IntTag(idx));
-            tag.put("blocksDestroyOnDeath", blockList);
         }
 
         super.addAdditionalSaveData(tag);
