@@ -244,7 +244,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
     public void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, int x, int y, int z) {
         int radX, radZ, height;
         for (radX = -radius; radX < radius; radX++) for (radZ = -radius; radZ < radius; radZ++) {
-            if (WorldFeatureAetherDungeonBase.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
+            if (WorldFeatureComponent.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
                 WorldFeatureComponent decorator = new WorldFeatureComponent();
                 height = world.getHeightValue((radX + x), (radZ + z));
                 if (Math.abs(height - y) > radius*2.25) continue;

@@ -1,4 +1,4 @@
-package teamport.aether.world.generate.feature;
+package teamport.aether.world.generate.feature.components;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
@@ -9,6 +9,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.Pair;
+import teamport.aether.world.generate.feature.BlockPallet;
 
 import java.util.Random;
 
