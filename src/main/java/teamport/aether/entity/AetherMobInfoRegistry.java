@@ -98,7 +98,8 @@ public class AetherMobInfoRegistry {
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.MEDAL_VICTORY), 100.0f, 1, 1)});
 
         MobInfoRegistry.register(MobBossValkyrie.class, "guidebook.section.mob.valkyrie.queen.name", "guidebook.section.mob.valkyrie.queen.desc", 750, 50000, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.KEY_SILVER), 100.0f, 1, 1)});
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.KEY_SILVER), 1.0f, 1, 1),
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.TOOL_SWORD_HOLY), 1.0f, 1, 1)});
 
 
         //Gold Dungeon
