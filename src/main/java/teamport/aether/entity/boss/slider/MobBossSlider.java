@@ -16,6 +16,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
@@ -72,6 +73,12 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.scoreValue = 10000;
         this.setSize(2.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
+    }
+
+    public void onDeath(Entity entityKilledBy) {
+        ((Player) entityKilledBy).triggerAchievement(AetherAchievements.BRONZE);
+        this.world.playSoundEffect(entityKilledBy, SoundCategory.ENTITY_SOUNDS, entityKilledBy.x, entityKilledBy.y, entityKilledBy.z, "aether:achievement.bronze", 1.0f, 1.0f);
+        super.onDeath(entityKilledBy);
     }
 
     @Override

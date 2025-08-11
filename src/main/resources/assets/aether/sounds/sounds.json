@@ -1,4 +1,22 @@
 {
+  "achievement.bronze": {
+    "attenuation_distance": 128,
+    "sounds": [
+      "achievement_bronze.ogg"
+    ]
+  },
+  "achievement.silver": {
+    "attenuation_distance": 128,
+    "sounds": [
+      "achievement_silver.ogg"
+    ]
+  },
+  "achievement.gold": {
+    "attenuation_distance": 128,
+    "sounds": [
+      "achievement_gold.ogg"
+    ]
+  },
   "mob.slider.move": {
     "subtitle": "subtitles.mob.slider.move",
     "sounds": [

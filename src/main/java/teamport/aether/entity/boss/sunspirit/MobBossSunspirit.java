@@ -4,12 +4,14 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
@@ -28,6 +30,13 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     }
 
     protected void causeFallDamage(float distance) {
+    }
+
+    public void onDeath(Entity entityKilledBy) {
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
+        entityplayer.triggerAchievement(AetherAchievements.GOLD);
+        this.world.playSoundEffect(entityKilledBy, SoundCategory.ENTITY_SOUNDS, entityplayer.x, entityplayer.y, entityplayer.z, "aether:achievement.gold", 0.5f, 1.0f);
+        super.onDeath(entityplayer);
     }
 
     public int getMaxHealth() {
