@@ -9,7 +9,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.Pair;
-import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 
@@ -44,7 +43,7 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         return d3 * d3 + d4 * d4 + d5 * d5;
     }
 
-    public void drawSphere(World world, Random random, int x, int y, int z, int radius, BlockPallet pallet, boolean withNotify) {
+    public  void drawSphere(World world, Random random, int x, int y, int z, int radius, BlockPallet pallet, boolean withNotify) {
         for (int blockX = x - radius; blockX <= x + radius; blockX++) {
             for (int blockY = y - radius; blockY <= y + radius; blockY++) {
                 for (int blockZ = z - radius; blockZ <= z + radius; blockZ++) {
@@ -122,7 +121,15 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
         }
         return new int[]{blockX, blockY, blockZ};
     }
-    public static int[] drawVolume(World world, int id, int meta, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify){
+    public static int[] drawVolume(
+            World world,
+            int id, int meta,
+            Direction directionX, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify)
+    {
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
@@ -136,9 +143,9 @@ public abstract class WorldFeatureAetherDungeonBase extends WorldFeature {
                 blockZ = z3 + direction2.getOffsetZ() * j;
                 for (int k = 0; k < length1; k++) {
                     setBlock(world,blockX, blockY, blockZ, id, meta, withNotify);
-                    blockX += direction1.getOffsetX();
-                    blockY += direction1.getOffsetY();
-                    blockZ += direction1.getOffsetZ();
+                    blockX += directionX.getOffsetX();
+                    blockY += directionX.getOffsetY();
+                    blockZ += directionX.getOffsetZ();
                 }
             }
         }
