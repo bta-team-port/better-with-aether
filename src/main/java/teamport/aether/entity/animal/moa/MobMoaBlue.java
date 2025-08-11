@@ -27,6 +27,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
     public Item eggColor;
     public int jumpsRemaining;
     public boolean jumpPressed;
+    public boolean tamed;
 
     public MobMoaBlue(@Nullable World world) {
         super(world);
@@ -36,6 +37,17 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
         this.jumpsRemaining = 2;
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+    }
+
+    public MobMoaBlue(@Nullable World world, boolean tamed) {
+        super(world);
+        this.setSize(1.0F, 2.0F);
+        this.eggTimer = this.random.nextInt(6000) + 6000;
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
+        this.jumpsRemaining = 2;
+        this.eggColor = AetherItems.EGG_MOA_BLUE;
+        this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
+        this.tamed = tamed;
     }
 
     public int getMaxHealth() {
@@ -55,14 +67,18 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
         this.entityData.define(16, (byte)0, Byte.class);
     }
 
+    @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
+        tag.putBoolean("Tamed", this.tamed);
     }
 
+    @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
+        this.tamed = tag.getBoolean("Tamed");
     }
 
     public void tick() {

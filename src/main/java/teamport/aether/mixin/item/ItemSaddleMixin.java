@@ -40,7 +40,7 @@ public class ItemSaddleMixin extends Item {
         }
         if (entityliving instanceof MobMoaBlue && itemstack.consumeItem(entityPlayer)) {
             MobMoaBlue entity = (MobMoaBlue)entityliving;
-            if (!entity.getSaddled()) {
+            if (!entity.getSaddled() && entity.tamed) {
                 entity.setSaddled(true);
                 entityPlayer.swingItem();
                 info.setReturnValue(true);
