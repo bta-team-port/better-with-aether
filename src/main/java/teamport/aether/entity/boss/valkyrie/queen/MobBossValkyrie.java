@@ -2,16 +2,16 @@ package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.items.AetherItems;
 
-public class MobBossValkyrie extends MobBoss implements Enemy {
+public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public MobBossValkyrie(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_valkyrie");
