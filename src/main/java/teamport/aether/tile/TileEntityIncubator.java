@@ -13,7 +13,9 @@ import teamport.aether.AetherAchievements;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicIncubator;
+import teamport.aether.entity.animal.moa.MobMoaBlack;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.lookup.LookupFuelIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
@@ -152,25 +154,49 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     @Override
     public void processItem() {
-        if(!this.canProcess()){
+        if (!this.canProcess() || this.worldObj.isClientSide) {
             return;
         }
+
         Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
+        if (entityClazz == null) {
+            return;
+        }
 
-        if(entityClazz == null) return;
-        Entity entity =  EntityDispatcher.createEntityInWorld(entityClazz, worldObj);
+        Entity entity = createEntity(entityClazz);
+        if (entity == null) {
+            return;
+        }
+
+        // Move entity to incubator position and spawn it
         entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
-        
-        worldObj.entityJoinedWorld(entity);
+        this.worldObj.entityJoinedWorld(entity);
 
-        thePlayer = worldObj.getClosestPlayerToEntity(entity, 16);
-        if (thePlayer != null) {
-            if (entityClazz == MobMoaBlue.class) {
-                thePlayer.triggerAchievement(AetherAchievements.MOA);
+        // Decrement item stack
+        containerItemStacks[0].stackSize--;
+        if (containerItemStacks[0].stackSize <= 0) {
+            containerItemStacks[0] = null;
+        }
+
+        // Trigger achievement for Moa entities
+        if (entity instanceof MobMoaBlue || entity instanceof MobMoaWhite || entity instanceof MobMoaBlack) {
+            Player player = this.worldObj.getClosestPlayerToEntity(entity, 16);
+            if (player != null) {
+                player.triggerAchievement(AetherAchievements.MOA);
             }
         }
-        containerItemStacks[0].stackSize--;
-        if (containerItemStacks[0].stackSize <= 0) containerItemStacks[0] = null;
+    }
+
+    private Entity createEntity(Class<? extends Entity> entityClazz) {
+        if (entityClazz == MobMoaBlue.class) {
+            return new MobMoaBlue(this.worldObj, true);
+        } else if (entityClazz == MobMoaWhite.class) {
+            return new MobMoaWhite(this.worldObj, true);
+        } else if (entityClazz == MobMoaBlack.class) {
+            return new MobMoaBlack(this.worldObj, true);
+        } else {
+            return EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        }
     }
 
     @Override

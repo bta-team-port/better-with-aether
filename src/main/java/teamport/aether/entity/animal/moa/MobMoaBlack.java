@@ -6,12 +6,22 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
 public class MobMoaBlack extends MobMoaBlue {
+
     public MobMoaBlack(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
         this.jumpsRemaining = 8;
         this.eggColor = AetherItems.EGG_MOA_BLUE;
+    }
+
+    public MobMoaBlack(@Nullable World world, boolean tamed) {
+        super(world);
+        this.setSize(1.0F, 2.0F);
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
+        this.jumpsRemaining = 8;
+        this.eggColor = AetherItems.EGG_MOA_BLUE;
+        this.tamed = tamed;
     }
 
     public void onGround() {
