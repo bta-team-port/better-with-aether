@@ -12,6 +12,8 @@ import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.cape.ItemAgilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemInvisibilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemSwetCapeArmor;
+import teamport.aether.items.accessory.pendant.ItemChainPendant;
+import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.pendant.ItemGravititePendant;
 import teamport.aether.items.accessory.pendant.ItemIcePendant;
 import teamport.aether.items.accessory.pendant.ItemPendant;
@@ -399,7 +401,7 @@ public final class AetherItems {
 
 
         ARMOR_TALISMAN_LEATHER = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), ArmorMaterial.LEATHER));
-        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+        ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID).build(new ItemChainPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"),ArmorMaterial.IRON));
         ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"),ArmorMaterial.GOLD));
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), ArmorMaterial.DIAMOND));

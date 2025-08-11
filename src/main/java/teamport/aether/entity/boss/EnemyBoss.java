@@ -1,7 +1,7 @@
 package teamport.aether.entity.boss;
 
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 public interface EnemyBoss {
 
@@ -12,9 +12,9 @@ public interface EnemyBoss {
 
     void returnToHome();
 
-    void setReturnPoint(BlockCoordinate coord);
+    void setReturnPoint(WorldFeaturePoint coord);
 
-    void addDestroyOnDeathBlock(BlockCoordinate coord);
+    void addDestroyOnDeathBlock(WorldFeaturePoint coord);
 
     boolean canFight();
 

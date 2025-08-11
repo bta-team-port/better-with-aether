@@ -13,7 +13,8 @@ import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -23,9 +24,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase{
+import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawSphere;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawSpheroid;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+
+public class WorldFeatureAetherDungeonGold extends WorldFeature{
     public static final BlockPallet hellfire = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
+    public float angle = 0;
+    public WorldFeaturePoint dungeonAnker;
+    public WorldFeaturePoint bossPosition;
+    public World world;
+    public Random random;
 
     public static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
     static {
@@ -73,18 +84,90 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
     }
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        if (!canPlaceDungeon(x, y, z)) return false;
+        this.angle = random.nextInt(4) * 90.0F;
+        this.dungeonAnker = new WorldFeaturePoint(x,y,z);
+        this.world = world;
+        this.random = random;
+        this.bossPosition = this.getPos(x, y + radius/2 + 2, z);
+        createMainSphere(x, y, z);
+        createOuterSpheres(x, y, z);
+        createMainRoom(x, y, z);
+        createBossAndTreasure(x, y, z);
+        return true;
+    }
 
-        int dungeonID = AetherDimension.registerDungeonToMap(x, y + radius/2 + 2, z);
-
+    private void createMainSphere(int x, int y, int z) {
         // place main spheroid
-        drawSpheroid(world, random, x, y + 15, z, radius, (int) (radius * 1.12), radius, holystone, true);
-        decorateTopLevelInRadius(veggies, radius, world, random, x, y, z);
+        this.placeComponent(drawSpheroid(random, holystone, x, y + 15, z, radius, (int) (radius * 1.12), radius,  true));
+        decorateTopLevelInRadius(veggies, radius, x, y, z);
+    }
 
+    private void createBossAndTreasure(int x, int y, int z) {
+        // chest room
+        this.placeComponent(drawHollowShell(hellfire, Direction.WEST, 7, Direction.NORTH, 7, Direction.UP, 5, x -1 +radius, y +1 +radius/2, z + 7/2, true));
+        // Place boss, chest and door
+        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
+        MobBossSunspirit boss = new MobBossSunspirit(world);
+        boss.moveTo(bossPosition.x, bossPosition.y , bossPosition.z, 0f,0f);
+        boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
+        boss.setDungeonID(dungeonID);
+        boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
+
+        WorldFeaturePoint chestPoint = new WorldFeaturePoint(x -4 +radius, y +2 +radius/2, z);
+        chestPoint.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        world.setBlockAndMetadataWithNotify(chestPoint.x, chestPoint.y, chestPoint.z, AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, chestPoint.x, chestPoint.y, chestPoint.z);
+
+        for (int i = 0; i < 6 + random.nextInt(6); i++) {
+            inventory.setItem(
+                    random.nextInt(inventory.getContainerSize()),
+                    LOOT_RARE.getRandom().getItemStack(random)
+            );
+        }
+
+        WorldFeaturePoint[] bossDoor = {
+                new WorldFeaturePoint(x +radius -7, y +2 +radius/2, z -1),
+                new WorldFeaturePoint(x +radius -7, y +3 +radius/2, z -1),
+                new WorldFeaturePoint(x +radius -7, y +4 +radius/2, z -1),
+
+                new WorldFeaturePoint(x +radius -7, y +2 +radius/2, z),
+                new WorldFeaturePoint(x +radius -7, y +3 +radius/2, z),
+                new WorldFeaturePoint(x +radius -7, y +4 +radius/2, z),
+
+                new WorldFeaturePoint(x +radius -7, y +2 +radius/2, z +1),
+                new WorldFeaturePoint(x +radius -7, y +3 +radius/2, z +1),
+                new WorldFeaturePoint(x +radius -7, y +4 +radius/2, z +1),
+        };
+        for(WorldFeaturePoint pos : bossDoor){
+            pos.rotateFixPointYAxis(x, y, z, angle);
+        }
+
+        Arrays.stream(bossDoor).forEach(boss::addDestroyOnDeathBlock);
+        world.entityJoinedWorld(boss);
+    }
+
+    private void createMainRoom(int x, int y, int z) {
+        // main room
+        int xRoomLength = 19;
+        int YRoomHeight = 8;
+        int ZRoomLength = 19;
+        WorldFeatureComponent main = new WorldFeatureComponent();
+        main.add(drawHollowShell(hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true));
+        main.add(drawSquareCylinder(hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength -2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true));
+        main.add(drawSquareCylinder(hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength -2, Direction.UP, 1, x +radius/2, y + YRoomHeight -2 +radius/2, z +radius/2, true));
+        main.add(drawVolume(0, 0,Direction.WEST, radius*2, Direction.NORTH, 3, Direction.UP, 3, x -radius + xRoomLength, y +2 +radius/2, z +1, true));
+        this.placeComponent(main);
+    }
+
+    // TODO these sphere do not rotate
+    private void createOuterSpheres(int x, int y, int z) {
         // place the outer spheres
         List<Integer> angles = new ArrayList<>();
-        for (int angle = 0; angle < 10; angle++) angles.add(angle * (360 / 10));
+        for (int angle = 0; angle < 10; angle++) {
+            angles.add(angle * (360 / 10));
+        }
         for (int index = 0; index < 6 + random.nextInt(4); index++) {
+//            WorldFeatureComponent outerSphere = new WorldFeatureComponent();
             int angleIndex = random.nextInt(angles.size());
             int angle = angles.get(angleIndex);
             angles.remove(angleIndex);
@@ -93,91 +176,100 @@ public class WorldFeatureAetherDungeonGold extends WorldFeatureAetherDungeonBase
             double newZ = z + radius * Math.sin(Math.toRadians(angle));
             double radMod = (double) (4 + random.nextInt(5)) / 10;
 
-            drawSphere(world, random, (int) newX, (int) (y + (radius * 0.8F)), (int) newZ, (int) (radius * radMod), holystone, true);
-            decorateTopLevelInRadius(veggies, (int) (radius * radMod), world, random, (int) newX, (int) (y + (radius * 0.8F)), (int) newZ);
+            this.placeComponent(drawSphere(random, holystone, (int) newX, (int) (y + (radius * 0.8F)), (int) newZ, (int) (radius * radMod), true));
+            decorateTopLevelInRadius(veggies, (int) (radius * radMod), (int) newX, (int) (y + (radius * 0.8F)), (int) newZ);
         }
 
         double radMod2 = 0.7F;
-        drawSphere(world, random,x + radius, (int) (y + (radius*0.8F)), z, (int) (radius*radMod2), holystone, true);
-        decorateTopLevelInRadius(veggies, (int) (radius * radMod2), world, random, x + radius, (int) (y + (radius*0.8F)), z);
+        this.placeComponent(drawSphere(random, holystone, x + radius, (int) (y + (radius*0.8F)), z, (int) (radius*radMod2),  true));
 
-        // main room
-        int xRoomLength = 19;
-        int YRoomHeight = 8;
-        int ZRoomLength = 19;
-        drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true);
-        drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true);
-        drawSquareCylinder(world, random, hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength-2, Direction.UP, 1, x +radius/2, y +YRoomHeight-2 +radius/2, z +radius/2, true);
-        drawVolume(world, 0, 0,Direction.WEST, radius*2, Direction.NORTH, 3, Direction.UP, 3,x -radius +xRoomLength, y +2 +radius/2, z +1, true);
+        decorateTopLevelInRadius(veggies, (int) (radius * radMod2), x + radius, (int) (y + (radius*0.8F)), z);
 
-        // chest room
-        xRoomLength = 7;
-        YRoomHeight = 5;
-        ZRoomLength = 7;
-        drawHollowShell(world, random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x -1 +radius, y +1 +radius/2, z +ZRoomLength/2, true);
-
-        world.setBlockAndMetadataWithNotify(x -4 +radius, y +2 +radius/2, z, AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED.id(), 4);
-        Container inventory = BlockLogicChest.getInventory(world, x -4 +radius, y +2 +radius/2, z);
-
-        for (int i = 0; i < 6 + random.nextInt(6); i++) {
-            inventory.setItem(
-                random.nextInt(inventory.getContainerSize()),
-                LOOT_RARE.getRandom().getItemStack(random)
-            );
-        }
-
-        MobBossSunspirit boss = new MobBossSunspirit(world);
-
-        BlockCoordinate[] bossDoor = {
-                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z -1),
-                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z -1),
-                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z -1),
-
-                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z),
-                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z),
-                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z),
-
-                new BlockCoordinate(x +radius -xRoomLength, y +2 +radius/2, z +1),
-                new BlockCoordinate(x +radius -xRoomLength, y +3 +radius/2, z +1),
-                new BlockCoordinate(x +radius -xRoomLength, y +4 +radius/2, z +1),
-        };
-        Arrays.stream(bossDoor).forEach(boss::addDestroyOnDeathBlock);
-
-        boss.moveTo(x, y + (double) radius / 2 + 2, z, 0f,0f);
-        boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
-        boss.setReturnPoint(new BlockCoordinate(x, y + radius / 2 + 2, z));
-        boss.setDungeonID(dungeonID);
-
-        world.entityJoinedWorld(boss);
-
-        return true;
     }
 
-    public void drawSquareCylinder(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
-        drawVolume(world, random, pallet, direction1, length1, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
-        drawVolume(world, 0, 0, direction1, length1 -2, direction2, length2 -2, direction3, length3, startX -1, startY, startZ -1, withNotify);
+    public void placeComponent(WorldFeatureComponent component) {
+        component.rotateYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        component.place(world);
     }
 
-    public void drawHollowShell(World world, Random random, BlockPallet pallet, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, int startX, int startY, int startZ, boolean withNotify) {
-        drawVolume(world, random, pallet, direction1, length1, direction2, length2, direction3, length3, startX, startY, startZ, withNotify);
-        drawVolume(world, 0, 0, direction1, length1 -2, direction2, length2 -2, direction3, length3 -2, startX -1, startY +1, startZ -1, withNotify);
+    public WorldFeaturePoint getPos(int ix, int iy, int iz) {
+        WorldFeaturePoint pos = new WorldFeaturePoint(ix,iy,iz);
+        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
+        return pos;
     }
 
-    public void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, World world, Random random, int x, int y, int z) {
+    public WorldFeatureComponent drawSquareCylinder(
+            BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent cylinder = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        cylinder.add(drawVolume(
+                0, 0,
+                direction1, length1 -2, direction2, length2 -2, direction3,
+                length3, startX -1, startY, startZ -1, withNotify)
+        );
+        return cylinder;
+    }
+
+    public WorldFeatureComponent drawHollowShell(
+            BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent hollow = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        hollow.add(drawVolume(
+                0, 0,
+                direction1, length1 -2, direction2, length2 -2, direction3,
+                length3 -2, startX -1, startY +1, startZ -1, withNotify)
+        );
+        return  hollow;
+    }
+
+    // TODO make the decorator rotate
+    public void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, int x, int y, int z) {
         int radX, radZ, height;
         for (radX = -radius; radX < radius; radX++) for (radZ = -radius; radZ < radius; radZ++) {
-            if (WorldFeatureAetherDungeonBase.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
+            if (WorldFeatureComponent.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
+                WorldFeatureComponent decorator = new WorldFeatureComponent();
                 height = world.getHeightValue((radX + x), (radZ + z));
                 if (Math.abs(height - y) > radius*2.25) continue;
 
-                if (stones.contains(world.getBlockId((radX + x), height - 1, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 1, (radZ + z), AetherBlocks.GRASS_AETHER.id());
-                if (stones.contains(world.getBlockId((radX + x), height - 2, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 2, (radZ + z), AetherBlocks.DIRT_AETHER.id());
-                if (stones.contains(world.getBlockId((radX + x), height - 3, (radZ + z)))) world.setBlockWithNotify((radX + x), height - 3, (radZ + z), AetherBlocks.DIRT_AETHER.id());
-                if (stones.contains(world.getBlockId((radX + x), height - 4, (radZ + z))) && world.rand.nextInt(10) > 3) world.setBlockWithNotify((radX + x), height - 4, (radZ + z), AetherBlocks.DIRT_AETHER.id());
+                if (stones.contains(world.getBlockId((radX + x), height - 1, (radZ + z)))) {
+                    decorator.add(wfb((radX + x), height - 1, (radZ + z), AetherBlocks.GRASS_AETHER.id()));
+                }
+                if (stones.contains(world.getBlockId((radX + x), height - 2, (radZ + z)))) {
+                    decorator.add(wfb((radX + x), height - 2, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
+                }
+                if (stones.contains(world.getBlockId((radX + x), height - 3, (radZ + z)))) {
+                    decorator.add(wfb((radX + x), height - 3, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
+                }
+                if (stones.contains(world.getBlockId((radX + x), height - 4, (radZ + z))) && world.rand.nextInt(10) > 3) {
+                    decorator.add(wfb((radX + x), height - 4, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
+                }
+                this.placeComponent(decorator);
 
-                for (Pair<Integer, WorldFeature> integerWorldFeaturePair : worldFeaturePair)
-                    if (random.nextInt(integerWorldFeaturePair.first) == 0)
-                        integerWorldFeaturePair.second.place(world, random, (radX + x), height, (radZ + z));
+                for (Pair<Integer, WorldFeature> integerWorldFeaturePair : worldFeaturePair) {
+                    if (random.nextInt(integerWorldFeaturePair.first) == 0) {
+                        WorldFeaturePoint coords = new WorldFeaturePoint((radX + x), height, (radZ + z));
+                        coords.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+                        integerWorldFeaturePair.second.place(world, random,coords.x, coords.y, coords.z);
+                    }
+                }
             }
         }
     }

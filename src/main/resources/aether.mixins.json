@@ -30,6 +30,7 @@
     "accessory.trinket.BlockLogicFarmlandLeatherPendantMixin",
     "accessory.trinket.BlockLogicHarvestBlockGoldPendant",
     "accessory.trinket.ContainerInventoryDamageArmorSteelPendantMixin",
+    "accessory.trinket.ContainerInventoryGetProtectionOfPendantMixin",
     "accessory.trinket.ContainerInventoryGetStrVsBlockPendantsMixin",
     "accessory.trinket.ItemToolOnBlockDestroyedPendantsMixin",
     "accessory.trinket.PlayerMixinPendantFallDamageModifier",
