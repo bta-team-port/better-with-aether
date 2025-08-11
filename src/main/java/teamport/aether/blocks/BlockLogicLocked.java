@@ -60,22 +60,22 @@ public class BlockLogicLocked extends BlockLogic {
     }
 
     public void attemptPropagate(World world, int x, int y, int z) {
-        final boolean[] canBreak = {true};
-        AetherDimension.dungeonMap.forEach((id, cords) -> {
-            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < AetherDimension.dungeonRadiusSQR) {
-                canBreak[0] = false;
-            }
-        });
-
-        if (canBreak[0]) {
-            world.setBlock(x, y, z, replacement.id());
-            for (int x1 = -3; x1 < 3; x1++) {
-                for (int z1 = -3; z1 < 3; z1++) {
-                    for (int y1 = -3; y1 < 3; y1++) {
-                        world.scheduleBlockUpdate(x + x1, y + y1, z + z1, this.id(), 1);
-                    }
-                }
-            }
-        }
+//        final boolean[] canBreak = {true};
+//        AetherDimension.dungeonMap.forEach((id, cords) -> {
+//            if (getDistanceFrom(x, y, z, cords.x, cords.y, cords.z) < AetherDimension.dungeonRadiusSQR) {
+//                canBreak[0] = false;
+//            }
+//        });
+//
+//        if (canBreak[0]) {
+//            world.setBlock(x, y, z, replacement.id());
+//            for (int x1 = -3; x1 < 3; x1++) {
+//                for (int z1 = -3; z1 < 3; z1++) {
+//                    for (int y1 = -3; y1 < 3; y1++) {
+//                        world.scheduleBlockUpdate(x + x1, y + y1, z + z1, this.id(), 1);
+//                    }
+//                }
+//            }
+//        }
     }
 }

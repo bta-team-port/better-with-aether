@@ -14,8 +14,6 @@ public interface EnemyBoss {
 
     void setReturnPoint(WorldFeaturePoint coord);
 
-    void addDestroyOnDeathBlock(WorldFeaturePoint coord);
-
     boolean canFight();
 
     void setTrophy(ItemStack itemStack);
