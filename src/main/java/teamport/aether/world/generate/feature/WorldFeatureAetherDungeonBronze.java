@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.world.generate.feature.components.WorldFeatureAetherDungeonBase;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
