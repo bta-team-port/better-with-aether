@@ -2,6 +2,7 @@ package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -14,6 +15,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
+import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
@@ -72,7 +74,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.xRot = 0.0F;
         this.deformZ = 1;
         this.scoreValue = 10000;
-        this.setSize(2.0F, 2.0F);
+        this.setSize(2F, 2F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
     }
 
@@ -193,7 +195,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
                 case DOWN:
                 case UP:
-                    moveAmount = (int) Math.abs((y-1) - target.y);
+                    moveAmount = (int) Math.abs(y - target.y);
                 break;
 
                 case NORTH:
@@ -202,7 +204,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 break;
             }
 
-            blocksToMove = Math.min(25, Math.max(moveAmount, 3));
+            blocksToMove = Math.min(25, Math.max(moveAmount+1, 3));
             world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + random.nextFloat(), .45F + random.nextFloat());
         }
     }
@@ -219,7 +221,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             this.slamY = -1;
 
             moveDirection = Direction.DOWN;
-            blocksToMove = 45;
+            blocksToMove = 999;
 
         } else if (allowedToMove && this.slamY == this.y) {
             final int slamRadius = 5;
@@ -381,6 +383,55 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
                 this.deformX = 0.7F - (float) this.getHealth() / 875.0F;
 
+                for (int i = 0; i < (Math.max(10, damage + random.nextInt(2)) * 32) / 10; i++) {
+                    // it really doesn't matter if they are inverted somewhere... the slider is square.
+                    float faceX = 2 * random.nextFloat();
+                    float faceY = 2 * random.nextFloat();
+
+                    float posX, posY, posZ;
+                    Direction dir = Direction.directions[(int) (random.nextFloat() * Direction.directions.length)];
+                    switch (dir) {
+                        case WEST:
+                            posX = (float) (x -1);
+                            posY = (float) (y    +faceY);
+                            posZ = (float) (z -1 +faceX);
+                            break;
+
+                        case EAST:
+                            posX = (float) (x +1);
+                            posY = (float) (y    +faceY);
+                            posZ = (float) (z -1 +faceX);
+                            break;
+
+                        case SOUTH:
+                            posX = (float) (x -1 +faceX);
+                            posY = (float) (y    +faceY);
+                            posZ = (float) (z +1);
+                            break;
+
+                        case NORTH:
+                            posX = (float) (x -1 +faceX);
+                            posY = (float) (y    +faceY);
+                            posZ = (float) (z -1);
+                            break;
+
+                        case DOWN:
+                            posX = (float) (x -1 +faceX);
+                            posY = (float) (y);
+                            posZ = (float) (z -1 +faceY);
+                            break;
+
+                        default:
+                        case UP:
+                            posX = (float) (x -1 +faceX);
+                            posY = (float) (y + 2);
+                            posZ = (float) (z -1 +faceY);
+                            break;
+                    }
+
+                    world.spawnParticle("block", posX, posY, posZ, 0,0,0, AetherBlocks.CARVED_STONE.id());
+                }
+
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
             }
 
@@ -390,6 +441,11 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean showBoundingBoxOnHover() {
+        return !isAwake() && getHealth() > 0;
     }
 
     @Override
