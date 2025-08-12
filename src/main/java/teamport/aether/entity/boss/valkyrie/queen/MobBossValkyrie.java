@@ -156,10 +156,14 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
-        entityplayer.triggerAchievement(AetherAchievements.SILVER);
-        this.world.playSoundEffect(entityplayer, SoundCategory.WORLD_SOUNDS, entityplayer.x, entityplayer.y, entityplayer.z, "aether:achievement.silver", 0.5f, 1.0f);
-        super.onDeath(entityplayer);
+        this.world.players.stream()
+            .filter(player -> player.distanceTo(this) < 32)
+            .forEach( p -> {
+                p.triggerAchievement(AetherAchievements.SILVER);
+                this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.silver", 0.5f, 1.0f);
+            });
+
+        super.onDeath(entityKilledBy);
     }
 
     public void teleport(double x, double y, double z, int rad) {
