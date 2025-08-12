@@ -87,6 +87,7 @@
     "accessory.gloves.MobRendererMixinExtendArmor",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
+    "dimension.aetherAchievementMixin",
     "dimension.HostileParadiseMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
