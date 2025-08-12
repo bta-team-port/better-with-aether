@@ -429,7 +429,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                             break;
                     }
 
-                    world.spawnParticle("block", posX, posY, posZ, 0,0,0, AetherBlocks.CARVED_STONE.id());
+                    world.spawnParticle("block", posX, posY, posZ, 0,0,0, AetherBlocks.COBBLE_HOLYSTONE.id());
                 }
 
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
