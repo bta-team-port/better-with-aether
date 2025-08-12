@@ -80,6 +80,7 @@
     "accessory.ScreenContainerAbstractMixinTargetAccessory",
     "accessory.ScreenInventoryCreativeMixinNewInv",
     "accessory.ScreenInventoryMixinNewInv",
+    "accessory.cape.AetherDevCapeMixin",
     "accessory.cape.MobRendererPlayerMixinCapeRender",
     "accessory.cape.invisibilitycape.EntityRendererMixinRemoveShadow",
     "accessory.cape.invisibilitycape.MobRenderPlayerMixinInvisibility",
