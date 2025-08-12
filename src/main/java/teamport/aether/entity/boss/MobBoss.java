@@ -27,6 +27,7 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Nullable
     public WorldFeaturePoint returnPoint = null;
+    protected boolean hasHadReturnPointSet = false;
 
     @Nullable
     public ItemStack trophy = null;
@@ -102,14 +103,19 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        returnPoint = WorldFeaturePoint.fromCompoundTag(tag.getCompound("returnPoint"));
         dungeonID = tag.getInteger("dungeonID");
         bossName = tag.getString("bossName");
 
         CompoundTag trophyNBT = tag.getCompound("trophy");
         if (trophyNBT != null) {
             trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        }
+        };
+
+        if (tag.getBoolean("hasHadReturnPointSet")) {
+            CompoundTag returnPointNBT = tag.getCompound("returnPoint");
+            returnPoint = WorldFeaturePoint.fromCompoundTag(returnPointNBT);
+            hasHadReturnPointSet = true;
+        } else returnPoint = null;
 
         super.readAdditionalSaveData(tag);
     }
@@ -124,6 +130,7 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
 
         if (returnPoint != null) {
             tag.put("returnPoint", returnPoint.toCompoundTag());
+            tag.putBoolean("hasHadReturnPointSet", true);
         }
 
         if (trophy != null) {
@@ -137,12 +144,13 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Override
     public void returnToHome() {
-        if (returnPoint == null) return;
+        if (returnPoint == null || !hasHadReturnPointSet) return;
         moveTo(returnPoint.x, returnPoint.y, returnPoint.z, 0, 0);
     }
 
     @Override
     public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
+        this.hasHadReturnPointSet = true;
     }
 }
