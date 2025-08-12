@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 public class MobBossSlider extends MobBoss implements EnemyBoss {
     public float deformX;
     public int deformY;
-    public int deformZ = 1;
+    public int deformZ;
 
     public static final float angerThreshold = 0.50F;
     public static final float baseDamage = 10F;
@@ -70,6 +70,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         super(world);
         this.yRot = 0.0f;
         this.xRot = 0.0F;
+        this.deformZ = 1;
         this.scoreValue = 10000;
         this.setSize(2.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
@@ -127,6 +128,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
         } else {
             blocksToMove = 0;
+        }
+
+        if (this.deformX > 0.01F) {
+            this.deformX *= 0.8F;
         }
 
         this.attackCoolDown--;
@@ -356,6 +361,26 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
                 tryAwake();
                 if (!((Player)attacker).gamemode.areMobsHostile()) creativeAttackersList.add((Player) attacker);
+
+                this.target = attacker;
+                double a = Math.abs(this.x - attacker.x);
+                double c = Math.abs(this.z - attacker.z);
+                if (a > c) {
+                    this.deformZ = 1;
+                    this.deformY = 0;
+                    if (this.x > attacker.x) {
+                        this.deformZ = -1;
+                    }
+                } else {
+                    this.deformY = 1;
+                    this.deformZ = 0;
+                    if (this.z > attacker.z) {
+                        this.deformY = -1;
+                    }
+                }
+
+                this.deformX = 0.7F - (float) this.getHealth() / 875.0F;
+
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
             }
 
