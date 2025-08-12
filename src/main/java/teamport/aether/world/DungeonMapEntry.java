@@ -165,7 +165,7 @@ public class DungeonMapEntry {
                                 world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
 
                             } else if (logic instanceof BlockLogicTrapped) {
-                                world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replacement.id());
+                                world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replaceOnClear.id());
                             }
                         }
                     }
