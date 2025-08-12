@@ -383,7 +383,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
                 this.deformX = 0.7F - (float) this.getHealth() / 875.0F;
 
-                for (int i = 0; i < (Math.max(10, damage + random.nextInt(2)) * 32) / 10; i++) {
+                for (int i = 0; i < (Math.min(10, damage + random.nextInt(2)) * 32) / 10; i++) {
                     // it really doesn't matter if they are inverted somewhere... the slider is square.
                     float faceX = 2 * random.nextFloat();
                     float faceY = 2 * random.nextFloat();
