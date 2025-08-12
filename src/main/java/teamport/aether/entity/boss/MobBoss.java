@@ -88,18 +88,6 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         AetherDimension.dungeonMap.remove(dungeonID, world);
 
-//        if (blocksDestroyOnDeath != null) {
-//            world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
-//
-//            for (WorldFeaturePoint coordinate : blocksDestroyOnDeath) {
-//                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-//                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-//                // TODO trapdoor would be nice, however some more logic will be required
-////                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 0);
-//                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
-//            }
-//        }
-
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {
             for (int z1 = -3; z1 < 3; z1++) {
