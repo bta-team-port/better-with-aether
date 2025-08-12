@@ -2,12 +2,14 @@ package teamport.aether.world;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.BlockLogicLocked;
+import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
@@ -123,12 +125,52 @@ public class DungeonMapEntry {
             }
         }
 
-        for (int x = clearArea.first.x; x < clearArea.second.x; x++) {
-            for (int y = clearArea.first.y; y < clearArea.second.y; y++) {
-                for (int z = clearArea.first.z; z < clearArea.second.z; z++) {
-                    if (world.getBlock(x, y, z) == null) continue;
-                    BlockLogic block = world.getBlock(x, y, z).getLogic();
-                    if (block instanceof BlockLogicLocked) { world.setBlock(x, y, z, ((BlockLogicLocked) block).replacement.id()); }
+        if (clearArea != null) {
+            int firstX, firstY, firstZ;
+            int secondX, secondY, secondZ;
+
+            if (clearArea.first.x < clearArea.second.x) {
+                firstX = clearArea.first.x;
+                secondX = clearArea.second.x;
+            } else {
+                secondX = clearArea.first.x;
+                firstX = clearArea.second.x;
+            }
+
+            if (clearArea.first.y < clearArea.second.y) {
+                firstY = clearArea.first.y;
+                secondY = clearArea.second.y;
+            } else {
+                secondY = clearArea.first.y;
+                firstY = clearArea.second.y;
+            }
+
+            if (clearArea.first.z < clearArea.second.z) {
+                firstZ = clearArea.first.z;
+                secondZ = clearArea.second.z;
+            } else {
+                secondZ = clearArea.first.z;
+                firstZ = clearArea.second.z;
+            }
+
+            for (int x = firstX; x < secondX; x++) {
+                for (int y = firstY; y < secondY; y++) {
+                    for (int z = firstZ; z < secondZ; z++) {
+
+                        Block<?> block = world.getBlock(x, y, z);
+                        if (block != null) {
+                            BlockLogic logic = block.getLogic();
+
+                            if (logic instanceof BlockLogicLocked) {
+                                Minecraft.getMinecraft().thePlayer.sendMessage(((BlockLogicLocked) logic).replacement.toString());
+                                world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
+
+                            } else if (logic instanceof BlockLogicTrapped) {
+                                Minecraft.getMinecraft().thePlayer.sendMessage(((BlockLogicTrapped) logic).replacement.toString());
+                                world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replacement.id());
+                            }
+                        }
+                    }
                 }
             }
         }

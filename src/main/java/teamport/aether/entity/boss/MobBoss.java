@@ -86,7 +86,9 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         }
 
         world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
-        AetherDimension.dungeonMap.remove(dungeonID, world);
+        if (dungeonID != null) {
+            AetherDimension.dungeonMap.remove(dungeonID, world);
+        }
 
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {
