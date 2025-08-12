@@ -172,6 +172,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 speed = baseSpeed * 2;
                 this.attackCoolDown = (int) (maxAttackCoolDown * 0.50F);
                 this.currentState = State.SLAM;
+                slamGoingDown = false;
                 return;
             }
 
@@ -186,7 +187,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
                 case DOWN:
                 case UP:
-                    moveAmount = (int) Math.abs(y - target.y);
+                    moveAmount = (int) Math.abs((y-1) - target.y);
                 break;
 
                 case NORTH:
@@ -199,18 +200,22 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             world.playSoundAtEntity(null, this, "aether:mob.slider.move", 1.60F + random.nextFloat(), .45F + random.nextFloat());
         }
     }
-
-    public double slamY = 0;
+    public double slamY = -1;
+    public boolean slamGoingDown = false;
 
     public void stateSlam() {
         assert world != null;
 
-        if (allowedToMove) {
+        if (allowedToMove && !slamGoingDown) {
+            slamGoingDown = true;
+            // intellij is being dumb here, but this is so slamY re-initializes every move.
+            // it'd be better to call prologue functions when changing state. Oh, well.
+            this.slamY = -1;
+
             moveDirection = Direction.DOWN;
             blocksToMove = 45;
-        }
 
-        if (this.slamY == this.y && allowedToMove) {
+        } else if (allowedToMove && this.slamY == this.y) {
             final int slamRadius = 5;
             final float launchSpeed = 0.75F;
 
@@ -249,14 +254,13 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 doExplosionEffect(world, explosionX, explosionY, explosionZ);
             }
 
-            if (blocksToMove > 0) {
-                blocksToMove = 0;
-                moveDirection = null;
-            }
+            blocksToMove = 0;
+            moveDirection = null;
 
-            this.currentState = State.AWAKE;
+            currentState = State.AWAKE;
             speed = baseSpeed;
-            this.attackCoolDown = maxAttackCoolDown;
+
+            attackCoolDown = maxAttackCoolDown;
         }
 
         this.slamY = this.y;
@@ -326,7 +330,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         double deltaY =  this.y - entity.y;
         double deltaZ =  this.z - entity.z;
 
-        if (Math.abs(deltaY) >= entity.bbHeight) {
+        if (Math.abs(deltaY) >= entity.bbHeight * 1.5) {
             return deltaY < 0 ? Direction.UP : Direction.DOWN;
         } else if (Math.abs(deltaX) > Math.abs(deltaZ)) {
             return deltaX < 0 ? Direction.EAST : Direction.WEST;
