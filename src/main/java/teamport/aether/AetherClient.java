@@ -22,6 +22,7 @@ import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.gui.ComponentExtraHealthBar;
+import teamport.aether.gui.ComponentJumpBar;
 import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.*;
 import teamport.aether.world.AetherDimension;
@@ -35,6 +36,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
     public static HudComponent BOSS_BAR;
+    public static HudComponent JUMP_BAR;
 
     @Override
     public void beforeClientStart() {
@@ -128,13 +130,16 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 )
         );
 
+        JUMP_BAR = HudComponents.register(
+                new ComponentJumpBar("aether.wing.bar", new LayoutSnap(HudComponents.CROSSHAIR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)));
+
         int extraBars = (int) Math.ceil(EXTRA_HEALTH / 20.0f);
         HudComponent previousComponent = HudComponents.HOTBAR;
         for (int i = 0; i < extraBars + 1; i++){
             previousComponent = HudComponents.register(
                     new ComponentExtraHealthBar(
                             "aetherExtraHealth_bar" +  i,
-                            new LayoutSnap(previousComponent, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT), i )
+                            new LayoutSnap(previousComponent, ComponentAnchor.BOTTOM_CENTER, ComponentAnchor.TOP_CENTER), i )
             );
         }
 
