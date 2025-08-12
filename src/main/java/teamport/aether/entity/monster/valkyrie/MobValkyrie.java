@@ -20,7 +20,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public boolean isSwinging;
     public int teleportTimer;
     public int angerLevel;
-    public int timeLeft;
     public int chatTime;
     public float sinage;
 
@@ -31,7 +30,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.setSize(0.8F, 1.9F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
-        this.timeLeft = 1200;
         this.attackStrength = 7;
         this.scoreValue = 5000;
     }
@@ -86,12 +84,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
 
         if (this.sinage > 6.283186F) {
             this.sinage -= 6.283186F;
-        }
-
-
-        if (this.timeLeft <= 0) {
-            this.dead = true;
-            this.animateHurt();
         }
     }
 
@@ -155,51 +147,51 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
 
     @Override
     public boolean interact(@NotNull Player entityplayer) {
+        if (this.chatTime > 0 || this.angerLevel > 1) {
+            return false;
+        }
+
         this.lookAt(entityplayer, 180.0F, 180.0F);
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if (this.angerLevel > 1) return false;
-
-        if (this.timeLeft >= 1200) {
-            if (itemstack != null && itemstack.itemID == AetherItems.MEDAL_VICTORY.id && itemstack.stackSize >= 0) {
-                if (itemstack.stackSize >= 10) {
-                    entityplayer.sendMessage("Umm... that's a nice pile of medallions you have there...");
-                } else if (itemstack.stackSize >= 5) {
-                    entityplayer.sendMessage("That's pretty impressive, but you won't defeat me.");
-                } else {
-                    entityplayer.sendMessage("You think you're a tough guy, eh? Well, bring it on!");
-                }
+        if (itemstack != null && itemstack.itemID == AetherItems.MEDAL_VICTORY.id && itemstack.stackSize >= 0) {
+            if (itemstack.stackSize >= 10) {
+                entityplayer.sendMessage("Umm... that's a nice pile of medallions you have there...");
+                this.chatTime = 60;
+            } else if (itemstack.stackSize >= 5) {
+                entityplayer.sendMessage("That's pretty impressive, but you won't defeat me.");
+                this.chatTime = 60;
             } else {
-                int pokey = this.random.nextInt(3);
-                if (pokey == 2) {
-                    entityplayer.sendMessage("What's that? You want to fight? Aww, what a cute little human.");
-                } else if (pokey == 1) {
-                    entityplayer.sendMessage("You're not thinking of fighting a big, strong Valkyrie are you?");
-                } else {
-                    entityplayer.sendMessage("I don't think you should bother me, you could get really hurt.");
-                }
+                entityplayer.sendMessage("You think you're a tough guy, eh? Well, bring it on!");
+                this.chatTime = 60;
+            }
+        } else {
+            int pokey = this.random.nextInt(3);
+            if (pokey == 2) {
+                entityplayer.sendMessage("What's that? You want to fight? Aww, what a cute little human.");
+                this.chatTime = 60;
+            } else if (pokey == 1) {
+                entityplayer.sendMessage("You're not thinking of fighting a big, strong Valkyrie are you?");
+                this.chatTime = 60;
+            } else {
+                entityplayer.sendMessage("I don't think you should bother me, you could get really hurt.");
+                this.chatTime = 60;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public void updateAI() {
         super.updateAI();
         ++this.teleportTimer;
-        if (this.teleportTimer >= 250) {
-            if (this.target != null) {
-                this.teleport(this.target.x, this.target.y, this.target.z, 7);
-            } else if (this.onGround) {
-                this.teleport(this.x, this.y, this.z, 12 + this.random.nextInt(12));
-            } else {
-                this.teleport(this.xo, this.yo, this.zo, 6);
-            }
-        } else if (this.teleportTimer >= 200 || !(this.y <= 0.0) && !(this.y <= this.yo - 16.0)) {
-            if (this.teleportTimer % 5 == 0 && this.target != null && !this.canEntityBeSeen(this.target)) {
-                this.teleportTimer += 100;
+        if (this.target != null && this.angerLevel > 0) {
+            if (this.teleportTimer >= 250) {
+                this.teleport(this.target.x, this.target.y, this.target.z, 4);
+            } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
+                this.teleportTimer += 50;
             }
         } else {
-            this.teleportTimer = 200;
+            this.teleportTimer = this.random.nextInt(40);
         }
 
         if (this.onGround && this.teleportTimer % 10 == 0) {
@@ -247,7 +239,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         super.addAdditionalSaveData(tag);
         tag.putShort("Anger", (short) this.angerLevel);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
-        tag.putShort("TimeLeft", (short) this.timeLeft);
     }
 
     @Override
@@ -255,7 +246,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         super.readAdditionalSaveData(tag);
         this.angerLevel = tag.getShort("Anger");
         this.teleportTimer = tag.getShort("teleportTimer");
-        this.timeLeft = tag.getShort("TimeLeft");
     }
 
     @Override
@@ -267,36 +257,37 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public boolean hurt(Entity attacker, int i, DamageType type) {
         if (attacker instanceof Player && this.world.getDifficulty().canHostileMobsSpawn()) {
             int pokey = this.random.nextInt(3);
-            if (this.target == null) {
-                this.chatTime = 0;
+            if (this.target == null && this.chatTime <= 0) {
                 if (pokey == 2) {
                     ((Player) attacker).sendMessage("I'm not going easy on you!");
+                    this.chatTime = 60;
                 } else if (pokey == 1) {
                     ((Player) attacker).sendMessage("You're gonna regret that!");
+                    this.chatTime = 60;
                 } else {
                     ((Player) attacker).sendMessage("Now you're in for it!");
+                    this.chatTime = 60;
                 }
             } else {
-                this.teleportTimer -= 10;
+                this.teleportTimer += 25;
             }
 
             this.becomeAngryAt(attacker);
             boolean flag = super.hurt(attacker, i, type);
             if (flag && this.getHealth() <= 0) {
                 this.dead = true;
-                this.chatTime = 0;
-                if (pokey == 2) {
-                    ((Player) attacker).sendMessage("Alright, alright! You win!");
-                } else if (pokey == 1) {
-                    ((Player) attacker).sendMessage("Okay, I give up! Geez!");
-                } else {
-                    ((Player) attacker).sendMessage("Oww! Fine, here's your medal...");
-                }
+                    if (pokey == 2) {
+                        ((Player) attacker).sendMessage("Alright, alright! You win!");
+                    } else if (pokey == 1) {
+                        ((Player) attacker).sendMessage("Okay, I give up! Geez!");
+                    } else {
+                        ((Player) attacker).sendMessage("Oww! Fine, here's your medal...");
+                    }
                 this.animateHurt();
             }
             return flag;
         } else {
-            this.teleport(this.x, this.y, this.z, 8);
+            this.teleport(this.x, this.y, this.z, 4);
             this.remainingFireTicks = 0;
             return false;
         }

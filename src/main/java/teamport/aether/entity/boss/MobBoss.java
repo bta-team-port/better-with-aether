@@ -5,23 +5,21 @@ import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.entity.monster.MobMonster;
+import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMap;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobBoss extends MobMonster implements EnemyBoss {
+public class MobBoss extends MobPathfinder implements EnemyBoss {
 
     @Nullable
     public Integer dungeonID = null;

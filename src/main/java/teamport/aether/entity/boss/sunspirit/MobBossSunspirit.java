@@ -35,7 +35,7 @@ public class MobBossSunspirit extends MobBoss implements EnemyBoss {
     public void onDeath(Entity entityKilledBy) {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
         entityplayer.triggerAchievement(AetherAchievements.GOLD);
-        this.world.playSoundEffect(entityKilledBy, SoundCategory.ENTITY_SOUNDS, entityplayer.x, entityplayer.y, entityplayer.z, "aether:achievement.gold", 0.5f, 1.0f);
+        this.world.playSoundEffect(entityplayer, SoundCategory.WORLD_SOUNDS, entityplayer.x, entityplayer.y, entityplayer.z, "aether:achievement.gold", 0.5f, 1.0f);
         super.onDeath(entityplayer);
     }
 

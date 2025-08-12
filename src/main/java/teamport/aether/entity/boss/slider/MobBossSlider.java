@@ -76,9 +76,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        ((Player) entityKilledBy).triggerAchievement(AetherAchievements.BRONZE);
-        this.world.playSoundEffect(entityKilledBy, SoundCategory.ENTITY_SOUNDS, entityKilledBy.x, entityKilledBy.y, entityKilledBy.z, "aether:achievement.bronze", 1.0f, 1.0f);
-        super.onDeath(entityKilledBy);
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0);
+        entityplayer.triggerAchievement(AetherAchievements.BRONZE);
+        this.world.playSoundEffect(entityplayer, SoundCategory.WORLD_SOUNDS, entityplayer.x, entityplayer.y, entityplayer.z, "aether:achievement.bronze", 0.5f, 1.0f);
+        super.onDeath(entityplayer);
     }
 
     @Override
@@ -393,6 +394,24 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     public int getMaxHealth() {
         return 500;
+    }
+
+    public String getLivingSound() {
+        return "ambient.cave.cave";
+    }
+
+    public void playLivingSound() {
+        if (this.currentState == State.ASLEEP) {
+            this.world.playSoundAtEntity(null, this, this.getLivingSound(), 1.0F, 1.0f);
+        }
+    }
+
+    public String getHurtSound() {
+        return "step.stone";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.slider.death";
     }
 
     public String getEntityTexture() {
