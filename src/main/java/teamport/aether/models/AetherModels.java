@@ -319,6 +319,10 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_TRAPPED)
                 .setAllTextures(0, "aether:block/carved"));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED)
+                .setAllTextures(0, "aether:block/carved"));
+
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED)
                 .setAllTextures(0, "aether:block/angelic"));
 
