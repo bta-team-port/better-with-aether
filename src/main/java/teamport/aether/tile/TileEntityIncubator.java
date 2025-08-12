@@ -154,7 +154,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     @Override
     public void processItem() {
-        if (!this.canProcess() || this.worldObj.isClientSide) {
+        if (!this.canProcess()) {
             return;
         }
 
@@ -168,17 +168,14 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
 
-        // Move entity to incubator position and spawn it
         entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
         this.worldObj.entityJoinedWorld(entity);
 
-        // Decrement item stack
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) {
             containerItemStacks[0] = null;
         }
 
-        // Trigger achievement for Moa entities
         if (entity instanceof MobMoaBlue || entity instanceof MobMoaWhite || entity instanceof MobMoaBlack) {
             Player player = this.worldObj.getClosestPlayerToEntity(entity, 16);
             if (player != null) {
