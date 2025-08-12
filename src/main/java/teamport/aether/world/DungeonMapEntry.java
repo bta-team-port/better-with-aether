@@ -91,6 +91,7 @@ public class DungeonMapEntry {
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
+        data.putString("type", "basic");
         data.putInt("id", id);
         data.putInt("doorReplacementID", doorReplacementID);
         data.putInt("doorReplacementMeta", doorReplacementMeta);
