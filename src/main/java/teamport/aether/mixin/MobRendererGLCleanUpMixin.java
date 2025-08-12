@@ -13,16 +13,19 @@ import teamport.aether.helper.GLManager;
 public abstract class MobRendererGLCleanUpMixin<T extends Mob> {
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelBase;render(FFFFFF)V", shift = At.Shift.AFTER, ordinal = 2))
     public void restoreGLState2(Tessellator tessellator, T entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+        GL11.glDepthMask(true);
         GLManager.restore();
     }
 
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelBase;render(FFFFFF)V", shift = At.Shift.AFTER, ordinal = 5))
     public void restoreGLState5(Tessellator tessellator, T entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+        GL11.glDepthMask(true);
         GLManager.restore();
     }
 
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelBase;render(FFFFFF)V", shift = At.Shift.AFTER, ordinal = 8))
     public void restoreGLState8(Tessellator tessellator, T entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+        GL11.glDepthMask(true);
         GLManager.restore();
     }
 }
