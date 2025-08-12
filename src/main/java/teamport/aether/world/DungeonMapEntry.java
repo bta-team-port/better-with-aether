@@ -162,11 +162,9 @@ public class DungeonMapEntry {
                             BlockLogic logic = block.getLogic();
 
                             if (logic instanceof BlockLogicLocked) {
-                                Minecraft.getMinecraft().thePlayer.sendMessage(((BlockLogicLocked) logic).replacement.toString());
                                 world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
 
                             } else if (logic instanceof BlockLogicTrapped) {
-                                Minecraft.getMinecraft().thePlayer.sendMessage(((BlockLogicTrapped) logic).replacement.toString());
                                 world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replacement.id());
                             }
                         }
