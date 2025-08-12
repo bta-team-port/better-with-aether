@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.projectile.ProjectileDart;
 
 public class MobCockatrice extends MobMonster implements Enemy {
@@ -154,7 +155,7 @@ public class MobCockatrice extends MobMonster implements Enemy {
             }
 
             if (this.random.nextInt(20) == 0) {
-                return blockLight <= 4 && super.canSpawnHere();
+                return blockLight <= 4 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
             }
         }
         return false;
