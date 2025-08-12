@@ -79,12 +79,12 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        this.world.players.stream().filter(player -> player.distanceTo(this) < 32).forEach(
-            p -> {
+        this.world.players.stream()
+            .filter(player -> player.distanceTo(this) < 32)
+            .forEach( p -> {
                 p.triggerAchievement(AetherAchievements.BRONZE);
                 this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
-            }
-        );
+            });
 
         super.onDeath(entityKilledBy);
     }
