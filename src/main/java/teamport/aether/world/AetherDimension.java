@@ -7,7 +7,6 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.helper.BlockCoordinate;
 
 import java.util.ArrayList;
 import java.util.HashMap;

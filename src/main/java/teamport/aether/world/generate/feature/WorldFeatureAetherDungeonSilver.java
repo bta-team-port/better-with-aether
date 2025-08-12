@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -130,12 +131,14 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
 
     private void createBossAndTreasure(int x, int y, int z) {
-        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
+
         // Place boss, chest and door
         MobBossValkyrie boss = new MobBossValkyrie(world);
         boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
-        boss.setDungeonID(dungeonID);
+        boss.setDungeonID(dungeon.getId());
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
         world.setBlockAndMetadataWithNotify(bossPosition.x, y, bossPosition.z, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
         Container inventory = BlockLogicChest.getInventory(world, bossPosition.x, y, bossPosition.z);
@@ -154,11 +157,9 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
                 new WorldFeaturePoint(x - 15, y + 2, z + 42),
                 new WorldFeaturePoint(x - 15, y + 2, z + 43),
         };
-        for(WorldFeaturePoint pos : treasureDoor){
-            pos.rotateFixPointYAxis(x, y, z, angle);
-        }
 
-        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
+        for (WorldFeaturePoint pos : treasureDoor){ pos.rotateFixPointYAxis(x, y, z, angle); }
+        dungeon.setDoorBlocks(treasureDoor);
 
         world.entityJoinedWorld(boss);
     }

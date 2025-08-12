@@ -13,6 +13,7 @@ import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.helper.Pair;
@@ -106,11 +107,14 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
         // chest room
         this.placeComponent(drawHollowShell(hellfire, Direction.WEST, 7, Direction.NORTH, 7, Direction.UP, 5, x -1 +radius, y +1 +radius/2, z + 7/2, true));
         // Place boss, chest and door
-        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
+
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
+
         MobBossSunspirit boss = new MobBossSunspirit(world);
         boss.moveTo(bossPosition.x, bossPosition.y , bossPosition.z, 0f,0f);
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
-        boss.setDungeonID(dungeonID);
+        boss.setDungeonID(dungeon.getId());
         boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
 
         WorldFeaturePoint chestPoint = new WorldFeaturePoint(x -4 +radius, y +2 +radius/2, z);
@@ -138,11 +142,10 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
                 new WorldFeaturePoint(x +radius -7, y +3 +radius/2, z +1),
                 new WorldFeaturePoint(x +radius -7, y +4 +radius/2, z +1),
         };
-        for(WorldFeaturePoint pos : bossDoor){
-            pos.rotateFixPointYAxis(x, y, z, angle);
-        }
 
-        Arrays.stream(bossDoor).forEach(boss::addDestroyOnDeathBlock);
+        for(WorldFeaturePoint pos : bossDoor){ pos.rotateFixPointYAxis(x, y, z, angle); }
+        dungeon.setDoorBlocks(bossDoor);
+
         world.entityJoinedWorld(boss);
     }
 

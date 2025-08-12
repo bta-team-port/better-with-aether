@@ -4,8 +4,8 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.helper.BlockCoordinate;
 import teamport.aether.helper.Pair;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +14,12 @@ import java.util.List;
 public class DungeonMapEntry {
     protected Integer id;
     @Nullable
-    protected Pair<BlockCoordinate, BlockCoordinate> clearArea;
-    protected List<BlockCoordinate> doorBlocks = new ArrayList<>();
+    protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
+    protected List<WorldFeaturePoint> doorBlocks = new ArrayList<>();
     protected Integer doorReplacementID = 0;
     protected Integer doorReplacementMeta = 0;
 
-    protected BlockCoordinate position;
+    protected WorldFeaturePoint position;
 
     public DungeonMapEntry(Integer id) {
         this.id = id;
@@ -29,19 +29,19 @@ public class DungeonMapEntry {
         return id;
     }
 
-    public void setPosition(BlockCoordinate position) {
+    public void setPosition(WorldFeaturePoint position) {
         this.position = position;
     }
 
-    public BlockCoordinate getPosition() {
+    public WorldFeaturePoint getPosition() {
         return position;
     }
 
-    public void setClearArea(Pair<BlockCoordinate, BlockCoordinate> clearArea) {
+    public void setClearArea(Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
         this.clearArea = clearArea;
     }
 
-    public void setDoorBlocks(BlockCoordinate[] doorBlocks) {
+    public void setDoorBlocks(WorldFeaturePoint[] doorBlocks) {
         this.doorBlocks.addAll(Arrays.asList(doorBlocks));
     }
 
@@ -64,8 +64,8 @@ public class DungeonMapEntry {
         result.doorReplacementMeta = data.getInteger("doorReplacementMeta");
 
         result.clearArea = new Pair<>(
-            BlockCoordinate.fromCompoundTag(data.getCompound("clearPos1")),
-            BlockCoordinate.fromCompoundTag(data.getCompound("clearPos2"))
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
         if (result.clearArea.first == null || result.clearArea.second == null) {
@@ -74,10 +74,10 @@ public class DungeonMapEntry {
 
         CompoundTag blockListNBT = data.getCompound("blocksDestroyOnDeath");
         if (blockListNBT != null) {
-            List<BlockCoordinate> list = new ArrayList<>();
+            List<WorldFeaturePoint> list = new ArrayList<>();
             for (int i = 0; i < blockListNBT.getInteger("length"); i++) {
                 CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
-                list.add(BlockCoordinate.fromCompoundTag(blockNBT));
+                list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
             result.doorBlocks = list;
@@ -99,7 +99,7 @@ public class DungeonMapEntry {
         if (doorBlocks != null && !doorBlocks.isEmpty()) {
             CompoundTag blockList = new CompoundTag();
             int idx = 0;
-            for (BlockCoordinate block : doorBlocks) {
+            for (WorldFeaturePoint block : doorBlocks) {
                 blockList.put(String.valueOf(idx++), block.toCompoundTag());
             }
             blockList.put("length", new IntTag(idx));
@@ -111,7 +111,7 @@ public class DungeonMapEntry {
 
     public void remove(World world) {
         if (doorBlocks != null) {
-            for (BlockCoordinate coordinate : doorBlocks) {
+            for (WorldFeaturePoint coordinate : doorBlocks) {
                 world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
                 world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
