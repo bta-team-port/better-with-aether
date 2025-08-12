@@ -29,7 +29,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
 
-    public static final WorldFeatureAetherDungeonBase[] dungeons = new WorldFeatureAetherDungeonBase[]{
+    public static final WorldFeature[] dungeons = new WorldFeature[]{
             new WorldFeatureAetherDungeonGold(),
             new WorldFeatureAetherDungeonSilver(),
             new WorldFeatureAetherDungeonBronze()

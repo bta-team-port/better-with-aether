@@ -4,11 +4,12 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.items.accessory.IAccessoryEffects;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
 
-public class ItemAgilityCapeArmor extends ItemAccessoryArmor {
+public class ItemAgilityCapeArmor extends ItemAccessoryArmor implements IAccessoryEffects {
 
     public ItemAgilityCapeArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id, name, accessoryPiece);
@@ -24,6 +25,11 @@ public class ItemAgilityCapeArmor extends ItemAccessoryArmor {
             return;
         }
         player.footSize = 0.5f;
+    }
+
+    @Override
+    public void removeEffect(Player player, ItemStack accessory) {
+        player.footSize = 0.5F;
     }
 
 }

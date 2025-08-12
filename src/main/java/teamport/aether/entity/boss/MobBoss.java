@@ -12,7 +12,8 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.BlockCoordinate;
+import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 
@@ -26,12 +27,12 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     public String bossName = NameGenerator.getRandomName();
 
     @Nullable
-    public BlockCoordinate returnPoint = null;
+    public WorldFeaturePoint returnPoint = null;
 
     @Nullable
     public ItemStack trophy = null;
 
-    public List<BlockCoordinate> blocksDestroyOnDeath = new ArrayList<>();
+    public List<WorldFeaturePoint> blocksDestroyOnDeath = new ArrayList<>();
 
 
     public MobBoss(@Nullable World world) {
@@ -54,7 +55,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    public void addDestroyOnDeathBlock(BlockCoordinate coord) {
+    public void addDestroyOnDeathBlock(WorldFeaturePoint coord) {
         blocksDestroyOnDeath.add(coord);
     }
 
@@ -93,9 +94,11 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         if (blocksDestroyOnDeath != null) {
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
 
-            for (BlockCoordinate coordinate : blocksDestroyOnDeath) {
+            for (WorldFeaturePoint coordinate : blocksDestroyOnDeath) {
                 world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
                 world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
+                // TODO trapdoor would be nice, however some more logic will be required
+//                world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, 0, 0);
             }
         }
@@ -114,16 +117,16 @@ public class MobBoss extends MobMonster implements EnemyBoss {
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        returnPoint = BlockCoordinate.fromCompoundTag(tag.getCompound("returnPoint"));
+        returnPoint = WorldFeaturePoint.fromCompoundTag(tag.getCompound("returnPoint"));
         dungeonID = tag.getInteger("dungeonID");
         bossName = tag.getString("bossName");
 
         CompoundTag blockListNBT = tag.getCompound("blocksDestroyOnDeath");
         if (blockListNBT != null) {
-            List<BlockCoordinate> list = new ArrayList<>();
+            List<WorldFeaturePoint> list = new ArrayList<>();
             for (int i = 0; i < blockListNBT.getInteger("length"); i++) {
                 CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
-                list.add(BlockCoordinate.fromCompoundTag(blockNBT));
+                list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
             blocksDestroyOnDeath = list;
@@ -158,7 +161,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
         if (blocksDestroyOnDeath != null && !blocksDestroyOnDeath.isEmpty()) {
             CompoundTag blockList = new CompoundTag();
             int idx = 0;
-            for (BlockCoordinate block : blocksDestroyOnDeath) {
+            for (WorldFeaturePoint block : blocksDestroyOnDeath) {
                 blockList.put(String.valueOf(idx++), block.toCompoundTag());
             }
             blockList.put("length", new IntTag(idx));
@@ -175,7 +178,7 @@ public class MobBoss extends MobMonster implements EnemyBoss {
     }
 
     @Override
-    public void setReturnPoint(@Nullable BlockCoordinate returnPoint) {
+    public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
     }
 }
