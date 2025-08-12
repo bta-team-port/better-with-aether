@@ -22,6 +22,8 @@ public class DungeonMap {
     }
 
     public void remove(Integer id, World world) {
+        if (dungeonMap.get(id) == null) return;
+
         dungeonMap.get(id).remove(world);
         dungeonMap.remove(id);
     }

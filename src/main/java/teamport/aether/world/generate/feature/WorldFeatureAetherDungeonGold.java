@@ -161,10 +161,14 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
         int ZRoomLength = 19;
         WorldFeatureComponent main = new WorldFeatureComponent();
 
-        dungeon.setClearArea( new Pair<> (
-            new WorldFeaturePoint(x +1 +radius/2, y +radius/2, z +1 +radius/2),
-            new WorldFeaturePoint(x +1 +radius/2 + xRoomLength, y + radius/2 + YRoomHeight, z +1 +radius/2 + ZRoomLength)
-        ));
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+            new WorldFeaturePoint(x +1 +radius/2 +8, y +radius/2, z +1 +radius/2),
+            new WorldFeaturePoint(x +1 +radius/2 -xRoomLength, y + radius/2 + YRoomHeight, z +1 +radius/2 -ZRoomLength)
+        );
+
+        clearArea.first.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        clearArea.second.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        dungeon.setClearArea(clearArea);
 
         main.add(drawHollowShell(hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true));
         main.add(drawSquareCylinder(hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength -2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true));

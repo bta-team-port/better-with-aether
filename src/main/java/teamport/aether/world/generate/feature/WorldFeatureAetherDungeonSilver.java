@@ -228,10 +228,14 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         // holystone base
         WorldFeatureComponent base = drawVolume(random, holystone, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
 
-        dungeon.setClearArea( new Pair<> (
-            new WorldFeaturePoint(x, y, z),
-            new WorldFeaturePoint(x + 55, y + 25, z + 30)
-        ));
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+            new WorldFeaturePoint(x + 2, y, z - 3),
+            new WorldFeaturePoint(x - 31, y + 23, z + 56)
+        );
+
+        clearArea.first.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        clearArea.second.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        dungeon.setClearArea(clearArea);
 
         int ix = base.tail.x;
         int iz = base.tail.z;
