@@ -2,8 +2,12 @@ package teamport.aether.world;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
@@ -115,6 +119,16 @@ public class DungeonMapEntry {
                 world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
                 world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
+            }
+        }
+
+        for (int x = clearArea.first.x; x < clearArea.second.x; x++) {
+            for (int y = clearArea.first.y; y < clearArea.second.y; y++) {
+                for (int z = clearArea.first.z; z < clearArea.second.z; z++) {
+                    if (world.getBlock(x, y, z) == null) continue;
+                    BlockLogic block = world.getBlock(x, y, z).getLogic();
+                    if (block instanceof BlockLogicLocked) { world.setBlock(x, y, z, ((BlockLogicLocked) block).replacement.id()); }
+                }
             }
         }
     }

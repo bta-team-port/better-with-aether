@@ -39,6 +39,8 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
     public World world;
     public Random random;
 
+    protected DungeonMapEntry dungeon;
+
     public static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
     static {
         hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), 0, 90);
@@ -89,11 +91,17 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
         this.dungeonAnker = new WorldFeaturePoint(x,y,z);
         this.world = world;
         this.random = random;
+
         this.bossPosition = this.getPos(x, y + radius/2 + 2, z);
+
+        dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(bossPosition);
+
         createMainSphere(x, y, z);
         createOuterSpheres(x, y, z);
         createMainRoom(x, y, z);
         createBossAndTreasure(x, y, z);
+
         return true;
     }
 
@@ -107,9 +115,6 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
         // chest room
         this.placeComponent(drawHollowShell(hellfire, Direction.WEST, 7, Direction.NORTH, 7, Direction.UP, 5, x -1 +radius, y +1 +radius/2, z + 7/2, true));
         // Place boss, chest and door
-
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
-        dungeon.setPosition(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
 
         MobBossSunspirit boss = new MobBossSunspirit(world);
         boss.moveTo(bossPosition.x, bossPosition.y , bossPosition.z, 0f,0f);
@@ -155,6 +160,12 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
         int YRoomHeight = 8;
         int ZRoomLength = 19;
         WorldFeatureComponent main = new WorldFeatureComponent();
+
+        dungeon.setClearArea( new Pair<> (
+            new WorldFeaturePoint(x +1 +radius/2, y +radius/2, z +1 +radius/2),
+            new WorldFeaturePoint(x +1 +radius/2 + xRoomLength, y + radius/2 + YRoomHeight, z +1 +radius/2 + ZRoomLength)
+        ));
+
         main.add(drawHollowShell(hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x +1 +radius/2, y + radius/2, z +1 +radius/2, true));
         main.add(drawSquareCylinder(hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength -2, Direction.UP, 1, x +radius/2, y +1 +radius/2, z +radius/2, true));
         main.add(drawSquareCylinder(hellfire, Direction.WEST, xRoomLength -2, Direction.NORTH, ZRoomLength -2, Direction.UP, 1, x +radius/2, y + YRoomHeight -2 +radius/2, z +radius/2, true));
