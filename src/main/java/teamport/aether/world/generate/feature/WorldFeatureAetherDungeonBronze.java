@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.helper.Pair;
 import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureAetherDungeonBase;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -88,6 +89,11 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
 
         drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
+        dungeon.setClearArea( new Pair<> (
+            new WorldFeaturePoint(x, y -2, z),
+            new WorldFeaturePoint(x + 16, y + 14, z + 16)
+        ));
+
         this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
         drawShell(world, random, carvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
         this.addSolidBox(world, 0, 0,x + 7, y - 1, z + 7, 2, 2, 2, true);

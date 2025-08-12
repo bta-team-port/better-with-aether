@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.helper.Pair;
 import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
@@ -36,6 +37,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     public WorldFeaturePoint bossPosition;
     public World world;
     public Random random;
+
+    protected DungeonMapEntry dungeon;
 
     static {
         angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 95);
@@ -123,6 +126,10 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         this.world = world;
         this.random = random;
         this.bossPosition = this.getPos(x - 15, y + 4, z + 42);
+
+        dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(bossPosition);
+
         createBaseStructure(x,y,z);
         createInnerDecorations(x,y,z);
         createBossAndTreasure(x, y, z);
@@ -131,9 +138,6 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
 
     private void createBossAndTreasure(int x, int y, int z) {
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
-        dungeon.setPosition(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
-
         // Place boss, chest and door
         MobBossValkyrie boss = new MobBossValkyrie(world);
         boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
@@ -220,11 +224,17 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         // clear the volume of the structure of blocks
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x,y,z);
+
         // holystone base
         WorldFeatureComponent base = drawVolume(random, holystone, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
+
+        dungeon.setClearArea( new Pair<> (
+            new WorldFeaturePoint(x, y, z),
+            new WorldFeaturePoint(x + 55, y + 25, z + 30)
+        ));
+
         int ix = base.tail.x;
         int iz = base.tail.z;
-
 
         // generate 3x3x3 grid of rooms
         WorldFeatureComponent rooms = new WorldFeatureComponent();
