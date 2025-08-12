@@ -2,7 +2,6 @@ package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -15,7 +14,6 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
-import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
@@ -39,7 +37,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     public static final float angerThreshold = 0.50F;
     public static final float baseDamage = 10F;
-    public static final int maxAttackCoolDown = 60;
+    public static final int maxAttackCoolDown = 50;
 
     public static final int TICKS_PER_SECOND = 20;
 
@@ -98,12 +96,13 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             for (int x = -2; x <= 1; x++) {
             for (int z = -2; z <= 1; z++) {
             for (int y = (moveDirection == Direction.DOWN && currentState != State.SLAM) ? -1 : 0 ; y <= 2; y++) {
-                if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z))) {
-                    blocksToMove -= 0.5F;
+                Block<?> block = world.getBlock((int) (this.x + x), (int) (this.y + y), (int) (this.z + z));
+
+                if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z)) && block != null) {
+                    blocksToMove -= 0.5F * Math.min(block.getHardness()/4f, 1);
 
                     blocksBroken++;
                     if (blocksBroken >= 9) {
-                        move(0, 0.01F, 0);
                         this.allowedToMove = false;
                         this.attackCoolDown = maxAttackCoolDown;
                         return;
@@ -134,6 +133,14 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
         } else {
             blocksToMove = 0;
+        }
+
+        if (blocksToMove <= 0.05F) {
+            this.y = this.y % 1 < .50F ? Math.floor(this.y) : Math.ceil(this.y);
+
+            this.yo = this.y;
+            this.xo = this.x;
+            this.zo = this.z;
         }
 
         if (this.deformX > 0.01F) {
@@ -174,10 +181,12 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         }
 
         if (allowedToMove && target != null && blocksToMove <= 0.05F) {
-            this.attackCoolDown = maxAttackCoolDown * this.getHealth()/this.getMaxHealth();
+            float progress = (float) Math.max((float) this.getHealth() / this.getMaxHealth(), .32);
+
+            this.attackCoolDown = (int) (maxAttackCoolDown * progress);
             allowedToMove = false;
 
-            if (this.distanceToSqr(target) <= 25 && this.getHealth() < (this.getMaxHealth() * 0.50F) && random.nextInt(6) == 0) {
+            if (this.distanceToSqr(target) <= 25 && progress < .60F && random.nextInt(6) == 0) {
                 moveDirection = Direction.UP;
                 blocksToMove = 45;
 
