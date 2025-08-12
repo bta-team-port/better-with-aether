@@ -157,6 +157,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> CARVED_HELLFIRE_LIGHT_LOCKED;
 
     public static Block<?> CARVED_STONE_TRAPPED;
+    public static Block<?> CARVED_STONE_TRAPPED_LOCKED;
+
     public static Block<?> CARVED_ANGELIC_TRAPPED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
@@ -241,7 +243,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(2.5f)
                 .setResistance(10.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT);
-
 
         // Blocks
 
@@ -686,16 +687,25 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CARVED_HELLFIRE_LOCKED = dungeonStoneLocked
                 .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE)).withDisabledStats();
+
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
                 .setLuminance(11)
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
+        CARVED_STONE_TRAPPED = stone
+                .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
+                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class)
+                ).withDisabledStats();
 
-        CARVED_STONE_TRAPPED = dungeonStoneLocked
-                .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_STONE_LOCKED, MobSentry.class)).withDisabledStats();
+        CARVED_STONE_TRAPPED_LOCKED = dungeonStoneLocked
+                .build("carved.stone.trapped.locked", "carved_stone_trapped_locked", blockID("CARVED_STONE_TRAPPED_LOCKED"),
+                        b -> new BlockLogicTrapped(b, CARVED_STONE_LOCKED, CARVED_STONE, MobSentry.class)
+                ).withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
-                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"), b -> new BlockLogicTrapped(b, CARVED_ANGELIC_LOCKED, MobValkyrie.class)).withDisabledStats();
+                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"),
+                        b -> new BlockLogicTrapped(b, CARVED_ANGELIC_LOCKED, CARVED_ANGELIC, MobValkyrie.class)
+                ).withDisabledStats();
 
 
         CHEST_MIMIC = wood

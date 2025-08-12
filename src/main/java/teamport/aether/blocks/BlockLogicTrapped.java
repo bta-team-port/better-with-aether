@@ -12,45 +12,25 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
-import teamport.aether.world.AetherDimension;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class BlockLogicTrapped extends BlockLogic {
     public final Class<? extends Entity> monster;
-    public final Block<?> replacement;
+    public final Block<?> replaceOnStep;
 
-    public BlockLogicTrapped(Block<?> block, Block<?> replacement, Class<? extends Entity> monster) {
+    public final Block<?> replaceOnClear;
+
+    public BlockLogicTrapped(Block<?> block, Block<?> replaceOnStep, Block<?> replaceOnClear, Class<? extends Entity> monster) {
         super(block, Material.stone);
         this.monster = monster;
-        this.replacement = replacement;
+        this.replaceOnStep = replaceOnStep;
+        this.replaceOnClear = replaceOnClear;
     }
 
     @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        return replacement.getBreakResult(world, dropCause, meta, tileEntity);
-    }
-
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
-        super.onNeighborBlockChange(world, x, y, z, blockId);
-
-        final boolean[] canBreak = {true};
-//        AetherDimension.dungeonMap.forEach((id, cords) -> {
-//            if (cords.distanceTo(x, y, z) < AetherDimension.dungeonRadius) {
-//                canBreak[0] = false;
-//            }
-//        });
-//
-//        if (canBreak[0]) {
-//            if (replacement.getLogic() instanceof BlockLogicLocked) {
-//                world.setBlock(x, y, z, ((BlockLogicLocked) replacement.getLogic()).replacement.id());
-//            } else {
-//                world.setBlock(x, y, z, replacement.id());
-//            }
-//        }
-
-        world.setBlock(x, y, z, replacement.id());
+        return replaceOnStep.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
@@ -94,7 +74,7 @@ public class BlockLogicTrapped extends BlockLogic {
 
                     world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
                     world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);
-                    world.setBlockWithNotify(x, y, z, this.replacement.id());
+                    world.setBlockWithNotify(x, y, z, this.replaceOnStep.id());
                 }
             }
         }
