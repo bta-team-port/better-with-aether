@@ -64,7 +64,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
             if (goldSeed > -1) {
                 int dungeonX = x + rand.nextInt(16);
-                int dungeonY = 160 + rand.nextInt(64);
+                int dungeonY = 60 + rand.nextInt(90);
                 int dungeonZ = z + rand.nextInt(16);
                 dungeons[0].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             } else if (silverSeed > -1) {
