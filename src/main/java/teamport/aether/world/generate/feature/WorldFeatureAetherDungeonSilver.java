@@ -115,104 +115,34 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
 
 
+    public void placeComponent(WorldFeatureComponent component) {
+        component.rotateYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        component.place(world);
+
+    }
+
+    public void modifyPoint(WorldFeaturePoint point){
+        point.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
+    }
+
+    public WorldFeaturePoint createModifiedPoint(int ix, int iy, int iz){
+        WorldFeaturePoint pos = new WorldFeaturePoint(ix,iy,iz);
+        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
+        return pos;
+    }
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         this.angle = random.nextInt(4) * 90.0F;
         this.dungeonAnker = new WorldFeaturePoint(x,y,z);
         this.world = world;
         this.random = random;
-        this.bossPosition = this.getPos(x - 15, y + 4, z + 42);
+        this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
         createBaseStructure(x,y,z);
         createInnerDecorations(x,y,z);
         createBossAndTreasure(x, y, z);
         createOuterDecorations(x, y, z);
         return true;
-    }
-
-    private void createBossAndTreasure(int x, int y, int z) {
-        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
-        // Place boss, chest and door
-        MobBossValkyrie boss = new MobBossValkyrie(world);
-        boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
-        boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
-        boss.setDungeonID(dungeonID);
-        boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
-        world.setBlockAndMetadataWithNotify(bossPosition.x, y, bossPosition.z, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
-        Container inventory = BlockLogicChest.getInventory(world, bossPosition.x, y, bossPosition.z);
-        for (int i = 0; i < 6 + random.nextInt(6); i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    LOOT_RARE.getRandom().getItemStack(random)
-            );
-        }
-
-        WorldFeaturePoint[] treasureDoor = {
-                new WorldFeaturePoint(x - 14, y + 2, z + 41),
-                new WorldFeaturePoint(x - 14, y + 2, z + 42),
-                new WorldFeaturePoint(x - 14, y + 2, z + 43),
-                new WorldFeaturePoint(x - 15, y + 2, z + 41),
-                new WorldFeaturePoint(x - 15, y + 2, z + 42),
-                new WorldFeaturePoint(x - 15, y + 2, z + 43),
-        };
-        for(WorldFeaturePoint pos : treasureDoor){
-            pos.rotateFixPointYAxis(x, y, z, angle);
-        }
-
-        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
-
-        world.entityJoinedWorld(boss);
-    }
-
-    public WorldFeaturePoint getPos(int ix, int iy, int iz) {
-        WorldFeaturePoint pos = new WorldFeaturePoint(ix,iy,iz);
-        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
-        return pos;
-    }
-
-    public void createInnerDecorations(int x, int y, int z) {
-        // Create semicircle
-        createSemiCircle(x, y, z);
-
-        // Fountains
-        createFountain(x - 5, y + 2, z + 33, Direction.WEST);
-        createFountain(x - 24, y + 2, z + 33, Direction.EAST);
-
-        // Tree pods
-        createTreePods(x, y, z);
-
-        // Throne
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, true));
-        this.placeComponent(drawShell(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, true));
-
-        // Chest hole
-        this.placeComponent(drawVolume(0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true));
-
-        // Torches
-        WorldFeatureComponent torches = new WorldFeatureComponent();
-        torches.add(wfb(x - 11, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 11, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 18, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 18, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        this.placeComponent(torches);
-
-        // Throne cushion
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, true));
-        this.placeComponent(drawVolume(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, true));
-        this.placeComponent(drawPlane(Blocks.WOOL.id(), 11, Direction.WEST, 2, Direction.NORTH, 2, x - 14, y + 4, z + 48, true));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 13, y + 5, z + 48, true));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 16, y + 5, z + 48, true));
-
-        // Ceiling lights
-        createLight(x - 10, y + 14, z + 28);
-        createLight(x - 19, y + 14, z + 28);
-        createLight(x - 10, y + 14, z + 43);
-        createLight(x - 19, y + 14, z + 43);
-
-        // Staircase
-        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 4, x - 14, y, z, false));
-        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 3, x - 14, y, z + 1, false));
-        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 2, x - 14, y, z + 2, false));
-        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 1, x - 14, y, z + 3, false));
     }
 
     private void createBaseStructure(int x, int y, int z) {
@@ -268,7 +198,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         this.placeComponent(clear);
         // create clouds
         for(WorldFeaturePoint cloudPoint : cloudPoints){
-            cloudPoint.rotateFixPointYAxis(x,y,z,angle);
+            this.modifyPoint(cloudPoint);
             new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
@@ -280,7 +210,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         // Fill the chests with loot
         for(WorldFeatureBlock chest: chests.blockList){
             if(chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()){
-                populateChest(world, chest, random, LOOT_NORMAL, WorldFeatureBlock.conv2Int((random.nextGaussian() + 1) * 6));
+                populateChest(world, chest, random, LOOT_NORMAL, (int)Math.round((random.nextGaussian() + 1) * 6));
             }
         }
 
@@ -294,6 +224,88 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
 
         //// Throne room
         this.placeComponent(drawPlane(random, angelic, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
+    }
+
+    public void createInnerDecorations(int x, int y, int z) {
+        // Create semicircle
+        createSemiCircle(x, y, z);
+
+        // Fountains
+        createFountain(x - 5, y + 2, z + 33, Direction.WEST);
+        createFountain(x - 24, y + 2, z + 33, Direction.EAST);
+
+        // Tree pods
+        createTreePods(x, y, z);
+
+        // Throne
+        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, true));
+        this.placeComponent(drawShell(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, true));
+
+        // Chest hole
+        this.placeComponent(drawVolume(0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true));
+
+        // Torches
+        WorldFeatureComponent torches = new WorldFeatureComponent();
+        torches.add(wfb(x - 11, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+        torches.add(wfb(x - 11, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+        torches.add(wfb(x - 18, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+        torches.add(wfb(x - 18, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+        this.placeComponent(torches);
+
+        // Throne cushion
+        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, true));
+        this.placeComponent(drawVolume(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, true));
+        this.placeComponent(drawPlane(Blocks.WOOL.id(), 11, Direction.WEST, 2, Direction.NORTH, 2, x - 14, y + 4, z + 48, true));
+        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 13, y + 5, z + 48, true));
+        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 16, y + 5, z + 48, true));
+
+        // Ceiling lights
+        createLight(x - 10, y + 14, z + 28);
+        createLight(x - 19, y + 14, z + 28);
+        createLight(x - 10, y + 14, z + 43);
+        createLight(x - 19, y + 14, z + 43);
+
+        // Staircase
+        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 4, x - 14, y, z, false));
+        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 3, x - 14, y, z + 1, false));
+        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 2, x - 14, y, z + 2, false));
+        this.placeComponent(drawPlane(0, 0, Direction.WEST, 2, Direction.DOWN, 1, x - 14, y, z + 3, false));
+    }
+
+    private void createBossAndTreasure(int x, int y, int z) {
+        int dungeonID = AetherDimension.registerDungeonToMap(bossPosition.x, bossPosition.y, bossPosition.z);
+        // Place boss, chest and door
+        MobBossValkyrie boss = new MobBossValkyrie(world);
+        boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
+        boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
+        boss.setDungeonID(dungeonID);
+        boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
+        world.setBlockAndMetadataWithNotify(bossPosition.x, y, bossPosition.z, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, bossPosition.x, y, bossPosition.z);
+        if(inventory != null){
+            for (int i = 0; i < 6 + random.nextInt(6); i++) {
+                inventory.setItem(
+                        random.nextInt(inventory.getContainerSize()),
+                        LOOT_RARE.getRandom().getItemStack(random)
+                );
+            }
+        }
+
+        WorldFeaturePoint[] treasureDoor = {
+                new WorldFeaturePoint(x - 14, y + 2, z + 41),
+                new WorldFeaturePoint(x - 14, y + 2, z + 42),
+                new WorldFeaturePoint(x - 14, y + 2, z + 43),
+                new WorldFeaturePoint(x - 15, y + 2, z + 41),
+                new WorldFeaturePoint(x - 15, y + 2, z + 42),
+                new WorldFeaturePoint(x - 15, y + 2, z + 43),
+        };
+        for(WorldFeaturePoint pos : treasureDoor){
+            this.modifyPoint(pos);
+        }
+
+        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
+
+        world.entityJoinedWorld(boss);
     }
 
     public void createOuterDecorations(int x, int y, int z) {
@@ -363,10 +375,18 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
 
     public List<WorldFeaturePoint> getCloudPoints(int x, int y, int z) {
+        int slideY = 4; // default is 2
         List<WorldFeaturePoint> cloud = new ArrayList<>();
-        for (int i = 0; i < 120; i++) {
-            cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - 2 - random.nextInt(5), z - 5 + random.nextInt(65)));
+        for (int i = 0; i < 65; i++) {
+            cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - slideY - random.nextInt(5), z - 5 + i));
+            cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - slideY - random.nextInt(5), z - 5 + i));
+            cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - slideY - random.nextInt(5), z - 5 + i));
         }
+
+
+//        for (int i = 0; i < 120; i++) {
+//            cloud.add(new WorldFeaturePoint(x + 5 - random.nextInt(40), y - slideY - random.nextInt(5), z - 5 + random.nextInt(65)));
+//        }
         return cloud;
     }
 
@@ -488,10 +508,5 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         staircase.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
         staircase.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
         return staircase;
-    }
-
-    public void placeComponent(WorldFeatureComponent component) {
-        component.rotateYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
-        component.place(world);
     }
 }

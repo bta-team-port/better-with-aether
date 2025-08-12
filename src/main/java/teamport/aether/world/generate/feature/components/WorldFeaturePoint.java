@@ -32,26 +32,41 @@ public class WorldFeaturePoint {
         );
     }
 
-    public static int conv2Int(double coordinate) {
-        if (coordinate < 0) {
-            return MathHelper.floor(coordinate);
-        } else {
-            return MathHelper.ceil(coordinate);
-        }
-    }
-
     public void move(){}
 
     public void rotateFixPointYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
         Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
         vec.rotateAroundY(MathHelper.toRadians(angle));
-        this.x = conv2Int(vec.x + fixPointX);
-        this.y = conv2Int(vec.y + fixPointY);
-        this.z = conv2Int(vec.z + fixPointZ);
+        this.x = (int)Math.round(vec.x + fixPointX);
+        this.y = (int)Math.round(vec.y + fixPointY);
+        this.z = (int)Math.round(vec.z + fixPointZ);
     }
 
-    public void translateX(int fixPointX, int fixPointY, int fixPointZ, float angle){}
-    public void translateZ(int fixPointX, int fixPointY, int fixPointZ, float angle){}
+    public void rotateFixPointXAxis(int fixPointX, int fixPointY, int fixPointZ, float angle){
+        Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
+        vec.rotateAroundX(MathHelper.toRadians(angle));
+    }
+
+    public void rotateFixPointZAxis(int fixPointX, int fixPointY, int fixPointZ, float angle){
+        Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
+        vec.rotateAroundZ(MathHelper.toRadians(angle));
+        this.x = (int)Math.round(vec.x + fixPointX);
+        this.y = (int)Math.round(vec.y + fixPointY);
+        this.z = (int)Math.round(vec.z + fixPointZ);
+    }
+
+    public void rotateSkewCenterYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle){
+        int dx = this.x - fixPointX;
+        int dy = this.y - fixPointY;
+        int dz = this.z - fixPointZ;
+        dx = (int)Math.round(dx - Math.tan(angle / 2) * dz);
+        dz = (int)Math.round(dx * Math.sin(angle) + dz);
+        dx = (int)Math.round(dx - Math.tan(angle / 2) * dz);
+        this.x = dx + fixPointX;
+        this.y = dy + fixPointY;
+        this.z = dz + fixPointZ;
+    }
+
     public void pointMirror(int fixPointX, int fixPointY, int fixPointZ){}
 
 
