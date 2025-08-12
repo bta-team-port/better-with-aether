@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureAetherDungeonBase;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
@@ -83,7 +84,8 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
 
-        int dungeonID = AetherDimension.registerDungeonToMap(x + 8, y + 2, z + 8);
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
 
         drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
         this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
@@ -109,16 +111,14 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         boss.setReturnPoint(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
 
-        boss.setDungeonID(dungeonID);
+        boss.setDungeonID(dungeon.getId());
 
-        WorldFeaturePoint[] treasureDoor = new WorldFeaturePoint[] {
+        dungeon.setDoorBlocks(new WorldFeaturePoint[] {
             new WorldFeaturePoint(x + 7, y +1, z + 7),
             new WorldFeaturePoint(x + 8, y +1, z + 7),
             new WorldFeaturePoint(x + 7, y +1, z + 8),
             new WorldFeaturePoint(x + 8, y +1, z + 8),
-        };
-
-        Arrays.stream(treasureDoor).forEach(boss::addDestroyOnDeathBlock);
+        });
 
         world.entityJoinedWorld(boss);
 

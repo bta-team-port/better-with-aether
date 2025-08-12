@@ -3,7 +3,6 @@ package teamport.aether.world;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.Tag;
 import net.minecraft.core.world.World;
-import teamport.aether.helper.BlockCoordinate;
 
 import java.util.Collection;
 import java.util.HashMap;
