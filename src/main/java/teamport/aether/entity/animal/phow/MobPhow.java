@@ -21,9 +21,8 @@ public class MobPhow extends MobAetherAnimal {
     public float wingAngle;
     public float wingAngleO;
     public float aimingForFold;
-    public int jumps;
-    public int jrem;
-    public boolean jpress;
+    public int jumpsRemaining;
+    public boolean jumpPressed;
     public int ticks;
     public MobPhow(World world) {
         super(world);
@@ -37,8 +36,8 @@ public class MobPhow extends MobAetherAnimal {
         super.tick();
         if (this.onGround) {
             this.aimingForFold = 0.1F;
-            this.jpress = false;
-            this.jrem = this.jumps;
+            this.jumpPressed = false;
+            this.jumpsRemaining = 1;
         } else {
             this.aimingForFold = 1.0F;
         }
@@ -95,22 +94,24 @@ public class MobPhow extends MobAetherAnimal {
                 }
 
                 if (this.onGround && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.onGround = false;
                     this.yd = 1.4;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
                 } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.yd = 0.5;
-                    this.jpress = true;
-                    --this.jrem;
-                } else if (this.jrem > 0 && !this.jpress && ((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
+                } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.yd = 1.2;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
                 }
 
-                if (this.jpress && !((MobAccessor) mob).getJumping()) {
-                    this.jpress = false;
+                if (this.jumpPressed && !((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = false;
                 }
 
                 double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));

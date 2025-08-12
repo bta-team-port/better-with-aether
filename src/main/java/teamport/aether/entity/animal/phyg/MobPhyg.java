@@ -25,9 +25,8 @@ public class MobPhyg extends MobAetherAnimal {
     public float wingAngle;
     public float wingAngleO;
     public float aimingForFold;
-    public int jumps;
-    public int jrem;
-    public boolean jpress;
+    public int jumpsRemaining;
+    public boolean jumpPressed;
     public int ticks;
     public List<WeightedRandomLootObject> burningMobDrops = new ArrayList<>();
 
@@ -35,6 +34,7 @@ public class MobPhyg extends MobAetherAnimal {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phyg");
         this.setSize(0.9F, 0.9F);
+        this.jumpsRemaining = 1;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_RAW.getDefaultStack(), 1, 2));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.burningMobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_COOKED.getDefaultStack(), 1, 2));
@@ -44,8 +44,8 @@ public class MobPhyg extends MobAetherAnimal {
         super.tick();
         if (this.onGround) {
             this.aimingForFold = 0.1F;
-            this.jpress = false;
-            this.jrem = this.jumps;
+            this.jumpPressed = false;
+            this.jumpsRemaining = 1;
         } else {
             this.aimingForFold = 1.0F;
         }
@@ -61,6 +61,12 @@ public class MobPhyg extends MobAetherAnimal {
             this.yd = -0.2;
         }
 
+    }
+
+    public void onGround() {
+        if (this.onGround ) {
+            this.jumpsRemaining = 1;
+        }
     }
 
     public void updateAI() {
@@ -98,22 +104,24 @@ public class MobPhyg extends MobAetherAnimal {
                 }
 
                 if (this.onGround && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.onGround = false;
                     this.yd = 1.4;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
                 } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.yd = 0.5;
-                    this.jpress = true;
-                    --this.jrem;
-                } else if (this.jrem > 0 && !this.jpress && ((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
+                } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
                     this.yd = 1.2;
-                    this.jpress = true;
-                    --this.jrem;
+                    this.jumpPressed = true;
+                    --this.jumpsRemaining;
                 }
 
-                if (this.jpress && !((MobAccessor) mob).getJumping()) {
-                    this.jpress = false;
+                if (this.jumpPressed && !((MobAccessor) mob).getJumping()) {
+                    this.jumpPressed = false;
                 }
 
                 double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));

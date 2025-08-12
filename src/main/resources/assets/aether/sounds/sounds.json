@@ -41,6 +41,12 @@
       "mob/slider/awaken.ogg"
     ]
   },
+  "mob.wingflap": {
+    "subtitle": "subtitles.mob.wingflap",
+    "sounds": [
+      "mob/wingflap.ogg"
+    ]
+  },
   "mob.zephyr.call": {
     "subtitle": "subtitles.mob.zephyr.call",
     "sounds": [
