@@ -2,7 +2,7 @@
   "achievement": {
     "attenuation_distance": 128,
     "sounds": [
-      "achievement_bronze.ogg"
+      "achievement.ogg"
     ]
   },
   "achievement.bronze": {
