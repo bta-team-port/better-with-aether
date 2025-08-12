@@ -2,6 +2,7 @@ package teamport.aether.entity.monster.whirly;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.entity.particle.Particle;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
@@ -11,6 +12,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItems;
@@ -151,26 +153,14 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
     }
 
     public boolean canSpawnHere() {
-        if (this.y < 64.0) {
-            this.y += 64.0;
-        }
-
-        if (this.world.getIsAnySolidGround(this.bb) && this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb)) {
-            int i = MathHelper.floor(this.x);
-            int j = MathHelper.floor(this.bb.minY);
-            int k = MathHelper.floor(this.z);
-            boolean flag = true;
-
-            for (int l = 1; l < 20 && l + j < 125; ++l) {
-                if (this.world.getBlockLightValue(i, j + l, k) <= 12 || this.world.getBlockId(i, j + l, k) != 0) {
-                    flag = false;
-                    break;
-                }
-            }
-
-            return flag;
-        } else {
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+        int id = this.world.getBlockId(x, y - 1, z);
+        if (Blocks.blocksList[id] == null) {
             return false;
+        } else {
+            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
         }
     }
 
