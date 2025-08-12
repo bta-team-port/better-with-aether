@@ -25,12 +25,17 @@ import java.util.Random;
 public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBase {
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
+    public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
 
     static {
-        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 85);
-        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 5);
+        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
+        carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
+
+        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 85);
+        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 5);
+        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
@@ -87,15 +92,15 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
-
-        drawShell(world, random, carvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
         dungeon.setClearArea( new Pair<> (
-            new WorldFeaturePoint(x, y -2, z),
-            new WorldFeaturePoint(x + 16, y + 14, z + 16)
+                new WorldFeaturePoint(x, y -2, z),
+                new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
 
+        drawShell(world, random, lockedCarvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
         this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
-        drawShell(world, random, carvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
+
+        drawShell(world, random, lockedCarvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
         this.addSolidBox(world, 0, 0,x + 7, y - 1, z + 7, 2, 2, 2, true);
 
         int x2 = x + 7 + random.nextInt(2);
