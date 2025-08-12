@@ -89,6 +89,7 @@
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "dimension.HostileParadiseMixin",
     "dimension.SPBumpToOverworldMixin",
+    "entity.RenderSliderBoundingBoxMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
     "light.RenderBlocksCacheMixin",
