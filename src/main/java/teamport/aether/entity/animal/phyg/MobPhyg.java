@@ -105,17 +105,17 @@ public class MobPhyg extends MobAetherAnimal implements EntityJumpAmount {
                 }
 
                 if (this.onGround && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
                     this.onGround = false;
                     this.yd = 1.4;
                     this.jumpPressed = true;
                 } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
                     this.yd = 0.5;
                     this.jumpPressed = true;
                     --this.jumpsRemaining;
                 } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 1.0f, 1.0f);
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
                     this.yd = 1.2;
                     this.jumpPressed = true;
                     --this.jumpsRemaining;
