@@ -100,13 +100,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
 
         if (this.isBoxEmpty(x, y, z, EAST, 16, UP, 12, SOUTH, 16)) return false;
 
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
-        dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
-        dungeon.setClearArea(new Pair<>(
-                new WorldFeaturePoint(x, y - 2, z),
-                new WorldFeaturePoint(x + 16, y + 14, z + 16)
-        ));
-
         drawShell(random, lockedCarvedHolystone, EAST, 16, UP, 12, SOUTH, 16, x, y, z, true).place(world);
         this.addSolidBox(0, 0, x + 1, y + 1, z + 1, 14, 10, 14);
 
@@ -117,10 +110,37 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         int y2 = y - 1;
         int z2 = z + 7 + random.nextInt(2);
 
+        createBossAndTreasure(world, random, x, y, z, x2, y2, z2);
+        x2 = x + 20;
+        y2 = y;
+        z2 = z + 2;
+
+        if (this.isBoxEmpty(x2, y2, z2, EAST, 12, UP, 12, SOUTH, 12)) {
+            this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
+            return true;
+        }
+
+        drawShell(random, carvedHolystone, EAST, 12, UP, 12, SOUTH, 12, x2, y2, z2, true).place(world);
+        this.addSolidBox(0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10);
+        this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
+
+        findNextRoom(x2, y2, z2);
+        return true;
+    }
+
+    private static void createBossAndTreasure(World world, Random random, int x, int y, int z, int x2, int y2, int z2) {
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
+        dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
+        dungeon.setClearArea(new Pair<>(
+                new WorldFeaturePoint(x, y - 2, z),
+                new WorldFeaturePoint(x + 16, y + 14, z + 16)
+        ));
+
         world.setBlockAndMetadataWithNotify(x2, y2, z2, AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED.id(), 4);
         Container inventory = BlockLogicChest.getInventory(world, x2, y2, z2);
 
-        for (int i = 0; i < 6 + random.nextInt(6); i++) {
+        int quantity = (int)Math.round((random.nextGaussian() + 1) * 9);
+        for (int i = 0; i < quantity; i++) {
             inventory.setItem(
                     random.nextInt(inventory.getContainerSize()),
                     LOOT_RARE.getRandom().getItemStack(random)
@@ -142,22 +162,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         });
 
         world.entityJoinedWorld(boss);
-
-        x2 = x + 20;
-        y2 = y;
-        z2 = z + 2;
-
-        if (this.isBoxEmpty(x2, y2, z2, EAST, 12, UP, 12, SOUTH, 12)) {
-            this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
-            return true;
-        }
-
-        drawShell(random, carvedHolystone, EAST, 12, UP, 12, SOUTH, 12, x2, y2, z2, true).place(world);
-        this.addSolidBox(0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10);
-        this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
-
-        findNextRoom(x2, y2, z2);
-        return true;
     }
 
     public boolean findNextRoom(int x, int y, int z) {
