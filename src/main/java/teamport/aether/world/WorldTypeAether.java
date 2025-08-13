@@ -1,5 +1,6 @@
 package teamport.aether.world;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -12,6 +13,7 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
+import teamport.aether.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 
 public class WorldTypeAether extends WorldType {
@@ -84,13 +86,42 @@ public class WorldTypeAether extends WorldType {
         return world.getBlock(i, j, k) == AetherBlocks.GRASS_AETHER;
     }
 
+    public float getTimeOfDay(World world, long tick, float partialTick) {
+        boolean hasKilledGold = Minecraft.getMinecraft().statsCounter.isUnlocked(AetherAchievements.GOLD);
+        if (hasKilledGold) {
+
+            int timeTicks = (int) (tick % 0x13880L);
+            float timeFraction = ((float) timeTicks + partialTick) / 120000F - 0.25F;
+            if (timeTicks > 60000) {
+                timeTicks -= 40000;
+                timeFraction = ((float) timeTicks + partialTick) / 20000F - 0.25F;
+            }
+
+            if (timeFraction < 0.0F) {
+                timeFraction++;
+            }
+
+            if (timeFraction > 1.0F) {
+                timeFraction--;
+            }
+
+            float f2 = timeFraction;
+            timeFraction = 1.0F - (float) ((Math.cos((double) timeFraction * 3.1415926535897931D) + 1.0D) / 2D);
+            timeFraction = f2 + (timeFraction - f2) / 3F;
+            return timeFraction;
+
+        } else {
+            return 0.0F;
+        }
+    }
+
     @Override
-    public float getCelestialAngle(World world, long tick, float partialTick) {  //TODO REPLACE WITH SUN SPIRIT STUFF
+    public float getCelestialAngle(World world, long tick, float partialTick) {
         return this.getTimeOfDay(world, tick, partialTick);
     }
 
     @Override
-    public int getSkyDarken(World world, long tick, float partialTick) { //TODO REPLACE WITH SUN SPIRIT STUFF
+    public int getSkyDarken(World world, long tick, float partialTick) {
         float f1 = this.getCelestialAngle(world, tick, partialTick);
         float f2 = 1.0f - (MathHelper.cos(f1 * 3.141593f * 2.0f) * 2.0f + 0.5f);
         if (f2 < 0.0f) {
@@ -109,7 +140,7 @@ public class WorldTypeAether extends WorldType {
 
     @Override
     public boolean mayRespawn() {
-        return true;
+        return false;
     }
 
 }
