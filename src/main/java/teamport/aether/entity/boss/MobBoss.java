@@ -82,9 +82,9 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
 
         if (trophy != null) {
             world.dropItem((int) x, (int) y, (int) z, trophy);
+            world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
-        world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         if (dungeonID != null) {
             AetherDimension.dungeonMap.remove(dungeonID, world);
         }

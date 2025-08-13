@@ -47,7 +47,11 @@ public class ProjectileDart extends Projectile implements ProjectileAether {
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        if (dartType == 1) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
+        } else {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        }
         this.inGround = false;
         this.doesDartBelongToPlayer = false;
         this.dartType = dartType;
@@ -62,14 +66,18 @@ public class ProjectileDart extends Projectile implements ProjectileAether {
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        if (dartType == 1) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
+        } else {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        }
         this.inGround = false;
         this.doesDartBelongToPlayer = false;
         this.dartType = dartType;
     }
 
-    public ProjectileDart(World world, Mob entityliving, boolean doesDartBelongToPlayer, int dartType) {
-        super(world, entityliving);
+    public ProjectileDart(World world, Mob mob, boolean doesDartBelongToPlayer, int dartType) {
+        super(world, mob);
         this.mobsHit = 0;
         this.xTile = -1;
         this.yTile = -1;
@@ -77,7 +85,11 @@ public class ProjectileDart extends Projectile implements ProjectileAether {
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        if (dartType == 1) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
+        } else {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
+        }
         this.inGround = false;
         this.doesDartBelongToPlayer = false;
         this.setDoesDartBelongToPlayer(doesDartBelongToPlayer);

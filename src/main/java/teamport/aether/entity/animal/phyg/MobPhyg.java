@@ -212,7 +212,7 @@ public class MobPhyg extends MobAetherAnimal implements EntityJumpAmount {
 
     @Override
     public int getJumpMaxAmount() {
-        return 2;
+        return 1;
     }
 
     @Override

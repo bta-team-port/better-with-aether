@@ -254,7 +254,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpA
 
     @Override
     public int getJumpMaxAmount() {
-        return 4;
+        return 3;
     }
 
     @Override
