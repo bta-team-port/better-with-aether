@@ -187,8 +187,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BlockBuilder dungeonStoneLocked = stone
                 .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-                .setHardness(-1.0f)
-                .setResistance(-1.0f);
+                .setHardness(999999999F)
+                .setResistance(999999999F);
 
         BlockBuilder oreBlock = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.METAL)
