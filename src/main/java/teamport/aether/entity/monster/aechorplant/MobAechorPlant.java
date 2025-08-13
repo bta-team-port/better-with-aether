@@ -180,11 +180,6 @@ public class MobAechorPlant extends MobMonster implements Enemy {
         return false;
     }
 
-    @Override
-    public boolean isPushable() {
-        return false;
-    }
-
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("AttTime", (short) this.attackCooldown);
