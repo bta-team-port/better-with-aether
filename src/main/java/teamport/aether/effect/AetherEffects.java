@@ -181,14 +181,14 @@ public class AetherEffects {
         if(effect == null){
             return false;
         }
-        if (!(effectContainer.getParent() instanceof IHasEffects) || !(effectContainer.getParent() instanceof Mob)) {
-            return false;
+        if ((effectContainer.getParent() instanceof IHasEffects) && (effectContainer.getParent() instanceof Mob)) {
+            IHasEffects affected = (IHasEffects) effectContainer.getParent();
+            if (effectContainer.hasEffect(effect) && effect instanceof ILockInteractable) {
+                ((ILockInteractable) effect).lockTriggered(affected);
+                effectContainer.remove(these);
+                return true;
+            }
         }
-        IHasEffects affected = (IHasEffects) effectContainer.getParent();
-        if(effectContainer.hasEffect(effect) && effect instanceof ILockInteractable){
-            ((ILockInteractable)effect).lockTriggered(affected);
-        }
-        effectContainer.remove(these);
-        return true;
+        return false;
     }
 }
