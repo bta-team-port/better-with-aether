@@ -144,7 +144,7 @@ public class ProjectileElementBase extends Projectile {
                 Vec3 lookAngle = entity.getLookAngle();
                 if (lookAngle != null) {
                     this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, initialSpeed, 0.0F);
-                    bounceCount = 16;
+                    bounceCount = 19;
                 }
                 return true;
             }
