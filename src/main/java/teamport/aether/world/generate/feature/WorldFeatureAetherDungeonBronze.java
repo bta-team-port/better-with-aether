@@ -31,6 +31,12 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
+    public static final int ROOM_COUNT_MAX = 13;
+    public static final int ROOM_HEIHGT_MEAN = 2;
+    public int roomCount = 0;
+    public World world;
+    public Random random;
+
 
     static {
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
@@ -88,11 +94,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
     }
 
-    public static final int roomCountMax = 13;
-    public int roomCount = 0;
-    public World world;
-    public Random random;
-
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
@@ -100,35 +101,33 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
 
         if (this.isBoxEmpty(x, y, z, EAST, 16, UP, 12, SOUTH, 16)) return false;
 
+        // antechamber
         drawShell(random, lockedCarvedHolystone, EAST, 16, UP, 12, SOUTH, 16, x, y, z, true).place(world);
         this.addSolidBox(0, 0, x + 1, y + 1, z + 1, 14, 10, 14);
 
-        drawShell(random, lockedCarvedHolystone, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true).place(world);
-        this.addSolidBox(0, 0, x + 7, y - 1, z + 7, 2, 2, 2);
+        // boss room
+        createBossAndTreasure(x, y, z, x + 7 + random.nextInt(2),  y - 1, z + 7 + random.nextInt(2));
 
-        int x2 = x + 7 + random.nextInt(2);
-        int y2 = y - 1;
-        int z2 = z + 7 + random.nextInt(2);
 
-        createBossAndTreasure(world, random, x, y, z, x2, y2, z2);
-        x2 = x + 20;
-        y2 = y;
-        z2 = z + 2;
+        int x2 = x + 20;
+        int z2 = z + 2;
 
-        if (this.isBoxEmpty(x2, y2, z2, EAST, 12, UP, 12, SOUTH, 12)) {
-            this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
+        if (this.isBoxEmpty(x2, y, z2, EAST, 12, UP, 12, SOUTH, 12)) {
+            this.addSquareTube(holystone, x2 - 5, y, z2 + 3, 6, 6, 6, NORTH);
             return true;
         }
 
-        drawShell(random, carvedHolystone, EAST, 12, UP, 12, SOUTH, 12, x2, y2, z2, true).place(world);
-        this.addSolidBox(0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10);
-        this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
+        drawShell(random, carvedHolystone, EAST, 12, UP, 12, SOUTH, 12, x2, y, z2, true).place(world);
+        this.addSolidBox(0, 0, x2 + 1, y + 1, z2 + 1, 10, 10, 10);
+        this.addSquareTube(holystone, x2 - 5, y, z2 + 3, 6, 6, 6, NORTH);
 
-        findNextRoom(x2, y2, z2);
+        findNextRoom(x2, y, z2);
         return true;
     }
 
-    private static void createBossAndTreasure(World world, Random random, int x, int y, int z, int x2, int y2, int z2) {
+    private void createBossAndTreasure(int x, int y, int z, int x2, int y2, int z2) {
+        drawShell(random, lockedCarvedHolystone, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true).place(world);
+        this.addSolidBox(0, 0, x + 7, y - 1, z + 7, 2, 2, 2);
         DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         dungeon.setClearArea(new Pair<>(
@@ -136,16 +135,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
 
-        world.setBlockAndMetadataWithNotify(x2, y2, z2, AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED.id(), 4);
-        Container inventory = BlockLogicChest.getInventory(world, x2, y2, z2);
-
-        int quantity = (int)Math.round((random.nextGaussian() + 1) * 9);
-        for (int i = 0; i < quantity; i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    LOOT_RARE.getRandom().getItemStack(random)
-            );
-        }
+        this.placeTreasure(x2, y2, z2);
 
         MobBossSlider boss = new MobBossSlider(world);
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
@@ -164,6 +154,20 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         world.entityJoinedWorld(boss);
     }
 
+    private void placeTreasure(int x2, int y2, int z2) {
+        world.setBlockAndMetadataWithNotify(x2, y2, z2, AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED.id(), 4);
+        Container inventory = BlockLogicChest.getInventory(world, x2, y2, z2);
+        if(inventory == null) return;
+        int quantity = (int)Math.round((random.nextGaussian() + 1) * 9);
+        for (int i = 0; i < quantity; i++) {
+            inventory.setItem(
+                    random.nextInt(inventory.getContainerSize()),
+                    LOOT_RARE.getRandom().getItemStack(random)
+            );
+        }
+    }
+
+    // TODO rewrite it to be not recursive!
     public boolean findNextRoom(int x, int y, int z) {
         int tries = 3;
         ArrayList<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.horizontalDirections));
@@ -171,6 +175,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
 
         boolean finished = true;
         while (finished && tries-- > 0) {
+            // placeRoom calls findNextRoom
             finished = this.placeNextRoom(x, y, z, dirList.get(index));
             index = random.nextInt(dirList.size() - 1);
             dirList.remove(index);
@@ -181,6 +186,11 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         return false;
     }
 
+    double nextExponential() {
+        return -Math.log(1 - random.nextDouble());
+    }
+
+    // TODO sometime places the start of a tunnel but does not build it in full
     public boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {
         int x = finalX, z = finalZ;
 
@@ -196,19 +206,25 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         if (dir == WEST) {
             z -= 16;
         }
+        int height = Math.min((int)Math.floor(nextExponential() * ROOM_HEIHGT_MEAN), 6);
 
-        if (this.roomCount > roomCountMax) {
+        if (this.roomCount > ROOM_COUNT_MAX) {
             this.endCorridor(finalX, finalY, finalZ, pickNewDir(dir));
             return false;
         }
-        if (this.isBoxEmpty(x, finalY, z, EAST, 12, UP, 8, SOUTH, 12)) {
+        if (this.isBoxEmpty(x, finalY, z, EAST, 12, UP, 8 + height, SOUTH, 12)) {
             return true;
         }
         if (world.canBlockSeeTheSky(x, finalY + 1, z)) return true;
 
         ++this.roomCount;
-        drawShell(random, carvedHolystone, EAST, 12, UP, 8, SOUTH, 12, x, finalY, z, true).place(world);
-        this.addSolidBox(0, 0, x + 1, finalY + 1, z + 1, 10, 6, 10);
+        // varies the height, clamps it down to 8, cause we could get very large numbers
+
+        // place room
+        drawShell(random, carvedHolystone, EAST, 12, UP, 8 + height, SOUTH, 12, x, finalY, z, true).place(world);
+        this.addSolidBox(0, 0, x + 1, finalY + 1, z + 1, 10, 6 + height, 10);
+
+        // plinth
         drawPlane(random, carvedHolystone, SOUTH, 4, EAST, 4, x + 4, finalY + 1, z + 4, true).place(world);
 
         final int p2 = x + 5;
@@ -221,19 +237,15 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         } else {
             if (world.rand.nextInt(3) == 0) {
                 chests.add(placeChestOrMimic(random, p2, finalY + 2, q2));
-//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, finalY + 2, q2);
             }
             if (world.rand.nextInt(3) == 0) {
                 chests.add(placeChestOrMimic(random, p2, finalY + 2, q2 + 1));
-//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, finalY + 2, q2 + 1);
             }
             if (world.rand.nextInt(3) == 0) {
                 chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2));
-//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, finalY + 2, q2);
             }
             if (world.rand.nextInt(3) == 0) {
                 chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2 + 1));
-//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, finalY + 2, q2 + 1);
             }
         }
         chests.place(world);
@@ -274,6 +286,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         return result;
     }
 
+
     public void endCorridor(final int finalX, final int finalY, final int finalZ, Direction dir) {
         boolean tunnelling = true;
         int x = finalX;
@@ -283,11 +296,12 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         if (dir.getId() > 2) {
             dir = Direction.horizontalDirections[random.nextInt(3)];
         }
+
         if (dir == NORTH) {
             x += 11;
             z += 3;
             while (tunnelling) {
-                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || z - finalZ > 100) {
+                if (this.isBoxEmpty(x, finalY, z, UP, 8, EAST, 6, SOUTH, 1) || z - finalZ > 100) {
                     tunnelling = false;
                 }
                 drawPlane(random, holystone, UP, 8, SOUTH, 6, x, finalY, z, true).place(world);
@@ -295,16 +309,15 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
                 ++x;
             }
         }
-
         if (dir == EAST) {
             x += 3;
             z += 11;
             while (tunnelling) {
-                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || z - finalZ > 100) {
+                if (this.isBoxEmpty(x, finalY, z, UP, 8, EAST, 6, SOUTH, 1) || z - finalZ > 100) {
                     tunnelling = false;
                 }
-                drawPlane(random, holystone, UP, 6, EAST, 8, x, finalY, z, true).place(world);
-                drawPlane(0, 0, UP, 4, EAST, 6, x + 1, finalY + 1, z, true).place(world);
+                drawPlane(random, holystone, UP, 8, EAST, 6, x, finalY, z, true).place(world);
+                drawPlane(0, 0, UP, 6, EAST, 4, x + 1, finalY + 1, z, true).place(world);
                 ++z;
             }
         }
@@ -312,18 +325,22 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         if (dir == SOUTH) {
             x += 3;
             while (tunnelling) {
-                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || finalY - z > 100) {
+                if (this.isBoxEmpty(x, finalY, z, UP, 8, EAST, 6,  SOUTH, 1) || finalY - z > 100) {
                     tunnelling = false;
                 }
 
-                drawPlane(random, holystone, UP, 6, EAST, 8, x, finalY, z, true).place(world);
-                drawPlane(0, 0, UP, 4, EAST, 6, x + 1, finalY + 1, z, true).place(world);
+                drawPlane(random, holystone, UP, 8, EAST, 6, x, finalY, z, true).place(world);
+                drawPlane(0, 0, UP, 6, EAST, 4, x + 1, finalY + 1, z, true).place(world);
                 --z;
             }
         }
     }
 
     public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
+        return isBoxEmpty(startX,startY,startZ,direction1,length1,direction2,length2,direction3,length3, 0.35F);
+    }
+
+    public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, float percent) {
         int volume = 0;
         int blockX;
         int blockY;
@@ -347,7 +364,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         }
 
         // I'm literally frito-lay fr fr fr
-        return volume > ((length1 * length2 * length3) * 0.35F);
+        return volume > ((length1 * length2 * length3) * percent);
     }
 
     public void addSolidBox(int id, int meta, int startX, int startY, int startZ, int lengthX, int lengthY, int lengthZ) {
