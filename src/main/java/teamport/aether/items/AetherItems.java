@@ -394,17 +394,17 @@ public final class AetherItems {
         ARMOR_LEGGINGS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.leggings.neptune", itemKey("armor_leggings_neptune"), itemID("ARMOR_LEGGINGS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 1));
         ARMOR_BOOTS_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemArmor("armor.boots.neptune", itemKey("armor_boots_neptune"), itemID("ARMOR_BOOTS_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 0));
 
-        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"),ArmorMaterial.LEATHER,4));
-        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"),ArmorMaterial.CHAINMAIL,4));
-        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON,4));
-        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD,4));
-        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND,4));
-        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL,4));
-        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE,4));
-        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE,4));
-        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,4));
-        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,4));
-        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,4));
+        ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"),ArmorMaterial.LEATHER,4).setDamage(1));
+        ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"),ArmorMaterial.CHAINMAIL,4).setDamage(2));
+        ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON,4).setDamage(1));
+        ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD,4).setDamage(2));
+        ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND,4).setDamage(3));
+        ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL,4).setDamage(2));
+        ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE,4).setDamage(1));
+        ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE,4).setDamage(2));
+        ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN,4).setDamage(3));
+        ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX,4).setDamage(3));
+        ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID).build(new ItemGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE,4).setDamage(3));
 
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID).build(new ItemRegenStone("armor.talisman.regen", itemKey("armor_talisman_regen"), itemID("ARMOR_TALISMAN_REGEN"),"regen"));
