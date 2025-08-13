@@ -23,7 +23,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public boolean isSwinging;
     public boolean duel;
     public int teleportTimer;
-    public int angerLevel;
     public int chatTime;
     public float sinage;
     public int attackStrength;
@@ -59,8 +58,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         }
 
         this.moveSpeed = this.target == null ? 0.5F : 1.0F;
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null || this.angerLevel > 0)) {
-            this.angerLevel = 0;
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && this.target != null) {
             this.target = null;
         }
 
@@ -88,7 +86,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public void updateAI() {
         super.updateAI();
         ++this.teleportTimer;
-        if (this.duel && this.target != null && this.angerLevel > 0) {
+        if (this.duel && this.target != null) {
             if (this.teleportTimer >= 125) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 8);
             } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
@@ -106,7 +104,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
         if (this.target != null && !this.target.isAlive()) {
             this.target = null;
-            this.angerLevel = 0;
             this.duel = false;
         }
 
@@ -157,7 +154,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     }
 
     public Entity findPlayerToAttack() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.duel && this.angerLevel > 0 ? super.getTarget() : null;
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.duel && this.target != null ? super.getTarget() : null;
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -255,15 +252,15 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putShort("Anger", (short) this.angerLevel);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
+        tag.putBoolean("duel", this.duel);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.angerLevel = tag.getShort("Anger");
         this.teleportTimer = tag.getShort("teleportTimer");
+        this.duel = tag.getBoolean("duel");
     }
 
     @Override
@@ -314,7 +311,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     public void becomeAngryAt(Entity entity) {
         this.target = entity;
-        this.angerLevel = 200 + this.random.nextInt(200);
     }
 
     @Override
@@ -342,12 +338,13 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             this.swingArm();
             entity.hurt(this, this.attackStrength, DamageType.COMBAT);
             if (this.target != null && entity == this.target && entity instanceof Player) {
-                Player e1 = (Player) entity;
-                if (e1.getHealth() <= 0 && this.chatTime <= 0) {
+                Player target = (Player) entity;
+                if (target.getHealth() <= 0 && this.chatTime <= 0) {
                     this.target = null;
-                    this.angerLevel = 0;
                     this.chatTime = 60;
                     ((Player) entity).sendMessage("As expected of a human.");
+                    this.heal(400);
+                    this.duel = false;
                 }
             }
         }
