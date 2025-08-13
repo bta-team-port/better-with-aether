@@ -35,6 +35,6 @@ public abstract class ContainerInventoryMixinGlovesDamage {
             float ending_damage = AetherToolMaterial.ZANITE.getEfficiency(true) / AetherToolMaterial.ZANITE.getEfficiency(false);
             return Math.round(MathHelper.lerp(1,ending_damage, durability_progress));
         }
-        return gloves.damage;
+        return Math.max(gloves.damage, 1);
     }
 }
