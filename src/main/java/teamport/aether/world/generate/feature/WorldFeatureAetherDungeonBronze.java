@@ -3,17 +3,18 @@ package teamport.aether.world.generate.feature;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.DungeonMapEntry;
-import teamport.aether.world.generate.feature.components.WorldFeatureAetherDungeonBase;
+import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -22,7 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBase {
+import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+
+public class WorldFeatureAetherDungeonBronze extends WorldFeature {
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
@@ -54,7 +58,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 100.0);
 
-        for(int i = 0; i < 9; ++i) {
+        for (int i = 0; i < 9; ++i) {
             LOOT_NORMAL.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_MORNING.id + i])), 10.0);
         }
 
@@ -70,6 +74,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 8), 100.0);
 
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
     static {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 8), 100.0);
@@ -85,23 +90,28 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
     public static final int roomCountMax = 13;
     public int roomCount = 0;
+    public World world;
+    public Random random;
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        if (!this.isBoxSolid(world, x, y, z, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16)) return false;
+        this.world = world;
+        this.random = random;
+
+        if (this.isBoxEmpty(x, y, z, EAST, 16, UP, 12, SOUTH, 16)) return false;
 
         DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
-        dungeon.setClearArea( new Pair<> (
-                new WorldFeaturePoint(x, y -2, z),
+        dungeon.setClearArea(new Pair<>(
+                new WorldFeaturePoint(x, y - 2, z),
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
 
-        drawShell(world, random, lockedCarvedHolystone, Direction.EAST, 16, Direction.UP, 12, Direction.SOUTH, 16, x, y, z, true);
-        this.addSolidBox(world, 0, 0, x + 1, y + 1, z + 1, 14, 10, 14, true);
+        drawShell(random, lockedCarvedHolystone, EAST, 16, UP, 12, SOUTH, 16, x, y, z, true).place(world);
+        this.addSolidBox(0, 0, x + 1, y + 1, z + 1, 14, 10, 14);
 
-        drawShell(world, random, lockedCarvedHolystone, Direction.EAST, 4, Direction.UP, 4, Direction.SOUTH, 4,x + 6, y - 2, z + 6, true);
-        this.addSolidBox(world, 0, 0,x + 7, y - 1, z + 7, 2, 2, 2, true);
+        drawShell(random, lockedCarvedHolystone, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true).place(world);
+        this.addSolidBox(0, 0, x + 7, y - 1, z + 7, 2, 2, 2);
 
         int x2 = x + 7 + random.nextInt(2);
         int y2 = y - 1;
@@ -112,8 +122,8 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         for (int i = 0; i < 6 + random.nextInt(6); i++) {
             inventory.setItem(
-                random.nextInt(inventory.getContainerSize()),
-                LOOT_RARE.getRandom().getItemStack(random)
+                    random.nextInt(inventory.getContainerSize()),
+                    LOOT_RARE.getRandom().getItemStack(random)
             );
         }
 
@@ -124,11 +134,11 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
 
         boss.setDungeonID(dungeon.getId());
 
-        dungeon.setDoorBlocks(new WorldFeaturePoint[] {
-            new WorldFeaturePoint(x + 7, y +1, z + 7),
-            new WorldFeaturePoint(x + 8, y +1, z + 7),
-            new WorldFeaturePoint(x + 7, y +1, z + 8),
-            new WorldFeaturePoint(x + 8, y +1, z + 8),
+        dungeon.setDoorBlocks(new WorldFeaturePoint[]{
+                new WorldFeaturePoint(x + 7, y + 1, z + 7),
+                new WorldFeaturePoint(x + 8, y + 1, z + 7),
+                new WorldFeaturePoint(x + 7, y + 1, z + 8),
+                new WorldFeaturePoint(x + 8, y + 1, z + 8),
         });
 
         world.entityJoinedWorld(boss);
@@ -137,164 +147,179 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         y2 = y;
         z2 = z + 2;
 
-        if (!this.isBoxSolid(world, x2, y2, z2, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12)) {
-            this.addSquareTube(world, random, holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
+        if (this.isBoxEmpty(x2, y2, z2, EAST, 12, UP, 12, SOUTH, 12)) {
+            this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
             return true;
         }
 
-        drawShell(world, random, carvedHolystone, Direction.EAST, 12, Direction.UP, 12, Direction.SOUTH, 12, x2, y2, z2, true);
-        this.addSolidBox(world, 0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10, true);
-        this.addSquareTube(world, random, holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, 0);
+        drawShell(random, carvedHolystone, EAST, 12, UP, 12, SOUTH, 12, x2, y2, z2, true).place(world);
+        this.addSolidBox(0, 0, x2 + 1, y2 + 1, z2 + 1, 10, 10, 10);
+        this.addSquareTube(holystone, x2 - 5, y2, z2 + 3, 6, 6, 6, NORTH);
 
-        findNextRoom(world, random, x2, y2, z2);
+        findNextRoom(x2, y2, z2);
         return true;
     }
 
-    public boolean findNextRoom(World world, Random random, int x, int y, int z) {
+    public boolean findNextRoom(int x, int y, int z) {
         int tries = 3;
-        ArrayList<Integer> dirList = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
-        int index = random.nextInt(dirList.size()-1);
+        ArrayList<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.horizontalDirections));
+        int index = random.nextInt(dirList.size() - 1);
 
         boolean finished = true;
-        while (finished && tries --> 0) {
-            finished = this.placeNextRoom(world, random, x, y, z, dirList.get(index));
-            index = random.nextInt(dirList.size()-1);
+        while (finished && tries-- > 0) {
+            finished = this.placeNextRoom(x, y, z, dirList.get(index));
+            index = random.nextInt(dirList.size() - 1);
             dirList.remove(index);
         }
 
         if (!finished) return true;
-        endCorridor(world, random, x, y, z, random.nextInt(3));
+        endCorridor(x, y, z, Direction.horizontalDirections[random.nextInt(3)]);
         return false;
     }
 
-    public boolean placeNextRoom(final World world, final Random random, final int i, final int j, final int k, int dir) {
-        int x = i;
-        int z = k;
+    public boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {
+        int x = finalX, z = finalZ;
 
-        if (dir == 0) {
+        if (dir == NORTH) {
             x += 16;
         }
-        if (dir == 1) {
+        if (dir == EAST) {
             z += 16;
         }
-        if (dir == 2) {
+        if (dir == SOUTH) {
             x -= 16;
         }
-        if (dir == 3) {
+        if (dir == WEST) {
             z -= 16;
         }
 
         if (this.roomCount > roomCountMax) {
-            this.endCorridor(world, random, i, j, k, pickNewDir(dir, random));
+            this.endCorridor(finalX, finalY, finalZ, pickNewDir(dir));
             return false;
         }
-        if (this.isBoxEmpty(world, x, j, z, 12, 8, 12)) return true;
-        if (world.canBlockSeeTheSky(x, j + 1, z)) return true;
+        if (this.isBoxEmpty(x, finalY, z, EAST, 12, UP, 8, SOUTH, 12)) {
+            return true;
+        }
+        if (world.canBlockSeeTheSky(x, finalY + 1, z)) return true;
 
         ++this.roomCount;
-        drawShell(world, random, carvedHolystone, Direction.EAST, 12, Direction.UP, 8, Direction.SOUTH, 12, x, j, z, true);
-        this.addSolidBox(world, 0, 0, x + 1, j + 1, z + 1, 10, 6, 10, true);
-        drawPlane(world, random, carvedHolystone, Direction.SOUTH, 4, Direction.EAST, 4,  x + 4, j + 1, z + 4, true);
+        drawShell(random, carvedHolystone, EAST, 12, UP, 8, SOUTH, 12, x, finalY, z, true).place(world);
+        this.addSolidBox(0, 0, x + 1, finalY + 1, z + 1, 10, 6, 10);
+        drawPlane(random, carvedHolystone, SOUTH, 4, EAST, 4, x + 4, finalY + 1, z + 4, true).place(world);
 
         final int p2 = x + 5;
         final int q2 = z + 5;
 
+        WorldFeatureComponent chests = new WorldFeatureComponent();
         if (random.nextInt(48) == 0) {
-            placeNextRoom(world, random, i, j-12, k, dir);
-            this.addSolidBox(world, 0, 0, p2, j -9, q2, 2, 11, 2, true);
+            placeNextRoom(finalX, finalY - 12, finalZ, dir);
+            this.addSolidBox(0, 0, p2, finalY - 9, q2, 2, 11, 2);
         } else {
-            if (world.rand.nextInt(3) == 0) placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, j + 2, q2);
-            if (world.rand.nextInt(3) == 0) placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, j + 2, q2 + 1);
-            if (world.rand.nextInt(3) == 0) placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, j + 2, q2);
-            if (world.rand.nextInt(3) == 0) placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, j + 2, q2 + 1);
+            if (world.rand.nextInt(3) == 0) {
+                chests.add(placeChestOrMimic(random, p2, finalY + 2, q2));
+//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, finalY + 2, q2);
+            }
+            if (world.rand.nextInt(3) == 0) {
+                chests.add(placeChestOrMimic(random, p2, finalY + 2, q2 + 1));
+//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2, finalY + 2, q2 + 1);
+            }
+            if (world.rand.nextInt(3) == 0) {
+                chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2));
+//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, finalY + 2, q2);
+            }
+            if (world.rand.nextInt(3) == 0) {
+                chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2 + 1));
+//                placeChestOrMimic(world, random, LOOT_NORMAL, 8, p2 + 1, finalY + 2, q2 + 1);
+            }
+        }
+        chests.place(world);
+        for (WorldFeatureBlock chest : chests.blockList) {
+            if (chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
+                int quantity = (int) Math.round((random.nextGaussian() + 1) * 6);
+                populateChest(world, chest, random, LOOT_NORMAL, quantity);
+            }
         }
 
         switch (dir) {
-            case 0: {
-                this.addSquareTube(world, random, holystone, x - 5, j, z + 3, 6, 6, 6, 0);
+            case NORTH: {
+                this.addSquareTube(holystone, x - 5, finalY, z + 3, 6, 6, 6, NORTH);
                 break;
             }
-            case 1: {
-                this.addSquareTube(world, random, holystone, x + 3, j, z - 5, 6, 6, 6, 2);
+            case EAST: {
+                this.addSquareTube(holystone, x + 3, finalY, z - 5, 6, 6, 6, SOUTH);
                 break;
             }
-            case 2: {
-                this.addSquareTube(world, random, holystone, x + 11, j, z + 3, 6, 6, 6, 0);
+            case SOUTH: {
+                this.addSquareTube(holystone, x + 11, finalY, z + 3, 6, 6, 6, NORTH);
                 break;
             }
-            case 3: {
-                this.addSquareTube(world, random, holystone, x + 3, j, z + 11, 6, 6, 6, 2);
+            case WEST: {
+                this.addSquareTube(holystone, x + 3, finalY, z + 11, 6, 6, 6, SOUTH);
                 break;
             }
         }
 
-        return findNextRoom(world, random, x, j, z);
+        return findNextRoom(x, finalY, z);
     }
 
-    public int pickNewDir(int me, Random random) {
-        int result = me;
+    public Direction pickNewDir(Direction me) {
+        Direction result = me;
         while (result == me) {
-            result = random.nextInt(4);
+            result = Direction.horizontalDirections[random.nextInt(4)];
         }
         return result;
     }
 
-    public void endCorridor(final World world, final Random random, final int i, final int j, final int k, int dir) {
+    public void endCorridor(final int finalX, final int finalY, final int finalZ, Direction dir) {
         boolean tunnelling = true;
-        int x = i;
-        int z = k;
+        int x = finalX;
+        int z = finalZ;
 
-        if (dir > 2) dir = random.nextInt(3);
-        if (dir == 0) {
+        /// If we somehow get a non-horizontal direction
+        if (dir.getId() > 2) {
+            dir = Direction.horizontalDirections[random.nextInt(3)];
+        }
+        if (dir == NORTH) {
             x += 11;
             z += 3;
             while (tunnelling) {
-                if (this.isBoxEmpty(world, x, j, z, 6, 8, 1) || z - k > 100) {
+                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || z - finalZ > 100) {
                     tunnelling = false;
                 }
-
-                drawPlane(world, random, holystone, Direction.UP, 8, Direction.SOUTH, 6, x, j, z, true);
-                drawPlane(world, 0, 0, Direction.UP, 6, Direction.SOUTH, 4, x, j + 1, z + 1, true);
+                drawPlane(random, holystone, UP, 8, SOUTH, 6, x, finalY, z, true).place(world);
+                drawPlane(0, 0, UP, 6, SOUTH, 4, x, finalY + 1, z + 1, true).place(world);
                 ++x;
             }
         }
 
-        if (dir == 1) {
+        if (dir == EAST) {
             x += 3;
             z += 11;
             while (tunnelling) {
-                if (this.isBoxEmpty(world, x, j, z, 6, 8, 1) || z - k > 100) {
+                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || z - finalZ > 100) {
                     tunnelling = false;
                 }
-
-                drawPlane(world, random, holystone, Direction.UP, 6, Direction.EAST, 8, x, j, z, true);
-                drawPlane(world, 0, 0, Direction.UP, 4, Direction.EAST, 6, x + 1, j + 1, z, true);
+                drawPlane(random, holystone, UP, 6, EAST, 8, x, finalY, z, true).place(world);
+                drawPlane(0, 0, UP, 4, EAST, 6, x + 1, finalY + 1, z, true).place(world);
                 ++z;
             }
         }
 
-        if (dir == 2) {
+        if (dir == SOUTH) {
             x += 3;
             while (tunnelling) {
-                if (this.isBoxEmpty(world, x, j, z, 6, 8, 1) || j - z > 100) {
+                if (this.isBoxEmpty(x, finalY, z, EAST, 6, UP, 8, SOUTH, 1) || finalY - z > 100) {
                     tunnelling = false;
                 }
 
-                drawPlane(world, random, holystone, Direction.UP, 6, Direction.EAST, 8, x, j, z, true);
-                drawPlane(world, 0, 0, Direction.UP, 4, Direction.EAST, 6, x + 1, j + 1, z, true);
+                drawPlane(random, holystone, UP, 6, EAST, 8, x, finalY, z, true).place(world);
+                drawPlane(0, 0, UP, 4, EAST, 6, x + 1, finalY + 1, z, true).place(world);
                 --z;
             }
         }
     }
-    public boolean isBoxSolid(World world, int startX, int startY, int startZ, int length1, int length2, int length3) {
-        return this.isBoxSolid(world, startX, startY, startZ, Direction.EAST, length1, Direction.UP, length2, Direction.SOUTH,length3);
-    }
 
-    public boolean isBoxEmpty(World world, int i, int j, int k, int di, int dj, int dk) {
-        return !isBoxSolid(world, i, j, k, Direction.EAST, di, Direction.UP, dj, Direction.SOUTH, dk);
-    }
-
-    public boolean isBoxSolid(World world, int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
+    public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
         int volume = 0;
         int blockX;
         int blockY;
@@ -318,50 +343,36 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeatureAetherDungeonBa
         }
 
         // I'm literally frito-lay fr fr fr
-        return !(volume > ((length1 * length2 * length3) * 0.35F));
+        return volume > ((length1 * length2 * length3) * 0.35F);
     }
 
-    public void addSolidBox(World world, Random random, BlockPallet pallet, int i, int j, int k, int di, int dj, int dk, Boolean withNotify) {
-        for (int x = i; x < i + di; ++x) {
-            for (int y = j; y < j + dj; ++y) {
-                for (int z = k; z < k + dk; ++z) {
-                    setBlock(world, x, y, z, pallet.getRandom(random), withNotify);
-                }
-            }
-        }
-    }
-
-    public void addSolidBox(World world, int id, int meta, int i, int j, int k, int di, int dj, int dk, Boolean withNotify) {
-        for (int x = i; x < i + di; ++x) {
-            for (int y = j; y < j + dj; ++y) {
-                for (int z = k; z < k + dk; ++z) {
-                    if (withNotify) {
-                        world.setBlockAndMetadataWithNotify(x, y, z, id, meta);
-                        continue;
-                    }
-                    world.setBlockAndMetadata(x, y, z, Blocks.BLOCK_DIAMOND.id(), meta);
+    public void addSolidBox(int id, int meta, int startX, int startY, int startZ, int lengthX, int lengthY, int lengthZ) {
+        for (int x = startX; x < startX + lengthX; ++x) {
+            for (int y = startY; y < startY + lengthY; ++y) {
+                for (int z = startZ; z < startZ + lengthZ; ++z) {
+                    world.setBlockAndMetadataWithNotify(x, y, z, id, meta);
                 }
             }
         }
     }
 
 
-    public void addSquareTube(World world, Random random, BlockPallet pallet, int i, int j, int k, int di, int dj, int dk, int dir) {
-        this.addSolidBox(world, 0, 0, i, j, k, di, dj, dk, true);
+    public void addSquareTube(BlockPallet pallet, int x, int y, int z, int lengthX, int lengthY, int lengthZ, Direction dir) {
+        this.addSolidBox(0, 0, x, y, z, lengthX, lengthY, lengthZ);
 
-        if (dir == 0 || dir == 2) {
-            drawPlane(world, random, pallet, Direction.SOUTH, di, Direction.EAST, dk,  i, j, k, true);
-            drawPlane(world, random, pallet, Direction.SOUTH, di, Direction.EAST, dk,  i,j + dj - 1, k, true);
+        if (dir == NORTH || dir == SOUTH) {
+            drawPlane(random, pallet, SOUTH, lengthX, EAST, lengthZ, x, y, z, true).place(world);
+            drawPlane(random, pallet, SOUTH, lengthX, EAST, lengthZ, x, y + lengthY - 1, z, true).place(world);
         }
 
-        if (dir == 1 || dir == 2) {
-            drawPlane(world, random, pallet, Direction.UP, dj, Direction.SOUTH, dk, i, j, k, true);
-            drawPlane(world, random, pallet, Direction.UP, dj, Direction.SOUTH, dk, i + di - 1, j, k, true);
+        if (dir == EAST || dir == SOUTH) {
+            drawPlane(random, pallet, UP, lengthY, SOUTH, lengthZ, x, y, z, true).place(world);
+            drawPlane(random, pallet, UP, lengthY, SOUTH, lengthZ, x + lengthX - 1, y, z, true).place(world);
         }
 
-        if (dir == 0 || dir == 1) {
-            drawPlane(world, random, pallet, Direction.UP, di, Direction.EAST, dj, i, j, k, true);
-            drawPlane(world, random, pallet, Direction.UP, di, Direction.EAST, dj, i, j, k + dk - 1, true);
+        if (dir == NORTH || dir == EAST) {
+            drawPlane(random, pallet, UP, lengthX, EAST, lengthY, x, y, z, true).place(world);
+            drawPlane(random, pallet, UP, lengthX, EAST, lengthY, x, y, z + lengthZ - 1, true).place(world);
         }
     }
 
