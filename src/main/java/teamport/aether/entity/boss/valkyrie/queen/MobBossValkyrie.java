@@ -119,28 +119,33 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         if (this.chatTime > 0 || (this.duel && this.target == entityplayer)) {
             return false;
         }
+
         this.lookAt(entityplayer, 180.0F, 180.0F);
+
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            entityplayer.sendMessage("I have no time for pathetic humans like you.");
+            this.chatTime = 60;
+            return true;
+        }
 
         if (this.duel) {
             entityplayer.sendMessage("If you wish to challenge me, strike at any time.");
             this.chatTime = 60;
-        } else {
-            ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-            if (itemstack != null && itemstack.itemID == AetherItems.MEDAL_VICTORY.id && itemstack.stackSize >= 10) {
-                itemstack.stackSize -= 10;
-                if (itemstack.stackSize <= 0) {
-                    itemstack.consumeItem(entityplayer);
-                    entityplayer.destroyCurrentEquippedItem();
-                    this.chatTime = 60;
-                    entityplayer.sendMessage("Very well, attack me when you wish to begin.");
-                    this.duel = true;
-                }
-            } else {
-                entityplayer.sendMessage("Show me 10 victory medals, and I will fight you.");
-                this.chatTime = 60;
-            }
             return true;
         }
+
+        ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+        if (itemstack != null && itemstack.itemID == AetherItems.MEDAL_VICTORY.id && itemstack.stackSize >= 10) {
+            itemstack.stackSize -= 10;
+            if (itemstack.stackSize <= 0) {
+                entityplayer.destroyCurrentEquippedItem();
+            }
+            entityplayer.sendMessage("Very well, attack me when you wish to begin.");
+            this.duel = true;
+        } else {
+            entityplayer.sendMessage("Show me 10 victory medals, and I will fight you.");
+        }
+        this.chatTime = 60;
         return true;
     }
 
@@ -263,42 +268,48 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
-        if (attacker instanceof Player && this.world.getDifficulty().canHostileMobsSpawn()) {
-            if (!this.duel || !this.world.getDifficulty().canHostileMobsSpawn()) {
-                if (this.chatTime <= 0) {
-                    int pokey = this.random.nextInt(2);
-                    if (pokey == 1) {
-                        ((Player) attacker).sendMessage("Sorry, I don't fight with weaklings.");
-                    } else {
-                        ((Player) attacker).sendMessage("Try defeating some weaker valkyries first.");
-                    }
-                    this.chatTime = 60;
-                }
-                return false;
-            } else {
-                if (this.target == null && this.chatTime <= 0) {
-                    this.chatTime = 60;
-                    ((Player) attacker).sendMessage("This will be your final battle!");
-                } else {
-                    this.teleportTimer += 60;
-                }
-                this.becomeAngryAt(attacker);
-                boolean flag = super.hurt(attacker, i, type);
-                if (flag && this.getHealth() <= 0) {
-                    this.dead = true;
-                    if (this.chatTime <= 0) {
-                        ((Player) attacker).sendMessage("You are truly... a mighty warrior...");
-                        this.chatTime = 60;
-                    }
-                    this.animateHurt();
-                }
-                return flag;
-            }
-        } else {
-            this.teleport(this.x, this.y, this.z, 8);
-            this.maxFireTicks = 0;
+        if (!(attacker instanceof Player)) {
             return false;
         }
+
+        Player player = (Player) attacker;
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            if (this.chatTime <= 0) {
+                player.sendMessage("Sorry, I don't fight with weaklings.");
+                this.chatTime = 60;
+            }
+            return false;
+        }
+
+        if (!this.duel) {
+            if (this.chatTime <= 0) {
+                String message = this.random.nextInt(2) == 0 ? "Try defeating some weaker valkyries first." : "Collect 10 medallions before trying that.";
+                player.sendMessage(message);
+                this.chatTime = 60;
+            }
+            return false;
+        }
+
+        if (this.target == null && this.chatTime <= 0) {
+            player.sendMessage("This will be your final battle!");
+            this.chatTime = 60;
+        } else {
+            this.teleportTimer += 60;
+        }
+
+        this.becomeAngryAt(attacker);
+        boolean flag = super.hurt(attacker, i, type);
+        if (flag && this.getHealth() <= 0) {
+            this.dead = true;
+            player.triggerAchievement(AetherAchievements.SILVER);
+            this.world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 2.0F, 1.0F);
+            if (this.chatTime <= 0) {
+                player.sendMessage("You are truly... a mighty warrior...");
+                this.chatTime = 60;
+            }
+            this.animateHurt();
+        }
+        return flag;
     }
 
     public void becomeAngryAt(Entity entity) {
