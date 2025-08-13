@@ -101,12 +101,8 @@ public class WorldFeatureComponent {
             Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable,
             int quantity
     ) {
-        Container inventory = BlockLogicChest.getInventory(
-                world,
-                WorldFeatureBlock.conv2Int(wfb.x),
-                WorldFeatureBlock.conv2Int(wfb.y),
-                WorldFeatureBlock.conv2Int(wfb.z));
-
+        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
+        if(inventory == null) return;
         for (int i = 0; i < quantity; i++) {
             inventory.setItem(
                     random.nextInt(inventory.getContainerSize()),

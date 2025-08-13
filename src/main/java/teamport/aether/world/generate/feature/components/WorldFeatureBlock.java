@@ -44,10 +44,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     }
 
     public void place(World world){
-        int ix = WorldFeatureBlock.conv2Int(this.x);
-        int iy = WorldFeatureBlock.conv2Int(this.y);
-        int iz = WorldFeatureBlock.conv2Int(this.z);
-        this.place(world, ix, iy, iz);
+        this.place(world, x, y, z);
     }
 
     private void place(World world, int ix, int iy, int iz){
