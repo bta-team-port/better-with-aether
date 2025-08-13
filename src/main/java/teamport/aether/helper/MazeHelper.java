@@ -3,37 +3,10 @@ package teamport.aether.helper;
 import java.util.*;
 
 public class MazeHelper {
-    public static class Edge {
-        public int u, v;
-
-        Edge(int u, int v) {
-            this.u = Math.min(u, v); // keep edges undirected
-            this.v = Math.max(u, v);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Edge)) return false;
-            Edge e = (Edge) o;
-            return u == e.u && v == e.v;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(u, v);
-        }
-
-        @Override
-        public String toString() {
-            return "(" + u + ", " + v + ")";
-        }
-    }
-
     // Wilson Algorithms to generate maze
-    public static Set<Edge> generateMaze(Map<Integer, List<Integer>> GRAPH) {
+    public static Map<Integer, Integer> generateMaze(Map<Integer, List<Integer>> GRAPH) {
         Random random = new Random();
-        Set<Edge> tree = new HashSet<>();
+        Map<Integer, Integer> tree = new HashMap<>();
         Set<Integer> inTree = new HashSet<>();
 
         List<Integer> vertices = new ArrayList<>(GRAPH.keySet());
@@ -62,12 +35,16 @@ public class MazeHelper {
             for (Map.Entry<Integer, Integer> step : path.entrySet()) {
                 int u = step.getKey();
                 int v = step.getValue();
-                tree.add(new Edge(u, v));
+
+                // so it easier to place the rooms later
+                int from = Math.min(u, v);
+                int to = Math.max(u, v);
+
+                tree.put(to, from);
                 inTree.add(u);
                 inTree.add(v);
             }
         }
-
         return tree;
     }
 }
