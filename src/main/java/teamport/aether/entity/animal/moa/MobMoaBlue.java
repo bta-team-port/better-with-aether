@@ -11,13 +11,14 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.EntityJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobMoaBlue extends MobAetherAnimal implements Creature {
+public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpAmount {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
@@ -34,7 +35,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
-        this.jumpsRemaining = 2;
+        this.jumpsRemaining = getJumpMaxAmount();
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
@@ -44,7 +45,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
-        this.jumpsRemaining = 2;
+        this.jumpsRemaining = getJumpMaxAmount();
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.tamed = tamed;
@@ -118,7 +119,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
 
     public void onGround() {
         if (this.onGround ) {
-            this.jumpsRemaining = 2;
+            this.jumpsRemaining = getJumpMaxAmount();
         }
     }
 
@@ -251,4 +252,13 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature {
         return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM);
     }
 
+    @Override
+    public int getJumpMaxAmount() {
+        return 4;
+    }
+
+    @Override
+    public int getJumpAmount() {
+        return jumpsRemaining;
+    }
 }
