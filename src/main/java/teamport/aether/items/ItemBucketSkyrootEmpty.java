@@ -2,7 +2,6 @@ package teamport.aether.items;
 
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobCow;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -44,14 +43,6 @@ public class ItemBucketSkyrootEmpty extends Item {
             }
         }
         return itemstack;
-    }
-
-    public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
-        if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketSkyrootEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
-            return true;
-        }
-        return false;
     }
 
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
