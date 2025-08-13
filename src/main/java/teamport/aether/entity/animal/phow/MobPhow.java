@@ -10,12 +10,13 @@ import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.EntityJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobPhow extends MobAetherAnimal {
+public class MobPhow extends MobAetherAnimal implements EntityJumpAmount {
     public float wingFold;
     public float wingFoldO;
     public float wingAngle;
@@ -37,7 +38,7 @@ public class MobPhow extends MobAetherAnimal {
         if (this.onGround) {
             this.aimingForFold = 0.1F;
             this.jumpPressed = false;
-            this.jumpsRemaining = 1;
+            this.jumpsRemaining = getJumpMaxAmount();
         } else {
             this.aimingForFold = 1.0F;
         }
@@ -202,5 +203,15 @@ public class MobPhow extends MobAetherAnimal {
 
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
+    }
+
+    @Override
+    public int getJumpMaxAmount() {
+        return 1;
+    }
+
+    @Override
+    public int getJumpAmount() {
+        return jumpsRemaining;
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
+import teamport.aether.entity.EntityJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -19,7 +20,7 @@ import teamport.aether.mixin.accessors.MobAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobPhyg extends MobAetherAnimal {
+public class MobPhyg extends MobAetherAnimal implements EntityJumpAmount {
     public float wingFold;
     public float wingFoldO;
     public float wingAngle;
@@ -45,7 +46,7 @@ public class MobPhyg extends MobAetherAnimal {
         if (this.onGround) {
             this.aimingForFold = 0.1F;
             this.jumpPressed = false;
-            this.jumpsRemaining = 1;
+            this.jumpsRemaining = getJumpMaxAmount();
         } else {
             this.aimingForFold = 1.0F;
         }
@@ -65,7 +66,7 @@ public class MobPhyg extends MobAetherAnimal {
 
     public void onGround() {
         if (this.onGround ) {
-            this.jumpsRemaining = 1;
+            this.jumpsRemaining = getJumpMaxAmount();
         }
     }
 
@@ -207,5 +208,15 @@ public class MobPhyg extends MobAetherAnimal {
 
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+    }
+
+    @Override
+    public int getJumpMaxAmount() {
+        return 2;
+    }
+
+    @Override
+    public int getJumpAmount() {
+        return jumpsRemaining;
     }
 }

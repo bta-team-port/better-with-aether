@@ -124,22 +124,27 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     public static void registerHUDComponents() {
         BOSS_BAR = HudComponents.register(
-                new ComponentBossBar(
-                        "aether.boss.bar",
-                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
-                )
+            new ComponentBossBar(
+                "aether.boss.bar",
+                new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
+            )
         );
 
         JUMP_BAR = HudComponents.register(
-                new ComponentJumpBar("aether.wing.bar", new LayoutSnap(HudComponents.CROSSHAIR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)));
+            new ComponentJumpBar(
+                "aether.wing.bar",
+                new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
+            )
+        );
 
         int extraBars = (int) Math.ceil(EXTRA_HEALTH / 20.0f);
         HudComponent previousComponent = HudComponents.HOTBAR;
+
         for (int i = 0; i < extraBars + 1; i++){
             previousComponent = HudComponents.register(
-                    new ComponentExtraHealthBar(
-                            "aetherExtraHealth_bar" +  i,
-                            new LayoutSnap(previousComponent, ComponentAnchor.BOTTOM_CENTER, ComponentAnchor.TOP_CENTER), i )
+                new ComponentExtraHealthBar(
+                    "aetherExtraHealth_bar" +  i,
+                    new LayoutSnap(previousComponent, ComponentAnchor.BOTTOM_CENTER, ComponentAnchor.TOP_CENTER), i )
             );
         }
 
