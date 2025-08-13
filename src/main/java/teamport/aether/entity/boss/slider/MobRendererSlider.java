@@ -10,6 +10,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     public MobRendererSlider(ModelBase model, float shadowSize) {
         super(model, shadowSize);
         this.setArmorModel(model);
+        this.shadowSize = 0.0F;
     }
 
     public void renderPreview(Tessellator tessellator, MobBossSlider slider, double x, double y, double z, float yaw, float partialTick) {

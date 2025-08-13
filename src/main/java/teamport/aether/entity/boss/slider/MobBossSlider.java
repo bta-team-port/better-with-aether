@@ -99,7 +99,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 Block<?> block = world.getBlock((int) (this.x + x), (int) (this.y + y), (int) (this.z + z));
 
                 if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z)) && block != null) {
-                    blocksToMove -= 0.5F * Math.min(block.getHardness()/4f, 1);
+                    blocksToMove -= 0.5F * Math.min(block.getHardness()/3f, 1);
 
                     blocksBroken++;
                     if (blocksBroken >= 9) {
@@ -454,6 +454,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
         }
         return false;
+    }
+    @Override
+    public AABB getBb() {
+        return this.bb.copy();
     }
 
     @Override
