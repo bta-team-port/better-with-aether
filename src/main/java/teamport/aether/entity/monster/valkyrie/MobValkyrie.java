@@ -19,7 +19,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public int attackStrength;
     public boolean isSwinging;
     public int teleportTimer;
-    public int angerLevel;
     public int chatTime;
     public float sinage;
 
@@ -61,8 +60,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         }
 
         this.moveSpeed = this.target == null ? 0.5F : 1.0F;
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null || this.angerLevel > 0)) {
-            this.angerLevel = 0;
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null)) {
             this.target = null;
         }
 
@@ -147,7 +145,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
 
     @Override
     public boolean interact(@NotNull Player entityplayer) {
-        if (this.chatTime > 0 || this.angerLevel > 1) {
+        if (this.chatTime > 0 || this.target != null) {
             return false;
         }
 
@@ -164,6 +162,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
                 entityplayer.sendMessage("You think you're a tough guy, eh? Well, bring it on!");
                 this.chatTime = 60;
             }
+            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         } else {
             int pokey = this.random.nextInt(3);
             if (pokey == 2) {
@@ -176,6 +175,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
                 entityplayer.sendMessage("I don't think you should bother me, you could get really hurt.");
                 this.chatTime = 60;
             }
+            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         }
         return true;
     }
@@ -184,7 +184,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     public void updateAI() {
         super.updateAI();
         ++this.teleportTimer;
-        if (this.target != null && this.angerLevel > 0) {
+        if (this.target != null) {
             if (this.teleportTimer >= 250) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 4);
             } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
@@ -202,7 +202,6 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
 
         if (this.target != null && !this.target.isAlive()) {
             this.target = null;
-            this.angerLevel = 0;
         }
 
         if (this.chatTime > 0) {
@@ -237,20 +236,18 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putShort("Anger", (short) this.angerLevel);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.angerLevel = tag.getShort("Anger");
         this.teleportTimer = tag.getShort("teleportTimer");
     }
 
     @Override
     public Entity findPlayerToAttack() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.angerLevel > 0 ? super.getTarget() : null;
+        return this.world.getDifficulty().canHostileMobsSpawn() ? super.getTarget() : null;
     }
 
     @Override
@@ -302,18 +299,21 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
             if (this.target != null && entity == this.target && entity instanceof Player) {
                 Player e1 = (Player) entity;
                 if (e1.getHealth() <= 0) {
-                    this.target = null;
-                    this.angerLevel = 0;
                     int pokey = this.random.nextInt(3);
-                    this.chatTime = 0;
                     if (pokey == 2) {
                         ((Player) entity).sendMessage("You want a medallion? Try being less pathetic.");
-                    } else if (pokey == 1 && e1 instanceof Player) {
+                    }
+                    if (pokey == 1) {
                         String s = e1.getDisplayName();
                         ((Player) entity).sendMessage("Maybe some day, " + s + "... maybe some day.");
-                    } else {
+                    }
+                    if (pokey == 0) {
                         ((Player) entity).sendMessage("Humans aren't nearly as cute when they're dead.");
                     }
+
+                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
+                    this.target = null;
+                    this.chatTime = 0;
                 }
             }
         }
@@ -321,7 +321,18 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
 
     public void becomeAngryAt(Entity entity) {
         this.target = entity;
-        this.angerLevel = 200 + this.random.nextInt(200);
+    }
+
+    public String getLivingSound() {
+        return null;
+    }
+
+    public String getHurtSound() {
+        return "aether:mob.valkyrie.hurt";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.valkyrie.death";
     }
 
     public int getMaxHealth() {
