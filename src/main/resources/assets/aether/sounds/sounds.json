@@ -130,6 +130,13 @@
       "mob/aerbunny/land.ogg"
     ]
   },
+  "mob.sunspirit.talk": {
+    "subtitle": "subtitles.mob.sunspirit.talk",
+    "sounds": [
+      "mob/sunspirit/talk1.ogg",
+      "mob/sunspirit/talk2.ogg"
+    ]
+  },
   "mob.sunspirit.hurt": {
     "subtitle": "subtitles.mob.sunspirit.hurt",
     "sounds": [
