@@ -1,6 +1,5 @@
 package teamport.aether.world.generate.feature.components;
 
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.Pair;
 
@@ -53,5 +52,28 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         } else {
             world.setBlockAndMetadata(ix, iy, iz, this.blockID, this.metadata);
         }
+    }
+
+
+    // TODO make horizontally rotating blocks also rotate
+    @Override
+    public void rotateFixPointYAxis(int x, int y, int z, float angle){
+        super.rotateFixPointYAxis(x,y,z,angle);
+        /// For future reference, when I want to rotate the block as well.
+        //BlockLogicChest
+        //BlockLogicRotatable: furnace, trommle
+        //BlockLogicStairs
+        //BlockLogicLadder
+        //BlockLogicFence
+        //BlockLogicAxisAligned: log
+        //BlockLogicFlower
+        //BlockLogicTorch: redstone torch
+        //BlockLogicButton
+        //BlockLogicPressurePlate
+        //BlockLogicVeryRotatable: motion sensor, dispenser, activator
+        //BlockLogicPistonBase
+        //BlockLogicTrapDoor
+        //BlockLogicDoor
+        //BlockLogicSign
     }
 }
