@@ -19,9 +19,16 @@ subtitles.mob.aerwhale.call=Aerwhale call
 
 subtitles.mob.wingflap=Wing flap
 
-subtitles.mob.sunspirit.hurt=Sunspirit hurt
-subtitles.mob.sunspirit.death=Sunspirit death
 subtitles.mob.slider.awaken=Slider awakens
 subtitles.mob.slider.collide=Slider collides
 subtitles.mob.slider.death=Slider death
 subtitles.mob.slider.move=Slider hurt
+
+subtitles.mob.valkyrie.talk=Valkyrie talks
+subtitles.mob.valkyrie.laugh=Valkyrie laughs
+subtitles.mob.valkyrie.hurt=Valkyrie hurt
+subtitles.mob.valkyrie.death=Valkyrie death
+
+subtitles.mob.sunspirit.talk=Sunspirit talks
+subtitles.mob.sunspirit.hurt=Sunspirit hurt
+subtitles.mob.sunspirit.death=Sunspirit death
