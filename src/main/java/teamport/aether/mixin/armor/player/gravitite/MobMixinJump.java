@@ -15,12 +15,13 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.entity.EntityJumpAmount;
 import teamport.aether.helper.ContainerHelper;
 import teamport.aether.particle.ParticalHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
-public abstract class MobMixinJump extends Entity {
+public abstract class MobMixinJump extends Entity implements EntityJumpAmount {
 
     @Shadow
     protected boolean isJumping;
@@ -92,5 +93,17 @@ public abstract class MobMixinJump extends Entity {
         damage = damage - 13;
         player.inventory.damageArmor(damage > 0 ? damage : 4);
         return false;
+    }
+
+    @Unique
+    @Override
+    public int getJumpMaxAmount() {
+        return 1;
+    }
+
+    @Unique
+    @Override
+    public int getJumpAmount() {
+        return usedDoubleJump? 0 : 1;
     }
 }

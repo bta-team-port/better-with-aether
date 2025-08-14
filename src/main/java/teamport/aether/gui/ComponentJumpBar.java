@@ -10,7 +10,8 @@ import net.minecraft.client.gui.hud.component.layout.Layout;
 import net.minecraft.core.entity.Entity;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.EntityJumpAmount;
-import teamport.aether.entity.animal.aerbunny.MobAerbunny;
+import teamport.aether.helper.ContainerHelper;
+import teamport.aether.items.AetherArmorMaterial;
 
 
 public class ComponentJumpBar extends HudComponentMovable {
@@ -59,7 +60,9 @@ public class ComponentJumpBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return mc.thePlayer.vehicle instanceof EntityJumpAmount;
+        return
+            mc.thePlayer.vehicle instanceof EntityJumpAmount
+            || ContainerHelper.countArmorPiecesOfMaterial(mc.thePlayer.inventory, AetherArmorMaterial.GRAVITITE) >= 5;
     }
 
     @Override
@@ -75,6 +78,10 @@ public class ComponentJumpBar extends HudComponentMovable {
             if (vehicle instanceof EntityJumpAmount) {
                 drawJumpBar(((EntityJumpAmount) vehicle).getJumpMaxAmount(), ((EntityJumpAmount) vehicle).getJumpAmount());
             }
+        }
+
+        else if (ContainerHelper.countArmorPiecesOfMaterial(mc.thePlayer.inventory, AetherArmorMaterial.GRAVITITE) >= 5) {
+            drawJumpBar(((EntityJumpAmount) mc.thePlayer).getJumpMaxAmount(), ((EntityJumpAmount) mc.thePlayer).getJumpAmount());
         }
     }
 
