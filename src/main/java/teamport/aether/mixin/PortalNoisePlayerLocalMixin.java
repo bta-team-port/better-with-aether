@@ -8,8 +8,8 @@ import teamport.aether.blocks.AetherBlocks;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public class PortalNoisePlayerLocalMixin {
-    @ModifyArg(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundEngine;playSound(Ljava/lang/String;Lnet/minecraft/core/sound/SoundCategory;FF)V", ordinal = 0), index = 0)
 
+    @ModifyArg(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundEngine;playSound(Ljava/lang/String;Lnet/minecraft/core/sound/SoundCategory;FF)V", ordinal = 0), index = 0)
     public String modifyPortalTriggerSound(String originalSound) {
         PlayerLocal player = (PlayerLocal)(Object)this;
         if (player.portalID == AetherBlocks.PORTAL_AETHER.id()) {

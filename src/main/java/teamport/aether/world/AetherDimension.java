@@ -63,10 +63,13 @@ public class AetherDimension {
 
         List<Integer> AETHER_BLACKLIST = getDimensionBlacklist(AETHER);
         AETHER_BLACKLIST.add(Blocks.FIRE.id());
+        AETHER_BLACKLIST.add(Blocks.BRAZIER_ACTIVE.id());
+
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_FLOWING.id());
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
         AETHER_BLACKLIST.add(Blocks.TORCH_COAL.id());
         AETHER_BLACKLIST.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+
         AETHER_BLACKLIST.add(Blocks.NETHERRACK.id());
         AETHER_BLACKLIST.add(Blocks.NETHERRACK_CARVED.id());
         AETHER_BLACKLIST.add(Blocks.NETHERRACK_POLISHED.id());

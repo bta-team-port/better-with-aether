@@ -4,6 +4,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BlockLogicBrazierMixin",
     "BlockLogicMossMixin",
     "BlockLogicPathDirtMixin",
     "EntityItemPickupAchievementMixin",
@@ -74,6 +75,7 @@
     "MobRendererGLCleanUpMixin",
     "PlayerControllerValkToolsReachMixin",
     "PlayerLocalBossListMixin",
+    "PortalNoisePlayerLocalMixin",
     "accessors.ItemDragHandlerAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinGlovesAndPendantRender",
@@ -90,7 +92,6 @@
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "dimension.aetherAchievementMixin",
     "dimension.HostileParadiseMixin",
-    "PortalNoisePlayerLocalMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
