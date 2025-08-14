@@ -1,11 +1,14 @@
 package teamport.aether.entity.monster.cockatrice;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
     public MobRendererCockatrice(ModelBase modelbase, float shadowSize) {
         super(modelbase, shadowSize);

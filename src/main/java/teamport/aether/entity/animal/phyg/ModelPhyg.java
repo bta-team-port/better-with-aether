@@ -1,8 +1,11 @@
 package teamport.aether.entity.animal.phyg;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
 
+@Environment(EnvType.CLIENT)
 public class ModelPhyg extends ModelQuadruped {
     public Cube nose;
     public static Cube leftWingInner;

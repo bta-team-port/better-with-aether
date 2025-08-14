@@ -1,9 +1,12 @@
 package teamport.aether.entity.animal.aerbunny;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
     public ModelAerbunny model;
     public MobRendererAerbunny(ModelBase model, float shadowSize) {

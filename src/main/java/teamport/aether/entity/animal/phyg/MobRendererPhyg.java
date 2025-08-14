@@ -1,9 +1,12 @@
 package teamport.aether.entity.animal.phyg;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererPhyg extends MobRenderer<MobPhyg> {
     public MobRendererPhyg(ModelBase modelbase, float shadowSize) {
         super(modelbase, shadowSize);

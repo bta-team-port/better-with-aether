@@ -1,5 +1,7 @@
 package teamport.aether.entity.renderer;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
@@ -7,6 +9,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
 
+@Environment(EnvType.CLIENT)
 public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFlaming> {
     public EntityRendererArrowFlaming() {
     }

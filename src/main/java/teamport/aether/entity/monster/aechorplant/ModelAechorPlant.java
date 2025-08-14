@@ -1,9 +1,12 @@
 package teamport.aether.entity.monster.aechorplant;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class ModelAechorPlant extends ModelBase {
     public static int petals = 10;
     public static int thorns = 4;

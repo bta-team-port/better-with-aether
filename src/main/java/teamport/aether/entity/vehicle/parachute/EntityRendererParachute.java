@@ -1,10 +1,13 @@
 package teamport.aether.entity.vehicle.parachute;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
     public ModelBase modelCloud;
     public EntityRendererParachute() {

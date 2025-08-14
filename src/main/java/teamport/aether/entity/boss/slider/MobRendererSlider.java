@@ -1,10 +1,13 @@
 package teamport.aether.entity.boss.slider;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererSlider extends MobRenderer<MobBossSlider> {
 
     public MobRendererSlider(ModelBase model, float shadowSize) {

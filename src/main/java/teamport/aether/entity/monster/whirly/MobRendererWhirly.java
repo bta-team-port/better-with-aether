@@ -1,5 +1,7 @@
 package teamport.aether.entity.monster.whirly;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.particle.Particle;
@@ -11,6 +13,7 @@ import net.minecraft.client.render.tessellator.Tessellator;
 
 import java.util.Random;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
     public final Random rand = new Random();
 

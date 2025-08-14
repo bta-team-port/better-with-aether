@@ -1,9 +1,12 @@
 package teamport.aether.entity.monster.zephyr;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererZephyr extends MobRenderer<MobZephyr> {
     public MobRendererZephyr() {
         super(new ModelZephyr(), 0.5F);

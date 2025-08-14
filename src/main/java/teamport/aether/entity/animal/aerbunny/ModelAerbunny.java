@@ -1,10 +1,13 @@
 package teamport.aether.entity.animal.aerbunny;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class ModelAerbunny extends ModelBase {
     public Cube head;
     public Cube body;

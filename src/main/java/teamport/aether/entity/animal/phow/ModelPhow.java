@@ -1,8 +1,11 @@
 package teamport.aether.entity.animal.phow;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
 
+@Environment(EnvType.CLIENT)
 public class ModelPhow extends ModelQuadruped {
     public Cube udders;
     public Cube horn1;

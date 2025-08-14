@@ -1,10 +1,13 @@
 package teamport.aether.entity.animal.sheepuff;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelQuadruped;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class ModelSheepuffPuff extends ModelQuadruped {
     boolean isEatingAnimPlaying;
     float headBobTime;

@@ -1,10 +1,13 @@
 package teamport.aether.entity.animal.sheepuff;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.core.Global;
 import net.minecraft.core.entity.Mob;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class ModelSheepuffOverlay extends ModelSheepuff {
     Mob sheepuff;
 

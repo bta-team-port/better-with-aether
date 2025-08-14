@@ -1,10 +1,13 @@
 package teamport.aether.entity.renderer;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 
+@Environment(EnvType.CLIENT)
 public class EntityRendererKnifeLightning extends EntityRenderer<ProjectileKnifeLightning> {
     public EntityRendererKnifeLightning() {
     }

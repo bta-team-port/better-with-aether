@@ -1,8 +1,11 @@
 package teamport.aether.entity.vehicle.parachute;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class ModelParachute extends ModelBase {
     Cube body;
 
