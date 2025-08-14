@@ -2,13 +2,18 @@ package teamport.aether.mixin.accessory.gloves;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.items.accessory.ItemGloves;
+import teamport.aether.items.itemtool.AetherToolMaterial;
 
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 
@@ -17,16 +22,19 @@ public abstract class ContainerInventoryMixinGlovesDamage {
 
     @ModifyConstant(method = "getDamageVsEntity", constant = @Constant(intValue = 1))
     public int getGloveDamage(int constant, @Local(argsOnly = true) Entity entity) {
-        ContainerInventory inv = (ContainerInventory) (Object) this;
-        if(inv.armorInventory[GLOVES_SLOT] == null){
+        ContainerInventory inv = (ContainerInventory) (Object) this;if(
+                inv.armorInventory[GLOVES_SLOT] == null
+                || !(inv.armorInventory[GLOVES_SLOT].getItem() instanceof ItemGloves)
+        ){
             return 1;
         }
-        ArmorMaterial material = ((ItemGloves) inv.armorInventory[GLOVES_SLOT].getItem()).getArmorMaterial();
-        float totalProtection = 0;
-        for(DamageType damageType: DamageType.values()){
-            totalProtection += material.getProtection(damageType);
+        ItemStack stack = inv.armorInventory[GLOVES_SLOT];
+        ItemGloves gloves = (ItemGloves)stack.getItem();
+        if(gloves.material == AetherArmorMaterial.ZANITE){
+            float durability_progress = (float) stack.getMetadata() / gloves.material.durability;
+            float ending_damage = AetherToolMaterial.ZANITE.getEfficiency(true) / AetherToolMaterial.ZANITE.getEfficiency(false);
+            return Math.round(MathHelper.lerp(1,ending_damage, durability_progress));
         }
-        int damage = (int)Math.floor(totalProtection);
-        return Math.max(damage, 1);
+        return Math.max(gloves.damage, 1);
     }
 }
