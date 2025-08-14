@@ -66,6 +66,32 @@
       "mob/zephyr/shoot.ogg"
     ]
   },
+  "mob.valkyrie.talk": {
+    "subtitle": "subtitles.mob.valkyrie.talk",
+    "sounds": [
+      "mob/valkyrie/talk.ogg"
+    ]
+  },
+  "mob.valkyrie.laugh": {
+    "subtitle": "subtitles.mob.valkyrie.laugh",
+    "sounds": [
+      "mob/valkyrie/laugh.ogg"
+    ]
+  },
+  "mob.valkyrie.hurt": {
+    "subtitle": "subtitles.mob.valkyrie.hurt",
+    "sounds": [
+      "mob/valkyrie/hurt1.ogg",
+      "mob/valkyrie/hurt2.ogg"
+    ]
+  },
+  "mob.valkyrie.death": {
+    "subtitle": "subtitles.mob.valkyrie.death",
+    "sounds": [
+      "mob/valkyrie/death1.ogg",
+      "mob/valkyrie/death2.ogg"
+    ]
+  },
   "mob.aerwhale.call": {
     "subtitle": "subtitles.mob.aerwhale.call",
     "sounds": [
