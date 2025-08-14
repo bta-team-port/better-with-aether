@@ -2,49 +2,80 @@ package teamport.aether.helper;
 
 import java.util.*;
 
+import static teamport.aether.helper.Pair.pair;
+
+/// Implements a random maze using kruskal
 public class MazeHelper {
-    // Wilson Algorithms to generate maze
-    public static Map<Integer, Integer> generateMaze(Map<Integer, List<Integer>> GRAPH) {
-        Random random = new Random();
-        Map<Integer, Integer> tree = new HashMap<>();
-        Set<Integer> inTree = new HashSet<>();
+    public static class Dsu{
+        int[] parent;
+        int[] rank;
 
-        List<Integer> vertices = new ArrayList<>(GRAPH.keySet());
-        int start = random.nextInt(27);
-        inTree.add(start);
+        public Dsu(int size){
+            this.parent = new int[size];
+            this.rank = new int[size];
 
-        while (inTree.size() < GRAPH.size()) {
-
-            // Pick a room that is not part of the maze
-            int current = -1;
-            for (int v : vertices) {
-                if (!inTree.contains(v)) {
-                    current = v;
-                    break;
-                }
-            }
-
-            Map<Integer, Integer> path = new HashMap<>();
-            while (!inTree.contains(current)) {
-                List<Integer> neighbors = GRAPH.get(current);
-                int next = neighbors.get(random.nextInt(neighbors.size()));
-                path.put(current, next);
-                current = next;
-            }
-
-            for (Map.Entry<Integer, Integer> step : path.entrySet()) {
-                int u = step.getKey();
-                int v = step.getValue();
-
-                // so it easier to place the rooms later
-                int from = Math.min(u, v);
-                int to = Math.max(u, v);
-
-                tree.put(to, from);
-                inTree.add(u);
-                inTree.add(v);
+            for(int i = 0; i < size; i++){
+                parent[i] = i;
             }
         }
-        return tree;
+
+        public int find(int a){
+            while(parent[a] != a){
+                parent[a] = parent[parent[a]];
+                a = parent[a];
+            }
+            return a;
+        }
+
+        public boolean union(int x, int y){
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if(rootX == rootY){
+                return false;
+            }
+            if(rank[rootX] < rank[rootY]){
+                int temp = rootX;
+                rootX = rootY;
+                rootY = temp;
+            }
+            parent[rootY] = rootX;
+            if(rank[rootX] == rank[rootY]){
+                rank[rootX]++;
+            }
+            return true;
+        }
     }
+
+    public static List<Pair<Integer, Integer>> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size){
+        List<Pair<Integer, Integer>> edges = makeEdgeList(graph);
+        List<Pair<Integer, Integer>> mst = new ArrayList<>();
+        Dsu uf = new Dsu(size);
+
+        for(Pair<Integer, Integer> edge : edges){
+            if(uf.union(edge.first, edge.second)){
+                mst.add(edge);
+            }
+            if(mst.size() == size - 1){
+                break;
+            }
+        }
+        return mst;
+    }
+
+    public static List<Pair<Integer, Integer>> makeEdgeList(Map<Integer, List<Integer>> graph) {
+        Set<Pair<Integer, Integer>> edgeSet = new HashSet<>();
+
+        for(Map.Entry<Integer, List<Integer>> node : graph.entrySet()){
+            int currentNode = node.getKey();
+            for(Integer next: node.getValue()){
+                int to = Math.min(next, currentNode);
+                int from = Math.max(next, currentNode);
+                edgeSet.add(pair(to, from));
+            }
+        }
+        return new ArrayList<>(edgeSet);
+    }
+
+
 }
