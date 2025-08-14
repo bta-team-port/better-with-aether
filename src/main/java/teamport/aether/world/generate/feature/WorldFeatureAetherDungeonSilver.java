@@ -20,6 +20,7 @@ import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.components.WorldFeatureSilverMaze;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,10 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
-    public static BlockPallet angelicTrapped = new BlockPallet();
     public float angle = 0;
     public WorldFeaturePoint dungeonAnker;
     public WorldFeaturePoint bossPosition;
+    public WorldFeatureSilverMaze silverMaze;
     public World world;
     public Random random;
 
@@ -43,10 +44,6 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     static {
         angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 95);
         angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
-
-        angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 85);
-        angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
-        angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), 0, 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
@@ -76,23 +73,25 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
 
         // armor
+        float minArmorFactor = 1.0f / 2.0f;
+        float maxArmorFactor = 3.0f / 4.0f;
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() / 2.0)), 100.0);
+                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() / 2.0)), 100.0);
+                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_ZANITE.getDefaultStack()
-        ).setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() / 2.0)), 100.0);
+        ).setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() / 2.0)), 100.0);
+                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() / 2.0)), 100.0);
+                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() / 10.0), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() / 2.0)), 100.0);
+                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
         // ammo
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 5).setRandomMetadata(1, 1), 600.0);
@@ -151,15 +150,16 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
 
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        this.angle = random.nextInt(4) * 90.0F;
+//        this.angle = random.nextInt(4) * 90.0F;
+        this.angle = 1 * 90.0F;
         this.dungeonAnker = new WorldFeaturePoint(x,y,z);
         this.world = world;
         this.random = random;
         this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
+        this.silverMaze = new WorldFeatureSilverMaze();
 
         dungeon = AetherDimension.dungeonMap.register();
         dungeon.setPosition(bossPosition);
-
         createBaseStructure(x,y,z);
         createInnerDecorations(x,y,z);
         createBossAndTreasure(x, y, z);
@@ -168,6 +168,14 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
 
     private void createBossAndTreasure(int x, int y, int z) {
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+                new WorldFeaturePoint(x + 2, y, z - 3),
+                new WorldFeaturePoint(x - 31, y + 23, z + 56)
+        );
+        clearArea.first.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        clearArea.second.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        dungeon.setClearArea(clearArea);
+
         // Place boss, chest and door
         MobBossValkyrie boss = new MobBossValkyrie(world);
         boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
@@ -184,12 +192,12 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         }
 
         WorldFeaturePoint[] treasureDoor = {
-                new WorldFeaturePoint(x - 14, y + 2, z + 41),
                 new WorldFeaturePoint(x - 14, y + 2, z + 42),
                 new WorldFeaturePoint(x - 14, y + 2, z + 43),
-                new WorldFeaturePoint(x - 15, y + 2, z + 41),
                 new WorldFeaturePoint(x - 15, y + 2, z + 42),
                 new WorldFeaturePoint(x - 15, y + 2, z + 43),
+                new WorldFeaturePoint(x - 14, y + 2, z + 41), //non trapdoor
+                new WorldFeaturePoint(x - 15, y + 2, z + 41), //non trapdoor
         };
 
         for (WorldFeaturePoint pos : treasureDoor){ pos.rotateFixPointYAxis(x, y, z, angle); }
@@ -207,78 +215,25 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     private void createBaseStructure(int x, int y, int z) {
         // clear the volume of the structure of blocks
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
-        List<WorldFeaturePoint> cloudPoints = getCloudPoints(x,y,z);
-
-        // holystone base
-        WorldFeatureComponent base = drawVolume(random, holystone, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
-
-        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
-            new WorldFeaturePoint(x + 2, y, z - 3),
-            new WorldFeaturePoint(x - 31, y + 23, z + 56)
-        );
-
-        clearArea.first.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
-        clearArea.second.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
-        dungeon.setClearArea(clearArea);
-
-        int ix = base.tail.x;
-        int iz = base.tail.z;
-
-        // generate 3x3x3 grid of rooms
-        WorldFeatureComponent rooms = new WorldFeatureComponent();
-        WorldFeatureComponent chests = new WorldFeatureComponent();
-        int ROOM_WIDTH = 7, ROOM_HEIGHT = 5;
-        for (int LEVEL = 2; LEVEL >= 0; LEVEL--) {
-            boolean genStairs = false;
-            int counter = 0;
-            int stairNum = random.nextInt(8);
-            if (LEVEL < 2) {
-                genStairs = true;
-            }
-            for (int COLUMN = 0; COLUMN < 3; COLUMN++) {
-                for (int ROW = 0; ROW < 3; ROW++) {
-                    int roomX = x - 4 - COLUMN * ROOM_WIDTH;
-                    int roomY = y + ROOM_HEIGHT * LEVEL;
-                    int roomZ = z + 4 + ROW * ROOM_WIDTH;
-                    if (counter == stairNum && genStairs) {
-                        rooms.add(createStaircaseRoom(roomX, roomY, roomZ, false, true));
-                        genStairs = false;
-                        continue;
-                    }
-                    if (COLUMN == 2 && ROW == 2) {
-                        if (LEVEL == 2) {
-                            rooms.add(createRoom(roomX, roomY, roomZ, true));
-                        } else {
-                            rooms.add(createStaircaseRoom(roomX, roomY, roomZ, true, false));
-                        }
-                        continue;
-                    }
-                    if (random.nextInt(3) == 0) {
-                        rooms.add(createRoom(roomX, roomY, roomZ, false));
-                    } else {
-//                        WorldFeatureComponent[] treasureRoom = createTreasureRoom(roomX, roomY, roomZ, false);
-                        WorldFeatureComponent[] treasureRoom = createTreasureRoom(roomX, roomY, roomZ, true);
-                        rooms.add(treasureRoom[0]);
-                        chests.add(treasureRoom[1]);
-                    }
-                    counter++;
-                }
-            }
-        }
-
-        this.placeComponent(clear);
         // create clouds
+        this.placeComponent(clear);
+        List<WorldFeaturePoint> cloudPoints = getCloudPoints(x,y,z);
         for(WorldFeaturePoint cloudPoint : cloudPoints){
             this.modifyPoint(cloudPoint);
             new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
+        // holystone base
+        WorldFeatureComponent base = drawVolume(random, holystone, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
+        int ix = base.tail.x;
+        int iz = base.tail.z;
         this.placeComponent(base);
-        this.placeComponent(rooms);
-        this.placeComponent(chests);
 
-        // Fill the chests with loot
-        for(WorldFeatureBlock chest: chests.blockList){
+        // generate 3x3x3 grid of rooms
+        WorldFeatureComponent[] maze = silverMaze.createMaze(world, random, x, y, z);
+        this.placeComponent(maze[0]);
+        this.placeComponent(maze[1]);
+        for(WorldFeatureBlock chest: maze[1].blockList){
             if(chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()){
                 populateChest(world, chest, random, LOOT_NORMAL, (int)Math.round((random.nextGaussian() + 1) * 6));
             }
@@ -291,7 +246,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         // Entrance hole into boss room
         this.placeComponent(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 21, y + 1, z + 25, true));
 
-        //// Throne room
+        /// Throne room
         this.placeComponent(drawPlane(random, angelic, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
     }
 
@@ -455,92 +410,5 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         pillar.add(drawLine(AetherBlocks.PILLAR.id(), 0, Direction.UP, 13, x + Direction.WEST.getOffsetX(), y, z + Direction.SOUTH.getOffsetZ(), false));
         pillar.add(wfb(x + Direction.WEST.getOffsetX(), y + 13, z + Direction.SOUTH.getOffsetZ(), AetherBlocks.PILLAR_CAPSTONE.id(), 0, false));
         return pillar;
-    }
-
-    private WorldFeatureComponent createEntranceRoom(int x, int y, int z) {
-        WorldFeatureComponent room = new WorldFeatureComponent();
-        room.add(drawShell(random, angelicTrapped, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
-        room.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z + 7, true));
-        room.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, true));
-        room.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x - 7, y + 1, z + 3, true));
-        return room;
-    }
-
-    public WorldFeatureComponent createRoom(int x, int y, int z, boolean forceOpen) {
-        WorldFeatureComponent room = new WorldFeatureComponent();
-        room.add(drawShell(random, angelicTrapped, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
-        if (random.nextInt(2) != 0 || forceOpen) {
-            room.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z, true));
-        }
-        if (random.nextInt(2) != 0 || forceOpen) {
-            room.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z + 7, true));
-        }
-        if (random.nextInt(2) != 0 || forceOpen) {
-            room.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, true));
-        }
-        if (random.nextInt(2) != 0 || forceOpen) {
-            room.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x - 7, y + 1, z + 3, true));
-        }
-        return room;
-    }
-
-    public WorldFeatureComponent[] createTreasureRoom(int x, int y, int z, boolean forceOpen) {
-        WorldFeatureComponent room = createRoom(x, y, z, forceOpen);
-        room.add(drawPlane(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, true));
-        WorldFeatureComponent chests = new WorldFeatureComponent();
-
-        int chestCount = 0;
-        if (random.nextInt(3) == 0) {
-            chestCount++;
-            chests.add(placeChestOrMimic(random, x - 3, y + 2, z + 3));
-        }
-        if (random.nextInt(3) == 0) {
-            chestCount++;
-            chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 3));
-        }
-        if (random.nextInt(3) == 0) {
-            chestCount++;
-            chests.add(placeChestOrMimic(random, x - 3, y + 2, z + 4));
-        }
-        if (random.nextInt(2) == 0 && chestCount < 2) {
-            chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 4));
-        }
-        return new WorldFeatureComponent[]{room, chests};
-    }
-
-    public WorldFeatureComponent createStaircaseRoom(
-            int x, int y, int z,
-            boolean forceWalls,
-            boolean forceOpen
-    ) {
-        WorldFeatureComponent staircase = new WorldFeatureComponent();
-        if (forceWalls) {
-            staircase.add(drawShell(random, angelic, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
-        } else {
-            createRoom(x, y, z, forceOpen);
-        }
-        staircase.add(drawPlane(0, 0, Direction.SOUTH, 4, Direction.WEST, 4, x - 2, y + 5, z + 2, true));
-        staircase.add(drawVolume(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, Direction.UP, 9, x - 3, y + 1, z + 3, true));
-
-        staircase.add(wfb(x - 2, y + 1, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        staircase.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        staircase.add(wfb(x - 2, y + 2, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        staircase.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        staircase.add(wfb(x - 2, y + 2, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-
-        staircase.add(wfb(x - 3, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        staircase.add(wfb(x - 3, y + 2, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        staircase.add(wfb(x - 4, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        staircase.add(wfb(x - 5, y + 4, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        staircase.add(wfb(x - 5, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-
-        staircase.add(wfb(x - 5, y + 4, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        staircase.add(wfb(x - 5, y + 5, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        staircase.add(wfb(x - 5, y + 4, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        staircase.add(wfb(x - 5, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-
-        staircase.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        staircase.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        return staircase;
     }
 }
