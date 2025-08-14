@@ -146,7 +146,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
         float yRot = this.yRot + rotationyRotOffset;
-        float pitch = this.yRot + rotationyRotOffset;
+        float pitch = this.xRot + rotationPitchOffset;
         Vec3 vec3d = Vec3.getTempVec3(this.x, this.y, this.z);
         float f3 = MathHelper.cos(-yRot * 0.01745329F - 3.141593F);
         float f4 = MathHelper.sin(-yRot * 0.01745329F - 3.141593F);
@@ -216,13 +216,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     public void spawnInit() {
-        this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
+        if (world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
+            this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
+        }
     }
 
     public boolean canSpawnHere() {
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
         return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water);
     }
 
