@@ -61,6 +61,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             this.evaporateWater();
         }
 
+        this.maxFireTicks = 0;
+        this.fireImmune = true;
+        this.remainingFireTicks = 0;
+
         if (this.chatTime > 0) {
             --this.chatTime;
         }
@@ -136,9 +140,12 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
 
     public boolean collidesWith(Entity entity) {
-        entity.hurt(this, 20, DamageType.FIRE);
-        entity.maxFireTicks = 300;
-        entity.remainingFireTicks = 300;
+        if (!(entity instanceof MobBossSunspirit || entity instanceof MobFireMinion)) {
+            entity.hurt(this, 20, DamageType.FIRE);
+            entity.maxFireTicks = 300;
+            entity.remainingFireTicks = 300;
+            return false;
+        }
         return false;
     }
 
