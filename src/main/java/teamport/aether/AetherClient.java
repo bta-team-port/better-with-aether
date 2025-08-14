@@ -21,7 +21,6 @@ import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
-import teamport.aether.gui.ComponentExtraHealthBar;
 import teamport.aether.gui.ComponentJumpBar;
 import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.*;
@@ -29,7 +28,6 @@ import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
-import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -136,17 +134,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
             )
         );
-
-        int extraBars = (int) Math.ceil(EXTRA_HEALTH / 20.0f);
-        HudComponent previousComponent = HudComponents.HOTBAR;
-
-        for (int i = 0; i < extraBars + 1; i++){
-            previousComponent = HudComponents.register(
-                new ComponentExtraHealthBar(
-                    "aetherExtraHealth_bar" +  i,
-                    new LayoutSnap(previousComponent, ComponentAnchor.BOTTOM_CENTER, ComponentAnchor.TOP_CENTER), i )
-            );
-        }
 
         ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));
     }
