@@ -7,12 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class ItemGloves extends ItemAccessoryArmor implements IArmorItem {
     public final ArmorMaterial material;
+    public int damage;
 
     public ItemGloves(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material.identifier.value(), accessoryPiece);
         this.material = material;
         float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
+        this.damage = 1;
+    }
+
+    public ItemGloves setDamage(int damage){
+        this.damage = damage;
+        return this;
     }
 
     @Override
