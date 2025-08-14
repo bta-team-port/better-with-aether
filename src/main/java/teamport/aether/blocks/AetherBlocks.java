@@ -254,7 +254,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setLuminance(15)
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortalAether(b, AetherDimension.AETHER, Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
-        //TODO Missing travel and trigger sounds, will need to mixin into PlayerLocal
 
 
         GRASS_AETHER = new BlockBuilder(MOD_ID)
