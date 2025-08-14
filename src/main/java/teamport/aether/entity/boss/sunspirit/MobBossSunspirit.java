@@ -324,6 +324,9 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             }
             return true;
         }
+        if (!this.gotTarget) {
+            this.chatLog = 9;
+        }
         return false;
     }
 

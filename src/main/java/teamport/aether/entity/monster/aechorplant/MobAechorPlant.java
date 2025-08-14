@@ -15,7 +15,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.projectile.ProjectileDart;
+import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.items.AetherItems;
 
 public class MobAechorPlant extends MobMonster implements Enemy {
@@ -129,16 +129,16 @@ public class MobAechorPlant extends MobMonster implements Enemy {
             double dX = target.x - this.x;
             double dZ = target.z - this.z;
 
-            ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
-            dart.y = this.y + 0.5;
+            ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
+            needle.y = this.y + 0.5;
 
-            double h = target.y + (double)target.getHeadHeight() - 0.8 - dart.y;
+            double h = target.y + (double)target.getHeadHeight() - 0.8 - needle.y;
             float f1 = MathHelper.sqrt(d1 * d1 + d2 * d2) * 0.2F;
 
-            dart.setHeading(dX, h + (double)f1, dZ, 0.6F, 12.0F);
+            needle.setHeading(dX, h + (double)f1, dZ, 0.6F, 12.0F);
 
             this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-            this.world.entityJoinedWorld(dart);
+            this.world.entityJoinedWorld(needle);
         }
     }
 
