@@ -1,14 +1,18 @@
 package teamport.aether.entity.monster.sentry;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 public class MobSentry extends MobMonster implements Enemy {
     public int jumpDelay;
@@ -29,6 +33,18 @@ public class MobSentry extends MobMonster implements Enemy {
 
     public int getMaxHealth() {
         return 10;
+    }
+
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+
+        if (attacker instanceof Player) {
+            ItemStack item = ((Player)attacker).inventory.getCurrentItem();
+
+            if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
+                return super.hurt(attacker, damage * 2, type);
+            }
+        }
+        return super.hurt(attacker, damage, type);
     }
 
     @Override
