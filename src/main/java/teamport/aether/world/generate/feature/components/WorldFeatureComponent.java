@@ -96,6 +96,18 @@ public class WorldFeatureComponent {
         return component;
     }
 
+    public static WorldFeatureComponent placeChestOrMimic(
+            Random random, int x, int y, int z, int metadata
+    ) {
+        WorldFeatureComponent component = new WorldFeatureComponent();
+        if (random.nextInt(2) == 0) {
+            component.add(wfb(x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), metadata, true));
+            return component;
+        }
+        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true));
+        return component;
+    }
+
     public static void populateChest(
             World world, WorldFeatureBlock wfb,
             Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable,
