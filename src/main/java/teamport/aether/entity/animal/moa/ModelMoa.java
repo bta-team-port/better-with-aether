@@ -1,9 +1,12 @@
 package teamport.aether.entity.animal.moa;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class ModelMoa extends ModelBase {
     public Cube head;
     public Cube palate;

@@ -1,12 +1,14 @@
 package teamport.aether.entity.boss.valkyrie.queen;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.model.ModelBiped;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererValkyrieBoss extends MobRendererBiped<MobBossValkyrie> {
     public MobRendererValkyrieBoss(ModelBiped model, float shadowSize) {
         super(model, shadowSize);

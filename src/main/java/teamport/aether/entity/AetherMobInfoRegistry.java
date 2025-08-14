@@ -1,5 +1,7 @@
 package teamport.aether.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
@@ -27,6 +29,7 @@ import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 
+@Environment(EnvType.CLIENT)
 public class AetherMobInfoRegistry {
     public static boolean hasInit = false;
 

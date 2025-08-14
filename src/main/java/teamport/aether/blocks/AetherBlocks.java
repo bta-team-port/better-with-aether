@@ -187,6 +187,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BlockBuilder dungeonStoneLocked = stone
                 .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setImmovable()
                 .setHardness(999999999F)
                 .setResistance(999999999F);
 

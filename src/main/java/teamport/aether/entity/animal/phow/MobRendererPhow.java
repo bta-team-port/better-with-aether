@@ -1,9 +1,12 @@
 package teamport.aether.entity.animal.phow;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererPhow extends MobRenderer<MobPhow> {
     public MobRendererPhow(ModelBase modelbase, float shadowSize) {
         super(modelbase, shadowSize);

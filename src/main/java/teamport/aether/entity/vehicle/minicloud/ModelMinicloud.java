@@ -1,8 +1,11 @@
 package teamport.aether.entity.vehicle.minicloud;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class ModelMinicloud extends ModelBase {
     public Cube[] head;
 

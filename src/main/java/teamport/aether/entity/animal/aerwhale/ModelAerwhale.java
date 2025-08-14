@@ -1,8 +1,11 @@
 package teamport.aether.entity.animal.aerwhale;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBase;
 
+@Environment(EnvType.CLIENT)
 public class ModelAerwhale extends ModelBase {
     public Cube frontBody;
     public Cube frontPleats;

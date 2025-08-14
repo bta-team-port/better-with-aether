@@ -1,10 +1,13 @@
 package teamport.aether.entity.animal.moa;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@Environment(EnvType.CLIENT)
 public class MobRendererMoa extends MobRenderer<MobMoaBlue> {
 
     public MobRendererMoa(ModelBase modelbase, float shadowSize) {

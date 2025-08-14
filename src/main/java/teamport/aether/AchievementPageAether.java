@@ -1,5 +1,7 @@
 package teamport.aether;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.achievements.ScreenAchievements;
 import net.minecraft.client.gui.achievements.data.AchievementPage;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
@@ -13,6 +15,7 @@ import teamport.aether.blocks.AetherBlocks;
 import java.util.Objects;
 import java.util.Random;
 
+@Environment(EnvType.CLIENT)
 public class AchievementPageAether extends AchievementPage {
     public final String name;
     public final ItemStack icon;
