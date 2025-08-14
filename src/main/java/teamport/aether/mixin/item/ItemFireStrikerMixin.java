@@ -1,18 +1,23 @@
 package teamport.aether.mixin.item;
 
+import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemFireStriker;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.world.AetherDimension;
+
+import java.util.Random;
 
 @Mixin(value = ItemFireStriker.class, remap = false)
 public abstract class ItemFireStrikerMixin extends Item {
@@ -37,4 +42,14 @@ public abstract class ItemFireStrikerMixin extends Item {
             info.setReturnValue(false);
         }
     }
+
+    @Inject(method = "onUseByActivator", at = @At("HEAD"), cancellable = true)
+    public void callOnUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction, CallbackInfo ci) {
+        if (world.dimension == AetherDimension.AETHER) {
+            itemStack.damageItem(1, null);
+            world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
+            ci.cancel();
+        }
+    }
+
 }

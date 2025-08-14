@@ -24,16 +24,19 @@ import java.util.List;
 @Mixin(value = ItemBlock.class, remap = false)
 public abstract class ItemBlockBlacklistMixin {
 
-    @Shadow @NotNull protected Block<?> block;
+    @Shadow
+    @NotNull
+    protected Block<?> block;
 
-    @Shadow public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
+    @Shadow
+    public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
 
     @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
-    public void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
+    public void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
         Dimension dim = world.dimension;
         List<Integer> BLACKLIST = AetherDimension.getDimensionBlacklist(dim);
 
-        if (BLACKLIST.contains(block.id()))  {
+        if (BLACKLIST.contains(block.id())) {
             blockX += side.getOffsetX();
             blockY += side.getOffsetY();
             blockZ += side.getOffsetZ();
@@ -44,10 +47,11 @@ public abstract class ItemBlockBlacklistMixin {
                         int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
 
                         if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, Blocks.PUMPKIN_CARVED_IDLE.id(), meta)) {
-                            if (player != null) this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
+                            if (player != null)
+                                this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
                             else this.block.onBlockPlacedByWorld(world, blockX, blockY, blockZ);
 
-                            world.playBlockSoundEffect(player, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
+                            world.playBlockSoundEffect(player, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
                         }
 
                         if (player != null && player.getGamemode().consumeBlocks()) {
@@ -55,20 +59,32 @@ public abstract class ItemBlockBlacklistMixin {
                         }
                     }
                 }
+                if (block.id() == Blocks.BRAZIER_ACTIVE.id()) {
+                    if (world.canBlockBePlacedAt(this.block.id(), blockX, blockY, blockZ, false, side) && stack.consumeItem(player)) {
+                        int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
+
+                        if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, Blocks.BRAZIER_INACTIVE.id(), meta)) {
+                            if (player != null)
+                                this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
+                            else this.block.onBlockPlacedByWorld(world, blockX, blockY, blockZ);
+
+                            world.playBlockSoundEffect(player, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
+                        }
+
+                        if (player != null && player.getGamemode().consumeBlocks()) {
+                            ++stack.stackSize;
+                        }
+                    }
+                }
+
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
-                    world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0, 0);
+                    world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+                    world.spawnParticle("largesmoke", (double) blockX + Math.random(), (double) blockY + .2, (double) blockZ + Math.random(), 0.0, 0.0, 0.0, 0);
                 }
-                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
-
-            } else {
-                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
-                for (int i = 0; i < 8; ++i) {
-                    world.spawnParticle("largesmoke", (double)blockX + Math.random(), (double)blockY + .2, (double)blockZ + Math.random(), 0.0, 0.0, 0.0, 0);
-                }
-
+                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) blockX + 0.5, (double) blockY + 0.5, (double) blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) blockX + 0.5f, (float) blockY + 0.5f, (float) blockZ + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
             }
-
             cir.setReturnValue(true);
         }
     }
