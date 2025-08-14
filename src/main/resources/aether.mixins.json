@@ -90,6 +90,7 @@
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "dimension.aetherAchievementMixin",
     "dimension.HostileParadiseMixin",
+    "PortalNoisePlayerLocalMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
