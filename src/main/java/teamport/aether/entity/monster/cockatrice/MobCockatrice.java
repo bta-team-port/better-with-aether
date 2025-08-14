@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.entity.projectile.ProjectileDart;
+import teamport.aether.entity.projectile.ProjectileNeedle;
 
 public class MobCockatrice extends MobMonster implements Enemy {
     public float flap = 0.0F;
@@ -79,12 +79,12 @@ public class MobCockatrice extends MobMonster implements Enemy {
             double d1 = entity.z - this.z;
             if (this.attackTime == 0) {
                 if (!this.world.isClientSide) {
-                    ProjectileDart dart = new ProjectileDart(this.world, this, false, 1);
-                    double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - dart.y;
+                    ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
+                    double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - needle.y;
                     float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
                     world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
-                    dart.setHeading(d, d2 + (double)f1, d1, 0.6F, 12.0F);
-                    this.world.entityJoinedWorld(dart);
+                    needle.setHeading(d, d2 + (double)f1, d1, 0.6F, 12.0F);
+                    this.world.entityJoinedWorld(needle);
                 }
 
                 this.attackTime = 30;

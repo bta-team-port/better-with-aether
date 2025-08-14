@@ -97,6 +97,8 @@ aether.entity.arrow_flaming=arrow_flaming
 aether.entity.dart=dart
 aether.entity.dart_enchanted=dart_enchanted
 
+aether.entity.needle=needle
+
 aether.entity.hammer_head=hammer_head
 
 aether.entity.knife_lightning=knife_lightning
