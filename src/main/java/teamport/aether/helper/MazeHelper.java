@@ -49,6 +49,11 @@ public class MazeHelper {
 
     public static List<Pair<Integer, Integer>> randomMazeKruskal(Map<Integer, List<Integer>> graph, int size){
         List<Pair<Integer, Integer>> edges = makeEdgeList(graph);
+        Collections.shuffle(edges);
+        return randomMazeKruskal(edges, size);
+    }
+
+    public static List<Pair<Integer, Integer>> randomMazeKruskal(List<Pair<Integer, Integer>> edges, int size){
         List<Pair<Integer, Integer>> mst = new ArrayList<>();
         Dsu uf = new Dsu(size);
 
@@ -77,5 +82,15 @@ public class MazeHelper {
         return new ArrayList<>(edgeSet);
     }
 
+    public static Map<Integer, List<Integer>> makeGraph(List<Pair<Integer, Integer>> edgeList) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
 
+        for(Pair<Integer, Integer> edge: edgeList){
+            Integer u = edge.first;
+            Integer v = edge.second;
+            graph.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+            graph.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+        }
+        return graph;
+    }
 }

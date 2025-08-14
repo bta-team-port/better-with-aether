@@ -30,9 +30,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     }
 
     public static final WorldFeature[] dungeons = new WorldFeature[]{
-            new WorldFeatureAetherDungeonGold(),
+            new WorldFeatureAetherDungeonBronze(),
             new WorldFeatureAetherDungeonSilver(),
-            new WorldFeatureAetherDungeonBronze()
+            new WorldFeatureAetherDungeonGold(),
     };
 
     public void decorate(Chunk chunk) {
