@@ -118,6 +118,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         }
 
         this.lookAt(entityplayer, 180.0F, 180.0F);
+        world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             entityplayer.sendMessage("I have no time for pathetic humans like you.");
@@ -343,11 +344,34 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
                     this.target = null;
                     this.chatTime = 60;
                     ((Player) entity).sendMessage("As expected of a human.");
+                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.heal(400);
                     this.duel = false;
                 }
             }
         }
+    }
+
+    public String getLivingSound() {
+        return null;
+    }
+
+    public String getHurtSound() {
+        return "aether:mob.valkyrie.hurt";
+    }
+
+    public String getDeathSound() {
+        return "aether:mob.valkyrie.death";
+    }
+
+    public void playHurtSound() {
+        if (world.rand.nextInt(3) == 0) {
+            this.world.playSoundAtEntity(null, this, this.getHurtSound(), 1.0f, 0.75F);
+        }
+    }
+
+    public void playDeathSound() {
+        this.world.playSoundAtEntity(null, this, this.getDeathSound(), 1.0f, 0.75F);
     }
 
     public int getMaxHealth() {
