@@ -177,32 +177,40 @@ public class WorldFeatureSilverMaze {
     }
     public void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
+        int chestID = AetherBlocks.CHEST_PLANKS_SKYROOT.id();
+
+        // hehe, a room that is just traps
+        if(random.nextInt(10) == 0){
+            chestID = AetherBlocks.CHEST_MIMIC.id();
+        }
+
         // places chests
         for(int i = 0; i < Direction.horizontalDirections.length; i++){
+
             Direction dir = Direction.horizontalDirections[i];
             if(dir == doorDirection){
                 continue;
             }
             if (dir == Direction.SOUTH) {
                 rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 6, true));
-                chests.add(wfb(x - 3, y + 2, z + 6, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
-                chests.add(wfb(x - 4, y + 2, z + 6, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
+                chests.add(wfb(x - 3, y + 2, z + 6, chestID, true));
+                chests.add(wfb(x - 4, y + 2, z + 6, chestID, true));
 
             }
             if (dir == Direction.WEST) {
                 rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 6, y + 1, z + 3, true));
-                chests.add(wfb(x - 6, y + 2, z + 3, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
-                chests.add(wfb(x - 6, y + 2, z + 4, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
+                chests.add(wfb(x - 6, y + 2, z + 3, chestID, true));
+                chests.add(wfb(x - 6, y + 2, z + 4, chestID, true));
             }
             if (dir == Direction.NORTH) {
                 rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 1, true));
-                chests.add(wfb(x - 3, y + 2, z + 1, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
-                chests.add(wfb(x - 4, y + 2, z + 1, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
+                chests.add(wfb(x - 3, y + 2, z + 1, chestID, true));
+                chests.add(wfb(x - 4, y + 2, z + 1, chestID, true));
             }
             if (dir == Direction.EAST) {
                 rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 1, y + 1, z + 3, true));
-                chests.add(wfb(x - 1, y + 2, z + 3, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
-                chests.add(wfb(x - 1, y + 2, z + 4, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), true));
+                chests.add(wfb(x - 1, y + 2, z + 3, chestID, true));
+                chests.add(wfb(x - 1, y + 2, z + 4, chestID, true));
             }
         }
         // replaces the floor with more trapped valkyries
