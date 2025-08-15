@@ -2,6 +2,9 @@ package teamport.aether.command;
 
 import net.minecraft.core.net.command.CommandManager;
 import teamport.aether.world.generate.feature.*;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChest;
 
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
 
@@ -19,6 +22,10 @@ public class AetherCommand {
         registerWorldFeatureClass(WorldFeatureAetherTree.class);
         registerWorldFeatureClass(WorldFeatureAetherTreeGoldenOak.class);
         registerWorldFeatureClass(WorldFeatureAetherQuicksoil.class);
+
+        registerWorldFeatureClass(WorldFeatureAetherGoldChest.class);
+        registerWorldFeatureClass(WorldFeatureAetherSilverChest.class);
+        registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class);
     }
 
     public static void registerClientCommands(){
