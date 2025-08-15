@@ -12,6 +12,19 @@ import org.jetbrains.annotations.Nullable;
 
 public class ProjectileWindball extends Projectile implements ProjectileAether {
 
+    public ProjectileWindball(World world) {
+        super(world);
+        this.setSize(1.0F, 1.0F);
+    }
+
+    public ProjectileWindball(World world, double x, double y, double z, double vX, double vY, double vZ) {
+        super(world);
+        this.setSize(1.0F, 1.0F);
+        this.moveTo(x, y, z, this.yRot, this.xRot);
+        this.setPos(x, y, z);
+        this.setVelocity(vX, vY, vZ, 1.0);
+    }
+
     public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
         super(world);
         this.setSize(1.0F, 1.0F);
@@ -22,24 +35,10 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
         vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
         vY += this.random.nextGaussian() * 0.4;
         vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
-        this.setVelocity(vX, vY, vZ);
+        this.setVelocity(vX, vY, vZ, 1.0);
     }
 
-    public ProjectileWindball(World world, double x, double y, double z) {
-        super(world);
-        this.setSize(1.0F, 1.0F);
-        this.setPos(x, y, z);
-        this.heightOffset = 0.0F;
-    }
-
-    public ProjectileWindball(World world) {
-        super(world);
-        this.setSize(1.0F, 1.0F);
-        this.setPos(x, y, z);
-        this.heightOffset = 0.0F;
-    }
-
-    public void setVelocity(double vX, double vY, double vZ) {
+    private void setVelocity(double vX, double vY, double vZ, double speed) {
         double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
         if (velocity != 0.0) {
             this.xd = vX / velocity;
@@ -68,13 +67,14 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
     }
 
     public void onHit(HitResult result) {
-
         if (!this.world.isClientSide) {
             if (result.entity != null) {
-                result.entity.fling(xd * 4, yd * 0, zd * 4, 0.5F);
+                if (!(result.entity instanceof ProjectileWindball)) {
+                    result.entity.fling(xd * 4, yd * 0, zd * 4, 0.5F);
+                }
             }
+            this.remove();
         }
-        this.remove();
     }
 
     public void afterTick() {
@@ -101,7 +101,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
     }
 
     public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        ProjectileWindball windBall = new ProjectileWindball(world, x, y, z);
+        ProjectileWindball windBall = new ProjectileWindball(world, x, y, z, xd, yd, zd);
         if (hasVelocity) windBall.setHeading(xd, yd, zd, 1, 0);
         if (owner instanceof Mob) windBall.owner = (Mob) owner;
         return windBall;
