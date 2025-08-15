@@ -5,11 +5,11 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 
 import java.util.Random;
 
-public class WorldFeatureQuicksoil extends WorldFeature {
+public class WorldFeatureAetherQuicksoil extends WorldFeature {
 
     public final int blockId;
 
-    public WorldFeatureQuicksoil(int blockId) {
+    public WorldFeatureAetherQuicksoil(int blockId) {
         this.blockId = blockId;
     }
     @Override

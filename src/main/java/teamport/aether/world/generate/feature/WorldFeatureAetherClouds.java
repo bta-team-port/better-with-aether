@@ -5,12 +5,12 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 
 import java.util.Random;
 
-public class WorldFeatureClouds extends WorldFeature {
+public class WorldFeatureAetherClouds extends WorldFeature {
     public final int numBlocks;
     public final int blockToPlace;
     public final boolean isFlat;
 
-    public WorldFeatureClouds(int blockToPlace, int numBlocks, boolean isFlat) {
+    public WorldFeatureAetherClouds(int blockToPlace, int numBlocks, boolean isFlat) {
         this.numBlocks = numBlocks;
         this.isFlat = isFlat;
         this.blockToPlace = blockToPlace;

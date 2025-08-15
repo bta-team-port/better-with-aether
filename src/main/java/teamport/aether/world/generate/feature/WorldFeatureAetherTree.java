@@ -10,12 +10,12 @@ import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
-public class WorldFeatureTreeAether extends WorldFeature {
+public class WorldFeatureAetherTree extends WorldFeature {
     public int leavesID;
     public int logID;
     public int heightMod;
 
-    public WorldFeatureTreeAether(int leavesID, int logID, int heightMod) {
+    public WorldFeatureAetherTree(int leavesID, int logID, int heightMod) {
         this.leavesID = leavesID;
         this.logID = logID;
         this.heightMod = heightMod;

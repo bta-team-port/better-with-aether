@@ -13,6 +13,7 @@ import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -53,7 +54,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
     public static final int radius = 16;
 
     public static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
-            new Pair<>(128, new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id())),
+            new Pair<>(128, new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id())),
             new Pair<>(32, new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())),
             new Pair<>(84, new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true))
     };
@@ -262,7 +263,7 @@ public class WorldFeatureAetherDungeonGold extends WorldFeature{
     public void decorateTopLevelInRadius(Pair<Integer, WorldFeature>[] worldFeaturePair, int radius, int x, int y, int z) {
         int radX, radZ, height;
         for (radX = -radius; radX < radius; radX++) for (radZ = -radius; radZ < radius; radZ++) {
-            if (WorldFeatureComponent.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
+            if (AetherMathHelper.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
                 WorldFeatureComponent decorator = new WorldFeatureComponent();
                 height = world.getHeightValue((radX + x), (radZ + z));
                 if (Math.abs(height - y) > radius*2.25) continue;

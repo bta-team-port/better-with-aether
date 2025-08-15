@@ -69,13 +69,6 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
-        double d3 = x - x1;
-        double d4 = y - y1;
-        double d5 = z - z1;
-        return d3 * d3 + d4 * d4 + d5 * d5;
-    }
-
     public WorldFeaturePoint getAnker(){
         return anker;
     }
@@ -96,18 +89,6 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent placeChestOrMimic(
-            Random random, int x, int y, int z, int metadata
-    ) {
-        WorldFeatureComponent component = new WorldFeatureComponent();
-        if (random.nextInt(2) == 0) {
-            component.add(wfb(x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), metadata, true));
-            return component;
-        }
-        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true));
-        return component;
-    }
-
     public static void populateChest(
             World world, WorldFeatureBlock wfb,
             Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable,
@@ -115,11 +96,15 @@ public class WorldFeatureComponent {
     ) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
         if(inventory == null) return;
+        int invSize = inventory.getContainerSize();
         for (int i = 0; i < quantity; i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    lootTable.getRandom().getItemStack(random)
-            );
+            int index = random.nextInt(invSize);
+            for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
+                if (index >= invSize) {
+                    index = 0;
+                }
+            }
+            inventory.setItem(index, lootTable.getRandom().getItemStack(random));
         }
     }
 

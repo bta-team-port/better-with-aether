@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
+import java.util.List;
+
 public class MobMimic extends MobMonster implements Enemy {
     public MobMimic(World world) {
         super(world);
@@ -64,5 +66,12 @@ public class MobMimic extends MobMonster implements Enemy {
 
     public int getMaxHealth() {
         return 40;
+    }
+
+    public void setLoot(List<ItemStack> loot){
+        if(loot == null) return;
+        for(ItemStack itemStack : loot){
+            this.mobDrops.add(new WeightedRandomLootObject(itemStack, 0, 1));
+        }
     }
 }
