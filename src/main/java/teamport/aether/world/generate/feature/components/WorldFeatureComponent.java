@@ -123,6 +123,50 @@ public class WorldFeatureComponent {
         }
     }
 
+    public static void setTreasure(
+            World world, Random random,
+            int x, int y, int z,
+            WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE
+    ) {
+        Container inventory = BlockLogicChest.getInventory(world, x, y, z);
+        if(inventory == null) return;
+        List<WeightedRandomLootObject> loot = new ArrayList<>(LOOT_RARE.getEntries());
+        int quantity = invertedExponentialCapped(random, 2, 6);
+        int normalQuantity = invertedExponentialCapped(random, 6, 18);
+
+        for (int i = 0; i < 5 + normalQuantity; i++) {
+            inventory.setItem(
+                    random.nextInt(inventory.getContainerSize()),
+                    LOOT_NORMAL.getRandom().getItemStack(random)
+            );
+        }
+        for(int i = 0; i < 1 + quantity; i++){
+            inventory.setItem(random.nextInt(inventory.getContainerSize()), loot.get(i).getItemStack());
+        }
+    }
+
+
+    /**
+     * @implNote Exponential can return any value between [0, INF) and as such this function caps it.
+     * */
+    public static int invertedExponentialCapped(Random random, int mean, int cap) {
+        return Math.min((int)Math.floor(invertedExponential(random, mean)), cap);
+    }
+
+    /**
+     * @implNote Inverse Exponential function where the expected value is the parameter mean.
+     * */
+    public static double invertedExponential(Random random, int mean) {
+        return nextExponential(random) * mean;
+    }
+
+    /**
+     * @implNote Generate an exponential distributed random values function with lambda set to 1.
+     * */
+    public static double nextExponential(Random random) {
+        return -Math.log(1 - random.nextDouble());
+    }
+
     public static WorldFeatureComponent drawSphere(
             Random random, BlockPallet pallet,
             int x, int y, int z,
