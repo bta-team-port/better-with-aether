@@ -22,9 +22,7 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.components.WorldFeatureSilverMaze;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
@@ -184,12 +182,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
         world.setBlockAndMetadataWithNotify(bossPosition.x, y, bossPosition.z, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
         Container inventory = BlockLogicChest.getInventory(world, bossPosition.x, y, bossPosition.z);
-        for (int i = 0; i < 6 + random.nextInt(6); i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    LOOT_RARE.getRandom().getItemStack(random)
-            );
-        }
+
+        WorldFeatureComponent.setTreasure(world, random, bossPosition.x, y, bossPosition.z, LOOT_NORMAL, LOOT_RARE);
 
         WorldFeaturePoint[] treasureDoor = {
                 new WorldFeaturePoint(x - 14, y + 2, z + 42),
@@ -220,7 +214,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x,y,z);
         for(WorldFeaturePoint cloudPoint : cloudPoints){
             this.modifyPoint(cloudPoint);
-            new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
+            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
         // holystone base
@@ -345,7 +339,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         this.placeComponent(pod);
         this.placeComponent(trees);
         for(WorldFeatureBlock tree: trees.blockList){
-            new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()).place(world, random, tree.x, tree.y, tree.z);
+            new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()).place(world, random, tree.x, tree.y, tree.z);
         }
     }
 

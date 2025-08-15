@@ -8,13 +8,13 @@ import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
-public class WorldFeatureLiquidAether extends WorldFeature {
+public class WorldFeatureAetherLiquid extends WorldFeature {
     public int liquidBlockId;
 
     @MethodParametersAnnotation(
             names = {"liquidId"}
     )
-    public WorldFeatureLiquidAether(int liquidId) {
+    public WorldFeatureAetherLiquid(int liquidId) {
         this.liquidBlockId = liquidId;
     }
 
