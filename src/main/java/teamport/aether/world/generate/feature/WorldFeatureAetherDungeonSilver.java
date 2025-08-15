@@ -220,9 +220,9 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         this.placeComponent(maze[0]);
         this.placeComponent(maze[1]);
         for(WorldFeatureBlock chest: maze[1].blockList){
-            if(chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()){
+//            if(chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()){
                 populateChest(world, chest, random, LOOT_NORMAL, (int)Math.round((random.nextGaussian() + 1) * 6));
-            }
+//            }
         }
 
         // Outer walls of dungeon itself
