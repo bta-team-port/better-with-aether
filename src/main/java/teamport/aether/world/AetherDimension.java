@@ -6,6 +6,7 @@ import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
+import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class AetherDimension {
     public static final int dungeonRadius = 300;
     public static final int dungeonRadiusSQR = dungeonRadius * dungeonRadius;
 
-    public static int AetherDimensionID = 3;
+    public static int AetherDimensionID = AetherConfig.DIMENSION;
     public static final HashMap<Integer, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
     public static DungeonMap dungeonMap = new DungeonMap();
 
