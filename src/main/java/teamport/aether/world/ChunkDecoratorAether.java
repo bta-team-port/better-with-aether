@@ -108,7 +108,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOreAether(AetherBlocks.DIRT_AETHER.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureAetherOre(AetherBlocks.DIRT_AETHER.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 2; ++j4) {
@@ -138,56 +138,56 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOreAether(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureAetherOre(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 20; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOreAether(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureAetherOre(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 15; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(192);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOreAether(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureAetherOre(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         for (j4 = 0; j4 < 8; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(128);
             treeDensity = z + rand.nextInt(16);
-            (new WorldFeatureOreAether(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
+            (new WorldFeatureAetherOre(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
         }
 
         if (rand.nextInt(12) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(32) + 224;
             k4 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, j4, k7, k4);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, j4, k7, k4);
         }
 
         if (rand.nextInt(12) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(64) + 128;
             k4 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, j4, k7, k4);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, j4, k7, k4);
         }
 
         if (rand.nextInt(6) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(192) + 32;
             k4 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, j4, k7, k4);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, j4, k7, k4);
         }
 
         if (rand.nextInt(18) == 0) {
             j4 = x + rand.nextInt(16);
             k7 = rand.nextInt(64) + 8;
             k4 = z + rand.nextInt(16);
-            (new WorldFeatureClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
         }
 
         if (rand.nextInt(5) == 0) {
@@ -195,7 +195,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 for (k7 = z; k7 < z + 16; ++k7) {
                     for (k4 = 0; k4 < 192; ++k4) {
                         if (this.world.getBlockId(j4, k4, k7) == 0 && this.world.getBlockId(j4, k4 + 1, k7) == AetherBlocks.GRASS_AETHER.id() && this.world.getBlockId(j4, k4 + 2, k7) == 0) {
-                            (new WorldFeatureQuicksoil(AetherBlocks.QUICKSOIL.id())).place(this.world, rand, j4, k4, k7);
+                            (new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL.id())).place(this.world, rand, j4, k4, k7);
                             k4 = 256;
                         }
                     }
@@ -212,7 +212,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (k4 = 0; k4 < 2; ++k4) {
             treeDensity = x + rand.nextInt(16) + 8;
             l21 = z + rand.nextInt(16) + 8;
-            WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureTreeAether(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
+            WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
             worldFeature.init(1.0, 1.0, 1.0);
             worldFeature.place(this.world, rand, treeDensity, this.world.getHeightValue(treeDensity, l21), l21);
         }
@@ -221,7 +221,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             treeDensity = x + rand.nextInt(16) + 8;
             l21 = rand.nextInt(rand.nextInt(248) + 8);
             int l22 = z + rand.nextInt(16) + 8;
-            (new WorldFeatureLiquidAether(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, treeDensity, l21, l22);
+            (new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, treeDensity, l21, l22);
         }
 
         BlockLogicSand.fallInstantly = false;

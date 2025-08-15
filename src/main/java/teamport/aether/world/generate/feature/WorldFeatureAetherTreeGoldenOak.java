@@ -8,11 +8,11 @@ import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
-public class WorldFeatureTreeGoldenOak extends WorldFeature {
+public class WorldFeatureAetherTreeGoldenOak extends WorldFeature {
     public int leavesID;
     public int logID;
 
-    public WorldFeatureTreeGoldenOak(int leavesID, int logID) {
+    public WorldFeatureAetherTreeGoldenOak(int leavesID, int logID) {
         this.leavesID = leavesID;
         this.logID = logID;
     }
