@@ -126,7 +126,6 @@ public class WorldFeatureSilverMaze {
         int columnCurrent = (to - levelCurrent * 9) / 3;
         int rowCurrent = to - levelCurrent * 9 - columnCurrent * 3;
 
-
         int roomX = x - 4 - ROOM_WIDTH * rowCurrent;
         int roomY = y + ROOM_HEIGHT * levelCurrent;
         int roomZ = z + 4 + ROOM_WIDTH * columnCurrent;
@@ -139,6 +138,10 @@ public class WorldFeatureSilverMaze {
         }
         if (doorDirection == Direction.UP) {
             createStaircase(roomX, roomY, roomZ);
+            return;
+        }
+        if(doorDirection == Direction.DOWN){
+            createRoom(roomX, roomY, roomZ, doorDirection);
             return;
         }
         if (to == ENTRANCE || SPANNING_TREE.get(to).size() > 2) {
