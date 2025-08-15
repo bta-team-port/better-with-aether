@@ -1,0 +1,33 @@
+package teamport.aether.helper;
+
+import java.util.Random;
+
+public class AetherMathHelper {
+    /**
+     * @implNote Exponential can return any value between [0, INF) and as such this function caps it.
+     * */
+    public static int invertedExponentialCapped(Random random, int mean, int cap) {
+        return Math.min((int)Math.floor(invertedExponential(random, mean)), cap);
+    }
+
+    /**
+     * @implNote Inverse Exponential function where the expected value is the parameter mean.
+     * */
+    public static double invertedExponential(Random random, int mean) {
+        return nextExponential(random) * mean;
+    }
+
+    /**
+     * @implNote Generate an exponential distributed random values function with lambda set to 1.
+     * */
+    public static double nextExponential(Random random) {
+        return -Math.log(1 - random.nextDouble());
+    }
+
+    public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
+        double d3 = x - x1;
+        double d4 = y - y1;
+        double d5 = z - z1;
+        return d3 * d3 + d4 * d4 + d5 * d5;
+    }
+}

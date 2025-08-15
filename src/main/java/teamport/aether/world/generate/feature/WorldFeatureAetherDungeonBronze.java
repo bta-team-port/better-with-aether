@@ -11,6 +11,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
@@ -188,10 +189,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         return false;
     }
 
-    double nextExponential() {
-        return -Math.log(1 - random.nextDouble());
-    }
-
     // TODO sometime places the start of a tunnel but does not build it in full
     public boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {
         int x = finalX, z = finalZ;
@@ -208,7 +205,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         if (dir == WEST) {
             z -= 16;
         }
-        int height = Math.min((int)Math.floor(nextExponential() * ROOM_HEIHGT_MEAN), 6);
+        int height = Math.min((int)Math.floor(AetherMathHelper.nextExponential(random) * ROOM_HEIHGT_MEAN), 6);
 
         if (this.roomCount > ROOM_COUNT_MAX) {
             this.endCorridor(finalX, finalY, finalZ, pickNewDir(dir));
