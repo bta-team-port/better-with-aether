@@ -60,9 +60,7 @@ public class ComponentJumpBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return
-            mc.thePlayer.vehicle instanceof EntityJumpAmount
-            || ContainerHelper.countArmorPiecesOfMaterial(mc.thePlayer.inventory, AetherArmorMaterial.GRAVITITE) >= 5;
+        return mc.thePlayer.vehicle instanceof EntityJumpAmount;
     }
 
     @Override
@@ -78,10 +76,6 @@ public class ComponentJumpBar extends HudComponentMovable {
             if (vehicle instanceof EntityJumpAmount) {
                 drawJumpBar(((EntityJumpAmount) vehicle).getJumpMaxAmount(), ((EntityJumpAmount) vehicle).getJumpAmount());
             }
-        }
-
-        else if (ContainerHelper.countArmorPiecesOfMaterial(mc.thePlayer.inventory, AetherArmorMaterial.GRAVITITE) >= 5) {
-            drawJumpBar(((EntityJumpAmount) mc.thePlayer).getJumpMaxAmount(), ((EntityJumpAmount) mc.thePlayer).getJumpAmount());
         }
     }
 
