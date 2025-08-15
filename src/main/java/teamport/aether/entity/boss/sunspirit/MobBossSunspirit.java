@@ -33,7 +33,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
     public MobBossSunspirit(@Nullable World world) {
         super(world);
-        this.setSize(2.25F, 2.5F);
+        this.setSize(2.25F, 3.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_sunspirit");
         this.fireImmune = true;
         this.maxHurtTime = 40;
@@ -164,6 +164,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
                 }
             }
         }
+    }
+
+    public boolean isPushable() {
+        return false;
     }
 
     public boolean chatWithMe(Player player) {

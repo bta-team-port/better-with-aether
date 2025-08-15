@@ -201,12 +201,14 @@ public class MobZephyr extends MobFlying implements Enemy {
     }
 
     public boolean canSpawnHere() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(30) == 0
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(20) == 0
                 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
     }
 
     public void spawnInit() {
-        this.moveTo(this.x, this.y + 15, this.z, this.yRot, 0.0F);
+        if (world.getBlockId((int) (this.x + 0.5), (int) (this.y + 15), (int) (this.z + 0.5)) == 0) {
+            this.moveTo(this.x, this.y + 15, this.z, this.yRot, 0.0F);
+        }
     }
 
     public int getMaxSpawnedInChunk() {
