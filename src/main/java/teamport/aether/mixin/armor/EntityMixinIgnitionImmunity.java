@@ -18,9 +18,8 @@ public class EntityMixinIgnitionImmunity {
         Entity entity = (Entity) (Object) this;
         if(entity instanceof Player){
             Player player = ((Player)(Object)this);
-            int fireResistanceCount = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.PHOENIX)
-                    + ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
-            if(fireResistanceCount >= 5){
+            int fireResistanceCount = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.PHOENIX);
+            if(fireResistanceCount >= 3){
                 cir.setReturnValue(true);
             }
         }

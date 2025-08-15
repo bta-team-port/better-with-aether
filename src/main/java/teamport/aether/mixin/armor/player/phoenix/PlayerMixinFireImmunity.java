@@ -55,7 +55,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci) {
-        if (fireResistanceCount() >= 5) {
+        if (fireResistanceCount() >= 3) {
             // fire damage is 1 points
             aether$damageArmourWithEffect(1);
             ci.cancel();
@@ -64,7 +64,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Override
     public void burn(int damage) {
-        if (fireResistanceCount() >= 5) {
+        if (fireResistanceCount() >= 3) {
             // burn damage is 1 points
             aether$damageArmourWithEffect(1);
             return;
@@ -85,8 +85,7 @@ public class PlayerMixinFireImmunity extends Mob {
 
     @Unique
     public int fireResistanceCount() {
-        return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX)
-                + ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.OBSIDIAN);
+        return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
     }
 
     @Unique

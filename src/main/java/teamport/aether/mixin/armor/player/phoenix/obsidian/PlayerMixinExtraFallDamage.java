@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
@@ -28,6 +26,6 @@ public class PlayerMixinExtraFallDamage extends Mob {
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"))
     public void aether$causeFallDamage(Player instance, float distance, Operation<Void> original) {
         float totalProtectionOfMaterial = ContainerHelper.getTotalEquippedArmorProtection(inventory, AetherArmorMaterial.OBSIDIAN);
-        original.call(instance, (1 + totalProtectionOfMaterial) * distance);
+        original.call(instance, (0.5f + totalProtectionOfMaterial) * distance);
     }
 }
