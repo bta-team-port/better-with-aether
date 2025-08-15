@@ -17,6 +17,8 @@ import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChest;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherTreasureChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -63,8 +65,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
 
 
         // tools
-        int minTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 10.0);
-        int maxTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2.0);
+        int minTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2.0);
+        int maxTool= MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() * 3.0f / 4.0f);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
@@ -106,13 +108,6 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
     }
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
     static {
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 16), 200.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 8), 200.0);
-
-        for (int i = 0; i < 9; ++i) {
-            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_DAWN.id + i])), 10.0);
-        }
-
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack()), 200.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_STAFF_CLOUD.getDefaultStack()), 200.0);
 
@@ -120,16 +115,22 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_FEATHER_GOLD.getDefaultStack()), 200.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_REGEN.getDefaultStack()), 200.0);
 
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_NEPTUNE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_NEPTUNE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_NEPTUNE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_NEPTUNE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_NEPTUNE.getDefaultStack()), 50.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_NEPTUNE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_NEPTUNE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_NEPTUNE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_NEPTUNE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_NEPTUNE.getDefaultStack()), 200.0);
 
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_VALKYRIE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VALKYRIE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_VALKYRIE.getDefaultStack()), 50.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_VALKYRIE.getDefaultStack()), 50.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_VALKYRIE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VALKYRIE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_VALKYRIE.getDefaultStack()), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_VALKYRIE.getDefaultStack()), 200.0);
+
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 16, 16), 200.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 8, 8), 200.0);
+        for (int i = 0; i < 9; ++i) {
+            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_DAWN.id + i])), 10.0);
+        }
     }
 
     public void placeComponent(WorldFeatureComponent component) {
@@ -180,11 +181,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
         boss.setDungeonID(dungeon.getId());
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
-        world.setBlockAndMetadataWithNotify(bossPosition.x, y, bossPosition.z, AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED.id(), 4);
-        Container inventory = BlockLogicChest.getInventory(world, bossPosition.x, y, bossPosition.z);
 
-        WorldFeatureComponent.setTreasure(world, random, bossPosition.x, y, bossPosition.z, LOOT_NORMAL, LOOT_RARE);
-
+        new WorldFeatureAetherSilverChest().place(world, random, bossPosition.x, y, bossPosition.z);
         WorldFeaturePoint[] treasureDoor = {
                 new WorldFeaturePoint(x - 14, y + 2, z + 42),
                 new WorldFeaturePoint(x - 14, y + 2, z + 43),
@@ -198,12 +196,6 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         dungeon.setDoorBlocks(treasureDoor);
 
         world.entityJoinedWorld(boss);
-    }
-
-    public WorldFeaturePoint getPos(int ix, int iy, int iz) {
-        WorldFeaturePoint pos = new WorldFeaturePoint(ix,iy,iz);
-        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
-        return pos;
     }
 
     private void createBaseStructure(int x, int y, int z) {
