@@ -18,13 +18,13 @@ guidebook.section.mob.aerbunny.desc=A cute and handy source of string, they can 
 
 aether.entity.moa_blue=Blue Moa
 guidebook.section.mob.moa.blue.name=Blue Moa
-guidebook.section.mob.moa.blue.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 2 midair jumps.
+guidebook.section.mob.moa.blue.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 3 midair jumps.
 aether.entity.moa_white=White Moa
 guidebook.section.mob.moa.white.name=White Moa
-guidebook.section.mob.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 4 midair jumps.
+guidebook.section.mob.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 5 midair jumps.
 aether.entity.moa_black=Black Moa
 guidebook.section.mob.moa.black.name=Black Moa
-guidebook.section.mob.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 8 midair jumps.
+guidebook.section.mob.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 7 midair jumps.
 
 aether.entity.aerwhale=Aerwhale
 guidebook.section.mob.aerwhale.name=Aerwhale

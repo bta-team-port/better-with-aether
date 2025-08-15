@@ -27,12 +27,20 @@ public abstract class PlayerMixinNoKnockback extends Mob{
         if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
             return;
         }
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 3) {
+            super.fling(xd / 4, yd / 4, zd / 4, pushTime / 4);
+            return;
+        }
         super.fling(xd, yd, zd, pushTime);
     }
 
     @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
         if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
+            return;
+        }
+        if (ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) >= 3) {
+            super.knockBack(entity, damage, xd / 2, yd / 2);
             return;
         }
         super.knockBack(entity, damage, xd, yd);

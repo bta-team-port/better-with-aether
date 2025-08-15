@@ -64,8 +64,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
         if(armorMaterial == null){
             return false;
         }
-        return     armorMaterial.equals(AetherArmorMaterial.PHOENIX)
-                || armorMaterial.equals(AetherArmorMaterial.OBSIDIAN);
+        return     armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
 
 }
