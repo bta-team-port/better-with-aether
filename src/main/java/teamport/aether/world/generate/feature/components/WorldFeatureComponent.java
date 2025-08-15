@@ -96,18 +96,6 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static WorldFeatureComponent placeChestOrMimic(
-            Random random, int x, int y, int z, int metadata
-    ) {
-        WorldFeatureComponent component = new WorldFeatureComponent();
-        if (random.nextInt(2) == 0) {
-            component.add(wfb(x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), metadata, true));
-            return component;
-        }
-        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true));
-        return component;
-    }
-
     public static void populateChest(
             World world, WorldFeatureBlock wfb,
             Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable,
@@ -115,56 +103,16 @@ public class WorldFeatureComponent {
     ) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
         if(inventory == null) return;
+        int invSize = inventory.getContainerSize();
         for (int i = 0; i < quantity; i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    lootTable.getRandom().getItemStack(random)
-            );
+            int index = random.nextInt(invSize);
+            for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
+                if (index >= invSize) {
+                    index = 0;
+                }
+            }
+            inventory.setItem(index, lootTable.getRandom().getItemStack(random));
         }
-    }
-
-    public static void setTreasure(
-            World world, Random random,
-            int x, int y, int z,
-            WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE
-    ) {
-        Container inventory = BlockLogicChest.getInventory(world, x, y, z);
-        if(inventory == null) return;
-        List<WeightedRandomLootObject> loot = new ArrayList<>(LOOT_RARE.getEntries());
-        int quantity = invertedExponentialCapped(random, 2, 6);
-        int normalQuantity = invertedExponentialCapped(random, 6, 18);
-
-        for (int i = 0; i < 5 + normalQuantity; i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    LOOT_NORMAL.getRandom().getItemStack(random)
-            );
-        }
-        for(int i = 0; i < 1 + quantity; i++){
-            inventory.setItem(random.nextInt(inventory.getContainerSize()), loot.get(i).getItemStack());
-        }
-    }
-
-
-    /**
-     * @implNote Exponential can return any value between [0, INF) and as such this function caps it.
-     * */
-    public static int invertedExponentialCapped(Random random, int mean, int cap) {
-        return Math.min((int)Math.floor(invertedExponential(random, mean)), cap);
-    }
-
-    /**
-     * @implNote Inverse Exponential function where the expected value is the parameter mean.
-     * */
-    public static double invertedExponential(Random random, int mean) {
-        return nextExponential(random) * mean;
-    }
-
-    /**
-     * @implNote Generate an exponential distributed random values function with lambda set to 1.
-     * */
-    public static double nextExponential(Random random) {
-        return -Math.log(1 - random.nextDouble());
     }
 
     public static WorldFeatureComponent drawSphere(
