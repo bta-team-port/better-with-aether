@@ -20,12 +20,12 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherConfig {
     public static final Toml properties = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
     public static TomlConfigHandler cfg;
+    public static int DIMENSION;
 
     public static int blockIDs = 10000;
     public static int itemIDs = 20000;
 
     public static float QUICK_SOIL_SPEED_CAP;
-
     public static int EXTRA_HEALTH;
 
     public static String BlockIDs = "Block IDs";
@@ -34,14 +34,15 @@ public class AetherConfig {
 
 
     static void Setup() {
+        int dimensionDefault = 3;
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
 
         LOGGER.info("Initializing config..");
 
         properties.addCategory("General")
-                .addEntry("cfgVersion", 6);
-
+                .addEntry("cfgVersion", 6)
+                .addEntry("DIMENSION", dimensionDefault);
         //BLOCK ID
         properties.addCategory(BlockIDs);
         properties.addEntry(BlockIDs+".startingFrom", blockIDs);
@@ -70,6 +71,12 @@ public class AetherConfig {
         } else {
             try {cfg.getConfigFile().createNewFile();} catch (IOException e) {throw new RuntimeException(e);}
             cfg.writeConfig();
+        }
+
+        try {
+            DIMENSION = AetherConfig.cfg.getInt("DIMENSION");
+        } catch (NullPointerException e) {
+            DIMENSION = dimensionDefault;
         }
 
         try {
