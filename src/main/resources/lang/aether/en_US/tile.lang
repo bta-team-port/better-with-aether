@@ -190,6 +190,10 @@ tile.aether.glass.quicksoil.name=Quicksoil Glass
 tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.
 tile.aether.trapdoor.glass.quicksoil.name=Quicksoil Glass Trapdoor
 tile.aether.trapdoor.glass.quicksoil.desc=Still useless at its job.
+tile.aether.door.glass.quicksoil.top.name=Top Quicksoil Glass Door
+tile.aether.door.glass.quicksoil.top.desc=This is impossible to obtain!
+tile.aether.door.glass.quicksoil.bottom.name=Bottom Quicksoil Glass Door
+tile.aether.door.glass.quicksoil.bottom.desc=Don't even try to prove me wrong.
 
 tile.aether.enchanter.idle.name=Enchanter
 tile.aether.enchanter.idle.desc=For repairing and enchanting blocks and equipment.

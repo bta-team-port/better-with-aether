@@ -34,7 +34,7 @@ public class BlockLogicTrapped extends BlockLogic {
     }
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (world.rand.nextInt(3) == 0 && entity instanceof Player) {
+        if (world.rand.nextInt(2) == 0 && entity instanceof Player) {
             Player player = (Player) entity;
             {
                 int mobs = 1 + world.rand.nextInt(2);
