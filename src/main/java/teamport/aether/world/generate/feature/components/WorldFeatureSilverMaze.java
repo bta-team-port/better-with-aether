@@ -203,8 +203,7 @@ public class WorldFeatureSilverMaze {
             }
         }
         // replaces the floor with more trapped valkyries
-//        rooms.add(drawPlane(random, angelicTrapped, Direction.SOUTH, 8, Direction.WEST, 8, x, y, z, true));
-        traps.add(drawPlane(Blocks.BLOCK_DIAMOND.id(), 0, Direction.SOUTH, 8, Direction.WEST, 8, x, y, z, true));
+        traps.add(drawPlane(random, angelicTrapped, Direction.SOUTH, 8, Direction.WEST, 8, x, y, z, true));
 
 
         // places decorations
