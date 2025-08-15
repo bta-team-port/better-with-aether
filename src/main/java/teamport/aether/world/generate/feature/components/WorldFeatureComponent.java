@@ -69,13 +69,6 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static double distanceToSqr(int x, int y, int z, int x1, int y1, int z1) {
-        double d3 = x - x1;
-        double d4 = y - y1;
-        double d5 = z - z1;
-        return d3 * d3 + d4 * d4 + d5 * d5;
-    }
-
     public WorldFeaturePoint getAnker(){
         return anker;
     }
