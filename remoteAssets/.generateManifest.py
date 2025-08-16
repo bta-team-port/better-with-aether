@@ -19,7 +19,7 @@ for file in work_queue:
         md5 = hashlib.md5(handle.read()).hexdigest()
 
     index.append({
-        "key": str(file.absolute()).replace(str(input_dir.absolute()), '').replace("\\", '/')[1:],
+        "Key": str(file.absolute()).replace(str(input_dir.absolute()), '').replace("\\", '/')[1:],
         "LastModified": datetime.datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
         "Size": stat.st_size,
         "MD5": md5,
