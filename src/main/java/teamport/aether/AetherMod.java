@@ -52,7 +52,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static MobFireflyCluster.FireflyColor SILVER;
 
     // hide the mimic description
-    public static final boolean BWAILA = FabricLoader.getInstance().isModLoaded("btwaila");
+    public static final boolean BTWAILA = FabricLoader.getInstance().isModLoaded("btwaila");
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
