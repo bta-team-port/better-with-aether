@@ -3,6 +3,7 @@ package teamport.aether.world.generate.feature.components;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -31,6 +32,48 @@ public class WorldFeatureComponent {
 
     public static WorldFeatureComponent wfc(int x, int y, int z){
         return new WorldFeatureComponent(x,y,z);
+    }
+
+    public static WorldFeatureComponent drawHollowShell(
+            Random random, BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent hollow = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        hollow.add(drawVolume(
+                0, 0,
+                direction1, length1 - 2, direction2, length2 - 2, direction3,
+                length3 - 2, startX - 1, startY + 1, startZ - 1, withNotify)
+        );
+        return hollow;
+    }
+
+    public static WorldFeatureComponent drawSquareCylinder(
+            Random random, BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent cylinder = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        cylinder.add(drawVolume(
+                0, 0,
+                direction1, length1 - 2, direction2, length2 - 2, direction3,
+                length3, startX - 1, startY, startZ - 1, withNotify)
+        );
+        return cylinder;
     }
 
     public void add(WorldFeatureComponent component){
@@ -97,6 +140,7 @@ public class WorldFeatureComponent {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
         if(inventory == null) return;
         int invSize = inventory.getContainerSize();
+        int emptyCount = 0;
         for (int i = 0; i < quantity; i++) {
             int index = random.nextInt(invSize);
             for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
@@ -104,7 +148,12 @@ public class WorldFeatureComponent {
                     index = 0;
                 }
             }
-            inventory.setItem(index, lootTable.getRandom().getItemStack(random));
+            ItemStack itemStack = lootTable.getRandom().getItemStack(random);
+            if(itemStack == null) emptyCount++;
+            inventory.setItem(index, itemStack);
+        }
+        if(emptyCount == quantity){
+            System.out.printf("EmptyChest! quantity:%d, x%d, y:%d, z:%d\n", quantity, wfb.x, wfb.y, wfb.z);
         }
     }
 
