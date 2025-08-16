@@ -9,9 +9,7 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
 import net.minecraft.core.entity.Entity;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.entity.EntityJumpAmount;
-import teamport.aether.helper.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.entity.AetherJumpAmount;
 
 
 public class ComponentJumpBar extends HudComponentMovable {
@@ -60,7 +58,7 @@ public class ComponentJumpBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return mc.thePlayer.vehicle instanceof EntityJumpAmount;
+        return mc.thePlayer.vehicle instanceof AetherJumpAmount;
     }
 
     @Override
@@ -73,8 +71,8 @@ public class ComponentJumpBar extends HudComponentMovable {
         if (mc.thePlayer.isPassenger()) {
             Entity vehicle = (Entity) mc.thePlayer.vehicle;
 
-            if (vehicle instanceof EntityJumpAmount) {
-                drawJumpBar(((EntityJumpAmount) vehicle).getJumpMaxAmount(), ((EntityJumpAmount) vehicle).getJumpAmount());
+            if (vehicle instanceof AetherJumpAmount) {
+                drawJumpBar(((AetherJumpAmount) vehicle).getJumpMaxAmount(), ((AetherJumpAmount) vehicle).getJumpAmount());
             }
         }
     }
