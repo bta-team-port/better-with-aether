@@ -11,7 +11,7 @@ import teamport.aether.world.generate.feature.BlockPallet;
 
 import java.util.*;
 
-import static teamport.aether.world.generate.feature.WorldFeatureAetherDungeonSilver.*;
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 
