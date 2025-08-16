@@ -1,9 +1,7 @@
 package teamport.aether.entity.animal.moa;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -12,19 +10,11 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.AetherRideable;
-import teamport.aether.entity.AetherJumpAmount;
-import teamport.aether.entity.animal.MobAetherAnimal;
+import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 
-import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.net.message.AetherRideableNetworkMessage;
-import turniplabs.halplibe.helper.EnvironmentHelper;
-import turniplabs.halplibe.helper.network.NetworkHandler;
-
-
-public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpAmount, AetherRideable {
+public class MobMoaBlue extends MobAetherAnimalRideable {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
@@ -32,23 +22,13 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
     public float flapping = 1.0F;
     public int eggTimer;
     public Item eggColor;
-    public int jumpsRemaining;
-    public boolean jumpPressed;
     public boolean tamed;
-
-
-    double xdChange = 0;
-    double zdChange = 0;
-
-    boolean playerUsedJump = false;
-
 
     public MobMoaBlue(@Nullable World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
-        this.jumpsRemaining = getJumpMaxAmount();
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
@@ -58,7 +38,6 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
-        this.jumpsRemaining = getJumpMaxAmount();
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.tamed = tamed;
@@ -101,8 +80,6 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
         this.oFlapSpeed = this.flapSpeed;
         this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3);
 
-        this.onGround();
-
         if (this.flapSpeed < 0.0F) {
             this.flapSpeed = 0.0F;
         }
@@ -126,112 +103,6 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
             this.world.playSoundAtEntity(null, this, "mob.chickenplop", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.dropItem(this.eggColor.id, 1);
             this.eggTimer = this.random.nextInt(6000) + 6000;
-        }
-
-        vehicleMovement();
-    }
-
-    @Override
-    public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
-        if (EnvironmentHelper.isClientWorld()) {
-            NetworkHandler.sendToServer(
-                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
-            );
-        }
-
-        float yawDeg = (float) (yRot * (Math.PI/180));
-        float step = 0.175F;
-
-        if (moveForward > 0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
-
-        } else if (moveForward < -0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
-        }
-
-        if (moveStrafe > 0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
-
-        } else if (moveStrafe < -0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
-        }
-
-        if (isJumping && !jumpPressed) {
-            playerUsedJump = true;
-            jumpPressed = true;
-        }
-
-        if (this.jumpPressed && !isJumping) {
-            this.jumpPressed = false;
-        }
-    }
-
-    public void vehicleMovement() {
-        if (passenger == null || !(this.passenger instanceof Player)) return;
-        Player player = (Player) this.passenger;
-
-        player.handleSpecialVehicleControl();
-
-        xd += xdChange;
-        zd += zdChange;
-        xdChange = 0.0;
-        zdChange = 0.0;
-
-        if (playerUsedJump) {
-            boolean canJump = this.jumpsRemaining > 0;
-
-            if (this.onGround) {
-                yd = 1.4;
-                this.onGround = false;
-            }
-            else {
-                if (isInWater()) yd = 0.5;
-                else if (canJump) yd = 1.2;
-                --this.jumpsRemaining;
-            }
-
-            if (isInWater() || canJump) {
-                world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-            }
-        }
-
-        playerUsedJump = false;
-
-        player.sendSpecialVehiclePacket();
-
-        double horizontalSpeed = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
-        if (horizontalSpeed > 0.375) {
-            double normal = 0.375 / horizontalSpeed;
-            this.xd *= normal;
-            this.zd *= normal;
-        }
-    }
-
-    public void updateAI() {
-        if (this.passenger != null && this.passenger instanceof Player) {
-            this.moveSpeed = 0.0F;
-            this.moveStrafing = 0.0F;
-            this.isJumping = false;
-            this.footSize = 1.5f;
-
-            this.yRotO = this.yRot = this.passenger.yRot;
-            this.xRotO = this.xRot = this.passenger.xRot;
-
-            Player player = (Player) this.passenger;
-            ((EntityAccessor) player).setFallDistance(0.0F);
-        } else {
-            this.footSize = 1.0f;
-            super.updateAI();
-        }
-    }
-
-    public void onGround() {
-        if (this.onGround ) {
-            this.jumpsRemaining = getJumpMaxAmount();
         }
     }
 
@@ -260,7 +131,7 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
     public boolean interact(@NotNull Player player) {
         if (super.interact(player)) return true;
 
-        //if (!this.getSaddled() || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);
@@ -290,15 +161,5 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpA
 
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(AetherItemTags.MOAS_FAVOURITE_ITEM);
-    }
-
-    @Override
-    public int getJumpMaxAmount() {
-        return 3;
-    }
-
-    @Override
-    public int getJumpAmount() {
-        return jumpsRemaining;
     }
 }

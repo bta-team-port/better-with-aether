@@ -1,0 +1,147 @@
+package teamport.aether.entity.animal;
+
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.world.World;
+import teamport.aether.entity.AetherJumpAmount;
+import teamport.aether.entity.AetherRideable;
+import teamport.aether.mixin.accessors.EntityAccessor;
+import teamport.aether.net.message.AetherRideableNetworkMessage;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
+
+public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRideable, AetherJumpAmount {
+    protected int jumpsRemaining;
+    protected int maxJumps = 3;
+    protected boolean jumpPressed;
+
+    protected double xdChange = 0;
+    protected double zdChange = 0;
+    protected boolean playerUsedJump = false;
+
+    public MobAetherAnimalRideable(World world) {
+        super(world);
+        this.jumpsRemaining = getJumpMaxAmount();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.onGround();
+        vehicleMovement();
+    }
+
+    @Override
+    public int getJumpMaxAmount() {
+        return maxJumps;
+    }
+
+    @Override
+    public int getJumpAmount() {
+        return jumpsRemaining;
+    }
+
+    @Override
+    public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
+        if (EnvironmentHelper.isClientWorld()) {
+            NetworkHandler.sendToServer(
+                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+            );
+        }
+
+        float yawDeg = (float) (yRot * (Math.PI/180));
+        float step = 0.175F;
+
+        if (moveForward > 0.1F) {
+            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
+            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+
+        } else if (moveForward < -0.1F) {
+            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
+            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+        }
+
+        if (moveStrafe > 0.1F) {
+            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+
+        } else if (moveStrafe < -0.1F) {
+            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+        }
+
+        if (isJumping && !jumpPressed) {
+            playerUsedJump = true;
+            jumpPressed = true;
+        }
+
+        if (this.jumpPressed && !isJumping) {
+            this.jumpPressed = false;
+        }
+    }
+
+    public void vehicleMovement() {
+        if (passenger == null || !(this.passenger instanceof Player)) return;
+        Player player = (Player) this.passenger;
+
+        player.handleSpecialVehicleControl();
+
+        xd += xdChange;
+        zd += zdChange;
+        xdChange = 0.0;
+        zdChange = 0.0;
+
+        if (playerUsedJump) {
+            boolean canJump = this.jumpsRemaining > 0;
+
+            if (this.onGround) {
+                yd = 1.4;
+                this.onGround = false;
+            }
+            else {
+                if (isInWater()) yd = 0.5;
+                else if (canJump) yd = 1.2;
+                --this.jumpsRemaining;
+            }
+
+            if ((isInWater() || canJump) && !world.isClientSide) {
+                world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
+            }
+        }
+
+        playerUsedJump = false;
+
+        player.sendSpecialVehiclePacket();
+
+        double horizontalSpeed = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
+        if (horizontalSpeed > 0.375) {
+            double normal = 0.375 / horizontalSpeed;
+            this.xd *= normal;
+            this.zd *= normal;
+        }
+    }
+
+    @Override
+    public void updateAI() {
+        if (this.passenger != null && this.passenger instanceof Player) {
+            this.moveSpeed = 0.0F;
+            this.moveStrafing = 0.0F;
+            this.isJumping = false;
+            this.footSize = 1.5f;
+
+            this.yRotO = this.yRot = this.passenger.yRot;
+            this.xRotO = this.xRot = this.passenger.xRot;
+
+            Player player = (Player) this.passenger;
+            ((EntityAccessor) player).setFallDistance(0.0F);
+        } else {
+            this.footSize = 1.0f;
+            super.updateAI();
+        }
+    }
+
+    public void onGround() {
+        if (this.onGround ) {
+            this.jumpsRemaining = getJumpMaxAmount();
+        }
+    }
+}
