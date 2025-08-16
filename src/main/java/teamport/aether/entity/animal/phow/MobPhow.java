@@ -10,12 +10,8 @@ import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.AetherJumpAmount;
-import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItems;
-import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.mixin.accessors.MobAccessor;
 
 public class MobPhow extends MobAetherAnimalRideable {
     public float wingFold;
@@ -29,6 +25,7 @@ public class MobPhow extends MobAetherAnimalRideable {
         maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phow");
         this.setSize(0.9F, 1.3F);
+        this.rideFootSize = 1.0f;
 
         this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));

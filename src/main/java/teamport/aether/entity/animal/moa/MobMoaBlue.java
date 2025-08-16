@@ -29,6 +29,8 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         this.setSize(1.0F, 2.0F);
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
+        this.rideFootSize = 1.5f;
+
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
