@@ -168,7 +168,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         checker.rotateYAxis(x,y,z, angle);
         for(WorldFeaturePoint point: checker.blockList){
             if(!world.canBlockSeeTheSky(point.x, point.y, point.z)){
-                return false;
+                return true;
             }
         }
         return true;
