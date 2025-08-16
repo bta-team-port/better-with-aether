@@ -25,19 +25,21 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (!world.isClientSide) {
-            entity.fallDistance = 0.0F;
-            entity.yd *= 0.005;
+        if (world.isClientSide) {
+            if (entity instanceof Player) {
+                ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
+            }
 
             if (!(entity instanceof Particle)) {
                 entity.world.spawnParticle("splash", entity.x, entity.y - 0.5, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
-                if (entity.y > (double) y && !entity.isSneaking()) {
-                    this.jump(entity);
-                    if (entity instanceof Player) {
-                        ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
-                    }
-                }
             }
+        }
+
+        entity.fallDistance = 0.0F;
+        entity.yd *= 0.005;
+
+        if (entity.y > (double) y && !entity.isSneaking()) {
+            this.jump(entity);
         }
     }
 
