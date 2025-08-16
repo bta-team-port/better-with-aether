@@ -3,6 +3,7 @@ package teamport.aether;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
@@ -12,6 +13,7 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
+import net.minecraft.client.net.thread.ThreadDownloadResources;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
@@ -36,8 +38,23 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;
 
+    public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
+
     @Override
     public void beforeClientStart() {
+        Minecraft mc = Minecraft.getMinecraft();
+
+        try {
+            LOGGER.info("Starting Resource Download Thread...");
+            resourceDownloaderThread = new AetherRemoteResourceDownloaderThread(mc.getMinecraftDir(), mc);
+            resourceDownloaderThread.start();
+
+        } catch (Exception exc) {
+            LOGGER.error("Failed to start Resource Download Thread!", exc);
+        }
+
+
+
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
