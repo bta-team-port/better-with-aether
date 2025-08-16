@@ -36,7 +36,9 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.net.NetEntryAetherProjectile;
 import teamport.aether.net.NetEntryLightning;
+import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
@@ -52,6 +54,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
+
+        NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
     }
 
     @Override

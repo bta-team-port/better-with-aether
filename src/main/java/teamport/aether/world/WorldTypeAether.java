@@ -85,7 +85,7 @@ public class WorldTypeAether extends WorldType {
     }
 
     public float getTimeOfDay(World world, long tick, float partialTick) {
-        if (!AetherDimension.hasKilledGold) return 0.0F;
+        if (!AetherDimension.sunspiritIsDead) return 0.0F;
 
         int timeTicks = (int) (tick % 0x13880L);
         float timeFraction = ((float) timeTicks + partialTick) / 120000F - 0.25F;
@@ -108,10 +108,10 @@ public class WorldTypeAether extends WorldType {
         timeFraction = f2 + (timeFraction - f2) / 3F;
 
         long currTime = world.getWorldTime();
-        if (AetherDimension.goldDeathTime != 0 && AetherDimension.goldDeathTime + 250 >= currTime) {
-            float animProgress = ((float) (currTime - AetherDimension.goldDeathTime) / 250);
+        if (AetherDimension.sunspiritDeathTimestamp != 0 && AetherDimension.sunspiritDeathTimestamp + 250 >= currTime) {
+            float animProgress = ((float) (currTime - AetherDimension.sunspiritDeathTimestamp) / 250);
 
-            if (animProgress == 1) { AetherDimension.goldDeathTime = 0; }
+            if (animProgress == 1) { AetherDimension.sunspiritDeathTimestamp = 0; }
 
             return (float) (timeFraction * ( -(Math.cos(Math.PI * animProgress) - 1) / 2 ));
         }
