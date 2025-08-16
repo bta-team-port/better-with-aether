@@ -14,6 +14,8 @@ public class ItemToolPickaxeZanite extends ItemToolPickaxeAether {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+        if (itemstack == null) return 0f;
+
         if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)) return 1.0F;
         float durability_progress = ((float) itemstack.getMetadata() / this.getMaxDamage());
 
