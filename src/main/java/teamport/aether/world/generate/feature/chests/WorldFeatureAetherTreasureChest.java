@@ -16,6 +16,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
     public int chestID;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE;
+    public int guaranteedRare = 1;
 
     public WorldFeatureAetherTreasureChest(int chestID, WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE) {
         this.chestID = chestID;
@@ -49,7 +50,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
         int quantity = AetherMathHelper.invertedExponentialCapped(random, 1, 9);
         int normalQuantity = AetherMathHelper.invertedExponentialCapped(random, 6, 18);
 
-        for (int i = 0; i < 5 + normalQuantity; i++) {
+        for (int i = 0; i < 4 + guaranteedRare + normalQuantity; i++) {
             int index = random.nextInt(invSize);
             for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
                 if (index >= invSize) {
@@ -59,7 +60,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
             inventory.setItem(index, LOOT_NORMAL.getRandom().getItemStack(random));
         }
 
-        for (int i = 0; i < 1 + quantity; i++) {
+        for (int i = 0; i < guaranteedRare + quantity; i++) {
             int index = random.nextInt(invSize);
             for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
                 if (index >= invSize) {
