@@ -34,7 +34,7 @@ public class AetherConfig {
 
 
     static void Setup() {
-        int dimensionDefault = 3;
+        int dimensionDefault = 3; // so it wont bug me for testing
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
 
