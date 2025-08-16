@@ -56,8 +56,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
             long worldSeed = this.world.getRandomSeed();
             int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
-            int goldSeed = Worley.isSeed(gridX, gridZ, 12, transformedSeed, 1, 1); // 22 - 2
-            int silverSeed = Worley.isSeed(gridX, gridZ, 10, transformedSeed, 1, 1); // 16 - 2
+            int goldSeed = Worley.isSeed(gridX, gridZ, 8, transformedSeed, 1, 1); // 22 - 2
+            int silverSeed = Worley.isSeed(gridX, gridZ, 8, transformedSeed, 1, 1); // 16 - 2
             int bronzeSeed = Worley.isSeed(gridX, gridZ, 4, transformedSeed, 1, 0); // 8 - 0
 
             if (goldSeed > -1) {
