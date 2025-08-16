@@ -1,6 +1,5 @@
 package teamport.aether.world;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -13,7 +12,6 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
-import teamport.aether.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 
 public class WorldTypeAether extends WorldType {
@@ -87,32 +85,38 @@ public class WorldTypeAether extends WorldType {
     }
 
     public float getTimeOfDay(World world, long tick, float partialTick) {
-        boolean hasKilledGold = Minecraft.getMinecraft().statsCounter.isUnlocked(AetherAchievements.GOLD);
-        if (hasKilledGold) {
+        if (!AetherDimension.hasKilledGold) return 0.0F;
 
-            int timeTicks = (int) (tick % 0x13880L);
-            float timeFraction = ((float) timeTicks + partialTick) / 120000F - 0.25F;
-            if (timeTicks > 60000) {
-                timeTicks -= 40000;
-                timeFraction = ((float) timeTicks + partialTick) / 20000F - 0.25F;
-            }
+        int timeTicks = (int) (tick % 0x13880L);
+        float timeFraction = ((float) timeTicks + partialTick) / 120000F - 0.25F;
 
-            if (timeFraction < 0.0F) {
-                timeFraction++;
-            }
-
-            if (timeFraction > 1.0F) {
-                timeFraction--;
-            }
-
-            float f2 = timeFraction;
-            timeFraction = 1.0F - (float) ((Math.cos((double) timeFraction * 3.1415926535897931D) + 1.0D) / 2D);
-            timeFraction = f2 + (timeFraction - f2) / 3F;
-            return timeFraction;
-
-        } else {
-            return 0.0F;
+        if (timeTicks > 60000) {
+            timeTicks -= 40000;
+            timeFraction = ((float) timeTicks + partialTick) / 20000F - 0.25F;
         }
+
+        if (timeFraction < 0.0F) {
+            timeFraction++;
+        }
+
+        if (timeFraction > 1.0F) {
+            timeFraction--;
+        }
+
+        float f2 = timeFraction;
+        timeFraction = 1.0F - (float) ((Math.cos((double) timeFraction * 3.1415926535897931D) + 1.0D) / 2D);
+        timeFraction = f2 + (timeFraction - f2) / 3F;
+
+        long currTime = world.getWorldTime();
+        if (AetherDimension.goldDeathTime != 0 && AetherDimension.goldDeathTime + 250 >= currTime) {
+            float animProgress = ((float) (currTime - AetherDimension.goldDeathTime) / 250);
+
+            if (animProgress == 1) { AetherDimension.goldDeathTime = 0; }
+
+            return (float) (timeFraction * ( -(Math.cos(Math.PI * animProgress) - 1) / 2 ));
+        }
+
+        return timeFraction;
     }
 
     @Override
