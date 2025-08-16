@@ -22,7 +22,7 @@ import teamport.aether.tile.TileEntityMimic;
 import java.util.ArrayList;
 import java.util.List;
 
-import static teamport.aether.AetherMod.BWAILA;
+import static teamport.aether.AetherMod.BTWAILA;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
     private double dx;
@@ -36,7 +36,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     @Override
     public String getLanguageKey(int meta) {
-        if (BWAILA) {
+        if (BTWAILA) {
             // hides the mimic name and description
             return AetherBlocks.CHEST_PLANKS_SKYROOT.getKey();
         }
@@ -105,7 +105,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
             world.entityJoinedWorld(mimic);
         }
-        if (player.tickCount % 10 == 0 && !BWAILA) {
+        if (player.tickCount % 10 == 0 && !BTWAILA) {
             player.sendMessage("Thank you dark souls.");
         }
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
