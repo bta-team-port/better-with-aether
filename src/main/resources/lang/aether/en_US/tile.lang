@@ -167,6 +167,7 @@ tile.aether.carved.hellfire.locked.desc=Unbreakable gold dungeon block.
 tile.aether.carved.hellfire.light.locked.name=Locked Light Hellfire Stone
 tile.aether.carved.hellfire.light.locked.desc=Unbreakable gold dungeon block that glows with an ethereal light.
 
+# hidden when btwaila is enabled
 tile.aether.chest.mimic.name=Trapped Chest
 tile.aether.chest.mimic.desc=Thank you dark souls.
 
