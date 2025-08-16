@@ -98,16 +98,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
     }
 
-    public WorldFeatureAetherBronzeDungeon(float angle){
-        this.angle = Math.round(angle / 90.0f);
+    public WorldFeatureAetherBronzeDungeon(int direction){
+        this.angle = direction * 90;
     }
 
-    public WorldFeatureAetherBronzeDungeon(){
-        this(0.0F);
-    }
+    public WorldFeatureAetherBronzeDungeon(){}
 
     public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random){
-        return new WorldFeatureAetherBronzeDungeon((float) (random.nextFloat() * 360.0));
+        return new WorldFeatureAetherBronzeDungeon(0);
     }
 
     @Override
