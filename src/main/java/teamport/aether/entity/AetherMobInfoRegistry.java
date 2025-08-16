@@ -81,7 +81,7 @@ public class AetherMobInfoRegistry {
 
         MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
 
-        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 40, 300, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 80, 2000, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
 
 
@@ -97,7 +97,7 @@ public class AetherMobInfoRegistry {
 
         //Silver Dungeon
 
-        MobInfoRegistry.register(MobValkyrie.class, "guidebook.section.mob.valkyrie.name", "guidebook.section.mob.valkyrie.desc", 20, 300, new MobInfoRegistry.MobDrop[]{
+        MobInfoRegistry.register(MobValkyrie.class, "guidebook.section.mob.valkyrie.name", "guidebook.section.mob.valkyrie.desc", 20, 5000, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.MEDAL_VICTORY), 100.0f, 1, 1)});
 
         MobInfoRegistry.register(MobBossValkyrie.class, "guidebook.section.mob.valkyrie.queen.name", "guidebook.section.mob.valkyrie.queen.desc", 750, 50000, new MobInfoRegistry.MobDrop[]{
