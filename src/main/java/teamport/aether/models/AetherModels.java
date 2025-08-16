@@ -575,6 +575,7 @@ public class AetherModels implements ModelEntrypoint {
 
 
         dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
+        dispatcher.addDispatch((new ItemModelStandard(AetherItems.DEATH_RAY, null)).setIcon("aether:item/stick_skyroot").setFullBright());
 
     }
 
