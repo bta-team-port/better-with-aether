@@ -99,7 +99,7 @@ public class MobSwet extends MobMonster implements Enemy {
     public void updateAI() {
         this.tryToDespawn();
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile();
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
         if (!this.friendly) {
             if (entityplayer != null && targetPlayer) {
                 this.lookAt(entityplayer, 10.0F, 20.0F);
@@ -155,7 +155,7 @@ public class MobSwet extends MobMonster implements Enemy {
     }
 
     public void splorch() {
-        this.world.playSoundAtEntity(null, this, "mob.slimeattack", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 
     public String getHurtSound() {
@@ -167,7 +167,7 @@ public class MobSwet extends MobMonster implements Enemy {
     }
 
     public float getSoundVolume() {
-        return 0.6F;
+        return 0.3F;
     }
 
     public boolean canSpawnHere() {
