@@ -11,14 +11,15 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.EntityJumpAmount;
+import teamport.aether.entity.AetherRideable;
+import teamport.aether.entity.AetherJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpAmount {
+public class MobMoaBlue extends MobAetherAnimal implements Creature, AetherJumpAmount, AetherRideable {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;

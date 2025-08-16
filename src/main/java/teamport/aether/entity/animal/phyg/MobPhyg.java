@@ -11,7 +11,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
-import teamport.aether.entity.EntityJumpAmount;
+import teamport.aether.entity.AetherJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -20,7 +20,7 @@ import teamport.aether.mixin.accessors.MobAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobPhyg extends MobAetherAnimal implements EntityJumpAmount {
+public class MobPhyg extends MobAetherAnimal implements AetherJumpAmount {
     public float wingFold;
     public float wingFoldO;
     public float wingAngle;
