@@ -37,6 +37,7 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.net.NetEntryAetherProjectile;
 import teamport.aether.net.NetEntryLightning;
+import teamport.aether.net.message.AetherRideableNetworkMessage;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.network.NetworkHandler;
@@ -61,6 +62,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         LOGGER.info("Aether initialized.");
         LOGGER.info(" Welcome to a hostile paradise. Version {} {}", state , versionString);
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
+        NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
     }
 
     @Override
