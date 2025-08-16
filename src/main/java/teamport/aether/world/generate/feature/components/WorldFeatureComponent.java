@@ -154,7 +154,7 @@ public class WorldFeatureComponent {
             inventory.setItem(index, itemStack);
         }
         if(emptyCount == quantity){
-            AetherMod.LOGGER.error("Generated empty chest quantity:{}, x:{}, y:{}, z:{}\n", quantity, wfb.x, wfb.y, wfb.z);
+            AetherMod.LOGGER.warn("Generated empty chest quantity:{}, x:{}, y:{}, z:{}\n", quantity, wfb.x, wfb.y, wfb.z);
         }
     }
 

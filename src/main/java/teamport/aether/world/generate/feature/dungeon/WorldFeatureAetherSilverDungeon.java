@@ -137,16 +137,14 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         }
     }
 
-    public WorldFeatureAetherSilverDungeon(float angle) {
-        this.angle = Math.round(angle / 90.0f);
+    public WorldFeatureAetherSilverDungeon(int directrion) {
+        this.angle = directrion * 90;
     }
 
-    public WorldFeatureAetherSilverDungeon(){
-        this(0.0F);
-    }
+    public WorldFeatureAetherSilverDungeon(){}
 
     public static WorldFeatureAetherSilverDungeon silverDungeon(Random random) {
-        return new WorldFeatureAetherSilverDungeon((float) (random.nextFloat() * 360.0));
+        return new WorldFeatureAetherSilverDungeon(random.nextInt(4));
     }
 
     public void placeComponent(WorldFeatureComponent component) {
