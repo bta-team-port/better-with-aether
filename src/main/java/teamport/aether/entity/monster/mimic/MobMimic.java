@@ -65,7 +65,7 @@ public class MobMimic extends MobMonster implements Enemy {
     }
 
     public int getMaxHealth() {
-        return 40;
+        return 80;
     }
 
     public void setLoot(List<ItemStack> loot){
