@@ -128,80 +128,79 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpA
     }
 
     public void updateAI() {
-        if (!this.world.isClientSide) {
-            if (this.passenger != null && this.passenger instanceof Player) {
-                this.moveSpeed = 0.0F;
-                this.moveStrafing = 0.0F;
-                this.isJumping = false;
-                this.footSize = 1.5f;
-                ((EntityAccessor) this.passenger).setFallDistance(0.0F);
-                this.yRotO = this.yRot = this.passenger.yRot;
-                this.xRotO = this.xRot = this.passenger.xRot;
-                Player mob = (Player) this.passenger;
-                float f = 3.141593F;
-                float f1 = f / 180.0F;
-                float f5;
-                if (((MobAccessor) mob).getForwardVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776;
-                } else if (((MobAccessor) mob).getForwardVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776;
-                }
+        if (this.passenger != null && this.passenger instanceof Player) {
+            this.moveSpeed = 0.0F;
+            this.moveStrafing = 0.0F;
+            this.isJumping = false;
+            this.footSize = 1.5f;
 
-                if (((MobAccessor) mob).getHorizontalVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776;
-                } else if (((MobAccessor) mob).getHorizontalVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776;
-                }
 
-                if (this.onGround && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.onGround = false;
-                    this.yd = 1.4;
-                    this.jumpPressed = true;
-                } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.yd = 0.5;
-                    this.jumpPressed = true;
-                    --this.jumpsRemaining;
-                } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.yd = 1.2;
-                    this.jumpPressed = true;
-                    --this.jumpsRemaining;
-                }
+            this.yRotO = this.yRot = this.passenger.yRot;
+            this.xRotO = this.xRot = this.passenger.xRot;
 
-                if (this.jumpPressed && !((MobAccessor) mob).getJumping()) {
-                    this.jumpPressed = false;
-                }
+            Player player = (Player) this.passenger;
+            ((EntityAccessor) player).setFallDistance(0.0F);
 
-                double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
-                if (d > 0.375) {
-                    double d1 = 0.375 / d;
-                    this.xd *= d1;
-                    this.zd *= d1;
-                }
+            float playerYawDegrees = (float) (player.yRot * (Math.PI/180));
+            float step = 0.175F;
 
-            } else {
-                this.footSize = 1.0f;
-                super.updateAI();
+            if (((MobAccessor) player).getForwardVelocity() > 0.1F) {
+                this.xd += (double) ((MobAccessor) player).getForwardVelocity() * -Math.sin(playerYawDegrees) * step;
+                this.zd += (double) ((MobAccessor) player).getForwardVelocity() * Math.cos(playerYawDegrees) * step;
+
+            } else if (((MobAccessor) player).getForwardVelocity() < -0.1F) {
+                this.xd += (double) ((MobAccessor) player).getForwardVelocity() * -Math.sin(playerYawDegrees) * step;
+                this.zd += (double) ((MobAccessor) player).getForwardVelocity() * Math.cos(playerYawDegrees) * step;
             }
+
+            if (((MobAccessor) player).getHorizontalVelocity() > 0.1F) {
+                this.xd += (double) ((MobAccessor) player).getHorizontalVelocity() * Math.cos(playerYawDegrees) * step;
+                this.zd += (double) ((MobAccessor) player).getHorizontalVelocity() * Math.sin(playerYawDegrees) * step;
+
+            } else if (((MobAccessor) player).getHorizontalVelocity() < -0.1F) {
+                this.xd += (double) ((MobAccessor) player).getHorizontalVelocity() * Math.cos(playerYawDegrees) * step;
+                this.zd += (double) ((MobAccessor) player).getHorizontalVelocity() * Math.sin(playerYawDegrees) * step;
+            }
+
+            if (((MobAccessor) player).getJumping() && !jumpPressed) {
+                boolean canJump = this.jumpsRemaining > 0;
+
+                if (this.onGround) {
+                    this.yd = 1.4;
+                    this.onGround = false;
+                } else {
+                    if (isInWater()) this.yd = 0.5;
+                    else if (canJump) this.yd = 1.2;
+                    --this.jumpsRemaining;
+                }
+
+                if (isInWater() || canJump) {
+                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
+                    this.jumpPressed = true;
+                }
+            }
+
+            if (this.jumpPressed && !((MobAccessor) player).getJumping()) {
+                this.jumpPressed = false;
+            }
+
+            double horizontalSpeed = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
+            if (horizontalSpeed > 0.375) {
+                double normal = 0.375 / horizontalSpeed;
+                this.xd *= normal;
+                this.zd *= normal;
+            }
+        } else {
+            this.footSize = 1.0f;
+            super.updateAI();
         }
     }
 
-    public void jump() {
-        this.yd = 0.6;
-    }
+    @Override
+    protected void jump() { this.yd = 0.6; }
 
-    public void causeFallDamage(float distance) {
-    }
+    @Override
+    protected void causeFallDamage(float distance) {}
 
     public String getLivingSound() {
         return "aether:mob.moa";
@@ -216,14 +215,13 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpA
     }
 
     public boolean interact(@NotNull Player player) {
-        if (super.interact(player)) {
-            return true;
-        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
-            return false;
-        } else {
-            player.startRiding(this);
-            return true;
-        }
+        if (super.interact(player)) return true;
+
+        //if (!this.getSaddled() || this.world.isClientSide) return false;
+        if (this.passenger != null && this.passenger != player) return false;
+
+        player.startRiding(this);
+        return true;
     }
 
     public void dropDeathItems() {
@@ -233,7 +231,6 @@ public class MobMoaBlue extends MobAetherAnimal implements Creature, EntityJumpA
 
         super.dropDeathItems();
     }
-
 
     public boolean getSaddled() {
         return (this.entityData.getByte(16) & 1) != 0;
