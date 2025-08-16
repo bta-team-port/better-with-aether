@@ -42,7 +42,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     }
 
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getPermanentBB(x, y, z, x + 1, y, z + 1);
+        return AABB.getPermanentBB(x, y, z, x + 1, y + 0.00001, z + 1);
     }
 
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
