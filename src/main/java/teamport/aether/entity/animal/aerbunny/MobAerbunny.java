@@ -10,15 +10,22 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.NetworkManager;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.PlayerList;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
 public class MobAerbunny extends MobAetherAnimal {
     public boolean grab;
@@ -79,11 +86,15 @@ public class MobAerbunny extends MobAetherAnimal {
         if (this.vehicle != null) {
             if (this.vehicle.isRemoved()) {
                 this.startRiding(this.vehicle);
-            } else {
+            }
+
+            else {
                 Entity passenger = this.vehicle.getPassenger();
+
                 if (!passenger.onGround && !passenger.isInWaterOrRain()) {
                     ((EntityAccessor) this.vehicle).setFallDistance(0.0F);
                     ((Mob) this.vehicle).yd += 0.05F;
+
                     if (this.vehicle instanceof Mob && ((Mob) this.vehicle).yd < -0.225F && ((MobAccessor) this.vehicle).getJumping()) {
                         ((Mob) this.vehicle).yd = 0.125F;
                         this.cloudPoop();
@@ -91,7 +102,9 @@ public class MobAerbunny extends MobAetherAnimal {
                     }
                 }
             }
-        } else if (!grab) {
+        }
+
+        else if (!grab) {
             if (this.moveForward != 0.0F) {
                 int x = MathHelper.floor(this.x);
                 int y = MathHelper.floor(this.bb.minY);
@@ -112,7 +125,9 @@ public class MobAerbunny extends MobAetherAnimal {
 
         if (grab && onGround) {
             grab = false;
+
             this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+
             for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0))) {
                 if (entity instanceof MobMonster) {
                     ((MobMonster) entity).setTarget(this);
@@ -143,30 +158,34 @@ public class MobAerbunny extends MobAetherAnimal {
         }
     }
 
-    public boolean interact(@NotNull Player entityplayer) {
+    public boolean interact(@NotNull Player player) {
         if (!this.world.isClientSide) {
-            if (!entityplayer.isSneaking()) {
-                if (this.vehicle == entityplayer) {
-                    grab = false;
-                    this.ejectRider();
-                    if (this.vehicle != null) {
-                        this.vehicle = null;
-                    }
-                    return true;
+            if (player.isSneaking()) return super.interact(player);
+
+            if (this.vehicle == player) {
+                grab = false;
+                this.ejectRider();
+
+                if (this.vehicle != null) {
+                    this.vehicle = null;
                 }
 
-                if (entityplayer.getPassenger() instanceof MobAerbunny) {
-                    return false;
-                }
-
-                this.startRiding(entityplayer);
-                grab = true;
-                this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.isJumping = false;
                 return true;
             }
-            super.interact(entityplayer);
+
+            if (player.getPassenger() instanceof MobAerbunny) {
+                return false;
+            }
+
+            this.startRiding(player);
+
+            grab = true;
+            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.isJumping = false;
+
+            return true;
         }
+
         return false;
     }
 

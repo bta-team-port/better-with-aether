@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -56,7 +57,9 @@ public abstract class MPBumpToOverworldMixin extends Player {
 
             float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
             moveTo(x * scale, OVERWORLD_RETURN_HEIGHT, z * scale, yRot, xRot);
-            server.playerList.sendPlayerToOtherDimension((PlayerServer) (Object) this, Dimension.OVERWORLD.id, DyeColor.BLUE, false);
+
+            PlayerServer player = PlayerServer.class.cast(this);
+            server.playerList.sendPlayerToOtherDimension(player, Dimension.OVERWORLD.id, DyeColor.BLUE, false);
 
             if (passengerNBT != null) {
                 Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, world);
@@ -64,6 +67,10 @@ public abstract class MPBumpToOverworldMixin extends Player {
                 world.entityJoinedWorld(p);
 
                 p.startRiding(this);
+
+                // start riding only sends the packet if it's a player who started riding something
+                // so if something attempts to ride a player: (lol) it doesn't notify the vehicle(player)
+                player.playerNetServerHandler.sendPacket(new PacketSetRiding(p, player));
             }
         }
     }
