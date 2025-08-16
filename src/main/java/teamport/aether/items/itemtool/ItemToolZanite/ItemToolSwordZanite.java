@@ -29,6 +29,8 @@ public class ItemToolSwordZanite extends ItemToolSwordAether {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+        if (itemstack == null) return 0f;
+
         if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SWORD)) return 1.0F;
         float durability_progress = ((float) itemstack.getMetadata() / this.getMaxDamage());
 

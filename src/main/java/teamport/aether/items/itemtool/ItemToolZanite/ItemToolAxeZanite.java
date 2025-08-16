@@ -1,8 +1,6 @@
 package teamport.aether.items.itemtool.ItemToolZanite;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import teamport.aether.blocks.AetherBlockTags;
@@ -15,6 +13,8 @@ public class ItemToolAxeZanite extends ItemToolAxeAether {
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+        if (itemstack == null) return 0f;
+
         if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
         float durability_progress = ((float) itemstack.getMetadata() / this.getMaxDamage());
 
