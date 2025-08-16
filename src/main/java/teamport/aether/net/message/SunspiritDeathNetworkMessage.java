@@ -1,0 +1,41 @@
+package teamport.aether.net.message;
+
+import org.jetbrains.annotations.NotNull;
+import teamport.aether.AetherMod;
+import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkMessage;
+import turniplabs.halplibe.helper.network.UniversalPacket;
+
+public class SunspiritDeathNetworkMessage implements NetworkMessage {
+    boolean isDead;
+    long timestamp;
+
+    public SunspiritDeathNetworkMessage() {}
+
+    public SunspiritDeathNetworkMessage(boolean isDead, long timestamp) {
+        this.isDead = isDead;
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+        packet.writeBoolean(isDead);
+        packet.writeLong(timestamp);
+    }
+
+    @Override
+    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+        isDead = packet.readBoolean();
+        timestamp = packet.readLong();
+    }
+
+    @Override
+    public void handle(NetworkContext networkContext) {
+        if (EnvironmentHelper.isClientWorld()) {
+            AetherMod.LOGGER.info("Received SunspiritDeathNetworkMessage.");
+            AetherDimension.sunspiritIsDead = isDead;
+            AetherDimension.sunspiritDeathTimestamp = timestamp;
+        }
+    }
+}

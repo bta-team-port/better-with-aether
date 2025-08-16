@@ -11,6 +11,9 @@ import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.net.message.SunspiritDeathNetworkMessage;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +24,9 @@ import static net.minecraft.core.world.biome.Biomes.register;
 public class AetherDimension {
     public static DungeonMap dungeonMap = new DungeonMap();
 
-    public static boolean hasKilledGold = false;
+    public static boolean sunspiritIsDead = false;
 
-    public static long goldDeathTime = 0;
+    public static long sunspiritDeathTimestamp = 0;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 450;
     public static final int bossDetectionRange = 100;
@@ -99,32 +102,38 @@ public class AetherDimension {
     }
 
     public static void unlockDaylightCycle(World world) {
-        if (!hasKilledGold) {
-            hasKilledGold = true;
-            goldDeathTime = world.getWorldTime();
-
+        if (!sunspiritIsDead) {
             AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
+
+            sunspiritIsDead = true;
+            sunspiritDeathTimestamp = world.getWorldTime();
+
+            if (EnvironmentHelper.isServerEnvironment()) {
+                NetworkHandler.sendToAllPlayers(
+                    new SunspiritDeathNetworkMessage(sunspiritIsDead, sunspiritDeathTimestamp)
+                );
+            }
         }
     }
 
     public static void setDimensionDataDefaults() {
-        goldDeathTime = 0;
-        hasKilledGold = false;
+        sunspiritDeathTimestamp = 0;
+        sunspiritIsDead = false;
         dungeonMap = new DungeonMap();
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.info("Loading additional level data.");
 
-        hasKilledGold = dimensionData.getBoolean(AetherMod.MOD_ID+".hasKilledGold");
+        sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID+".sunspiritDeathTimestamp");
         dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID+".dungeon"));
     }
 
     public static void saveDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional level data.");
 
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritIsDead);
         dimensionData.putCompound(AetherMod.MOD_ID +".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
-        dimensionData.putBoolean(AetherMod.MOD_ID + ".hasKilledGold", AetherDimension.hasKilledGold);
     }
 
 }

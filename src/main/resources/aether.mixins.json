@@ -103,7 +103,8 @@
   ],
   "server": [
     "dimension.MPBumpToOverworldMixin",
-    "dimension.MPEntityBumpToOverworldMixin"
+    "dimension.MPEntityBumpToOverworldMixin",
+    "net.PlayerLoginMixin"
   ],
   "injectors": {
     "defaultRequire": 1
