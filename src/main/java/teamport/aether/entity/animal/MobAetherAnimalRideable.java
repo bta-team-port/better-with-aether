@@ -14,6 +14,8 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
     protected int maxJumps = 3;
     protected boolean jumpPressed;
 
+    public float rideFootSize;
+
     protected double xdChange = 0;
     protected double zdChange = 0;
     protected boolean playerUsedJump = false;
@@ -126,7 +128,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
             this.moveSpeed = 0.0F;
             this.moveStrafing = 0.0F;
             this.isJumping = false;
-            this.footSize = 1.5f;
+            this.footSize = rideFootSize;
 
             this.yRotO = this.yRot = this.passenger.yRot;
             this.xRotO = this.xRot = this.passenger.xRot;
@@ -134,7 +136,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
             Player player = (Player) this.passenger;
             ((EntityAccessor) player).setFallDistance(0.0F);
         } else {
-            this.footSize = 1.0f;
+            this.footSize = rideFootSize - 0.5f;
             super.updateAI();
         }
     }

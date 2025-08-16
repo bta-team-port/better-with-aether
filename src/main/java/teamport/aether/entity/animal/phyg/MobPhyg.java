@@ -31,6 +31,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
         maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phyg");
         this.setSize(0.9F, 0.9F);
+        this.rideFootSize = 1.0f;
 
         this.mobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_RAW.getDefaultStack(), 1, 2));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
