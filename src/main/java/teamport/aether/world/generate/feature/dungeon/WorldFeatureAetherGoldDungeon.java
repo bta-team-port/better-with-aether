@@ -170,8 +170,10 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         }
 
         double radMod2 = 0.7F;
-        this.placeComponent(drawSphere(random, holystone, x + RADIUS, (int) (y + (RADIUS * 0.8F)), z, (int) (RADIUS * radMod2), true));
-        createGrassOnTopLevel((int) (RADIUS * radMod2), x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
+        WorldFeaturePoint cover = new WorldFeaturePoint(x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
+        cover.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, this.angle);
+        drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true);
+        createGrassOnTopLevel((int) (RADIUS * radMod2), cover.x, cover.y, cover.z);
     }
 
     private void createMainRoom(int x, int y, int z) {
