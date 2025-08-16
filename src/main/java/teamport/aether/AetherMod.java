@@ -1,6 +1,7 @@
 package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.entity.EntityPainting;
@@ -46,15 +47,19 @@ import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.re
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+    public static String state = "alpha";
     public static MobFireflyCluster.FireflyColor SILVER;
 
+    // hide the mimic description
+    public static final boolean BTWAILA = FabricLoader.getInstance().isModLoaded("btwaila");
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized. Welcome to a hostile paradise.");
-
+        LOGGER.info("Aether initialized.");
+        LOGGER.info(" Welcome to a hostile paradise. Version {} {}", state , versionString);
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
     }
 

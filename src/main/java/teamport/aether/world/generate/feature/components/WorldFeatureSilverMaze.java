@@ -87,7 +87,6 @@ public class WorldFeatureSilverMaze {
                 if (prev == index) index++;
                 if (index > 7) index = index % 7;
                 prev = index;
-                System.out.printf("stairs: from:%d, to:%d\n", LEVEL * 9 + index, (LEVEL + 1) * 9 + index);;
                 GRAPH.get(LEVEL * 9 + index).add((LEVEL + 1) * 9 + index);
                 GRAPH.get((LEVEL + 1) * 9 + index).add(LEVEL * 9 + index);
             }

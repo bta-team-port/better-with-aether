@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.BlockPallet;
 
@@ -153,7 +154,7 @@ public class WorldFeatureComponent {
             inventory.setItem(index, itemStack);
         }
         if(emptyCount == quantity){
-            System.out.printf("EmptyChest! quantity:%d, x%d, y:%d, z:%d\n", quantity, wfb.x, wfb.y, wfb.z);
+            AetherMod.LOGGER.error("Generated empty chest quantity:{}, x:{}, y:{}, z:{}\n", quantity, wfb.x, wfb.y, wfb.z);
         }
     }
 
