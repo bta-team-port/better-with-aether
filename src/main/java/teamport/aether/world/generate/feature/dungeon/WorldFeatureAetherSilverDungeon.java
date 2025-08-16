@@ -1,12 +1,10 @@
-package teamport.aether.world.generate.feature;
+package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -17,8 +15,10 @@ import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.BlockPallet;
+import teamport.aether.world.generate.feature.WorldFeatureAetherClouds;
+import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChest;
-import teamport.aether.world.generate.feature.chests.WorldFeatureAetherTreasureChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -29,7 +29,7 @@ import java.util.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 
-public class WorldFeatureAetherDungeonSilver extends WorldFeature {
+public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
     public float angle = 0;
@@ -48,7 +48,9 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL = new WeightedRandomBag<>();
+
     static {
         // unlucky
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(null), 900.0F);
@@ -66,7 +68,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
 
         // tools
         int minTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2.0);
-        int maxTool= MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() * 3.0f / 4.0f);
+        int maxTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() * 3.0f / 4.0f);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
@@ -106,7 +108,9 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.EGG_MOA_BLUE.getDefaultStack()), 50.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack()), 10.0);
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
+
     static {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack()), 200.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_STAFF_CLOUD.getDefaultStack()), 200.0);
@@ -133,34 +137,60 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         }
     }
 
+    public WorldFeatureAetherSilverDungeon(float angle) {
+        this.angle = Math.round(angle / 90.0f);
+    }
+
+    public WorldFeatureAetherSilverDungeon(){
+        this(0.0F);
+    }
+
+    public static WorldFeatureAetherSilverDungeon silverDungeon(Random random) {
+        return new WorldFeatureAetherSilverDungeon((float) (random.nextFloat() * 360.0));
+    }
+
     public void placeComponent(WorldFeatureComponent component) {
-        component.rotateYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        component.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         component.place(world);
 
     }
-    public void modifyPoint(WorldFeaturePoint point){
-        point.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
+
+    public void modifyPoint(WorldFeaturePoint point) {
+        point.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
     }
-    public WorldFeaturePoint createModifiedPoint(int ix, int iy, int iz){
-        WorldFeaturePoint pos = new WorldFeaturePoint(ix,iy,iz);
-        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z,angle);
+
+    public WorldFeaturePoint createModifiedPoint(int ix, int iy, int iz) {
+        WorldFeaturePoint pos = new WorldFeaturePoint(ix, iy, iz);
+        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         return pos;
     }
 
+    private boolean canPlace(int x, int y, int z) {
+        WorldFeatureComponent checker = drawPlane(0, 0, Direction.SOUTH, 75, Direction.WEST, 50, x + 10, y - 30, z - 10, false);
+        checker.rotateYAxis(x,y,z, angle);
+        for(WorldFeaturePoint point: checker.blockList){
+            if(!world.canBlockSeeTheSky(point.x, point.y, point.z)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-//        this.angle = random.nextInt(4) * 90.0F;
-        this.angle = 1 * 90.0F;
-        this.dungeonAnker = new WorldFeaturePoint(x,y,z);
         this.world = world;
         this.random = random;
+        if(!canPlace(x,y,z)) return false;
+//        this.angle = random.nextInt(4) * 90.0F;
+        this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
         this.silverMaze = new WorldFeatureSilverMaze();
 
         dungeon = AetherDimension.dungeonMap.register();
         dungeon.setPosition(bossPosition);
-        createBaseStructure(x,y,z);
-        createInnerDecorations(x,y,z);
+        createBaseStructure(x, y, z);
+        createInnerDecorations(x, y, z);
         createBossAndTreasure(x, y, z);
         createOuterDecorations(x, y, z);
         return true;
@@ -171,8 +201,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
                 new WorldFeaturePoint(x + 2, y, z - 3),
                 new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.first.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
-        clearArea.second.rotateFixPointYAxis(dungeonAnker.x,dungeonAnker.y,dungeonAnker.z, angle);
+        clearArea.first.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        clearArea.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         dungeon.setClearArea(clearArea);
 
         // Place boss, chest and door
@@ -182,7 +212,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         boss.setDungeonID(dungeon.getId());
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
 
-        new WorldFeatureAetherSilverChest().place(world, random, bossPosition.x, y, bossPosition.z);
+        WorldFeatureAetherSilverChest.silverChest().place(world, random, bossPosition.x, y, bossPosition.z);
         WorldFeaturePoint[] treasureDoor = {
                 new WorldFeaturePoint(x - 14, y + 2, z + 42),
                 new WorldFeaturePoint(x - 14, y + 2, z + 43),
@@ -192,7 +222,9 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
                 new WorldFeaturePoint(x - 15, y + 2, z + 41), //non trapdoor
         };
 
-        for (WorldFeaturePoint pos : treasureDoor){ pos.rotateFixPointYAxis(x, y, z, angle); }
+        for (WorldFeaturePoint pos : treasureDoor) {
+            pos.rotateFixPointYAxis(x, y, z, angle);
+        }
         dungeon.setDoorBlocks(treasureDoor);
 
         world.entityJoinedWorld(boss);
@@ -203,8 +235,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
         // create clouds
         this.placeComponent(clear);
-        List<WorldFeaturePoint> cloudPoints = getCloudPoints(x,y,z);
-        for(WorldFeaturePoint cloudPoint : cloudPoints){
+        List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
+        for (WorldFeaturePoint cloudPoint : cloudPoints) {
             this.modifyPoint(cloudPoint);
             new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
@@ -219,10 +251,8 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         WorldFeatureComponent[] maze = silverMaze.createMaze(world, random, x, y, z);
         this.placeComponent(maze[0]);
         this.placeComponent(maze[1]);
-        for(WorldFeatureBlock chest: maze[1].blockList){
-//            if(chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()){
-                populateChest(world, chest, random, LOOT_NORMAL, (int)Math.round((random.nextGaussian() + 1) * 6));
-//            }
+        for (WorldFeatureBlock chest : maze[1].blockList) {
+            populateChest(world, chest, random, LOOT_NORMAL, (int) Math.round((random.nextGaussian() + 1) * 6));
         }
 
         // Outer walls of dungeon itself
@@ -330,7 +360,7 @@ public class WorldFeatureAetherDungeonSilver extends WorldFeature {
         }
         this.placeComponent(pod);
         this.placeComponent(trees);
-        for(WorldFeatureBlock tree: trees.blockList){
+        for (WorldFeatureBlock tree : trees.blockList) {
             new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()).place(world, random, tree.x, tree.y, tree.z);
         }
     }
