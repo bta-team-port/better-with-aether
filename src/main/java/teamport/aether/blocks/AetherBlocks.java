@@ -261,7 +261,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(0.3f)
                 .setResistance(0.6f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES,
-                        BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
+                        BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN, BlockTags.GROWS_TREES, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE)
                 .build("grass.aether", "grass_aether", blockID("GRASS_AETHER"), b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
