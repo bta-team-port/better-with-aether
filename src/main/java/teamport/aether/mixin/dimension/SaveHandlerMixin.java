@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
+import teamport.aether.world.DungeonMap;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
 
@@ -29,24 +30,20 @@ public abstract class SaveHandlerMixin implements LevelStorage {
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
     public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
-        if (dimensionId != AetherDimension.AetherDimensionID) {
-            return;
-        }
-        AetherMod.LOGGER.info("Loading additional level data.");
-        CompoundTag data = saveFormat.getDimensionDataRaw(worldDirName, dimensionId);
-        if (data != null) {
-            AetherDimension.dungeonMap.loadFromNBT(data.getCompound("aether.dungeon"));
+        if (dimensionId != AetherDimension.AetherDimensionID) return;
+
+        AetherDimension.setDimensionDataDefaults();
+
+        CompoundTag dimensionData = saveFormat.getDimensionDataRaw(worldDirName, dimensionId);
+        if (dimensionData != null) {
+            AetherDimension.loadDimensionData(dimensionData);
         }
     }
 
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
-    public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionDataTag, CallbackInfo ci) {
-        if (dimensionId != AetherDimension.AetherDimensionID) {
-            return;
-        }
-
-        AetherMod.LOGGER.debug("Saving additional level data.");
-        dimensionDataTag.putCompound("aether.dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
+    public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
+        if (dimensionId != AetherDimension.AetherDimensionID) return;
+        AetherDimension.saveDimensionData(dimensionData);
     }
 
 }

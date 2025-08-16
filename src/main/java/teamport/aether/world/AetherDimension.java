@@ -1,12 +1,15 @@
 package teamport.aether.world;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.Dimension;
+import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.AetherConfig;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 
 import java.util.ArrayList;
@@ -16,6 +19,11 @@ import java.util.List;
 import static net.minecraft.core.world.biome.Biomes.register;
 
 public class AetherDimension {
+    public static DungeonMap dungeonMap = new DungeonMap();
+
+    public static boolean hasKilledGold = false;
+
+    public static long goldDeathTime = 0;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 450;
     public static final int bossDetectionRange = 100;
@@ -25,7 +33,6 @@ public class AetherDimension {
 
     public static int AetherDimensionID = AetherConfig.DIMENSION;
     public static final HashMap<Integer, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
-    public static DungeonMap dungeonMap = new DungeonMap();
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension) {
         return getDimensionBlacklist(dimension.id);
@@ -90,4 +97,34 @@ public class AetherDimension {
         AETHER_BLACKLIST.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
         AETHER_BLACKLIST.add(Blocks.BLOCK_NETHER_COAL.id());
     }
+
+    public static void unlockDaylightCycle(World world) {
+        if (!hasKilledGold) {
+            hasKilledGold = true;
+            goldDeathTime = world.getWorldTime();
+
+            AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
+        }
+    }
+
+    public static void setDimensionDataDefaults() {
+        goldDeathTime = 0;
+        hasKilledGold = false;
+        dungeonMap = new DungeonMap();
+    }
+
+    public static void loadDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.info("Loading additional level data.");
+
+        hasKilledGold = dimensionData.getBoolean(AetherMod.MOD_ID+".hasKilledGold");
+        dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID+".dungeon"));
+    }
+
+    public static void saveDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.debug("Saving additional level data.");
+
+        dimensionData.putCompound(AetherMod.MOD_ID +".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".hasKilledGold", AetherDimension.hasKilledGold);
+    }
+
 }

@@ -17,6 +17,7 @@ import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
+import teamport.aether.world.AetherDimension;
 
 public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public int timesShot = 0;
@@ -252,7 +253,11 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        this.world.players.stream()
+        if (!world.isClientSide && world.dimension == AetherDimension.AETHER) {
+            AetherDimension.unlockDaylightCycle(world);
+        }
+
+        world.players.stream()
                 .filter(player -> player.distanceTo(this) < 32)
                 .forEach(p -> {
                     p.sendMessage("§3Such bitter cold... is this the feeling... of pain?");
