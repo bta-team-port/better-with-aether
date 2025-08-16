@@ -26,10 +26,7 @@ import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
-import teamport.aether.tile.TileEntityEnchanter;
-import teamport.aether.tile.TileEntityFreezer;
-import teamport.aether.tile.TileEntityIncubator;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.tile.*;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -71,7 +68,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobAerwhale.class, NamespaceID.getPermanent(MOD_ID, "aerwhale"), entityKey("aerwhale"));
         EntityHelper.createEntity(MobAerbunny.class, NamespaceID.getPermanent(MOD_ID, "aerbunny"), entityKey("aerbunny"));
 
-            EntityHelper.createEntity(MobMoaBlue.class, NamespaceID.getPermanent(MOD_ID, "moa_blue"), entityKey("moa_blue"));
+        EntityHelper.createEntity(MobMoaBlue.class, NamespaceID.getPermanent(MOD_ID, "moa_blue"), entityKey("moa_blue"));
         EntityHelper.createEntity(MobMoaWhite.class, NamespaceID.getPermanent(MOD_ID, "moa_white"), entityKey("moa_white"));
         EntityHelper.createEntity(MobMoaBlack.class, NamespaceID.getPermanent(MOD_ID, "moa_black"), entityKey("moa_black"));
 
@@ -87,6 +84,7 @@ public final class AetherEntities {
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
         EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
         EntityHelper.createTileEntity(TileEntitySignSkyroot.class, NamespaceID.getPermanent(MOD_ID, "sign_skyroot"));
+        EntityHelper.createTileEntity(TileEntityMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"));
 
         EntityHelper.createEntity(ProjectileKnifeLightning.class, NamespaceID.getPermanent(MOD_ID, "knife_lightning"), entityKey("knife_lightning"));
         EntityHelper.createEntity(ProjectileDartEnchanted.class, NamespaceID.getPermanent(MOD_ID, "dart_enchanted"), entityKey("dart_enchanted"));
