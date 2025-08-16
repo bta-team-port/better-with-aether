@@ -5,6 +5,9 @@ import teamport.aether.world.generate.feature.*;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChest;
+import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon;
+import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherGoldDungeon;
+import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon;
 
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
 
@@ -13,9 +16,9 @@ import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFea
 public class AetherCommand {
 
     static {
-        registerWorldFeatureClass(WorldFeatureAetherDungeonBronze.class);
-        registerWorldFeatureClass(WorldFeatureAetherDungeonSilver.class);
-        registerWorldFeatureClass(WorldFeatureAetherDungeonGold.class);
+        registerWorldFeatureClass(WorldFeatureAetherBronzeDungeon.class);
+        registerWorldFeatureClass(WorldFeatureAetherSilverDungeon.class);
+        registerWorldFeatureClass(WorldFeatureAetherGoldDungeon.class);
         registerWorldFeatureClass(WorldFeatureAetherClouds.class);
         registerWorldFeatureClass(WorldFeatureAetherLiquid.class);
         registerWorldFeatureClass(WorldFeatureAetherOre.class);

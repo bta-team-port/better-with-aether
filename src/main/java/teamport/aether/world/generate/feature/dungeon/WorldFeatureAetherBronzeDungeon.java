@@ -1,11 +1,9 @@
-package teamport.aether.world.generate.feature;
+package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -14,6 +12,8 @@ import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.BlockPallet;
+import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -27,7 +27,7 @@ import java.util.Random;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 
-public class WorldFeatureAetherDungeonBronze extends WorldFeature {
+public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
@@ -35,6 +35,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
     public static final int ROOM_COUNT_MAX = 13;
     public static final int ROOM_HEIHGT_MEAN = 2;
     public int roomCount = 0;
+    public float angle = 0;
     public World world;
     public Random random;
 
@@ -97,6 +98,18 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
     }
 
+    public WorldFeatureAetherBronzeDungeon(float angle){
+        this.angle = Math.round(angle / 90.0f);
+    }
+
+    public WorldFeatureAetherBronzeDungeon(){
+        this(0.0F);
+    }
+
+    public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random){
+        return new WorldFeatureAetherBronzeDungeon((float) (random.nextFloat() * 360.0));
+    }
+
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
@@ -138,8 +151,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
 
-        this.placeTreasure(x2, y2, z2);
-
+        WorldFeatureAetherBronzeChest.bronzeChest().place(world,random,x2, y2, z2);
         MobBossSlider boss = new MobBossSlider(world);
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(x + 8, y + 2, z + 8));
@@ -155,19 +167,6 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         });
 
         world.entityJoinedWorld(boss);
-    }
-
-    private void placeTreasure(int x2, int y2, int z2) {
-        world.setBlockAndMetadataWithNotify(x2, y2, z2, AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED.id(), 4);
-        Container inventory = BlockLogicChest.getInventory(world, x2, y2, z2);
-        if(inventory == null) return;
-        int quantity = (int)Math.round((random.nextGaussian() + 1) * 9);
-        for (int i = 0; i < quantity; i++) {
-            inventory.setItem(
-                    random.nextInt(inventory.getContainerSize()),
-                    LOOT_RARE.getRandom().getItemStack(random)
-            );
-        }
     }
 
     // TODO rewrite it to be not recursive!
@@ -250,8 +249,7 @@ public class WorldFeatureAetherDungeonBronze extends WorldFeature {
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
             if (chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
-                int quantity = (int) Math.round((random.nextGaussian() + 1) * 6);
-                populateChest(world, chest, random, LOOT_NORMAL, quantity);
+                populateChest(world, chest, random, LOOT_NORMAL, (int) Math.round((random.nextGaussian() + 1) * 6));
             }
         }
 

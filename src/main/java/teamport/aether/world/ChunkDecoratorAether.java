@@ -20,6 +20,10 @@ import teamport.aether.world.generate.feature.*;
 
 import java.util.Random;
 
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.bronzeDungeon;
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherGoldDungeon.goldDungeon;
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon.silverDungeon;
+
 public class ChunkDecoratorAether implements ChunkDecorator {
     public final World world;
     public final PerlinNoise treeDensityNoise;
@@ -28,12 +32,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.world = world;
         this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
-
-    public static final WorldFeature[] dungeons = new WorldFeature[]{
-            new WorldFeatureAetherDungeonGold(),
-            new WorldFeatureAetherDungeonSilver(),
-            new WorldFeatureAetherDungeonBronze(),
-    };
 
     public void decorate(Chunk chunk) {
         BlockLogicSand.fallInstantly = true;
@@ -66,12 +64,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 int dungeonX = x + rand.nextInt(16);
                 int dungeonY = 60 + rand.nextInt(90);
                 int dungeonZ = z + rand.nextInt(16);
-                dungeons[0].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+                goldDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             } else if (silverSeed > -1) {
                 int dungeonX = x - 15;
                 int dungeonY = 200 + rand.nextInt(30);
                 int dungeonZ = z + 28;
-                dungeons[1].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+                silverDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             } else if (bronzeSeed > -1) {
                 int dungeonX = x + rand.nextInt(16);
                 int dungeonZ = z + rand.nextInt(16);
@@ -92,7 +90,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                     }
                 }
                 int dungeonY = Math.max(0, (maxY + max / 2) - 5);
-                dungeons[2].place(this.world, rand, dungeonX, dungeonY, dungeonZ);
+                bronzeDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             }
         }
 
