@@ -87,16 +87,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack()), 25.0);
     }
 
-    public WorldFeatureAetherGoldDungeon(float angle){
-        this.angle = Math.round(angle / 90.0f);
+    public WorldFeatureAetherGoldDungeon(int direction){
+        this.angle = direction * 90;
     }
 
-    public WorldFeatureAetherGoldDungeon(){
-       this(0.0F);
-    }
+    public WorldFeatureAetherGoldDungeon(){}
 
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random){
-        return new WorldFeatureAetherGoldDungeon((float) (random.nextFloat() * 360.0));
+        return new WorldFeatureAetherGoldDungeon((random.nextInt(4)));
     }
 
     public WorldFeaturePoint getPos(int ix, int iy, int iz) {
@@ -114,7 +112,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         this.world = world;
         this.random = random;
 //        this.angle = this.random.nextInt(4) * 90.0F;
-        this.dungeonAnker = bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
+        this.dungeonAnker = new WorldFeaturePoint(x,y,z);
+        this.bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
         this.decorations = new WorldFeatureComponent();
         this.dungeon = AetherDimension.dungeonMap.register();
         this.dungeon.setPosition(bossPosition);
@@ -171,7 +170,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         }
 
         double radMod2 = 0.7F;
-        drawSphere(random, holystone, x + RADIUS, (int) (y + (RADIUS * 0.8F)), z, (int) (RADIUS * radMod2), true).place(world);
+        this.placeComponent(drawSphere(random, holystone, x + RADIUS, (int) (y + (RADIUS * 0.8F)), z, (int) (RADIUS * radMod2), true));
         createGrassOnTopLevel((int) (RADIUS * radMod2), x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
     }
 
