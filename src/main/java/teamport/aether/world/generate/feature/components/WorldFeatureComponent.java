@@ -141,7 +141,7 @@ public class WorldFeatureComponent {
         if(inventory == null) return;
         int invSize = inventory.getContainerSize();
         int emptyCount = 0;
-        for (int i = 0; i < quantity; i++) {
+        for (int i = 0; i < Math.max(quantity, 1); i++) {
             int index = random.nextInt(invSize);
             for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
                 if (index >= invSize) {
