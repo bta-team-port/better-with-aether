@@ -28,6 +28,8 @@ public class AetherConfig {
     public static float QUICK_SOIL_SPEED_CAP;
     public static int EXTRA_HEALTH;
 
+    public static String REMOTE_RESOURCE_URL;
+
     public static String BlockIDs = "Block IDs";
     public static String ItemIDs = "Item IDs";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -37,6 +39,7 @@ public class AetherConfig {
         int dimensionDefault = 3; // so it wont bug me for testing
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
+        String remoteResourceUrl = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets";
 
         LOGGER.info("Initializing config..");
 
