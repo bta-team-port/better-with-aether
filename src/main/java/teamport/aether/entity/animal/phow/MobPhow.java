@@ -12,36 +12,32 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.AetherJumpAmount;
 import teamport.aether.entity.animal.MobAetherAnimal;
+import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
 
-public class MobPhow extends MobAetherAnimal implements AetherJumpAmount {
+public class MobPhow extends MobAetherAnimalRideable {
     public float wingFold;
     public float wingFoldO;
     public float wingAngle;
     public float wingAngleO;
     public float aimingForFold;
-    public int jumpsRemaining;
-    public boolean jumpPressed;
     public int ticks;
     public MobPhow(World world) {
         super(world);
+        maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phow");
         this.setSize(0.9F, 1.3F);
+
         this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
 
     public void tick() {
         super.tick();
-        if (this.onGround) {
-            this.aimingForFold = 0.1F;
-            this.jumpPressed = false;
-            this.jumpsRemaining = getJumpMaxAmount();
-        } else {
-            this.aimingForFold = 1.0F;
-        }
+        if (this.onGround) this.aimingForFold = 0.1F;
+        else this.aimingForFold = 1.0F;
 
         this.wingAngleO = this.wingAngle;
         this.wingFoldO = this.wingFold;
@@ -50,83 +46,12 @@ public class MobPhow extends MobAetherAnimal implements AetherJumpAmount {
         this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
         this.wingFold += (this.aimingForFold - this.wingFold) / 5.0F;
         this.fallDistance = 0.0F;
-        if (this.yd < -0.2) {
-            this.yd = -0.2;
-        }
 
+        if (this.yd < -0.2) this.yd = -0.2;
     }
 
     public double getRideHeight() {
         return this.bbHeight;
-    }
-
-    public void updateAI() {
-        if (!this.world.isClientSide) {
-            if (this.passenger != null && this.passenger instanceof Player) {
-                this.moveSpeed = 0.0F;
-                this.moveStrafing = 0.0F;
-                this.isJumping = false;
-                this.footSize = 1.0f;
-                ((EntityAccessor) this.passenger).setFallDistance(0.0F);
-                this.yRotO = this.yRot = this.passenger.yRot;
-                this.xRotO = this.xRot = this.passenger.xRot;
-                Player mob = (Player) this.passenger;
-                float f = 3.141593F;
-                float f1 = f / 180.0F;
-                float f5;
-                if (((MobAccessor) mob).getForwardVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776;
-                } else if (((MobAccessor) mob).getForwardVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getForwardVelocity() * -Math.sin(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getForwardVelocity() * Math.cos(f5) * 0.17499999701976776;
-                }
-
-                if (((MobAccessor) mob).getHorizontalVelocity() > 0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776;
-                } else if (((MobAccessor) mob).getHorizontalVelocity() < -0.1F) {
-                    f5 = mob.yRot * f1;
-                    this.xd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.cos(f5) * 0.17499999701976776;
-                    this.zd += (double) ((MobAccessor) mob).getHorizontalVelocity() * Math.sin(f5) * 0.17499999701976776;
-                }
-
-                if (this.onGround && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.onGround = false;
-                    this.yd = 1.4;
-                    this.jumpPressed = true;
-                } else if (this.isInWater() && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.yd = 0.5;
-                    this.jumpPressed = true;
-                    --this.jumpsRemaining;
-                } else if (this.jumpsRemaining > 0 && !this.jumpPressed && ((MobAccessor) mob).getJumping()) {
-                    world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
-                    this.yd = 1.2;
-                    this.jumpPressed = true;
-                    --this.jumpsRemaining;
-                }
-
-                if (this.jumpPressed && !((MobAccessor) mob).getJumping()) {
-                    this.jumpPressed = false;
-                }
-
-                double d = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd));
-                if (d > 0.375) {
-                    double d1 = 0.375 / d;
-                    this.xd *= d1;
-                    this.zd *= d1;
-                }
-
-            } else {
-                this.footSize = 0.5f;
-                super.updateAI();
-            }
-        }
     }
 
     public void jump() {
@@ -187,31 +112,26 @@ public class MobPhow extends MobAetherAnimal implements AetherJumpAmount {
 
     public boolean interact(@NotNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
-        if (itemstack != null && itemstack.itemID == Items.BUCKET.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(Items.BUCKET_MILK));
-            return true;
-        } else if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
-            ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
-            return true;
-        } else if (!this.getSaddled() || this.world.isClientSide || this.passenger != null && this.passenger != player) {
-            return false;
-        } else {
-            player.startRiding(this);
-            return true;
+
+        if (itemstack != null) {
+            if (itemstack.itemID == Items.BUCKET.id) {
+                ItemBucketEmpty.useBucket(player, new ItemStack(Items.BUCKET_MILK));
+                return true;
+            }
+            else if (itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
+                ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
+                return true;
+            }
         }
+
+        if (!this.getSaddled() || this.world.isClientSide) return false;
+        if (this.passenger != null && this.passenger != player) return false;
+
+        player.startRiding(this);
+        return true;
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
-    }
-
-    @Override
-    public int getJumpMaxAmount() {
-        return 1;
-    }
-
-    @Override
-    public int getJumpAmount() {
-        return jumpsRemaining;
     }
 }
