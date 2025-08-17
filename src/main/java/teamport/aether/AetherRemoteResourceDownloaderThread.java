@@ -88,9 +88,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
                 continue;
             }
 
-            if (!soundFile.getParentFile().mkdirs()) {
-                throw new RuntimeException("Couldn't create directory.");
-            }
+            soundFile.getParentFile().mkdirs();
 
             try {
                 downloadSoundFile(key, soundFile);

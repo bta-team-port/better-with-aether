@@ -8,3 +8,6 @@ aether\:a.morning.wish=A Morning Wish
 aether\:aether.tune=Aether Tune
 aether\:nether.menu=Nether Menu
 
+aether.download_resources=Downloading Assets for Aether... [%d | %d]
+
+
