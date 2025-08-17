@@ -42,19 +42,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void beforeClientStart() {
-        Minecraft mc = Minecraft.getMinecraft();
-
-        try {
-            LOGGER.info("Starting Resource Download Thread...");
-            resourceDownloaderThread = new AetherRemoteResourceDownloaderThread(mc.getMinecraftDir(), mc);
-            resourceDownloaderThread.start();
-
-        } catch (Exception exc) {
-            LOGGER.error("Failed to start Resource Download Thread!", exc);
-        }
-
-
-
         ParticleDispatcher dispatcher = ParticleDispatcher.getInstance();
 
         dispatcher.addDispatch("flameambrosium", (world, x, y, z, xa, ya, za, id) -> new ParticleFlameAmbrosium(world, x, y, z, xa, ya, za));
@@ -73,6 +60,17 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     @Override
     public void afterClientStart() {
+        Minecraft mc = Minecraft.getMinecraft();
+
+        try {
+            LOGGER.info("Starting Resource Download Thread...");
+            resourceDownloaderThread = new AetherRemoteResourceDownloaderThread(mc.getMinecraftDir(), mc);
+            resourceDownloaderThread.start();
+
+        } catch (Exception exc) {
+            LOGGER.error("Failed to start Resource Download Thread!", exc);
+        }
+
         setupCustomBlockLight();
         AetherMobInfoRegistry.init();
 
