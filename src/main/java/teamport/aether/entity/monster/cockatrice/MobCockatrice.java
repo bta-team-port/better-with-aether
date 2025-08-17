@@ -12,10 +12,11 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.ITranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 
-public class MobCockatrice extends MobMonster implements Enemy {
+public class MobCockatrice extends MobMonster implements Enemy, ITranslatableDeathMessage {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
