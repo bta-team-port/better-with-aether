@@ -13,13 +13,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.sound.SoundEngine;
 import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.net.CertificateHelper;
+import teamport.aether.helper.Pair;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.nio.file.FileSystemException;
+import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -57,14 +62,13 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
 
     @Override
     public void run() {
-        this.state = State.DOWNLOADING;
-
         JsonArray manifest;
 
         try {
-            String manifestURL = AetherConfig.REMOTE_RESOURCE_URL + "index.json";
+            String manifestURL = AetherConfig.REMOTE_RESOURCE_URL + "manifest.json";
             manifest = JsonParser.parseString(StringUtils.getWebsiteContentAsString(manifestURL)).getAsJsonArray();
             LOGGER.info("Manifest Downloaded");
+
         } catch (Exception except) {
             this.state = State.ERROR;
             LOGGER.error("Failed to fetch resource manifest.");
@@ -72,41 +76,78 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         }
 
         List<JsonElement> entries = manifest.asList();
-        toDownload = entries.size();
+        List<Pair<File, String>> entriesToDownload = new ArrayList<>();
 
         for (JsonElement entry : entries) {
             if (!(entry instanceof JsonObject)) continue;
             JsonObject entryObj = (JsonObject) entry;
 
             String key = entryObj.get("Key").getAsString();
+            String md5 = entryObj.get("MD5").getAsString();
 
             File soundFile = new File(resourcesFolder, key);
 
-            if (soundFile.exists()) {
-                LOGGER.info("File Already Downloaded: {}", soundFile);
-                progress.incrementAndGet();
-                continue;
-            }
-
-            soundFile.getParentFile().mkdirs();
-
+            boolean fileAlreadyDownloaded = false;
             try {
-                downloadSoundFile(key, soundFile);
-            }
-            catch (Exception e) {
-                LOGGER.error("Failed to download File: {}", key);
+                if (soundFile.exists()) {
+                    byte[] localFileMD5;
+
+                    Path localfilePath = soundFile.toPath();
+                    try (InputStream fileHandle = Files.newInputStream(localfilePath)) {
+                        byte[] fileData;
+                        fileData = new byte[(int) Files.size(localfilePath)];
+                        fileHandle.read(fileData);
+
+                        localFileMD5 = MessageDigest.getInstance("MD5").digest(fileData);
+                    }
+
+                    byte[] remoteFileMD5 = new BigInteger(md5, 16).toByteArray();
+
+                    // remove leading zero if any.
+                    if (remoteFileMD5[0] == 0) {
+                        byte[] newBytes = new byte[remoteFileMD5.length - 1];
+                        System.arraycopy(remoteFileMD5, 1, newBytes, 0, newBytes.length);
+                        remoteFileMD5 = newBytes;
+                    }
+
+                    if (Arrays.equals(remoteFileMD5, localFileMD5)) fileAlreadyDownloaded = true;
+                }
+
+            } catch (Exception e) {
+                LOGGER.error("Failed to assess local file: {}", soundFile);
             }
 
-            progress.incrementAndGet();
+            if (fileAlreadyDownloaded) {
+                LOGGER.info("File Already Downloaded: {}", soundFile);
+            } else {
+                entriesToDownload.add(new Pair<>(soundFile, key));
+            }
         }
 
-        LOGGER.info("Finished Downloading files!");
+        toDownload = entriesToDownload.size();
 
-        SoundRepository.reload();
-        mc.sndManager.destroy();
-        mc.sndManager = new SoundEngine();
-        mc.sndManager.init(this.mc.gameSettings);
-        state = State.IDLE;
+        if (toDownload > 0) {
+            this.state = State.DOWNLOADING;
+
+            for (Pair<File, String> entry : entriesToDownload) {
+                File soundFile = entry.first;
+                String key = entry.second;
+
+                try { downloadSoundFile(key, soundFile); }
+                catch (Exception e) { LOGGER.error("Failed to download File: {}", key); }
+
+                progress.incrementAndGet();
+            }
+
+            LOGGER.info("Finished Downloading files!");
+
+            SoundRepository.reload();
+            mc.sndManager.destroy();
+            mc.sndManager = new SoundEngine();
+            mc.sndManager.init(this.mc.gameSettings);
+
+            state = State.IDLE;
+        }
     }
 
     private void downloadSoundFile(String name, File file) throws Exception {
