@@ -4,12 +4,12 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "HandleAetherRideableMixin",
     "BlockLogicBrazierMixin",
     "BlockLogicMossMixin",
     "BlockLogicPathDirtMixin",
     "EntityItemPickupAchievementMixin",
     "EntityMixin",
+    "HandleAetherRideableMixin",
     "ItemToolShovelMixin",
     "MobPigMixin",
     "MobSheepMixin",
@@ -100,7 +100,8 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "screens.PlayerLocalMixinAetherScreens",
-    "screens.PortalLoadingScreenMixin"
+    "screens.PortalLoadingScreenMixin",
+    "screens.ResourceDownloadToastMixin"
   ],
   "server": [
     "dimension.MPBumpToOverworldMixin",
