@@ -40,7 +40,7 @@ public class AetherConfig {
         int dimensionDefault = 3; // so it wont bug me for testing
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
-        String remoteResourceURLDefault = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/oly7.3/remoteAssets/";
+        String remoteResourceURLDefault = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
         LOGGER.info("Initializing config..");
 
