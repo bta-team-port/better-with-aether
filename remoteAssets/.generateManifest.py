@@ -25,6 +25,6 @@ for file in work_queue:
         "MD5": md5,
     })
 
-with (input_dir/"index.json").open('wb') as handle:
+with (input_dir/"manifest.json").open('wb') as handle:
     contents = json.dumps(index, indent=3)
     handle.write(contents.encode())
