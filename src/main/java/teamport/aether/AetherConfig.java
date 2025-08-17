@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherConfig {
@@ -28,6 +29,8 @@ public class AetherConfig {
     public static float QUICK_SOIL_SPEED_CAP;
     public static int EXTRA_HEALTH;
 
+    public static volatile String REMOTE_RESOURCE_URL;
+
     public static String BlockIDs = "Block IDs";
     public static String ItemIDs = "Item IDs";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -37,6 +40,7 @@ public class AetherConfig {
         int dimensionDefault = 3; // so it wont bug me for testing
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
+        String remoteResourceURLDefault = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
         LOGGER.info("Initializing config..");
 
@@ -63,6 +67,9 @@ public class AetherConfig {
 
         properties.addCategory("Others")
                 .addEntry("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
+
+        properties.addCategory("Others")
+                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
 
         cfg = new TomlConfigHandler(MOD_ID, properties);
 
@@ -91,5 +98,7 @@ public class AetherConfig {
             QUICK_SOIL_SPEED_CAP = quicksoilCapDefault;
         }
 
+        REMOTE_RESOURCE_URL = AetherConfig.cfg.getString("REMOTE_RESOURCE_URL");
+        if (REMOTE_RESOURCE_URL == null) REMOTE_RESOURCE_URL = remoteResourceURLDefault;
     }
 }
