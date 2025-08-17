@@ -106,7 +106,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             world.entityJoinedWorld(mimic);
         }
         if (player.tickCount % 10 == 0 && !BTWAILA) {
-            player.sendMessage("Thank you dark souls.");
+            player.sendMessage("<Mimic> Thank you dark souls.");
         }
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
         world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
