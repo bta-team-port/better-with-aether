@@ -1,5 +1,6 @@
 package teamport.aether.mixin;
 
+import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.slot.SlotResult;
@@ -31,6 +32,9 @@ public abstract class SlotCraftingAchievementMixin {
         }
         if (itemstack.itemID == AetherItems.TOOL_SHOOTER.id) {
             this.thePlayer.addStat(AetherAchievements.SHOOTER, 1);
+        }
+        if (itemstack.itemID == AetherItems.ARMOR_GLOVES_CHAIN.id || itemstack.itemID == AetherItems.ARMOR_TALISMAN_CHAIN.id) {
+            this.thePlayer.addStat(Achievements.REPAIR_ARMOR, 1);
         }
     }
 }

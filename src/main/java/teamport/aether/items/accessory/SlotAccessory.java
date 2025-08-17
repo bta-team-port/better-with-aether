@@ -10,6 +10,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherAchievements;
 import teamport.aether.items.AetherItemTags;
 
 public class SlotAccessory extends Slot {
@@ -44,7 +45,7 @@ public class SlotAccessory extends Slot {
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
         if (item instanceof ItemAccessoryArmor) {
-            return ((ItemAccessoryArmor)item).getSlotID() == this.armorType;
+            return ((ItemAccessoryArmor) item).getSlotID() == this.armorType;
         }
         if ((item instanceof ItemQuiverEndless || item instanceof ItemQuiver) && this.armorType == CAPE_SLOT) {
             return true;
@@ -54,10 +55,26 @@ public class SlotAccessory extends Slot {
 
     public void setChanged() {
         super.setChanged();
+        int count = 0;
+
+        for (int i = 0; i < this.menu.slots.size(); ++i) {
+            if (this.menu.slots.get(i) instanceof SlotAccessory) {
+                ItemStack stack = this.menu.slots.get(i).getItemStack();
+                if (stack != null) {
+                    ++count;
+                }
+            }
+        }
+
+        if (count == 4) {
+            this.menu.inventory.player.triggerAchievement(AetherAchievements.ALL_ACCESSORY_TYPES);
+        }
+
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
             Player player = ((ContainerInventory) this.container).player;
             player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
         }
+
     }
 
     public void set(@Nullable ItemStack itemstack) {
