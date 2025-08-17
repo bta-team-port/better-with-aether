@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherConfig {
@@ -33,6 +32,7 @@ public class AetherConfig {
 
     public static String BlockIDs = "Block IDs";
     public static String ItemIDs = "Item IDs";
+
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 
@@ -46,59 +46,81 @@ public class AetherConfig {
 
         properties.addCategory("General")
                 .addEntry("cfgVersion", 6)
-                .addEntry("DIMENSION", dimensionDefault);
+                .addEntry("DIMENSION", dimensionDefault)
+                .addEntry("EXTRA_HEALTH", extraHealthDefault)
+                .addEntry("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault)
+                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
+
         //BLOCK ID
         properties.addCategory(BlockIDs);
         properties.addEntry(BlockIDs+".startingFrom", blockIDs);
-        List<Field> blockFields = Arrays.stream(AetherBlocks.class.getDeclaredFields()).filter((F)-> Block.class.isAssignableFrom(F.getType())).collect(Collectors.toList());
+
+        List<Field> blockFields = Arrays.stream(AetherBlocks.class.getDeclaredFields())
+                .filter((F)-> Block.class.isAssignableFrom(F.getType()))
+                .collect(Collectors.toList());
+
         for (Field blockField : blockFields) {
             properties.addEntry(BlockIDs + "." + blockField.getName(), blockIDs++);
         }
+
         //ITEM ID
         properties.addCategory(ItemIDs);
         properties.addEntry(ItemIDs+".startingFrom", itemIDs);
-        List<Field> itemFields = Arrays.stream(AetherItems.class.getDeclaredFields()).filter((F)-> Item.class.isAssignableFrom(F.getType())).collect(Collectors.toList());
+
+        List<Field> itemFields = Arrays.stream(AetherItems.class.getDeclaredFields())
+                .filter((F)-> Item.class.isAssignableFrom(F.getType()))
+                .collect(Collectors.toList());
+
         for (Field itemField : itemFields) {
             properties.addEntry(ItemIDs+ "." + itemField.getName(), itemIDs++);
         }
 
-        properties.addCategory("Others")
-                .addEntry("EXTRA_HEALTH", extraHealthDefault);
-
-        properties.addCategory("Others")
-                .addEntry("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
-
-        properties.addCategory("Others")
-                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
-
         cfg = new TomlConfigHandler(MOD_ID, properties);
 
-        if (cfg.getConfigFile().exists()) {
-            cfg.loadConfig();
-        } else {
-            try {cfg.getConfigFile().createNewFile();} catch (IOException e) {throw new RuntimeException(e);}
+        if (cfg.getConfigFile().exists()) { cfg.loadConfig(); }
+        else {
+            try { cfg.getConfigFile().createNewFile(); }
+            catch (IOException e) { throw new RuntimeException(e); }
+
             cfg.writeConfig();
         }
 
-        try {
-            DIMENSION = AetherConfig.cfg.getInt("DIMENSION");
-        } catch (NullPointerException e) {
-            DIMENSION = dimensionDefault;
-        }
+        DIMENSION            = cfgGetValueOrDefault("DIMENSION", dimensionDefault);
+        EXTRA_HEALTH         = cfgGetValueOrDefault("EXTRA_HEALTH", extraHealthDefault);
+        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
+        REMOTE_RESOURCE_URL  = cfgGetValueOrDefault("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
 
-        try {
-            EXTRA_HEALTH = AetherConfig.cfg.getInt("EXTRA_HEALTH");
-        } catch (NullPointerException e) {
-            EXTRA_HEALTH = extraHealthDefault;
-        }
+        if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
+    }
 
-        try {
-            QUICK_SOIL_SPEED_CAP = AetherConfig.cfg.getInt("QUICK_SOIL_SPEED_CAP");
-        } catch (NullPointerException e) {
-            QUICK_SOIL_SPEED_CAP = quicksoilCapDefault;
-        }
 
-        REMOTE_RESOURCE_URL = AetherConfig.cfg.getString("REMOTE_RESOURCE_URL");
-        if (REMOTE_RESOURCE_URL == null) REMOTE_RESOURCE_URL = remoteResourceURLDefault;
+    static <T> T cfgGetValueOrDefault(String key, T def) {
+        T res = null;
+        try {
+            if (def instanceof String) {
+                res = (T) cfg.getString(key);
+            }
+            else if (def instanceof Integer) {
+                res = (T) new Integer(cfg.getInt(key));
+            }
+            else if (def instanceof Long) {
+                res = (T) new Long(cfg.getLong(key));
+            }
+            else if (def instanceof Float) {
+                res = (T) new Float(cfg.getFloat(key));
+            }
+            else if (def instanceof Double) {
+                res = (T) new Double(cfg.getDouble(key));
+            }
+            else if (def instanceof Boolean) {
+                res = (T) new Boolean(cfg.getBoolean(key));
+            }
+            else {
+                throw new RuntimeException("Invalid value type!");
+            };
+
+        } catch (NullPointerException ignored) {}
+
+        return res == null ? def : res;
     }
 }

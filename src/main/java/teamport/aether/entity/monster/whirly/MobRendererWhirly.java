@@ -21,7 +21,7 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
     }
 
     public void render(Tessellator tessellator, MobWhirly entity, double d, double d1, double d2, float f, float f1) {
-        ParticleEngine particleManager = ((Minecraft) FabricLoader.getInstance().getGameInstance()).particleEngine;
+        ParticleEngine particleManager = Minecraft.getMinecraft().particleEngine;
 
         double d3 = (float) entity.x;
         double d4 = (float) entity.y;
