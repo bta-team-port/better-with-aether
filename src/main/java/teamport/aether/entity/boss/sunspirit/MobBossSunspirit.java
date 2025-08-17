@@ -25,6 +25,8 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public int chatTime;
     public int direction;
     public double rotary;
+
+    @Nullable
     public Entity target;
     public boolean gotTarget;
     public boolean hasAttacked;
@@ -329,7 +331,11 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker instanceof ProjectileElementIce) {
             super.hurt(attacker, 5, type);
-            ((Player) target).triggerAchievement(AetherAchievements.ICE_DEFLECT);
+
+            if (target instanceof Player) {
+                ((Player) target).triggerAchievement(AetherAchievements.ICE_DEFLECT);
+            }
+
             MobFireMinion minion = new MobFireMinion(this.world);
             if (this.getHealth() > this.getMaxHealth() / 2) {
                 this.world.entityJoinedWorld(minion);
