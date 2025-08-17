@@ -12,7 +12,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.ITranslatableDeathMessage;
+import teamport.aether.entity.ITranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 

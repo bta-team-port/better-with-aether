@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.ITranslatableDeathMessage;
+import teamport.aether.entity.ITranslatableDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
