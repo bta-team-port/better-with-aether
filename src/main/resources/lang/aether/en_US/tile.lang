@@ -149,6 +149,8 @@ tile.aether.pillar.capstone.desc=A rare pink pillar capstone found at silver dun
 
 tile.aether.carved.stone.trapped.name=Trapped Sentry Stone
 tile.aether.carved.stone.trapped.desc=A sneaky block that summons a sentry.
+tile.aether.carved.stone.trapped.locked.name=Locked Trapped Sentry Stone
+tile.aether.carved.stone.trapped.locked.desc=A sneaky block that summons a sentry, currently unbreakable.
 tile.aether.carved.angelic.trapped.name=Trapped Angelic Stone
 tile.aether.carved.angelic.trapped.desc=A sneaky block that summons a valkyrie.
 
