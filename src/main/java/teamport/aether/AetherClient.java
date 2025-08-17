@@ -13,7 +13,6 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
-import net.minecraft.client.net.thread.ThreadDownloadResources;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
@@ -97,7 +96,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         page.addAchievement(AetherAchievements.HOSTILE_PARADISE, 0, 0);
 
         page.addAchievement(AetherAchievements.SHOOTER, 1, -3);
-        page.addAchievement(AetherAchievements.ZEPHYR, 2, -5);
+        page.addAchievement(AetherAchievements.HIT_ZEPHYR, 2, -5);
 
         page.addAchievement(AetherAchievements.POISON, -1, -3);
         page.addAchievement(AetherAchievements.REMEDY, -2, -5);

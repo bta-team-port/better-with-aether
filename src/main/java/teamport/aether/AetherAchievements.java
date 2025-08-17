@@ -18,7 +18,7 @@ public class AetherAchievements {
     public static final Achievement HOSTILE_PARADISE = new Achievement(key("aether"), "aether.hostile.paradise", Blocks.GLOWSTONE, null).setType(Achievement.TYPE_SPECIAL).registerAchievement();
 
     public static final Achievement SHOOTER = new Achievement(key("shooter"), "shooter", AetherItems.TOOL_SHOOTER, HOSTILE_PARADISE).registerAchievement();
-    public static final Achievement ZEPHYR = new Achievement(key("zephyr"), "zephyr", AetherBlocks.AERCLOUD_WHITE, SHOOTER).setType(Achievement.TYPE_SPECIAL).registerAchievement();
+    public static final Achievement HIT_ZEPHYR = new Achievement(key("zephyr"), "zephyr", AetherBlocks.AERCLOUD_WHITE, SHOOTER).setType(Achievement.TYPE_SPECIAL).registerAchievement();
 
     public static final Achievement POISON = new Achievement(key("poison"), "poison", AetherItems.BUCKET_SKYROOT_POISON, HOSTILE_PARADISE).registerAchievement();
     public static final Achievement REMEDY = new Achievement(key("remedy"), "remedy", AetherItems.BUCKET_SKYROOT_REMEDY, POISON).registerAchievement();

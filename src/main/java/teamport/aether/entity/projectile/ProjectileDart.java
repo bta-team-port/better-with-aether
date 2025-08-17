@@ -18,7 +18,9 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile implements ProjectileAether {
@@ -208,6 +210,12 @@ public class ProjectileDart extends Projectile implements ProjectileAether {
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
+            if (hitResult.entity instanceof MobZephyr) {
+                hitResult.entity.hurt(this.owner, 10, DamageType.COMBAT);
+                if (this.owner instanceof Player) {
+                    ((Player)this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
+                }
+            }
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
                     IHasEffects effectPlayer = (IHasEffects) hitResult.entity;

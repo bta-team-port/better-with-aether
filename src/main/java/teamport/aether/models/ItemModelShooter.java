@@ -82,9 +82,6 @@ public class ItemModelShooter extends ItemModelStandard {
         return nextDart;
     }
 
-    public int getDartId(Player player) {
-        return player.getEntityData().getInt(18);
-    }
 
     public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
         GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
