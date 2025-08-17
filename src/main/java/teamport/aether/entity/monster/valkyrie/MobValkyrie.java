@@ -31,6 +31,11 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         this.moveSpeed = 0.5F;
         this.attackStrength = 7;
         this.scoreValue = 5000;
+        this.footSize = 1.5f;
+    }
+
+    public void jump() {
+        this.yd = 0.72;
     }
 
     public void causeFallDamage(float distance) {
@@ -52,7 +57,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
             this.zd = Math.cos(angle) * 0.25;
         }
 
-        if (!this.onGround && !this.canClimb() && Math.abs(this.yd - this.yo) > 0.07 && Math.abs(this.yd - this.yo) < 0.09) {
+        if (!this.onGround && this.yd < 0.0) {
             this.yd += 0.054999999701976776;
             if (this.yd < -0.2750000059604645) {
                 this.yd = -0.2750000059604645;
@@ -265,6 +270,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
                     ((Player) attacker).sendMessage("Now you're in for it!");
                     this.chatTime = 60;
                 }
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
             } else {
                 this.teleportTimer += 25;
             }
@@ -286,6 +292,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy {
         } else {
             this.teleport(this.x, this.y, this.z, 4);
             this.remainingFireTicks = 0;
+            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             return false;
         }
     }
