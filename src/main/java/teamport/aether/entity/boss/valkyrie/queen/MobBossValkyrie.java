@@ -26,6 +26,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public int chatTime;
     public float sinage;
     public int attackStrength;
+    public boolean attacked;
 
 
     public MobBossValkyrie(@Nullable World world) {
@@ -36,6 +37,11 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
         this.attackStrength = 10;
+        this.footSize = 1.5f;
+    }
+
+    public void jump() {
+        this.yd = 0.72;
     }
 
     @Override
@@ -50,7 +56,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             this.zd = Math.cos(angle) * 0.25;
         }
 
-        if (!this.onGround && !this.canClimb() && Math.abs(this.yd - this.yo) > 0.07 && Math.abs(this.yd - this.yo) < 0.09) {
+        if (!this.onGround && this.yd < 0.0) {
             this.yd += 0.054999999701976776;
             if (this.yd < -0.2750000059604645) {
                 this.yd = -0.2750000059604645;
@@ -86,6 +92,11 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public void updateAI() {
         super.updateAI();
         ++this.teleportTimer;
+
+        if (this.duel && this.attacked) {
+            this.target = world.getClosestPlayerToEntity(this, 16);
+        }
+
         if (this.duel && this.target != null) {
             if (this.teleportTimer >= 125) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 8);
@@ -122,6 +133,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             entityplayer.sendMessage("I have no time for pathetic humans like you.");
+            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             this.chatTime = 60;
             return true;
         }
@@ -160,12 +172,13 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     public void onDeath(Entity entityKilledBy) {
         this.world.players.stream()
-            .filter(player -> player.distanceTo(this) < 32)
-            .forEach( p -> {
-                p.triggerAchievement(AetherAchievements.SILVER);
-                this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.silver", 0.5f, 1.0f);
-            });
-
+                .filter(player -> player.distanceTo(this) < 32)
+                .forEach(p -> {
+                    this.dead = true;
+                    p.triggerAchievement(AetherAchievements.SILVER);
+                    this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.silver", 0.5f, 1.0f);
+                    p.sendMessage("You are truly... a mighty warrior...");
+                });
         super.onDeath(entityKilledBy);
     }
 
@@ -204,9 +217,9 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             this.teleportFailed();
         } else {
             world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
-            this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             this.setPos(newX + 0.5, newY, newZ + 0.5);
             this.xd = 0.0;
             this.yd = 0.0;
@@ -255,6 +268,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putBoolean("duel", this.duel);
+        tag.putBoolean("attacked", this.attacked);
     }
 
     @Override
@@ -262,6 +276,11 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
         this.duel = tag.getBoolean("duel");
+        this.attacked = tag.getBoolean("attacked");
+    }
+
+    public boolean canFight() {
+        return isAlive() && duel;
     }
 
     @Override
@@ -274,6 +293,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
             if (this.chatTime <= 0) {
                 player.sendMessage("Sorry, I don't fight with weaklings.");
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                 this.chatTime = 60;
             }
             return false;
@@ -282,6 +302,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         if (!this.duel) {
             if (this.chatTime <= 0) {
                 String message = this.random.nextInt(2) == 0 ? "Try defeating some weaker valkyries first." : "Collect 10 medallions before trying that.";
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
                 player.sendMessage(message);
                 this.chatTime = 60;
             }
@@ -290,29 +311,17 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
         if (this.target == null && this.chatTime <= 0) {
             player.sendMessage("This will be your final battle!");
+            this.attacked = true;
             this.chatTime = 60;
         } else {
             this.teleportTimer += 60;
         }
 
-        this.becomeAngryAt(attacker);
-        boolean flag = super.hurt(attacker, i, type);
-        if (flag && this.getHealth() <= 0) {
-            this.dead = true;
-            player.triggerAchievement(AetherAchievements.SILVER);
-            this.world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 2.0F, 1.0F);
-            if (this.chatTime <= 0) {
-                player.sendMessage("You are truly... a mighty warrior...");
-                this.chatTime = 60;
-            }
-            this.animateHurt();
-        }
-        return flag;
+        this.target = attacker;
+        return super.hurt(attacker, i, type);
     }
 
-    public void becomeAngryAt(Entity entity) {
-        this.target = entity;
-    }
+
 
     @Override
     public void attackEntity(@NotNull Entity entity, float distance) {
@@ -365,9 +374,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     }
 
     public void playHurtSound() {
-        if (world.rand.nextInt(3) == 0) {
-            this.world.playSoundAtEntity(null, this, this.getHurtSound(), 1.0f, 0.75F);
-        }
+        this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.75f, 0.75F);
     }
 
     public void playDeathSound() {
