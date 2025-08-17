@@ -285,12 +285,12 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
-        if (!(attacker instanceof Player)) {
+        if (!duel) {
             return false;
         }
 
         Player player = (Player) attacker;
-        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player) {
             if (this.chatTime <= 0) {
                 player.sendMessage("Sorry, I don't fight with weaklings.");
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
@@ -299,7 +299,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             return false;
         }
 
-        if (!this.duel) {
+        if (!this.duel && attacker instanceof Player) {
             if (this.chatTime <= 0) {
                 String message = this.random.nextInt(2) == 0 ? "Try defeating some weaker valkyries first." : "Collect 10 medallions before trying that.";
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
@@ -309,7 +309,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             return false;
         }
 
-        if (this.target == null && this.chatTime <= 0) {
+        if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
             player.sendMessage("This will be your final battle!");
             this.attacked = true;
             this.chatTime = 60;

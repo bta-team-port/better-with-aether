@@ -22,17 +22,17 @@ public class ItemShooter extends Item {
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new ProjectileDartEnchanted(world, entityplayer, true));
             }
-        } else if (entityplayer.inventory.consumeInventoryItem(AetherItems.AMMO_DART_GOLDEN.id)) {
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 2.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
-            if (!world.isClientSide) {
-                world.entityJoinedWorld(new ProjectileDart(world, entityplayer, true, 0));
-            }
         } else if (entityplayer.inventory.consumeInventoryItem(AetherItems.AMMO_DART_POISON.id)) {
             itemstack.damageItem(1, entityplayer);
             world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 2.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new ProjectileDart(world, entityplayer, true, 1));
+            }
+        } else if (entityplayer.inventory.consumeInventoryItem(AetherItems.AMMO_DART_GOLDEN.id)) {
+            itemstack.damageItem(1, entityplayer);
+            world.playSoundAtEntity(entityplayer, entityplayer, "random.bow", 0.3F, 2.0F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            if (!world.isClientSide) {
+                world.entityJoinedWorld(new ProjectileDart(world, entityplayer, true, 0));
             }
         }
 
