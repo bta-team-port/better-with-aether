@@ -44,6 +44,10 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         long l1 = rand.nextLong() / 2L * 2L + 1L;
         long l2 = rand.nextLong() / 2L * 2L + 1L;
         rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
+        int minY = this.world.getWorldType().getMinY();
+        int maxY = this.world.getWorldType().getMaxY();
+        int rangeY = maxY + 1 - minY;
+        float oreHeightModifier = (float)rangeY / 128.0F;
 
         int k7;
         int k4;
@@ -74,7 +78,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 int dungeonX = x + rand.nextInt(16);
                 int dungeonZ = z + rand.nextInt(16);
                 int max = 0;
-                int maxY = 0;
+                maxY = 0;
                 int counter = 0;
                 int startY = 0;
                 for (int i = this.world.worldType.getMinY(); i < this.world.worldType.getMaxY(); i++) {
@@ -139,21 +143,21 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureAetherOre(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for (j4 = 0; j4 < 20; ++j4) {
+        for(j4 = 0; (float)j4 < 20.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for (j4 = 0; j4 < 15; ++j4) {
+        for(j4 = 0; (float)j4 < 20.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(192);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for (j4 = 0; j4 < 8; ++j4) {
+        for(j4 = 0; (float)j4 < oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(128);
             treeDensity = z + rand.nextInt(16);
