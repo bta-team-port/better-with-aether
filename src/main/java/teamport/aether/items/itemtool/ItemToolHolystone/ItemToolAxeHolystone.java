@@ -22,7 +22,7 @@ public class ItemToolAxeHolystone extends ItemToolAxeAether {
         if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
             itemstack.damageItem(1, mob);
         }
-        if (itemRand.nextInt(32) == 0) {
+        if (itemRand.nextInt(16) == 0) {
             world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
         }
         return true;

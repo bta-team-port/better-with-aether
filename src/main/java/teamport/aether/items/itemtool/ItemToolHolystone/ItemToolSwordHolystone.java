@@ -16,7 +16,7 @@ public class ItemToolSwordHolystone extends ItemToolSwordAether {
 
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (itemRand.nextInt(16) == 0) {
+        if (itemRand.nextInt(8) == 0) {
             target.dropItem(AMBROSIUM.id, 1);
         }
         itemstack.damageItem(1, attacker);

@@ -56,7 +56,7 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
         float launchSpeed = 0.75F;
         double distanceTo = entity.distanceTo(x, y, z);
 
-        if (entity != this) {
+        if (!(entity instanceof MobCreeper) && !(entity instanceof MobWhirly)) {
             switch (Direction.values()[world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
                     entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
@@ -107,7 +107,7 @@ public class MobWhirly extends MobAetherAnimal implements Enemy {
         if (this.entcount >= 128) {
             if (this.evil && this.target != null) {
                 MobCreeper entitycreeper = new MobCreeper(this.world);
-                entitycreeper.setPos(this.x, this.y - 0.75, this.z);
+                entitycreeper.setPos(this.x, this.y + 0.75, this.z);
                 entitycreeper.xd = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
                 entitycreeper.zd = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
                 this.world.entityJoinedWorld(entitycreeper);
