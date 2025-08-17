@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -41,6 +42,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         this.scoreValue = 100000;
         this.wideness = 10;
         this.speedness = 0.5 - (double) this.getHealth() / 70.0 * 0.2;
+        this.chatColor = (byte)(TextFormatting.YELLOW.id & 255);
     }
 
     public void lerpMotion(double xd, double yd, double zd) {
