@@ -2,8 +2,6 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -225,28 +223,30 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         final int q2 = z + 5;
 
         WorldFeatureComponent chests = new WorldFeatureComponent();
+        int chestCount = 0;
         if (random.nextInt(48) == 0) {
             placeNextRoom(finalX, finalY - 12, finalZ, dir);
             this.addSolidBox(0, 0, p2, finalY - 9, q2, 2, 11, 2);
         } else {
             if (world.rand.nextInt(3) == 0) {
+                chestCount++;
                 chests.add(placeChestOrMimic(random, p2, finalY + 2, q2));
             }
             if (world.rand.nextInt(3) == 0) {
+                chestCount++;
                 chests.add(placeChestOrMimic(random, p2, finalY + 2, q2 + 1));
             }
             if (world.rand.nextInt(3) == 0) {
+                chestCount++;
                 chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2));
             }
-            if (world.rand.nextInt(3) == 0) {
+            if (world.rand.nextInt(3) == 0 || chestCount < 2) {
                 chests.add(placeChestOrMimic(random, p2 + 1, finalY + 2, q2 + 1));
             }
         }
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
-            if (chest.blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
                 populateChest(world, chest, random, LOOT_NORMAL, (int) Math.round((random.nextGaussian() + 1) * 6));
-            }
         }
 
         switch (dir) {

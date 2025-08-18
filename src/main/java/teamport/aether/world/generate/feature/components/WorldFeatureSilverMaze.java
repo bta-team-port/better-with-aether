@@ -147,7 +147,7 @@ public class WorldFeatureSilverMaze {
             createHallway(roomX, roomY, roomZ, doorDirection);
             return;
         }
-        if (SPANNING_TREE.get(to).size() == 1) {
+        if (SPANNING_TREE.get(to).size() == 1 && random.nextInt(3) == 0) {
             createTreasureRoom(roomX, roomY, roomZ, doorDirection);
             return;
         }
@@ -176,13 +176,6 @@ public class WorldFeatureSilverMaze {
     }
     public void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
-        int chestID = AetherBlocks.CHEST_PLANKS_SKYROOT.id();
-
-        // hehe, a room that is just traps
-        if(random.nextInt(10) == 0){
-            chestID = AetherBlocks.CHEST_MIMIC.id();
-        }
-
         // places chests
         for(int i = 0; i < Direction.horizontalDirections.length; i++){
 
@@ -192,24 +185,24 @@ public class WorldFeatureSilverMaze {
             }
             if (dir == Direction.SOUTH) {
                 rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 6, true));
-                chests.add(wfb(x - 3, y + 2, z + 6, chestID, true));
-                chests.add(wfb(x - 4, y + 2, z + 6, chestID, true));
+                chests.add(placeChestOrMimic(random, x - 3, y + 2, z + 6));
+                chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 6));
 
             }
             if (dir == Direction.WEST) {
                 rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 6, y + 1, z + 3, true));
-                chests.add(wfb(x - 6, y + 2, z + 3, chestID, true));
-                chests.add(wfb(x - 6, y + 2, z + 4, chestID, true));
+                chests.add(placeChestOrMimic(random, x - 6, y + 2, z + 3));
+                chests.add(placeChestOrMimic(random, x - 6, y + 2, z + 4));
             }
             if (dir == Direction.NORTH) {
                 rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 1, true));
-                chests.add(wfb(x - 3, y + 2, z + 1, chestID, true));
-                chests.add(wfb(x - 4, y + 2, z + 1, chestID, true));
+                chests.add(placeChestOrMimic(random, x - 3, y + 2, z + 1));
+                chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 1));
             }
             if (dir == Direction.EAST) {
                 rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 1, y + 1, z + 3, true));
-                chests.add(wfb(x - 1, y + 2, z + 3, chestID, true));
-                chests.add(wfb(x - 1, y + 2, z + 4, chestID, true));
+                chests.add(placeChestOrMimic(random, x - 1, y + 2, z + 3));
+                chests.add(placeChestOrMimic(random, x - 1, y + 2, z + 4));
             }
         }
         // replaces the floor with more trapped valkyries
@@ -247,7 +240,7 @@ public class WorldFeatureSilverMaze {
             chestCount++;
             chests.add(placeChestOrMimic(random, x - 3, y + 2, z + 4));
         }
-        if (random.nextInt(2) == 0 && chestCount < 2) {
+        if (random.nextInt(2) == 0 || chestCount < 2) {
             chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 4));
         }
     }
