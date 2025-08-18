@@ -115,6 +115,74 @@ aether.entity.windball=windball
 aether.entity.minicloud=Minicloud
 
 
+# Death messages
+aether.death.message.entity.aechorplant = [PLAYER] has sniffed a flower to hard
+aether.death.message.entity.cockatrice = [PLAYER] was breathed on to hard.
+aether.death.message.entity.minion_fire = [PLAYER] had hugged fire.
+aether.death.message.entity.mimic =  [PLAYER] was chomped to death.
+aether.death.message.entity.sentry = [PLAYER] has tripped over pebble.
+aether.death.message.entity.swet = [PLAYER] has died to cuteness.
+aether.death.message.entity.swet_gold = [PLAYER] has died to cuteness.
+aether.death.message.entity.valkyrie = [PLAYER] lost a honorable duel.
+
+
+# Boss messages
+# first %s is color, second is boss title
+# WHITE           -> §0
+# ORANGE          -> §1
+# MAGENTA         -> §2
+# LIGHT_BLUE      -> §3
+# YELLOW          -> §4
+# LIME            -> §5
+# PINK            -> §6
+# GRAY            -> §7
+# LIGHT_GRAY      -> §8
+# CYAN            -> §9
+# PURPLE          -> §a
+# BLUE            -> §b
+# BROWN           -> §c
+# GREEN           -> §d
+# RED             -> §e
+# BLACK           -> §f
+# OBFUSCATED      -> §k
+# BOLD            -> §l
+# STRIKETHROUGH   -> §m
+# UNDERLINE       -> §n
+# ITALIC          -> §o
+# RESET           -> §r
+aether.death.message.entity.boss_slider0 = [PLAYER] was crushed by the mighty [BOSS]!
+aether.death.message.entity.boss_slider1 = [PLAYER] was mined by the mighty [BOS]!
+aether.death.message.entity.boss_slider2 = [PLAYER] was tossed by the mighty [BOSS]!
+aether.death.message.entity.boss_slider3 = [PLAYER] was flung by the mighty [BOSS]!
+aether.death.message.entity.boss_slider4 = [PLAYER] flattened into wallpaper by the mighty [BOSS]!.
+aether.death.message.entity.boss_slider5 = [PLAYER] punted across the chamber by the mighty [BOSS]!.
+aether.death.message.entity.boss_slider6 = [PLAYER] chiseled out of existence by the mighty [BOSS]!.
+aether.death.message.entity.boss_slider7 = [PLAYER] juggled between sentries and the mighty [BOSS]!.
+aether.death.message.entity.boss_slider8 = [PLAYER] was served on a silver platter to the mighty [BOSS]!.
+aether.death.message.entity.boss_valkyrie0 = [PLAYER] was impressed. [BOSS] was not!
+aether.death.message.entity.boss_valkyrie1 = [PLAYER] fought well. [BOSS] fought weller!
+aether.death.message.entity.boss_valkyrie2 = [PLAYER] knows defeat. [BOSS] has never known defeat!
+aether.death.message.entity.boss_valkyrie3 = [PLAYER] raised a blade. [BOSS] raised victory!
+aether.death.message.entity.boss_valkyrie4 = [PLAYER] felt thunder. [BOSS] is thunder’s voice!
+aether.death.message.entity.boss_valkyrie5 = [PLAYER] was shocked. [BOSS] was amused!
+aether.death.message.entity.boss_valkyrie6 = [PLAYER] lost track. [BOSS] cannot be tracked!
+aether.death.message.entity.boss_valkyrie7 = [PLAYER] offered medals. [BOSS] demanded more!
+aether.death.message.entity.boss_valkyrie8 = [PLAYER] thought themselves worthy. [BOSS] proved them wrong!
+aether.death.message.entity.boss_sunspirit0 = [PLAYER] ignored the sparks dancing around! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit1 = [PLAYER] charged recklessly into my flames! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit2 = [PLAYER] thought they could handle the heat! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit3 = [PLAYER] ran headfirst into danger! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit4 = [PLAYER] ignored my warnings! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit5 = [PLAYER] underestimated the blaze! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit6 = [PLAYER] tried to play with fire! %I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit7 = [PLAYER] reached for the sun! I, [BOSS] , have warned them!
+aether.death.message.entity.boss_sunspirit8 = [PLAYER] got fired! I, [BOSS] , have warned them, to file their report on time!
+
+
+# while ridding
+aether.death.message.entity.animal.aerbunny = ... how did this even happen?
+
+
 
 
 

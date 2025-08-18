@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityActivator;
+import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -17,7 +18,6 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MobMimic;
-import teamport.aether.tile.TileEntityMimic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +31,14 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     public BlockLogicChestMimic(Block<?> block) {
         super(block, Material.wood);
-        block.withEntity(TileEntityMimic::new);
+        block.withEntity(TileEntityChest::new);
     }
 
     @Override
     public String getLanguageKey(int meta) {
         if (BTWAILA) {
             // hides the mimic name and description
-            return AetherBlocks.CHEST_PLANKS_SKYROOT.getKey();
+            return AetherBlocks.CHEST_PLANKS_SKYROOT.getLanguageKey(meta);
         }
         return super.getLanguageKey(meta);
     }

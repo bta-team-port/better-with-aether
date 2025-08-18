@@ -9,6 +9,7 @@ import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.enums.MobCategory;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.entity.NetEntityHandler;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -50,6 +51,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
     public static String state = "alpha";
+    public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
     // hide the mimic description
@@ -84,6 +86,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
+        TRANSLATOR = I18n.getInstance();
+
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.monster).clear();
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.creature).clear();
         AetherDimension.AETHER_PLAINS.getSpawnableList(MobCategory.waterCreature).clear();
