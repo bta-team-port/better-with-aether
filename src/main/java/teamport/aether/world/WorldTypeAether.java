@@ -112,8 +112,7 @@ public class WorldTypeAether extends WorldType {
             float animProgress = (((currTime + partialTick) - AetherDimension.sunspiritDeathTimestamp) / 250);
 
             if (animProgress == 1) { AetherDimension.sunspiritDeathTimestamp = 0; }
-
-            return (float) (timeFraction * ( -(Math.cos(Math.PI * animProgress) - 1) / 2 ));
+            return ((float) (-(Math.cos(Math.PI * animProgress) - 1) / 2) * (timeFraction + 1)) % 1;
         }
 
         return timeFraction;
