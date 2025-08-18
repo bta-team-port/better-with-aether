@@ -28,7 +28,7 @@ public class AetherDimension {
 
     public static long sunspiritDeathTimestamp = 0;
 
-    public static final int OVERWORLD_RETURN_HEIGHT = 450;
+    public static final int OVERWORLD_RETURN_HEIGHT = 270;
     public static final int bossDetectionRange = 100;
     public static final int bossDetectionRangeSQR = 10000;
     public static final int dungeonRadius = 300;
