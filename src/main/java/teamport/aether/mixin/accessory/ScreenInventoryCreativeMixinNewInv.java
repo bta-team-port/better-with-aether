@@ -1,5 +1,7 @@
 package teamport.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.container.ScreenInventoryCreative;
 import net.minecraft.client.render.Font;
@@ -21,13 +23,5 @@ public class ScreenInventoryCreativeMixinNewInv{
     @Redirect(method = "drawGuiContainerBackgroundLayer", at= @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))
     public Texture bindNewInventory(TextureManager instance, String name) {
         return instance.loadTexture("/assets/aether/textures/gui/container/creative.png");
-    }
-
-    // adjust text position
-    @Inject(method = "drawGuiContainerForegroundLayer", at=@At("HEAD"), cancellable = true)
-    public void fixLabelPlacement(CallbackInfo ci) {
-        Font font = Minecraft.getMinecraft().font;
-        font.drawString(I18n.getInstance().translateKey("gui.inventory.label.crafting"), 98, 16, 4210752);
-        ci.cancel();
     }
 }
