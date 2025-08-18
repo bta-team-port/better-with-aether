@@ -8,9 +8,9 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.ITranslatableDeathMessage;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 
-public class MobFireMinion extends MobMonster implements Enemy, ITranslatableDeathMessage {
+public class MobFireMinion extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
     public MobFireMinion(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");

@@ -13,9 +13,10 @@ import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
-public class MobZephyr extends MobFlying implements Enemy {
+public class MobZephyr extends MobFlying implements Enemy, AetherTranslatableDeathMessage {
     public int courseChangeCooldown = 0;
     public double waypointX;
     public double waypointY;

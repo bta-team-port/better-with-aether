@@ -11,11 +11,11 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.ITranslatableDeathMessage;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
-public class MobSentry extends MobMonster implements Enemy, ITranslatableDeathMessage {
+public class MobSentry extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
     public int jumpDelay;
     public int cooldownInactive;
     public boolean activated;
