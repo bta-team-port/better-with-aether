@@ -1,9 +1,7 @@
 package teamport.aether.effect;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.EffectRenderer;

@@ -1,15 +1,15 @@
 package teamport.aether.models;
 
-import java.awt.image.BufferedImage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMap;
 import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+
+import java.awt.image.BufferedImage;
 
 public class DynamicTextureDungeonCompass extends DynamicTexture {
     public Minecraft mc;

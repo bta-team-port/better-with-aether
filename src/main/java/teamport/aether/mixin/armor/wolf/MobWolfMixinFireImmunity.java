@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.particle.ParticalHelper;
 import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.particle.ParticalHelper;
 
 @Mixin(value = MobWolf.class, remap = false)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {

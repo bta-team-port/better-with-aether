@@ -4,7 +4,6 @@ import net.minecraft.core.data.registry.recipe.RecipeGroup;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 

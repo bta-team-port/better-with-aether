@@ -15,7 +15,7 @@ import teamport.aether.helper.HealthHelper;
 
 import java.util.List;
 
-import static com.mojang.brigadier.builder.ArgumentBuilderLiteral.*;
+import static com.mojang.brigadier.builder.ArgumentBuilderLiteral.literal;
 
 // for now, TODO figure out what that warning mean
 @SuppressWarnings("unchecked")

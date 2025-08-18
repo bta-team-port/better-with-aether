@@ -1,6 +1,5 @@
 package teamport.aether.items.accessory.trinket;
 
-import net.minecraft.core.item.material.ArmorMaterial;
 import teamport.aether.items.accessory.ItemTrinket;
 
 public class ItemShield extends ItemTrinket {

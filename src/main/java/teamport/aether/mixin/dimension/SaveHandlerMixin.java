@@ -1,7 +1,6 @@
 package teamport.aether.mixin.dimension;
 
 import com.mojang.nbt.tags.CompoundTag;
-import com.mojang.nbt.tags.Tag;
 import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
 import net.minecraft.core.world.save.LevelStorage;
@@ -13,9 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.AetherMod;
-import teamport.aether.world.DungeonMap;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value =  SaveHandlerBase.class, remap = false)

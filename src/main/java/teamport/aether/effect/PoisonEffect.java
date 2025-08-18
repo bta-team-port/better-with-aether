@@ -10,7 +10,6 @@ import teamport.aether.AetherMod;
 import teamport.aether.effect.render.EffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
-import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.particle.ParticalHelper;
 
 import java.util.List;

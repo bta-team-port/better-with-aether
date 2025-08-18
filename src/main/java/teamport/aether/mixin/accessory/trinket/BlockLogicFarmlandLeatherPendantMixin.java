@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.items.AetherItems;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = BlockLogicFarmland.class, remap = false)
 public class BlockLogicFarmlandLeatherPendantMixin {

@@ -1,7 +1,5 @@
 package teamport.aether.items.itemtool;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.IDispensable;
@@ -9,7 +7,6 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 
 import java.util.Random;

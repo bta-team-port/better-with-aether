@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.*;
+import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
 
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Mixin(value = ItemElement.class, remap = false)
 abstract public class ItemElementMixinHoverShowSlot extends Gui {

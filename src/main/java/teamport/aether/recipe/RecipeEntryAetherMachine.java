@@ -4,6 +4,7 @@ import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.*;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
 import net.minecraft.core.item.ItemStack;
+
 import java.util.List;
 import java.util.Objects;
 

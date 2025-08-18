@@ -11,10 +11,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-
 import java.util.Random;
 
-import static teamport.aether.AetherMod.*;
+import static teamport.aether.AetherMod.MOD_ID;
 
 @Mixin(value = AchievementToast.class, remap = false)
 public abstract class aetherAchievementMixin{

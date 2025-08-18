@@ -1,9 +1,6 @@
 package teamport.aether.particle;
 
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.AABB;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;

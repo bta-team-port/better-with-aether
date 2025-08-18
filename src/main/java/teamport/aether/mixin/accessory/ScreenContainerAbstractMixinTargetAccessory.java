@@ -1,19 +1,8 @@
 package teamport.aether.mixin.accessory;
 
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
-import net.minecraft.client.player.controller.PlayerController;
-import net.minecraft.core.InventoryAction;
-import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.menu.MenuInventory;
-import net.minecraft.core.player.inventory.slot.Slot;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.accessory.IAccessory;
 
 @Mixin(value = ScreenContainerAbstract.class, remap = false)
 public class ScreenContainerAbstractMixinTargetAccessory {

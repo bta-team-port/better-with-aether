@@ -14,7 +14,6 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,15 +26,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.helper.GLManager;
 import teamport.aether.items.accessory.IAccessory;
-import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.pendant.ItemPendant;
-import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
 import teamport.aether.items.accessory.trinket.ItemShield;
 
-import java.nio.IntBuffer;
-
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)

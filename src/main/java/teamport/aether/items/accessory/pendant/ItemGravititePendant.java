@@ -2,11 +2,9 @@ package teamport.aether.items.accessory.pendant;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 

@@ -9,7 +9,7 @@ import net.minecraft.core.world.World;
 
 import java.util.List;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemRepulsionShield extends ItemShield {
     public int coolDown = 0;

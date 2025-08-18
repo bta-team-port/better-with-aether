@@ -8,7 +8,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
-import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
