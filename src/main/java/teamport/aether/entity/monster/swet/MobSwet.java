@@ -12,11 +12,12 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.ITranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 
-public class MobSwet extends MobMonster implements Enemy {
+public class MobSwet extends MobMonster implements Enemy, ITranslatableDeathMessage {
     public float squish;
     public float oSquish;
     public int jumpDelay;
