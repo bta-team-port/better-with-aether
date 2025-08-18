@@ -246,7 +246,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         }
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
-                populateChest(world, chest, random, LOOT_NORMAL, (int) Math.round((random.nextGaussian() + 1) * 6));
+                populateChest(world, chest, random, LOOT_NORMAL);
         }
 
         switch (dir) {

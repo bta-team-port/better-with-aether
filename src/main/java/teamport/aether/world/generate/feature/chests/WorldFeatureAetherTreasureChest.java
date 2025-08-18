@@ -12,6 +12,8 @@ import teamport.aether.helper.AetherMathHelper;
 
 import java.util.Random;
 
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.placeItemInChest;
+
 public class WorldFeatureAetherTreasureChest extends WorldFeature {
     public int chestID;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL;
@@ -48,18 +50,9 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
         if (inventory == null) return;
         int invSize = inventory.getContainerSize();
         int quantity = AetherMathHelper.invertedExponentialCapped(random, 1, 9);
-        int normalQuantity = AetherMathHelper.invertedExponentialCapped(random, 6, 18);
-
-        for (int i = 0; i < 4 + guaranteedRare + normalQuantity; i++) {
-            int index = random.nextInt(invSize);
-            for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
-                if (index >= invSize) {
-                    index = 0;
-                }
-            }
-            inventory.setItem(index, LOOT_NORMAL.getRandom().getItemStack(random));
+        for (int i = 0; i < 10; i++) {
+            placeItemInChest(random, LOOT_NORMAL, invSize, inventory);
         }
-
         for (int i = 0; i < guaranteedRare + quantity; i++) {
             int index = random.nextInt(invSize);
             for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
