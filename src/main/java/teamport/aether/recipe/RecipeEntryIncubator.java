@@ -1,6 +1,9 @@
 package teamport.aether.recipe;
 
-import net.minecraft.core.data.registry.recipe.*;
+import net.minecraft.core.data.registry.recipe.HasJsonAdapter;
+import net.minecraft.core.data.registry.recipe.RecipeEntryBase;
+import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import net.minecraft.core.data.registry.recipe.SearchQuery;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
 import net.minecraft.core.item.ItemStack;
 

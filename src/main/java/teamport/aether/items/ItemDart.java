@@ -3,7 +3,6 @@ package teamport.aether.items;
 import net.minecraft.core.item.IDispensable;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileDart;
 

@@ -5,16 +5,17 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.GuidebookPage;
 import net.minecraft.client.gui.guidebook.GuidebookSection;
 import net.minecraft.client.gui.guidebook.SearchableGuidebookSection;
-import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
-import net.minecraft.core.item.*;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.Pair;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherRecipes;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class GuidebookSectionEnchanter extends SearchableGuidebookSection {

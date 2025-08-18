@@ -1,7 +1,6 @@
 package teamport.aether.items.accessory;
 
 import net.minecraft.core.item.Item;
-import net.minecraft.core.item.material.ArmorMaterial;
 
 public class ItemAccessoryArmor extends Item implements IAccessory{
     public final int slotID;

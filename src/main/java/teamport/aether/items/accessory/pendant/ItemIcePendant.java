@@ -1,23 +1,15 @@
 package teamport.aether.items.accessory.pendant;
 
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
-import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import sunsetsatellite.catalyst.core.util.vector.Vec3f;
-import teamport.aether.items.ItemSignSkyroot;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;

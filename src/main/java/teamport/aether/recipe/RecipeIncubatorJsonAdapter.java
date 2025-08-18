@@ -4,8 +4,6 @@ import com.google.gson.*;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.adapter.RecipeJsonAdapter;
-import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.collection.NamespaceID;
 
 import java.lang.reflect.Type;
 

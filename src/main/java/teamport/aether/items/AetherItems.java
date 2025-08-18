@@ -15,7 +15,6 @@ import teamport.aether.items.accessory.cape.ItemAgilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemInvisibilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemSwetCapeArmor;
 import teamport.aether.items.accessory.pendant.ItemChainPendant;
-import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.pendant.ItemGravititePendant;
 import teamport.aether.items.accessory.pendant.ItemIcePendant;
 import teamport.aether.items.accessory.pendant.ItemPendant;

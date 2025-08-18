@@ -1,7 +1,6 @@
 package teamport.aether.mixin.dimension;
 
 import net.minecraft.core.block.BlockLogicFluid;
-import net.minecraft.core.block.BlockLogicPortal;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;

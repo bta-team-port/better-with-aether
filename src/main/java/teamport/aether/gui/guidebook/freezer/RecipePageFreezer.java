@@ -2,7 +2,8 @@ package teamport.aether.gui.guidebook.freezer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.guidebook.*;
+import net.minecraft.client.gui.guidebook.GuidebookSection;
+import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import org.lwjgl.opengl.GL11;
@@ -10,7 +11,8 @@ import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class RecipePageFreezer extends RecipePageAetherMachines {

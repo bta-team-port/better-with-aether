@@ -6,7 +6,9 @@ import sunsetsatellite.catalyst.effects.api.effect.*;
 import teamport.aether.gui.IHudVisibility;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
