@@ -25,7 +25,7 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
             }
         }
 
-        this.model.puffiness = entity.puffiness;
+        this.model.puffiness = entity.getPuffiness();
     }
 
     public void setupScale(MobAerbunny entity, float partialTick) {
