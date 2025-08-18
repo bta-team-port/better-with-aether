@@ -13,6 +13,7 @@
     "ItemToolShovelMixin",
     "MobPigMixin",
     "MobSheepMixin",
+    "PlayerDeathMessageMixin",
     "SlotCraftingAchievementMixin",
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",

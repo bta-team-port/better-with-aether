@@ -6,12 +6,14 @@ import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.lang.I18n;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
+import teamport.aether.entity.ITranslatableDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -19,7 +21,11 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobBoss extends MobPathfinder implements EnemyBoss {
+import static net.minecraft.core.net.command.TextFormatting.*;
+import static teamport.aether.AetherMod.TRANSLATOR;
+import static teamport.aether.helper.StringHelper.formatTranslationKey;
+
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss, ITranslatableDeathMessage {
 
     @Nullable
     public Integer dungeonID = null;
@@ -33,7 +39,6 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
     public ItemStack trophy = null;
 
     public List<WorldFeaturePoint> blocksDestroyOnDeath = new ArrayList<>();
-
 
     public MobBoss(@Nullable World world) {
         super(world);
@@ -62,7 +67,7 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
     @Override
     public String getBossTitle() {
         final String translationKey = EntityDispatcher.nameKeyForClass(this.getClass());
-        return String.format(I18n.getInstance().translateKey(translationKey + ".title"), getBossName());
+        return String.format(TRANSLATOR.translateKey(translationKey + ".title"), getBossName());
     }
 
     @Override
@@ -152,5 +157,14 @@ public class MobBoss extends MobPathfinder implements EnemyBoss {
     public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
         this.hasHadReturnPointSet = true;
+    }
+
+    @Override
+    public String deathMessage(Player player) {
+        String name = formatTranslationKey(this.getClass());
+        name += random.nextInt(9);
+        String bossName = RESET + BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET;
+        String playerName = RESET + player.getDisplayName() + RED;
+        return TRANSLATOR.translateKey(name).replace("[PLAYER]", playerName).replace("[BOSS]", bossName);
     }
 }
