@@ -133,29 +133,28 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static void populateChest(
-            World world, WorldFeatureBlock wfb,
-            Random random, WeightedRandomBag<WeightedRandomLootObject> lootTable,
-            int quantity
-    ) {
+    public static void populateChest(World world, WorldFeatureBlock wfb, Random random, WeightedRandomBag<WeightedRandomLootObject> BAG) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
         if(inventory == null) return;
         int invSize = inventory.getContainerSize();
-        int emptyCount = 0;
-        for (int i = 0; i < Math.max(quantity, 1); i++) {
-            int index = random.nextInt(invSize);
-            for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
-                if (index >= invSize) {
-                    index = 0;
-                }
+        for (int i = 0; i < 10; i++) {
+            placeItemInChest(random, BAG, invSize, inventory);
+        }
+    }
+
+    public static void placeItemInChest(
+            Random random,
+            WeightedRandomBag<WeightedRandomLootObject> BAG,
+            int invSize, Container inventory
+    ) {
+        int index = random.nextInt(invSize);
+        for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
+            if (index >= invSize) {
+                index = 0;
             }
-            ItemStack itemStack = lootTable.getRandom().getItemStack(random);
-            if(itemStack == null) emptyCount++;
-            inventory.setItem(index, itemStack);
         }
-        if(emptyCount == quantity){
-            AetherMod.LOGGER.warn("Generated empty chest quantity:{}, x:{}, y:{}, z:{}\n", quantity, wfb.x, wfb.y, wfb.z);
-        }
+        ItemStack itemStack = BAG.getRandom().getItemStack(random);
+        inventory.setItem(index, itemStack);
     }
 
     public static WorldFeatureComponent drawSphere(
