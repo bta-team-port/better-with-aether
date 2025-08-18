@@ -65,7 +65,6 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack()), 150.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 150.0);
 
-
         // tools
         int minTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2.0);
         int maxTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() * 3.0f / 4.0f);
@@ -132,9 +131,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 16, 16), 200.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 8, 8), 200.0);
-        for (int i = 0; i < 9; ++i) {
-            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_DAWN.id + i])), 10.0);
-        }
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_DAWN.getDefaultStack()), 10.0);
+
     }
 
     public WorldFeatureAetherSilverDungeon(int directrion) {

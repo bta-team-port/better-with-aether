@@ -84,7 +84,6 @@ public final class AetherEntities {
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
         EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
         EntityHelper.createTileEntity(TileEntitySignSkyroot.class, NamespaceID.getPermanent(MOD_ID, "sign_skyroot"));
-        EntityHelper.createTileEntity(TileEntityMimic.class, NamespaceID.getPermanent(MOD_ID, "mimic"));
 
         EntityHelper.createEntity(ProjectileKnifeLightning.class, NamespaceID.getPermanent(MOD_ID, "knife_lightning"), entityKey("knife_lightning"));
         EntityHelper.createEntity(ProjectileDartEnchanted.class, NamespaceID.getPermanent(MOD_ID, "dart_enchanted"), entityKey("dart_enchanted"));
