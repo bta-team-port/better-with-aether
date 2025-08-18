@@ -6,6 +6,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -38,6 +39,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.moveSpeed = 0.5F;
         this.attackStrength = 10;
         this.footSize = 1.5f;
+        this.chatColor = (byte)(TextFormatting.GRAY.id & 255);
     }
 
     public void jump() {
@@ -392,5 +394,4 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_HOLY, 1);
     }
-
 }
