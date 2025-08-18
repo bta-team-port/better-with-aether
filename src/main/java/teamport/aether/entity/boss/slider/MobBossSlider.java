@@ -9,6 +9,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.lang.I18n;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -54,6 +55,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public final ArrayList<Player> creativeAttackersList = new ArrayList<>();
     public Entity target;
 
+
     private State currentState = State.ASLEEP;
     enum State {
         AWAKE(MobBossSlider::stateAwake),
@@ -74,6 +76,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.scoreValue = 10000;
         this.setSize(2F, 2F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
+        this.chatColor = (byte)(TextFormatting.BROWN.id & 255);
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -549,4 +552,5 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         tag.putBoolean("allowedToMove", allowedToMove);
         super.addAdditionalSaveData(tag);
     }
+
 }
