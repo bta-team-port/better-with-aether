@@ -63,9 +63,9 @@ public abstract class MPBumpToOverworldMixin extends Player {
 
             if (passengerNBT != null) {
                 Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, world);
+                p.load(passengerNBT);
                 p.moveTo(x, y, z, 0f, 0f);
                 world.entityJoinedWorld(p);
-
                 p.startRiding(this);
 
                 // start riding only sends the packet if it's a player who started riding something

@@ -25,6 +25,10 @@ public abstract class HandleAetherRideableMixin extends Player {
         if (vehicle instanceof AetherRideable) {
             ((AetherRideable) vehicle).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
         }
+
+        else if (passenger instanceof AetherRideable) {
+            ((AetherRideable) passenger).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
+        }
     }
 
 }
