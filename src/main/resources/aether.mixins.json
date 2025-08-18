@@ -106,6 +106,7 @@
   "server": [
     "dimension.MPBumpToOverworldMixin",
     "dimension.MPEntityBumpToOverworldMixin",
+    "net.AerBunnyFlyingMixin",
     "net.PlayerLoginMixin"
   ],
   "injectors": {
