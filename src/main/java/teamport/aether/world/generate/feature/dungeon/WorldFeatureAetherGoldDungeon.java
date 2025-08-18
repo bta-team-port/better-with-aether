@@ -74,9 +74,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.LIFESHARD.getDefaultStack(), 1, 1), 100.0);
 
-        for (int i = 0; i < 9; ++i) {
-            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_NETHER.id + i])), 10.0);
-        }
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_NETHER.getDefaultStack()), 10.0);
 
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_GRAVITITE.getDefaultStack(), 1, 1), 50.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_GRAVITITE.getDefaultStack(), 1, 1), 50.0);

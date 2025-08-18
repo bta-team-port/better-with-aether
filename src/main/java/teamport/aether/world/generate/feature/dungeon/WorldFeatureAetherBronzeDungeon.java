@@ -62,7 +62,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage()), 100.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage()), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 100.0);
 
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 100.0);
 
@@ -81,9 +80,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
     static {
-        for (int i = 0; i < 9; ++i) {
-            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_MORNING.id + i])), 10.0);
-        }
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_MORNING.getDefaultStack()), 10.0);
 
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 8), 100.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 4), 90.0);
@@ -96,6 +93,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_LIGHTNING.getDefaultStack()), 100.0);
 
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 100.0);
     }
 
     public WorldFeatureAetherBronzeDungeon(int direction){
