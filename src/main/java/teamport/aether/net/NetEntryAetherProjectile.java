@@ -29,6 +29,9 @@ public class NetEntryAetherProjectile  implements IVehicleEntry<ProjectileAether
         register(4, ProjectileHammerHead::getEntity, ProjectileHammerHead.class);
         register(5, ProjectileWindball::getEntity, ProjectileWindball.class);
         register(6, ProjectileNeedle::getEntity, ProjectileNeedle.class);
+        register(7, ProjectileElementLightning::getEntity, ProjectileElementLightning.class);
+        register(8, ProjectileElementFire::getEntity, ProjectileElementFire.class);
+        register(9, ProjectileElementIce::getEntity, ProjectileElementIce.class);
     }
 
     public static void register(int id, ProjectileAether.ConstructorLambda constructor, Class<?> clazz) {
