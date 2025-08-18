@@ -1,7 +1,10 @@
 package teamport.aether.entity.projectile;
 
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.animal.MobPig;
+import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
@@ -101,6 +104,13 @@ public class ProjectileElementLightning extends ProjectileElementBase {
     public void onHit(HitResult hitResult) {
         if (!this.world.isClientSide) {
             if (!(hitResult.entity instanceof MobBossValkyrie || hitResult.entity instanceof ProjectileElementBase)) {
+                if (hitResult.entity instanceof MobCreeper || hitResult.entity instanceof MobPig) {
+                    EntityLightning bolt = new EntityLightning(world, x, y, z);
+                    world.entityJoinedWorld(bolt);
+                    this.remove();
+                    return;
+                }
+
                 if (hitResult.entity instanceof Mob) {
                     hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                     this.remove();
