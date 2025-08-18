@@ -23,9 +23,15 @@ public class MobMimic extends MobMonster implements Enemy {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.attackStrength = 5;
         this.scoreValue = 2000;
-        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.CHEST_PLANKS_SKYROOT.getDefaultStack(), 0, 1));
-
+//        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.CHEST_PLANKS_SKYROOT.getDefaultStack(), 0, 1));
     }
+
+    @Override
+    protected void dropDeathItems() {
+        this.dropItem(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1, 0);
+        super.dropDeathItems();
+    }
+
 
     public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);

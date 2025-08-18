@@ -59,56 +59,68 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
         // common
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 600.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 16), 200.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 12), 400.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBER.getDefaultStack(), 1, 9), 300.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 5), 300.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_WHITE.getDefaultStack(), 1, 5), 300.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack()), 150.0);
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 150.0);
 
+        // ammo
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 10).setRandomMetadata(1, 1), 600.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 6).setRandomMetadata(1, 1), 400.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 6).setRandomMetadata(1, 1), 200.0);
 
+        // jack pot
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.EGG_MOA_BLUE.getDefaultStack()), 50.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack()), 10.0);
+    }
+
+    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_FOOD = new WeightedRandomBag<>();
+
+    static {
+        LOOT_FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 8), 100);
+        LOOT_FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack()), 50);
+        LOOT_FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 4), 2);
+        LOOT_FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 2), 1);
+    }
+
+    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_ARMOR = new WeightedRandomBag<>();
+
+    static {
+        // unlucky
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(null), 500.00);
         // tools
         int minTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2.0);
         int maxTool = MathHelper.ceil(AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() * 3.0f / 4.0f);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_ZANITE.getDefaultStack()).setRandomMetadata(minTool, maxTool), 100.0);
 
         // armor
         float minArmorFactor = 1.0f / 2.0f;
         float maxArmorFactor = 3.0f / 4.0f;
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_ZANITE.getDefaultStack())
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_ZANITE.getDefaultStack())
                 .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_ZANITE.getDefaultStack())
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_ZANITE.getDefaultStack())
                 .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_ZANITE.getDefaultStack()
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_ZANITE.getDefaultStack()
         ).setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_ZANITE.getDefaultStack())
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_ZANITE.getDefaultStack())
                 .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_ZANITE.getDefaultStack())
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_ZANITE.getDefaultStack())
                 .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
                 .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * maxArmorFactor)), 100.0);
-
-        // ammo
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 5).setRandomMetadata(1, 1), 600.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 3).setRandomMetadata(1, 1), 400.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 3).setRandomMetadata(1, 1), 200.0);
-
         // rare tool & armor
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_GRAVITITE.getDefaultStack()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAIN.getDefaultStack()), 50.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOOTER.getDefaultStack()), 100.0);
-        // jack pot
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.EGG_MOA_BLUE.getDefaultStack()), 50.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack()), 10.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_GRAVITITE.getDefaultStack()), 100.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAIN.getDefaultStack()), 50.0);
+        LOOT_ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOOTER.getDefaultStack()), 100.0);
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
@@ -132,18 +144,16 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_VALKYRIE.getDefaultStack()), 200.0);
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_VALKYRIE.getDefaultStack()), 200.0);
 
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 16, 16), 200.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 8, 8), 200.0);
-        for (int i = 0; i < 9; ++i) {
-            LOOT_RARE.addEntry(new WeightedRandomLootObject(new ItemStack(Item.itemsList[AetherItems.RECORD_DAWN.id + i])), 10.0);
-        }
+        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_DAWN.getDefaultStack()), 10.0);
+
     }
 
     public WorldFeatureAetherSilverDungeon(int directrion) {
         this.angle = directrion * 90;
     }
 
-    public WorldFeatureAetherSilverDungeon(){}
+    public WorldFeatureAetherSilverDungeon() {
+    }
 
     public static WorldFeatureAetherSilverDungeon silverDungeon(Random random) {
         return new WorldFeatureAetherSilverDungeon(random.nextInt(4));
@@ -167,9 +177,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
     private boolean canPlace(int x, int y, int z) {
         WorldFeatureComponent checker = drawPlane(0, 0, Direction.SOUTH, 75, Direction.WEST, 50, x + 10, y - 30, z - 10, false);
-        checker.rotateYAxis(x,y,z, angle);
-        for(WorldFeaturePoint point: checker.blockList){
-            if(!world.canBlockSeeTheSky(point.x, point.y, point.z)){
+        checker.rotateYAxis(x, y, z, angle);
+        for (WorldFeaturePoint point : checker.blockList) {
+            if (!world.canBlockSeeTheSky(point.x, point.y, point.z)) {
                 return true;
             }
         }
@@ -181,7 +191,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public boolean place(World world, Random random, int x, int y, int z) {
         this.world = world;
         this.random = random;
-        if(!canPlace(x,y,z)) return false;
+        if (!canPlace(x, y, z)) return false;
 //        this.angle = random.nextInt(4) * 90.0F;
         this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
@@ -252,7 +262,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.placeComponent(maze[0]);
         this.placeComponent(maze[1]);
         for (WorldFeatureBlock chest : maze[1].blockList) {
-            populateChest(world, chest, random, LOOT_NORMAL, (int) Math.round((random.nextGaussian() + 1) * 6));
+            populateChest(world, chest, random, LOOT_NORMAL);
         }
 
         // Outer walls of dungeon itself
