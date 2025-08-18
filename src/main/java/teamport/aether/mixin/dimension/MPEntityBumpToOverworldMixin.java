@@ -57,15 +57,18 @@ public abstract class MPEntityBumpToOverworldMixin {
 
             CompoundTag data = new CompoundTag();
             save(data);
+            float x = (float) Entity.class.cast(this).x;
+            float z = (float) Entity.class.cast(this).z;
             remove();
 
             MinecraftServer server = MinecraftServer.getInstance();
             WorldServer overworld = server.getDimensionWorld(Dimension.OVERWORLD.id);
 
             Entity copy = EntityDispatcher.createEntityFromNBT(data, overworld);
+            copy.load(data);
 
             float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
-            copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
+            copy.moveTo(x * scale, OVERWORLD_RETURN_HEIGHT, z * scale, copy.yRot, copy.xRot);
 
             overworld.entityJoinedWorld(copy);
         }

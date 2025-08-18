@@ -1,6 +1,7 @@
 package teamport.aether.entity.animal.aerbunny;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.entity.player.PlayerLocalMultiplayer;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
@@ -11,26 +12,30 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.net.NetworkManager;
+import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.data.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.entity.player.PlayerServer;
-import net.minecraft.server.net.PlayerList;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.mixin.accessors.MobAccessor;
+import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-public class MobAerbunny extends MobAetherAnimal {
+import javax.print.DocFlavor;
+
+public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public boolean grab;
     public boolean gotRider;
-    public float puffiness;
+
+    public float jumpCooldown = 0;
 
     public MobAerbunny(World world) {
         super(world);
@@ -51,15 +56,86 @@ public class MobAerbunny extends MobAetherAnimal {
         return this.heightOffset - 1.1f;
     }
 
+    @Override
+    protected void defineSynchedData() {
+        this.entityData.define(20, 0, Integer.class);
+    }
+
+    public float getPuffiness() {
+        return Float.intBitsToFloat(this.entityData.getInt(20));
+    }
+
+    public void setPuffiness(float val) {
+        this.entityData.set(20, Float.floatToIntBits(val));
+    }
+
+
+    @Override
+    public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
+        if (EnvironmentHelper.isClientWorld()) {
+            NetworkHandler.sendToServer(
+                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+            );
+        }
+
+        Player player = (Player) vehicle;
+
+        assert player != null;
+        if (player.yd < -0.225F && isJumping) {
+            ((Mob) this.vehicle).yd = 0.125F;
+            this.cloudPoop();
+            setPuffiness(1.15F);
+        }
+    }
+
     public void tick() {
         if (this.passenger != null) {
             gotRider = true;
         }
 
-        if (this.puffiness > 0.0F) {
-            this.puffiness -= 0.1F;
-        } else {
-            this.puffiness = 0.0F;
+        float puffiness = getPuffiness();
+
+        if (puffiness > 0.0F) { puffiness -= 0.1F; }
+        else { puffiness = 0.0F;}
+
+        setPuffiness(puffiness);
+
+        if (vehicle != null) {
+            if (this.vehicle.isRemoved()) this.startRiding(this.vehicle);
+        }
+
+        else if (!grab) {
+            if (this.moveForward != 0.0F) {
+                int x = MathHelper.floor(this.x);
+                int y = MathHelper.floor(this.bb.minY);
+                int z = MathHelper.floor(this.z);
+
+                if ((this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0)
+                        && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0
+                ) {
+                    if (this.yd < 0.0) {
+                        this.cloudPoop();
+                        setPuffiness(0.9F);
+                    }
+                    this.yd = 0.2;
+                }
+            }
+
+            if (this.yd < -0.1) {
+                this.yd = -0.1;
+            }
+        }
+
+        if (this.vehicle instanceof Player) {
+            Player player = (Player) vehicle;
+
+            if (!player.onGround && !player.isInWaterOrRain()) {
+                ((EntityAccessor) player).setFallDistance(0.0F);
+                player.yd += 0.05F;
+            }
+
+            player.handleSpecialVehicleControl();
+            player.sendSpecialVehiclePacket();
         }
 
         super.tick();
@@ -81,46 +157,8 @@ public class MobAerbunny extends MobAetherAnimal {
     public void onLivingUpdate() {
         if (onGround && this.moveForward != 0.0F) {
             this.jump();
-        }
-
-        if (this.vehicle != null) {
-            if (this.vehicle.isRemoved()) {
-                this.startRiding(this.vehicle);
-            }
-
-            else {
-                Entity passenger = this.vehicle.getPassenger();
-
-                if (!passenger.onGround && !passenger.isInWaterOrRain()) {
-                    ((EntityAccessor) this.vehicle).setFallDistance(0.0F);
-                    ((Mob) this.vehicle).yd += 0.05F;
-
-                    if (this.vehicle instanceof Mob && ((Mob) this.vehicle).yd < -0.225F && ((MobAccessor) this.vehicle).getJumping()) {
-                        ((Mob) this.vehicle).yd = 0.125F;
-                        this.cloudPoop();
-                        this.puffiness = 1.15F;
-                    }
-                }
-            }
-        }
-
-        else if (!grab) {
-            if (this.moveForward != 0.0F) {
-                int x = MathHelper.floor(this.x);
-                int y = MathHelper.floor(this.bb.minY);
-                int z = MathHelper.floor(this.z);
-                if ((this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0) &&
-                        this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0) {
-                    if (this.yd < 0.0) {
-                        this.cloudPoop();
-                        this.puffiness = 0.9F;
-                    }
-                    this.yd = 0.2;
-                }
-            }
-            if (this.yd < -0.1) {
-                this.yd = -0.1;
-            }
+            setPuffiness(1.15F);
+            this.cloudPoop();
         }
 
         if (grab && onGround) {
@@ -159,34 +197,26 @@ public class MobAerbunny extends MobAetherAnimal {
     }
 
     public boolean interact(@NotNull Player player) {
-        if (!this.world.isClientSide) {
-            if (player.isSneaking()) return super.interact(player);
+        if (player.isSneaking()) return super.interact(player);
 
-            if (this.vehicle == player) {
-                grab = false;
-                this.ejectRider();
+        if (this.vehicle == player) {
+            grab = false;
 
-                if (this.vehicle != null) {
-                    this.vehicle = null;
-                }
-
-                return true;
-            }
-
-            if (player.getPassenger() instanceof MobAerbunny) {
-                return false;
-            }
-
-            this.startRiding(player);
-
-            grab = true;
-            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.isJumping = false;
-
+            vehicle.ejectRider();
             return true;
         }
 
-        return false;
+        if (player.getPassenger() instanceof MobAerbunny) {
+            return false;
+        }
+
+        this.startRiding(player);
+
+        grab = true;
+        this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        this.isJumping = false;
+
+        return true;
     }
 
     public String getLivingSound() {
@@ -200,5 +230,17 @@ public class MobAerbunny extends MobAetherAnimal {
     public String getDeathSound() {
         return "aether:mob.aerbunny.death";
     }
-    
+
+
+    @Override
+    public void startRiding(IVehicle vehicle) {
+        super.startRiding(vehicle);
+
+        if (EnvironmentHelper.isServerEnvironment()) {
+            MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
+                x, y, z, 32, world.dimension.id,
+                new PacketSetRiding(this, (Entity) this.vehicle)
+            );
+        }
+    }
 }
