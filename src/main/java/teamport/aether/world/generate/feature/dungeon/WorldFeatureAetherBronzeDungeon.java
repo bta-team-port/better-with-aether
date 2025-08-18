@@ -11,14 +11,14 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
+import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
-import teamport.aether.items.AetherItems;
-import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.Arrays;

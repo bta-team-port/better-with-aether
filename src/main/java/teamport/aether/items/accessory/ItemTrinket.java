@@ -5,8 +5,6 @@ import net.minecraft.core.item.Item;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.lookup.LookupTrinketIcons;
 
-import java.util.Set;
-
 public class ItemTrinket extends Item implements IAccessory {
     public final String name;
 

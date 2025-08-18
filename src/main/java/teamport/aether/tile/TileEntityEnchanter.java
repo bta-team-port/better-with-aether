@@ -2,7 +2,7 @@ package teamport.aether.tile;
 
 
 import net.minecraft.core.entity.EntityItem;
-import net.minecraft.core.item.*;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;

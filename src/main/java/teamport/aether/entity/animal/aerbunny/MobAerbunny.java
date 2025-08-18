@@ -1,7 +1,6 @@
 package teamport.aether.entity.animal.aerbunny;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.client.entity.player.PlayerLocalMultiplayer;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
@@ -11,14 +10,12 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.net.NetworkManager;
 import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.data.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.AetherRideable;
@@ -28,8 +25,6 @@ import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
-
-import javax.print.DocFlavor;
 
 public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public boolean grab;
