@@ -10,6 +10,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
@@ -151,5 +152,12 @@ public class ProjectileElementBase extends Projectile {
         }
 
         return false;
+    }
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        ProjectileElementBase elementBase = new ProjectileElementBase(world, x, y, z);
+        if (hasVelocity) elementBase.setHeading(xd, yd, zd, 1, 0);
+        if (owner instanceof Mob) elementBase.owner = (Mob) owner;
+        return elementBase;
     }
 }
