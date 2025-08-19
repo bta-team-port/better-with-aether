@@ -69,21 +69,46 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
         }
     }
 
-    public boolean onBonemealUsed(ItemStack itemstack,  Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        Random random = new Random();
-        for (int l = 0; l < 32; ++l) {
-            Block<?> plantBlock = new Block[]{AetherBlocks.FLOWER_PURPLE, AetherBlocks.TALLGRASS_AETHER, AetherBlocks.FLOWER_WHITE, AetherBlocks.TALLGRASS_AETHER}[random.nextInt(4)];
+    public boolean onBonemealUsed(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+        if (!world.isClientSide) {
+            Random random = world.rand;
+            label175:
+            for (int i = 0; i < 128; ++i) {
+                int x = blockX;
+                int y = blockY + 1;
+                int z = blockZ;
 
-            int x = blockX += random.nextInt(3) - 1;
-            int y = blockY += (random.nextInt(3) - 1) * random.nextInt(3) / 2;
-            int z = blockZ += random.nextInt(3) - 1;
+                for (int j = 0; j < i / 16; ++j) {
+                    x += random.nextInt(3) - 1;
+                    y += (random.nextInt(3) - 1) * random.nextInt(3) / 2;
+                    z += random.nextInt(3) - 1;
 
-            if (world.isAirBlock(x, y, z) && (plantBlock.canBlockStay(world, x, y, z))) {
-                world.setBlockWithNotify(x, y, z, plantBlock.id());
+                    int blockBelow = world.getBlockId(x, y - 1, z);
+                    if (Blocks.blocksList[blockBelow] == null || !Blocks.blocksList[blockBelow].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
+                        continue label175;
+                    }
+                }
+
+                if (world.isAirBlock(x, y, z)) {
+                    int rand = random.nextInt(10);
+                    Block<?> plantBlock;
+                    if (rand < 8) {
+                        plantBlock = AetherBlocks.TALLGRASS_AETHER;
+                    } else if (rand < 9) {
+                        plantBlock = AetherBlocks.FLOWER_PURPLE;
+                    } else {
+                        plantBlock = AetherBlocks.FLOWER_WHITE;
+                    }
+
+                    if (plantBlock.canBlockStay(world, x, y, z)) {
+                        world.setBlockWithNotify(x, y, z, plantBlock.id());
+                    }
+                }
             }
-        }
-        if (player.getGamemode().consumeBlocks()) {
-            --itemstack.stackSize;
+
+            if (player.getGamemode().consumeBlocks()) {
+                --itemstack.stackSize;
+            }
         }
         player.swingItem();
         return false;

@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.item;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.player.Player;

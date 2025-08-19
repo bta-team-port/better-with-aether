@@ -1,6 +1,7 @@
 package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicFlower;
 import net.minecraft.core.block.BlockLogicMoss;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
@@ -9,7 +10,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
-public class BlockLogicTallGrassAether extends BlockLogicFlowerAether {
+public class BlockLogicTallGrassAether extends BlockLogicFlower {
     public BlockLogicTallGrassAether(Block<?> block) {
         super(block);
         float f = 0.4F;
