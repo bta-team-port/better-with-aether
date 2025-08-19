@@ -17,6 +17,7 @@ import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
@@ -218,8 +219,13 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
             }
             if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
-                    IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
-                    AetherEffects.add((Mob)effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                    IHasEffects mob = (IHasEffects) hitResult.entity;
+                    AetherEffects.add((Mob)mob, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                }
+                if (dartType == 2) {
+                    IHasEffects mob = (IHasEffects) hitResult.entity;
+                    // slight weaker remedy than the usual one
+                    AetherEffects.add((Mob)mob,new EffectStack(mob, AetherEffects.remedyEffect, 20, 1));
                 }
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
