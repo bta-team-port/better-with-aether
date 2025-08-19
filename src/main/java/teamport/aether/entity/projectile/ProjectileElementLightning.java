@@ -15,7 +15,7 @@ import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 
 import java.util.List;
 
-public class ProjectileElementLightning extends ProjectileElementBase {
+public class ProjectileElementLightning extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementLightning> {
     private Mob target;
     private static final float homingPower = 0.1F;
     private static final float topSpeed = 0.5F;

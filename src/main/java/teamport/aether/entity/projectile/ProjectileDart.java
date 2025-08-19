@@ -23,7 +23,7 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileDart extends Projectile implements ProjectileAether {
+public class ProjectileDart extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileDart> {
     public int mobsHit;
     public int xTile;
     public int yTile;

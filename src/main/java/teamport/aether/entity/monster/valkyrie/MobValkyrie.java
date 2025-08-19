@@ -13,10 +13,10 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.items.AetherItems;
 
-public class MobValkyrie extends MobPathfinder implements Enemy, AetherTranslatableDeathMessage {
+public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage {
     public int attackStrength;
     public boolean isSwinging;
     public int teleportTimer;

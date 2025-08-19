@@ -11,13 +11,13 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 import java.util.List;
 
-public class MobMimic extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
+public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);

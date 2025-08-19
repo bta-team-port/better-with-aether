@@ -12,7 +12,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileKnifeLightning extends Projectile implements ProjectileAether {
+public class ProjectileKnifeLightning extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileKnifeLightning> {
 
     public ProjectileKnifeLightning(World world) {
         super(world);

@@ -2,16 +2,16 @@ package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.net.command.TextFormatting;
 import teamport.aether.helper.StringHelper;
 
+import static net.minecraft.core.net.command.TextFormatting.RED;
+import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public interface AetherTranslatableDeathMessage {
+public interface AetherDeathMessage {
     default String deathMessage(Player player){
         String deathMessage = TRANSLATOR.translateKey(StringHelper.formatTranslationKey(((Entity) this).getClass()))
-            .replace("[PLAYER]", player.getDisplayName() + TextFormatting.RESET + TextFormatting.RED);
-
-        return TextFormatting.RED + deathMessage;
+            .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
+        return RED + deathMessage;
     }
 }
