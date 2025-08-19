@@ -23,7 +23,6 @@ import teamport.aether.items.AetherItems;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public Mob target;
-    public int size;
     public int attackCooldown;
     public int smokeTime;
     public boolean hasTarget;
@@ -32,18 +31,18 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTra
     public MobAechorPlant(World world1) {
         super(world1);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aechorplant");
-        this.size = this.random.nextInt(3) + 1;
         this.sinage = this.random.nextFloat() * 6.0F;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
-        this.setSize(0.75F + (float) this.size * 0.125F, 0.5F + (float) this.size * 0.075F);
+        this.setSize(1.0F, 0.65F);
         this.setPos(this.x, this.y, this.z);
+        this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
 
     }
 
     public int getMaxHealth() {
-        return 10 + this.size * 2;
+        return 14;
     }
 
     public boolean canSpawnHere() {
@@ -101,7 +100,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTra
             if (!this.target.isAlive() || target.distanceTo(this) > 12.0) {
                 this.target = null;
                 this.attackCooldown = 0;
-            } else if (this.attackCooldown >= 20 && canEntityBeSeen(target) && target.distanceTo(this) < 5.5 + size / 2.0) {
+            } else if (this.attackCooldown >= 20 && canEntityBeSeen(target) && target.distanceTo(this) < 6.5) {
                 this.shootTarget(target);
                 this.attackCooldown = -10;
             }
@@ -194,14 +193,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTra
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("AttTime", (short) this.attackCooldown);
-        tag.putShort("Size", (short) this.size);
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
-        this.size = tag.getShort("Size");
-        this.setSize(0.75F + (float) this.size * 0.125F, 0.5F + (float) this.size * 0.075F);
         this.setPos(this.x, this.y, this.z);
     }
 

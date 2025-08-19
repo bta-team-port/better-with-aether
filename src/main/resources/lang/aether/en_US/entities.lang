@@ -53,7 +53,7 @@ guidebook.section.mob.cockatrice.desc=Angry and hostile avian that can be found 
 aether.entity.aechorplant=Aechor Plant
 aether.entity.aechorplant.death_message = [PLAYER] has sniffed a flower to hard
 guidebook.section.mob.aechorplant.name=Aechor Plant
-guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison darts to deter anything from coming near.
+guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison needles to deter anything from coming near.
 
 aether.entity.zephyr=Zephyr
 guidebook.section.mob.zephyr.name=Zephyr
