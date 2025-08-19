@@ -183,9 +183,9 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public boolean chatWithMe(Player player) {
         if (this.chatTime <= 0) {
             if (this.chatLog < 9) {
-                player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat" + chatLog));
+                player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog));
                 if(this.chatLog >= 5 && this.chatLog < 8){
-                    player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat" + chatLog + ".1"));
+                    player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog + "_1"));
                 }
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog++;
