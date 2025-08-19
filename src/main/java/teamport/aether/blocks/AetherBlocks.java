@@ -260,8 +260,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.3f)
                 .setResistance(0.6f)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES,
-                        BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN, BlockTags.GROWS_TREES, BlockTags.GROWS_FLOWERS, BlockTags.GROWS_SUGAR_CANE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.FIREFLIES_CAN_SPAWN, AetherBlockTags.GROWS_AETHER_TREES, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE, AetherBlockTags.GROWS_AETHER_FLOWERS, AetherBlockTags.PASSIVE_MOBS_SPAWN)
                 .build("grass.aether", "grass_aether", blockID("GRASS_AETHER"), b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         DIRT_AETHER = new BlockBuilder(MOD_ID)
@@ -693,6 +692,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
                         b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class)
                 ).withDisabledStats();

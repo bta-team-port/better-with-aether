@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.entity;
 
 import net.minecraft.core.entity.animal.MobSheep;
 import net.minecraft.core.item.ItemStack;
