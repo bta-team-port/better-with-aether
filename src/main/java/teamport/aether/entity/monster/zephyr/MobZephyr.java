@@ -203,7 +203,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherTranslatableDea
 
     @Override
     public boolean canSpawnHere() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(20) == 0
+        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(10) == 0
                 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
     }
 
