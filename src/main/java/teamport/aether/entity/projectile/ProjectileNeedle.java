@@ -18,7 +18,7 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileNeedle extends Projectile implements ProjectileAether{
+public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileNeedle> {
     public int mobsHit;
     public int xTile;
     public int yTile;
@@ -165,7 +165,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether{
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
+            if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
                 IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
                 AetherEffects.add((Mob) effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
 

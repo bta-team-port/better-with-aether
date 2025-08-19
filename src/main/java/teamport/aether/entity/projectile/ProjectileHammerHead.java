@@ -9,7 +9,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ProjectileHammerHead extends Projectile implements ProjectileAether {
+public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileHammerHead> {
 
     public ProjectileHammerHead(World world) {
         super(world);
@@ -44,7 +44,7 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
+            hitResult.entity.hurt(this, this.damage, DamageType.COMBAT);
             doEffect();
             this.remove();
         }

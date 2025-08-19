@@ -7,7 +7,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
-public class ProjectileElementFire extends ProjectileElementBase {
+public class ProjectileElementFire extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementFire> {
 
     public String[] particles = {"explode", "flame"};
 
@@ -34,7 +34,7 @@ public class ProjectileElementFire extends ProjectileElementBase {
         if (!this.world.isClientSide) {
             if (!(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase)) {
                 if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
+                    hitResult.entity.hurt(this, this.damage, DamageType.FIRE);
                     hitResult.entity.maxFireTicks = 200;
                     hitResult.entity.remainingFireTicks = 200;
                     this.remove();
