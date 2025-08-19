@@ -92,16 +92,24 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         super.onDeath(entityKilledBy);
     }
 
+    static final int DATA_STATE = 17;
+    static final int DATA_ALLOW_MOVEMENT= 18;
+    static final int DATA_MOVEMENT_DIRECTION= 19;
+    static final int DATA_MOVEMENT_AMOUNT= 20;
+    static final int DATA_POSITION_X= 21;
+    static final int DATA_POSITION_Y= 22;
+    static final int DATA_POSITION_Z= 23;
+
     @Override
     protected void defineSynchedData() {
-        entityData.define(17, State.ASLEEP.ordinal(), Integer.class); // state
-        entityData.define(18, 0, Integer.class); // can move
-        entityData.define(19, Direction.NONE.ordinal(), Integer.class); // move dir
-        entityData.define(20, 0, Integer.class); // move amount
+        entityData.define(DATA_STATE, State.ASLEEP.ordinal(), Integer.class);
+        entityData.define(DATA_ALLOW_MOVEMENT, 0, Integer.class);
+        entityData.define(DATA_MOVEMENT_DIRECTION, Direction.NONE.ordinal(), Integer.class);
+        entityData.define(DATA_MOVEMENT_AMOUNT, 0, Integer.class);
 
-        entityData.define(21, 0, Integer.class); // x
-        entityData.define(22, 0, Integer.class); // y
-        entityData.define(23, 0, Integer.class); // z
+        entityData.define(DATA_POSITION_X, 0, Integer.class);
+        entityData.define(DATA_POSITION_Y, 0, Integer.class);
+        entityData.define(DATA_POSITION_Z, 0, Integer.class);
     }
 
     @Override
@@ -175,25 +183,25 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.currentState.getConsumer().accept(this);
 
         if (EnvironmentHelper.isServerEnvironment()) {
-            entityData.set(17, currentState.ordinal());
-            entityData.set(18, allowedToMove ? 1 : 0);
-            entityData.set(19, moveDirection.ordinal());
-            entityData.set(20, Float.floatToIntBits(blocksToMove));
+            entityData.set(DATA_STATE, currentState.ordinal());
+            entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
+            entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
+            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
 
-            entityData.set(21, Float.floatToIntBits((float) x));
-            entityData.set(22, Float.floatToIntBits((float) y));
-            entityData.set(23, Float.floatToIntBits((float) z));
+            entityData.set(DATA_POSITION_X, Float.floatToIntBits((float) x));
+            entityData.set(DATA_POSITION_Y, Float.floatToIntBits((float) y));
+            entityData.set(DATA_POSITION_Z, Float.floatToIntBits((float) z));
 
         } else if (EnvironmentHelper.isClientWorld()) {
-            currentState = State.values()[entityData.getInt(17)];
-            allowedToMove = entityData.getInt(18) > 0;
-            moveDirection = Direction.values()[entityData.getInt(19)];
-            blocksToMove = Float.intBitsToFloat(entityData.getInt(20));
+            currentState  = State.values()[entityData.getInt(DATA_STATE)];
+            allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
+            moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
+            blocksToMove  = Float.intBitsToFloat(entityData.getInt(DATA_MOVEMENT_AMOUNT));
 
             absMoveTo(
-                Float.intBitsToFloat(entityData.getInt(21)),
-                Float.intBitsToFloat(entityData.getInt(22)),
-                Float.intBitsToFloat(entityData.getInt(23)),
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_X)),
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Y)),
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Z)),
                 0, 0
             );
         }
