@@ -112,7 +112,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
                 }
 
                 if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
                     this.remove();
                     this.world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, this.x, this.y, this.z, "ambient.weather.thunder", 0.5F, 0.8F + this.random.nextFloat() * 0.2F);
                     return;

@@ -23,7 +23,6 @@ import java.util.List;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
-import static teamport.aether.helper.StringHelper.formatTranslationKey;
 
 public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
 
@@ -161,7 +160,8 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
 
     @Override
     public String deathMessage(Player player) {
-        String name = formatTranslationKey(this.getClass()) + "_" + random.nextInt(9);
+        String key = EntityDispatcher.nameKeyForClass(this.getClass()) + ".death_message";
+        String name = key + "_" + random.nextInt(9);
 
         String bossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
         String playerName = player.getDisplayName() + RESET + RED;

@@ -211,12 +211,12 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             if (hitResult.entity instanceof MobZephyr) {
-                hitResult.entity.hurt(this.owner, 10, DamageType.COMBAT);
+                hitResult.entity.hurt(this, 10, DamageType.COMBAT);
                 if (this.owner instanceof Player) {
                     ((Player)this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
                 }
             }
-            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
+            if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
                     IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
                     AetherEffects.add((Mob)effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
