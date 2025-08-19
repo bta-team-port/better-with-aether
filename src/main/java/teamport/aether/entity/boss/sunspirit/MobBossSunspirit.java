@@ -20,6 +20,9 @@ import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
 
+import static net.minecraft.core.net.command.TextFormatting.*;
+import static teamport.aether.AetherMod.TRANSLATOR;
+
 public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public int timesShot = 0;
     public int chatLog;
@@ -177,69 +180,28 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
     public boolean chatWithMe(Player player) {
         if (this.chatTime <= 0) {
-
-            if (this.chatLog == 0) {
-                player.sendMessage("§1You are certainly a brave soul to have entered this chamber.");
+            if (this.chatLog < 9) {
+                player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat" + chatLog));
+                if(this.chatLog >= 5 && this.chatLog < 8){
+                    player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat" + chatLog + ".1"));
+                }
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 1;
+                this.chatLog++;
                 this.chatTime = 60;
-            } else if (this.chatLog == 1) {
-                player.sendMessage("§1Begone human, you serve no purpose here.");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 2;
-                this.chatTime = 60;
-            } else if (this.chatLog == 2) {
-                player.sendMessage("§1Your presence annoys me. Do you not fear my burning aura?");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 3;
-                this.chatTime = 60;
-            } else if (this.chatLog == 3) {
-                player.sendMessage("§1I have nothing to offer you, fool. Leave me at peace.");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 4;
-                this.chatTime = 60;
-            } else if (this.chatLog == 4) {
-                player.sendMessage("§1Perhaps you are ignorant. Do you wish to know who I am?");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 5;
-                this.chatTime = 60;
-            } else if (this.chatLog == 5) {
-                player.sendMessage("§1I am a sun spirit, embodiment of Aether's eternal daylight.");
-                player.sendMessage("§1As long as I am alive, the sun will never set on this world.");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 6;
-                this.chatTime = 60;
-            } else if (this.chatLog == 6) {
-                player.sendMessage("§1My body burns with the anger of a thousand beasts.");
-                player.sendMessage("§1No man, hero, or villain can harm me. You are no exception.");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 7;
-                this.chatTime = 60;
-            } else if (this.chatLog == 7) {
-                player.sendMessage("§1You wish to challenge the might of the sun? You are mad.");
-                player.sendMessage("§1Do not further insult me or you will feel my wrath.");
-                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 8;
-                this.chatTime = 60;
-            } else if (this.chatLog == 8) {
-                player.sendMessage("§1This is your final warning. Leave now, or prepare to burn.");
+                return false;
+            }
+            if (this.chatLog == 9) {
+                player.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.start"));
+                world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
+                this.chatLog++;
+                return true;
+            }
+            if (this.target == null) {
+                player.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.repeat"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = 9;
                 this.chatTime = 60;
-            } else {
-                if (this.chatLog == 9) {
-                    player.sendMessage("§eAs you wish, your death will be slow and agonizing.");
-                    world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
-                    this.chatLog = 10;
-                    return true;
-                }
-
-                if (this.chatLog == 10 && this.target == null) {
-                    player.sendMessage("§1Did your previous death not satisfy your curiosity, human?");
-                    world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                    this.chatLog = 9;
-                    this.chatTime = 60;
-                }
+                return false;
             }
         }
         return false;
@@ -264,7 +226,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         world.players.stream()
                 .filter(player -> player.distanceTo(this) < 32)
                 .forEach(p -> {
-                    p.sendMessage("§3Such bitter cold... is this the feeling... of pain?");
+                    p.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.dies"));
                     p.triggerAchievement(AetherAchievements.GOLD);
                     this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.gold", 0.5f, 1.0f);
                 });
