@@ -16,12 +16,12 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.items.AetherItems;
 
-public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
+public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
     public Mob target;
     public int attackCooldown;
     public int smokeTime;

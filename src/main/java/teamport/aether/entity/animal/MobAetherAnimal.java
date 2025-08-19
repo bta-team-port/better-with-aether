@@ -7,10 +7,10 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 
 
-public abstract class MobAetherAnimal extends MobAnimal implements Creature, AetherTranslatableDeathMessage {
+public abstract class MobAetherAnimal extends MobAnimal implements Creature, AetherDeathMessage {
 
     public MobAetherAnimal(World world) {
         super(world);

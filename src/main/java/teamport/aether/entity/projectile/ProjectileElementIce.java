@@ -8,7 +8,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
-public class ProjectileElementIce extends ProjectileElementBase {
+public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
     public ProjectileElementIce(World world) {
         super(world);
     }
@@ -49,7 +49,7 @@ public class ProjectileElementIce extends ProjectileElementBase {
                     }
 
                 } else if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
                     this.remove();
                 }
             }

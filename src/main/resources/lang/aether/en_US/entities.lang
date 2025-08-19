@@ -51,7 +51,7 @@ guidebook.section.mob.cockatrice.name=Cockatrice
 guidebook.section.mob.cockatrice.desc=Angry and hostile avian that can be found in dark places. They shoot poison needles out of their mouths.
 
 aether.entity.aechorplant=Aechor Plant
-aether.entity.aechorplant.death_message = [PLAYER] has sniffed a flower to hard
+aether.entity.aechorplant.death_message = [PLAYER] has sniffed a flower to hard.
 guidebook.section.mob.aechorplant.name=Aechor Plant
 guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison needles to deter anything from coming near.
 
@@ -79,17 +79,42 @@ guidebook.section.mob.valkyrie.name=Valkyrie
 guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
 aether.entity.minion_fire=Fire Minion
-aether.entity.minion_fire.death_message = [PLAYER] had hugged fire.
+aether.entity.minion_fire.death_message = [PLAYER] has hugged fire.
 guidebook.section.mob.fireminion.name=Fire Minion
 guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spirit, quick and deadly.
 
+# color codes pls don't remove or back it up I cannot for the love of god remember what §e is!
+#WHITE               -> 0
+#ORANGE              -> 1
+#MAGENTA             -> 2
+#LIGHT_BLUE          -> 3
+#YELLOW              -> 4
+#LIME                -> 5
+#PINK                -> 6
+#GRAY                -> 7
+#LIGHT_GRAY          -> 8
+#CYAN                -> 9
+#PURPLE              -> a
+#BLUE                -> b
+#BROWN               -> c
+#GREEN               -> d
+#RED                 -> e
+#BLACK               -> f
+#OBFUSCATED          -> g
+#BOLD                -> h
+#STRIKETHROUGH       -> i
+#UNDERLINE           -> j
+#ITALIC              -> k
+#RESET               -> l
 
 # Bosses
 aether.entity.boss_slider=Slider
+aether.entity.boss_slider.id=boss_slider
 guidebook.section.mob.slider.name=Slider
 guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
 aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
+aether.entity.boss_slider.dies= *block noises*
 
 aether.entity.boss_slider.death_message_0 = [PLAYER] was crushed by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_1 = [PLAYER] was mined by the mighty [BOSS]!
@@ -102,24 +127,51 @@ aether.entity.boss_slider.death_message_7 = [PLAYER] juggled between sentries an
 aether.entity.boss_slider.death_message_8 = [PLAYER] was served on a silver platter to the mighty [BOSS]!
 
 aether.entity.boss_valkyrie=Valkyrie Queen
+aether.entity.boss_valkyrie.id=boss_valkyrie
 guidebook.section.mob.valkyrie.queen.name=Valkyrie Queen
 guidebook.section.mob.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 aether.entity.boss_valkyrie.title=%s, The Valkyrie Queen
+
+aether.entity.boss_valkyrie.duel_start = Very well, attack me when you wish to begin.
+aether.entity.boss_valkyrie.condition = Show me 10 victory medals, and I will fight you.
+aether.entity.boss_valkyrie.duel = If you wish to challenge me, strike at any time.
+aether.entity.boss_valkyrie.peacefull = I have no time for pathetic humans like you.
+aether.entity.boss_valkyrie.dies = You are truly... a mighty warrior...
+aether.entity.boss_valkyrie.weakling = Sorry, I don't fight with weaklings.
+aether.entity.boss_valkyrie.fight_weaklings = Try defeating some weaker valkyries first.
+aether.entity.boss_valkyrie.collect_medals = Collect 10 medallions before trying that.
+aether.entity.boss_valkyrie.target = This will be your final battle!
 
 aether.entity.boss_valkyrie.death_message_0 = [PLAYER] was impressed. [BOSS] was not!
 aether.entity.boss_valkyrie.death_message_1 = [PLAYER] fought well. [BOSS] fought weller!
 aether.entity.boss_valkyrie.death_message_2 = [PLAYER] knows defeat. [BOSS] has never known defeat!
 aether.entity.boss_valkyrie.death_message_3 = [PLAYER] raised a blade. [BOSS] raised victory!
 aether.entity.boss_valkyrie.death_message_4 = [PLAYER] felt thunder. [BOSS] is thunder’s voice!
-aether.entity.boss_valkyrie.death_message_5 = [PLAYER] was shocked. [BOSS] was amused!
+aether.entity.boss_valkyrie.death_message_5 = [PLAYER] struck hard. [BOSS] struck harder!
 aether.entity.boss_valkyrie.death_message_6 = [PLAYER] lost track. [BOSS] cannot be tracked!
 aether.entity.boss_valkyrie.death_message_7 = [PLAYER] offered medals. [BOSS] demanded more!
 aether.entity.boss_valkyrie.death_message_8 = [PLAYER] thought themselves worthy. [BOSS] proved them wrong!
+aether.entity.boss_valkyrie.death_message.projectile_lightning = [PLAYER] was shocked. [BOSS] was amused!
 
 aether.entity.boss_sunspirit=Sun Spirit
+aether.entity.boss_sunspirit.id=boss_sunspirit
 guidebook.section.mob.sunspirit.name=Sun Spirit
 guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
-aether.entity.boss_sunspirit.title=%s, The Sun Spirit
+aether.entity.boss_sunspirit.chat_0= You are certainly a brave soul to have entered this chamber.
+aether.entity.boss_sunspirit.chat_1= Begone human, you serve no purpose here.
+aether.entity.boss_sunspirit.chat_2= Your presence annoys me. Do you not fear my burning aura?
+aether.entity.boss_sunspirit.chat_3= I have nothing to offer you, fool. Leave me at peace.
+aether.entity.boss_sunspirit.chat_4= Perhaps you are ignorant. Do you wish to know who I am?
+aether.entity.boss_sunspirit.chat_5= I am a sun spirit, embodiment of Aether's eternal daylight.
+aether.entity.boss_sunspirit.chat_5_1= As long as I am alive, the sun will never set on this world.
+aether.entity.boss_sunspirit.chat_6= My body burns with the anger of a thousand beasts.
+aether.entity.boss_sunspirit.chat_6_1= No man, hero, or villain can harm me. You are no exception.
+aether.entity.boss_sunspirit.chat_7= You wish to challenge the might of the sun? You are mad.
+aether.entity.boss_sunspirit.chat_7_1= Do not further insult me or you will feel my wrath.
+aether.entity.boss_sunspirit.chat_8= This is your final warning. Leave now, or prepare to burn.
+aether.entity.boss_sunspirit.fight.start= As you wish, your death will be slow and agonizing.
+aether.entity.boss_sunspirit.fight.repeat= Did your previous death not satisfy your curiosity, human?
+aether.entity.boss_sunspirit.dies= Such bitter cold... is this the feeling... of pain?
 
 aether.entity.boss_sunspirit.death_message_0 = [PLAYER] ignored the sparks dancing around! I, [BOSS], have warned them!
 aether.entity.boss_sunspirit.death_message_1 = [PLAYER] charged recklessly into my flames! I, [BOSS], have warned them!
@@ -130,24 +182,19 @@ aether.entity.boss_sunspirit.death_message_5 = [PLAYER] underestimated the blaze
 aether.entity.boss_sunspirit.death_message_6 = [PLAYER] tried to play with fire! I, [BOSS], have warned them!
 aether.entity.boss_sunspirit.death_message_7 = [PLAYER] reached for the sun! I, [BOSS], have warned them!
 aether.entity.boss_sunspirit.death_message_8 = [PLAYER] got fired! I, [BOSS], have warned them, to file their report on time!
+aether.entity.boss_sunspirit.death_message.projectile_fire = [PLAYER] juggled to many flames! I, [BOSS], have warned them!
+aether.entity.boss_sunspirit.death_message.projectile_ice = [PLAYER] took on the ice bucket challenge! I, [BOSS], have warned them!
 
 # Misc
 aether.entity.floating_block=floating_block
-
 aether.entity.arrow_flaming=arrow_flaming
-
 aether.entity.dart=dart
 aether.entity.dart_enchanted=dart_enchanted
-
 aether.entity.needle=needle
-
 aether.entity.hammer_head=hammer_head
-
 aether.entity.knife_lightning=knife_lightning
-
 aether.entity.parachute=parachute
 aether.entity.parachute_gold=parachute_gold
-
 aether.entity.projectile_fire=projectile_fire
 aether.entity.projectile_ice=projectile_ice
 aether.entity.projectile_lightning=projectile_lightning
@@ -155,3 +202,25 @@ aether.entity.projectile_lightning=projectile_lightning
 aether.entity.windball=windball
 
 aether.entity.minicloud=Minicloud
+
+aether.entity.arrow_flaming.death_message.suicide = [PLAYER] kebabbed himself.
+aether.entity.dart.death_message.suicide = [PLAYER] became a pincushion.
+aether.entity.dart_enchanted.death_message.suicide = [PLAYER] desperately tried to cure himself.
+aether.entity.hammer_head.death_message.suicide = [PLAYER] got hammered.
+aether.entity.knife_lightning.death_message.suicide = [PLAYER] discovered electricity.
+aether.entity.needle.death_message.suicide = [PLAYER] got hit in his Achilles heel.
+
+aether.entity.arrow_flaming.death_message.player = [KILLER] turned [PLAYER] into barbecue.
+aether.entity.dart.death_message.player = [KILLER] hitted the [PLAYER] in the bullseye.
+aether.entity.dart_enchanted.death_message.player = [KILLER] cure [PLAYER] of life.
+aether.entity.hammer_head.death_message.player = [KILLER] showed [PLAYER] where the hammer hangs.
+aether.entity.knife_lightning.death_message.player = [KILLER] smited [PLAYER].
+aether.entity.needle.death_message.player = [KILLER] overdid the acupuncture on [PLAYER].
+
+# currently unused
+aether.entity.projectile_fire.death_message.suicide = [PLAYER] juggled to many flames!
+aether.entity.projectile_ice.death_message.suicide = [PLAYER] took on the ice bucket challenge!
+aether.entity.projectile_lightning.death_message.suicide = [PLAYER] was shocked.
+aether.entity.projectile_fire.death_message.player = [KILLER] player with fire. [PLAYER] got burned.
+aether.entity.projectile_ice.death_message.player = [KILLER] froze [PLAYER] solid!
+aether.entity.projectile_lightning.death_message.player = [KILLER] has unlimited power! [PLAYER] was shocked.
