@@ -55,8 +55,9 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTra
             return false;
         }
 
-        int[] adjacentOffsets = { -1, 1, 0, 0, 0, 0, -1, 1 };
-        for (int i = 0; i < 4; i++) {
+        int[] adjacentOffsets = {-1, 0, 1, 0, 0, -1, 0, 1, -1, -1, -1, 1, 1, -1, 1, 1};
+
+        for (int i = 0; i < 8; i++) {
             int offsetX = adjacentOffsets[i * 2];
             int offsetZ = adjacentOffsets[i * 2 + 1];
             int blockId = this.world.getBlockId(x + offsetX, y, z + offsetZ);

@@ -169,8 +169,11 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherTranslat
         if (Blocks.blocksList[id] == null) {
             return false;
         } else {
-            return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+            if (this.random.nextInt(10) == 0) {
+                return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
+            }
         }
+        return false;
     }
 
     public Entity getPlayer() {
