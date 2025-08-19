@@ -14,14 +14,14 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobWhirly extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
+public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMessage {
     public int entcount = 0;
     public int Life;
     public List<Particle> fluffies;
