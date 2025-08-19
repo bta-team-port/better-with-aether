@@ -6,7 +6,6 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -20,6 +19,10 @@ import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.items.AetherItems;
 
+import static net.minecraft.core.net.command.TextFormatting.RED;
+import static net.minecraft.core.net.command.TextFormatting.GREEN;
+import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
+import static net.minecraft.core.net.command.TextFormatting.LIGHT_BLUE;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public class MobBossValkyrie extends MobBoss implements EnemyBoss {
@@ -41,7 +44,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.moveSpeed = 0.5F;
         this.attackStrength = 10;
         this.footSize = 1.5f;
-        this.chatColor = (byte)(TextFormatting.GRAY.id & 255);
+        this.chatColor = (byte)(LIGHT_GRAY.id & 255);
     }
 
     public void jump() {
@@ -136,14 +139,14 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peacefull"));
+            entityplayer.sendMessage(GREEN + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peacefull"));
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             this.chatTime = 60;
             return true;
         }
 
         if (this.duel) {
-            entityplayer.sendMessage("aether.entity.boss_valkyrie.duel");
+            entityplayer.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
             this.chatTime = 60;
             return true;
         }
@@ -154,7 +157,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             if (itemstack.stackSize <= 0) {
                 entityplayer.destroyCurrentEquippedItem();
             }
-            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
+            entityplayer.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
             this.duel = true;
         } else {
             entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
@@ -181,7 +184,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
                     this.dead = true;
                     p.triggerAchievement(AetherAchievements.SILVER);
                     this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.silver", 0.5f, 1.0f);
-                    p.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
+                    p.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
                 });
         super.onDeath(entityKilledBy);
     }
@@ -296,7 +299,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         Player player = (Player) attacker;
         if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player) {
             if (this.chatTime <= 0) {
-                player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                player.sendMessage(GREEN + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                 this.chatTime = 60;
             }
@@ -314,7 +317,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         }
 
         if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
-            player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            player.sendMessage(LIGHT_GRAY + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             this.attacked = true;
             this.chatTime = 60;
         } else {
