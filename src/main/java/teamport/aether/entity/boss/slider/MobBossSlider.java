@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static net.minecraft.core.net.command.TextFormatting.LIGHT_BLUE;
+import static teamport.aether.AetherMod.TRANSLATOR;
+
 public class MobBossSlider extends MobBoss implements EnemyBoss {
     public float deformX;
     public int deformY;
@@ -87,6 +90,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             .forEach( p -> {
                 p.triggerAchievement(AetherAchievements.BRONZE);
                 this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
+                p.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_slider.dies"));
             });
 
         super.onDeath(entityKilledBy);

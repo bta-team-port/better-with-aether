@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -25,7 +25,7 @@ import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.helper.StringHelper.formatTranslationKey;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherTranslatableDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
 
     @Nullable
     public Integer dungeonID = null;

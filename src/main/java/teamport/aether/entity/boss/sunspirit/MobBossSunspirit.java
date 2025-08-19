@@ -20,7 +20,9 @@ import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
 
-import static net.minecraft.core.net.command.TextFormatting.*;
+import static net.minecraft.core.net.command.TextFormatting.RED;
+import static net.minecraft.core.net.command.TextFormatting.ORANGE;
+import static net.minecraft.core.net.command.TextFormatting.LIGHT_BLUE;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
