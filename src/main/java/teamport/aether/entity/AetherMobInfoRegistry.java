@@ -18,6 +18,7 @@ import teamport.aether.entity.animal.sheepuff.MobSheepuff;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.mimic.MobMimic;
@@ -80,6 +81,9 @@ public class AetherMobInfoRegistry {
                 new MobInfoRegistry.MobDrop(new ItemStack(Blocks.GLOWSTONE), 1.0f, 1, 2)});
 
         MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
+
+        MobInfoRegistry.register(MobAechorPlant.class, "guidebook.section.mob.aechorplant.name", "guidebook.section.mob.aechorplant.desc", 14, 200, new MobInfoRegistry.MobDrop[]{
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.PETAL_AECHOR), 1.0f, 1, 4)});
 
         MobInfoRegistry.register(MobMimic.class, "guidebook.section.mob.mimic.name", "guidebook.section.mob.mimic.desc", 80, 2000, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT), 1.0f, 1, 1)});
