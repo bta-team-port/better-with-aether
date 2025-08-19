@@ -83,6 +83,29 @@ aether.entity.minion_fire.death_message = [PLAYER] had hugged fire.
 guidebook.section.mob.fireminion.name=Fire Minion
 guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spirit, quick and deadly.
 
+# color codes pls don't remove or back it up I cannot for the love of god remember what §e is!
+#WHITE               -> 0
+#ORANGE              -> 1
+#MAGENTA             -> 2
+#LIGHT_BLUE          -> 3
+#YELLOW              -> 4
+#LIME                -> 5
+#PINK                -> 6
+#GRAY                -> 7
+#LIGHT_GRAY          -> 8
+#CYAN                -> 9
+#PURPLE              -> a
+#BLUE                -> b
+#BROWN               -> c
+#GREEN               -> d
+#RED                 -> e
+#BLACK               -> f
+#OBFUSCATED          -> g
+#BOLD                -> h
+#STRIKETHROUGH       -> i
+#UNDERLINE           -> j
+#ITALIC              -> k
+#RESET               -> l
 
 # Bosses
 aether.entity.boss_slider=Slider
@@ -106,6 +129,16 @@ guidebook.section.mob.valkyrie.queen.name=Valkyrie Queen
 guidebook.section.mob.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
 aether.entity.boss_valkyrie.title=%s, The Valkyrie Queen
 
+aether.entity.boss_valkyrie.duel_start = Very well, attack me when you wish to begin.
+aether.entity.boss_valkyrie.condition = Show me 10 victory medals, and I will fight you.
+aether.entity.boss_valkyrie.duel = If you wish to challenge me, strike at any time.
+aether.entity.boss_valkyrie.peacefull = I have no time for pathetic humans like you.
+aether.entity.boss_valkyrie.dies = You are truly... a mighty warrior...
+aether.entity.boss_valkyrie.weakling = Sorry, I don't fight with weaklings.
+aether.entity.boss_valkyrie.fight_weaklings = Try defeating some weaker valkyries first.
+aether.entity.boss_valkyrie.collect_medals = Collect 10 medallions before trying that.
+aether.entity.boss_valkyrie.target = This will be your final battle!
+
 aether.entity.boss_valkyrie.death_message_0 = [PLAYER] was impressed. [BOSS] was not!
 aether.entity.boss_valkyrie.death_message_1 = [PLAYER] fought well. [BOSS] fought weller!
 aether.entity.boss_valkyrie.death_message_2 = [PLAYER] knows defeat. [BOSS] has never known defeat!
@@ -119,7 +152,21 @@ aether.entity.boss_valkyrie.death_message_8 = [PLAYER] thought themselves worthy
 aether.entity.boss_sunspirit=Sun Spirit
 guidebook.section.mob.sunspirit.name=Sun Spirit
 guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
-aether.entity.boss_sunspirit.title=%s, The Sun Spirit
+aether.entity.boss_sunspirit.chat0= You are certainly a brave soul to have entered this chamber.
+aether.entity.boss_sunspirit.chat1= Begone human, you serve no purpose here.
+aether.entity.boss_sunspirit.chat2= Your presence annoys me. Do you not fear my burning aura?
+aether.entity.boss_sunspirit.chat3= I have nothing to offer you, fool. Leave me at peace.
+aether.entity.boss_sunspirit.chat4= Perhaps you are ignorant. Do you wish to know who I am?
+aether.entity.boss_sunspirit.chat5= I am a sun spirit, embodiment of Aether's eternal daylight.
+aether.entity.boss_sunspirit.chat5.1= As long as I am alive, the sun will never set on this world.
+aether.entity.boss_sunspirit.chat6= My body burns with the anger of a thousand beasts.
+aether.entity.boss_sunspirit.chat6.1= No man, hero, or villain can harm me. You are no exception.
+aether.entity.boss_sunspirit.chat7= You wish to challenge the might of the sun? You are mad.
+aether.entity.boss_sunspirit.chat7.1= Do not further insult me or you will feel my wrath.
+aether.entity.boss_sunspirit.chat8= This is your final warning. Leave now, or prepare to burn.
+aether.entity.boss_sunspirit.fight.start= As you wish, your death will be slow and agonizing.
+aether.entity.boss_sunspirit.fight.repeat= Did your previous death not satisfy your curiosity, human?
+aether.entity.boss_sunspirit.dies= Such bitter cold... is this the feeling... of pain?
 
 aether.entity.boss_sunspirit.death_message_0 = [PLAYER] ignored the sparks dancing around! I, [BOSS], have warned them!
 aether.entity.boss_sunspirit.death_message_1 = [PLAYER] charged recklessly into my flames! I, [BOSS], have warned them!
