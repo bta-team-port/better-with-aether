@@ -4,7 +4,6 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -12,12 +11,13 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
 
-public class MobSwet extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
+public class MobSwet extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public float squish;
     public float oSquish;
     public int jumpDelay;

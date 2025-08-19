@@ -3,7 +3,6 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolAxe;
@@ -11,20 +10,20 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 import java.util.List;
 
-public class MobMimic extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
+public class MobMimic extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.attackStrength = 5;
         this.scoreValue = 2000;
-//        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.CHEST_PLANKS_SKYROOT.getDefaultStack(), 0, 1));
     }
 
     @Override
