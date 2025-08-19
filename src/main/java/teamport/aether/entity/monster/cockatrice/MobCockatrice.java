@@ -4,7 +4,6 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -12,16 +11,18 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 
-public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
+public class MobCockatrice extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public float flap = 0.0F;
     public float flapSpeed = 0.0F;
     public float oFlapSpeed;
     public float oFlap;
     public float flapping = 1.0F;
+
     public MobCockatrice(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "cockatrice");
@@ -30,15 +31,11 @@ public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatab
         this.scoreValue = 500;
     }
 
-    public int getMaxSpawnedInChunk() {
-        return 1;
-    }
-
     public void tick() {
         super.tick();
         this.oFlap = this.flap;
         this.oFlapSpeed = this.flapSpeed;
-        this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3);
+        this.flapSpeed = (float) ((double) this.flapSpeed + (double) (this.onGround ? -1 : 4) * 0.3);
 
         if (this.flapSpeed < 0.0F) {
             this.flapSpeed = 0.0F;
@@ -52,7 +49,7 @@ public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatab
             this.flapping = 1.0F;
         }
 
-        this.flapping = (float)((double)this.flapping * 0.9);
+        this.flapping = (float) ((double) this.flapping * 0.9);
         if (!this.onGround && this.yd < 0.0) {
             this.yd *= 0.6;
         }
@@ -81,17 +78,17 @@ public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatab
             if (this.attackTime == 0) {
                 if (!this.world.isClientSide) {
                     ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
-                    double d2 = entity.y + (double)entity.getHeadHeight() - 0.8 - needle.y;
+                    double d2 = entity.y + (double) entity.getHeadHeight() - 0.8 - needle.y;
                     float f1 = MathHelper.sqrt(d * d + d1 * d1) * 0.2F;
                     world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (random.nextFloat() * 0.4F + 0.8F));
-                    needle.setHeading(d, d2 + (double)f1, d1, 0.6F, 12.0F);
+                    needle.setHeading(d, d2 + (double) f1, d1, 0.6F, 12.0F);
                     this.world.entityJoinedWorld(needle);
                 }
 
                 this.attackTime = 30;
             }
 
-            this.yRot = (float)(Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
+            this.yRot = (float) (Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
             this.hasAttacked = true;
         }
 
@@ -127,7 +124,7 @@ public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatab
     public String getDeathSound() {
         return "aether:mob.moa";
     }
-    
+
 
     public void playLivingSound() {
         this.world.playSoundAtEntity(null, this, this.getLivingSound(), 0.5f, (this.random.nextFloat() - this.random.nextFloat()) * 0.5F + 0.25F);
@@ -155,11 +152,8 @@ public class MobCockatrice extends MobMonster implements Enemy, AetherTranslatab
                 blockLight /= 2;
             }
 
-            if (this.random.nextInt(20) == 0) {
-                return blockLight <= 4 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
-            }
+            return blockLight <= 4 && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double) this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
         }
-        return false;
     }
 
 }

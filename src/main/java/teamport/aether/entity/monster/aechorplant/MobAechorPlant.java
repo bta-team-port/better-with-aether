@@ -2,10 +2,11 @@ package teamport.aether.entity.monster.aechorplant;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
@@ -16,10 +17,11 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.items.AetherItems;
 
-public class MobAechorPlant extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
+public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public Mob target;
     public int size;
     public int attackCooldown;
@@ -44,15 +46,27 @@ public class MobAechorPlant extends MobMonster implements Enemy, AetherTranslata
         return 10 + this.size * 2;
     }
 
-    public int getMaxSpawnedInChunk() {
-        return 16;
-    }
-
     public boolean canSpawnHere() {
-        int i = MathHelper.floor(this.x);
-        int j = MathHelper.floor(this.bb.minY);
-        int k = MathHelper.floor(this.z);
-        return this.world.getBlockId(i, j - 1, k) == AetherBlocks.GRASS_AETHER.id() && this.world.getBlockLightValue(i, j, k) > 8 && super.canSpawnHere();
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+
+        if (this.world.getBlockId(x, y - 1, z) != AetherBlocks.GRASS_AETHER.id()) {
+            return false;
+        }
+
+        int[] adjacentOffsets = { -1, 1, 0, 0, 0, 0, -1, 1 };
+        for (int i = 0; i < 4; i++) {
+            int offsetX = adjacentOffsets[i * 2];
+            int offsetZ = adjacentOffsets[i * 2 + 1];
+            int blockId = this.world.getBlockId(x + offsetX, y, z + offsetZ);
+            Block<?> block = Blocks.blocksList[blockId];
+            if (block != null && block.isCubeShaped()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void onLivingUpdate() {
@@ -174,11 +188,6 @@ public class MobAechorPlant extends MobMonster implements Enemy, AetherTranslata
         } else {
             return super.interact(player);
         }
-    }
-
-    @Override
-    protected boolean canDespawn() {
-        return false;
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {

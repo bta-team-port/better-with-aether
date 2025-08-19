@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherTranslatableDeathMessage;
-import teamport.aether.entity.animal.MobAetherAnimal;
+import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobWhirly extends MobAetherAnimal implements Enemy, AetherTranslatableDeathMessage {
+public class MobWhirly extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
     public int entcount = 0;
     public int Life;
     public List<Particle> fluffies;
@@ -47,6 +47,14 @@ public class MobWhirly extends MobAetherAnimal implements Enemy, AetherTranslata
         if (random.nextInt(5) == 0) {
             this.evil = true;
         }
+    }
+
+    public void tick() {
+        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn() && evil) {
+            this.remove();
+        }
+        super.tick();
+
     }
 
     public boolean makeStepSound() {

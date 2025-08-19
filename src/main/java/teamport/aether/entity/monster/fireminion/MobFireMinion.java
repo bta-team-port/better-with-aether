@@ -2,15 +2,16 @@ package teamport.aether.entity.monster.fireminion;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.monster.MobMonsterAether;
 
-public class MobFireMinion extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
+public class MobFireMinion extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
+
     public MobFireMinion(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");
