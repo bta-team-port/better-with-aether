@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
-import teamport.aether.entity.ITranslatableDeathMessage;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -25,7 +25,7 @@ import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.helper.StringHelper.formatTranslationKey;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss, ITranslatableDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherTranslatableDeathMessage {
 
     @Nullable
     public Integer dungeonID = null;
@@ -161,10 +161,15 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, ITrans
 
     @Override
     public String deathMessage(Player player) {
-        String name = formatTranslationKey(this.getClass());
-        name += random.nextInt(9);
-        String bossName = RESET + BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET;
-        String playerName = RESET + player.getDisplayName() + RED;
-        return TRANSLATOR.translateKey(name).replace("[PLAYER]", playerName).replace("[BOSS]", bossName);
+        String name = formatTranslationKey(this.getClass()) + "_" + random.nextInt(9);
+
+        String bossName = BOLD.toString() + TextFormatting.get(this.chatColor).toString() + this.getBossTitle() + RESET + RED;
+        String playerName = player.getDisplayName() + RESET + RED;
+
+        String deathMessage = TRANSLATOR.translateKey(name)
+            .replace("[PLAYER]", playerName)
+            .replace("[BOSS]", bossName);
+
+        return RED + deathMessage;
     }
 }

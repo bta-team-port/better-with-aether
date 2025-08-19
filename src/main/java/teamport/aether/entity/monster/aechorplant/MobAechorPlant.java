@@ -15,10 +15,11 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.items.AetherItems;
 
-public class MobAechorPlant extends MobMonster implements Enemy {
+public class MobAechorPlant extends MobMonster implements Enemy, AetherTranslatableDeathMessage {
     public Mob target;
     public int size;
     public int attackCooldown;

@@ -26,6 +26,7 @@ import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,8 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static float speed = baseSpeed;
     public float blocksToMove = 0;
 
-    public Direction moveDirection = null;
+    @NotNull
+    public Direction moveDirection = Direction.NONE;
 
     public int attackCoolDown = 0;
     public boolean allowedToMove;
@@ -90,8 +92,29 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         super.onDeath(entityKilledBy);
     }
 
+    static final int DATA_STATE = 17;
+    static final int DATA_ALLOW_MOVEMENT= 18;
+    static final int DATA_MOVEMENT_DIRECTION= 19;
+    static final int DATA_MOVEMENT_AMOUNT= 20;
+    static final int DATA_POSITION_X= 21;
+    static final int DATA_POSITION_Y= 22;
+    static final int DATA_POSITION_Z= 23;
+
+    @Override
+    protected void defineSynchedData() {
+        entityData.define(DATA_STATE, State.ASLEEP.ordinal(), Integer.class);
+        entityData.define(DATA_ALLOW_MOVEMENT, 0, Integer.class);
+        entityData.define(DATA_MOVEMENT_DIRECTION, Direction.NONE.ordinal(), Integer.class);
+        entityData.define(DATA_MOVEMENT_AMOUNT, 0, Integer.class);
+
+        entityData.define(DATA_POSITION_X, 0, Integer.class);
+        entityData.define(DATA_POSITION_Y, 0, Integer.class);
+        entityData.define(DATA_POSITION_Z, 0, Integer.class);
+    }
+
     @Override
     public void tick() {
+        assert world != null;
         super.baseTick();
 
         int blocksBroken = 0;
@@ -99,9 +122,14 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             for (int x = -2; x <= 1; x++) {
             for (int z = -2; z <= 1; z++) {
             for (int y = (moveDirection == Direction.DOWN && currentState != State.SLAM) ? -1 : 0 ; y <= 2; y++) {
-                Block<?> block = world.getBlock((int) (this.x + x), (int) (this.y + y), (int) (this.z + z));
 
-                if (doBlockSmash(world, (int) (this.x + x), (int) (this.y + y), (int) (this.z + z)) && block != null) {
+                int x1 = (int) (this.x + x);
+                int y1 = (int) (this.y + y);
+                int z1 = (int) (this.z + z);
+
+                Block<?> block = world.getBlock(x1, y1, z1);
+                if (block != null && breakBlock(world, x1, y1, z1)) {
+                    doExplosionEffect(world, x1, y1, z1);
                     blocksToMove -= 0.5F * Math.min(block.getHardness()/3f, 1);
 
                     blocksBroken++;
@@ -114,7 +142,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }}}
         }
 
-        if (moveDirection != null) {
+        if (moveDirection != Direction.NONE) {
             float moveAmount = speed/TICKS_PER_SECOND;
             if (blocksToMove > moveAmount) {
                 move(
@@ -153,6 +181,30 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.attackCoolDown--;
         if (attackCoolDown <= 0) allowedToMove = true;
         this.currentState.getConsumer().accept(this);
+
+        if (EnvironmentHelper.isServerEnvironment()) {
+            entityData.set(DATA_STATE, currentState.ordinal());
+            entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
+            entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
+            entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
+
+            entityData.set(DATA_POSITION_X, Float.floatToIntBits((float) x));
+            entityData.set(DATA_POSITION_Y, Float.floatToIntBits((float) y));
+            entityData.set(DATA_POSITION_Z, Float.floatToIntBits((float) z));
+
+        } else if (EnvironmentHelper.isClientWorld()) {
+            currentState  = State.values()[entityData.getInt(DATA_STATE)];
+            allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
+            moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
+            blocksToMove  = Float.intBitsToFloat(entityData.getInt(DATA_MOVEMENT_AMOUNT));
+
+            absMoveTo(
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_X)),
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Y)),
+                Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Z)),
+                0, 0
+            );
+        }
     }
 
     public void stateASleep() { /* ZZZ... */}
@@ -203,7 +255,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             int moveAmount;
             moveDirection = calculateDirection(target);
             switch (moveDirection) {
-                default:
                 case EAST:
                 case WEST:
                     moveAmount = (int) Math.abs(x - target.x);
@@ -217,6 +268,11 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 case NORTH:
                 case SOUTH:
                     moveAmount = (int) Math.abs(z - target.z);
+                break;
+
+                case NONE:
+                default:
+                    moveAmount = 0;
                 break;
             }
 
@@ -279,7 +335,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             }
 
             blocksToMove = 0;
-            moveDirection = null;
+            moveDirection = Direction.NONE;
 
             currentState = State.AWAKE;
             speed = baseSpeed;
@@ -305,16 +361,14 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         return super.collidesWith(entity);
     }
 
-    public boolean doBlockSmash(World world, int x, int y, int z) {
+    public boolean breakBlock(World world, int x, int y, int z) {
         Block<?> block = world.getBlock(x, y, z);
 
         if (block == null) { return  false; }
 
         if (!(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked) && !(block.getMaterial() instanceof MaterialLiquid)) {
             block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y,z), world.getTileEntity(x, y, z), null);
-            doExplosionEffect(world, x, y, z);
             world.setBlockWithNotify(x, y, z, 0);
-
             return true;
         }
 

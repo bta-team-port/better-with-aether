@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.entity.ITranslatableDeathMessage;
+import teamport.aether.entity.AetherTranslatableDeathMessage;
 
 import static net.minecraft.core.net.command.TextFormatting.RED;
 import static net.minecraft.core.net.command.TextFormatting.RESET;
@@ -19,10 +19,10 @@ public class PlayerDeathMessageMixin {
     public void sendAetherDeathMessages(Entity entityKilledBy, CallbackInfoReturnable<String> cir) {
         Player player = (Player) (Object) this;
         String displayNameFormated = RESET + player.getDisplayName() + RED;
-        if(!(entityKilledBy instanceof ITranslatableDeathMessage)){
+        if(!(entityKilledBy instanceof AetherTranslatableDeathMessage)){
             return;
         }
-        ITranslatableDeathMessage killer = (ITranslatableDeathMessage)entityKilledBy;
+        AetherTranslatableDeathMessage killer = (AetherTranslatableDeathMessage)entityKilledBy;
         cir.setReturnValue(killer.deathMessage(player));
     }
 }
