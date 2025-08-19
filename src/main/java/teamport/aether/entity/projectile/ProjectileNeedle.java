@@ -18,7 +18,7 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileNeedle extends Projectile implements ProjectileAether{
+public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileNeedle> {
     public int mobsHit;
     public int xTile;
     public int yTile;

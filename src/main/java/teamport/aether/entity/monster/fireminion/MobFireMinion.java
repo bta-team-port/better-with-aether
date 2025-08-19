@@ -7,10 +7,10 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
+import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 
-public class MobFireMinion extends MobMonsterAether implements Enemy, AetherTranslatableDeathMessage {
+public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
     public MobFireMinion(@Nullable World world) {
         super(world);

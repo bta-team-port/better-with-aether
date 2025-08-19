@@ -18,9 +18,8 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.entity.AetherTranslatableDeathMessage;
 
-public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherTranslatableDeathMessage {
+public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages<ProjectileArrowFlaming> {
 
     public ProjectileArrowFlaming(World world) {
         super(world);

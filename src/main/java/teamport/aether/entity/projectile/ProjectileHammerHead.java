@@ -9,7 +9,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ProjectileHammerHead extends Projectile implements ProjectileAether {
+public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileHammerHead> {
 
     public ProjectileHammerHead(World world) {
         super(world);

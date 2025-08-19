@@ -7,7 +7,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
-public class ProjectileElementFire extends ProjectileElementBase {
+public class ProjectileElementFire extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementFire> {
 
     public String[] particles = {"explode", "flame"};
 

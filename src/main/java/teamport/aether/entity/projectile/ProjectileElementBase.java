@@ -12,7 +12,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ProjectileElementBase extends Projectile {
+public class ProjectileElementBase extends Projectile{
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
     public int maxBounces = 20;
