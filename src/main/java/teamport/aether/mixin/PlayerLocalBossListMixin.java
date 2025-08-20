@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
+import teamport.aether.world.AetherDimension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,10 @@ public abstract class PlayerLocalBossListMixin extends Player implements AetherB
 
         for (Mob boss : aether$bossList) {
             if (
-                (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight()) ||
-                !boss.isAlive()
+                (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight())
+                || !boss.isAlive()
+                || boss.world.dimension != world.dimension
+                || boss.distanceTo(this) > AetherDimension.bossDetectionRange
             ) {
                 _bosses.remove(boss);
             }

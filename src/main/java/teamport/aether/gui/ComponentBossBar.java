@@ -1,7 +1,6 @@
 package teamport.aether.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
@@ -12,9 +11,7 @@ import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.world.AetherDimension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentBossBar extends HudComponentMovable {
@@ -49,17 +46,9 @@ public class ComponentBossBar extends HudComponentMovable {
     }
 
     public List<Mob> getBossesFromPlayer(Minecraft mc) {
-        PlayerLocal player = mc.thePlayer;
-        List<Mob> result = new ArrayList<>();
+        List<Mob> bossList = ((AetherBossList) mc.thePlayer).aether$getBossList();
 
-        for (Mob mob : ((AetherBossList) player).aether$getBossList()) {
-            if (result.size() > barAmountLimit) break;
-            if (player.distanceTo(mob) < AetherDimension.bossDetectionRange) {
-                result.add(mob);
-            }
-        }
-
-        return result;
+        return bossList.subList(0, Math.min(bossList.size(), barAmountLimit));
     }
 
     @Override
