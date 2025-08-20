@@ -1,7 +1,6 @@
 package teamport.aether.entity.projectile;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -110,9 +109,9 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         newMotionX /= velocity;
         newMotionY /= velocity;
         newMotionZ /= velocity;
-        newMotionX += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
-        newMotionY += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
-        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
+        newMotionX += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        newMotionY += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
         newMotionX *= speed;
         newMotionY *= speed;
         newMotionZ *= speed;
@@ -120,8 +119,8 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         this.yd = newMotionY;
         this.zd = newMotionZ;
         float f3 = MathHelper.sqrt(newMotionX * newMotionX + newMotionZ * newMotionZ);
-        this.yRotO = this.yRot = (float)(Math.atan2(newMotionX, newMotionZ) * 180.0 / Math.PI);
-        this.xRotO = this.xRot = (float)(Math.atan2(newMotionY, f3) * 180.0 / Math.PI);
+        this.yRotO = this.yRot = (float) (Math.atan2(newMotionX, newMotionZ) * 180.0 / Math.PI);
+        this.xRotO = this.xRot = (float) (Math.atan2(newMotionY, f3) * 180.0 / Math.PI);
         this.ticksInGround = 0;
     }
 
@@ -147,8 +146,8 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         this.zd = zd;
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(xd * xd + zd * zd);
-            this.yRot = (float)(Math.atan2(xd, zd) * 30.0 / Math.PI);
-            this.xRot = (float)(Math.atan2(yd, f) * 30.0 / Math.PI);
+            this.yRot = (float) (Math.atan2(xd, zd) * 30.0 / Math.PI);
+            this.xRot = (float) (Math.atan2(yd, f) * 30.0 / Math.PI);
             this.xRotO = this.xRot;
             this.yRotO = this.yRot;
             this.moveTo(this.x, this.y, this.z, this.yRot, this.xRot);
@@ -164,8 +163,8 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
-            this.yRotO = this.yRot = (float)(Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
-            this.xRotO = this.xRot = (float)(Math.atan2(this.yd, f) * 30.0 / Math.PI);
+            this.yRotO = this.yRot = (float) (Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
+            this.xRotO = this.xRot = (float) (Math.atan2(this.yd, f) * 30.0 / Math.PI);
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
@@ -187,9 +186,9 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
             } else {
                 this.setGrounded(false);
-                this.xd *= (double)this.random.nextFloat() * 0.02;
-                this.yd *= (double)this.random.nextFloat() * 0.02;
-                this.zd *= (double)this.random.nextFloat() * 0.02;
+                this.xd *= (double) this.random.nextFloat() * 0.02;
+                this.yd *= (double) this.random.nextFloat() * 0.02;
+                this.zd *= (double) this.random.nextFloat() * 0.02;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -214,18 +213,18 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
             if (hitResult.entity instanceof MobZephyr) {
                 hitResult.entity.hurt(this, 10, DamageType.COMBAT);
                 if (this.owner instanceof Player) {
-                    ((Player)this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
+                    ((Player) this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
                 }
             }
             if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
                     IHasEffects mob = (IHasEffects) hitResult.entity;
-                    AetherEffects.add((Mob)mob, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                    AetherEffects.add((Mob) mob, AetherEffects.poisonEffect, random.nextInt(1) + 1);
                 }
                 if (dartType == 2) {
                     IHasEffects mob = (IHasEffects) hitResult.entity;
                     // slight weaker remedy than the usual one
-                    AetherEffects.add((Mob)mob,new EffectStack(mob, AetherEffects.remedyEffect, 20, 1));
+                    AetherEffects.add((Mob) mob, new EffectStack(mob, AetherEffects.remedyEffect, 20, 1));
                 }
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
@@ -233,12 +232,6 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                }
-
-                if (!(this instanceof ProjectileDartEnchanted)) {
-                    this.remove();
-                } else if (this.owner instanceof Player && ++this.mobsHit >= 3) {
-                    ((Player)this.owner).addStat(Achievements.TRIPLE_HIT, 1);
                 }
             } else if (!(this instanceof ProjectileDartEnchanted)) {
                 this.defaultGravity = 0.03F;
@@ -249,19 +242,20 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                 this.yRotO += 180.0F;
                 this.ticksInAir = 0;
             }
+            this.remove();
         } else {
             this.xTile = hitResult.x;
             this.yTile = hitResult.y;
             this.zTile = hitResult.z;
             this.inTile = this.world.getBlockId(this.xTile, this.yTile, this.zTile);
             this.inData = this.world.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-            this.xd = (float)(hitResult.location.x - this.x);
-            this.yd = (float)(hitResult.location.y - this.y);
-            this.zd = (float)(hitResult.location.z - this.z);
+            this.xd = (float) (hitResult.location.x - this.x);
+            this.yd = (float) (hitResult.location.y - this.y);
+            this.zd = (float) (hitResult.location.z - this.z);
             float f1 = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-            this.x -= this.xd / (double)f1 * 0.05;
-            this.y -= this.yd / (double)f1 * 0.05;
-            this.z -= this.zd / (double)f1 * 0.05;
+            this.x -= this.xd / (double) f1 * 0.05;
+            this.y -= this.yd / (double) f1 * 0.05;
+            this.z -= this.zd / (double) f1 * 0.05;
             this.inGroundAction();
         }
 
@@ -278,7 +272,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         } else {
             this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
-            for(int j = 0; j < 4; ++j) {
+            for (int j = 0; j < 4; ++j) {
                 this.world.spawnParticle("item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
             }
 
@@ -287,7 +281,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
     }
 
     public void waterTick() {
-        for(int k = 0; k < 4; ++k) {
+        for (int k = 0; k < 4; ++k) {
             double particleDistance = 0.25;
             this.world.spawnParticle("bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
         }
@@ -301,13 +295,13 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putShort("xTile", (short)this.xTile);
-        tag.putShort("yTile", (short)this.yTile);
-        tag.putShort("zTile", (short)this.zTile);
-        tag.putShort("inTile", (short)this.inTile);
-        tag.putByte("shake", (byte)this.shake);
-        tag.putByte("inData", (byte)this.inData);
-        tag.putByte("inGround", (byte)(this.isGrounded() ? 1 : 0));
+        tag.putShort("xTile", (short) this.xTile);
+        tag.putShort("yTile", (short) this.yTile);
+        tag.putShort("zTile", (short) this.zTile);
+        tag.putShort("inTile", (short) this.inTile);
+        tag.putByte("shake", (byte) this.shake);
+        tag.putByte("inData", (byte) this.inData);
+        tag.putByte("inGround", (byte) (this.isGrounded() ? 1 : 0));
         tag.putBoolean("player", this.dartBelongsToPlayer());
     }
 

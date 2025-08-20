@@ -70,6 +70,14 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return true;
     }
 
+    protected boolean isMovementBlocked() {
+        return true;
+    }
+
+    public boolean isPushable() {
+        return false;
+    }
+
     public void onLivingUpdate() {
         if (this.getHealth() > 0 && this.onGround) {
             ++this.entityAge;
@@ -98,6 +106,9 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target != null) {
+            if (!canEntityBeSeen(target)) {
+                this.attackCooldown = 0;
+            }
             if (!this.target.isAlive() || target.distanceTo(this) > 12.0) {
                 this.target = null;
                 this.attackCooldown = 0;
@@ -111,7 +122,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             }
         }
 
-
         ++this.smokeTime;
         if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
             this.smokeTime = 0;
@@ -120,7 +130,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             int k = MathHelper.floor(this.z);
 
             if (this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() && this.onGround) {
-                this.hurt(this, 999999, DamageType.FALL);
+                this.hurt(null, 999999, DamageType.FALL);
             }
         }
 
