@@ -20,9 +20,7 @@ import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
 
-import static net.minecraft.core.net.command.TextFormatting.RED;
-import static net.minecraft.core.net.command.TextFormatting.ORANGE;
-import static net.minecraft.core.net.command.TextFormatting.LIGHT_BLUE;
+import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
@@ -38,7 +36,6 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public boolean hasAttacked;
     public int wideness;
     public double speedness;
-    public int motionTimer;
 
     public MobBossSunspirit(@Nullable World world) {
         super(world);
@@ -49,7 +46,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         this.scoreValue = 100000;
         this.wideness = 10;
         this.speedness = 0.5 - (double) this.getHealth() / 70.0 * 0.2;
-        this.chatColor = (byte)(TextFormatting.YELLOW.id & 255);
+        this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
     }
 
     public void lerpMotion(double xd, double yd, double zd) {
@@ -79,75 +76,6 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             --this.chatTime;
         }
     }
-
-//    public void updateAI() {
-//        super.updateAI();
-//        if (this.gotTarget && this.target == null) {
-//            this.target = this.findPlayerToAttack();
-//            this.gotTarget = false;
-//        }
-//
-//        if (this.target == null) {
-//            this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
-//        } else {
-//            this.yBodyRot = this.yRot;
-//            this.setPos(this.x, (double) this.returnPoint.y, this.z);
-//            this.yd = 0.0;
-//            boolean pool = false;
-//            if (this.xd > 0.0 && (int) Math.floor(this.x) > this.returnPoint.x + this.wideness) {
-//                this.rotary = 360.0 - this.rotary;
-//                pool = true;
-//            } else if (this.xd < 0.0 && (int) Math.floor(this.x) < this.returnPoint.x - this.wideness) {
-//                this.rotary = 360.0 - this.rotary;
-//                pool = true;
-//            }
-//
-//            if (this.zd > 0.0 && (int) Math.floor(this.z) > this.returnPoint.z + this.wideness) {
-//                this.rotary = 180.0 - this.rotary;
-//                pool = true;
-//            } else if (this.zd < 0.0 && (int) Math.floor(this.z) < this.returnPoint.z - this.wideness) {
-//                this.rotary = 180.0 - this.rotary;
-//                pool = true;
-//            }
-//
-//            if (this.rotary > 360.0) {
-//                this.rotary -= 360.0;
-//            } else if (this.rotary < 0.0) {
-//                this.rotary += 360.0;
-//            }
-//
-//            if (this.target != null) {
-//                this.lookAt(this.target, 20.0F, 20.0F);
-//            }
-//
-//            double crazy = this.rotary / 57.295772552490234;
-//            this.xd = Math.sin(crazy) * this.speedness;
-//            this.zd = Math.cos(crazy) * this.speedness;
-//            ++this.motionTimer;
-//            if (this.motionTimer >= 20 || pool) {
-//                this.motionTimer = 0;
-//                if (this.random.nextInt(3) == 0) {
-//                    this.rotary += (double) (this.random.nextFloat() - this.random.nextFloat()) * 60.0;
-//                }
-//            }
-//
-//            if (this.target != null) {
-//                this.attackEntity(this.target, 32);
-//            }
-//
-//            if (this.target != null && !this.target.isAlive()) {
-//                this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
-//                this.xd = 0.0;
-//                this.yd = 0.0;
-//                this.zd = 0.0;
-//                this.target = null;
-//                ((Player) target).sendMessage("§eSuch is the fate of a being who opposes the might of the sun.");
-//                this.gotTarget = false;
-//            }
-//
-//        }
-//    }
-
 
     public boolean collidesWith(Entity entity) {
         if (!(entity instanceof MobBossSunspirit || entity instanceof MobFireMinion)) {
@@ -184,12 +112,12 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         if (this.chatTime <= 0) {
             if (this.chatLog < 9) {
                 player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog));
-                if(this.chatLog >= 5 && this.chatLog < 8){
+                if (this.chatLog >= 5 && this.chatLog < 8) {
                     player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog + "_1"));
                 }
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog++;
-                this.chatTime = 60;
+                this.chatTime = 40;
                 return false;
             }
             if (this.chatLog == 9) {
@@ -202,7 +130,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
                 player.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.repeat"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = 9;
-                this.chatTime = 60;
+                this.chatTime = 40;
                 return false;
             }
         }
@@ -214,10 +142,8 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             this.rotary = 57.295772552490234 * Math.atan2(this.x - player.x, this.z - player.z);
             this.target = player;
             this.gotTarget = true;
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -227,10 +153,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
         world.players.stream()
                 .filter(player -> player.distanceTo(this) < 32)
-                .forEach(p -> {
-                    p.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.dies"));
-                    p.triggerAchievement(AetherAchievements.GOLD);
-                    this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.gold", 0.5f, 1.0f);
+                .forEach(players -> {
+                    players.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.dies"));
+                    players.triggerAchievement(AetherAchievements.GOLD);
+                    this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
                 });
 
         super.onDeath(entityKilledBy);
@@ -247,6 +173,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             return player;
         }
         return null;
+    }
+
+    public boolean canFight() {
+        return isAlive() && gotTarget;
     }
 
     public float getBrightness(float partialTick) {

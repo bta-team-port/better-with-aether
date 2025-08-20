@@ -19,10 +19,7 @@ import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.items.AetherItems;
 
-import static net.minecraft.core.net.command.TextFormatting.RED;
-import static net.minecraft.core.net.command.TextFormatting.GREEN;
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
-import static net.minecraft.core.net.command.TextFormatting.LIGHT_BLUE;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public class MobBossValkyrie extends MobBoss implements EnemyBoss {
@@ -44,7 +41,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.moveSpeed = 0.5F;
         this.attackStrength = 10;
         this.footSize = 1.5f;
-        this.chatColor = (byte)(LIGHT_GRAY.id & 255);
+        this.chatColor = (byte) (LIGHT_GRAY.id & 255);
     }
 
     public void jump() {
@@ -139,15 +136,15 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            entityplayer.sendMessage(GREEN + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peacefull"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peaceful"));
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
-            this.chatTime = 60;
+            this.chatTime = 40;
             return true;
         }
 
         if (this.duel) {
-            entityplayer.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
-            this.chatTime = 60;
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
+            this.chatTime = 40;
             return true;
         }
 
@@ -157,12 +154,12 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             if (itemstack.stackSize <= 0) {
                 entityplayer.destroyCurrentEquippedItem();
             }
-            entityplayer.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
             this.duel = true;
         } else {
             entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
         }
-        this.chatTime = 60;
+        this.chatTime = 40;
         return true;
     }
 
@@ -180,11 +177,11 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
     public void onDeath(Entity entityKilledBy) {
         this.world.players.stream()
                 .filter(player -> player.distanceTo(this) < 32)
-                .forEach(p -> {
+                .forEach(players -> {
                     this.dead = true;
-                    p.triggerAchievement(AetherAchievements.SILVER);
-                    this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.silver", 0.5f, 1.0f);
-                    p.sendMessage(LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
+                    players.triggerAchievement(AetherAchievements.SILVER);
+                    this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.silver", 0.5f, 1.0f);
+                    players.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
                 });
         super.onDeath(entityKilledBy);
     }
@@ -292,16 +289,12 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
-        if (!duel) {
-            return false;
-        }
-
         Player player = (Player) attacker;
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player) {
+        if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player && !duel) {
             if (this.chatTime <= 0) {
-                player.sendMessage(GREEN + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
-                this.chatTime = 60;
+                this.chatTime = 40;
             }
             return false;
         }
@@ -311,15 +304,15 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
                 String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
                 player.sendMessage(TRANSLATOR.translateKey(message));
-                this.chatTime = 60;
+                this.chatTime = 40;
             }
             return false;
         }
 
         if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
-            player.sendMessage(LIGHT_GRAY + TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             this.attacked = true;
-            this.chatTime = 60;
+            this.chatTime = 40;
         } else {
             this.teleportTimer += 60;
         }
@@ -327,7 +320,6 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.target = attacker;
         return super.hurt(attacker, i, type);
     }
-
 
 
     @Override
@@ -358,7 +350,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
                 Player target = (Player) entity;
                 if (target.getHealth() <= 0 && this.chatTime <= 0) {
                     this.target = null;
-                    this.chatTime = 60;
+                    this.chatTime = 40;
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.heal(400);
                     this.duel = false;
