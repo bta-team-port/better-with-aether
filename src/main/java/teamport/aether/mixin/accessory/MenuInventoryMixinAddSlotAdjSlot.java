@@ -92,17 +92,17 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
                 || slot.index > 44
                 || target == 1
                 || slot.getItemStack() == null
-                || !(slot.getItemStack().getItem() instanceof IAccessory)
+                || !(slot.getItemStack().getItem() instanceof IAccessory || slot.getItemStack().getItem().hasTag(AetherItemTags.TRINKET))
 //                || target != 2
         ) {
             return;
         }
-        IAccessory accessory = (IAccessory)slot.getItemStack().getItem();
+        Item accessory = slot.getItemStack().getItem();
         List<Integer> ints = new ArrayList<>();
         if (accessory instanceof ItemAccessoryArmor) {
             ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
         }
-        if (((Item) accessory).hasTag(AetherItemTags.TRINKET)) {
+        if (accessory.hasTag(AetherItemTags.TRINKET)) {
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
         }
