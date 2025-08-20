@@ -143,14 +143,14 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureAetherOre(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for(j4 = 0; (float)j4 < 20.0F * oreHeightModifier; ++j4) {
+        for(j4 = 0; (float)j4 < 25.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for(j4 = 0; (float)j4 < 20.0F * oreHeightModifier; ++j4) {
+        for(j4 = 0; (float)j4 < 25.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(192);
             treeDensity = z + rand.nextInt(16);

@@ -24,10 +24,10 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
 
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         if (dropCause != EnumDropCause.PICK_BLOCK && dropCause != EnumDropCause.SILK_TOUCH) {
-            if (world.rand.nextInt(100) <= 5) {
+            if (world.rand.nextInt(20) == 0) {
                 return new ItemStack[]{new ItemStack(AetherBlocks.SAPLING_OAK_GOLDEN, 1)};
             }
-            if (world.rand.nextInt(100) <= 1) {
+            if (world.rand.nextInt(1000) == 0) {
                 return new ItemStack[]{new ItemStack(Items.FOOD_APPLE_GOLD, 1)};
             }
         } else {

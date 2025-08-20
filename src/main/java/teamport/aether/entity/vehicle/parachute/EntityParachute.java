@@ -8,6 +8,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.mixin.accessors.MobAccessor;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class EntityParachute extends Mob {
     public EntityParachute(@Nullable World world) {
@@ -26,8 +27,9 @@ public class EntityParachute extends Mob {
         double x = this.x + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double y = this.bb.minY - 0.5 + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
-        world.spawnParticle("explode", x, y, z, 0.0, 0.0, 0.0, 0);
-
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            world.spawnParticle("explode", x, y, z, 0.0, 0.0, 0.0, 0);
+        }
         if (this.passenger == null) {
             this.remove();
         }
@@ -63,7 +65,7 @@ public class EntityParachute extends Mob {
                 float moveX = (float) ((-forward * Math.sin(f5) + strafe * Math.cos(f5)) * 0.6F / 6.0F);
                 float moveZ = (float) ((forward * Math.cos(f5) + strafe * Math.sin(f5)) * 0.6F / 6.0F);
 
-                float magnitude = (float)Math.sqrt(moveX * moveX + moveZ * moveZ);
+                float magnitude = (float) Math.sqrt(moveX * moveX + moveZ * moveZ);
                 if (magnitude > 0.1F) {
                     moveX /= magnitude;
                     moveZ /= magnitude;

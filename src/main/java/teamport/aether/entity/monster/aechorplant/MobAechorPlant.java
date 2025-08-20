@@ -13,6 +13,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
@@ -131,6 +132,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
+    public boolean canEntityBeSeen(Entity entity) {
+        return this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + (double)this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + (double)entity.getHeadHeight(), entity.z),
+                false, true, false) == null;
+    }
+
     public void shootTarget(Entity target) {
         if (this.world.getDifficulty().canHostileMobsSpawn() && !this.world.isClientSide) {
 
@@ -147,10 +153,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
             needle.y = this.y + 0.5;
 
-            double h = target.y + (double)target.getHeadHeight() - 0.8 - needle.y;
+            double h = target.y + (double) target.getHeadHeight() - 0.8 - needle.y;
             float f1 = MathHelper.sqrt(d1 * d1 + d2 * d2) * 0.2F;
 
-            needle.setHeading(dX, h + (double)f1, dZ, 0.6F, 12.0F);
+            needle.setHeading(dX, h + (double) f1, dZ, 0.6F, 12.0F);
 
             this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
             this.world.entityJoinedWorld(needle);

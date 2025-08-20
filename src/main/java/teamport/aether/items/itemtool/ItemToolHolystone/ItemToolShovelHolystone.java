@@ -18,13 +18,12 @@ public class ItemToolShovelHolystone extends ItemToolShovelAether {
     }
 
     @Override
-    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob
-            mob) {
+    public boolean onBlockDestroyed(World world, ItemStack itemstack, int i, int x, int y, int z, Side side, Mob mob) {
         Block<?> block = Blocks.blocksList[i];
         if (block != null && (block.getHardness() > 0.0F || this.isSilkTouch())) {
             itemstack.damageItem(1, mob);
         }
-        if (itemRand.nextInt(16) == 0) {
+        if (itemRand.nextInt(16) == 0 && block.getHardness() > 0.0F) {
             world.dropItem(x, y, z, new ItemStack(AMBROSIUM, 1));
         }
         return true;

@@ -50,14 +50,12 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     }
                 }
 
-                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(256) == 0 && (world.dimension == AetherDimension.AETHER)) {
+                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.AETHER)) {
                     r = rand.nextInt(400);
                     if (r < 26) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
-                    } else if (r > 41) {
-                        idToSpawn = AetherBlocks.FLOWER_WHITE.id();
-                    } else if (rand.nextInt(8) == 0) {
-                        idToSpawn = AetherBlocks.TALLGRASS_AETHER.id();
+                    } else if (r < 41) {
+                        idToSpawn = AetherBlocks.FLOWER_WHITE.id();;
                     } else {
                         idToSpawn = AetherBlocks.TALLGRASS_AETHER.id();
                     }

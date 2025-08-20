@@ -18,6 +18,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MobMimic;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 } else {
                     mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
                 }
-                world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
+                }
                 world.entityJoinedWorld(mimic);
         }
         return null;
@@ -90,7 +93,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.entityJoinedWorld(mimic);
         world.setBlockWithNotify((int)Math.round(dx), (int)Math.round(dy), (int)Math.round(dz), 0);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
-        world.spawnParticle("explode", dx, dy, dz, 0.0, 0.0, 0.0, 0);
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            world.spawnParticle("explode", dx, dy, dz, 0.0, 0.0, 0.0, 0);
+        }
     }
 
     @Override
@@ -109,7 +114,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             player.sendMessage("<Mimic> Thank you dark souls.");
         }
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
-        world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
+        }
         player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
         return true;
     }

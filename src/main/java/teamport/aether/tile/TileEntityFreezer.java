@@ -5,6 +5,8 @@ import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.packet.Packet;
+import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
@@ -234,4 +236,10 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             }
         }
     }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        return this.containerItemStacks[2] != null ? new PacketTileEntityData(this) : null;
+    }
+
 }
