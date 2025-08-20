@@ -8,6 +8,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.AetherAchievements;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class BlockLogicCloudBlue extends BlockLogicCloudBase {
     public BlockLogicCloudBlue(Block<?> block) {
@@ -20,7 +21,8 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (world.isClientSide) {
+        //don't reference particles on the server. It will crash.
+        if (!EnvironmentHelper.isServerEnvironment()) {
             if (entity instanceof Player) {
                 ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
             }
