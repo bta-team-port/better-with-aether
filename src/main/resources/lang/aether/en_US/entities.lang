@@ -114,7 +114,6 @@ guidebook.section.mob.slider.name=Slider
 guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
 aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
-aether.entity.boss_slider.dies= *block noises*
 
 aether.entity.boss_slider.death_message_0 = [PLAYER] was crushed by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_1 = [PLAYER] was mined by the mighty [BOSS]!
@@ -135,7 +134,7 @@ aether.entity.boss_valkyrie.title=%s, The Valkyrie Queen
 aether.entity.boss_valkyrie.duel_start = Very well, attack me when you wish to begin.
 aether.entity.boss_valkyrie.condition = Show me 10 victory medals, and I will fight you.
 aether.entity.boss_valkyrie.duel = If you wish to challenge me, strike at any time.
-aether.entity.boss_valkyrie.peacefull = I have no time for pathetic humans like you.
+aether.entity.boss_valkyrie.peaceful = I have no time for pathetic humans like you.
 aether.entity.boss_valkyrie.dies = You are truly... a mighty warrior...
 aether.entity.boss_valkyrie.weakling = Sorry, I don't fight with weaklings.
 aether.entity.boss_valkyrie.fight_weaklings = Try defeating some weaker valkyries first.
@@ -157,6 +156,7 @@ aether.entity.boss_sunspirit=Sun Spirit
 aether.entity.boss_sunspirit.id=boss_sunspirit
 guidebook.section.mob.sunspirit.name=Sun Spirit
 guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
+aether.entity.boss_sunspirit.title=%s, The Sun Spirit
 aether.entity.boss_sunspirit.chat_0= You are certainly a brave soul to have entered this chamber.
 aether.entity.boss_sunspirit.chat_1= Begone human, you serve no purpose here.
 aether.entity.boss_sunspirit.chat_2= Your presence annoys me. Do you not fear my burning aura?
@@ -211,14 +211,14 @@ aether.entity.knife_lightning.death_message.suicide = [PLAYER] discovered electr
 aether.entity.needle.death_message.suicide = [PLAYER] got hit in his Achilles heel.
 
 aether.entity.arrow_flaming.death_message.player = [KILLER] turned [PLAYER] into barbecue.
-aether.entity.dart.death_message.player = [KILLER] hitted the [PLAYER] in the bullseye.
-aether.entity.dart_enchanted.death_message.player = [KILLER] cure [PLAYER] of life.
+aether.entity.dart.death_message.player = [KILLER] shot [PLAYER] in the bullseye.
+aether.entity.dart_enchanted.death_message.player = [KILLER] cured [PLAYER] of life.
 aether.entity.hammer_head.death_message.player = [KILLER] showed [PLAYER] where the hammer hangs.
 aether.entity.knife_lightning.death_message.player = [KILLER] smited [PLAYER].
 aether.entity.needle.death_message.player = [KILLER] overdid the acupuncture on [PLAYER].
 
 # currently unused
-aether.entity.projectile_fire.death_message.suicide = [PLAYER] juggled to many flames!
+aether.entity.projectile_fire.death_message.suicide = [PLAYER] juggled too many flames!
 aether.entity.projectile_ice.death_message.suicide = [PLAYER] took on the ice bucket challenge!
 aether.entity.projectile_lightning.death_message.suicide = [PLAYER] was shocked.
 aether.entity.projectile_fire.death_message.player = [KILLER] player with fire. [PLAYER] got burned.
