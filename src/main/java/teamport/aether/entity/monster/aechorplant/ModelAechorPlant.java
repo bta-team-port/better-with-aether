@@ -42,15 +42,15 @@ public class ModelAechorPlant extends ModelBase {
             this.petal[i] = new Cube(0, 0);
             if (i % 2 == 0) {
                 this.petal[i] = new Cube(29, 3);
-                this.petal[i].addBox(-4.0F, -1.0F, -12.0F, 8, 1, 9, f - 0.25F);
+                this.petal[i].addBox(-4.0F, -1.0F, -12.0F, 8, 0, 9, f);
                 this.petal[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
             } else {
-                this.petal[i].addBox(-4.0F, -1.0F, -13.0F, 8, 1, 10, f - 0.125F);
+                this.petal[i].addBox(-4.0F, -1.0F, -13.0F, 8, 0, 10, f);
                 this.petal[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
             }
 
             this.leaf[i] = new Cube(38, 13);
-            this.leaf[i].addBox(-2.0F, -1.0F, -9.5F, 4, 1, 8, f - 0.15F);
+            this.leaf[i].addBox(-2.0F, -1.0F, -9.5F, 4, 1, 8, f);
             this.leaf[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
@@ -59,13 +59,13 @@ public class ModelAechorPlant extends ModelBase {
 
         for (i = 0; i < stamens; ++i) {
             this.stamen[i] = new Cube(36, 13);
-            this.stamen[i].addBox(0.0F, -9.0F, -1.5F, 1, 6, 1, f - 0.25F);
+            this.stamen[i].addBox(0.0F, -9.0F, -1.5F, 1, 6, 0, f);
             this.stamen[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
         for (i = 0; i < stamens; ++i) {
             this.stamen2[i] = new Cube(32, 15);
-            this.stamen2[i].addBox(0.0F, -10.0F, -1.5F, 1, 1, 1, f + 0.125F);
+            this.stamen2[i].addBox(0.0F, -8.1F, -2.0F, 1, 0, 1, f);
             this.stamen2[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
@@ -82,10 +82,10 @@ public class ModelAechorPlant extends ModelBase {
             this.thorn[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
-        this.thorn[0].addBox(-1.75F, 1.25F, -1.0F, 1, 1, 1, f - 0.25F);
-        this.thorn[1].addBox(-1.0F, 2.25F, 0.75F, 1, 1, 1, f - 0.25F);
-        this.thorn[2].addBox(0.75F, 1.25F, 0.0F, 1, 1, 1, f - 0.25F);
-        this.thorn[3].addBox(0.0F, 2.25F, -1.75F, 1, 1, 1, f - 0.25F);
+        this.thorn[0].addBox(-1.75F, 1.25F, -1.0F, 1, 0, 1, f);
+        this.thorn[1].addBox(-1.0F, 2.25F, 0.75F, 1, 0, 1, f);
+        this.thorn[2].addBox(0.75F, 1.25F, 0.0F, 1, 0, 1, f);
+        this.thorn[3].addBox(0.0F, 2.25F, -1.75F, 1, 0, 1, f);
     }
 
     public void render(float f, float f1, float f2, float f3, float f4, float f5) {
