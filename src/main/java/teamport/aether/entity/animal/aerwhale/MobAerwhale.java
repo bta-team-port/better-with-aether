@@ -26,12 +26,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     public MobAerwhale(World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");
-        this.viewScale = 4f;
+        this.viewScale = 100.0f;
         this.fireImmune = true;
         this.aggroCooldown = 0;
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
-        this.setSize(6.0F, 6.0F);
+        this.setSize(0.1F, 0.1F);
         this.moveSpeed = 0.5F;
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
@@ -45,7 +45,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
 
     public void defineSynchedData() {
-        this.entityData.define(16, (byte)0, Byte.class);
+        this.entityData.define(16, (byte) 0, Byte.class);
     }
 
     public void tick() {

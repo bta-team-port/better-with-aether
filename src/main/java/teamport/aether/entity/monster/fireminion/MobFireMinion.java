@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
@@ -20,7 +21,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         this.fireImmune = true;
         this.maxFireTicks = 20;
         this.scoreValue = 1000;
-        setSize(1.0f,  2.5f);
+        setSize(1.0f, 2.5f);
     }
 
     public float getBrightness(float partialTick) {
@@ -56,10 +57,11 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
                 double d = this.x + a * b;
                 double e = this.bb.minY + b - 0.5;
                 double f = this.z + c * b;
-                this.world.spawnParticle("flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    this.world.spawnParticle("flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+                }
             }
         }
-
     }
 
     public String getLivingSound() {

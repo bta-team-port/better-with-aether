@@ -28,9 +28,6 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 
 public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public boolean grab;
-    public boolean gotRider;
-
-    public float jumpCooldown = 0;
 
     public MobAerbunny(World world) {
         super(world);
@@ -84,22 +81,19 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     public void tick() {
-        if (this.passenger != null) {
-            gotRider = true;
-        }
-
         float puffiness = getPuffiness();
 
-        if (puffiness > 0.0F) { puffiness -= 0.1F; }
-        else { puffiness = 0.0F;}
+        if (puffiness > 0.0F) {
+            puffiness -= 0.1F;
+        } else {
+            puffiness = 0.0F;
+        }
 
         setPuffiness(puffiness);
 
         if (vehicle != null) {
             if (this.vehicle.isRemoved()) this.startRiding(this.vehicle);
-        }
-
-        else if (!grab) {
+        } else if (!grab) {
             if (this.moveForward != 0.0F) {
                 int x = MathHelper.floor(this.x);
                 int y = MathHelper.floor(this.bb.minY);
@@ -141,12 +135,10 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putBoolean("GotRider", gotRider);
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        gotRider = tag.getBoolean("GotRider");
     }
 
     public void onLivingUpdate() {
@@ -180,14 +172,16 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         double d = this.x + a * 0.4000000059604645;
         double e = this.bb.minY;
         double f = this.z + a * 0.4000000059604645;
-        this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+        }
     }
 
     public boolean hurt(Entity entity, int i, DamageType type) {
-        if (this.vehicle == entity) {
+        if (this.vehicle != null) {
             return false;
         } else {
-            return super.hurt(entity, i ,type);
+            return super.hurt(entity, i, type);
         }
     }
 
@@ -233,8 +227,8 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
         if (EnvironmentHelper.isServerEnvironment()) {
             MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
-                x, y, z, 32, world.dimension.id,
-                new PacketSetRiding(this, (Entity) this.vehicle)
+                    x, y, z, 32, world.dimension.id,
+                    new PacketSetRiding(this, (Entity) this.vehicle)
             );
         }
     }

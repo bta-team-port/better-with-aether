@@ -13,6 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.gui.IAetherScreens;
 import teamport.aether.tile.TileEntityFreezer;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
@@ -57,7 +58,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-        if (!world.isClientSide) {
+        if (!EnvironmentHelper.isServerEnvironment()) {
             TileEntityFreezer tileEntityFreezer = (TileEntityFreezer) world.getTileEntity(x, y, z);
             ((IAetherScreens) player).aether$displayFreezerScreen(tileEntityFreezer);
         }

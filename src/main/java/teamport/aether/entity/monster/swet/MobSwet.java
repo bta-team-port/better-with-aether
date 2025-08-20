@@ -137,6 +137,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             if (!this.friendly) {
                 if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                     this.attackTime = 200;
+                    this.splorch();
                     entity.hurt(this, 2, DamageType.COMBAT);
                 }
             }
@@ -144,12 +145,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     }
 
     public void playerTouch(Player player) {
-        int i = 2;
         if (this.isAlive()) {
             if (!this.friendly) {
-                if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT) && getHealth() > 0 && !dead) {
+                if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead) {
                     player.startRiding(this);
-                    this.splorch();
                 }
             }
         }

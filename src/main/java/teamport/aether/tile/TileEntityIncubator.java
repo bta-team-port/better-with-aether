@@ -7,6 +7,8 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.net.packet.Packet;
+import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
@@ -204,7 +206,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         return AetherRecipes.INCUBATOR.findOutput(this.containerItemStacks[0]) != null;
     }
 
-
+    @Override
+    public Packet getDescriptionPacket() {
+        return this.containerItemStacks[0] != null ? new PacketTileEntityData(this) : null;
+    }
 
     @Override
     public void updateContainer(boolean forceLit) {

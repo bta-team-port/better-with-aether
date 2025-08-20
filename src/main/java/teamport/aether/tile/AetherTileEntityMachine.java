@@ -9,8 +9,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
-import net.minecraft.core.net.packet.PacketTileEntityData;
-import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
@@ -155,17 +153,19 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         }
     }
 
+
+    public void sortContainer() {
+    }
+
     //override
 
     public void dropContents(World world, int x, int y, int z) {
     }
-    public Packet getDescriptionPacket() {
-        return this.containerItemStacks[2] != null ? new PacketTileEntityData(this) : null;
-    }
 
-    public void sortContainer() {
-        InventorySorter.sortInventory(containerItemStacks);
+    public Packet getDescriptionPacket() {
+        return null;
     }
+    //override
 
     @Override
     public void heldTick(World world, Entity holder) {

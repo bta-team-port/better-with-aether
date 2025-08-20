@@ -35,7 +35,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         entity.fallDistance = 0.0F;
         entity.yd *= 0.005;
 
-        if (entity.y > (double) y && !entity.isSneaking()) {
+        if (entity.y > (double) y && !entity.isSneaking() && !(entity instanceof Particle)) {
             this.jump(entity);
         }
     }
