@@ -41,17 +41,17 @@ guidebook.section.mob.swet.name=Blue Swet
 guidebook.section.mob.swet.desc=Blue swets can be dangerous if they manage to grab you. They can be found uncommonly anywhere in the aether.
 
 aether.entity.swet_gold=Gold Swet
-aether.entity.swet_gold.death_message = [PLAYER] has died to cuteness.
+aether.entity.swet_gold.death_message = [PLAYER] was dissolved in gold.
 guidebook.section.mob.swet.gold.name=Gold Swet
 guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you let them pick you up. They can be found rarely anywhere in the aether.
 
 aether.entity.cockatrice=Cockatrice
-aether.entity.cockatrice.death_message = [PLAYER] was breathed on to hard.
+aether.entity.cockatrice.death_message = [PLAYER] was turned into a pincushion.
 guidebook.section.mob.cockatrice.name=Cockatrice
 guidebook.section.mob.cockatrice.desc=Angry and hostile avian that can be found in dark places. They shoot poison needles out of their mouths.
 
 aether.entity.aechorplant=Aechor Plant
-aether.entity.aechorplant.death_message = [PLAYER] has sniffed a flower to hard.
+aether.entity.aechorplant.death_message = [PLAYER] sniffed a flower too hard.
 guidebook.section.mob.aechorplant.name=Aechor Plant
 guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison needles to deter anything from coming near.
 
@@ -69,17 +69,17 @@ guidebook.section.mob.mimic.name=Mimic
 guidebook.section.mob.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
 aether.entity.sentry=Sentry
-aether.entity.sentry.death_message = [PLAYER] has tripped over pebble.
+aether.entity.sentry.death_message = [PLAYER] walked over a living mine.
 guidebook.section.mob.sentry.name=Sentry
 guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 
 aether.entity.valkyrie=Valkyrie
-aether.entity.valkyrie.death_message = [PLAYER] lost a honorable duel.
+aether.entity.valkyrie.death_message = [PLAYER] lost an honorable duel.
 guidebook.section.mob.valkyrie.name=Valkyrie
 guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
 aether.entity.minion_fire=Fire Minion
-aether.entity.minion_fire.death_message = [PLAYER] has hugged fire.
+aether.entity.minion_fire.death_message = [PLAYER] hugged fire.
 guidebook.section.mob.fireminion.name=Fire Minion
 guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spirit, quick and deadly.
 
