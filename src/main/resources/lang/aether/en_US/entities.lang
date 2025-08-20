@@ -120,9 +120,9 @@ aether.entity.boss_slider.death_message_1 = [PLAYER] was mined by the mighty [BO
 aether.entity.boss_slider.death_message_2 = [PLAYER] was tossed by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_3 = [PLAYER] was flung by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_4 = [PLAYER] was flattened into wallpaper by [BOSS]!
-aether.entity.boss_slider.death_message_5 = [PLAYER] punted across the chamber by the mighty [BOSS]!
-aether.entity.boss_slider.death_message_6 = [PLAYER] chiseled out of existence by the mighty [BOSS]!
-aether.entity.boss_slider.death_message_7 = [PLAYER] juggled between sentries and the mighty [BOSS]!
+aether.entity.boss_slider.death_message_5 = [PLAYER] was punted across the chamber by the mighty [BOSS]!
+aether.entity.boss_slider.death_message_6 = [PLAYER] was chiseled out of existence by the mighty [BOSS]!
+aether.entity.boss_slider.death_message_7 = [PLAYER] was juggled between sentries and the mighty [BOSS]!
 aether.entity.boss_slider.death_message_8 = [PLAYER] was served on a silver platter to the mighty [BOSS]!
 
 aether.entity.boss_valkyrie=Valkyrie Queen
@@ -173,17 +173,17 @@ aether.entity.boss_sunspirit.fight.start= As you wish, your death will be slow a
 aether.entity.boss_sunspirit.fight.repeat= Did your previous death not satisfy your curiosity, human?
 aether.entity.boss_sunspirit.dies= Such bitter cold... is this the feeling... of pain?
 
-aether.entity.boss_sunspirit.death_message_0 = [PLAYER] ignored the sparks dancing around! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_1 = [PLAYER] charged recklessly into my flames! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_2 = [PLAYER] thought they could handle the heat! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_3 = [PLAYER] ran headfirst into danger! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_4 = [PLAYER] ignored my warnings! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_5 = [PLAYER] underestimated the blaze! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_6 = [PLAYER] tried to play with fire! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_7 = [PLAYER] reached for the sun! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message_8 = [PLAYER] got fired! I, [BOSS], have warned them, to file their report on time!
-aether.entity.boss_sunspirit.death_message.projectile_fire = [PLAYER] juggled to many flames! I, [BOSS], have warned them!
-aether.entity.boss_sunspirit.death_message.projectile_ice = [PLAYER] took on the ice bucket challenge! I, [BOSS], have warned them!
+aether.entity.boss_sunspirit.death_message_0 = [PLAYER] ignored the sparks dancing around! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_1 = [PLAYER] charged recklessly into my flames! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_2 = [PLAYER] thought they could handle the heat! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_3 = [PLAYER] ran headfirst into danger! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_4 = [PLAYER] ignored my warnings! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_5 = [PLAYER] underestimated the blaze! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_6 = [PLAYER] tried to play with fire! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_7 = [PLAYER] reached for the sun! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message_8 = [PLAYER] got fired! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message.projectile_fire = [PLAYER] juggled too many flames! I, [BOSS], warned them!
+aether.entity.boss_sunspirit.death_message.projectile_ice = [PLAYER] took on the ice bucket challenge! I, [BOSS], warned them!
 
 # Misc
 aether.entity.floating_block=floating_block
