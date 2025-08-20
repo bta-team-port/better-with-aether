@@ -63,6 +63,7 @@
     "item.ItemSaddleMixin",
     "item.ItemToolShovelMixin",
     "item.LavaBucketMixin",
+    "TreeCapitatorAetherAxeMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
     "screens.PlayerMixinAetherScreens"
