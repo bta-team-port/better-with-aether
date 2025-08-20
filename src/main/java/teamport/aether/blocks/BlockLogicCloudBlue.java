@@ -20,7 +20,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
 
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        if (!world.isClientSide) {
+        if (world.isClientSide) {
             if (entity instanceof Player) {
                 ((Player) entity).addStat(AetherAchievements.BOUNCE, 1);
             }
@@ -33,7 +33,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         entity.fallDistance = 0.0F;
         entity.yd *= 0.005;
 
-        if (!(entity instanceof Particle) && !entity.isSneaking()) {
+        if (entity.y > (double) y && !entity.isSneaking()) {
             this.jump(entity);
         }
     }
