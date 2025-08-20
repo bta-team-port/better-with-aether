@@ -13,6 +13,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.items.AetherItems;
 
 public class ItemToolAxeAether extends ItemTool {
     public ItemToolAxeAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -25,8 +26,14 @@ public class ItemToolAxeAether extends ItemTool {
 
     public boolean beforeDestroyBlock(World world, ItemStack itemStack, int blockId, int x, int y, int z, Side side, Player player) {
         if (!world.isClientSide && world.getGameRuleValue(GameRules.TREECAPITATOR) && !player.isSneaking()) {
-            int id = world.getBlockId(x, y, z);
-            if (Block.hasLogicClass(Blocks.getBlock(id), BlockLogicLog.class)) {
+            ItemStack held = player.getHeldItem();
+            if (
+                    Block.hasLogicClass(Blocks.getBlock(blockId), BlockLogicLog.class)
+                    && (Blocks.getBlock(blockId) != null
+                    && (Blocks.getBlock(blockId).hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE))
+                    || held.itemID == AetherItems.TOOL_AXE_VALKYRIE.id)
+
+            ) {
                 return !(new TreecapitatorHelper(world, x, y, z, player)).chopTree();
             }
         }
