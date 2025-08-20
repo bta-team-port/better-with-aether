@@ -89,11 +89,11 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
 
     public void onDeath(Entity entityKilledBy) {
         this.world.players.stream()
-                .filter(player -> player.distanceTo(this) < 32)
-                .forEach(p -> {
-                    p.triggerAchievement(AetherAchievements.BRONZE);
-                    this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
-                });
+            .filter(player -> player.distanceTo(this) < 32)
+            .forEach(p -> {
+                p.triggerAchievement(AetherAchievements.BRONZE);
+                this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
+            });
 
         super.onDeath(entityKilledBy);
     }
@@ -154,17 +154,17 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
             float moveAmount = speed / TICKS_PER_SECOND;
             if (blocksToMove > moveAmount) {
                 move(
-                        moveAmount * moveDirection.getOffsetX(),
-                        moveAmount * moveDirection.getOffsetY(),
-                        moveAmount * moveDirection.getOffsetZ()
+                    moveAmount * moveDirection.getOffsetX(),
+                    moveAmount * moveDirection.getOffsetY(),
+                    moveAmount * moveDirection.getOffsetZ()
                 );
 
                 blocksToMove -= moveAmount;
             } else {
                 move(
-                        blocksToMove * moveDirection.getOffsetX(),
-                        blocksToMove * moveDirection.getOffsetY(),
-                        blocksToMove * moveDirection.getOffsetZ()
+                    blocksToMove * moveDirection.getOffsetX(),
+                    blocksToMove * moveDirection.getOffsetY(),
+                    blocksToMove * moveDirection.getOffsetZ()
                 );
 
                 blocksToMove = 0;
