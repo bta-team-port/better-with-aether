@@ -7,6 +7,7 @@ import net.minecraft.client.render.Font;
 import net.minecraft.core.Timer;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.Color;
+import net.minecraft.core.util.helper.DyeColor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherRemoteResourceDownloaderThread;
-import toufoumaster.btwaila.util.Colors;
 
 import static teamport.aether.AetherClient.resourceDownloaderThread;
 
@@ -31,10 +31,10 @@ public class ResourceDownloadToastMixin {
     @Shadow private int ticksRan;
     @Shadow @Final private Timer timer;
     @Unique
-    int dark = Colors.LIGHT_GRAY;
+    int dark = DyeColor.SILVER.color.value;
 
     @Unique
-    int light = Colors.WHITE;
+    int light = DyeColor.WHITE.color.value;
 
     @Unique
     int animLength = (int) (20 * 1.5);
