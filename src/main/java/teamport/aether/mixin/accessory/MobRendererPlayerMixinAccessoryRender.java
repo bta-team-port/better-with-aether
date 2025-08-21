@@ -29,6 +29,9 @@ import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.pendant.ItemPendant;
+import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
+import teamport.aether.items.accessory.trinket.ItemIronBubble;
+import teamport.aether.items.accessory.trinket.ItemRegenStone;
 import teamport.aether.items.accessory.trinket.ItemShield;
 
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
@@ -54,6 +57,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Unique
     public final ModelBiped modelAccessories = new ModelBiped(1.1F);
+
+    @Unique
+    public final ModelBiped modelEars = new ModelBiped(1.0F);
 
     @Unique
     public final ModelBiped shield = new ModelBiped(1.5F);
@@ -131,6 +137,22 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
+            /// ########################################################################################################
+            ///  Experimental, not sure how to move the icon up
+            if (item instanceof ItemGoldenFeather && false) { // temp disable rendering
+                ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
+                int variant = 0;
+                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemGoldenFeather) {
+                    variant = 1;
+                }
+                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                modelEars.ear.visible = true;
+                renderDispatcher.textureManager.loadTexture(path).bind();
+                setArmorModel(modelEars);
+                info.setReturnValue(true);
+                return;
+            }
+            /// ########################################################################################################
             if (item instanceof ItemPendant) {
                 ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
                 int variant = 0;
