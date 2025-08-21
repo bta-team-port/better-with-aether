@@ -31,7 +31,7 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether {
         Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
         if (block == null
                 || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                || player.isSneaking()
+                || !player.isSneaking()
                 || block.getHardness() < 0
                 || nextBlock != null
                 && nextBlock.id() != Blocks.COBWEB.id()

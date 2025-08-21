@@ -31,7 +31,7 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether {
         Block<?> nextBlock = world.getBlock(blockX, blockY + 1, blockZ);
         if (block == null
                 || !block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)
-                || player.isSneaking()
+                || !player.isSneaking()
                 || block.getHardness() < 0
                 || nextBlock != null
                 && nextBlock.id() != Blocks.COBWEB.id()
