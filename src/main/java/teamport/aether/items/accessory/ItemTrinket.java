@@ -23,11 +23,11 @@ public class ItemTrinket extends Item implements IAccessory {
         this.withTags(new Tag[]{AetherItemTags.TRINKET});
     }
 
-    public void setIcon(String path){
+    public void setIcon(String path) {
         LookupTrinketIcons.instance.addEntry(this.namespaceID, path);
     }
 
-    public static void setIcon(Item item, String path){
+    public static void setIcon(Item item, String path) {
         LookupTrinketIcons.instance.addEntry(item.namespaceID, path);
         item.withTags(new Tag[]{AetherItemTags.TRINKET});
     }
