@@ -11,7 +11,6 @@ import net.minecraft.client.render.model.ModelPlayer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemQuiver;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jetbrains.annotations.NotNull;
@@ -27,28 +26,39 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.helper.GLManager;
 import teamport.aether.items.accessory.IAccessory;
-import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
+import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.trinket.ItemShield;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
-abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRenderer<Player> {
+abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
 
-    @Shadow private ModelBiped modelBipedMain;
+    @Shadow
+    private ModelBiped modelBipedMain;
 
-    @Shadow @Final private ModelBiped modelArmor;
-    @Shadow @Final private ModelBiped modelArmorChestplate;
+    @Shadow
+    @Final
+    private ModelBiped modelArmor;
 
-    @Shadow public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
+    @Shadow
+    @Final
+    private ModelBiped modelArmorChestplate;
 
-    @Unique public final ModelBiped modelAccessories = new ModelBiped(1.0F);
-    @Unique public final ModelBiped shield = new ModelBiped(1.5F);
+    @Shadow
+    public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
 
-    public MobRendererPlayerMixinGlovesAndPendantRender(ModelBase model, float shadowSize) {
+    @Unique
+    public final ModelBiped modelAccessories = new ModelBiped(1.1F);
+
+    @Unique
+    public final ModelBiped shield = new ModelBiped(1.5F);
+
+    public MobRendererPlayerMixinAccessoryRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
     }
 
@@ -57,31 +67,31 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
         if (itemStack != null && itemStack.getItem() instanceof ItemGloves) {
             Item item = itemStack.getItem();
-            String path = String.format("/assets/%s/textures/armor/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+            String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
             if (renderDispatcher.textureManager == null) return;
             renderDispatcher.textureManager.loadTexture(path).bind();
 
-            modelAccessories.onGround = 0.0f;
-            modelAccessories.isRiding = false;
-            modelAccessories.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+            modelArmorChestplate.onGround = 0.0f;
+            modelArmorChestplate.isRiding = false;
+            modelArmorChestplate.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
 
             if (modelBipedMain instanceof ModelPlayer) {
                 if (isLeft) {
                     GL11.glDisable(GL11.GL_CULL_FACE);
-                    modelAccessories.armLeft.visible = true;
-                    modelAccessories.armLeft.render(0.0625F);
+                    modelArmorChestplate.armLeft.visible = true;
+                    modelArmorChestplate.armLeft.render(0.0625F);
                 } else {
                     GL11.glDisable(GL11.GL_CULL_FACE);
-                    modelAccessories.armRight.visible = true;
-                    modelAccessories.armRight.render(0.0625F);
+                    modelArmorChestplate.armRight.visible = true;
+                    modelArmorChestplate.armRight.render(0.0625F);
                 }
             }
-            modelAccessories.armLeft.visible = false;
-            modelAccessories.armRight.visible = false;
-            modelAccessories.sneaking = modelBipedMain.sneaking;
-            modelAccessories.holdingRightHand = modelBipedMain.holdingRightHand;
-            modelAccessories.holdingLeftHand = modelBipedMain.holdingLeftHand;
-            modelAccessories.holdingLarge = modelBipedMain.holdingLarge;
+            modelArmorChestplate.armLeft.visible = false;
+            modelArmorChestplate.armRight.visible = false;
+            modelArmorChestplate.sneaking = modelBipedMain.sneaking;
+            modelArmorChestplate.holdingRightHand = modelBipedMain.holdingRightHand;
+            modelArmorChestplate.holdingLeftHand = modelBipedMain.holdingLeftHand;
+            modelArmorChestplate.holdingLarge = modelBipedMain.holdingLarge;
         }
 
         ci.cancel();
@@ -110,14 +120,14 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
         if (armorStack != null && armorStack.getItem() instanceof IAccessory) {
             Item item = armorStack.getItem();
             if (item instanceof ItemGloves) {
-                String path = String.format("/assets/%s/textures/armor/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
-                modelAccessories.holdingRightHand = player.inventory.getCurrentItem() != null;
-                modelAccessories.sneaking = player.isSneaking();
-                modelAccessories.isRiding = player.isPassenger();
-                modelAccessories.armLeft.visible = renderPass == GLOVES_SLOT;
-                modelAccessories.armRight.visible = renderPass == GLOVES_SLOT;
+                String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
+                modelArmorChestplate.holdingRightHand = player.inventory.getCurrentItem() != null;
+                modelArmorChestplate.sneaking = player.isSneaking();
+                modelArmorChestplate.isRiding = player.isPassenger();
+                modelArmorChestplate.armLeft.visible = renderPass == GLOVES_SLOT;
+                modelArmorChestplate.armRight.visible = renderPass == GLOVES_SLOT;
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                setArmorModel(modelAccessories);
+                setArmorModel(modelArmorChestplate);
                 info.setReturnValue(true);
                 return;
             }
@@ -127,7 +137,22 @@ abstract public class MobRendererPlayerMixinGlovesAndPendantRender extends MobRe
                 if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
-                String path = String.format("/assets/%s/textures/armor/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                //TODO Fix this so it doesnt render infront of the shield
+                modelAccessories.body.visible = true;
+                renderDispatcher.textureManager.loadTexture(path).bind();
+                setArmorModel(modelAccessories);
+                info.setReturnValue(true);
+                return;
+            }
+            if (item instanceof ItemTrinket && !(item instanceof ItemShield)) {
+                ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
+                int variant = 0;
+                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemTrinket && !(slot6.getItem() instanceof ItemShield)) {
+                    variant = 1;
+                }
+                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                //TODO Fix this so it doesnt render infront of the shield
                 modelAccessories.body.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelAccessories);
