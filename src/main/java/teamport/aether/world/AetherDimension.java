@@ -80,25 +80,28 @@ public class AetherDimension {
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
         AETHER_BLACKLIST.add(Blocks.TORCH_COAL.id());
         AETHER_BLACKLIST.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
-
-        AETHER_BLACKLIST.add(Blocks.NETHERRACK.id());
-        AETHER_BLACKLIST.add(Blocks.NETHERRACK_CARVED.id());
-        AETHER_BLACKLIST.add(Blocks.NETHERRACK_POLISHED.id());
-        AETHER_BLACKLIST.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
-
-        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK.id());
-        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
-
-        AETHER_BLACKLIST.add(Blocks.BRICK_NETHERRACK.id());
-        AETHER_BLACKLIST.add(Blocks.SLAB_BRICK_NETHERRACK.id());
-        AETHER_BLACKLIST.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
-
-        AETHER_BLACKLIST.add(Blocks.SOULSAND.id());
-        AETHER_BLACKLIST.add(Blocks.SOULSCHIST.id());
         AETHER_BLACKLIST.add(Blocks.PORTAL_NETHER.id());
-        AETHER_BLACKLIST.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
-        AETHER_BLACKLIST.add(Blocks.BLOCK_NETHER_COAL.id());
+
+        if (sunspiritIsDead) {
+
+            AETHER_BLACKLIST.add(Blocks.NETHERRACK.id());
+            AETHER_BLACKLIST.add(Blocks.NETHERRACK_CARVED.id());
+            AETHER_BLACKLIST.add(Blocks.NETHERRACK_POLISHED.id());
+            AETHER_BLACKLIST.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+
+            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK.id());
+            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+
+            AETHER_BLACKLIST.add(Blocks.BRICK_NETHERRACK.id());
+            AETHER_BLACKLIST.add(Blocks.SLAB_BRICK_NETHERRACK.id());
+            AETHER_BLACKLIST.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
+
+            AETHER_BLACKLIST.add(Blocks.SOULSAND.id());
+            AETHER_BLACKLIST.add(Blocks.SOULSCHIST.id());
+            AETHER_BLACKLIST.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
+            AETHER_BLACKLIST.add(Blocks.BLOCK_NETHER_COAL.id());
+        }
     }
 
     public static void unlockDaylightCycle(World world) {
