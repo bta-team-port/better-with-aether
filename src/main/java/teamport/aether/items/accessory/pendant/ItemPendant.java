@@ -27,16 +27,23 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
         this(translationKey, namespaceId, id, material.identifier.value(), material);
     }
 
-    @Override public String name() {
+    @Override
+    public String name() {
         return name;
     }
-    @Override public @Nullable ArmorMaterial getArmorMaterial() {
+
+    @Override
+    public @Nullable ArmorMaterial getArmorMaterial() {
         return this.material;
     }
-    @Override public int armorPieceProtection() {
+
+    @Override
+    public int armorPieceProtection() {
         return 0;
     }
-    @Override public int getArmorPiece() {
+
+    @Override
+    public int getArmorPiece() {
         return 0;
     }
 }

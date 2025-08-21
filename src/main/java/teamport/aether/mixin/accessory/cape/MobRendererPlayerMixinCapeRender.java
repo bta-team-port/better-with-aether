@@ -24,7 +24,6 @@ abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
         super(model, shadowSize);
     }
 
-    // TODO render quiver on top of the cape maybe?
     @Inject(
             method = "renderSpecials*",
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z", ordinal = 0)
