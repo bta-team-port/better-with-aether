@@ -3,8 +3,6 @@ package teamport.aether.world.generate.feature.dungeon;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -175,14 +173,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         return pos;
     }
 
-    private boolean canPlace(int x, int y, int z) {
-        WorldFeatureComponent checker = drawPlane(0, 0, Direction.SOUTH, 75, Direction.WEST, 50, x + 10, y - 30, z - 10, false);
-        checker.rotateYAxis(x, y, z, angle);
-        for (WorldFeaturePoint point : checker.blockList) {
-            if (!world.canBlockSeeTheSky(point.x, point.y, point.z)) {
-                return true;
-            }
-        }
+    public boolean canPlace(int x, int y, int z) {
         return true;
     }
 

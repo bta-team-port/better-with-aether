@@ -14,8 +14,7 @@ public class DensityGeneratorAether implements DensityGenerator {
     public final PerlinNoise scaleNoise;
     public final PerlinNoise depthNoise;
 
-    public DensityGeneratorAether(World world)
-    {
+    public DensityGeneratorAether(World world) {
         this.world = world;
 
         minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
@@ -26,8 +25,7 @@ public class DensityGeneratorAether implements DensityGenerator {
     }
 
     @Override
-    public double[] generateDensityMap(Chunk chunk)
-    {
+    public double[] generateDensityMap(Chunk chunk) {
         int terrainHeight = (world.getWorldType().getMaxY() + 1) - world.getWorldType().getMinY();
 
         int xSize = 4 + 1;
@@ -53,55 +51,50 @@ public class DensityGeneratorAether implements DensityGenerator {
         double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
         double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
         double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
-        int mainIndex = 0;
-        for(int dx = 0; dx < xSize; dx++)
-        {
-            for(int dz = 0; dz < zSize; dz++)
-            {
 
-                for(int dy = 0; dy < ySize; dy++)
-                {
-                    double density;
+        int mainIndex = 0;
+        for (int dx = 0; dx < xSize; dx++) {
+            for (int dz = 0; dz < zSize; dz++) {
+                for (int dy = 0; dy < ySize; dy++) {
+                    int absoluteY = world.getWorldType().getMinY() + (dy * 8);
+
                     double minDensity = minLimitArray[mainIndex] / upperLimitScale;
                     double maxDensity = maxLimitArray[mainIndex] / lowerLimitScale;
-                    double mainDensity = (mainNoiseArray[mainIndex] / 10D + 1.0D);
-                    if(mainDensity < 0.0D)
-                    {
+                    double mainDensity = (mainNoiseArray[mainIndex] / 10.0 + 1.0);
+
+                    double density;
+                    if (mainDensity < 0.0) {
                         density = minDensity;
-                    }
-                    else if(mainDensity > 1.0D)
-                    {
+                    } else if (mainDensity > 1.0) {
                         density = maxDensity;
-                    }
-                    else
-                    {
+                    } else {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 16D;
+                    density -= 16.0;
+
+                    // Modulate density based on Y level to make islands smaller and thinner higher up
+                    // Higher Y reduces density, making islands sparser and smaller
+                    double yFactor = 1.0 - ((double) (absoluteY - world.getWorldType().getMinY()) / terrainHeight);
+                    yFactor = Math.max(0.0, Math.min(1.0, yFactor));
+                    density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 
                     int upperLowerLimit = 50 + 20;
-                    // Upper cutoff
-                    if(dy > ySize - upperLowerLimit)
-                    {
-                        double densityMod = (float)(dy - (ySize - upperLowerLimit)) / ((float)upperLowerLimit - 1.0F);
-                        density = density * (1.0D - densityMod) + -30D * densityMod;
+                    if (dy > ySize - upperLowerLimit) {
+                        double densityMod = (float) (dy - (ySize - upperLowerLimit)) / ((float) upperLowerLimit - 1.0F);
+                        density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
+
                     upperLowerLimit = 20;
-                    // Lower cutoff
-                    if(dy < upperLowerLimit)
-                    {
-                        double densityMod = (float)(upperLowerLimit - dy) / ((float)upperLowerLimit - 1.0F);
-                        density = density * (1.0D - densityMod) + -30D * densityMod;
+                    if (dy < upperLowerLimit) {
+                        double densityMod = (float) (upperLowerLimit - dy) / ((float) upperLowerLimit - 1.0F);
+                        density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 
                     densityMapArray[mainIndex] = density;
                     mainIndex++;
                 }
-
             }
         }
-
         return densityMapArray;
-
     }
 }

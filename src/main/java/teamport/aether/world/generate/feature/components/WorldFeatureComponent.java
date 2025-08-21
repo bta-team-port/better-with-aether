@@ -7,7 +7,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.BlockPallet;
 
@@ -22,17 +21,17 @@ public class WorldFeatureComponent {
     public WorldFeaturePoint tail;
     public List<WorldFeatureBlock> blockList;
 
-    public WorldFeatureComponent(){
+    public WorldFeatureComponent() {
         this.blockList = new ArrayList<>();
     }
 
-    public WorldFeatureComponent(int startX, int startY, int startZ){
+    public WorldFeatureComponent(int startX, int startY, int startZ) {
         this.blockList = new ArrayList<>();
         this.anker = new WorldFeaturePoint(startX, startY, startZ);
     }
 
-    public static WorldFeatureComponent wfc(int x, int y, int z){
-        return new WorldFeatureComponent(x,y,z);
+    public static WorldFeatureComponent wfc(int x, int y, int z) {
+        return new WorldFeatureComponent(x, y, z);
     }
 
     public static WorldFeatureComponent drawHollowShell(
@@ -77,12 +76,12 @@ public class WorldFeatureComponent {
         return cylinder;
     }
 
-    public void add(WorldFeatureComponent component){
+    public void add(WorldFeatureComponent component) {
         this.blockList.addAll(component.blockList);
         this.tail = component.tail;
     }
 
-    public void add(List<WorldFeatureBlock> list){
+    public void add(List<WorldFeatureBlock> list) {
         this.blockList.addAll(list);
         this.tail = makePoint(list.get(list.size() - 1));
     }
@@ -91,33 +90,33 @@ public class WorldFeatureComponent {
         return new WorldFeaturePoint(wfb.x, wfb.y, wfb.z);
     }
 
-    public void add(WorldFeatureBlock wfb){
+    public void add(WorldFeatureBlock wfb) {
         this.blockList.add(wfb);
         this.tail = makePoint(wfb);
     }
 
-    public void setTail(int x, int y, int z){
-        this.tail = new WorldFeaturePoint(x,y,z);
+    public void setTail(int x, int y, int z) {
+        this.tail = new WorldFeaturePoint(x, y, z);
     }
 
 
-    public void rotateYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle){
-        for(WorldFeatureBlock block : this.blockList){
+    public void rotateYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
+        for (WorldFeatureBlock block : this.blockList) {
             block.rotateFixPointYAxis(fixPointX, fixPointY, fixPointZ, angle);
         }
     }
 
     public void place(World world) {
-        for(WorldFeatureBlock worldFeatureBlock: this.blockList){
+        for (WorldFeatureBlock worldFeatureBlock : this.blockList) {
             worldFeatureBlock.place(world);
         }
     }
 
-    public WorldFeaturePoint getAnker(){
+    public WorldFeaturePoint getAnker() {
         return anker;
     }
 
-    public WorldFeaturePoint getTail(){
+    public WorldFeaturePoint getTail() {
         return tail;
     }
 
@@ -135,7 +134,7 @@ public class WorldFeatureComponent {
 
     public static void populateChest(World world, WorldFeatureBlock wfb, Random random, WeightedRandomBag<WeightedRandomLootObject> BAG) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
-        if(inventory == null) return;
+        if (inventory == null) return;
         int invSize = inventory.getContainerSize();
         for (int i = 0; i < 10; i++) {
             placeItemInChest(random, BAG, invSize, inventory);

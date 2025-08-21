@@ -30,6 +30,7 @@ public class WorldFeatureSilverMaze {
 
     public static BlockPallet angelicHallway = new BlockPallet();
     public static BlockPallet angelicTrapped = new BlockPallet();
+
     static {
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 85);
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
@@ -94,6 +95,7 @@ public class WorldFeatureSilverMaze {
         }
         return countStaircaseRooms;
     }
+
     public WorldFeatureComponent[] createMaze(World world, Random random, int x, int y, int z) {
         this.world = world;
         this.random = random;
@@ -120,6 +122,7 @@ public class WorldFeatureSilverMaze {
         rooms.add(this.doors);
         return new WorldFeatureComponent[]{this.rooms, this.chests};
     }
+
     public void createRoomMaze(int to, int from, int x, int y, int z) {
         int levelCurrent = to / 9;
         int columnCurrent = (to - levelCurrent * 9) / 3;
@@ -139,7 +142,7 @@ public class WorldFeatureSilverMaze {
             createStaircase(roomX, roomY, roomZ);
             return;
         }
-        if(doorDirection == Direction.DOWN){
+        if (doorDirection == Direction.DOWN) {
             createRoom(roomX, roomY, roomZ, doorDirection);
             return;
         }
@@ -153,6 +156,7 @@ public class WorldFeatureSilverMaze {
         }
         createRoom(roomX, roomY, roomZ, doorDirection);
     }
+
     public void createHallway(int x, int y, int z, Direction doorDirection) {
         rooms.add(drawShell(random, angelicHallway, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
         // only generate door in horizontal direction
@@ -169,18 +173,20 @@ public class WorldFeatureSilverMaze {
             doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, true));
         }
     }
+
     public void createRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
         rooms.add(drawPlane(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, true));
         createChests(x, y, z);
     }
+
     public void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
         // places chests
-        for(int i = 0; i < Direction.horizontalDirections.length; i++){
+        for (int i = 0; i < Direction.horizontalDirections.length; i++) {
 
             Direction dir = Direction.horizontalDirections[i];
-            if(dir == doorDirection){
+            if (dir == doorDirection) {
                 continue;
             }
             if (dir == Direction.SOUTH) {
@@ -226,6 +232,7 @@ public class WorldFeatureSilverMaze {
         rooms.add(wfb(x - 6, y + 2, z + 6, AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, true));
         rooms.add(wfb(x - 6, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, true));
     }
+
     public void createChests(int x, int y, int z) {
         int chestCount = 0;
         if (random.nextInt(3) == 0) {
@@ -244,6 +251,7 @@ public class WorldFeatureSilverMaze {
             chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 4));
         }
     }
+
     public void createStaircase(int x, int y, int z) {
         // draw room
         rooms.add(drawShell(random, angelicTrapped, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
@@ -276,6 +284,7 @@ public class WorldFeatureSilverMaze {
         doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
         doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
     }
+
     public Direction getDoorDirection(int to, int from) {
         int levelTo = to / 9;
         int columnTo = (to - levelTo * 9) / 3;

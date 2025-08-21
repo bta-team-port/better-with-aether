@@ -30,7 +30,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
             int j2;
             int i3;
             int ix;
-            for(iy = y; iy <= y + 1 + treeHeight; ++iy) {
+            for (iy = y; iy <= y + 1 + treeHeight; ++iy) {
                 l1 = 1;
                 if (iy == y) {
                     l1 = 0;
@@ -40,8 +40,8 @@ public class WorldFeatureAetherTree extends WorldFeature {
                     l1 = 2;
                 }
 
-                for(j2 = x - l1; j2 <= x + l1 && canSpawn; ++j2) {
-                    for(i3 = z - l1; i3 <= z + l1 && canSpawn; ++i3) {
+                for (j2 = x - l1; j2 <= x + l1 && canSpawn; ++j2) {
+                    for (i3 = z - l1; i3 <= z + l1 && canSpawn; ++i3) {
                         if (iy >= 0 && iy < world.getHeightBlocks()) {
                             ix = world.getBlockId(j2, iy, i3);
                             if (ix != 0 && ix != this.leavesID) {
@@ -61,14 +61,14 @@ public class WorldFeatureAetherTree extends WorldFeature {
                 if (Blocks.hasTag(iy, BlockTags.GROWS_TREES) || (Blocks.hasTag(iy, AetherBlockTags.GROWS_AETHER_TREES) && y < world.getHeightBlocks() - treeHeight - 1)) {
                     onTreeGrown(world, x, y, z);
 
-                    for(l1 = y - 3 + treeHeight; l1 <= y + treeHeight; ++l1) {
+                    for (l1 = y - 3 + treeHeight; l1 <= y + treeHeight; ++l1) {
                         j2 = l1 - (y + treeHeight);
                         i3 = 1 - j2 / 2;
 
-                        for(ix = x - i3; ix <= x + i3; ++ix) {
+                        for (ix = x - i3; ix <= x + i3; ++ix) {
                             int l3 = ix - x;
 
-                            for(int iz = z - i3; iz <= z + i3; ++iz) {
+                            for (int iz = z - i3; iz <= z + i3; ++iz) {
                                 int j4 = iz - z;
                                 if ((Math.abs(l3) != i3 || Math.abs(j4) != i3 || random.nextInt(2) != 0 && j2 != 0) && canLeavesReplace(world, ix, l1, iz)) {
                                     this.placeLeaves(world, ix, l1, iz);
@@ -77,7 +77,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
                         }
                     }
 
-                    for(l1 = 0; l1 < treeHeight; ++l1) {
+                    for (l1 = 0; l1 < treeHeight; ++l1) {
                         j2 = world.getBlockId(x, y + l1, z);
                         if (j2 == 0 || this.isLeaf(j2)) {
                             world.setBlockWithNotify(x, y + l1, z, this.logID);

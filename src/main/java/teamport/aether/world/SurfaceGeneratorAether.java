@@ -30,17 +30,16 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
         int oceanY = this.world.getWorldType().getOceanY();
         int minY = this.world.getWorldType().getMinY();
         int maxY = this.world.getWorldType().getMaxY();
-        int terrainHeight = maxY + 1 - minY;
         int chunkX = chunk.xPosition;
         int chunkZ = chunk.zPosition;
         int oceanBlock = this.world.getWorldType().getOceanBlockId();
         int worldFillBlock = this.world.getWorldType().getFillerBlockId();
-        Random rand = new Random((long)chunkX * 341873128712L + (long)chunkZ * 132897987541L);
+        Random rand = new Random((long) chunkX * 341873128712L + (long) chunkZ * 132897987541L);
         double beachScale = 0.03125;
         double[] soilThicknessNoise = this.soilNoise.get(null, chunkX * 16, chunkZ * 16, 0.0, 16, 16, 1, beachScale * 2.0, beachScale * 2.0, beachScale * 2.0);
         for (int z = 0; z < 16; ++z) {
             for (int x = 0; x < 16; ++x) {
-                int soilThickness = (int)(soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + rand.nextDouble() * 0.25);
+                int soilThickness = (int) (soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + rand.nextDouble() * 0.25);
                 int currentLayerDepth = -1;
                 int topBlock = -1;
                 int fillerBlock = -1;
@@ -64,13 +63,13 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                     if (currentLayerDepth == -1) {
                         if (soilThickness <= 0) {
                             topBlock = 0;
-                            fillerBlock = (short)worldFillBlock;
+                            fillerBlock = (short) worldFillBlock;
                         } else if (y >= minY + oceanY - 4 && y <= minY + oceanY + 1) {
                             topBlock = biome.topBlock;
                             fillerBlock = biome.fillerBlock;
                         }
                         if (y < minY + oceanY && topBlock == 0) {
-                            topBlock = (short)oceanBlock;
+                            topBlock = (short) oceanBlock;
                         }
                         currentLayerDepth = soilThickness;
                         if (y >= minY + oceanY - 1) {

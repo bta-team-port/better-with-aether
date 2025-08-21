@@ -10,6 +10,7 @@ import java.util.Random;
 public class BlockPallet {
     public final List<Entry> entries = new ArrayList<>();
     public double accumulatedWeight;
+
     public void addEntry(int id, int meta, double weight) {
         this.accumulatedWeight += weight;
         Entry e = new Entry();

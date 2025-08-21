@@ -24,7 +24,7 @@ public class WorldTypeFXAether extends WorldTypeFX {
     }
 
     public float getCloudHeight() {
-        return this.cloudHeight == null ? (float)((this.worldType.getMaxY() / 2) + 1 - 20) : this.cloudHeight;
+        return this.cloudHeight == null ? (float) ((this.worldType.getMaxY() / 2) + 1 - 20) : this.cloudHeight;
     }
 
     public float[] getSunriseColor(float timeOfDay, float partialTick) {
@@ -62,9 +62,9 @@ public class WorldTypeFXAether extends WorldTypeFX {
             b = (float) (color & 255) / 255F;
         } else {
             x1 = 0x8080a0;
-            r = (float)(x1 >> 16 & 255) / 255.0F;
-            g = (float)(x1 >> 8 & 255) / 255.0F;
-            b = (float)(x1 & 255) / 255.0F;
+            r = (float) (x1 >> 16 & 255) / 255.0F;
+            g = (float) (x1 >> 8 & 255) / 255.0F;
+            b = (float) (x1 & 255) / 255.0F;
         }
 
         if (f2 < 0.0F)

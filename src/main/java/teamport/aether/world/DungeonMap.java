@@ -11,7 +11,8 @@ public class DungeonMap {
 
     protected static HashMap<Integer, DungeonMapEntry> dungeonMap = new HashMap<>();
 
-    public DungeonMap() {}
+    public DungeonMap() {
+    }
 
     public Collection<DungeonMapEntry> values() {
         return dungeonMap.values();
@@ -43,18 +44,18 @@ public class DungeonMap {
     public void loadFromNBT(CompoundTag data) {
         dungeonMap.clear();
 
-        for (Tag<?> tag: data.getValues()) {
+        for (Tag<?> tag : data.getValues()) {
             if (tag instanceof CompoundTag) {
                 dungeonMap.put(
-                    Integer.parseInt(tag.getTagName()),
-                    DungeonMapEntry.loadFromNBT((CompoundTag) tag)
+                        Integer.parseInt(tag.getTagName()),
+                        DungeonMapEntry.loadFromNBT((CompoundTag) tag)
                 );
             }
         }
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
-        dungeonMap.forEach( (id, coords) -> data.put(String.valueOf(id), coords.writeToNBT(new CompoundTag())));
+        dungeonMap.forEach((id, coords) -> data.put(String.valueOf(id), coords.writeToNBT(new CompoundTag())));
         return data;
     }
 }

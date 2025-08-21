@@ -42,6 +42,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     }
 
+    public int getMaxSpawnedInChunk() {
+        return 2;
+    }
+
     public int getMaxHealth() {
         return 14;
     }
