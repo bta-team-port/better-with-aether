@@ -8,4 +8,7 @@ public interface AetherBossList {
     List<Mob> aether$getBossList();
 
     void aether$TryAddBossList(Mob mob);
+
+    void aether$clearBossList();
+    void aether$removeFromBossList(Mob mob);
 }
