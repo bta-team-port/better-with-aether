@@ -32,8 +32,8 @@ public class WorldTypeAether extends WorldType {
         float[] brightnessRamp = new float[32];
         float f = 0.05F;
 
-        for(int i = 0; i <= 31; ++i) {
-            float f1 = 1.0F - (float)i / 15.0F;
+        for (int i = 0; i <= 31; ++i) {
+            float f1 = 1.0F - (float) i / 15.0F;
             if (i > 15) {
                 f1 = 0.0F;
             }
@@ -111,7 +111,9 @@ public class WorldTypeAether extends WorldType {
         if (AetherDimension.sunspiritDeathTimestamp != 0 && AetherDimension.sunspiritDeathTimestamp + 250 >= currTime) {
             float animProgress = (((currTime + partialTick) - AetherDimension.sunspiritDeathTimestamp) / 250);
 
-            if (animProgress == 1) { AetherDimension.sunspiritDeathTimestamp = 0; }
+            if (animProgress == 1) {
+                AetherDimension.sunspiritDeathTimestamp = 0;
+            }
             return ((float) (-(Math.cos(Math.PI * animProgress) - 1) / 2) * (timeFraction + 1)) % 1;
         }
 
@@ -136,9 +138,9 @@ public class WorldTypeAether extends WorldType {
         float weatherOffset = 0.0f;
         Weather currentWeather = world.getCurrentWeather();
         if (currentWeather != null) {
-            weatherOffset = (float)currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
+            weatherOffset = (float) currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
         }
-        return (int)(f2 * (11.0f - weatherOffset) + weatherOffset);
+        return (int) (f2 * (11.0f - weatherOffset) + weatherOffset);
     }
 
     @Override

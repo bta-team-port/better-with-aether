@@ -47,7 +47,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int minY = this.world.getWorldType().getMinY();
         int maxY = this.world.getWorldType().getMaxY();
         int rangeY = maxY + 1 - minY;
-        float oreHeightModifier = (float)rangeY / 128.0F;
+        float oreHeightModifier = (float) rangeY / 128.0F;
 
         int k7;
         int k4;
@@ -61,7 +61,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             long worldSeed = this.world.getRandomSeed();
             int transformedSeed = Worley.mix((int) (worldSeed >>> 32), (int) (worldSeed & 0xFFFFFFFFL), 0);
             int goldSeed = Worley.isSeed(gridX, gridZ, 10, transformedSeed, 1, 1); // 22 - 2
-            int silverSeed = Worley.isSeed(gridX, gridZ, 10, transformedSeed, 1, 1); // 16 - 2
+            int silverSeed = Worley.isSeed(gridX, gridZ, 9, transformedSeed, 1, 1); // 16 - 2
             int bronzeSeed = Worley.isSeed(gridX, gridZ, 4, transformedSeed, 1, 0); // 8 - 0
 
             if (goldSeed > -1) {
@@ -84,7 +84,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 for (int i = this.world.worldType.getMinY(); i < this.world.worldType.getMaxY(); i++) {
                     if (world.getBlockId(dungeonX, i, dungeonZ) != 0) {
                         counter++;
-                    }else {
+                    } else {
                         counter = 0;
                         startY = i;
                     }
@@ -143,21 +143,21 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             (new WorldFeatureAetherOre(AetherBlocks.ICESTONE.id(), 32)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for(j4 = 0; (float)j4 < 25.0F * oreHeightModifier; ++j4) {
+        for (j4 = 0; (float) j4 < 25.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreAmbrosium.variantMap, 16)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for(j4 = 0; (float)j4 < 25.0F * oreHeightModifier; ++j4) {
+        for (j4 = 0; (float) j4 < 25.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(192);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreZanite.variantMap, 8)).place(this.world, rand, k7, k4, treeDensity);
         }
 
-        for(j4 = 0; (float)j4 < oreHeightModifier; ++j4) {
+        for (j4 = 0; (float) j4 < 15.0F * oreHeightModifier; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(128);
             treeDensity = z + rand.nextInt(16);

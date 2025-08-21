@@ -9,45 +9,50 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     boolean withNotify = false;
 
 
-    WorldFeatureBlock( int x, int y, int z, int blockID, int metadata, boolean withNotify) {
-        super(x,y,z);
+    WorldFeatureBlock(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
+        super(x, y, z);
         this.blockID = blockID;
         this.metadata = metadata;
         this.withNotify = withNotify;
     }
 
     WorldFeatureBlock(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
-        super(x,y,z);
+        super(x, y, z);
         this.blockID = blockAndMeta.first;
         this.metadata = blockAndMeta.second;
         this.withNotify = withNotify;
     }
 
-    public static WorldFeatureBlock wfb(int x, int y, int z){
+    public static WorldFeatureBlock wfb(int x, int y, int z) {
         return new WorldFeatureBlock(x, y, z, 0, 0, false);
     }
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID){
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID) {
         return new WorldFeatureBlock(x, y, z, blockID, 0, false);
     }
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata){
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata) {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, false);
     }
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, boolean withNotify){
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockID, 0, withNotify);
     }
-    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata, boolean withNotify){
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, withNotify);
     }
-    public static WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify){
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
     }
 
-    public void place(World world){
+    public void place(World world) {
         this.place(world, x, y, z);
     }
 
-    private void place(World world, int ix, int iy, int iz){
-        if (this.withNotify){
+    private void place(World world, int ix, int iy, int iz) {
+        if (this.withNotify) {
             world.setBlockAndMetadataWithNotify(ix, iy, iz, this.blockID, this.metadata);
         } else {
             world.setBlockAndMetadata(ix, iy, iz, this.blockID, this.metadata);
@@ -57,8 +62,8 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
     // TODO make horizontally rotating blocks also rotate
     @Override
-    public void rotateFixPointYAxis(int x, int y, int z, float angle){
-        super.rotateFixPointYAxis(x,y,z,angle);
+    public void rotateFixPointYAxis(int x, int y, int z, float angle) {
+        super.rotateFixPointYAxis(x, y, z, angle);
         /// For future reference, when I want to rotate the block as well.
         //BlockLogicChest
         //BlockLogicRotatable: furnace, trommle

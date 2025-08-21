@@ -58,9 +58,10 @@ public class DungeonMapEntry {
         this.doorReplacementMeta = doorReplacementMeta;
     }
 
-    protected DungeonMapEntry() {}
+    protected DungeonMapEntry() {
+    }
 
-     public static DungeonMapEntry loadFromNBT(CompoundTag data) {
+    public static DungeonMapEntry loadFromNBT(CompoundTag data) {
         DungeonMapEntry result = new DungeonMapEntry();
 
         result.id = data.getInteger("id");
@@ -68,8 +69,8 @@ public class DungeonMapEntry {
         result.doorReplacementMeta = data.getInteger("doorReplacementMeta");
 
         result.clearArea = new Pair<>(
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
+                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
+                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
         if (result.clearArea.first == null || result.clearArea.second == null) {
@@ -117,8 +118,8 @@ public class DungeonMapEntry {
     public void remove(World world) {
         if (doorBlocks != null) {
             for (WorldFeaturePoint coordinate : doorBlocks) {
-                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
-                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0,0);
+                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
             }
         }

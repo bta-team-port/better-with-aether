@@ -42,7 +42,7 @@ public class AetherDimension {
     }
 
     public static List<Integer> getDimensionBlacklist(Integer dimensionID) {
-        if (!dimensionPlacementBlacklist.containsKey(dimensionID)){
+        if (!dimensionPlacementBlacklist.containsKey(dimensionID)) {
             dimensionPlacementBlacklist.put(dimensionID, new ArrayList<>());
         }
         return dimensionPlacementBlacklist.get(dimensionID);
@@ -54,7 +54,7 @@ public class AetherDimension {
     public static boolean hasInit = false;
 
     public static void init() {
-        if(!hasInit){
+        if (!hasInit) {
             hasInit = true;
             initializeDimension();
         }
@@ -110,7 +110,7 @@ public class AetherDimension {
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
-                    new SunspiritDeathNetworkMessage(sunspiritIsDead, sunspiritDeathTimestamp)
+                        new SunspiritDeathNetworkMessage(sunspiritIsDead, sunspiritDeathTimestamp)
                 );
             }
         }
@@ -125,15 +125,15 @@ public class AetherDimension {
     public static void loadDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.info("Loading additional level data.");
 
-        sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID+".sunspiritDeathTimestamp");
-        dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID+".dungeon"));
+        sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
+        dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID + ".dungeon"));
     }
 
     public static void saveDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional level data.");
 
         dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritIsDead);
-        dimensionData.putCompound(AetherMod.MOD_ID +".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
+        dimensionData.putCompound(AetherMod.MOD_ID + ".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
     }
 
 }

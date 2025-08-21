@@ -52,6 +52,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL = new WeightedRandomBag<>();
+
     static {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 4), 100.0);
 
@@ -77,6 +78,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
+
     static {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_MORNING.getDefaultStack()), 10.0);
 
@@ -94,13 +96,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 100.0);
     }
 
-    public WorldFeatureAetherBronzeDungeon(int direction){
+    public WorldFeatureAetherBronzeDungeon(int direction) {
         this.angle = direction * 90;
     }
 
-    public WorldFeatureAetherBronzeDungeon(){}
+    public WorldFeatureAetherBronzeDungeon() {
+    }
 
-    public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random){
+    public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random) {
         return new WorldFeatureAetherBronzeDungeon(0);
     }
 
@@ -116,7 +119,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.addSolidBox(0, 0, x + 1, y + 1, z + 1, 14, 10, 14);
 
         // boss room
-        createBossAndTreasure(x, y, z, x + 7 + random.nextInt(2),  y - 1, z + 7 + random.nextInt(2));
+        createBossAndTreasure(x, y, z, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
 
 
         int x2 = x + 20;
@@ -145,7 +148,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
 
-        WorldFeatureAetherBronzeChest.bronzeChest().place(world,random,x2, y2, z2);
+        WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x2, y2, z2);
         MobBossSlider boss = new MobBossSlider(world);
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(x + 8, y + 2, z + 8));
@@ -198,7 +201,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (dir == WEST) {
             z -= 16;
         }
-        int height = Math.min((int)Math.floor(AetherMathHelper.nextExponential(random) * ROOM_HEIHGT_MEAN), 6);
+        int height = Math.min((int) Math.floor(AetherMathHelper.nextExponential(random) * ROOM_HEIHGT_MEAN), 6);
 
         if (this.roomCount > ROOM_COUNT_MAX) {
             this.endCorridor(finalX, finalY, finalZ, pickNewDir(dir));
@@ -246,7 +249,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         }
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
-                populateChest(world, chest, random, LOOT_NORMAL);
+            populateChest(world, chest, random, LOOT_NORMAL);
         }
 
         switch (dir) {
@@ -318,7 +321,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (dir == SOUTH) {
             x += 3;
             while (tunnelling) {
-                if (this.isBoxEmpty(x, finalY, z, UP, 8, EAST, 6,  SOUTH, 1) || finalY - z > 100) {
+                if (this.isBoxEmpty(x, finalY, z, UP, 8, EAST, 6, SOUTH, 1) || finalY - z > 100) {
                     tunnelling = false;
                 }
 
@@ -330,7 +333,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
-        return isBoxEmpty(startX,startY,startZ,direction1,length1,direction2,length2,direction3,length3, 0.35F);
+        return isBoxEmpty(startX, startY, startZ, direction1, length1, direction2, length2, direction3, length3, 0.35F);
     }
 
     public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, float percent) {

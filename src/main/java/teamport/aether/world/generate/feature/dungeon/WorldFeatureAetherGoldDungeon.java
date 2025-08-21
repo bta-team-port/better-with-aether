@@ -2,8 +2,6 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -85,13 +83,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack()), 25.0);
     }
 
-    public WorldFeatureAetherGoldDungeon(int direction){
+    public WorldFeatureAetherGoldDungeon(int direction) {
         this.angle = direction * 90;
     }
 
-    public WorldFeatureAetherGoldDungeon(){}
+    public WorldFeatureAetherGoldDungeon() {
+    }
 
-    public static WorldFeatureAetherGoldDungeon goldDungeon(Random random){
+    public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
         return new WorldFeatureAetherGoldDungeon((random.nextInt(4)));
     }
 
@@ -110,7 +109,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         this.world = world;
         this.random = random;
 //        this.angle = this.random.nextInt(4) * 90.0F;
-        this.dungeonAnker = new WorldFeaturePoint(x,y,z);
+        this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
         this.decorations = new WorldFeatureComponent();
         this.dungeon = AetherDimension.dungeonMap.register();
@@ -258,14 +257,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                         dirt.add(wfb((radX + x), height - 4, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
                     }
                     dirt.place(world);
-                    decorations.add(wfb((radX + x),height, (radZ + z), 0, 0));
+                    decorations.add(wfb((radX + x), height, (radZ + z), 0, 0));
                 }
             }
         }
     }
 
-    public void createDecorations(int x, int y, int z){
-        for(WorldFeaturePoint point: decorations.blockList) {
+    public void createDecorations(int x, int y, int z) {
+        for (WorldFeaturePoint point : decorations.blockList) {
             for (Pair<Integer, WorldFeature> integerWorldFeaturePair : veggies) {
                 if (random.nextInt(integerWorldFeaturePair.first) == 0) {
                     integerWorldFeaturePair.second.place(world, random, point.x, point.y, point.z);
