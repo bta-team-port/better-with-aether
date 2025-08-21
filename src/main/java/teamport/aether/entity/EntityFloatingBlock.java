@@ -8,6 +8,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFallingBlock;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -117,14 +118,15 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             TileEntity oldEnt;
             //
             if (
-                    (
-                            // can pass though block that allow placement on the bottom
-                            !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
-                                    || BlockLogicOreGravitite.canFallAbove(this.world, x, y + 1, z)
-                                    // we check and place the block here so this should at some point return true and place
-                                    || !this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId)
-                    )
-                            && !this.world.isClientSide) {
+                (
+                    // can pass though block that allow placement on the bottom
+                    !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
+                    || BlockLogicOreGravitite.canFallAbove(this.world, x, y + 1, z)
+                    // we check and place the block here so this should at some point return true and place
+                    || !this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId)
+                )
+                && !this.world.isClientSide
+            ) {
 
                 if (this.hasRemovedBlock) {
                     this.drop();
@@ -171,5 +173,15 @@ public class EntityFloatingBlock extends EntityFallingBlock {
         Block<?> block = world.getBlock(x, y + 1, z);
         if (block == null) return;
         onCeiling = !isWorldHeight & !canPlace & block.id() != Blocks.COBWEB.id();
+    }
+
+    @Override
+    public AABB getBb() {
+        return bb.expand(10, 10, 10);
+    }
+
+    @Override
+    public boolean isPushable() {
+        return true;
     }
 }
