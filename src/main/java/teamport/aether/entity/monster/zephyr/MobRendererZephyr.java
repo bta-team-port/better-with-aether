@@ -20,7 +20,7 @@ public class MobRendererZephyr extends MobRenderer<MobZephyr> {
     }
 
     public void setupScale(MobZephyr mobZephyr, float partialTick) {
-        float charge = ((float)mobZephyr.attackChargeO + (float)(mobZephyr.attackCharge - mobZephyr.attackChargeO) * partialTick) / 20.0F;
+        float charge = ((float) mobZephyr.attackChargeO + (float) (mobZephyr.attackCharge - mobZephyr.attackChargeO) * partialTick) / 20.0F;
         if (charge < 0.0F) {
             charge = 0.0F;
         }

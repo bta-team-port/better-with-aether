@@ -11,6 +11,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
@@ -41,6 +42,14 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     public void defineSynchedData() {
         this.entityData.define(16, (byte) 0, Byte.class);
+    }
+
+    public String getEntityTexture() {
+        return this.entityData.getByte(16) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
+    }
+
+    public @NotNull String getDefaultEntityTexture() {
+        return this.entityData.getByte(16) != 1 ? super.getEntityTexture() : "/assets/aether/textures/entity/zephyr_fire/0.png";
     }
 
     public void tick() {
@@ -148,11 +157,20 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
                 this.targetedEntity = null;
             }
         } else {
-            this.yBodyRot = this.yRot = -((float) Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
+            this.yBodyRot = this.yRot = -((float)Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
             if (this.attackCharge > 0) {
                 --this.attackCharge;
             }
         }
+
+        if (!this.world.isClientSide) {
+            byte chargeData = this.entityData.getByte(16);
+            byte chargeState = (byte)(this.attackCharge <= 10 ? 0 : 1);
+            if (chargeData != chargeState) {
+                this.entityData.set(16, chargeState);
+            }
+        }
+
     }
 
     public boolean isCourseTraversable(double d, double d1, double d2, double d3) {
