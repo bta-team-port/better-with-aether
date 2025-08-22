@@ -34,6 +34,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         this.attackStrength = 7;
         this.scoreValue = 5000;
         this.footSize = 1.5f;
+        this.canBreatheUnderwater();
     }
 
     public void jump() {
@@ -196,6 +197,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (this.target != null) {
             if (this.teleportTimer >= 250) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 4);
+                this.remainingFireTicks = 0;
             } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
                 this.teleportTimer += 50;
             }

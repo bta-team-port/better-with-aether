@@ -176,6 +176,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
+                this.remove();
             }
 
         } else {
