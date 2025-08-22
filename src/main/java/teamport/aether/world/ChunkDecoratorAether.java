@@ -53,6 +53,33 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int k7;
         int k4;
         int treeDensity;
+        int j4;
+
+        if (rand.nextInt(12) == 0) {
+            j4 = x + rand.nextInt(16);
+            k7 = rand.nextInt(32) + 224;
+            k4 = z + rand.nextInt(16);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, j4, k7, k4);
+        }
+        if (rand.nextInt(12) == 0) {
+            j4 = x + rand.nextInt(16);
+            k7 = rand.nextInt(64) + 128;
+            k4 = z + rand.nextInt(16);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, j4, k7, k4);
+        }
+        if (rand.nextInt(6) == 0) {
+            j4 = x + rand.nextInt(16);
+            k7 = rand.nextInt(192) + 32;
+            k4 = z + rand.nextInt(16);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, j4, k7, k4);
+        }
+        if (rand.nextInt(18) == 0) {
+            j4 = x + rand.nextInt(16);
+            k7 = rand.nextInt(64) + 8;
+            k4 = z + rand.nextInt(16);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
+        }
+
 
         if ((chunkX & 1) == 0 && (chunkZ & 1) == 0) {
 
@@ -99,7 +126,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
-        int j4;
         if (rand.nextInt(3) == 0) {
             j4 = x + rand.nextInt(16) + 8;
             k7 = rand.nextInt(256);
@@ -163,34 +189,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             k4 = rand.nextInt(128);
             treeDensity = z + rand.nextInt(16);
             (new WorldFeatureAetherOre(BlockLogicOreGravitite.variantMap, 7)).place(this.world, rand, k7, k4, treeDensity);
-        }
-
-        if (rand.nextInt(12) == 0) {
-            j4 = x + rand.nextInt(16);
-            k7 = rand.nextInt(32) + 224;
-            k4 = z + rand.nextInt(16);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, j4, k7, k4);
-        }
-
-        if (rand.nextInt(12) == 0) {
-            j4 = x + rand.nextInt(16);
-            k7 = rand.nextInt(64) + 128;
-            k4 = z + rand.nextInt(16);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, j4, k7, k4);
-        }
-
-        if (rand.nextInt(6) == 0) {
-            j4 = x + rand.nextInt(16);
-            k7 = rand.nextInt(192) + 32;
-            k4 = z + rand.nextInt(16);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, j4, k7, k4);
-        }
-
-        if (rand.nextInt(18) == 0) {
-            j4 = x + rand.nextInt(16);
-            k7 = rand.nextInt(64) + 8;
-            k4 = z + rand.nextInt(16);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, j4, k7, k4);
         }
 
         if (rand.nextInt(5) == 0) {
