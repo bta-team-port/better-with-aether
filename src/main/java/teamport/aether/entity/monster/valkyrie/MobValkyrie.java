@@ -285,13 +285,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             boolean flag = super.hurt(attacker, i, type);
             if (flag && this.getHealth() <= 0) {
                 this.dead = true;
-                    if (pokey == 2) {
-                        ((Player) attacker).sendMessage("Alright, alright! You win!");
-                    } else if (pokey == 1) {
-                        ((Player) attacker).sendMessage("Okay, I give up! Geez!");
-                    } else {
-                        ((Player) attacker).sendMessage("Oww! Fine, here's your medal...");
-                    }
+                if (pokey == 2) {
+                    ((Player) attacker).sendMessage("Alright, alright! You win!");
+                } else if (pokey == 1) {
+                    ((Player) attacker).sendMessage("Okay, I give up! Geez!");
+                } else {
+                    ((Player) attacker).sendMessage("Oww! Fine, here's your medal...");
+                }
                 this.animateHurt();
             }
             return flag;
@@ -310,15 +310,14 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             this.swingArm();
             entity.hurt(this, this.attackStrength, DamageType.COMBAT);
             if (this.target != null && entity == this.target && entity instanceof Player) {
-                Player e1 = (Player) entity;
-                if (e1.getHealth() <= 0) {
+                Player player = (Player) entity;
+                if (player.getHealth() <= 0) {
                     int pokey = this.random.nextInt(3);
                     if (pokey == 2) {
                         ((Player) entity).sendMessage("You want a medallion? Try being less pathetic.");
                     }
                     if (pokey == 1) {
-                        String s = e1.getDisplayName();
-                        ((Player) entity).sendMessage("Maybe some day, " + s + "... maybe some day.");
+                        ((Player) entity).sendMessage("Maybe some day, " + player.getDisplayName() + "... maybe some day.");
                     }
                     if (pokey == 0) {
                         ((Player) entity).sendMessage("Humans aren't nearly as cute when they're dead.");
@@ -355,5 +354,5 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1);
     }
-    
+
 }

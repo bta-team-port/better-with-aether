@@ -43,7 +43,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     public int getMaxSpawnedInChunk() {
-        return 2;
+        return 1;
     }
 
     public int getMaxHealth() {
@@ -147,7 +147,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     public boolean canEntityBeSeen(Entity entity) {
-        return this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + (double)this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + (double)entity.getHeadHeight(), entity.z),
+        return this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + (double) this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + (double) entity.getHeadHeight(), entity.z),
                 false, true, false) == null;
     }
 

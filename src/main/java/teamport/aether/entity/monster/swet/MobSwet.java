@@ -17,6 +17,9 @@ import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
     public float squish;
     public float oSquish;
@@ -33,7 +36,13 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
         this.moveSpeed = 1.5F;
-        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
+        this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0));
+    }
+
+    public List<WeightedRandomLootObject> getMobDrops() {
+        List<WeightedRandomLootObject> drops = new ArrayList<>();
+        drops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
+        return drops;
     }
 
     public void causeFallDamage(float distance) {
@@ -77,11 +86,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         if (this.onGround && !flag) {
             int i = 2;
 
-            for(int j = 0; j < i * 8; ++j) {
+            for (int j = 0; j < i * 8; ++j) {
                 float f = this.random.nextFloat() * 3.1415927F * 2.0F;
-                double f1 = (double)this.random.nextFloat() * 0.5 + 0.5;
-                double f2 = (double)(MathHelper.sin(f) * (float)i) * 0.5 * f1;
-                double f3 = (double)(MathHelper.cos(f) * (float)i) * 0.5 * f1;
+                double f1 = (double) this.random.nextFloat() * 0.5 + 0.5;
+                double f2 = (double) (MathHelper.sin(f) * (float) i) * 0.5 * f1;
+                double f3 = (double) (MathHelper.cos(f) * (float) i) * 0.5 * f1;
                 this.world.spawnParticle("item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, getBounceParticle().id);
             }
 
@@ -121,7 +130,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             this.isJumping = true;
             this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
 
-            this.splorch();
+            this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.moveStrafing = 1.0F - this.random.nextFloat() * 2.0F;
             this.moveForward = 8.0f;
         } else {
@@ -137,7 +146,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             if (!this.friendly) {
                 if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                     this.attackTime = 200;
-                    this.splorch();
+                    this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     entity.hurt(this, 2, DamageType.COMBAT);
                 }
             }
@@ -152,10 +161,6 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
                 }
             }
         }
-    }
-
-    public void splorch() {
-        this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
     }
 
     public String getHurtSound() {
@@ -178,15 +183,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         if (Blocks.blocksList[id] == null) {
             return false;
         } else {
-            if (world.rand.nextInt(10) == 0) {
+            if (world.rand.nextInt(5) == 0) {
                 return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
             }
         }
         return false;
-    }
-
-    public int getMaxSpawnedInChunk() {
-        return 1;
     }
 
 }
