@@ -10,8 +10,10 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MobSwetGold extends MobSwet implements Enemy {
 
@@ -23,8 +25,13 @@ public class MobSwetGold extends MobSwet implements Enemy {
         this.jumpDelay = 20;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
         this.moveSpeed = 3.0F;
-        this.mobDrops.remove(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
-        this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 1, 2));
+        this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 0));
+    }
+
+    public List<WeightedRandomLootObject> getMobDrops() {
+        List<WeightedRandomLootObject> drops = new ArrayList<>();
+        drops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 1, 2));
+        return drops;
     }
 
     public int getMaxHealth() {
@@ -50,7 +57,8 @@ public class MobSwetGold extends MobSwet implements Enemy {
     @Override
     public void doTickEffect() {
         if (random.nextInt(2) == 0) {
-            this.world.spawnParticle("goldendust", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+            this.world.spawnParticle("arrowtrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            this.world.spawnParticle("arrowtrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
         }
     }
 
@@ -73,7 +81,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
         if (!this.friendly) {
             if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT)) {
                 player.startRiding(this);
-                this.splorch();
+                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
         }
     }

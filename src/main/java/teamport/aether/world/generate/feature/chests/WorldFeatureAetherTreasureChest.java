@@ -18,7 +18,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
     public int chestID;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE;
-    public int guaranteedRare = 1;
+    public int guaranteedRare;
 
     public WorldFeatureAetherTreasureChest(int chestID, WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE) {
         this.chestID = chestID;

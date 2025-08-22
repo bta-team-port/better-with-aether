@@ -31,7 +31,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
     public static final int ROOM_COUNT_MAX = 13;
-    public static final int ROOM_HEIHGT_MEAN = 2;
+    public static final int ROOM_HEIGHT_MEAN = 2;
     public int roomCount = 0;
     public float angle = 0;
     public World world;
@@ -201,7 +201,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (dir == WEST) {
             z -= 16;
         }
-        int height = Math.min((int) Math.floor(AetherMathHelper.nextExponential(random) * ROOM_HEIHGT_MEAN), 6);
+        int height = Math.min((int) Math.floor(AetherMathHelper.nextExponential(random) * ROOM_HEIGHT_MEAN), 6);
 
         if (this.roomCount > ROOM_COUNT_MAX) {
             this.endCorridor(finalX, finalY, finalZ, pickNewDir(dir));
