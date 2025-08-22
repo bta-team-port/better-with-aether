@@ -61,10 +61,13 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
+    public static final byte BRONZE_CHANCES = 4;
+    public static final byte SILVER_CHANCES = 10;
+    public static final byte GOLD_CHANCES = 11;
+
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized.");
-        LOGGER.info(" Welcome to a hostile paradise. Version {} {}", state , versionString);
+        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", state , versionString);
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);

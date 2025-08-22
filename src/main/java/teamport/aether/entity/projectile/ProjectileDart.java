@@ -49,7 +49,11 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        if (dartType == 1) {
+        if (dartType >= 2) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_ENCHANTED);
+            this.noPhysics = true;
+            this.damage = 6;
+        } else if (dartType == 1) {
             this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
         } else {
             this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
@@ -68,7 +72,11 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        if (dartType == 1) {
+        if (dartType >= 2) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_ENCHANTED);
+            this.noPhysics = true;
+            this.damage = 6;
+        } else if (dartType == 1) {
             this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
         } else {
             this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
@@ -87,7 +95,11 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        if (dartType == 1) {
+        if (dartType >= 2) {
+            this.stack = new ItemStack(AetherItems.AMMO_DART_ENCHANTED);
+            this.noPhysics = true;
+            this.damage = 6;
+        } else if (dartType == 1) {
             this.stack = new ItemStack(AetherItems.AMMO_DART_POISON);
         } else {
             this.stack = new ItemStack(AetherItems.AMMO_DART_GOLDEN);
@@ -102,6 +114,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         super.initProjectile();
         this.damage = 4;
         this.defaultGravity = 0.005F;
+        this.defaultProjectileSpeed = 1.0F;
     }
 
     public void setHeading(double newMotionX, double newMotionY, double newMotionZ, float speed, float randomness) {
@@ -109,9 +122,15 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
         newMotionX /= velocity;
         newMotionY /= velocity;
         newMotionZ /= velocity;
-        newMotionX += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
-        newMotionY += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
-        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        if (dartType < 2) {
+            newMotionX += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+            newMotionY += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+            newMotionZ += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        } else {
+            newMotionX += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 4;
+            newMotionY += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 4;
+            newMotionZ += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 4;
+        }
         newMotionX *= speed;
         newMotionY *= speed;
         newMotionZ *= speed;
@@ -193,7 +212,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                 this.ticksInAir = 0;
             }
         } else {
-            if (this instanceof ProjectileDartEnchanted) {
+            if (dartType >= 2) {
                 this.world.spawnParticle("darttrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
                 this.world.spawnParticle("darttrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             }
@@ -221,7 +240,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                     IHasEffects mob = (IHasEffects) hitResult.entity;
                     AetherEffects.add((Mob) mob, AetherEffects.poisonEffect, random.nextInt(1) + 1);
                 }
-                if (dartType == 2) {
+                if (dartType >= 2) {
                     IHasEffects mob = (IHasEffects) hitResult.entity;
                     // slight weaker remedy than the usual one
                     AetherEffects.add((Mob) mob, new EffectStack(mob, AetherEffects.remedyEffect, 20, 1));
@@ -233,7 +252,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
-            } else if (!(this instanceof ProjectileDartEnchanted)) {
+            } else if (!(dartType >= 2)) {
                 this.defaultGravity = 0.03F;
                 this.xd *= -0.1;
                 this.yd *= -0.1;
@@ -336,7 +355,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
     }
 
     public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        ProjectileDart projectile = meta == 2 ? new ProjectileDartEnchanted(world, x, y, z) : new ProjectileDart(world, x, y, z, meta);
+        ProjectileDart projectile = new ProjectileDart(world, x, y, z, meta);
         if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
         if (owner instanceof Mob) projectile.owner = (Mob) owner;
         if (owner instanceof Player) projectile.doesDartBelongToPlayer = true;

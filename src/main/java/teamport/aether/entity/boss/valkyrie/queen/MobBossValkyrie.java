@@ -42,6 +42,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         this.attackStrength = 10;
         this.footSize = 1.5f;
         this.chatColor = (byte) (LIGHT_GRAY.id & 255);
+        this.canBreatheUnderwater();
     }
 
     public void jump() {
@@ -104,6 +105,7 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
         if (this.duel && this.target != null) {
             if (this.teleportTimer >= 125) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 8);
+                this.remainingFireTicks = 0;
             } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
                 this.teleportTimer += 50;
             }
@@ -289,10 +291,13 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
-        Player player = (Player) attacker;
+        if (!this.duel) {
+            return false;
+        }
+
         if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player && !duel) {
             if (this.chatTime <= 0) {
-                player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                 this.chatTime = 40;
             }
@@ -303,18 +308,18 @@ public class MobBossValkyrie extends MobBoss implements EnemyBoss {
             if (this.chatTime <= 0) {
                 String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
-                player.sendMessage(TRANSLATOR.translateKey(message));
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
                 this.chatTime = 40;
             }
             return false;
         }
 
         if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
-            player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             this.attacked = true;
             this.chatTime = 40;
         } else {
-            this.teleportTimer += 60;
+            this.teleportTimer += 40;
         }
 
         this.target = attacker;

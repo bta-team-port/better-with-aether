@@ -85,6 +85,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.setSize(2F, 2F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
         this.chatColor = (byte) (TextFormatting.BROWN.id & 255);
+        this.canBreatheUnderwater();
     }
 
     public void onDeath(Entity entityKilledBy) {
