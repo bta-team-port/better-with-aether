@@ -27,9 +27,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.helper.GLManager;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemGloves;
-import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
+import teamport.aether.items.accessory.trinket.ItemIronBubble;
+import teamport.aether.items.accessory.trinket.ItemRegenStone;
 import teamport.aether.items.accessory.trinket.ItemShield;
 
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
@@ -167,10 +168,24 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
-            if (item instanceof ItemTrinket && !(item instanceof ItemShield)) {
+            if (item instanceof ItemRegenStone) {
                 ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
                 int variant = 0;
-                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemTrinket && !(slot6.getItem() instanceof ItemShield) && !(slot6.getItem() instanceof ItemGoldenFeather)) {
+                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemRegenStone) {
+                    variant = 1;
+                }
+                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+                //TODO Fix this so it doesnt render infront of the shield
+                modelAccessories.body.visible = true;
+                renderDispatcher.textureManager.loadTexture(path).bind();
+                setArmorModel(modelAccessories);
+                info.setReturnValue(true);
+                return;
+            }
+            if (item instanceof ItemIronBubble) {
+                ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
+                int variant = 0;
+                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemIronBubble) {
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
