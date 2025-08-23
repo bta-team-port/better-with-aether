@@ -38,6 +38,17 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
     }
 
     @Override
+    public void tick() {
+        for (int j = 0; j < 2; j++) {
+            if (random.nextInt(5) == 0) {
+                world.spawnParticle("snowflake", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+            }
+        }
+
+        super.tick();
+    }
+
+    @Override
     public void bounceSound() {
         this.world.playSoundAtEntity(null, this, "step.permafrost", 2.0F, 1.0F);
     }

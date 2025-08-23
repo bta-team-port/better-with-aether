@@ -104,8 +104,6 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
         }
 
         super.tick();
-
-        this.yRot = (float) (Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
     }
 
     @Override
