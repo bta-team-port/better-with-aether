@@ -128,17 +128,19 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         if (!canPlace(world, x, y, z)) return false;
         this.world = world;
         this.random = random;
-//        this.angle = this.random.nextInt(4) * 90.0F;
+        this.angle = this.random.nextInt(4) * 90.0F;
         this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
         this.decorations = new WorldFeatureComponent();
         this.dungeon = AetherDimension.dungeonMap.register();
         this.dungeon.setPosition(bossPosition);
+
         createMainSphere(x, y, z);
         createOuterSpheres(x, y, z);
         createMainRoom(x, y, z);
         createBossAndTreasure(x, y, z);
         createDecorations(x, y, z);
+
         return true;
     }
 
@@ -186,10 +188,11 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
             createGrassOnTopLevel((int) (RADIUS * radMod), (int) (newX), (int) (y + (RADIUS * 0.8F)), (int) newZ);
         }
 
-        double radMod2 = 0.7F;
+        double radMod2 = 0.5F;
         WorldFeaturePoint cover = new WorldFeaturePoint(x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
         cover.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, this.angle);
-        drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true);
+
+        drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true).place(world);
         createGrassOnTopLevel((int) (RADIUS * radMod2), cover.x, cover.y, cover.z);
     }
 
