@@ -11,7 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.gui.IAetherScreens;
+import teamport.aether.gui.AetherScreens;
 import teamport.aether.tile.TileEntityEnchanter;
 
 import java.util.Random;
@@ -64,7 +64,7 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityEnchanter tileEntityEnchanter = (TileEntityEnchanter) world.getTileEntity(x, y, z);
-            ((IAetherScreens) player).aether$displayEnchanterScreen(tileEntityEnchanter);
+            ((AetherScreens) player).aether$displayEnchanterScreen(tileEntityEnchanter);
         }
         return true;
     }

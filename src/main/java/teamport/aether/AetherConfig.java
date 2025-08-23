@@ -20,13 +20,16 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherConfig {
     public static final Toml properties = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
     public static TomlConfigHandler cfg;
-    public static int DIMENSION;
 
     public static int blockIDs = 10000;
     public static int itemIDs = 20000;
 
-    public static float QUICK_SOIL_SPEED_CAP;
+    public static int DIMENSION;
     public static int EXTRA_HEALTH;
+    public static float QUICK_SOIL_SPEED_CAP;
+    public static int ENCHANTER_SCREEN_ID;
+    public static int FREEZER_SCREEN_ID;
+    public static int INCUBATOR_SCREEN_ID;
 
     public static volatile String REMOTE_RESOURCE_URL;
 
@@ -40,6 +43,10 @@ public class AetherConfig {
         int dimensionDefault = 3; // so it wont bug me for testing
         int extraHealthDefault = 20;
         float quicksoilCapDefault = 1.325F;
+
+        int enchanterScreenID = 12;
+        int freezerScreenID = 13;
+        int incubatorScreenID = 14;
         String remoteResourceURLDefault = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
         LOGGER.info("Initializing config..");
@@ -49,7 +56,10 @@ public class AetherConfig {
                 .addEntry("DIMENSION", dimensionDefault)
                 .addEntry("EXTRA_HEALTH", extraHealthDefault)
                 .addEntry("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault)
-                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
+                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault)
+                .addEntry("ENCHANTER_SCREEN_ID", enchanterScreenID)
+                .addEntry("FREEZER_SCREEN_ID", freezerScreenID)
+                .addEntry("INCUBATOR_SCRREN_ID", incubatorScreenID);
 
         //BLOCK ID
         properties.addCategory(BlockIDs);
@@ -89,6 +99,9 @@ public class AetherConfig {
         EXTRA_HEALTH         = cfgGetValueOrDefault("EXTRA_HEALTH", extraHealthDefault);
         QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
         REMOTE_RESOURCE_URL  = cfgGetValueOrDefault("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
+        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault("ENCHANTER_SCREEN_ID", enchanterScreenID);
+        FREEZER_SCREEN_ID  = cfgGetValueOrDefault("FREEZER_SCREEN_ID", freezerScreenID);
+        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault("INCUBATOR_SCRREN_ID", incubatorScreenID);
 
         if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
     }

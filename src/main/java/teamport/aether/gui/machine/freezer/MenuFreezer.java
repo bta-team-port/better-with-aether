@@ -81,6 +81,23 @@ public class MenuFreezer extends MenuAbstract {
         }
     }
 
+    public void setData(int id, int value) {
+        switch (id) {
+            case 0:
+                this.freezer.currentProcessTime = value;
+                break;
+            case 1:
+                this.freezer.currentEnergyTime = value;
+                break;
+            case 2:
+                this.freezer.maxProcessTime = value;
+                break;
+            case 3:
+                this.freezer.maxEnergyTime = value;
+        }
+    }
+
+
     public void broadcastChanges() {
         super.broadcastChanges();
 
