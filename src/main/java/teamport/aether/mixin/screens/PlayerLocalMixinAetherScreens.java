@@ -6,14 +6,14 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import teamport.aether.gui.IAetherScreens;
+import teamport.aether.gui.AetherScreens;
 import teamport.aether.gui.machine.enchanter.ScreenEnchanter;
 import teamport.aether.gui.machine.freezer.ScreenFreezer;
 import teamport.aether.gui.machine.incubator.ScreenIncubator;
 import teamport.aether.tile.*;
 
 @Mixin(value = PlayerLocal.class, remap = false)
-public abstract class PlayerLocalMixinAetherScreens extends Player implements IAetherScreens {
+public abstract class PlayerLocalMixinAetherScreens extends Player implements AetherScreens {
 
     @Shadow protected Minecraft mc;
 

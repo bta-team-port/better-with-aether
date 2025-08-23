@@ -102,6 +102,7 @@
     "light.BlockMixin",
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
+    "net.PacketHandlerClientMixinAetherMachines",
     "screens.PlayerLocalMixinAetherScreens",
     "screens.PortalLoadingScreenMixin",
     "screens.ResourceDownloadToastMixin"
@@ -110,7 +111,8 @@
     "dimension.MPBumpToOverworldMixin",
     "dimension.MPEntityBumpToOverworldMixin",
     "net.AerBunnyFlyingMixin",
-    "net.PlayerLoginMixin"
+    "net.PlayerLoginMixin",
+    "screens.PlayerServerMixinAetherScreens"
   ],
   "injectors": {
     "defaultRequire": 1
