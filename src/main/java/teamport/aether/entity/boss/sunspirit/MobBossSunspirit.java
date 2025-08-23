@@ -270,7 +270,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
                         this.timesShot++;
                     } else {
                         ProjectileElementIce elementIce = new ProjectileElementIce(this.world, this);
-                        elementIce.setHeading(this.getLookAngle().x, this.getLookAngle().y, this.getLookAngle().z, 0.5f, 50.0F);
+                        elementIce.setHeading(this.getLookAngle().x, this.getLookAngle().y, this.getLookAngle().z, 0.5f, 0.0F);
                         this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 2.0F);
                         this.world.entityJoinedWorld(elementIce);
                         this.timesShot = 0;
