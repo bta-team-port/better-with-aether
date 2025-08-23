@@ -106,6 +106,22 @@ public class MenuIncubator extends MenuAbstract {
         this.maxEnergyTime = this.incubator.maxEnergyTime;
     }
 
+    public void setData(int id, int value) {
+        switch (id) {
+            case 0:
+                this.incubator.currentProcessTime = value;
+                break;
+            case 1:
+                this.incubator.currentEnergyTime = value;
+                break;
+            case 2:
+                this.incubator.maxProcessTime = value;
+                break;
+            case 3:
+                this.incubator.maxEnergyTime = value;
+        }
+    }
+
     @Override
     public boolean stillValid(Player player) {return this.incubator.stillValid(player);}
 }

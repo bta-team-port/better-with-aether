@@ -107,6 +107,22 @@ public class MenuEnchanter extends MenuAbstract {
         this.maxEnergyTime = this.enchanter.maxEnergyTime;
     }
 
+    public void setData(int id, int value) {
+        switch (id) {
+            case 0:
+                this.enchanter.currentProcessTime = value;
+                break;
+            case 1:
+                this.enchanter.currentEnergyTime = value;
+                break;
+            case 2:
+                this.enchanter.maxProcessTime = value;
+                break;
+            case 3:
+                this.enchanter.maxEnergyTime = value;
+        }
+    }
+
     @Override
     public boolean stillValid(Player player) {return this.enchanter.stillValid(player);}
 }

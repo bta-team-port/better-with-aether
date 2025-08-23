@@ -11,7 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.gui.IAetherScreens;
+import teamport.aether.gui.AetherScreens;
 import teamport.aether.tile.TileEntityIncubator;
 
 import java.util.Random;
@@ -57,7 +57,7 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             TileEntityIncubator tileEntityIncubator = (TileEntityIncubator) world.getTileEntity(x, y, z);
-            ((IAetherScreens) player).aether$displayIncubatorScreen(tileEntityIncubator);
+            ((AetherScreens) player).aether$displayIncubatorScreen(tileEntityIncubator);
         }
         return true;
     }

@@ -1,0 +1,46 @@
+package teamport.aether.mixin.net;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.PlayerLocal;
+import net.minecraft.client.net.handler.PacketHandlerClient;
+import net.minecraft.core.net.packet.PacketContainerOpen;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.AetherConfig;
+import teamport.aether.gui.AetherScreens;
+import teamport.aether.tile.TileEntityEnchanter;
+import teamport.aether.tile.TileEntityFreezer;
+import teamport.aether.tile.TileEntityIncubator;
+
+@Mixin(value = PacketHandlerClient.class, remap = false)
+public class PacketHandlerClientMixinAetherMachines {
+
+    @Final
+    @Shadow
+    private Minecraft mc;
+
+    @Inject(method = "handleOpenWindow", at = @At("TAIL"))
+    public void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci){
+        PlayerLocal playerLocal = this.mc.thePlayer;
+        AetherScreens playerScreen = (AetherScreens)playerLocal;
+        if(packet.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID){
+            TileEntityEnchanter machine = new TileEntityEnchanter();
+            playerScreen.aether$displayEnchanterScreen(machine);
+            playerLocal.craftingInventory.containerId = packet.windowId;
+        }
+        if(packet.inventoryType == AetherConfig.FREEZER_SCREEN_ID){
+            TileEntityFreezer machine = new TileEntityFreezer();
+            playerScreen.aether$displayFreezerScreen(machine);
+            playerLocal.craftingInventory.containerId = packet.windowId;
+        }
+        if(packet.inventoryType == AetherConfig.INCUBATOR_SCREEN_ID){
+            TileEntityIncubator machine = new TileEntityIncubator();
+            playerScreen.aether$displayIncubatorScreen(machine);
+            playerLocal.craftingInventory.containerId = packet.windowId;
+        }
+    }
+}
