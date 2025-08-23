@@ -15,7 +15,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.gui.IAetherScreens;
+import teamport.aether.gui.AetherScreens;
 import teamport.aether.items.AetherItems;
 import teamport.aether.tile.TileEntitySignSkyroot;
 
@@ -116,7 +116,7 @@ public class BlockLogicSignSkyroot extends BlockLogic implements IPaintable {
             } else if (player.getHeldItem() != null && (player.getHeldItem().itemID == Items.DYE.id || player.getHeldItem().itemID == Items.PAINTBRUSH.id)) {
                 return false;
             } else if (signEntity.isEditableBy(player)) {
-                ((IAetherScreens) player).aether$displaySignSkyrootEditorScreen(signEntity);
+                ((AetherScreens) player).aether$displaySignSkyrootEditorScreen(signEntity);
                 return true;
             }
         }

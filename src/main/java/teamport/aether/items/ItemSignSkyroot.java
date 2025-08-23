@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.gui.IAetherScreens;
+import teamport.aether.gui.AetherScreens;
 import teamport.aether.tile.TileEntitySignSkyroot;
 
 public class ItemSignSkyroot extends Item {
@@ -45,7 +45,7 @@ public class ItemSignSkyroot extends Item {
                     TileEntitySignSkyroot tileentitysign = (TileEntitySignSkyroot)world.getTileEntity(blockX, blockY, blockZ);
                     if (tileentitysign != null) {
                         tileentitysign.setOwner(entityplayer);
-                        ((IAetherScreens) entityplayer).aether$displaySignSkyrootEditorScreen(tileentitysign);
+                        ((AetherScreens) entityplayer).aether$displaySignSkyrootEditorScreen(tileentitysign);
                     }
 
                     return true;
