@@ -26,7 +26,7 @@ public class ItemGoldenFeather extends ItemTrinket {
             return;
         }
         player.fallDistance = 0.0f;
-        if (!player.onGround && !player.isInWater() && !player.isInLava() && player.yd < 0.0) {
+        if (!player.onGround && !player.isInWater() && !player.isInLava() && player.yd < 0.0 && !player.isSneaking()) {
             player.yd *= 0.8f;
         }
     }
