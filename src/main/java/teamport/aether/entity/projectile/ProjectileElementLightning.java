@@ -16,8 +16,9 @@ import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import java.util.List;
 
 public class ProjectileElementLightning extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementLightning> {
+    public String[] particles = {"explode", "lightning", "lightning"};
     private Mob target;
-    private static final float homingPower = 0.1F;
+    private static final float homingPower = 0.15F;
     private static final float topSpeed = 0.5F;
 
     public ProjectileElementLightning(World world) {
@@ -29,18 +30,26 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
         this.initProjectile();
     }
 
-    public ProjectileElementLightning(World world, double x, double y, double z) {
-        super(world, x, y, z);
-        this.initProjectile();
-    }
-
     @Override
     public void initProjectile() {
         super.initProjectile();
         this.damage = 4;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
-        this.setSize(0.5F, 1.0F);
+        this.setSize(1.0F, 1.0F);
+    }
+
+    @Override
+    public void doExplosion() {
+        for (int particle = 0; particle < 16; particle++) {
+            double XParticle = x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+
+            world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
+        }
+
+        world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, target.x, target.y - 1, target.z, "aether:zap", 1.0F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
     @Override
@@ -52,11 +61,10 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
         ++this.ticksInAir;
         if (ticksInAir > 100) {
             remove();
-            this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0,0);
+            this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+            this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, (random.nextFloat() * 1.4F + 1.8F));
-
         }
 
         if (this.target == null || !this.target.isAlive()) {
@@ -108,13 +116,14 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
                     EntityLightning bolt = new EntityLightning(world, x, y, z);
                     world.entityJoinedWorld(bolt);
                     this.remove();
+                    doExplosion();
                     return;
                 }
 
                 if (hitResult.entity instanceof Mob) {
                     hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
                     this.remove();
-                    this.world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, this.x, this.y, this.z, "ambient.weather.thunder", 0.5F, 0.8F + this.random.nextFloat() * 0.2F);
+                    doExplosion();
                     return;
                 }
             }

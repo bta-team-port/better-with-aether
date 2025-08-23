@@ -29,6 +29,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public int chatTime;
     public int direction;
     public double rotary;
+    public int motionTimer;
 
     @Nullable
     public Entity target;
@@ -48,6 +49,74 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         this.speedness = 0.5 - (double) this.getHealth() / 70.0 * 0.2;
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
         this.canBreatheUnderwater();
+    }
+
+    public void updateAI() {
+        super.updateAI();
+        if (this.gotTarget && this.target == null) {
+            this.target = this.findPlayerToAttack();
+            this.gotTarget = false;
+        }
+
+        if (this.target == null) {
+            this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
+        } else {
+            this.yBodyRot = this.yRot;
+            this.setPos(this.x, (double) this.returnPoint.y, this.z);
+            this.yd = 0.0;
+            boolean pool = false;
+            if (this.xd > 0.0 && (int) Math.floor(this.x) > this.returnPoint.x + this.wideness) {
+                this.rotary = 360.0 - this.rotary;
+                pool = true;
+            } else if (this.xd < 0.0 && (int) Math.floor(this.x) < this.returnPoint.x - this.wideness) {
+                this.rotary = 360.0 - this.rotary;
+                pool = true;
+            }
+
+            if (this.zd > 0.0 && (int) Math.floor(this.z) > this.returnPoint.z + this.wideness) {
+                this.rotary = 180.0 - this.rotary;
+                pool = true;
+            } else if (this.zd < 0.0 && (int) Math.floor(this.z) < this.returnPoint.z - this.wideness) {
+                this.rotary = 180.0 - this.rotary;
+                pool = true;
+            }
+
+            if (this.rotary > 360.0) {
+                this.rotary -= 360.0;
+            } else if (this.rotary < 0.0) {
+                this.rotary += 360.0;
+            }
+
+            if (this.target != null) {
+                this.lookAt(this.target, 20.0F, 20.0F);
+            }
+
+            double crazy = this.rotary / 57.295772552490234;
+            this.xd = Math.sin(crazy) * this.speedness;
+            this.zd = Math.cos(crazy) * this.speedness;
+            ++this.motionTimer;
+            if (this.motionTimer >= 20 || pool) {
+                this.motionTimer = 0;
+                if (this.random.nextInt(3) == 0) {
+                    this.rotary += (double) (this.random.nextFloat() - this.random.nextFloat()) * 60.0;
+                }
+            }
+
+            if (this.target != null) {
+                this.attackEntity(this.target, 32);
+            }
+
+            if (this.target != null && !this.target.isAlive()) {
+                this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
+                this.xd = 0.0;
+                this.yd = 0.0;
+                this.zd = 0.0;
+                this.target = null;
+                ((Player) target).sendMessage("§eSuch is the fate of a being who opposes the might of the sun.");
+                this.gotTarget = false;
+            }
+
+        }
     }
 
     public void lerpMotion(double xd, double yd, double zd) {

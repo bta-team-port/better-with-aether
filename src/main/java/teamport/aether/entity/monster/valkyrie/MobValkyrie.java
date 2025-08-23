@@ -127,13 +127,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (!flag) {
             this.teleportFailed();
         } else {
-            world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
             if (!EnvironmentHelper.isServerEnvironment()) {
                 this.world.spawnParticle("explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 this.world.spawnParticle("smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
                 this.world.spawnParticle("largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             }
             this.setPos(newX + 0.5, newY, newZ + 0.5);
+            world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
             this.xd = 0.0;
             this.yd = 0.0;
             this.zd = 0.0;
