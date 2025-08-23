@@ -121,6 +121,6 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
 
     @Override
     public int getHotbarSlotId(int number) {
-        return 27 + 9 + number;
+        return 27 + 8 + number;
     }
 }
