@@ -146,8 +146,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
     }
 
-    public WorldFeatureAetherSilverDungeon(int directrion) {
-        this.angle = directrion * 90;
+    public WorldFeatureAetherSilverDungeon(int direction) {
+        this.angle = direction * 90;
     }
 
     public WorldFeatureAetherSilverDungeon() {
