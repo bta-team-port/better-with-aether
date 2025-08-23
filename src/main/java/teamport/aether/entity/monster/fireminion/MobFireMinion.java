@@ -16,7 +16,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     public MobFireMinion(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");
-        this.moveSpeed = 1.5F;
+        this.moveSpeed = 2.0F;
         this.attackStrength = 5;
         this.fireImmune = true;
         this.maxFireTicks = 20;
