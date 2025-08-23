@@ -74,8 +74,6 @@ import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
 import teamport.aether.items.AetherItems;
-import teamport.aether.tile.TileEntityRendererSignSkyroot;
-import teamport.aether.tile.TileEntitySignSkyroot;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 
@@ -165,8 +163,8 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/door/skyroot/top", Side.sides));
 
-        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
-        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+//        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
+//        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(0, "aether:block/skyroot"));
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
                 .setTex(0, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
@@ -566,7 +564,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
+//        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());
@@ -629,7 +627,7 @@ public class AetherModels implements ModelEntrypoint {
 
     @Override
     public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
-        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, TileEntityRendererSignSkyroot::new);
+//        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, TileEntityRendererSignSkyroot::new);
 
     }
 
