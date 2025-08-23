@@ -442,18 +442,18 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.ice, true, false, () -> AetherItems.DOOR_SKYROOT))
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
 
-        SIGN_POST_PLANKS_SKYROOT = wood
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-                .setHardness(1.0f)
-                .setVisualUpdateOnMetadata()
-                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true))
-                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
-        SIGN_WALL_PLANKS_SKYROOT = wood
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-                .setHardness(1.0f)
-                .setVisualUpdateOnMetadata()
-                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false))
-                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+//        SIGN_POST_PLANKS_SKYROOT = wood
+//                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+//                .setHardness(1.0f)
+//                .setVisualUpdateOnMetadata()
+//                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true))
+//                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+//        SIGN_WALL_PLANKS_SKYROOT = wood
+//                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+//                .setHardness(1.0f)
+//                .setVisualUpdateOnMetadata()
+//                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false))
+//                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
