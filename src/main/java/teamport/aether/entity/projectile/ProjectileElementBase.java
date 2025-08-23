@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
@@ -45,24 +46,62 @@ public class ProjectileElementBase extends Projectile{
         this.damage = 2;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
-        this.setSize(0.5F, 1.0F);
+        this.setSize(1.0F, 1.0F);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (!this.world.isClientSide &&  bounceCount >= maxBounces) {
+        int xFloor = MathHelper.floor(this.x);
+        int yFloor = MathHelper.floor(this.y);
+        int zFloor = MathHelper.floor(this.z);
+
+        if (this.xd > 0 && this.world.getBlockId(xFloor + 1, yFloor, zFloor) != 0) {
+            this.xd = -this.xd;
+            bounceSound();
+            bounceCount++;
+        } else if (this.xd < 0 && this.world.getBlockId(xFloor - 1, yFloor, zFloor) != 0) {
+            this.xd = -this.xd;
+            bounceSound();
+            bounceCount++;
+        }
+
+        if (this.yd > 0 && this.world.getBlockId(xFloor, yFloor + 1, zFloor) != 0) {
+            this.yd = -this.yd;
+            bounceSound();
+            bounceCount++;
+        } else if (this.yd < 0 && this.world.getBlockId(xFloor, yFloor - 1, zFloor) != 0) {
+            this.yd = -this.yd;
+            bounceSound();
+            bounceCount++;
+        }
+
+        if (this.zd > 0 && this.world.getBlockId(xFloor, yFloor, zFloor + 1) != 0) {
+            this.zd = -this.zd;
+            bounceSound();
+            bounceCount++;
+        } else if (this.zd < 0 && this.world.getBlockId(xFloor, yFloor, zFloor - 1) != 0) {
+            this.zd = -this.zd;
+            bounceSound();
+            bounceCount++;
+        }
+
+        if (!this.world.isClientSide && bounceCount >= maxBounces) {
             doExplosion();
             this.remove();
         }
     }
 
+    public void bounceSound() {
+        this.world.playSoundAtEntity(null, this, "random.explode", 0.1F, 2.0F);
+    }
+
     public void doExplosion() {
-        for (int particle = 0; particle < 12; particle++) {
-            double XParticle = x + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+        for (int particle = 0; particle < 16; particle++) {
+            double XParticle = x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double ZParticle = z + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
             world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0,0,0,0);
         }

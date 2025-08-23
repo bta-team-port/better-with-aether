@@ -151,6 +151,12 @@
       "mob/sunspirit/death2.ogg"
     ]
   },
+  "zap": {
+    "subtitle": "subtitles.zap",
+    "sounds": [
+      "zap.ogg"
+    ]
+  },
   "aether.tune": {
     "sounds": [
       {

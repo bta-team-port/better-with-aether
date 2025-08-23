@@ -1,19 +1,22 @@
 package teamport.aether.entity.projectile;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
+    public boolean hasBeenHitByPlayer = false;
+
     public ProjectileElementIce(World world) {
         super(world);
     }
-
-    public boolean hasBeenHitByPlayer = false;
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);
@@ -21,19 +24,37 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
         this.initialSpeed = 0.25F;
     }
 
-    public ProjectileElementIce(World world, double x, double y, double z) {
-        super(world, x, y, z);
-    }
-
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
         if (!this.world.isClientSide) {
             if (entity instanceof Player) {
+                Vec3 lookAngle = entity.getLookAngle();
+                this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 2.0f, 0.0F);
                 hasBeenHitByPlayer = true;
             }
         }
 
         return super.hurt(entity, damage, type);
+    }
+
+    @Override
+    public void bounceSound() {
+        this.world.playSoundAtEntity(null, this, "step.permafrost", 2.0F, 1.0F);
+    }
+
+    @Override
+    public void doExplosion() {
+        for (int particle = 0; particle < 16; particle++) {
+            double XParticle = x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+
+            world.spawnParticle("block", XParticle, YParticle, ZParticle, 0, 0, 0, Blocks.PERMAICE.id());
+            world.spawnParticle("snowshovel", XParticle, YParticle, ZParticle, 0, 0, 0, 0);
+
+        }
+
+        world.playBlockSoundEffect(null, x, y, z, Blocks.ICE, EnumBlockSoundEffectType.MINE);
     }
 
     @Override
