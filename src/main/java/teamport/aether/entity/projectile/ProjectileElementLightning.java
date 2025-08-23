@@ -42,14 +42,14 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
     @Override
     public void doExplosion() {
         for (int particle = 0; particle < 16; particle++) {
-            double XParticle = x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double XParticle = target.x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double YParticle = target.y - 1 + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
+            double ZParticle = target.z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
             world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
         }
 
-        world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, target.x, target.y - 1, target.z, "aether:zap", 1.0F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, target.x, target.y - 1, target.z, "aether:zap", 0.5F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     }
 
     @Override

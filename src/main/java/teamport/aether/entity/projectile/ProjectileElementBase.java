@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ProjectileElementBase extends Projectile{
+public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
     public float initialSpeed = 0.5F;
     public int maxBounces = 20;
@@ -103,7 +103,7 @@ public class ProjectileElementBase extends Projectile{
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
-            world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0,0,0,0);
+            world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
         }
 
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.25F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -142,7 +142,7 @@ public class ProjectileElementBase extends Projectile{
         this.x += this.xd;
         this.y += this.yd;
         this.z += this.zd;
-        this.yRot = (float)(Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
+        this.yRot = (float) (Math.atan2(this.xd, this.zd) * 180.0 / Math.PI);
 
         if (this.isInWater()) {
             this.waterTick();
@@ -179,7 +179,7 @@ public class ProjectileElementBase extends Projectile{
         if (!this.world.isClientSide) {
             if (entity != null) {
                 if (entity instanceof Mob) {
-                    this.owner = (Mob)entity;
+                    this.owner = (Mob) entity;
                 }
                 Vec3 lookAngle = entity.getLookAngle();
                 if (lookAngle != null) {
