@@ -8,6 +8,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.ItemTrinket;
@@ -279,8 +281,15 @@ public final class AetherItems {
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
 
-        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
-        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
+        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID)
+                .build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class))
+                .setMaxStackSize(1)
+                .setMaxDamage(1);
+
+        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID)
+                .build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class))
+                .setMaxStackSize(1)
+                .setMaxDamage(20);
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
