@@ -39,7 +39,11 @@ public class ItemParachute extends Item {
                 }
 
                 if (player.gamemode.toolDurability()) {
-                    itemstack.damageItem(1, player);
+                    if (itemstack.getMaxDamage() == 1) {
+                        itemstack.consumeItem(player);
+                    } else {
+                        itemstack.damageItem(1, player);
+                    }
                 }
             }
         }
