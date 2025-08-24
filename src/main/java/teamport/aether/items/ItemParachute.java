@@ -18,7 +18,7 @@ public class ItemParachute extends Item {
     }
 
     public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
-        if (player.fallDistance > 0) {
+        if (player.fallDistance > 0 && !player.isInWater()) {
             if (!EnvironmentHelper.isClientWorld()) {
 
                 EntityParachute cloud;
