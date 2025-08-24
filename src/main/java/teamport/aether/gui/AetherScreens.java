@@ -1,9 +1,9 @@
 package teamport.aether.gui;
 
-import teamport.aether.tile.TileEntityEnchanter;
-import teamport.aether.tile.TileEntityFreezer;
-import teamport.aether.tile.TileEntityIncubator;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.entity.tile.TileEntityEnchanter;
+import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 public interface AetherScreens {
     void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity);
