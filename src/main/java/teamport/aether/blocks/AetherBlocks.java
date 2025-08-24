@@ -229,7 +229,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         BlockBuilder clouds = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
                 .setHardness(0.2f)
-                .setResistance(0.2f);
+                .setResistance(0.2f)
+                .setLightOpacity(1);
 
         BlockBuilder slab = new BlockBuilder(MOD_ID)
                 .setUseInternalLight()
