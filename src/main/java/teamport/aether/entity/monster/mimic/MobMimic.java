@@ -80,7 +80,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         if (random.nextInt(3) == 0 && !loot.isEmpty()) {
             int amount = random.nextInt(2) + 1;
 
-            int end = Math.min(random.nextInt(amount) + amount, loot.size());
+            int end = Math.min(random.nextInt(loot.size()) + amount, loot.size());
             int start = Math.max(0, end - amount);
 
             for (int i = start; i < end; i++) {
