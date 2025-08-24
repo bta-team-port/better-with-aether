@@ -10,10 +10,10 @@ import teamport.aether.gui.AetherScreens;
 import teamport.aether.gui.machine.enchanter.MenuEnchanter;
 import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
-import teamport.aether.tile.TileEntityEnchanter;
-import teamport.aether.tile.TileEntityFreezer;
-import teamport.aether.tile.TileEntityIncubator;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.entity.tile.TileEntityEnchanter;
+import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public class PlayerServerMixinAetherScreens implements AetherScreens {

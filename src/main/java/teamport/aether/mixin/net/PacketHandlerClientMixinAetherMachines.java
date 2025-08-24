@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherConfig;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.tile.TileEntityEnchanter;
-import teamport.aether.tile.TileEntityFreezer;
-import teamport.aether.tile.TileEntityIncubator;
+import teamport.aether.entity.tile.TileEntityEnchanter;
+import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.entity.tile.TileEntityIncubator;
 
 @Mixin(value = PacketHandlerClient.class, remap = false)
 public class PacketHandlerClientMixinAetherMachines {

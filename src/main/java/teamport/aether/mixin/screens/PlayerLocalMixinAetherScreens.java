@@ -10,7 +10,7 @@ import teamport.aether.gui.AetherScreens;
 import teamport.aether.gui.machine.enchanter.ScreenEnchanter;
 import teamport.aether.gui.machine.freezer.ScreenFreezer;
 import teamport.aether.gui.machine.incubator.ScreenIncubator;
-import teamport.aether.tile.*;
+import teamport.aether.entity.tile.*;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalMixinAetherScreens extends Player implements AetherScreens {

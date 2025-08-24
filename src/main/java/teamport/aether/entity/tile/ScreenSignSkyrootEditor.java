@@ -1,4 +1,4 @@
-package teamport.aether.tile;
+package teamport.aether.entity.tile;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
