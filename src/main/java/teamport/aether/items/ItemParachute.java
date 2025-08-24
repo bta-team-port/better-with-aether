@@ -3,9 +3,7 @@ package teamport.aether.items;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.world.World;
-import net.minecraft.server.entity.player.PlayerServer;
 import teamport.aether.AetherAchievements;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
@@ -35,9 +33,6 @@ public class ItemParachute extends Item {
                 world.spawnParticle(cloud.getPathParticle(), player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
 
                 player.startRiding(cloud);
-                if (EnvironmentHelper.isServerEnvironment()) {
-                    ((PlayerServer)player).playerNetServerHandler.sendPacket(new PacketSetRiding(cloud, player));
-                }
 
                 if (!EnvironmentHelper.isServerEnvironment()) {
                     player.triggerAchievement(AetherAchievements.PARACHUTE);

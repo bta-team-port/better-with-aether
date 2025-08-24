@@ -11,16 +11,32 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
+
+import static teamport.aether.AetherMod.LOGGER;
 
 public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrackedEntry<EntityParachute> {
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        return new EntityParachute(world);
+
+        Class<? extends EntityParachute> parachuteClass = (meta >>> 24) > 0 ? EntityParachuteGold.class : EntityParachute.class;
+
+        EntityParachute parachute;
+        try { parachute = parachuteClass.getConstructor(World.class).newInstance(world); }
+        catch (Exception e) {
+            LOGGER.error("Failed to spawn parachute cloud!");
+            throw new RuntimeException(e);
+        }
+
+        parachute.moveTo(x, y, z, 0, 0);
+        return parachute;
     }
 
     @Override
     public PacketAddEntity getSpawnPacket(EntityTrackerEntry entityTrackerEntry, EntityParachute tracked) {
-        return new PacketAddEntity(tracked);
+        PacketAddEntity packet = new PacketAddEntity(tracked);
+        packet.metaData = (tracked instanceof EntityParachuteGold ? 1 : 0) << 24;
+        return packet;
     }
 
     @Override
@@ -40,7 +56,7 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
 
     @Override
     public boolean sendMotionUpdates() {
-        return true;
+        return false;
     }
 
     @Override
