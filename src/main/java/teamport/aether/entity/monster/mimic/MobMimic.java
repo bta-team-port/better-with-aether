@@ -75,17 +75,16 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     public void setLoot(List<ItemStack> loot){
-        if(loot == null) return;
+        if(loot == null || loot.isEmpty()) return;
 
-        if (random.nextInt(3) == 0 && !loot.isEmpty()) {
-            int amount = random.nextInt(2) + 1;
+        int amount = random.nextInt(4) + 1;
 
-            int end = Math.min(random.nextInt(loot.size()) + amount, loot.size());
-            int start = Math.max(0, end - amount);
+        int end = Math.min(random.nextInt(loot.size()) + amount, loot.size());
+        int start = Math.max(0, end - amount);
 
-            for (int i = start; i < end; i++) {
-                mobDrops.add(new WeightedRandomLootObject(loot.get(i), 1));
-            }
+        for (int i = start; i < end; i++) {
+            mobDrops.add(new WeightedRandomLootObject(loot.get(i)));
         }
+
     }
 }
