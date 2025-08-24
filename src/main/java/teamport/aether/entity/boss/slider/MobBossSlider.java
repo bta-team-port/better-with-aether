@@ -40,6 +40,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static final float angerThreshold = 0.50F;
     public static final float baseDamage = 10F;
     public static final int maxAttackCoolDown = 50;
+    public static final int minAttackCoolDown = 10;
 
     public static final int TICKS_PER_SECOND = 20;
 
@@ -86,6 +87,10 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
         this.chatColor = (byte) (TextFormatting.BROWN.id & 255);
         this.canBreatheUnderwater();
+    }
+
+    public int getAttackCoolDown(float progress) {
+        return (int) (minAttackCoolDown + (maxAttackCoolDown - minAttackCoolDown) * progress);
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -246,7 +251,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
         if (allowedToMove && target != null && blocksToMove <= 0.05F) {
             float progress = (float) Math.max((float) this.getHealth() / this.getMaxHealth(), .32);
 
-            this.attackCoolDown = (int) (maxAttackCoolDown * progress);
+            this.attackCoolDown = getAttackCoolDown(progress);
             allowedToMove = false;
 
             if (this.distanceToSqr(target) <= 25 && progress < .60F && random.nextInt(6) == 0) {
@@ -254,7 +259,7 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
                 blocksToMove = 45;
 
                 speed = baseSpeed * 2;
-                this.attackCoolDown = (int) (maxAttackCoolDown * 0.50F);
+                this.attackCoolDown = getAttackCoolDown(.50F);
                 this.currentState = State.SLAM;
                 slamGoingDown = false;
                 return;
