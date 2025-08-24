@@ -38,6 +38,7 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.net.NetEntryAetherProjectile;
 import teamport.aether.net.NetEntryLightning;
+import teamport.aether.net.NetEntryParachute;
 import teamport.aether.net.NetEntrySlider;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import teamport.aether.net.message.BossListNetworkMessage;
@@ -86,6 +87,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
         NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
+        NetEntityHandler.registerNetworkEntry(new NetEntryParachute(), 36);
         NetEntityHandler.registerNetworkEntry(new NetEntrySlider());
 
         SoundTypes.loadSoundsJson(MOD_ID);
