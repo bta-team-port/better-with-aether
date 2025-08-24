@@ -12,6 +12,8 @@ import net.minecraft.core.net.command.arguments.ArgumentTypeEntity;
 import net.minecraft.core.net.command.helpers.EntitySelector;
 import net.minecraft.core.net.command.util.CommandHelper;
 import teamport.aether.helper.HealthHelper;
+import teamport.aether.net.message.CommandExtraHealthMessage;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.List;
 
@@ -32,20 +34,21 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
     public void register(CommandDispatcher<CommandSource> commandDispatcher) {
         commandDispatcher
                 .register((ArgumentBuilderLiteral)literal("aether:extraHealth").requires(t -> ((CommandSource) t).hasAdmin())
-                        .then(ArgumentBuilderLiteral.literal("add")
+                        .then(literal("add")
                         .then(ArgumentBuilderRequired.argument("target", ArgumentTypeEntity.usernames())
                         .then(ArgumentBuilderRequired.argument("amount", ArgumentTypeInteger.integer())
                         .executes(c ->{
                             CommandSource source = (CommandSource) c.getSource();
                             int amount = c.getArgument("amount", Integer.class);
                             EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
-                            List<? extends Entity> entities = entitySelector.get(source);
+                            List<? extends Player> entities = (List<Player>)entitySelector.get(source);
                             int max_health_added = 0;
-                            for(Entity player: entities){
-                                int current_extra_health = HealthHelper.getExtraHealth((Player) player);
-                                HealthHelper.addExtraHealth((Player) player, amount);
-                                int new_extra_health = HealthHelper.getExtraHealth((Player) player);
+                            for(Player player: entities){
+                                int current_extra_health = HealthHelper.getExtraHealth(player);
+                                HealthHelper.addExtraHealth(player, amount);
+                                int new_extra_health = HealthHelper.getExtraHealth(player);
                                 max_health_added = Math.max(new_extra_health - current_extra_health, max_health_added);
+                                NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(new_extra_health));
                             }
 
                             if(entities.size() == 1) {
@@ -64,9 +67,10 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
                             int amount = c.getArgument("amount", Integer.class);
                             amount = Math.min(20, amount);
                             EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
-                            List<? extends Entity> entities = entitySelector.get(source);
-                            for(Entity player: entities){
-                                HealthHelper.setExtraHealth((Player) player, amount);
+                            List<? extends Player> entities = (List<Player>)entitySelector.get(source);
+                            for(Player player: entities){
+                                HealthHelper.setExtraHealth(player, amount);
+                                NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(amount));
                             }
 
                             if(entities.size() == 1) {
