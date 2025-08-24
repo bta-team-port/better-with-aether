@@ -35,7 +35,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            hitResult.entity.hurt(this, this.damage, DamageType.COMBAT);
+            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y, hitResult.entity.z));
             }

@@ -99,7 +99,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
+            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
                 }

@@ -74,14 +74,14 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
             if (!(hitResult.entity instanceof ProjectileElementBase)) {
                 if (hitResult.entity instanceof MobBossSunspirit) {
                     if (hasBeenHitByPlayer) {
-                        hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+                        hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                         this.remove();
                     } else {
                         super.onHit(hitResult);
                     }
 
                 } else if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                     this.remove();
                 }
             }

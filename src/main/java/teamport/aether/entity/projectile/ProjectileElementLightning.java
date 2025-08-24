@@ -119,7 +119,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
                 }
 
                 if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                     this.remove();
                     doExplosion();
                     return;
