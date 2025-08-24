@@ -47,6 +47,8 @@ public abstract class SPBumpToOverworldMixin extends Player {
                 AetherMod.LOGGER.info(String.format("Sending %s to overworld", getDisplayName()));
 
                 CompoundTag passengerNBT = null;
+                CompoundTag vehicleNBT = null;
+
                 if (getPassenger() != null) {
                     passengerNBT = new CompoundTag();
                     Entity p = getPassenger();
@@ -54,7 +56,14 @@ public abstract class SPBumpToOverworldMixin extends Player {
 
                     p.save(passengerNBT);
                     p.remove();
-                } else if (isPassenger() && vehicle != null) { vehicle.ejectRider(); }
+                }
+
+                if (isPassenger() && vehicle != null) {
+                    vehicleNBT = new CompoundTag();
+                    ((Entity) vehicle).save(vehicleNBT);
+
+                    vehicle.ejectRider();
+                }
 
                 mc.currentWorld.setEntityDead(this);
                 mc.thePlayer.removed = false;
@@ -72,11 +81,21 @@ public abstract class SPBumpToOverworldMixin extends Player {
                 if (isAlive()) { mc.currentWorld.updateEntityWithOptionalForce(this, false); }
 
                 if (passengerNBT != null) {
-                    Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, world);
+                    Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, mc.currentWorld);
+                    p.load(passengerNBT);
                     p.moveTo(x, y, z, 0f, 0f);
-                    world.entityJoinedWorld(p);
+                    mc.currentWorld.entityJoinedWorld(p);
 
                     p.startRiding(this);
+                }
+
+                if (vehicleNBT != null) {
+                    Entity v = EntityDispatcher.createEntityFromNBT(vehicleNBT, mc.currentWorld);
+                    v.load(vehicleNBT);
+                    v.moveTo(x, y, z, 0f, 0f);
+                    mc.currentWorld.entityJoinedWorld(v);
+
+                    this.startRiding(v);
                 }
             }
 
