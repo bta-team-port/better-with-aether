@@ -9,7 +9,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 public class ItemSignSkyroot extends Item {
     public ItemSignSkyroot(String name, String namespaceId, int id) {

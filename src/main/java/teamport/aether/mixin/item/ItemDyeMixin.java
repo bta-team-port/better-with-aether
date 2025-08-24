@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.blocks.BlockLogicSignSkyroot;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 @Mixin(value = ItemDye.class, remap = false)
 public abstract class ItemDyeMixin extends Item {

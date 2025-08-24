@@ -6,7 +6,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import teamport.aether.tile.TileEntityFreezer;
+import teamport.aether.entity.tile.TileEntityFreezer;
 
 import java.util.List;
 

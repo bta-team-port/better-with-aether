@@ -1,4 +1,4 @@
-package teamport.aether.tile;
+package teamport.aether.entity.tile;
 
 
 import net.minecraft.core.block.Blocks;

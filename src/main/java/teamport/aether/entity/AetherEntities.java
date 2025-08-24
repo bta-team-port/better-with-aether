@@ -26,7 +26,7 @@ import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
-import teamport.aether.tile.*;
+import teamport.aether.entity.tile.*;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -84,6 +84,7 @@ public final class AetherEntities {
         EntityHelper.createTileEntity(TileEntityFreezer.class, NamespaceID.getPermanent(MOD_ID, "freezer"));
         EntityHelper.createTileEntity(TileEntityIncubator.class, NamespaceID.getPermanent(MOD_ID, "incubator"));
         EntityHelper.createTileEntity(TileEntitySignSkyroot.class, NamespaceID.getPermanent(MOD_ID, "sign_skyroot"));
+        EntityHelper.createTileEntity(TileEntityMimic.class, NamespaceID.getPermanent(MOD_ID, "chest_mimic"));
 
         EntityHelper.createEntity(ProjectileKnifeLightning.class, NamespaceID.getPermanent(MOD_ID, "knife_lightning"), entityKey("knife_lightning"));
         EntityHelper.createEntity(ProjectileDart.class, NamespaceID.getPermanent(MOD_ID, "dart"), entityKey("dart"));

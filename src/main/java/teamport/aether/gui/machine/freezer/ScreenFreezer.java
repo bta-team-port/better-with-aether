@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelFreezer;
-import teamport.aether.tile.TileEntityFreezer;
+import teamport.aether.entity.tile.TileEntityFreezer;
 
 @Environment(EnvType.CLIENT)
 public class ScreenFreezer extends ScreenAetherMachine {

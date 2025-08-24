@@ -12,7 +12,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.tile.TileEntityEnchanter;
+import teamport.aether.entity.tile.TileEntityEnchanter;
 
 import java.util.Random;
 

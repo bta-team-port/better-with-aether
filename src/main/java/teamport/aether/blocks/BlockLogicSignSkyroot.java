@@ -17,7 +17,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.items.AetherItems;
-import teamport.aether.tile.TileEntitySignSkyroot;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 public class BlockLogicSignSkyroot extends BlockLogic implements IPaintable {
     public final boolean isFreeStanding;
