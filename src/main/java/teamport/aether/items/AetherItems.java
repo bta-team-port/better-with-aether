@@ -328,7 +328,11 @@ public final class AetherItems {
         TOOL_PICKAXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
         TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
 
-        TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING")));
+        TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID)
+                .setTags(ItemTags.PREVENT_CREATIVE_MINING)
+                .build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING")))
+                .setMaxStackSize(32);
+
         AMMO_HAMMER_HEAD = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), itemID("AMMO_HAMMER_HEAD")));
         TOOL_HAMMER_NOTCH = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.SPECIAL));
 
