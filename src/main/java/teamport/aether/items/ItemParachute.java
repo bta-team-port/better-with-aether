@@ -45,7 +45,6 @@ public class ItemParachute extends Item {
 
                 if (player.gamemode.toolDurability()) {
                     itemstack.damageItem(1, player);
-                    if (itemstack.getMetadata() >= itemstack.getMaxDamage()) return null;
                 }
             }
         }
