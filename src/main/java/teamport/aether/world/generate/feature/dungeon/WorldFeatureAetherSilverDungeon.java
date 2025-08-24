@@ -64,9 +64,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 150.0);
 
         // ammo
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 10).setRandomMetadata(1, 1), 600.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 6).setRandomMetadata(1, 1), 400.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 6).setRandomMetadata(1, 1), 200.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 10), 600.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 6), 400.0);
+        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 6), 200.0);
 
         // jack pot
         LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.EGG_MOA_BLUE.getDefaultStack()), 50.0);
@@ -148,9 +148,6 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
     public WorldFeatureAetherSilverDungeon(int direction) {
         this.angle = direction * 90;
-    }
-
-    public WorldFeatureAetherSilverDungeon() {
     }
 
     public static WorldFeatureAetherSilverDungeon silverDungeon(Random random) {

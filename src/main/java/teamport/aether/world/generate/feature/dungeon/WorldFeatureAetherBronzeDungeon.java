@@ -100,8 +100,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.angle = direction * 90;
     }
 
-    public WorldFeatureAetherBronzeDungeon() {
-    }
 
     public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random) {
         return new WorldFeatureAetherBronzeDungeon(0);
