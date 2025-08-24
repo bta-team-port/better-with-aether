@@ -103,11 +103,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack()), 25.0);
     }
 
+
     public WorldFeatureAetherGoldDungeon(int direction) {
         this.angle = direction * 90;
-    }
-
-    public WorldFeatureAetherGoldDungeon() {
     }
 
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {

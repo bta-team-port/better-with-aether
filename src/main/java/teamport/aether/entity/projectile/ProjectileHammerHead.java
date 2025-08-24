@@ -44,7 +44,7 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            hitResult.entity.hurt(this, this.damage, DamageType.COMBAT);
+            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
             doEffect();
             this.remove();
         }

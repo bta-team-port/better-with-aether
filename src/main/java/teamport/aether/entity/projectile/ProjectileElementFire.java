@@ -50,7 +50,7 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
         if (!this.world.isClientSide) {
             if (!(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase || hitResult.entity instanceof MobFireMinion)) {
                 if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this, this.damage, DamageType.FIRE);
+                    hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
                     hitResult.entity.maxFireTicks = 200;
                     hitResult.entity.remainingFireTicks = 200;
                     this.remove();
