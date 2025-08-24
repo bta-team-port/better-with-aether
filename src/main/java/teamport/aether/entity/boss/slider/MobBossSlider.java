@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static net.minecraft.core.Global.TICKS_PER_SECOND;
+
 public class MobBossSlider extends MobBoss implements EnemyBoss {
     public float deformX;
     public int deformY;
@@ -41,8 +43,6 @@ public class MobBossSlider extends MobBoss implements EnemyBoss {
     public static final float baseDamage = 10F;
     public static final int maxAttackCoolDown = 50;
     public static final int minAttackCoolDown = 10;
-
-    public static final int TICKS_PER_SECOND = 20;
 
     // blocks per second.
     public static final float baseSpeed = 15;
