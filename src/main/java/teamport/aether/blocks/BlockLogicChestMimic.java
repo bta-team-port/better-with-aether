@@ -41,10 +41,6 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     @Override
     public String getLanguageKey(int meta) {
-        if (BTWAILA) {
-            // hides the mimic name and description
-            return AetherBlocks.CHEST_PLANKS_SKYROOT.getLanguageKey(meta);
-        }
         return super.getLanguageKey(meta);
     }
 
