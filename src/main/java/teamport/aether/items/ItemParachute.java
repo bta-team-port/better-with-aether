@@ -5,39 +5,46 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherAchievements;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
-import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemParachute extends Item {
-    boolean gold;
+    Class<? extends EntityParachute> entity;
 
-    public ItemParachute(String translationKey, String namespaceId, int id, boolean gold) {
+    public ItemParachute(String translationKey, String namespaceId, int id, Class<? extends EntityParachute> entity) {
         super(translationKey, namespaceId, id);
-        this.gold = gold;
+        this.entity = entity;
     }
 
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-        if (entityplayer.fallDistance > 0) {
-            if (!world.isClientSide) {
-                if (!gold) {
-                    EntityParachute cloud = new EntityParachute(world);
-                    cloud.spawnInit();
-                    cloud.absMoveTo(entityplayer.x, entityplayer.y - 2, entityplayer.z, (entityplayer.yRot), (entityplayer.xRot));
-                    world.spawnParticle("explode", entityplayer.x + 0.5, entityplayer.y + 1, entityplayer.z + 0.5, 0.0, 0.0, 0.0, 0);
-                    entityplayer.startRiding(cloud);
-                    world.entityJoinedWorld(cloud);
-                    itemstack.damageItem(1, entityplayer);
+    public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+        if (player.fallDistance > 0 && !player.isInWater()) {
+            if (!EnvironmentHelper.isClientWorld()) {
 
-                } else {
-                    EntityParachuteGold cloud = new EntityParachuteGold(world);
-                    cloud.spawnInit();
-                    cloud.absMoveTo(entityplayer.x, entityplayer.y - 2, entityplayer.z, (entityplayer.yRot), (entityplayer.xRot));
-                    world.spawnParticle("goldendust", entityplayer.x + 0.5, entityplayer.y + 1, entityplayer.z + 0.5, 0.0, 0.0, 0.0, 0);
-                    entityplayer.startRiding(cloud);
-                    world.entityJoinedWorld(cloud);
+                EntityParachute cloud;
+                try { cloud = entity.getConstructor(World.class).newInstance(world); }
+                catch (Exception e) {
+                    AetherMod.LOGGER.error("Failed to spawn parachute cloud!");
+                    throw new RuntimeException(e);
                 }
-                itemstack.damageItem(1, entityplayer);
-                entityplayer.triggerAchievement(AetherAchievements.PARACHUTE);
+
+                cloud.absMoveTo(player.x, player.y - 2, player.z, (player.yRot), (player.xRot));
+                world.entityJoinedWorld(cloud);
+                world.spawnParticle(cloud.getPathParticle(), player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
+
+                player.startRiding(cloud);
+
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    player.triggerAchievement(AetherAchievements.PARACHUTE);
+                }
+
+                if (player.gamemode.toolDurability()) {
+                    if (itemstack.getMaxDamage() == 1) {
+                        itemstack.consumeItem(player);
+                    } else {
+                        itemstack.damageItem(1, player);
+                    }
+                }
             }
         }
 

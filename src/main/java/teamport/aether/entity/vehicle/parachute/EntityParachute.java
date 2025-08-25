@@ -2,24 +2,34 @@ package teamport.aether.entity.vehicle.parachute;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.AetherRideable;
 import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.mixin.accessors.MobAccessor;
+import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
-public class EntityParachute extends Mob {
+public class EntityParachute extends Mob implements AetherRideable {
+
     public EntityParachute(@Nullable World world) {
         super(world);
         setSize(1.0f, 1.0f);
     }
 
+    static float maxSpeed = 0.10F;
+
     public boolean makeStepSound() {
         return false;
     }
 
+    protected double xdChange = 0;
+    protected double zdChange = 0;
+
+    public String getPathParticle() {
+        return "explode";
+    }
 
     public void tick() {
         super.tick();
@@ -27,13 +37,26 @@ public class EntityParachute extends Mob {
         double x = this.x + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double y = this.bb.minY - 0.5 + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
+
         if (!EnvironmentHelper.isServerEnvironment()) {
-            world.spawnParticle("explode", x, y, z, 0.0, 0.0, 0.0, 0);
-        }
-        if (this.passenger == null) {
-            this.remove();
+            world.spawnParticle(getPathParticle(), x, y, z, 0.0, 0.0, 0.0, 0);
         }
 
+        if (this.passenger == null) {
+            this.remove();
+        } else {
+            this.passenger.handleSpecialVehicleControl();
+        }
+
+        handleParachuteMovement();
+
+        if (this.onGround || isInWater()) {
+            this.ejectRider();
+            this.remove();
+        }
+    }
+
+    protected void handleParachuteMovement() {
         this.move(this.xd, this.yd, this.zd);
         if (this.yd < -0.2) {
             this.yd *= 0.5F;
@@ -41,48 +64,32 @@ public class EntityParachute extends Mob {
 
         this.xd *= 0.9F;
         this.zd *= 0.9F;
+    }
 
-        if (this.onGround) {
-            this.ejectRider();
-            this.remove();
+    public void vehicleMovement() {
+        this.moveSpeed = 0.0F;
+        this.moveStrafing = 0.0F;
+
+        if (this.passenger != null) {
+            this.passenger.fallDistance = 0.0F;
+        }
+
+        xd += xdChange;
+        zd += zdChange;
+        xdChange = 0.0;
+        zdChange = 0.0;
+
+        double speed = Math.sqrt(this.xd * this.xd + this.zd * this.zd);
+        if (speed > maxSpeed) {
+            double factor = maxSpeed / speed;
+            this.xd *= factor;
+            this.zd *= factor;
         }
     }
 
     public void updateAI() {
-        if (!this.world.isClientSide && this.passenger != null) {
-            this.moveSpeed = 0.0F;
-            this.moveStrafing = 0.0F;
-            this.passenger.fallDistance = 0.0F;
-            Player player = (Player) this.passenger;
-            float f = 3.141593F;
-            float f1 = f / 180.0F;
-
-            float forward = ((MobAccessor) player).getForwardVelocity();
-            float strafe = ((MobAccessor) player).getHorizontalVelocity();
-
-            if (Math.abs(forward) > 0.1F || Math.abs(strafe) > 0.1F) {
-                float f5 = player.yRot * f1;
-                float moveX = (float) ((-forward * Math.sin(f5) + strafe * Math.cos(f5)) * 0.6F / 6.0F);
-                float moveZ = (float) ((forward * Math.cos(f5) + strafe * Math.sin(f5)) * 0.6F / 6.0F);
-
-                float magnitude = (float) Math.sqrt(moveX * moveX + moveZ * moveZ);
-                if (magnitude > 0.1F) {
-                    moveX /= magnitude;
-                    moveZ /= magnitude;
-                    moveX *= 0.6F / 6.0F;
-                    moveZ *= 0.6F / 6.0F;
-                }
-
-                this.xd = this.xd * 0.6F + moveX * 0.4F;
-                this.zd = this.zd * 0.6F + moveZ * 0.4F;
-            }
-
-            double speed = Math.sqrt(this.xd * this.xd + this.zd * this.zd);
-            if (speed > 0.65F) {
-                double factor = 0.65F / speed;
-                this.xd *= factor;
-                this.zd *= factor;
-            }
+        if (this.passenger != null) {
+            vehicleMovement();
         }
     }
 
@@ -97,4 +104,35 @@ public class EntityParachute extends Mob {
         return false;
     }
 
+    @Override
+    public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
+        if (EnvironmentHelper.isClientWorld()) {
+            NetworkHandler.sendToServer(
+                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+            );
+        }
+
+        float yawDeg = (float) (yRot * (Math.PI/180));
+        float step = 0.175F;
+
+        if (moveForward > 0.1F) {
+            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
+            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+
+        } else if (moveForward < -0.1F) {
+            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
+            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+        }
+
+        if (moveStrafe > 0.1F) {
+            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+
+        } else if (moveStrafe < -0.1F) {
+            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+        }
+
+        this.yRotO = this.yRot = yRot;
+    }
 }

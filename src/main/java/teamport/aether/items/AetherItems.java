@@ -8,6 +8,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.ItemTrinket;
@@ -279,8 +281,15 @@ public final class AetherItems {
 
         LIFESHARD = new ItemBuilder(MOD_ID).build(new ItemLifeShard("food.lifeshard", itemKey("food_lifeshard"), itemID("LIFESHARD")).setMaxStackSize(10));
 
-        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), false)).setMaxStackSize(1).setMaxDamage(1);
-        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID).build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), true)).setMaxStackSize(1).setMaxDamage(19);
+        PARACHUTE_CLOUD = new ItemBuilder(MOD_ID)
+                .build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class))
+                .setMaxStackSize(1)
+                .setMaxDamage(1);
+
+        PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID)
+                .build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class))
+                .setMaxStackSize(1)
+                .setMaxDamage(20);
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID).build(new ItemPlaceable("lantern.firefly.silver", itemKey("lantern_firefly_silver"), itemID("LANTERN_FIREFLY_SILVER"), AetherBlocks.LANTERN_FIREFLY_SILVER));
         DOOR_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
@@ -328,7 +337,11 @@ public final class AetherItems {
         TOOL_PICKAXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
         TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID).build(new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
 
-        TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING")));
+        TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID)
+                .setTags(ItemTags.PREVENT_CREATIVE_MINING)
+                .build(new ItemToolKnifeLightning("tool.knife.lightning", itemKey("tool_knife_lightning"), itemID("TOOL_KNIFE_LIGHTNING")))
+                .setMaxStackSize(32);
+
         AMMO_HAMMER_HEAD = new ItemBuilder(MOD_ID).setTags(ItemTags.NOT_IN_CREATIVE_MENU).build(new Item("ammo.hammer.head", itemKey("ammo_hammer_head"), itemID("AMMO_HAMMER_HEAD")));
         TOOL_HAMMER_NOTCH = new ItemBuilder(MOD_ID).setTags(ItemTags.PREVENT_CREATIVE_MINING).build(new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.SPECIAL));
 

@@ -95,18 +95,19 @@ public class AetherConfig {
             cfg.writeConfig();
         }
 
-        DIMENSION            = cfgGetValueOrDefault("DIMENSION", dimensionDefault);
-        EXTRA_HEALTH         = cfgGetValueOrDefault("EXTRA_HEALTH", extraHealthDefault);
-        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
-        REMOTE_RESOURCE_URL  = cfgGetValueOrDefault("REMOTE_RESOURCE_URL", remoteResourceURLDefault);
-        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault("ENCHANTER_SCREEN_ID", enchanterScreenID);
-        FREEZER_SCREEN_ID  = cfgGetValueOrDefault("FREEZER_SCREEN_ID", freezerScreenID);
-        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault("INCUBATOR_SCRREN_ID", incubatorScreenID);
+        DIMENSION            = cfgGetValueOrDefault("General.DIMENSION", dimensionDefault);
+        EXTRA_HEALTH         = cfgGetValueOrDefault("General.EXTRA_HEALTH", extraHealthDefault);
+        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault("General.QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
+        REMOTE_RESOURCE_URL  = cfgGetValueOrDefault("General.REMOTE_RESOURCE_URL", remoteResourceURLDefault);
+        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault("General.ENCHANTER_SCREEN_ID", enchanterScreenID);
+        FREEZER_SCREEN_ID    = cfgGetValueOrDefault("General.FREEZER_SCREEN_ID", freezerScreenID);
+        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault("General.INCUBATOR_SCRREN_ID", incubatorScreenID);
 
         if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
     }
 
 
+    @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
         T res = null;
         try {
@@ -120,7 +121,7 @@ public class AetherConfig {
                 res = (T) new Long(cfg.getLong(key));
             }
             else if (def instanceof Float) {
-                res = (T) new Float(cfg.getFloat(key));
+                res = (T) new Float(cfg.getDouble(key));
             }
             else if (def instanceof Double) {
                 res = (T) new Double(cfg.getDouble(key));
@@ -134,6 +135,11 @@ public class AetherConfig {
 
         } catch (NullPointerException ignored) {}
 
-        return res == null ? def : res;
+        if (res == null) {
+            LOGGER.warn("Failed to load \"{}\"! Assuming default...", key);
+            return def;
+        }
+
+        return res;
     }
 }

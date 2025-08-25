@@ -111,11 +111,13 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         page.addAchievement(AetherAchievements.ENCHANTER, 5, -1);
 
+        page.addAchievement(AetherAchievements.WEVE_GOT_HOSTILES, 2, 1);
+
         page.addAchievement(AetherAchievements.SENTRY_DEPLOYED, 0, 3);
         page.addAchievement(AetherAchievements.BRONZE, 0, 5);
 
-        page.addAchievement(AetherAchievements.ITS_A_TRAP, 2, 5);
-        page.addAchievement(AetherAchievements.SILVER, 2, 3);
+        page.addAchievement(AetherAchievements.ITS_A_TRAP, 2, 3);
+        page.addAchievement(AetherAchievements.SILVER, 2, 5);
 
         page.addAchievement(AetherAchievements.ICE_DEFLECT, 4, 3);
         page.addAchievement(AetherAchievements.GOLD, 4, 5);
