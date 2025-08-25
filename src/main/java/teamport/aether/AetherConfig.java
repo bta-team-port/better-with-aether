@@ -107,6 +107,7 @@ public class AetherConfig {
     }
 
 
+    @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
         T res = null;
         try {
@@ -134,6 +135,11 @@ public class AetherConfig {
 
         } catch (NullPointerException ignored) {}
 
-        return res == null ? def : res;
+        if (res == null) {
+            LOGGER.warn("Failed to load \"{}\"! Assuming default...", key);
+            return def;
+        }
+
+        return res;
     }
 }
