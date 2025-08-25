@@ -580,7 +580,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CARVED_STONE = stone
                 .setHardness(1.5F)
-                .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogicDungeon(b, Material.stone));
         SLAB_CARVED_STONE = stone
                 .setHardness(1.5F)
                 .setUseInternalLight()
@@ -598,7 +598,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CARVED_ANGELIC = stone
                 .setHardness(1.5F)
-                .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogicDungeon(b, Material.stone));
         SLAB_CARVED_ANGELIC = stone
                 .setHardness(1.5F)
                 .setUseInternalLight()
@@ -612,12 +612,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_ANGELIC_LIGHT = stone
                 .setHardness(1.5F)
                 .setLuminance(11)
-                .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
 
         CARVED_HELLFIRE = stone
                 .setHardness(1.5F)
-                .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogicDungeon(b, Material.stone));
         SLAB_CARVED_HELLFIRE = stone
                 .setHardness(1.5F)
                 .setUseInternalLight()
@@ -631,7 +631,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_HELLFIRE_LIGHT = stone
                 .setHardness(1.5F)
                 .setLuminance(11)
-                .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogic(b, Material.stone));
+                .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
 
         PILLAR = stone
