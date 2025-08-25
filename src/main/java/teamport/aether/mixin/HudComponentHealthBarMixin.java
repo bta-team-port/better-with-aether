@@ -1,9 +1,7 @@
 package teamport.aether.mixin;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScreenHudDesigner;
 import net.minecraft.client.gui.hud.HudIngame;
-import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponentHealthBar;
 import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
@@ -16,19 +14,20 @@ import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.helper.HealthHelper;
+import teamport.aether.mixin.accessors.HudComponentAccessor;
 
 import java.util.Random;
 @Mixin(value = HudComponentHealthBar.class, remap = false)
 public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
 
     @Shadow public abstract boolean isVisible(Minecraft mc);
-
-    @Unique
-    Minecraft mc = Minecraft.getMinecraft();
 
     @Unique
     Random random = new Random();
@@ -40,18 +39,6 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
 
     @Unique
     int spacing = 1;
-
-    @Override
-    public int getYSize(Minecraft mc) {
-        if (mc.currentScreen instanceof ScreenHudDesigner || mc.thePlayer == null) return iconHeight + spacing;
-        if (!isVisible(mc)) return 0;
-        return iconHeight * getRows(mc.thePlayer) + spacing;
-    }
-
-    @Override
-    public int getAnchorY(ComponentAnchor anchor) {
-        return (int)(anchor.yPosition * (float)this.getYSize(mc));
-    }
 
     public HudComponentHealthBarMixin(String key, int xSize, int ySize, Layout layout) {
         super(key, xSize, ySize, layout);
@@ -71,9 +58,23 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
         return "minecraft:gui/hud/heart/";
     }
 
-    @Override
-    public void render(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick) {
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    public void render(Minecraft mc, HudIngame hud, int xSizeScreen, int ySizeScreen, float partialTick, CallbackInfo ci) {
         Player player = mc.thePlayer;
+
+        // Replaces override for ySize and yAnchor
+        ((HudComponentAccessor) this).setYSize(iconHeight * getRows(player) + spacing);
+
+        EffectStack effect = AetherEffects.resolveDominantEffect(player);
+
+        // This mixin only changes the render if there are multiple rows or has a heart effect
+        if (getRows(player) == 1 && (effect == null || !(effect.getEffect() instanceof IHudVisibility))) {
+            return;
+        }
+
+        System.out.println("Rendering custom health bar");
+
+        ci.cancel();
 
         // copied from HealthBar ---------------------------------------------------------------------------------------
         int x = this.getLayout().getComponentX(mc, this, xSizeScreen);
@@ -143,10 +144,10 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
                 // healing -------------------------------------------------------------------------------------------------
 
                 if (
-                    player.inventory.getCurrentItem() == null
-                    || (!(player.inventory.getCurrentItem().getItem() instanceof ItemFood)
-                    && !(player.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream))
-                    || !((Boolean) mc.gameSettings.foodHealthRegenOverlay.value)
+                        player.inventory.getCurrentItem() == null
+                                || (!(player.inventory.getCurrentItem().getItem() instanceof ItemFood)
+                                && !(player.inventory.getCurrentItem().getItem() instanceof ItemBucketIceCream))
+                                || !((Boolean) mc.gameSettings.foodHealthRegenOverlay.value)
                 ) continue;
 
                 int healing;
