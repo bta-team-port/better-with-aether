@@ -13,5 +13,8 @@ public class AetherWailaPlugin implements BTWailaCustomTooltipPlugin {
     public void initializePlugin(TooltipRegistry tooltipRegistry, Logger logger) {
         TileTooltip<Container> inventory = BTWailaPlugin.INVENTORY;
         inventory.addClass(TileEntityMimic.class);
+        tooltipRegistry.register(new EnchanterTooltip());
+        tooltipRegistry.register(new FreezerTooltip());
+        tooltipRegistry.register(new IncubatorTooltip());
     }
 }
