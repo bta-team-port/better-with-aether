@@ -9,3 +9,15 @@ worldType.aether.default.desc=Welcome to a hostile paradise.
 
 #Container
 aether.container.enchanter.name=Enchanter
+
+# Bwaila support
+aether.tooltip.enchanter.progress=Enchanting:
+aether.tooltip.freezer.progress= Freezing:
+aether.tooltip.incubator.progress=Hatching:
+
+aether.tooltip.machine.energy=%s s.
+
+
+# Deathray
+item.aether.death_ray.name= DeathRay
+item.aether.death_ray.desc= Right click to install kill stuff. Used for debugging bosses.
