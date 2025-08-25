@@ -30,6 +30,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public int direction;
     public double rotary;
     public int motionTimer;
+    public static final int START_FIGHT = 9;
 
     @Nullable
     public Entity target;
@@ -63,22 +64,28 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             this.attackEntity(this.target, 32);
         }
 
-        if (this.target != null && !this.target.isAlive()) {
-            this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
-            this.xd = 0.0;
-            this.yd = 0.0;
-            this.zd = 0.0;
+        if (world.players
+                .stream()
+                .noneMatch(p -> distanceToSqr(p) < AetherDimension.bossDetectionRangeSQR && p.isAlive())
+        ) {
+            returnToHome();
             this.target = null;
-            ((Player) target).sendMessage("§eSuch is the fate of a being who opposes the might of the sun.");
             this.gotTarget = false;
         }
     }
 
-    public void lerpMotion(double xd, double yd, double zd) {
+
+    @Override
+    public void returnToHome() {
+        if (returnPoint == null || !hasHadReturnPointSet) return;
+
+        moveTo(returnPoint.x + 0.5, returnPoint.y, returnPoint.z + 0.5, 0, 0);
+        this.xd = 0.0;
+        this.yd = 0.0;
+        this.zd = 0.0;
     }
 
-    public void knockBack(Entity entity, int damage, double xd, double yd) {
-    }
+    public void knockBack(Entity entity, int damage, double xd, double yd) {}
 
     public void tick() {
         super.tick();
@@ -135,7 +142,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
     public boolean chatWithMe(Player player) {
         if (this.chatTime <= 0) {
-            if (this.chatLog < 9) {
+            if (this.chatLog < START_FIGHT) {
                 player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog));
                 if (this.chatLog >= 5 && this.chatLog < 8) {
                     player.sendMessage(ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog + "_1"));
@@ -145,7 +152,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
                 this.chatTime = 40;
                 return false;
             }
-            if (this.chatLog == 9) {
+            if (this.chatLog == START_FIGHT) {
                 player.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.start"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
                 this.chatLog++;
@@ -154,7 +161,7 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             if (this.target == null) {
                 player.sendMessage(RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.repeat"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = 9;
+                this.chatLog = START_FIGHT;
                 this.chatTime = 40;
                 return false;
             }
@@ -245,12 +252,14 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.timesShot = tag.getInteger("timesShot");
+        this.chatLog = tag.getByte("chatLog");
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("timesShot", this.timesShot);
+        tag.putByte("chatLog", (byte)this.chatLog);
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {

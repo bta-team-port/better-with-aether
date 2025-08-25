@@ -37,14 +37,15 @@ public abstract class MPBumpToOverworldMixin extends Player {
     public void bumpPlayerToOverworld(CallbackInfo ci) {
         teleportDelay--;
 
-        if (teleportDelay < 0 && dimension == AetherDimension.AetherDimensionID && this.y < world.worldType.getMinY() - 10) {
+        if (teleportDelay < 0 && dimension == AetherDimension.AetherDimensionID && this.y < this.world.worldType.getMinY() - 10) {
             teleportDelay = 20;
 
-            AetherMod.LOGGER.info(String.format("Sending %s to overworld", getDisplayName()));
-
+            AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());
             MinecraftServer server = MinecraftServer.getInstance();
 
             CompoundTag passengerNBT = null;
+            CompoundTag vehicleNBT = null;
+
             if (getPassenger() != null) {
                 Entity p = getPassenger();
                 this.ejectRider();
@@ -55,22 +56,38 @@ public abstract class MPBumpToOverworldMixin extends Player {
                 p.remove();
             }
 
+            if (isPassenger() && vehicle != null) {
+                vehicleNBT = new CompoundTag();
+                ((Entity) vehicle).save(vehicleNBT);
+
+                vehicle.ejectRider();
+            }
+
             float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
             moveTo(x * scale, OVERWORLD_RETURN_HEIGHT, z * scale, yRot, xRot);
 
             PlayerServer player = PlayerServer.class.cast(this);
+            World targetWorld = server.getDimensionWorld(Dimension.OVERWORLD.id);
+
             server.playerList.sendPlayerToOtherDimension(player, Dimension.OVERWORLD.id, DyeColor.BLUE, false);
 
             if (passengerNBT != null) {
-                Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, world);
+                Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, targetWorld);
                 p.load(passengerNBT);
                 p.moveTo(x, y, z, 0f, 0f);
-                world.entityJoinedWorld(p);
-                p.startRiding(this);
+                targetWorld.entityJoinedWorld(p);
 
                 // start riding only sends the packet if it's a player who started riding something
                 // so if something attempts to ride a player: (lol) it doesn't notify the vehicle(player)
+                p.startRiding(this);
                 player.playerNetServerHandler.sendPacket(new PacketSetRiding(p, player));
+            }
+
+            if (vehicleNBT != null) {
+                Entity v = EntityDispatcher.createEntityFromNBT(vehicleNBT, targetWorld);
+                v.moveTo(x, y, z, 0f, 0f);
+                targetWorld.entityJoinedWorld(v);
+                this.startRiding(v);
             }
         }
     }

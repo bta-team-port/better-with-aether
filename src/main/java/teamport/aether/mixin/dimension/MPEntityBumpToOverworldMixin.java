@@ -3,6 +3,7 @@ package teamport.aether.mixin.dimension;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
@@ -37,6 +38,9 @@ public abstract class MPEntityBumpToOverworldMixin {
 
     @Shadow public abstract @Nullable Entity getPassenger();
 
+    @Shadow
+    @Nullable
+    public Entity passenger;
     @Unique
     public int teleportDelay = 0;
 
@@ -52,6 +56,7 @@ public abstract class MPEntityBumpToOverworldMixin {
             AetherMod.LOGGER.info(String.format("Sending %s to overworld", Entity.getNameFromEntity(Entity.class.cast(this), true)));
 
             if (getPassenger() != null) {
+                if (getPassenger() instanceof Player) return;
                 ejectRider();
             }
 

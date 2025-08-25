@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelEnchanter;
-import teamport.aether.tile.TileEntityEnchanter;
+import teamport.aether.entity.tile.TileEntityEnchanter;
 
 @Environment(EnvType.CLIENT)
 public class ScreenEnchanter extends ScreenAetherMachine {

@@ -24,6 +24,12 @@ public class EntityRendererParachute extends EntityRenderer<EntityParachute> {
         GL11.glScalef(f4, f4, f4);
         GL11.glScalef(1.0F / f4, 1.0F / f4, 1.0F / f4);
         this.bindTexture("/assets/aether/textures/entity/parachute.png");
+
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, .75F);
+
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         this.modelCloud.render(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
         GL11.glPopMatrix();

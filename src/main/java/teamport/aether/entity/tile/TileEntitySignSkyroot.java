@@ -1,4 +1,4 @@
-package teamport.aether.tile;
+package teamport.aether.entity.tile;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.entity.TileEntity;

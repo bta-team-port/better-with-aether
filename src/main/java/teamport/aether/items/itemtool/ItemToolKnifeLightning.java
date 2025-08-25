@@ -14,7 +14,6 @@ import java.util.Random;
 public class ItemToolKnifeLightning extends Item implements IDispensable {
     public ItemToolKnifeLightning(String name, String namespaceId, int id) {
         super(name, namespaceId, id);
-        this.maxStackSize = 64;
     }
 
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {

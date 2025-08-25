@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "aether",
-  "version": "0.4.0",
+  "version": "0.5.0",
 
   "name": "Better With Aether",
   "description": "The legendary dimension is finally here for Better than Adventure!",
@@ -24,51 +24,40 @@
     "Klyxlik",
     "big sir"
   ],
+
   "icon": "icon.png",
+
   "contact": {
     "homepage": "",
     "sources": ""
   },
+
   "license": "CC0-1.0",
   "environment": "*",
+
   "entrypoints": {
-    "main": [
-      "teamport.aether.AetherMod"
-    ],
-    "beforeGameStart": [
-      "teamport.aether.AetherMod"
-    ],
-    "afterGameStart": [
-      "teamport.aether.AetherMod"
-    ],
-    "client": [
-      "teamport.aether.AetherClient"
-    ],
-    "beforeClientStart": [
-      "teamport.aether.AetherClient"
-    ],
-    "afterClientStart": [
-      "teamport.aether.AetherClient"
-    ],
-    "initModels": [
-      "teamport.aether.models.AetherModels"
-    ],
-    "recipesReady": [
-      "teamport.aether.AetherRecipes"
-    ],
-    "server": [
-      "teamport.aether.AetherServer"
-    ]
+    "main": ["teamport.aether.AetherMod"],
+    "beforeGameStart": ["teamport.aether.AetherMod"],
+    "afterGameStart": ["teamport.aether.AetherMod"],
+    "client": ["teamport.aether.AetherClient"],
+    "beforeClientStart": ["teamport.aether.AetherClient"],
+    "afterClientStart": ["teamport.aether.AetherClient"],
+    "initModels": ["teamport.aether.models.AetherModels"],
+    "recipesReady": ["teamport.aether.AetherRecipes"],
+    "server": ["teamport.aether.AetherServer"],
+
+    "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"]
   },
-  "mixins": [
-    "aether.mixins.json"
-  ],
+
+  "mixins": ["aether.mixins.json"],
+
   "accessWidener": "aether.accesswidener",
+
   "depends": {
     "fabricloader": ">=0.15.5",
     "catalyst-effects": ">=2.0.1",
     "catalyst-core": ">=2.1.3"
   },
-  "suggests": {
-  }
+
+  "suggests": {}
 }

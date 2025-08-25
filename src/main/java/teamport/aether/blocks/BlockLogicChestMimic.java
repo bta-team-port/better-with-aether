@@ -1,5 +1,6 @@
 package teamport.aether.blocks;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
@@ -10,14 +11,17 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MobMimic;
+import teamport.aether.entity.tile.TileEntityMimic;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
@@ -32,23 +36,48 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     public BlockLogicChestMimic(Block<?> block) {
         super(block, Material.wood);
-        block.withEntity(TileEntityChest::new);
+        block.withEntity(TileEntityMimic::new);
     }
 
     @Override
     public String getLanguageKey(int meta) {
-        if (BTWAILA) {
-            // hides the mimic name and description
-            return AetherBlocks.CHEST_PLANKS_SKYROOT.getLanguageKey(meta);
-        }
         return super.getLanguageKey(meta);
+    }
+
+    @Override
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
+        ItemStack stack = mob.getHeldItem();
+        if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
+            CompoundTag loot = stack.getData().getCompound("loot");
+
+            TileEntityChest chest = new TileEntityMimic();
+            chest.readFromNBT(loot);
+
+            world.setTileEntity(x, y, z, chest);
+        }
+
+        super.onBlockPlacedByMob(world, x, y, z, side, mob, xPlaced, yPlaced);
     }
 
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:
             case PICK_BLOCK:
-                return new ItemStack[]{new ItemStack(this)};
+                if (tileEntity != null) {
+                    ItemStack result = new ItemStack(this);
+                    CompoundTag data = result.getData();
+
+                    CompoundTag mimicData = new CompoundTag();
+                    tileEntity.writeToNBT(mimicData);
+
+                    data.putCompound("loot", mimicData);
+                    result.setData(data);
+
+                    return new ItemStack[]{result};
+                } else {
+                    return null;
+                }
+
             default:
                 MobMimic mimic = new MobMimic(world);
                 List<ItemStack> chestInv = getAndClearInventory(world, x, y, z);
@@ -57,17 +86,21 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 world.setBlockWithNotify(x, y, z, 0);
                 mimic.spawnInit();
                 Player player = world.getClosestPlayer(x, y, z, 16);
+
                 if (player != null) {
                     moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
                     player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
                 } else {
                     mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
                 }
+
                 if (!EnvironmentHelper.isServerEnvironment()) {
                     world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
                 }
+
                 world.entityJoinedWorld(mimic);
         }
+
         return null;
     }
 
