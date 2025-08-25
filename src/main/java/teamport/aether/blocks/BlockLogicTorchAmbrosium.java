@@ -13,9 +13,9 @@ public class BlockLogicTorchAmbrosium extends BlockLogicTorch {
     }
 
     public void animationTick(World world, int x, int y, int z, Random rand) {
-        double xPos = (double)x + 0.5;
-        double yPos = (double)y + 0.7;
-        double zPos = (double)z + 0.5;
+        double xPos = (double) x + 0.5;
+        double yPos = (double) y + 0.7;
+        double zPos = (double) z + 0.5;
         double d3 = 0.22;
         double d4 = 0.27;
         int side = world.getBlockMetadata(x, y, z) & 7;

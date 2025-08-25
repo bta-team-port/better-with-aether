@@ -41,7 +41,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
             } else if (world.getBlockLightValue(x, y + 1, z) >= 9) {
                 int idToSpawn;
                 int r;
-                for(idToSpawn = 0; idToSpawn < 4; ++idToSpawn) {
+                for (idToSpawn = 0; idToSpawn < 4; ++idToSpawn) {
                     r = x + rand.nextInt(3) - 1;
                     int y1 = y + rand.nextInt(5) - 3;
                     int z1 = z + rand.nextInt(3) - 1;
@@ -55,7 +55,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     if (r < 26) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
                     } else if (r < 41) {
-                        idToSpawn = AetherBlocks.FLOWER_WHITE.id();;
+                        idToSpawn = AetherBlocks.FLOWER_WHITE.id();
                     } else {
                         idToSpawn = AetherBlocks.TALLGRASS_AETHER.id();
                     }

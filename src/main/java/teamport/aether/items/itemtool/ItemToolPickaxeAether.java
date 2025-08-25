@@ -14,6 +14,7 @@ import static teamport.aether.blocks.AetherBlocks.*;
 
 public class ItemToolPickaxeAether extends ItemTool {
     public static Map<Block<?>, Integer> miningLevels = new HashMap<>();
+
     public ItemToolPickaxeAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, 2, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
     }

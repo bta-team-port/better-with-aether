@@ -45,13 +45,13 @@ public class ItemBowPhoenix extends ItemBow {
         }
     }
 
-    public int findActiveQuiver(Player entityplayer, int index){
+    public int findActiveQuiver(Player entityplayer, int index) {
         ItemStack bodyItem = entityplayer.inventory.armorItemInSlot(index);
-        if(
+        if (
                 bodyItem == null
-                        ||(bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id
+                        || (bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id
                         && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())
-        ){
+        ) {
             return 5;
         }
         return 2;

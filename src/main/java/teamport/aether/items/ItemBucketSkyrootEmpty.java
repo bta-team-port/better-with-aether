@@ -60,13 +60,13 @@ public class ItemBucketSkyrootEmpty extends Item {
                     itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
                 }
             }
-                AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
-                List<MobPhow> entities = world.getEntitiesWithinAABB(MobPhow.class, box);
-                if (!entities.isEmpty()) {
-                    itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
-                }
+            AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
+            List<MobPhow> entities = world.getEntitiesWithinAABB(MobPhow.class, box);
+            if (!entities.isEmpty()) {
+                itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
             }
         }
+    }
 
     public static boolean useBucket(Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {

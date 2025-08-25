@@ -25,7 +25,8 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether {
     }
 
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)) return Items.TOOL_PICKAXE_DIAMOND.getStrVsBlock(itemstack, block);
+        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE))
+            return Items.TOOL_PICKAXE_DIAMOND.getStrVsBlock(itemstack, block);
         return this.material.getEfficiency(false);
     }
 }

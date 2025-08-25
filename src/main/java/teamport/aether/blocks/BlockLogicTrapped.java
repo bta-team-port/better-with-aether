@@ -1,7 +1,6 @@
 package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -12,10 +11,11 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
+import teamport.aether.entity.monster.sentry.MobSentry;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class BlockLogicTrapped extends BlockLogic {
+public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
     public final Block<?> replaceOnStep;
 
@@ -32,6 +32,7 @@ public class BlockLogicTrapped extends BlockLogic {
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return replaceOnStep.getBreakResult(world, dropCause, meta, tileEntity);
     }
+
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (world.rand.nextInt(2) == 0 && entity instanceof Player) {
@@ -61,7 +62,9 @@ public class BlockLogicTrapped extends BlockLogic {
                         continue;
                     }
                     world.entityJoinedWorld(monster);
-                    player.triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
+                    if (monster instanceof MobSentry) {
+                        player.triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
+                    }
 
                     mobs--;
 

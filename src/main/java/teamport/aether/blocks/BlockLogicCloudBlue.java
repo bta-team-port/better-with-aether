@@ -40,7 +40,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
                 this.jump(entity);
             }
 
-        } else  {
+        } else {
             if (entity.y > (double) y && !entity.isSneaking()) {
                 this.jump(entity);
             }

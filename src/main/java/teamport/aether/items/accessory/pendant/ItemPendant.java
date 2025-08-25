@@ -20,7 +20,7 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
         this.material = material;
         float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
-        this.withTags(new Tag[]{AetherItemTags.TRINKET});
+        this.withTags(AetherItemTags.TRINKET);
     }
 
     public ItemPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {

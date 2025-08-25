@@ -124,7 +124,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         mimic.spawnInit();
         moveToSafe(world, mimic, x, y, z, 0, 0);
         world.entityJoinedWorld(mimic);
-        world.setBlockWithNotify((int)Math.round(dx), (int)Math.round(dy), (int)Math.round(dz), 0);
+        world.setBlockWithNotify((int) Math.round(dx), (int) Math.round(dy), (int) Math.round(dz), 0);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
         if (!EnvironmentHelper.isServerEnvironment()) {
             world.spawnParticle("explode", dx, dy, dz, 0.0, 0.0, 0.0, 0);

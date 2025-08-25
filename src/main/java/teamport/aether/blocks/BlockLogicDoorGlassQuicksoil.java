@@ -16,6 +16,7 @@ public class BlockLogicDoorGlassQuicksoil extends BlockLogicDoor {
     public final boolean isTop;
     public final boolean requireTool;
     public final @Nullable Supplier<Item> droppedItem;
+
     public BlockLogicDoorGlassQuicksoil(Block<?> block, Material material, boolean isTop, boolean requireTool, @Nullable Supplier<Item> droppedItem) {
         super(block, material, isTop, requireTool, droppedItem);
         this.isTop = isTop;
@@ -36,7 +37,6 @@ public class BlockLogicDoorGlassQuicksoil extends BlockLogicDoor {
         entity.zd = Math.max(Math.min(entity.zd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
         return super.collidesWithEntity(entity, world, x, y, z);
     }
-
 
 
 }

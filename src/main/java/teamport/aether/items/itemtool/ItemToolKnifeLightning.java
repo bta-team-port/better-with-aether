@@ -40,7 +40,7 @@ public class ItemToolKnifeLightning extends Item implements IDispensable {
     public void onDispensed(ItemStack itemStack, World world, double x, double y, double z, int xOffset, int yOffset, int zOffset, Random random) {
         if (!world.isClientSide) {
             ProjectileKnifeLightning entityknife = new ProjectileKnifeLightning(world, x, y, z);
-            entityknife.setHeading(xOffset, (double)yOffset + 0.1, zOffset, 1.1F, 6.0F);
+            entityknife.setHeading(xOffset, (double) yOffset + 0.1, zOffset, 1.1F, 6.0F);
             world.entityJoinedWorld(entityknife);
         }
     }

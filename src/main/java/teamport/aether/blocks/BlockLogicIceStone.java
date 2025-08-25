@@ -54,12 +54,12 @@ public class BlockLogicIceStone extends BlockLogic {
     }
 
     public void attemptFreeze(Boolean onPlace, World world, int x, int y, int z) {
-        for(int l = 0; l < 32;) {
+        for (int l = 0; l < 32; ) {
             int x1 = x + world.rand.nextInt(8) - world.rand.nextInt(8);
             int y1 = y + world.rand.nextInt(4) - world.rand.nextInt(4);
             int z1 = z + world.rand.nextInt(8) - world.rand.nextInt(8);
 
-            if(Math.pow((x1 - x), 2) + Math.pow((y1 - y), 2) + Math.pow((z1 - z), 2) > Math.pow(radius, 2)){
+            if (Math.pow((x1 - x), 2) + Math.pow((y1 - y), 2) + Math.pow((z1 - z), 2) > Math.pow(radius, 2)) {
                 continue;
             }
 
@@ -68,7 +68,7 @@ public class BlockLogicIceStone extends BlockLogic {
         }
     }
 
-    public void freezeBlock(Boolean onPlace, World world,int x, int y, int z) {
+    public void freezeBlock(Boolean onPlace, World world, int x, int y, int z) {
         int block = world.getBlockId(x, y, z);
 
         if (!onPlace) {

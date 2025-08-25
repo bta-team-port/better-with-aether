@@ -11,8 +11,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.gui.AetherScreens;
 import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.gui.AetherScreens;
 
 import java.util.Random;
 
@@ -43,13 +43,13 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         if (!this.isActive) {
             return;
         }
-        if(rand.nextInt(4) > 0) return;
+        if (rand.nextInt(4) > 0) return;
         double radius = 0.3f;
         double angle = 2 * Math.PI * rand.nextDouble();
-        double xPos = (double)x + 0.5 + radius * Math.cos(angle);
-        double yPos = (double)y + 1;
-        double zPos = (double)z + 0.5 + radius * Math.sin(angle);
-        double dy = (rand.nextGaussian() * 0.5f + 1.0f )* 0.01f;
+        double xPos = (double) x + 0.5 + radius * Math.cos(angle);
+        double yPos = (double) y + 1;
+        double zPos = (double) z + 0.5 + radius * Math.sin(angle);
+        double dy = (rand.nextGaussian() * 0.5f + 1.0f) * 0.01f;
         world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0);
     }
 

@@ -9,7 +9,7 @@ import teamport.aether.items.accessory.ItemTrinket;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemGoldenFeather extends ItemTrinket {
-    public ItemGoldenFeather(String translationKey, String namespaceId, int id, String name ) {
+    public ItemGoldenFeather(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }
 
@@ -17,12 +17,12 @@ public class ItemGoldenFeather extends ItemTrinket {
         Player player = (Player) entity;
         if (
                 slotId < player.inventory.mainInventory.length
-                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                || player.gamemode.isPlayerInvulnerable()
+                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                        || player.gamemode.isPlayerInvulnerable()
         ) {
             return;
         }
-        if(player.gamemode.canPlayerFly()){
+        if (player.gamemode.canPlayerFly()) {
             return;
         }
         player.fallDistance = 0.0f;

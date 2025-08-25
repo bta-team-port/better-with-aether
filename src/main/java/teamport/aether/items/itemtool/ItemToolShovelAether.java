@@ -35,7 +35,7 @@ public class ItemToolShovelAether extends ItemTool {
         int blockId = world.getBlockId(blockX, blockY, blockZ);
         int blockAbove = world.getBlockId(blockX, blockY + 1, blockZ);
         if (side != Side.BOTTOM && blockAbove == 0 && (blockId == Blocks.GRASS.id() || blockId == Blocks.DIRT.id() || blockId == Blocks.GRASS_RETRO.id() || blockId == Blocks.FARMLAND_DIRT.id())) {
-            world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
+            world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.PATH_DIRT.id());
                 itemstack.damageItem(1, entityplayer);
@@ -43,7 +43,7 @@ public class ItemToolShovelAether extends ItemTool {
             return true;
         }
         if (side != Side.BOTTOM && blockAbove == 0 && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
-            world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
+            world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, Blocks.blocksList[blockId], EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, AetherBlocks.PATH_DIRT_AETHER.id());
                 itemstack.damageItem(1, entityplayer);
