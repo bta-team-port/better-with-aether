@@ -79,6 +79,7 @@
     "PlayerControllerValkToolsReachMixin",
     "PlayerLocalBossListMixin",
     "PortalNoisePlayerLocalMixin",
+    "accessors.HudComponentAccessor",
     "accessors.ItemDragHandlerAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
