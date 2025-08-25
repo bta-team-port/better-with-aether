@@ -121,10 +121,20 @@ public class AetherConfig {
                 res = (T) new Long(cfg.getLong(key));
             }
             else if (def instanceof Float) {
-                res = (T) new Float(cfg.getFloat(key));
+                Object raw = cfg.getRawParsed().get(key);
+                if (raw instanceof Double) {
+                    res = (T) new Float(((Double) raw));
+                    return res;
+                }
+                res = (T) new Float((float) raw);
             }
             else if (def instanceof Double) {
-                res = (T) new Double(cfg.getDouble(key));
+                Object raw = cfg.getRawParsed().get(key);
+                if (raw instanceof Float) {
+                    res = (T) new Double(((float) raw));
+                    return res;
+                }
+                res = (T) new Double((double) raw);
             }
             else if (def instanceof Boolean) {
                 res = (T) new Boolean(cfg.getBoolean(key));

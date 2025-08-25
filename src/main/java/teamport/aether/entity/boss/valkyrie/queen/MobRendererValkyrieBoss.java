@@ -12,7 +12,7 @@ import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
 public class MobRendererValkyrieBoss extends MobRendererBiped<MobBossValkyrie> {
     public MobRendererValkyrieBoss(ModelBiped model, float shadowSize) {
         super(model, shadowSize);
-        this.setArmorModel(new ModelValkyrie(0.01F));
+        this.setArmorModel(new ModelValkyrie(0.0F));
     }
 
     public boolean setHaloBrightness(MobBossValkyrie valkyrie, int renderPass) {
