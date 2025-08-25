@@ -29,6 +29,7 @@ import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
+import static net.minecraft.client.render.texture.stitcher.TextureRegistry.register;
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -38,6 +39,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static HudComponent JUMP_BAR;
 
     public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
+    public static AtlasStitcher extras = register("extras", new AtlasStitcher("textures/extras", true, false, (String) null));
 
     @Override
     public void beforeClientStart() {
