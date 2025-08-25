@@ -4,12 +4,14 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherAchievements;
 
 import java.util.Random;
 
@@ -76,5 +78,14 @@ public class BlockLogicLocked extends BlockLogic {
 //                }
 //            }
 //        }
+    }
+
+    @Override
+    public boolean collidesWithEntity(Entity entity, World world, int x, int y, int z) {
+        if (entity instanceof Player) {
+            ((Player) entity).triggerAchievement(AetherAchievements.WEVE_GOT_HOSTILES);
+        }
+
+        return super.collidesWithEntity(entity, world, x, y, z);
     }
 }
