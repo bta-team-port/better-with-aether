@@ -1,12 +1,11 @@
 aether.guidebook.section.enchanter=Enchanter
 aether.guidebook.section.freezer=Freezer
-
-
 aether.guidebook.section.incubator=Incubator
+
 aether.guidebook.section.incubator.undiscovered=How this creature hatches has not been discovered.
 aether.guidebook.section.incubator.chicken=What came first the chicken or the egg?
 aether.guidebook.section.incubator.slime=Be warned they come in different size.
 
-aether.guidebook.section.incubator.moa_blue=Hatches a blue moa, has 3 midair jumps.
-aether.guidebook.section.incubator.moa_white=Hatches a white moa, has 5 midair jumps.
-aether.guidebook.section.incubator.moa_black=Hatches a black moa, has 7 midair jumps.
+aether.guidebook.section.incubator.moa_blue=Hatches a Blue Moa, a swift mount capable of 3 midair jumps.
+aether.guidebook.section.incubator.moa_white=Hatches a White Moa, a graceful mount capable of 5 midair jumps.
+aether.guidebook.section.incubator.moa_black=Hatches a Black Moa, a powerful mount capable of 7 midair jumps; the maximum any Moa can achieve.
