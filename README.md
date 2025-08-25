@@ -2,14 +2,20 @@
 
 The legendary dimension is finally here for Better Than Adventure!
 New dimension, plethora of blocks and items.
+Tons of new mobs and mechanics.
 3 dungeons and bosses to conquer.
 Brand-new compatibility between the two as well.
 
-"This mod is an Aether addon made to make the original Aether mod compatible with BTA. We have no relation to the Aether team or the BTA team.
+"This mod is a remake to port the Aether 1.02 to BTA. We have no relation to the Aether team or the BTA team.
 
-Although this is a clean rewrite of the mod, we do not ship  any assets or copyrighted content. They are extracted from the jar automatically on runtime."
+REQUIRES:
+BTA 7.3_04
+Halplibe 5.3.0
+Catalyst Core 2.1.4
+Catalyst Effects 2.0.1
 
 ![](https://imgur.com/Fh7CxjQ "Aether Silver Dungeon")
 
 ### Aether Wiki
+
 https://aether.wiki.gg/wiki/Aether_Wiki

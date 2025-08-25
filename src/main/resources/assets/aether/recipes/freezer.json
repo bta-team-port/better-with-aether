@@ -32,12 +32,12 @@
     "input": {
       "stack": {
         "id": "aether:item/armor_helmet_phoenix",
-        "meta" : -1
+        "meta": -1
       }
     },
     "output": {
       "id": "aether:item/armor_helmet_obsidian",
-      "meta" : -1
+      "meta": -1
     }
   },
   {
@@ -47,12 +47,12 @@
     "input": {
       "stack": {
         "id": "aether:item/armor_chestplate_phoenix",
-        "meta" : -1
+        "meta": -1
       }
     },
     "output": {
       "id": "aether:item/armor_chestplate_obsidian",
-      "meta" : -1
+      "meta": -1
     }
   },
   {
@@ -62,12 +62,12 @@
     "input": {
       "stack": {
         "id": "aether:item/armor_leggings_phoenix",
-        "meta" : -1
+        "meta": -1
       }
     },
     "output": {
       "id": "aether:item/armor_leggings_obsidian",
-      "meta" : -1
+      "meta": -1
     }
   },
   {
@@ -77,12 +77,12 @@
     "input": {
       "stack": {
         "id": "aether:item/armor_boots_phoenix",
-        "meta" : -1
+        "meta": -1
       }
     },
     "output": {
       "id": "aether:item/armor_boots_obsidian",
-      "meta" : -1
+      "meta": -1
     }
   },
   {
@@ -92,12 +92,12 @@
     "input": {
       "stack": {
         "id": "aether:item/armor_gloves_phoenix",
-        "meta" : -1
+        "meta": -1
       }
     },
     "output": {
       "id": "aether:item/armor_gloves_obsidian",
-      "meta" : -1
+      "meta": -1
     }
   },
   {

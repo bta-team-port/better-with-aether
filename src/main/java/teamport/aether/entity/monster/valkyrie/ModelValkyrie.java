@@ -25,7 +25,7 @@ public class ModelValkyrie extends ModelBiped {
     }
 
     public ModelValkyrie(float expandAmount) {
-        this.Cubes(expandAmount);
+        this.Cubes(0.0F);
     }
 
     public void Cubes(float expandAmount) {
@@ -48,10 +48,10 @@ public class ModelValkyrie extends ModelBiped {
         this.armLeft.mirror = true;
         this.armLeft.addBox(-1.0F, -1.5F, -1.5F, 3, 12, 3, expandAmount);
         this.armLeft.setRotationPoint(5.0F, 1.5F, 0.0F);
-        this.bipedRightArm2 = new Cube(30, 16);
+        this.bipedRightArm2 = new Cube(52, 0);
         this.bipedRightArm2.addBox(-3.0F, -1.5F, -1.5F, 3, 3, 3, expandAmount + 0.75F);
         this.bipedRightArm2.setRotationPoint(-4.0F, 1.5F, 0.0F);
-        this.bipedLeftArm2 = new Cube(30, 16);
+        this.bipedLeftArm2 = new Cube(52, 0);
         this.bipedLeftArm2.mirror = true;
         this.bipedLeftArm2.addBox(-1.0F, -1.5F, -1.5F, 3, 3, 3, expandAmount + 0.75F);
         this.bipedLeftArm2.setRotationPoint(5.0F, 1.5F, 0.0F);
@@ -62,7 +62,7 @@ public class ModelValkyrie extends ModelBiped {
         this.legLeft.mirror = true;
         this.legLeft.addBox(-2.0F, 0.0F, -1.5F, 3, 12, 3, expandAmount);
         this.legLeft.setRotationPoint(2.0F, 12.0F, 0.0F);
-        this.wingLeft = new Cube(24,    31);
+        this.wingLeft = new Cube(24, 31);
         this.wingLeft.addBox(0.0F, -4.5F, 0.0F, 19, 8, 1, expandAmount);
         this.wingLeft.setRotationPoint(0.5F, 1.5F, 2.625F);
         this.wingRight = new Cube(24, 31);

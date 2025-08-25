@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 public class MobRendererValkyrie extends MobRendererBiped<MobValkyrie> {
     public MobRendererValkyrie(ModelBiped model, float shadowSize) {
         super(model, shadowSize);
-        this.setArmorModel(new ModelValkyrie(0.01F));
+        this.setArmorModel(new ModelValkyrie(0.0F));
     }
 
     public boolean setHaloBrightness(MobValkyrie valkyrie, int renderPass) {
