@@ -24,12 +24,12 @@ public class AetherArmorMaterial {
             144.0f);
 
     public static final ArmorMaterial PHOENIX = ArmorHelper.createArmorMaterial(MOD_ID,
-            "phoenix",
-            1000,
-            20.0f,
-            75.0f,
-            150.0f,
-            75.0f)
+                    "phoenix",
+                    1000,
+                    20.0f,
+                    75.0f,
+                    150.0f,
+                    75.0f)
             .withProtectionPercentage(DamageType.DROWN, -50.0f);
 
     public static final ArmorMaterial OBSIDIAN = ArmorHelper.createArmorMaterial(MOD_ID,
@@ -41,11 +41,11 @@ public class AetherArmorMaterial {
             0.0f);
 
     public static final ArmorMaterial NEPTUNE = ArmorHelper.createArmorMaterial(MOD_ID,
-            "neptune",
-            1000,
-            150.0f,
-            70.0f,
-            20.0f,
-            70.0f)
+                    "neptune",
+                    1000,
+                    150.0f,
+                    70.0f,
+                    20.0f,
+                    70.0f)
             .withProtectionPercentage(DamageType.DROWN, 50.0f);
 }

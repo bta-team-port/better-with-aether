@@ -17,7 +17,7 @@ public class ItemIronBubble extends ItemTrinket {
         Player player = (Player) entity;
         if (
                 slotId < player.inventory.mainInventory.length
-                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
         ) {
             return;
         }

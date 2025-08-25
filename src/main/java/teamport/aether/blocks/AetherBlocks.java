@@ -20,7 +20,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 public final class AetherBlocks implements BlockInitEntrypoint {
 
 
-    public static int blockID =  AetherConfig.blockIDs;
+    public static int blockID = AetherConfig.blockIDs;
 
     public static int blockID(String blockName) {
         try {
@@ -164,8 +164,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> LANTERN_FIREFLY_SILVER;
     public static boolean hasInit = false;
 
-    public static void init(){
-        if(!hasInit){
+    public static void init() {
+        if (!hasInit) {
             hasInit = true;
             initializeBlocks();
         }
@@ -228,6 +228,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BlockBuilder clouds = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
+                .setLightOpacity(1)
                 .setHardness(0.2f)
                 .setResistance(0.2f);
 
@@ -392,14 +393,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         FLOWER_PURPLE = flower
-                .build("flower.purple", "flower_purple", blockID("FLOWER_PURPLE"), (b) -> (BlockLogicFlowerAether)(new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
+                .build("flower.purple", "flower_purple", blockID("FLOWER_PURPLE"), (b) -> (BlockLogicFlowerAether) (new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
 
         FLOWER_WHITE = flower
-                .build("flower.white", "flower_white", blockID("FLOWER_WHITE"), (b) -> (BlockLogicFlowerAether)(new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
+                .build("flower.white", "flower_white", blockID("FLOWER_WHITE"), (b) -> (BlockLogicFlowerAether) (new BlockLogicFlowerAether(b)).setKilledByWeather().setBonemealable());
 
         TALLGRASS_AETHER = flower
                 .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
-                .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), (b) -> (BlockLogicTallGrassAether)(new BlockLogicTallGrassAether(b)).setKilledByWeather());
+                .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), (b) -> (BlockLogicTallGrassAether) (new BlockLogicTallGrassAether(b)).setKilledByWeather());
 
 
         PLANKS_SKYROOT = wood
@@ -592,7 +593,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.stone", "stairs_carved_stone", blockID("STAIRS_CARVED_STONE"), b -> new BlockLogicStairs(b, CARVED_STONE));
         CARVED_STONE_LIGHT = stone
-                .setLuminance(11)
+                .setLuminance(10)
                 .build("carved.stone.light", "carved_stone_light", blockID("CARVED_STONE_LIGHT"), b -> new BlockLogic(b, Material.stone));
 
 
@@ -611,7 +612,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("stairs.carved.angelic", "stairs_carved_angelic", blockID("STAIRS_CARVED_ANGELIC"), b -> new BlockLogicStairs(b, CARVED_ANGELIC));
         CARVED_ANGELIC_LIGHT = stone
                 .setHardness(1.5F)
-                .setLuminance(11)
+                .setLuminance(10)
                 .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
 
@@ -630,7 +631,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("stairs.carved.hellfire", "stairs_carved_hellfire", blockID("STAIRS_CARVED_HELLFIRE"), b -> new BlockLogicStairs(b, CARVED_HELLFIRE));
         CARVED_HELLFIRE_LIGHT = stone
                 .setHardness(1.5F)
-                .setLuminance(11)
+                .setLuminance(10)
                 .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
 
@@ -648,8 +649,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), false, BRONZE_CHEST_DUNGEON));
 
         BRONZE_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
-                  .build("chest.dungeon.bronze.locked", "chest_dungeon_bronze_locked", blockID("CHEST_DUNGEON_BRONZE_LOCKED"),
-                          b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, BRONZE_CHEST_DUNGEON)).withDisabledStats();
+                .build("chest.dungeon.bronze.locked", "chest_dungeon_bronze_locked", blockID("CHEST_DUNGEON_BRONZE_LOCKED"),
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, BRONZE_CHEST_DUNGEON)).withDisabledStats();
 
         SILVER_CHEST_DUNGEON = stone
                 .setHardness(1.5F)
@@ -673,14 +674,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_STONE_LOCKED = dungeonStoneLocked
                 .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE)).withDisabledStats();
         CARVED_STONE_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(11)
+                .setLuminance(6)
                 .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE_LIGHT)).withDisabledStats();
 
 
         CARVED_ANGELIC_LOCKED = dungeonStoneLocked
                 .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC)).withDisabledStats();
         CARVED_ANGELIC_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(11)
+                .setLuminance(6)
                 .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC_LIGHT)).withDisabledStats();
 
 
@@ -688,7 +689,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE)).withDisabledStats();
 
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(11)
+                .setLuminance(6)
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone

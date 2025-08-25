@@ -121,7 +121,7 @@ public class AetherConfig {
                 res = (T) new Long(cfg.getLong(key));
             }
             else if (def instanceof Float) {
-                res = (T) new Float(cfg.getDouble(key));
+                res = (T) new Float(cfg.getFloat(key));
             }
             else if (def instanceof Double) {
                 res = (T) new Double(cfg.getDouble(key));

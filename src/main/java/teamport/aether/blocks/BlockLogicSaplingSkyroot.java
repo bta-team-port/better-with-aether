@@ -26,6 +26,6 @@ public class BlockLogicSaplingSkyroot extends BlockLogicSaplingBase {
         WorldFeature tree = new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
         if (!tree.place(world, random, x, y, z)) {
             world.setBlockWithNotify(x, y, z, this.id());
-            }
+        }
     }
 }

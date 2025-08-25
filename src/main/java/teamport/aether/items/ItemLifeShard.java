@@ -11,8 +11,8 @@ import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 
 
 public class ItemLifeShard extends Item {
-    public final static float addVolume   = 0.4F / EXTRA_HEALTH;
-    public final static float addPitch    = 0.3F / EXTRA_HEALTH;
+    public final static float addVolume = 0.4F / EXTRA_HEALTH;
+    public final static float addPitch = 0.3F / EXTRA_HEALTH;
 
 
     public ItemLifeShard(String name, String namespaceId, int id) {

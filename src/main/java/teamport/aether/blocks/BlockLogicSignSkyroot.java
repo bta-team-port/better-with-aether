@@ -15,9 +15,9 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.items.AetherItems;
-import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 public class BlockLogicSignSkyroot extends BlockLogic implements IPaintable {
     public final boolean isFreeStanding;
@@ -104,7 +104,7 @@ public class BlockLogicSignSkyroot extends BlockLogic implements IPaintable {
     }
 
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-        TileEntitySignSkyroot signEntity = (TileEntitySignSkyroot)world.getTileEntity(x, y, z);
+        TileEntitySignSkyroot signEntity = (TileEntitySignSkyroot) world.getTileEntity(x, y, z);
         if (signEntity != null && player != null) {
             if (player.getHeldItem() != null && player.getHeldItem().itemID == Items.DUST_GLOWSTONE.id && !signEntity.isGlowing()) {
                 signEntity.setGlowing(true);

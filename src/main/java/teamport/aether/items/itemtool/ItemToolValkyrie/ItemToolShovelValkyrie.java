@@ -13,7 +13,8 @@ public class ItemToolShovelValkyrie extends ItemToolShovelAether {
     }
 
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL)) return Items.TOOL_SHOVEL_DIAMOND.getStrVsBlock(itemstack, block);
+        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL))
+            return Items.TOOL_SHOVEL_DIAMOND.getStrVsBlock(itemstack, block);
         return this.material.getEfficiency(false);
     }
 }

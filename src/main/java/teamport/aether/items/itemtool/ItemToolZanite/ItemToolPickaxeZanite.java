@@ -23,6 +23,6 @@ public class ItemToolPickaxeZanite extends ItemToolPickaxeAether {
         float base_efficiency = this.material.getEfficiency(false);
         float haste_efficiency = this.material.getEfficiency(true);
 
-        return  base_efficiency + (haste_efficiency - base_efficiency) * durability_progress;
+        return base_efficiency + (haste_efficiency - base_efficiency) * durability_progress;
     }
 }

@@ -12,7 +12,7 @@ public class ItemTrinket extends Item implements IAccessory {
         super(translationKey, namespaceId, id);
         this.name = name;
         this.maxStackSize = 1;
-        this.withTags(new Tag[]{AetherItemTags.TRINKET});
+        this.withTags(AetherItemTags.TRINKET);
     }
 
     public ItemTrinket(String translationKey, String namespaceId, int id, String name, String path) {
@@ -20,7 +20,7 @@ public class ItemTrinket extends Item implements IAccessory {
         this.name = name;
         this.maxStackSize = 1;
         LookupTrinketIcons.instance.addEntry(this.namespaceID, path);
-        this.withTags(new Tag[]{AetherItemTags.TRINKET});
+        this.withTags(AetherItemTags.TRINKET);
     }
 
     public void setIcon(String path) {
@@ -29,7 +29,7 @@ public class ItemTrinket extends Item implements IAccessory {
 
     public static void setIcon(Item item, String path) {
         LookupTrinketIcons.instance.addEntry(item.namespaceID, path);
-        item.withTags(new Tag[]{AetherItemTags.TRINKET});
+        item.withTags(AetherItemTags.TRINKET);
     }
 
     @Override

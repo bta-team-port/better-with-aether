@@ -22,8 +22,9 @@ public class ItemParachute extends Item {
             if (!EnvironmentHelper.isClientWorld()) {
 
                 EntityParachute cloud;
-                try { cloud = entity.getConstructor(World.class).newInstance(world); }
-                catch (Exception e) {
+                try {
+                    cloud = entity.getConstructor(World.class).newInstance(world);
+                } catch (Exception e) {
                     AetherMod.LOGGER.error("Failed to spawn parachute cloud!");
                     throw new RuntimeException(e);
                 }

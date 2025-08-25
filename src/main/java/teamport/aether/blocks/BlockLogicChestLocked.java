@@ -30,10 +30,10 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
         if (this.locked && !player.gamemode.isPlayerInvulnerable()) {
             ItemStack item = player.getHeldItem();
 
-            if(item != null && item.itemID == key.itemID){
+            if (item != null && item.itemID == key.itemID) {
                 item.consumeItem(player);
-                world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS,x + 0.5, y, z + 0.5, "random.door_open", 0.5f, 1.5f);
-                world.setBlockAndMetadataRaw(x, y, z, unlockedChest.id(), world.getBlockMetadata(x,y,z));
+                world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y, z + 0.5, "random.door_open", 0.5f, 1.5f);
+                world.setBlockAndMetadataRaw(x, y, z, unlockedChest.id(), world.getBlockMetadata(x, y, z));
                 world.markBlockNeedsUpdate(x, y, z);
 
                 return true;

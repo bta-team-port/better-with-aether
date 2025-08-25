@@ -37,7 +37,7 @@ public class BlockLogicGoldenLogAether extends BlockLogicLog {
         }
         if (heldItem != null && meta == 0 && this.golden && player.getGamemode().consumeBlocks()) {
             if (heldItem.getItem() instanceof ItemToolAxeAether) {
-                world.dropItem(x,y,z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
+                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
             }
         }
     }

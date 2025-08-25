@@ -9,6 +9,7 @@ import teamport.aether.entity.EntityFloatingBlock;
 
 public class BlockLogicBlockGravitite extends BlockLogic {
     public static boolean fallInstantly = false;
+
     public BlockLogicBlockGravitite(Block<?> block, Material material) {
         super(block, material);
     }

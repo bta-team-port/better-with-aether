@@ -23,8 +23,8 @@ public class BlockLogicQuicksoil extends BlockLogic {
     }
 
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
-            world.setBlockMetadataWithNotify(x, y, z, 1);
-        }
+        world.setBlockMetadataWithNotify(x, y, z, 1);
+    }
 
     public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return 1;

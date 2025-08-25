@@ -55,9 +55,9 @@ public class ItemBucketSkyroot extends Item {
                                 }
 
                                 player.swingItem();
-                                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float)x + 0.5f, (float)y + 0.5f, (float)z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
+                                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                                 for (int i = 0; i < 8; ++i) {
-                                    world.spawnParticle("largesmoke", (double)x + Math.random(), (double)y + .2, (double)z + Math.random(), 0.0, 0.0, 0.0, 0);
+                                    world.spawnParticle("largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
                                 }
 
                                 world.setBlockWithNotify(x, y, z, 0);

@@ -8,8 +8,8 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.gui.AetherScreens;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
+import teamport.aether.gui.AetherScreens;
 
 public class ItemSignSkyroot extends Item {
     public ItemSignSkyroot(String name, String namespaceId, int id) {
@@ -34,15 +34,15 @@ public class ItemSignSkyroot extends Item {
                     return false;
                 } else {
                     if (sideHit == 1) {
-                        world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, AetherBlocks.SIGN_POST_PLANKS_SKYROOT, EnumBlockSoundEffectType.PLACE);
-                        world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, AetherBlocks.SIGN_POST_PLANKS_SKYROOT.id(), MathHelper.floor((double)((entityplayer.yRot + 180.0F) * 16.0F / 360.0F) + 0.5) & 15);
+                        world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, AetherBlocks.SIGN_POST_PLANKS_SKYROOT, EnumBlockSoundEffectType.PLACE);
+                        world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, AetherBlocks.SIGN_POST_PLANKS_SKYROOT.id(), MathHelper.floor((double) ((entityplayer.yRot + 180.0F) * 16.0F / 360.0F) + 0.5) & 15);
                     } else {
-                        world.playBlockSoundEffect(entityplayer, (float)blockX + 0.5F, (float)blockY + 0.5F, (float)blockZ + 0.5F, AetherBlocks.SIGN_WALL_PLANKS_SKYROOT, EnumBlockSoundEffectType.PLACE);
+                        world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, AetherBlocks.SIGN_WALL_PLANKS_SKYROOT, EnumBlockSoundEffectType.PLACE);
                         world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, AetherBlocks.SIGN_WALL_PLANKS_SKYROOT.id(), sideHit);
                     }
 
                     itemstack.consumeItem(entityplayer);
-                    TileEntitySignSkyroot tileentitysign = (TileEntitySignSkyroot)world.getTileEntity(blockX, blockY, blockZ);
+                    TileEntitySignSkyroot tileentitysign = (TileEntitySignSkyroot) world.getTileEntity(blockX, blockY, blockZ);
                     if (tileentitysign != null) {
                         tileentitysign.setOwner(entityplayer);
                         ((AetherScreens) entityplayer).aether$displaySignSkyrootEditorScreen(tileentitysign);

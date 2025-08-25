@@ -17,7 +17,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem {
         this.damage = 1;
     }
 
-    public ItemGloves setDamage(int damage){
+    public ItemGloves setDamage(int damage) {
         this.damage = damage;
         return this;
     }
