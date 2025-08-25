@@ -95,19 +95,21 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
     public static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
+        ItemStack copyInput = ItemStack.copyItemStack(input);
+
         ItemStack output = recipe.getOutput();
         if (
-                input != null
+                copyInput != null
                         && output != null
-                        && input.isItemStackDamageable()
+                        && copyInput.isItemStackDamageable()
                         && output.isItemStackDamageable()
-                        && output.itemID == input.itemID
+                        && output.itemID == copyInput.itemID
         ) {
             List<ItemStack> variations = new ArrayList<>();
             for(int i = 1; i < 10; i++){
-                int damage = Math.round(input.getMaxDamage() / 10.0f * i);
-                input.setMetadata(damage);
-                ItemStack stack = input.copy();
+                int damage = Math.round(copyInput.getMaxDamage() / 10.0f * i);
+                copyInput.setMetadata(damage);
+                ItemStack stack = copyInput.copy();
                 variations.add(stack);
             }
             varientRecipeInput = new RecipeSymbol(variations);
