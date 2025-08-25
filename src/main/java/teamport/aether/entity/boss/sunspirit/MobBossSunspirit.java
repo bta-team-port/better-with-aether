@@ -64,19 +64,28 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
             this.attackEntity(this.target, 32);
         }
 
-        if (this.target != null && !this.target.isAlive()) {
-            this.setPos((double) this.returnPoint.x + 0.5, (double) this.returnPoint.y, (double) this.returnPoint.z + 0.5);
-            this.xd = 0.0;
-            this.yd = 0.0;
-            this.zd = 0.0;
+        if (world.players
+                .stream()
+                .noneMatch(p -> distanceToSqr(p) < AetherDimension.bossDetectionRangeSQR && p.isAlive())
+        ) {
+            returnToHome();
             this.target = null;
-            ((Player) target).sendMessage("§eSuch is the fate of a being who opposes the might of the sun.");
             this.gotTarget = false;
         }
     }
 
-    public void knockBack(Entity entity, int damage, double xd, double yd) {
+
+    @Override
+    public void returnToHome() {
+        if (returnPoint == null || !hasHadReturnPointSet) return;
+
+        moveTo(returnPoint.x + 0.5, returnPoint.y, returnPoint.z + 0.5, 0, 0);
+        this.xd = 0.0;
+        this.yd = 0.0;
+        this.zd = 0.0;
     }
+
+    public void knockBack(Entity entity, int damage, double xd, double yd) {}
 
     public void tick() {
         super.tick();
