@@ -11,12 +11,12 @@ import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMapEntry;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -139,7 +139,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     private void createBossAndTreasure(int x, int y, int z, int x2, int y2, int z2) {
         drawShell(random, lockedCarvedHolystone, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true).place(world);
         this.addSolidBox(0, 0, x + 7, y - 1, z + 7, 2, 2, 2);
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.register();
+        DungeonMapEntrySlider dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         dungeon.setClearArea(new Pair<>(
                 new WorldFeaturePoint(x, y - 2, z),
