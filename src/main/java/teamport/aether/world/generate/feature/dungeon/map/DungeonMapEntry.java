@@ -27,7 +27,7 @@ public class DungeonMapEntry {
 
     protected WorldFeaturePoint position;
 
-    public DungeonMapEntry(Integer id) {
+    public DungeonMapEntry(int id) {
         this.id = id;
     }
 
