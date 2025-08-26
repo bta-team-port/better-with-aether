@@ -18,21 +18,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DungeonMapEntry {
-    protected Integer id;
+    protected int id;
     @Nullable
     protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
     protected List<WorldFeaturePoint> doorBlocks = new ArrayList<>();
-    protected Integer doorReplacementID = 0;
-    protected Integer doorReplacementMeta = 0;
+    protected int doorReplacementID = 0;
+    protected int doorReplacementMeta = 0;
 
     protected WorldFeaturePoint position;
 
-    public DungeonMapEntry(Integer id) {
+    public DungeonMapEntry(int id) {
         this.id = id;
     }
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -56,7 +56,7 @@ public class DungeonMapEntry {
         this.doorReplacementID = doorReplacementID;
     }
 
-    public void setDoorReplacement(Integer doorReplacementID, Integer doorReplacementMeta) {
+    public void setDoorReplacement(int doorReplacementID, int doorReplacementMeta) {
         this.doorReplacementID = doorReplacementID;
         this.doorReplacementMeta = doorReplacementMeta;
     }
