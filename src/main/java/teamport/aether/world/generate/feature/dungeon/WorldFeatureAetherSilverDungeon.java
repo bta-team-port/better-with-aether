@@ -12,7 +12,7 @@ import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.WorldFeatureAetherClouds;
 import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
@@ -185,7 +185,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
         this.silverMaze = new WorldFeatureSilverMaze();
 
-        dungeon = AetherDimension.dungeonMap.register();
+        dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         dungeon.setPosition(bossPosition);
         createBaseStructure(x, y, z);
         createInnerDecorations(x, y, z);

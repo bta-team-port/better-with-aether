@@ -6,7 +6,7 @@ import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.awt.image.BufferedImage;

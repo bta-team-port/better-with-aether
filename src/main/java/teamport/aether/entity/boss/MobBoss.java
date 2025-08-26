@@ -90,7 +90,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         }
 
         if (dungeonID != null) {
-            AetherDimension.dungeonMap.remove(dungeonID, world);
+            AetherDimension.dungeonMap.notifyBossDead(dungeonID, this);
         }
 
         // try triggering the propagate on dungeon blocks.
