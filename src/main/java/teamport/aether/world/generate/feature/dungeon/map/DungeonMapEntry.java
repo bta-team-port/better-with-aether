@@ -1,13 +1,15 @@
-package teamport.aether.world;
+package teamport.aether.world.generate.feature.dungeon.map;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
+import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
@@ -28,6 +30,7 @@ public class DungeonMapEntry {
     public DungeonMapEntry(Integer id) {
         this.id = id;
     }
+
 
     public Integer getId() {
         return id;
@@ -58,23 +61,18 @@ public class DungeonMapEntry {
         this.doorReplacementMeta = doorReplacementMeta;
     }
 
-    protected DungeonMapEntry() {
-    }
+    public void loadFromNBT(CompoundTag data) {
+        id = data.getInteger("id");
+        doorReplacementID = data.getInteger("doorReplacementID");
+        doorReplacementMeta = data.getInteger("doorReplacementMeta");
 
-    public static DungeonMapEntry loadFromNBT(CompoundTag data) {
-        DungeonMapEntry result = new DungeonMapEntry();
-
-        result.id = data.getInteger("id");
-        result.doorReplacementID = data.getInteger("doorReplacementID");
-        result.doorReplacementMeta = data.getInteger("doorReplacementMeta");
-
-        result.clearArea = new Pair<>(
+        clearArea = new Pair<>(
                 WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
                 WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
-        if (result.clearArea.first == null || result.clearArea.second == null) {
-            result.clearArea = null;
+        if (clearArea.first == null || clearArea.second == null) {
+            clearArea = null;
         }
 
         CompoundTag blockListNBT = data.getCompound("blocksDestroyOnDeath");
@@ -85,14 +83,11 @@ public class DungeonMapEntry {
                 list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
-            result.doorBlocks = list;
+            doorBlocks = list;
         }
-
-        return result;
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
-        data.putString("type", "basic");
         data.putInt("id", id);
         data.putInt("doorReplacementID", doorReplacementID);
         data.putInt("doorReplacementMeta", doorReplacementMeta);
@@ -115,7 +110,15 @@ public class DungeonMapEntry {
         return data;
     }
 
+    public <T extends Entity & EnemyBoss> void notifyBossDead(T boss) {
+        remove(boss.world);
+    }
+
     public void remove(World world) {
+        if (DungeonMap.dungeonMap.get(id) != null) {
+            DungeonMap.dungeonMap.remove(id);
+        }
+
         if (doorBlocks != null) {
             for (WorldFeaturePoint coordinate : doorBlocks) {
                 world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);

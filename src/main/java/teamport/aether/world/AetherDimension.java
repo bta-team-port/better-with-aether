@@ -12,6 +12,7 @@ import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 

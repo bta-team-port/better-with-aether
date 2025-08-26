@@ -87,7 +87,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         }
 
         if (dungeonID != null) {
-            AetherDimension.dungeonMap.remove(dungeonID, world);
+            AetherDimension.dungeonMap.notifyBossDead(dungeonID, this);
         }
 
         // try triggering the propagate on dungeon blocks.
