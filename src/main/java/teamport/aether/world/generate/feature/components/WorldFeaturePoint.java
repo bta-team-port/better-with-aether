@@ -6,9 +6,9 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 
 public class WorldFeaturePoint {
-    public Integer x;
-    public Integer y;
-    public Integer z;
+    public int x;
+    public int y;
+    public int z;
 
     public WorldFeaturePoint(int x, int y, int z) {
         this.x = x;
