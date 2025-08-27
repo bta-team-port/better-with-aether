@@ -23,10 +23,10 @@ import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.gui.ComponentJumpBar;
-import teamport.aether.halplibe_temp.TextureHelper;
 import teamport.aether.particle.*;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.WorldTypeFXAether;
+import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
 import static teamport.aether.AetherMod.LOGGER;
