@@ -10,6 +10,7 @@ import teamport.aether.entity.boss.EnemyBoss;
 import java.util.Collection;
 import java.util.HashMap;
 
+import static teamport.aether.AetherMod.LOGGER;
 public class DungeonMap {
 
     private static final HashMap<String, Class<? extends DungeonMapEntry>> KEY_TYPE_MAP = new HashMap<>();
@@ -38,12 +39,20 @@ public class DungeonMap {
     }
 
     public <T extends Entity & EnemyBoss> void notifyBossDead(Integer id, T boss) {
-        if (dungeonMap.get(id) == null) return;
+        if (dungeonMap.get(id) == null) {
+            LOGGER.error("Couldn't find dungeon of id {}", id);
+            return;
+        }
+
         dungeonMap.get(id).notifyBossDead(boss);
     }
 
     public void remove(Integer id, World world) {
-        if (dungeonMap.get(id) == null) return;
+        if (dungeonMap.get(id) == null) {
+            LOGGER.error("Couldn't find dungeon of id {}", id);
+            return;
+        }
+
         dungeonMap.get(id).remove(world);
     }
 
