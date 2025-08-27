@@ -33,7 +33,8 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
             return this.filteredPages.getRight();
         }
         List<RecipeEntryAetherMachine> filteredRecipes = new ArrayList<>();
-        List<RecipeEntryAetherMachine> allRecipes = new ArrayList<>(AetherRecipes.ENCHANTER.getAllRecipes());
+        List<RecipeEntryAetherMachine> getRecipes = new ArrayList<>(AetherRecipes.ENCHANTER.getAllRecipes());
+        List<RecipeEntryAetherMachine> allRecipes = getRecipes;
         allRecipes.removeIf(Objects::isNull);
 
         filterRecipe(query, allRecipes, filteredRecipes);
