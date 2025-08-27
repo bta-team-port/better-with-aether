@@ -126,13 +126,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
-        if (rand.nextInt(3) == 0) {
-            j4 = x + rand.nextInt(16) + 8;
-            k7 = rand.nextInt(256);
-            k4 = z + rand.nextInt(16) + 8;
-            (new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id())).place(this.world, rand, j4, k7, k4);
-        }
-
         for (j4 = 0; j4 < 20; ++j4) {
             k7 = x + rand.nextInt(16);
             k4 = rand.nextInt(256);
@@ -223,6 +216,15 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             l21 = rand.nextInt(rand.nextInt(248) + 8);
             int l22 = z + rand.nextInt(16) + 8;
             (new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, treeDensity, l21, l22);
+        }
+
+        for (k4 = 0; k4 < 50; ++k4) {
+            if (rand.nextInt(64) == 0) {
+                treeDensity = x + rand.nextInt(16) + 8;
+                l21 = rand.nextInt(rand.nextInt(248) + 8);
+                int l22 = z + rand.nextInt(16) + 8;
+                (new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id())).place(this.world, rand, treeDensity, l21, l22);
+            }
         }
 
         BlockLogicSand.fallInstantly = false;
