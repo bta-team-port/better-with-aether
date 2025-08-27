@@ -13,7 +13,7 @@ import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.DungeonMapEntry;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest;
@@ -130,7 +130,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
         this.decorations = new WorldFeatureComponent();
-        this.dungeon = AetherDimension.dungeonMap.register();
+        this.dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         this.dungeon.setPosition(bossPosition);
 
         createMainSphere(x, y, z);

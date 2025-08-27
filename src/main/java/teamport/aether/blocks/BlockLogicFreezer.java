@@ -58,7 +58,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (!world.isClientSide) {
             TileEntityFreezer tileEntityFreezer = (TileEntityFreezer) world.getTileEntity(x, y, z);
             ((AetherScreens) player).aether$displayFreezerScreen(tileEntityFreezer);
         }
