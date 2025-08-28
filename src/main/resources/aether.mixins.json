@@ -69,6 +69,7 @@
     "screens.PlayerMixinAetherScreens"
   ],
   "client": [
+    "ArmorOverlayMixin",
     "DynamicTexturesMixin",
     "GuidebookMixinInclude",
     "HudComponentEntrypointMixin",
