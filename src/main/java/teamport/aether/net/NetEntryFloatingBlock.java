@@ -1,0 +1,52 @@
+package teamport.aether.net;
+
+import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.net.entity.EntityTracker;
+import net.minecraft.core.net.entity.EntityTrackerEntry;
+import net.minecraft.core.net.entity.ITrackedEntry;
+import net.minecraft.core.net.entity.IVehicleEntry;
+import net.minecraft.core.net.packet.PacketAddEntity;
+import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import teamport.aether.entity.EntityFloatingBlock;
+
+import javax.annotation.Nullable;
+
+public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>, ITrackedEntry<EntityFloatingBlock> {
+    public @NotNull Class<? extends EntityFloatingBlock> getAppliedClass() {
+        return EntityFloatingBlock.class;
+    }
+
+    public int getTrackingDistance() {
+        return 160;
+    }
+
+    public int getPacketDelay() {
+        return 20;
+    }
+
+    public boolean sendMotionUpdates() {
+        return false;
+    }
+
+    @Override
+    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityFloatingBlock object) {
+    }
+
+    public Entity getEntity(World world, double x, double y, double z, int metadata, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag tag) {
+        EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, x, y, z, MathHelper.clamp(metadata, 0, Blocks.blocksList.length), 0, null);
+        if (tag != null) floatingBlock.readAdditionalSaveData(tag);
+
+        return floatingBlock;
+    }
+
+    @Override
+    public PacketAddEntity getSpawnPacket(EntityTrackerEntry tracker, EntityFloatingBlock trackedObject) {
+        CompoundTag tag = new CompoundTag();
+        trackedObject.addAdditionalSaveData(tag);
+        return new PacketAddEntity(trackedObject, -1, -1, null, null, null, tag);
+    }
+}

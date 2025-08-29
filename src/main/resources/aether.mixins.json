@@ -67,6 +67,7 @@
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
+    "net.NetEntityHandlerFixMixin",
     "screens.PlayerMixinAetherScreens"
   ],
   "client": [
