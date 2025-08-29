@@ -73,7 +73,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         Player player = (Player) vehicle;
 
         assert player != null;
-        if (player.yd < -0.225F && isJumping && !player.gamemode.isPlayerInvulnerable()) {
+        if (player.yd < -0.225F && isJumping && !player.noPhysics) {
             ((Mob) this.vehicle).yd = 0.125F;
             this.cloudPoop();
             setPuffiness(1.15F);
@@ -118,7 +118,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (this.vehicle instanceof Player) {
             Player player = (Player) vehicle;
 
-            if (!player.onGround && !player.isInWaterOrRain() && !player.gamemode.isPlayerInvulnerable()) {
+            if (!player.onGround && !player.isInWaterOrRain() && !player.noPhysics) {
                 ((EntityAccessor) player).setFallDistance(0.0F);
                 player.yd += 0.05F;
             }
