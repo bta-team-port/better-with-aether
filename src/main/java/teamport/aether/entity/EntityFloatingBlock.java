@@ -19,6 +19,9 @@ import teamport.aether.blocks.BlockLogicOreGravitite;
 // TODO fix multiplayer desync
 
 ///  all the comment were made to understand what the logic does
+
+// Abandon all hope ye who enter here.
+
 public class EntityFloatingBlock extends EntityFallingBlock {
     public boolean onCeiling = false;
     public int ceilingTime = 0;
