@@ -6,7 +6,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
-import teamport.aether.AetherConfig;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -42,21 +41,10 @@ import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolSwordZanite;
 import turniplabs.halplibe.helper.ItemBuilder;
 
+import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public final class AetherItems {
-
-    public static int itemID = AetherConfig.itemIDs;
-
-    public static int itemID(String itemName) {
-        try {
-            return AetherConfig.cfg.getInt(AetherConfig.itemIDs + "." + itemName);
-        } catch (NullPointerException e) {
-            AetherConfig.properties.addEntry(AetherConfig.itemIDs + "." + itemName, itemID);
-            return itemID++;
-        }
-    }
-
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;
