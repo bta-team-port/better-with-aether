@@ -46,7 +46,7 @@ public class AetherConfig {
     public static int INCUBATOR_SCREEN_ID = 14;
 
     private static int BLOCK_ID_STARTING_FROM = 10000;
-    private static int ITEM_ID_STARTING_FROM = 20000;
+    private static int ITEM_ID_STARTING_FROM = 100000;
 
     public static volatile String REMOTE_RESOURCE_URL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
