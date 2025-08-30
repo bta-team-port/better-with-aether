@@ -128,12 +128,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> CHEST_MIMIC;
 
-    public static Block<?> BRONZE_CHEST_DUNGEON;
-    public static Block<?> BRONZE_CHEST_DUNGEON_LOCKED;
-    public static Block<?> SILVER_CHEST_DUNGEON;
-    public static Block<?> SILVER_CHEST_DUNGEON_LOCKED;
-    public static Block<?> GOLD_CHEST_DUNGEON;
-    public static Block<?> GOLD_CHEST_DUNGEON_LOCKED;
+    public static Block<?> CHEST_DUNGEON_BRONZE;
+    public static Block<?> CHEST_DUNGEON_BRONZE_LOCKED;
+    public static Block<?> CHEST_DUNGEON_SILVER;
+    public static Block<?> CHEST_DUNGEON_SILVER_LOCKED;
+    public static Block<?> CHEST_DUNGEON_GOLD;
+    public static Block<?> CHEST_DUNGEON_GOLD_LOCKED;
 
     public static Block<?> CARVED_STONE_LOCKED;
     public static Block<?> CARVED_ANGELIC_LOCKED;
@@ -630,32 +630,32 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
 
-        BRONZE_CHEST_DUNGEON = stone
+        CHEST_DUNGEON_BRONZE = stone
                 .setHardness(1.5F)
                 .build("chest.dungeon.bronze", "chest_dungeon_bronze", blockID("CHEST_DUNGEON_BRONZE"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), false, BRONZE_CHEST_DUNGEON));
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), false, CHEST_DUNGEON_BRONZE));
 
-        BRONZE_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+        CHEST_DUNGEON_BRONZE_LOCKED = dungeonStoneLocked
                 .build("chest.dungeon.bronze.locked", "chest_dungeon_bronze_locked", blockID("CHEST_DUNGEON_BRONZE_LOCKED"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, BRONZE_CHEST_DUNGEON)).withDisabledStats();
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, CHEST_DUNGEON_BRONZE)).withDisabledStats();
 
-        SILVER_CHEST_DUNGEON = stone
+        CHEST_DUNGEON_SILVER = stone
                 .setHardness(1.5F)
                 .build("chest.dungeon.silver", "chest_dungeon_silver", blockID("CHEST_DUNGEON_SILVER"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), false, SILVER_CHEST_DUNGEON));
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), false, CHEST_DUNGEON_SILVER));
 
-        SILVER_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+        CHEST_DUNGEON_SILVER_LOCKED = dungeonStoneLocked
                 .build("chest.dungeon.silver.locked", "chest_dungeon_silver_locked", blockID("CHEST_DUNGEON_SILVER_LOCKED"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), true, SILVER_CHEST_DUNGEON)).withDisabledStats();
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), true, CHEST_DUNGEON_SILVER)).withDisabledStats();
 
-        GOLD_CHEST_DUNGEON = stone
+        CHEST_DUNGEON_GOLD = stone
                 .setHardness(1.5F)
                 .build("chest.dungeon.gold", "chest_dungeon_gold", blockID("CHEST_DUNGEON_GOLD"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), false, GOLD_CHEST_DUNGEON));
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), false, CHEST_DUNGEON_GOLD));
 
-        GOLD_CHEST_DUNGEON_LOCKED = dungeonStoneLocked
+        CHEST_DUNGEON_GOLD_LOCKED = dungeonStoneLocked
                 .build("chest.dungeon.gold.locked", "chest_dungeon_gold_locked", blockID("CHEST_DUNGEON_GOLD_LOCKED"),
-                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), true, GOLD_CHEST_DUNGEON)).withDisabledStats();
+                        b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), true, CHEST_DUNGEON_GOLD)).withDisabledStats();
 
 
         CARVED_STONE_LOCKED = dungeonStoneLocked

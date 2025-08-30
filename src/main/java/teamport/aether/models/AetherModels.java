@@ -267,32 +267,32 @@ public class AetherModels implements ModelEntrypoint {
 
 
         //
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
                 .setTex(0, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.BRONZE_CHEST_DUNGEON_LOCKED)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED)
                 .setTex(0, "aether:block/chest/dungeon_bronze/front_locked", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_SILVER)
                 .setTex(0, "aether:block/chest/dungeon_silver/front", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.SILVER_CHEST_DUNGEON_LOCKED)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED)
                 .setTex(0, "aether:block/chest/dungeon_silver/front_locked", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_GOLD)
                 .setTex(0, "aether:block/chest/dungeon_gold/front", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.GOLD_CHEST_DUNGEON_LOCKED)
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED)
                 .setTex(0, "aether:block/chest/dungeon_gold/front_locked", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(0, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
