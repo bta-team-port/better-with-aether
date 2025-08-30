@@ -6,7 +6,6 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
-import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
@@ -15,22 +14,10 @@ import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
 import turniplabs.halplibe.util.BlockInitEntrypoint;
 
+import static teamport.aether.AetherConfig.blockID;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public final class AetherBlocks implements BlockInitEntrypoint {
-
-
-    public static int blockID = AetherConfig.blockIDs;
-
-    public static int blockID(String blockName) {
-        try {
-            return AetherConfig.cfg.getInt(AetherConfig.BlockIDs + "." + blockName);
-        } catch (NullPointerException e) {
-            AetherConfig.properties.addEntry(AetherConfig.BlockIDs + "." + blockName, blockID);
-            return blockID++;
-        }
-    }
-
 
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
