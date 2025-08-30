@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "TreeCapitatorAetherAxeMixin",
-    "accessors.ConfigAccessor",
     "accessors.EntityAccessor",
     "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
