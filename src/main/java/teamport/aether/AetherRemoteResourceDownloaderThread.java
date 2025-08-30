@@ -47,6 +47,8 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
 
     public volatile State state;
 
+    private String URL;
+
     public AetherRemoteResourceDownloaderThread(File file, Minecraft minecraft) {
         super("Aether Resource Download");
         this.mc = minecraft;
@@ -58,6 +60,10 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         if (!this.resourcesFolder.exists() && !this.resourcesFolder.mkdirs()) {
             throw new RuntimeException("The working directory could not be created: " + this.resourcesFolder);
         }
+
+        synchronized (AetherConfig.CONFIGURATION_LOCK) {
+            URL = AetherConfig.REMOTE_RESOURCE_URL;
+        }
     }
 
     @Override
@@ -65,7 +71,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         JsonArray manifest;
 
         try {
-            String manifestURL = AetherConfig.REMOTE_RESOURCE_URL + "manifest.json";
+            String manifestURL = URL + "manifest.json";
             manifest = JsonParser.parseString(StringUtils.getWebsiteContentAsString(manifestURL)).getAsJsonArray();
             LOGGER.info("Manifest Downloaded");
 
@@ -151,7 +157,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
     }
 
     private void downloadSoundFile(String name, File file) throws Exception {
-        String url = AetherConfig.REMOTE_RESOURCE_URL + name;
+        String url = URL + name;
         url = url.replace(" ", "%20");
         LOGGER.info("Downloading File: {}", url);
 
