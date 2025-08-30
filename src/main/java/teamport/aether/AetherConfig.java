@@ -20,27 +20,32 @@ import java.util.stream.Collectors;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherConfig {
+    public static final Object CONFIGURATION_LOCK = new Object();
+
     private static final Toml properties = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
     private static TomlConfigHandler cfg;
-
-    private static int BLOCK_ID_STARTING_FROM = 10000;
-    private static int ITEM_ID_STARTING_FROM = 20000;
-
-    public static int currentItemID;
-    public static int currentBlockID;
-
-    public static int DIMENSION;
-    public static int EXTRA_HEALTH;
-    public static float QUICK_SOIL_SPEED_CAP;
-    public static int ENCHANTER_SCREEN_ID;
-    public static int FREEZER_SCREEN_ID;
-    public static int INCUBATOR_SCREEN_ID;
-
-    public static volatile String REMOTE_RESOURCE_URL;
 
     public static final String BlockIDCategory = "Block IDs";
     public static final String ItemIDCategory = "Item IDs";
     public static final String GeneralCategory = "General";
+
+
+    public static int currentItemID;
+    public static int currentBlockID;
+
+
+    public static int DIMENSION = 3;
+    public static int EXTRA_HEALTH = 20;
+    public static float QUICK_SOIL_SPEED_CAP = 1.325F;
+
+    public static int ENCHANTER_SCREEN_ID = 12;
+    public static int FREEZER_SCREEN_ID = 13;
+    public static int INCUBATOR_SCREEN_ID = 14;
+
+    private static int BLOCK_ID_STARTING_FROM = 10000;
+    private static int ITEM_ID_STARTING_FROM = 20000;
+
+    public static volatile String REMOTE_RESOURCE_URL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -49,26 +54,47 @@ public class AetherConfig {
     private static final HashMap<Integer, String> blockIDtoKeyMap = new HashMap<>();
 
     static void Setup() {
-        int dimensionDefault = 3; // so it wont bug me for testing
-        int extraHealthDefault = 20;
-        float quicksoilCapDefault = 1.325F;
-
-        int enchanterScreenID = 12;
-        int freezerScreenID = 13;
-        int incubatorScreenID = 14;
-        String remoteResourceURLDefault = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
-
         LOGGER.info("Initializing config..");
 
+        assembleProperties();
+        cfg = new TomlConfigHandler(MOD_ID, properties);
+
+        if (cfg.getConfigFile().exists()) { cfg.loadConfig(); }
+        else {
+            try { cfg.getConfigFile().createNewFile(); }
+            catch (IOException e) { throw new RuntimeException(e); }
+
+            cfg.writeConfig();
+        }
+
+        resolveIdMappings();
+        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
+        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
+
+        DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
+        EXTRA_HEALTH         = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
+        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GeneralCategory + ".QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP);
+        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
+        FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
+        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCRREN_ID", INCUBATOR_SCREEN_ID);
+
+        synchronized (CONFIGURATION_LOCK) {
+            REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
+        }
+
+        if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
+    }
+
+    private static void assembleProperties() {
         properties.addCategory(GeneralCategory)
-                .addEntry("cfgVersion", 6)
-                .addEntry("DIMENSION", dimensionDefault)
-                .addEntry("EXTRA_HEALTH", extraHealthDefault)
-                .addEntry("QUICK_SOIL_SPEED_CAP", quicksoilCapDefault)
-                .addEntry("REMOTE_RESOURCE_URL", remoteResourceURLDefault)
-                .addEntry("ENCHANTER_SCREEN_ID", enchanterScreenID)
-                .addEntry("FREEZER_SCREEN_ID", freezerScreenID)
-                .addEntry("INCUBATOR_SCRREN_ID", incubatorScreenID);
+            .addEntry("cfgVersion", 6)
+            .addEntry("DIMENSION", DIMENSION)
+            .addEntry("EXTRA_HEALTH", EXTRA_HEALTH)
+            .addEntry("QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP)
+            .addEntry("REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL)
+            .addEntry("ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID)
+            .addEntry("FREEZER_SCREEN_ID", FREEZER_SCREEN_ID)
+            .addEntry("INCUBATOR_SCRREN_ID", INCUBATOR_SCREEN_ID);
 
         //BLOCK ID
         properties.addEntry(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
@@ -93,51 +119,31 @@ public class AetherConfig {
         for (Field itemField : itemFields) {
             properties.addEntry(ItemIDCategory + "." + itemField.getName(), ITEM_ID_STARTING_FROM++);
         }
+    }
 
-        cfg = new TomlConfigHandler(MOD_ID, properties);
-
-        if (cfg.getConfigFile().exists()) { cfg.loadConfig(); }
-        else {
-            try { cfg.getConfigFile().createNewFile(); }
-            catch (IOException e) { throw new RuntimeException(e); }
-
-            cfg.writeConfig();
-        }
-
+    private static void resolveIdMappings() {
         List<String> configuredItemKeys  = ((ConfigAccessor) cfg).getConfig().get("."+ItemIDCategory, Toml.class).getOrderedKeys();
         List<String> configuredBlockKeys = ((ConfigAccessor) cfg).getConfig().get("."+BlockIDCategory, Toml.class).getOrderedKeys();
 
         configuredItemKeys.forEach(
-            key -> {
-                int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
-                if (itemIDToKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated item id in " + key);
+                key -> {
+                    int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
+                    if (itemIDToKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated item id in " + key);
 
-                itemIDToKeyMap.put(id, key);
-            }
+                    itemIDToKeyMap.put(id, key);
+                }
         );
 
         configuredBlockKeys.forEach(
-            key -> {
-                int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
-                if (blockIDtoKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated block id in " + key);
+                key -> {
+                    int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
+                    if (blockIDtoKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated block id in " + key);
 
-                blockIDtoKeyMap.put(id, key);
-            }
+                    blockIDtoKeyMap.put(id, key);
+                }
         );
-
-        DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", dimensionDefault);
-        EXTRA_HEALTH         = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", extraHealthDefault);
-        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GeneralCategory + ".QUICK_SOIL_SPEED_CAP", quicksoilCapDefault);
-        REMOTE_RESOURCE_URL  = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", remoteResourceURLDefault);
-        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", enchanterScreenID);
-        FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", freezerScreenID);
-        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCRREN_ID", incubatorScreenID);
-
-        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", incubatorScreenID);
-        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_IDS_STARTING_FROM", incubatorScreenID);
-
-        if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
     }
+
 
     public static int itemID(String itemName) {
         try { return AetherConfig.cfg.getInt(AetherConfig.ItemIDCategory + "." + itemName); }
@@ -166,11 +172,6 @@ public class AetherConfig {
             return currentBlockID;
         }
     }
-
-    static void onExit() {
-        cfg.writeConfig();
-    }
-
 
     @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
