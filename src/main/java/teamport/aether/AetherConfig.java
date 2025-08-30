@@ -1,5 +1,6 @@
 package teamport.aether;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import org.slf4j.Logger;
@@ -9,9 +10,12 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.ConfigAccessor;
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
+import turniplabs.halplibe.util.toml.TomlParser;
 
-import java.io.IOException;
+import java.io.File;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +26,6 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherConfig {
     public static final Object CONFIGURATION_LOCK = new Object();
 
-    private static final Toml properties = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
     private static TomlConfigHandler cfg;
 
     public static final String BlockIDCategory = "Block IDs";
@@ -52,24 +55,55 @@ public class AetherConfig {
 
     private static final HashMap<Integer, String> itemIDToKeyMap = new HashMap<>();
     private static final HashMap<Integer, String> blockIDtoKeyMap = new HashMap<>();
+    private static final String FILE_COMMENT = "Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.";
 
     static void Setup() {
         LOGGER.info("Initializing config..");
 
-        assembleProperties();
-        cfg = new TomlConfigHandler(MOD_ID, properties);
+        // TODO: throw halplibe's TomlConfigHandler where it belong. The garbage bin. >:(
 
-        if (cfg.getConfigFile().exists()) { cfg.loadConfig(); }
-        else {
-            try { cfg.getConfigFile().createNewFile(); }
-            catch (IOException e) { throw new RuntimeException(e); }
+        File configFile = new File(FabricLoader.getInstance().getGameDir().toString() + "/config/" + MOD_ID + ".cfg");
+        if (configFile.exists()) {
+            String fileContent;
 
-            cfg.writeConfig();
+            try { fileContent = new String(Files.readAllBytes(configFile.toPath()), StandardCharsets.UTF_8); }
+            catch (Exception e) { throw new RuntimeException(e);}
+
+            Toml parsed = new Toml(FILE_COMMENT);
+            parsed.addMissing(TomlParser.parse(fileContent));
+
+            // the cfg should now hold whatever the last configuration state was.
+            cfg = new TomlConfigHandler(MOD_ID, parsed);
+
+            //  now simply register each id to the mappings, that way we can know what is being used already.
+            currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
+            currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
+            resolveIdMappings();
+
+            // add the default properties. It should merge it all correctly.
+            ((ConfigAccessor) cfg).getConfig().addMissing(assembleProperties());
+
+            String updatedFileContent = ((ConfigAccessor) cfg).getConfig().toString();
+
+            if (!fileContent.equals(updatedFileContent)) {
+                try {
+                    Files.move(configFile.toPath(), new File(configFile + "." + String.valueOf(System.nanoTime()) + ".old").toPath());
+                    Files.write(configFile.toPath(), updatedFileContent.getBytes());
+                }
+                catch (Exception e) {
+                    LOGGER.error("Failed to refresh file!");
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
-        resolveIdMappings();
-        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
+        else {
+            currentBlockID = BLOCK_ID_STARTING_FROM;
+            currentItemID = ITEM_ID_STARTING_FROM;
+
+            cfg = new TomlConfigHandler(MOD_ID, assembleProperties());
+            cfg.writeConfig();
+        }
 
         DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
         EXTRA_HEALTH         = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
@@ -85,7 +119,9 @@ public class AetherConfig {
         if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
     }
 
-    private static void assembleProperties() {
+    private static Toml assembleProperties() {
+        Toml properties = new Toml(FILE_COMMENT);
+
         properties.addCategory(GeneralCategory)
             .addEntry("cfgVersion", 6)
             .addEntry("DIMENSION", DIMENSION)
@@ -105,7 +141,7 @@ public class AetherConfig {
                 .collect(Collectors.toList());
 
         for (Field blockField : blockFields) {
-            properties.addEntry(BlockIDCategory + "." + blockField.getName(), BLOCK_ID_STARTING_FROM++);
+            properties.addEntry(BlockIDCategory + "." + blockField.getName(), blockID(blockField.getName()));
         }
 
         //ITEM ID
@@ -117,8 +153,10 @@ public class AetherConfig {
                 .collect(Collectors.toList());
 
         for (Field itemField : itemFields) {
-            properties.addEntry(ItemIDCategory + "." + itemField.getName(), ITEM_ID_STARTING_FROM++);
+            properties.addEntry(ItemIDCategory + "." + itemField.getName(), itemID(itemField.getName()));
         }
+
+        return properties;
     }
 
     private static void resolveIdMappings() {
@@ -126,20 +164,28 @@ public class AetherConfig {
         List<String> configuredBlockKeys = ((ConfigAccessor) cfg).getConfig().get("."+BlockIDCategory, Toml.class).getOrderedKeys();
 
         configuredItemKeys.forEach(
-                key -> {
-                    int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
-                    if (itemIDToKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated item id in " + key);
+            key -> {
+                if (key.equals("startingFrom")) return;
 
-                    itemIDToKeyMap.put(id, key);
+                int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
+                if (itemIDToKeyMap.containsKey(id)) {
+                    throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, itemIDToKeyMap.get(id)));
                 }
+
+                itemIDToKeyMap.put(id, key);
+            }
         );
 
         configuredBlockKeys.forEach(
-                key -> {
-                    int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
-                    if (blockIDtoKeyMap.containsKey(id)) throw new RuntimeException("Found duplicated block id in " + key);
+            key -> {
+                if (key.equals("startingFrom")) return;
 
-                    blockIDtoKeyMap.put(id, key);
+                int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
+                if (blockIDtoKeyMap.containsKey(id)) {
+                    throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, blockIDtoKeyMap.get(id)));
+                }
+
+                blockIDtoKeyMap.put(id, key);
                 }
         );
     }
@@ -152,7 +198,6 @@ public class AetherConfig {
             LOGGER.warn("Couldn't find item key for {}, Trying to insert at next available ID...", itemName);
             while (itemIDToKeyMap.containsKey(currentItemID)) { currentItemID++; }
 
-            AetherConfig.properties.addEntry(AetherConfig.ItemIDCategory + "." + itemName, currentItemID);
             itemIDToKeyMap.put(currentItemID, itemName);
 
             return currentItemID;
@@ -166,7 +211,6 @@ public class AetherConfig {
             LOGGER.warn("Couldn't find block key for {}, Trying to insert at next available ID...", blockName);
             while (blockIDtoKeyMap.containsKey(currentBlockID)) { currentBlockID++; }
 
-            AetherConfig.properties.addEntry(AetherConfig.BlockIDCategory + "." + blockName, currentBlockID);
             blockIDtoKeyMap.put(currentBlockID, blockName);
 
             return currentBlockID;
