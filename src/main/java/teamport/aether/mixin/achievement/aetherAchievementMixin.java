@@ -1,4 +1,4 @@
-package teamport.aether.mixin.dimension;
+package teamport.aether.mixin.achievement;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.toasts.AchievementToast;

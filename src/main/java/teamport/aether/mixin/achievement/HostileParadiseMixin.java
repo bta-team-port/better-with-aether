@@ -1,4 +1,4 @@
-package teamport.aether.mixin.dimension;
+package teamport.aether.mixin.achievement;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.util.helper.DyeColor;

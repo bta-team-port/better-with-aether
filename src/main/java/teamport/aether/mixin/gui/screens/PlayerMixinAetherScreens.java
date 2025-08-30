@@ -1,4 +1,4 @@
-package teamport.aether.mixin.screens;
+package teamport.aether.mixin.gui.screens;
 
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
