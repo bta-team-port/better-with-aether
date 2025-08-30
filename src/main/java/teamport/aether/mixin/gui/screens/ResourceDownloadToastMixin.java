@@ -1,4 +1,4 @@
-package teamport.aether.mixin.screens;
+package teamport.aether.mixin.gui.screens;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ScaledResolution;

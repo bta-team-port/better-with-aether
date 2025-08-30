@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.player;
 
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.input.PlayerInput;
@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.AetherRideable;
 
 @Mixin(value = PlayerLocal.class, remap = false)
-public abstract class HandleAetherRideableMixin extends Player {
+public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
 
     @Shadow public PlayerInput input;
 
-    public HandleAetherRideableMixin(World world) {
+    public PlayerLocalHandleAetherRideableMixin(World world) {
         super(world);
     }
 

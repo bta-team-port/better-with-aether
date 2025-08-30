@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.gui;
 
 import net.minecraft.client.gui.guidebook.GuidebookSections;
 import net.minecraft.core.item.ItemStack;

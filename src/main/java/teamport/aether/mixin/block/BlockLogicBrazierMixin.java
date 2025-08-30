@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.block;
 
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;

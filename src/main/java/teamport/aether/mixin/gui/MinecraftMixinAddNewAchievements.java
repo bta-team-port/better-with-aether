@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.gui;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
