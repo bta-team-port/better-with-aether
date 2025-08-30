@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.achievement;
 
 import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.entity.player.Player;

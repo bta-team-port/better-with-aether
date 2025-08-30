@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.achievement;
 
 import net.minecraft.core.achievement.stat.StatList;
 import net.minecraft.core.entity.EntityItem;

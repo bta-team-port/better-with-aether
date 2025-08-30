@@ -1,4 +1,4 @@
-package teamport.aether.mixin.screens;
+package teamport.aether.mixin.gui.screens;
 
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.server.entity.player.PlayerServer;

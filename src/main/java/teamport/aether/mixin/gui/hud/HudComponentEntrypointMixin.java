@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.gui.hud;
 
 
 import net.minecraft.client.gui.hud.component.HudComponents;

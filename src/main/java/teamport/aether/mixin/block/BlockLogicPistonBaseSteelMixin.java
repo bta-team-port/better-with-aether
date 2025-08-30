@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.block;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.block.Block;

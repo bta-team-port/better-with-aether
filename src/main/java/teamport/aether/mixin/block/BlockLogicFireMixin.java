@@ -1,4 +1,4 @@
-package teamport.aether.mixin.dimension;
+package teamport.aether.mixin.block;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
