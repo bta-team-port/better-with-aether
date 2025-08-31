@@ -6,6 +6,7 @@ import net.minecraft.core.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.helper.AetherToml;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.toml.Toml;
 import turniplabs.halplibe.util.toml.TomlParser;
@@ -22,7 +23,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherConfig {
     public static final Object CONFIGURATION_LOCK = new Object();
 
-    private static Toml cfg;
+    private static AetherToml cfg;
 
     public static final String BlockIDCategory = "Block IDs";
     public static final String ItemIDCategory = "Item IDs";
@@ -35,7 +36,7 @@ public class AetherConfig {
 
     public static int DIMENSION = 3;
     public static int EXTRA_HEALTH = 20;
-    public static float QUICK_SOIL_SPEED_CAP = 1.325F;
+    public static double QUICK_SOIL_SPEED_CAP = 1.325F;
 
     public static int ENCHANTER_SCREEN_ID = 12;
     public static int FREEZER_SCREEN_ID = 13;
@@ -57,7 +58,7 @@ public class AetherConfig {
 
         // TODO: throw halplibe's TomlConfigHandler where it belong. The garbage bin. >:(
 
-        cfg = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
+        cfg = new AetherToml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
 
         File configFile = new File(FabricLoader.getInstance().getGameDir().toString() + "/config/" + MOD_ID + ".cfg");
         if (configFile.exists()) {
@@ -78,10 +79,10 @@ public class AetherConfig {
             // add the default properties. It should merge it all correctly.
             cfg.addMissing(assembleProperties(new Toml()));
 
-            String updatedFileContent = TomlToString(cfg, "", 0);
+            String updatedFileContent = cfg.toString();
             if (!fileContent.equals(updatedFileContent)) {
                 try {
-                    Files.move(configFile.toPath(), new File(configFile + "." + String.valueOf(System.nanoTime()) + ".old").toPath());
+                    Files.move(configFile.toPath(), new File(configFile + "." + System.nanoTime() + ".old").toPath());
                     Files.write(configFile.toPath(), updatedFileContent.getBytes());
                 }
                 catch (Exception e) {
@@ -97,8 +98,7 @@ public class AetherConfig {
 
             assembleProperties(cfg);
 
-            try {Files.write(configFile.toPath(), TomlToString(cfg, "", 0).getBytes());}
-
+            try {Files.write(configFile.toPath(), cfg.toString().getBytes()); }
             catch (Exception e) {
                 LOGGER.error("Failed to write config file!");
                 throw new RuntimeException(e);
@@ -227,60 +227,5 @@ public class AetherConfig {
         }
 
         return res;
-    }
-
-    public static String repeat(String txt, int count) {
-        StringBuilder out = new StringBuilder();
-        for (int i = 0; i < count; i++) out.append(txt);
-        return out.toString();
-    }
-
-    public static String TomlToString(Toml toml, String rootKey, int indent) {
-        StringBuilder out = new StringBuilder();
-
-        if (toml.getComment().isPresent()) {
-            String comment = toml.getComment().get();
-
-            for (String line : comment.split("\n")) {
-                out.append(repeat("\t", indent)).append("# ").append(line).append("\n");
-            }
-
-            out.append("\n");
-        }
-
-        Set<String> realKeys = new HashSet<>(toml.getOrderedKeys());
-
-        for (String orderedKey : realKeys) {
-            String[] res;
-            int offset = 0;
-            int sep = 0;
-
-            if (orderedKey.startsWith(".")) {
-                if (orderedKey.substring(1).contains(".")) continue;
-
-                Toml cat = toml.get(orderedKey, Toml.class);
-                String full = rootKey + (rootKey.isEmpty() ? "" : ".") + orderedKey.substring(1);
-
-                if (cat.getComment().isPresent()) {
-                    String comment = cat.getComment().get();
-
-                    for (String re : comment.split("\n"))
-                        out.append(repeat("\t", indent)).append("# ").append(re).append("\n");
-                }
-
-                out.append(repeat("\t", indent)).append("[").append(full).append("]").append("\n");
-
-
-                res = TomlToString(cat, full, 0).split("\n");
-                sep = offset = 1;
-            } else {
-                res = toml.getEntry(orderedKey).toString(orderedKey).split("\n");
-            }
-
-            for (String re : res) out.append(repeat("\t", indent + offset)).append(re).append("\n");
-            out.append(repeat("\n", sep));
-        }
-
-        return out.toString();
     }
 }
