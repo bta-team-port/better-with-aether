@@ -513,17 +513,21 @@ public final class AetherItems {
                 .build(new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_clock_outline_alt1"));
 
 
-        DEATH_RAY = new ItemBuilder(MOD_ID).build(
+        DEATH_RAY = new ItemBuilder(MOD_ID)
+            .setStackSize(1)
+            .build(
                 new Item("death_ray", itemKey("death_ray"), itemID("DEATH_RAY")) {
                     @Override
                     public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
+                        if (!mob.isAlive()) return false;
+
                         mob.setHealthRaw(0);
                         mob.playDeathSound();
                         mob.onDeath(player);
-                        return super.useItemOnEntity(itemstack, mob, player);
+                        return true;
                     }
                 }
-        );
+            );
     }
 
     public static void registerArmor() {

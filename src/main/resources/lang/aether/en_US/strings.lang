@@ -19,5 +19,5 @@ aether.tooltip.machine.energy=%s s.
 
 
 # Deathray
-item.aether.death_ray.name= DeathRay
+item.aether.death_ray.name= Wand of Instant Death
 item.aether.death_ray.desc= Right click to install kill stuff. Used for debugging bosses.
