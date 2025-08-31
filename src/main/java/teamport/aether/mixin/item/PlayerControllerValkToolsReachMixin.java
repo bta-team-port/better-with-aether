@@ -1,4 +1,4 @@
-package teamport.aether.mixin.player;
+package teamport.aether.mixin.item;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.Minecraft;
