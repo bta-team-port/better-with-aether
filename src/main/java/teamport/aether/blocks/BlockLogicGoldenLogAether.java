@@ -1,44 +1,39 @@
 package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicAxisAligned;
-import net.minecraft.core.block.BlockLogicLog;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.enums.PlacementMode;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
 import teamport.aether.items.AetherItems;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
-public class BlockLogicGoldenLogAether extends BlockLogicLog {
-    public boolean golden;
+public class BlockLogicGoldenLogAether extends BlockLogicLogAether {
 
-    public BlockLogicGoldenLogAether(Block<?> block, boolean golden) {
+    public BlockLogicGoldenLogAether(Block<?> block) {
         super(block);
-        this.golden = golden;
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
-        Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).getAxis();
-        world.setBlockMetadataWithNotify(x, y, z, BlockLogicAxisAligned.axisToMeta(axis) + 4);
-    }
-
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
+        super.onBlockDestroyedByPlayer(world, x, y, z, side, meta, player, item);
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
-            this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
-            return;
-        }
-        if (heldItem != null && meta == 0 && this.golden && player.getGamemode().consumeBlocks()) {
+        if (heldItem != null && meta == 0 && player.getGamemode().consumeBlocks()) {
             if (heldItem.getItem() instanceof ItemToolAxeAether) {
                 world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
             }
         }
+    }
+
+    @Override
+    public ItemStack[] getAdditionalBreakResult(World world, Item tool, ItemStack[] results, int meta) {
+        ItemStack[] additionalResults = super.getAdditionalBreakResult(world, tool, results, meta);
+        ItemStack[] addedAmber = new ItemStack[additionalResults.length + results.length];
+        System.arraycopy(additionalResults, 0, addedAmber, 0, additionalResults.length);
+        for(int i = 0; i < results.length; i++){
+            addedAmber[additionalResults.length + i] = new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1);
+        }
+        return addedAmber;
     }
 }
