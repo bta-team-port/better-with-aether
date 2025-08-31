@@ -7,7 +7,6 @@
     "TreeCapitatorAetherAxeMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
-    "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
     "accessors.MobAccessor",
@@ -73,7 +72,7 @@
   ],
   "client": [
     "DynamicTexturesMixin",
-    "MobRendererGLCleanUpMixin",
+    "accessory.MobRendererGLCleanUpMixin",
     "accessors.HudComponentAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
@@ -107,7 +106,7 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "player.PlayerControllerValkToolsReachMixin",
+    "item.PlayerControllerValkToolsReachMixin",
     "player.PlayerLocalBossListMixin",
     "player.PlayerLocalPortalNoiseMixin"
   ],
