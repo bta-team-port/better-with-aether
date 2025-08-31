@@ -107,7 +107,7 @@
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
     "item.PlayerControllerValkToolsReachMixin",
-    "player.PlayerLocalBossListMixin",
+    "player.PlayerBossListMixin",
     "player.PlayerLocalPortalNoiseMixin"
   ],
   "server": [

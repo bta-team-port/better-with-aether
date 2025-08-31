@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class PlayerLocalBossListMixin extends Mob implements AetherBossList {
-    public PlayerLocalBossListMixin(@Nullable World world) {
+public abstract class PlayerBossListMixin extends Mob implements AetherBossList {
+    public PlayerBossListMixin(@Nullable World world) {
         super(world);
     }
     @Unique
