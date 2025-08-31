@@ -6,7 +6,6 @@
   "mixins": [
     "TreeCapitatorAetherAxeMixin",
     "accessors.EntityAccessor",
-    "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
     "accessors.MobAccessor",
