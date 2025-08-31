@@ -12,6 +12,7 @@ import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.BlockPallet;
+import teamport.aether.world.generate.feature.LootManager;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
@@ -30,6 +31,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
     public static final BlockPallet holystone = new BlockPallet();
+    public static final LootManager manager;
     public static final int ROOM_COUNT_MAX = 13;
     public static final int ROOM_HEIGHT_MEAN = 2;
     public int roomCount = 0;
@@ -54,27 +56,42 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL = new WeightedRandomBag<>();
 
     static {
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 4), 100.0);
+        WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
+        WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
+        WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
+        WeightedRandomBag<WeightedRandomLootObject> GADGET = new WeightedRandomBag<>();
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage()), 100.0);
+        // junk                                     8-10
+        JUNK.addEntry(new WeightedRandomLootObject(null), 40);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 20);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 8), 20);
 
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.HOLYSTONE.getDefaultStack(), 4, 12), 10);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.HOLYSTONE_MOSSY.getDefaultStack(), 4, 12), 10);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.ICESTONE.getDefaultStack(), 4, 12), 10);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.CARVED_STONE_LIGHT.getDefaultStack(), 4, 12), 10);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.CARVED_STONE.getDefaultStack(), 4, 12), 10);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 100.0);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 5);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 4), 5);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 100.0);
+        // armor & tool - chestplate                0-2(super rare)
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage()), 100.0);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage()), 100.0);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage()), 100.0);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage()), 100.0);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 96.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 90.0);
+        // ammo                                     2-5
+        AMMO.addEntry(new WeightedRandomLootObject(null), 40);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 4, 12), 40);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 3, 8), 20);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 2, 6), 10);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 5), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 3), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 3), 100.0);
+        // gadget - cape colored, talisman          0-2(super rare)
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 90);
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 30);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 8), 100.0);
-
+        manager = new LootManager(JUNK, AMMO, GADGET, ARMOR);
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
@@ -247,7 +264,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         }
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
-            populateChest(world, chest, random, LOOT_NORMAL);
+            populateChest(world, chest, random, manager);
         }
 
         switch (dir) {
