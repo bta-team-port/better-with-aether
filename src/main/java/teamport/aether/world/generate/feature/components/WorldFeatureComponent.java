@@ -9,6 +9,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.BlockPallet;
+import teamport.aether.world.generate.feature.LootManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +139,16 @@ public class WorldFeatureComponent {
         int invSize = inventory.getContainerSize();
         for (int i = 0; i < 10; i++) {
             placeItemInChest(random, BAG, invSize, inventory);
+        }
+    }
+
+    public static void populateChest(World world, WorldFeatureBlock wfb, Random random, LootManager manager) {
+        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
+        if (inventory == null) return;
+        int invSize = inventory.getContainerSize();
+        List<ItemStack> loot = manager.getLoot(random);
+        for (int i = 0; i < loot.size(); i++) {
+            inventory.setItem(random.nextInt(invSize), loot.get(i));
         }
     }
 
