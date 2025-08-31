@@ -13,13 +13,14 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.items.AetherItems;
+import teamport.aether.mixin.accessors.ItemAccessor;
+
+import java.util.Random;
 
 public class BlockLogicLogAether extends BlockLogicLog {
-    public boolean golden;
 
-    public BlockLogicLogAether(Block<?> block, boolean golden) {
+    public BlockLogicLogAether(Block<?> block) {
         super(block);
-        this.golden = golden;
     }
 
     @Override
@@ -28,20 +29,39 @@ public class BlockLogicLogAether extends BlockLogicLog {
         world.setBlockMetadataWithNotify(x, y, z, BlockLogicAxisAligned.axisToMeta(axis) + 4);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
             this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
-        } else if (heldItem != null && meta == 0 && this.golden && player.getGamemode().consumeBlocks()) {
-            if (heldItem.getItem().equals(AetherItems.TOOL_AXE_HOLYSTONE)) {
-                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
-            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_ZANITE)) {
-                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
-            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_GRAVITITE)) {
-                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
-            } else if (heldItem.getItem().equals(AetherItems.TOOL_AXE_VALKYRIE)) {
-                world.dropItem(x, y, z, new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1));
-            }
         }
+    }
+
+    /**
+     * @implNote This is a modifies BreakResult for TreecapitatorHelper, to allow AetherTrees to work nicely with the gamerule
+     * */
+    public ItemStack[] getAdditionalBreakResult(World world, Item tool, ItemStack[] results, int meta) {
+        if(results == null) return null;
+        if (tool != null && tool.equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0) {
+            ItemStack[] doubleStack = new ItemStack[results.length << 1];
+            System.arraycopy(results, 0, doubleStack, 0, results.length);
+            System.arraycopy(results, 0, doubleStack, results.length, results.length);
+            return  doubleStack;
+        }
+        if(tool != null && tool.equals(AetherItems.TOOL_AXE_HOLYSTONE)){
+            assert results.length <= 64;
+            Random random = ((ItemAccessor)tool).getItemRand();
+            int count = 0;
+            for(int i = 0; i < results.length; i++){
+                if(random.nextInt(16) == 0){
+                    count++;
+                }
+            }
+            ItemStack[] addedAmbrosium = new ItemStack[results.length + 1];
+            System.arraycopy(results, 0, addedAmbrosium, 0, results.length);
+            addedAmbrosium[results.length] = new ItemStack(AetherItems.AMBROSIUM, count);
+            return addedAmbrosium;
+        }
+        return results;
     }
 }

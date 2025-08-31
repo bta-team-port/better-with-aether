@@ -6,6 +6,8 @@
   "mixins": [
     "TreeCapitatorAetherAxeMixin",
     "accessors.EntityAccessor",
+    "accessors.ItemAccessor",
+    "accessors.ItemsAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
     "accessors.MobAccessor",
@@ -73,7 +75,6 @@
     "DynamicTexturesMixin",
     "MobRendererGLCleanUpMixin",
     "accessors.HudComponentAccessor",
-    "accessors.ItemDragHandlerAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.ScreenContainerAbstractMixinTargetAccessory",
