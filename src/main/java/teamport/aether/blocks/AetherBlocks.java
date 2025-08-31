@@ -464,10 +464,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         LOG_SKYROOT = log
-                .build("log.skyroot", "log_skyroot", blockID("LOG_SKYROOT"), block -> new BlockLogicLogAether(block, false));
+                .build("log.skyroot", "log_skyroot", blockID("LOG_SKYROOT"), BlockLogicLogAether::new);
 
         LOG_OAK_GOLDEN = log
-                .build("log.oak.golden", "log_oak_golden", blockID("LOG_OAK_GOLDEN"), block -> new BlockLogicGoldenLogAether(block, true));
+                .build("log.oak.golden", "log_oak_golden", blockID("LOG_OAK_GOLDEN"), BlockLogicGoldenLogAether::new);
 
 
         LEAVES_SKYROOT = leaves
