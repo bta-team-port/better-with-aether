@@ -2,11 +2,10 @@ package teamport.aether.world.generate.feature.chests;
 
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon;
-import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon;
 
 public class WorldFeatureAetherBronzeChest extends WorldFeatureAetherTreasureChest {
     public WorldFeatureAetherBronzeChest() {
-        super(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), WorldFeatureAetherSilverDungeon.LOOT_NORMAL, WorldFeatureAetherBronzeDungeon.LOOT_RARE);
+        super(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), WorldFeatureAetherBronzeDungeon::generateLoot, WorldFeatureAetherBronzeDungeon.TREASURE);
         this.guaranteedRare = 2;
     }
 
