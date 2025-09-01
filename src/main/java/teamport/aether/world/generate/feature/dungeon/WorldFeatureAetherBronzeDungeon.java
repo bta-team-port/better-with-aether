@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
@@ -20,24 +21,22 @@ import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-
-    public static final BlockPallet carvedHolystone = new BlockPallet();
-    public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
-    public static final BlockPallet holystone = new BlockPallet();
     public static final int ROOM_COUNT_MAX = 13;
     public static final int ROOM_HEIGHT_MEAN = 2;
     public int roomCount = 0;
     public float angle = 0;
     public World world;
     public Random random;
-
-
+    public static final BlockPallet carvedHolystone = new BlockPallet();
+    public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
+    public static final BlockPallet holystone = new BlockPallet();
     static {
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
@@ -50,61 +49,66 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
-
-    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_NORMAL = new WeightedRandomBag<>();
-
+    public static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
+    public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
+    public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
+    public static final WeightedRandomBag<WeightedRandomLootObject> GADGET = new WeightedRandomBag<>();
+    public static final WeightedRandomBag<WeightedRandomLootObject> FOOD = new WeightedRandomBag<>();
     static {
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 4), 100.0);
+        // junk                                     8-10
+        JUNK.addEntry(new WeightedRandomLootObject(null), 8);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 6), 4);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 4), 4);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.HOLYSTONE.getDefaultStack(), 4, 12), 2);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.HOLYSTONE_MOSSY.getDefaultStack(), 4, 12), 2);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.ICESTONE.getDefaultStack(), 4, 12), 2);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.CARVED_STONE_LIGHT.getDefaultStack(), 4, 12), 2);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherBlocks.CARVED_STONE.getDefaultStack(), 4, 12), 2);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 1);
+        JUNK.addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1, 4), 1);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_AXE_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SWORD_HOLYSTONE.getMaxDamage()), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack()).setRandomMetadata(AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage() / 2, AetherItems.TOOL_SHOVEL_HOLYSTONE.getMaxDamage()), 100.0);
+        // food         2-4
+        FOOD.addEntry(new WeightedRandomLootObject(null), 8);
+        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 4), 4);
+        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 4), 2);
+        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 2), 1);
 
+        // armor & tool - chestplate                0-2(super rare)
+        int minTool = AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage() / 2;
+        int maxTool = AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage();
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_HOLYSTONE.getDefaultStack())
+                .setRandomMetadata(minTool, maxTool), 1);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_HOLYSTONE.getDefaultStack())
+                .setRandomMetadata(minTool, maxTool), 1);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack())
+                .setRandomMetadata(minTool, maxTool), 1);
+        ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack())
+                .setRandomMetadata(minTool, maxTool), 1);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMBROSIUM.getDefaultStack(), 1, 10), 100.0);
+        // ammo                                     2-5
+        AMMO.addEntry(new WeightedRandomLootObject(null), 8);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 2, 6), 4);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 2, 6), 2);
+        AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 2, 6), 1);
 
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT.getDefaultStack()), 100.0);
-
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 96.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 90.0);
-
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 1, 5), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_POISON.getDefaultStack(), 1, 3), 100.0);
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 1, 3), 100.0);
-
-        LOOT_NORMAL.addEntry(new WeightedRandomLootObject(AetherBlocks.TORCH_AMBROSIUM.getDefaultStack(), 1, 8), 100.0);
-
+        // gadget - cape colored, talisman          0-2(super rare)
+        GADGET.addEntry(new WeightedRandomLootObject(null), 4);
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 3);
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 1);
     }
-
-    public static final WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE = new WeightedRandomBag<>();
-
+    public static final WeightedRandomBag<WeightedRandomLootObject> TREASURE = new WeightedRandomBag<>();
     static {
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_MORNING.getDefaultStack()), 10.0);
-
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 8), 100.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 4), 90.0);
-
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_BUBBLE.getDefaultStack()), 100.0);
-
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_BOW_PHOENIX.getDefaultStack()), 100.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_HAMMER_NOTCH.getDefaultStack()), 100.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_KNIFE_LIGHTNING.getDefaultStack(), 1, 16), 100.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_LIGHTNING.getDefaultStack()), 100.0);
-
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_AGILITY.getDefaultStack()), 100.0);
-        LOOT_RARE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 100.0);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_MORNING.getDefaultStack()), 1);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_HAMMER_NOTCH.getDefaultStack()), 10);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_KNIFE_LIGHTNING.getDefaultStack(), 1, 16), 10);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_LIGHTNING.getDefaultStack()), 10);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_REGEN.getDefaultStack()), 10);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 10);
     }
-
-    public WorldFeatureAetherBronzeDungeon(int direction) {
-        this.angle = direction * 90;
-    }
-
-
+    public WorldFeatureAetherBronzeDungeon() {}
     public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random) {
-        return new WorldFeatureAetherBronzeDungeon(0);
+        return new WorldFeatureAetherBronzeDungeon();
     }
-
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
@@ -135,8 +139,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         findNextRoom(x2, y, z2);
         return true;
     }
-
-    private void createBossAndTreasure(int x, int y, int z, int x2, int y2, int z2) {
+    public void createBossAndTreasure(int x, int y, int z, int x2, int y2, int z2) {
         drawShell(random, lockedCarvedHolystone, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true).place(world);
         this.addSolidBox(0, 0, x + 7, y - 1, z + 7, 2, 2, 2);
         DungeonMapEntrySlider dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
@@ -163,9 +166,27 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
         world.entityJoinedWorld(boss);
     }
-
+    public static List<ItemStack> generateLoot(Random random){
+        List<ItemStack> loot = new ArrayList<>();
+        //min 8 max 10
+        int count = random.nextInt(3) + 8;
+        for(int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
+        // min 2 max 5
+        count = random.nextInt(4) + 2;
+        for(int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
+        // min 2 max 4
+        count = random.nextInt(3) + 2;
+        for(int i = 0; i < count; i++) loot.add(FOOD.getRandom(random).getItemStack());
+        // min 1 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
+        for(int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
+        // min 0 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2);
+        for(int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
+        return loot;
+    }
     // TODO rewrite it to be not recursive!
-    public boolean findNextRoom(int x, int y, int z) {
+    private boolean findNextRoom(int x, int y, int z) {
         int tries = 3;
         ArrayList<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.horizontalDirections));
         int index = random.nextInt(dirList.size() - 1);
@@ -182,9 +203,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         endCorridor(x, y, z, Direction.horizontalDirections[random.nextInt(3)]);
         return false;
     }
-
     // TODO sometime places the start of a tunnel but does not build it in full
-    public boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {
+    private boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {
         int x = finalX, z = finalZ;
 
         if (dir == NORTH) {
@@ -247,7 +267,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         }
         chests.place(world);
         for (WorldFeatureBlock chest : chests.blockList) {
-            populateChest(world, chest, random, LOOT_NORMAL);
+            populateChest(world, random, chest, WorldFeatureAetherBronzeDungeon::generateLoot);
         }
 
         switch (dir) {
@@ -271,17 +291,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
         return findNextRoom(x, finalY, z);
     }
-
-    public Direction pickNewDir(Direction me) {
+    private Direction pickNewDir(Direction me) {
         Direction result = me;
         while (result == me) {
             result = Direction.horizontalDirections[random.nextInt(4)];
         }
         return result;
     }
-
-
-    public void endCorridor(final int finalX, final int finalY, final int finalZ, Direction dir) {
+    private void endCorridor(final int finalX, final int finalY, final int finalZ, Direction dir) {
         boolean tunnelling = true;
         int x = finalX;
         int z = finalZ;
@@ -329,12 +346,10 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
     }
-
-    public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
+    private boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3) {
         return isBoxEmpty(startX, startY, startZ, direction1, length1, direction2, length2, direction3, length3, 0.35F);
     }
-
-    public boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, float percent) {
+    private boolean isBoxEmpty(int startX, int startY, int startZ, Direction direction1, int length1, Direction direction2, int length2, Direction direction3, int length3, float percent) {
         int volume = 0;
         int blockX;
         int blockY;
@@ -360,8 +375,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         // I'm literally frito-lay fr fr fr
         return volume > ((length1 * length2 * length3) * percent);
     }
-
-    public void addSolidBox(int id, int meta, int startX, int startY, int startZ, int lengthX, int lengthY, int lengthZ) {
+    private void addSolidBox(int id, int meta, int startX, int startY, int startZ, int lengthX, int lengthY, int lengthZ) {
         for (int x = startX; x < startX + lengthX; ++x) {
             for (int y = startY; y < startY + lengthY; ++y) {
                 for (int z = startZ; z < startZ + lengthZ; ++z) {
@@ -370,9 +384,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
     }
-
-
-    public void addSquareTube(BlockPallet pallet, int x, int y, int z, int lengthX, int lengthY, int lengthZ, Direction dir) {
+    private void addSquareTube(BlockPallet pallet, int x, int y, int z, int lengthX, int lengthY, int lengthZ, Direction dir) {
         this.addSolidBox(0, 0, x, y, z, lengthX, lengthY, lengthZ);
 
         if (dir == NORTH || dir == SOUTH) {

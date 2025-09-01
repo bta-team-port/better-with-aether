@@ -5,7 +5,7 @@ import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDu
 
 public class WorldFeatureAetherBronzeChest extends WorldFeatureAetherTreasureChest {
     public WorldFeatureAetherBronzeChest() {
-        super(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), WorldFeatureAetherBronzeDungeon.LOOT_NORMAL, WorldFeatureAetherBronzeDungeon.LOOT_RARE);
+        super(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), WorldFeatureAetherBronzeDungeon::generateLoot, WorldFeatureAetherBronzeDungeon.TREASURE);
         this.guaranteedRare = 2;
     }
 
