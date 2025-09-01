@@ -1,15 +1,14 @@
 package teamport.aether.world.generate.feature.components;
 
-import net.minecraft.core.WeightedRandomBag;
-import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.BlockPallet;
-import teamport.aether.world.generate.feature.LootManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,11 @@ public class WorldFeatureComponent {
     public WorldFeaturePoint tail;
     public List<WorldFeatureBlock> blockList;
 
+    @FunctionalInterface
+    public interface LootGenerator {
+        List<ItemStack> generate(Random random);
+    }
+
     public WorldFeatureComponent() {
         this.blockList = new ArrayList<>();
     }
@@ -33,48 +37,6 @@ public class WorldFeatureComponent {
 
     public static WorldFeatureComponent wfc(int x, int y, int z) {
         return new WorldFeatureComponent(x, y, z);
-    }
-
-    public static WorldFeatureComponent drawHollowShell(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
-    ) {
-        WorldFeatureComponent hollow = drawVolume(
-                random, pallet,
-                direction1, length1, direction2, length2, direction3,
-                length3, startX, startY, startZ, withNotify
-        );
-        hollow.add(drawVolume(
-                0, 0,
-                direction1, length1 - 2, direction2, length2 - 2, direction3,
-                length3 - 2, startX - 1, startY + 1, startZ - 1, withNotify)
-        );
-        return hollow;
-    }
-
-    public static WorldFeatureComponent drawSquareCylinder(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
-    ) {
-        WorldFeatureComponent cylinder = drawVolume(
-                random, pallet,
-                direction1, length1, direction2, length2, direction3,
-                length3, startX, startY, startZ, withNotify
-        );
-        cylinder.add(drawVolume(
-                0, 0,
-                direction1, length1 - 2, direction2, length2 - 2, direction3,
-                length3, startX - 1, startY, startZ - 1, withNotify)
-        );
-        return cylinder;
     }
 
     public void add(WorldFeatureComponent component) {
@@ -133,38 +95,45 @@ public class WorldFeatureComponent {
         return component;
     }
 
-    public static void populateChest(World world, WorldFeatureBlock wfb, Random random, WeightedRandomBag<WeightedRandomLootObject> BAG) {
-        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
-        if (inventory == null) return;
-        int invSize = inventory.getContainerSize();
-        for (int i = 0; i < 10; i++) {
-            placeItemInChest(random, BAG, invSize, inventory);
-        }
-    }
-
-    public static void populateChest(World world, WorldFeatureBlock wfb, Random random, LootManager manager) {
-        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
-        if (inventory == null) return;
-        int invSize = inventory.getContainerSize();
-        List<ItemStack> loot = manager.getLoot(random);
-        for (int i = 0; i < loot.size(); i++) {
-            inventory.setItem(random.nextInt(invSize), loot.get(i));
-        }
-    }
-
-    public static void placeItemInChest(
+    public static void populateChest(
+            World world,
             Random random,
-            WeightedRandomBag<WeightedRandomLootObject> BAG,
-            int invSize, Container inventory
-    ) {
+            WorldFeatureBlock wfb,
+            LootGenerator lootGenerator
+    ){
+        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
+        if (inventory == null) return;
+        List<ItemStack> stacks = lootGenerator.generate(random);
+        for(ItemStack stack : stacks){
+            WorldFeatureComponent.placeItemInChest(random, stack, inventory);
+        }
+    }
+
+    public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NotNull Container inventory) {
+        if(itemstack == null) return;
+        int invSize = inventory.getContainerSize();
         int index = random.nextInt(invSize);
-        for (int count = invSize; inventory.getItem(index) != null && count > 0; index++, count--) {
+        int count = invSize;
+        while(count-- > 0){
+            ItemStack stack = inventory.getItem(index);
+            if(stack == null){
+                break;
+            }
+            if(stack.itemID == itemstack.itemID){
+                if(stack.getMaxStackSize() >= stack.stackSize + itemstack.stackSize){
+                    itemstack.stackSize += stack.stackSize;
+                    break;
+                }else{
+                    itemstack.stackSize = itemstack.stackSize - stack.getMaxStackSize() - stack.stackSize;
+                    stack.stackSize = stack.getMaxStackSize();
+                }
+            }
+            index++;
             if (index >= invSize) {
                 index = 0;
             }
         }
-        ItemStack itemStack = BAG.getRandom().getItemStack(random);
-        inventory.setItem(index, itemStack);
+        inventory.setItem(index, itemstack);
     }
 
     public static WorldFeatureComponent drawSphere(
@@ -480,4 +449,45 @@ public class WorldFeatureComponent {
         return component;
     }
 
+    public static WorldFeatureComponent drawHollowShell(
+            Random random, BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent hollow = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        hollow.add(drawVolume(
+                0, 0,
+                direction1, length1 - 2, direction2, length2 - 2, direction3,
+                length3 - 2, startX - 1, startY + 1, startZ - 1, withNotify)
+        );
+        return hollow;
+    }
+
+    public static WorldFeatureComponent drawSquareCylinder(
+            Random random, BlockPallet pallet,
+            Direction direction1, int length1,
+            Direction direction2, int length2,
+            Direction direction3, int length3,
+            int startX, int startY, int startZ,
+            boolean withNotify
+    ) {
+        WorldFeatureComponent cylinder = drawVolume(
+                random, pallet,
+                direction1, length1, direction2, length2, direction3,
+                length3, startX, startY, startZ, withNotify
+        );
+        cylinder.add(drawVolume(
+                0, 0,
+                direction1, length1 - 2, direction2, length2 - 2, direction3,
+                length3, startX - 1, startY, startZ - 1, withNotify)
+        );
+        return cylinder;
+    }
 }
