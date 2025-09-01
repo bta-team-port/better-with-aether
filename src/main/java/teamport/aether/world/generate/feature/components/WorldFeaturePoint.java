@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class WorldFeaturePoint {
     public int x;
@@ -87,5 +88,13 @@ public class WorldFeaturePoint {
                 tag.getInteger("y"),
                 tag.getInteger("z")
         );
+    }
+
+    public boolean equals(@Nullable WorldFeaturePoint obj) {
+        if (obj == null) return false;
+
+        return  obj.x == x &&
+                obj.y == y &&
+                obj.z == z;
     }
 }
