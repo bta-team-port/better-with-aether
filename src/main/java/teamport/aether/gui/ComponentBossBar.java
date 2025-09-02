@@ -32,7 +32,7 @@ public class ComponentBossBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return !getBossesFromPlayer(minecraft).isEmpty();
+        return !getBossesFromPlayer(minecraft).isEmpty() && minecraft.gameSettings.immersiveMode.drawHotbar();
     }
 
     @Override
