@@ -58,7 +58,7 @@ public class ComponentJumpBar extends HudComponentMovable {
 
     @Override
     public boolean isVisible(Minecraft minecraft) {
-        return mc.thePlayer.vehicle instanceof AetherJumpAmount;
+        return mc.thePlayer.vehicle instanceof AetherJumpAmount && mc.gameSettings.immersiveMode.drawHotbar();
     }
 
     @Override
