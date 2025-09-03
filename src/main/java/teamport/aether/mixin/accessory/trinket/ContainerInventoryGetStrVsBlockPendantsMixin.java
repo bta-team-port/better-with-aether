@@ -29,7 +29,7 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
     public float aether_getStrVsBlock(float original, Block<?> block) {
         ItemStack stack = mainInventory[currentItem];
-        if (stack == null || stack.getItem() instanceof ItemToolSword) {
+        if (stack == null || !(stack.getItem() instanceof ItemTool)) {
             return original;
         }
         ToolMaterial toolMaterial = ((ItemTool)stack.getItem()).getMaterial();
