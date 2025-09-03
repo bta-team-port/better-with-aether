@@ -9,9 +9,12 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.EnemyBoss;
@@ -19,7 +22,6 @@ import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -41,9 +43,6 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
     public boolean hasAttacked;
 
-    public int wideness;
-    public double speedness;
-
     public MobBossSunspirit(@Nullable World world) {
         super(world);
         this.setSize(2.25F, 3.0F);
@@ -52,8 +51,6 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         this.fireImmune = true;
         this.maxHurtTime = 40;
         this.scoreValue = 100000;
-        this.wideness = 10;
-        this.speedness = 0.5 - (double) this.getHealth() / 70.0 * 0.2;
 
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
     }
@@ -78,44 +75,51 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
         }
     }
 
+    public double speedness() {
+        return 0.5 - (double) this.getHealth() / 70.0 * 0.2;
+    }
 
-    @Nullable
-    public WorldFeaturePoint lastDVDPos = null;
-
-    @Nullable
-    public WorldFeaturePoint targetDVD = null;
-
-    public int DVDMoveCoolDown = 0;
+    public Vec2f DVDMoveAmount = new Vec2f(0.25f, 0.25f);
 
     protected void DVDMove() {
-        float maxSpeed = 0.035F;
+        HitResult hitResult =  world.checkBlockCollisionBetweenPoints(
+            Vec3.getPermanentVec3(x, y + bbHeight/2, z),
+            Vec3.getPermanentVec3(x + (xd + DVDMoveAmount.x) * 2, y + bbHeight/2, z + (zd + DVDMoveAmount.y) * 2),
+            false
+        );
 
-        WorldFeaturePoint currentDVDPos = new WorldFeaturePoint((int) x, (int) y, (int) z);
-
-        if (DVDMoveCoolDown < 0 || lastDVDPos == null) {
-            if (currentDVDPos.equals(lastDVDPos)) {
-
-                float angleDVD = (float) Math.random();
-                targetDVD = new WorldFeaturePoint((int) (x + (Math.sin(angleDVD) * 20)), (int) y, (int) (z + (Math.sin(angleDVD) * 20)));
-            }
-
-            lastDVDPos = currentDVDPos;
-            DVDMoveCoolDown = 1;
+        for (int i = 0; i < 200; i++) {
+            world.spawnParticle("snowshovel", x, y + bbHeight/2, z, 0, 0, 0, 0);
+            world.spawnParticle("snowshovel", x + xd + DVDMoveAmount.x, y + bbHeight/2, z + zd + DVDMoveAmount.y, 0, 0, 0, 0);
         }
 
-        if (targetDVD == null) return;
+        if (hitResult != null) {
+            float speed = 0.25f;
+            switch (hitResult.side) {
+                case NORTH:
+                    DVDMoveAmount.y -= speed * speedness();
+                    break;
 
-        float angle = (float) Math.atan2((targetDVD.x - x), (targetDVD.z - z));
+                case SOUTH:
+                    DVDMoveAmount.y += speed * speedness();
+                    break;
 
-        float xAdd = (float) (Math.sin(angle) * 0.25);
-        float ZAdd = (float) (Math.cos(angle) * 0.25);
+                case WEST:
+                    DVDMoveAmount.x -= speed * speedness();
+                    break;
 
-        float speedNormal = (float) (maxSpeed / Math.hypot(xAdd, ZAdd));
-        xAdd *= speedNormal;
-        ZAdd *= speedNormal;
+                case EAST:
+                    DVDMoveAmount.x += speed * speedness();
+                    break;
+            }
+        }
 
-        this.xd += xAdd;
-        this.zd += ZAdd;
+        double maxSpeed = 0.035D;
+        double currSpeed = Math.hypot(DVDMoveAmount.x, DVDMoveAmount.y);
+        if (currSpeed > maxSpeed) DVDMoveAmount.multiply(maxSpeed / currSpeed);
+
+        xd += DVDMoveAmount.x;
+        zd += DVDMoveAmount.y;
     }
 
     @Override
