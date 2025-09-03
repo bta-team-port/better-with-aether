@@ -121,7 +121,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
-            if ((item instanceof ItemShield && renderPass == 7) || this.shield_6 || player.inventory.armorInventory[TRINKET_2_SLOT] == null){
+            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6){
                  this.shield_6 = false;
                 double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
                 String path;
