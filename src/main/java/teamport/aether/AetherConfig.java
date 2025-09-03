@@ -71,8 +71,6 @@ public class AetherConfig {
             Toml parsed = TomlParser.parse(fileContent);
             cfg.addMissing(parsed);
 
-            // test
-
             //  now simply register each id to the mappings, that way we can know what is being used already.
             currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
             currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
