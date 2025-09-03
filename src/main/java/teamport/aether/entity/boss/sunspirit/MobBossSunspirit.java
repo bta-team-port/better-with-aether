@@ -84,14 +84,13 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     protected void DVDMove() {
         HitResult hitResult =  world.checkBlockCollisionBetweenPoints(
             Vec3.getPermanentVec3(x, y + bbHeight/2, z),
-            Vec3.getPermanentVec3(x + (xd + DVDMoveAmount.x) * 2, y + bbHeight/2, z + (zd + DVDMoveAmount.y) * 2),
+            Vec3.getPermanentVec3(
+                x + xd + DVDMoveAmount.x + (DVDMoveAmount.x > 0 ?  bbWidth/2 : -bbWidth/2),
+                y + bbHeight/2,
+                z + zd + DVDMoveAmount.y + (DVDMoveAmount.y > 0 ?  bbWidth/2 : -bbWidth/2)
+            ),
             false
         );
-
-        for (int i = 0; i < 200; i++) {
-            world.spawnParticle("snowshovel", x, y + bbHeight/2, z, 0, 0, 0, 0);
-            world.spawnParticle("snowshovel", x + xd + DVDMoveAmount.x, y + bbHeight/2, z + zd + DVDMoveAmount.y, 0, 0, 0, 0);
-        }
 
         if (hitResult != null) {
             float speed = 0.25f;
