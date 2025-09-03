@@ -24,33 +24,21 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
 
     @Shadow public ItemStack[] mainInventory;
 
-    @Shadow protected int currentItem;
-
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
-    public float aether_getStrVsBlock(float original, Block<?> block) {
-        ItemStack stack = mainInventory[currentItem];
-        if (stack == null || !(stack.getItem() instanceof ItemTool)) {
-            return original;
-        }
-        ToolMaterial toolMaterial = ((ItemTool)stack.getItem()).getMaterial();
+    public float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        boolean hasZaniteOne = trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id;
-        boolean hasZaniteTwo = trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id;
-
-        if (!hasZaniteOne && !hasZaniteTwo) {
-            return original;
-        }
-        if (trinketOne != null) {
+        float refStrVsBlock = strVsBlock;
+        if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
             float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
-            float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
-            original += speed;
+            float speed = MathHelper.lerp(0.0F, refStrVsBlock, damagePercent);
+            strVsBlock += speed;
         }
-        if (trinketTwo != null) {
+        if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
             float damagePercent = (float) trinketTwo.getMetadata() / trinketTwo.getMaxDamage();
-            float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
-            original += speed;
+            float speed = MathHelper.lerp(0.0F, refStrVsBlock, damagePercent);
+            strVsBlock += speed;
         }
-        return original;
+        return strVsBlock;
     }
 }
