@@ -28,7 +28,7 @@ public void initTooltip() {
         ProgressBarOptions options = new ProgressBarOptions(
                 0, String.format("%s%s%s ",LIGHT_BLUE, translator.translateKey("aether.tooltip.freezer.progress"), RESET), true, true,
                 new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_bg")),
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_fg2"))
+                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_fg"))
         );
         advancedInfoComponent.drawProgressBarTextureWithText(freezer.getProcessProgressScaled(100), 100, options, 0); //getCookProgressScaled
 
