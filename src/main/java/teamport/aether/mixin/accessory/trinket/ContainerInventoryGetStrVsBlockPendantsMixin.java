@@ -1,17 +1,17 @@
 package teamport.aether.mixin.accessory.trinket;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemTool;
+import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.AetherItems;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
@@ -26,43 +26,31 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
 
     @Shadow protected int currentItem;
 
-    @Inject(method = "getStrVsBlock", at = @At("HEAD"), cancellable = true)
-    public void aether_getStrVsBlock(Block<?> block, CallbackInfoReturnable<Float> cir) {
-        if (mainInventory[currentItem] == null) return;
-        float baseSpeed = mainInventory[currentItem].getStrVsBlock(block);
-
-        if (baseSpeed <= 1.0F) return;
+    @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
+    public float aether_getStrVsBlock(float original, Block<?> block) {
+        ItemStack stack = mainInventory[currentItem];
+        if (stack == null || stack.getItem() instanceof ItemToolSword) {
+            return original;
+        }
+        ToolMaterial toolMaterial = ((ItemTool)stack.getItem()).getMaterial();
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        boolean hasZaniteOne = trinketOne != null && trinketOne.getItem().equals(AetherItems.ARMOR_TALISMAN_ZANITE);
-        boolean hasZaniteTwo = trinketTwo != null && trinketTwo.getItem().equals(AetherItems.ARMOR_TALISMAN_ZANITE);
+        boolean hasZaniteOne = trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id;
+        boolean hasZaniteTwo = trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id;
 
-        boolean hasZanite = false;
-
-        if (hasZaniteOne || hasZaniteTwo) {
-            ItemStack stack = mainInventory[currentItem];
-            if (stack == null) return;
-
-            ItemTool tool = (ItemTool)stack.getItem();
-            ToolMaterial toolMaterial = tool.getMaterial();
-
-            if (trinketOne != null) {
-                float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
-                float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
-
-                baseSpeed += speed;
-                hasZanite = true;
-            }
-
-            if (trinketTwo != null) {
-                float damagePercent = (float) trinketTwo.getMetadata() / trinketTwo.getMaxDamage();
-                float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
-
-                baseSpeed += speed;
-                hasZanite = true;
-            }
+        if (!hasZaniteOne && !hasZaniteTwo) {
+            return original;
         }
-
-        if (hasZanite) cir.setReturnValue(baseSpeed);
+        if (trinketOne != null) {
+            float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
+            float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
+            original += speed;
+        }
+        if (trinketTwo != null) {
+            float damagePercent = (float) trinketTwo.getMetadata() / trinketTwo.getMaxDamage();
+            float speed = MathHelper.lerp(0.0F, toolMaterial.getEfficiency(true), damagePercent);
+            original += speed;
+        }
+        return original;
     }
 }
