@@ -24,11 +24,13 @@ public class ContainerInventoryZanitePendantDamageMixin {
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
             float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
             float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
+            trinketOne.damageItem(1, player);
             damage += (int)Math.floor(speed);
         }
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
             float damagePercent = (float) trinketTwo.getMetadata() / trinketTwo.getMaxDamage();
             float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
+            trinketTwo.damageItem(1, player);
             damage += (int)Math.floor(speed);
         }
         return damage;
