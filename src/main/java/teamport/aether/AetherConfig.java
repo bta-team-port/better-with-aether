@@ -1,5 +1,6 @@
 package teamport.aether;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import org.slf4j.Logger;
@@ -10,11 +11,10 @@ import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
 import turniplabs.halplibe.util.toml.TomlParser;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -27,11 +27,6 @@ public class AetherConfig {
     public static final String ItemIDCategory = "Item IDs";
     public static final String GeneralCategory = "General";
 
-
-    public static int currentItemID;
-    public static int currentBlockID;
-
-
     public static int DIMENSION = 3;
     public static int EXTRA_HEALTH = 20;
     public static double QUICK_SOIL_SPEED_CAP = 1.325F;
@@ -42,6 +37,9 @@ public class AetherConfig {
 
     private static int BLOCK_ID_STARTING_FROM = 10000;
     private static int ITEM_ID_STARTING_FROM = 26000;
+
+    public static int currentBlockID = BLOCK_ID_STARTING_FROM;
+    public static int currentItemID = ITEM_ID_STARTING_FROM;
 
     public static volatile String REMOTE_RESOURCE_URL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
 
@@ -56,12 +54,14 @@ public class AetherConfig {
 
         // TODO: throw halplibe's TomlConfigHandler where it belong. The garbage bin. >:(
 
+        resolveIdMappings();
         Toml props = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
-        cfg = new TomlConfigHandler(MOD_ID, assembleProperties(props));
+        assembleProperties(props);
+
+        cfg = new TomlConfigHandler(MOD_ID, props);
 
         if (cfg.getConfigFile().exists()) {
             cfg.loadConfig();
-            resolveIdMappings();
         }
         else {
             try { cfg.getConfigFile().createNewFile(); }
@@ -77,8 +77,8 @@ public class AetherConfig {
         FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
         INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
-        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
+        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(BlockIDCategory + ".startingFrom", BLOCK_ID_STARTING_FROM);
+        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(ItemIDCategory  + ".startingFrom", ITEM_ID_STARTING_FROM);
 
         synchronized (CONFIGURATION_LOCK) {
             REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
@@ -99,36 +99,29 @@ public class AetherConfig {
             .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
         //BLOCK ID
-        properties.addEntry(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-        properties.addCategory(BlockIDCategory);
-
-        List<Field> blockFields = Arrays.stream(AetherBlocks.class.getDeclaredFields())
-                .filter((F)-> Block.class.isAssignableFrom(F.getType()))
-                .collect(Collectors.toList());
-
-        for (Field blockField : blockFields) {
-            properties.addEntry(BlockIDCategory + "." + blockField.getName(), blockID(blockField.getName()));
-        }
+        properties.addCategory(BlockIDCategory)
+                .addEntry("startingFrom", BLOCK_ID_STARTING_FROM);
+        Arrays.stream(AetherBlocks.class.getDeclaredFields())
+            .filter((F)-> Block.class.isAssignableFrom(F.getType()))
+            .forEach(blockField -> properties.addEntry(BlockIDCategory + "." + blockField.getName(), blockID(blockField.getName())));
 
         //ITEM ID
-        properties.addEntry(GeneralCategory + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
-        properties.addCategory(ItemIDCategory);
-
-        List<Field> itemFields = Arrays.stream(AetherItems.class.getDeclaredFields())
+        properties.addCategory(ItemIDCategory)
+                .addEntry("startingFrom", ITEM_ID_STARTING_FROM);
+        Arrays.stream(AetherItems.class.getDeclaredFields())
                 .filter((F)-> Item.class.isAssignableFrom(F.getType()))
-                .collect(Collectors.toList());
-
-        for (Field itemField : itemFields) {
-            properties.addEntry(ItemIDCategory + "." + itemField.getName(), itemID(itemField.getName()));
-        }
+                .forEach(itemField -> properties.addEntry(ItemIDCategory + "." + itemField.getName(), itemID(itemField.getName())));
 
         return properties;
     }
 
     private static void resolveIdMappings() {
         Toml cfgToml;
+        File file = new File( FabricLoader.getInstance().getGameDir().toString() + "/config/" + MOD_ID + ".cfg");
 
-        try { cfgToml = TomlParser.parse(new String(Files.readAllBytes(cfg.getConfigFile().toPath()))); }
+        if (!file.exists()) return;
+
+        try { cfgToml = TomlParser.parse(new String(Files.readAllBytes(file.toPath()))); }
         catch (IOException e) { throw new RuntimeException(e); }
 
         List<String> configuredItemKeys  = cfgToml.get("."+ItemIDCategory, Toml.class).getOrderedKeys();
@@ -138,7 +131,7 @@ public class AetherConfig {
             key -> {
                 if (key.equals("startingFrom")) return;
 
-                int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
+                int id = cfgToml.get(AetherConfig.ItemIDCategory + "." + key, Integer.class);
                 if (itemIDToKeyMap.containsKey(id)) {
                     throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, itemIDToKeyMap.get(id)));
                 }
@@ -151,7 +144,7 @@ public class AetherConfig {
             key -> {
                 if (key.equals("startingFrom")) return;
 
-                int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
+                int id = cfgToml.get(AetherConfig.BlockIDCategory + "." + key, Integer.class);
                 if (blockIDtoKeyMap.containsKey(id)) {
                     throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, blockIDtoKeyMap.get(id)));
                 }
@@ -161,12 +154,10 @@ public class AetherConfig {
         );
     }
 
-
     public static int itemID(String itemName) {
         try { return cfg.getInt(ItemIDCategory + "." + itemName); }
 
         catch (NullPointerException e) {
-            LOGGER.warn("Couldn't find item key for {}, Trying to insert at next available ID...", itemName);
             while (itemIDToKeyMap.containsKey(currentItemID)) { currentItemID++; }
 
             itemIDToKeyMap.put(currentItemID, itemName);
@@ -179,7 +170,6 @@ public class AetherConfig {
         try { return cfg.getInt(BlockIDCategory + "." + blockName); }
 
         catch (NullPointerException e) {
-            LOGGER.warn("Couldn't find block key for {}, Trying to insert at next available ID...", blockName);
             while (blockIDtoKeyMap.containsKey(currentBlockID)) { currentBlockID++; }
 
             blockIDtoKeyMap.put(currentBlockID, blockName);
