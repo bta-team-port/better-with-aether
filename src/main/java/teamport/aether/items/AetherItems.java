@@ -654,17 +654,20 @@ public final class AetherItems {
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID)
                 .build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron", ArmorMaterial.IRON));
 
+        ///  we treat gold differently when harvesting as such we don't make it take damage when harvesting the way other pendant might
         ARMOR_TALISMAN_GOLD = new ItemBuilder(MOD_ID)
                 .build(new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), "gold", ArmorMaterial.GOLD));
 
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID)
-                .build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), "diamond", ArmorMaterial.DIAMOND));
+                .build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), "diamond", ArmorMaterial.DIAMOND))
+                .takeHarvestDamage();
 
         ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID)
                 .build(new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), "steel", ArmorMaterial.STEEL));
 
         ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID)
-                .build(new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), "zanite", AetherArmorMaterial.ZANITE));
+                .build(new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), "zanite", AetherArmorMaterial.ZANITE))
+                .takeHarvestDamage();
 
         ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID)
                 .build(new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), "gravitite", AetherArmorMaterial.GRAVITITE));

@@ -17,7 +17,7 @@ abstract public  class ContainerInventoryGetProtectionOfPendantMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/core/item/IArmorItem;getArmorPiece()I")
     )
-    public int ignoreForTrinkets(IArmorItem instance, Operation<Integer> original, @Local int i){
+    public int ignoreSlotEqualityForTrickets(IArmorItem instance, Operation<Integer> original, @Local int i){
         if(instance instanceof ItemPendant){
             return i;
         }
