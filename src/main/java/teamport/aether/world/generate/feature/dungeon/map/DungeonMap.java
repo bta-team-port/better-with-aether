@@ -81,7 +81,7 @@ public class DungeonMap {
 
                 DungeonMapEntry dungeonEntry;
 
-                try {  dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor().newInstance(); }
+                try {  dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor(Integer.class).newInstance(id); }
                 catch (Exception e) {
                     AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
                     AetherMod.LOGGER.error("Defaulting to base dungeon entry...");
