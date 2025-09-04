@@ -1,19 +1,17 @@
 package teamport.aether;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.helper.AetherToml;
 import teamport.aether.items.AetherItems;
+import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
 import turniplabs.halplibe.util.toml.TomlParser;
 
-import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +21,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherConfig {
     public static final Object CONFIGURATION_LOCK = new Object();
 
-    private static AetherToml cfg;
+    private static TomlConfigHandler cfg;
 
     public static final String BlockIDCategory = "Block IDs";
     public static final String ItemIDCategory = "Item IDs";
@@ -58,51 +56,18 @@ public class AetherConfig {
 
         // TODO: throw halplibe's TomlConfigHandler where it belong. The garbage bin. >:(
 
-        cfg = new AetherToml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
+        Toml props = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
+        cfg = new TomlConfigHandler(MOD_ID, assembleProperties(props));
 
-        File configFile = new File(FabricLoader.getInstance().getGameDir().toString() + "/config/" + MOD_ID + ".cfg");
-        if (configFile.exists()) {
-            String fileContent;
-
-            try { fileContent = new String(Files.readAllBytes(configFile.toPath()), StandardCharsets.UTF_8); }
-            catch (Exception e) { throw new RuntimeException(e);}
-
-            // the cfg should now hold whatever the last configuration state was.
-            Toml parsed = TomlParser.parse(fileContent);
-            cfg.addMissing(parsed);
-
-            //  now simply register each id to the mappings, that way we can know what is being used already.
-            currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-            currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
+        if (cfg.getConfigFile().exists()) {
+            cfg.loadConfig();
             resolveIdMappings();
-
-            // add the default properties. It should merge it all correctly.
-            cfg.addMissing(assembleProperties(new Toml()));
-
-            String updatedFileContent = cfg.toString();
-            if (!fileContent.equals(updatedFileContent)) {
-                try {
-                    Files.move(configFile.toPath(), new File(configFile + "." + System.nanoTime() + ".old").toPath());
-                    Files.write(configFile.toPath(), updatedFileContent.getBytes());
-                }
-                catch (Exception e) {
-                    LOGGER.error("Failed to refresh config file!");
-                    throw new RuntimeException(e);
-                }
-            }
         }
-
         else {
-            currentBlockID = BLOCK_ID_STARTING_FROM;
-            currentItemID = ITEM_ID_STARTING_FROM;
+            try { cfg.getConfigFile().createNewFile(); }
+            catch (IOException e) { throw new RuntimeException(e); }
 
-            assembleProperties(cfg);
-
-            try {Files.write(configFile.toPath(), cfg.toString().getBytes()); }
-            catch (Exception e) {
-                LOGGER.error("Failed to write config file!");
-                throw new RuntimeException(e);
-            }
+            cfg.writeConfig();
         }
 
         DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
@@ -111,6 +76,9 @@ public class AetherConfig {
         ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
         FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
         INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
+
+        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_IDS_STARTING_FROM", BLOCK_ID_STARTING_FROM);
+        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_IDS_STARTING_FROM", ITEM_ID_STARTING_FROM);
 
         synchronized (CONFIGURATION_LOCK) {
             REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
@@ -158,14 +126,19 @@ public class AetherConfig {
     }
 
     private static void resolveIdMappings() {
-        List<String> configuredItemKeys  = cfg.get("."+ItemIDCategory, Toml.class).getOrderedKeys();
-        List<String> configuredBlockKeys = cfg.get("."+BlockIDCategory, Toml.class).getOrderedKeys();
+        Toml cfgToml;
+
+        try { cfgToml = TomlParser.parse(new String(Files.readAllBytes(cfg.getConfigFile().toPath()))); }
+        catch (IOException e) { throw new RuntimeException(e); }
+
+        List<String> configuredItemKeys  = cfgToml.get("."+ItemIDCategory, Toml.class).getOrderedKeys();
+        List<String> configuredBlockKeys = cfgToml.get("."+BlockIDCategory, Toml.class).getOrderedKeys();
 
         configuredItemKeys.forEach(
             key -> {
                 if (key.equals("startingFrom")) return;
 
-                int id = (int) cfg.get(AetherConfig.ItemIDCategory + "." + key);
+                int id = cfg.getInt(AetherConfig.ItemIDCategory + "." + key);
                 if (itemIDToKeyMap.containsKey(id)) {
                     throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, itemIDToKeyMap.get(id)));
                 }
@@ -178,19 +151,19 @@ public class AetherConfig {
             key -> {
                 if (key.equals("startingFrom")) return;
 
-                int id = (int) cfg.get(AetherConfig.BlockIDCategory + "." + key);
+                int id = cfg.getInt(AetherConfig.BlockIDCategory + "." + key);
                 if (blockIDtoKeyMap.containsKey(id)) {
                     throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, blockIDtoKeyMap.get(id)));
                 }
 
                 blockIDtoKeyMap.put(id, key);
-                }
+            }
         );
     }
 
 
     public static int itemID(String itemName) {
-        try { return (int) cfg.get(ItemIDCategory + "." + itemName); }
+        try { return cfg.getInt(ItemIDCategory + "." + itemName); }
 
         catch (NullPointerException e) {
             LOGGER.warn("Couldn't find item key for {}, Trying to insert at next available ID...", itemName);
@@ -203,7 +176,7 @@ public class AetherConfig {
     }
 
     public static int blockID(String blockName) {
-        try { return (int) cfg.get(BlockIDCategory + "." + blockName); }
+        try { return cfg.getInt(BlockIDCategory + "." + blockName); }
 
         catch (NullPointerException e) {
             LOGGER.warn("Couldn't find block key for {}, Trying to insert at next available ID...", blockName);
@@ -218,8 +191,22 @@ public class AetherConfig {
     @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
         T res = null;
-        try { res = (T) cfg.get(key); }
-        catch (NullPointerException ignored) {}
+        try {
+            if (def instanceof String)       { res = (T) cfg.getString(key); }
+            else if (def instanceof Integer) { res = (T) Integer.valueOf(cfg.getInt(key)); }
+            else if (def instanceof Long)    { res = (T) Long.valueOf(cfg.getLong(key)); }
+            else if (def instanceof Boolean) { res = (T) Boolean.valueOf(cfg.getBoolean(key)); }
+
+            else if (def instanceof Double || def instanceof Float) {
+                double raw = cfg.getDouble(key);
+
+                if (def instanceof Float) res = (T) new Float(raw);
+                else res = (T) Double.valueOf(raw);
+            }
+
+            else { throw new RuntimeException("Invalid value type!"); }
+
+        } catch (NullPointerException ignored) {}
 
         if (res == null) {
             LOGGER.warn("Failed to load \"{}\"! Assuming default...", key);
