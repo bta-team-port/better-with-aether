@@ -1,10 +1,14 @@
 package teamport.aether.entity.vehicle.parachute;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
@@ -27,9 +31,9 @@ public class EntityParachute extends Mob implements AetherRideable {
     protected double xdChange = 0;
     protected double zdChange = 0;
 
-    public String getPathParticle() {
-        return "explode";
-    }
+
+    public String pathParticle = "explode";
+    public Block<?> particleBlock = AetherBlocks.AERCLOUD_WHITE;
 
     public void tick() {
         super.tick();
@@ -39,10 +43,11 @@ public class EntityParachute extends Mob implements AetherRideable {
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
 
         if (!EnvironmentHelper.isServerEnvironment()) {
-            world.spawnParticle(getPathParticle(), x, y, z, 0.0, 0.0, 0.0, 0);
+            world.spawnParticle(pathParticle, x, y, z, 0.0, 0.0, 0.0, 0);
         }
 
         if (this.passenger == null) {
+            breakParachute();
             this.remove();
         } else {
             this.passenger.handleSpecialVehicleControl();
@@ -51,9 +56,62 @@ public class EntityParachute extends Mob implements AetherRideable {
         handleParachuteMovement();
 
         if (this.onGround || isInWater()) {
-            this.ejectRider();
+            this.ejectRider().fling(0, 0.30F, 0, 0.5F);
+
+            breakParachute();
             this.remove();
         }
+    }
+
+    public void breakParachute() {
+        for (int i = 0; i < 16 +  random.nextInt(10); i++) {
+            float faceX = bbWidth * random.nextFloat();
+            float faceY = bbWidth * random.nextFloat();
+
+            float posX, posY, posZ;
+            Direction dir = Direction.directions[(int) (random.nextFloat() * Direction.directions.length)];
+            switch (dir) {
+                case WEST:
+                    posX = (float) (x);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z + faceX);
+                    break;
+
+                case EAST:
+                    posX = (float) (x + 1);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z + faceX);
+                    break;
+
+                case SOUTH:
+                    posX = (float) (x + faceX);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z + 1);
+                    break;
+
+                case NORTH:
+                    posX = (float) (x + faceX);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z);
+                    break;
+
+                case DOWN:
+                    posX = (float) (x + faceX);
+                    posY = (float) (y - 1);
+                    posZ = (float) (z + faceY);
+                    break;
+
+                default:
+                    posX = (float) (x + faceX);
+                    posY = (float) (y + 1);
+                    posZ = (float) (z + faceY);
+                    break;
+            }
+
+            world.spawnParticle("block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
+        }
+
+        world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);
     }
 
     protected void handleParachuteMovement() {
