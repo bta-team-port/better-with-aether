@@ -26,6 +26,7 @@
     "accessory.trinket.ContainerInventoryGetProtectionOfPendantMixin",
     "accessory.trinket.ContainerInventoryGetStrVsBlockPendantsMixin",
     "accessory.trinket.ContainerInventoryZanitePendantDamageMixin",
+    "accessory.trinket.ItemStackPreventDamage",
     "accessory.trinket.ItemToolOnBlockDestroyedPendantsMixin",
     "accessory.trinket.PlayerMixinPendantFallDamageModifier",
     "achievement.EntityItemPickupAchievementMixin",
