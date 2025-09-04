@@ -38,9 +38,9 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 inventory.setItem(i, null);
             }
-        } else {
+        }
+        if (block == null || block.id() != chestID){
             world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, 4);
-
         }
         this.setTreasure(world, random, ix, iy, iz);
         return true;
