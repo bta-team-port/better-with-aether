@@ -60,6 +60,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
+    // for zanite
+    public static final float ZANITE_MULTIPLIER = 2.0F;
+
     public static final byte BRONZE_CHANCES = 4;
     public static final byte SILVER_CHANCES = 10;
     public static final byte GOLD_CHANCES = 11;

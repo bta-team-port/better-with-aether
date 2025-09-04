@@ -19,8 +19,7 @@ public class ItemToolSwordHolystone extends ItemToolSwordAether {
         if (itemRand.nextInt(8) == 0) {
             target.dropItem(AMBROSIUM.id, 1);
         }
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack,target,attacker);
     }
 
 }
