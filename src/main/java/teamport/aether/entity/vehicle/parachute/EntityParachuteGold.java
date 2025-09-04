@@ -2,16 +2,15 @@ package teamport.aether.entity.vehicle.parachute;
 
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlocks;
 
 public class EntityParachuteGold extends EntityParachute {
     public EntityParachuteGold(@Nullable World world) {
         super(world);
         maxSpeed = 0.15F;
-    }
 
-    @Override
-    public String getPathParticle() {
-        return "goldendust";
+        particleBlock = AetherBlocks.AERCLOUD_GOLD;
+        pathParticle = "goldendust";
     }
 
     @Override
