@@ -124,7 +124,7 @@ public class WorldFeatureComponent {
                     itemstack.stackSize += stack.stackSize;
                     break;
                 }else{
-                    itemstack.stackSize = itemstack.stackSize - stack.getMaxStackSize() - stack.stackSize;
+                    itemstack.stackSize = itemstack.stackSize - stack.getMaxStackSize() + stack.stackSize;
                     stack.stackSize = stack.getMaxStackSize();
                 }
             }
