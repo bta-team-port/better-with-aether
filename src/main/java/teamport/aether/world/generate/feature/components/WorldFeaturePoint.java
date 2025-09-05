@@ -23,6 +23,24 @@ public class WorldFeaturePoint {
         return new WorldFeaturePoint(x, y, z);
     }
 
+    @Override
+    public String toString(){
+        return String.format("wfp[x:%d y:%d z:%d]",x,y,z);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(x,y,z);
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null) return false;
+        if(!(o instanceof WorldFeaturePoint)) return false;
+        WorldFeaturePoint mem = (WorldFeaturePoint) o;
+        return mem.x == this.x && mem.y == this.y && mem.z == this.z;
+    }
+
     public float distanceTo(WorldFeaturePoint cord) {
         return distanceTo(cord.x, cord.y, cord.z);
     }
@@ -74,18 +92,5 @@ public class WorldFeaturePoint {
                 tag.getInteger("y"),
                 tag.getInteger("z")
         );
-    }
-
-    @Override
-    public boolean equals(@Nullable Object o) {
-        if (o == null) return false;
-        if (!(o instanceof WorldFeaturePoint)) return false;
-        WorldFeaturePoint wfp = (WorldFeaturePoint) o;
-        return wfp.x == this.x && wfp.y == this.y && wfp.z == this.z;
-    }
-
-    @Override
-    public int hashCode(){
-        return Objects.hash(this.x, this.y, this.z);
     }
 }
