@@ -79,7 +79,14 @@ repositories {
 		}
 		metadataSources { artifact() }
 	}
-
+    ivy {
+        url = "https://github.com/"
+        patternLayout {
+            artifact "[organization]/[module]/releases/download/[revision]-${project.bta_version}/[module]-[revision].jar"
+            m2compatible = true
+        }
+        metadataSources { artifact() }
+    }
 }
 
 dependencies {
@@ -98,6 +105,7 @@ dependencies {
 	modImplementation("sunsetsatellite:catalyst-core:${catalystcore_version}")
 	modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
 	modImplementation("useless:btwaila:${project.btwaila_version}")
+    modImplementation("gungun974:UselessNumerical:1.0.0")
 
 	// If you read this comment than I have not made this load when building
     compileOnly "useless:btwaila:${project.btwaila_version}"
@@ -107,6 +115,7 @@ dependencies {
 
 	implementation 'com.google.guava:guava:33.0.0-jre'
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
 	var log4jVersion = "2.20.0"
 	implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
 	implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
