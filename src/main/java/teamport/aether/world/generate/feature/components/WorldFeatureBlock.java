@@ -1,6 +1,7 @@
 package teamport.aether.world.generate.feature.components;
 
 import net.minecraft.core.world.World;
+import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.helper.Pair;
 
 public class WorldFeatureBlock extends WorldFeaturePoint {
@@ -17,6 +18,13 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     }
 
     WorldFeatureBlock(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
+        super(x, y, z);
+        this.blockID = blockAndMeta.first;
+        this.metadata = blockAndMeta.second;
+        this.withNotify = withNotify;
+    }
+
+    WorldFeatureBlock(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
         super(x, y, z);
         this.blockID = blockAndMeta.first;
         this.metadata = blockAndMeta.second;
@@ -41,6 +49,10 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
     public static WorldFeatureBlock wfb(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
         return new WorldFeatureBlock(x, y, z, blockID, metadata, withNotify);
+    }
+
+    public static WorldFeatureBlock wfb(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
+        return new WorldFeatureBlock(x, y, z, blockAndMeta, withNotify);
     }
 
     public static WorldFeatureBlock wfb(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
