@@ -1,30 +1,23 @@
 package teamport.aether;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
-import turniplabs.halplibe.util.toml.TomlParser;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.*;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherConfig {
-    public static final Object CONFIGURATION_LOCK = new Object();
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     private static TomlConfigHandler cfg;
 
-    public static final String BlockIDCategory = "Block IDs";
-    public static final String ItemIDCategory = "Item IDs";
+    public static final Object CONFIGURATION_LOCK = new Object();
+
+
     public static final String GeneralCategory = "General";
 
     public static int DIMENSION = 3;
@@ -38,31 +31,20 @@ public class AetherConfig {
     private static int BLOCK_ID_STARTING_FROM = 10000;
     private static int ITEM_ID_STARTING_FROM = 26000;
 
-    public static int currentBlockID = BLOCK_ID_STARTING_FROM;
-    public static int currentItemID = ITEM_ID_STARTING_FROM;
+    public static int currentBlockID;
+    public static int currentItemID;
 
     public static volatile String REMOTE_RESOURCE_URL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
-
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    private static final HashMap<Integer, String> itemIDToKeyMap = new HashMap<>();
-    private static final HashMap<Integer, String> blockIDtoKeyMap = new HashMap<>();
 
     static void Setup() {
         LOGGER.info("Initializing config..");
 
-        // TODO: throw halplibe's TomlConfigHandler where it belong. The garbage bin. >:(
-
-        resolveIdMappings();
-        Toml props = new Toml("Aether Configs.toml \n[!] Be careful with IDs. Changes can affect your existing worlds.");
+        Toml props = new Toml("Aether Configs.toml");
         assembleProperties(props);
 
         cfg = new TomlConfigHandler(MOD_ID, props);
 
-        if (cfg.getConfigFile().exists()) {
-            cfg.loadConfig();
-        }
+        if (cfg.getConfigFile().exists()) cfg.loadConfig();
         else {
             try { cfg.getConfigFile().createNewFile(); }
             catch (IOException e) { throw new RuntimeException(e); }
@@ -70,6 +52,10 @@ public class AetherConfig {
             cfg.writeConfig();
         }
 
+        loadProperties();
+    }
+
+    private static void loadProperties() {
         DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
         EXTRA_HEALTH         = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
         QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GeneralCategory + ".QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP);
@@ -77,8 +63,8 @@ public class AetherConfig {
         FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
         INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
-        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(BlockIDCategory + ".startingFrom", BLOCK_ID_STARTING_FROM);
-        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(ItemIDCategory  + ".startingFrom", ITEM_ID_STARTING_FROM);
+        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
+        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
 
         synchronized (CONFIGURATION_LOCK) {
             REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
@@ -87,7 +73,7 @@ public class AetherConfig {
         if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
     }
 
-    private static Toml assembleProperties(Toml properties) {
+    private static void assembleProperties(Toml properties) {
         properties.addCategory(GeneralCategory)
             .addEntry("cfgVersion", 6)
             .addEntry("DIMENSION", DIMENSION)
@@ -96,93 +82,21 @@ public class AetherConfig {
             .addEntry("REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL)
             .addEntry("ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID)
             .addEntry("FREEZER_SCREEN_ID", FREEZER_SCREEN_ID)
-            .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
-
-        //BLOCK ID
-        properties.addCategory(BlockIDCategory)
-                .addEntry("startingFrom", BLOCK_ID_STARTING_FROM);
-        Arrays.stream(AetherBlocks.class.getDeclaredFields())
-            .filter((F)-> Block.class.isAssignableFrom(F.getType()))
-            .forEach(blockField -> properties.addEntry(BlockIDCategory + "." + blockField.getName(), blockID(blockField.getName())));
-
-        //ITEM ID
-        properties.addCategory(ItemIDCategory)
-                .addEntry("startingFrom", ITEM_ID_STARTING_FROM);
-        Arrays.stream(AetherItems.class.getDeclaredFields())
-                .filter((F)-> Item.class.isAssignableFrom(F.getType()))
-                .forEach(itemField -> properties.addEntry(ItemIDCategory + "." + itemField.getName(), itemID(itemField.getName())));
-
-        return properties;
+            .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID)
+            .addEntry("BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM)
+            .addEntry("ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
     }
 
-    private static void resolveIdMappings() {
-        Toml cfgToml;
-        File file = new File( FabricLoader.getInstance().getGameDir().toString() + "/config/" + MOD_ID + ".cfg");
-
-        if (!file.exists()) return;
-
-        try { cfgToml = TomlParser.parse(new String(Files.readAllBytes(file.toPath()))); }
-        catch (IOException e) { throw new RuntimeException(e); }
-
-        List<String> configuredItemKeys  = cfgToml.get("."+ItemIDCategory, Toml.class).getOrderedKeys();
-        List<String> configuredBlockKeys = cfgToml.get("."+BlockIDCategory, Toml.class).getOrderedKeys();
-
-        configuredItemKeys.forEach(
-            key -> {
-                if (key.equals("startingFrom")) return;
-
-                int id = cfgToml.get(AetherConfig.ItemIDCategory + "." + key, Integer.class);
-                if (itemIDToKeyMap.containsKey(id)) {
-                    throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, itemIDToKeyMap.get(id)));
-                }
-
-                itemIDToKeyMap.put(id, key);
-            }
-        );
-
-        configuredBlockKeys.forEach(
-            key -> {
-                if (key.equals("startingFrom")) return;
-
-                int id = cfgToml.get(AetherConfig.BlockIDCategory + "." + key, Integer.class);
-                if (blockIDtoKeyMap.containsKey(id)) {
-                    throw new RuntimeException(String.format("Found duplicated item ID in \"%s\". ID already in use by \"%s\"", key, blockIDtoKeyMap.get(id)));
-                }
-
-                blockIDtoKeyMap.put(id, key);
-            }
-        );
-    }
-
-    public static int itemID(String itemName) {
-        try { return cfg.getInt(ItemIDCategory + "." + itemName); }
-
-        catch (NullPointerException e) {
-            while (itemIDToKeyMap.containsKey(currentItemID)) { currentItemID++; }
-
-            itemIDToKeyMap.put(currentItemID, itemName);
-
-            return currentItemID;
-        }
-    }
-
-    public static int blockID(String blockName) {
-        try { return cfg.getInt(BlockIDCategory + "." + blockName); }
-
-        catch (NullPointerException e) {
-            while (blockIDtoKeyMap.containsKey(currentBlockID)) { currentBlockID++; }
-
-            blockIDtoKeyMap.put(currentBlockID, blockName);
-
-            return currentBlockID;
-        }
-    }
+    // Useless Numerical will sort it out for us.
+    public static int itemID(String itemName) { return currentItemID++; }
+    public static int blockID(String blockName) { return currentBlockID++; }
 
     @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
         T res = null;
+
         try {
-            if (def instanceof String)       { res = (T) cfg.getString(key); }
+            if      (def instanceof String)  { res = (T) cfg.getString(key); }
             else if (def instanceof Integer) { res = (T) Integer.valueOf(cfg.getInt(key)); }
             else if (def instanceof Long)    { res = (T) Long.valueOf(cfg.getLong(key)); }
             else if (def instanceof Boolean) { res = (T) Boolean.valueOf(cfg.getBoolean(key)); }
