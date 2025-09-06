@@ -138,6 +138,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelDoorGlass<>(AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM).onRenderLayer(1)
                 .setTex(0, "aether:block/door/glass_quicksoil/frame", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/door/glass_quicksoil/bottom", Side.sides));
+
         dispatcher.addDispatch(new BlockModelDoorGlass<>(AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP).onRenderLayer(1)
                 .setTex(0, "aether:block/door/glass_quicksoil/frame", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/door/glass_quicksoil/top", Side.sides));
@@ -146,6 +147,9 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/trapdoor/glass_quicksoil/top", Side.TOP, Side.BOTTOM)
                 .setTex(0, "aether:block/trapdoor/glass_quicksoil/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
+        dispatcher.addDispatch(new BlockModelDungeonDoor(AetherBlocks.DOOR_DUNGEON)
+                .setTex(0, "aether:block/door/boss/top_middle", Side.sides)
+        );
 
         dispatcher.addDispatch(new BlockModelFlowerStackable<>(AetherBlocks.FLOWER_PURPLE, "aether:block/flower_purple/"));
         dispatcher.addDispatch(new BlockModelFlowerStackable<>(AetherBlocks.FLOWER_WHITE, "aether:block/flower_white/"));
@@ -265,8 +269,6 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(0, "aether:block/pillar_capstone/side", Side.sides)
                 .setTex(0, "aether:block/pillar_capstone/top", Side.TOP, Side.BOTTOM));
 
-
-        //
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
                 .setTex(0, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
                 .setTex(0, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
