@@ -103,6 +103,7 @@
     "gui.screens.PlayerLocalMixinAetherScreens",
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",
+    "gui.screens.UNWarnMixin",
     "item.PlayerControllerValkToolsReachMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
