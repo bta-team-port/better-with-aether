@@ -78,13 +78,20 @@ public class UNDataMissingScreen extends Screen {
 
                 continueBtn.displayString = i18n.translateKey("aether.gui.un_missing_warn.proceed_" + ++currBtn);
 
-                if (currBtn == 3) {
+
+                if (currBtn == 1) {
+                    continueBtn.xPosition = (((int) ((width - 200) * .25f))/20) * 20;
+                    continueBtn.yPosition = (((int) ((height - 20) * .75f))/20) * 20;
+                }
+
+                else if (currBtn == 2) {
+                    continueBtn.xPosition = (((int) ((width - 200) * .75f))/20) * 20;
+                    continueBtn.yPosition = (((int) ((height - 20) * .05f))/20) * 20;
+                }
+
+                else if (currBtn == 3) {
                     continueBtn.xPosition = this.width / 2 - 100;
                     continueBtn.yPosition = y + body.length * this.font.fontHeight + 48;
-                }
-                else {
-                    continueBtn.xPosition = rand.nextInt(width - 200);
-                    continueBtn.yPosition = rand.nextInt(height - 20);
                 }
             }
         }

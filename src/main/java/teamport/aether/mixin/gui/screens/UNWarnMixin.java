@@ -10,8 +10,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.gui.UNDataMissingScreen;
+import teamport.aether.world.AetherDimension;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -31,9 +32,11 @@ public class UNWarnMixin extends Screen {
     private void throwWarning(int i, CallbackInfo ci) {
         SaveFile save = this.saveList.get(i);
 
-        File file = Paths.get(mc.getMinecraftDir().toString(), "saves", save.getFileName(), "uselessNumericalSave.dat").toFile();
+        Path savePath = Paths.get(mc.getMinecraftDir().toString(), "saves", save.getFileName());
 
-        if (!file.exists()) {
+        if (  !savePath.resolve("uselessNumericalSave.dat").toFile().exists()
+            && savePath.resolve("dimensions/"+ AetherDimension.AetherDimensionID +"/").toFile().exists()
+        ) {
             this.selected = false;
             this.selectedWorld = -1;
             mc.displayScreen(new UNDataMissingScreen(this, save));
