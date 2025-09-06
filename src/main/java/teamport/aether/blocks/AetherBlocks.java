@@ -128,6 +128,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> CHEST_MIMIC;
 
+    public static Block<BlockLogicDungeonDoor> DOOR_DUNGEON;
     public static Block<?> CHEST_DUNGEON_BRONZE;
     public static Block<?> CHEST_DUNGEON_BRONZE_LOCKED;
     public static Block<?> CHEST_DUNGEON_SILVER;
@@ -629,6 +630,9 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.5F)
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
+        DOOR_DUNGEON = dungeonStoneLocked
+                .setLightOpacity(1)
+                .build("door.dungeon", "door_dungeon", blockID("DOOR_DUNGEON"), BlockLogicDungeonDoor::new);
 
         CHEST_DUNGEON_BRONZE = stone
                 .setHardness(1.5F)
