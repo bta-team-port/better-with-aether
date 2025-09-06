@@ -21,6 +21,12 @@ public class UNWarnMixin extends Screen {
     @Shadow
     private List<SaveFile> saveList;
 
+    @Shadow
+    private boolean selected;
+
+    @Shadow
+    private int selectedWorld;
+
     @Inject(method = "selectWorld", at=@At("HEAD"), cancellable = true)
     private void throwWarning(int i, CallbackInfo ci) {
         SaveFile save = this.saveList.get(i);
@@ -28,7 +34,8 @@ public class UNWarnMixin extends Screen {
         File file = Paths.get(mc.getMinecraftDir().toString(), "saves", save.getFileName(), "uselessNumericalSave.dat").toFile();
 
         if (!file.exists()) {
-            this.mc.playerController = new PlayerControllerSP(this.mc);
+            this.selected = false;
+            this.selectedWorld = -1;
             mc.displayScreen(new UNDataMissingScreen(this, save));
             ci.cancel();
         }

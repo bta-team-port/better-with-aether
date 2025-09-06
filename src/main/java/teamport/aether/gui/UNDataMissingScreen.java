@@ -2,6 +2,7 @@ package teamport.aether.gui;
 
 import net.minecraft.client.gui.ButtonElement;
 import net.minecraft.client.gui.Screen;
+import net.minecraft.client.player.controller.PlayerControllerSP;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.save.SaveFile;
@@ -69,8 +70,10 @@ public class UNDataMissingScreen extends Screen {
 
             if (button.id == 2) {
                 if (currBtn >= 3) {
+                    this.mc.playerController = new PlayerControllerSP(this.mc);
                     mc.startWorld(level.getFileName(), level.getDisplayName(), 0L);
                     mc.displayScreen(null);
+                    return;
                 }
 
                 continueBtn.displayString = i18n.translateKey("aether.gui.un_missing_warn.proceed_" + ++currBtn);
