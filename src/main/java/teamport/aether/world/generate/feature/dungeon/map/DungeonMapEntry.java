@@ -11,6 +11,7 @@ import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class DungeonMapEntry {
     protected int id;
     @Nullable
     protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
+    protected WorldFeatureComponent treasureDoor;
+    protected WorldFeatureComponent entranceDoor;
     protected List<WorldFeaturePoint> doorBlocks = new ArrayList<>();
     protected int doorReplacementID = 0;
     protected int doorReplacementMeta = 0;
@@ -52,14 +55,14 @@ public class DungeonMapEntry {
         this.doorBlocks.addAll(Arrays.asList(doorBlocks));
     }
 
-    public void setDoorReplacement(Integer doorReplacementID) {
-        this.doorReplacementID = doorReplacementID;
+    public void setEntranceDoor(WorldFeatureComponent entranceDoor){
+        this.entranceDoor.add(entranceDoor);
     }
 
-    public void setDoorReplacement(int doorReplacementID, int doorReplacementMeta) {
-        this.doorReplacementID = doorReplacementID;
-        this.doorReplacementMeta = doorReplacementMeta;
+    public void setTreasureDoor(WorldFeatureComponent treasureDoor){
+        this.treasureDoor.add(treasureDoor);
     }
+
 
     public void loadFromNBT(CompoundTag data) {
         id = data.getInteger("id");

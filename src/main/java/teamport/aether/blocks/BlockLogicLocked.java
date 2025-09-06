@@ -50,12 +50,6 @@ public class BlockLogicLocked extends BlockLogicDungeon {
         attemptPropagate(world, x, y, z);
     }
 
-    public double getDistanceFrom(double x1, double y1, double z1, double x2, double y2, double z2) {
-        double d = x1 - x2;
-        double d1 = y1 - y2;
-        double d2 = z1 - z2;
-        return d * d + d1 * d1 + d2 * d2;
-    }
 
     public void attemptPropagate(World world, int x, int y, int z) {
 //        final boolean[] canBreak = {true};
