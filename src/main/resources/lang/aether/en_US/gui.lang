@@ -3,3 +3,9 @@ aether.menu.boss_bar.preview_name=John Doe, The Three-headed Render Preview
 aether.gui.incubator.title=Incubator
 aether.gui.enchanter.title=Enchanter
 aether.gui.freezer.title=Freezer
+
+aether.gui.un_missing_warn.body=§e'%s'§r Does not have §lUselessNumerical§r data!§r\n\n\n Loading this world will likely result in corruption!\n Please reinstall Better with Aether 0.5.1, then reload the world with §lUselessNumerical§r installed.
+aether.gui.un_missing_warn.proceed_0=Play Selected World
+aether.gui.un_missing_warn.proceed_1=Yes, Play Selected World!
+aether.gui.un_missing_warn.proceed_2=§eI AGREE TO CONTINUE.§r
+aether.gui.un_missing_warn.proceed_3=Continue
