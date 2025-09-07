@@ -13,7 +13,7 @@ BTA 7.3_04
 Halplibe 5.3.0
 Catalyst Core 2.1.4
 Catalyst Effects 2.0.1
-
+UselessNumerical 1.0.2
 ![](https://imgur.com/Fh7CxjQ "Aether Silver Dungeon")
 
 ### Aether Wiki
