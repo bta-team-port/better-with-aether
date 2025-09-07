@@ -92,6 +92,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         NetEntityHandler.registerNetworkEntry(new NetEntryParachute(), 36);
         NetEntityHandler.registerNetworkEntry(new NetEntryFloatingBlock(), 37);
         NetEntityHandler.registerNetworkEntry(new NetEntrySlider());
+        NetEntityHandler.registerNetworkEntry(new NetEntryAerwhale());
 
         SoundTypes.loadSoundsJson(MOD_ID);
     }

@@ -12,31 +12,31 @@ import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
-    public int prevAttackCounter;
-    public int attackCounter;
     public double motionYaw;
     public double motionPitch;
+
     public long checkTime = 0L;
+
     public double checkX = 0.0;
     public double checkY = 0.0;
     public double checkZ = 0.0;
+
     public boolean isStuckWarning = false;
-    public int aggroCooldown;
 
     public MobAerwhale(World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");
-        this.viewScale = 100.0f;
-        this.fireImmune = true;
-        this.aggroCooldown = 0;
-        this.prevAttackCounter = 0;
-        this.attackCounter = 0;
+
         this.setSize(0.1F, 0.1F);
+        this.viewScale = 100.0f;
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");
+
+        this.fireImmune = true;
         this.moveSpeed = 0.5F;
+
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
+
         this.ignoreFrustumCheck = true;
-        this.scoreValue = 0;
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
@@ -44,104 +44,109 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
 
-    public void defineSynchedData() {
-        this.entityData.define(16, (byte) 0, Byte.class);
-    }
+    public void updateAI() {
+        double[] distances = new double[] {
+                this.openSpace(0.0F, 0.0F),
+                this.openSpace(45.0F, 0.0F),
+                this.openSpace(0.0F, 45.0F),
+                this.openSpace(-45.0F, 0.0F),
+                this.openSpace(0.0F, -45.0F)
+        };
 
-    public void tick() {
-        double[] distances = new double[]{this.openSpace(0.0F, 0.0F), this.openSpace(45.0F, 0.0F), this.openSpace(0.0F, 45.0F), this.openSpace(-45.0F, 0.0F), this.openSpace(0.0F, -45.0F)};
         int longest = 0;
-
-        int i;
-        for (i = 1; i < 5; ++i) {
-            if (distances[i] > distances[longest]) {
-                longest = i;
+        for (int distance = 1; distance < 5; ++distance) {
+            if (distances[distance] > distances[longest]) {
+                longest = distance;
             }
-        }
-
-        if (random.nextInt(200) == 0) {
-            playLivingSound();
         }
 
         switch (longest) {
             case 0:
                 if (distances[0] == 50.0) {
-                    this.motionYaw *= 0.8999999761581421;
-                    this.motionPitch *= 0.8999999761581421;
-                    if (this.y > 225.0) {
-                        this.motionPitch -= 2.0;
-                    }
+                    this.motionYaw *= 0.90F;
+                    this.motionPitch *= 0.90F;
 
-                    if (this.y < 180.0) {
-                        this.motionPitch += 2.0;
-                    }
-                } else {
+                    if (this.y > 225.0) {  this.motionPitch -= 2.0; }
+                    else if (this.y < 180.0) { this.motionPitch += 2.0; }
+                }
+                else {
                     this.xRot = -this.xRot;
                     this.yRot = -this.yRot;
                 }
+
                 break;
+
             case 1:
                 this.motionYaw += 5.0;
                 break;
+
             case 2:
                 this.motionPitch -= 5.0;
                 break;
+
             case 3:
                 this.motionYaw -= 5.0;
                 break;
+
             case 4:
                 this.motionPitch += 5.0;
         }
+    }
 
+    public void tick() {
         this.motionYaw += 2.0F * this.random.nextFloat() - 1.0F;
         this.motionPitch += 2.0F * this.random.nextFloat() - 1.0F;
         this.xRot = (float) ((double) this.xRot + 0.1 * this.motionPitch);
         this.yRot = (float) ((double) this.yRot + 0.1 * this.motionYaw);
-        if (this.xRot < -60.0F) {
-            this.xRot = -60.0F;
-        }
 
-        if (this.xRot > 60.0F) {
-            this.xRot = 60.0F;
-        }
+        if (this.xRot < -60.0F) { this.xRot = -60.0F; }
+        if (this.xRot > 60.0F) { this.xRot = 60.0F; }
 
         this.xRot = (float) ((double) this.xRot * 0.99);
+
         this.xd += 0.005 * Math.cos((double) this.yRot / 180.0 * Math.PI) * Math.cos((double) this.xRot / 180.0 * Math.PI);
         this.yd += 0.005 * Math.sin((double) this.xRot / 180.0 * Math.PI);
         this.zd += 0.005 * Math.sin((double) this.yRot / 180.0 * Math.PI) * Math.cos((double) this.xRot / 180.0 * Math.PI);
+
         this.xd *= 0.98;
         this.yd *= 0.98;
         this.zd *= 0.98;
-        i = MathHelper.floor(this.x);
-        int j = MathHelper.floor(this.bb.minY);
-        int k = MathHelper.floor(this.z);
-        if (this.xd > 0.0 && this.world.getBlockId(i + 1, j, k) != 0) {
+
+        int floorX = MathHelper.floor(this.x);
+        int floorY = MathHelper.floor(this.bb.minY);
+        int floorZ = MathHelper.floor(this.z);
+
+        assert world!=null; // shutupintelij
+
+        if (this.xd > 0.0 && this.world.getBlockId(floorX + 1, floorY, floorZ) != 0) {
             this.xd = -this.xd;
             this.motionYaw -= 10.0;
-        } else if (this.xd < 0.0 && this.world.getBlockId(i - 1, j, k) != 0) {
+        }
+        else if (this.xd < 0.0 && this.world.getBlockId(floorX - 1, floorY, floorZ) != 0) {
             this.xd = -this.xd;
             this.motionYaw += 10.0;
         }
 
-        if (this.yd > 0.0 && this.world.getBlockId(i, j + 1, k) != 0) {
+        if (this.yd > 0.0 && this.world.getBlockId(floorX, floorY + 1, floorZ) != 0) {
             this.yd = -this.yd;
             this.motionPitch -= 10.0;
-        } else if (this.yd < 0.0 && this.world.getBlockId(i, j - 1, k) != 0) {
+        }
+        else if (this.yd < 0.0 && this.world.getBlockId(floorX, floorY - 1, floorZ) != 0) {
             this.yd = -this.yd;
             this.motionPitch += 10.0;
         }
 
-        if (this.zd > 0.0 && this.world.getBlockId(i, j, k + 1) != 0) {
+        if (this.zd > 0.0 && this.world.getBlockId(floorX, floorY, floorZ + 1) != 0) {
             this.zd = -this.zd;
             this.motionYaw -= 10.0;
-        } else if (this.zd < 0.0 && this.world.getBlockId(i, j, k - 1) != 0) {
+        }
+        else if (this.zd < 0.0 && this.world.getBlockId(floorX, floorY, floorZ - 1) != 0) {
             this.zd = -this.zd;
             this.motionYaw += 10.0;
         }
 
-        this.remainingFireTicks = 0;
         this.move(this.xd, this.yd, this.zd);
-        this.checkForBeingStuck();
+        super.baseTick();
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
@@ -167,9 +172,6 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         } else {
             return 50.0;
         }
-    }
-
-    public void updateAI() {
     }
 
     public void checkForBeingStuck() {
