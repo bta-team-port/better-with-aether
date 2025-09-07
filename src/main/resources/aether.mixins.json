@@ -4,6 +4,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "player.PlayerBossListMixin",
     "TreeCapitatorAetherAxeMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
