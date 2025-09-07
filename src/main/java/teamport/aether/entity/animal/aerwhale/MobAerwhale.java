@@ -146,7 +146,6 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
 
         this.move(this.xd, this.yd, this.zd);
-        super.baseTick();
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {

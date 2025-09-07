@@ -2,10 +2,13 @@ package teamport.aether.entity.animal.aerwhale;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.camera.ICamera;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.AABB;
 import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)

@@ -12,6 +12,6 @@ public class NetEntryAerwhale extends NetEntryAnimal<MobAerwhale> {
 
     @Override
     public boolean sendMotionUpdates() {
-        return true;
+        return false;
     }
 }
