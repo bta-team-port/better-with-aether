@@ -4,7 +4,6 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "player.PlayerBossListMixin",
     "TreeCapitatorAetherAxeMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
@@ -58,6 +57,9 @@
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
+    "fix.NetEntityHandlerMixin",
+    "fix.WorldGetCubesMixin",
+    "fix.WorldTypeOverworldRespawnMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
     "item.ItemDyeMixin",
@@ -69,7 +71,7 @@
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.lifeshard.PlayerMixinExtraHealth",
-    "net.NetEntityHandlerFixMixin",
+    "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerLocalHandleAetherRideableMixin"
   ],
