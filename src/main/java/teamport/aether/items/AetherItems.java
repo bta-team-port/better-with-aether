@@ -503,6 +503,7 @@ public final class AetherItems {
 
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.CHICKENS_FAVOURITE_ITEM, ItemTags.COWS_FAVOURITE_ITEM, AetherItemTags.NATURE_STAFF_FOLLOW, AetherItemTags.MOAS_FAVOURITE_ITEM)
+                .setStackSize(1)
                 .build(new Item("tool.staff.nature", itemKey("tool_staff_nature"), itemID("TOOL_STAFF_NATURE")));
 
         TOOL_STAFF_CLOUD = new ItemBuilder(MOD_ID)
