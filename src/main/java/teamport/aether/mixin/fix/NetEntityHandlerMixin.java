@@ -1,4 +1,4 @@
-package teamport.aether.mixin.net;
+package teamport.aether.mixin.fix;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.net.entity.*;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mixin(value = NetEntityHandler.class, remap = false)
-public abstract class NetEntityHandlerFixMixin {
+public abstract class NetEntityHandlerMixin {
 
     @Shadow
     private static boolean isListDirty;
