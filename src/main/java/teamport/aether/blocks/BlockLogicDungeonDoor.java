@@ -6,6 +6,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
@@ -13,6 +14,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sunsetsatellite.catalyst.core.util.vector.Vec3f;
 
 public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     public BlockLogicDungeonDoor(Block<?> block) {
@@ -52,6 +54,30 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
 
     public static int setSideByMeta(int meta, DoorDungeonSide side) {
         return (meta & (~0b0011000)) + ((side.ordinal() & 0b11) << 3);
+    }
+
+    @Override
+    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
+        Direction dir = getDirectionFromMeta(world.getBlockMetadata(x, y, z));
+
+        if (dir.getSide() != side) return false;
+
+        Direction dirOpposite = dir.getOpposite();
+
+        double destX = x + dirOpposite.getOffsetX() + (player.x%1);
+        double destY = y + dirOpposite.getOffsetY() + (player.y%1);
+        double destZ = z + dirOpposite.getOffsetZ() + (player.z%1);
+
+        while (destY > 0 && world.getBlockId((int) destX, (int) (destY-1), (int) destZ) == 0) --destY;
+
+        if (    world.isBlockNormalCube((int) destX, (int) (destY),     (int) destZ)
+             || world.isBlockNormalCube((int) destX, (int) (destY + 1), (int) destZ)) {
+            return false;
+        }
+
+        player.moveTo(destX, destY, destZ, player.yRot, player.xRot);
+        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, destX, destY, destZ, "random.door_open", 0.5f, 0.5f);
+        return true;
     }
 
     public static int getDoorMetadata(World world, int x, int y, int z, int meta) {
