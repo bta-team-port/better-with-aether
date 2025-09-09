@@ -95,6 +95,7 @@
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "achievement.aetherAchievementMixin",
     "achievement.HostileParadiseMixin",
+    "dimension.AetherMusicMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "gui.GuidebookMixinInclude",
