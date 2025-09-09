@@ -93,7 +93,7 @@ dependencies {
 	minecraft "::${project.bta_version}"
 	mappings loom.layered() {}
 
-	modRuntimeOnly "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
+    modImplementation "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Helper library
@@ -125,6 +125,8 @@ dependencies {
 
 	modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:1.0.5")
 	implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    // paulscode
 
 	runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
 	runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
