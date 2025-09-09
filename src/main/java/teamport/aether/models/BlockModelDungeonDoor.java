@@ -29,6 +29,11 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         DoorDungeonHeight doorHeight = BlockLogicDungeonDoor.getHeightByMeta(meta);
         DoorDungeonSide doorSide = BlockLogicDungeonDoor.getSideByMeta(meta);
 
+        if (doorHeight == DoorDungeonHeight.MIDDLE
+                && doorSide == DoorDungeonSide.MIDDLE
+                && blockRot == side
+        ) return TextureRegistry.getTexture("aether:block/door/boss/alt/middle_middle");
+
         StringBuilder tex = new StringBuilder("aether:block/door/boss/");
 
         switch (doorHeight) {

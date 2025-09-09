@@ -226,5 +226,45 @@
     "sounds": [
       "trigger.ogg"
     ]
+  },
+  "music.aether": {
+    "sounds": [
+      {
+        "name": "music/aether1.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether2.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether3.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether4.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether5.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether6.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether7.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether8.ogg",
+        "stream": true
+      },
+      {
+        "name": "music/aether9.ogg",
+        "stream": true
+      }
+    ]
   }
 }

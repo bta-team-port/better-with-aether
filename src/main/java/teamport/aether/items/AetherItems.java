@@ -1,11 +1,16 @@
 package teamport.aether.items;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.sound.SoundEngine;
+import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
+import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -526,6 +531,20 @@ public final class AetherItems {
                         mob.playDeathSound();
                         mob.onDeath(player);
                         return true;
+                    }
+                }
+            );
+
+        new ItemBuilder(MOD_ID)
+            .setStackSize(1)
+            .build(
+                new Item("test", itemKey("test"), itemID("test")) {
+                    @Override
+                    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+                        SoundEngine soundEngine = Minecraft.getMinecraft().sndManager;
+                        soundEngine.ticksBeforeMusic = -1;
+                        soundEngine.stopMusic();
+                        return super.onUseItem(itemstack, world, entityplayer);
                     }
                 }
             );
