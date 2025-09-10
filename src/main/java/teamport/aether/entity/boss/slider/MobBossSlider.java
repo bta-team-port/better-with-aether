@@ -34,7 +34,7 @@ import java.util.function.Consumer;
 
 import static net.minecraft.core.Global.TICKS_PER_SECOND;
 
-public class MobBossSlider extends MobBoss implements EnemyBoss {
+public class MobBossSlider extends MobBoss {
     public float deformX;
     public int deformY;
     public int deformZ;

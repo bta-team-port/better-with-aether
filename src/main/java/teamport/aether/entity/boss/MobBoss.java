@@ -24,7 +24,7 @@ import java.util.List;
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss<MobPathfinder>, AetherDeathMessage {
 
     @Nullable
     public Integer dungeonID = null;

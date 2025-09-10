@@ -22,11 +22,12 @@ import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
+public class MobBossSunspirit extends MobBossFlying {
     public int timesShot = 0;
     public int chatLog;
     public int chatCooldown;
@@ -70,6 +71,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
                     returnToHome();
                     this.target = null;
                     this.isAgro = false;
+
+                    if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
+                        AetherDimension.dungeonMap.getDungeon(dungeonID).unlock(this, world);
+                    }
                 }
             }
         }
@@ -214,6 +219,11 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
 
                 this.chatLog++;
                 this.isAgro = true;
+
+                if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
+                    AetherDimension.dungeonMap.getDungeon(dungeonID).lock(this, world);
+                }
+
                 return true;
             }
 
@@ -240,6 +250,10 @@ public class MobBossSunspirit extends MobBossFlying implements EnemyBoss {
     }
 
     public void onDeath(Entity entityKilledBy) {
+        if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
+            AetherDimension.dungeonMap.getDungeon(dungeonID).unlock(this, world);
+        }
+
         if (!world.isClientSide && world.dimension == AetherDimension.AETHER) {
             AetherDimension.unlockDaylightCycle(world);
         }

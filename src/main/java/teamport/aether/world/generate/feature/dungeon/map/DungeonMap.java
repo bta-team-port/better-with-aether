@@ -30,6 +30,10 @@ public class DungeonMap {
 
     public DungeonMap() {}
 
+    public DungeonMapEntry getDungeon(int id) {
+        return dungeonMap.get(id);
+    }
+
     public Collection<DungeonMapEntry> values() {
         return dungeonMap.values();
     }
