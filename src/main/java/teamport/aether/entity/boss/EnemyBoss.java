@@ -3,7 +3,7 @@ package teamport.aether.entity.boss;
 import net.minecraft.core.item.ItemStack;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
-public interface EnemyBoss {
+public interface EnemyBoss<Mob> {
 
     void setDungeonID(int id);
     String getBossTitle();

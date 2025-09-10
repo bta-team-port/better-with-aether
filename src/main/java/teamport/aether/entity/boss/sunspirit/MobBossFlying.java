@@ -20,7 +20,7 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobBossFlying extends MobFlying implements EnemyBoss {
+public class MobBossFlying extends MobFlying implements EnemyBoss<MobBossFlying> {
 
     @Nullable
     public Integer dungeonID = null;

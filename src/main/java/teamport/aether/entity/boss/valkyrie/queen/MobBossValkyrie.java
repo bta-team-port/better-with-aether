@@ -23,7 +23,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public class MobBossValkyrie extends MobBoss implements EnemyBoss {
+public class MobBossValkyrie extends MobBoss {
     public boolean isSwinging;
     public boolean duel;
     public int teleportTimer;

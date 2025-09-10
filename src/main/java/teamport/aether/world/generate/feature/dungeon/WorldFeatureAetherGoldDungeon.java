@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -9,6 +10,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicDungeonDoor;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
@@ -233,6 +235,17 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                 x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true)
         );
         main.add(drawVolume(0, 0, Direction.WEST, RADIUS * 2, Direction.NORTH, 3, Direction.UP, 3, x - RADIUS + xRoomLength, y + 2 + RADIUS / 2, z + 1, true));
+
+        Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor = new Pair<>(
+            new WorldFeaturePoint(x - RADIUS / 2, y + 2 + RADIUS / 2, z + 1),
+            new WorldFeaturePoint(x - RADIUS / 2 - 1, y + 2 + RADIUS / 2 + 3, z -2)
+        );
+
+        bossDoor.first.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        bossDoor.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+
+        dungeon.setBossDoor(bossDoor, BlockLogicRotatable.setDirection(0, Direction.NORTH));
+
         this.placeComponent(main);
     }
 

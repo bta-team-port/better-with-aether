@@ -5,8 +5,12 @@ import com.mojang.nbt.tags.IntTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
@@ -29,6 +33,10 @@ public class DungeonMapEntry {
     protected int doorReplacementID = 0;
     protected int doorReplacementMeta = 0;
 
+    @Nullable
+    protected Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoorArea;
+    protected int bossDoorMeta;
+
     protected WorldFeaturePoint position;
 
     public DungeonMapEntry(Integer id) {
@@ -37,6 +45,33 @@ public class DungeonMapEntry {
         this.treasureDoor = new ArrayList<>();
     }
 
+    public void lock(EnemyBoss<? extends Mob> boss, World world) {
+        if (bossDoorArea == null) return;
+
+        for (int x = Math.min(bossDoorArea.first.x, bossDoorArea.second.x); x < Math.max(bossDoorArea.first.x, bossDoorArea.second.x); x++) {
+            for (int y = Math.min(bossDoorArea.first.y, bossDoorArea.second.y); y < Math.max(bossDoorArea.first.y, bossDoorArea.second.y); y++) {
+                for (int z = Math.min(bossDoorArea.first.z, bossDoorArea.second.z); z < Math.max(bossDoorArea.first.z, bossDoorArea.second.z); z++) {
+                    world.setBlockAndMetadataWithNotify(x, y, z, AetherBlocks.DOOR_DUNGEON.id(), bossDoorMeta);
+                }
+            }
+        }
+
+        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_open", 0.5f, 0.5f);
+    }
+
+    public void unlock(EnemyBoss<? extends Mob> boss, World world) {
+        if (bossDoorArea == null) return;
+
+        for (int x = Math.min(bossDoorArea.first.x, bossDoorArea.second.x); x < Math.max(bossDoorArea.first.x, bossDoorArea.second.x); x++) {
+            for (int y = Math.min(bossDoorArea.first.y, bossDoorArea.second.y); y < Math.max(bossDoorArea.first.y, bossDoorArea.second.y); y++) {
+                for (int z = Math.min(bossDoorArea.first.z, bossDoorArea.second.z); z < Math.max(bossDoorArea.first.z, bossDoorArea.second.z); z++) {
+                    world.setBlockWithNotify(x, y, z, 0);
+                }
+            }
+        }
+
+        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_close", 0.5f, 0.5f);
+    }
 
     public int getId() {
         return id;
@@ -82,6 +117,17 @@ public class DungeonMapEntry {
             clearArea = null;
         }
 
+        bossDoorMeta = data.getInteger("bossDoorMeta");
+
+        bossDoorArea = new Pair<>(
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("bossDoorArea1")),
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("bossDoorArea2"))
+        );
+
+        if (bossDoorArea.first == null || bossDoorArea.second == null) {
+            bossDoorArea = null;
+        }
+
         CompoundTag blockListNBT = data.getCompound("blocksDestroyOnDeath");
         if (blockListNBT != null) {
             List<WorldFeaturePoint> list = new ArrayList<>();
@@ -98,6 +144,12 @@ public class DungeonMapEntry {
         data.putInt("id", id);
         data.putInt("doorReplacementID", doorReplacementID);
         data.putInt("doorReplacementMeta", doorReplacementMeta);
+
+        if (bossDoorArea != null) {
+            data.put("bossDoorArea1", bossDoorArea.first.toCompoundTag());
+            data.put("bossDoorArea2", bossDoorArea.second.toCompoundTag());
+            data.putInt("bossDoorMeta", bossDoorMeta);
+        }
 
         if (clearArea != null) {
             data.put("clearPos1", clearArea.first.toCompoundTag());
@@ -158,5 +210,10 @@ public class DungeonMapEntry {
                 }
             }
         }
+    }
+
+    public void setBossDoor(Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor, int doorMeta) {
+        this.bossDoorArea = bossDoor;
+        this.bossDoorMeta = doorMeta;
     }
 }
