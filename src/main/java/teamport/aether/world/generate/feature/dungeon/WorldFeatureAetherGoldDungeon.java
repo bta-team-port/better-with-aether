@@ -250,7 +250,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         for (WorldFeaturePoint pos : bossDoor) {
             pos.rotateFixPointYAxis(x, y, z, angle);
         }
-        dungeon.setDoorBlocks(bossDoor);
+        dungeon.setTreasureDoor(bossDoor);
 
         world.entityJoinedWorld(boss);
     }
