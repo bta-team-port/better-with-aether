@@ -36,6 +36,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final int ROOM_COUNT_MAX = 40;
     public static final int TUNNEL_HEIGHT = 8;
     public static final int TUNNEL_WIDTH = 6;
+    public static final boolean oldGene = false;
     public int roomCount = 0;
     public WorldFeatureComponent hallway;
     public World world;
@@ -169,37 +170,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         return loot;
     }
 
-    private void generateTunnel(int x, int y, int z, Direction dir) {
-        switch (dir) {
-            case NORTH: {
-//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH - 2, x + 4, y + 1, z - 5, true));
-                hallway.add(drawVolume(1, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 4, y + 1, z, true));
-                break;
-            }
-            case EAST: {
 
-//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH - 2, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH, x + 11, y + 1, z + 4, true));
-                hallway.add(drawVolume(2, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 11, y + 1, z + 4, true));
-                break;
-            }
-            case SOUTH: {
-//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH - 2, x + 4, y + 1, z + 11, true));
-                hallway.add(drawVolume(3, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 8, y + 1, z + 11, true));
-                break;
-            }
-            case WEST: {
-//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH - 2, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH, x - 5, y + 1, z + 4, true));
-                hallway.add(drawVolume(4, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x, y + 1, z + 8, true));
-                break;
-            }
-            case UP: {
-
-            }
-            case DOWN: {
-
-            }
-        }
-    }
 
     public static class RoomManager {
         WeightedRandomBag<Object> bag;
@@ -243,7 +214,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 //        manager.addBag(boss, 5);
     }
 
-    public boolean place(final World world, final Random random, final int x, final int y, final int z) {
+    public boolean placeNewGene(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;
         this.seenRooms = new HashMap<>();
@@ -352,23 +323,24 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
 
-//    @Override
-    public boolean Kplace(final World world, final Random random, final int x, final int y, final int z) {
+
+    @Override
+    public boolean place(final World world, final Random random, final int x, final int y, final int z) {
+        if(oldGene) return placeOldGene(world, random, x, y, z);
+        return placeNewGene(world, random, x, y, z);
+    }
+    ///################################################################################################################
+
+    public boolean placeOldGene(final World world, final Random random, final int x, final int y, final int z){
         this.world = world;
         this.random = random;
         this.hallway = new WorldFeatureComponent();
-
-//        if(Gplace(world,random,x,y,z)){
-//            return true;
-//        }
-
         if (this.isBoxEmpty(x, y, z, EAST, 16, UP, 12, SOUTH, 16, 0)) {
             return false;
         }
         createBossAndTreasure(x, y, z, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
         int x2 = x + 20;
         int z2 = z + 2;
-
         if (this.isBoxEmpty(x2, y, z2, EAST, 12, UP, 12, SOUTH, 12)) {
             this.addSquareTube(holystone, x2 - 5, y, z2 + 3, 6, 6, 6);
             return true;
@@ -378,7 +350,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.placeComponent(hallway);
         return true;
     }
-
     private void placeComponent(WorldFeatureComponent rooms) {
         for (WorldFeatureBlock wfblock : rooms.blockList) {
             if (this.canReplace(wfblock)) {
@@ -386,7 +357,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
     }
-
     private boolean findNextRoom(int x, int y, int z) {
         int tries = 3;
         ArrayList<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.horizontalDirections));
@@ -433,7 +403,37 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         return findNextRoom(x, y, z);
     }
 
-    /// ############################################ Stuff I am definitely going to axe ##############################################################################################
+    private void generateTunnel(int x, int y, int z, Direction dir) {
+        switch (dir) {
+            case NORTH: {
+//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH - 2, x + 4, y + 1, z - 5, true));
+                hallway.add(drawVolume(1, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 4, y + 1, z, true));
+                break;
+            }
+            case EAST: {
+
+//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH - 2, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH, x + 11, y + 1, z + 4, true));
+                hallway.add(drawVolume(2, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 11, y + 1, z + 4, true));
+                break;
+            }
+            case SOUTH: {
+//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH - 2, x + 4, y + 1, z + 11, true));
+                hallway.add(drawVolume(3, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x + 8, y + 1, z + 11, true));
+                break;
+            }
+            case WEST: {
+//                hallway.add(drawVolume(0, 0, SOUTH, TUNNEL_WIDTH - 2, UP, TUNNEL_HEIGHT - 2, EAST, TUNNEL_WIDTH, x - 5, y + 1, z + 4, true));
+                hallway.add(drawVolume(4, 0, dir, TUNNEL_WIDTH, UP, TUNNEL_HEIGHT - 2, dir.rotate(1), TUNNEL_WIDTH - 2, x, y + 1, z + 8, true));
+                break;
+            }
+            case UP: {
+
+            }
+            case DOWN: {
+
+            }
+        }
+    }
 
     private void placeChestRoom(int x, int y, int z) {
         WorldFeatureComponent rooms = new WorldFeatureComponent();
