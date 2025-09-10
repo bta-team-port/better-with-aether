@@ -31,6 +31,10 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         this.withNotify = withNotify;
     }
 
+    public static WorldFeatureBlock wfb(WorldFeaturePoint point) {
+        return new WorldFeatureBlock(point.x, point.y, point.z, 0, 0, false);
+    }
+
     public static WorldFeatureBlock wfb(int x, int y, int z) {
         return new WorldFeatureBlock(x, y, z, 0, 0, false);
     }
