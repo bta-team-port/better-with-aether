@@ -41,6 +41,16 @@ public class WorldFeaturePoint {
         return mem.x == this.x && mem.y == this.y && mem.z == this.z;
     }
 
+    public WorldFeaturePoint copy(){
+        return new WorldFeaturePoint(this.x, this.y, this.z);
+    }
+
+    public void move(int length, int height, int width) {
+        this.x += length;
+        this.y += height;
+        this.z += width;
+    }
+
     public float distanceTo(WorldFeaturePoint cord) {
         return distanceTo(cord.x, cord.y, cord.z);
     }
