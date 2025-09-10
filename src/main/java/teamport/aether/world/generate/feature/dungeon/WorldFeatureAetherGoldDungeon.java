@@ -212,15 +212,39 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         clearArea.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         dungeon.setClearArea(clearArea);
 
-        main.add(drawHollowShell(random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, true));
-        main.add(drawSquareCylinder(random, hellfire, Direction.WEST, xRoomLength - 2, Direction.NORTH, ZRoomLength - 2, Direction.UP, 1, x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, true));
-        main.add(drawSquareCylinder(random, hellfire, Direction.WEST, xRoomLength - 2, Direction.NORTH, ZRoomLength - 2, Direction.UP, 1, x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true));
+        main.add(drawHollowShell(
+                random, hellfire,
+                Direction.WEST, xRoomLength,
+                Direction.NORTH, ZRoomLength,
+                Direction.UP, YRoomHeight,
+                x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, true
+        ));
+        main.add(drawSquareCylinder(
+                random, hellfire,
+                Direction.WEST, xRoomLength - 2,
+                Direction.NORTH, ZRoomLength - 2,
+                Direction.UP, 1,
+                x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, true
+        ));
+        main.add(drawSquareCylinder(
+                random, hellfire,
+                Direction.WEST, xRoomLength - 2,
+                Direction.NORTH, ZRoomLength - 2,
+                Direction.UP, 1,
+                x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true)
+        );
         main.add(drawVolume(0, 0, Direction.WEST, RADIUS * 2, Direction.NORTH, 3, Direction.UP, 3, x - RADIUS + xRoomLength, y + 2 + RADIUS / 2, z + 1, true));
         this.placeComponent(main);
     }
     private void createBossAndTreasure(int x, int y, int z) {
         // chest room
-        this.placeComponent(drawHollowShell(random, hellfire, Direction.WEST, 7, Direction.NORTH, 7, Direction.UP, 5, x - 1 + RADIUS, y + 1 + RADIUS / 2, z + 7 / 2, true));
+        this.placeComponent(drawHollowShell(
+                random, hellfire,
+                Direction.WEST, 7,
+                Direction.NORTH, 7,
+                Direction.UP, 5,
+                x - 1 + RADIUS, y + 1 + RADIUS / 2, z + 7 / 2, true
+        ));
         // Place boss, chest and door
 
         MobBossSunspirit boss = new MobBossSunspirit(world);

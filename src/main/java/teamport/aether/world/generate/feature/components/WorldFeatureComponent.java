@@ -474,13 +474,20 @@ public class WorldFeatureComponent {
     ) {
         WorldFeatureComponent hollow = drawVolume(
                 random, pallet,
-                direction1, length1, direction2, length2, direction3,
-                length3, startX, startY, startZ, withNotify
+                direction1, length1,
+                direction2, length2,
+                direction3, length3,
+                startX, startY, startZ, withNotify
         );
         hollow.add(drawVolume(
                 0, 0,
-                direction1, length1 - 2, direction2, length2 - 2, direction3,
-                length3 - 2, startX - 1, startY + 1, startZ - 1, withNotify)
+                direction1, length1 - 2,
+                direction2, length2 - 2,
+                direction3, length3 - 2,
+                startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
+                startY + direction1.getOffsetY() + direction2.getOffsetY() + direction3.getOffsetY(),
+                startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+                withNotify)
         );
         return hollow;
     }
@@ -495,15 +502,21 @@ public class WorldFeatureComponent {
     ) {
         WorldFeatureComponent cylinder = drawVolume(
                 random, pallet,
-                direction1, length1, direction2, length2, direction3,
-                length3, startX, startY, startZ, withNotify
+                direction1, length1,
+                direction2, length2,
+                direction3, length3,
+                startX, startY, startZ, withNotify
         );
-        // TODO remove the hardcoded offsets
         cylinder.add(drawVolume(
                 0, 0,
-                direction1, length1 - 2, direction2, length2 - 2, direction3,
-                length3, startX - 1, startY, startZ - 1, withNotify)
-        );
+                direction1, length1 - 2,
+                direction2, length2 - 2,
+                direction3, length3,
+                startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
+                startY,
+                startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+                withNotify
+        ));
         return cylinder;
     }
 
