@@ -33,7 +33,7 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public static final int ROOM_COUNT_MAX = 40;
+    public static final int ROOM_COUNT_MAX = 200;
     public static final int TUNNEL_HEIGHT = 8;
     public static final int TUNNEL_WIDTH = 6;
     public static final boolean oldGene = false;
@@ -204,14 +204,17 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     static {
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> rooms = new WeightedRandomBag<>();
-//        rooms.addEntry(TreasureRoom::new, 4);
-//        rooms.addEntry(SpikerRoom::new, 2);
+        rooms.addEntry(TreasureRoom::new, 40);
+        rooms.addEntry(SpikerRoom::new, 20);
         rooms.addEntry(SimpleRoom::new, 1);
+        rooms.addEntry(TallRoom::new, 1);
 //        rooms.addEntry(CrossRoadRoom::new, 10);
+
+        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
+        boss.addEntry(BossRoom::new, 1);
+
         manager.addBag(rooms, 95);
-//        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
-//        boss.addEntry(BossRoom::new, 1);
-//        manager.addBag(boss, 5);
+        manager.addBag(boss, 5);
     }
 
     public boolean placeNewGene(final World world, final Random random, final int x, final int y, final int z) {
@@ -272,7 +275,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     ) {
         for(WorldFeaturePoint anker : listAnker) {
             if (room.place(world, random, anker.x, anker.y, anker.z)) {
-                makeTunnel(nextDoor, door.p2);
+                drawVolume(0,0,nextDoor,door.p2).place(world);
+                drawVolume(0,0,door.p1,door.p2).place(world);
                 seenRooms.put(anker, room);
                 avaibleRooms.add(room);
                 currentRoom = room;
@@ -300,26 +304,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
         return bag;
-    }
-
-    public void makeTunnel(WorldFeaturePoint p1, WorldFeaturePoint p2){
-        drawVolume(0,0,p1,p2).place(world);
-        //        int minX = Math.min(p1.x, p2.x);
-//        int minY = Math.min(p1.y, p2.y);
-//        int minZ = Math.min(p1.z, p2.z);
-//        int length1 = Math.abs(p1.x - p2.x);
-//        int length2 = Math.abs(p1.y - p2.y);
-//        int length3 = Math.abs(p1.z - p2.z);
-//        drawVolume(0,0,EAST,length1, UP, length2, SOUTH, length3, minX, minY, minZ, true).place(world);
-//
-
-//        for (int x = Math.min(p1.x, p2.x); x < Math.max(p1.x, p2.x); x++) {
-//            for (int y = Math.min(p1.y, p2.y); y < Math.max(p1.y, p2.y); y++) {
-//                for (int z = Math.min(p1.z, p2.z); z < Math.max(p1.z, p2.z); z++) {
-//                    world.setBlockAndMetadataWithNotify(x, y, z, 0, 0);
-//                }
-//            }
-//        }
     }
 
 

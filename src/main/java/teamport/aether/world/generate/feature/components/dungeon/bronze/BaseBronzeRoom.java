@@ -58,13 +58,11 @@ public abstract class BaseBronzeRoom {
         this.doors = new ArrayList<>();
     }
 
-    public void addDoor(Direction direction, WorldFeaturePoint p1, Direction up, int height, Direction direction1, int length) {
-        WorldFeaturePoint p2 = new WorldFeaturePoint(
-                p1.x + direction1.getOffsetX() * length,
-                p1.y + up.getOffsetY() * height,
-                p1.z + direction1.getOffsetZ() * length
-        );
-        this.addDoor(direction, p1, p2);
+    public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
+        WorldFeaturePoint p2 = new WorldFeaturePoint(p1.x, p1.y, p1.z);
+        p2.move(direction1.getOffsetX() * length1, direction1.getOffsetY() * length1, direction1.getOffsetZ() * length1);
+        p2.move(direction2.getOffsetX() * length2, direction2.getOffsetY() * length2, direction2.getOffsetZ() * length2);
+        this.addDoor(heading, p1, p2);
     }
 
     public void addDoor(Direction direction, WorldFeaturePoint p1, WorldFeaturePoint p2) {
