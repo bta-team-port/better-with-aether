@@ -21,10 +21,8 @@ import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
@@ -275,13 +273,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     public void createHeightMap(int x, int y, int z) {
-        int diameter = (int) Math.ceil(RADIUS * 2);
+        int diameter = RADIUS << 1;
+        Set<Integer> hell = hellfire.pallet.getEntries().stream().map(p -> p.first).collect(Collectors.toSet());
         for (int ix = -diameter; ix < diameter; ix++) {
             for (int iz = -diameter; iz < diameter; iz++) {
                 if (diameter * diameter >= ix * ix + iz * iz) {
                     for (int iy = y + diameter; iy > y + RADIUS - 4; iy--) {
                         int id = world.getBlockId(x + ix, iy - 1, z + iz);
-                        if (id != 0 && (stones.contains(id))) {
+                        if (id != 0 && (stones.contains(id)) && !hell.contains(id)) {
                             this.heightMap.add(new WorldFeaturePoint(ix + x, iy, iz + z));
                             break;
                         }
