@@ -14,9 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 
 public class WorldFeatureComponent {
+    WorldFeaturePoint min;
+    WorldFeaturePoint max;
     public WorldFeaturePoint anker;
     public WorldFeaturePoint tail;
     public List<WorldFeatureBlock> blockList;
@@ -62,7 +65,6 @@ public class WorldFeatureComponent {
         this.tail = new WorldFeaturePoint(x, y, z);
     }
 
-
     public void rotateYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
         for (WorldFeatureBlock block : this.blockList) {
             block.rotateFixPointYAxis(fixPointX, fixPointY, fixPointZ, angle);
@@ -100,30 +102,30 @@ public class WorldFeatureComponent {
             Random random,
             WorldFeatureBlock wfb,
             LootGenerator lootGenerator
-    ){
+    ) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
         if (inventory == null) return;
         List<ItemStack> stacks = lootGenerator.generate(random);
-        for(ItemStack stack : stacks){
+        for (ItemStack stack : stacks) {
             WorldFeatureComponent.placeItemInChest(random, stack, inventory);
         }
     }
 
     public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NotNull Container inventory) {
-        if(itemstack == null) return;
+        if (itemstack == null) return;
         int invSize = inventory.getContainerSize();
         int index = random.nextInt(invSize);
         int count = invSize;
-        while(count-- > 0){
+        while (count-- > 0) {
             ItemStack stack = inventory.getItem(index);
-            if(stack == null){
+            if (stack == null) {
                 break;
             }
-            if(stack.itemID == itemstack.itemID){
-                if(stack.getMaxStackSize() >= stack.stackSize + itemstack.stackSize){
+            if (stack.itemID == itemstack.itemID) {
+                if (stack.getMaxStackSize() >= stack.stackSize + itemstack.stackSize) {
                     itemstack.stackSize += stack.stackSize;
                     break;
-                }else{
+                } else {
                     itemstack.stackSize = itemstack.stackSize - stack.getMaxStackSize() + stack.stackSize;
                     stack.stackSize = stack.getMaxStackSize();
                 }
@@ -142,6 +144,7 @@ public class WorldFeatureComponent {
             int radius,
             boolean withNotify
     ) {
+        assert radius > 0 : "Radius has to be bigger zero!";
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int blockX = x - radius; blockX <= x + radius; blockX++) {
             for (int blockY = y - radius; blockY <= y + radius; blockY++) {
@@ -188,6 +191,7 @@ public class WorldFeatureComponent {
             int startX, int startY, int startZ,
             boolean withNotify
     ) {
+        assert length > 0 : "Length has to be bigger zero";
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, id, meta, withNotify));
@@ -205,6 +209,7 @@ public class WorldFeatureComponent {
             int startX, int startY, int startZ,
             boolean withNotify
     ) {
+        assert length > 0 : "Length has to be bigger zero";
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, pallet.getRandom(random), withNotify));
@@ -227,6 +232,8 @@ public class WorldFeatureComponent {
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
+        length1 = Math.max(length1, 1);
+        length2 = Math.max(length2, 1);
         for (int i = 0; i < length2; i++) {
             blockX = startX + direction2.getOffsetX() * i;
             blockY = startY + direction2.getOffsetY() * i;
@@ -253,6 +260,8 @@ public class WorldFeatureComponent {
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
+        length1 = Math.max(length1, 1);
+        length2 = Math.max(length2, 1);
         for (int i = 0; i < length2; i++) {
             blockX = startX + direction2.getOffsetX() * i;
             blockY = startY + direction2.getOffsetY() * i;
@@ -270,7 +279,7 @@ public class WorldFeatureComponent {
 
     public static WorldFeatureComponent drawVolume(
             int id, int meta,
-            Direction directionX, int length1,
+            Direction direction1, int length1,
             Direction direction2, int length2,
             Direction direction3, int length3,
             int startX, int startY, int startZ,
@@ -279,6 +288,9 @@ public class WorldFeatureComponent {
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
+        length1 = Math.max(length1, 1);
+        length2 = Math.max(length2, 1);
+        length3 = Math.max(length3, 1);
         for (int i = 0; i < length3; i++) {
             int x3 = startX + direction3.getOffsetX() * i;
             int y3 = startY + direction3.getOffsetY() * i;
@@ -289,9 +301,9 @@ public class WorldFeatureComponent {
                 blockZ = z3 + direction2.getOffsetZ() * j;
                 for (int k = 0; k < length1; k++) {
                     component.add(wfb(blockX, blockY, blockZ, id, meta, withNotify));
-                    blockX += directionX.getOffsetX();
-                    blockY += directionX.getOffsetY();
-                    blockZ += directionX.getOffsetZ();
+                    blockX += direction1.getOffsetX();
+                    blockY += direction1.getOffsetY();
+                    blockZ += direction1.getOffsetZ();
                 }
             }
         }
@@ -311,6 +323,9 @@ public class WorldFeatureComponent {
         int blockX = startX;
         int blockY = startY;
         int blockZ = startZ;
+        length1 = Math.max(length1, 1);
+        length2 = Math.max(length2, 1);
+        length3 = Math.max(length3, 1);
         for (int i = 0; i < length3; i++) {
             int x3 = startX + direction3.getOffsetX() * i;
             int y3 = startY + direction3.getOffsetY() * i;
@@ -483,11 +498,32 @@ public class WorldFeatureComponent {
                 direction1, length1, direction2, length2, direction3,
                 length3, startX, startY, startZ, withNotify
         );
+        // TODO remove the hardcoded offsets
         cylinder.add(drawVolume(
                 0, 0,
                 direction1, length1 - 2, direction2, length2 - 2, direction3,
                 length3, startX - 1, startY, startZ - 1, withNotify)
         );
         return cylinder;
+    }
+
+    public static WorldFeatureComponent drawVolume(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2) {
+        int minX = Math.min(p1.x, p2.x);
+        int minY = Math.min(p1.y, p2.y);
+        int minZ = Math.min(p1.z, p2.z);
+        int length1 = Math.abs(p1.x - p2.x);
+        int length2 = Math.abs(p1.y - p2.y);
+        int length3 = Math.abs(p1.z - p2.z);
+        return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, true);
+    }
+
+    public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2) {
+        int minX = Math.min(p1.x, p2.x);
+        int minY = Math.min(p1.y, p2.y);
+        int minZ = Math.min(p1.z, p2.z);
+        int length1 = Math.abs(p1.x - p2.x);
+        int length2 = Math.abs(p1.y - p2.y);
+        int length3 = Math.abs(p1.z - p2.z);
+        return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, true);
     }
 }
