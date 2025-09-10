@@ -43,6 +43,7 @@ public abstract class AetherMusicMixin {
     @Inject(method = "tick", at= @At(value = "INVOKE", target = "Ljava/util/concurrent/locks/Lock;lock()V", shift = At.Shift.AFTER), cancellable = true)
     public void tick(CallbackInfo ci) {
         if (this.mc.currentWorld.dimension.id == AetherDimension.AetherDimensionID) ci.cancel();
+        else return;
 
         if (!(this.isLoaded() && SoundCategoryHelper.getEffectiveVolume(SoundCategory.MUSIC, this.options) != 0.0F)) {
             return;
