@@ -7,7 +7,6 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
@@ -21,6 +20,7 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static teamport.aether.helper.Pair.pair;
 
@@ -45,31 +45,22 @@ public class DungeonMapEntry {
         this.treasureDoor = new ArrayList<>();
     }
 
+    public void setBossDoor(Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor, int doorMeta) {
+        this.bossDoorArea = bossDoor;
+        this.bossDoorMeta = doorMeta;
+    }
+
     public void lock(EnemyBoss<? extends Mob> boss, World world) {
         if (bossDoorArea == null) return;
 
-        for (int x = Math.min(bossDoorArea.first.x, bossDoorArea.second.x); x < Math.max(bossDoorArea.first.x, bossDoorArea.second.x); x++) {
-            for (int y = Math.min(bossDoorArea.first.y, bossDoorArea.second.y); y < Math.max(bossDoorArea.first.y, bossDoorArea.second.y); y++) {
-                for (int z = Math.min(bossDoorArea.first.z, bossDoorArea.second.z); z < Math.max(bossDoorArea.first.z, bossDoorArea.second.z); z++) {
-                    world.setBlockAndMetadataWithNotify(x, y, z, AetherBlocks.DOOR_DUNGEON.id(), bossDoorMeta);
-                }
-            }
-        }
-
+        iterate3d(bossDoorArea,point -> world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.DOOR_DUNGEON.id(), bossDoorMeta));
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_open", 0.5f, 0.5f);
     }
 
     public void unlock(EnemyBoss<? extends Mob> boss, World world) {
         if (bossDoorArea == null) return;
 
-        for (int x = Math.min(bossDoorArea.first.x, bossDoorArea.second.x); x < Math.max(bossDoorArea.first.x, bossDoorArea.second.x); x++) {
-            for (int y = Math.min(bossDoorArea.first.y, bossDoorArea.second.y); y < Math.max(bossDoorArea.first.y, bossDoorArea.second.y); y++) {
-                for (int z = Math.min(bossDoorArea.first.z, bossDoorArea.second.z); z < Math.max(bossDoorArea.first.z, bossDoorArea.second.z); z++) {
-                    world.setBlockWithNotify(x, y, z, 0);
-                }
-            }
-        }
-
+        iterate3d(bossDoorArea,point -> world.setBlockWithNotify(point.x, point.y, point.z, 0));
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_close", 0.5f, 0.5f);
     }
 
@@ -212,8 +203,40 @@ public class DungeonMapEntry {
         }
     }
 
-    public void setBossDoor(Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor, int doorMeta) {
-        this.bossDoorArea = bossDoor;
-        this.bossDoorMeta = doorMeta;
+    static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
+        int firstX, firstY, firstZ;
+        int secondX, secondY, secondZ;
+
+        if (area.first.x < area.second.x) {
+            firstX = area.first.x;
+            secondX = area.second.x;
+        } else {
+            secondX = area.first.x;
+            firstX = area.second.x;
+        }
+
+        if (area.first.y < area.second.y) {
+            firstY = area.first.y;
+            secondY = area.second.y;
+        } else {
+            secondY = area.first.y;
+            firstY = area.second.y;
+        }
+
+        if (area.first.z < area.second.z) {
+            firstZ = area.first.z;
+            secondZ = area.second.z;
+        } else {
+            secondZ = area.first.z;
+            firstZ = area.second.z;
+        }
+
+        for (int x = firstX; x < secondX; x++) {
+            for (int y = firstY; y < secondY; y++) {
+                for (int z = firstZ; z < secondZ; z++) {
+                    func.accept(new WorldFeaturePoint(x, y, z));
+                }
+            }
+        }
     }
 }
