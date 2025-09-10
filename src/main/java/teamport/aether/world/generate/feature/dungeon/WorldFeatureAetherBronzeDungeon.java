@@ -36,7 +36,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final int ROOM_COUNT_MAX = 200;
     public static final int TUNNEL_HEIGHT = 8;
     public static final int TUNNEL_WIDTH = 6;
-    public static final boolean oldGene = false;
+    // remove once the new dungeon generation works flawlessly
+    public static final boolean OLDGEN = true;
     public int roomCount = 0;
     public WorldFeatureComponent hallway;
     public World world;
@@ -311,7 +312,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        if (oldGene) return placeOldGene(world, random, x, y, z);
+        if (OLDGEN) return placeOldGene(world, random, x, y, z);
         return placeNewGene(world, random, x, y, z);
     }
 
