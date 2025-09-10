@@ -41,12 +41,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public static final int RADIUS = 16;
     public float angle = 0;
     private static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
+
     static {
         hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), 0, 90);
         hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), 0, 10);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
+
     private static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
             new Pair<>(128, new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id())),
             new Pair<>(32, new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())),
@@ -55,6 +57,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
+
     static {
         // junk     8-10
         JUNK.addEntry(new WeightedRandomLootObject(null), 8);
@@ -83,7 +86,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_GRAVITITE.getDefaultStack(), 1), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_GRAVITITE.getDefaultStack(), 1), 1);
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> TREASURE = new WeightedRandomBag<>();
+
     static {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1), 100.0);
@@ -103,19 +108,24 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack()), 200.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 200.0);
     }
+
     public WorldFeatureAetherGoldDungeon(int direction) {
         this.angle = direction * 90;
     }
+
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
         return new WorldFeatureAetherGoldDungeon((random.nextInt(4)));
     }
+
     public WorldFeaturePoint getPos(int ix, int iy, int iz) {
         return new WorldFeaturePoint(ix, iy, iz);
     }
+
     public void placeComponent(WorldFeatureComponent component) {
         component.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         component.place(world);
     }
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         if (!canPlace(world, x, y, z)) return false;
@@ -134,19 +144,21 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         createDecorations(x, y, z);
         return true;
     }
-    public static List<ItemStack> generateLoot(Random random){
+
+    public static List<ItemStack> generateLoot(Random random) {
         List<ItemStack> loot = new ArrayList<>();
         //min 8 max 10
         int count = random.nextInt(3) + 8;
-        for(int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
         // min 4 max 10
         count = random.nextInt(7) + 4;
-        for(int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
         // min 1 max 2
         count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
-        for(int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
         return loot;
     }
+
     private boolean canPlace(World world, int x, int y, int z) {
         int radius = (int) Math.ceil(RADIUS + RADIUS * 0.8f);
         for (int ix = -radius; ix < radius; ix++) {
@@ -160,6 +172,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         }
         return true;
     }
+
     private void createMainSphere(int x, int y, int z) {
         // place main spheroid
         drawSpheroid(random, holystone, x, y + 15, z, RADIUS, (int) (RADIUS * 1.12), RADIUS, true).place(world);
@@ -167,6 +180,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, true).place(world);
         createGrassOnTopLevel(RADIUS, x, y, z);
     }
+
     // TODO these sphere do not rotate
     private void createOuterSpheres(int x, int y, int z) {
         // place the outer spheres
@@ -196,6 +210,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true).place(world);
         createGrassOnTopLevel((int) (RADIUS * radMod2), cover.x, cover.y, cover.z);
     }
+
     private void createMainRoom(int x, int y, int z) {
         // main room
         int xRoomLength = 19;
@@ -236,6 +251,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         main.add(drawVolume(0, 0, Direction.WEST, RADIUS * 2, Direction.NORTH, 3, Direction.UP, 3, x - RADIUS + xRoomLength, y + 2 + RADIUS / 2, z + 1, true));
         this.placeComponent(main);
     }
+
     private void createBossAndTreasure(int x, int y, int z) {
         // chest room
         this.placeComponent(drawHollowShell(
@@ -256,28 +272,22 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         WorldFeaturePoint chestPoint = new WorldFeaturePoint(x - 4 + RADIUS, y + 2 + RADIUS / 2, z);
         chestPoint.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         WorldFeatureAetherGoldChest.goldChest().place(world, random, chestPoint.x, chestPoint.y, chestPoint.z);
-
-        WorldFeaturePoint[] bossDoor = {
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z - 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z - 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z - 1),
-
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z),
-
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z + 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z + 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z + 1),
-        };
-
-        for (WorldFeaturePoint pos : bossDoor) {
-            pos.rotateFixPointYAxis(x, y, z, angle);
-        }
-        dungeon.setTreasureDoor(bossDoor);
-
         world.entityJoinedWorld(boss);
+
+        List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z + 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z + 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z + 1));
+        treasureDoor.forEach(p -> p.rotateFixPointYAxis(x,y,z, angle));
+        dungeon.setTreasureDoor(treasureDoor);
     }
+
     // TODO make the decorator rotate
     private void createGrassOnTopLevel(int radius, int x, int y, int z) {
         int radX, radZ, height;
@@ -307,6 +317,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
             }
         }
     }
+
     private void createDecorations(int x, int y, int z) {
         for (WorldFeaturePoint point : decorations.blockList) {
             for (Pair<Integer, WorldFeature> integerWorldFeaturePair : veggies) {

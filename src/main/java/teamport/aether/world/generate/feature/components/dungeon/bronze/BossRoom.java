@@ -11,6 +11,9 @@ import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
@@ -55,12 +58,12 @@ public class BossRoom extends BaseBronzeRoom {
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
         WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
-        dungeon.setTreasureDoor(new WorldFeaturePoint[]{
-                new WorldFeaturePoint(x + 7, y + 1, z + 7),
-                new WorldFeaturePoint(x + 8, y + 1, z + 7),
-                new WorldFeaturePoint(x + 7, y + 1, z + 8),
-                new WorldFeaturePoint(x + 8, y + 1, z + 8),
-        });
+        List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
+        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 8));
+        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 8));
+        dungeon.setTreasureDoor(treasureDoor);
 
         MobBossSlider boss = new MobBossSlider(world);
         boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);

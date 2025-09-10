@@ -73,6 +73,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> GADGET = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> FOOD = new WeightedRandomBag<>();
+
     static {
         // junk                                     8-10
         JUNK.addEntry(new WeightedRandomLootObject(null), 8);
@@ -115,7 +116,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 3);
         GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 1);
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> TREASURE = new WeightedRandomBag<>();
+
     static {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_MORNING.getDefaultStack()), 1);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_HAMMER_NOTCH.getDefaultStack()), 10);
@@ -169,7 +172,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
         return loot;
     }
-
 
 
     public static class RoomManager {
@@ -258,7 +260,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 //                room.markDoor(door);
 //                continue;
 //            }
-            if(canPlace(listAnker, room, door, nextDoor)){
+            if (canPlace(listAnker, room, door, nextDoor)) {
                 currentRoom.markDoor(room.getDoor(nextDoor));
                 room.markDoor(door);
                 continue;
@@ -270,13 +272,13 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     private boolean canPlace(
             List<WorldFeaturePoint> listAnker,
-            BaseBronzeRoom  room,
+            BaseBronzeRoom room,
             Door door, WorldFeaturePoint nextDoor
     ) {
-        for(WorldFeaturePoint anker : listAnker) {
+        for (WorldFeaturePoint anker : listAnker) {
             if (room.place(world, random, anker.x, anker.y, anker.z)) {
-                drawVolume(0,0,nextDoor,door.p2).place(world);
-                drawVolume(0,0,door.p1,door.p2).place(world);
+                drawVolume(0, 0, nextDoor, door.p2).place(world);
+                drawVolume(0, 0, door.p1, door.p2).place(world);
                 seenRooms.put(anker, room);
                 avaibleRooms.add(room);
                 currentRoom = room;
@@ -307,15 +309,15 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
 
-
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        if(oldGene) return placeOldGene(world, random, x, y, z);
+        if (oldGene) return placeOldGene(world, random, x, y, z);
         return placeNewGene(world, random, x, y, z);
     }
-    ///################################################################################################################
 
-    public boolean placeOldGene(final World world, final Random random, final int x, final int y, final int z){
+    /// ################################################################################################################
+
+    public boolean placeOldGene(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;
         this.hallway = new WorldFeatureComponent();
@@ -334,6 +336,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.placeComponent(hallway);
         return true;
     }
+
     private void placeComponent(WorldFeatureComponent rooms) {
         for (WorldFeatureBlock wfblock : rooms.blockList) {
             if (this.canReplace(wfblock)) {
@@ -341,6 +344,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
     }
+
     private boolean findNextRoom(int x, int y, int z) {
         int tries = 3;
         ArrayList<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.horizontalDirections));
@@ -497,12 +501,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 new WorldFeaturePoint(x, y - 2, z),
                 new WorldFeaturePoint(x + 16, y + 14, z + 16)
         ));
-        dungeon.setTreasureDoor(new WorldFeaturePoint[]{
-                new WorldFeaturePoint(x + 7, y + 1, z + 7),
-                new WorldFeaturePoint(x + 8, y + 1, z + 7),
-                new WorldFeaturePoint(x + 7, y + 1, z + 8),
-                new WorldFeaturePoint(x + 8, y + 1, z + 8),
-        });
+        List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
+        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 8));
+        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 8));
+        dungeon.setTreasureDoor(treasureDoor);
 
         WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x2, y2, z2);
 

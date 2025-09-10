@@ -60,9 +60,6 @@ public class DungeonMapEntry {
         this.clearArea = pair(lowest, highest);
     }
 
-    public void setTreasureDoor(WorldFeaturePoint[] doorBlocks) {
-        this.setTreasureDoor(Arrays.asList(doorBlocks));
-    }
     public void setTreasureDoor(List<WorldFeaturePoint> doorBlocks) {
         this.treasureDoor.addAll(doorBlocks);
     }
