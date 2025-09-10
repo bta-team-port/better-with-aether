@@ -1,4 +1,4 @@
-package teamport.aether.world.generate.feature.dungeon;
+package teamport.aether.world.generate.feature.components.dungeon.silver;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
@@ -7,6 +7,7 @@ import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.MazeHelper;
 import teamport.aether.helper.Pair;
+import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 
@@ -28,8 +29,11 @@ public class WorldFeatureSilverMaze {
     Map<Integer, List<Integer>> SPANNING_TREE;
     public World world;
     public Random random;
+    public  Map<Integer, List<Integer>> graph;
+
     public static BlockPallet angelicHallway = new BlockPallet();
     public static BlockPallet angelicTrapped = new BlockPallet();
+
     static {
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 85);
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
@@ -39,12 +43,14 @@ public class WorldFeatureSilverMaze {
         angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 20);
         angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), 0, 20);
     }
+
     /// Graph
     static Map<Integer, List<Integer>> GRAPH = new HashMap<>();
+
+
     /// I am not going to generate this because it easier and safer to just write it down
     /// this graph is missing the staircases that are added later on so that they won't pollute the maze
     static {
-
         GRAPH.put(0, new ArrayList<>(Arrays.asList(1, 3)));
         GRAPH.put(1, new ArrayList<>(Arrays.asList(0, 2, 4)));
         GRAPH.put(2, new ArrayList<>(Arrays.asList(1, 5)));
@@ -73,6 +79,23 @@ public class WorldFeatureSilverMaze {
         GRAPH.put(25, new ArrayList<>(Arrays.asList(22, 24, 26)));
         GRAPH.put(26, new ArrayList<>(Arrays.asList(17, 23, 25)));
     }
+
+    public void addAdditionalStaircase(Random random) {
+        int prev = -1;
+        for (int LEVEL = 1; LEVEL >= 0; LEVEL--) {
+            int staircaseAmount = random.nextInt(2) + 1;
+            for (int i = staircaseAmount; i > 0; i--) {
+                int index = random.nextInt(8);
+                if (index == 1 && LEVEL == 0) index++;
+                if (prev == index) index++;
+                if (index > 7) index = index % 7;
+                prev = index;
+                graph.get(LEVEL * 9 + index).add((LEVEL + 1) * 9 + index);
+                graph.get((LEVEL + 1) * 9 + index).add(LEVEL * 9 + index);
+            }
+        }
+    }
+
     public void createMaze(World world, Random random, int x, int y, int z) {
         this.world = world;
         this.random = random;
@@ -80,14 +103,15 @@ public class WorldFeatureSilverMaze {
         this.doors = new WorldFeatureComponent();
         this.chests = new WorldFeatureComponent();
         this.traps = new WorldFeatureComponent();
-        WorldFeatureSilverMaze.addAdditionalStaircase(random);
-        List<Pair<Integer, Integer>> edges = MazeHelper.randomMazeKruskal(GRAPH, 27);
+        this.graph = new HashMap<>(GRAPH);
+        this.addAdditionalStaircase(random);
+        List<IntPair> edges = MazeHelper.randomMazeKruskal(GRAPH, 27);
         this.SPANNING_TREE = MazeHelper.makeGraph(edges);
 
         boolean[] generated = new boolean[ROOM_COUNT];
-        for (Pair<Integer, Integer> edge : edges) {
-            Integer to = edge.first;
-            Integer from = edge.second;
+        for (IntPair edge : edges) {
+            int to = edge.first;
+            int from = edge.second;
             generated[to] = true;
             createRoomMaze(to, from, x, y, z);
             if (!generated[from]) {
@@ -98,25 +122,8 @@ public class WorldFeatureSilverMaze {
         rooms.add(this.traps);
         rooms.add(this.doors);
     }
-    private static int addAdditionalStaircase(Random random) {
-        int countStaircaseRooms = 0;
-        int prev = -1;
-        for (int LEVEL = 1; LEVEL >= 0; LEVEL--) {
-            int staircaseAmount = random.nextInt(2) + 1;
-            for (int i = staircaseAmount; i > 0; i--) {
-                int index = random.nextInt(8);
-                if (index == 1 && LEVEL == 0) index++;
-                if (prev == index) index++;
-                if (index > 7) index = index % 7;
-                prev = index;
-                GRAPH.get(LEVEL * 9 + index).add((LEVEL + 1) * 9 + index);
-                GRAPH.get((LEVEL + 1) * 9 + index).add(LEVEL * 9 + index);
-            }
-            countStaircaseRooms += staircaseAmount;
-        }
-        return countStaircaseRooms;
-    }
-    private void createRoomMaze(int to, int from, int x, int y, int z) {
+
+    public void createRoomMaze(int to, int from, int x, int y, int z) {
         int levelCurrent = to / 9;
         int columnCurrent = (to - levelCurrent * 9) / 3;
         int rowCurrent = to - levelCurrent * 9 - columnCurrent * 3;
@@ -149,7 +156,8 @@ public class WorldFeatureSilverMaze {
         }
         createRoom(roomX, roomY, roomZ, doorDirection);
     }
-    private void createHallway(int x, int y, int z, Direction doorDirection) {
+
+    public void createHallway(int x, int y, int z, Direction doorDirection) {
         rooms.add(drawShell(random, angelicHallway, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
         // only generate door in horizontal direction
         if (doorDirection == Direction.SOUTH) {
@@ -165,12 +173,14 @@ public class WorldFeatureSilverMaze {
             doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, true));
         }
     }
-    private void createRoom(int x, int y, int z, Direction doorDirection) {
+
+    public void createRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
         rooms.add(drawPlane(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, true));
         createChests(x, y, z);
     }
-    private void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
+
+    public void createTreasureRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
         // places chests
         for (int i = 0; i < Direction.horizontalDirections.length; i++) {
@@ -222,7 +232,8 @@ public class WorldFeatureSilverMaze {
         rooms.add(wfb(x - 6, y + 2, z + 6, AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, true));
         rooms.add(wfb(x - 6, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, true));
     }
-    private void createChests(int x, int y, int z) {
+
+    public void createChests(int x, int y, int z) {
         int chestCount = 0;
         if (random.nextInt(3) == 0) {
             chestCount++;
@@ -240,7 +251,8 @@ public class WorldFeatureSilverMaze {
             chests.add(placeChestOrMimic(random, x - 4, y + 2, z + 4));
         }
     }
-    private void createStaircase(int x, int y, int z) {
+
+    public void createStaircase(int x, int y, int z) {
         // draw room
         rooms.add(drawShell(random, angelicTrapped, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
         // add opening
@@ -272,7 +284,8 @@ public class WorldFeatureSilverMaze {
         doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
         doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
     }
-    private Direction getDoorDirection(int to, int from) {
+
+    public Direction getDoorDirection(int to, int from) {
         int levelTo = to / 9;
         int columnTo = (to - levelTo * 9) / 3;
         int rowTo = to - levelTo * 9 - columnTo * 3;
@@ -300,5 +313,8 @@ public class WorldFeatureSilverMaze {
             return Direction.DOWN;
         }
         return Direction.NONE;
+    }
+
+    public void place(World world, Random random, int x, int y, int z) {
     }
 }

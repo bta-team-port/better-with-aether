@@ -1,57 +1,24 @@
 package teamport.aether.world.generate.feature;
 
-import teamport.aether.helper.Pair;
+import net.minecraft.core.WeightedRandomBag;
+import teamport.aether.helper.unboxed.IntPair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
+// TODO remove this class
 public class BlockPallet {
-    public final List<Entry> entries = new ArrayList<>();
-    public double accumulatedWeight;
+    public WeightedRandomBag<IntPair> pallet = new WeightedRandomBag<>();
 
-    public void addEntry(int id, int meta, double weight) {
-        this.accumulatedWeight += weight;
-        Entry e = new Entry();
-        e.object = new Pair<>(id, meta);
-        e.weight = weight;
-        e.accumulatedWeight = this.accumulatedWeight;
-        this.entries.add(e);
+    public void addEntry(int id, double weight) {
+        this.addEntry(id, 0, weight);
     }
 
-    public Pair<Integer, Integer> getRandom(Random random) {
-        double r = random.nextDouble() * this.accumulatedWeight;
-        for (Entry entry : this.entries) {
-            if (!(entry.accumulatedWeight >= r)) continue;
-            return entry.object;
-        }
-        return null;
+    public void addEntry(int id , int meta, double weight){
+        IntPair entry  = IntPair.ipair(id, meta);
+        this.pallet.addEntry(entry, weight);
     }
 
-    public List<Pair<Integer, Integer>> getEntries() {
-        ArrayList<Pair<Integer, Integer>> list = new ArrayList<>();
-        for (Entry entry : this.entries) {
-            list.add(entry.object);
-        }
-        return Collections.unmodifiableList(list);
-    }
-
-    public List<Entry> getEntriesWithWeights() {
-        return Collections.unmodifiableList(this.entries);
-    }
-
-    public static class Entry {
-        public double accumulatedWeight;
-        public Pair<Integer, Integer> object;
-        public double weight;
-
-        public double getWeight() {
-            return this.weight;
-        }
-
-        public Pair<Integer, Integer> getObject() {
-            return this.object;
-        }
+    public IntPair getRandom(Random random) {
+        return this.pallet.getRandom(random);
     }
 }

@@ -11,17 +11,21 @@ import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static teamport.aether.helper.Pair.pair;
+
 public class DungeonMapEntry {
     protected int id;
     @Nullable
     protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
-    protected List<WorldFeaturePoint> doorBlocks = new ArrayList<>();
+    protected List<WorldFeaturePoint> entranceDoor;
+    protected List<WorldFeaturePoint> treasureDoor;
     protected int doorReplacementID = 0;
     protected int doorReplacementMeta = 0;
 
@@ -29,6 +33,8 @@ public class DungeonMapEntry {
 
     public DungeonMapEntry(Integer id) {
         this.id = id;
+        this.entranceDoor = new ArrayList<>();
+        this.treasureDoor = new ArrayList<>();
     }
 
 
@@ -45,21 +51,22 @@ public class DungeonMapEntry {
     }
 
     public void setClearArea(Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
-        this.clearArea = clearArea;
+        this.setClearArea(clearArea.first, clearArea.second);
     }
 
-    public void setDoorBlocks(WorldFeaturePoint[] doorBlocks) {
-        this.doorBlocks.addAll(Arrays.asList(doorBlocks));
+    public void setClearArea(WorldFeaturePoint p1, WorldFeaturePoint p2) {
+        WorldFeaturePoint lowest = WorldFeaturePoint.wfpoint(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.min(p1.z, p2.z));
+        WorldFeaturePoint highest = WorldFeaturePoint.wfpoint(Math.max(p1.x, p2.x), Math.max(p1.y, p2.y), Math.max(p1.z, p2.z));
+        this.clearArea = pair(lowest, highest);
     }
 
-    public void setDoorReplacement(Integer doorReplacementID) {
-        this.doorReplacementID = doorReplacementID;
+    public void setTreasureDoor(List<WorldFeaturePoint> doorBlocks) {
+        this.treasureDoor.addAll(doorBlocks);
+    }
+    public void setEntranceDoor(List<WorldFeaturePoint> entranceDoor){
+        this.entranceDoor.addAll(entranceDoor);
     }
 
-    public void setDoorReplacement(int doorReplacementID, int doorReplacementMeta) {
-        this.doorReplacementID = doorReplacementID;
-        this.doorReplacementMeta = doorReplacementMeta;
-    }
 
     public void loadFromNBT(CompoundTag data) {
         id = data.getInteger("id");
@@ -83,7 +90,7 @@ public class DungeonMapEntry {
                 list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
-            doorBlocks = list;
+            treasureDoor = list;
         }
     }
 
@@ -97,10 +104,10 @@ public class DungeonMapEntry {
             data.put("clearPos2", clearArea.second.toCompoundTag());
         }
 
-        if (doorBlocks != null && !doorBlocks.isEmpty()) {
+        if (treasureDoor != null && !treasureDoor.isEmpty()) {
             CompoundTag blockList = new CompoundTag();
             int idx = 0;
-            for (WorldFeaturePoint block : doorBlocks) {
+            for (WorldFeaturePoint block : treasureDoor) {
                 blockList.put(String.valueOf(idx++), block.toCompoundTag());
             }
             blockList.put("length", new IntTag(idx));
@@ -119,8 +126,8 @@ public class DungeonMapEntry {
             DungeonMap.dungeonMap.remove(id);
         }
 
-        if (doorBlocks != null) {
-            for (WorldFeaturePoint coordinate : doorBlocks) {
+        if (treasureDoor != null) {
+            for (WorldFeaturePoint coordinate : treasureDoor) {
                 world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
                 world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
@@ -128,47 +135,24 @@ public class DungeonMapEntry {
         }
 
         if (clearArea != null) {
-            int firstX, firstY, firstZ;
-            int secondX, secondY, secondZ;
+            WorldFeaturePoint p1 = clearArea.first;
+            WorldFeaturePoint p2 = clearArea.second;
 
-            if (clearArea.first.x < clearArea.second.x) {
-                firstX = clearArea.first.x;
-                secondX = clearArea.second.x;
-            } else {
-                secondX = clearArea.first.x;
-                firstX = clearArea.second.x;
-            }
-
-            if (clearArea.first.y < clearArea.second.y) {
-                firstY = clearArea.first.y;
-                secondY = clearArea.second.y;
-            } else {
-                secondY = clearArea.first.y;
-                firstY = clearArea.second.y;
-            }
-
-            if (clearArea.first.z < clearArea.second.z) {
-                firstZ = clearArea.first.z;
-                secondZ = clearArea.second.z;
-            } else {
-                secondZ = clearArea.first.z;
-                firstZ = clearArea.second.z;
-            }
-
-            for (int x = firstX; x < secondX; x++) {
-                for (int y = firstY; y < secondY; y++) {
-                    for (int z = firstZ; z < secondZ; z++) {
-
+            for (int x = p1.x; x < p2.x; x++) {
+                for (int y = p1.y; y < p2.y; y++) {
+                    for (int z = p1.z; z < p2.z; z++) {
                         Block<?> block = world.getBlock(x, y, z);
-                        if (block != null) {
-                            BlockLogic logic = block.getLogic();
-
-                            if (logic instanceof BlockLogicLocked) {
-                                world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
-
-                            } else if (logic instanceof BlockLogicTrapped) {
-                                world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replaceOnClear.id());
-                            }
+                        if (block == null) {
+                            continue;
+                        }
+                        BlockLogic logic = block.getLogic();
+                        if (logic instanceof BlockLogicLocked) {
+                            world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
+                            continue;
+                        }
+                        if (logic instanceof BlockLogicTrapped) {
+                            world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replaceOnClear.id());
+                            continue;
                         }
                     }
                 }

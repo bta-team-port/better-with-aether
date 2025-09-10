@@ -21,10 +21,8 @@ import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
@@ -41,12 +39,15 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public static final int RADIUS = 16;
     public float angle = 0;
     private static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
+    private List<WorldFeaturePoint> heightMap;
+
     static {
         hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), 0, 90);
         hellfire.addEntry(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), 0, 10);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
+
     private static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
             new Pair<>(128, new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id())),
             new Pair<>(32, new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())),
@@ -55,6 +56,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
+
     static {
         // junk     8-10
         JUNK.addEntry(new WeightedRandomLootObject(null), 8);
@@ -83,7 +85,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_GRAVITITE.getDefaultStack(), 1), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_GRAVITITE.getDefaultStack(), 1), 1);
     }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> TREASURE = new WeightedRandomBag<>();
+
     static {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack(), 1), 100.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_FLAME.getDefaultStack(), 1), 100.0);
@@ -103,22 +107,27 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack()), 200.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 200.0);
     }
+
     public WorldFeatureAetherGoldDungeon(int direction) {
         this.angle = direction * 90;
     }
+
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
         return new WorldFeatureAetherGoldDungeon((random.nextInt(4)));
     }
+
     public WorldFeaturePoint getPos(int ix, int iy, int iz) {
         return new WorldFeaturePoint(ix, iy, iz);
     }
+
     public void placeComponent(WorldFeatureComponent component) {
         component.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         component.place(world);
     }
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-        if (!canPlace(world, x, y, z)) return false;
+//        if (!canPlace(world, x, y, z)) return false;
         this.world = world;
         this.random = random;
         this.angle = this.random.nextInt(4) * 90.0F;
@@ -127,46 +136,38 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         this.decorations = new WorldFeatureComponent();
         this.dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         this.dungeon.setPosition(bossPosition);
+        this.heightMap = new ArrayList<>();
         createMainSphere(x, y, z);
         createOuterSpheres(x, y, z);
         createMainRoom(x, y, z);
         createBossAndTreasure(x, y, z);
-        createDecorations(x, y, z);
+        createHeightMap(x, y, z);
+        createGrassOnTopLevel();
+        createDecorations();
         return true;
     }
-    public static List<ItemStack> generateLoot(Random random){
+
+    public static List<ItemStack> generateLoot(Random random) {
         List<ItemStack> loot = new ArrayList<>();
         //min 8 max 10
         int count = random.nextInt(3) + 8;
-        for(int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
         // min 4 max 10
         count = random.nextInt(7) + 4;
-        for(int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
         // min 1 max 2
         count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
-        for(int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
+        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
         return loot;
     }
-    private boolean canPlace(World world, int x, int y, int z) {
-        int radius = (int) Math.ceil(RADIUS + RADIUS * 0.8f);
-        for (int ix = -radius; ix < radius; ix++) {
-            for (int iz = -radius; iz < radius; iz++) {
-                if (radius * radius >= ix * ix + iz * iz) {
-                    if (!world.canBlockSeeTheSky(ix + x, y, iz + z)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
+
     private void createMainSphere(int x, int y, int z) {
         // place main spheroid
         drawSpheroid(random, holystone, x, y + 15, z, RADIUS, (int) (RADIUS * 1.12), RADIUS, true).place(world);
         wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 1, z, 0, 0, true).place(world);
         wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, true).place(world);
-        createGrassOnTopLevel(RADIUS, x, y, z);
     }
+
     // TODO these sphere do not rotate
     private void createOuterSpheres(int x, int y, int z) {
         // place the outer spheres
@@ -186,16 +187,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
             double radMod = (double) (4 + random.nextInt(5)) / 10;
 
             drawSphere(random, holystone, (int) newX, (int) (y + (RADIUS * 0.8F)), (int) newZ, (int) (RADIUS * radMod), true).place(world);
-            createGrassOnTopLevel((int) (RADIUS * radMod), (int) (newX), (int) (y + (RADIUS * 0.8F)), (int) newZ);
         }
-
         double radMod2 = 0.5F;
         WorldFeaturePoint cover = new WorldFeaturePoint(x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
         cover.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, this.angle);
 
         drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true).place(world);
-        createGrassOnTopLevel((int) (RADIUS * radMod2), cover.x, cover.y, cover.z);
     }
+
     private void createMainRoom(int x, int y, int z) {
         // main room
         int xRoomLength = 19;
@@ -212,15 +211,40 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         clearArea.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         dungeon.setClearArea(clearArea);
 
-        main.add(drawHollowShell(random, hellfire, Direction.WEST, xRoomLength, Direction.NORTH, ZRoomLength, Direction.UP, YRoomHeight, x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, true));
-        main.add(drawSquareCylinder(random, hellfire, Direction.WEST, xRoomLength - 2, Direction.NORTH, ZRoomLength - 2, Direction.UP, 1, x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, true));
-        main.add(drawSquareCylinder(random, hellfire, Direction.WEST, xRoomLength - 2, Direction.NORTH, ZRoomLength - 2, Direction.UP, 1, x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true));
+        main.add(drawHollowShell(
+                random, hellfire,
+                Direction.WEST, xRoomLength,
+                Direction.NORTH, ZRoomLength,
+                Direction.UP, YRoomHeight,
+                x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, true
+        ));
+        main.add(drawSquareCylinder(
+                random, hellfire,
+                Direction.WEST, xRoomLength - 2,
+                Direction.NORTH, ZRoomLength - 2,
+                Direction.UP, 1,
+                x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, true
+        ));
+        main.add(drawSquareCylinder(
+                random, hellfire,
+                Direction.WEST, xRoomLength - 2,
+                Direction.NORTH, ZRoomLength - 2,
+                Direction.UP, 1,
+                x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true)
+        );
         main.add(drawVolume(0, 0, Direction.WEST, RADIUS * 2, Direction.NORTH, 3, Direction.UP, 3, x - RADIUS + xRoomLength, y + 2 + RADIUS / 2, z + 1, true));
         this.placeComponent(main);
     }
+
     private void createBossAndTreasure(int x, int y, int z) {
         // chest room
-        this.placeComponent(drawHollowShell(random, hellfire, Direction.WEST, 7, Direction.NORTH, 7, Direction.UP, 5, x - 1 + RADIUS, y + 1 + RADIUS / 2, z + 7 / 2, true));
+        this.placeComponent(drawHollowShell(
+                random, hellfire,
+                Direction.WEST, 7,
+                Direction.NORTH, 7,
+                Direction.UP, 5,
+                x - 1 + RADIUS, y + 1 + RADIUS / 2, z + 7 / 2, true
+        ));
         // Place boss, chest and door
 
         MobBossSunspirit boss = new MobBossSunspirit(world);
@@ -232,59 +256,66 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         WorldFeaturePoint chestPoint = new WorldFeaturePoint(x - 4 + RADIUS, y + 2 + RADIUS / 2, z);
         chestPoint.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         WorldFeatureAetherGoldChest.goldChest().place(world, random, chestPoint.x, chestPoint.y, chestPoint.z);
-
-        WorldFeaturePoint[] bossDoor = {
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z - 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z - 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z - 1),
-
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z),
-
-                new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z + 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z + 1),
-                new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z + 1),
-        };
-
-        for (WorldFeaturePoint pos : bossDoor) {
-            pos.rotateFixPointYAxis(x, y, z, angle);
-        }
-        dungeon.setDoorBlocks(bossDoor);
-
         world.entityJoinedWorld(boss);
+
+        List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z - 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z + 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z + 1));
+        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z + 1));
+        treasureDoor.forEach(p -> p.rotateFixPointYAxis(x, y, z, angle));
+        dungeon.setTreasureDoor(treasureDoor);
     }
-    // TODO make the decorator rotate
-    private void createGrassOnTopLevel(int radius, int x, int y, int z) {
-        int radX, radZ, height;
-        for (radX = -radius; radX < radius; radX++) {
-            for (radZ = -radius; radZ < radius; radZ++) {
-                if (AetherMathHelper.distanceToSqr((radX + x), y, (radZ + z), x, y, z) < Math.pow(radius, 2)) {
-                    height = world.getHeightValue((radX + x), (radZ + z));
-                    if (Math.abs(height - y) > radius * 2.25) {
-                        continue;
+
+    public void createHeightMap(int x, int y, int z) {
+        int diameter = RADIUS << 1;
+        Set<Integer> hell = hellfire.pallet.getEntries().stream().map(p -> p.first).collect(Collectors.toSet());
+        for (int ix = -diameter; ix < diameter; ix++) {
+            for (int iz = -diameter; iz < diameter; iz++) {
+                if (diameter * diameter >= ix * ix + iz * iz) {
+                    for (int iy = y + diameter; iy > y + RADIUS - 4; iy--) {
+                        int id = world.getBlockId(x + ix, iy - 1, z + iz);
+                        if (id != 0 && (stones.contains(id)) && !hell.contains(id)) {
+                            this.heightMap.add(new WorldFeaturePoint(ix + x, iy, iz + z));
+                            break;
+                        }
                     }
-                    WorldFeatureComponent dirt = new WorldFeatureComponent();
-                    if (stones.contains(world.getBlockId((radX + x), height - 1, (radZ + z)))) {
-                        dirt.add(wfb((radX + x), height - 1, (radZ + z), AetherBlocks.GRASS_AETHER.id()));
-                    }
-                    if (stones.contains(world.getBlockId((radX + x), height - 2, (radZ + z)))) {
-                        dirt.add(wfb((radX + x), height - 2, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
-                    }
-                    if (stones.contains(world.getBlockId((radX + x), height - 3, (radZ + z)))) {
-                        dirt.add(wfb((radX + x), height - 3, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
-                    }
-                    if (stones.contains(world.getBlockId((radX + x), height - 4, (radZ + z))) && world.rand.nextInt(10) > 3) {
-                        dirt.add(wfb((radX + x), height - 4, (radZ + z), AetherBlocks.DIRT_AETHER.id()));
-                    }
-                    dirt.place(world);
-                    decorations.add(wfb((radX + x), height, (radZ + z), 0, 0));
                 }
+
             }
         }
     }
-    private void createDecorations(int x, int y, int z) {
-        for (WorldFeaturePoint point : decorations.blockList) {
+
+    private void createGrassOnTopLevel() {
+        for (WorldFeaturePoint p : heightMap) {
+            int x = p.x;
+            int y = p.y;
+            int z = p.z;
+            WorldFeatureComponent dirt = new WorldFeatureComponent();
+            if (stones.contains(world.getBlockId(x, y - 1, z))) {
+                dirt.add(wfb(x, y - 1, z, AetherBlocks.GRASS_AETHER.id()));
+            }
+            if (stones.contains(world.getBlockId(x, y - 2, z))) {
+                dirt.add(wfb(x, y - 2, z, AetherBlocks.DIRT_AETHER.id()));
+            }
+            if (stones.contains(world.getBlockId(x, y - 3, z))) {
+                dirt.add(wfb(x, y - 3, z, AetherBlocks.DIRT_AETHER.id()));
+            }
+            if (stones.contains(world.getBlockId(x, y - 4, z)) && world.rand.nextInt(10) > 3) {
+                dirt.add(wfb(x, y - 4, z, AetherBlocks.DIRT_AETHER.id()));
+            }
+            dirt.place(world);
+        }
+    }
+
+
+    private void createDecorations() {
+        for (WorldFeaturePoint point : heightMap) {
             for (Pair<Integer, WorldFeature> integerWorldFeaturePair : veggies) {
                 if (random.nextInt(integerWorldFeaturePair.first) == 0) {
                     integerWorldFeaturePair.second.place(world, random, point.x, point.y, point.z);
