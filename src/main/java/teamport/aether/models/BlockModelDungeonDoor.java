@@ -24,17 +24,18 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
 
     @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        Side blockRot = BlockLogicRotatable.getDirectionFromMeta(meta).getSide();
+        Side doorDirection = BlockLogicRotatable.getDirectionFromMeta(meta).getSide();
 
         DoorDungeonHeight doorHeight = BlockLogicDungeonDoor.getHeightByMeta(meta);
         DoorDungeonSide doorSide = BlockLogicDungeonDoor.getSideByMeta(meta);
 
-        if (doorHeight == DoorDungeonHeight.MIDDLE
-                && doorSide == DoorDungeonSide.MIDDLE
-                && blockRot == side
-        ) return TextureRegistry.getTexture("aether:block/door/boss/alt/middle_middle");
+        StringBuilder tex = new StringBuilder("aether:block/door/boss/gold/");
 
-        StringBuilder tex = new StringBuilder("aether:block/door/boss/");
+        if (doorDirection == side) {
+            tex.append("front/");
+        } else {
+            tex.append("back/");
+        }
 
         switch (doorHeight) {
             case TOP:
@@ -68,5 +69,27 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
 
 
         return TextureRegistry.getTexture(tex.toString());
+    }
+
+    @Override
+    public boolean hasOverbright() {
+        return true;
+    }
+
+    @Override
+    public IconCoordinate getBlockOverbrightTextureFromSideAndMeta(Side side, int meta) {
+        Side doorDirection = BlockLogicRotatable.getDirectionFromMeta(meta).getSide();
+
+        DoorDungeonHeight doorHeight = BlockLogicDungeonDoor.getHeightByMeta(meta);
+        DoorDungeonSide doorSide = BlockLogicDungeonDoor.getSideByMeta(meta);
+
+        if (doorDirection == side
+            && doorHeight == DoorDungeonHeight.MIDDLE
+            && doorSide == DoorDungeonSide.MIDDLE
+        ) {
+            return TextureRegistry.getTexture("aether:block/door/boss/gold/front/middle_middle_overbright");
+        }
+
+        else return super.getBlockOverbrightTextureFromSideAndMeta(side, meta);
     }
 }
