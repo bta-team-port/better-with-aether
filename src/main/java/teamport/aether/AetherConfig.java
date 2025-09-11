@@ -1,5 +1,8 @@
 package teamport.aether;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.core.Global;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.util.TomlConfigHandler;
@@ -34,7 +37,22 @@ public class AetherConfig {
     public static int currentBlockID;
     public static int currentItemID;
 
-    public static volatile String REMOTE_RESOURCE_URL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
+    public static volatile String REMOTE_RESOURCE_URL = getDefaultRemoteUrl();
+
+    static String getDefaultRemoteUrl() {
+        FabricLoader loader = FabricLoader.getInstance();
+        Optional<ModContainer> modContainerOpt = loader.getModContainer(MOD_ID);
+
+        if (loader.isDevelopmentEnvironment() || !modContainerOpt.isPresent()) {
+            return "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
+        }
+
+        ModContainer modContainer = modContainerOpt.get();
+
+        modContainer.getMetadata().getVersion();
+        //https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/0.5-alpha/remoteAssets/manifest.json
+        return "";
+    }
 
     static void Setup() {
         LOGGER.info("Initializing config..");
