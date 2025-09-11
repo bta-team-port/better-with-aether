@@ -1,6 +1,8 @@
 name: Update manifest.json
 
 on:
+  workflow_dispatch:
+  
   push:
     branches:
       - "7.3"
