@@ -33,10 +33,10 @@ jobs:
         run: uv sync --script .generateManifest.py
 
       - name: Remove old file
-        run: rm -f ./remoteAssets/manifest.json
+        run: rm -f manifest.json
 
       - name: Generate new manifest
-        run: uv run --script ./remoteAssets/.generateManifest.py
+        run: uv run --script .generateManifest.py
 
       - name: Commit manifest
         run: |
