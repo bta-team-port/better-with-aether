@@ -2,6 +2,9 @@ package teamport.aether;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.SemanticVersion;
+import net.fabricmc.loader.api.Version;
+import net.fabricmc.loader.impl.util.version.SemanticVersionImpl;
 import net.minecraft.core.Global;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,15 +46,28 @@ public class AetherConfig {
         FabricLoader loader = FabricLoader.getInstance();
         Optional<ModContainer> modContainerOpt = loader.getModContainer(MOD_ID);
 
+        String result;
         if (loader.isDevelopmentEnvironment() || !modContainerOpt.isPresent()) {
-            return "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
+            result = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
         }
 
-        ModContainer modContainer = modContainerOpt.get();
+        else {
+            ModContainer modContainer = modContainerOpt.get();
 
-        modContainer.getMetadata().getVersion();
-        //https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/0.5-alpha/remoteAssets/manifest.json
-        return "";
+            String version = modContainer
+                    .getMetadata()
+                    .getVersion()
+                    .getFriendlyString()
+                    .substring(0, 5);
+
+            if (version.endsWith(".0")) version = version.substring(0, 3);
+            result = String.format(
+                "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-alpha/remoteAssets/",
+                version
+            );
+        }
+
+        return result;
     }
 
     static void Setup() {
