@@ -2,14 +2,12 @@ package teamport.aether.items;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sound.SoundEngine;
-import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
