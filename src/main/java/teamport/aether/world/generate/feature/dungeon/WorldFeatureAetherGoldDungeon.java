@@ -194,7 +194,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
             drawSphere(random, holystone, (int) newX, (int) (y + (RADIUS * 0.8F)), (int) newZ, (int) (RADIUS * radMod), true).place(world);
         }
         double radMod2 = 0.5F;
-        WorldFeaturePoint cover = new WorldFeaturePoint(x + RADIUS, (int) (y + (RADIUS * 0.8F)), z);
+        WorldFeaturePoint cover = new WorldFeaturePoint(x, (int) (y + (RADIUS * 0.8F)), z + RADIUS);
         cover.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, this.angle);
 
         drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true).place(world);
