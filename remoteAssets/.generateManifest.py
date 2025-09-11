@@ -1,3 +1,8 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = []
+# ///
+
 from pathlib import Path
 import json
 import datetime
@@ -28,3 +33,4 @@ for file in work_queue:
 with (input_dir/"manifest.json").open('wb') as handle:
     contents = json.dumps(index, indent=3)
     handle.write(contents.encode())
+

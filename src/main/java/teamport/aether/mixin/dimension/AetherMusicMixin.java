@@ -54,7 +54,7 @@ public abstract class AetherMusicMixin {
             return;
         }
 
-        SoundEvent redirect = SoundRepository.SOUNDS.getSoundEvent("aether:music.aether");
+        SoundEvent redirect = SoundRepository.SOUNDS.getRandomSoundFromCategory("aether:music.");
         if (redirect == null) return;
 
         SoundEntry entry = redirect.getRandomEntry();

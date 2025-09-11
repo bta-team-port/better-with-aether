@@ -227,7 +227,7 @@
       "trigger.ogg"
     ]
   },
-  "music.aether": {
+  "aether:music.aether": {
     "sounds": [
       {
         "name": "music/aether1.ogg",

@@ -1,0 +1,49 @@
+name: Workflow example
+
+on:
+  push:
+    branches:
+      - "7.3"
+    paths:
+      - "remoteAssets/**/*"
+
+jobs:
+  build:
+    name: update resource manifest
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: remoteAssets
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Setup UV
+        uses: astral-sh/setup-uv@v1
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: uv sync --script .generateManifest.py
+
+      - name: Remove old file
+        run: rm -f ./remoteAssets/manifest.json
+
+      - name: Generate new manifest
+        run: uv run --script ./remoteAssets/.generateManifest.py
+
+      - name: Commit manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add manifest.json
+          git commit -m "Update manifest.json [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:7.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
