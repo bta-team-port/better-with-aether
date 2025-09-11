@@ -16,11 +16,14 @@ import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class MobBossFlying extends MobFlying implements EnemyBoss<MobBossFlying> {
+public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Nullable
     public Integer dungeonID = null;
@@ -32,8 +35,6 @@ public class MobBossFlying extends MobFlying implements EnemyBoss<MobBossFlying>
 
     @Nullable
     public ItemStack trophy = null;
-
-    public List<WorldFeaturePoint> blocksDestroyOnDeath = new ArrayList<>();
 
 
     public MobBossFlying(@Nullable World world) {
@@ -153,5 +154,14 @@ public class MobBossFlying extends MobFlying implements EnemyBoss<MobBossFlying>
     public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
         this.hasHadReturnPointSet = true;
+    }
+
+    public boolean runWithDungeon(Consumer<DungeonMapEntry> func) {
+        if (EnvironmentHelper.isClientWorld() || dungeonID == null) return false;
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.getDungeon(dungeonID);
+
+        if (dungeon == null) return false;
+        func.accept(dungeon);
+        return true;
     }
 }

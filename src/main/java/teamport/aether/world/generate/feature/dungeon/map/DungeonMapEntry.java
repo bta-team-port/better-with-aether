@@ -9,18 +9,15 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
-import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
+import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static teamport.aether.helper.Pair.pair;
 
@@ -28,14 +25,11 @@ public class DungeonMapEntry {
     protected int id;
     @Nullable
     protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
-    protected List<WorldFeaturePoint> entranceDoor;
+    protected boolean entranceLocked = false;
+    protected List<WorldFeatureBlock> entranceDoor;
     protected List<WorldFeaturePoint> treasureDoor;
     protected int doorReplacementID = 0;
     protected int doorReplacementMeta = 0;
-
-    @Nullable
-    protected Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoorArea;
-    protected int bossDoorMeta;
 
     protected WorldFeaturePoint position;
 
@@ -45,23 +39,26 @@ public class DungeonMapEntry {
         this.treasureDoor = new ArrayList<>();
     }
 
-    public void setBossDoor(Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor, int doorMeta) {
-        this.bossDoorArea = bossDoor;
-        this.bossDoorMeta = doorMeta;
+    public boolean isEntranceLocked() {
+        return entranceLocked;
     }
 
-    public void lock(EnemyBoss<? extends Mob> boss, World world) {
-        if (bossDoorArea == null) return;
-
-        iterate3d(bossDoorArea,point -> world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.DOOR_DUNGEON.id(), bossDoorMeta));
-        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_open", 0.5f, 0.5f);
+    public <T extends Mob & EnemyBoss> void lock(@Nullable T boss, World world) {
+        if (entranceDoor == null) return;
+        entranceLocked = true;
+        for (WorldFeatureBlock block : entranceDoor) {
+            world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, block.x, block.y, block.z, "random.door_open", 0.025f, 0.5f);
+            block.place(world);
+        }
     }
 
-    public void unlock(EnemyBoss<? extends Mob> boss, World world) {
-        if (bossDoorArea == null) return;
-
-        iterate3d(bossDoorArea,point -> world.setBlockWithNotify(point.x, point.y, point.z, 0));
-        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, bossDoorArea.first.x, bossDoorArea.first.y, bossDoorArea.first.z, "random.door_close", 0.5f, 0.5f);
+    public <T extends Mob & EnemyBoss> void unlock(@Nullable T boss, World world) {
+        entranceLocked = false;
+        if (entranceDoor == null) return;
+        for (WorldFeatureBlock block : entranceDoor) {
+            world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, block.x, block.y, block.z, "random.door_open", 0.025f, 0.5f);
+            world.setBlockWithNotify(block.x, block.y, block.z, 0);
+        }
     }
 
     public int getId() {
@@ -89,15 +86,16 @@ public class DungeonMapEntry {
     public void setTreasureDoor(List<WorldFeaturePoint> doorBlocks) {
         this.treasureDoor.addAll(doorBlocks);
     }
-    public void setEntranceDoor(List<WorldFeaturePoint> entranceDoor){
+
+    public void setEntranceDoor(List<WorldFeatureBlock> entranceDoor){
         this.entranceDoor.addAll(entranceDoor);
     }
-
 
     public void loadFromNBT(CompoundTag data) {
         id = data.getInteger("id");
         doorReplacementID = data.getInteger("doorReplacementID");
         doorReplacementMeta = data.getInteger("doorReplacementMeta");
+        entranceLocked = data.getBoolean("entranceLocked");
 
         clearArea = new Pair<>(
                 WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
@@ -108,39 +106,35 @@ public class DungeonMapEntry {
             clearArea = null;
         }
 
-        bossDoorMeta = data.getInteger("bossDoorMeta");
-
-        bossDoorArea = new Pair<>(
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("bossDoorArea1")),
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("bossDoorArea2"))
-        );
-
-        if (bossDoorArea.first == null || bossDoorArea.second == null) {
-            bossDoorArea = null;
-        }
-
-        CompoundTag blockListNBT = data.getCompound("blocksDestroyOnDeath");
-        if (blockListNBT != null) {
+        CompoundTag treasureDoorNBT = data.getCompound("blocksDestroyOnDeath");
+        if (treasureDoorNBT != null) {
             List<WorldFeaturePoint> list = new ArrayList<>();
-            for (int i = 0; i < blockListNBT.getInteger("length"); i++) {
-                CompoundTag blockNBT = blockListNBT.getCompound(String.valueOf(i));
+            for (int i = 0; i < treasureDoorNBT.getInteger("length"); i++) {
+                CompoundTag blockNBT = treasureDoorNBT.getCompound(String.valueOf(i));
                 list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
             treasureDoor = list;
         }
+
+        CompoundTag entranceDoorNBT = data.getCompound("blocksDestroyOnDeath");
+        if (entranceDoorNBT != null) {
+            List<WorldFeaturePoint> list = new ArrayList<>();
+            for (int i = 0; i < entranceDoorNBT.getInteger("length"); i++) {
+                CompoundTag blockNBT = entranceDoorNBT.getCompound(String.valueOf(i));
+                list.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
+            }
+
+            treasureDoor = list;
+        }
+
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
         data.putInt("id", id);
         data.putInt("doorReplacementID", doorReplacementID);
         data.putInt("doorReplacementMeta", doorReplacementMeta);
-
-        if (bossDoorArea != null) {
-            data.put("bossDoorArea1", bossDoorArea.first.toCompoundTag());
-            data.put("bossDoorArea2", bossDoorArea.second.toCompoundTag());
-            data.putInt("bossDoorMeta", bossDoorMeta);
-        }
+        data.putBoolean("entranceLocked", entranceLocked);
 
         if (clearArea != null) {
             data.put("clearPos1", clearArea.first.toCompoundTag());
@@ -157,6 +151,16 @@ public class DungeonMapEntry {
             data.put("blocksDestroyOnDeath", blockList);
         }
 
+        if (entranceDoor != null && !entranceDoor.isEmpty()) {
+            CompoundTag blockList = new CompoundTag();
+            int idx = 0;
+            for (WorldFeatureBlock block : entranceDoor) {
+                blockList.put(String.valueOf(idx++), block.toCompoundTag());
+            }
+            blockList.put("length", new IntTag(idx));
+            data.put("blocksDungeonEntrance", blockList);
+        }
+
         return data;
     }
 
@@ -165,6 +169,7 @@ public class DungeonMapEntry {
     }
 
     public void remove(World world) {
+        unlock(null, world);
         if (DungeonMap.dungeonMap.get(id) != null) {
             DungeonMap.dungeonMap.remove(id);
         }
@@ -198,43 +203,6 @@ public class DungeonMapEntry {
                             continue;
                         }
                     }
-                }
-            }
-        }
-    }
-
-    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
-        int firstX, firstY, firstZ;
-        int secondX, secondY, secondZ;
-
-        if (area.first.x < area.second.x) {
-            firstX = area.first.x;
-            secondX = area.second.x;
-        } else {
-            secondX = area.first.x;
-            firstX = area.second.x;
-        }
-
-        if (area.first.y < area.second.y) {
-            firstY = area.first.y;
-            secondY = area.second.y;
-        } else {
-            secondY = area.first.y;
-            firstY = area.second.y;
-        }
-
-        if (area.first.z < area.second.z) {
-            firstZ = area.first.z;
-            secondZ = area.second.z;
-        } else {
-            secondZ = area.first.z;
-            firstZ = area.second.z;
-        }
-
-        for (int x = firstX; x <= secondX; x++) {
-            for (int y = firstY; y <= secondY; y++) {
-                for (int z = firstZ; z <= secondZ; z++) {
-                    func.accept(new WorldFeaturePoint(x, y, z));
                 }
             }
         }

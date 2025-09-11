@@ -1,5 +1,6 @@
 package teamport.aether.world.generate.feature.components;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.helper.Pair;
@@ -7,7 +8,7 @@ import teamport.aether.helper.Pair;
 public class WorldFeatureBlock extends WorldFeaturePoint {
     public int blockID = 0;
     public int metadata = 0;
-    boolean withNotify = false;
+    public boolean withNotify = false;
 
 
     WorldFeatureBlock(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
@@ -29,6 +30,14 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         this.blockID = blockAndMeta.first;
         this.metadata = blockAndMeta.second;
         this.withNotify = withNotify;
+    }
+
+    public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata, boolean withNotify) {
+        return new WorldFeatureBlock(point.x, point.y, point.z, blockID, metadata, withNotify);
+    }
+
+    public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata) {
+        return new WorldFeatureBlock(point.x, point.y, point.z, blockID, metadata, false);
     }
 
     public static WorldFeatureBlock wfb(WorldFeaturePoint point) {
@@ -96,5 +105,17 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         //BlockLogicTrapDoor
         //BlockLogicDoor
         //BlockLogicSign
+    }
+
+    @Override
+    public CompoundTag toCompoundTag() {
+        CompoundTag tag = super.toCompoundTag();
+        tag.putInt("blockID", blockID);
+        tag.putInt("blockMetadata", metadata);
+        return tag;
+    }
+
+    public static WorldFeatureBlock fromCompoundTag(CompoundTag tag) {
+        return wfb(WorldFeaturePoint.fromCompoundTag(tag), tag.getInteger("blockID"), tag.getInteger("blockMetadata"));
     }
 }

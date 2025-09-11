@@ -27,6 +27,8 @@ import java.util.stream.Collectors;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.iterate3d;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
 public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public static final BlockPallet hellfire = new BlockPallet();
@@ -39,6 +41,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     protected DungeonMapEntry dungeon;
     public static final int RADIUS = 16;
     public float angle = 0;
+    public Direction direction = Direction.NORTH;
     private static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
     private List<WorldFeaturePoint> heightMap;
 
@@ -111,6 +114,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
     public WorldFeatureAetherGoldDungeon(int direction) {
         this.angle = direction * 90;
+        this.direction = Direction.horizontalDirections[direction];
     }
 
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
@@ -244,16 +248,18 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         );
 
         world.setBlockWithNotify(x, y, z,AetherBlocks.BLOCK_GRAVITITE.id());
-        Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor = new Pair<>(
-            new WorldFeaturePoint(x +1,    y +2 +RADIUS/2,    z -RADIUS/2 -1),
-            new WorldFeaturePoint(x +1 -2, y +2 +2 +RADIUS/2, z -RADIUS/2 -1)
+
+        WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+
+        iterate3d(
+            wfpoint(x +1,    y +2 +RADIUS/2,    z -1 -RADIUS/2),
+            wfpoint(x +1 -2, y +2 +2 +RADIUS/2, z -1 -RADIUS/2),
+            w -> entranceDoor.add(wfb(w, AetherBlocks.DOOR_DUNGEON.id(), entranceDoorMeta, true))
         );
 
-        bossDoor.first.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        bossDoor.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-
-        int meta = BlockLogicRotatable.setDirection(0, Direction.horizontalDirections[(int) ((angle)%360/90)]);
-        dungeon.setBossDoor(bossDoor, meta);
+        entranceDoor.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        dungeon.setEntranceDoor(entranceDoor.blockList);
 
         this.placeComponent(main);
     }
@@ -262,10 +268,10 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         // chest room
         this.placeComponent(drawHollowShell(
                 random, hellfire,
+                Direction.SOUTH, 7,
                 Direction.WEST, 7,
-                Direction.NORTH, 7,
                 Direction.UP, 5,
-                x - 1 + RADIUS, y + 1 + RADIUS / 2, z + 7 / 2, true
+                x +3, y +1 +RADIUS/2, z +RADIUS/2 +1, true
         ));
         // Place boss, chest and door
 
@@ -274,22 +280,22 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
         boss.setDungeonID(dungeon.getId());
         boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());
-
-        WorldFeaturePoint chestPoint = new WorldFeaturePoint(x - 4 + RADIUS, y + 2 + RADIUS / 2, z);
-        chestPoint.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        WorldFeatureAetherGoldChest.goldChest().place(world, random, chestPoint.x, chestPoint.y, chestPoint.z);
         world.entityJoinedWorld(boss);
 
+        WorldFeaturePoint chestPoint = new WorldFeaturePoint(x, y + 2 + RADIUS / 2, z - 4 + RADIUS);
+        chestPoint.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        WorldFeatureAetherGoldChest.goldChest(direction).place(world, random, chestPoint.x, chestPoint.y, chestPoint.z);
+
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z - 1));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z - 1));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z - 1));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 2 + RADIUS / 2, z + 1));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 3 + RADIUS / 2, z + 1));
-        treasureDoor.add(new WorldFeaturePoint(x + RADIUS - 7, y + 4 + RADIUS / 2, z + 1));
+        treasureDoor.add(new WorldFeaturePoint(x - 1, y + 2 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(x - 1, y + 3 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(x - 1, y + 4 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(   x,     y + 2 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(   x,     y + 3 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(   x,     y + 4 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 1, y + 2 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 1, y + 3 + RADIUS / 2, z + RADIUS - 7));
+        treasureDoor.add(new WorldFeaturePoint(x + 1, y + 4 + RADIUS / 2, z + RADIUS - 7));
         treasureDoor.forEach(p -> p.rotateFixPointYAxis(x, y, z, angle));
         dungeon.setTreasureDoor(treasureDoor);
     }

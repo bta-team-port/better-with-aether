@@ -60,22 +60,18 @@ public class MobBossSunspirit extends MobBossFlying {
         super.updateAI();
 
         if (this.isAgro) {
+            DVDMove();
             this.target = this.findPlayerToAttack();
+
             if (target != null){
                 this.lookAt(this.target, 20.0F, 20.0F);
                 this.attackEntity(this.target, 32);
-
-                DVDMove();
-            } else {
-                if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRange) == null) {
-                    returnToHome();
-                    this.target = null;
-                    this.isAgro = false;
-
-                    if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
-                        AetherDimension.dungeonMap.getDungeon(dungeonID).unlock(this, world);
-                    }
-                }
+            }
+            else if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRange) == null) {
+                returnToHome();
+                runWithDungeon(d -> d.unlock(this, world));
+                this.target = null;
+                this.isAgro = false;
             }
         }
     }
@@ -98,24 +94,24 @@ public class MobBossSunspirit extends MobBossFlying {
         );
 
         if (hitResult != null) {
-            float speed = 0.25f;
+            double speed = 0.25f * speedness();
+
             switch (hitResult.side) {
-                case NORTH:
-                    DVDMoveAmount.y -= speed * speedness();
+                case NORTH: DVDMoveAmount.y -= speed;
                     break;
 
-                case SOUTH:
-                    DVDMoveAmount.y += speed * speedness();
+                case SOUTH: DVDMoveAmount.y += speed;
                     break;
 
-                case WEST:
-                    DVDMoveAmount.x -= speed * speedness();
+                case WEST: DVDMoveAmount.x -= speed;
                     break;
 
-                case EAST:
-                    DVDMoveAmount.x += speed * speedness();
+                case EAST: DVDMoveAmount.x += speed;
                     break;
             }
+
+            DVDMoveAmount.x += random.nextFloat() * 0.1 - random.nextFloat() * 0.1;
+            DVDMoveAmount.y += random.nextFloat() * 0.1 - random.nextFloat() * 0.1;
         }
 
         double maxSpeed = 0.035D;
@@ -220,10 +216,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.chatLog++;
                 this.isAgro = true;
 
-                if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
-                    AetherDimension.dungeonMap.getDungeon(dungeonID).lock(this, world);
-                }
-
+                runWithDungeon(d -> d.lock(this, world));
                 return true;
             }
 
@@ -250,9 +243,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        if (!EnvironmentHelper.isClientWorld() && dungeonID != null) {
-            AetherDimension.dungeonMap.getDungeon(dungeonID).unlock(this, world);
-        }
+        runWithDungeon(d -> d.unlock(this, world));
 
         if (!world.isClientSide && world.dimension == AetherDimension.AETHER) {
             AetherDimension.unlockDaylightCycle(world);
@@ -318,7 +309,7 @@ public class MobBossSunspirit extends MobBossFlying {
             }
 
             if (this.getHealth() <= (this.getMaxHealth() / 2)) this.attackTime = 25;
-            else this.attackTime = 50;
+            else this.attackTime = 35;
         }
 
         this.hasAttacked = true;
@@ -330,6 +321,7 @@ public class MobBossSunspirit extends MobBossFlying {
         super.readAdditionalSaveData(tag);
         this.timesShot = tag.getInteger("timesShot");
         this.chatLog = tag.getByte("chatLog");
+        this.isAgro = tag.getBoolean("isAgro");
     }
 
     @Override
@@ -337,6 +329,7 @@ public class MobBossSunspirit extends MobBossFlying {
         super.addAdditionalSaveData(tag);
         tag.putInt("timesShot", this.timesShot);
         tag.putByte("chatLog", (byte)this.chatLog);
+        tag.putBoolean("isAgro", isAgro);
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
