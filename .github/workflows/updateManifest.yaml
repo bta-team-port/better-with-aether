@@ -1,4 +1,4 @@
-name: Workflow example
+name: Update manifest.json
 
 on:
   push:
