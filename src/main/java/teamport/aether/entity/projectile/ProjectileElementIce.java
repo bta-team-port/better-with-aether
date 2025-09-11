@@ -1,40 +1,21 @@
 package teamport.aether.entity.projectile;
 
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
-    public boolean hasBeenHitByPlayer = false;
 
-    public ProjectileElementIce(World world) {
-        super(world);
-    }
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
         this.initialSpeed = 0.25F;
-    }
-
-    @Override
-    public boolean hurt(Entity entity, int damage, DamageType type) {
-        if (!this.world.isClientSide) {
-            if (entity instanceof Player) {
-                Vec3 lookAngle = entity.getLookAngle();
-                this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 2.0f, 0.0F);
-                hasBeenHitByPlayer = true;
-            }
-        }
-
-        return super.hurt(entity, damage, type);
     }
 
     @Override
@@ -70,29 +51,30 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
     @Override
     public void onHit(HitResult hitResult) {
-        if (!this.world.isClientSide) {
-            if (!(hitResult.entity instanceof ProjectileElementBase)) {
-                if (hitResult.entity instanceof MobBossSunspirit) {
-                    if (hasBeenHitByPlayer) {
-                        // The sunspirit only takes damage from ice projectiles, so, we set this here directly.
-                        // This is jank btw. I know.
-                        hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
+        if (!this.world.isClientSide
+                && hitResult.entity != null
+                && !(hitResult.entity instanceof ProjectileElementBase)
+        ) {
+            if (hitResult.entity instanceof MobBossSunspirit) {
+                if (this.owner != null && this.owner instanceof Player) {
+                    // The sunspirit only takes damage from ice projectiles, so, we set this here directly.
+                    // This is jank btw. I know.
+                    hitResult.entity.hurt(this, this.damage, DamageType.GENERIC);
 
-                        doExplosion();
-                        this.remove();
-                        return;
-                    }
-
-                    super.onHit(hitResult);
-                    return;
-                }
-
-                if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                    doExplosion();
                     this.remove();
-
                     return;
                 }
+
+                super.onHit(hitResult);
+                return;
+            }
+
+            else if (hitResult.entity instanceof Mob) {
+                hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                this.remove();
+
+                return;
             }
         }
 

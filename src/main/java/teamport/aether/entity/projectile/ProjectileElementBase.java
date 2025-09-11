@@ -3,6 +3,7 @@ package teamport.aether.entity.projectile;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
@@ -178,13 +179,14 @@ public class ProjectileElementBase extends Projectile {
     public boolean hurt(Entity entity, int damage, DamageType type) {
         if (!this.world.isClientSide) {
             if (entity != null) {
-                if (entity instanceof Mob) {
+                if (entity instanceof Player) {
                     this.owner = (Mob) entity;
                 }
+
                 Vec3 lookAngle = entity.getLookAngle();
                 if (lookAngle != null) {
                     this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, initialSpeed, 0.0F);
-                    bounceCount = 19;
+                    bounceCount = 17;
                 }
                 return true;
             }

@@ -5,8 +5,10 @@ import com.mojang.nbt.tags.IntTag;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.Pair;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class WorldFeaturePoint {
     public int x;
@@ -102,5 +104,26 @@ public class WorldFeaturePoint {
                 tag.getInteger("y"),
                 tag.getInteger("z")
         );
+    }
+
+    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
+        iterate3d(area.first, area.second, func);
+    }
+
+    public static void iterate3d(WorldFeaturePoint first, WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
+        int firstX  = Math.min(first.x, second.x);
+        int secondX = Math.max(first.x, second.x);
+        int firstY  = Math.min(first.y, second.y);
+        int secondY = Math.max(first.y, second.y);
+        int firstZ  = Math.min(first.z, second.z);
+        int secondZ = Math.max(first.z, second.z);
+
+        for (int x = firstX; x <= secondX; x++) {
+            for (int y = firstY; y <= secondY; y++) {
+                for (int z = firstZ; z <= secondZ; z++) {
+                    func.accept(wfpoint(x, y, z));
+                }
+            }
+        }
     }
 }

@@ -17,14 +17,16 @@ import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public abstract class MobBoss extends MobPathfinder implements EnemyBoss<MobPathfinder>, AetherDeathMessage {
+public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
 
     @Nullable
     public Integer dungeonID = null;
@@ -36,8 +38,6 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss<MobPath
 
     @Nullable
     public ItemStack trophy = null;
-
-    public List<WorldFeaturePoint> blocksDestroyOnDeath = new ArrayList<>();
 
     public MobBoss(@Nullable World world) {
         super(world);
@@ -171,5 +171,14 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss<MobPath
             .replace("[BOSS]", bossName);
 
         return RED + deathMessage;
+    }
+
+    public boolean runWithDungeon(Consumer<DungeonMapEntry> func) {
+        if (dungeonID == null) return false;
+        DungeonMapEntry dungeon = AetherDimension.dungeonMap.getDungeon(dungeonID);
+
+        if (dungeon == null) return false;
+        func.accept(dungeon);
+        return true;
     }
 }

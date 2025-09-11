@@ -19,15 +19,17 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.placeItemInChest;
 
 public class WorldFeatureAetherTreasureChest extends WorldFeature {
+    private final int chestMetadata;
     public int chestID;
     public LootGenerator lootGenerator;
     public WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE;
     public int guaranteedRare;
 
-    public WorldFeatureAetherTreasureChest(int chestID, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE) {
+    public WorldFeatureAetherTreasureChest(int chestID, int chestMetadata, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE) {
         this.chestID = chestID;
         this.lootGenerator = lootGenerator;
         this.LOOT_RARE = LOOT_RARE;
+        this.chestMetadata = chestMetadata;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
             }
         }
         if (block == null || block.id() != chestID){
-            world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, 4);
+            world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, chestMetadata);
         }
         this.setTreasure(world, random, ix, iy, iz);
         return true;
