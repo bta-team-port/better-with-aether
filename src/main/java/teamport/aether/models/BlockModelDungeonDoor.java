@@ -6,69 +6,43 @@ import net.minecraft.client.render.block.model.BlockModelRotatable;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicRotatable;
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.util.helper.Sides;
 import teamport.aether.blocks.BlockLogicDungeonDoor;
-
-import static teamport.aether.blocks.BlockLogicDungeonDoor.DoorDungeonHeight;
-import static teamport.aether.blocks.BlockLogicDungeonDoor.DoorDungeonSide;
-
 
 @Environment(EnvType.CLIENT)
 public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeonDoor> {
+
+    int width = 3;
+    int height = 3;
 
     public BlockModelDungeonDoor(Block<BlockLogicDungeonDoor> block) {
         super(block);
     }
 
+    protected IconCoordinate cropTexture(IconCoordinate texture, int x, int y) {
+        int textWidth = texture.width / width;
+        int textHeight = texture.height / height;
+
+        IconCoordinate i = new IconCoordinate(texture.parentAtlas, texture.namespaceId, texture.getImageSource());
+        i.setPosition(texture.iconX + x*textWidth, texture.iconY + y*textHeight);
+        i.setDimension(textWidth, textHeight);
+
+        return i;
+    }
+
     @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        Side doorDirection = BlockLogicRotatable.getDirectionFromMeta(meta).getSide();
+        Side sideRotated = Side.getSideById(Sides.orientationLookUpHorizontal[6 * (meta & 7) + side.getId()]);
 
-        DoorDungeonHeight doorHeight = BlockLogicDungeonDoor.getHeightByMeta(meta);
-        DoorDungeonSide doorSide = BlockLogicDungeonDoor.getSideByMeta(meta);
+        IconCoordinate baseTex = this.blockTextures.get(sideRotated);
+        if (baseTex == null) return TextureRegistry.getTexture("minecraft:block/texture_missing");
 
-        StringBuilder tex = new StringBuilder("aether:block/door/boss/gold/");
+        int y = BlockLogicDungeonDoor.getHeightByMeta(meta).ordinal();
+        int x = BlockLogicDungeonDoor.getSideByMeta(meta).ordinal();
+        if (side == Side.EAST || side == Side.NORTH)  x = width -1 -x;
 
-        if (doorDirection == side) {
-            tex.append("front/");
-        } else {
-            tex.append("back/");
-        }
-
-        switch (doorHeight) {
-            case TOP:
-                tex.append("top");
-                break;
-            case BOTTOM:
-                tex.append("bottom");
-                break;
-            case MIDDLE:
-                tex.append("middle");
-                break;
-        }
-
-        tex.append("_");
-
-        switch (doorSide) {
-            case LEFT:
-                if (side == Side.EAST || side == Side.NORTH) tex.append("right");
-                else tex.append("left");
-                break;
-
-            case RIGHT:
-                if (side == Side.EAST || side == Side.NORTH) tex.append("left");
-                else tex.append("right");
-                break;
-
-            case MIDDLE:
-                tex.append("middle");
-                break;
-        }
-
-
-        return TextureRegistry.getTexture(tex.toString());
+        return cropTexture(baseTex, x, y);
     }
 
     @Override
@@ -78,18 +52,15 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
 
     @Override
     public IconCoordinate getBlockOverbrightTextureFromSideAndMeta(Side side, int meta) {
-        Side doorDirection = BlockLogicRotatable.getDirectionFromMeta(meta).getSide();
+        Side sideRotated = Side.getSideById(Sides.orientationLookUpHorizontal[6 * (meta & 7) + side.getId()]);
 
-        DoorDungeonHeight doorHeight = BlockLogicDungeonDoor.getHeightByMeta(meta);
-        DoorDungeonSide doorSide = BlockLogicDungeonDoor.getSideByMeta(meta);
+        IconCoordinate baseTex = this.overbrightTextures.get(sideRotated);
+        if (baseTex == null) return null;
 
-        if (doorDirection == side
-            && doorHeight == DoorDungeonHeight.MIDDLE
-            && doorSide == DoorDungeonSide.MIDDLE
-        ) {
-            return TextureRegistry.getTexture("aether:block/door/boss/gold/front/middle_middle_overbright");
-        }
+        int y = BlockLogicDungeonDoor.getHeightByMeta(meta).ordinal();
+        int x = BlockLogicDungeonDoor.getSideByMeta(meta).ordinal();
+        if (side == Side.EAST || side == Side.NORTH)  x = width -1 -x;
 
-        else return super.getBlockOverbrightTextureFromSideAndMeta(side, meta);
+        return cropTexture(baseTex, x, y);
     }
 }

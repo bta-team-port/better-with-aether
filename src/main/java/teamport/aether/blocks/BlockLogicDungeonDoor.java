@@ -59,23 +59,23 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         Direction dir = getDirectionFromMeta(world.getBlockMetadata(x, y, z));
-
         if (dir.getSide() != side) return false;
 
         Direction dirOpposite = dir.getOpposite();
 
-        double destX = x + dirOpposite.getOffsetX() + (player.x%1);
-        double destY = y + dirOpposite.getOffsetY() + (player.y%1);
-        double destZ = z + dirOpposite.getOffsetZ() + (player.z%1);
+        int destX = x + dirOpposite.getOffsetX();
+        int destY = y + dirOpposite.getOffsetY();
+        int destZ = z + dirOpposite.getOffsetZ();
 
-        while (destY > 0 && world.getBlockId((int) destX, (int) (destY-1), (int) destZ) == 0) --destY;
 
-        if (    world.isBlockNormalCube((int) destX, (int) (destY),     (int) destZ)
-             || world.isBlockNormalCube((int) destX, (int) (destY + 1), (int) destZ)) {
+        while (destY > 0 && world.getBlockId(destX, destY-1, destZ) == 0) --destY;
+
+        if (    world.isBlockNormalCube(destX, destY, destZ)
+             || world.isBlockNormalCube(destX, destY + 1, destZ)) {
             return false;
         }
 
-        player.moveTo(destX, destY, destZ, player.yRot, player.xRot);
+        player.moveTo(destX + .5, destY, destZ + .5, player.yRot, player.xRot);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, destX, destY, destZ, "random.door_open", 0.5f, 0.5f);
         return true;
     }
