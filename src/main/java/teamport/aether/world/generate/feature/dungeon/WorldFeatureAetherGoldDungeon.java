@@ -131,13 +131,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 //        if (!canPlace(world, x, y, z)) return false;
         this.world = world;
         this.random = random;
-        this.angle = this.random.nextInt(4) * 90.0F;
         this.dungeonAnker = new WorldFeaturePoint(x, y, z);
         this.bossPosition = this.getPos(x, y + RADIUS / 2 + 2, z);
         this.decorations = new WorldFeatureComponent();
         this.dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         this.dungeon.setPosition(bossPosition);
         this.heightMap = new ArrayList<>();
+
         createMainSphere(x, y, z);
         createOuterSpheres(x, y, z);
         createMainRoom(x, y, z);
@@ -233,17 +233,27 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                 Direction.UP, 1,
                 x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true)
         );
-        main.add(drawVolume(0, 0, Direction.WEST, RADIUS * 2, Direction.NORTH, 3, Direction.UP, 3, x - RADIUS + xRoomLength, y + 2 + RADIUS / 2, z + 1, true));
 
+        main.add(
+            drawVolume(0, 0,
+                Direction.NORTH, RADIUS*2,
+                Direction.WEST, 3,
+                Direction.UP, 3,
+                x +1, y +2 +RADIUS/2, z -RADIUS/2 -1, true
+            )
+        );
+
+        world.setBlockWithNotify(x, y, z,AetherBlocks.BLOCK_GRAVITITE.id());
         Pair<WorldFeaturePoint, WorldFeaturePoint> bossDoor = new Pair<>(
-            new WorldFeaturePoint(x - RADIUS/2, y + 2 + RADIUS/2, z + 1),
-            new WorldFeaturePoint(x - RADIUS/2 - 1, y + 2 + RADIUS/2 + 3, z -2)
+            new WorldFeaturePoint(x +1,    y +2 +RADIUS/2,    z -RADIUS/2 -1),
+            new WorldFeaturePoint(x +1 -2, y +2 +2 +RADIUS/2, z -RADIUS/2 -1)
         );
 
         bossDoor.first.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         bossDoor.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
 
-        dungeon.setBossDoor(bossDoor, BlockLogicRotatable.setDirection(0, Direction.NORTH));
+        int meta = BlockLogicRotatable.setDirection(0, Direction.horizontalDirections[(int) ((angle)%360/90)]);
+        dungeon.setBossDoor(bossDoor, meta);
 
         this.placeComponent(main);
     }

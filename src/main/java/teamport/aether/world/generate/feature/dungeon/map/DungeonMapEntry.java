@@ -203,7 +203,7 @@ public class DungeonMapEntry {
         }
     }
 
-    static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
+    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
         int firstX, firstY, firstZ;
         int secondX, secondY, secondZ;
 
@@ -231,9 +231,9 @@ public class DungeonMapEntry {
             firstZ = area.second.z;
         }
 
-        for (int x = firstX; x < secondX; x++) {
-            for (int y = firstY; y < secondY; y++) {
-                for (int z = firstZ; z < secondZ; z++) {
+        for (int x = firstX; x <= secondX; x++) {
+            for (int y = firstY; y <= secondY; y++) {
+                for (int z = firstZ; z <= secondZ; z++) {
                     func.accept(new WorldFeaturePoint(x, y, z));
                 }
             }
