@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -87,6 +88,11 @@ public class MobBossSlider extends MobBoss {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "boss_slider");
         this.chatColor = (byte) (TextFormatting.BROWN.id & 255);
         this.canBreatheUnderwater();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 40 * TICKS_PER_SECOND;
     }
 
     public int getAttackCoolDown(float progress) {

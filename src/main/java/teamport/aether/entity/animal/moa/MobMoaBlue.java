@@ -1,6 +1,7 @@
 package teamport.aether.entity.animal.moa;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -50,7 +51,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
     }
 
     public int getAmbientSoundInterval() {
-        return 240;
+        return 12 * Global.TICKS_PER_SECOND;
     }
 
     public float getSoundVolume() {
