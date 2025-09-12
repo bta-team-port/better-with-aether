@@ -2,7 +2,9 @@ package teamport.aether.world.generate.feature.components;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.Pair;
@@ -125,5 +127,19 @@ public class WorldFeaturePoint {
                 }
             }
         }
+    }
+
+
+    public WorldFeaturePoint add(Side side) {
+        WorldFeaturePoint result = this.copy();
+        result.x += side.getOffsetX();
+        result.y += side.getOffsetY();
+        result.z += side.getOffsetZ();
+
+        return result;
+    }
+
+    public WorldFeaturePoint add(Direction direction) {
+        return this.add(direction.getSide());
     }
 }

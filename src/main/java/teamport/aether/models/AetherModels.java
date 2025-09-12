@@ -14,9 +14,11 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicDungeonDoor;
 import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
@@ -150,10 +152,16 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
-        dispatcher.addDispatch(new BlockModelDungeonDoor(AetherBlocks.DOOR_DUNGEON)
+        dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_GOLD, 3, 3)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/back", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/front", Side.NORTH)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/front_overbright", Side.NORTH)
+        );
+
+        dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
+                .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/front", Side.NORTH)
+                .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/front_overbright", Side.NORTH)
         );
 
         dispatcher.addDispatch(new BlockModelFlowerStackable<>(AetherBlocks.FLOWER_PURPLE, "aether:block/flower_purple/"));

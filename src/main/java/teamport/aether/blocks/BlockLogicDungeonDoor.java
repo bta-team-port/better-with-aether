@@ -21,39 +21,9 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         super(block, Material.metal);
     }
 
-    public enum DoorDungeonSide {
-        LEFT,
-        MIDDLE,
-        RIGHT;
-    }
-
-    public enum DoorDungeonHeight {
-        TOP,
-        MIDDLE,
-        BOTTOM;
-    }
-
-    // metadata:
-    // D - direction; Height - H(top middle bottom) ; side - S (Left middle right)
-    // HH SS DDD
-    // 0HHS SDDD
-    //
-
-    public static DoorDungeonSide getSideByMeta(int meta) {
-        return DoorDungeonSide.values()[(meta >> 3) & 3];
-    }
-
-    public static DoorDungeonHeight getHeightByMeta(int meta) {
-        return DoorDungeonHeight.values()[(meta >> 5) & 3];
-
-    }
-
-    public static int setHeightByMeta(int meta, DoorDungeonHeight height) {
-        return (meta & (~0b1100000)) + ((height.ordinal() & 0b11) << 5);
-    }
-
-    public static int setSideByMeta(int meta, DoorDungeonSide side) {
-        return (meta & (~0b0011000)) + ((side.ordinal() & 0b11) << 3);
+    @Override
+    public boolean getImmovable() {
+        return true;
     }
 
     @Override
@@ -78,80 +48,6 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         player.moveTo(destX + .5, destY, destZ + .5, player.yRot, player.xRot);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, destX, destY, destZ, "random.door_open", 0.5f, 0.5f);
         return true;
-    }
-
-    public static int getDoorMetadata(World world, int x, int y, int z, int meta) {
-        boolean top = world.getBlockId(x, y + 1, z) == AetherBlocks.DOOR_DUNGEON.id();
-        boolean bottom = world.getBlockId(x, y - 1, z) == AetherBlocks.DOOR_DUNGEON.id();
-
-        DoorDungeonHeight height;
-        if (top && bottom) {
-            height = DoorDungeonHeight.MIDDLE;
-        }
-        else if (!top) {
-            height = DoorDungeonHeight.TOP;
-        }
-        else {
-            height = DoorDungeonHeight.BOTTOM;
-        }
-
-        DoorDungeonSide side;
-        Direction dir = getDirectionFromMeta(meta);
-
-        boolean left = false;
-        boolean right = false;
-
-        switch (dir) {
-            case NORTH:
-            case SOUTH:
-                left = world.getBlockId(x-1, y, z) == AetherBlocks.DOOR_DUNGEON.id();
-                right = world.getBlockId(x+1, y, z) == AetherBlocks.DOOR_DUNGEON.id();
-                break;
-
-            case WEST:
-            case EAST:
-                left = world.getBlockId(x, y, z -1) == AetherBlocks.DOOR_DUNGEON.id();
-                right = world.getBlockId(x, y, z +1) == AetherBlocks.DOOR_DUNGEON.id();
-                break;
-        }
-
-        if (left && right) { side = DoorDungeonSide.MIDDLE; }
-        else if (!left) { side = DoorDungeonSide.LEFT; }
-        else { side = DoorDungeonSide.RIGHT; }
-
-
-        return setHeightByMeta(setSideByMeta(meta, side), height);
-    }
-
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
-        int meta = world.getBlockMetadata(x, y, z);
-        int newMeta = getDoorMetadata(world, x, y, z, meta);
-
-        if (newMeta != meta) world.setBlockMetadataWithNotify(x, y, z, newMeta);
-    }
-
-    @Override
-    public void onBlockPlacedByWorld(World world, int x, int y, int z) {
-        onNeighborBlockChange(world, x, y, z, 0);
-    }
-
-    @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
-        super.onBlockPlacedByMob(world, x, y, z, side, mob, xPlaced, yPlaced);
-        onNeighborBlockChange(world, x, y, z, 0);
-    }
-
-    @Override
-    public void onBlockPlacedOnSide(World world, int x, int y, int z, @NotNull Side side, double xPlaced, double yPlaced) {
-        super.onBlockPlacedOnSide(world, x, y, z, side, xPlaced, yPlaced);
-        onNeighborBlockChange(world, x, y, z, 0);
-    }
-
-    @Override
-    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
-        int initialMeta = super.getPlacedBlockMetadata(player, stack, world, x, y, z, side, xPlaced, yPlaced);
-        return getDoorMetadata(world, x, y, z, initialMeta);
     }
 
     @Override

@@ -112,10 +112,11 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         CompoundTag tag = super.toCompoundTag();
         tag.putInt("blockID", blockID);
         tag.putInt("blockMetadata", metadata);
+        tag.putBoolean("withNotify", withNotify);
         return tag;
     }
 
     public static WorldFeatureBlock fromCompoundTag(CompoundTag tag) {
-        return wfb(WorldFeaturePoint.fromCompoundTag(tag), tag.getInteger("blockID"), tag.getInteger("blockMetadata"));
+        return wfb(WorldFeaturePoint.fromCompoundTag(tag), tag.getInteger("blockID"), tag.getInteger("blockMetadata"), tag.getBoolean("withNotify"));
     }
 }

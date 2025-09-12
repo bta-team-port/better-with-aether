@@ -128,11 +128,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> CHEST_MIMIC;
 
-    public static Block<BlockLogicDungeonDoor> DOOR_DUNGEON;
+    public static Block<?> DOOR_DUNGEON_BRONZE;
     public static Block<?> CHEST_DUNGEON_BRONZE;
     public static Block<?> CHEST_DUNGEON_BRONZE_LOCKED;
+
     public static Block<?> CHEST_DUNGEON_SILVER;
     public static Block<?> CHEST_DUNGEON_SILVER_LOCKED;
+
+    public static Block<?> DOOR_DUNGEON_GOLD;
     public static Block<?> CHEST_DUNGEON_GOLD;
     public static Block<?> CHEST_DUNGEON_GOLD_LOCKED;
 
@@ -636,13 +639,18 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         PILLAR = stone
                 .setHardness(1.5F)
                 .build("pillar", "pillar", blockID("PILLAR"), b -> new BlockLogicAxisAligned(b, Material.stone));
+
         PILLAR_CAPSTONE = stone
                 .setHardness(1.5F)
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
-        DOOR_DUNGEON = dungeonStoneLocked
+        DOOR_DUNGEON_GOLD = dungeonStoneLocked
                 .setLightOpacity(1)
-                .build("door.dungeon", "door_dungeon", blockID("DOOR_DUNGEON"), BlockLogicDungeonDoor::new);
+                .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), BlockLogicDungeonDoor::new);
+
+        DOOR_DUNGEON_BRONZE = dungeonStoneLocked
+                .setLightOpacity(1)
+                .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), BlockLogicDungeonDoor::new);
 
         CHEST_DUNGEON_BRONZE = stone
                 .setHardness(1.5F)
