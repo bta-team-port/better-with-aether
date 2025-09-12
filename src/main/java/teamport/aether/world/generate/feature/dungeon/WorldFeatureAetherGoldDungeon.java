@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.iterate3d;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.iterate3d;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherGoldDungeon extends WorldFeature {
