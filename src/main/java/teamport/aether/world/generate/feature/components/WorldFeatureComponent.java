@@ -8,11 +8,13 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.BlockPallet;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
@@ -538,5 +540,26 @@ public class WorldFeatureComponent {
         int length2 = Math.abs(p1.y - p2.y);
         int length3 = Math.abs(p1.z - p2.z);
         return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, true);
+    }
+
+    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
+        iterate3d(area.first, area.second, func);
+    }
+
+    public static void iterate3d(WorldFeaturePoint first, WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
+        int firstX = Math.min(first.x, second.x);
+        int secondX = Math.max(first.x, second.x);
+        int firstY = Math.min(first.y, second.y);
+        int secondY = Math.max(first.y, second.y);
+        int firstZ = Math.min(first.z, second.z);
+        int secondZ = Math.max(first.z, second.z);
+
+        for (int x = firstX; x <= secondX; x++) {
+            for (int y = firstY; y <= secondY; y++) {
+                for (int z = firstZ; z <= secondZ; z++) {
+                    func.accept(WorldFeaturePoint.wfp(x, y, z));
+                }
+            }
+        }
     }
 }
