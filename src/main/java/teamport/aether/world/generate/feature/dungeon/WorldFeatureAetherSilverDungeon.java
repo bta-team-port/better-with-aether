@@ -29,11 +29,17 @@ import java.util.List;
 import java.util.Random;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawShell;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.populateChest;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawPlane;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawLine;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
+    private Direction direction = Direction.NORTH;
     public float angle = 0;
     public WorldFeaturePoint dungeonAnker;
     public WorldFeaturePoint bossPosition;
@@ -152,6 +158,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
     public WorldFeatureAetherSilverDungeon(int direction) {
         this.angle = direction * 90;
+        this.direction = Direction.horizontalDirections[direction & 3]; // to prevent overflow
     }
 
     public static WorldFeatureAetherSilverDungeon silverDungeon(Random random) {
@@ -159,21 +166,13 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     }
 
     public void placeComponent(WorldFeatureComponent component) {
-        component.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        component.place(world);
-
+        for(WorldFeatureBlock block : component.blockList){
+            block.rotateYAroundPivot(dungeonAnker, direction);
+            block.place(world);
+        }
     }
 
-    public void modifyPoint(WorldFeaturePoint point) {
-        point.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-    }
-
-    public WorldFeaturePoint createModifiedPoint(int ix, int iy, int iz) {
-        WorldFeaturePoint pos = new WorldFeaturePoint(ix, iy, iz);
-        pos.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        return pos;
-    }
-
+    // Not sure if we want to keep this?
     public boolean canPlace(int x, int y, int z) {
         return true;
     }
@@ -183,10 +182,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.world = world;
         this.random = random;
         if (!canPlace(x, y, z)) return false;
-//        this.angle = random.nextInt(4) * 90.0F;
-        this.dungeonAnker = new WorldFeaturePoint(x, y, z);
-        this.bossPosition = this.createModifiedPoint(x - 15, y + 4, z + 42);
+        this.dungeonAnker = wfp(x, y, z);
         this.silverMaze = new WorldFeatureSilverMaze();
+        this.bossPosition = wfp(x - 15, y + 4, z + 42).rotateYAroundPivot(dungeonAnker, direction);
 
         dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         dungeon.setPosition(bossPosition);
@@ -231,8 +229,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         // create clouds
         this.placeComponent(clear);
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
-        for (WorldFeaturePoint cloudPoint : cloudPoints) {
-            this.modifyPoint(cloudPoint);
+        for (WorldFeaturePoint cloudPoint : cloudPoints) {;
+            cloudPoint.rotateYAroundPivot(dungeonAnker, direction);
             new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
@@ -266,8 +264,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
                 new WorldFeaturePoint(x + 2, y, z - 3),
                 new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.first.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        clearArea.second.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        clearArea.first.rotateYAroundPivot(dungeonAnker, direction);
+        clearArea.second.rotateYAroundPivot(dungeonAnker, direction);
         dungeon.setClearArea(clearArea);
 
         // Place boss, chest and door
@@ -285,7 +283,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 43));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 41)); //non trapdoor
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 41));
-        treasureDoor.forEach(p -> p.rotateYAroundPivot(x,y,z,angle));
+        treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x,y,z),direction));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);
     }
@@ -423,7 +421,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
             if (torches[i]) {
                 fountain.add(wfb(end.tail.x, end.tail.y + 1, end.tail.z, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
             }
-            if (water[i] == 0) continue;
+            if (water[i] == 0) {
+                continue;
+            }
             fountain.add(drawLine(Blocks.FLUID_WATER_STILL.id(), 0, directionEW, water[i], x, y, z + i, false));
         }
         this.placeComponent(fountain);
