@@ -1,16 +1,13 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.BlockPallet;
-
-import java.util.Random;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static net.minecraft.core.util.helper.Direction.UP;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class SpikerRoom extends BaseBronzeRoom {
     public static BlockPallet ROOM_PALLET = new BlockPallet();
@@ -22,13 +19,13 @@ public class SpikerRoom extends BaseBronzeRoom {
     public SpikerRoom() {
         super();
         this.height = 13;
-        addDoor(NORTH, wfpoint(4, 1, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfpoint(11, 1, 4), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfpoint(4, 1, 11), UP, 6, EAST, 4);
-        addDoor(WEST, wfpoint(0, 1, 4), UP, 6, SOUTH, 4);
+        addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
+        addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
+        addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
+        addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
 
-        addDoor(DOWN, wfpoint(5,0,5), EAST, 2, SOUTH, 2);
-        addDoor(UP, wfpoint(5,12,5), EAST, 2, SOUTH, 2);
+        addDoor(DOWN, wfp(5,0,5), EAST, 2, SOUTH, 2);
+        addDoor(UP, wfp(5,12,5), EAST, 2, SOUTH, 2);
     }
     public void makeShell(){
         room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));

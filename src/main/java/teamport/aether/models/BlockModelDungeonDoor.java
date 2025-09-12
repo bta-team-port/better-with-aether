@@ -83,7 +83,7 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
             u = 0;
             WorldFeaturePoint p = new WorldFeaturePoint(x, y, z);
             while (u < width -1) {
-                p = p.add(offsetRight);
+                p = p.moveInDirection(offsetRight).copy();
                 if (blockAccess.getBlockId(p.x, p.y, p.z) == block.id()) u++;
                 else break;
             }
