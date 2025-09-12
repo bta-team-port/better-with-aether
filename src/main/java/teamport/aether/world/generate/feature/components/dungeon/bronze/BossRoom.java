@@ -7,7 +7,6 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
-import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
@@ -16,9 +15,7 @@ import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
-import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.TUNNEL_HEIGHT;
-import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.TUNNEL_WIDTH;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class BossRoom extends BaseBronzeRoom {
     public static final BlockPallet ROOM_PALLET = new BlockPallet();
@@ -34,10 +31,10 @@ public class BossRoom extends BaseBronzeRoom {
         this.width = this.length = 16;
         this.height = 14;
         this.tolerance = 0;
-        addDoor(NORTH, wfpoint(6, 1, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfpoint(15, 1, 6), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfpoint(6, 1, 15), UP, 6, EAST, 4);
-        addDoor(WEST, wfpoint(0, 1, 6), UP, 6, SOUTH, 4);
+        addDoor(NORTH, wfp(6, 1, 0), UP, 6, EAST, 4);
+        addDoor(EAST, wfp(15, 1, 6), UP, 6, SOUTH, 4);
+        addDoor(SOUTH, wfp(6, 1, 15), UP, 6, EAST, 4);
+        addDoor(WEST, wfp(0, 1, 6), UP, 6, SOUTH, 4);
     }
 
     public void makeShell() {
@@ -53,16 +50,13 @@ public class BossRoom extends BaseBronzeRoom {
     private void placeBoss() {
         DungeonMapEntrySlider dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
-        dungeon.setClearArea(new Pair<>(
-                new WorldFeaturePoint(x, y - 2, z),
-                new WorldFeaturePoint(x + 16, y + 14, z + 16)
-        ));
+        dungeon.setClearArea(new Pair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
         WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
-        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 7));
-        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 7));
-        treasureDoor.add(new WorldFeaturePoint(x + 7, y + 1, z + 8));
-        treasureDoor.add(new WorldFeaturePoint(x + 8, y + 1, z + 8));
+        treasureDoor.add(wfp(x + 7, y + 1, z + 7));
+        treasureDoor.add(wfp(x + 8, y + 1, z + 7));
+        treasureDoor.add(wfp(x + 7, y + 1, z + 8));
+        treasureDoor.add(wfp(x + 8, y + 1, z + 8));
         dungeon.setTreasureDoor(treasureDoor);
 
         MobBossSlider boss = new MobBossSlider(world);

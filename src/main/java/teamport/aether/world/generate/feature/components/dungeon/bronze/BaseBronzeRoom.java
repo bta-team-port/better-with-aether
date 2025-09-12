@@ -60,8 +60,8 @@ public abstract class BaseBronzeRoom {
 
     public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
         WorldFeaturePoint p2 = new WorldFeaturePoint(p1.x, p1.y, p1.z);
-        p2.move(direction1.getOffsetX() * length1, direction1.getOffsetY() * length1, direction1.getOffsetZ() * length1);
-        p2.move(direction2.getOffsetX() * length2, direction2.getOffsetY() * length2, direction2.getOffsetZ() * length2);
+        p2.add(direction1.getOffsetX() * length1, direction1.getOffsetY() * length1, direction1.getOffsetZ() * length1);
+        p2.add(direction2.getOffsetX() * length2, direction2.getOffsetY() * length2, direction2.getOffsetZ() * length2);
         this.addDoor(heading, p1, p2);
     }
 
@@ -97,8 +97,8 @@ public abstract class BaseBronzeRoom {
 
     public void adjustDoorCoords() {
         for (Door door : doors) {
-            door.p1.move(x, y, z);
-            door.p2.move(x, y, z);
+            door.p1.add(x, y, z);
+            door.p2.add(x, y, z);
         }
     }
 

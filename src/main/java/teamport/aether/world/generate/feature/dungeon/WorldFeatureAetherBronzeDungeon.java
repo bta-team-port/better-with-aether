@@ -30,7 +30,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static final int ROOM_COUNT_MAX = 200;
@@ -230,7 +230,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
-        seenRooms.put(wfpoint(x, y, z), boss);
+        seenRooms.put(wfp(x, y, z), boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
         roomCount++;

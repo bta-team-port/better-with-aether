@@ -165,12 +165,12 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     }
 
     public void modifyPoint(WorldFeaturePoint point) {
-        point.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        point.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
     }
 
     public WorldFeaturePoint createModifiedPoint(int ix, int iy, int iz) {
         WorldFeaturePoint pos = new WorldFeaturePoint(ix, iy, iz);
-        pos.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        pos.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         return pos;
     }
 
@@ -266,8 +266,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
                 new WorldFeaturePoint(x + 2, y, z - 3),
                 new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.first.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
-        clearArea.second.rotateFixPointYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        clearArea.first.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        clearArea.second.rotateYAroundPivot(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
         dungeon.setClearArea(clearArea);
 
         // Place boss, chest and door
@@ -285,7 +285,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 43));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 41)); //non trapdoor
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 41));
-        treasureDoor.forEach(p -> p.rotateFixPointYAxis(x,y,z,angle));
+        treasureDoor.forEach(p -> p.rotateYAroundPivot(x,y,z,angle));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);
     }

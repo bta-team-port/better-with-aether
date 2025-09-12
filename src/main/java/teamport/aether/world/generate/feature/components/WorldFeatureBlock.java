@@ -87,8 +87,8 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
     // TODO make horizontally rotating blocks also rotate
     @Override
-    public void rotateFixPointYAxis(int x, int y, int z, float angle) {
-        super.rotateFixPointYAxis(x, y, z, angle);
+    public void rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
+        super.rotateYAroundPivot(pivotX, pivotY, pivotZ, angle);
         /// For future reference, when I want to rotate the block as well.
         //BlockLogicChest
         //BlockLogicRotatable: furnace, trommle

@@ -67,7 +67,7 @@ public class WorldFeatureComponent {
 
     public void rotateYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
         for (WorldFeatureBlock block : this.blockList) {
-            block.rotateFixPointYAxis(fixPointX, fixPointY, fixPointZ, angle);
+            block.rotateYAroundPivot(fixPointX, fixPointY, fixPointZ, angle);
         }
     }
 

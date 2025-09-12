@@ -9,7 +9,7 @@ import static net.minecraft.core.util.helper.Direction.SOUTH;
 import static net.minecraft.core.util.helper.Direction.UP;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawShell;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class TallRoom extends BaseBronzeRoom{
     public static BlockPallet ROOM_PALLET = new BlockPallet();
@@ -22,15 +22,15 @@ public class TallRoom extends BaseBronzeRoom{
         super();
         this.height = 30;
         // level 1
-        addDoor(NORTH, wfpoint(4, 1, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfpoint(11, 1, 4), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfpoint(4, 1, 11), UP, 6, EAST, 4);
-        addDoor(WEST, wfpoint(0, 1, 4), UP, 6, SOUTH, 4);
+        addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
+        addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
+        addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
+        addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
         // level 2
-        addDoor(NORTH, wfpoint(4, 19, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfpoint(11, 19, 4), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfpoint(4, 19, 11), UP, 6, EAST, 4);
-        addDoor(WEST, wfpoint(0, 19, 4), UP, 6, SOUTH, 4);
+        addDoor(NORTH, wfp(4, 19, 0), UP, 6, EAST, 4);
+        addDoor(EAST, wfp(11, 19, 4), UP, 6, SOUTH, 4);
+        addDoor(SOUTH, wfp(4, 19, 11), UP, 6, EAST, 4);
+        addDoor(WEST, wfp(0, 19, 4), UP, 6, SOUTH, 4);
 
     }
     public void makeShell() {

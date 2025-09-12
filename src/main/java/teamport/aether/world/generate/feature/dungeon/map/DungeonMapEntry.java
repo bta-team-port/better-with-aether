@@ -78,8 +78,8 @@ public class DungeonMapEntry {
     }
 
     public void setClearArea(WorldFeaturePoint p1, WorldFeaturePoint p2) {
-        WorldFeaturePoint lowest = WorldFeaturePoint.wfpoint(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.min(p1.z, p2.z));
-        WorldFeaturePoint highest = WorldFeaturePoint.wfpoint(Math.max(p1.x, p2.x), Math.max(p1.y, p2.y), Math.max(p1.z, p2.z));
+        WorldFeaturePoint lowest = WorldFeaturePoint.wfp(Math.min(p1.x, p2.x), Math.min(p1.y, p2.y), Math.min(p1.z, p2.z));
+        WorldFeaturePoint highest = WorldFeaturePoint.wfp(Math.max(p1.x, p2.x), Math.max(p1.y, p2.y), Math.max(p1.z, p2.z));
         this.clearArea = pair(lowest, highest);
     }
 
