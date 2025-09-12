@@ -1,6 +1,7 @@
 package teamport.aether.entity.monster.cockatrice;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
@@ -110,7 +111,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     public int getAmbientSoundInterval() {
-        return 240;
+        return 12 * Global.TICKS_PER_SECOND;
     }
 
     public String getLivingSound() {
