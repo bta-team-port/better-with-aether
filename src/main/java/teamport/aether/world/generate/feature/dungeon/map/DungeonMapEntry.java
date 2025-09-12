@@ -117,15 +117,15 @@ public class DungeonMapEntry {
             treasureDoor = list;
         }
 
-        CompoundTag entranceDoorNBT = data.getCompound("blocksDestroyOnDeath");
+        CompoundTag entranceDoorNBT = data.getCompound("blocksDungeonEntrance");
         if (entranceDoorNBT != null) {
-            List<WorldFeaturePoint> list = new ArrayList<>();
+            List<WorldFeatureBlock> list = new ArrayList<>();
             for (int i = 0; i < entranceDoorNBT.getInteger("length"); i++) {
                 CompoundTag blockNBT = entranceDoorNBT.getCompound(String.valueOf(i));
                 list.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
             }
 
-            treasureDoor = list;
+            entranceDoor = list;
         }
 
     }
@@ -157,6 +157,7 @@ public class DungeonMapEntry {
             for (WorldFeatureBlock block : entranceDoor) {
                 blockList.put(String.valueOf(idx++), block.toCompoundTag());
             }
+
             blockList.put("length", new IntTag(idx));
             data.put("blocksDungeonEntrance", blockList);
         }
