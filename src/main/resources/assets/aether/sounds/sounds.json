@@ -157,40 +157,40 @@
       "zap.ogg"
     ]
   },
-  "aether.tune": {
+  "aether_tune": {
     "sounds": [
       {
-        "name": "record/aether.tune.ogg",
+        "name": "record/aether_tune.ogg",
         "volume": 0.2,
         "attenuation_distance": 64,
         "stream": true
       }
     ]
   },
-  "a.morning.wish": {
+  "a_morning_wish": {
     "sounds": [
       {
-        "name": "record/a.morning.wish.ogg",
+        "name": "record/a_morning_wish.ogg",
         "volume": 0.5,
         "attenuation_distance": 64,
         "stream": true
       }
     ]
   },
-  "ascending.dawn": {
+  "ascending_dawn": {
     "sounds": [
       {
-        "name": "record/ascending.dawn.ogg",
+        "name": "record/ascending_dawn.ogg",
         "volume": 0.3,
         "attenuation_distance": 64,
         "stream": true
       }
     ]
   },
-  "nether.menu": {
+  "nether_menu": {
     "sounds": [
       {
-        "name": "record/menunether.ogg",
+        "name": "record/menu_nether.ogg",
         "volume": 0.2,
         "attenuation_distance": 64,
         "stream": true
@@ -227,42 +227,74 @@
       "trigger.ogg"
     ]
   },
-  "aether:music.aether": {
+  "aether:music.a_light_in_the_night": {
     "sounds": [
       {
-        "name": "music/aether1.ogg",
+        "name": "music/a_light_in_the_night.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.approaches": {
+    "sounds": [
       {
-        "name": "music/aether2.ogg",
+        "name": "music/approaches.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.brise": {
+    "sounds": [
       {
-        "name": "music/aether3.ogg",
+        "name": "music/brise.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.clouds": {
+    "sounds": [
       {
-        "name": "music/aether4.ogg",
+        "name": "music/clouds.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.crepusculum": {
+    "sounds": [
       {
-        "name": "music/aether5.ogg",
+        "name": "music/crepusculum.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.meadow": {
+    "sounds": [
       {
-        "name": "music/aether6.ogg",
+        "name": "music/meadow.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.moas_song": {
+    "sounds": [
       {
-        "name": "music/aether7.ogg",
+        "name": "music/moas_song.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.welcome_to_paradise": {
+    "sounds": [
       {
-        "name": "music/aether8.ogg",
+        "name": "music/welcome_to_paradise.ogg",
         "stream": true
-      },
+      }
+    ]
+  },
+  "aether:music.wings": {
+    "sounds": [
       {
-        "name": "music/aether9.ogg",
+        "name": "music/wings.ogg",
         "stream": true
       }
     ]

@@ -268,16 +268,16 @@ public final class AetherItems {
 
 
         RECORD_AETHER = new ItemBuilder(MOD_ID)
-                .build(new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether.tune", "Noisestorm"));
+                .build(new ItemDiscMusic("record.aether", itemKey("record_aether"), itemID("RECORD_AETHER"), "aether:aether_tune", "Noisestorm"));
 
         RECORD_MORNING = new ItemBuilder(MOD_ID)
-                .build(new ItemDiscMusic("record.morning", itemKey("record_morning"), itemID("RECORD_MORNING"), "aether:a.morning.wish", "Emile van Kriken"));
+                .build(new ItemDiscMusic("record.morning", itemKey("record_morning"), itemID("RECORD_MORNING"), "aether:a_morning_wish", "Emile van Kriken"));
 
         RECORD_DAWN = new ItemBuilder(MOD_ID)
-                .build(new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending.dawn", "Emile van Kriken"));
+                .build(new ItemDiscMusic("record.dawn", itemKey("record_dawn"), itemID("RECORD_DAWN"), "aether:ascending_dawn", "Emile van Kriken"));
 
         RECORD_NETHER = new ItemBuilder(MOD_ID)
-                .build(new ItemDiscMusic("record.nether", itemKey("record_nether"), itemID("RECORD_NETHER"), "aether:nether.menu", "Emile van Kriken"));
+                .build(new ItemDiscMusic("record.nether", itemKey("record_nether"), itemID("RECORD_NETHER"), "aether:nether_menu", "Emile van Kriken"));
 
 
         AMBER = new ItemBuilder(MOD_ID)
