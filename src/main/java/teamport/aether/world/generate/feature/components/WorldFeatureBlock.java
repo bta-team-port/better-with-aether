@@ -87,7 +87,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
     // TODO make horizontally rotating blocks also rotate
     @Override
-    public void rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
+    public WorldFeatureBlock rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
         super.rotateYAroundPivot(pivotX, pivotY, pivotZ, angle);
         /// For future reference, when I want to rotate the block as well.
         //BlockLogicChest
@@ -105,6 +105,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         //BlockLogicTrapDoor
         //BlockLogicDoor
         //BlockLogicSign
+        return this;
     }
 
     @Override

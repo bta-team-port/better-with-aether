@@ -6,16 +6,17 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.phys.Vec3;
-import teamport.aether.helper.Pair;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class WorldFeaturePoint {
     public int x;
     public int y;
     public int z;
+
+    public WorldFeaturePoint() {
+        this.x = this.y = this.z = 0;
+    }
 
     public WorldFeaturePoint(int x, int y, int z) {
         this.x = x;
@@ -23,7 +24,13 @@ public class WorldFeaturePoint {
         this.z = z;
     }
 
-    public static WorldFeaturePoint wfpoint(int x, int y, int z) {
+    public WorldFeaturePoint(int length) {
+        this.x = length;
+        this.y = length;
+        this.z = length;
+    }
+
+    public static WorldFeaturePoint wfp(int x, int y, int z) {
         return new WorldFeaturePoint(x, y, z);
     }
 
@@ -31,68 +38,28 @@ public class WorldFeaturePoint {
         return new WorldFeaturePoint((int) e.x, (int) e.y, (int) e.z);
     }
 
-    @Override
-    public String toString(){
-        return String.format("wfp[x:%d y:%d z:%d]",x,y,z);
+    public void set(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     @Override
-    public int hashCode(){
-        return Objects.hash(x,y,z);
+    public String toString() {
+        return String.format("(x:%d y:%d z:%d)", x, y, z);
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o == null) return false;
-        if(!(o instanceof WorldFeaturePoint)) return false;
+    public int hashCode() {
+        return Objects.hash(x, y, z);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof WorldFeaturePoint)) return false;
         WorldFeaturePoint mem = (WorldFeaturePoint) o;
         return mem.x == this.x && mem.y == this.y && mem.z == this.z;
-    }
-
-    public WorldFeaturePoint copy(){
-        return new WorldFeaturePoint(this.x, this.y, this.z);
-    }
-
-    public void move(int length, int height, int width) {
-        this.x += length;
-        this.y += height;
-        this.z += width;
-    }
-
-    public float distanceTo(WorldFeaturePoint cord) {
-        return distanceTo(cord.x, cord.y, cord.z);
-    }
-
-    public float distanceTo(int x, int y, int z) {
-        return (float) Math.sqrt(
-                Math.pow(Math.abs(((float) this.x - x)), 2) +
-                        Math.pow(Math.abs(((float) this.y - y)), 2) +
-                        Math.pow(Math.abs(((float) this.z - z)), 2)
-        );
-    }
-
-    public void rotateFixPointYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
-        Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
-        vec.rotateAroundY(MathHelper.toRadians(angle));
-        this.x = (int) Math.round(vec.x + fixPointX);
-        this.y = (int) Math.round(vec.y + fixPointY);
-        this.z = (int) Math.round(vec.z + fixPointZ);
-    }
-
-    public void rotateFixPointXAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
-        Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
-        vec.rotateAroundX(MathHelper.toRadians(angle));
-        this.x = (int) Math.round(vec.x + fixPointX);
-        this.y = (int) Math.round(vec.y + fixPointY);
-        this.z = (int) Math.round(vec.z + fixPointZ);
-    }
-
-    public void rotateFixPointZAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
-        Vec3 vec = Vec3.getPermanentVec3(this.x - fixPointX, this.y - fixPointY, this.z - fixPointZ);
-        vec.rotateAroundZ(MathHelper.toRadians(angle));
-        this.x = (int) Math.round(vec.x + fixPointX);
-        this.y = (int) Math.round(vec.y + fixPointY);
-        this.z = (int) Math.round(vec.z + fixPointZ);
     }
 
     public CompoundTag toCompoundTag() {
@@ -100,7 +67,6 @@ public class WorldFeaturePoint {
         result.put("x", new IntTag(x));
         result.put("y", new IntTag(y));
         result.put("z", new IntTag(z));
-
         return result;
     }
 
@@ -112,38 +78,233 @@ public class WorldFeaturePoint {
         );
     }
 
-    public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
-        iterate3d(area.first, area.second, func);
+    public void writeFromNBT(CompoundTag tag) {
+        tag.putInt("x", this.x);
+        tag.putInt("y", this.y);
+        tag.putInt("z", this.z);
     }
 
-    public static void iterate3d(WorldFeaturePoint first, WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
-        int firstX  = Math.min(first.x, second.x);
-        int secondX = Math.max(first.x, second.x);
-        int firstY  = Math.min(first.y, second.y);
-        int secondY = Math.max(first.y, second.y);
-        int firstZ  = Math.min(first.z, second.z);
-        int secondZ = Math.max(first.z, second.z);
+    public void readFromNBT(CompoundTag tag) {
+        this.x = tag.getInteger("x");
+        this.y = tag.getInteger("y");
+        this.z = tag.getInteger("z");
+    }
 
-        for (int x = firstX; x <= secondX; x++) {
-            for (int y = firstY; y <= secondY; y++) {
-                for (int z = firstZ; z <= secondZ; z++) {
-                    func.accept(wfpoint(x, y, z));
-                }
+    public WorldFeaturePoint copy() {
+        return new WorldFeaturePoint(this.x, this.y, this.z);
+    }
+
+    public WorldFeaturePoint add(int x, int y, int z) {
+        this.x += x;
+        this.y += y;
+        this.z += z;
+        return this;
+    }
+
+    public WorldFeaturePoint add(WorldFeaturePoint point) {
+        this.x += point.x;
+        this.y += point.y;
+        this.z += point.z;
+        return this;
+    }
+
+    public WorldFeaturePoint subtract(int x, int y, int z) {
+        this.x -= x;
+        this.y -= y;
+        this.z -= z;
+        return this;
+    }
+
+    public WorldFeaturePoint subtract(WorldFeaturePoint point) {
+        this.x -= point.x;
+        this.y -= point.y;
+        this.z -= point.z;
+        return this;
+    }
+
+    public WorldFeaturePoint multiply(int scala) {
+        this.x *= scala;
+        this.y *= scala;
+        this.z *= scala;
+        return this;
+    }
+
+    public WorldFeaturePoint divide(int scala) {
+        this.x /= scala;
+        this.y /= scala;
+        this.z /= scala;
+        return this;
+    }
+
+    public WorldFeaturePoint moveInDirection(Direction direction) {
+        Side side = direction.getSide();
+        this.x += side.getOffsetX();
+        this.y += side.getOffsetY();
+        this.z += side.getOffsetZ();
+        return this;
+    }
+
+    public double distanceTo(WorldFeaturePoint point) {
+        double dx = (double) this.x - point.x;
+        double dy = (double) this.y - point.y;
+        double dz = (double) this.z - point.z;
+        return MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+    public double distanceTo(int x, int y, int z) {
+        double dx = (double) this.x - x;
+        double dy = (double) this.y - y;
+        double dz = (double) this.z - z;
+        return MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+    public WorldFeaturePoint rotateY(float radian) {
+        float cos = MathHelper.cos(radian);
+        float sin = MathHelper.sin(radian);
+        int x = (int) Math.round((double) this.x * (double) cos - (double) this.z * (double) sin);
+        int z = (int) Math.round((double) this.x * (double) sin + (double) this.z * (double) cos);
+        this.x = x;
+        this.z = z;
+        return this;
+    }
+
+    public WorldFeaturePoint rotateY(Direction direction) {
+        switch (direction) {
+            case EAST: {
+                this.set(this.z, this.y, this.x);
+                break;
+            }
+            case SOUTH: {
+                this.set(-this.x, this.y, -this.z);
+                break;
+            }
+            case WEST: {
+                this.set(-this.z, this.y, this.x);
+                break;
+            }
+            case NORTH:
+            default: {
+                break;
             }
         }
+        return this;
     }
 
-
-    public WorldFeaturePoint add(Side side) {
-        WorldFeaturePoint result = this.copy();
-        result.x += side.getOffsetX();
-        result.y += side.getOffsetY();
-        result.z += side.getOffsetZ();
-
-        return result;
+    public WorldFeaturePoint rotateX(float radian) {
+        float cos = MathHelper.cos(radian);
+        float sin = MathHelper.sin(radian);
+        int y = (int) Math.round((double) this.y * (double) cos - (double) this.z * (double) sin);
+        int z = (int) Math.round((double) this.y * (double) sin + (double) this.z * (double) cos);
+        this.y = y;
+        this.z = z;
+        return this;
     }
 
-    public WorldFeaturePoint add(Direction direction) {
-        return this.add(direction.getSide());
+    public WorldFeaturePoint rotateX(Direction direction) {
+        switch (direction) {
+            case UP: {
+                this.set(this.x, this.z, this.y);
+                break;
+            }
+            case SOUTH: {
+                this.set(this.x, -this.y, -this.z);
+                break;
+            }
+            case DOWN: {
+                this.set(this.x, this.z, -this.y);
+                break;
+            }
+            case NORTH:
+            default: {
+                break;
+            }
+        }
+        return this;
     }
+
+    public WorldFeaturePoint rotateZ(float radian) {
+        float cos = MathHelper.cos(radian);
+        float sin = MathHelper.sin(radian);
+        int x = (int) Math.round((double) this.x * (double) cos - (double) this.y * (double) sin);
+        int y = (int) Math.round((double) this.x * (double) sin + (double) this.y * (double) cos);
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public WorldFeaturePoint rotateZ(Direction direction) {
+        switch (direction) {
+            case UP: {
+                this.set(this.y, this.x, this.z);
+                break;
+            }
+            case WEST: {
+                this.set(-this.x, -this.y, this.z);
+                break;
+            }
+            case DOWN: {
+                this.set(this.y, -this.x, this.z);
+                break;
+            }
+            case EAST:
+            default: {
+                break;
+            }
+        }
+        return this;
+    }
+
+    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
+        return this.subtract(pivotPoint).rotateY(MathHelper.toRadians(angle)).add(pivotPoint);
+    }
+
+    public WorldFeaturePoint rotateXAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
+        return this.subtract(pivotPoint).rotateX(MathHelper.toRadians(angle)).add(pivotPoint);
+    }
+
+    public WorldFeaturePoint rotateZAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
+        return this.subtract(pivotPoint).rotateZ(MathHelper.toRadians(angle)).add(pivotPoint);
+    }
+
+    public WorldFeaturePoint rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
+        return this.subtract(pivotX, pivotY, pivotZ).rotateY(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
+    }
+
+    public WorldFeaturePoint rotateXAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
+        return this.subtract(pivotX, pivotY, pivotZ).rotateX(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
+    }
+
+    public WorldFeaturePoint rotateZAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
+        return this.subtract(pivotX, pivotY, pivotZ).rotateZ(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
+    }
+
+    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
+        switch (direction) {
+            case EAST: {
+                this.subtract(pivotPoint);
+                this.set(this.z, this.y, this.x);
+                this.add(pivotPoint);
+                break;
+            }
+            case SOUTH: {
+                this.subtract(pivotPoint);
+                this.set(-this.x, this.y, -this.z);
+                this.add(pivotPoint);
+                break;
+            }
+            case WEST: {
+                this.subtract(pivotPoint);
+                this.set(-this.z, this.y, this.x);
+                this.add(pivotPoint);
+                break;
+            }
+            case NORTH:
+            default: {
+                break;
+            }
+        }
+        return this;
+    }
+
 }
