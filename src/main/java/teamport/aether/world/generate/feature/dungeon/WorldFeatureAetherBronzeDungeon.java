@@ -36,7 +36,7 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public int ROOM_COUNT_MAX = 100;
+    public int ROOM_COUNT_MAX = 40;
     public static final int TUNNEL_HEIGHT = 8;
     public static final int TUNNEL_WIDTH = 6;
     // remove once the new dungeon generation works flawlessly
@@ -229,8 +229,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         treasureRooms.addEntry(TallRoom::new, 5F);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
-        trapRooms.addEntry(ThunderRoom::new, 1);
         trapRooms.addEntry(SpikerRoom::new, 1);
+//        trapRooms.addEntry(ThunderRoom::new, 1);
 //        trapRooms.addEntry(SentryRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
@@ -252,6 +252,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
+        int bossRoomCount = 1;
         seenRooms.put(wfp(x, y, z), boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
@@ -270,6 +271,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
             Door door = bagDoors.getRandom(random);
             BaseBronzeRoom room = manager.getRoom(random).get();
+
+            if(room instanceof BossRoom){
+                bossRoomCount++;
+            }
+
+            if((float) bossRoomCount / roomCount > 0.65F){
+                room = new TreasureRoom();
+            }
 
             WorldFeaturePoint nextDoor = new WorldFeaturePoint(
                     door.p1.x + door.heading.getOffsetX() * TUNNEL_WIDTH,
@@ -290,6 +299,10 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     currentRoom.markDoor(door);
                     currentRoom = room;
                     room.markDoor(room.getDoor(nextDoor));
+                    if(anker.y - 5 >= world.getHeightValue(anker.x, anker.z)){
+                        room.markAllDoor();
+                        currentRoom = null;
+                    }
                     break;
                 }
             }

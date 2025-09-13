@@ -148,6 +148,7 @@ public abstract class BaseBronzeRoom {
                 || blockMaterial == Material.dirt
                 || blockMaterial == Material.marble
                 || blockMaterial == Material.moss
+                || blockMaterial == Material.cloth
                 || blockMaterial.isStone()
                 || blockMaterial.isLiquid();
     }
@@ -190,6 +191,10 @@ public abstract class BaseBronzeRoom {
     public void markDoor(Door door) {
         if(door == null) return;
         door.mark = true;
+    }
+
+    public void markAllDoor() {
+        doors.forEach(d -> d.mark = true);
     }
 
     public List<WorldFeaturePoint> getAnkers(WorldFeaturePoint doorPoint, Direction heading) {
