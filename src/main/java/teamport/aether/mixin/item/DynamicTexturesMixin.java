@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.TextureManager;

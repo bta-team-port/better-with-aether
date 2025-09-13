@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.player;
 
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.input.PlayerInput;
