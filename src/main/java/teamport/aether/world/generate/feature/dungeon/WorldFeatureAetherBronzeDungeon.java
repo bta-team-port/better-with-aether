@@ -1,5 +1,6 @@
 package teamport.aether.world.generate.feature.dungeon;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -9,7 +10,9 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
@@ -196,12 +199,15 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
         public Supplier<? extends BaseBronzeRoom> getRoom(Random random) {
             Object obj = bag.getRandom(random);
+
             while (obj instanceof WeightedRandomBag) {
                 obj = ((WeightedRandomBag<?>) obj).getRandom(random);
             }
+
             if (!(obj instanceof Supplier)) {
                 throw new IllegalStateException("Entry is not of type Supplier: " + obj);
             }
+
             Object result = ((Supplier<?>) obj).get();
             if (result instanceof BaseBronzeRoom) {
                 return (Supplier<? extends BaseBronzeRoom>) obj;
@@ -213,10 +219,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public static RoomManager manager = new RoomManager();
 
     static {
+        FabricLoader.getInstance()
+                .getEntrypointContainers("aether", AetherPlugin.class)
+                .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
+
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms = new WeightedRandomBag<>();
-        treasureRooms.addEntry(TreasureRoom::new, 47.25F);
-        treasureRooms.addEntry(IceRoom::new, 47.25F);
-        treasureRooms.addEntry(TallRoom::new, 5.0F);
+        treasureRooms.addEntry(TreasureRoom::new, 50F);
+        treasureRooms.addEntry(IceRoom::new, 25F);
+        treasureRooms.addEntry(TallRoom::new, 5F);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(ThunderRoom::new, 1);
