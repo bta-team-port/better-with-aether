@@ -20,6 +20,8 @@ import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
+import java.util.Optional;
+
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
@@ -99,8 +101,10 @@ public class MobBossValkyrie extends MobBoss {
         super.updateAI();
         ++this.teleportTimer;
 
-        if (this.duel && this.attacked) {
-            this.target = world.getClosestPlayerToEntity(this, 16);
+        this.target = findPlayerToAttack();
+        if (this.target == null && world.getClosestPlayerToEntity(this, 64) == null) {
+            runWithDungeon(d -> d.unlock(this, world));
+            returnToHome();
         }
 
         if (this.duel && this.target != null) {
@@ -174,7 +178,13 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public Entity findPlayerToAttack() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.duel && this.target != null ? super.getTarget() : null;
+        if (!(duel && attacked)) return null;
+
+        return world.players.stream()
+            .filter(p -> p.gamemode.areMobsHostile())
+            .filter(p -> p.distanceTo(this) < 32)
+            .min((p1, p2) -> Float.compare(p1.distanceTo(this), p2.distanceTo(this)))
+            .orElse(null);
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -277,7 +287,6 @@ public class MobBossValkyrie extends MobBoss {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putBoolean("duel", this.duel);
-        tag.putBoolean("attacked", this.attacked);
     }
 
     @Override
@@ -285,7 +294,6 @@ public class MobBossValkyrie extends MobBoss {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
         this.duel = tag.getBoolean("duel");
-        this.attacked = tag.getBoolean("attacked");
     }
 
     public boolean canFight() {
@@ -319,13 +327,12 @@ public class MobBossValkyrie extends MobBoss {
 
         if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
-            this.attacked = true;
             this.chatTime = 40;
-        } else {
-            this.teleportTimer += 40;
-        }
+        } else { this.teleportTimer += 40; }
 
         this.target = attacker;
+        this.attacked = true;
+        runWithDungeon(d -> d.lock(this, world));
         return super.hurt(attacker, i, type);
     }
 
