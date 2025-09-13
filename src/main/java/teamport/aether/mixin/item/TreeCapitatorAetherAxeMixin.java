@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
