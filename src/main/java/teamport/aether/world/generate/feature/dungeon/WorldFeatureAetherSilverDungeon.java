@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
@@ -29,11 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawShell;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.populateChest;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawPlane;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawLine;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherSilverDungeon extends WorldFeature {
@@ -253,7 +250,19 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.placeComponent(drawShell(random, angelic, Direction.NORTH, 26, Direction.UP, 16, Direction.EAST, 22, ix + 4, y, iz - 5, false));
 
         // Entrance hole into boss room
-        this.placeComponent(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 21, y + 1, z + 25, true));
+        WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
+        this.placeComponent(drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true));
+
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+        iterate3d(
+                wfp(x - 21, y + 1, z + 25),
+                wfp(x - 21 - 1, y + 1 + 2, z + 25),
+                w -> entranceDoor.add(wfb(w, AetherBlocks.DOOR_DUNGEON_SILVER.id(), entranceDoorMeta, true))
+        );
+
+        entranceDoor.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        dungeon.setEntranceDoor(entranceDoor.blockList);
+
 
         /// Throne room
         this.placeComponent(drawPlane(random, angelic, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
