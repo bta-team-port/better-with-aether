@@ -2,11 +2,11 @@ package teamport.aether.world.generate.feature.components;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.Pair;
 
 import java.util.Objects;
@@ -25,6 +25,10 @@ public class WorldFeaturePoint {
 
     public static WorldFeaturePoint wfpoint(int x, int y, int z) {
         return new WorldFeaturePoint(x, y, z);
+    }
+
+    public static WorldFeaturePoint wfpoint(Entity e) {
+        return new WorldFeaturePoint((int) e.x, (int) e.y, (int) e.z);
     }
 
     @Override
