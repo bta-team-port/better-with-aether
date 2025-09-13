@@ -132,6 +132,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> CHEST_DUNGEON_BRONZE;
     public static Block<?> CHEST_DUNGEON_BRONZE_LOCKED;
 
+    public static Block<?> DOOR_DUNGEON_SILVER;
     public static Block<?> CHEST_DUNGEON_SILVER;
     public static Block<?> CHEST_DUNGEON_SILVER_LOCKED;
 
@@ -646,10 +647,17 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DOOR_DUNGEON_GOLD = dungeonStoneLocked
                 .setLightOpacity(1)
+                .setUseInternalLight()
                 .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), BlockLogicDungeonDoor::new);
+
+        DOOR_DUNGEON_SILVER = dungeonStoneLocked
+                .setLightOpacity(1)
+                .setUseInternalLight()
+                .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), BlockLogicDungeonDoor::new);
 
         DOOR_DUNGEON_BRONZE = dungeonStoneLocked
                 .setLightOpacity(1)
+                .setUseInternalLight()
                 .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), BlockLogicDungeonDoor::new);
 
         CHEST_DUNGEON_BRONZE = stone
@@ -684,14 +692,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_STONE_LOCKED = dungeonStoneLocked
                 .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE)).withDisabledStats();
         CARVED_STONE_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(10)
+                .setLuminance(7)
                 .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE_LIGHT)).withDisabledStats();
 
 
         CARVED_ANGELIC_LOCKED = dungeonStoneLocked
                 .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC)).withDisabledStats();
         CARVED_ANGELIC_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(10)
+                .setLuminance(7)
                 .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC_LIGHT)).withDisabledStats();
 
 
@@ -699,7 +707,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE)).withDisabledStats();
 
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
-                .setLuminance(13)
+                .setLuminance(7)
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone

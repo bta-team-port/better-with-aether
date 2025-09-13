@@ -188,6 +188,16 @@ tile.aether.chest.dungeon.gold.desc=A chest filled with mysterious loot.
 tile.aether.chest.dungeon.gold.locked.name=Locked Gold Treasure Chest
 tile.aether.chest.dungeon.gold.locked.desc=A locked chest filled with mysterious loot.
 
+#Doors
+tile.aether.door.dungeon.bronze.name=Bronze Dungeon Door
+tile.aether.door.dungeon.bronze.desc=The entrance to the boss of the bronze dungeon.
+
+tile.aether.door.dungeon.silver.name=Silver Dungeon Door
+tile.aether.door.dungeon.silver.desc=The entrance to the boss of the silver dungeon.
+
+tile.aether.door.dungeon.gold.name=Gold Dungeon Door
+tile.aether.door.dungeon.gold.desc=The entrance to the boss of the gold dungeon.
+
 #Misc
 tile.aether.glass.quicksoil.name=Quicksoil Glass
 tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.

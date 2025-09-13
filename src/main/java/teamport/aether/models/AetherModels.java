@@ -158,6 +158,12 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/front_overbright", Side.NORTH)
         );
 
+        dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_SILVER, 2, 3)
+                .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/back", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/front", Side.NORTH)
+                .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/front_overbright", Side.NORTH)
+        );
+
         dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/front", Side.NORTH)
@@ -202,7 +208,6 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot"));
 
 
-
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
                 .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_top", Side.TOP, Side.BOTTOM));
@@ -210,8 +215,8 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_side", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_top", Side.TOP, Side.BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT,"aether:block/leaves/skyroot", false));
-        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_OAK_GOLDEN,"aether:block/leaves/oak_golden", false));
+        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot", false));
+        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", false));
 
         dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/skyroot"));
@@ -381,7 +386,6 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/incubator/active_top", Side.TOP)
                 .setTex(BLOCK_TEXTURES, "aether:block/incubator/bottom", Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-
 
 
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_COBBLE_HOLYSTONE));
@@ -628,12 +632,10 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
 
 
-
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
         ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
         ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
-
 
 
     }
