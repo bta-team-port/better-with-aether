@@ -8,6 +8,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.AetherMathHelper;
+import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -15,8 +16,8 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.*;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.*;
 
 public abstract class BaseBronzeRoom {
@@ -48,6 +49,13 @@ public abstract class BaseBronzeRoom {
     public WorldFeatureComponent decoration;
     public WorldFeatureComponent chest;
     public List<Door> doors;
+
+    public static BlockPallet ROOM_PALLET = new BlockPallet();
+    static {
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
+    }
 
     public BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
@@ -105,19 +113,25 @@ public abstract class BaseBronzeRoom {
     public abstract void makeRoom();
 
     public void placeRoom() {
-        for (WorldFeatureBlock wfblock : this.room.blockList) {
+        Map<WorldFeaturePoint, WorldFeatureBlock> blockMap = new HashMap<>();
+        for (WorldFeatureBlock block : room.blockList) {
+            WorldFeaturePoint point = new WorldFeaturePoint(block.x, block.y, block.z);
+            blockMap.put(point, block);
+        }
+        decoration.add(chest);
+        for(WorldFeatureBlock block : decoration.blockList){
+            WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.x, block.y, block.z), key -> block);
+            otherBlock.blockID = block.blockID;
+            otherBlock.metadata = block.metadata;
+            otherBlock.withNotify = block.withNotify;
+        }
+        for(WorldFeatureBlock wfblock : blockMap.values()){
             if (this.roomCanReplace(wfblock)) {
                 wfblock.place(world);
             }
         }
         for (WorldFeatureBlock wfblock : this.chest.blockList) {
-            wfblock.place(world);
             populateChest(world, random, wfblock, BaseBronzeRoom::generateLoot);
-        }
-        for (WorldFeatureBlock wfblock : this.decoration.blockList) {
-            if (this.decorationCanReplace(wfblock)) {
-                wfblock.place(world);
-            }
         }
     }
 
