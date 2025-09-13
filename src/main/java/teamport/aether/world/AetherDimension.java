@@ -51,6 +51,7 @@ public class AetherDimension {
 
     public static Biome AETHER_PLAINS;
     public static WorldType AETHER_DEFAULT;
+    public static WorldType AETHER_EXTENDED; // For in the future if we want to add a OG aether terrain vs extended
     public static Dimension AETHER;
     public static boolean hasInit = false;
 

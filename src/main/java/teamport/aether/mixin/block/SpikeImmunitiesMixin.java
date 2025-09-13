@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.block;
 
 import net.minecraft.core.block.BlockLogicSpikes;
 import net.minecraft.core.entity.Entity;
@@ -17,8 +17,8 @@ public class SpikeImmunitiesMixin {
         if (!(entity instanceof AetherImmuneMob)) {
             return;
         }
-        AetherImmuneMob immu = (AetherImmuneMob) entity;
-        if(immu.canTakeDamageFromSpikes()){
+        AetherImmuneMob immune = (AetherImmuneMob) entity;
+        if(immune.canTakeDamageFromSpikes()){
             return;
         }
         ci.cancel();
