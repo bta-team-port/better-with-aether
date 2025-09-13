@@ -4,7 +4,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "item.TreeCapitatorAetherAxeMixin",
+    "SpikeImmunitiesMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -70,13 +70,13 @@
     "item.ItemToolShovelMixin",
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
+    "item.TreeCapitatorAetherAxeMixin",
     "item.lifeshard.PlayerMixinExtraHealth",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerLocalHandleAetherRideableMixin"
   ],
   "client": [
-    "item.DynamicTexturesMixin",
     "accessors.HudComponentAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
@@ -108,6 +108,7 @@
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",
     "gui.screens.UNWarnMixin",
+    "item.DynamicTexturesMixin",
     "item.PlayerControllerValkToolsReachMixin",
     "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
