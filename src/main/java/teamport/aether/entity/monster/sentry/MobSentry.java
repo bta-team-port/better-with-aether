@@ -156,4 +156,9 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
         return false;
     }
 
+    @Override
+    public boolean canTakeDamageFromCactus(){
+        return false;
+    }
+
 }
