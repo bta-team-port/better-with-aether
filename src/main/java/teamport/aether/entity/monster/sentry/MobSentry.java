@@ -10,12 +10,13 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.AetherImmuneMob;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
-public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherImmuneMob {
     public int jumpDelay;
     public int cooldownInactive;
     public boolean activated;
@@ -136,7 +137,8 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
 
     public boolean canSpawnHere() {
-        return this.world.getDifficulty().canHostileMobsSpawn() && super.canSpawnHere();
+//        return this.world.getDifficulty().canHostileMobsSpawn() && super.canSpawnHere();
+        return this.world.getDifficulty().canHostileMobsSpawn();
     }
 
     @Override
@@ -147,6 +149,11 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+    }
+
+    @Override
+    public boolean canTakeDamageFromSpikes(){
+        return false;
     }
 
 }
