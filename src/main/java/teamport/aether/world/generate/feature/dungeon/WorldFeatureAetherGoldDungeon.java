@@ -112,9 +112,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 200.0);
     }
 
-    public WorldFeatureAetherGoldDungeon(int direction) {
-        this.angle = direction * 90;
-        this.direction = Direction.horizontalDirections[direction];
+    public WorldFeatureAetherGoldDungeon(int dir) {
+        this.angle = 360 - dir * 90;
+        this.direction = Direction.horizontalDirections[dir];
     }
 
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
