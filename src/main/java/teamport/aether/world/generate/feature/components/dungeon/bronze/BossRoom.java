@@ -29,12 +29,10 @@ public class BossRoom extends BaseBronzeRoom {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10);
     }
 
-    public final DungeonMapEntrySlider dungeon;
+    DungeonMapEntrySlider dungeon;
 
     public BossRoom() {
         super();
-        dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
-
         this.width = this.length = 16;
         this.height = 14;
         this.tolerance = 0;
@@ -55,6 +53,8 @@ public class BossRoom extends BaseBronzeRoom {
     }
 
     private void placeBoss() {
+        dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
+
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         dungeon.setClearArea(new Pair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
         WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
@@ -105,6 +105,5 @@ p -> entranceDoor.add(wfb(p, AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, true))
         );
 
         dungeon.setEntranceDoor(entranceDoor.blockList);
-
     }
 }

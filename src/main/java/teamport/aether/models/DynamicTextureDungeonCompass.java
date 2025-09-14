@@ -10,6 +10,11 @@ import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.awt.image.BufferedImage;
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.Optional;
+
+import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
 public class DynamicTextureDungeonCompass extends DynamicTexture {
     public Minecraft mc;
@@ -51,27 +56,22 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         }
 
         PlayerLocal player = mc.thePlayer;
+        Optional<WorldFeaturePoint> closestCoord = AetherDimension.dungeonMap.values().stream()
+            .filter(Objects::nonNull)
+            .map(DungeonMapEntry::getPosition)
+            .filter(Objects::nonNull) // :^)
+            .min(Comparator.comparingDouble(p -> p.distanceTo(wfpoint(player))));
 
-        WorldFeaturePoint closestCoord = null;
-        for (DungeonMapEntry dungeon : AetherDimension.dungeonMap.values()) {
-            WorldFeaturePoint coord = dungeon.getPosition();
-            if (closestCoord == null) {
-                closestCoord = coord;
-                continue;
-            }
-
-            if (player.distanceTo(coord.x, coord.y, coord.z) < player.distanceTo(closestCoord.x, closestCoord.y, closestCoord.z)) {
-                closestCoord = coord;
+        if (closestCoord.isPresent()) {
+            WorldFeaturePoint coord = closestCoord.get();
+            if (player.distanceTo(coord.x, player.y, coord.z) > 16) {
+                double distX = (double)coord.x - player.x;
+                double distZ = (double)coord.z - player.z;
+                return (double)(player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
             }
         }
 
-        if (closestCoord == null || player.distanceTo(closestCoord.x, player.y, closestCoord.z) < 16) {
-            return Math.random() * Math.PI * 2.0;
-        }
-
-        double var23 = (double)closestCoord.x - this.mc.thePlayer.x;
-        double var25 = (double)closestCoord.z - this.mc.thePlayer.z;
-        return (double)(this.mc.thePlayer.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(var25, var23);
+        return Math.random() * Math.PI * 2.0;
     }
 
     public void update() {
