@@ -95,12 +95,15 @@ public abstract class BaseBronzeRoom {
         if (this.y <= 11) {
             return false;
         }
+
         WorldFeatureComponent check = drawVolume(0, 0, SOUTH, width, UP, height, EAST, length, x, y, z, true);
+
         int countAir = 0;
         for (WorldFeaturePoint point : check.blockList) {
             int id = world.getBlockId(point.x, point.y, point.z);
             if (id == 0) countAir++;
         }
+
         return check.blockList.size() * tolerance >= countAir;
     }
 
