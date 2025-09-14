@@ -181,4 +181,11 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         func.accept(dungeon);
         return true;
     }
+
+    public void returnToOriginalState() {
+        this.target = null;
+        returnToHome();
+        runWithDungeon(d-> d.unlock(this, world));
+        this.setHealthRaw(this.getMaxHealth());
+    }
 }

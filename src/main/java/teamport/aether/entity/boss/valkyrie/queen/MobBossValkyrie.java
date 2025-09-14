@@ -14,25 +14,24 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
-import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
-
-import java.util.Optional;
 
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public class MobBossValkyrie extends MobBoss {
     public boolean isSwinging;
-    public boolean duel;
+    public boolean isReadyToDuel;
+    public boolean isAgro;
+
     public int teleportTimer;
     public int chatTime;
     public float sinage;
     public int attackStrength;
-    public boolean attacked;
 
 
     public MobBossValkyrie(@Nullable World world) {
@@ -102,12 +101,12 @@ public class MobBossValkyrie extends MobBoss {
         ++this.teleportTimer;
 
         this.target = findPlayerToAttack();
-        if (this.target == null && world.getClosestPlayerToEntity(this, 64) == null) {
-            runWithDungeon(d -> d.unlock(this, world));
-            returnToHome();
+        if (this.target == null && world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
+            isAgro = false;
+            returnToOriginalState();
         }
 
-        if (this.duel && this.target != null) {
+        if (this.isReadyToDuel && this.target != null) {
             if (this.teleportTimer >= 125) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 8);
                 this.remainingFireTicks = 0;
@@ -126,7 +125,7 @@ public class MobBossValkyrie extends MobBoss {
 
         if (this.target != null && !this.target.isAlive()) {
             this.target = null;
-            this.duel = false;
+            this.isReadyToDuel = false;
         }
 
         if (this.chatTime > 0) {
@@ -135,7 +134,7 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public boolean interact(@NotNull Player entityplayer) {
-        if (this.chatTime > 0 || (this.duel && this.target == entityplayer)) {
+        if (this.chatTime > 0 || (this.isReadyToDuel && this.target == entityplayer)) {
             return false;
         }
 
@@ -149,7 +148,7 @@ public class MobBossValkyrie extends MobBoss {
             return true;
         }
 
-        if (this.duel) {
+        if (this.isReadyToDuel) {
             entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
             this.chatTime = 40;
             return true;
@@ -162,7 +161,7 @@ public class MobBossValkyrie extends MobBoss {
                 entityplayer.destroyCurrentEquippedItem();
             }
             entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
-            this.duel = true;
+            this.isReadyToDuel = true;
         } else {
             entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
         }
@@ -178,7 +177,7 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public Entity findPlayerToAttack() {
-        if (!(duel && attacked)) return null;
+        if (!(isReadyToDuel && isAgro)) return null;
 
         return world.players.stream()
             .filter(p -> p.gamemode.areMobsHostile())
@@ -279,60 +278,67 @@ public class MobBossValkyrie extends MobBoss {
         int i = MathHelper.floor(this.x);
         int j = MathHelper.floor(this.bb.minY);
         int k = MathHelper.floor(this.z);
-        return this.world.getFullBlockLightValue(i, j, k) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
+
+        return this.world.getFullBlockLightValue(i, j, k) > 8
+            && this.world.getIsAnySolidGround(this.bb)
+            && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty()
+            && !this.world.getIsAnyLiquid(this.bb);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
-        tag.putBoolean("duel", this.duel);
+        tag.putBoolean("isReadyToDuel", this.isReadyToDuel);
+        tag.putBoolean("isAgro", this.isAgro);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
-        this.duel = tag.getBoolean("duel");
+        this.isReadyToDuel = tag.getBoolean("isReadyToDuel");
+        this.isAgro = tag.getBoolean("isAgro");
     }
 
-    public boolean canFight() {
-        return isAlive() && duel;
-    }
+    public boolean canFight() { return isAlive() && isReadyToDuel; }
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
-        if (!this.duel) {
-            return false;
-        }
+        assert this.world != null;
 
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && attacker instanceof Player && !duel) {
+        if (!this.isReadyToDuel && attacker instanceof Player) {
             if (this.chatTime <= 0) {
-                ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
-                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
+                if (!world.getDifficulty().canHostileMobsSpawn()) {
+                    ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
+                }
+                else {
+                    String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
+                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
+                    ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
+                }
+
                 this.chatTime = 40;
             }
             return false;
         }
 
-        if (!this.duel && attacker instanceof Player) {
-            if (this.chatTime <= 0) {
-                String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
-                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
-                ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
-                this.chatTime = 40;
-            }
-            return false;
-        }
+        if (!this.isReadyToDuel) return false;
 
         if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             this.chatTime = 40;
-        } else { this.teleportTimer += 40; }
+        }
 
-        this.target = attacker;
-        this.attacked = true;
-        runWithDungeon(d -> d.lock(this, world));
+        else this.teleportTimer += 40;
+
+        if (!isAgro) {
+            this.target = attacker;
+            this.isAgro = true;
+            runWithDungeon(d -> d.lock(this, world));
+        }
+
         return super.hurt(attacker, i, type);
     }
 
@@ -368,7 +374,7 @@ public class MobBossValkyrie extends MobBoss {
                     this.chatTime = 40;
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.heal(400);
-                    this.duel = false;
+                    this.isReadyToDuel = false;
                 }
             }
         }
