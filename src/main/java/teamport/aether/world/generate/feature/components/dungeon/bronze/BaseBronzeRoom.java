@@ -6,6 +6,7 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.world.generate.feature.BlockPallet;
@@ -188,7 +189,7 @@ public abstract class BaseBronzeRoom {
     }
 
     // not sure if I need this
-    public void markDoor(Door door) {
+    public void markDoor(@Nullable Door door) {
         if(door == null) return;
         door.mark = true;
     }

@@ -20,6 +20,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicDungeonDoor;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.AetherBossList;
@@ -236,6 +237,7 @@ public class MobBossSlider extends MobBoss {
                 .noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)
         ) {
             this.currentState = State.ASLEEP;
+            runWithDungeon(d->d.unlock(this, world));
             returnToHome();
             return;
         }
@@ -388,7 +390,12 @@ public class MobBossSlider extends MobBoss {
             return false;
         }
 
-        if (!(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked) && !(block.getMaterial() instanceof MaterialLiquid)) {
+        if (   !(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked)
+            && !(block.getLogic() instanceof BlockLogicDungeonDoor)
+            && !(block.getMaterial() instanceof MaterialLiquid)
+            && !(block.getHardness() < 0 || block.getHardness() >= 10)
+            && !(block.getBlastResistance(this) < 0 || block.getBlastResistance(this) >= 10)
+        ) {
             block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y, z), world.getTileEntity(x, y, z), null);
             world.setBlockWithNotify(x, y, z, 0);
             return true;
@@ -577,6 +584,7 @@ public class MobBossSlider extends MobBoss {
     public void tryAwake() {
         if (currentState == State.ASLEEP) {
             this.currentState = State.AWAKE;
+            runWithDungeon(d->d.lock(this, world));
             world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
         }
     }

@@ -1,5 +1,6 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
+import net.minecraft.core.block.BlockLogicRotatable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.Pair;
@@ -7,6 +8,7 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
@@ -26,15 +29,19 @@ public class BossRoom extends BaseBronzeRoom {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10);
     }
 
+    public final DungeonMapEntrySlider dungeon;
+
     public BossRoom() {
         super();
+        dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
+
         this.width = this.length = 16;
         this.height = 14;
         this.tolerance = 0;
-        addDoor(NORTH, wfp(6, 1, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfp(15, 1, 6), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfp(6, 1, 15), UP, 6, EAST, 4);
-        addDoor(WEST, wfp(0, 1, 6), UP, 6, SOUTH, 4);
+        addDoor(NORTH, wfp(6, 1, 0), UP, 4, EAST, 4);
+        addDoor(EAST, wfp(15, 1, 6), UP, 4, SOUTH, 4);
+        addDoor(SOUTH, wfp(6, 1, 15), UP, 4, EAST, 4);
+        addDoor(WEST, wfp(0, 1, 6), UP, 4, SOUTH, 4);
     }
 
     public void makeShell() {
@@ -48,7 +55,6 @@ public class BossRoom extends BaseBronzeRoom {
     }
 
     private void placeBoss() {
-        DungeonMapEntrySlider dungeon = AetherDimension.dungeonMap.register(DungeonMapEntrySlider.class);
         dungeon.setPosition(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         dungeon.setClearArea(new Pair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
         WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
@@ -82,8 +88,23 @@ public class BossRoom extends BaseBronzeRoom {
 
     @Override
     public void markDoor(Door door) {
-        for(Door d : doors){
-           super.markDoor(d);
-        }
+        for(Door d : doors) {super.markDoor(d);}
+        if (door == null) return;
+
+        WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
+        int meta = BlockLogicRotatable.setDirection(0, door.heading);
+
+        WorldFeaturePoint doorPoint2Fixed = door.p2
+                .copy()
+                .add(0, -1, 0)
+                .moveInDirection(door.heading.rotate(-1))
+                .moveInDirection(door.heading);
+
+        iterate3d(door.p1, doorPoint2Fixed,
+p -> entranceDoor.add(wfb(p, AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, true))
+        );
+
+        dungeon.setEntranceDoor(entranceDoor.blockList);
+
     }
 }
