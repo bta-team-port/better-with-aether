@@ -17,12 +17,10 @@ import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
-import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.world.AetherDimension;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -56,6 +54,14 @@ public class MobBossSunspirit extends MobBossFlying {
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
     }
 
+    public void returnToOriginalState() {
+        this.isAgro = false;
+        this.target = null;
+        returnToHome();
+        runWithDungeon(d-> d.unlock(this, world));
+        this.setHealthRaw(this.getMaxHealth());
+    }
+
     public void updateAI() {
         super.updateAI();
 
@@ -67,11 +73,9 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.lookAt(this.target, 20.0F, 20.0F);
                 this.attackEntity(this.target, 32);
             }
-            else if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRange) == null) {
-                returnToHome();
-                runWithDungeon(d -> d.unlock(this, world));
-                this.target = null;
-                this.isAgro = false;
+
+            else if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
+                returnToOriginalState();
             }
         }
     }
@@ -176,7 +180,7 @@ public class MobBossSunspirit extends MobBossFlying {
         for (int i = 0; i < 8; ++i) {
             int b = (int) (this.yo - 2 + i);
             if (this.world.getBlockMaterial(x, b, z) == Material.water) {
-                this.world.setBlock(x, b, z, 0);
+                this.world.setBlockWithNotify(x, b, z, 0);
                 this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, (float) x + 0.5F, (float) b + 0.5F, (float) z + 0.5F, "random.fizz", 0.25F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
 
                 for (int l = 0; l < 8; ++l) {

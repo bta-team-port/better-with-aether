@@ -40,8 +40,10 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     public Random random;
     protected DungeonMapEntry dungeon;
     public static final int RADIUS = 16;
-    public float angle = 0;
-    public Direction direction = Direction.NORTH;
+
+    public final float angle;
+    public final Direction direction;
+
     private static final List<Integer> stones = Arrays.asList(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), AetherBlocks.COBBLE_HOLYSTONE.id());
     private List<WorldFeaturePoint> heightMap;
 

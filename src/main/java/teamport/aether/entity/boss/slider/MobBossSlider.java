@@ -232,14 +232,9 @@ public class MobBossSlider extends MobBoss {
     public void stateAwake() {
         assert world != null;
 
-        if (world.players
-                .stream()
-                .noneMatch(entityPlayer -> distanceToSqr(entityPlayer) < AetherDimension.bossDetectionRangeSQR)
-        ) {
+        if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
             this.currentState = State.ASLEEP;
-            runWithDungeon(d->d.unlock(this, world));
-            returnToHome();
-            return;
+            returnToOriginalState();
         }
 
         if (target == null || world.rand.nextInt(10) == 0) {
@@ -637,6 +632,7 @@ public class MobBossSlider extends MobBoss {
             currentState = State.valueOf(tag.getString("state"));
         } catch (IllegalArgumentException e) {
             currentState = State.ASLEEP;
+            returnToOriginalState();
         }
 
         attackCoolDown = tag.getInteger("attackCoolDown");
