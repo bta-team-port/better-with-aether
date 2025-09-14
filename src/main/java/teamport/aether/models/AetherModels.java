@@ -154,18 +154,21 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_GOLD, 3, 3)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/back", Side.sides)
+                .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/front", Side.NORTH)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/front_overbright", Side.NORTH)
         );
 
         dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_SILVER, 2, 3)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/back", Side.sides)
+                .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/front", Side.NORTH)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/front_overbright", Side.NORTH)
         );
 
         dispatcher.addDispatch(new BlockModelDungeonDoor((Block<BlockLogicDungeonDoor>) AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
+                .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/front", Side.NORTH)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/front_overbright", Side.NORTH)
         );
