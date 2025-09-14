@@ -94,13 +94,7 @@ public class BossRoom extends BaseBronzeRoom {
         WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
 
-        WorldFeaturePoint doorPoint2Fixed = door.p2
-                .copy()
-                .add(0, -1, 0)
-                .moveInDirection(door.heading.rotate(-1))
-                .moveInDirection(door.heading);
-
-        iterate3d(door.p1, doorPoint2Fixed,
+        iterate3d(door.p1, door.p2,
 p -> entranceDoor.add(wfb(p, AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, true))
         );
 

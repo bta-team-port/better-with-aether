@@ -9,6 +9,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.BlockLogicDungeonDoor;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.blocks.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static teamport.aether.helper.Pair.pair;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.iterate3d;
 
 public class DungeonMapEntry {
     protected int id;
@@ -184,28 +186,23 @@ public class DungeonMapEntry {
         }
 
         if (clearArea != null) {
-            WorldFeaturePoint p1 = clearArea.first;
-            WorldFeaturePoint p2 = clearArea.second;
+            iterate3d(clearArea, p -> {
+                Block<?> block = world.getBlock(p.x, p.y, p.z);
+                if (block == null) return;
 
-            for (int x = p1.x; x < p2.x; x++) {
-                for (int y = p1.y; y < p2.y; y++) {
-                    for (int z = p1.z; z < p2.z; z++) {
-                        Block<?> block = world.getBlock(x, y, z);
-                        if (block == null) {
-                            continue;
-                        }
-                        BlockLogic logic = block.getLogic();
-                        if (logic instanceof BlockLogicLocked) {
-                            world.setBlockWithNotify(x, y, z, ((BlockLogicLocked) logic).replacement.id());
-                            continue;
-                        }
-                        if (logic instanceof BlockLogicTrapped) {
-                            world.setBlockWithNotify(x, y, z, ((BlockLogicTrapped) logic).replaceOnClear.id());
-                            continue;
-                        }
-                    }
+                BlockLogic logic = block.getLogic();
+                if (logic instanceof BlockLogicLocked) {
+                    world.setBlockWithNotify(p.x, p.y, p.z, ((BlockLogicLocked) logic).replacement.id());
                 }
-            }
+
+                else if (logic instanceof BlockLogicTrapped) {
+                    world.setBlockWithNotify(p.x, p.y, p.z, ((BlockLogicTrapped) logic).replaceOnClear.id());
+                }
+
+                else if (logic instanceof BlockLogicDungeonDoor) {
+                    world.setBlockWithNotify(p.x, p.y, p.z, 0);
+                }
+            });
         }
     }
 }
