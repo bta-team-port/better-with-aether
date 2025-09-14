@@ -262,21 +262,23 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             if (currentRoom == null) {
                 currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
             }
+
             List<Door> listDoor = currentRoom.getAvailableDoors();
             if (listDoor.isEmpty()) {
                 avaibleRooms.remove(currentRoom);
                 currentRoom = null;
                 continue;
             }
+
             WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
             Door door = bagDoors.getRandom(random);
             BaseBronzeRoom room = manager.getRoom(random).get();
 
-            if(room instanceof BossRoom){
+            if (room instanceof BossRoom){
                 bossRoomCount++;
             }
 
-            if((float) bossRoomCount / roomCount > 0.65F){
+            if ((float) bossRoomCount / roomCount > 0.65F){
                 room = new TreasureRoom();
             }
 
@@ -288,26 +290,29 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
             List<WorldFeaturePoint> listAnker = room.getAnkers(nextDoor, door.heading);
             for (WorldFeaturePoint anker : listAnker) {
-                if (this.interseptRoom(anker)) {
-                    break;
-                } else if (room.place(world, random, anker.x, anker.y, anker.z)) {
+                if (this.interseptRoom(anker)) break;
+                else if (room.place(world, random, anker.x, anker.y, anker.z)) {
                     seenRooms.put(anker, room);
                     avaibleRooms.add(room);
                     hallway.add(drawVolume(0, 0, nextDoor.moveInDirection(door.heading), door.p2.moveInDirection(door.heading.getOpposite())));
-//                    hallway.add(wfb(nextDoor.x, nextDoor.y, nextDoor.z, Blocks.BLOCK_DIAMOND.id(), 0));
+//                  hallway.add(wfb(nextDoor.x, nextDoor.y, nextDoor.z, Blocks.BLOCK_DIAMOND.id(), 0));
                     roomCount++;
                     currentRoom.markDoor(door);
                     currentRoom = room;
                     room.markDoor(room.getDoor(nextDoor));
+
                     if(anker.y - 5 >= world.getHeightValue(anker.x, anker.z)){
                         room.markAllDoor();
                         currentRoom = null;
                     }
+
                     break;
                 }
             }
-            currentRoom.markDoor(door);
+
+            if (currentRoom != null) currentRoom.markDoor(door);
         }
+
         hallway.place(world);
         return true;
     }
