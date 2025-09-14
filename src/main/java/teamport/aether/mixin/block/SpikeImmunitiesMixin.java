@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.block;
 
 import net.minecraft.core.block.BlockLogicSpikes;
 import net.minecraft.core.entity.Entity;
@@ -13,12 +13,12 @@ import teamport.aether.AetherImmuneMob;
 public class SpikeImmunitiesMixin {
 
     @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogicSpikes;isSpikesUp(I)Z"), cancellable = true)
-    public void monsterImmuneToSpikes(World world, int x, int y, int z, Entity entity, CallbackInfo ci){
+    public void monsterImmuneToSpikes(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
         if (!(entity instanceof AetherImmuneMob)) {
             return;
         }
-        AetherImmuneMob immu = (AetherImmuneMob) entity;
-        if(immu.canTakeDamageFromSpikes()){
+        AetherImmuneMob immune = (AetherImmuneMob) entity;
+        if (immune.canTakeDamageFromSpikes()) {
             return;
         }
         ci.cancel();

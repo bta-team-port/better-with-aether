@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.block;
 
 import net.minecraft.core.block.BlockLogicCactus;
 import net.minecraft.core.entity.Entity;
@@ -10,15 +10,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherImmuneMob;
 
 @Mixin(value = BlockLogicCactus.class, remap = false)
-public class CactusSpikeImmunitesMixin {
+public class CactusSpikeImmunitiesMixin {
 
     @Inject(method = "onEntityCollidedWithBlock", at = @At("HEAD"), cancellable = true)
-    public void monsterImmuneToSpikes(World world, int x, int y, int z, Entity entity, CallbackInfo ci){
+    public void monsterImmuneToSpikes(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
         if (!(entity instanceof AetherImmuneMob)) {
             return;
         }
-        AetherImmuneMob immu = (AetherImmuneMob) entity;
-        if(immu.canTakeDamageFromCactus()){
+        AetherImmuneMob immune = (AetherImmuneMob) entity;
+        if (immune.canTakeDamageFromCactus()) {
             return;
         }
         ci.cancel();

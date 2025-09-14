@@ -4,7 +4,6 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "CactusSpikeImmunitesMixin",
     "SpikeImmunitiesMixin",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
@@ -54,6 +53,8 @@
     "block.BlockLogicMossMixin",
     "block.BlockLogicPathDirtMixin",
     "block.BlockLogicPistonBaseSteelMixin",
+    "block.CactusSpikeImmunitiesMixin",
+    "block.SpikeImmunitiesMixin",
     "dimension.SaveHandlerMixin",
     "entity.EntityMixin",
     "entity.MobPigMixin",
