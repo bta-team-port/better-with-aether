@@ -13,7 +13,7 @@ import java.util.List;
 
 import static teamport.aether.AetherMod.LOGGER;
 
-@Mixin(value = World.class, remap = false)
+@Mixin(value = World.class, remap = false, priority = 0)
 public class WorldGetCubesMixin {
 
     @Inject(method = "getCubes", at = @At("HEAD"), cancellable = true)
@@ -39,6 +39,7 @@ public class WorldGetCubesMixin {
             entity.zo = 0;
 
             cir.setReturnValue(new ArrayList<>());
+            cir.cancel();
         }
     }
 }
