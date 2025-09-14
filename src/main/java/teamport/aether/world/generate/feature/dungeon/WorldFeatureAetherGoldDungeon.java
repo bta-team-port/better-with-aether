@@ -255,8 +255,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
 
         iterate3d(
-            wfp(x +1,    y +2 +RADIUS/2,    z -1 -RADIUS/2),
-            wfp(x +1 -2, y +2 +2 +RADIUS/2, z -1 -RADIUS/2),
+            wfp(x +2,y +2 +RADIUS/2, z -RADIUS/2),
+            wfp(x -1,y +5 +RADIUS/2, z -1 -RADIUS/2),
             w -> entranceDoor.add(wfb(w, AetherBlocks.DOOR_DUNGEON_GOLD.id(), entranceDoorMeta, true))
         );
 

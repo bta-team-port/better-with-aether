@@ -554,9 +554,9 @@ public class WorldFeatureComponent {
         int firstZ = Math.min(first.z, second.z);
         int secondZ = Math.max(first.z, second.z);
 
-        for (int x = firstX; x <= secondX; x++) {
-            for (int y = firstY; y <= secondY; y++) {
-                for (int z = firstZ; z <= secondZ; z++) {
+        for (int x = firstX; x < secondX; x++) {
+            for (int y = firstY; y < secondY; y++) {
+                for (int z = firstZ; z < secondZ; z++) {
                     func.accept(WorldFeaturePoint.wfp(x, y, z));
                 }
             }
