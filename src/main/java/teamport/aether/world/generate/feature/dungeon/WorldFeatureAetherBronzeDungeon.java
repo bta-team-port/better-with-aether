@@ -184,7 +184,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             boolean managedToplace = false;
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (seenRooms.stream().anyMatch(room -> room.intersect(anchor))) {
-                    currentRoom.markDoor(door);
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
