@@ -2,17 +2,20 @@ package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicFluid;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.HashMap;
 import java.util.Random;
 
 public class BlockLogicIceStone extends BlockLogic {
+
     public BlockLogicIceStone(Block<?> block) {
         super(block, Material.stone);
     }
@@ -69,15 +72,23 @@ public class BlockLogicIceStone extends BlockLogic {
     }
 
     public void freezeBlock(Boolean onPlace, World world, int x, int y, int z) {
+        Integer result;
+
         int block = world.getBlockId(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
 
-        if (!onPlace) {
-            Integer result = freezeResultNatural.get(block);
-            if (result != null) world.setBlockWithNotify(x, y, z, result);
-            return;
-        }
+        // jank.
+        if ((block == Blocks.FLUID_WATER_STILL.id()
+            || block == Blocks.FLUID_LAVA_STILL.id()
+            || block == Blocks.FLUID_WATER_FLOWING.id()
+            || block == Blocks.FLUID_LAVA_FLOWING.id()
+            ) && meta != 0) return;
 
-        Integer result = freezeResultOnPlace.get(block);
+        BlockLogicFluid.getWaterVolume(meta);
+
+        if (onPlace) result = freezeResultOnPlace.get(block);
+        else result = freezeResultNatural.get(block);
+
         if (result != null) world.setBlockWithNotify(x, y, z, result);
     }
 
