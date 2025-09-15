@@ -1,6 +1,7 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.ItemStack;
@@ -8,12 +9,14 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static net.minecraft.core.util.helper.Direction.*;
@@ -152,6 +155,12 @@ public abstract class BaseBronzeRoom {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
+        if(block != null && block.getLogic() instanceof BlockLogicLocked){
+            return false;
+        }
+        if(blockMaterial == Material.water || blockMaterial == Material.lava){
+            return false;
+        }
         if (blockID == AetherBlocks.CHEST_MIMIC.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
             world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
             return true;
@@ -162,8 +171,7 @@ public abstract class BaseBronzeRoom {
                 || blockMaterial == Material.marble
                 || blockMaterial == Material.moss
                 || blockMaterial == Material.cloth
-                || blockMaterial.isStone()
-                || blockMaterial.isLiquid();
+                || blockMaterial.isStone();
     }
 
     public static List<ItemStack> generateLoot(Random random) {
@@ -186,10 +194,6 @@ public abstract class BaseBronzeRoom {
         return loot;
     }
 
-    public boolean decorationCanReplace(WorldFeatureBlock block) {
-        return true;
-    }
-
     public List<Door> getAvailableDoors() {
         List<Door> freeDoors = new ArrayList<>();
         for (Door door : doors) {
@@ -200,14 +204,9 @@ public abstract class BaseBronzeRoom {
         return freeDoors;
     }
 
-    // not sure if I need this
     public void markDoor(@Nullable Door door) {
         if(door == null) return;
         door.mark = true;
-    }
-
-    public void markAllDoor() {
-        doors.forEach(d -> d.mark = true);
     }
 
     public List<WorldFeaturePoint> getAchors(WorldFeaturePoint doorPoint, Direction heading) {
@@ -238,10 +237,4 @@ public abstract class BaseBronzeRoom {
                 && point.y >= this.y && point.y < this.y + height
                 && point.z >= this.z && point.z < this.z + width;
     }
-
-    // TODO implement this
-    public boolean canConnect(Door door) {
-        return false;
-    }
-
 }
