@@ -31,7 +31,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public World world;
     public Random random;
 
-    public BaseBronzeRoom currentRoom;
+//    public BaseBronzeRoom currentRoom;
     Map<WorldFeaturePoint, BaseBronzeRoom> seenRooms;
     List<BaseBronzeRoom> avaibleRooms;
 
@@ -202,7 +202,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.seenRooms = new HashMap<>();
         this.avaibleRooms = new ArrayList<>();
         this.hallway = new WorldFeatureComponent();
-        this.currentRoom = null;
+//        this.currentRoom = null;
         BaseBronzeRoom boss = new BossRoom();
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
@@ -232,8 +232,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 //                if ((float) bossRoomCount / roomCount > 0.65F){
 //                    room = treasureRooms.getRandom(random).get();
 //                }
-//            }
-
+//
             WorldFeaturePoint nextDoor = new WorldFeaturePoint(
                     door.p1.x + door.heading.getOffsetX() * TUNNEL_WIDTH,
                     door.p1.y + door.heading.getOffsetY() * TUNNEL_WIDTH,
@@ -247,17 +246,17 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     break;
                 }
                 else if (room.place(world, random, anker.x, anker.y, anker.z)) {
-                    seenRooms.put(anker, room);
-                    avaibleRooms.add(room);
                     WorldFeaturePoint topCorner, bottomCorner;
                     if(seenRooms.size() == 1){
                         topCorner = room.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
                         bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
                     }else{
                         topCorner = room.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
-                        bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());;
+                        bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
                     drawVolume(0, 0, topCorner, bottomCorner).place(world);
+                    seenRooms.put(anker, room);
+                    avaibleRooms.add(room);
 //                  hallway.add(wfb(nextDoor.x, nextDoor.y, nextDoor.z, Blocks.BLOCK_DIAMOND.id(), 0));
                     currentRoom.markDoor(door);
                     room.markDoor(room.getDoor(nextDoor));
