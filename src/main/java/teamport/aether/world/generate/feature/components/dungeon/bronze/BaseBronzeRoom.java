@@ -67,7 +67,7 @@ public abstract class BaseBronzeRoom {
     public WorldFeatureComponent decoration;
     public WorldFeatureComponent chest;
     public List<Door> doors;
-    public int roomCount = 1;
+    public float roomCount = 1;
 
     public static BlockPallet ROOM_PALLET = new BlockPallet();
     static {

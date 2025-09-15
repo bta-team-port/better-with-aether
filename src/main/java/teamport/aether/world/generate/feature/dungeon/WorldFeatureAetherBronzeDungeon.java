@@ -144,12 +144,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
-        int roomCount = boss.roomCount;
+        float roomCount = boss.roomCount;
         int bossRoomCount = 1;
         seenRooms.add(boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
-        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= roomCount) {
+        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX > roomCount) {
             if (currentRoom == null) {
                 currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
             }
