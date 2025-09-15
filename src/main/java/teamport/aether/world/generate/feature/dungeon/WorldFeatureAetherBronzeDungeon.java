@@ -11,29 +11,23 @@ import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.generate.feature.BlockPallet;
-import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
-import teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom;
-import teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door;
 import teamport.aether.world.generate.feature.components.dungeon.bronze.*;
+import teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static net.minecraft.core.util.helper.Direction.DOWN;
+import static net.minecraft.core.util.helper.Direction.UP;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public int ROOM_COUNT_MAX = 10;
+    public int ROOM_COUNT_MAX = 40;
     public static final int TUNNEL_WIDTH = 6;
-    public WorldFeatureComponent hallway;
     public World world;
     public Random random;
-
-//    public BaseBronzeRoom currentRoom;
-    Map<WorldFeaturePoint, BaseBronzeRoom> seenRooms;
-    List<BaseBronzeRoom> avaibleRooms;
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
@@ -117,7 +111,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public WorldFeatureAetherBronzeDungeon() {
     }
 
-
     public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random) {
         return new WorldFeatureAetherBronzeDungeon();
     }
@@ -182,7 +175,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 .getEntrypointContainers("aether", AetherPlugin.class)
                 .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
 
-//        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms = new WeightedRandomBag<>();
         treasureRooms.addEntry(TreasureRoom::new, 50F);
         treasureRooms.addEntry(IceRoom::new, 25F);
         treasureRooms.addEntry(TallRoom::new, 5F);
@@ -192,23 +184,21 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         boss.addEntry(BossRoom::new, 1);
         manager.addBag(treasureRooms, 60);
         manager.addBag(trapRooms, 35);
-        manager.addBag(boss, 60);
+        manager.addBag(boss, 5);
     }
 
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;
-        this.seenRooms = new HashMap<>();
-        this.avaibleRooms = new ArrayList<>();
-        this.hallway = new WorldFeatureComponent();
-//        this.currentRoom = null;
+        Set<BaseBronzeRoom> seenRooms = new HashSet<>();
+        List<BaseBronzeRoom> avaibleRooms = new ArrayList<>();
         BaseBronzeRoom boss = new BossRoom();
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
         int bossRoomCount = 1;
-        seenRooms.put(wfp(x, y, z), boss);
+        seenRooms.add(boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
         while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= seenRooms.size()) {
@@ -226,38 +216,31 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
             Door door = bagDoors.getRandom(random);
             BaseBronzeRoom room = manager.getRoom(random).get();
-
-//            if (room instanceof BossRoom){
-//                bossRoomCount++;
-//                if ((float) bossRoomCount / roomCount > 0.65F){
-//                    room = treasureRooms.getRandom(random).get();
-//                }
-//
-            WorldFeaturePoint nextDoor = new WorldFeaturePoint(
-                    door.p1.x + door.heading.getOffsetX() * TUNNEL_WIDTH,
-                    door.p1.y + door.heading.getOffsetY() * TUNNEL_WIDTH,
-                    door.p1.z + door.heading.getOffsetZ() * TUNNEL_WIDTH
-            );
-
+            if (room instanceof BossRoom) {
+                bossRoomCount++;
+                if ((float) bossRoomCount / seenRooms.size() > 0.65F) {
+                    room = treasureRooms.getRandom(random).get();
+                }
+            }
+            WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
             List<WorldFeaturePoint> listAnker = room.getAnkers(nextDoor, door.heading);
             for (WorldFeaturePoint anker : listAnker) {
-                if (this.interseptRoom(anker)){
+                if (this.interseptRoom(seenRooms, anker)) {
                     currentRoom.markDoor(door);
                     break;
-                }
-                else if (room.place(world, random, anker.x, anker.y, anker.z)) {
+                } else if (room.place(world, random, anker.x, anker.y, anker.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
-                    if(seenRooms.size() == 1){
+                    // TODO remove this branch at some point to make the code more clean
+                    if (seenRooms.size() == 1) {
                         topCorner = room.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
                         bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
-                    }else{
+                    } else {
                         topCorner = room.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
                         bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
                     drawVolume(0, 0, topCorner, bottomCorner).place(world);
-                    seenRooms.put(anker, room);
+                    seenRooms.add(room);
                     avaibleRooms.add(room);
-//                  hallway.add(wfb(nextDoor.x, nextDoor.y, nextDoor.z, Blocks.BLOCK_DIAMOND.id(), 0));
                     currentRoom.markDoor(door);
                     room.markDoor(room.getDoor(nextDoor));
                     currentRoom = room;
@@ -268,9 +251,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         return true;
     }
 
-    private boolean interseptRoom(WorldFeaturePoint anker) {
-        for(BaseBronzeRoom room : seenRooms.values()){
-            if(room.intersect(anker)){
+    private boolean interseptRoom(Set<BaseBronzeRoom> seenRooms, WorldFeaturePoint anker) {
+        for (BaseBronzeRoom room : seenRooms) {
+            if (room.intersect(anker)) {
                 return true;
             }
         }
