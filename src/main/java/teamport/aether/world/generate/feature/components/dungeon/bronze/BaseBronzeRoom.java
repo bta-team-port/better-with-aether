@@ -30,7 +30,11 @@ public abstract class BaseBronzeRoom {
     public int width;
     public int length;
     public float airTolerance;
+    public float topAirTolerance;
+    public float bottomAirTolerance;
     public float liquidTolerance;
+    public float topLiquidTolerance;
+    public float bottomLiquidTolerance;
     public float roomWeight;
     protected WorldFeatureComponent room;
     protected WorldFeatureComponent decoration;
@@ -48,6 +52,8 @@ public abstract class BaseBronzeRoom {
     public BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
         this.airTolerance = this.liquidTolerance = 0.45F;
+        this.topAirTolerance = this.topLiquidTolerance = 0.35F;
+        this.bottomAirTolerance = this.bottomLiquidTolerance = 0.35F;
         this.roomWeight = 1.0F;
         this.room = new WorldFeatureComponent();
         this.chest = new WorldFeatureComponent();
@@ -168,7 +174,7 @@ public abstract class BaseBronzeRoom {
             if (blockMaterial.isLiquid()) countLiquid++;
             if (block != null && block.blockHardness < 0) return false;
         }
-        if (check.blockList.size() * airTolerance < countAir || check.blockList.size() * liquidTolerance < countLiquid) {
+        if (check.blockList.size() * topAirTolerance < countAir || check.blockList.size() * topLiquidTolerance < countLiquid) {
             return false;
         }
 
@@ -182,7 +188,7 @@ public abstract class BaseBronzeRoom {
             if (blockMaterial.isLiquid()) countLiquid++;
             if (block != null && block.blockHardness < 0) return false;
         }
-        if (check.blockList.size() * (airTolerance / 2) < countAir || check.blockList.size() * (liquidTolerance / 2) < countLiquid) {
+        if (check.blockList.size() * bottomAirTolerance < countAir || check.blockList.size() * bottomLiquidTolerance < countLiquid) {
             return false;
         }
         return true;

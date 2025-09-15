@@ -35,6 +35,7 @@ public class TallRoom extends BaseBronzeRoom {
         this.height = 30;
         this.roomWeight = 0.5F;
         this.airTolerance = this.liquidTolerance = 0.75F;
+        this.topAirTolerance = this.bottomAirTolerance = this.topLiquidTolerance = this.bottomLiquidTolerance = 1.0F;
         // level 1
         addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
         addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
