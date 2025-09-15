@@ -108,22 +108,29 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public static RoomManager manager = new RoomManager();
-    public static WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms = new WeightedRandomBag<>();
+    public static WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms;
     static {
         FabricLoader.getInstance()
                 .getEntrypointContainers("aether", AetherPlugin.class)
                 .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
 
-        treasureRooms.addEntry(TreasureRoom::new, 50F);
-        treasureRooms.addEntry(IceRoom::new, 25F);
-        treasureRooms.addEntry(HallwayRoom::new, 50F);
-        treasureRooms.addEntry(TallRoom::new, 5F);
-        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
-        trapRooms.addEntry(SpikerRoom::new, 1);
+
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
-        manager.addBag(treasureRooms, 60);
-        manager.addBag(trapRooms, 35);
+        treasureRooms = new WeightedRandomBag<>();
+        treasureRooms.addEntry(TreasureRoom::new, 2);
+        treasureRooms.addEntry(IceRoom::new, 1);
+
+        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
+        trapRooms.addEntry(SpikerRoom::new, 1);
+
+        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> hallway = new WeightedRandomBag<>();
+        hallway.addEntry(HallwayRoom::new, 50);
+        hallway.addEntry(TallRoom::new, 5);
+
+        manager.addBag(treasureRooms, 50);
+        manager.addBag(hallway, 25);
+        manager.addBag(trapRooms, 20);
         manager.addBag(boss, 5);
     }
 
