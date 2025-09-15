@@ -1,6 +1,7 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.BlockLogicRotatable;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.Pair;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
@@ -88,8 +88,11 @@ public class BossRoom extends BaseBronzeRoom {
 
     @Override
     public void markDoor(Door door) {
-        for(Door d : doors) {super.markDoor(d);}
-        if (door == null) return;
+        doors.forEach(d -> d.mark = true);
+        if (door == null){
+            AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.",x,y,z);
+            return;
+        }
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
         WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2);
         dungeon.setEntranceDoor(doorBlock.blockList);
