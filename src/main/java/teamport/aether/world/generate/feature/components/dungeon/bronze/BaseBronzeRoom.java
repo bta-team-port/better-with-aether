@@ -1,28 +1,24 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicLocked;
-import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon;
 
-import java.lang.reflect.Method;
 import java.util.*;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
-import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.*;
 
 public abstract class BaseBronzeRoom {
 
@@ -147,7 +143,7 @@ public abstract class BaseBronzeRoom {
             }
         }
         for (WorldFeatureBlock wfblock : this.chest.blockList) {
-            populateChest(world, random, wfblock, BaseBronzeRoom::generateLoot);
+            populateChest(world, random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
         }
     }
 
@@ -172,26 +168,6 @@ public abstract class BaseBronzeRoom {
                 || blockMaterial == Material.moss
                 || blockMaterial == Material.cloth
                 || blockMaterial.isStone();
-    }
-
-    public static List<ItemStack> generateLoot(Random random) {
-        List<ItemStack> loot = new ArrayList<>();
-        //min 8 max 10
-        int count = random.nextInt(3) + 8;
-        for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
-        // min 2 max 5
-        count = random.nextInt(4) + 2;
-        for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
-        // min 2 max 4
-        count = random.nextInt(3) + 2;
-        for (int i = 0; i < count; i++) loot.add(FOOD.getRandom(random).getItemStack());
-        // min 1 max 2
-        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
-        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
-        // min 0 max 2
-        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2);
-        for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
-        return loot;
     }
 
     public List<Door> getAvailableDoors() {
