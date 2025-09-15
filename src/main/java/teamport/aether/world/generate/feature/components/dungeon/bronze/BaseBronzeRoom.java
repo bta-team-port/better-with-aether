@@ -21,53 +21,22 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public abstract class BaseBronzeRoom {
-
-    public static class Door {
-        public Direction heading;
-        public WorldFeaturePoint p1;
-        public WorldFeaturePoint p2;
-        public boolean mark;
-
-        Door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2) {
-            this.heading = heading;
-            this.p1 = p1;
-            this.p2 = p2;
-            this.mark = false;
-        }
-
-        @Override
-        public String toString(){
-           return String.format("(%s, %s, %s, %s)",heading, p1, p2, mark);
-        }
-
-        @Override
-        public int hashCode(){
-           return Objects.hash(heading, p1.hashCode(), p2.hashCode(), mark);
-        }
-
-        @Override
-        public boolean equals(Object o){
-            if(o == null) return false;
-            if(!(o instanceof Door)) return false;
-            Door d = (Door) o;
-            return this.heading.equals(d.heading) && this.p1.equals(d.p1) && this.p2.equals(d.p2);
-        }
-    }
-
-    protected World world;
-    protected Random random;
+    public World world;
+    public Random random;
     public int x;
     public int y;
     public int z;
-    protected int height;
-    protected int width;
-    protected int length;
-    protected float tolerance;
-    public WorldFeatureComponent room;
-    public WorldFeatureComponent decoration;
-    public WorldFeatureComponent chest;
-    public List<Door> doors;
-    public float roomCount = 1;
+    public int height;
+    public int width;
+    public int length;
+    public float airTolerance;
+    public final float liquidTolerance;
+    public float roomWeight;
+    protected WorldFeatureComponent room;
+    protected WorldFeatureComponent decoration;
+    protected WorldFeatureComponent chest;
+    protected List<Door> doors;
+    private boolean doorCoordinatesAdjusted = false;
 
     public static BlockPallet ROOM_PALLET = new BlockPallet();
     static {
@@ -78,12 +47,69 @@ public abstract class BaseBronzeRoom {
 
     public BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
-        this.tolerance = 0.65F;
+        this.airTolerance = this.liquidTolerance = 0.65F;
+        this.roomWeight = 1.0F;
         this.room = new WorldFeatureComponent();
         this.chest = new WorldFeatureComponent();
         this.decoration = new WorldFeatureComponent();
         this.doors = new ArrayList<>();
     }
+
+    public BaseBronzeRoom setCoords(WorldFeaturePoint p){
+        this.x = p.x;
+        this.y = p.y;
+        this.z = p.z;
+        return this;
+    }
+
+    public BaseBronzeRoom setCoords(int x, int y, int z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    public BaseBronzeRoom set(World world, Random random, int x, int y, int z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.random = random;
+        this.world = world;
+        return this;
+    }
+
+    public WorldFeatureComponent getRoom(){
+        return room;
+    }
+
+    public WorldFeatureComponent getDecoration(){
+        return decoration;
+    }
+
+    public WorldFeatureComponent getChest(){
+        return chest;
+    }
+
+    public @Nullable List<Door> getAdjustedDoors(){
+        if(doorCoordinatesAdjusted) return doors;
+        return null;
+    }
+
+    public List<Door> getDoors(){
+        if(doorCoordinatesAdjusted){
+            WorldFeaturePoint point = wfp(this.x, this.y, this.z);
+            List<Door> doorList = new ArrayList<>();
+            for(Door d : doors){
+                Door copy = d.copy();
+                copy.p1.subtract(point);
+                copy.p2.subtract(point);
+                doorList.add(copy);
+            }
+            return doorList;
+        }
+        return doors;
+    }
+
 
     public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
         WorldFeaturePoint p2 = new WorldFeaturePoint(p1.x, p1.y, p1.z);
@@ -103,19 +129,10 @@ public abstract class BaseBronzeRoom {
         this.random = random;
         this.world = world;
         if (!canPlace()) return false;
-        this.adjustDoorCoords();
+        this.adjustDoorCoordinates();
         this.makeRoom();
         this.placeRoom();
         return true;
-    }
-
-    public BaseBronzeRoom set(World world, Random random, int x, int y, int z){
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.random = random;
-        this.world = world;
-        return this;
     }
 
     public boolean canPlace() {
@@ -131,14 +148,15 @@ public abstract class BaseBronzeRoom {
             if (id == 0) countAir++;
         }
 
-        return check.blockList.size() * tolerance >= countAir;
+        return check.blockList.size() * airTolerance >= countAir;
     }
 
-    public void adjustDoorCoords() {
+    public void adjustDoorCoordinates() {
         for (Door door : doors) {
             door.p1.add(x, y, z);
             door.p2.add(x, y, z);
         }
+        this.doorCoordinatesAdjusted = true;
     }
 
     public abstract void makeRoom();
@@ -231,5 +249,41 @@ public abstract class BaseBronzeRoom {
         return point.x >= this.x && point.x < this.x + length
                 && point.y >= this.y && point.y < this.y + height
                 && point.z >= this.z && point.z < this.z + width;
+    }
+
+    public static class Door {
+        public Direction heading;
+        public WorldFeaturePoint p1;
+        public WorldFeaturePoint p2;
+        public boolean mark;
+
+        Door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2) {
+            this.heading = heading;
+            this.p1 = p1;
+            this.p2 = p2;
+            this.mark = false;
+        }
+
+        @Override
+        public String toString(){
+            return String.format("(%s, %s, %s, %s)",heading, p1, p2, mark);
+        }
+
+        @Override
+        public int hashCode(){
+            return Objects.hash(heading, p1.hashCode(), p2.hashCode(), mark);
+        }
+
+        @Override
+        public boolean equals(Object o){
+            if(o == null) return false;
+            if(!(o instanceof Door)) return false;
+            Door d = (Door) o;
+            return this.heading.equals(d.heading) && this.p1.equals(d.p1) && this.p2.equals(d.p2);
+        }
+
+        public Door copy(){
+            return new Door(this.heading, this.p1.copy(), this.p2.copy());
+        }
     }
 }
