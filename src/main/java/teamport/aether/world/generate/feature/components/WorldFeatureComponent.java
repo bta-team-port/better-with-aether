@@ -522,24 +522,24 @@ public class WorldFeatureComponent {
         return cylinder;
     }
 
-    public static WorldFeatureComponent drawVolume(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2) {
+    public static WorldFeatureComponent drawVolume(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
         int minX = Math.min(p1.x, p2.x);
         int minY = Math.min(p1.y, p2.y);
         int minZ = Math.min(p1.z, p2.z);
         int length1 = Math.abs(p1.x - p2.x);
         int length2 = Math.abs(p1.y - p2.y);
         int length3 = Math.abs(p1.z - p2.z);
-        return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, true);
+        return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
-    public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2) {
+    public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
         int minX = Math.min(p1.x, p2.x);
         int minY = Math.min(p1.y, p2.y);
         int minZ = Math.min(p1.z, p2.z);
         int length1 = Math.abs(p1.x - p2.x);
         int length2 = Math.abs(p1.y - p2.y);
         int length3 = Math.abs(p1.z - p2.z);
-        return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, true);
+        return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
     public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {

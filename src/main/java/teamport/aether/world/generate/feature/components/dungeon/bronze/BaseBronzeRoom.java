@@ -34,6 +34,24 @@ public abstract class BaseBronzeRoom {
             this.p2 = p2;
             this.mark = false;
         }
+
+        @Override
+        public String toString(){
+           return String.format("(%s, %s, %s, %s)",heading, p1, p2, mark);
+        }
+
+        @Override
+        public int hashCode(){
+           return Objects.hash(heading, p1.hashCode(), p2.hashCode(), mark);
+        }
+
+        @Override
+        public boolean equals(Object o){
+            if(o == null) return false;
+            if(!(o instanceof Door)) return false;
+            Door d = (Door) o;
+            return this.heading.equals(d.heading) && this.p1.equals(d.p1) && this.p2.equals(d.p2);
+        }
     }
 
     protected World world;
