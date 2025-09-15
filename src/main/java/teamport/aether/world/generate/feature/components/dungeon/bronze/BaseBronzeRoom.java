@@ -210,7 +210,7 @@ public abstract class BaseBronzeRoom {
         doors.forEach(d -> d.mark = true);
     }
 
-    public List<WorldFeaturePoint> getAnkers(WorldFeaturePoint doorPoint, Direction heading) {
+    public List<WorldFeaturePoint> getAchors(WorldFeaturePoint doorPoint, Direction heading) {
         List<WorldFeaturePoint> list = new ArrayList<>();
         for (Door door : doors) {
             if (door.heading == heading.getOpposite()) {

@@ -107,6 +107,24 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 10);
     }
 
+    public static RoomManager manager = new RoomManager();
+    public static WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms = new WeightedRandomBag<>();
+    static {
+        FabricLoader.getInstance()
+                .getEntrypointContainers("aether", AetherPlugin.class)
+                .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
+
+        treasureRooms.addEntry(TreasureRoom::new, 50F);
+        treasureRooms.addEntry(IceRoom::new, 25F);
+        treasureRooms.addEntry(TallRoom::new, 5F);
+        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
+        trapRooms.addEntry(SpikerRoom::new, 1);
+        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
+        boss.addEntry(BossRoom::new, 1);
+        manager.addBag(treasureRooms, 60);
+        manager.addBag(trapRooms, 35);
+        manager.addBag(boss, 5);
+    }
 
     public WorldFeatureAetherBronzeDungeon() {
     }
@@ -115,27 +133,81 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         return new WorldFeatureAetherBronzeDungeon();
     }
 
-    public static List<ItemStack> generateLoot(Random random) {
-        List<ItemStack> loot = new ArrayList<>();
-        //min 8 max 10
-        int count = random.nextInt(3) + 8;
-        for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
-        // min 2 max 5
-        count = random.nextInt(4) + 2;
-        for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
-        // min 2 max 4
-        count = random.nextInt(3) + 2;
-        for (int i = 0; i < count; i++) loot.add(FOOD.getRandom(random).getItemStack());
-        // min 1 max 2
-        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
-        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
-        // min 0 max 2
-        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2);
-        for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
-        return loot;
+    @Override
+    public boolean place(final World world, final Random random, final int x, final int y, final int z) {
+        this.world = world;
+        this.random = random;
+        Set<BaseBronzeRoom> seenRooms = new HashSet<>();
+        List<BaseBronzeRoom> avaibleRooms = new ArrayList<>();
+        BaseBronzeRoom boss = new BossRoom();
+        if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
+            return false;
+        }
+        int bossRoomCount = 1;
+        seenRooms.add(boss);
+        avaibleRooms.add(boss);
+        BaseBronzeRoom currentRoom = null;
+        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= seenRooms.size()) {
+            if (currentRoom == null) {
+                currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
+            }
+
+            List<Door> listDoor = currentRoom.getAvailableDoors();
+            if (listDoor.isEmpty()) {
+                avaibleRooms.remove(currentRoom);
+                currentRoom = null;
+                continue;
+            }
+
+            WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
+            Door door = bagDoors.getRandom(random);
+            BaseBronzeRoom nextRoom = manager.getRoom(random).get();
+            if (nextRoom instanceof BossRoom) {
+                bossRoomCount++;
+                if ((float) bossRoomCount / seenRooms.size() > 0.65F) {
+                    nextRoom = treasureRooms.getRandom(random).get();
+                }
+            }
+            WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
+            List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
+            for (WorldFeaturePoint anchor : listAnchor) {
+                if (seenRooms.stream().anyMatch(room -> room.intersect(anchor))) {
+                    currentRoom.markDoor(door);
+                    break;
+                } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
+                    WorldFeaturePoint topCorner, bottomCorner;
+                    // TODO remove this branch at some point to make the code more clean
+                    if (seenRooms.size() == 1) {
+                        topCorner = nextRoom.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
+                        bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
+                    } else {
+                        topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
+                        bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
+                    }
+                    drawVolume(0, 0, topCorner, bottomCorner).place(world);
+                    seenRooms.add(nextRoom);
+                    avaibleRooms.add(nextRoom);
+                    currentRoom.markDoor(door);
+                    nextRoom.markDoor(nextRoom.getDoor(nextDoor));
+                    currentRoom = nextRoom;
+                    break;
+                }
+            }
+        }
+        return true;
     }
 
-
+    private WeightedRandomBag<Door> makeRoomBag(List<Door> listDoor) {
+        WeightedRandomBag<Door> bag = new WeightedRandomBag<>();
+        for (Door door : listDoor) {
+            if (door.heading == UP || door.heading == DOWN) {
+                bag.addEntry(door, 1.0F);
+            } else {
+                bag.addEntry(door, 4.0F);
+            }
+        }
+        return bag;
+    }
     public static class RoomManager {
         WeightedRandomBag<Object> bag;
 
@@ -167,108 +239,24 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         }
     }
 
-    public static RoomManager manager = new RoomManager();
-    public static WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms = new WeightedRandomBag<>();
-
-    static {
-        FabricLoader.getInstance()
-                .getEntrypointContainers("aether", AetherPlugin.class)
-                .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
-
-        treasureRooms.addEntry(TreasureRoom::new, 50F);
-        treasureRooms.addEntry(IceRoom::new, 25F);
-        treasureRooms.addEntry(TallRoom::new, 5F);
-        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
-        trapRooms.addEntry(SpikerRoom::new, 1);
-        WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
-        boss.addEntry(BossRoom::new, 1);
-        manager.addBag(treasureRooms, 60);
-        manager.addBag(trapRooms, 35);
-        manager.addBag(boss, 5);
+    public static List<ItemStack> generateLoot(Random random) {
+        List<ItemStack> loot = new ArrayList<>();
+        //min 8 max 10
+        int count = random.nextInt(3) + 8;
+        for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
+        // min 2 max 5
+        count = random.nextInt(4) + 2;
+        for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
+        // min 2 max 4
+        count = random.nextInt(3) + 2;
+        for (int i = 0; i < count; i++) loot.add(FOOD.getRandom(random).getItemStack());
+        // min 1 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
+        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
+        // min 0 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2);
+        for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
+        return loot;
     }
 
-    @Override
-    public boolean place(final World world, final Random random, final int x, final int y, final int z) {
-        this.world = world;
-        this.random = random;
-        Set<BaseBronzeRoom> seenRooms = new HashSet<>();
-        List<BaseBronzeRoom> avaibleRooms = new ArrayList<>();
-        BaseBronzeRoom boss = new BossRoom();
-        if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
-            return false;
-        }
-        int bossRoomCount = 1;
-        seenRooms.add(boss);
-        avaibleRooms.add(boss);
-        BaseBronzeRoom currentRoom = null;
-        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= seenRooms.size()) {
-            if (currentRoom == null) {
-                currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
-            }
-
-            List<Door> listDoor = currentRoom.getAvailableDoors();
-            if (listDoor.isEmpty()) {
-                avaibleRooms.remove(currentRoom);
-                currentRoom = null;
-                continue;
-            }
-
-            WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
-            Door door = bagDoors.getRandom(random);
-            BaseBronzeRoom room = manager.getRoom(random).get();
-            if (room instanceof BossRoom) {
-                bossRoomCount++;
-                if ((float) bossRoomCount / seenRooms.size() > 0.65F) {
-                    room = treasureRooms.getRandom(random).get();
-                }
-            }
-            WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
-            List<WorldFeaturePoint> listAnker = room.getAnkers(nextDoor, door.heading);
-            for (WorldFeaturePoint anker : listAnker) {
-                if (this.interseptRoom(seenRooms, anker)) {
-                    currentRoom.markDoor(door);
-                    break;
-                } else if (room.place(world, random, anker.x, anker.y, anker.z)) {
-                    WorldFeaturePoint topCorner, bottomCorner;
-                    // TODO remove this branch at some point to make the code more clean
-                    if (seenRooms.size() == 1) {
-                        topCorner = room.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
-                        bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
-                    } else {
-                        topCorner = room.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
-                        bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
-                    }
-                    drawVolume(0, 0, topCorner, bottomCorner).place(world);
-                    seenRooms.add(room);
-                    avaibleRooms.add(room);
-                    currentRoom.markDoor(door);
-                    room.markDoor(room.getDoor(nextDoor));
-                    currentRoom = room;
-                    break;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean interseptRoom(Set<BaseBronzeRoom> seenRooms, WorldFeaturePoint anker) {
-        for (BaseBronzeRoom room : seenRooms) {
-            if (room.intersect(anker)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private WeightedRandomBag<Door> makeRoomBag(List<Door> listDoor) {
-        WeightedRandomBag<Door> bag = new WeightedRandomBag<>();
-        for (Door door : listDoor) {
-            if (door.heading == UP || door.heading == DOWN) {
-                bag.addEntry(door, 1.0F);
-            } else {
-                bag.addEntry(door, 4.0F);
-            }
-        }
-        return bag;
-    }
 }
