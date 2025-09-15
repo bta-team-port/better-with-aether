@@ -91,6 +91,15 @@ public abstract class BaseBronzeRoom {
         return true;
     }
 
+    public BaseBronzeRoom set(World world, Random random, int x, int y, int z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.random = random;
+        this.world = world;
+        return this;
+    }
+
     public boolean canPlace() {
         if (this.y <= 11) {
             return false;
