@@ -34,7 +34,7 @@ public class BossRoom extends BaseBronzeRoom {
         super();
         this.width = this.length = 16;
         this.height = 14;
-        this.airTolerance = 0;
+        this.airTolerance = this.liquidTolerance = 0;
         addDoor(NORTH, wfp(6, 1, 0), UP, 4, EAST, 4);
         addDoor(EAST, wfp(15, 1, 6), UP, 4, SOUTH, 4);
         addDoor(SOUTH, wfp(6, 1, 15), UP, 4, EAST, 4);
