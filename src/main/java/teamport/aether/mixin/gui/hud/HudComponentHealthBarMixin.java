@@ -72,8 +72,6 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
             return;
         }
 
-        System.out.println("Rendering custom health bar");
-
         ci.cancel();
 
         // copied from HealthBar ---------------------------------------------------------------------------------------
