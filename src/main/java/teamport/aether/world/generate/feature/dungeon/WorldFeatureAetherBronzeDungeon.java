@@ -184,7 +184,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                         topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
                         bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
-                    drawVolume(0, 0, topCorner, bottomCorner).place(world);
+                    drawVolume(0, 0, topCorner, bottomCorner, false).place(world);
                     seenRooms.add(nextRoom);
                     avaibleRooms.add(nextRoom);
                     currentRoom.markDoor(door);
