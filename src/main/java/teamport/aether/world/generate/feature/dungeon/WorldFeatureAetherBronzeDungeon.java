@@ -116,6 +116,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
         treasureRooms.addEntry(TreasureRoom::new, 50F);
         treasureRooms.addEntry(IceRoom::new, 25F);
+        treasureRooms.addEntry(HallwayRoom::new, 50F);
         treasureRooms.addEntry(TallRoom::new, 5F);
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(SpikerRoom::new, 1);
@@ -143,11 +144,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
+        int roomCount = boss.roomCount;
         int bossRoomCount = 1;
         seenRooms.add(boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
-        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= seenRooms.size()) {
+        while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX >= roomCount) {
             if (currentRoom == null) {
                 currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
             }
@@ -164,7 +166,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             BaseBronzeRoom nextRoom = manager.getRoom(random).get();
             if (nextRoom instanceof BossRoom) {
                 bossRoomCount++;
-                if ((float) bossRoomCount / seenRooms.size() > 0.65F) {
+                if ((float) bossRoomCount / roomCount > 0.65F) {
                     nextRoom = treasureRooms.getRandom(random).get();
                 }
             }
@@ -184,7 +186,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                         topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
                         bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
-                    drawVolume(0, 0, topCorner, bottomCorner, false).place(world);
+                    drawVolume(0, 0, topCorner, bottomCorner, true).place(world);
+                    roomCount += nextRoom.roomCount;
                     seenRooms.add(nextRoom);
                     avaibleRooms.add(nextRoom);
                     currentRoom.markDoor(door);

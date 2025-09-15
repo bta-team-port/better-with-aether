@@ -43,13 +43,13 @@ public class BossRoom extends BaseBronzeRoom {
     }
 
     public void makeShell() {
-        room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, length, x, y, z, true));
-        room.add(drawVolume(0, 0, EAST, width - 2, UP, height - 2, SOUTH, length - 2, x + 1, y + 1, z + 1, true));
+        room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, length, x, y, z, false));
+        room.add(drawVolume(0, 0, EAST, width - 2, UP, height - 2, SOUTH, length - 2, x + 1, y + 1, z + 1, false));
     }
 
     private void makeTreasureRoom() {
-        decoration.add(drawShell(random, ROOM_PALLET, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, true));
-        decoration.add(drawVolume(0, 0, EAST, 2, UP, 2, SOUTH, 2, x + 7, y - 1, z + 7, true));
+        decoration.add(drawShell(random, ROOM_PALLET, EAST, 4, UP, 4, SOUTH, 4, x + 6, y - 2, z + 6, false));
+        decoration.add(drawVolume(0, 0, EAST, 2, UP, 2, SOUTH, 2, x + 7, y - 1, z + 7, false));
     }
 
     private void placeBoss() {
@@ -94,7 +94,7 @@ public class BossRoom extends BaseBronzeRoom {
             return;
         }
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
-        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2);
+        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2, true);
         dungeon.setEntranceDoor(doorBlock.blockList);
     }
 }
