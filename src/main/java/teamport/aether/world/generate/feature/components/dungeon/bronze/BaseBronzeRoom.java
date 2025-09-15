@@ -30,7 +30,7 @@ public abstract class BaseBronzeRoom {
     public int width;
     public int length;
     public float airTolerance;
-    public final float liquidTolerance;
+    public float liquidTolerance;
     public float roomWeight;
     protected WorldFeatureComponent room;
     protected WorldFeatureComponent decoration;
@@ -47,7 +47,7 @@ public abstract class BaseBronzeRoom {
 
     public BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
-        this.airTolerance = this.liquidTolerance = 0.65F;
+        this.airTolerance = this.liquidTolerance = 0.45F;
         this.roomWeight = 1.0F;
         this.room = new WorldFeatureComponent();
         this.chest = new WorldFeatureComponent();
@@ -136,19 +136,56 @@ public abstract class BaseBronzeRoom {
     }
 
     public boolean canPlace() {
-        if (this.y <= 11) {
+        // checking worldHeight
+        if (this.y <= 11 && this.y + height + 3 >= world.getHeightBlocks()) {
+            return false;
+        }
+        WorldFeatureComponent check;
+        int countAir = 0, countLiquid = 0;
+
+        // checking volume
+        check = drawVolume(0, 0, SOUTH, width, UP, height, EAST, length, x, y, z, true);
+        for (WorldFeaturePoint point : check.blockList) {
+            Block<?> block = world.getBlock(point.x, point.y, point.z);
+            int blockID = block == null ? 0 : block.id();
+            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            if (blockID == 0 && blockMaterial == Material.air) countAir++;
+            if (blockMaterial.isLiquid()) countLiquid++;
+            if (block != null && block.blockHardness < 0) return false;
+        }
+        if (check.blockList.size() * airTolerance < countAir || check.blockList.size() * liquidTolerance < countLiquid) {
             return false;
         }
 
-        WorldFeatureComponent check = drawVolume(0, 0, SOUTH, width, UP, height, EAST, length, x, y, z, true);
-
-        int countAir = 0;
+        // checking top & bottom surface
+        check = drawPlane(0,0, SOUTH, width, EAST, length, x, y + height, z, true);
+        countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.blockList) {
-            int id = world.getBlockId(point.x, point.y, point.z);
-            if (id == 0) countAir++;
+            Block<?> block = world.getBlock(point.x, point.y, point.z);
+            int blockID = block == null ? 0 : block.id();
+            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            if (blockID == 0 && blockMaterial == Material.air) countAir++;
+            if (blockMaterial.isLiquid()) countLiquid++;
+            if (block != null && block.blockHardness < 0) return false;
+        }
+        if (check.blockList.size() * airTolerance < countAir || check.blockList.size() * liquidTolerance < countLiquid) {
+            return false;
         }
 
-        return check.blockList.size() * airTolerance >= countAir;
+        check = drawPlane(0,0, SOUTH, width, EAST, length, x, y, z, true);
+        countAir = countLiquid = 0;
+        for (WorldFeaturePoint point : check.blockList) {
+            Block<?> block = world.getBlock(point.x, point.y, point.z);
+            int blockID = block == null ? 0 : block.id();
+            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            if (blockID == 0 && blockMaterial == Material.air) countAir++;
+            if (blockMaterial.isLiquid()) countLiquid++;
+            if (block != null && block.blockHardness < 0) return false;
+        }
+        if (check.blockList.size() * (airTolerance / 2) < countAir || check.blockList.size() * (liquidTolerance / 2) < countLiquid) {
+            return false;
+        }
+        return true;
     }
 
     public void adjustDoorCoordinates() {
@@ -188,7 +225,7 @@ public abstract class BaseBronzeRoom {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
-        if(block != null && block.getLogic() instanceof BlockLogicLocked){
+        if(block != null && (block.getLogic() instanceof BlockLogicLocked || block.blockHardness < 0)){
             return false;
         }
         if(blockMaterial == Material.water || blockMaterial == Material.lava){
