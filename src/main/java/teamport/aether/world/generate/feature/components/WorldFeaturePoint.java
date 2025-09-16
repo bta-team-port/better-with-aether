@@ -143,7 +143,8 @@ public class WorldFeaturePoint {
         this.z += side.getOffsetZ();
         return this;
     }
-d    public WorldFeaturePoint moveInDirection(Direction direction, int amount) {
+
+    public WorldFeaturePoint moveInDirection(Direction direction, int amount) {
         Side side = direction.getSide();
         this.x += side.getOffsetX() * amount;
         this.y += side.getOffsetY() * amount;
