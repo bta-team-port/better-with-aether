@@ -422,11 +422,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "minecraft:block/chest/planks/front", Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM));
-
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM));
 
         dispatcher.addDispatch(AetherBlocks.TORCH_AMBROSIUM, new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/torch_ambrosium"));
