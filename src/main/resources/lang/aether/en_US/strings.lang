@@ -10,10 +10,11 @@ worldType.aether.default.desc=Welcome to a hostile paradise.
 #Container
 aether.container.enchanter.name=Enchanter
 
+
 # Bwaila support
-aether.tooltip.enchanter.progress=Enchanting:
+aether.tooltip.enchanter.progress= Enchanting:
 aether.tooltip.freezer.progress= Freezing:
-aether.tooltip.incubator.progress=Hatching:
+aether.tooltip.incubator.progress= Hatching:
 
 aether.tooltip.machine.energy=%s s.
 
