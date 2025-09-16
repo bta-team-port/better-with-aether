@@ -17,7 +17,6 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
-// TODO the lid need to rotate otherwise it look awkward
 public class BlockLogicFreezer extends BlockLogicRotatable {
     public final boolean isActive;
     public static boolean keepFreezerInventory = false;

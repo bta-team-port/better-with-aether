@@ -82,6 +82,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
                 .setHasAurora(true).setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_SKYBLOCK).setCloudHeight(8.0f)
                 .setHasAurora(true).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_RETRO).setCloudHeight(8.0f)
+                .setHasAurora(true).setHasGround(false));
     }
 
     public void setupCustomBlockLight() {
@@ -145,17 +147,17 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     public static void registerHUDComponents() {
         BOSS_BAR = HudComponents.register(
-            new ComponentBossBar(
-                "aether.boss.bar",
-                new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
-            )
+                new ComponentBossBar(
+                        "aether.boss.bar",
+                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
+                )
         );
 
         JUMP_BAR = HudComponents.register(
-            new ComponentJumpBar(
-                "aether.wing.bar",
-                new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
-            )
+                new ComponentJumpBar(
+                        "aether.wing.bar",
+                        new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
+                )
         );
 
         ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));

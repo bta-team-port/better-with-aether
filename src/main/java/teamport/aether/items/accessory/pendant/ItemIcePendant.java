@@ -21,7 +21,6 @@ public class ItemIcePendant extends ItemPendant {
     }
 
 
-    // TODO check with big sir that this wont cause issues
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
@@ -55,7 +54,7 @@ public class ItemIcePendant extends ItemPendant {
                 }
             }
         }
-        if(proc > 0){
+        if (proc > 0) {
             damagePendant(stack, player);
         }
     }

@@ -121,19 +121,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
-        //Lakes/Waterfalls
-        for (generateChance = 0; generateChance < 50; ++generateChance) {
-            yPosition = minY + rand.nextInt(rand.nextInt(rangeY - rangeY / 16) + rangeY / 16);
-            (new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, xPosition, yPosition, zPosition);
-        }
-
-        for (generateChance = 0; generateChance < 50; ++generateChance) {
-            if (rand.nextInt(64) == 0) {
-                yPosition = rand.nextInt(rangeY);
-                (new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id())).place(this.world, rand, xPosition, yPosition, zPosition);
-            }
-        }
-
         //Flowers/Foliage
         for (generateChance = 0; generateChance < 2; ++generateChance) {
             yPosition = rand.nextInt(rangeY);
@@ -195,10 +182,21 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             }
         }
 
+        //Lakes/Waterfalls and Trees
+        if (rand.nextInt(8) == 0) {
+            yPosition = rand.nextInt(rangeY);
+            (new WorldFeatureLake(Blocks.FLUID_WATER_STILL.id())).place(this.world, rand, xPosition, yPosition, zPosition);
+        }
+
         for (generateChance = 0; generateChance < 2; ++generateChance) {
             WorldFeature worldFeature = rand.nextInt(18) == 0 ? new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()) : new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4);
             worldFeature.init(1.0, 1.0, 1.0);
             worldFeature.place(this.world, rand, xPosition, this.world.getHeightValue(xPosition, zPosition), zPosition);
+        }
+
+        for (generateChance = 0; generateChance < 50; ++generateChance) {
+            yPosition = rand.nextInt(rangeY - 1);
+            (new WorldFeatureAetherLiquid(Blocks.FLUID_WATER_FLOWING.id())).place(this.world, rand, xPosition, yPosition, zPosition);
         }
 
         BlockLogicSand.fallInstantly = false;

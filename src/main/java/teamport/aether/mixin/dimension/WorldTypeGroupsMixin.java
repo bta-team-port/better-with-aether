@@ -21,5 +21,31 @@ public class WorldTypeGroupsMixin {
                 break;
             }
         }
+        for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
+            WorldType overworldType = group.get(Dimension.OVERWORLD);
+            if (overworldType == WorldTypes.OVERWORLD_DEFAULT) {
+                group.with(AetherDimension.AETHER, AetherDimension.AETHER_DEFAULT);
+                break;
+            }
+        }
+        for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
+            WorldType overworldType = group.get(Dimension.OVERWORLD);
+            if (overworldType == WorldTypes.OVERWORLD_EXTENDED || overworldType == WorldTypes.OVERWORLD_AMPLIFIED ||
+                    overworldType == WorldTypes.OVERWORLD_INLAND || overworldType == WorldTypes.OVERWORLD_PARADISE ||
+                    overworldType == WorldTypes.OVERWORLD_WOODS || overworldType == WorldTypes.OVERWORLD_HELL ||
+                    overworldType == WorldTypes.OVERWORLD_WINTER || overworldType == WorldTypes.OVERWORLD_ISLANDS ||
+                    overworldType == WorldTypes.OVERWORLD_FLOATING || overworldType == WorldTypes.FLAT ||
+                    overworldType == WorldTypes.EMPTY || overworldType == WorldTypes.DEBUG) {
+                group.with(AetherDimension.AETHER, AetherDimension.AETHER_EXTENDED);
+                break;
+            }
+        }
+        for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
+            WorldType overworldType = group.get(Dimension.OVERWORLD);
+            if (overworldType == WorldTypes.OVERWORLD_RETRO || overworldType == WorldTypes.OVERWORLD_CLASSIC || overworldType == WorldTypes.OVERWORLD_INDEV) {
+                group.with(AetherDimension.AETHER, AetherDimension.AETHER_RETRO);
+                break;
+            }
+        }
     }
 }
