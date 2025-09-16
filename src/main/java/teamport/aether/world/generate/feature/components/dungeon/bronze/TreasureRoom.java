@@ -9,13 +9,8 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 
 
 public class TreasureRoom extends BaseBronzeRoom {
-    public static BlockPallet ROOM_PALLET = new BlockPallet();
     public static BlockPallet chestOrMimic = new BlockPallet();
     static {
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
-
         chestOrMimic.addEntry(0, 1);
         chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
         chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
