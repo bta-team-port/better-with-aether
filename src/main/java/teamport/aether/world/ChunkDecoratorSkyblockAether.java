@@ -74,8 +74,9 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
             if (tileEntity instanceof TileEntityChest) {
                 chestEntity = (TileEntityChest) tileEntity;
                 chestEntity.setItem(0, new ItemStack(Blocks.SAPLING_CACAO, 1));
-                chestEntity.setItem(1, new ItemStack(AetherItems.LIFESHARD, 1));
-                chestEntity.setItem(2, new ItemStack(Blocks.ICE, 1));
+                chestEntity.setItem(1, new ItemStack(Items.ORE_RAW_IRON, 8));
+                chestEntity.setItem(2, new ItemStack(Items.INGOT_STEEL_CRUDE, 6));
+                chestEntity.setItem(3, new ItemStack(Items.DUST_REDSTONE, 1));
             }
         }
 
@@ -84,10 +85,10 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
             tileEntity = chunk.getTileEntity(13, 67, 0);
             if (tileEntity instanceof TileEntityChest) {
                 chestEntity = (TileEntityChest) tileEntity;
-                chestEntity.setItem(0, new ItemStack(Items.ORE_RAW_IRON, 8));
-                chestEntity.setItem(1, new ItemStack(AetherBlocks.SAPLING_OAK_GOLDEN, 1));
-                chestEntity.setItem(2, new ItemStack(Items.INGOT_STEEL_CRUDE, 6));
-                chestEntity.setItem(3, new ItemStack(Items.DUST_REDSTONE, 1));
+                chestEntity.setItem(0, new ItemStack(AetherItems.LIFESHARD, 1));
+                chestEntity.setItem(1, new ItemStack(Items.NETHERCOAL, 1));
+                chestEntity.setItem(2, new ItemStack(Items.DIAMOND, 1));
+                chestEntity.setItem(3, new ItemStack(AetherBlocks.SAPLING_OAK_GOLDEN, 1));
             }
         }
 
