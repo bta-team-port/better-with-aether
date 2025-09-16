@@ -90,6 +90,18 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("minecraft:stones").add(AetherBlocks.HOLYSTONE.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:cobblestones").add(AetherBlocks.COBBLE_HOLYSTONE.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:grasses").add(AetherBlocks.GRASS_AETHER.getDefaultStack());
+
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_SKYROOT.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_GRAVITITE.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_VALKYRIE.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_HOLY.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_FLAME.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_LIGHTNING.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_PIG.getDefaultStack());
+
     }
     public static void freezerGroups(){
         Registries.ITEM_GROUPS.register("aether:water_buckets", Registries.stackListOf(

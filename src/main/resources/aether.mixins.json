@@ -53,6 +53,7 @@
     "block.CactusSpikeImmunitiesMixin",
     "block.SpikeImmunitiesMixin",
     "dimension.SaveHandlerMixin",
+    "dimension.WorldTypeGroupsMixin",
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",

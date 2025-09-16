@@ -50,9 +50,14 @@ public class AetherDimension {
     }
 
     public static Biome AETHER_PLAINS;
+
     public static WorldType AETHER_DEFAULT;
     public static WorldType AETHER_EXTENDED; // For in the future if we want to add a OG aether terrain vs extended
+    public static WorldType AETHER_SKYBLOCK;
+    public static WorldType AETHER_RETRO;
+
     public static Dimension AETHER;
+
     public static boolean hasInit = false;
 
     public static void init() {
@@ -69,7 +74,10 @@ public class AetherDimension {
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
 
-        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.default")));
+        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.extended").portalBounds(128, 192)));
+        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.default").bounds(0, 127, 0).portalBounds(128, 192)));
+
+        AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock(WorldTypeAether.defaultProperties("worldtype.aether.skyblock")));
 
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);
         Dimension.registerDimension(AetherDimensionID, AETHER);

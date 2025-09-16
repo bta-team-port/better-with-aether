@@ -19,7 +19,12 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
 
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         if (side.getId() == Side.TOP.getId()) {
-            IconCoordinate texture = this.blockTextures.get(Side.TOP);
+            IconCoordinate texture;
+            if (isRetro()) {
+                texture = this.retroBlockTextures.get(Side.TOP);
+            } else {
+                texture = this.blockTextures.get(Side.TOP);
+            }
             Container container = (Container) blockAccess.getTileEntity(x, y, z);
             if (container != null) {
                 boolean hasInput = container.getItem(0) != null;
@@ -29,7 +34,9 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
             }
             return texture;
         }
+        if (isRetro()) {
+            return this.retroBlockTextures.get(side.getId());
+        }
         return this.blockTextures.get(side.getId());
     }
-
 }
