@@ -6,7 +6,6 @@ import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.type.WorldType;
-import net.minecraft.core.world.type.WorldTypeGroups;
 import net.minecraft.core.world.type.WorldTypes;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.AetherConfig;
@@ -75,7 +74,9 @@ public class AetherDimension {
                 .setTopBlock(AetherBlocks.GRASS_AETHER.id())
                 .setFillerBlock(AetherBlocks.DIRT_AETHER.id());
 
-        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.extended")));
+        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.extended").portalBounds(128, 192)));
+        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether(WorldTypeAether.defaultProperties("worldtype.aether.default").bounds(0, 127, 0).portalBounds(128, 192)));
+
         AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock(WorldTypeAether.defaultProperties("worldtype.aether.skyblock")));
 
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AETHER_DEFAULT);

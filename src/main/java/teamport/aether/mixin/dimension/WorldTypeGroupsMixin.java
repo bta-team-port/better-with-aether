@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.dimension;
 
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.type.WorldType;

@@ -78,6 +78,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_EXTENDED).setCloudHeight(8.0f)
                 .setHasAurora(true).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_DEFAULT).setCloudHeight(8.0f)
+                .setHasAurora(true).setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_SKYBLOCK).setCloudHeight(8.0f)
                 .setHasAurora(true).setHasGround(false));
     }
