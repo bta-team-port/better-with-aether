@@ -145,21 +145,24 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
         this.random = random;
+
         Set<BaseBronzeRoom> seenRooms = new HashSet<>();
         List<BaseBronzeRoom> avaibleRooms = new ArrayList<>();
+
         BaseBronzeRoom boss = new BossRoom();
+
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
+
         float roomCount = boss.roomCount;
         int bossRoomCount = 1;
         seenRooms.add(boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
+
         while (!avaibleRooms.isEmpty() && ROOM_COUNT_MAX > roomCount) {
-            if (currentRoom == null) {
-                currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
-            }
+            if (currentRoom == null) currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
 
             List<Door> listDoor = currentRoom.getAvailableDoors();
             if (listDoor.isEmpty()) {
@@ -170,6 +173,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
             WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
             Door door = bagDoors.getRandom(random);
+
             BaseBronzeRoom nextRoom = manager.getRoom(random).get();
             if (nextRoom instanceof BossRoom) {
                 bossRoomCount++;
@@ -177,14 +181,20 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     nextRoom = treasureRooms.getRandom(random).get();
                 }
             }
+
             WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
             List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
+
+            boolean managedToplace = false;
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (seenRooms.stream().anyMatch(room -> room.intersect(anchor))) {
                     currentRoom.markDoor(door);
                     break;
-                } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
+                }
+
+                else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
+
                     // TODO remove this branch at some point to make the code more clean
                     if (seenRooms.size() == 1) {
                         topCorner = nextRoom.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
@@ -193,15 +203,31 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                         topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
                         bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
+
                     drawVolume(0, 0, topCorner, bottomCorner, true).place(world);
                     roomCount += nextRoom.roomCount;
                     seenRooms.add(nextRoom);
+
                     avaibleRooms.add(nextRoom);
                     currentRoom.markDoor(door);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor));
                     currentRoom = nextRoom;
+                    managedToplace = true;
                     break;
                 }
+            }
+
+            // Okay so, if you failed to place the room it could be either of two things.
+            //
+            // A) the room is too large or something;
+            // B) the position is plain stupid, and it won't place.
+            // ----------------------------------------------------
+            // While you could fix A by attempting to reroll, you just gonna reroll forever in case of B.
+            // Therefore, just mark the door and go to another room!
+
+            if (!managedToplace) {
+                currentRoom.markDoor(door);
+                currentRoom = null;
             }
         }
         return true;
