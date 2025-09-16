@@ -39,14 +39,26 @@ import static teamport.aether.items.accessory.SlotAccessory.*;
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
 
-    @Shadow private ModelBiped modelBipedMain;
-    @Shadow @Final private ModelBiped modelArmor;
-    @Shadow @Final private ModelBiped modelArmorChestplate;
-    @Shadow public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
-    @Unique public final ModelBiped modelAccessories = new ModelBiped(1.1F);
-    @Unique public final ModelBiped modelFeather = new ModelBiped(1.0F);
-    @Unique public final ModelBiped shield = new ModelBiped(1.5F);
-    @Unique public boolean shield_6 = false;
+    @Shadow
+    private ModelBiped modelBipedMain;
+    @Shadow
+    @Final
+    private ModelBiped modelArmor;
+    @Shadow
+    @Final
+    private ModelBiped modelArmorChestplate;
+
+    @Shadow
+    public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
+
+    @Unique
+    public final ModelBiped modelAccessories = new ModelBiped(1.1F);
+    @Unique
+    public final ModelBiped modelFeather = new ModelBiped(1.0F);
+    @Unique
+    public final ModelBiped shield = new ModelBiped(1.5F);
+    @Unique
+    public boolean shield_6 = false;
 
     public MobRendererPlayerMixinAccessoryRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
@@ -121,8 +133,8 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
-            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6){
-                 this.shield_6 = false;
+            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6) {
+                this.shield_6 = false;
                 double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
                 String path;
                 if (!player.isSneaking() && (!player.onGround || velocity > 0.075D)) {
@@ -143,10 +155,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             ///  redirect the render to next item
-            if(item instanceof ItemShield && renderPass == 6){
+            if (item instanceof ItemShield && renderPass == 6) {
                 this.shield_6 = true;
                 ItemStack nextSlot = player.inventory.armorInventory[renderPass + 1];
-                if(nextSlot == null) return;
                 item = nextSlot.getItem();
             }
 
@@ -174,7 +185,6 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
-                //TODO Fix this so it doesnt render infront of the shield
                 modelAccessories.body.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelAccessories);
@@ -187,7 +197,6 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
-                //TODO Fix this so it doesnt render infront of the shield
                 modelAccessories.body.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelAccessories);
@@ -200,7 +209,6 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
-                //TODO Fix this so it doesnt render infront of the shield
                 modelAccessories.body.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelAccessories);

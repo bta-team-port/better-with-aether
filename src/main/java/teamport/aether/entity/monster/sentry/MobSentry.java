@@ -10,9 +10,9 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.AetherImmuneMob;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.AetherImmuneMob;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
@@ -20,6 +20,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     public int jumpDelay;
     public int cooldownInactive;
     public boolean activated;
+
     public MobSentry(World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "sentry");
@@ -40,7 +41,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     public boolean hurt(Entity attacker, int damage, DamageType type) {
 
         if (attacker instanceof Player) {
-            ItemStack item = ((Player)attacker).inventory.getCurrentItem();
+            ItemStack item = ((Player) attacker).inventory.getCurrentItem();
 
             if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
                 return super.hurt(attacker, damage * 2, type);
@@ -111,9 +112,9 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
     @Override
     public void playerTouch(Player player) {
-        if (findPlayerToAttack() == player && this.canEntityBeSeen(player) && (double)this.distanceTo(player) < 1.5) {
+        if (findPlayerToAttack() == player && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 1.5) {
             findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
-            this.world.createExplosion(this, this.x, this.y-0.5, this.z, 1f, false, true);
+            this.world.createExplosion(this, this.x, this.y - 0.5, this.z, 1f, false, true);
         }
     }
 
@@ -137,7 +138,6 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
 
     public boolean canSpawnHere() {
-//        return this.world.getDifficulty().canHostileMobsSpawn() && super.canSpawnHere();
         return this.world.getDifficulty().canHostileMobsSpawn();
     }
 
@@ -152,12 +152,12 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     }
 
     @Override
-    public boolean canTakeDamageFromSpikes(){
+    public boolean canTakeDamageFromSpikes() {
         return false;
     }
 
     @Override
-    public boolean canTakeDamageFromCactus(){
+    public boolean canTakeDamageFromCactus() {
         return false;
     }
 
