@@ -31,7 +31,7 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         int textHeight = texture.height / height;
 
         IconCoordinate i = new IconCoordinate(texture.parentAtlas, texture.namespaceId, texture.getImageSource());
-        i.setPosition(texture.iconX + x*textWidth, texture.iconY + y*textHeight);
+        i.setPosition(texture.iconX + x * textWidth, texture.iconY + y * textHeight);
         i.setDimension(textWidth, textHeight);
 
         return i;
@@ -41,7 +41,7 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         int meta = blockAccess.getBlockMetadata(x, y, z);
         Direction dir = BlockLogicRotatable.getDirectionFromMeta(meta);
 
-        Direction offsetLeft  = dir.rotate(-1);
+        Direction offsetLeft = dir.rotate(-1);
         Direction offsetRight = dir.rotate(1);
 
         if (dir == Direction.WEST || dir == Direction.SOUTH) {
@@ -49,8 +49,8 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
             offsetRight = offsetRight.getOpposite();
         }
 
-        boolean up = blockAccess.getBlockId(x, y +1, z) == block.id();
-        boolean down = blockAccess.getBlockId(x, y -1, z) == block.id();
+        boolean up = blockAccess.getBlockId(x, y + 1, z) == block.id();
+        boolean down = blockAccess.getBlockId(x, y - 1, z) == block.id();
 
         boolean right = blockAccess.getBlockId(
                 x + offsetRight.getOffsetX(),
@@ -59,9 +59,9 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         ) == block.id();
 
         boolean left = blockAccess.getBlockId(
-                x +  offsetLeft.getOffsetX(),
-                y +  offsetLeft.getOffsetY(),
-                z +  offsetLeft.getOffsetZ()
+                x + offsetLeft.getOffsetX(),
+                y + offsetLeft.getOffsetY(),
+                z + offsetLeft.getOffsetZ()
         ) == block.id();
 
         int u;
@@ -71,8 +71,8 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         else if (!down) v = height - 1;
         else {
             v = 0;
-            while (v < height -1) {
-                if (blockAccess.getBlockId(x, y +1 +v, z) == block.id()) v++;
+            while (v < height - 1) {
+                if (blockAccess.getBlockId(x, y + 1 + v, z) == block.id()) v++;
                 else break;
             }
         }
@@ -82,31 +82,37 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
         else {
             u = 0;
             WorldFeaturePoint p = new WorldFeaturePoint(x, y, z);
-            while (u < width -1) {
+            while (u < width - 1) {
                 p = p.moveInDirection(offsetRight).copy();
                 if (blockAccess.getBlockId(p.x, p.y, p.z) == block.id()) u++;
                 else break;
             }
 
-            u = width -1 -u;
+            u = width - 1 - u;
         }
 
         Side sideRotated = Side.getSideById(Sides.orientationLookUpHorizontal[6 * (meta & 7) + side.getId()]);
         IconCoordinate baseTex = layer.get(sideRotated);
         if (baseTex == null) return fallback;
 
-        if (side == Side.EAST || side == Side.NORTH)  u = width -1 -u;
+        if (side == Side.EAST || side == Side.NORTH) u = width - 1 - u;
         return cropTexture(baseTex, u, v);
     }
 
     @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
+        if (isRetro()) {
+            return ctm(this.retroBlockTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, side);
+        }
         return ctm(this.blockTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, side);
     }
 
     @Override
     public IconCoordinate getBlockOverbrightTexture(WorldSource blockAccess, int x, int y, int z, int side) {
         // why does it take a bloody int?
+        if (isRetro()) {
+            return ctm(this.retroOverbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
+        }
         return ctm(this.overbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
     }
 }
