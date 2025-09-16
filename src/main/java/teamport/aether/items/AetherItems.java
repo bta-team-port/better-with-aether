@@ -1,14 +1,11 @@
 package teamport.aether.items;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.sound.SoundEngine;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -518,34 +515,20 @@ public final class AetherItems {
 
 
         DEATH_RAY = new ItemBuilder(MOD_ID)
-            .setStackSize(1)
-            .build(
-                new Item("death_ray", itemKey("death_ray"), itemID("DEATH_RAY")) {
-                    @Override
-                    public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
-                        if (!mob.isAlive()) return false;
+                .setStackSize(1)
+                .build(
+                        new Item("death_ray", itemKey("death_ray"), itemID("DEATH_RAY")) {
+                            @Override
+                            public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
+                                if (!mob.isAlive()) return false;
 
-                        mob.setHealthRaw(0);
-                        mob.playDeathSound();
-                        mob.onDeath(player);
-                        return true;
-                    }
-                }
-            );
-
-        new ItemBuilder(MOD_ID)
-            .setStackSize(1)
-            .build(
-                new Item("test", itemKey("test"), itemID("test")) {
-                    @Override
-                    public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-                        SoundEngine soundEngine = Minecraft.getMinecraft().sndManager;
-                        soundEngine.ticksBeforeMusic = -1;
-                        soundEngine.stopMusic();
-                        return super.onUseItem(itemstack, world, entityplayer);
-                    }
-                }
-            );
+                                mob.setHealthRaw(0);
+                                mob.playDeathSound();
+                                mob.onDeath(player);
+                                return true;
+                            }
+                        }
+                );
     }
 
     public static void registerArmor() {
