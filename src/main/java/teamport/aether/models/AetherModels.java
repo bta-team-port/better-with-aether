@@ -16,6 +16,7 @@ import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.item.block.ItemBlock;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicDungeonDoor;
@@ -419,10 +420,23 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
 
-        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC)
-                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM));
+        BlockModelChestMimic blockModelChestMimic = new BlockModelChestMimic(AetherBlocks.CHEST_MIMIC)
+                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, 0,"aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 0,"aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM);
+
+        for (DyeColor dye : DyeColor.values()) {
+            String path = String.format("minecraft:block/chest/planks_%s", dye.colorID);
+            blockModelChestMimic
+                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/top", Side.TOP, Side.BOTTOM);
+        }
+
+        dispatcher.addDispatch(blockModelChestMimic);
 
         dispatcher.addDispatch(AetherBlocks.TORCH_AMBROSIUM, new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/torch_ambrosium"));
@@ -684,6 +698,8 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
         dispatcher.addDispatch((new ItemModelStandard(AetherItems.DEATH_RAY, null)).setIcon("minecraft:item/wand_monster").setFullBright());
+        dispatcher.addDispatch((new ItemModelStandard(AetherItems.TOOL_STAFF_HAUNTING, null)).setIcon("minecraft:item/wand_monster").setFullBright());
+
 
     }
 
