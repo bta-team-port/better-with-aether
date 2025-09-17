@@ -1,6 +1,7 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
@@ -223,6 +224,7 @@ public abstract class BaseBronzeRoom {
             }
         }
         for (WorldFeatureBlock wfblock : this.chest.blockList) {
+            BlockLogicChest.setDefaultDirection(world, wfblock.x, wfblock.y, wfblock.z);
             populateChest(world, random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
         }
     }
