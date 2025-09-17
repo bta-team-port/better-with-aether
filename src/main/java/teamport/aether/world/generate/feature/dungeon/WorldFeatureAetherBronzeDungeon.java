@@ -136,9 +136,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         trapRooms.addEntry(SpikerRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> hallway = new WeightedRandomBag<>();
-        hallway.addEntry(HallwayRoom::new, 50);
-        hallway.addEntry(TallRoom::new, 5);
-        hallway.addEntry(StairwellRoom::new, 10);
+        hallway.addEntry(HallwayRoom::new, 10);
+        hallway.addEntry(StairwellRoom::new, 2);
+        hallway.addEntry(TallRoom::new, 1);
 
         manager.addBag(treasureRooms, 50);
         manager.addBag(hallway, 25);
@@ -191,9 +191,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
             WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
             List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
+            Collections.shuffle(listAnchor, random);
             currentRoom.markDoor(door);
-
-            boolean managedToplace = false;
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (this.intercept(seenRooms, nextRoom, anchor)) {
                     break;
@@ -213,22 +212,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     avaibleRooms.add(nextRoom);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor));
                     currentRoom = nextRoom;
-                    managedToplace = true;
                     break;
                 }
-            }
-
-            // Okay so, if you failed to place the room it could be either of two things.
-            //
-            // A) the room is too large or something;
-            // B) the position is plain stupid, and it won't place.
-            // ----------------------------------------------------
-            // While you could fix A by attempting to reroll, you just gonna reroll forever in case of B.
-            // Therefore, just mark the door and go to another room!
-
-            if (!managedToplace) {
-                currentRoom.markDoor(door);
-                currentRoom = null;
             }
         }
         PriorityQueue<PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
@@ -255,9 +240,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", entry.getWeight(), entry.getData().first, entry.getData().second);
             tunnels.remove(entry);
             Pair<WorldFeaturePoint, WorldFeaturePoint> door = entry.getData();
-            drawVolume(AetherBlocks.AERCLOUD_WHITE.id(), 0, door.first, door.second, true).place(world);
+            drawVolume(0, 0, door.first, door.second, true).place(world);
         }
-
         return true;
     }
 
