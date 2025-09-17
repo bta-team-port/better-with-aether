@@ -288,10 +288,16 @@ public abstract class BaseBronzeRoom {
         return null;
     }
 
-    public boolean intersect(WorldFeaturePoint point) {
-        return point.x >= this.x && point.x < this.x + length
-                && point.y >= this.y && point.y < this.y + height
-                && point.z >= this.z && point.z < this.z + width;
+    public boolean intercept(WorldFeaturePoint point) {
+        return (point.x <= this.x + length && point.x >= this.x)
+                && (point.y <= this.y + height && point.y >= this.y)
+                && (point.z <= this.z + width && point.z >= this.z);
+    }
+
+    public boolean intercept(WorldFeaturePoint point, BaseBronzeRoom room) {
+        return (point.x <= this.x + length && point.x + room.length >= this.x)
+        && (point.y <= this.y + height && point.y + room.height >= this.y)
+        && (point.z <= this.z + width && point.z + room.width >= this.z);
     }
 
     public static class Door {
