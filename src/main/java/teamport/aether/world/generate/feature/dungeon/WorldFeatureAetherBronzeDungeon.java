@@ -14,7 +14,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
-import teamport.aether.helper.unboxed.WeightedEntry;
+import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.Pair.pair;
-import static teamport.aether.helper.unboxed.WeightedEntry.pEntry;
+import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
@@ -231,7 +231,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 currentRoom = null;
             }
         }
-        PriorityQueue<WeightedEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
+        PriorityQueue<PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : avaibleRooms) {
             for (Door door : room.getAvailableDoors()) {
                 WorldFeaturePoint p1 = door.p1.copy();
@@ -251,7 +251,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             return true;
         }
         for (int i = 0; i < TUNNEL_COUNT; i++) {
-            WeightedEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>> entry = tunnels.peek();
+            PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>> entry = tunnels.peek();
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", entry.getWeight(), entry.getData().first, entry.getData().second);
             tunnels.remove(entry);
             Pair<WorldFeaturePoint, WorldFeaturePoint> door = entry.getData();
