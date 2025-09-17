@@ -429,9 +429,11 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM)
+
                 .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM)
+
                 .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM);
