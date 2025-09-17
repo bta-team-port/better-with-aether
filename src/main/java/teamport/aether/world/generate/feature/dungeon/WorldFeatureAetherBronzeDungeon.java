@@ -4,7 +4,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
@@ -15,10 +14,9 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
-import teamport.aether.helper.unboxed.PriorityQueueEntry;
+import teamport.aether.helper.unboxed.WeightedEntry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.generate.feature.BlockPallet;
-import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.components.dungeon.bronze.*;
@@ -29,7 +27,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.Pair.pair;
-import static teamport.aether.helper.unboxed.PriorityQueueEntry.pEntry;
+import static teamport.aether.helper.unboxed.WeightedEntry.pEntry;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
@@ -132,7 +130,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         treasureRooms = new WeightedRandomBag<>();
         treasureRooms.addEntry(TreasureRoom::new, 2);
         treasureRooms.addEntry(JumpRoom::new, 10);
-        treasureRooms.addEntry(IceRoom::new, 1);
+        treasureRooms.addEntry(DisplayRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(SpikerRoom::new, 1);
@@ -193,10 +191,11 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
             WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
             List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
+            currentRoom.markDoor(door);
 
             boolean managedToplace = false;
             for (WorldFeaturePoint anchor : listAnchor) {
-                if (seenRooms.stream().anyMatch(room -> room.intersect(anchor))) {
+                if (this.intercept(seenRooms, nextRoom, anchor)) {
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
@@ -212,7 +211,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     roomCount += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
                     avaibleRooms.add(nextRoom);
-                    currentRoom.markDoor(door);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor));
                     currentRoom = nextRoom;
                     managedToplace = true;
@@ -233,22 +231,19 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 currentRoom = null;
             }
         }
-        PriorityQueue<PriorityQueueEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
+        PriorityQueue<WeightedEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : avaibleRooms) {
             for (Door door : room.getAvailableDoors()) {
-                WorldFeaturePoint p1 = door.p1.copy().moveInDirection(door.heading, 3);
-                WorldFeaturePoint p2 = door.p2.copy().moveInDirection(door.heading, 3);
-                if(seenRooms.stream().anyMatch(r -> r.intersect(p1.copy().moveInDirection(door.heading, 3)))){
+                WorldFeaturePoint p1 = door.p1.copy();
+                WorldFeaturePoint p2 = door.p2.copy();
+                while (!this.breaksSurface(p1, p2) && p1.distanceTo(door.p1) < 100) {
+                    p1.moveInDirection(door.heading);
+                    p2.moveInDirection(door.heading);
+                }
+                if(seenRooms.stream().anyMatch(r -> r.intercept(p1))){
                     continue;
                 }
-                while (!this.breaksSurface(p1, p2)
-                        && !seenRooms.stream().anyMatch(r -> r.intersect(p1))
-                        && p1.distanceTo(door.p1) < 100
-                ) {
-                    p1.moveInDirection(door.heading, 3);
-                    p2.moveInDirection(door.heading, 3);
-                }
-                tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), pair(p1.moveInDirection(door.heading, 3), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
+                tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), pair(p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
             }
         }
         if(tunnels.size() <= 3){
@@ -256,14 +251,23 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             return true;
         }
         for (int i = 0; i < TUNNEL_COUNT; i++) {
-            PriorityQueueEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>> entry = tunnels.peek();
-            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", entry.getPriority(), entry.getData().first, entry.getData().second);
+            WeightedEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>> entry = tunnels.peek();
+            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", entry.getWeight(), entry.getData().first, entry.getData().second);
             tunnels.remove(entry);
             Pair<WorldFeaturePoint, WorldFeaturePoint> door = entry.getData();
             drawVolume(AetherBlocks.AERCLOUD_WHITE.id(), 0, door.first, door.second, true).place(world);
         }
 
         return true;
+    }
+
+    private boolean intercept(Set<BaseBronzeRoom> seen, BaseBronzeRoom nextRoom, WorldFeaturePoint anchor){
+        for(BaseBronzeRoom room: seen){
+            if(room.intercept(anchor, nextRoom)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean breaksSurface(WorldFeaturePoint p1, WorldFeaturePoint p2) {
