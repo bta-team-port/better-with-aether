@@ -28,34 +28,10 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.entity.monster.mimic.MimicVariant.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
-
-    public static final int VARIANT_SKYROOT = 0;
-
-    public static final int VARIANT_OAK = 1;
-    public static final int VARIANT_OAK_WHITE = 2;
-    public static final int VARIANT_OAK_ORANGE = 3;
-    public static final int VARIANT_OAK_MAGENTA = 4;
-    public static final int VARIANT_OAK_LIGHTBLUE = 5;
-    public static final int VARIANT_OAK_YELLOW = 6;
-    public static final int VARIANT_OAK_LIME = 7;
-    public static final int VARIANT_OAK_PINK = 8;
-    public static final int VARIANT_OAK_GRAY = 9;
-    public static final int VARIANT_OAK_SILVER = 10;
-    public static final int VARIANT_OAK_CYAN = 11;
-    public static final int VARIANT_OAK_PURPLE = 12;
-    public static final int VARIANT_OAK_BLUE = 13;
-    public static final int VARIANT_OAK_BROWN = 14;
-    public static final int VARIANT_OAK_GREEN = 15;
-    public static final int VARIANT_OAK_RED = 16;
-    public static final int VARIANT_OAK_BLACK = 17;
-
-    public static final int VARIANT_DUNGEON_BRONZE = 18;
-    public static final int VARIANT_DUNGEON_SILVER = 19;
-    public static final int VARIANT_DUNGEON_GOLD = 20;
-
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
@@ -63,104 +39,40 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.attackStrength = 5;
         this.scoreValue = 2000;
 
-        this.setSkinVariant(VARIANT_SKYROOT);
-
-        this.setSkinVariant(VARIANT_OAK);
-        this.setSkinVariant(VARIANT_OAK_WHITE);
-        this.setSkinVariant(VARIANT_OAK_ORANGE);
-        this.setSkinVariant(VARIANT_OAK_MAGENTA);
-        this.setSkinVariant(VARIANT_OAK_LIGHTBLUE);
-        this.setSkinVariant(VARIANT_OAK_YELLOW);
-        this.setSkinVariant(VARIANT_OAK_LIME);
-        this.setSkinVariant(VARIANT_OAK_PINK);
-        this.setSkinVariant(VARIANT_OAK_GRAY);
-        this.setSkinVariant(VARIANT_OAK_SILVER);
-        this.setSkinVariant(VARIANT_OAK_CYAN);
-        this.setSkinVariant(VARIANT_OAK_PURPLE);
-        this.setSkinVariant(VARIANT_OAK_BLUE);
-        this.setSkinVariant(VARIANT_OAK_BROWN);
-        this.setSkinVariant(VARIANT_OAK_GREEN);
-        this.setSkinVariant(VARIANT_OAK_RED);
-        this.setSkinVariant(VARIANT_OAK_BLACK);
-
-        this.setSkinVariant(VARIANT_DUNGEON_BRONZE);
-        this.setSkinVariant(VARIANT_DUNGEON_SILVER);
-        this.setSkinVariant(VARIANT_DUNGEON_GOLD);
+        this.setSkinVariant(SKYROOT.getId());
+        this.setSkinVariant(OAK.getId());
+        this.setSkinVariant(OAK_WHITE.getId());
+        this.setSkinVariant(OAK_ORANGE.getId());
+        this.setSkinVariant(OAK_MAGENTA.getId());
+        this.setSkinVariant(OAK_LIGHTBLUE.getId());
+        this.setSkinVariant(OAK_YELLOW.getId());
+        this.setSkinVariant(OAK_LIME.getId());
+        this.setSkinVariant(OAK_PINK.getId());
+        this.setSkinVariant(OAK_GRAY.getId());
+        this.setSkinVariant(OAK_SILVER.getId());
+        this.setSkinVariant(OAK_CYAN.getId());
+        this.setSkinVariant(OAK_PURPLE.getId());
+        this.setSkinVariant(OAK_BLUE.getId());
+        this.setSkinVariant(OAK_BROWN.getId());
+        this.setSkinVariant(OAK_GREEN.getId());
+        this.setSkinVariant(OAK_RED.getId());
+        this.setSkinVariant(OAK_BLACK.getId());
+        this.setSkinVariant(DUNGEON_BRONZE.getId());
+        this.setSkinVariant(DUNGEON_SILVER.getId());
+        this.setSkinVariant(DUNGEON_GOLD.getId());
     }
 
     @Override
     public void dropDeathItems() {
         MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
-        ItemStack chestStack = new ItemStack(Blocks.getBlock(variant.getItemID()), 1, variant.getItemMetadata());
-
-
-//        switch (this.getSkinVariant()) {
-//            case VARIANT_OAK:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK, 1, 0);
-//                break;
-//            case VARIANT_OAK_WHITE:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 0);
-//                break;
-//            case VARIANT_OAK_ORANGE:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 16);
-//                break;
-//            case VARIANT_OAK_MAGENTA:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 32);
-//                break;
-//            case VARIANT_OAK_LIGHTBLUE:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 48);
-//                break;
-//            case VARIANT_OAK_YELLOW:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 64);
-//                break;
-//            case VARIANT_OAK_LIME:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 80);
-//                break;
-//            case VARIANT_OAK_PINK:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 96);
-//                break;
-//            case VARIANT_OAK_GRAY:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 112);
-//                break;
-//            case VARIANT_OAK_SILVER:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 128);
-//                break;
-//            case VARIANT_OAK_CYAN:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 144);
-//                break;
-//            case VARIANT_OAK_PURPLE:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 160);
-//                break;
-//            case VARIANT_OAK_BLUE:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 176);
-//                break;
-//            case VARIANT_OAK_BROWN:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 192);
-//                break;
-//            case VARIANT_OAK_GREEN:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 208);
-//                break;
-//            case VARIANT_OAK_RED:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 224);
-//                break;
-//            case VARIANT_OAK_BLACK:
-//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 240);
-//                break;
-//            case VARIANT_DUNGEON_BRONZE:
-//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_BRONZE, 1, 0);
-//                break;
-//            case VARIANT_DUNGEON_SILVER:
-//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_SILVER, 1, 0);
-//                break;
-//            case VARIANT_DUNGEON_GOLD:
-//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_GOLD, 1, 0);
-//                break;
-//            default:
-//                chestStack = new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0);
-//        }
-        this.dropItem(chestStack, 0);
+        this.dropItem(new ItemStack(variant.getItemID(), 1, variant.getItemMetadata()), 0);
+        for(WeightedRandomLootObject lootObject : mobDrops){
+            ItemStack stack = lootObject.getDefinedItemStack();
+            if(stack != null){
+                this.dropItem(stack, 0);
+            }
+        }
     }
-
 
     public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);
@@ -176,10 +88,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-
         if (attacker instanceof Player) {
             ItemStack item = ((Player) attacker).inventory.getCurrentItem();
-
             if (item != null && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)) {
                 return super.hurt(attacker, damage * 2, type);
             }
@@ -212,20 +122,22 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void remove() {
+        if(this.isAlive()){
+            place();
+        }
+        super.remove();
+    }
+
+    private void place() {
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
-        Direction[] directions = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST};
         for (Direction dir : directions) {
             WorldFeaturePoint dPoint = point.copy().moveInDirection(dir);
-            if (this.isSafe(world, dPoint) && this.isAlive()) {
-                this.place(dPoint);
+            if (this.isSafe(world, dPoint)) {
+                this.placeChest(dPoint);
                 this.populateChest(dPoint);
-                super.remove();
                 return;
             }
         }
-
-        // incase we miss it
-        super.remove();
     }
 
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
@@ -235,7 +147,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return blockID == 0 || blockMaterial.isLiquid();
     }
 
-    private void place(WorldFeaturePoint point) {
+    private void placeChest(WorldFeaturePoint point) {
         int meta = -1;
         foundMeta:
         for (int ix = -1; ix < 1; ix++) {
@@ -257,7 +169,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
         MimicVariant variant = MimicVariant.fromId(meta);
         world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getId() << 3);
-        BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
+//        BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
     }
 
     private void populateChest(WorldFeaturePoint point) {
