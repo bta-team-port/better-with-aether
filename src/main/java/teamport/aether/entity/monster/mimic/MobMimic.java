@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -251,7 +252,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 }
             }
         }
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), meta);
+        MimicVariant variant = MimicVariant.fromId(meta + 2);
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, variant.getBlockID(), variant.getMetadata());
         BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
     }
 

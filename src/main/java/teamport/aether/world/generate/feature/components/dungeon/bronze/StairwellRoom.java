@@ -15,7 +15,7 @@ public class StairwellRoom extends BaseBronzeRoom{
 
     public StairwellRoom() {
         super();
-        this.roomCount = 0.25f;
+        this.roomWeight = 0.25f;
         this.height = 30;
         this.length = this.width = 8;
 
