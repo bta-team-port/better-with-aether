@@ -68,7 +68,6 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
             world.setTileEntity(x, y, z, chest);
         }
-
         super.onBlockPlacedByMob(world, x, y, z, side, mob, xPlaced, yPlaced);
     }
 
