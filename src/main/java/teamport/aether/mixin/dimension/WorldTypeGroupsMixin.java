@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.type.AetherWorldTypes;
 
 @Mixin(value = WorldTypeGroups.class, remap = false)
 public class WorldTypeGroupsMixin {
@@ -17,14 +18,14 @@ public class WorldTypeGroupsMixin {
         for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
             WorldType overworldType = group.get(Dimension.OVERWORLD);
             if (overworldType == WorldTypes.OVERWORLD_SKYBLOCK) {
-                group.with(AetherDimension.AETHER, AetherDimension.AETHER_SKYBLOCK);
+                group.with(AetherDimension.AETHER, AetherWorldTypes.AETHER_SKYBLOCK);
                 break;
             }
         }
         for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
             WorldType overworldType = group.get(Dimension.OVERWORLD);
             if (overworldType == WorldTypes.OVERWORLD_DEFAULT) {
-                group.with(AetherDimension.AETHER, AetherDimension.AETHER_DEFAULT);
+                group.with(AetherDimension.AETHER, AetherWorldTypes.AETHER_DEFAULT);
                 break;
             }
         }
@@ -36,14 +37,14 @@ public class WorldTypeGroupsMixin {
                     overworldType == WorldTypes.OVERWORLD_WINTER || overworldType == WorldTypes.OVERWORLD_ISLANDS ||
                     overworldType == WorldTypes.OVERWORLD_FLOATING || overworldType == WorldTypes.FLAT ||
                     overworldType == WorldTypes.EMPTY || overworldType == WorldTypes.DEBUG) {
-                group.with(AetherDimension.AETHER, AetherDimension.AETHER_EXTENDED);
+                group.with(AetherDimension.AETHER, AetherWorldTypes.AETHER_EXTENDED);
                 break;
             }
         }
         for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
             WorldType overworldType = group.get(Dimension.OVERWORLD);
             if (overworldType == WorldTypes.OVERWORLD_RETRO || overworldType == WorldTypes.OVERWORLD_CLASSIC || overworldType == WorldTypes.OVERWORLD_INDEV) {
-                group.with(AetherDimension.AETHER, AetherDimension.AETHER_RETRO);
+                group.with(AetherDimension.AETHER, AetherWorldTypes.AETHER_RETRO);
                 break;
             }
         }

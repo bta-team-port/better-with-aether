@@ -32,7 +32,7 @@ import turniplabs.halplibe.helper.EntityHelper;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public final class AetherEntities {
-    public static boolean hasInit = false;
+    private static boolean hasInit = false;
 
     public static void init() {
         if(!hasInit){

@@ -32,7 +32,7 @@ import teamport.aether.items.AetherItems;
 
 @Environment(EnvType.CLIENT)
 public class AetherMobInfoRegistry {
-    public static boolean hasInit = false;
+    private static boolean hasInit = false;
 
     public static void init() {
         if(!hasInit){

@@ -39,9 +39,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 5);
         carvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 10);
 
-        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 85);
-        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 5);
-        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 10);
+        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 90);
+        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 10);

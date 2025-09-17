@@ -24,8 +24,8 @@ import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.gui.ComponentJumpBar;
 import teamport.aether.particle.*;
-import teamport.aether.world.AetherDimension;
-import teamport.aether.world.WorldTypeFXAether;
+import teamport.aether.world.type.AetherWorldTypes;
+import teamport.aether.world.type.WorldTypeFXAether;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
@@ -76,14 +76,22 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         setupCustomBlockLight();
         AetherMobInfoRegistry.init();
 
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_EXTENDED).setCloudHeight(8.0f)
-                .setHasAurora(true).setHasGround(false));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_DEFAULT).setCloudHeight(8.0f)
-                .setHasAurora(true).setHasGround(false));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_SKYBLOCK).setCloudHeight(8.0f)
-                .setHasAurora(true).setHasGround(false));
-        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherDimension.AETHER_RETRO).setCloudHeight(8.0f)
-                .setHasAurora(true).setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED)
+                .setCloudHeight(8.0f)
+                .setHasAurora(true)
+                .setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_DEFAULT)
+                .setCloudHeight(8.0f)
+                .setHasAurora(true)
+                .setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_SKYBLOCK)
+                .setCloudHeight(8.0f)
+                .setHasAurora(true)
+                .setHasGround(false));
+        WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_RETRO)
+                .setCloudHeight(8.0f)
+                .setHasAurora(true)
+                .setHasGround(false));
     }
 
     public void setupCustomBlockLight() {
