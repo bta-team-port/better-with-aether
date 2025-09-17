@@ -20,6 +20,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
+import teamport.aether.entity.monster.mimic.MimicVariant;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.tile.TileEntityMimic;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -30,7 +31,6 @@ import java.util.List;
 import static teamport.aether.AetherMod.BTWAILA;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
-
 
     private double dx;
     private double dy;
@@ -49,6 +49,10 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     public static int setVariantToMeta(int meta, int variant) {
         return (meta & ~(MASK_VARIANT << 3)) | ((variant & MASK_VARIANT) << 3);
+    }
+
+    public static int setVariantToMeta(int meta, MimicVariant variant) {
+        return (meta & ~(MASK_VARIANT << 3)) | ((variant.getId() & MASK_VARIANT) << 3);
     }
 
 
@@ -92,27 +96,20 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         switch (dropCause) {
             case SILK_TOUCH:
             case PICK_BLOCK:
-                if (tileEntity != null) {
-                    ItemStack result = new ItemStack(this);
-                    CompoundTag data = result.getData();
-
-                    CompoundTag mimicData = new CompoundTag();
-                    tileEntity.writeToNBT(mimicData);
-
-                    data.putCompound("loot", mimicData);
-                    result.setData(data);
-
-                    return new ItemStack[]{result};
-                } else {
+                if (tileEntity == null) {
                     return null;
                 }
-
+                ItemStack result = new ItemStack(this);
+                CompoundTag data = result.getData();
+                CompoundTag mimicData = new CompoundTag();
+                tileEntity.writeToNBT(mimicData);
+                data.putCompound("loot", mimicData);
+                result.setData(data);
+                return new ItemStack[]{result};
             default:
                 Player player = world.getClosestPlayer(x, y, z, 16);
                 MobMimic mimic = summonMimic(world, x, y, z);
-
                 if (mimic == null) break;
-
                 world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
                 world.setBlockWithNotify(x, y, z, 0);
 
@@ -169,20 +166,15 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             MobMimic mimic = summonMimic(world, x, y, z);
             moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
         }
-
         player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-        if (player.tickCount % 10 == 0 && !BTWAILA) player.sendMessage("<Mimic> Thank you dark souls.");
-
         world.setBlockWithNotify(x, y, z, 0);
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
-
         if (!EnvironmentHelper.isServerEnvironment()) world.spawnParticle(
                 "explode",
                 dx, dy, dz,
                 0.0, 0.0, 0.0,
                 0
         );
-
         return true;
     }
 
