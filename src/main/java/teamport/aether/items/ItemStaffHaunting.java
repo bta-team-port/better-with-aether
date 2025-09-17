@@ -14,8 +14,8 @@ import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.entity.tile.TileEntityMimic;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import static teamport.aether.entity.monster.mimic.MobMimic.VARIANT_OAK;
-import static teamport.aether.entity.monster.mimic.MobMimic.VARIANT_SKYROOT;
+import static teamport.aether.entity.monster.mimic.MimicVariant.OAK;
+import static teamport.aether.entity.monster.mimic.MimicVariant.SKYROOT;
 
 public class ItemStaffHaunting extends Item {
 
@@ -66,12 +66,12 @@ public class ItemStaffHaunting extends Item {
         int newMeta = BlockLogicChestMimic.setDirection(0, BlockLogicChest.getDirectionFromMeta(blockMeta));
 
         if (blockID == Blocks.CHEST_PLANKS_OAK.id()) {
-            newMeta = BlockLogicChestMimic.setVariantToMeta(newMeta, VARIANT_OAK);
+            newMeta = BlockLogicChestMimic.setVariantToMeta(newMeta, OAK);
         }
         else if (blockID == Blocks.CHEST_PLANKS_OAK_PAINTED.id()) {
             newMeta = BlockLogicChestMimic.setVariantToMeta(newMeta, DyeColor.colorFromBlockMeta((blockMeta & 240) >> 4).blockMeta + 2);
         }
-        else newMeta = BlockLogicChestMimic.setVariantToMeta(newMeta, VARIANT_SKYROOT);
+        else newMeta = BlockLogicChestMimic.setVariantToMeta(newMeta, SKYROOT);
         return newMeta;
     }
 }
