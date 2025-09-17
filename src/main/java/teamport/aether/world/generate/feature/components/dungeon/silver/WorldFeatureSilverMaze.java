@@ -264,25 +264,25 @@ public class WorldFeatureSilverMaze {
         createChests(x, y + 5, z);
 
         // add stairs
-        doors.add(wfb(x - 2, y + 1, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        doors.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        doors.add(wfb(x - 2, y + 2, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        doors.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        doors.add(wfb(x - 2, y + 2, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
+        doors.add(wfb(x - 2, y + 1, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
+        doors.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 2, y + 2, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
+        doors.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
+        doors.add(wfb(x - 2, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
 
-        doors.add(wfb(x - 3, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        doors.add(wfb(x - 3, y + 2, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        doors.add(wfb(x - 4, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        doors.add(wfb(x - 5, y + 4, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        doors.add(wfb(x - 5, y + 3, z + 5, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
+        doors.add(wfb(x - 3, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
+        doors.add(wfb(x - 3, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
+        doors.add(wfb(x - 4, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 5, y + 4, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
+        doors.add(wfb(x - 5, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
 
-        doors.add(wfb(x - 5, y + 4, z + 4, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        doors.add(wfb(x - 5, y + 5, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 0, true));
-        doors.add(wfb(x - 5, y + 4, z + 3, AetherBlocks.SLAB_CARVED_STONE.id(), 2, true));
-        doors.add(wfb(x - 5, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
+        doors.add(wfb(x - 5, y + 4, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 5, y + 5, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
+        doors.add(wfb(x - 5, y + 4, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
+        doors.add(wfb(x - 5, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
 
-        doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
-        doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_CARVED_STONE.id(), 1, true));
+        doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
     }
 
     public Direction getDoorDirection(int to, int from) {
