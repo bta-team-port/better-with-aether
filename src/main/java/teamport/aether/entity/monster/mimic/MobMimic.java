@@ -252,8 +252,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 }
             }
         }
-        MimicVariant variant = MimicVariant.fromId(meta + 2);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, variant.getBlockID(), variant.getMetadata());
+        MimicVariant variant = MimicVariant.fromId(meta + 4);
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getMetadata());
         BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
     }
 
