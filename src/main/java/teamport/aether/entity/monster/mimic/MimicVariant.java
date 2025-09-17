@@ -27,25 +27,25 @@ public enum MimicVariant {
     DUNGEON_GOLD(20,AetherBlocks.CHEST_DUNGEON_BRONZE.id(), 0);
 
     private final int id;
-    private final int blockID;
-    private final int metadata;
+    private final int itemID;
+    private final int itemMetadata;
 
-    MimicVariant(int id, int blockID, int metadata) {
+    MimicVariant(int id, int itemID, int metadata) {
         this.id = id;
-        this.blockID = blockID;
-        this.metadata = metadata;
+        this.itemID = itemID;
+        this.itemMetadata = metadata;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getBlockID() {
-        return blockID;
+    public int getItemID() {
+        return itemID;
     }
 
-    public int getMetadata() {
-        return metadata;
+    public int getItemMetadata() {
+        return itemMetadata;
     }
 
     public static MimicVariant fromId(int id) {

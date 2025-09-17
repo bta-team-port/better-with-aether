@@ -19,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -233,7 +232,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private void place(WorldFeaturePoint point) {
-        int meta = 0;
+        int meta = -1;
         foundMeta:
         for(int ix = -1; ix < 1; ix++){
             for(int iy = -1; iy < 1; iy++){
@@ -246,14 +245,14 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                     }
                     BlockLogic logic = block.getLogic();
                      if(logic instanceof BlockLogicPlanksPainted || logic instanceof BlockLogicFencePainted || logic instanceof BlockLogicFenceGatePainted || logic instanceof BlockLogicStairsPainted || logic instanceof BlockLogicSlabPainted){
-                        meta = world.getBlockMetadata(point.x + ix, point.y + iy, point.z + iz);
+                        meta = world.getBlockMetadata(point.x + ix, point.y + iy, point.z + iz) + 2;
                         break foundMeta;
                     }
                 }
             }
         }
-        MimicVariant variant = MimicVariant.fromId(meta + 4);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getMetadata());
+        MimicVariant variant = MimicVariant.fromId(meta);
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getId());
         BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
     }
 
