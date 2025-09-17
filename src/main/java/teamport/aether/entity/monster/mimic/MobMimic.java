@@ -1,6 +1,7 @@
 package teamport.aether.entity.monster.mimic;
 
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogicChestPainted;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
@@ -9,20 +10,25 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolAxe;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
+import teamport.aether.world.AetherDimension;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
     public static final int VARIANT_SKYROOT = 0;
 
     public static final int VARIANT_OAK = 1;
+
     public static final int VARIANT_OAK_WHITE = 2;
     public static final int VARIANT_OAK_ORANGE = 3;
     public static final int VARIANT_OAK_MAGENTA = 4;
@@ -44,6 +50,22 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     public static final int VARIANT_DUNGEON_SILVER = 19;
     public static final int VARIANT_DUNGEON_GOLD = 20;
 
+    public static final Map<Integer, ItemStack> VARIANT_TO_CHEST = new HashMap<>();
+
+    static {
+        VARIANT_TO_CHEST.put(VARIANT_OAK,  new ItemStack(Blocks.CHEST_PLANKS_OAK, 1, 0));
+        VARIANT_TO_CHEST.put(VARIANT_SKYROOT, new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0));
+        VARIANT_TO_CHEST.put(VARIANT_DUNGEON_BRONZE, new ItemStack(AetherBlocks.CHEST_DUNGEON_BRONZE, 1, 0));
+        VARIANT_TO_CHEST.put(VARIANT_DUNGEON_SILVER, new ItemStack(AetherBlocks.CHEST_DUNGEON_SILVER, 1, 0));
+        VARIANT_TO_CHEST.put(VARIANT_DUNGEON_GOLD, new ItemStack(AetherBlocks.CHEST_DUNGEON_GOLD, 1, 0));
+
+        for (DyeColor color : DyeColor.values()) {
+            int meta = BlockLogicChestPainted.getMetaForDyeColor(color.itemMeta);
+            VARIANT_TO_CHEST.put(color.blockMeta+2, new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, meta));
+        }
+
+    }
+
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
@@ -51,100 +73,19 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.attackStrength = 5;
         this.scoreValue = 2000;
 
-        this.setSkinVariant(VARIANT_SKYROOT);
-
-        this.setSkinVariant(VARIANT_OAK);
-        this.setSkinVariant(VARIANT_OAK_WHITE);
-        this.setSkinVariant(VARIANT_OAK_ORANGE);
-        this.setSkinVariant(VARIANT_OAK_MAGENTA);
-        this.setSkinVariant(VARIANT_OAK_LIGHTBLUE);
-        this.setSkinVariant(VARIANT_OAK_YELLOW);
-        this.setSkinVariant(VARIANT_OAK_LIME);
-        this.setSkinVariant(VARIANT_OAK_PINK);
-        this.setSkinVariant(VARIANT_OAK_GRAY);
-        this.setSkinVariant(VARIANT_OAK_SILVER);
-        this.setSkinVariant(VARIANT_OAK_CYAN);
-        this.setSkinVariant(VARIANT_OAK_PURPLE);
-        this.setSkinVariant(VARIANT_OAK_BLUE);
-        this.setSkinVariant(VARIANT_OAK_BROWN);
-        this.setSkinVariant(VARIANT_OAK_GREEN);
-        this.setSkinVariant(VARIANT_OAK_RED);
-        this.setSkinVariant(VARIANT_OAK_BLACK);
-
-        this.setSkinVariant(VARIANT_DUNGEON_BRONZE);
-        this.setSkinVariant(VARIANT_DUNGEON_SILVER);
-        this.setSkinVariant(VARIANT_DUNGEON_GOLD);
+        if (world.dimension.id == AetherDimension.AetherDimensionID) this.setSkinVariant(VARIANT_SKYROOT);
+        else this.setSkinVariant(VARIANT_OAK);
     }
 
     @Override
     public void dropDeathItems() {
-        ItemStack chestStack;
-        switch (this.getSkinVariant()) {
-            case VARIANT_OAK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK, 1, 0);
-                break;
-            case VARIANT_OAK_WHITE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 0);
-                break;
-            case VARIANT_OAK_ORANGE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 16);
-                break;
-            case VARIANT_OAK_MAGENTA:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 32);
-                break;
-            case VARIANT_OAK_LIGHTBLUE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 48);
-                break;
-            case VARIANT_OAK_YELLOW:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 64);
-                break;
-            case VARIANT_OAK_LIME:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 80);
-                break;
-            case VARIANT_OAK_PINK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 96);
-                break;
-            case VARIANT_OAK_GRAY:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 112);
-                break;
-            case VARIANT_OAK_SILVER:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 128);
-                break;
-            case VARIANT_OAK_CYAN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 144);
-                break;
-            case VARIANT_OAK_PURPLE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 160);
-                break;
-            case VARIANT_OAK_BLUE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 176);
-                break;
-            case VARIANT_OAK_BROWN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 192);
-                break;
-            case VARIANT_OAK_GREEN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 208);
-                break;
-            case VARIANT_OAK_RED:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 224);
-                break;
-            case VARIANT_OAK_BLACK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 240);
-                break;
-            case VARIANT_DUNGEON_BRONZE:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_BRONZE, 1, 0);
-                break;
-            case VARIANT_DUNGEON_SILVER:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_SILVER, 1, 0);
-                break;
-            case VARIANT_DUNGEON_GOLD:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_GOLD, 1, 0);
-                break;
-            default:
-                chestStack = new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0);
-        }
+        ItemStack chestStack = VARIANT_TO_CHEST.getOrDefault(
+            this.getSkinVariant(),
+            new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0)
+        );
 
         this.dropItem(chestStack, 0);
+        super.dropDeathItems();
     }
 
 
