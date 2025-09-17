@@ -74,7 +74,5 @@ public class DisplayRoom extends BaseBronzeRoom {
                 chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second,  true));
             }
         }
-
-        decoration.add(wfb(x + 4, y + 1, y + 1, Blocks.BLOCK_DIAMOND.id(), 0));
     }
 }
