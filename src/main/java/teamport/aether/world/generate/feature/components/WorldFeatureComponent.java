@@ -562,4 +562,24 @@ public class WorldFeatureComponent {
             }
         }
     }
+
+    public static WorldFeatureComponent drawVolumeX(int blockID, int metadata, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+        int dx = p1.x - p2.x;
+        int dy = p1.y - p2.y;
+        int dz = p1.z - p2.z;
+        Direction direction1 = dx > 0 ? WEST : EAST;
+        Direction direction2 = dy > 0 ? DOWN : UP;
+        Direction direction3 = dz > 0 ? NORTH : SOUTH;
+        return drawVolume(blockID, metadata, direction1, Math.abs(dx), direction2, Math.abs(dy), direction3, Math.abs(dz), p1.x, p1.y, p1.z, withNotify);
+    }
+
+    public static WorldFeatureComponent drawVolumeX(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
+        int minX = Math.min(p1.x, p2.x);
+        int minY = Math.min(p1.y, p2.y);
+        int minZ = Math.min(p1.z, p2.z);
+        int length1 = Math.abs(p1.x - p2.x);
+        int length2 = Math.abs(p1.y - p2.y);
+        int length3 = Math.abs(p1.z - p2.z);
+        return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
+    }
 }
