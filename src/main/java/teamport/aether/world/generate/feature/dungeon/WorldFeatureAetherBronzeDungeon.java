@@ -140,9 +140,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         hallway.addEntry(StairwellRoom::new, 2);
         hallway.addEntry(TallRoom::new, 1);
 
-        manager.addBag(treasureRooms, 50);
-        manager.addBag(hallway, 25);
-        manager.addBag(trapRooms, 20);
+        manager.addBag(treasureRooms, 45);
+        manager.addBag(hallway, 35);
+        manager.addBag(trapRooms, 10);
         manager.addBag(boss, 5);
     }
 
@@ -195,6 +195,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             currentRoom.markDoor(door);
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (this.intercept(seenRooms, nextRoom, anchor)) {
+                    currentRoom = null;
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
