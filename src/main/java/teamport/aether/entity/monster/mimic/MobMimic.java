@@ -14,16 +14,24 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
+import teamport.aether.world.AetherDimension;
 
 import java.util.List;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
+
+    public static final int VARIANT_SKYROOT = 0;
+    public static final int VARIANT_OAK = 1;
+
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.attackStrength = 5;
         this.scoreValue = 2000;
+
+        if (world.dimension.id == AetherDimension.AetherDimensionID) this.setSkinVariant(VARIANT_SKYROOT);
+        else this.setSkinVariant(VARIANT_OAK);
     }
 
     @Override

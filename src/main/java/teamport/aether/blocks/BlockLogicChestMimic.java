@@ -30,6 +30,8 @@ import java.util.List;
 import static teamport.aether.AetherMod.BTWAILA;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
+
+
     private double dx;
     private double dy;
     private double dz;
@@ -38,6 +40,17 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         super(block, Material.wood);
         block.withEntity(TileEntityMimic::new);
     }
+
+    public static final int MASK_VARIANT = 0b11111;
+
+    public static int getVariantFromMeta(int meta) {
+       return (meta >> 3) & MASK_VARIANT;
+    }
+
+    public static int setVariantToMeta(int meta, int variant) {
+        return (meta & ~(MASK_VARIANT << 3)) | ((variant & MASK_VARIANT) << 3);
+    }
+
 
     @Override
     public String getLanguageKey(int meta) {
@@ -57,6 +70,23 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         }
 
         super.onBlockPlacedByMob(world, x, y, z, side, mob, xPlaced, yPlaced);
+    }
+
+    public @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
+        if (EnvironmentHelper.isClientWorld()) return null;
+
+        int meta = world.getBlockMetadata(x, y, z);
+        List<ItemStack> chestInv = getAndClearInventory(world, x, y, z);
+
+        MobMimic mimic = new MobMimic(world);
+        mimic.setPos(x + 0.5, y, z + 0.5);
+        mimic.setLoot(chestInv);
+        mimic.spawnInit();
+
+        mimic.setSkinVariant(getVariantFromMeta(meta));
+
+        world.entityJoinedWorld(mimic);
+        return mimic;
     }
 
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
@@ -79,26 +109,27 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 }
 
             default:
-                MobMimic mimic = new MobMimic(world);
-                List<ItemStack> chestInv = getAndClearInventory(world, x, y, z);
-                mimic.setLoot(chestInv);
+                Player player = world.getClosestPlayer(x, y, z, 16);
+                MobMimic mimic = summonMimic(world, x, y, z);
+
+                if (mimic == null) break;
+
                 world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
                 world.setBlockWithNotify(x, y, z, 0);
-                mimic.spawnInit();
-                Player player = world.getClosestPlayer(x, y, z, 16);
+
+                if (!EnvironmentHelper.isServerEnvironment()) world.spawnParticle(
+                    "explode",
+                    x + 0.5, y + 1, z + 0.5,
+                    0.0, 0.0, 0.0,
+                    0
+                );
 
                 if (player != null) {
                     moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
                     player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-                } else {
-                    mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
                 }
 
-                if (!EnvironmentHelper.isServerEnvironment()) {
-                    world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
-                }
-
-                world.entityJoinedWorld(mimic);
+                else mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
         }
 
         return null;
@@ -109,6 +140,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         if (inv == null) {
             return null;
         }
+
         List<ItemStack> stacks = new ArrayList<>();
         for (int i = 0; i < inv.getContainerSize(); i++) {
             stacks.add(inv.getItem(i));
@@ -118,39 +150,40 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
-        List<ItemStack> chestInv = getAndClearInventory(world, x, y, z);
-        MobMimic mimic = new MobMimic(world);
-        mimic.setLoot(chestInv);
-        mimic.spawnInit();
+        MobMimic mimic = summonMimic(world, x, y, z);
         moveToSafe(world, mimic, x, y, z, 0, 0);
-        world.entityJoinedWorld(mimic);
+
         world.setBlockWithNotify((int) Math.round(dx), (int) Math.round(dy), (int) Math.round(dz), 0);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            world.spawnParticle("explode", dx, dy, dz, 0.0, 0.0, 0.0, 0);
-        }
+
+        if (!EnvironmentHelper.isServerEnvironment()) world.spawnParticle(
+            "explode",
+            dx, dy, dz,
+            0.0, 0.0, 0.0,
+            0
+        );
     }
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
-        List<ItemStack> chestInv = getAndClearInventory(world, x, y, z);
-        world.setBlockWithNotify(x, y, z, 0);
-        if (!world.isClientSide) {
-            player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-            MobMimic mimic = new MobMimic(world);
-            mimic.setLoot(chestInv);
-            mimic.spawnInit();
+        if (!EnvironmentHelper.isClientWorld()) {
+            MobMimic mimic = summonMimic(world, x, y, z);
             moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
-            world.entityJoinedWorld(mimic);
         }
-        if (player.tickCount % 10 == 0 && !BTWAILA) {
-            player.sendMessage("<Mimic> Thank you dark souls.");
-        }
-        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            world.spawnParticle("explode", x + 0.5, y + 1, z + 0.5, 0.0, 0.0, 0.0, 0);
-        }
+
         player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
+        if (player.tickCount % 10 == 0 && !BTWAILA) player.sendMessage("<Mimic> Thank you dark souls.");
+
+        world.setBlockWithNotify(x, y, z, 0);
+        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
+
+        if (!EnvironmentHelper.isServerEnvironment()) world.spawnParticle(
+                "explode",
+                dx, dy, dz,
+                0.0, 0.0, 0.0,
+                0
+        );
+
         return true;
     }
 

@@ -63,6 +63,8 @@ item.aether.tool.staff.nature.name=Nature Staff
 item.aether.tool.staff.nature.desc=Allows the user to control any mob with full authority.
 item.aether.tool.staff.cloud.name=Cloud Staff
 item.aether.tool.staff.cloud.desc=Summon two mini zephyrs to help defend.
+item.aether.tool.staff.haunting.name=Haunting Staff
+item.aether.tool.staff.haunting.desc=Shift and Right click a chest to turn it into something somber.
 
 item.aether.tool.knife.lightning.name=Lightning Knife
 item.aether.tool.knife.lightning.desc=Throwable dagger that strikes the foe with a bolt.
