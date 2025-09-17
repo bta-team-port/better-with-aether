@@ -154,7 +154,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> CARVED_ANGELIC_TRAPPED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
-    public static boolean hasInit = false;
+    private static boolean hasInit = false;
 
     public static void init() {
         if (!hasInit) {

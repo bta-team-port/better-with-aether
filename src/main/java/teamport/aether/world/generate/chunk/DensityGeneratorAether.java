@@ -1,4 +1,4 @@
-package teamport.aether.world;
+package teamport.aether.world.generate.chunk;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
@@ -6,13 +6,11 @@ import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.PerlinNoise;
 
 public class DensityGeneratorAether implements DensityGenerator {
-    public final World world;
+    public World world;
 
-    public final PerlinNoise minLimitNoise;
-    public final PerlinNoise maxLimitNoise;
-    public final PerlinNoise mainNoise;
-    public final PerlinNoise scaleNoise;
-    public final PerlinNoise depthNoise;
+    public PerlinNoise minLimitNoise;
+    public PerlinNoise maxLimitNoise;
+    public PerlinNoise mainNoise;
 
     public DensityGeneratorAether(World world) {
         this.world = world;
@@ -20,32 +18,30 @@ public class DensityGeneratorAether implements DensityGenerator {
         minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
         maxLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 16);
         mainNoise = new PerlinNoise(world.getRandomSeed(), 8, 16);
-        scaleNoise = new PerlinNoise(world.getRandomSeed(), 10, 32);
-        depthNoise = new PerlinNoise(world.getRandomSeed(), 16, 48);
     }
 
     @Override
     public double[] generateDensityMap(Chunk chunk) {
         int terrainHeight = (world.getWorldType().getMaxY() + 1) - world.getWorldType().getMinY();
 
-        int xSize = 4 + 1;
+        int xSize = 5;
         int ySize = (terrainHeight / 8) + 1;
-        int zSize = 4 + 1;
+        int zSize = 5;
         int x = chunk.xPosition * 4;
         int y = 0;
         int z = chunk.zPosition * 4;
 
         double[] densityMapArray = new double[xSize * ySize * zSize];
 
-        final double mainNoiseScaleX = 80;
-        final double mainNoiseScaleY = 120;
-        final double mainNoiseScaleZ = 80;
+        double mainNoiseScaleX = 80.0;
+        double mainNoiseScaleY = 120.0;
+        double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412D / 4;
         final double heightScale = 684.412D / 2;
 
-        final double upperLimitScale = 128;
-        final double lowerLimitScale = 128;
+        double upperLimitScale = 128.0;
+        double lowerLimitScale = 128.0;
 
         // uses temp and humidity to alter terrain shape.
         double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));

@@ -1,5 +1,7 @@
-package teamport.aether.world;
+package teamport.aether.world.type;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.colorizer.Colorizers;
 import net.minecraft.client.render.worldtype.WorldTypeFX;
 import net.minecraft.core.util.helper.MathHelper;
@@ -7,6 +9,7 @@ import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.type.WorldType;
 
+@Environment(EnvType.CLIENT)
 public class WorldTypeFXAether extends WorldTypeFX {
     public Float cloudHeight = null;
 

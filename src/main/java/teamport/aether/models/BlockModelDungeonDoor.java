@@ -6,24 +6,58 @@ import net.minecraft.client.render.block.model.BlockModelRotatable;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.BlockLogicDungeonDoor;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 @Environment(EnvType.CLIENT)
-public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeonDoor> {
+public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotatable<T> {
+    public int width;
+    public int height;
 
-    int width;
-    int height;
+    public final IconCoordinate itemTexture;
+    public final IconCoordinate itemOverbrightTexture;
+    public final IconCoordinate itemTextureRetro;
+    public final IconCoordinate itemOverbrightTextureRetro;
 
-    public BlockModelDungeonDoor(Block<BlockLogicDungeonDoor> block, int width, int height) {
+    public BlockModelDungeonDoor(Block<T> block, int width, int height) {
         super(block);
         this.width = width;
         this.height = height;
+
+        this.itemTexture = TextureRegistry.getTexture(getTexturePath(block, false));
+        this.itemOverbrightTexture = TextureRegistry.getTexture(getTexturePath(block, true));
+        this.itemTextureRetro = TextureRegistry.getTexture(getRetroTexturePath(block, false));
+        this.itemOverbrightTextureRetro = TextureRegistry.getTexture(getRetroTexturePath(block, true));
+    }
+
+    public String getTexturePath(Block<?> block, boolean overbright) {
+        String basePath = "aether:block/ctm/boss_door/";
+        if (block == AetherBlocks.DOOR_DUNGEON_GOLD) {
+            return basePath + "gold/" + (overbright ? "hellfire_door_overlay" : "hellfire_door");
+        } else if (block == AetherBlocks.DOOR_DUNGEON_SILVER) {
+            return basePath + "silver/" + (overbright ? "angelic_door_overlay" : "angelic_door");
+        } else if (block == AetherBlocks.DOOR_DUNGEON_BRONZE) {
+            return basePath + "bronze/" + (overbright ? "carved_door_overlay" : "carved_door");
+        }
+        return "minecraft:block/texture_missing";
+    }
+
+    public String getRetroTexturePath(Block<?> block, boolean overbright) {
+        String basePath = "aether:block/ctm/boss_door/";
+        if (block == AetherBlocks.DOOR_DUNGEON_GOLD) {
+            return basePath + "gold/" + (overbright ? "hellfire_door_retro_overlay" : "hellfire_door_retro");
+        } else if (block == AetherBlocks.DOOR_DUNGEON_SILVER) {
+            return basePath + "silver/" + (overbright ? "angelic_door_retro_overlay" : "angelic_door_retro");
+        } else if (block == AetherBlocks.DOOR_DUNGEON_BRONZE) {
+            return basePath + "bronze/" + (overbright ? "carved_door_retro_overlay" : "carved_door_retro");
+        }
+        return "minecraft:block/texture_missing";
     }
 
     protected IconCoordinate cropTexture(IconCoordinate texture, int x, int y) {
@@ -109,10 +143,26 @@ public class BlockModelDungeonDoor extends BlockModelRotatable<BlockLogicDungeon
 
     @Override
     public IconCoordinate getBlockOverbrightTexture(WorldSource blockAccess, int x, int y, int z, int side) {
-        // why does it take a bloody int?
         if (isRetro()) {
-            return ctm(this.retroOverbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
+            return ctm(this.retroOverbrightTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, Side.getSideById(side));
         }
-        return ctm(this.overbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
+        return ctm(this.overbrightTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, Side.getSideById(side));
     }
+
+    @Override
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+        if (isRetro()) {
+            return itemTextureRetro;
+        }
+        return itemTexture;
+    }
+
+    @Override
+    public IconCoordinate getBlockOverbrightTextureFromSideAndMeta(Side side, int metadata) {
+        if (isRetro()) {
+            return itemOverbrightTextureRetro;
+        }
+        return itemOverbrightTexture;
+    }
+
 }

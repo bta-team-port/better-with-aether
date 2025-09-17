@@ -1,4 +1,4 @@
-package teamport.aether.world;
+package teamport.aether.world.generate.chunk;
 
 import net.minecraft.core.block.BlockLogicSand;
 import net.minecraft.core.block.Blocks;

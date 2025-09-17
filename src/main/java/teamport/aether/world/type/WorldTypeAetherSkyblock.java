@@ -1,9 +1,9 @@
-package teamport.aether.world;
+package teamport.aether.world.type;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
 import net.minecraft.core.world.type.WorldType;
-import net.minecraft.core.world.type.nether.WorldTypeNether;
+import teamport.aether.world.generate.chunk.skyblock.ChunkGeneratorSkyblockAether;
 
 public class WorldTypeAetherSkyblock extends WorldTypeAether {
     public WorldTypeAetherSkyblock(WorldType.Properties properties) {

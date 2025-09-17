@@ -1,4 +1,4 @@
-package teamport.aether.world;
+package teamport.aether.world.generate.chunk;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;

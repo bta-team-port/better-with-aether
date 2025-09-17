@@ -1,4 +1,4 @@
-package teamport.aether.world;
+package teamport.aether.world.generate.chunk.skyblock;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;

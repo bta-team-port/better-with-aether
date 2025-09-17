@@ -232,7 +232,7 @@ public final class AetherItems {
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
 
-    public static boolean hasInit = false;
+    private static boolean hasInit = false;
 
     public static void init() {
         if (!hasInit) {
