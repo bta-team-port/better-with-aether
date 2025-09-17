@@ -30,6 +30,10 @@ public class WorldFeaturePoint {
         this.z = length;
     }
 
+    public static WorldFeaturePoint wfp() {
+        return new WorldFeaturePoint(0, 0, 0);
+    }
+
     public static WorldFeaturePoint wfp(int x, int y, int z) {
         return new WorldFeaturePoint(x, y, z);
     }
