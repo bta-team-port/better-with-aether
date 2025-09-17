@@ -17,8 +17,10 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
@@ -88,72 +90,74 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void dropDeathItems() {
-        ItemStack chestStack;
-        switch (this.getSkinVariant()) {
-            case VARIANT_OAK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK, 1, 0);
-                break;
-            case VARIANT_OAK_WHITE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 0);
-                break;
-            case VARIANT_OAK_ORANGE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 16);
-                break;
-            case VARIANT_OAK_MAGENTA:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 32);
-                break;
-            case VARIANT_OAK_LIGHTBLUE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 48);
-                break;
-            case VARIANT_OAK_YELLOW:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 64);
-                break;
-            case VARIANT_OAK_LIME:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 80);
-                break;
-            case VARIANT_OAK_PINK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 96);
-                break;
-            case VARIANT_OAK_GRAY:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 112);
-                break;
-            case VARIANT_OAK_SILVER:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 128);
-                break;
-            case VARIANT_OAK_CYAN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 144);
-                break;
-            case VARIANT_OAK_PURPLE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 160);
-                break;
-            case VARIANT_OAK_BLUE:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 176);
-                break;
-            case VARIANT_OAK_BROWN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 192);
-                break;
-            case VARIANT_OAK_GREEN:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 208);
-                break;
-            case VARIANT_OAK_RED:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 224);
-                break;
-            case VARIANT_OAK_BLACK:
-                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 240);
-                break;
-            case VARIANT_DUNGEON_BRONZE:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_BRONZE, 1, 0);
-                break;
-            case VARIANT_DUNGEON_SILVER:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_SILVER, 1, 0);
-                break;
-            case VARIANT_DUNGEON_GOLD:
-                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_GOLD, 1, 0);
-                break;
-            default:
-                chestStack = new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0);
-        }
+        MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
+        ItemStack chestStack = new ItemStack(Blocks.getBlock(variant.getItemID()), 1, variant.getItemMetadata());
 
+
+//        switch (this.getSkinVariant()) {
+//            case VARIANT_OAK:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK, 1, 0);
+//                break;
+//            case VARIANT_OAK_WHITE:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 0);
+//                break;
+//            case VARIANT_OAK_ORANGE:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 16);
+//                break;
+//            case VARIANT_OAK_MAGENTA:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 32);
+//                break;
+//            case VARIANT_OAK_LIGHTBLUE:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 48);
+//                break;
+//            case VARIANT_OAK_YELLOW:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 64);
+//                break;
+//            case VARIANT_OAK_LIME:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 80);
+//                break;
+//            case VARIANT_OAK_PINK:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 96);
+//                break;
+//            case VARIANT_OAK_GRAY:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 112);
+//                break;
+//            case VARIANT_OAK_SILVER:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 128);
+//                break;
+//            case VARIANT_OAK_CYAN:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 144);
+//                break;
+//            case VARIANT_OAK_PURPLE:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 160);
+//                break;
+//            case VARIANT_OAK_BLUE:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 176);
+//                break;
+//            case VARIANT_OAK_BROWN:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 192);
+//                break;
+//            case VARIANT_OAK_GREEN:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 208);
+//                break;
+//            case VARIANT_OAK_RED:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 224);
+//                break;
+//            case VARIANT_OAK_BLACK:
+//                chestStack = new ItemStack(Blocks.CHEST_PLANKS_OAK_PAINTED, 1, 240);
+//                break;
+//            case VARIANT_DUNGEON_BRONZE:
+//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_BRONZE, 1, 0);
+//                break;
+//            case VARIANT_DUNGEON_SILVER:
+//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_SILVER, 1, 0);
+//                break;
+//            case VARIANT_DUNGEON_GOLD:
+//                chestStack = new ItemStack(AetherBlocks.CHEST_DUNGEON_GOLD, 1, 0);
+//                break;
+//            default:
+//                chestStack = new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1, 0);
+//        }
         this.dropItem(chestStack, 0);
     }
 
@@ -211,8 +215,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
         Direction[] directions = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST};
         for (Direction dir : directions) {
-            WorldFeaturePoint dPoint  = point.copy().moveInDirection(dir);
-            if (this.isSafe(world, dPoint)) {
+            WorldFeaturePoint dPoint = point.copy().moveInDirection(dir);
+            if (this.isSafe(world, dPoint) && this.isAlive()) {
                 this.place(dPoint);
                 this.populateChest(dPoint);
                 super.remove();
@@ -234,17 +238,17 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     private void place(WorldFeaturePoint point) {
         int meta = -1;
         foundMeta:
-        for(int ix = -1; ix < 1; ix++){
-            for(int iy = -1; iy < 1; iy++){
-                for(int iz = -1; iz < 1; iz++){
+        for (int ix = -1; ix < 1; ix++) {
+            for (int iy = -1; iy < 1; iy++) {
+                for (int iz = -1; iz < 1; iz++) {
                     Block<?> block = world.getBlock(point.x + ix, point.y + iy, point.z + iz);
                     int blockID = block == null ? 0 : block.id();
                     Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
-                    if(block == null || blockMaterial.isLiquid() || blockMaterial == Material.air || blockMaterial == Material.cloth){
+                    if (block == null || blockMaterial.isLiquid() || blockMaterial == Material.air || blockMaterial == Material.cloth) {
                         continue;
                     }
                     BlockLogic logic = block.getLogic();
-                     if(logic instanceof BlockLogicPlanksPainted || logic instanceof BlockLogicFencePainted || logic instanceof BlockLogicFenceGatePainted || logic instanceof BlockLogicStairsPainted || logic instanceof BlockLogicSlabPainted){
+                    if (logic instanceof BlockLogicPlanksPainted || logic instanceof BlockLogicFencePainted || logic instanceof BlockLogicFenceGatePainted || logic instanceof BlockLogicStairsPainted || logic instanceof BlockLogicSlabPainted) {
                         meta = world.getBlockMetadata(point.x + ix, point.y + iy, point.z + iz) + 2;
                         break foundMeta;
                     }
@@ -252,13 +256,13 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             }
         }
         MimicVariant variant = MimicVariant.fromId(meta);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getId());
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getId() << 3);
         BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
     }
 
     private void populateChest(WorldFeaturePoint point) {
         Container inventory = BlockLogicChest.getInventory(world, point.x, point.y, point.z);
-        if(inventory == null){
+        if (inventory == null) {
             return;
         }
         List<WeightedRandomLootObject> listLootObj = this.getMobDrops();
