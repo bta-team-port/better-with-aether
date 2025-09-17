@@ -19,7 +19,7 @@ public class SpikerRoom extends BaseBronzeRoom {
         addDoor(WEST, wfp(0, 2, 4), UP, 6, SOUTH, 4);
 
         addDoor(DOWN, wfp(5,0,5), EAST, 2, SOUTH, 2);
-        addDoor(UP, wfp(5,13,5), EAST, 2, SOUTH, 2);
+        addDoor(UP, wfp(5,this.height,5), EAST, 2, SOUTH, 2);
     }
     public void makeShell(){
         room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
