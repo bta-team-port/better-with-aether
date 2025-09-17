@@ -167,7 +167,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side_retro", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
 
-        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_BRONZE)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/front", Side.NORTH)
@@ -179,7 +179,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/front_overbright_retro", Side.NORTH)
         );
 
-        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_SILVER, 2, 3)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_SILVER)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/front", Side.NORTH)
@@ -191,7 +191,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/front_overbright_retro", Side.NORTH)
         );
 
-        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_GOLD, 3, 3)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_GOLD)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/front", Side.NORTH)
@@ -413,28 +413,35 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
-
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
 
-        BlockModelChestMimic blockModelChestMimic = new BlockModelChestMimic(AetherBlocks.CHEST_MIMIC)
+        BlockModelChestMimic<?> blockModelChestMimic = new BlockModelChestMimic<>(AetherBlocks.CHEST_MIMIC)
                 .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 0,"aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 0,"aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+
                 .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM);
+                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM)
+
+                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM);
 
         for (DyeColor dye : DyeColor.values()) {
             String path = String.format("minecraft:block/chest/planks_%s", dye.colorID);
             blockModelChestMimic
-                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, dye.blockMeta+2, path+"/top", Side.TOP, Side.BOTTOM);
+                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/front", Side.NORTH)
+                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/side", Side.EAST, Side.WEST, Side.SOUTH)
+                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/top", Side.TOP, Side.BOTTOM);
         }
 
         dispatcher.addDispatch(blockModelChestMimic);

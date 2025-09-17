@@ -149,8 +149,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> CARVED_HELLFIRE_LIGHT_LOCKED;
 
     public static Block<?> CARVED_STONE_TRAPPED;
-    public static Block<?> CARVED_STONE_TRAPPED_LOCKED;
-
     public static Block<?> CARVED_ANGELIC_TRAPPED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
@@ -711,14 +709,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone
+                .setHardness(1.5F)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
                         b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class)
-                ).withDisabledStats();
-
-        CARVED_STONE_TRAPPED_LOCKED = dungeonStoneLocked
-                .build("carved.stone.trapped.locked", "carved_stone_trapped_locked", blockID("CARVED_STONE_TRAPPED_LOCKED"),
-                        b -> new BlockLogicTrapped(b, CARVED_STONE_LOCKED, CARVED_STONE, MobSentry.class)
                 ).withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
@@ -728,6 +722,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         CHEST_MIMIC = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("chest.mimic", "chest_mimic", blockID("CHEST_MIMIC"), BlockLogicChestMimic::new);
 
 

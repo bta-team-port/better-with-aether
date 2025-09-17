@@ -24,9 +24,8 @@ public class BossRoom extends BaseBronzeRoom {
     public static final BlockPallet ROOM_PALLET = new BlockPallet();
 
     static {
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 85);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 5);
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 90);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 10);
     }
 
     DungeonMapEntrySlider dungeon;
