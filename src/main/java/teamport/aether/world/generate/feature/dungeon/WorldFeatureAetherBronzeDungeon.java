@@ -128,8 +128,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
         treasureRooms = new WeightedRandomBag<>();
-        treasureRooms.addEntry(TreasureRoom::new, 2);
-        treasureRooms.addEntry(JumpRoom::new, 10);
+        treasureRooms.addEntry(TreasureRoom::new, 1);
+        treasureRooms.addEntry(JumpRoom::new, 1);
         treasureRooms.addEntry(DisplayRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
