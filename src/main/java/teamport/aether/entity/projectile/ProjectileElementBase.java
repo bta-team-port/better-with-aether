@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class ProjectileElementBase extends Projectile {
     public int bounceCount = 0;
-    public float initialSpeed = 0.5F;
     public int maxBounces = 20;
 
     public String[] particles = {"explode"};
@@ -36,17 +35,10 @@ public class ProjectileElementBase extends Projectile {
         this.initProjectile();
     }
 
-    public ProjectileElementBase(World world, double v, double y, double v1, Mob ep) {
-        super(world);
-    }
-
-
     @Override
     public void initProjectile() {
-        super.initProjectile();
         this.damage = 2;
         this.defaultGravity = 0.0F;
-        this.defaultProjectileSpeed = 1.0F;
         this.setSize(1.0F, 1.0F);
     }
 
@@ -134,11 +126,6 @@ public class ProjectileElementBase extends Projectile {
     }
 
     @Override
-    public void setHeading(double newMotionX, double newMotionY, double newMotionZ, float speed, float randomness) {
-        super.setHeading(newMotionX, newMotionY, newMotionZ, initialSpeed, randomness);
-    }
-
-    @Override
     public void afterTick() {
         this.x += this.xd;
         this.y += this.yd;
@@ -177,21 +164,6 @@ public class ProjectileElementBase extends Projectile {
 
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
-        if (!this.world.isClientSide) {
-            if (entity != null) {
-                if (entity instanceof Player) {
-                    this.owner = (Mob) entity;
-                }
-
-                Vec3 lookAngle = entity.getLookAngle();
-                if (lookAngle != null) {
-                    this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, initialSpeed, 0.0F);
-                    bounceCount = 17;
-                }
-                return true;
-            }
-        }
-
         return false;
     }
 

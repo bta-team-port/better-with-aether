@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobPig;
@@ -23,6 +22,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
 
     public ProjectileElementLightning(World world) {
         super(world);
+        this.initProjectile();
     }
 
     public ProjectileElementLightning(World world, Mob owner) {
@@ -128,10 +128,6 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
         }
 
         super.onHit(hitResult);
-    }
-
-    public boolean hurt(Entity entity, int damage, DamageType type) {
-        return false;
     }
 
 }

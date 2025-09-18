@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.BlockLogicChestMimic;
 
 public class TileEntityMimic extends TileEntityChest implements Container {
+
     @Override
     public void dropContents(World world, int x, int y, int z) {
     }

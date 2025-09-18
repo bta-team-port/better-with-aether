@@ -1,21 +1,27 @@
 package teamport.aether.entity.projectile;
 
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.monster.fireminion.MobFireMinion;
 
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
 
+    public ProjectileElementIce(World world) {
+        super(world);
+        this.initProjectile();
+    }
 
     public ProjectileElementIce(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
-        this.initialSpeed = 0.25F;
     }
 
     @Override
@@ -68,9 +74,18 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
                 super.onHit(hitResult);
                 return;
-            }
+            } else if (hitResult.entity instanceof MobFireMinion) {
+                if (this.owner != null && this.owner instanceof Player) {
+                    hitResult.entity.hurt(this, 100, DamageType.GENERIC);
 
-            else if (hitResult.entity instanceof Mob) {
+                    doExplosion();
+                    this.remove();
+                    return;
+                }
+
+                super.onHit(hitResult);
+                return;
+            } else if (hitResult.entity instanceof Mob) {
                 hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
                 this.remove();
 
@@ -79,6 +94,25 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
         }
 
         super.onHit(hitResult);
+    }
+
+    @Override
+    public boolean hurt(Entity entity, int damage, DamageType type) {
+        if (!this.world.isClientSide) {
+            if (entity != null) {
+                if (entity instanceof Player) {
+                    this.owner = (Player) entity;
+                }
+
+                Vec3 lookAngle = entity.getLookAngle();
+                this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 0.5f, 0.0F);
+                bounceCount = 18;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
