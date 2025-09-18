@@ -163,12 +163,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
-        float roomCount = boss.roomWeight;
+        float roomWeight = boss.roomWeight;
         int bossRoomCount = 1;
         seenRooms.add(boss);
         avaibleRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
-        while (!avaibleRooms.isEmpty() && MAX_WEIGHT > roomCount) {
+        while (!avaibleRooms.isEmpty() && MAX_WEIGHT > roomWeight) {
             if (currentRoom == null) {
                 currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
             }
@@ -185,7 +185,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             BaseBronzeRoom nextRoom = manager.getRoom(random).get();
             if (nextRoom instanceof BossRoom) {
                 bossRoomCount++;
-                if ((float) bossRoomCount / roomCount > 0.65F) {
+                if ((float) bossRoomCount / roomWeight > 0.65F) {
                     nextRoom = treasureRooms.getRandom(random).get();
                 }
             }
@@ -208,7 +208,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                         bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
                     drawVolume(0, 0, topCorner, bottomCorner, true).place(world);
-                    roomCount += nextRoom.roomWeight;
+                    roomWeight += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
                     avaibleRooms.add(nextRoom);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor));
@@ -218,7 +218,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
         PriorityQueue<PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
-        for (BaseBronzeRoom room : avaibleRooms) {
+        for (BaseBronzeRoom room : seenRooms) {
             for (Door door : room.getAvailableDoors()) {
                 WorldFeaturePoint p1 = door.p1.copy();
                 WorldFeaturePoint p2 = door.p2.copy();
@@ -233,7 +233,16 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
         if(tunnels.size() <= 3){
-            AetherMod.LOGGER.info("No Tunnels are generating.");
+            Door door = ((BossRoom)boss).getBossDoor();
+            WorldFeaturePoint p1 = door.p1.copy();
+            WorldFeaturePoint p2 = door.p2.copy();
+            while (!this.breaksSurface(p1, p2) && p1.distanceTo(door.p1) < 100) {
+                p1.moveInDirection(door.heading);
+                p2.moveInDirection(door.heading);
+            }
+            drawVolume(0, 0, door.p1, door.p2, true).place(world);
+            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", door.p1.distanceTo(door.p2), door.p1, door.p2);
+//            AetherMod.LOGGER.info("No Tunnels are generating.");
             return true;
         }
         for (int i = 0; i < TUNNEL_COUNT; i++) {
