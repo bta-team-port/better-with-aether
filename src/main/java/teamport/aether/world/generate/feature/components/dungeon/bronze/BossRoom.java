@@ -13,7 +13,10 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
@@ -29,6 +32,7 @@ public class BossRoom extends BaseBronzeRoom {
     }
 
     DungeonMapEntrySlider dungeon;
+    private Door bossDoor;
 
     public BossRoom() {
         super();
@@ -87,6 +91,7 @@ public class BossRoom extends BaseBronzeRoom {
 
     @Override
     public void markDoor(Door door) {
+        this.bossDoor = door;
         doors.forEach(d -> d.mark = true);
         if (door == null){
             AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.",x,y,z);
@@ -95,5 +100,9 @@ public class BossRoom extends BaseBronzeRoom {
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
         WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2, true);
         dungeon.setEntranceDoor(doorBlock.blockList);
+    }
+
+    public Door getBossDoor(){
+        return bossDoor;
     }
 }
