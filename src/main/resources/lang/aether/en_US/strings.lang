@@ -9,6 +9,10 @@ worldType.aether.default.desc=Welcome to a hostile paradise.
 
 #Container
 aether.container.enchanter.name=Enchanter
+aether.container.freezer.name=Freezer
+aether.container.incubator.name=Incubator
+
+aether.container.chest.trapped.name=Trapped Chest
 
 
 # Bwaila support

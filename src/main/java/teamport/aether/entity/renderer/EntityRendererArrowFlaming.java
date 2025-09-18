@@ -2,7 +2,6 @@ package teamport.aether.entity.renderer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.util.helper.MathHelper;
@@ -17,7 +16,7 @@ public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFl
     public void render(Tessellator tessellator, ProjectileArrowFlaming arrow, double x, double y, double z, float yaw, float partialTick) {
         this.bindTexture("/assets/aether/textures/other/FlamingArrows.png");
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x, (float)y, (float)z);
+        GL11.glTranslatef((float) x, (float) y, (float) z);
         GL11.glRotatef(arrow.yRotO + (arrow.yRot - arrow.yRotO) * partialTick - 90.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(arrow.xRotO + (arrow.xRot - arrow.xRotO) * partialTick, 0.0F, 0.0F, 1.0F);
         float bodyMinU = 0.0F;
@@ -30,7 +29,7 @@ public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFl
         float tailMaxV = (float)(10) / 32.0F;
         float scale = 0.05625F;
         GL11.glEnable(32826);
-        float shakeAmount = (float)arrow.shake - partialTick;
+        float shakeAmount = (float) arrow.shake - partialTick;
         if (shakeAmount > 0.0F) {
             float shakeAngle = -MathHelper.sin(shakeAmount * 3.0F) * shakeAmount;
             GL11.glRotatef(shakeAngle, 0.0F, 0.0F, 1.0F);
@@ -54,7 +53,7 @@ public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFl
         tessellator.addVertexWithUV(-7.0, -2.0, -2.0, tailMinU, tailMaxV);
         tessellator.draw();
 
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
             GL11.glNormal3f(0.0F, 0.0F, scale);
             tessellator.startDrawingQuads();
@@ -65,16 +64,7 @@ public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFl
             tessellator.draw();
         }
 
-        if (LightmapHelper.isLightmapEnabled()) {
-            LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
-        }
-
         GL11.glDisable(32826);
         GL11.glPopMatrix();
-
-        GL11.glEnable(3042);
-        GL11.glDisable(3008);
-        GL11.glBlendFunc(770, 771);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 15.0f);
     }
 }

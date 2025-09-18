@@ -712,8 +712,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.5F)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
-                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class)
-                ).withDisabledStats();
+                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class))
+                .withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED = dungeonStoneLocked
                 .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"),
@@ -722,7 +722,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         CHEST_MIMIC = wood
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("chest.mimic", "chest_mimic", blockID("CHEST_MIMIC"), BlockLogicChestMimic::new);
 
 
