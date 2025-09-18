@@ -144,7 +144,6 @@ public final class AetherItems {
 
     public static Item TOOL_STAFF_NATURE;
     public static Item TOOL_STAFF_CLOUD;
-    public static Item TOOL_STAFF_HAUNTING;
 
     public static Item TOOL_KNIFE_LIGHTNING;
     public static Item TOOL_HAMMER_NOTCH;
@@ -530,9 +529,6 @@ public final class AetherItems {
                             }
                         }
                 );
-
-        TOOL_STAFF_HAUNTING = new ItemBuilder(MOD_ID)
-                .build(new ItemStaffHaunting("tool.staff.haunting", itemKey("tool_staff_haunting"), itemID("TOOL_STAFF_HAUNTING")));
 
     }
 

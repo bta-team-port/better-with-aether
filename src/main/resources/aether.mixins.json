@@ -60,6 +60,7 @@
     "fix.NetEntityHandlerMixin",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",
+    "gui.MenuInventoryAddCreativeItemsMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
     "item.ItemDyeMixin",

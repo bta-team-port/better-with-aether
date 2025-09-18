@@ -1,7 +1,6 @@
 package teamport.aether.entity.monster.mimic;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -9,6 +8,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolAxe;
+import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -17,60 +17,40 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
+import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.List;
 
-import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.entity.monster.mimic.MimicVariant.*;
+import static net.minecraft.core.util.helper.Direction.directions;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
+
     public MobMimic(World world) {
         super(world);
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.attackStrength = 5;
         this.scoreValue = 2000;
-
-        this.setSkinVariant(SKYROOT.getId());
-        this.setSkinVariant(OAK.getId());
-        this.setSkinVariant(OAK_WHITE.getId());
-        this.setSkinVariant(OAK_ORANGE.getId());
-        this.setSkinVariant(OAK_MAGENTA.getId());
-        this.setSkinVariant(OAK_LIGHTBLUE.getId());
-        this.setSkinVariant(OAK_YELLOW.getId());
-        this.setSkinVariant(OAK_LIME.getId());
-        this.setSkinVariant(OAK_PINK.getId());
-        this.setSkinVariant(OAK_GRAY.getId());
-        this.setSkinVariant(OAK_SILVER.getId());
-        this.setSkinVariant(OAK_CYAN.getId());
-        this.setSkinVariant(OAK_PURPLE.getId());
-        this.setSkinVariant(OAK_BLUE.getId());
-        this.setSkinVariant(OAK_BROWN.getId());
-        this.setSkinVariant(OAK_GREEN.getId());
-        this.setSkinVariant(OAK_RED.getId());
-        this.setSkinVariant(OAK_BLACK.getId());
-        this.setSkinVariant(DUNGEON_BRONZE.getId());
-        this.setSkinVariant(DUNGEON_SILVER.getId());
-        this.setSkinVariant(DUNGEON_GOLD.getId());
+        MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
+        this.setSkinVariant(variant.getId());
     }
 
     @Override
     public void dropDeathItems() {
         MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
         this.dropItem(new ItemStack(variant.getItemID(), 1, variant.getItemMetadata()), 0);
-        for(WeightedRandomLootObject lootObject : mobDrops){
+        for (WeightedRandomLootObject lootObject : mobDrops) {
             ItemStack stack = lootObject.getDefinedItemStack();
-            if(stack != null){
+            if (stack != null) {
                 this.dropItem(stack, 0);
             }
+            super.dropDeathItems();
         }
     }
 
@@ -80,28 +60,48 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
-        if (this.attackTime <= 0 && distance < 2.5F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             entity.hurt(this, this.attackStrength, DamageType.COMBAT);
         }
 
     }
 
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
+        String material = variant.getMaterial();
+
         if (attacker instanceof Player) {
             ItemStack item = ((Player) attacker).inventory.getCurrentItem();
-            if (item != null && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)) {
-                return super.hurt(attacker, damage * 2, type);
+            if (item != null) {
+                if (material.equals("wood") && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)) {
+                    return super.hurt(attacker, damage * 2, type);
+                } else if (material.equals("stone") && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
+                    return super.hurt(attacker, damage * 2, type);
+                }
             }
         }
         return super.hurt(attacker, damage, type);
     }
 
     public String getHurtSound() {
+        MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
+        String material = variant.getMaterial();
+
+        if (material.equals("stone")) {
+            return "step.stone";
+        }
         return "step.wood";
     }
 
     public String getDeathSound() {
+        MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
+        String material = variant.getMaterial();
+
+        if (material.equals("stone")) {
+            return "step.stone";
+        }
         return "random.door_open";
     }
 
@@ -122,7 +122,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void remove() {
-        if(this.isAlive()){
+        if (this.isAlive()) {
             place();
         }
         super.remove();

@@ -27,19 +27,19 @@ public class BlockModelAetherTallgrass<T extends BlockLogic> extends BlockModelC
         }
 
         int color = BlockColorDispatcher.getInstance().getDispatch(this.block).getWorldColor(renderBlocks.blockAccess, x, y, z);
-        float r = (float)(color >> 16 & 255) / 255.0F;
-        float g = (float)(color >> 8 & 255) / 255.0F;
-        float b = (float)(color & 255) / 255.0F;
+        float r = (float) (color >> 16 & 255) / 255.0F;
+        float g = (float) (color >> 8 & 255) / 255.0F;
+        float b = (float) (color & 255) / 255.0F;
         tessellator.setColorOpaque_F(brightness * r, brightness * g, brightness * b);
         double xd = x;
         double yd = y;
         double zd = z;
         if (this.block == AetherBlocks.TALLGRASS_AETHER) {
-            long dRandom = (long)x * 3129871L ^ (long)z * 116129781L ^ (long)y;
+            long dRandom = (long) x * 3129871L ^ (long) z * 116129781L ^ (long) y;
             dRandom = dRandom * dRandom * 42317861L + dRandom * 11L;
-            xd += ((double)((float)(dRandom >> 16 & 15L) / 15.0F) - 0.5) * 0.5;
-            yd += ((double)((float)(dRandom >> 20 & 15L) / 15.0F) - 1.0) * 0.2;
-            zd += ((double)((float)(dRandom >> 24 & 15L) / 15.0F) - 0.5) * 0.5;
+            xd += ((double) ((float) (dRandom >> 16 & 15L) / 15.0F) - 0.5) * 0.5;
+            yd += ((double) ((float) (dRandom >> 20 & 15L) / 15.0F) - 1.0) * 0.2;
+            zd += ((double) ((float) (dRandom >> 24 & 15L) / 15.0F) - 0.5) * 0.5;
         }
 
         int metadata = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
