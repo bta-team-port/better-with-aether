@@ -16,11 +16,13 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
     public ProjectileElementFire(World world) {
         super(world);
         this.initProjectile();
+        this.projectileSpeed = 0.25f;
     }
 
     public ProjectileElementFire(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
+        this.projectileSpeed = 0.25f;
     }
 
     @Override
@@ -60,10 +62,6 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
         }
 
         super.onHit(hitResult);
-    }
-
-    public boolean hurt(Entity entity, int damage, DamageType type) {
-        return false;
     }
 
 }

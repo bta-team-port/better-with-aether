@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.entity.projectile.ProjectileElementIce;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -16,11 +17,11 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     public MobFireMinion(@Nullable World world) {
         super(world);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "fire_minion");
-        this.moveSpeed = 2.0F;
-        this.attackStrength = 5;
+        this.moveSpeed = 4.0F;
+        this.attackStrength = 10;
         this.fireImmune = true;
         this.maxFireTicks = 20;
-        this.scoreValue = 1000;
+        this.scoreValue = 5000;
         setSize(1.0f, 2.5f);
     }
 
@@ -40,6 +41,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             entity.hurt(this, this.attackStrength, DamageType.FIRE);
+            entity.hurt(this, this.attackStrength / 2, DamageType.COMBAT);
             entity.remainingFireTicks = 20;
             entity.maxFireTicks = 20;
         }

@@ -50,7 +50,6 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             if (stack != null) {
                 this.dropItem(stack, 0);
             }
-            super.dropDeathItems();
         }
     }
 
