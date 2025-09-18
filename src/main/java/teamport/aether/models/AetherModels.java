@@ -167,7 +167,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side_retro", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_BRONZE)
+        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/front", Side.NORTH)
@@ -179,7 +179,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/front_overbright_retro", Side.NORTH)
         );
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_SILVER)
+        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_SILVER, 2, 3)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/front", Side.NORTH)
@@ -191,7 +191,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/front_overbright_retro", Side.NORTH)
         );
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DOOR_DUNGEON_GOLD)
+        dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_GOLD, 3, 3)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/back", Side.sides)
                 .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/back_overbright", Side.sides)
                 .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/front", Side.NORTH)
