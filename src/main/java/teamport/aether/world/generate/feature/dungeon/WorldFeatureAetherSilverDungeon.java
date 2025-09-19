@@ -186,8 +186,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public boolean place(World world, Random random, int x, int y, int z) {
         this.world = world;
         this.random = random;
-        if (!canPlace(x, y, z)) return false;
         this.dungeonAnchor = wfp(x, y, z);
+        if (!canPlace(x, y, z)) return false;
         this.silverMaze = new WorldFeatureSilverMaze();
         this.bossPosition = wfp(x - 15, y + 4, z + 42).rotateYAroundPivot(dungeonAnchor, direction);
 
