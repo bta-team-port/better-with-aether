@@ -1,17 +1,23 @@
 package teamport.aether.entity.projectile;
 
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 
 public class ProjectileElementFire extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementFire> {
 
     public String[] particles = {"explode", "flame", "lava"};
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        return getEntity(ProjectileElementFire.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner, compoundTag);
+    }
 
     public ProjectileElementFire(World world) {
         super(world);

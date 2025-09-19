@@ -1,5 +1,7 @@
 package teamport.aether.entity.projectile;
 
+import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobPig;
@@ -10,6 +12,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 
 import java.util.List;
@@ -19,6 +22,10 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
     private Mob target;
     private static final float homingPower = 0.15F;
     private static final float topSpeed = 0.5F;
+
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        return getEntity(ProjectileElementLightning.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner, compoundTag);
+    }
 
     public ProjectileElementLightning(World world) {
         super(world);

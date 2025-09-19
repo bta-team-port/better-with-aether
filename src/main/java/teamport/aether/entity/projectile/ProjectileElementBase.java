@@ -3,18 +3,17 @@ package teamport.aether.entity.projectile;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
-import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ProjectileElementBase extends Projectile {
+
+abstract public class ProjectileElementBase extends Projectile implements ProjectileAether {
     public int bounceCount = 0;
     public int maxBounces = 20;
 
@@ -167,10 +166,14 @@ public class ProjectileElementBase extends Projectile {
         return false;
     }
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        ProjectileElementBase elementBase = new ProjectileElementBase(world, x, y, z);
-        if (hasVelocity) elementBase.setHeading(xd, yd, zd, 1, 0);
-        if (owner instanceof Mob) elementBase.owner = (Mob) owner;
-        return elementBase;
+    protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+        ProjectileElementBase element = null;
+        try {element = clazz.getDeclaredConstructor(World.class).newInstance(world);}
+        catch (Exception e) {throw new RuntimeException(e);}
+
+        element.setPos(x, y, z);
+        if (hasVelocity) element.setHeading(xd, yd, zd, 1, 0);
+        if (owner instanceof Mob) element.owner = (Mob) owner;
+        return element;
     }
 }
