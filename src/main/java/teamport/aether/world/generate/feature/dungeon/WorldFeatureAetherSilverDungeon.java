@@ -175,6 +175,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     }
 
     public boolean canPlace(int x, int y, int z) {
+        if(y + 35 >= world.getHeightBlocks()){
+            return false;
+        }
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
         for(WorldFeaturePoint point : clear.blockList){
             point.rotateYAroundPivot(this.dungeonAnchor, this.direction);
@@ -263,20 +266,6 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.placeComponent(drawShell(random, angelic, Direction.SOUTH, 22, Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, true));
         this.placeComponent(drawShell(random, angelic, Direction.NORTH, 26, Direction.UP, 16, Direction.EAST, 22, ix + 4, y, iz - 5, false));
 
-        // Entrance hole into boss room
-        WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
-        this.placeComponent(drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true));
-
-        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
-        iterate3d(
-                wfp(x - 21, y + 1, z + 25),
-                wfp(x - 21 - 1, y + 1 + 2, z + 25),
-                w -> entranceDoor.add(wfb(w, AetherBlocks.DOOR_DUNGEON_SILVER.id(), entranceDoorMeta, true))
-        );
-
-        entranceDoor.rotateYAxis(dungeonAnchor.x, dungeonAnchor.y, dungeonAnchor.z, angle);
-        dungeon.setEntranceDoor(entranceDoor.blockList);
-
 
         /// Throne room
         this.placeComponent(drawPlane(random, angelic, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
@@ -289,6 +278,15 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         );
         clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);
         clearArea.second.rotateYAroundPivot(dungeonAnchor, direction);
+
+        // Entrance hole into boss room
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+        WorldFeatureComponent entranceDoor = drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true);
+        this.placeComponent(entranceDoor);
+        for(WorldFeatureBlock blocks : entranceDoor.blockList){
+            blocks.metadata = entranceDoorMeta;
+        }
+        dungeon.setEntranceDoor(entranceDoor.blockList);
         dungeon.setClearArea(clearArea);
 
         // Place boss, chest and door
@@ -309,6 +307,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x,y,z),direction));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);
+
+
     }
 
     private void createInnerDecorations(int x, int y, int z) {

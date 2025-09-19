@@ -136,21 +136,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     private boolean canPlace(World world, int x, int y, int z) {
-        if(y + RADIUS + 10 >= world.getHeightBlocks()){
-            return false;
-        }
-        for (int ix = -RADIUS; ix < RADIUS; ix++) {
-            for (int iz = -RADIUS; iz < RADIUS; iz++) {
-                if (RADIUS * RADIUS >= ix * ix + iz * iz) {
-                    int lightLevel = world.getBlockLightValue(x + ix, y + RADIUS, z + iz);
-                    if(lightLevel < 12){
-                        AetherMod.LOGGER.info("Could not place a gold dungeon at {},{},{}, with lightLevel {}", x + ix, y + RADIUS, z + iz, lightLevel);
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+        return y + RADIUS + 10 < world.getHeightBlocks();
     }
 
     @Override
