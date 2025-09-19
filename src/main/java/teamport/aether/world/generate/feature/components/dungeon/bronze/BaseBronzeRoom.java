@@ -212,20 +212,18 @@ public abstract class BaseBronzeRoom {
 
     public void placeRoom() {
         Map<WorldFeaturePoint, WorldFeatureBlock> blockMap = new HashMap<>();
-
         for (WorldFeatureBlock block : room.blockList) {
             WorldFeaturePoint point = new WorldFeaturePoint(block.x, block.y, block.z);
             blockMap.put(point, block);
         }
-
         decoration.add(chest);
-        for (WorldFeatureBlock block : decoration.blockList){
+        for(WorldFeatureBlock block : decoration.blockList){
             WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.x, block.y, block.z), key -> block);
             otherBlock.blockID = block.blockID;
             otherBlock.metadata = block.metadata;
             otherBlock.withNotify = block.withNotify;
         }
-        for (WorldFeatureBlock wfblock : blockMap.values()){
+        for(WorldFeatureBlock wfblock : blockMap.values()){
             if (this.roomCanReplace(wfblock)) {
                 wfblock.place(world);
             }
@@ -240,12 +238,23 @@ public abstract class BaseBronzeRoom {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
+        if(block != null ) {
+            BlockLogic logic = block.getLogic();
+            if(
+                    logic instanceof BlockLogicLocked
+                    || logic instanceof BlockLogicMobSpawner
+                    || logic instanceof BlockLogicChestLocked
+                    || logic instanceof BlockLogicDungeonDoor
+            ) {
+                return false;
+            }
 
-        if(block != null && (block.getLogic() instanceof BlockLogicLocked || block.blockHardness < 0)){
-            return false;
+            if(block.blockHardness < 0){
+                return false;
+            }
         }
 
-        if(blockMaterial == Material.water || blockMaterial == Material.lava || blockID == Blocks.BEDROCK.id()){
+        if(blockMaterial == Material.water || blockMaterial == Material.lava){
             return false;
         }
 
@@ -257,7 +266,6 @@ public abstract class BaseBronzeRoom {
             world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
             return true;
         }
-
         return BlockTags.CAVES_CUT_THROUGH.appliesTo(block)
                 || blockMaterial == Material.grass
                 || blockMaterial == Material.dirt
@@ -355,5 +363,13 @@ public abstract class BaseBronzeRoom {
         public Door copy(){
             return new Door(this.heading, this.p1.copy(), this.p2.copy());
         }
+    }
+
+    public enum ClosingType {
+        INTERCEPT,
+        NO_SPACE,
+        ROOM_LOCKED,
+        OPEN,
+        PLACED
     }
 }
