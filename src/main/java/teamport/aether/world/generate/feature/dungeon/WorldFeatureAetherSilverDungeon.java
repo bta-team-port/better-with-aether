@@ -4,6 +4,7 @@ import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
@@ -38,7 +39,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public static BlockPallet holystone = new BlockPallet();
     private Direction direction = Direction.NORTH;
     public float angle = 0;
-    public WorldFeaturePoint dungeonAnker;
+    public WorldFeaturePoint dungeonAnchor;
     public WorldFeaturePoint bossPosition;
     public WorldFeatureSilverMaze silverMaze;
     public World world;
@@ -164,13 +165,20 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
     public void placeComponent(WorldFeatureComponent component) {
         for(WorldFeatureBlock block : component.blockList){
-            block.rotateYAroundPivot(dungeonAnker, direction);
+            block.rotateYAroundPivot(dungeonAnchor, direction);
             block.place(world);
         }
     }
 
-    // Not sure if we want to keep this?
     public boolean canPlace(int x, int y, int z) {
+        WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
+        for(WorldFeaturePoint point : clear.blockList){
+            point.rotateYAroundPivot(this.dungeonAnchor, this.direction);
+            Material blockMaterial = world.getBlockMaterial(point.x, point.y, point.z);
+            if(blockMaterial  != null && (blockMaterial != Material.air || blockMaterial != Material.cloth)){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -179,9 +187,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.world = world;
         this.random = random;
         if (!canPlace(x, y, z)) return false;
-        this.dungeonAnker = wfp(x, y, z);
+        this.dungeonAnchor = wfp(x, y, z);
         this.silverMaze = new WorldFeatureSilverMaze();
-        this.bossPosition = wfp(x - 15, y + 4, z + 42).rotateYAroundPivot(dungeonAnker, direction);
+        this.bossPosition = wfp(x - 15, y + 4, z + 42).rotateYAroundPivot(dungeonAnchor, direction);
 
         dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         dungeon.setPosition(bossPosition);
@@ -227,7 +235,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         this.placeComponent(clear);
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
         for (WorldFeaturePoint cloudPoint : cloudPoints) {;
-            cloudPoint.rotateYAroundPivot(dungeonAnker, direction);
+            cloudPoint.rotateYAroundPivot(dungeonAnchor, direction);
             new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
@@ -260,7 +268,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
                 w -> entranceDoor.add(wfb(w, AetherBlocks.DOOR_DUNGEON_SILVER.id(), entranceDoorMeta, true))
         );
 
-        entranceDoor.rotateYAxis(dungeonAnker.x, dungeonAnker.y, dungeonAnker.z, angle);
+        entranceDoor.rotateYAxis(dungeonAnchor.x, dungeonAnchor.y, dungeonAnchor.z, angle);
         dungeon.setEntranceDoor(entranceDoor.blockList);
 
 
@@ -273,8 +281,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
                 new WorldFeaturePoint(x + 2, y, z - 3),
                 new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.first.rotateYAroundPivot(dungeonAnker, direction);
-        clearArea.second.rotateYAroundPivot(dungeonAnker, direction);
+        clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.second.rotateYAroundPivot(dungeonAnchor, direction);
         dungeon.setClearArea(clearArea);
 
         // Place boss, chest and door
