@@ -26,10 +26,10 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.helper.Pair.pair;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
+import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     public float MAX_WEIGHT = 40;
@@ -50,7 +50,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
         lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 85);
         lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 5);
-//        lockedCarvedHolystone.addEntry(AetherBlocks.CARVED_STONE_TR.id(), 10);
 
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 90);
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 10);
@@ -217,7 +216,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 }
             }
         }
-        PriorityQueue<PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>>> tunnels = new PriorityQueue<>();
+        PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
             for (Door door : room.getAvailableDoors()) {
                 WorldFeaturePoint p1 = door.p1.copy();
@@ -229,28 +228,19 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 if(seenRooms.stream().anyMatch(r -> r.intercept(p1))){
                     continue;
                 }
-                tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), pair(p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
+                tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), door(door.heading, p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
             }
         }
         if(tunnels.size() <= 3){
-            Door door = ((BossRoom)boss).getBossDoor();
-            WorldFeaturePoint p1 = door.p1.copy();
-            WorldFeaturePoint p2 = door.p2.copy();
-            while (!this.breaksSurface(p1, p2) && p1.distanceTo(door.p1) < 100) {
-                p1.moveInDirection(door.heading);
-                p2.moveInDirection(door.heading);
-            }
-            drawVolume(0, 0, door.p1, door.p2, true).place(world);
-            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", door.p1.distanceTo(door.p2), door.p1, door.p2);
-//            AetherMod.LOGGER.info("No Tunnels are generating.");
+            AetherMod.LOGGER.info("No Tunnels are generating.");
             return true;
         }
         for (int i = 0; i < TUNNEL_COUNT; i++) {
-            PriorityEntry<Pair<WorldFeaturePoint, WorldFeaturePoint>> entry = tunnels.peek();
-            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}", entry.getWeight(), entry.getData().first, entry.getData().second);
+            PriorityEntry<Door> entry = tunnels.peek();
             tunnels.remove(entry);
-            Pair<WorldFeaturePoint, WorldFeaturePoint> door = entry.getData();
-            drawVolume(0, 0, door.first, door.second, true).place(world);
+            Door door = entry.getData();
+            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
+            drawVolume(0, 0, door.p1, door.p2, true).place(world);
         }
         return true;
     }
