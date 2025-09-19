@@ -1,14 +1,17 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.BlockLogicMobSpawner;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicChestLocked;
+import teamport.aether.blocks.BlockLogicDungeonDoor;
 import teamport.aether.blocks.BlockLogicLocked;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
