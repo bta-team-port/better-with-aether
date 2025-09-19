@@ -14,7 +14,7 @@ import net.minecraft.core.world.WorldSource;
 
 public class BlockLogicCloudBase extends BlockLogicTransparent {
     public BlockLogicCloudBase(Block<?> block) {
-        super(block, Material.cloth);
+        super(block, Material.air);
     }
 
 
