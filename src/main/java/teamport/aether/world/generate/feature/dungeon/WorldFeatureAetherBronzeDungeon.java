@@ -225,14 +225,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     p1.moveInDirection(door.heading);
                     p2.moveInDirection(door.heading);
                 }
-                if(seenRooms.stream().anyMatch(r -> r.intercept(p1))){
+                if (seenRooms.stream().anyMatch(r -> r.intercept(p1))) {
                     continue;
                 }
                 tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), door(door.heading, p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
             }
         }
-        if(tunnels.size() <= 3){
-            AetherMod.LOGGER.info("No Tunnels are generating.");
+        if (tunnels.isEmpty()) {
+            AetherMod.LOGGER.warn("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
         for (int i = 0; i < TUNNEL_COUNT; i++) {
@@ -245,9 +245,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         return true;
     }
 
-    private boolean intercept(Set<BaseBronzeRoom> seen, BaseBronzeRoom nextRoom, WorldFeaturePoint anchor){
-        for(BaseBronzeRoom room: seen){
-            if(room.intercept(anchor, nextRoom)){
+    private boolean intercept(Set<BaseBronzeRoom> seen, BaseBronzeRoom nextRoom, WorldFeaturePoint anchor) {
+        for (BaseBronzeRoom room : seen) {
+            if (room.intercept(anchor, nextRoom)) {
                 return true;
             }
         }
