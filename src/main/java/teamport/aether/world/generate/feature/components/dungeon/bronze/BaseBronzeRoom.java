@@ -330,6 +330,10 @@ public abstract class BaseBronzeRoom {
             this.mark = false;
         }
 
+        public static Door door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2){
+            return new Door(heading, p1, p2);
+        }
+
         @Override
         public String toString(){
             return String.format("(%s, %s, %s, %s)",heading, p1, p2, mark);
