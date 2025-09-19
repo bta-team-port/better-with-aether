@@ -137,14 +137,15 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     private boolean canPlace(World world, int x, int y, int z) {
-        if(y + RADIUS + 10 < world.getHeightBlocks()) return false;
+        if(y + RADIUS + 10 >= world.getHeightBlocks()) return false;
         int diameter = RADIUS << 1;
         for (int ix = -diameter; ix < diameter; ix++) {
             for (int iz = -diameter; iz < diameter; iz++) {
                 if (diameter * diameter >= ix * ix + iz * iz) {
-                    for (int iy = y + RADIUS; iy < y + (3 * RADIUS); iy++) {
+                    for (int iy = y + (2 * RADIUS); iy < y + (5 * RADIUS); iy++) {
                         Material blockMaterial = world.getBlockMaterial(x + ix, iy, z +iz);
                         if (blockMaterial != Material.air) {
+                            AetherMod.LOGGER.info("Could not place a gold dungeon at {},{},{}", x + ix, iy, z + iz);
                             return false;
                         }
                     }
