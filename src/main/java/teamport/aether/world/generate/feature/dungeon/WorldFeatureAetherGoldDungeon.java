@@ -3,6 +3,7 @@ package teamport.aether.world.generate.feature.dungeon;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -136,7 +137,21 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     private boolean canPlace(World world, int x, int y, int z) {
-        return y + RADIUS + 10 < world.getHeightBlocks();
+        if(y + RADIUS + 10 < world.getHeightBlocks()) return false;
+        int diameter = RADIUS << 1;
+        for (int ix = -diameter; ix < diameter; ix++) {
+            for (int iz = -diameter; iz < diameter; iz++) {
+                if (diameter * diameter >= ix * ix + iz * iz) {
+                    for (int iy = y + RADIUS; iy < y + (3 * RADIUS); iy++) {
+                        Material blockMaterial = world.getBlockMaterial(x + ix, iy, z +iz);
+                        if (blockMaterial != Material.air) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     @Override
