@@ -75,6 +75,7 @@ public class NetEntryAetherProjectile  implements IVehicleEntry<ProjectileAether
 
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        return idToConstructor.get(meta >>> 24).getEntity(world, x, y, z, meta & ~TYPE_BITS, hasVelocity, xd, yd, zd, owner, compoundTag);
+        ProjectileAether.ConstructorLambda projectile = idToConstructor.get(meta >>> 24);
+        return projectile.getEntity(world, x, y, z, meta & ~TYPE_BITS, hasVelocity, xd, yd, zd, owner, compoundTag);
     }
 }
