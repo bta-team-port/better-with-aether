@@ -116,7 +116,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
     public WorldFeatureAetherGoldDungeon(int dir) {
         this.angle = 360 - dir * 90;
-        this.direction = Direction.horizontalDirections[dir];
+        this.direction = Direction.horizontalDirections[dir & 3];
     }
 
     public static WorldFeatureAetherGoldDungeon goldDungeon(Random random) {
@@ -132,9 +132,22 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         component.place(world);
     }
 
+    private boolean canPlace(World world, int x, int y, int z) {
+        for (int ix = -RADIUS; ix < RADIUS; ix++) {
+            for (int iz = -RADIUS; iz < RADIUS; iz++) {
+                if (RADIUS * RADIUS >= ix * ix + iz * iz) {
+                    if(!world.canBlockSeeTheSky(x + ix,y + RADIUS,z + iz)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
-//        if (!canPlace(world, x, y, z)) return false;
+        if (!canPlace(world, x, y, z)) return false;
         this.world = world;
         this.random = random;
         this.dungeonAnker = new WorldFeaturePoint(x, y, z);
@@ -143,7 +156,6 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         this.dungeon = AetherDimension.dungeonMap.register(DungeonMapEntry.class);
         this.dungeon.setPosition(bossPosition);
         this.heightMap = new ArrayList<>();
-
         createMainSphere(x, y, z);
         createOuterSpheres(x, y, z);
         createMainRoom(x, y, z);
@@ -153,6 +165,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         createDecorations();
         return true;
     }
+
+
 
     public static List<ItemStack> generateLoot(Random random) {
         List<ItemStack> loot = new ArrayList<>();
