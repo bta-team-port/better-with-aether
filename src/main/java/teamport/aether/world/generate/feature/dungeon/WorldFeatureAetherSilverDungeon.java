@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
@@ -10,7 +11,10 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicChestMimic;
+import teamport.aether.blocks.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
@@ -175,7 +179,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         for(WorldFeaturePoint point : clear.blockList){
             point.rotateYAroundPivot(this.dungeonAnchor, this.direction);
             Material blockMaterial = world.getBlockMaterial(point.x, point.y, point.z);
-            if(blockMaterial  != null && (blockMaterial != Material.air || blockMaterial != Material.cloth)){
+            BlockLogicCloudBase blockLogic = world.getBlockLogic(point.x, point.y, point.z, BlockLogicCloudBase.class);
+            if (blockMaterial != null && blockMaterial != Material.air && (blockMaterial != Material.cloth || blockLogic == null)) {
+                AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
                 return false;
             }
         }
