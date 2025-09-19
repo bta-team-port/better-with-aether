@@ -18,6 +18,7 @@ import teamport.aether.net.message.CommandExtraHealthMessage;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mojang.brigadier.builder.ArgumentBuilderLiteral.literal;
 
@@ -34,10 +35,18 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
         CommandSource source = (CommandSource) c.getSource();
         int amount = c.getArgument("amount", Integer.class);
         EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
-        List<? extends Player> entities = (List<Player>)entitySelector.get(source);
+
+        List<? extends Player> entities;
+        try {
+            entities = entitySelector.get(source).stream()
+                    .filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .collect(Collectors.toList());
+        }
+        catch (CommandSyntaxException e) {  throw new RuntimeException(e); }
 
         int max_health_added = 0;
-        for(Player player: entities){
+        for (Player player: entities) {
             int current_extra_health = HealthHelper.getExtraHealth(player);
             HealthHelper.addExtraHealth(player, amount);
             int new_extra_health = HealthHelper.getExtraHealth(player);
@@ -45,7 +54,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
             NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(new_extra_health));
         }
 
-        if(entities.size() == 1) {
+        if (entities.size() == 1) {
             source.sendTranslatableMessage(
                 "command.aether.add.extra_health.success_single_entity",
                 max_health_added,
@@ -64,9 +73,17 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
         amount = Math.min(20, amount);
 
         EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
-        List<? extends Player> entities = (List<Player>)entitySelector.get(source);
+        List<? extends Player> entities;
+        try {
+            entities = entitySelector.get(source).stream()
+                    .filter(e -> e instanceof Player)
+                    .map(e -> (Player) e)
+                    .collect(Collectors.toList());
+        }
 
-        for(Player player: entities){
+        catch (CommandSyntaxException e) {  throw new RuntimeException(e); }
+
+        for (Player player: entities){
             HealthHelper.setExtraHealth(player, amount);
             NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(amount));
         }
