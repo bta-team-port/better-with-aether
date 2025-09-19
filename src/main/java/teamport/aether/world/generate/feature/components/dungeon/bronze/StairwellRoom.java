@@ -22,7 +22,7 @@ public class StairwellRoom extends BaseBronzeRoom {
         this.roomWeight = 0.25f;
         this.height = 30;
         this.length = this.width = 8;
-
+        this.topAirTolerance = this.bottomAirTolerance = this.topLiquidTolerance = this.bottomLiquidTolerance = 1.0f;
         addDoor(NORTH, wfp(2, 1, 0), UP, 6, EAST, 4);
         addDoor(EAST, wfp(7, 1, 2), UP, 6, SOUTH, 4);
         addDoor(SOUTH, wfp(2, 1, 7), UP, 6, EAST, 4);
