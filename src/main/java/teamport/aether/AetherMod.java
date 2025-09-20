@@ -190,7 +190,15 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_BLUE.id(), FLUTE);
         BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_GOLD.id(), FLUTE);
 
+        // we do have a lot, a lot, of chests.
         BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_GOLD.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_SILVER.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED.id(), CLICK);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_ZANITE.id(), MUSICBOX);
         BLOCK_INSTRUMENTS.put(AetherBlocks.BRICK_ZANITE.id(), MUSICBOX);
