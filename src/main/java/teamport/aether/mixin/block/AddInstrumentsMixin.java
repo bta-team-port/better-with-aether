@@ -14,6 +14,8 @@ public abstract class AddInstrumentsMixin {
 
     @Inject(method = "getInstrumentFromBlock", at = @At("HEAD"), cancellable = true)
     private static void injectCustomInstruments(Block<?> block, CallbackInfoReturnable<BlockLogicNote.Instrument> cir) {
+        if (block == null) return;
+
         BlockLogicNote.Instrument instrument = BLOCK_INSTRUMENTS.get(block.id());
         if (instrument != null) {
             cir.setReturnValue(instrument);
