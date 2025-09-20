@@ -68,7 +68,7 @@ public class HallwayRoom extends BaseBronzeRoom {
     public void markDoor(Door door) {
         super.markDoor(door);
         room.add(drawVolume(0, 0, door.p1, wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2), false));
-//        room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, x + 4, false));
+        room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, x + 4, false));
         this.placeRoom();
     }
 }
