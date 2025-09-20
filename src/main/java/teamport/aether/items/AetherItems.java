@@ -749,15 +749,6 @@ public final class AetherItems {
         ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID)
                 .build(new ItemAccessoryArmor("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white", 5));
 
-        new ItemBuilder(MOD_ID)
-                .build(new Item("test", itemKey("test"), itemID("TEST")) {
-                    @Override
-                    public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-                        new StairwellRoom().place(world, world.rand, blockX, blockY, blockZ);
-                        return true;
-                    }
-                });
-
     }
 
 }
