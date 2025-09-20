@@ -3,6 +3,7 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -17,6 +18,8 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.blocks.BlockLogicChestLocked;
+import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
@@ -147,28 +150,49 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private void placeChest(WorldFeaturePoint point) {
-        int meta = -1;
-        foundMeta:
+        MimicVariant variant = getTarget(world, point);
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), BlockLogicChestMimic.setVariantToMeta(0, variant));
+//        BlockLogicRotatable.setDefaultDirection(world, point.x, point.y, point.z);
+    }
+
+    private MimicVariant getTarget(World world, WorldFeaturePoint point){
         for (int ix = -1; ix < 1; ix++) {
             for (int iy = -1; iy < 1; iy++) {
                 for (int iz = -1; iz < 1; iz++) {
+
                     Block<?> block = world.getBlock(point.x + ix, point.y + iy, point.z + iz);
                     int blockID = block == null ? 0 : block.id();
                     Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
-                    if (block == null || blockMaterial.isLiquid() || blockMaterial == Material.air || blockMaterial == Material.cloth) {
+                    BlockLogic blockLogic = block == null ? null : block.getLogic();
+
+                    if (block == null) {
                         continue;
                     }
-                    BlockLogic logic = block.getLogic();
-                    if (logic instanceof BlockLogicPlanksPainted || logic instanceof BlockLogicFencePainted || logic instanceof BlockLogicFenceGatePainted || logic instanceof BlockLogicStairsPainted || logic instanceof BlockLogicSlabPainted) {
-                        meta = world.getBlockMetadata(point.x + ix, point.y + iy, point.z + iz) + 2;
-                        break foundMeta;
+                    if (blockLogic instanceof BlockLogicChestLocked && blockMaterial.isStone()) {
+                        if (blockID == AetherBlocks.CHEST_DUNGEON_BRONZE.id() || blockID == AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id()) {
+                            return MimicVariant.DUNGEON_BRONZE;
+                        }
+                        if (blockID == AetherBlocks.CHEST_DUNGEON_SILVER.id() || blockID == AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED.id()) {
+                            return MimicVariant.DUNGEON_SILVER;
+                        }
+                        if (blockID == AetherBlocks.CHEST_DUNGEON_GOLD.id() || blockID == AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED.id()) {
+                            return MimicVariant.DUNGEON_GOLD;
+                        }
+                    }
+                    if(blockMaterial != Material.wood) {
+                        continue;
+                    }
+                    if(blockLogic instanceof BlockLogicChestPainted){
+                        int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
+                        return MimicVariant.fromId(((meta & 240) >> 4) + 2);
+                    }
+                    if(blockID == Blocks.CHEST_PLANKS_OAK.id()){
+                        return MimicVariant.OAK;
                     }
                 }
             }
         }
-        MimicVariant variant = MimicVariant.fromId(meta);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), variant.getId() << 3);
-//        BlockLogicChest.setDefaultDirection(world, point.x, point.y, point.z);
+        return MimicVariant.SKYROOT;
     }
 
     private void populateChest(WorldFeaturePoint point) {
