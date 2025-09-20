@@ -8,6 +8,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.generate.feature.WorldFeature;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.BlockLogicChestLocked;
@@ -25,7 +26,7 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
-public abstract class BaseBronzeRoom {
+public abstract class BaseBronzeRoom extends WorldFeature {
     public World world;
     public Random random;
     public int x;
@@ -271,7 +272,6 @@ public abstract class BaseBronzeRoom {
                 || blockMaterial == Material.dirt
                 || blockMaterial == Material.marble
                 || blockMaterial == Material.moss
-                || blockMaterial == Material.air
                 || blockMaterial.isStone();
     }
 
