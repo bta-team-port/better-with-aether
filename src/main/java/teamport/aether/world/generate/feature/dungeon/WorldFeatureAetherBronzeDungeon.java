@@ -157,7 +157,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         this.world = world;
         this.random = random;
         Set<BaseBronzeRoom> seenRooms = new HashSet<>();
-        List<BaseBronzeRoom> avaibleRooms = new ArrayList<>();
+        List<BaseBronzeRoom> availableRooms = new ArrayList<>();
         BaseBronzeRoom boss = new BossRoom();
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
@@ -165,16 +165,16 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         float roomWeight = boss.roomWeight;
         int bossRoomCount = 1;
         seenRooms.add(boss);
-        avaibleRooms.add(boss);
+        availableRooms.add(boss);
         BaseBronzeRoom currentRoom = null;
-        while (!avaibleRooms.isEmpty() && MAX_WEIGHT > roomWeight) {
+        while (!availableRooms.isEmpty() && MAX_WEIGHT > roomWeight) {
             if (currentRoom == null) {
-                currentRoom = avaibleRooms.get(random.nextInt(avaibleRooms.size()));
+                currentRoom = availableRooms.get(random.nextInt(availableRooms.size()));
             }
 
             List<Door> listDoor = currentRoom.getAvailableDoors();
             if (listDoor.isEmpty()) {
-                avaibleRooms.remove(currentRoom);
+                availableRooms.remove(currentRoom);
                 currentRoom = null;
                 continue;
             }
@@ -198,7 +198,6 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
-                    // TODO remove this branch at some point to make the code more clean
                     if (seenRooms.size() == 1) {
                         topCorner = nextRoom.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
                         bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
@@ -209,7 +208,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     drawVolume(0, 0, topCorner, bottomCorner, true).place(world);
                     roomWeight += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
-                    avaibleRooms.add(nextRoom);
+                    availableRooms.add(nextRoom);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor));
                     currentRoom = nextRoom;
                     break;

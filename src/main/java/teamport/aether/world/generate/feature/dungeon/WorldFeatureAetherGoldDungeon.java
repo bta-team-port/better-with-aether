@@ -6,6 +6,7 @@ import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
@@ -15,6 +16,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
+import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
@@ -26,8 +28,10 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static teamport.aether.helper.unboxed.IntPair.ipair;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.iterate3d;
@@ -56,11 +60,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
 
-    private static final Pair<Integer, WorldFeature>[] veggies = new Pair[]{
-            new Pair<>(128, new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id())),
-            new Pair<>(32, new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())),
-            new Pair<>(84, new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true))
-    };
+    public static final WeightedRandomBag<Supplier<? extends WorldFeature>> WOLRDFEATURE = new WeightedRandomBag<>();
+    static {
+        WOLRDFEATURE.addEntry(null, 512);
+        WOLRDFEATURE.addEntry(() -> new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id()), 16);
+        WOLRDFEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 8);
+        WOLRDFEATURE.addEntry(() -> new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()), 8);
+    }
+
     public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
     public static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
@@ -137,7 +144,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     private boolean canPlace(World world, int x, int y, int z) {
-        if(y + RADIUS + 10 >= world.getHeightBlocks()) return false;
+        if(y + 10 + (2 * RADIUS) >= world.getHeightBlocks()) return false;
         int diameter = RADIUS << 1;
         for (int ix = -diameter; ix < diameter; ix++) {
             for (int iz = -diameter; iz < diameter; iz++) {
@@ -344,6 +351,54 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         }
     }
 
+
+
+    public void smooth(int count) {
+        Map<IntPair, Integer> smoothingMap = new HashMap<>();
+        for(WorldFeaturePoint point: this.heightMap){
+            smoothingMap.put(ipair(point.x, point.z), point.y);
+        }
+        float LAMBDA = 0.11f;
+        float MU = -LAMBDA;
+
+        Map<IntPair, Integer> iterative = new HashMap<>();
+        for(int i = 0; i < count; i++){
+            for(IntPair key: smoothingMap.keySet()){
+                iterative.put(key, calcNewY(smoothingMap, key, LAMBDA));
+            }
+            for(IntPair key: iterative.keySet()){
+                smoothingMap.put(key, calcNewY(iterative, key, MU));
+            }
+        }
+
+        List<WorldFeaturePoint> updatedHeightMap = new ArrayList<>();
+        for(WorldFeaturePoint point : this.heightMap){
+            int newY = smoothingMap.getOrDefault(ipair(point.x, point.z), point.y);
+            int diff = point.y - newY;
+            if(diff > 0){
+               drawLine(random,holystone,Direction.UP, diff, point.x, point.y, point.z, true).place(world);
+            }else {
+                drawLine(0,0,Direction.DOWN, diff, point.x, point.y, point.z, true).place(world);
+            }
+            updatedHeightMap.add(wfp(point.x, newY, point.z));
+        }
+        this.heightMap = updatedHeightMap;
+    }
+
+    private static int calcNewY(Map<IntPair, Integer> smoothingMap, IntPair point, float FACTOR) {
+        int y = smoothingMap.get(point);
+        double totalHeight = 0;
+        for(int x = -1; x < 1; x++){
+            for(int z = -1; z < 1; z++ ){
+                if(x == 0 && z == 0) continue;
+                int iy = smoothingMap.getOrDefault(ipair(point.first + x, point.second + z), y);
+                totalHeight += iy;
+            }
+        }
+        return y + MathHelper.round(FACTOR * ((totalHeight / 8.0F) - y));
+    }
+
+
     private void createGrassOnTopLevel() {
         for (WorldFeaturePoint p : heightMap) {
             int x = p.x;
@@ -369,11 +424,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
     private void createDecorations() {
         for (WorldFeaturePoint point : heightMap) {
-            for (Pair<Integer, WorldFeature> integerWorldFeaturePair : veggies) {
-                if (random.nextInt(integerWorldFeaturePair.first) == 0) {
-                    integerWorldFeaturePair.second.place(world, random, point.x, point.y, point.z);
-                }
-            }
+            Supplier<? extends WorldFeature> feature = WOLRDFEATURE.getRandom(random);
+            if(feature == null) continue;
+            feature.get().place(world, random, point.x, point.y, point.z);
         }
     }
 
