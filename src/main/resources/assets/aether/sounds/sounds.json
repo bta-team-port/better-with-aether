@@ -29,6 +29,81 @@
       "mob/slider/move.ogg"
     ]
   },
+  "note.flute": {
+    "subtitle": "subtitles.note.flute",
+    "sounds": [
+      "note/flute.ogg"
+    ]
+  },
+  "note.sitar": {
+    "subtitle": "subtitles.note.sitar",
+    "sounds": [
+      "note/sitar.ogg"
+    ]
+  },
+  "note.saxophone": {
+    "subtitle": "subtitles.note.saxophone",
+    "sounds": [
+      "note/saxophone.ogg"
+    ]
+  },
+  "note.musicbox": {
+    "subtitle": "subtitles.note.musicbox",
+    "sounds": [
+      "note/musicbox.ogg"
+    ]
+  },
+  "note.trance": {
+    "subtitle": "subtitles.note.trance",
+    "sounds": [
+      "note/trance.ogg"
+    ]
+  },
+  "note.click": {
+    "subtitle": "subtitles.note.click",
+    "sounds": [
+      {
+        "name": "note/click.ogg",
+        "volume": 0.5
+      }
+    ]
+  },
+  "note.xylophone": {
+    "subtitle": "subtitles.note.xylophone",
+    "sounds": [
+      {
+        "name": "note/xylophone.ogg",
+        "volume": 0.5
+      }
+    ]
+  },
+  "note.bell": {
+    "subtitle": "subtitles.note.bell",
+    "sounds": [
+      {
+        "name": "note/bell.ogg",
+        "volume": 0.25
+      }
+    ]
+  },
+  "note.trumpet": {
+    "subtitle": "subtitles.note.trumpet",
+    "sounds": [
+      {
+        "name": "note/trumpet.ogg",
+        "volume": 0.5
+      }
+    ]
+  },
+  "note.organ": {
+    "subtitle": "subtitles.note.organ",
+    "sounds": [
+      {
+        "name": "note/organ.ogg",
+        "volume": 1.0
+      }
+    ]
+  },
   "mob.slider.death": {
     "subtitle": "subtitles.mob.slider.death",
     "sounds": [

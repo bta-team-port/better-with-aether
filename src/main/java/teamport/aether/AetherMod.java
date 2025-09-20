@@ -2,6 +2,7 @@ package teamport.aether;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.entity.EntityPainting;
@@ -39,6 +40,17 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static String state = "alpha";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
+
+    public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
+    public static final BlockLogicNote.Instrument CLICK = new BlockLogicNote.Instrument(12, "click");
+    public static final BlockLogicNote.Instrument XYLOPHONE = new BlockLogicNote.Instrument(13, "xylophone");
+    public static final BlockLogicNote.Instrument BELL = new BlockLogicNote.Instrument(14, "bell");
+    public static final BlockLogicNote.Instrument TRUMPET = new BlockLogicNote.Instrument(15, "trumpet");
+    public static final BlockLogicNote.Instrument ORGAN = new BlockLogicNote.Instrument(16, "organ");
+    public static final BlockLogicNote.Instrument SITAR = new BlockLogicNote.Instrument(17, "sitar");
+    public static final BlockLogicNote.Instrument TRANCE = new BlockLogicNote.Instrument(18, "trance");
+    public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
+    public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
 
     // hide the mimic description
     public static final boolean BTWAILA = FabricLoader.getInstance().isModLoaded("btwaila");

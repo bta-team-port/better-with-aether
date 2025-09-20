@@ -434,13 +434,13 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
                 .setHardness(3.0f)
-                .<BlockLogicDoor>build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.ice, false, false, () -> AetherItems.DOOR_SKYROOT))
+                .<BlockLogicDoor>build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.clay, false, false, () -> AetherItems.DOOR_SKYROOT))
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
         DOOR_PLANKS_SKYROOT_TOP = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
                 .setHardness(3.0f)
-                .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.ice, true, false, () -> AetherItems.DOOR_SKYROOT))
+                .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.clay, true, false, () -> AetherItems.DOOR_SKYROOT))
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
 
 //        SIGN_POST_PLANKS_SKYROOT = wood
@@ -643,20 +643,22 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.5F)
                 .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
 
-        DOOR_DUNGEON_GOLD = dungeonStoneLocked
-                .setLightOpacity(1)
-                .setUseInternalLight()
-                .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), BlockLogicDungeonDoor::new);
-
-        DOOR_DUNGEON_SILVER = dungeonStoneLocked
-                .setLightOpacity(1)
-                .setUseInternalLight()
-                .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), BlockLogicDungeonDoor::new);
 
         DOOR_DUNGEON_BRONZE = dungeonStoneLocked
                 .setLightOpacity(1)
                 .setUseInternalLight()
-                .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), BlockLogicDungeonDoor::new);
+                .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_BRONZE)).setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
+
+        DOOR_DUNGEON_SILVER = dungeonStoneLocked
+                .setLightOpacity(1)
+                .setUseInternalLight()
+                .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_SILVER)).setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
+
+        DOOR_DUNGEON_GOLD = dungeonStoneLocked
+                .setLightOpacity(1)
+                .setUseInternalLight()
+                .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_GOLD)).setStatParent(() -> AetherItems.DOOR_DUNGEON_GOLD);
+
 
         CHEST_DUNGEON_BRONZE = stone
                 .setHardness(1.5F)
