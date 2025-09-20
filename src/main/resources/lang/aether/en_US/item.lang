@@ -319,6 +319,13 @@ item.aether.door.skyroot.desc=Every home needs one.
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
 
+item.aether.door.dungeon.bronze.name=Bronze Dungeon Door
+item.aether.door.dungeon.bronze.desc=Every labyrinth needs one.
+item.aether.door.dungeon.silver.name=Silver Dungeon Door
+item.aether.door.dungeon.silver.desc=Every temple needs one.
+item.aether.door.dungeon.gold.name=Gold Dungeon Door
+item.aether.door.dungeon.gold.desc=Every sanctuary needs one.
+
 item.aether.sign.skyroot.name=Skyroot Sign
 item.aether.sign.skyroot.desc=Sign your land, or put down a notice.
 

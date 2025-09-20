@@ -1,6 +1,5 @@
 package teamport.aether.world.type;
 
-import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 
@@ -11,11 +10,6 @@ public abstract class AetherWorldTypes {
     public static WorldType AETHER_RETRO;
 
     public AetherWorldTypes() {
-    }
-
-    public static WorldType register(String key, WorldType worldType) {
-        Registries.WORLD_TYPES.register(key, worldType);
-        return worldType;
     }
 
     private static boolean hasInit = false;
@@ -35,17 +29,17 @@ public abstract class AetherWorldTypes {
 
         AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.default")
-                        .bounds(0, 127, 0)
-                        .portalBounds(64, 96)));
+                        .portalBounds(128, 192)));
 
 
         AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock
-                (WorldTypeAether.defaultProperties("worldtype.aether.skyblock")));
+                (WorldTypeAether.defaultProperties("worldtype.aether.skyblock")
+                        .bounds(0, 127, 0)));
 
 
         AETHER_RETRO = WorldTypes.register("aether:aether.default", new WorldTypeAether
-                (WorldTypeAether.defaultProperties("worldtype.aether.retro").bounds(0, 127, 0)
-                        .portalBounds(64, 96)
+                (WorldTypeAether.defaultProperties("worldtype.aether.retro")
+                        .portalBounds(128, 192)
                         .setRetro()));
     }
 }

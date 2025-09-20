@@ -211,6 +211,9 @@ public final class AetherItems {
 
     public static Item DOOR_SKYROOT;
     public static Item DOOR_GLASS_AMBROSIUM;
+    public static Item DOOR_DUNGEON_BRONZE;
+    public static Item DOOR_DUNGEON_SILVER;
+    public static Item DOOR_DUNGEON_GOLD;
 
     public static Item SIGN_SKYROOT;
 
@@ -329,6 +332,13 @@ public final class AetherItems {
 
         DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID)
                 .build(new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));
+
+        DOOR_DUNGEON_BRONZE = new ItemBuilder(MOD_ID)
+                .build(new ItemDoorDungeon("door.dungeon.bronze", itemKey("door_dungeon_bronze"), itemID("DOOR_DUNGEON_BRONZE"), AetherBlocks.DOOR_DUNGEON_BRONZE, ItemDoorDungeon.DoorType.BRONZE));
+        DOOR_DUNGEON_SILVER = new ItemBuilder(MOD_ID)
+                .build(new ItemDoorDungeon("door.dungeon.silver", itemKey("door_dungeon_silver"), itemID("DOOR_DUNGEON_SILVER"), AetherBlocks.DOOR_DUNGEON_SILVER, ItemDoorDungeon.DoorType.SILVER));
+        DOOR_DUNGEON_GOLD = new ItemBuilder(MOD_ID)
+                .build(new ItemDoorDungeon("door.dungeon.gold", itemKey("door_dungeon_gold"), itemID("DOOR_DUNGEON_GOLD"), AetherBlocks.DOOR_DUNGEON_GOLD, ItemDoorDungeon.DoorType.GOLD));
 
 
 //        SIGN_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT")));

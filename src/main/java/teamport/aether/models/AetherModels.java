@@ -698,6 +698,10 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_BRONZE, null).setIcon("aether:item/door_dungeon_bronze"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_SILVER, null).setIcon("aether:item/door_dungeon_silver"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, null).setIcon("aether:item/door_dungeon_gold"));
+
 //        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));

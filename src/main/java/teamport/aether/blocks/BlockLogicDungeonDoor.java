@@ -2,9 +2,11 @@ package teamport.aether.blocks;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
@@ -12,18 +14,29 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import sunsetsatellite.catalyst.core.util.vector.Vec3f;
+
+import java.util.function.Supplier;
 
 public class BlockLogicDungeonDoor extends BlockLogicRotatable {
-    public BlockLogicDungeonDoor(Block<?> block) {
-        super(block, Material.metal);
+    public final @Nullable Supplier<Item> droppedItem;
+
+    public BlockLogicDungeonDoor(Block<?> block, @Nullable Supplier<Item> droppedItem) {
+        super(block, Material.stone);
+        this.droppedItem = droppedItem;
     }
 
     @Override
     public boolean getImmovable() {
         return true;
+    }
+
+    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        if (this.droppedItem == null) {
+            return null;
+        } else {
+            return new ItemStack[]{new ItemStack(this.droppedItem.get())};
+        }
     }
 
     @Override
@@ -38,10 +51,10 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         int destZ = z + dirOpposite.getOffsetZ();
 
 
-        while (destY > 0 && world.getBlockId(destX, destY-1, destZ) == 0) --destY;
+        while (destY > 0 && world.getBlockId(destX, destY - 1, destZ) == 0) --destY;
 
-        if (    world.isBlockNormalCube(destX, destY, destZ)
-             || world.isBlockNormalCube(destX, destY + 1, destZ)) {
+        if (world.isBlockNormalCube(destX, destY, destZ)
+                || world.isBlockNormalCube(destX, destY + 1, destZ)) {
             return false;
         }
 
@@ -73,8 +86,34 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
     }
 
     @Override
-    public boolean isSolidRender() { return false; }
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
+        removeDoorGrid(world, x, y, z, data);
+    }
+
+    private void removeDoorGrid(World world, int x, int y, int z, int meta) {
+        world.noNeighborUpdate = true;
+        for (int dx = -3; dx <= 3; dx++) {
+            for (int dy = -3; dy <= 3; dy++) {
+                for (int dz = -3; dz <= 3; dz++) {
+                    int checkX = x + dx;
+                    int checkY = y + dy;
+                    int checkZ = z + dz;
+                    if (world.getBlockId(checkX, checkY, checkZ) == this.block.id() && world.getBlockMetadata(checkX, checkY, checkZ) == meta) {
+                        world.setBlockWithNotify(checkX, checkY, checkZ, 0);
+                    }
+                }
+            }
+        }
+        world.noNeighborUpdate = false;
+    }
 
     @Override
-    public boolean isCubeShaped() { return false; }
+    public boolean isSolidRender() {
+        return false;
+    }
+
+    @Override
+    public boolean isCubeShaped() {
+        return false;
+    }
 }
