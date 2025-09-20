@@ -220,7 +220,15 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             for (Door door : room.getAvailableDoors()) {
                 WorldFeaturePoint p1 = door.p1.copy();
                 WorldFeaturePoint p2 = door.p2.copy();
-                while (!this.breaksSurface(p1, p2) && p1.distanceTo(door.p1) < 100) {
+                while (!this.breaksSurface(p1, p2)
+                        && p1.distanceTo(door.p1) < 100
+                        && y < world.getHeightBlocks()
+                        && y > 5
+                        && x >= -32000000
+                        && z >= -32000000
+                        && x < 32000000
+                        && z <= 32000000
+                ) {
                     p1.moveInDirection(door.heading);
                     p2.moveInDirection(door.heading);
                 }
@@ -230,7 +238,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), door(door.heading, p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
             }
         }
-        if (tunnels.isEmpty()) {
+        if (tunnels.size() < 3) {
             AetherMod.LOGGER.warn("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
