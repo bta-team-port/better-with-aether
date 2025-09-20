@@ -5,6 +5,7 @@ import teamport.aether.world.generate.feature.*;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherGoldChest;
 import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChest;
+import teamport.aether.world.generate.feature.components.dungeon.bronze.*;
 import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon;
 import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon;
@@ -29,6 +30,15 @@ public class AetherCommand {
         registerWorldFeatureClass(WorldFeatureAetherGoldChest.class);
         registerWorldFeatureClass(WorldFeatureAetherSilverChest.class);
         registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class);
+
+        registerWorldFeatureClass(BossRoom.class, "boss");
+        registerWorldFeatureClass(DisplayRoom.class, "display");
+        registerWorldFeatureClass(HallwayRoom.class, "hallway");
+        registerWorldFeatureClass(JumpRoom.class, "jump");
+        registerWorldFeatureClass(SpikerRoom.class, "spiker");
+        registerWorldFeatureClass(StairwellRoom.class, "well");
+        registerWorldFeatureClass(TallRoom.class, "tall");
+        registerWorldFeatureClass(TreasureRoom.class, "treasure");
     }
 
     public static void registerClientCommands(){
