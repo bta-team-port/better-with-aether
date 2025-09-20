@@ -17,15 +17,15 @@ public abstract class WorldMixinHardToSpot {
 
     @Inject(method = "getClosestPlayerToEntity", at = @At("HEAD"), cancellable = true)
     public void hardToSeePlayer(Entity attacker, double radius, CallbackInfoReturnable<Player> cir){
-        Player player = this.getClosestPlayer(attacker.x, attacker.y, attacker.z, radius);
-        if (
-                player != null
-                        && ((IAetherInvisibility) player).aether$isInvisible()
-                        && !(attacker instanceof EnemyBoss)
-        ) {
-            cir.setReturnValue(this.getClosestPlayer(attacker.x, attacker.y, attacker.z, 2.0F));
-            return;
-        }
-        cir.setReturnValue(player);
+//        Player player = this.getClosestPlayer(attacker.x, attacker.y, attacker.z, radius);
+//        if (
+//                player != null
+//                        && ((IAetherInvisibility) player).aether$isInvisible()
+//                        && !(attacker instanceof EnemyBoss)
+//        ) {
+//            cir.setReturnValue(this.getClosestPlayer(attacker.x, attacker.y, attacker.z, 2.0F));
+//            return;
+//        }
+//        cir.setReturnValue(player);
     }
 }
