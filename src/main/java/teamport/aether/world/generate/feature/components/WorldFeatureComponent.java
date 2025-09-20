@@ -582,4 +582,9 @@ public class WorldFeatureComponent {
         int length3 = Math.abs(p1.z - p2.z);
         return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
+
+    public void moveByOffset(WorldFeaturePoint offset) {
+        blockList.forEach(p -> p.add(offset));
+    }
+
 }
