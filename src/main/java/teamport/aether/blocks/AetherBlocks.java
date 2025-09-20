@@ -88,6 +88,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_TOP;
     public static Block<?> SIGN_POST_PLANKS_SKYROOT;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT;
+    public static Block<?> SIGN_POST_PLANKS_SKYROOT_PAINTED;
+    public static Block<?> SIGN_WALL_PLANKS_SKYROOT_PAINTED;
     public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
     public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT;
     public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT;
@@ -443,18 +445,37 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.clay, true, false, () -> AetherItems.DOOR_SKYROOT))
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
 
-//        SIGN_POST_PLANKS_SKYROOT = wood
-//                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-//                .setHardness(1.0f)
-//                .setVisualUpdateOnMetadata()
-//                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true))
-//                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
-//        SIGN_WALL_PLANKS_SKYROOT = wood
-//                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-//                .setHardness(1.0f)
-//                .setVisualUpdateOnMetadata()
-//                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false))
-//                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+        SIGN_POST_PLANKS_SKYROOT = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true))
+                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+
+        SIGN_WALL_PLANKS_SKYROOT = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false))
+                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+
+        SIGN_POST_PLANKS_SKYROOT_PAINTED = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot.painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
+                    b -> new BlockLogicSignSkyrootPainted(b, true)
+                )
+                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
+
+        SIGN_WALL_PLANKS_SKYROOT_PAINTED = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setHardness(1.0f)
+                .setVisualUpdateOnMetadata()
+                .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot.painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
+                    b -> new BlockLogicSignSkyrootPainted(b, false)
+                )
+                .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()

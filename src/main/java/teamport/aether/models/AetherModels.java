@@ -14,9 +14,15 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
+import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
+import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
@@ -68,6 +74,8 @@ import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.renderer.EntityRendererNeedle;
+import teamport.aether.entity.tile.TileEntityRendererSignSkyroot;
+import teamport.aether.entity.tile.TileEntitySignSkyroot;
 import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
 import teamport.aether.entity.vehicle.minicloud.ModelMinicloud;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
@@ -77,6 +85,9 @@ import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 import static net.minecraft.client.render.block.model.BlockModelStandard.*;
 
@@ -221,8 +232,13 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
 
-//        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)).setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot"));
-//        dispatcher.addDispatch((new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)).setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot"));
+        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+        );
+
+        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+        );
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
                 .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
@@ -702,7 +718,17 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_SILVER, null).setIcon("aether:item/door_dungeon_silver"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, null).setIcon("aether:item/door_dungeon_gold"));
 
-//        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT_PAINTED, null) {
+            public final IconCoordinate[] sign = new IconCoordinate[16];
+
+            { Arrays.stream(DyeColor.values()).forEach(dye -> sign[dye.itemMeta] = TextureRegistry.getTexture("aether:item/sign_skyroot/" + dye.colorID));  }
+
+            public @NotNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
+                int meta = itemStack.getMetadata();
+                return sign[meta & 15];
+            }
+        });
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());
@@ -763,8 +789,17 @@ public class AetherModels implements ModelEntrypoint {
 
     @Override
     public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
-//        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, TileEntityRendererSignSkyroot::new);
+        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, () -> {
+                TileEntityRendererSignSkyroot renderer = new TileEntityRendererSignSkyroot()
+                        .setDefaultTexture("/assets/aether/textures/entity/sign_skyroot.png", new Color().setARGB(0x695E43));
 
+                Arrays.stream(DyeColor.values()).iterator().forEachRemaining(
+                        dyeColor -> renderer.setColoredTexture(dyeColor.blockMeta, String.format("/assets/aether/textures/entity/sign_skyroot/%s.png", dyeColor.colorID))
+                );
+
+                return renderer;
+            }
+        );
     }
 
     @Override
