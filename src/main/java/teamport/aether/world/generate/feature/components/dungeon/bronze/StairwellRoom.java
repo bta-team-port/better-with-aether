@@ -3,6 +3,7 @@ package teamport.aether.world.generate.feature.components.dungeon.bronze;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import static net.minecraft.core.util.helper.Direction.*;
@@ -36,18 +37,49 @@ public class StairwellRoom extends BaseBronzeRoom {
     @Override
     public void makeRoom() {
         room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y, z, true));
-        decoration.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y + height - 9, z, true));
-        decoration.add(drawVolume(0, 0, SOUTH, width - 2, UP, 7, EAST, width - 2, x + 1, y + 1 + height - 9, z + 1, false));
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y + height - 9, z, true));
+
         decoration.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, width - 2, EAST, width - 2, UP, height - 16, x + 1, y + 8, z + 1, false));
 
-        Direction dir = WEST;
-        WorldFeaturePoint stepPosition = wfp(x + 2, y + 1, z + 5);
-        for (int i = 0; i < (height - 8) << 1; i++) {
-            if ((i % 3) == 0) dir = dir.rotate(1);
-            stepPosition.moveInDirection(dir);
-            decoration.add(wfb(stepPosition.x, stepPosition.y + MathHelper.floor(i / 2.0f), stepPosition.z, AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
+        Direction dir = horizontalDirections[random.nextInt(4)];
+
+        WorldFeatureComponent staircase = new WorldFeatureComponent();
+        WorldFeaturePoint offset;
+
+        switch (dir) {
+            case WEST:
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x+5, y + height -9 , z+2, true));
+                offset = wfp(0,0,0);
+                break;
+
+            case SOUTH:
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x+2, y + height -9 , z+2, true));
+                offset = wfp(3,0,0);
+                break;
+
+            case EAST:
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x+2, y + height -9 , z+2, true));
+                offset = wfp(3,0,-3);
+                break;
+
+            case NORTH:
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x+2, y + height -9 , z+5, true));
+                offset = wfp(0,0,-3);
+                break;
+
+            default:
+                offset = wfp(0,0,0);
         }
 
+        WorldFeaturePoint stepPosition = wfp(x + 2, y + 1, z + 5);
+        for (int i = 0; i < (height -9) << 1; i++) {
+            if ((i % 3) == 0) dir = dir.rotate(1);
+            stepPosition.moveInDirection(dir);
+            staircase.add(wfb(stepPosition.x, stepPosition.y + MathHelper.floor(i / 2.0f), stepPosition.z, AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
+        }
+
+        staircase.moveByOffset(offset);
+        decoration.add(staircase);
         decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, UP, height, EAST, 2, x + 3, y, z + 3, true));
     }
 }
