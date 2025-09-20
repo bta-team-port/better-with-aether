@@ -31,6 +31,10 @@ import teamport.aether.world.biome.AetherBiomes;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.minecraft.core.block.BlockLogicNote.Instrument.CELESTA;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
@@ -40,6 +44,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static String state = "alpha";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
+
+    public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
     public static final BlockLogicNote.Instrument CLICK = new BlockLogicNote.Instrument(12, "click");
@@ -102,7 +108,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
         registerNewFurnaceFuel();
         registerNewTagForItems();
-
+        registerBlockInstruments();
     }
 
     public static void registerNewTagForItems() {
@@ -177,5 +183,51 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 //        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT.id, 300);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
         LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
+    }
+
+    public static void registerBlockInstruments() {
+        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_WHITE.id(), FLUTE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_BLUE.id(), FLUTE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_GOLD.id(), FLUTE);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), CLICK);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_ZANITE.id(), MUSICBOX);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BRICK_ZANITE.id(), MUSICBOX);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_BRICK_ZANITE.id(), MUSICBOX);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_BRICK_ZANITE.id(), MUSICBOX);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_AMBER.id(), SAXOPHONE);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.QUICKSOIL.id(), SITAR);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.GLASS_QUICKSOIL.id(), SITAR);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_GRAVITITE.id(), XYLOPHONE);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_HELLFIRE.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_HELLFIRE.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), ORGAN);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_ANGELIC.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_ANGELIC.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), BELL);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_STONE.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_STONE.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LOCKED.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_TRAPPED.id(), TRANCE);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.ICESTONE.id(), CELESTA);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_AMBROSIUM.id(), TRUMPET);
     }
 }
