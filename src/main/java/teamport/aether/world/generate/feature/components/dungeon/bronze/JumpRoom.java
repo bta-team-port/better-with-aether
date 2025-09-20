@@ -51,10 +51,10 @@ public class JumpRoom extends BaseBronzeRoom{
         decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 9, true));
 
         // Clouds
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 2, EAST, 2, x + 1, y, z + 1, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 2, WEST, 2, x + 10, y, z + 1, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 2, EAST, 2, x + 1, y, z + 10, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 2, WEST, 2, x + 10, y, z + 10, true));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, EAST, 3, x + 1, y, z + 1, true));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, WEST, 3, x + 10, y, z + 1, true));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, EAST, 3, x + 1, y, z + 10, true));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, WEST, 3, x + 10, y, z + 10, true));
 
         // Chests
         List<WorldFeatureComponent> listChestPos = new ArrayList<>();
