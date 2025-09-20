@@ -347,6 +347,11 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('P', AetherBlocks.PLANKS_SKYROOT)
                 .create("skyroot_door", new ItemStack(AetherItems.DOOR_SKYROOT, 2));
 
+        RecipeBuilder.Shaped(MOD_ID, "PPP", "PPP", " S ")
+                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('S', AetherItems.STICK_SKYROOT)
+                .create("skyroot_sign", new ItemStack(AetherItems.SIGN_SKYROOT, 4));
+
         RecipeBuilder.Shaped(MOD_ID, "PPP", "PPP")
                 .addInput('P', AetherBlocks.PLANKS_SKYROOT)
                 .create("skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT, 6));

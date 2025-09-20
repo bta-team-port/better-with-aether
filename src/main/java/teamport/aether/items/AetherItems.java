@@ -6,6 +6,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -39,6 +41,7 @@ import teamport.aether.items.itemtool.ItemToolZanite.ItemToolAxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolPickaxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolSwordZanite;
+import teamport.aether.world.generate.feature.components.dungeon.bronze.StairwellRoom;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherConfig.itemID;
@@ -216,6 +219,7 @@ public final class AetherItems {
     public static Item DOOR_DUNGEON_GOLD;
 
     public static Item SIGN_SKYROOT;
+    public static Item SIGN_SKYROOT_PAINTED;
 
     public static Item AMMO_WINDBALL;
 
@@ -340,9 +344,8 @@ public final class AetherItems {
         DOOR_DUNGEON_GOLD = new ItemBuilder(MOD_ID)
                 .build(new ItemDoorDungeon("door.dungeon.gold", itemKey("door_dungeon_gold"), itemID("DOOR_DUNGEON_GOLD"), AetherBlocks.DOOR_DUNGEON_GOLD, ItemDoorDungeon.DoorType.GOLD));
 
-
-//        SIGN_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT")));
-
+        SIGN_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT"), false));
+        SIGN_SKYROOT_PAINTED = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot.painted", itemKey("sign.skyroot.painted"), itemID("SIGN_SKYROOT_PAINTED"), true));
 
         AMMO_WINDBALL = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
@@ -745,6 +748,15 @@ public final class AetherItems {
 
         ARMOR_CAPE_WHITE = new ItemBuilder(MOD_ID)
                 .build(new ItemAccessoryArmor("armor.cape.white", itemKey("armor_cape_white"), itemID("ARMOR_CAPE_WHITE"), "white", 5));
+
+        new ItemBuilder(MOD_ID)
+                .build(new Item("test", itemKey("test"), itemID("TEST")) {
+                    @Override
+                    public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+                        new StairwellRoom().place(world, world.rand, blockX, blockY, blockZ);
+                        return true;
+                    }
+                });
 
     }
 
