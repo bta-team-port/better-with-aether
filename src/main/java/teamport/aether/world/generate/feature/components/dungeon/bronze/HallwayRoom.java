@@ -1,5 +1,10 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.material.Material;
+import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +26,27 @@ public class HallwayRoom extends BaseBronzeRoom {
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
     }
+
+    @Override
+    public boolean canPlace(){
+        if (this.y <= 11 && this.y + height + 3 >= world.getHeightBlocks()) {
+            return false;
+        }
+        WorldFeatureComponent check;
+        int countAir = 0, countLiquid = 0;
+
+        check = drawVolume(0, 0, SOUTH, width, UP, 7, EAST, 4, x + 4, y, z, true);
+        check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, true));
+        for (WorldFeaturePoint point : check.blockList) {
+            Block<?> block = world.getBlock(point.x, point.y, point.z);
+            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            if (block != null && block.blockHardness < 0) return false;
+            if (blockMaterial == Material.air) countAir++;
+            if (blockMaterial.isLiquid()) countLiquid++;
+        }
+        return !(check.blockList.size() * airTolerance < countAir) && !(check.blockList.size() * liquidTolerance < countLiquid);
+    }
+
 
     @Override
     public void makeRoom() {
