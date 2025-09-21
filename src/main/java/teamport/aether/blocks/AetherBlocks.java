@@ -80,6 +80,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> SAPLING_OAK_GOLDEN;
 
     public static Block<?> PLANKS_SKYROOT;
+    public static Block<? extends IPainted> PLANKS_SKYROOT_PAINTED;
     public static Block<BlockLogicSlab> SLAB_PLANKS_SKYROOT;
     public static Block<BlockLogicStairs> STAIRS_PLANKS_SKYROOT;
     public static Block<BlockLogicFence> FENCE_PLANKS_SKYROOT;
@@ -406,7 +407,11 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         PLANKS_SKYROOT = wood
-                .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogic(b, Material.wood));
+                .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogicPaintableGeneric(b, Material.wood, () -> PLANKS_SKYROOT_PAINTED));
+
+        PLANKS_SKYROOT_PAINTED = wood
+                .build("planks.skyroot.painted", "planks_skyroot.painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedGeneric(b, Material.wood, () -> PLANKS_SKYROOT));
+
         SLAB_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)

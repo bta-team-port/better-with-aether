@@ -34,6 +34,12 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                 }
             }
 
+            else if (item.itemID == AetherBlocks.PLANKS_SKYROOT_PAINTED.id() && item.getMetadata() == 0) {
+                for (DyeColor dyeColor : DyeColor.values()) {
+                    newCreativeItems.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+                }
+            }
+
             else if (item.itemID == AetherItems.SIGN_SKYROOT_PAINTED.id && item.getMetadata() == 0) {
                 for (DyeColor dyeColor : DyeColor.values()) {
                     ItemStack sign = new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED.getDefaultStack());

@@ -8,6 +8,7 @@ import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -17,6 +18,8 @@ import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
+
+import java.util.List;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -126,6 +129,12 @@ public class AetherRecipes implements RecipeEntrypoint {
                 new ItemStack(Blocks.COBBLE_STONE)
         ));
 
+        List<ItemStack> planks = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+        for (DyeColor dyeColor : DyeColor.values()) {
+            planks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+        }
+
+        Registries.ITEM_GROUPS.register("aether:planks", planks);
     }
 
     public static void enchanterGroups() {
@@ -195,7 +204,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.AMBROSIUM).create("block_of_ambrosium", new ItemStack(AetherBlocks.BLOCK_AMBROSIUM, 1));
-        templateItemtoFuelBlock.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1));
+        templateItemtoFuelBlock.addInput('X', "aether:planks").create("skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1));
 
         RecipeBuilderShaped templateBlocktoItem = new RecipeBuilderShaped(MOD_ID, "X");
         templateBlocktoItem.addInput('X', AetherBlocks.BLOCK_ZANITE).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.ZANITE, 9));
@@ -250,7 +259,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void dartAmmoRecipes() {
         RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Shooter.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
+        Shooter.addInput('X', "aether:planks").addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
                 .addInput('S', AetherItems.STICK_SKYROOT)
@@ -287,7 +296,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     public static void stairRecipes() {
         RecipeBuilderShaped templateStairs = new RecipeBuilderShaped(MOD_ID, "X ", "XX ", "XXX");
         templateStairs.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).create("holystone_stairs", new ItemStack(AetherBlocks.STAIRS_COBBLE_HOLYSTONE, 6));
-        templateStairs.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT, 6));
+        templateStairs.addInput('X', "aether:planks").create("skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT, 6));
         templateStairs.addInput('X', AetherBlocks.CARVED_STONE).create("carved_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_STONE, 6));
         templateStairs.addInput('X', AetherBlocks.CARVED_ANGELIC).create("angelic_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_ANGELIC, 6));
         templateStairs.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_stairs", new ItemStack(AetherBlocks.STAIRS_CARVED_HELLFIRE, 6));
@@ -305,7 +314,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HIH", "SSS")
                 .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
                 .addInput('I', (AetherBlocks.ICESTONE))
-                .addInput('S', (AetherBlocks.PLANKS_SKYROOT))
+                .addInput('S', "aether:planks")
                 .create("freezer", new ItemStack(AetherBlocks.FREEZER_IDLE, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HTH", "HHH")
@@ -326,15 +335,15 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_SKYROOT).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT, 4));
-        templateLogtoPlank.addInput('X', AetherBlocks.LOG_OAK_GOLDEN).create("golden_oak_log_to_yellow_wooden_planks", new ItemStack(Blocks.PLANKS_OAK_PAINTED, 4, 4));
+        templateLogtoPlank.addInput('X', AetherBlocks.LOG_OAK_GOLDEN).create("golden_oak_log_to_yellow_wooden_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 4, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "PSP", "PSP")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .addInput('S', AetherItems.STICK_SKYROOT)
                 .create("skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT, 6));
 
         RecipeBuilder.Shaped(MOD_ID, "SPS", "SPS")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .addInput('S', AetherItems.STICK_SKYROOT)
                 .create("skyroot_fencegate", new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, 3));
 
@@ -344,39 +353,39 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .create("pebbles_to_holystone", new ItemStack(AetherBlocks.COBBLE_HOLYSTONE, 2));
 
         RecipeBuilder.Shaped(MOD_ID, "PP", "PP", "PP")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .create("skyroot_door", new ItemStack(AetherItems.DOOR_SKYROOT, 2));
 
         RecipeBuilder.Shaped(MOD_ID, "PPP", "PPP", " S ")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .addInput('S', AetherItems.STICK_SKYROOT)
                 .create("skyroot_sign", new ItemStack(AetherItems.SIGN_SKYROOT, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "PPP", "PPP")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .create("skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT, 6));
 
         RecipeBuilder.Shaped(MOD_ID, "P")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .create("skyroot_button", new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "PP")
-                .addInput('P', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('P', "aether:planks")
                 .create("skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "X", "X")
-                .addInput('X', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('X', "aether:planks")
                 .create("skyroot_sticks", new ItemStack(AetherItems.STICK_SKYROOT, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
-                .addInput('X', AetherBlocks.PLANKS_SKYROOT)
+                .addInput('X', "aether:planks")
                 .create("skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
     }
 
     public static void slabRecipes() {
         RecipeBuilderShaped templateSlab = new RecipeBuilderShaped(MOD_ID, "XXX");
         templateSlab.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).create("holystone_slab", new ItemStack(AetherBlocks.SLAB_COBBLE_HOLYSTONE, 6));
-        templateSlab.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT, 6));
+        templateSlab.addInput('X', "aether:planks").create("skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT, 6));
         templateSlab.addInput('X', AetherBlocks.CARVED_STONE).create("carved_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_STONE, 6));
         templateSlab.addInput('X', AetherBlocks.CARVED_ANGELIC).create("angelic_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_ANGELIC, 6));
         templateSlab.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_HELLFIRE, 6));
@@ -405,25 +414,25 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void toolsRecipes() {
         RecipeBuilderShaped Sword = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Sword.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_sword", new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1));
+        Sword.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_sword", new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1));
         Sword.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_sword", new ItemStack(AetherItems.TOOL_SWORD_HOLYSTONE, 1));
         Sword.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_sword", new ItemStack(AetherItems.TOOL_SWORD_ZANITE, 1));
         Sword.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_sword", new ItemStack(AetherItems.TOOL_SWORD_GRAVITITE, 1));
 
         RecipeBuilderShaped Pick = new RecipeBuilderShaped(MOD_ID, "XXX", " S ", " S ");
-        Pick.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_pick", new ItemStack(AetherItems.TOOL_PICKAXE_SKYROOT, 1));
+        Pick.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_pick", new ItemStack(AetherItems.TOOL_PICKAXE_SKYROOT, 1));
         Pick.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_pick", new ItemStack(AetherItems.TOOL_PICKAXE_HOLYSTONE, 1));
         Pick.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_ZANITE, 1));
         Pick.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_GRAVITITE, 1));
 
         RecipeBuilderShaped Shovel = new RecipeBuilderShaped(MOD_ID, " X ", " S ", " S ");
-        Shovel.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_SKYROOT, 1));
+        Shovel.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_SKYROOT, 1));
         Shovel.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_HOLYSTONE, 1));
         Shovel.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_ZANITE, 1));
         Shovel.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_GRAVITITE, 1));
 
         RecipeBuilderShaped Axe = new RecipeBuilderShaped(MOD_ID, "XX ", "XS ", " S ");
-        Axe.addInput('X', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_axe", new ItemStack(AetherItems.TOOL_AXE_SKYROOT, 1));
+        Axe.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_axe", new ItemStack(AetherItems.TOOL_AXE_SKYROOT, 1));
         Axe.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_axe", new ItemStack(AetherItems.TOOL_AXE_HOLYSTONE, 1));
         Axe.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_axe", new ItemStack(AetherItems.TOOL_AXE_ZANITE, 1));
         Axe.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_axe", new ItemStack(AetherItems.TOOL_AXE_GRAVITITE, 1));
