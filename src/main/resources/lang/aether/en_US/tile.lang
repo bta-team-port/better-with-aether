@@ -76,6 +76,41 @@ tile.aether.sapling.oak.golden.desc=Plant to grow a golden oak tree.
 
 tile.aether.planks.skyroot.name=Skyroot Planks
 tile.aether.planks.skyroot.desc=Processed skyroot logs.
+
+tile.aether.planks.skyroot.painted.white.name=White Skyroot Planks
+tile.aether.planks.skyroot.painted.orange.name=Orange Skyroot Planks
+tile.aether.planks.skyroot.painted.magenta.name=Magenta Skyroot Planks
+tile.aether.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Planks
+tile.aether.planks.skyroot.painted.yellow.name=Yellow Skyroot Planks
+tile.aether.planks.skyroot.painted.lime.name=Lime Skyroot Planks
+tile.aether.planks.skyroot.painted.pink.name=Pink Skyroot Planks
+tile.aether.planks.skyroot.painted.gray.name=Gray Skyroot Planks
+tile.aether.planks.skyroot.painted.silver.name=Light Gray Skyroot Planks
+tile.aether.planks.skyroot.painted.cyan.name=Cyan Skyroot Planks
+tile.aether.planks.skyroot.painted.purple.name=Purple Skyroot Planks
+tile.aether.planks.skyroot.painted.blue.name=Blue Skyroot Planks
+tile.aether.planks.skyroot.painted.brown.name=Brown Skyroot Planks
+tile.aether.planks.skyroot.painted.green.name=Green Skyroot Planks
+tile.aether.planks.skyroot.painted.red.name=Red Skyroot Planks
+tile.aether.planks.skyroot.painted.black.name=Black Skyroot Planks
+
+tile.aether.planks.skyroot.painted.white.desc=Skyroot planks stained White.
+tile.aether.planks.skyroot.painted.orange.desc=Skyroot planks stained Orange.
+tile.aether.planks.skyroot.painted.magenta.desc=Skyroot planks stained Magenta.
+tile.aether.planks.skyroot.painted.lightblue.desc=Skyroot planks stained Light Blue.
+tile.aether.planks.skyroot.painted.yellow.desc=Skyroot planks stained Yellow.
+tile.aether.planks.skyroot.painted.lime.desc=Skyroot planks stained Lime.
+tile.aether.planks.skyroot.painted.pink.desc=Skyroot planks stained Pink.
+tile.aether.planks.skyroot.painted.gray.desc=Skyroot planks stained Gray.
+tile.aether.planks.skyroot.painted.silver.desc=Skyroot planks stained Light Gray.
+tile.aether.planks.skyroot.painted.cyan.desc=Skyroot planks stained Cyan.
+tile.aether.planks.skyroot.painted.purple.desc=Skyroot planks stained Purple.
+tile.aether.planks.skyroot.painted.blue.desc=Skyroot planks stained Blue.
+tile.aether.planks.skyroot.painted.brown.desc=Skyroot planks stained Brown.
+tile.aether.planks.skyroot.painted.green.desc=Skyroot planks stained Green.
+tile.aether.planks.skyroot.painted.red.desc=Skyroot planks stained Red.
+tile.aether.planks.skyroot.painted.black.desc=Skyroot planks stained Black.
+
 tile.aether.slab.planks.skyroot.name=Skyroot Slab
 tile.aether.slab.planks.skyroot.desc=A slab of skyroot planks.
 tile.aether.stairs.planks.skyroot.name=Skyroot Stairs

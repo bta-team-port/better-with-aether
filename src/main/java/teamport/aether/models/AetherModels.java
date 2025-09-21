@@ -225,6 +225,8 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
 
+        dispatcher.addDispatch(new BlockModelPaintedGeneric(AetherBlocks.PLANKS_SKYROOT_PAINTED, "aether:block/skyroot/"));
+
         dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
