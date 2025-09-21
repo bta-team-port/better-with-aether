@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
@@ -48,6 +49,13 @@ public abstract class BaseBronzeRoom {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, 5);
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
+    }
+
+    public static BlockPallet chestOrMimic = new BlockPallet();
+    static {
+        chestOrMimic.addEntry(0, 2);
+        chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
+        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
     }
 
     public BaseBronzeRoom() {
@@ -204,18 +212,20 @@ public abstract class BaseBronzeRoom {
 
     public void placeRoom() {
         Map<WorldFeaturePoint, WorldFeatureBlock> blockMap = new HashMap<>();
+
         for (WorldFeatureBlock block : room.blockList) {
             WorldFeaturePoint point = new WorldFeaturePoint(block.x, block.y, block.z);
             blockMap.put(point, block);
         }
+
         decoration.add(chest);
-        for(WorldFeatureBlock block : decoration.blockList){
+        for (WorldFeatureBlock block : decoration.blockList){
             WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.x, block.y, block.z), key -> block);
             otherBlock.blockID = block.blockID;
             otherBlock.metadata = block.metadata;
             otherBlock.withNotify = block.withNotify;
         }
-        for(WorldFeatureBlock wfblock : blockMap.values()){
+        for (WorldFeatureBlock wfblock : blockMap.values()){
             if (this.roomCanReplace(wfblock)) {
                 wfblock.place(world);
             }
@@ -230,16 +240,24 @@ public abstract class BaseBronzeRoom {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
+
         if(block != null && (block.getLogic() instanceof BlockLogicLocked || block.blockHardness < 0)){
             return false;
         }
-        if(blockMaterial == Material.water || blockMaterial == Material.lava){
+
+        if(blockMaterial == Material.water || blockMaterial == Material.lava || blockID == Blocks.BEDROCK.id()){
             return false;
         }
+
+        if(blockID == Blocks.SPIKES.id()){
+            return true;
+        }
+
         if (blockID == AetherBlocks.CHEST_MIMIC.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
             world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
             return true;
         }
+
         return BlockTags.CAVES_CUT_THROUGH.appliesTo(block)
                 || blockMaterial == Material.grass
                 || blockMaterial == Material.dirt

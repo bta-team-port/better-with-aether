@@ -12,30 +12,43 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 public class SpikerRoom extends BaseBronzeRoom {
     public SpikerRoom() {
         super();
-        this.height = 13;
-        addDoor(NORTH, wfp(4, 2, 0), UP, 6, EAST, 4);
-        addDoor(EAST, wfp(11, 2, 4), UP, 6, SOUTH, 4);
-        addDoor(SOUTH, wfp(4, 2, 11), UP, 6, EAST, 4);
-        addDoor(WEST, wfp(0, 2, 4), UP, 6, SOUTH, 4);
+        this.height = 12;
+        addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
+        addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
+        addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
+        addDoor(WEST,  wfp(0, 1, 4), UP, 6, SOUTH, 4);
 
         addDoor(DOWN, wfp(5,0,5), EAST, 2, SOUTH, 2);
         addDoor(UP, wfp(5,this.height,5), EAST, 2, SOUTH, 2);
     }
-    public void makeShell(){
-        room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
-        room.add(drawVolume(0, 0, SOUTH, width - 2, UP, height - 2, EAST, width - 2, x + 1, y + 1, z + 1, true));
+
+    public void makeShell() {
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
+        room.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, 8, EAST ,8, DOWN, 14, x + 2, y, z + 2, true));
+        room.add(drawPlane(random, ROOM_PALLET, SOUTH,6, EAST, 6, x + 3, y - 13, z + 3, false));
     }
-    public void makePitBottom(){
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, width - 2, EAST, width - 2, x + 1, y + 1, z + 1, true));
+
+    public void makeSpikePit() {
+        decoration.add(drawPlane(Blocks.SPIKES.id(), 0, SOUTH, 6, EAST, 6, x + 3, y -12, z + 3, false));
     }
-    public void makeSpikePit(){
-        decoration.add(drawPlane(Blocks.SPIKES.id(), 0, SOUTH, 6, EAST, 6, x + 3, y + 1, z + 3, true));
+
+    public void makeHangingChest() {
+        decoration.add(drawPlane(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 2, SOUTH, 4, EAST, 4, x + 4, y + height - 7, z + 4, false));
+        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 6, z + 5, true));
+
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height -2, z + 4, false));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height -2, z + 4, false));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height -2, z + 7, false));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height -2, z + 7, false));
     }
 
     @Override
     public void makeRoom() {
         this.makeShell();
-        this.makePitBottom();
         this.makeSpikePit();
+
+        if (this.random.nextInt(3) == 0) {
+            this.makeHangingChest();
+        }
     }
 }

@@ -9,12 +9,7 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 
 
 public class TreasureRoom extends BaseBronzeRoom {
-    public static BlockPallet chestOrMimic = new BlockPallet();
-    static {
-        chestOrMimic.addEntry(0, 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
-    }
+
     public TreasureRoom() {
         super();
         this.topAirTolerance = this.topLiquidTolerance = 0;
