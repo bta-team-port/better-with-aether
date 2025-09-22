@@ -1,9 +1,6 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.block.BlockLogicMobSpawner;
+import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
