@@ -22,6 +22,7 @@ import teamport.aether.blocks.BlockLogicChestLocked;
 import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
@@ -70,8 +71,22 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public Entity findPlayerToAttack() {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+        Player player = this.world.getClosestPlayerToEntity(this, 64.0);
+        if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
+            return null;
+        }
+        if (!(player instanceof AetherInvisibility)) {
+            return player;
+        }
+        AetherInvisibility invPlayer = (AetherInvisibility) player;
+        if(invPlayer.aether$isInvisible()){
+            Player newPlayer = this.world.getClosestPlayerToEntity(this, 4.0);
+            if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
+                return null;
+            }
+            return newPlayer;
+        }
+        return player;
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
