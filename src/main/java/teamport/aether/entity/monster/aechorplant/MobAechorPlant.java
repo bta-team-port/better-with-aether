@@ -103,10 +103,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target == null) {
-            Player player = world.getClosestPlayer(x, y, z, 16);
-            if (player != null && player.getGamemode().areMobsHostile()) {
-                target = player;
-            }
+            target = (Player)this.findPlayerToAttack();
         }
 
         if (this.target != null) {
@@ -139,11 +136,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         this.hasTarget = this.target != null;
-    }
-
-    protected Entity findPlayerToAttack() {
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     public boolean canEntityBeSeen(Entity entity) {
