@@ -29,7 +29,6 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.directions;
-import static teamport.aether.blocks.BlockLogicChestMimic.variantFromMetaData;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -156,9 +155,9 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private MimicVariant getTarget(World world, WorldFeaturePoint point){
-        for (int ix = -1; ix < 1; ix++) {
-            for (int iy = -1; iy < 1; iy++) {
-                for (int iz = -1; iz < 1; iz++) {
+        for (int ix = -5; ix < 5; ix++) {
+            for (int iy = -2; iy < 2; iy++) {
+                for (int iz = -5; iz < 5; iz++) {
 
                     Block<?> block = world.getBlock(point.x + ix, point.y + iy, point.z + iz);
                     int blockID = block == null ? 0 : block.id();
@@ -168,6 +167,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                     if (block == null) {
                         continue;
                     }
+
                     if (blockLogic instanceof BlockLogicChestLocked && blockMaterial.isStone()) {
                         if (blockID == AetherBlocks.CHEST_DUNGEON_BRONZE.id() || blockID == AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id()) {
                             return MimicVariant.DUNGEON_BRONZE;
@@ -179,12 +179,18 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                             return MimicVariant.DUNGEON_GOLD;
                         }
                     }
+
+                    if(blockLogic instanceof BlockLogicChestMimic){
+                        int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
+                        return MimicVariant.fromId(BlockLogicChestMimic.getVariantFromMeta(meta));
+                    }
+
                     if(blockMaterial != Material.wood) {
                         continue;
                     }
                     if(blockLogic instanceof BlockLogicChestPainted && blockID == Blocks.CHEST_PLANKS_OAK_PAINTED.id()){
                         int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
-                        return variantFromMetaData(meta);
+                        return MimicVariant.fromId(BlockLogicChestMimic.getColorIDFromMeta(meta) + 2);
                     }
                     // TODO for future chest code
 //                    if(blockLogic instanceof BlockLogicChestPainted && blockID == AetherBlocks.SKYROOT_PLANKS_OAK_PAINTED.id()){
