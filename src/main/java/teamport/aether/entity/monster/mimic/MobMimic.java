@@ -158,6 +158,9 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 return;
             }
         }
+        /// To make sure the content of the chest are not lost
+        this.placeChest(point);
+        this.populateChest(point);
     }
 
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
