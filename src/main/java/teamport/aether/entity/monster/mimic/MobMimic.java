@@ -1,5 +1,6 @@
 package teamport.aether.entity.monster.mimic;
 
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
@@ -32,6 +33,7 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
+    public int mimicTime;
 
     public MobMimic(World world) {
         super(world);
@@ -39,6 +41,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.attackStrength = 5;
         this.scoreValue = 2000;
+        this.mimicTime = 120 * Global.TICKS_PER_SECOND;
         MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
         this.setSkinVariant(variant.getId());
     }
@@ -55,6 +58,17 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
     }
 
+    @Override
+    public void updateAI(){
+        super.updateAI();
+        if(target == null){
+            if(mimicTime-- == 0){
+                this.remove();
+            }
+        }
+    }
+
+    @Override
     public Entity findPlayerToAttack() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 64.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
@@ -86,6 +100,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return super.hurt(attacker, damage, type);
     }
 
+    @Override
     public String getHurtSound() {
         MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
         String material = variant.getMaterial();
@@ -96,6 +111,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return "step.wood";
     }
 
+    @Override
     public String getDeathSound() {
         MimicVariant variant = MimicVariant.fromId(this.getSkinVariant());
         String material = variant.getMaterial();
@@ -106,10 +122,12 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return "random.door_open";
     }
 
+    @Override
     public float getSoundVolume() {
         return 0.6F;
     }
 
+    @Override
     public int getMaxHealth() {
         return 80;
     }
