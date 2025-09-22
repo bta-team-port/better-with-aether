@@ -228,8 +228,4 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     public static int getColorIDFromMeta(int meta){
         return (meta & 240) >> 4;
     }
-
-    public static MimicVariant variantFromMetaData(int meta){
-        return MimicVariant.fromId(getColorIDFromMeta(meta) + 2);
-    }
 }
