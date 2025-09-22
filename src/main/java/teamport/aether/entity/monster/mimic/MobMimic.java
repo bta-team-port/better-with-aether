@@ -80,7 +80,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
         AetherInvisibility invPlayer = (AetherInvisibility) player;
         if(invPlayer.aether$isInvisible()){
-            Player newPlayer = this.world.getClosestPlayerToEntity(this, 4.0);
+            Player newPlayer = this.world.getClosestPlayerToEntity(this, 2.0);
             if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
                 return null;
             }
