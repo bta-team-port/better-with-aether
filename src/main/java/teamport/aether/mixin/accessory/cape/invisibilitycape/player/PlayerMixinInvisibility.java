@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.cape.invisibilitycape;
+package teamport.aether.mixin.accessory.cape.invisibilitycape.player;
 
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
