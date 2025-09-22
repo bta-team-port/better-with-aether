@@ -28,7 +28,7 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.List;
 
-import static net.minecraft.core.util.helper.Direction.directions;
+import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -131,7 +131,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     private void place() {
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
-        for (Direction dir : directions) {
+        Direction[] check = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST, UP, DOWN};
+        for (Direction dir : check) {
             WorldFeaturePoint dPoint = point.copy().moveInDirection(dir);
             if (this.isSafe(world, dPoint)) {
                 this.placeChest(dPoint);
