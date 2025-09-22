@@ -3,7 +3,6 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -30,6 +29,7 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.directions;
+import static teamport.aether.blocks.BlockLogicChestMimic.variantFromMetaData;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -151,8 +151,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     private void placeChest(WorldFeaturePoint point) {
         MimicVariant variant = getTarget(world, point);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), BlockLogicChestMimic.setVariantToMeta(0, variant));
-//        BlockLogicRotatable.setDefaultDirection(world, point.x, point.y, point.z);
+        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, AetherBlocks.CHEST_MIMIC.id(), BlockLogicChestMimic.setVariantToMeta(0,variant));
+        BlockLogicChestMimic.setDefaultDirection(world, point.x, point.y, point.z);
     }
 
     private MimicVariant getTarget(World world, WorldFeaturePoint point){
@@ -182,10 +182,15 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                     if(blockMaterial != Material.wood) {
                         continue;
                     }
-                    if(blockLogic instanceof BlockLogicChestPainted){
+                    if(blockLogic instanceof BlockLogicChestPainted && blockID == Blocks.CHEST_PLANKS_OAK_PAINTED.id()){
                         int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
-                        return MimicVariant.fromId(((meta & 240) >> 4) + 2);
+                        return variantFromMetaData(meta);
                     }
+                    // TODO for future chest code
+//                    if(blockLogic instanceof BlockLogicChestPainted && blockID == AetherBlocks.SKYROOT_PLANKS_OAK_PAINTED.id()){
+//                        int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
+//                        return varaintFromMetaData(meta);
+//                    }
                     if(blockID == Blocks.CHEST_PLANKS_OAK.id()){
                         return MimicVariant.OAK;
                     }
