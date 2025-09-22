@@ -8,6 +8,7 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -128,6 +129,13 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         }
 
         return null;
+    }
+
+    public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
+        if(world.getDifficulty().canHostileMobsSpawn()){
+            return super.blockStrength(world, x, y, z, side, player);
+        }
+        return -1;
     }
 
     private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
