@@ -3,10 +3,10 @@ package teamport.aether.mixin.accessory.cape.invisibilitycape;
 import net.minecraft.client.entity.player.PlayerLocal;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.items.accessory.IAetherInvisibility;
+import teamport.aether.items.accessory.AetherInvisibility;
 
 @Mixin(value = PlayerLocal.class, remap = false)
-public class PlayerLocalMixinInvisibility implements IAetherInvisibility {
+public class PlayerLocalMixinInvisibility implements AetherInvisibility {
     @Unique
     boolean invisible = false;
 

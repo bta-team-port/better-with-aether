@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.items.accessory.IAetherInvisibility;
 
 @Mixin(value = World.class, remap = false)
 public abstract class WorldMixinHardToSpot {
