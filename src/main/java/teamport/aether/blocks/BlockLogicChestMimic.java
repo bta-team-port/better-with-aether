@@ -8,13 +8,13 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.item.tag.ItemTags;
+import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
@@ -78,13 +78,13 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.setBlockMetadataWithNotify(x, y, z, metadata);
     }
 
-    public @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
-        int metadata = world.getBlockMetadata(x,y,z);
-        TileEntity tileEntity = world.getTileEntity(x,y,z);
+    private @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
         return summonMimic(world, tileEntity, x, y, z, metadata);
     }
 
-    public @Nullable MobMimic summonMimic(World world, TileEntity tileEntity, int x, int y, int z, int metadata) {
+    private @Nullable MobMimic summonMimic(World world, TileEntity tileEntity, int x, int y, int z, int metadata) {
         if (EnvironmentHelper.isClientWorld()) return null;
         List<ItemStack> chestInv = getAndClearInventory(tileEntity);
         MobMimic mimic = new MobMimic(world);
@@ -111,7 +111,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 result.setData(data);
                 return new ItemStack[]{result};
             default:
-                MobMimic mimic = summonMimic(world,tileEntity,x,y,z,meta);
+                MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
                 world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
                 world.setBlockWithNotify(x, y, z, 0);
                 if (!EnvironmentHelper.isServerEnvironment()) world.spawnParticle(
@@ -131,18 +131,19 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return null;
     }
 
+    /// To prevent player from removing them in peaceful
     public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
-        if(world.getDifficulty().canHostileMobsSpawn()){
+        if (world.getDifficulty().canHostileMobsSpawn()) {
             return super.blockStrength(world, x, y, z, side, player);
         }
         return -1;
     }
 
     private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
-        if(!(tileEntity instanceof TileEntityMimic)){
+        if (!(tileEntity instanceof TileEntityMimic)) {
             return null;
         }
-        Container inv = (Container)tileEntity;
+        Container inv = (Container) tileEntity;
         List<ItemStack> stacks = new ArrayList<>();
         for (int i = 0; i < inv.getContainerSize(); i++) {
             stacks.add(inv.getItem(i));
@@ -168,7 +169,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
-        if (player.gamemode.isPlayerInvulnerable()) {
+        if (player.gamemode == Gamemode.creative) {
             ItemStack stack = player.getHeldItem();
             if (stack == null || !stack.getItem().hasTag(ItemTags.PREVENT_CREATIVE_MINING)) {
                 player.displayChestScreen(BlockLogicChest.getInventory(world, x, y, z), x, y, z);
@@ -196,7 +197,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     // not sure if this is the correct place for these functions
-    public void moveToSafe(World world, Mob mob, int x, int y, int z, float yRot, float xRot) {
+    private void moveToSafe(World world, Mob mob, int x, int y, int z, float yRot, float xRot) {
         if (this.isSafe(world, x - 1, y, z)) {
             mob.moveTo(x - 0.5F, y, z + 0.5F, yRot, xRot);
             this.dx = x - 0.5F;
@@ -235,7 +236,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
 
-    public static int getColorIDFromMeta(int meta){
+    public static int getColorIDFromMeta(int meta) {
         return (meta & 240) >> 4;
     }
 }
