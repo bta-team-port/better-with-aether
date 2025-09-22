@@ -14,6 +14,7 @@
     "accessory.ContainerInventoryMixinAccessory",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
     "accessory.cape.invisibilitycape.player.PlayerMixinInvisibility",
+    "accessory.cape.invisibilitycape.target.MobGhastMixinInvisiblePlayer",
     "accessory.cape.invisibilitycape.target.MobMonsterMixinInvisiblePlayer",
     "accessory.cape.invisibilitycape.target.MobPathfinderMixinForgetPlayerWhenToFar",
     "accessory.cape.invisibilitycape.target.MobScorpionMixinInvisiblePlayer",
