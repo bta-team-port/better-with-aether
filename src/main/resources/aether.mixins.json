@@ -15,7 +15,6 @@
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
     "accessory.cape.invisibilitycape.MobPathfinderMixinForgetPlayerWhenToFar",
     "accessory.cape.invisibilitycape.PlayerMixinInvisibility",
-    "accessory.cape.invisibilitycape.WorldMixinHardToSpot",
     "accessory.gloves.ContainerInventoryMixinGlovesDamage",
     "accessory.quiver.ItemBowMixinQuiverSlotFix",
     "accessory.quiver.PlayerMixinNextArrow",
