@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import teamport.aether.items.accessory.IAccessoryEffects;
-import teamport.aether.items.accessory.IAetherInvisibility;
+import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
@@ -23,15 +23,15 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
                 slotId > player.inventory.mainInventory.length
                         && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
-            ((IAetherInvisibility) player).aether$setInvisible(true);
+            ((AetherInvisibility) player).aether$setInvisible(true);
             return;
         }
-        ((IAetherInvisibility) player).aether$setInvisible(false);
+        ((AetherInvisibility) player).aether$setInvisible(false);
     }
 
     @Override
     public void removeEffect(Player player, ItemStack accessory) {
-        ((IAetherInvisibility) player).aether$setInvisible(false);
+        ((AetherInvisibility) player).aether$setInvisible(false);
     }
 
 
