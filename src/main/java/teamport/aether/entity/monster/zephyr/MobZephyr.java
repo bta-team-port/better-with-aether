@@ -16,6 +16,7 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.projectile.ProjectileWindball;
+import teamport.aether.items.accessory.AetherInvisibility;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     public int courseChangeCooldown = 0;
@@ -116,7 +117,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         }
 
         if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
-            this.targetedEntity = this.world.getClosestPlayerToEntity(this, 100.0);
+            this.targetedEntity = findPlayerToAttack();
             if (this.targetedEntity != null) {
                 this.aggroCooldown = 20;
             }
@@ -171,6 +172,24 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
             }
         }
 
+    }
+
+    private Entity findPlayerToAttack() {
+        Player player = this.world.getClosestPlayerToEntity(this, (float) 100.0);
+        if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
+            return null;
+        }
+        if (player instanceof AetherInvisibility) {
+            AetherInvisibility invPlayer = (AetherInvisibility) player;
+            if (invPlayer.aether$isInvisible()) {
+                Player newPlayer = this.world.getClosestPlayerToEntity(this, 2.0);
+                if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
+                    return null;
+                }
+                return newPlayer;
+            }
+        }
+        return player;
     }
 
     public boolean isCourseTraversable(double d, double d1, double d2, double d3) {
