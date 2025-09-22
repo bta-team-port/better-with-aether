@@ -240,7 +240,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 }
             }
         }
-        return MimicVariant.SKYROOT;
+        return MimicVariant.fromId(this.getSkinVariant());
     }
 
     private void populateChest(WorldFeaturePoint point) {
