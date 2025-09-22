@@ -100,7 +100,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
                 if (tileEntity == null) {
                     return null;
                 }
-                ItemStack result = new ItemStack(this);
+                ItemStack result = new ItemStack(this.block, 1, meta & (MASK_VARIANT << 3));
                 CompoundTag data = result.getData();
                 CompoundTag mimicData = new CompoundTag();
                 tileEntity.writeToNBT(mimicData);
@@ -225,4 +225,11 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
 
+    public static int getColorIDFromMeta(int meta){
+        return (meta & 240) >> 4;
+    }
+
+    public static MimicVariant variantFromMetaData(int meta){
+        return MimicVariant.fromId(getColorIDFromMeta(meta) + 2);
+    }
 }
