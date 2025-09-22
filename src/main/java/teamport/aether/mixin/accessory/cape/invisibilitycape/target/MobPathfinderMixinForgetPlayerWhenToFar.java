@@ -1,4 +1,4 @@
-package teamport.aether.mixin.accessory.cape.invisibilitycape;
+package teamport.aether.mixin.accessory.cape.invisibilitycape.target;
 
 
 import net.minecraft.core.entity.Entity;
