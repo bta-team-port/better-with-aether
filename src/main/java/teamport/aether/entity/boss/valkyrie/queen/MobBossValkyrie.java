@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -249,7 +250,7 @@ public class MobBossValkyrie extends MobBoss {
             this.yRot = 0.0F;
             this.setPathToEntity(null);
             this.yBodyRot = this.random.nextFloat() * 360.0F;
-            this.teleportTimer = this.random.nextInt(40);
+            this.teleportTimer = this.random.nextInt(2 * Global.TICKS_PER_SECOND);
         }
     }
 
@@ -269,7 +270,7 @@ public class MobBossValkyrie extends MobBoss {
     public void teleportFailed() {
         this.teleportTimer -= this.random.nextInt(40) + 40;
         if (this.y <= 0.0) {
-            this.teleportTimer = 100;
+            this.teleportTimer = 5 * Global.TICKS_PER_SECOND;
         }
     }
 
@@ -307,37 +308,40 @@ public class MobBossValkyrie extends MobBoss {
     public boolean hurt(Entity attacker, int i, DamageType type) {
         assert this.world != null;
 
-        if (!this.isReadyToDuel && attacker instanceof Player) {
-            if (this.chatTime <= 0) {
-                if (!world.getDifficulty().canHostileMobsSpawn()) {
-                    ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
-                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
-                }
-                else {
-                    String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
-                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
-                    ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
-                }
-
-                this.chatTime = 40;
+        /// need to acquire more medals
+        if (!this.isReadyToDuel) {
+            if (!(attacker instanceof Player) || this.chatTime > 0) {
+                return false;
             }
+            if (!world.getDifficulty().canHostileMobsSpawn()) {
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
+            } else {
+                String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
+                world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
+            }
+            this.chatTime = 40;
             return false;
         }
 
-        if (!this.isReadyToDuel) return false;
-
-        if (this.target == null && this.chatTime <= 0 && attacker instanceof Player) {
+        /// can fight valk
+        if (this.target == null && attacker instanceof Player && !isAgro) {
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
-            this.chatTime = 40;
-        }
-
-        else this.teleportTimer += 40;
-
-        if (!isAgro) {
+            this.chatTime = 2 * Global.TICKS_PER_SECOND;
             this.target = attacker;
             this.isAgro = true;
             runWithDungeon(d -> d.lock(this, world));
+        } else {
+            this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         }
+
+//        ///  make valk agro
+//        if (!isAgro) {
+//            this.target = attacker;
+//            this.isAgro = true;
+//            runWithDungeon(d -> d.lock(this, world));
+//        }
 
         return super.hurt(attacker, i, type);
     }
