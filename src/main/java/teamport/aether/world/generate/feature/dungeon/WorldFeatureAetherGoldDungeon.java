@@ -276,7 +276,17 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         world.setBlockWithNotify(x, y, z,AetherBlocks.BLOCK_GRAVITITE.id());
 
         WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
-        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+
+        Direction doorDir;
+        switch (direction) {
+            case EAST: doorDir = Direction.WEST; break;
+            case NORTH: doorDir = Direction.NORTH; break;
+            case WEST: doorDir = Direction.EAST; break;
+            case SOUTH:
+            default: doorDir = Direction.SOUTH; break;
+        }
+
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, doorDir);
 
         iterate3d(
             wfp(x +2,y +2 +RADIUS/2, z -RADIUS/2).rotateYAroundPivot(dungeonAnchor, direction),

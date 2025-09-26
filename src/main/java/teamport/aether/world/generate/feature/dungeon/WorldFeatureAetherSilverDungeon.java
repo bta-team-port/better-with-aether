@@ -279,13 +279,26 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);
         clearArea.second.rotateYAroundPivot(dungeonAnchor, direction);
 
+        Direction doorDir;
+        switch (direction) {
+            case EAST: doorDir = Direction.WEST; break;
+            case NORTH: doorDir = Direction.NORTH; break;
+            case WEST: doorDir = Direction.EAST; break;
+            case SOUTH:
+            default: doorDir = Direction.SOUTH; break;
+        }
+
         // Entrance hole into boss room
-        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
+        int entranceDoorMeta = BlockLogicRotatable.setDirection(0, doorDir);
+
         WorldFeatureComponent entranceDoor = drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true);
         this.placeComponent(entranceDoor);
-        for(WorldFeatureBlock blocks : entranceDoor.blockList){
-            blocks.metadata = entranceDoorMeta;
+
+        for(WorldFeatureBlock block : entranceDoor.blockList){
+            block.metadata = entranceDoorMeta;
+            block.blockID = AetherBlocks.DOOR_DUNGEON_SILVER.id();
         }
+
         dungeon.setEntranceDoor(entranceDoor.blockList);
         dungeon.setClearArea(clearArea);
 
