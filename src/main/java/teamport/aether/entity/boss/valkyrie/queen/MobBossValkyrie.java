@@ -15,11 +15,13 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
@@ -34,7 +36,6 @@ public class MobBossValkyrie extends MobBoss {
     public int chatTime;
     public float sinage;
     public int attackStrength;
-
 
     public MobBossValkyrie(@Nullable World world) {
         super(world);
@@ -179,9 +180,9 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public Entity findPlayerToAttack() {
-        if(!this.isReadyToDuel || !this.isAgro) return null;
+        if (!this.isReadyToDuel || !this.isAgro) return null;
         Player player = this.world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius);
-        if(this.target == null) {
+        if (this.target == null) {
             return player != null && this.canEntityBeSeen(player) && player.getGamemode().areMobsHostile() ? player : null;
         }
         double dist = AetherMathHelper.distanceToSqr(this.x, this.y, this.z, this.target.x, this.target.y, this.target.z);
@@ -201,32 +202,36 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public void teleport(double x, double y, double z, int rad) {
-        int a = this.random.nextInt(rad + 1) * (this.random.nextInt(2) * 2 - 1);
-        int b = this.random.nextInt(rad / 2) * (this.random.nextInt(2) * 2 - 1);
-        int c = (rad - Math.abs(a)) * (this.random.nextInt(2) * 2 - 1);
-        x += a;
-        y += b;
-        z += c;
+        int ax = this.random.nextInt(rad + 1) * (this.random.nextInt(2) * 2 - 1);
+        int ay = this.random.nextInt(rad / 2) * (this.random.nextInt(2) * 2 - 1);
+        int az = (rad - Math.abs(ax)) * (this.random.nextInt(2) * 2 - 1);
+        x += ax;
+        y += ay;
+        z += az;
 
         int newX = (int) Math.floor(x);
         int newY = (int) Math.floor(y);
         int newZ = (int) Math.floor(z);
         boolean flag = false;
 
-        int dungeonXMin = (int) (this.x - 10);
-        int dungeonXMax = (int) (this.x + 10);
-        int dungeonZMin = (int) (this.z - 10);
-        int dungeonZMax = (int) (this.z + 10);
-
+        if (returnPoint == null) {
+            AetherMod.LOGGER.info("Queen Valk at {}, {}, {} has no return point!", x, y, z);
+            return;
+        }
+        WorldFeaturePoint p1 = new WorldFeaturePoint(this.returnPoint.x - 9, this.returnPoint.y - 3, this.returnPoint.z - 16);
         for (int q = 0; q < 128 && !flag; ++q) {
-            int i = newX + (this.random.nextInt(6) - this.random.nextInt(6));
-            int j = (int) this.y;
-            int k = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
-
-            if (j >= 0 && j <= 255 && this.isAirySpace(i, j, k) && this.isAirySpace(i, j + 1, k) && !this.isAirySpace(i, j - 1, k) && i >= dungeonXMin && i <= dungeonXMax && k >= dungeonZMin && k <= dungeonZMax) {
-                newX = i;
-                newY = j;
-                newZ = k;
+            int ix = newX + (this.random.nextInt(6) - this.random.nextInt(6));
+            int iy = (int) this.y;
+            int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
+            if (       iy >= 0 && iy < world.getHeightBlocks()
+                    && this.isAirySpace(ix, iy, iz) && this.isAirySpace(ix, iy + 1, iz) && !this.isAirySpace(ix, iy - 1, iz)
+                    && ix >= p1.x && ix <= p1.x + 16
+                    && iy >= p1.y && iy <= p1.y + 16
+                    && iz >= p1.z && iz <= p1.z + 16
+            ) {
+                newX = ix;
+                newY = iy;
+                newZ = iz;
                 flag = true;
             }
         }
@@ -282,9 +287,9 @@ public class MobBossValkyrie extends MobBoss {
         int k = MathHelper.floor(this.z);
 
         return this.world.getFullBlockLightValue(i, j, k) > 8
-            && this.world.getIsAnySolidGround(this.bb)
-            && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty()
-            && !this.world.getIsAnyLiquid(this.bb);
+                && this.world.getIsAnySolidGround(this.bb)
+                && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty()
+                && !this.world.getIsAnyLiquid(this.bb);
     }
 
     @Override
@@ -303,7 +308,9 @@ public class MobBossValkyrie extends MobBoss {
         this.isAgro = tag.getBoolean("isAgro");
     }
 
-    public boolean canFight() { return isAlive() && isReadyToDuel; }
+    public boolean canFight() {
+        return isAlive() && isReadyToDuel;
+    }
 
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
@@ -332,7 +339,7 @@ public class MobBossValkyrie extends MobBoss {
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
             this.target = attacker;
             this.isAgro = true;
-             runWithDungeon(d -> d.lock(this, world));
+            runWithDungeon(d -> d.lock(this, world));
         } else {
             this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         }
