@@ -103,7 +103,7 @@ public class MobBossValkyrie extends MobBoss {
         ++this.teleportTimer;
 
         this.target = findPlayerToAttack();
-        if (this.target == null && world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
+        if (this.target == null && world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null && isAgro) {
             this.isAgro = false;
             returnToOriginalState();
         }
@@ -327,12 +327,12 @@ public class MobBossValkyrie extends MobBoss {
         }
 
         /// can fight valk
-        if (this.target == null && attacker instanceof Player && !isAgro) {
+        if (this.target == null && attacker instanceof Player) {
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
             this.target = attacker;
             this.isAgro = true;
-            runWithDungeon(d -> d.lock(this, world));
+             runWithDungeon(d -> d.lock(this, world));
         } else {
             this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         }
