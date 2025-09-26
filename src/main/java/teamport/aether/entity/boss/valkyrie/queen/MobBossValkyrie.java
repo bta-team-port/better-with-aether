@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
+import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -103,7 +104,7 @@ public class MobBossValkyrie extends MobBoss {
 
         this.target = findPlayerToAttack();
         if (this.target == null && world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
-            isAgro = false;
+            this.isAgro = false;
             returnToOriginalState();
         }
 
@@ -178,13 +179,13 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public Entity findPlayerToAttack() {
-        if (!(isReadyToDuel && isAgro)) return null;
-
-        return world.players.stream()
-            .filter(p -> p.gamemode.areMobsHostile())
-            .filter(p -> p.distanceTo(this) < 32)
-            .min((p1, p2) -> Float.compare(p1.distanceTo(this), p2.distanceTo(this)))
-            .orElse(null);
+        if(!this.isReadyToDuel || !this.isAgro) return null;
+        Player player = this.world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius);
+        if(this.target == null) {
+            return player != null && this.canEntityBeSeen(player) && player.getGamemode().areMobsHostile() ? player : null;
+        }
+        double dist = AetherMathHelper.distanceToSqr(this.x, this.y, this.z, this.target.x, this.target.y, this.target.z);
+        return AetherDimension.bossDetectionRangeSQR >= dist ? target : player;
     }
 
     public void onDeath(Entity entityKilledBy) {
@@ -335,14 +336,6 @@ public class MobBossValkyrie extends MobBoss {
         } else {
             this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         }
-
-//        ///  make valk agro
-//        if (!isAgro) {
-//            this.target = attacker;
-//            this.isAgro = true;
-//            runWithDungeon(d -> d.lock(this, world));
-//        }
-
         return super.hurt(attacker, i, type);
     }
 
