@@ -73,6 +73,11 @@ public class WorldFeatureComponent {
         }
     }
 
+    public void rotateYAroundPivot(WorldFeaturePoint pivot, Direction direction) {
+        blockList.forEach(d -> d.rotateYAroundPivot(pivot, direction));
+    }
+
+
     public void place(World world) {
         for (WorldFeatureBlock worldFeatureBlock : this.blockList) {
             worldFeatureBlock.place(world);
