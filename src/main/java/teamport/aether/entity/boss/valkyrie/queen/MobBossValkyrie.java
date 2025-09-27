@@ -104,7 +104,7 @@ public class MobBossValkyrie extends MobBoss {
         ++this.teleportTimer;
 
         this.target = findPlayerToAttack();
-        if (this.target == null && world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null && isAgro) {
+        if (this.target == null && isAgro) {
             this.isAgro = false;
             returnToOriginalState();
         }
@@ -128,7 +128,7 @@ public class MobBossValkyrie extends MobBoss {
 
         if (this.target != null && !this.target.isAlive()) {
             this.target = null;
-            this.isReadyToDuel = false;
+//            this.isReadyToDuel = false;
         }
 
         if (this.chatTime > 0) {
@@ -378,7 +378,7 @@ public class MobBossValkyrie extends MobBoss {
                     this.chatTime = 40;
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.heal(400);
-                    this.isReadyToDuel = false;
+//                    this.isReadyToDuel = false;
                 }
             }
         }
