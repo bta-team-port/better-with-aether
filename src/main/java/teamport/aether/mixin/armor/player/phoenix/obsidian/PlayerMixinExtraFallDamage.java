@@ -26,6 +26,6 @@ public class PlayerMixinExtraFallDamage extends Mob {
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;causeFallDamage(F)V"))
     public void aether$causeFallDamage(Player instance, float distance, Operation<Void> original) {
         float totalProtectionOfMaterial = ContainerHelper.getTotalEquippedArmorProtection(inventory, AetherArmorMaterial.OBSIDIAN);
-        original.call(instance, (0.5f + totalProtectionOfMaterial) * distance);
+        original.call(instance, (1.0f + 0.5f * totalProtectionOfMaterial) * distance);
     }
 }
