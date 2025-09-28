@@ -57,6 +57,7 @@
     "block.BlockLogicPistonBaseSteelMixin",
     "block.CactusSpikeImmunitiesMixin",
     "block.SpikeImmunitiesMixin",
+    "dimension.AetherBedMixin",
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupsMixin",
     "entity.EntityMixin",
