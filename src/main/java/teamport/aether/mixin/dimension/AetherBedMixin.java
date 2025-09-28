@@ -8,7 +8,9 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -49,17 +51,19 @@ public class AetherBedMixin extends BlockLogic {
         else return;
 
         Random rand = world.rand;
+
+        Vec3 wind = Vec3.getTempVec3(0.1, 0, 0);
+        wind.rotateAroundY(MathHelper.toRadians(rand.nextInt(360)));
         for (int i = 0; i < 32; i++) {
             world.spawnParticle(
-                    "flame",
-                    x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
-                    0, 0.2, 0, 0
+                "flame",
+                x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
+                wind.x, 0.2, wind.z, 0
             );
-
             world.spawnParticle(
-                    "smoke",
-                    x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
-                    0, 0.2, 0, 0
+                "smoke",
+                x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
+                wind.x, 0.2, wind.z, 0
             );
         }
 
@@ -74,25 +78,29 @@ public class AetherBedMixin extends BlockLogic {
 
         WorldFeaturePoint anchor = wfp((int) player.x, (int) player.y, (int) player.z);
 
-        int mobsToSpawn = 5;
+        int mobsToSpawn = 6;
+        final int maxAttempts = 200;
         while (mobsToSpawn > 0) {
             int attempts = 0;
 
             MobFireMinion minion = new MobFireMinion(world);
             WorldFeaturePoint spawn;
-
             do {
+                attempts++;
+                if (attempts > maxAttempts) break;
+
                 spawn = anchor.copy();
                 spawn.moveInDirection(Direction.NORTH, 4 + (int) ((1.0F + rand.nextGaussian()) * 3));
                 spawn.rotateYAroundPivot(anchor, rand.nextFloat() * 360);
 
-                attempts++;
-                if (attempts > 30) break;
+                int topBlock = world.getHeightValue(spawn.x, spawn.z);
+                if (topBlock <= 0 || Math.abs(topBlock - spawn.y) > 15) continue;
+
+                minion.setPos(spawn.x, topBlock, spawn.z);
             } while (minion.isInWall());
 
-            if (attempts > 30) break;
+            if (attempts > maxAttempts) break;
 
-            minion.setPos(spawn.x, spawn.y, spawn.z);
             minion.setTarget(player);
             world.entityJoinedWorld(minion);
 
