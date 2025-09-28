@@ -37,7 +37,7 @@ public abstract class AetherWorldTypes {
                         .bounds(0, 127, 0)));
 
 
-        AETHER_RETRO = WorldTypes.register("aether:aether.default", new WorldTypeAether
+        AETHER_RETRO = WorldTypes.register("aether:aether.retro", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.retro")
                         .portalBounds(128, 192)
                         .setRetro()));

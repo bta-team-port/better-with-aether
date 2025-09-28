@@ -24,12 +24,12 @@ public class SpikerRoom extends BaseBronzeRoom {
 
     public void makeShell() {
         room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
-        room.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, 8, EAST ,8, DOWN, 14, x + 2, y, z + 2, true));
-        room.add(drawPlane(random, ROOM_PALLET, SOUTH,6, EAST, 6, x + 3, y - 13, z + 3, false));
     }
 
-    public void makeSpikePit() {
-        decoration.add(drawPlane(Blocks.SPIKES.id(), 0, SOUTH, 6, EAST, 6, x + 3, y -12, z + 3, false));
+    public void makeSpikePit(int pitHeight) {
+        room.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, 8, EAST ,8, DOWN, pitHeight, x + 2, y, z + 2, true));
+        room.add(drawPlane(random, ROOM_PALLET, SOUTH,6, EAST, 6, x + 3, y - pitHeight + 1, z + 3, false));
+        decoration.add(drawPlane(Blocks.SPIKES.id(), 0, SOUTH, 6, EAST, 6, x + 3, y - pitHeight + 2, z + 3, false));
     }
 
     public void makeHangingChest() {
@@ -45,7 +45,7 @@ public class SpikerRoom extends BaseBronzeRoom {
     @Override
     public void makeRoom() {
         this.makeShell();
-        this.makeSpikePit();
+        this.makeSpikePit(this.random.nextBoolean() ? 14 : 4);
 
         if (this.random.nextInt(3) == 0) {
             this.makeHangingChest();

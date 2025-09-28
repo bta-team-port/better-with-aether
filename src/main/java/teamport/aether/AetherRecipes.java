@@ -6,6 +6,8 @@ import net.minecraft.core.data.DataLoader;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
+import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -19,7 +21,9 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -74,7 +78,7 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     public static void oreGemGroups() {
-        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE, Items.DIAMOND));
+        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.STICK_SKYROOT, Items.STICK));
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(new ItemStack(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE, 1)));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(new ItemStack(AetherBlocks.ORE_ZANITE_HOLYSTONE, 1)));
@@ -82,12 +86,19 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     public static void extendVanillaGroups() {
-        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("ladder");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("sponge_to_wet_sponge");
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:planks").add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
+
+        List<ItemStack> minecraftPlanks = Registries.ITEM_GROUPS.getItem("minecraft:planks");
+        minecraftPlanks.add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
+        minecraftPlanks.addAll(
+            Arrays.stream(DyeColor.values())
+                .map(dyeColor -> new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta))
+                .collect(Collectors.toList())
+        );
+
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_OAK_GOLDEN.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:stones").add(AetherBlocks.HOLYSTONE.getDefaultStack());
@@ -245,6 +256,19 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('S', AetherItems.STICK_SKYROOT)
                 .addInput('Z', AetherItems.ZANITE)
                 .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
+
+        Registries.RECIPES.addCustomRecipe(
+            "aether:workbench/skyroot_dying",
+            new RecipeEntryDyeing(
+                new RecipeSymbol("aether:planks"),
+                AetherBlocks.PLANKS_SKYROOT_PAINTED.getDefaultStack(), false, false
+            )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_undying",
+                new RecipeEntryUndyeing(new RecipeSymbol("aether:planks"), AetherBlocks.PLANKS_SKYROOT.getDefaultStack())
+        );
     }
 
     public static void quickGlassRecipes() {
@@ -325,9 +349,9 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void plankRecipes() {
         RecipeBuilder.Shaped(MOD_ID, "XXX", "XGX", "XXX")
-                .addInput('X', "minecraft:planks")
+                .addInput('X', "aether:planks")
                 .addInput('G', "aether:gems")
-                .create("jukebox", new ItemStack(Blocks.JUKEBOX, 1));
+                .create("aether:jukebox", new ItemStack(Blocks.JUKEBOX, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "X X", "XXX", "X X")
                 .addInput('X', "aether:sticks")
