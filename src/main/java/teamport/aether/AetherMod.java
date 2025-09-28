@@ -24,7 +24,6 @@ import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.net.*;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import teamport.aether.net.message.BossListNetworkMessage;
-import teamport.aether.net.message.CommandExtraHealthMessage;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
@@ -76,7 +75,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);
-        NetworkHandler.registerNetworkMessage(CommandExtraHealthMessage::new);
     }
 
     @Override

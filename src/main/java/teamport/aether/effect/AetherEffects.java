@@ -2,8 +2,13 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
+import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.modifier.ModifierType;
+import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
 import teamport.aether.gui.IHudVisibility;
+import teamport.aether.helper.Union;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -48,49 +53,69 @@ public class AetherEffects {
         }
     }
 
-    public static PoisonEffect poisonEffect;
-    public static RemedyEffect remedyEffect;
     private static boolean hasInit = false;
-
     public static void init() {
         if (hasInit) {
             return;
         }
         hasInit = true;
+        registerAttributes();
         assignEffects();
         initEffects();
     }
+
+    public static IntAttribute EXTRA_HEALTH = (IntAttribute) new IntAttribute("attribute.aether.extraHealth", 0).setAsDefault();
+
+    private static void registerAttributes() {
+        Attributes catalystAttributes = Attributes.getInstance();
+
+        catalystAttributes.register("aether:extra_health", EXTRA_HEALTH);
+    }
+
+    public static PoisonEffect poisonEffect;
+    public static RemedyEffect remedyEffect;
+    public static Effect extraHealthEffect;
 
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
+
+        extraHealthEffect = new AetherEffectBuilder()
+                .init("effect.aether.extra_health",MOD_ID + ":extra_health")
+                .setEffectTimeType(EffectTimeType.PERMANENT)
+                .addModifier(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1))
+                .setMaxStack(40)
+                .setPersistent()
+                .buildRegularEffect();
+
         poisonEffect = new AetherEffectBuilder()
-                .init("effect.aether.poison", MOD_ID + ":poison", "icon_poison.png")
+                .init("effect.aether.poison", MOD_ID + ":poison")
                 .setEffectTimeType(EffectTimeType.KEEP)
                 .setDefaultDuration(60)
                 .setMaxStack(10)
                 .setTint(0x8218cb)
                 .setVignette("/assets/aether/textures/other/poisonvignette.png")
                 .setHeartPath("aether:gui/hud/poison/")
-                .build(PoisonEffect::new);
+                .build(b -> new PoisonEffect(b, "icon_poison.png"));
 
 
         remedyEffect = new AetherEffectBuilder()
-                .init("effect.aether.remedy", MOD_ID + ":remedy", "icon_remedy.png")
+                .init("effect.aether.remedy", MOD_ID + ":remedy")
                 .setEffectTimeType(EffectTimeType.RESET)
                 .setDefaultDuration(240)
                 .setMaxStack(1)
                 .setTint(0x009bc2)
                 .setVignette("/assets/aether/textures/other/curevignette.png")
                 .setHeartPath("aether:gui/hud/remedy/")
-                .build(RemedyEffect::new);
+                .build(b -> new RemedyEffect(b, "icon_remedy.png"));
 
     }
 
     private static void initEffects() {
         AetherEffects.registerEffect(poisonEffect);
         AetherEffects.registerEffect(remedyEffect);
+        AetherEffects.registerEffect(extraHealthEffect);
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
@@ -155,42 +180,51 @@ public class AetherEffects {
      * Returns always false if a given effect is locked.
      *
      * @param mob affected Mob
-     * @param newEffect Effect affecting the mob
+     * @param stackToAdd Effect stack affecting the mob
      * @return true if the effect was applied false otherwise
      * */
-    public static boolean add(Mob mob, EffectStack newEffect) {
+    public static boolean add(Mob mob, EffectStack stackToAdd) {
         if(!(mob instanceof IHasEffects)) return false;
         IHasEffects entity = (IHasEffects) mob;
-        for(EffectStack effect : entity.getContainer().getEffects()) {
-            if (effect.getEffect() == newEffect.getEffect()) {
-                if(effect.getAmount() + newEffect.getAmount() >= effect.getEffect().getMaxStack()){
-                    int amount = effect.getEffect().getMaxStack() - effect.getAmount();
-                    effect.add(amount, entity.getContainer());
+
+        for (EffectStack currStack : entity.getContainer().getEffects()) {
+            Effect currEffect = currStack.getEffect();
+            int currMax = currEffect.getMaxStack();
+
+            if (currEffect == stackToAdd.getEffect()) {
+                if (currStack.getAmount() + stackToAdd.getAmount() >= currMax){
+                    int amountToAdd = currMax - currStack.getAmount();
+
+                    currStack.add(amountToAdd, entity.getContainer());
                     return true;
                 }
             }
         }
-        if(isLocked(newEffect, ((IHasEffects) mob).getContainer())) return false;
-        newEffect.start(entity.getContainer());
-        entity.getContainer().add(newEffect);
+
+        if (isLocked(stackToAdd, ((IHasEffects) mob).getContainer())) return false;
+
+        stackToAdd.start(entity.getContainer());
+        entity.getContainer().add(stackToAdd);
         return true;
     }
 
 
     public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        Effect these = effectStack.getEffect();
-        Effect effect = AetherEffects.LookupLooks.instance.getLocker(these);
-        if(effect == null){
-            return false;
-        }
-        if ((effectContainer.getParent() instanceof IHasEffects) && (effectContainer.getParent() instanceof Mob)) {
-            IHasEffects affected = (IHasEffects) effectContainer.getParent();
-            if (effectContainer.hasEffect(effect) && effect instanceof ILockInteractable) {
-                ((ILockInteractable) effect).lockTriggered(affected);
-                effectContainer.remove(these);
+        Effect effectBlocked = effectStack.getEffect();
+        Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectBlocked);
+
+        if (effectBlocker == null) return false;
+
+        T parent = effectContainer.getParent();
+        if (parent instanceof IHasEffects && parent instanceof Mob) {
+            if (effectBlocker instanceof ILockInteractable && effectContainer.hasEffect(effectBlocker)) {
+                ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects) parent);
+
+                effectContainer.remove(effectBlocked);
                 return true;
             }
         }
+
         return false;
     }
 }

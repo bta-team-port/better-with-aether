@@ -1,10 +1,12 @@
 package teamport.aether.effect;
 
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.EffectRenderer;
+import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.particle.ParticalHelper;
@@ -17,28 +19,36 @@ public class RemedyEffect extends Effect implements IHudVisibility, ILockInterac
     public final EffectRenderer renderer;
     public String PATH_HEART;
 
-    public RemedyEffect(AetherEffectBuilder builder) {
-        this(
-                builder.getNameKey(), builder.getId(),
-                builder.getImagePath(), builder.getHeartPath(), builder.getVignette(),
+    public RemedyEffect(AetherEffectBuilder builder, IconCoordinate icon) {
+        super(
+                builder.getNameKey(),
+                builder.getId(),
+                icon,
+                builder.getColor(),
                 builder.getModifiers(),
                 builder.getEffectTimeType(),
-                builder.getColor(), builder.getTint(),
-                builder.getDefaultDuration(), builder.getMaxStack()
+                builder.getDefaultDuration(),
+                builder.getMaxStack()
         );
+
+        this.PATH_HEART = builder.getHeartPath();
+        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
     }
 
-    public RemedyEffect(
-            String nameKey, String id,
-            String imagePath, String PATH_HEART, String vignette,
-            List<Modifier<?>> modifiers,
-            EffectTimeType effectTimeType,
-            int color, int tint,
-            int defaultDuration, int maxStack
-    ) {
-        super(nameKey, id, imagePath, color, modifiers, effectTimeType, defaultDuration, maxStack);
-        this.PATH_HEART = PATH_HEART;
-        renderer = new RemedyEffectRenderer(vignette, tint);
+    public RemedyEffect(AetherEffectBuilder builder, String icon) {
+        super(
+                builder.getNameKey(),
+                builder.getId(),
+                icon,
+                builder.getColor(),
+                builder.getModifiers(),
+                builder.getEffectTimeType(),
+                builder.getDefaultDuration(),
+                builder.getMaxStack()
+        );
+
+        this.PATH_HEART = builder.getHeartPath();
+        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
     }
 
     @Override

@@ -1,17 +1,21 @@
 package teamport.aether.effect;
 
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import sunsetsatellite.catalyst.effects.api.effect.Effect;
 import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.helper.Union;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class AetherEffectBuilder {
     private String nameKey;
     private String id;
-    private String imagePath;
     private int color = 0x000000;
     private List<Modifier<?>> modifiers = new ArrayList<>();
     private EffectTimeType effectTimeType = EffectTimeType.KEEP;
@@ -20,11 +24,21 @@ public class AetherEffectBuilder {
     private int tint = 0x0;
     private String heartPath = "minecraft:gui/hud/heart/";
     private String vignette = "";
+    private boolean isPersistent = false;
 
-    public AetherEffectBuilder init(String nameKey, String id, String imagePath){
+    private Union icon = EnvironmentHelper.isServerEnvironment() ? null : new Union(String.class, IconCoordinate.class);
+
+    public AetherEffectBuilder init(String nameKey, String id){
         this.nameKey = nameKey;
         this.id = id;
-        this.imagePath = imagePath;
+        return this;
+    }
+
+    public AetherEffectBuilder setIcon(Supplier<Union> iconCoordinateUnion) {
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            icon.set(iconCoordinateUnion.get());
+        }
+
         return this;
     }
 
@@ -33,8 +47,8 @@ public class AetherEffectBuilder {
         return this;
     }
 
-    public AetherEffectBuilder setModifiers(List<Modifier<?>> modifiers) {
-        this.modifiers = modifiers;
+    public AetherEffectBuilder addModifier(Modifier<?>... modifiers) {
+        this.modifiers.addAll(Arrays.asList(modifiers));
         return this;
     }
 
@@ -69,14 +83,67 @@ public class AetherEffectBuilder {
         return this;
     }
 
+    public AetherEffectBuilder setPersistent() {
+        this.isPersistent = true;
+        return this;
+    }
+
     public <T extends Effect> T build(Function<AetherEffectBuilder, T> constructor) {
         return constructor.apply(this);
+    }
+
+    public Effect buildRegularEffect() {
+        // You might be wondering, "why?"... I am too. c:
+
+        Effect result = null;
+        if (icon != null) {
+            if (icon.of(String.class).isPresent()) {
+                result = new Effect(
+                        this.getNameKey(),
+                        this.getId(),
+                        icon.of(String.class).get(),
+                        this.getColor(),
+                        this.getModifiers(),
+                        this.getEffectTimeType(),
+                        this.getDefaultDuration(),
+                        this.getMaxStack()
+                );
+            }
+
+            else if (icon.of(IconCoordinate.class).isPresent()) {
+                result = new Effect(
+                        this.getNameKey(),
+                        this.getId(),
+                        icon.of(IconCoordinate.class).get(),
+                        this.getColor(),
+                        this.getModifiers(),
+                        this.getEffectTimeType(),
+                        this.getDefaultDuration(),
+                        this.getMaxStack()
+                );
+            }
+        }
+
+        if (result == null) {
+            result = new Effect(
+                this.getNameKey(),
+                this.getId(),
+                (String) null,
+                this.getColor(),
+                this.getModifiers(),
+                this.getEffectTimeType(),
+                this.getDefaultDuration(),
+                this.getMaxStack()
+            );
+        }
+
+        if (isPersistent()) result.setPersistent();
+        return result;
     }
 
     // Getters for constructor lambda
     public String getNameKey() { return nameKey; }
     public String getId() { return id; }
-    public String getImagePath() { return imagePath; }
     public int getColor() { return color; }
     public List<Modifier<?>> getModifiers() { return modifiers; }
     public EffectTimeType getEffectTimeType() { return effectTimeType; }
@@ -86,5 +153,9 @@ public class AetherEffectBuilder {
     public String getHeartPath(){return heartPath;}
     public String getVignette(){return vignette;}
 
+    public Union getIcon() {return icon;}
 
+    public boolean isPersistent() {
+        return this.isPersistent;
+    }
 }

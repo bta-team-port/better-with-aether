@@ -1,7 +1,10 @@
 package teamport.aether.helper;
 
 import net.minecraft.core.entity.player.Player;
-import teamport.aether.items.IVariableHealthPlayer;
+import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
+import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.AetherEffects;
 
 public class HealthHelper {
 
@@ -11,7 +14,7 @@ public class HealthHelper {
      * @return the amount of extra health
      */
     public static int getExtraHealth(Player player) {
-        return ((IVariableHealthPlayer) player).aether$getExtraHealth();
+        return AetherEffects.EXTRA_HEALTH.calculate((IHasEffects) player);
     }
 
     /**
@@ -20,7 +23,9 @@ public class HealthHelper {
      * @param amount the amount of extra health they should have
      */
     public static void setExtraHealth(Player player, int amount) {
-        ((IVariableHealthPlayer) player).aether$setExtraHealth(amount);
+        EffectContainer<?> container = ((IHasEffects) player).getContainer();
+        container.remove(AetherEffects.extraHealthEffect);
+        container.add(new EffectStack((IHasEffects) player, AetherEffects.extraHealthEffect, amount));
     }
 
     /**
@@ -29,7 +34,7 @@ public class HealthHelper {
      * @param amount the amount of extra health to add, on top of the amount they already have
      */
     public static void addExtraHealth(Player player, int amount) {
-        ((IVariableHealthPlayer) player).aether$addExtraHealth(amount);
+        ((IHasEffects) player).getContainer().add(new EffectStack((IHasEffects) player, AetherEffects.extraHealthEffect, amount));
     }
 
     /**

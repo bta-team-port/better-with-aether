@@ -63,6 +63,7 @@
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
+    "fix.CommandHealMixin",
     "fix.NetEntityHandlerMixin",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",
@@ -78,9 +79,9 @@
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.TreeCapitatorAetherAxeMixin",
-    "item.lifeshard.PlayerMixinExtraHealth",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
+    "player.PlayerExtraHealthMixin",
     "player.PlayerLocalHandleAetherRideableMixin"
   ],
   "client": [
@@ -117,7 +118,6 @@
     "gui.screens.UNWarnMixin",
     "item.DynamicTexturesMixin",
     "item.PlayerControllerValkToolsReachMixin",
-    "item.lifeshard.MinecraftMixinKeepEHPonDeath",
     "light.BlockMixin",
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
@@ -128,7 +128,6 @@
     "dimension.MPBumpToOverworldMixin",
     "dimension.MPEntityBumpToOverworldMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
-    "item.lifeshard.PlayerListMixinKeepEHPonDeath",
     "net.AerBunnyFlyingMixin",
     "net.PlayerLoginMixin"
   ],

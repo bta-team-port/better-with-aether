@@ -1,18 +1,17 @@
 package teamport.aether.effect;
 
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
 import teamport.aether.effect.render.EffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.particle.ParticalHelper;
 
-import java.util.List;
 import java.util.Random;
 
 public class PoisonEffect extends Effect implements IHudVisibility {
@@ -22,28 +21,36 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     public double rotD;
     public double motD;
 
-    public PoisonEffect(AetherEffectBuilder builder) {
-        this(
-                builder.getNameKey(), builder.getId(),
-                builder.getImagePath(), builder.getHeartPath(), builder.getVignette(),
-                builder.getModifiers(),
-                builder.getEffectTimeType(),
-                builder.getColor(), builder.getTint(),
-                builder.getDefaultDuration(), builder.getMaxStack()
+    public PoisonEffect(AetherEffectBuilder builder, IconCoordinate icon) {
+        super(
+            builder.getNameKey(),
+            builder.getId(),
+            icon,
+            builder.getColor(),
+            builder.getModifiers(),
+            builder.getEffectTimeType(),
+            builder.getDefaultDuration(),
+            builder.getMaxStack()
         );
+
+        this.PATH_HEART = builder.getHeartPath();
+        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
     }
 
-    public PoisonEffect(
-            String nameKey, String id,
-            String imagePath, String PATH_HEART, String vignette,
-            List<Modifier<?>> modifiers,
-            EffectTimeType effectTimeType,
-            int color, int tint,
-            int defaultDuration, int maxStack
-    ) {
-        super(nameKey, id, imagePath, color, modifiers, effectTimeType, defaultDuration, maxStack);
-        this.PATH_HEART = PATH_HEART;
-        renderer = new PoisonEffectRenderer(vignette, tint);
+    public PoisonEffect(AetherEffectBuilder builder, String icon) {
+        super(
+            builder.getNameKey(),
+            builder.getId(),
+            icon,
+            builder.getColor(),
+            builder.getModifiers(),
+            builder.getEffectTimeType(),
+            builder.getDefaultDuration(),
+            builder.getMaxStack()
+        );
+
+        this.PATH_HEART = builder.getHeartPath();
+        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
     }
 
     @Override
