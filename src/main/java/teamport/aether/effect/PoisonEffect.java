@@ -1,56 +1,25 @@
 package teamport.aether.effect;
 
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
-import teamport.aether.effect.render.EffectRenderer;
-import teamport.aether.effect.render.PoisonEffectRenderer;
-import teamport.aether.gui.IHudVisibility;
+
 import teamport.aether.particle.ParticalHelper;
 
+import java.util.List;
 import java.util.Random;
 
-public class PoisonEffect extends Effect implements IHudVisibility {
-    public EffectRenderer renderer;
+public class PoisonEffect extends Effect {
     public final Random random = new Random();
-    public String PATH_HEART;
     public double rotD;
     public double motD;
 
-    public PoisonEffect(AetherEffectBuilder builder, IconCoordinate icon) {
-        super(
-            builder.getNameKey(),
-            builder.getId(),
-            icon,
-            builder.getColor(),
-            builder.getModifiers(),
-            builder.getEffectTimeType(),
-            builder.getDefaultDuration(),
-            builder.getMaxStack()
-        );
-
-        this.PATH_HEART = builder.getHeartPath();
-        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
-    }
-
-    public PoisonEffect(AetherEffectBuilder builder, String icon) {
-        super(
-            builder.getNameKey(),
-            builder.getId(),
-            icon,
-            builder.getColor(),
-            builder.getModifiers(),
-            builder.getEffectTimeType(),
-            builder.getDefaultDuration(),
-            builder.getMaxStack()
-        );
-
-        this.PATH_HEART = builder.getHeartPath();
-        this.renderer = new PoisonEffectRenderer(builder.getVignette(), builder.getTint());
+    public PoisonEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
+        super(nameKey, id, modifiers, effectTimeType, maxStack);
     }
 
     @Override
@@ -106,16 +75,6 @@ public class PoisonEffect extends Effect implements IHudVisibility {
     public <T> void stackAdded(EffectStack effectStack, EffectContainer<T> effectContainer) {
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
         super.stackAdded(effectStack, effectContainer);
-    }
-
-    @Override
-    public String getPath() {
-        return PATH_HEART;
-    }
-
-    @Override
-    public EffectRenderer getRenderer() {
-        return this.renderer;
     }
 
 }

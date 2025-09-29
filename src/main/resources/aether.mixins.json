@@ -111,7 +111,6 @@
     "gui.hud.ArmorOverlayMixin",
     "gui.hud.HudComponentEntrypointMixin",
     "gui.hud.HudComponentHealthBarMixin",
-    "gui.hud.HudMixinEffect",
     "gui.screens.PlayerLocalMixinAetherScreens",
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",

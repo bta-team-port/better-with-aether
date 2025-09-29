@@ -5,15 +5,17 @@ import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
 import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import sunsetsatellite.catalyst.effects.api.modifier.ModifierType;
 import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
+import teamport.aether.effect.render.ExtraHealthEffectRenderer;
+import teamport.aether.effect.render.PoisonEffectRenderer;
+import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
-import teamport.aether.helper.Union;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -61,7 +63,7 @@ public class AetherEffects {
         hasInit = true;
         registerAttributes();
         assignEffects();
-        initEffects();
+        if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
 
     public static IntAttribute EXTRA_HEALTH = (IntAttribute) new IntAttribute("attribute.aether.extraHealth", 0).setAsDefault();
@@ -72,58 +74,62 @@ public class AetherEffects {
         catalystAttributes.register("aether:extra_health", EXTRA_HEALTH);
     }
 
-    public static PoisonEffect poisonEffect;
-    public static RemedyEffect remedyEffect;
+    public static Effect poisonEffect;
+    public static Effect remedyEffect;
     public static Effect extraHealthEffect;
 
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
+        extraHealthEffect = new Effect(
+            "effect.aether.extra_health",
+            MOD_ID + ":extra_health" ,
+            Arrays.asList(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1)),
+            EffectTimeType.PERMANENT,
+            40
+        ).setPersistent();
 
-        extraHealthEffect = new AetherEffectBuilder()
-                .init("effect.aether.extra_health",MOD_ID + ":extra_health")
-                .setEffectTimeType(EffectTimeType.PERMANENT)
-                .addModifier(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1))
-                .setMaxStack(40)
-                .setPersistent()
-                .buildRegularEffect();
+        poisonEffect = new PoisonEffect(
+                "effect.aether.poison",
+                MOD_ID + ":poison",
+                new ArrayList<>(),
+                EffectTimeType.KEEP,
+                10
+        ).setDefaultDuration(60);
 
-        poisonEffect = new AetherEffectBuilder()
-                .init("effect.aether.poison", MOD_ID + ":poison")
-                .setEffectTimeType(EffectTimeType.KEEP)
-                .setDefaultDuration(60)
-                .setMaxStack(10)
-                .setTint(0x8218cb)
-                .setVignette("/assets/aether/textures/other/poisonvignette.png")
-                .setHeartPath("aether:gui/hud/poison/")
-                .build(b -> new PoisonEffect(b, "icon_poison.png"));
+        remedyEffect = new RemedyEffect(
+                "effect.aether.remedy",
+                MOD_ID + ":remedy",
+                new ArrayList<>(),
+                EffectTimeType.RESET,
+                1
+        ).setDefaultDuration(240);
 
-
-        remedyEffect = new AetherEffectBuilder()
-                .init("effect.aether.remedy", MOD_ID + ":remedy")
-                .setEffectTimeType(EffectTimeType.RESET)
-                .setDefaultDuration(240)
-                .setMaxStack(1)
-                .setTint(0x009bc2)
-                .setVignette("/assets/aether/textures/other/curevignette.png")
-                .setHeartPath("aether:gui/hud/remedy/")
-                .build(b -> new RemedyEffect(b, "icon_remedy.png"));
-
-    }
-
-    private static void initEffects() {
-        AetherEffects.registerEffect(poisonEffect);
-        AetherEffects.registerEffect(remedyEffect);
-        AetherEffects.registerEffect(extraHealthEffect);
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
-    /**
-     * @param effect effect to add to the catalyst effect registry
-     */
-    public static void registerEffect(Effect effect){
-        Effects.getInstance().register(effect.id, effect);
+    private static void assignEffectRenderers() {
+        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
+        dispatcher.addDispatch(extraHealthEffect, new ExtraHealthEffectRenderer<>(extraHealthEffect));
+
+        dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
+                poisonEffect,
+                "/assets/aether/textures/other/poisonvignette.png",
+                0x8218cb,
+                "aether:gui/hud/poison/"
+        )
+            .setIcon("icon_poison.png")
+        );
+
+        dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
+                remedyEffect,
+                "/assets/aether/textures/other/curevignette.png",
+                0x009bc2,
+                "aether:gui/hud/remedy/"
+        )
+            .setIcon("icon_remedy.png")
+        );
     }
 
     /**
@@ -133,7 +139,6 @@ public class AetherEffects {
     public static void registerLock(Effect affected, Effect lock){
         LookupLooks.instance.addEntry(affected, lock);
     }
-
 
     /**
      * @param player affected Player

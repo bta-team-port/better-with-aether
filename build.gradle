@@ -103,7 +103,8 @@ dependencies {
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
 	modImplementation("sunsetsatellite:catalyst-core:${catalystcore_version}")
-	modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
+    modImplementation(files("dependencies/catalyst-effects-2.3.0-7.3_04.jar"))
+    //modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
 	modImplementation("useless:btwaila:${project.btwaila_version}")
     modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
 
