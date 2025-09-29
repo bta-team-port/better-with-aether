@@ -1,5 +1,6 @@
 package teamport.aether.effect;
 
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
@@ -12,6 +13,7 @@ import teamport.aether.effect.render.ExtraHealthEffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
+import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import javax.annotation.Nullable;
@@ -63,8 +65,10 @@ public class AetherEffects {
         hasInit = true;
         registerAttributes();
         assignEffects();
+        registerEffects();
         if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
+
 
     public static IntAttribute EXTRA_HEALTH = (IntAttribute) new IntAttribute("attribute.aether.extraHealth", 0).setAsDefault();
 
@@ -109,9 +113,20 @@ public class AetherEffects {
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
+    private static void registerEffects() {
+        Effects effects = Effects.getInstance();
+        effects.register(extraHealthEffect.id, extraHealthEffect);
+        effects.register(poisonEffect.id, poisonEffect);
+        effects.register(remedyEffect.id, remedyEffect);
+
+    }
+
     private static void assignEffectRenderers() {
         EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
-        dispatcher.addDispatch(extraHealthEffect, new ExtraHealthEffectRenderer<>(extraHealthEffect));
+        dispatcher.addDispatch(extraHealthEffect,
+            new ExtraHealthEffectRenderer<>(extraHealthEffect)
+                .setIcon(TextureRegistry.getTexture(AetherItems.LIFESHARD.namespaceID))
+        );
 
         dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
                 poisonEffect,
