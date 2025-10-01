@@ -14,8 +14,6 @@ import net.minecraft.core.net.command.arguments.ArgumentTypeEntity;
 import net.minecraft.core.net.command.helpers.EntitySelector;
 import net.minecraft.core.net.command.util.CommandHelper;
 import teamport.aether.helper.HealthHelper;
-import teamport.aether.net.message.CommandExtraHealthMessage;
-import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,25 +31,23 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
 
     static int add(CommandContext<?> c) {
         CommandSource source = (CommandSource) c.getSource();
+
         int amount = c.getArgument("amount", Integer.class);
         EntitySelector entitySelector = c.getArgument("target", EntitySelector.class);
 
         List<? extends Player> entities;
         try {
             entities = entitySelector.get(source).stream()
-                    .filter(e -> e instanceof Player)
-                    .map(e -> (Player) e)
-                    .collect(Collectors.toList());
+                .filter(e -> e instanceof Player)
+                .map(e -> (Player) e)
+                .collect(Collectors.toList());
         }
+
         catch (CommandSyntaxException e) {  throw new RuntimeException(e); }
 
         int max_health_added = 0;
         for (Player player: entities) {
-            int current_extra_health = HealthHelper.getExtraHealth(player);
             HealthHelper.addExtraHealth(player, amount);
-            int new_extra_health = HealthHelper.getExtraHealth(player);
-            max_health_added = Math.max(new_extra_health - current_extra_health, max_health_added);
-            NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(new_extra_health));
         }
 
         if (entities.size() == 1) {
@@ -85,7 +81,6 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
 
         for (Player player: entities){
             HealthHelper.setExtraHealth(player, amount);
-            NetworkHandler.sendToPlayer(player, new CommandExtraHealthMessage(amount));
         }
 
         if(entities.size() == 1) {
@@ -118,6 +113,7 @@ public class CommandExtraHealth implements CommandManager.CommandRegistry{
         return 0;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void register(CommandDispatcher<CommandSource> commandDispatcher) {
         // You can't, it just IS this bad. :^)

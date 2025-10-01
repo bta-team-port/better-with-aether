@@ -1,14 +1,23 @@
 package teamport.aether.effect;
 
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
+import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
+import sunsetsatellite.catalyst.effects.api.modifier.ModifierType;
+import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
+import teamport.aether.effect.render.ExtraHealthEffectRenderer;
+import teamport.aether.effect.render.PoisonEffectRenderer;
+import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
+import teamport.aether.items.AetherItems;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -48,57 +57,94 @@ public class AetherEffects {
         }
     }
 
-    public static PoisonEffect poisonEffect;
-    public static RemedyEffect remedyEffect;
     private static boolean hasInit = false;
-
     public static void init() {
         if (hasInit) {
             return;
         }
         hasInit = true;
+        registerAttributes();
         assignEffects();
-        initEffects();
+        registerEffects();
+        if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
+
+
+    public static IntAttribute EXTRA_HEALTH = (IntAttribute) new IntAttribute("attribute.aether.extraHealth", 0).setAsDefault();
+
+    private static void registerAttributes() {
+        Attributes catalystAttributes = Attributes.getInstance();
+
+        catalystAttributes.register("aether:extra_health", EXTRA_HEALTH);
+    }
+
+    public static Effect poisonEffect;
+    public static Effect remedyEffect;
+    public static Effect extraHealthEffect;
 
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
-        poisonEffect = new AetherEffectBuilder()
-                .init("effect.aether.poison", MOD_ID + ":poison", "icon_poison.png")
-                .setEffectTimeType(EffectTimeType.KEEP)
-                .setDefaultDuration(60)
-                .setMaxStack(10)
-                .setTint(0x8218cb)
-                .setVignette("/assets/aether/textures/other/poisonvignette.png")
-                .setHeartPath("aether:gui/hud/poison/")
-                .build(PoisonEffect::new);
+        extraHealthEffect = new Effect(
+            "effect.aether.extra_health",
+            MOD_ID + ":extra_health" ,
+            Arrays.asList(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1)),
+            EffectTimeType.PERMANENT,
+            40
+        ).setPersistent();
 
+        poisonEffect = new PoisonEffect(
+                "effect.aether.poison",
+                MOD_ID + ":poison",
+                new ArrayList<>(),
+                EffectTimeType.KEEP,
+                10
+        ).setDefaultDuration(60);
 
-        remedyEffect = new AetherEffectBuilder()
-                .init("effect.aether.remedy", MOD_ID + ":remedy", "icon_remedy.png")
-                .setEffectTimeType(EffectTimeType.RESET)
-                .setDefaultDuration(240)
-                .setMaxStack(1)
-                .setTint(0x009bc2)
-                .setVignette("/assets/aether/textures/other/curevignette.png")
-                .setHeartPath("aether:gui/hud/remedy/")
-                .build(RemedyEffect::new);
+        remedyEffect = new RemedyEffect(
+                "effect.aether.remedy",
+                MOD_ID + ":remedy",
+                new ArrayList<>(),
+                EffectTimeType.RESET,
+                1
+        ).setDefaultDuration(240);
 
-    }
-
-    private static void initEffects() {
-        AetherEffects.registerEffect(poisonEffect);
-        AetherEffects.registerEffect(remedyEffect);
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
-    /**
-     * @param effect effect to add to the catalyst effect registry
-     */
-    public static void registerEffect(Effect effect){
-        Effects.getInstance().register(effect.id, effect);
+    private static void registerEffects() {
+        Effects effects = Effects.getInstance();
+        effects.register(extraHealthEffect.id, extraHealthEffect);
+        effects.register(poisonEffect.id, poisonEffect);
+        effects.register(remedyEffect.id, remedyEffect);
+
+    }
+
+    private static void assignEffectRenderers() {
+        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
+        dispatcher.addDispatch(extraHealthEffect,
+            new ExtraHealthEffectRenderer<>(extraHealthEffect)
+                .setIcon(TextureRegistry.getTexture(AetherItems.LIFESHARD.namespaceID))
+        );
+
+        dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
+                poisonEffect,
+                "/assets/aether/textures/other/poisonvignette.png",
+                0x8218cb,
+                "aether:gui/hud/poison/"
+        )
+            .setIcon("icon_poison.png")
+        );
+
+        dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
+                remedyEffect,
+                "/assets/aether/textures/other/curevignette.png",
+                0x009bc2,
+                "aether:gui/hud/remedy/"
+        )
+            .setIcon("icon_remedy.png")
+        );
     }
 
     /**
@@ -108,7 +154,6 @@ public class AetherEffects {
     public static void registerLock(Effect affected, Effect lock){
         LookupLooks.instance.addEntry(affected, lock);
     }
-
 
     /**
      * @param player affected Player
@@ -155,42 +200,51 @@ public class AetherEffects {
      * Returns always false if a given effect is locked.
      *
      * @param mob affected Mob
-     * @param newEffect Effect affecting the mob
+     * @param stackToAdd Effect stack affecting the mob
      * @return true if the effect was applied false otherwise
      * */
-    public static boolean add(Mob mob, EffectStack newEffect) {
+    public static boolean add(Mob mob, EffectStack stackToAdd) {
         if(!(mob instanceof IHasEffects)) return false;
         IHasEffects entity = (IHasEffects) mob;
-        for(EffectStack effect : entity.getContainer().getEffects()) {
-            if (effect.getEffect() == newEffect.getEffect()) {
-                if(effect.getAmount() + newEffect.getAmount() >= effect.getEffect().getMaxStack()){
-                    int amount = effect.getEffect().getMaxStack() - effect.getAmount();
-                    effect.add(amount, entity.getContainer());
+
+        for (EffectStack currStack : entity.getContainer().getEffects()) {
+            Effect currEffect = currStack.getEffect();
+            int currMax = currEffect.getMaxStack();
+
+            if (currEffect == stackToAdd.getEffect()) {
+                if (currStack.getAmount() + stackToAdd.getAmount() >= currMax){
+                    int amountToAdd = currMax - currStack.getAmount();
+
+                    currStack.add(amountToAdd, entity.getContainer());
                     return true;
                 }
             }
         }
-        if(isLocked(newEffect, ((IHasEffects) mob).getContainer())) return false;
-        newEffect.start(entity.getContainer());
-        entity.getContainer().add(newEffect);
+
+        if (isLocked(stackToAdd, ((IHasEffects) mob).getContainer())) return false;
+
+        stackToAdd.start(entity.getContainer());
+        entity.getContainer().add(stackToAdd);
         return true;
     }
 
 
     public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        Effect these = effectStack.getEffect();
-        Effect effect = AetherEffects.LookupLooks.instance.getLocker(these);
-        if(effect == null){
-            return false;
-        }
-        if ((effectContainer.getParent() instanceof IHasEffects) && (effectContainer.getParent() instanceof Mob)) {
-            IHasEffects affected = (IHasEffects) effectContainer.getParent();
-            if (effectContainer.hasEffect(effect) && effect instanceof ILockInteractable) {
-                ((ILockInteractable) effect).lockTriggered(affected);
-                effectContainer.remove(these);
+        Effect effectBlocked = effectStack.getEffect();
+        Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectBlocked);
+
+        if (effectBlocker == null) return false;
+
+        T parent = effectContainer.getParent();
+        if (parent instanceof IHasEffects && parent instanceof Mob) {
+            if (effectBlocker instanceof ILockInteractable && effectContainer.hasEffect(effectBlocker)) {
+                ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects) parent);
+
+                effectContainer.remove(effectBlocked);
                 return true;
             }
         }
+
         return false;
     }
 }

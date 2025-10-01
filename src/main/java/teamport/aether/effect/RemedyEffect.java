@@ -4,8 +4,6 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
-import teamport.aether.effect.render.EffectRenderer;
-import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.particle.ParticalHelper;
 
@@ -13,42 +11,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class RemedyEffect extends Effect implements IHudVisibility, ILockInteractable {
-    public final EffectRenderer renderer;
-    public String PATH_HEART;
+public class RemedyEffect extends Effect implements ILockInteractable {
 
-    public RemedyEffect(AetherEffectBuilder builder) {
-        this(
-                builder.getNameKey(), builder.getId(),
-                builder.getImagePath(), builder.getHeartPath(), builder.getVignette(),
-                builder.getModifiers(),
-                builder.getEffectTimeType(),
-                builder.getColor(), builder.getTint(),
-                builder.getDefaultDuration(), builder.getMaxStack()
-        );
-    }
-
-    public RemedyEffect(
-            String nameKey, String id,
-            String imagePath, String PATH_HEART, String vignette,
-            List<Modifier<?>> modifiers,
-            EffectTimeType effectTimeType,
-            int color, int tint,
-            int defaultDuration, int maxStack
-    ) {
-        super(nameKey, id, imagePath, color, modifiers, effectTimeType, defaultDuration, maxStack);
-        this.PATH_HEART = PATH_HEART;
-        renderer = new RemedyEffectRenderer(vignette, tint);
-    }
-
-    @Override
-    public String getPath() {
-        return PATH_HEART;
-    }
-
-    @Override
-    public EffectRenderer getRenderer(){
-        return this.renderer;
+    public RemedyEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
+        super(nameKey, id, modifiers, effectTimeType, maxStack);
     }
 
     @Override
