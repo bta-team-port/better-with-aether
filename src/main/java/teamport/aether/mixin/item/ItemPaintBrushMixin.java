@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.blocks.skyroot.BlockLogicSignSkyroot;
+import teamport.aether.blocks.skyroot.BlockLogicPaintableSignSkyroot;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 import static net.minecraft.core.item.ItemPaintBrush.getColor;
@@ -36,7 +36,7 @@ public abstract class ItemPaintBrushMixin extends Item {
         int id = world.getBlockId(blockX, blockY, blockZ);
         Block<?> block = Blocks.getBlock(id);
         DyeColor color;
-        if (Block.hasLogicClass(block, BlockLogicSignSkyroot.class) && entityplayer != null) {
+        if (Block.hasLogicClass(block, BlockLogicPaintableSignSkyroot.class) && entityplayer != null) {
             TileEntitySignSkyroot sign = (TileEntitySignSkyroot) world.getTileEntity(blockX, blockY, blockZ);
             color = getColor(itemstack);
             if (color != null && color.blockMeta != sign.getColor().id) {

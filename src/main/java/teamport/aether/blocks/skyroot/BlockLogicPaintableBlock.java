@@ -10,11 +10,11 @@ import net.minecraft.core.world.World;
 
 import java.util.function.Supplier;
 
-public class BlockLogicPaintableGeneric extends BlockLogic implements IPaintable {
+public class BlockLogicPaintableBlock extends BlockLogic implements IPaintable {
 
     public final Supplier<Block<? extends IPainted>> paintedVariant;
 
-    public BlockLogicPaintableGeneric(Block<?> block, Material material, Supplier<Block<? extends IPainted>> paintedVariant) {
+    public BlockLogicPaintableBlock(Block<?> block, Material material, Supplier<Block<? extends IPainted>> paintedVariant) {
         super(block, material);
         this.paintedVariant = paintedVariant;
     }

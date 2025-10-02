@@ -15,9 +15,9 @@ import teamport.aether.entity.tile.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.items.AetherItems;
 
-public class BlockLogicSignSkyroot extends BlockLogicSign {
+public class BlockLogicPaintableSignSkyroot extends BlockLogicSign {
 
-    public BlockLogicSignSkyroot(Block<?> block, boolean isFreeStanding) {
+    public BlockLogicPaintableSignSkyroot(Block<?> block, boolean isFreeStanding) {
         super(block, isFreeStanding);
         block.withEntity(TileEntitySignSkyroot::new);
     }

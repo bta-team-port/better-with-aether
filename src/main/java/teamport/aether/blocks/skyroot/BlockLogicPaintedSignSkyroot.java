@@ -9,8 +9,8 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import teamport.aether.items.AetherItems;
 
-public class BlockLogicSignSkyrootPainted extends BlockLogicSignSkyroot implements IPainted{
-    public BlockLogicSignSkyrootPainted(Block<?> block, boolean isFreeStanding) {
+public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot implements IPainted{
+    public BlockLogicPaintedSignSkyroot(Block<?> block, boolean isFreeStanding) {
         super(block, isFreeStanding);
     }
 

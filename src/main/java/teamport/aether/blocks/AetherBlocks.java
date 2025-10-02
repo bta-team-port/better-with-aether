@@ -89,7 +89,11 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> PLANKS_SKYROOT;
     public static Block<? extends IPainted> PLANKS_SKYROOT_PAINTED;
     public static Block<BlockLogicSlab> SLAB_PLANKS_SKYROOT;
+    public static Block<BlockLogic> SLAB_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicStairs> STAIRS_PLANKS_SKYROOT;
+    public static Block<BlockLogic> STAIRS_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicFence> FENCE_PLANKS_SKYROOT;
     public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_BOTTOM;
@@ -416,10 +420,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         PLANKS_SKYROOT = wood
-                .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogicPaintableGeneric(b, Material.wood, () -> PLANKS_SKYROOT_PAINTED));
+                .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogicPaintableBlock(b, Material.wood, () -> PLANKS_SKYROOT_PAINTED));
 
         PLANKS_SKYROOT_PAINTED = wood
-                .build("planks.skyroot.painted", "planks_skyroot_painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedGeneric(b, Material.wood, () -> PLANKS_SKYROOT));
+                .build("planks.skyroot.painted", "planks_skyroot.painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedBlock(b, Material.wood, () -> PLANKS_SKYROOT));
 
         SLAB_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
@@ -427,12 +431,28 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 .build("slab.planks.skyroot", "slab_planks_skyroot", blockID("SLAB_PLANKS_SKYROOT"), b -> new BlockLogicSlab(b, PLANKS_SKYROOT));
+        SLAB_PLANKS_SKYROOT_PAINTED = slab
+                .setBlockSound(BlockSounds.WOOD)
+                .setHardness(2.0f)
+                .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
+                .build("slab.planks.skyroot.painted", "slab_planks_skyroot_painted", blockID("SLAB_PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicSlab(b, PLANKS_SKYROOT));
+
+
         STAIRS_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 .build("stairs.planks.skyroot", "stairs_planks_skyroot", blockID("STAIRS_PLANKS_SKYROOT"), b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
+        STAIRS_PLANKS_SKYROOT_PAINTED = slab
+                .setBlockSound(BlockSounds.WOOD)
+                .setHardness(2.0f)
+                .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
+                .build("stairs.planks.skyroot.painted", "stairs_planks_skyroot_painted", blockID("STAIRS_PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
+
+
         FENCE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
@@ -523,14 +543,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
-                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, true))
+                .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicPaintableSignSkyroot(b, true))
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         SIGN_WALL_PLANKS_SKYROOT = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
-                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicSignSkyroot(b, false))
+                .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicPaintableSignSkyroot(b, false))
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         SIGN_POST_PLANKS_SKYROOT_PAINTED = wood
@@ -538,7 +558,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
                 .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot_painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
-                    b -> new BlockLogicSignSkyrootPainted(b, true)
+                    b -> new BlockLogicPaintedSignSkyroot(b, true)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
@@ -547,7 +567,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
                 .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot_painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
-                    b -> new BlockLogicSignSkyrootPainted(b, false)
+                    b -> new BlockLogicPaintedSignSkyroot(b, false)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 

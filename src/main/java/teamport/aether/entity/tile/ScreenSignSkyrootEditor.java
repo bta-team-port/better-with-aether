@@ -16,7 +16,7 @@ import net.minecraft.core.util.helper.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.skyroot.BlockLogicSignSkyroot;
+import teamport.aether.blocks.skyroot.BlockLogicPaintableSignSkyroot;
 
 @Environment(EnvType.CLIENT)
 public class ScreenSignSkyrootEditor extends Screen {
@@ -43,7 +43,7 @@ public class ScreenSignSkyrootEditor extends Screen {
         this.buttons.add(new ButtonElement(0, this.width / 2 - 100, 200 + this.yOffset, I18n.getInstance().translateKey("gui.edit_sign.button.done")));
         this.buttons.add(new ButtonElement(1, this.width / 2 - 20, 170 + this.yOffset, 20, 20, "<"));
         this.buttons.add(new ButtonElement(2, this.width / 2, 170 + this.yOffset, 20, 20, ">"));
-        boolean wallSign = !((BlockLogicSignSkyroot)block.getLogic()).isFreeStanding;
+        boolean wallSign = !((BlockLogicPaintableSignSkyroot)block.getLogic()).isFreeStanding;
         this.add((new ListenerButtonElement(30, this.width / 2 - 50, 67 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> {
             this.editLine = 0;
             this.inKeyboard = true;
@@ -143,7 +143,7 @@ public class ScreenSignSkyrootEditor extends Screen {
         GL11.glScalef(-scale, -scale, -scale);
         GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
         Block<?> block = this.entitySign.getBlock();
-        if (((BlockLogicSignSkyroot)block.getLogic()).isFreeStanding) {
+        if (((BlockLogicPaintableSignSkyroot)block.getLogic()).isFreeStanding) {
             float signAngle = (float)((this.entitySign.getBlockMeta() & 15) * 360) / 16.0F;
             GL11.glRotatef(signAngle, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
