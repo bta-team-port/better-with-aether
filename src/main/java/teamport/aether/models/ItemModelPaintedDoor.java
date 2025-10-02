@@ -12,22 +12,18 @@ import net.minecraft.core.util.helper.DyeColor;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
+public class ItemModelPaintedDoor extends ItemModelStandard {
     public static IconCoordinate[] doorIcons = new IconCoordinate[16];
 
-    public ItemModelPaintedSkyrootDoor(Item item) {
+    public ItemModelPaintedDoor(Item item, String texturePath) {
         super(item, (String)null);
+        for(DyeColor c : DyeColor.itemOrderedColors()) {
+            doorIcons[c.itemMeta] = TextureRegistry.getTexture(texturePath + c.colorID);
+        }
     }
 
     public @NotNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
         int meta = itemStack.getMetadata();
         return doorIcons[meta & 15];
-    }
-
-    static {
-        for(DyeColor c : DyeColor.itemOrderedColors()) {
-            doorIcons[c.itemMeta] = TextureRegistry.getTexture("aether:item/door_skyroot/" + c.colorID);
-        }
-
     }
 }
