@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLeavesBase;
@@ -8,6 +8,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
+import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 

@@ -16,7 +16,7 @@ import net.minecraft.core.util.helper.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicSignSkyroot;
+import teamport.aether.blocks.skyroot.BlockLogicSignSkyroot;
 
 @Environment(EnvType.CLIENT)
 public class ScreenSignSkyrootEditor extends Screen {

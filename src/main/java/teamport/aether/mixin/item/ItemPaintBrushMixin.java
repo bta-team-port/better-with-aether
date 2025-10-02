@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.blocks.BlockLogicSignSkyroot;
+import teamport.aether.blocks.skyroot.BlockLogicSignSkyroot;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 import static net.minecraft.core.item.ItemPaintBrush.getColor;

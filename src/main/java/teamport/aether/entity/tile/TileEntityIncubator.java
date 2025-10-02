@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicIncubator;
+import teamport.aether.blocks.machine.BlockLogicIncubator;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.moa.MobMoaWhite;

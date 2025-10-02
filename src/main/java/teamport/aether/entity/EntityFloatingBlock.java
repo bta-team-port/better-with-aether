@@ -13,7 +13,7 @@ import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicOreGravitite;
+import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
 
 
 // TODO fix multiplayer desync

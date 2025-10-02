@@ -10,7 +10,7 @@ import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicFreezer;
+import teamport.aether.blocks.machine.BlockLogicFreezer;
 import teamport.aether.items.AetherItems;
 import teamport.aether.lookup.LookupFuelFreezer;
 

@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
@@ -9,7 +9,6 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.HashMap;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFence;

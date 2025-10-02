@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
@@ -10,6 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import teamport.aether.blocks.AetherBlocks;
 
 public class BlockLogicPathDirtAether extends BlockLogic {
     public BlockLogicPathDirtAether(Block<?> block) {

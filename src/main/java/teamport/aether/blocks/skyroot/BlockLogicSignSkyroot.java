@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.achievement.Achievements;
 import net.minecraft.core.block.*;
@@ -10,6 +10,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.items.AetherItems;

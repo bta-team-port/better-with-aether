@@ -1,10 +1,11 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSaplingBase;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;

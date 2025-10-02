@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicPathDirtAether;
+import teamport.aether.blocks.terrain.BlockLogicPathDirtAether;
 
 @Mixin(value = ItemToolShovel.class, remap = false)
 public class ItemToolShovelMixin {
