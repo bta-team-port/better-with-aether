@@ -2,7 +2,6 @@ package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicDoor;
-import net.minecraft.core.block.IPaintable;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.helper.DyeColor;
@@ -12,13 +11,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Supplier;
 
 public class BlockLogicPaintableDoor extends BlockLogicDoor {
-    protected final Block<?> paintedDoorBlockBottom;
-    protected final Block<?> paintedDoorBlockTop;
+    protected final Block<? extends BlockLogicPaintedDoor> paintedDoorBlockBottom;
+    protected final Block<? extends BlockLogicPaintedDoor> paintedDoorBlockTop;
 
     public BlockLogicPaintableDoor(
             Block<?> block, Material material,
             boolean isTop, boolean requireTool,
-            Block<? extends IPaintable> paintedDoorBlockTop, Block<? extends IPaintable> paintedDoorBlockBottom,
+            Block<? extends BlockLogicPaintedDoor> paintedDoorBlockTop, Block<? extends BlockLogicPaintedDoor> paintedDoorBlockBottom,
             @Nullable Supplier<Item> droppedItem
     ) {
         super(block, material, isTop, requireTool, droppedItem);
@@ -36,14 +35,14 @@ public class BlockLogicPaintableDoor extends BlockLogicDoor {
         int meta = world.getBlockMetadata(x, y, z);
         if (this.isTop) {
             world.setBlockAndMetadataRaw(x, y, z, paintedDoorBlockTop.id(), meta);
-            ((IPaintable) paintedDoorBlockTop.getLogic()).setColor(world, x, y, z, color);
+            paintedDoorBlockTop.getLogic().setColor(world, x, y, z, color);
             world.setBlockAndMetadataRaw(x, y - 1, z, paintedDoorBlockBottom.id(), meta);
-            ((IPaintable) paintedDoorBlockBottom.getLogic()).setColor(world, x, y - 1, z, color);
+            paintedDoorBlockBottom.getLogic().setColor(world, x, y - 1, z, color);
         } else {
             world.setBlockAndMetadataRaw(x, y, z, paintedDoorBlockBottom.id(), meta);
-            ((IPaintable) paintedDoorBlockBottom.getLogic()).setColor(world, x, y, z, color);
+            paintedDoorBlockBottom.getLogic().setColor(world, x, y, z, color);
             world.setBlockAndMetadataRaw(x, y + 1, z, paintedDoorBlockTop.id(), meta);
-            ((IPaintable) paintedDoorBlockTop.getLogic()).setColor(world, x, y + 1, z, color);
+            paintedDoorBlockTop.getLogic().setColor(world, x, y + 1, z, color);
         }
     }
 }
