@@ -49,6 +49,14 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                 }
             }
 
+            else if (item.itemID == AetherItems.DOOR_SKYROOT_PAINTED.id && item.getMetadata() == 0) {
+                for (DyeColor dyeColor : DyeColor.values()) {
+                    ItemStack sign = new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED.getDefaultStack());
+                    sign.setMetadata(dyeColor.itemMeta);
+                    newCreativeItems.add(sign);
+                }
+            }
+
             else newCreativeItems.add(item);
         }
 

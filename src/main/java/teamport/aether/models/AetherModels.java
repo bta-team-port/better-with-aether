@@ -14,15 +14,11 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
-import net.minecraft.client.render.texture.stitcher.IconCoordinate;
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
-import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.EntityFloatingBlock;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
@@ -239,6 +235,14 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
         dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
+
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, false)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP, true)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
 
@@ -721,7 +725,10 @@ public class AetherModels implements ModelEntrypoint {
 
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver").setFullBright());
+
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
+        dispatcher.addDispatch(new ItemModelPaintedSkyrootDoor(AetherItems.DOOR_SKYROOT_PAINTED));
+
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_BRONZE, null).setIcon("aether:item/door_dungeon_bronze"));
@@ -729,16 +736,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, null).setIcon("aether:item/door_dungeon_gold"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT_PAINTED, null) {
-            public final IconCoordinate[] sign = new IconCoordinate[16];
-
-            { Arrays.stream(DyeColor.values()).forEach(dye -> sign[dye.itemMeta] = TextureRegistry.getTexture("aether:item/sign_skyroot/" + dye.colorID));  }
-
-            public @NotNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
-                int meta = itemStack.getMetadata();
-                return sign[meta & 15];
-            }
-        });
+        dispatcher.addDispatch(new ItemModelPaintedSkyrootSign(AetherItems.SIGN_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());

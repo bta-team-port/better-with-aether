@@ -213,6 +213,8 @@ public final class AetherItems {
     public static Item LANTERN_FIREFLY_SILVER;
 
     public static Item DOOR_SKYROOT;
+    public static Item DOOR_SKYROOT_PAINTED;
+
     public static Item DOOR_GLASS_AMBROSIUM;
     public static Item DOOR_DUNGEON_BRONZE;
     public static Item DOOR_DUNGEON_SILVER;
@@ -333,6 +335,10 @@ public final class AetherItems {
 
         DOOR_SKYROOT = new ItemBuilder(MOD_ID)
                 .build(new ItemDoor("door.skyroot", itemKey("door_skyroot"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_TOP));
+
+        DOOR_SKYROOT_PAINTED = new ItemBuilder(MOD_ID)
+                .build(new ItemDoorPainted("door.skyroot.painted", itemKey("door_skyroot_painted"), itemID("DOOR_SKYROOT"), AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP));
+
 
         DOOR_GLASS_AMBROSIUM = new ItemBuilder(MOD_ID)
                 .build(new ItemDoor("door.glass.ambrosium", itemKey("door_glass_ambrosium"), itemID("DOOR_GLASS_AMBROSIUM"), AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP));

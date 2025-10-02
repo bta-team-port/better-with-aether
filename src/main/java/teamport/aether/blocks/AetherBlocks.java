@@ -12,6 +12,7 @@ import teamport.aether.blocks.machine.BlockLogicEnchanter;
 import teamport.aether.blocks.machine.BlockLogicFreezer;
 import teamport.aether.blocks.machine.BlockLogicIncubator;
 import teamport.aether.blocks.skyroot.*;
+import teamport.aether.blocks.skyroot.BlockLogicPaintedDoor;
 import teamport.aether.blocks.terrain.*;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
@@ -93,6 +94,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_BOTTOM;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_TOP;
+    public static Block<BlockLogicPaintedDoor> DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM;
+    public static Block<BlockLogicPaintedDoor> DOOR_PLANKS_SKYROOT_PAINTED_TOP;
     public static Block<?> SIGN_POST_PLANKS_SKYROOT;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT;
     public static Block<?> SIGN_POST_PLANKS_SKYROOT_PAINTED;
@@ -447,14 +450,74 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
                 .setHardness(3.0f)
-                .<BlockLogicDoor>build("door.planks.skyroot.bottom", "door_planks_skyroot_bottom", blockID("DOOR_PLANKS_SKYROOT_BOTTOM"), b -> new BlockLogicDoor(b, Material.clay, false, false, () -> AetherItems.DOOR_SKYROOT))
+                .<BlockLogicDoor>build(
+                        "door.planks.skyroot.bottom",
+                        "door_planks_skyroot_bottom",
+                        blockID("DOOR_PLANKS_SKYROOT_BOTTOM"),
+                        block -> new BlockLogicPaintableDoor(
+                                block, Material.clay,
+                                false, false,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM,
+                                () -> AetherItems.DOOR_SKYROOT)
+                )
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
+
         DOOR_PLANKS_SKYROOT_TOP = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setVisualUpdateOnMetadata()
                 .setHardness(3.0f)
-                .<BlockLogicDoor>build("door.planks.skyroot.top", "door_planks_skyroot_top", blockID("DOOR_PLANKS_SKYROOT_TOP"), b -> new BlockLogicDoor(b, Material.clay, true, false, () -> AetherItems.DOOR_SKYROOT))
+                .<BlockLogicDoor>build(
+                        "door.planks.skyroot.top",
+                        "door_planks_skyroot_top",
+                        blockID("DOOR_PLANKS_SKYROOT_TOP"),
+                        block -> new BlockLogicPaintableDoor(
+                                block, Material.clay,
+                                true, false,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM,
+                                () -> AetherItems.DOOR_SKYROOT
+                        )
+                )
                 .setStatParent(() -> AetherItems.DOOR_SKYROOT);
+
+        DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setVisualUpdateOnMetadata()
+                .setHardness(3.0f)
+                .<BlockLogicPaintedDoor>build(
+                        "door.planks.skyroot.bottom.painted",
+                        "door_planks_skyroot_bottom_painted",
+                        blockID("DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM"),
+                        block -> new BlockLogicPaintedDoor(
+                                block,
+                                Material.clay,
+                                false,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_TOP.id(),
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM.id(),
+                                () -> AetherItems.DOOR_SKYROOT_PAINTED
+                        )
+                )
+                .setStatParent(() -> AetherItems.DOOR_SKYROOT_PAINTED);
+
+        DOOR_PLANKS_SKYROOT_PAINTED_TOP = wood
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setVisualUpdateOnMetadata()
+                .setHardness(3.0f)
+                .<BlockLogicPaintedDoor>build(
+                        "door.planks.skyroot.top.painted",
+                        "door_planks_skyroot_top_painted",
+                        blockID("DOOR_PLANKS_SKYROOT_PAINTED_TOP"),
+                        block -> new BlockLogicPaintedDoor(
+                                block,
+                                Material.clay,
+                                true,
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_TOP.id(),
+                                AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM.id(),
+                                () -> AetherItems.DOOR_SKYROOT_PAINTED
+                        )
+                )
+                .setStatParent(() -> AetherItems.DOOR_SKYROOT_PAINTED);
 
         SIGN_POST_PLANKS_SKYROOT = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
@@ -474,7 +537,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
-                .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot.painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
+                .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot_painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
                     b -> new BlockLogicSignSkyrootPainted(b, true)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
@@ -483,7 +546,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
-                .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot.painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
+                .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot_painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
                     b -> new BlockLogicSignSkyrootPainted(b, false)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
