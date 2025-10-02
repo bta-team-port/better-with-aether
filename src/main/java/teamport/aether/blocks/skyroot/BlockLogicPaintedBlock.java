@@ -15,11 +15,11 @@ import net.minecraft.core.world.World;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class BlockLogicPaintedGeneric extends BlockLogic implements IPainted {
+public class BlockLogicPaintedBlock extends BlockLogic implements IPainted {
 
     private final Supplier<Block<?>> unpaintedVariant;
 
-    public BlockLogicPaintedGeneric(Block<?> block, Material material, Supplier<Block<?>> unpaintedVariant) {
+    public BlockLogicPaintedBlock(Block<?> block, Material material, Supplier<Block<?>> unpaintedVariant) {
         super(block, material);
         this.unpaintedVariant = unpaintedVariant;
     }

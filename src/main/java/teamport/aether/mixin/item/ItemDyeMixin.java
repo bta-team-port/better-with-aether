@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.blocks.skyroot.BlockLogicSignSkyroot;
+import teamport.aether.blocks.skyroot.BlockLogicPaintableSignSkyroot;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 @Mixin(value = ItemDye.class, remap = false)
@@ -26,7 +26,7 @@ public abstract class ItemDyeMixin extends Item {
     @Inject(method = "onUseItemOnBlock", at = @At("HEAD"), cancellable = true)
     public void callOnItemUse(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
-        if (Block.hasLogicClass(block, BlockLogicSignSkyroot.class)) {
+        if (Block.hasLogicClass(block, BlockLogicPaintableSignSkyroot.class)) {
             TileEntitySignSkyroot sign = (TileEntitySignSkyroot)world.getTileEntity(blockX, blockY, blockZ);
             if (DyeColor.WHITE.itemMeta - itemstack.getMetadata() == sign.getColor().id) {
                 info.setReturnValue(false);
