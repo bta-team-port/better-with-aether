@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.dungeon;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;

@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.BlockLogicChestMimic;
+import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 
 public class TileEntityMimic extends TileEntityChest implements Container {
 

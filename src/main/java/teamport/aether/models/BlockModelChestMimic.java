@@ -8,7 +8,7 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.BlockLogicChestMimic;
+import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 
 import java.util.HashMap;
 import java.util.Map;

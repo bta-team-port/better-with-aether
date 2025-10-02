@@ -1,7 +1,6 @@
 package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
-import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -20,11 +19,10 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicDungeonDoor;
-import teamport.aether.blocks.BlockLogicLocked;
-import teamport.aether.blocks.BlockLogicTrapped;
+import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
+import teamport.aether.blocks.dungeon.BlockLogicLocked;
+import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.AetherBossList;
-import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;

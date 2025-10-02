@@ -2,7 +2,6 @@ package teamport.aether.world.generate.feature.dungeon;
 
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
@@ -13,7 +12,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicChestMimic;
 import teamport.aether.blocks.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.AetherMathHelper;
