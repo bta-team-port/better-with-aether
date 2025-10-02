@@ -7,6 +7,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.sound.BlockSound;
 import net.minecraft.core.sound.BlockSounds;
 import teamport.aether.AetherMod;
+import teamport.aether.blocks.dungeon.*;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.items.AetherItems;

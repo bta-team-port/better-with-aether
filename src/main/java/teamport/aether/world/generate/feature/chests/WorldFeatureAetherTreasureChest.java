@@ -8,9 +8,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.blocks.BlockLogicChestLocked;
+import teamport.aether.blocks.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
-import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 
 import java.util.List;
 import java.util.Random;

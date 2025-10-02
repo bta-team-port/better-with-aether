@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.dungeon;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
