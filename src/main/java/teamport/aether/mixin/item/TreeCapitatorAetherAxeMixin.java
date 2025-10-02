@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.BlockLogicLogAether;
+import teamport.aether.blocks.terrain.BlockLogicLogAether;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 @Mixin(value = TreecapitatorHelper.class, remap = false)

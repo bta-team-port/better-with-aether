@@ -12,9 +12,9 @@ import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import net.minecraft.core.world.noise.PerlinNoise;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicOreAmbrosium;
-import teamport.aether.blocks.BlockLogicOreGravitite;
-import teamport.aether.blocks.BlockLogicOreZanite;
+import teamport.aether.blocks.terrain.BlockLogicOreAmbrosium;
+import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
+import teamport.aether.blocks.terrain.BlockLogicOreZanite;
 import teamport.aether.noise.Worley;
 import teamport.aether.world.generate.feature.*;
 

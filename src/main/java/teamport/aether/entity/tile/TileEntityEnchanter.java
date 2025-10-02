@@ -8,7 +8,7 @@ import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherRecipes;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicEnchanter;
+import teamport.aether.blocks.machine.BlockLogicEnchanter;
 import teamport.aether.lookup.LookupFuelEnchanter;
 
 

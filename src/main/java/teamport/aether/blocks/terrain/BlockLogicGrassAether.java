@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
@@ -16,6 +16,8 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 

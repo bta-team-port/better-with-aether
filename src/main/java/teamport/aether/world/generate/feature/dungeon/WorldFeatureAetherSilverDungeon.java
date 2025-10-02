@@ -12,7 +12,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.BlockLogicCloudBase;
+import teamport.aether.blocks.terrain.BlockLogicCloudBase;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;

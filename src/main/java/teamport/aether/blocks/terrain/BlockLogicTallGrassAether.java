@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicFlower;
@@ -9,6 +9,7 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.blocks.AetherBlockTags;
 
 public class BlockLogicTallGrassAether extends BlockLogicFlower {
     public BlockLogicTallGrassAether(Block<?> block) {

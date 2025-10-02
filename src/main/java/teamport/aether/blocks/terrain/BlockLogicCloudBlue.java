@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.terrain;
 
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.block.Block;

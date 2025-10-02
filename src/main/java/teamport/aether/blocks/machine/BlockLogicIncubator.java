@@ -1,4 +1,4 @@
-package teamport.aether.blocks;
+package teamport.aether.blocks.machine;
 
 import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
@@ -11,6 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
