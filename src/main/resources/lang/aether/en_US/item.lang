@@ -314,8 +314,6 @@ item.aether.food.lifeshard.desc=Permanently increases your maximum health by one
 item.aether.lantern.firefly.silver.name=Silver Firefly Lantern
 item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green fireflies.
 
-item.aether.door.skyroot.name=Skyroot Door
-item.aether.door.skyroot.desc=Every home needs one.
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
 
@@ -328,54 +326,73 @@ item.aether.door.dungeon.gold.desc=Every sanctuary needs one.
 
 item.aether.sign.skyroot.name=Skyroot Sign
 item.aether.sign.skyroot.desc=Sign your land, or put down a notice.
-
 item.aether.sign.skyroot.painted.white.name=White Skyroot Sign
-item.aether.sign.skyroot.painted.white.desc=Sign your land, or put down a notice. *White-ly*
-
+item.aether.sign.skyroot.painted.white.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.orange.name=Orange Skyroot Sign
-item.aether.sign.skyroot.painted.orange.desc=Sign your land, or put down a notice. *Orangely*
-
+item.aether.sign.skyroot.painted.orange.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.magenta.name=Magenta Skyroot Sign
-item.aether.sign.skyroot.painted.magenta.desc=Sign your land, or put down a notice. *Magenta-ly*
-
+item.aether.sign.skyroot.painted.magenta.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.lightblue.name=Light Blue Skyroot Sign
-item.aether.sign.skyroot.painted.lightblue.desc=Sign your land, or put down a notice. *Light Blue-ly*
-
+item.aether.sign.skyroot.painted.lightblue.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.yellow.name=Yellow Skyroot Sign
-item.aether.sign.skyroot.painted.yellow.desc=Sign your land, or put down a notice. *Yellow-ly*
-
+item.aether.sign.skyroot.painted.yellow.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.lime.name=Lime Skyroot Sign
-item.aether.sign.skyroot.painted.lime.desc=Sign your land, or put down a notice. *Lime-ly*
-
+item.aether.sign.skyroot.painted.lime.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.pink.name=Pink Skyroot Sign
-item.aether.sign.skyroot.painted.pink.desc=Sign your land, or put down a notice. *Pink-ly*
-
+item.aether.sign.skyroot.painted.pink.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.gray.name=Gray Skyroot Sign
-item.aether.sign.skyroot.painted.gray.desc=Sign your land, or put down a notice. *Gray-ly*
-
+item.aether.sign.skyroot.painted.gray.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.silver.name=Light Gray Skyroot Sign
-item.aether.sign.skyroot.painted.silver.desc=Sign your land, or put down a notice. *Light Gray-ly*
-
+item.aether.sign.skyroot.painted.silver.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.cyan.name=Cyan Skyroot Sign
-item.aether.sign.skyroot.painted.cyan.desc=Sign your land, or put down a notice. *Cyan-ly*
-
+item.aether.sign.skyroot.painted.cyan.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.purple.name=Purple Skyroot Sign
-item.aether.sign.skyroot.painted.purple.desc=Sign your land, or put down a notice. *Purply*
-
+item.aether.sign.skyroot.painted.purple.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.blue.name=Blue Skyroot Sign
-item.aether.sign.skyroot.painted.blue.desc=Sign your land, or put down a notice. *Blue-ly*
-
+item.aether.sign.skyroot.painted.blue.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.brown.name=Brown Skyroot Sign
-item.aether.sign.skyroot.painted.brown.desc=Sign your land, or put down a notice. *Brown-ly*
-
+item.aether.sign.skyroot.painted.brown.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.green.name=Green Skyroot Sign
-item.aether.sign.skyroot.painted.green.desc=Sign your land, or put down a notice. *Green-ly*
-
+item.aether.sign.skyroot.painted.green.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.red.name=Red Skyroot Sign
-item.aether.sign.skyroot.painted.red.desc=Sign your land, or put down a notice. *Red-ly*
-
+item.aether.sign.skyroot.painted.red.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.black.name=Black Skyroot Sign
-item.aether.sign.skyroot.painted.black.desc=Sign your land, or put down a notice. *Black-ly*
+item.aether.sign.skyroot.painted.black.desc=Sign your land, or put down a notice.
+
+item.aether.door.skyroot.name=Skyroot Door
+item.aether.door.skyroot.desc=Every home needs one.
+item.aether.door.skyroot.painted.white.name=White Skyroot Door
+item.aether.door.skyroot.painted.white.desc=Every home needs one.
+item.aether.door.skyroot.painted.orange.name=Orange Skyroot Door
+item.aether.door.skyroot.painted.orange.desc=Every home needs one.
+item.aether.door.skyroot.painted.magenta.name=Magenta Skyroot Door
+item.aether.door.skyroot.painted.magenta.desc=Every home needs one.
+item.aether.door.skyroot.painted.lightblue.name=Light Blue Skyroot Door
+item.aether.door.skyroot.painted.lightblue.desc=Every home needs one.
+item.aether.door.skyroot.painted.yellow.name=Yellow Skyroot Door
+item.aether.door.skyroot.painted.yellow.desc=Every home needs one.
+item.aether.door.skyroot.painted.lime.name=Lime Skyroot Door
+item.aether.door.skyroot.painted.lime.desc=Every home needs one.
+item.aether.door.skyroot.painted.pink.name=Pink Skyroot Door
+item.aether.door.skyroot.painted.pink.desc=Every home needs one.
+item.aether.door.skyroot.painted.gray.name=Gray Skyroot Door
+item.aether.door.skyroot.painted.gray.desc=Every home needs one.
+item.aether.door.skyroot.painted.cyan.name=Cyan Skyroot Door
+item.aether.door.skyroot.painted.cyan.desc=Every home needs one.
+item.aether.door.skyroot.painted.silver.name=Light Gray Skyroot Door
+item.aether.door.skyroot.painted.silver.desc=Every home needs one.
+item.aether.door.skyroot.painted.purple.name=Purple Skyroot Door
+item.aether.door.skyroot.painted.purple.desc=Every home needs one.
+item.aether.door.skyroot.painted.blue.name=Blue Skyroot Door
+item.aether.door.skyroot.painted.blue.desc=Every home needs one.
+item.aether.door.skyroot.painted.brown.name=Brown Skyroot Door
+item.aether.door.skyroot.painted.brown.desc=Every home needs one.
+item.aether.door.skyroot.painted.green.name=Green Skyroot Door
+item.aether.door.skyroot.painted.green.desc=Every home needs one.
+item.aether.door.skyroot.painted.red.name=Red Skyroot Door
+item.aether.door.skyroot.painted.red.desc=Every home needs one.
+item.aether.door.skyroot.painted.black.name=Black Skyroot Door
+item.aether.door.skyroot.painted.black.desc=Every home needs one.
 
 item.aether.ammo.windball.name=Wind Charge
 item.aether.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
