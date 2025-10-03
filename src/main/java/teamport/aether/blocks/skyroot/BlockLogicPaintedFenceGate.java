@@ -12,8 +12,14 @@ public class BlockLogicPaintedFenceGate extends BlockLogicFenceGatePainted {
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    @Override
     public void removeDye(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & -241);
+    }
+
+    @Override
+    public String getLanguageKey(int meta) {
+        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
     }
 }

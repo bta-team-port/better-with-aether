@@ -444,13 +444,21 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                .build("slab.planks.skyroot", "slab_planks_skyroot", blockID("SLAB_PLANKS_SKYROOT"), b -> new BlockLogicPaintableSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
+                .build(
+                        "slab.planks.skyroot",
+                        "slab_planks_skyroot",
+                        blockID("SLAB_PLANKS_SKYROOT"),
+                        b -> new BlockLogicPaintableSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
         SLAB_PLANKS_SKYROOT_PAINTED = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                .build("slab.planks.skyroot.painted", "slab_planks_skyroot_painted", blockID("SLAB_PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT.id()));
+                .build(
+                        "slab.planks.skyroot.painted",
+                        "slab_planks_skyroot_painted",
+                        blockID("SLAB_PLANKS_SKYROOT_PAINTED"),
+                        b -> new BlockLogicPaintedSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT.id()));
 
 
         STAIRS_PLANKS_SKYROOT = slab
@@ -476,7 +484,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "stairs_planks_skyroot_painted",
                         blockID("STAIRS_PLANKS_SKYROOT_PAINTED"),
                         block -> new BlockLogicPaintedStairs(
-                                block, PLANKS_SKYROOT, STAIRS_PLANKS_SKYROOT.id()
+                                block, PLANKS_SKYROOT_PAINTED, STAIRS_PLANKS_SKYROOT.id()
                         )
                 );
 
@@ -694,7 +702,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setVisualUpdateOnMetadata()
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
                 .build(
-                        "pressure.plate.planks.skyroot_painted",
+                        "pressure.plate.planks.skyroot.painted",
                         "pressure_plate_planks_skyroot_painted",
                         blockID("PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED"),
                         block -> new BlockLogicPaintedPressurePlate<>(
