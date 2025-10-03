@@ -2,7 +2,11 @@ package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicStairsPainted;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
     protected final int unpaintedBlockID;
@@ -21,5 +25,10 @@ public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
     @Override
     public String getLanguageKey(int meta) {
         return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
+    }
+
+    @Override
+    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+        return stack.getMetadata();
     }
 }
