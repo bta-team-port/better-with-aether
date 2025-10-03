@@ -10,14 +10,14 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 
 @Environment(EnvType.CLIENT)
-public class BlockModelPaintedSlab<T extends BlockLogicSlab> extends BlockModelSlab<T> {
-    public BlockModelPaintedSlab(Block<T> block) {
+public class BlockModelPaintedSkyrootSlab<T extends BlockLogicSlab> extends BlockModelSlab<T> {
+    public BlockModelPaintedSkyrootSlab(Block<T> block) {
         super(block);
     }
 
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
         meta >>= 4;
-        return BlockModelPaintedBlock.texCoords[meta & 15];
+        return BlockModelPaintedSkyrootPlanks.texCoords[meta & 15];
     }
 
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
