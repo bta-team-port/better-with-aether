@@ -14,7 +14,6 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
@@ -258,8 +257,14 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED));
+
         dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT, "aether:block/chest/skyroot/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
+                .setAllTextures(0, "aether:block/chest/skyroot/top"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
