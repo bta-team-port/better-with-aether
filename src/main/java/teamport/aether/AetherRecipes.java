@@ -8,6 +8,7 @@ import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -21,9 +22,7 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -79,11 +78,49 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     public static void workbenchGroups() {
+
         List<ItemStack> planks = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+        List<ItemStack> slabs = Registries.stackListOf(new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT));
+        List<ItemStack> stairs = Registries.stackListOf(new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT));
+        List<ItemStack> fences = Registries.stackListOf(new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT));
+        List<ItemStack> fencegates = Registries.stackListOf(new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT));
+        List<ItemStack> plates = Registries.stackListOf(new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT));
+        List<ItemStack> button = Registries.stackListOf(new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT));
+        List<ItemStack> door = Registries.stackListOf(new ItemStack(AetherItems.DOOR_SKYROOT));
+        List<ItemStack> sign = Registries.stackListOf(new ItemStack(AetherItems.SIGN_SKYROOT));
+
+//        List<ItemStack> trapdoor = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+//        List<ItemStack> chests = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+
         for (DyeColor dyeColor : DyeColor.values()) {
             planks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+            fences.add(new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+
+            slabs.add(new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            stairs.add(new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            fencegates.add(new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            plates.add(new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            button.add(new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+
+            door.add(new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
+            sign.add(new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
+
+//            trapdoor.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+//            chests.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
         }
-        Registries.ITEM_GROUPS.register("aether:planks", planks);
+
+        Registries.ITEM_GROUPS.register("aether:skyroot_planks", planks);
+        Registries.ITEM_GROUPS.register("aether:skyroot_slabs", slabs);
+        Registries.ITEM_GROUPS.register("aether:skyroot_stairs", stairs);
+        Registries.ITEM_GROUPS.register("aether:skyroot_fence", fences);
+        Registries.ITEM_GROUPS.register("aether:skyroot_fencegate", fencegates);
+        Registries.ITEM_GROUPS.register("aether:skyroot_pressure_plates", plates);
+        Registries.ITEM_GROUPS.register("aether:skyroot_button", button);
+        Registries.ITEM_GROUPS.register("aether:skyroot_door", door);
+        Registries.ITEM_GROUPS.register("aether:skyroot_sign", sign);
+//        Registries.ITEM_GROUPS.register("aether:skyroot_trap_door", trapdoor);
+//        Registries.ITEM_GROUPS.register("aether:skyroot_chest", chests);
+
     }
 
     public static void oreGemGroups() {
@@ -99,15 +136,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("sponge_to_wet_sponge");
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
-
-        List<ItemStack> minecraftPlanks = Registries.ITEM_GROUPS.getItem("minecraft:planks");
-        minecraftPlanks.add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
-        minecraftPlanks.addAll(
-            Arrays.stream(DyeColor.values())
-                .map(dyeColor -> new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta))
-                .collect(Collectors.toList())
-        );
-
+        Registries.ITEM_GROUPS.getItem("minecraft:planks").add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_OAK_GOLDEN.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:stones").add(AetherBlocks.HOLYSTONE.getDefaultStack());
@@ -259,18 +288,152 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('Z', AetherItems.ZANITE)
                 .create("nature_staff", new ItemStack(AetherItems.TOOL_STAFF_NATURE, 1));
 
+        // dyeing and undyeing
+        /// ----------------------------------------------------------------------------------------
         Registries.RECIPES.addCustomRecipe(
-            "aether:workbench/skyroot_dying",
-            new RecipeEntryDyeing(
-                new RecipeSymbol("aether:planks"),
-                AetherBlocks.PLANKS_SKYROOT_PAINTED.getDefaultStack(), false, false
-            )
+                "aether:workbench/skyroot_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_planks"),
+                        AetherBlocks.PLANKS_SKYROOT_PAINTED.getDefaultStack(), false, false
+                )
+        );
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_planks"),
+                        AetherBlocks.PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_fence_stairs_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_fence"),
+                        AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.getDefaultStack(), false, false
+                )
+        );
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_fence_stairs_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_fence"),
+                        AetherBlocks.FENCE_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+
+        ////===================================================================================
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_slabs_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_slabs"),
+                        AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_slabs_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_slabs"),
+                        AetherBlocks.SLAB_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_stairs_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_stairs"),
+                        AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
         );
 
         Registries.RECIPES.addCustomRecipe(
-                "aether:workbench/skyroot_undying",
-                new RecipeEntryUndyeing(new RecipeSymbol("aether:planks"), AetherBlocks.PLANKS_SKYROOT.getDefaultStack())
+                "aether:workbench/skyroot_stairs_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_stairs"),
+                        AetherBlocks.STAIRS_PLANKS_SKYROOT.getDefaultStack()
+                )
         );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_fencegate_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_fencegate"),
+                        AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_fencegate_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_fencegate"),
+                        AetherBlocks.FENCEGATE_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_pressure_plates_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_pressure_plates"),
+                        AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_pressure_plates_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_pressure_plates"),
+                        AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_button_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_button"),
+                        AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_button_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_button"),
+                        AetherBlocks.BUTTON_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        ///===========================================================================================
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_door_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_door"),
+                        AetherItems.DOOR_SKYROOT_PAINTED.getDefaultStack(), false, true
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_door_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_door"),
+                        AetherItems.DOOR_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_sign_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_sign"),
+                        AetherItems.SIGN_SKYROOT_PAINTED.getDefaultStack(), false, true
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_sign_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_sign"),
+                        AetherItems.SIGN_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+
     }
 
     public static void quickGlassRecipes() {
@@ -285,7 +448,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void dartAmmoRecipes() {
         RecipeBuilderShaped Shooter = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Shooter.addInput('X', "aether:planks").addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
+        Shooter.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.AMBER).create("dart_shooter", new ItemStack(AetherItems.TOOL_SHOOTER, 1));
 
         RecipeBuilder.Shaped(MOD_ID, " A ", " S ", " F ")
                 .addInput('S', AetherItems.STICK_SKYROOT)
@@ -343,7 +506,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HIH", "SSS")
                 .addInput('H', (AetherBlocks.COBBLE_HOLYSTONE))
                 .addInput('I', (AetherBlocks.ICESTONE))
-                .addInput('S', "aether:planks")
+                .addInput('S', "aether:skyroot_planks")
                 .create("freezer", new ItemStack(AetherBlocks.FREEZER_IDLE, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "HHH", "HTH", "HHH")
@@ -406,11 +569,11 @@ public class AetherRecipes implements RecipeEntrypoint {
 
 
         RecipeBuilder.Shaped(MOD_ID, "X", "X")
-                .addInput('X', "aether:planks")
+                .addInput('X', "aether:skyroot_planks")
                 .create("skyroot_sticks", new ItemStack(AetherItems.STICK_SKYROOT, 4));
 
         RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
-                .addInput('X', "aether:planks")
+                .addInput('X', "aether:skyroot_planks")
                 .create("skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
     }
 
@@ -449,25 +612,25 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void toolsRecipes() {
         RecipeBuilderShaped Sword = new RecipeBuilderShaped(MOD_ID, " X ", " X ", " S ");
-        Sword.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_sword", new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1));
+        Sword.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_sword", new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1));
         Sword.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_sword", new ItemStack(AetherItems.TOOL_SWORD_HOLYSTONE, 1));
         Sword.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_sword", new ItemStack(AetherItems.TOOL_SWORD_ZANITE, 1));
         Sword.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_sword", new ItemStack(AetherItems.TOOL_SWORD_GRAVITITE, 1));
 
         RecipeBuilderShaped Pick = new RecipeBuilderShaped(MOD_ID, "XXX", " S ", " S ");
-        Pick.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_pick", new ItemStack(AetherItems.TOOL_PICKAXE_SKYROOT, 1));
+        Pick.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_pick", new ItemStack(AetherItems.TOOL_PICKAXE_SKYROOT, 1));
         Pick.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_pick", new ItemStack(AetherItems.TOOL_PICKAXE_HOLYSTONE, 1));
         Pick.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_ZANITE, 1));
         Pick.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_pick", new ItemStack(AetherItems.TOOL_PICKAXE_GRAVITITE, 1));
 
         RecipeBuilderShaped Shovel = new RecipeBuilderShaped(MOD_ID, " X ", " S ", " S ");
-        Shovel.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_SKYROOT, 1));
+        Shovel.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_SKYROOT, 1));
         Shovel.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_HOLYSTONE, 1));
         Shovel.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_ZANITE, 1));
         Shovel.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_shovel", new ItemStack(AetherItems.TOOL_SHOVEL_GRAVITITE, 1));
 
         RecipeBuilderShaped Axe = new RecipeBuilderShaped(MOD_ID, "XX ", "XS ", " S ");
-        Axe.addInput('X', "aether:planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_axe", new ItemStack(AetherItems.TOOL_AXE_SKYROOT, 1));
+        Axe.addInput('X', "aether:skyroot_planks").addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_axe", new ItemStack(AetherItems.TOOL_AXE_SKYROOT, 1));
         Axe.addInput('X', AetherBlocks.COBBLE_HOLYSTONE).addInput('S', AetherItems.STICK_SKYROOT).create("holystone_axe", new ItemStack(AetherItems.TOOL_AXE_HOLYSTONE, 1));
         Axe.addInput('X', AetherItems.ZANITE).addInput('S', AetherItems.STICK_SKYROOT).create("zanite_axe", new ItemStack(AetherItems.TOOL_AXE_ZANITE, 1));
         Axe.addInput('X', AetherBlocks.BLOCK_GRAVITITE).addInput('S', AetherItems.STICK_SKYROOT).create("gravitite_axe", new ItemStack(AetherItems.TOOL_AXE_GRAVITITE, 1));
