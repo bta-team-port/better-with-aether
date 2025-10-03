@@ -484,7 +484,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "stairs_planks_skyroot_painted",
                         blockID("STAIRS_PLANKS_SKYROOT_PAINTED"),
                         block -> new BlockLogicPaintedStairs(
-                                block, PLANKS_SKYROOT_PAINTED, STAIRS_PLANKS_SKYROOT.id()
+                                block, PLANKS_SKYROOT, AetherBlocks.STAIRS_PLANKS_SKYROOT.id()
                         )
                 );
 
@@ -499,7 +499,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "fence_planks_skyroot",
                         blockID("FENCE_PLANKS_SKYROOT"),
                         block -> new BlockLogicPaintableFence(
-                                block, FENCE_PLANKS_SKYROOT_PAINTED
+                                block, AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED
                         )
                 );
 
@@ -514,7 +514,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "fence_planks_skyroot_painted",
                         blockID("FENCE_PLANKS_SKYROOT_PAINTED"),
                         block ->  new BlockLogicPaintedFence(
-                           block, FENCEGATE_PLANKS_SKYROOT.id()
+                           block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
                         )
                 );
 
@@ -528,7 +528,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "fencegate_planks_skyroot",
                         blockID("FENCEGATE_PLANKS_SKYROOT"),
                         block -> new BlockLogicPaintableFenceGate(
-                                block, FENCEGATE_PLANKS_SKYROOT_PAINTED
+                                block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED
                         )
                 );
 
@@ -542,7 +542,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "fencegate_planks_skyroot_painted",
                         blockID("FENCEGATE_PLANKS_SKYROOT_PAINTED"),
                         block -> new BlockLogicPaintedFenceGate(
-                                block, FENCEGATE_PLANKS_SKYROOT.id()
+                                block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
                         )
                 );
 
