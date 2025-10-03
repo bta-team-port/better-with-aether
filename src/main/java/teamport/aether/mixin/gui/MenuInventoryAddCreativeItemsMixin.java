@@ -50,6 +50,9 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     && (
                             item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id()
                             || item.itemID == AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id()
+                            || item.itemID == AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id()
+                            || item.itemID == AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id()
+                            || item.itemID == AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.id()
                     )
             ) {
                 for (DyeColor dyeColor : DyeColor.blockOrderedColors()) {
