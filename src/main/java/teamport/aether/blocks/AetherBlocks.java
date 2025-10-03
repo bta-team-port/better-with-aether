@@ -92,8 +92,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicPaintableSlab> SLAB_PLANKS_SKYROOT;
     public static Block<BlockLogicPaintedSlab> SLAB_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicStairs> STAIRS_PLANKS_SKYROOT;
-    public static Block<BlockLogic> STAIRS_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintableStairs> STAIRS_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedStairs> STAIRS_PLANKS_SKYROOT_PAINTED;
 
     public static Block<BlockLogicFence> FENCE_PLANKS_SKYROOT;
     public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
@@ -445,13 +445,27 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                .build("stairs.planks.skyroot", "stairs_planks_skyroot", blockID("STAIRS_PLANKS_SKYROOT"), b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
+                .build(
+                        "stairs.planks.skyroot",
+                        "stairs_planks_skyroot",
+                        blockID("STAIRS_PLANKS_SKYROOT")
+                        , block -> new BlockLogicPaintableStairs(
+                                block, PLANKS_SKYROOT, AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED
+                        )
+                );
         STAIRS_PLANKS_SKYROOT_PAINTED = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                .build("stairs.planks.skyroot.painted", "stairs_planks_skyroot_painted", blockID("STAIRS_PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicStairs(b, PLANKS_SKYROOT));
+                .build(
+                        "stairs.planks.skyroot.painted",
+                        "stairs_planks_skyroot_painted",
+                        blockID("STAIRS_PLANKS_SKYROOT_PAINTED"),
+                        block -> new BlockLogicPaintedStairs(
+                                block, PLANKS_SKYROOT, STAIRS_PLANKS_SKYROOT.id()
+                        )
+                );
 
 
         FENCE_PLANKS_SKYROOT = slab
