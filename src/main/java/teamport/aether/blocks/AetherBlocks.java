@@ -98,9 +98,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicPaintableFence> FENCE_PLANKS_SKYROOT;
     public static Block<BlockLogicPaintedFence> FENCE_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
-    public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT_PAINTED;
-
+    public static Block<BlockLogicPaintableFenceGate> FENCEGATE_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedFenceGate> FENCEGATE_PLANKS_SKYROOT_PAINTED;
 
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_BOTTOM;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_TOP;
@@ -118,11 +117,11 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT;
     public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT;
-    public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintableButton> BUTTON_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedButton> BUTTON_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<?> PRESSURE_PLATE_PLANKS_SKYROOT;
-    public static Block<?> PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintablePressurePlate<Entity>> PRESSURE_PLATE_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedPressurePlate<Entity>> PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED;
 
     public static Block<?> ORE_AMBROSIUM_HOLYSTONE;
 
@@ -511,13 +510,33 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         )
                 );
 
-
         FENCEGATE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
-                .build("fencegate.planks.skyroot", "fencegate_planks_skyroot", blockID("FENCEGATE_PLANKS_SKYROOT"), BlockLogicFenceGateSkyroot::new);
+                .build(
+                        "fencegate.planks.skyroot",
+                        "fencegate_planks_skyroot",
+                        blockID("FENCEGATE_PLANKS_SKYROOT"),
+                        block -> new BlockLogicPaintableFenceGate(
+                                block, FENCEGATE_PLANKS_SKYROOT_PAINTED
+                        )
+                );
+
+        FENCEGATE_PLANKS_SKYROOT_PAINTED = slab
+                .setBlockSound(BlockSounds.WOOD)
+                .setHardness(2.0f)
+                .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
+                .build(
+                        "fencegate.planks.skyroot.painted",
+                        "fencegate_planks_skyroot_painted",
+                        blockID("FENCEGATE_PLANKS_SKYROOT_PAINTED"),
+                        block -> new BlockLogicPaintedFenceGate(
+                                block, FENCEGATE_PLANKS_SKYROOT.id()
+                        )
+                );
 
         DOOR_PLANKS_SKYROOT_BOTTOM = wood
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
@@ -636,12 +655,53 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         BUTTON_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
-                .build("button.planks.skyroot", "button_planks_skyroot", blockID("BUTTON_PLANKS_SKYROOT"), BlockLogicButtonPlanks::new);
+                .build(
+                        "button.planks.skyroot",
+                        "button_planks_skyroot",
+                        blockID("BUTTON_PLANKS_SKYROOT"),
+                        block -> new BlockLogicPaintableButton(
+                                block, BUTTON_PLANKS_SKYROOT_PAINTED
+                        )
+                );
+
+        BUTTON_PLANKS_SKYROOT_PAINTED = wood
+                .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
+                .build(
+                        "button.planks.skyroot.painted",
+                        "button_planks_skyroot_painted",
+                        blockID("BUTTON_PLANKS_SKYROOT_PAINTED"),
+                        block -> new BlockLogicPaintedButton(
+                            block, BUTTON_PLANKS_SKYROOT.id()
+                        )
+                );
 
         PRESSURE_PLATE_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
-                .build("pressure.plate.planks.skyroot", "pressure_plate_planks_skyroot", blockID("PRESSURE_PLATE_PLANKS_SKYROOT"), b -> new BlockLogicPressurePlate<>(b, Entity.class, Material.wood));
+                .build(
+                        "pressure.plate.planks.skyroot",
+                        "pressure_plate_planks_skyroot",
+                        blockID("PRESSURE_PLATE_PLANKS_SKYROOT"),
+                        block -> new BlockLogicPaintablePressurePlate<>(
+                                block, Entity.class, Material.wood,
+                                PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED
+                        )
+                );
+
+
+        PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED = wood
+                .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
+                .build(
+                        "pressure.plate.planks.skyroot_painted",
+                        "pressure_plate_planks_skyroot_painted",
+                        blockID("PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED"),
+                        block -> new BlockLogicPaintedPressurePlate<>(
+                                block, Entity.class, Material.wood,
+                                PRESSURE_PLATE_PLANKS_SKYROOT.id()
+                        )
+                );
 
 
         LOG_SKYROOT = log

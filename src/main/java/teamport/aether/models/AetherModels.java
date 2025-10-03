@@ -14,6 +14,7 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
@@ -263,10 +264,14 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootButton<>(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED)
+                .withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootPreasurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
+                .withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
 
         dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
@@ -276,6 +281,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED));
 
 
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
