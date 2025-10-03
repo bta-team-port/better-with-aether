@@ -228,7 +228,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
 
-        dispatcher.addDispatch(new BlockModelPaintedBlock(AetherBlocks.PLANKS_SKYROOT_PAINTED, "aether:block/skyroot/"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootPlanks(AetherBlocks.PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM)
                 .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
@@ -548,8 +548,10 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_STONE));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_ANGELIC));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_HELLFIRE));
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_ZANITE));
+
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
 
     }
 
@@ -726,7 +728,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver").setFullBright());
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
-        dispatcher.addDispatch(new ItemModelPaintedDoor(AetherItems.DOOR_SKYROOT_PAINTED, "aether:item/door_skyroot/"));
+        dispatcher.addDispatch(new ItemModelPaintedSkyrootDoor(AetherItems.DOOR_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
 
@@ -735,7 +737,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, null).setIcon("aether:item/door_dungeon_gold"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
-        dispatcher.addDispatch(new ItemModelPaintedSign(AetherItems.SIGN_SKYROOT_PAINTED));
+        dispatcher.addDispatch(new ItemModelPaintedSkyrootSign(AetherItems.SIGN_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());

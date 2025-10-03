@@ -30,7 +30,7 @@ public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> exten
     }
 
     static {
-        for(DyeColor c : DyeColor.blockOrderedColors()) {
+        for (DyeColor c : DyeColor.blockOrderedColors()) {
             doorTopTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/planks_" + c.colorID + "/top");
             doorBottomTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/planks_" + c.colorID + "/bottom");
             frameTopTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/planks_" + c.colorID + "/frame_top");
