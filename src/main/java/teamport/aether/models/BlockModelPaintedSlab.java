@@ -1,0 +1,26 @@
+package teamport.aether.models;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.block.model.BlockModelSlab;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicSlab;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.WorldSource;
+
+@Environment(EnvType.CLIENT)
+public class BlockModelPaintedSlab<T extends BlockLogicSlab> extends BlockModelSlab<T> {
+    public BlockModelPaintedSlab(Block<T> block) {
+        super(block);
+    }
+
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
+        meta >>= 4;
+        return BlockModelPaintedBlock.texCoords[meta & 15];
+    }
+
+    public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
+        return this.getBlockTextureFromSideAndMetadata(side, blockAccess.getBlockMetadata(x, y, z));
+    }
+}
