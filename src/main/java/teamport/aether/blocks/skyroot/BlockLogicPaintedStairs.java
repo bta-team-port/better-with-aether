@@ -12,8 +12,14 @@ public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    @Override
     public void removeDye(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, this.stripColorFromMetadata(meta));
+    }
+
+    @Override
+    public String getLanguageKey(int meta) {
+        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
     }
 }

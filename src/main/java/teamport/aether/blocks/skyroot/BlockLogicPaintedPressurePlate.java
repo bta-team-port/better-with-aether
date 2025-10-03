@@ -14,7 +14,13 @@ public class BlockLogicPaintedPressurePlate<T extends Entity> extends BlockLogic
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    @Override
     public void removeDye(World world, int x, int y, int z) {
         world.setBlockWithNotify(x, y, z, unpaintedBlockID);
+    }
+
+    @Override
+    public String getLanguageKey(int meta) {
+        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
     }
 }

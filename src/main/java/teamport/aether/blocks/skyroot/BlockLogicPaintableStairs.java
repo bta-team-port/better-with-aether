@@ -14,6 +14,7 @@ public class BlockLogicPaintableStairs extends BlockLogicStairsPaintable {
         this.paintedBlock = paintedBlock;
     }
 
+    @Override
     public void setColor(World world, int x, int y, int z, DyeColor color) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadata(x, y, z, paintedBlock.id(), meta);
