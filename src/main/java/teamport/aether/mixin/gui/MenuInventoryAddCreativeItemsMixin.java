@@ -33,13 +33,16 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     newCreativeItems.add(new ItemStack(AetherBlocks.CHEST_MIMIC, 1, variant.getId() << 3));
                 }
             }
-
             else if (item.itemID == AetherBlocks.PLANKS_SKYROOT_PAINTED.id() && item.getMetadata() == 0) {
                 for (DyeColor dyeColor : DyeColor.values()) {
                     newCreativeItems.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
                 }
             }
-
+            else if (item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id() && item.getMetadata() == 0) {
+                for (DyeColor dyeColor : DyeColor.values()) {
+                    newCreativeItems.add(new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+                }
+            }
             else if (item.itemID == AetherItems.SIGN_SKYROOT_PAINTED.id && item.getMetadata() == 0) {
                 for (DyeColor dyeColor : DyeColor.values()) {
                     ItemStack sign = new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED.getDefaultStack());
@@ -48,7 +51,6 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     newCreativeItems.add(sign);
                 }
             }
-
             else if (item.itemID == AetherItems.DOOR_SKYROOT_PAINTED.id && item.getMetadata() == 0) {
                 for (DyeColor dyeColor : DyeColor.values()) {
                     ItemStack sign = new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED.getDefaultStack());
@@ -56,7 +58,6 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     newCreativeItems.add(sign);
                 }
             }
-
             else newCreativeItems.add(item);
         }
 
