@@ -1,5 +1,6 @@
 package teamport.aether.mixin.gui;
 
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
@@ -38,9 +39,15 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     newCreativeItems.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
                 }
             }
-            else if (item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id() && item.getMetadata() == 0) {
+            else if (
+                    item.getMetadata() == 0
+                    && (
+                            item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id()
+                            || item.itemID == AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id()
+                    )
+            ) {
                 for (DyeColor dyeColor : DyeColor.values()) {
-                    newCreativeItems.add(new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+                    newCreativeItems.add(new ItemStack(Blocks.getBlock(item.itemID), 1, dyeColor.blockMeta << 4));
                 }
             }
             else if (item.itemID == AetherItems.SIGN_SKYROOT_PAINTED.id && item.getMetadata() == 0) {

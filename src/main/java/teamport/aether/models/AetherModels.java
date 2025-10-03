@@ -539,7 +539,6 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_STONE));
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_ANGELIC));
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_HELLFIRE));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT));
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_ZANITE));
 
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_COBBLE_HOLYSTONE));
@@ -552,6 +551,9 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED));
 
     }
 
