@@ -88,9 +88,8 @@ public class AetherRecipes implements RecipeEntrypoint {
         List<ItemStack> button = Registries.stackListOf(new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT));
         List<ItemStack> door = Registries.stackListOf(new ItemStack(AetherItems.DOOR_SKYROOT));
         List<ItemStack> sign = Registries.stackListOf(new ItemStack(AetherItems.SIGN_SKYROOT));
-
-//        List<ItemStack> trapdoor = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
-//        List<ItemStack> chests = Registries.stackListOf(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+        List<ItemStack> chests = Registries.stackListOf(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT));
+        List<ItemStack> trapdoor = Registries.stackListOf(new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT));
 
         for (DyeColor dyeColor : DyeColor.values()) {
             planks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
@@ -101,12 +100,12 @@ public class AetherRecipes implements RecipeEntrypoint {
             fencegates.add(new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
             plates.add(new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
             button.add(new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            chests.add(new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            trapdoor.add(new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
 
             door.add(new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
             sign.add(new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
 
-//            trapdoor.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
-//            chests.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
         }
 
         Registries.ITEM_GROUPS.register("aether:skyroot_planks", planks);
@@ -118,8 +117,8 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.register("aether:skyroot_button", button);
         Registries.ITEM_GROUPS.register("aether:skyroot_door", door);
         Registries.ITEM_GROUPS.register("aether:skyroot_sign", sign);
-//        Registries.ITEM_GROUPS.register("aether:skyroot_trap_door", trapdoor);
-//        Registries.ITEM_GROUPS.register("aether:skyroot_chest", chests);
+        Registries.ITEM_GROUPS.register("aether:skyroot_chest", chests);
+        Registries.ITEM_GROUPS.register("aether:skyroot_trap_door", trapdoor);
 
     }
 
@@ -247,6 +246,10 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.AMBROSIUM).create("block_of_ambrosium", new ItemStack(AetherBlocks.BLOCK_AMBROSIUM, 1));
         templateItemtoFuelBlock.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1));
+        for(DyeColor dye : DyeColor.values()){
+            templateItemtoFuelBlock.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dye.blockMeta).create(dye.name() + "skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED, 1, dye.blockMeta << 4));
+        }
+
 
         RecipeBuilderShaped templateBlocktoItem = new RecipeBuilderShaped(MOD_ID, "X");
         templateBlocktoItem.addInput('X', AetherBlocks.BLOCK_ZANITE).create("block_of_zanite_to_zanite", new ItemStack(AetherItems.ZANITE, 9));
@@ -400,6 +403,38 @@ public class AetherRecipes implements RecipeEntrypoint {
                         AetherBlocks.BUTTON_PLANKS_SKYROOT.getDefaultStack()
                 )
         );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_chest_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_chest"),
+                        AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_chest_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_chest"),
+                        AetherBlocks.CHEST_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
+        /// ----------------------------------------------------------------------------------------
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_trap_door_planks_dying",
+                new RecipeEntryDyeing(
+                        new RecipeSymbol("aether:skyroot_trap_door"),
+                        AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.getDefaultStack(), true, false
+                )
+        );
+
+        Registries.RECIPES.addCustomRecipe(
+                "aether:workbench/skyroot_trap_door_planks_undying",
+                new RecipeEntryUndyeing(
+                        new RecipeSymbol("aether:skyroot_trap_door"),
+                        AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.getDefaultStack()
+                )
+        );
         ///===========================================================================================
         Registries.RECIPES.addCustomRecipe(
                 "aether:workbench/skyroot_door_planks_dying",
@@ -551,6 +586,8 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilderShaped templatePlate = new RecipeBuilderShaped(MOD_ID, "PP");
         templatePlate.addInput('P', AetherBlocks.PLANKS_SKYROOT).create("skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT, 1));
 
+        RecipeBuilderShaped templateTrap = new RecipeBuilderShaped(MOD_ID, "PPP", "PPP");
+        templateTrap.addInput('P', AetherBlocks.PLANKS_SKYROOT).create("skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT, 6));
 
         for (DyeColor dyeColor : DyeColor.values()) {
             templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).addInput('S', AetherItems.STICK_SKYROOT).create(dyeColor.name() + "_skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta));
@@ -561,10 +598,10 @@ public class AetherRecipes implements RecipeEntrypoint {
 
             templateButton.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_button", new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED, 4, dyeColor.blockMeta << 4));
             templatePlate.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED,dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            templateTrap.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED,dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
         }
 
-        RecipeBuilderShaped templateTrap = new RecipeBuilderShaped(MOD_ID, "PPP", "PPP");
-        templateTrap.addInput('P', AetherBlocks.PLANKS_SKYROOT).create("skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT, 6));
+
 
 
 

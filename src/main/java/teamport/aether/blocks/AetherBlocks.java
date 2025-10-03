@@ -111,11 +111,11 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> SIGN_POST_PLANKS_SKYROOT_PAINTED;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
-    public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintableTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedTrapDoor> TRAPDOOR_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT;
-    public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintableChest> CHEST_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedChest> CHEST_PLANKS_SKYROOT_PAINTED;
 
     public static Block<BlockLogicPaintableButton> BUTTON_PLANKS_SKYROOT;
     public static Block<BlockLogicPaintedButton> BUTTON_PLANKS_SKYROOT_PAINTED;
@@ -654,11 +654,29 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         TRAPDOOR_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                .build("trapdoor.planks.skyroot", "trapdoor_planks_skyroot", blockID("TRAPDOOR_PLANKS_SKYROOT"), b -> new BlockLogicTrapDoor(b, Material.cloth));
+                .build("trapdoor.planks.skyroot", "trapdoor_planks_skyroot", blockID("TRAPDOOR_PLANKS_SKYROOT"), b -> new BlockLogicPaintableTrapDoor(b, Material.cloth, TRAPDOOR_PLANKS_SKYROOT_PAINTED));
+
+        TRAPDOOR_PLANKS_SKYROOT_PAINTED = wood
+                .setVisualUpdateOnMetadata()
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
+                .build("trapdoor.planks.skyroot.painted", "trapdoor_planks_skyroot_painted", blockID("TRAPDOOR_PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedTrapDoor(b, Material.cloth, TRAPDOOR_PLANKS_SKYROOT.id()));
 
         CHEST_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
-                .build("chest.planks.skyroot", "chest_planks_skyroot", blockID("CHEST_PLANKS_SKYROOT"), b -> new BlockLogicChestSkyroot(b, Material.wood));
+                .build(
+                        "chest.planks.skyroot",
+                        "chest_planks_skyroot",
+                        blockID("CHEST_PLANKS_SKYROOT"),
+                        b -> new BlockLogicPaintableChest(b, Material.wood,CHEST_PLANKS_SKYROOT_PAINTED));
+
+        CHEST_PLANKS_SKYROOT_PAINTED = wood
+                .setVisualUpdateOnMetadata()
+                .build("chest.planks.skyroot.painted",
+                        "chest_planks_skyroot_painted",
+                        blockID("CHEST_PLANKS_SKYROOT_PAINTED"),
+                        b -> new BlockLogicPaintedChest(b, Material.wood,CHEST_PLANKS_SKYROOT.id()));
+
+
 
         BUTTON_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
