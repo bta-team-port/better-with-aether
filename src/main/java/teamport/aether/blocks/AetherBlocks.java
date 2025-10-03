@@ -95,20 +95,34 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<BlockLogicPaintableStairs> STAIRS_PLANKS_SKYROOT;
     public static Block<BlockLogicPaintedStairs> STAIRS_PLANKS_SKYROOT_PAINTED;
 
-    public static Block<BlockLogicFence> FENCE_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintableFence> FENCE_PLANKS_SKYROOT;
+    public static Block<BlockLogicPaintedFence> FENCE_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT;
+    public static Block<BlockLogicFenceGate> FENCEGATE_PLANKS_SKYROOT_PAINTED;
+
+
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_BOTTOM;
     public static Block<BlockLogicDoor> DOOR_PLANKS_SKYROOT_TOP;
     public static Block<BlockLogicPaintedDoor> DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM;
     public static Block<BlockLogicPaintedDoor> DOOR_PLANKS_SKYROOT_PAINTED_TOP;
+
     public static Block<?> SIGN_POST_PLANKS_SKYROOT;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT;
     public static Block<?> SIGN_POST_PLANKS_SKYROOT_PAINTED;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
+    public static Block<BlockLogicTrapDoor> TRAPDOOR_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT;
+    public static Block<BlockLogicChest> CHEST_PLANKS_SKYROOT_PAINTED;
+
     public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT;
+    public static Block<BlockLogicButtonPlanks> BUTTON_PLANKS_SKYROOT_PAINTED;
+
     public static Block<?> PRESSURE_PLATE_PLANKS_SKYROOT;
+    public static Block<?> PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED;
 
     public static Block<?> ORE_AMBROSIUM_HOLYSTONE;
 
@@ -473,7 +487,31 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
-                .build("fence.planks.skyroot", "fence_planks_skyroot", blockID("FENCE_PLANKS_SKYROOT"), BlockLogicFenceSkyroot::new);
+                .build(
+                        "fence.planks.skyroot",
+                        "fence_planks_skyroot",
+                        blockID("FENCE_PLANKS_SKYROOT"),
+                        block -> new BlockLogicPaintableFence(
+                                block, FENCE_PLANKS_SKYROOT_PAINTED
+                        )
+                );
+
+
+        FENCE_PLANKS_SKYROOT_PAINTED = slab
+                .setBlockSound(BlockSounds.WOOD)
+                .setHardness(2.0f)
+                .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
+                .build(
+                        "fence.planks.skyroot.painted",
+                        "fence_planks_skyroot_painted",
+                        blockID("FENCE_PLANKS_SKYROOT_PAINTED"),
+                        block ->  new BlockLogicPaintedFence(
+                           block, FENCEGATE_PLANKS_SKYROOT.id()
+                        )
+                );
+
+
         FENCEGATE_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)

@@ -271,6 +271,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED));
+
         dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));

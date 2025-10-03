@@ -375,6 +375,10 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilderShaped templateFences = new RecipeBuilderShaped(MOD_ID, "PSP", "PSP");
         templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT, 6));
         templateFences.addInput('S', AetherBlocks.PLANKS_SKYROOT).addInput('P', AetherItems.STICK_SKYROOT).create("skyroot_fencegate", new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, 3));
+        for (DyeColor dyeColor : DyeColor.values()) {
+            templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).addInput('S', AetherItems.STICK_SKYROOT).create(dyeColor.name() + "_skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT, 6, dyeColor.blockMeta));
+        }
+
 
 
         RecipeBuilderShaped templateDoor = new RecipeBuilderShaped(MOD_ID, "PP", "PP", "PP");
