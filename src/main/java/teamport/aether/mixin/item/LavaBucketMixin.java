@@ -1,5 +1,6 @@
 package teamport.aether.mixin.item;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;

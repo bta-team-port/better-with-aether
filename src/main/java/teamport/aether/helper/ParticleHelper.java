@@ -1,5 +1,6 @@
 package teamport.aether.helper;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;

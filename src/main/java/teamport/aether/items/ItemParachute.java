@@ -1,5 +1,6 @@
 package teamport.aether.items;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;

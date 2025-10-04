@@ -1,5 +1,6 @@
 package teamport.aether.mixin.block;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;

@@ -1,5 +1,6 @@
 package teamport.aether.entity.monster.valkyrie;
 
+import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
@@ -128,9 +129,9 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             this.teleportFailed();
         } else {
             if (!EnvironmentHelper.isServerEnvironment()) {
-                this.ParticleHelper.spawnParticle(world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
-                this.ParticleHelper.spawnParticle(world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
-                this.ParticleHelper.spawnParticle(world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(this.world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(this.world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(this.world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             }
             this.setPos(newX + 0.5, newY, newZ + 0.5);
             world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
