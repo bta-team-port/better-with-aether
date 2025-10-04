@@ -83,7 +83,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
 
         if (trophy != null) {
-            world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
