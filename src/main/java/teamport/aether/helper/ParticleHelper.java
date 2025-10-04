@@ -1,6 +1,5 @@
 package teamport.aether.helper;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -25,7 +24,7 @@ public class ParticleHelper {
             );
         }
 
-        else ParticleHelper.spawnParticle(world,particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+        else world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
     }
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
