@@ -64,7 +64,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
 
     public void doEffect() {
         for (int j = 0; j < 8; ++j) {
-            this.world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                 "item",
                 this.x, this.y, this.z,
                 world.rand.nextFloat(),
