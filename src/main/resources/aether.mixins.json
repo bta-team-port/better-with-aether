@@ -66,6 +66,7 @@
     "fix.CommandHealMixin",
     "fix.MinecartCarriablesFix",
     "fix.NetEntityHandlerMixin",
+    "fix.PacketAddParticleMixin",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",
     "gui.MenuInventoryAddCreativeItemsMixin",
