@@ -663,6 +663,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CHEST_PLANKS_SKYROOT = wood
                 .setVisualUpdateOnMetadata()
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build(
                         "chest.planks.skyroot",
                         "chest_planks_skyroot",
@@ -671,6 +672,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CHEST_PLANKS_SKYROOT_PAINTED = wood
                 .setVisualUpdateOnMetadata()
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.planks.skyroot.painted",
                         "chest_planks_skyroot_painted",
                         blockID("CHEST_PLANKS_SKYROOT_PAINTED"),
@@ -916,28 +918,34 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CHEST_DUNGEON_BRONZE = stone
                 .setHardness(1.5F)
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.bronze", "chest_dungeon_bronze", blockID("CHEST_DUNGEON_BRONZE"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), false, CHEST_DUNGEON_BRONZE));
 
         CHEST_DUNGEON_BRONZE_LOCKED = dungeonStoneLocked
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.bronze.locked", "chest_dungeon_bronze_locked", blockID("CHEST_DUNGEON_BRONZE_LOCKED"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, CHEST_DUNGEON_BRONZE)).withDisabledStats();
 
         CHEST_DUNGEON_SILVER = stone
                 .setHardness(1.5F)
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.silver", "chest_dungeon_silver", blockID("CHEST_DUNGEON_SILVER"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), false, CHEST_DUNGEON_SILVER));
 
         CHEST_DUNGEON_SILVER_LOCKED = dungeonStoneLocked
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.silver.locked", "chest_dungeon_silver_locked", blockID("CHEST_DUNGEON_SILVER_LOCKED"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), true, CHEST_DUNGEON_SILVER)).withDisabledStats();
 
         CHEST_DUNGEON_GOLD = stone
                 .setHardness(1.5F)
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.gold", "chest_dungeon_gold", blockID("CHEST_DUNGEON_GOLD"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), false, CHEST_DUNGEON_GOLD));
 
         CHEST_DUNGEON_GOLD_LOCKED = dungeonStoneLocked
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.dungeon.gold.locked", "chest_dungeon_gold_locked", blockID("CHEST_DUNGEON_GOLD_LOCKED"),
                         b -> new BlockLogicChestLocked(b, AetherItems.KEY_GOLD.getDefaultStack(), true, CHEST_DUNGEON_GOLD)).withDisabledStats();
 
@@ -978,6 +986,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         CHEST_MIMIC = wood
+                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
                 .build("chest.mimic", "chest_mimic", blockID("CHEST_MIMIC"), BlockLogicChestMimic::new);
 
 

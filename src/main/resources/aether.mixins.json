@@ -64,6 +64,7 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "fix.CommandHealMixin",
+    "fix.MinecartCarriablesFix",
     "fix.NetEntityHandlerMixin",
     "fix.WorldGetCubesMixin",
     "fix.WorldTypeOverworldRespawnMixin",

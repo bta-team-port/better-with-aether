@@ -552,7 +552,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void plankRecipes() {
         RecipeBuilder.Shaped(MOD_ID, "XXX", "XGX", "XXX")
-                .addInput('X', "aether:planks")
+                .addInput('X', "aether:skyroot_planks")
                 .addInput('G', "aether:gems")
                 .create("aether:jukebox", new ItemStack(Blocks.JUKEBOX, 1));
 

@@ -11,8 +11,19 @@ public class NetEntrySlider extends NetEntryAnimal<MobBossSlider> {
         return MobBossSlider.class;
     }
 
+
+    @Override
+    public int getTrackingDistance() {
+        return super.getTrackingDistance();
+    }
+
     @Override
     public boolean sendMotionUpdates() {
         return true;
+    }
+
+    @Override
+    public int getPacketDelay() {
+        return 1;
     }
 }
