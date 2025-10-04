@@ -94,6 +94,25 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     public void tick() {
+        if (this.newPosRotationIncrements > 0) {
+            double lerpXD = this.x + (this.newPosX - this.x) / (double) this.newPosRotationIncrements;
+            double lerpYD = this.y + (this.newPosY - this.y) / (double) this.newPosRotationIncrements;
+            double lerpZD = this.z + (this.newPosZ - this.z) / (double) this.newPosRotationIncrements;
+
+            double lerpYRot = this.newRotationYaw - (double) this.yRot;
+            double lerpXRot = this.newRotationPitch - (double) this.xRot;
+
+            while (lerpYRot < (double) -180.0F) { lerpYRot += 360.0F; }
+            while (lerpYRot >= (double) 180.0F) { lerpYRot -= 360.0F; }
+
+            this.yRot = (float) ((double) this.yRot + lerpYRot / (double) this.newPosRotationIncrements);
+            this.xRot = (float) ((double) this.xRot + lerpXRot / (double) this.newPosRotationIncrements);
+
+            --this.newPosRotationIncrements;
+            this.setPos(lerpXD, lerpYD, lerpZD);
+            this.setRot(this.yRot, this.xRot);
+        }
+
         this.motionYaw += 2.0F * this.random.nextFloat() - 1.0F;
         this.motionPitch += 2.0F * this.random.nextFloat() - 1.0F;
         this.xRot = (float) ((double) this.xRot + 0.1 * this.motionPitch);

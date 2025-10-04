@@ -24,6 +24,7 @@ import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -123,16 +124,31 @@ public class MobBossSlider extends MobBoss {
         entityData.define(DATA_ALLOW_MOVEMENT, 0, Integer.class);
         entityData.define(DATA_MOVEMENT_DIRECTION, Direction.NONE.ordinal(), Integer.class);
         entityData.define(DATA_MOVEMENT_AMOUNT, 0, Integer.class);
-
-        entityData.define(DATA_POSITION_X, 0, Integer.class);
-        entityData.define(DATA_POSITION_Y, 0, Integer.class);
-        entityData.define(DATA_POSITION_Z, 0, Integer.class);
     }
 
     @Override
     public void tick() {
         assert world != null;
         super.baseTick();
+
+        if (this.newPosRotationIncrements > 0) {
+            double lerpXD = this.x + (this.newPosX - this.x) / (double) this.newPosRotationIncrements;
+            double lerpYD = this.y + (this.newPosY - this.y) / (double) this.newPosRotationIncrements;
+            double lerpZD = this.z + (this.newPosZ - this.z) / (double) this.newPosRotationIncrements;
+
+            double lerpYRot = this.newRotationYaw - (double) this.yRot;
+            double lerpXRot = this.newRotationPitch - (double) this.xRot;
+
+            while (lerpYRot < (double) -180.0F) { lerpYRot += 360.0F; }
+            while (lerpYRot >= (double) 180.0F) { lerpYRot -= 360.0F; }
+
+            this.yRot = (float) ((double) this.yRot + lerpYRot / (double) this.newPosRotationIncrements);
+            this.xRot = (float) ((double) this.xRot + lerpXRot / (double) this.newPosRotationIncrements);
+
+            --this.newPosRotationIncrements;
+            this.setPos(lerpXD, lerpYD, lerpZD);
+            this.setRot(this.yRot, this.xRot);
+        }
 
         int blocksBroken = 0;
         if (blocksToMove > 0) {
@@ -171,16 +187,18 @@ public class MobBossSlider extends MobBoss {
                 );
 
                 blocksToMove -= moveAmount;
-            } else {
+            }
+
+            else {
                 move(
                     blocksToMove * moveDirection.getOffsetX(),
                     blocksToMove * moveDirection.getOffsetY(),
                     blocksToMove * moveDirection.getOffsetZ()
                 );
-
                 blocksToMove = 0;
             }
-        } else {
+        }
+        else {
             blocksToMove = 0;
         }
 
@@ -196,32 +214,23 @@ public class MobBossSlider extends MobBoss {
             this.deformX *= 0.8F;
         }
 
-        this.attackCoolDown--;
-        if (attackCoolDown <= 0) allowedToMove = true;
-        this.currentState.getConsumer().accept(this);
+        if (!EnvironmentHelper.isClientWorld()) {
+            if (--attackCoolDown <= 0) allowedToMove = true;
+            this.currentState.getConsumer().accept(this);
+        }
 
         if (EnvironmentHelper.isServerEnvironment()) {
             entityData.set(DATA_STATE, currentState.ordinal());
             entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
             entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
             entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
+        }
 
-            entityData.set(DATA_POSITION_X, Float.floatToIntBits((float) x));
-            entityData.set(DATA_POSITION_Y, Float.floatToIntBits((float) y));
-            entityData.set(DATA_POSITION_Z, Float.floatToIntBits((float) z));
-
-        } else if (EnvironmentHelper.isClientWorld()) {
+        else if (EnvironmentHelper.isClientWorld()) {
             currentState = State.values()[entityData.getInt(DATA_STATE)];
             allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
             moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
             blocksToMove = Float.intBitsToFloat(entityData.getInt(DATA_MOVEMENT_AMOUNT));
-
-            absMoveTo(
-                    Float.intBitsToFloat(entityData.getInt(DATA_POSITION_X)),
-                    Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Y)),
-                    Float.intBitsToFloat(entityData.getInt(DATA_POSITION_Z)),
-                    0, 0
-            );
         }
     }
 
@@ -403,7 +412,7 @@ public class MobBossSlider extends MobBoss {
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double ZParticle = z + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
-            world.spawnParticle("explode", XParticle, YParticle, ZParticle, 0, 0, 0, 0);
+            ParticleHelper.spawnParticle(world, "explode", XParticle, YParticle, ZParticle, 0, 0, 0, 0);
         }
 
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.5F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -524,7 +533,7 @@ public class MobBossSlider extends MobBoss {
                             break;
                     }
 
-                    world.spawnParticle("block", posX, posY, posZ, 0, 0, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
+                    ParticleHelper.spawnParticle(world, "block", posX, posY, posZ, 0, 0, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
                 }
 
                 return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
