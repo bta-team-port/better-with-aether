@@ -15,6 +15,8 @@ public class ParticleHelper {
     public static Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
+        if (EnvironmentHelper.isClientWorld()) return;
+
         if (EnvironmentHelper.isServerEnvironment()) {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
 
@@ -22,9 +24,11 @@ public class ParticleHelper {
                     new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
                     world.dimension.id
             );
+
+            return;
         }
 
-        else world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+        world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
     }
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
