@@ -1,5 +1,6 @@
 package teamport.aether.items.itemtool;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.*;
 import net.minecraft.core.item.ItemStack;
@@ -24,9 +25,9 @@ public class ItemToolSwordHoly extends ItemToolSword {
             double motionX = (random.nextDouble() * 0.1) - 0.05;
             double motionY = (random.nextDouble() * 0.1) - 0.05;
             double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            target.world.spawnParticle("blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            ParticleHelper.spawnParticle(target.world, "blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
             target.hurt(attacker, 20, DamageType.COMBAT);
         }
 

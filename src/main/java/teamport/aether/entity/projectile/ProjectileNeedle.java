@@ -1,5 +1,6 @@
 package teamport.aether.entity.projectile;
 
+import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
@@ -200,7 +201,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
         for (int j = 0; j < 4; ++j) {
-            this.world.spawnParticle("item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
+            ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
         }
 
         this.remove();
@@ -209,7 +210,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     public void waterTick() {
         for(int k = 0; k < 4; ++k) {
             double particleDistance = 0.25;
-            this.world.spawnParticle("bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
+            ParticleHelper.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
         }
 
         this.projectileSpeed = 0.95F;

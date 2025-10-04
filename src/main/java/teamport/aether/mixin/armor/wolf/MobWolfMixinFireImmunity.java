@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.particle.ParticalHelper;
+import teamport.aether.helper.ParticleHelper;
 
 @Mixin(value = MobWolf.class, remap = false)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {
@@ -24,7 +24,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$lavaImmunity(CallbackInfo ci) {
         if(isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -33,7 +33,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$fireImmunity(CallbackInfo ci) {
         if (isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -42,7 +42,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void thunderHit(EntityLightning bolt){
         if(isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
             return;
         }
         super.thunderHit(bolt);
@@ -52,7 +52,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void burn(int damage) {
         if (isImmuneToFire()) {
             if(world == null) return;
-            ParticalHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
         super.burn(damage);

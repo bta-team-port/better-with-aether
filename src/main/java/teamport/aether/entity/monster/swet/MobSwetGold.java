@@ -1,5 +1,6 @@
 package teamport.aether.entity.monster.swet;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -57,8 +58,8 @@ public class MobSwetGold extends MobSwet implements Enemy {
     @Override
     public void doTickEffect() {
         if (random.nextInt(2) == 0) {
-            this.world.spawnParticle("arrowtrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-            this.world.spawnParticle("arrowtrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleHelper.spawnParticle(world, "arrowtrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleHelper.spawnParticle(world, "arrowtrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
         }
     }
 

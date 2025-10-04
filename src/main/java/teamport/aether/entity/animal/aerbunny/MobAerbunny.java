@@ -20,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
@@ -173,7 +174,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         double e = this.bb.minY;
         double f = this.z + a * 0.4000000059604645;
         if (!EnvironmentHelper.isServerEnvironment()) {
-            this.world.spawnParticle("explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+            ParticleHelper.spawnParticle(world, "explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
         }
     }
 

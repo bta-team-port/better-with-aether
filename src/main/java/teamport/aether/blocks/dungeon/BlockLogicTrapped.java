@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
+import teamport.aether.helper.ParticleHelper;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -70,9 +71,9 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
                     for (int l = 0; l < 8; ++l) {
                         double angle = Math.toRadians(l * 45);
-                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-                        world.spawnParticle("snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-                        world.spawnParticle("largesmoke", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+                        ParticleHelper.spawnParticle(world, "snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+                        ParticleHelper.spawnParticle(world, "snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+                        ParticleHelper.spawnParticle(world, "largesmoke", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
                     }
 
                     world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);

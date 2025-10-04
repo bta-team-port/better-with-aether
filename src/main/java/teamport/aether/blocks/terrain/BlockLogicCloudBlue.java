@@ -8,6 +8,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.AetherAchievements;
+import teamport.aether.helper.ParticleHelper;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class BlockLogicCloudBlue extends BlockLogicCloudBase {
@@ -28,7 +29,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
             }
 
             if (!(entity instanceof Particle)) {
-                entity.world.spawnParticle("splash", entity.x, entity.y, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+                ParticleHelper.spawnParticle(entity.world, "splash", entity.x, entity.y, entity.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
             }
         }
 

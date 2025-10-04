@@ -1,5 +1,6 @@
 package teamport.aether.items;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -31,7 +32,7 @@ public class ItemParachute extends Item {
 
                 cloud.absMoveTo(player.x, player.y - 2, player.z, (player.yRot), (player.xRot));
                 world.entityJoinedWorld(cloud);
-                world.spawnParticle(cloud.pathParticle, player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(world, cloud.pathParticle, player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
 
                 player.startRiding(cloud);
 

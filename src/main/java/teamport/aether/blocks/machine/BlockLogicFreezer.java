@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntityFreezer;
 import teamport.aether.gui.AetherScreens;
+import teamport.aether.helper.ParticleHelper;
 
 import java.util.Random;
 
@@ -49,7 +50,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
                 double maxSpeedX = rand.nextGaussian() * 0.05;
                 double maxSpeedZ = rand.nextGaussian() * 0.05;
                 ///  this is not broken, it works, its just that vanilla particles are broken at the time
-                world.spawnParticle("snowshovel", poxX, posY, posZ, maxSpeedX, 0.05F, maxSpeedZ, 0);
+                ParticleHelper.spawnParticle(world, "snowshovel", poxX, posY, posZ, maxSpeedX, 0.05F, maxSpeedZ, 0);
             }
         }
     }

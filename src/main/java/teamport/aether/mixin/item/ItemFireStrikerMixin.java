@@ -1,5 +1,6 @@
 package teamport.aether.mixin.item;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -32,7 +33,7 @@ public abstract class ItemFireStrikerMixin extends Item {
 
             for (int l = 0; l < 8; ++l) {
                 double angle = Math.toRadians(l * 45);
-                world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0, 0);
+                ParticleHelper.spawnParticle(world, "smoke", (double) blockX + 0.5, (double) blockY + 1, (double) blockZ + 0.5, -Math.cos(angle) / 20.0,  0.03, -Math.sin(angle) / 20.0, 0);
             }
 
             world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double)blockX + 0.5, (double)blockY + 0.5, (double)blockZ + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);

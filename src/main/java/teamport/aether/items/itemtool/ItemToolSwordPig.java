@@ -1,5 +1,6 @@
 package teamport.aether.items.itemtool;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobPig;
 import net.minecraft.core.entity.monster.MobZombiePig;
@@ -26,9 +27,9 @@ public class ItemToolSwordPig extends ItemToolSword {
             double motionX = (random.nextDouble() * 0.1) - 0.05;
             double motionY = (random.nextDouble() * 0.1) - 0.05;
             double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            target.world.spawnParticle("flame", dx, dy, dz, motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("largesmoke", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            ParticleHelper.spawnParticle(target.world, "largesmoke", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
             target.hurt(attacker, 100, DamageType.COMBAT);
             target.remove();
         }

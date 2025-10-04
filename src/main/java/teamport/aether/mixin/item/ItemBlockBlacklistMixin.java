@@ -1,5 +1,6 @@
 package teamport.aether.mixin.item;
 
+import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
@@ -79,8 +80,8 @@ public abstract class ItemBlockBlacklistMixin {
 
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
-                    world.spawnParticle("smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
-                    world.spawnParticle("largesmoke", (double) blockX + Math.random(), (double) blockY + .2, (double) blockZ + Math.random(), 0.0, 0.0, 0.0, 0);
+                    ParticleHelper.spawnParticle(world, "smoke", (double) blockX + 0.5, (double) blockY + .2, (double) blockZ + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+                    ParticleHelper.spawnParticle(world, "largesmoke", (double) blockX + Math.random(), (double) blockY + .2, (double) blockZ + Math.random(), 0.0, 0.0, 0.0, 0);
                 }
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) blockX + 0.5, (double) blockY + 0.5, (double) blockZ + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) blockX + 0.5f, (float) blockY + 0.5f, (float) blockZ + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);

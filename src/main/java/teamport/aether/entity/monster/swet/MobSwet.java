@@ -15,6 +15,7 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     public void doTickEffect() {
         if (random.nextInt(2) == 0) {
-            this.world.spawnParticle("splash", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+            ParticleHelper.spawnParticle(world, "splash", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
         }
     }
 
@@ -91,7 +92,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
                 double f1 = (double) this.random.nextFloat() * 0.5 + 0.5;
                 double f2 = (double) (MathHelper.sin(f) * (float) i) * 0.5 * f1;
                 double f3 = (double) (MathHelper.cos(f) * (float) i) * 0.5 * f1;
-                this.world.spawnParticle("item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, getBounceParticle().id);
+                ParticleHelper.spawnParticle(world, "item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, getBounceParticle().id);
             }
 
             this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);

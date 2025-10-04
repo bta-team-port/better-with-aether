@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileElementIce;
+import teamport.aether.helper.ParticleHelper;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -60,7 +61,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
                 double e = this.bb.minY + b - 0.5;
                 double f = this.z + c * b;
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    this.world.spawnParticle("flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+                    ParticleHelper.spawnParticle(world,"flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
                 }
             }
         }

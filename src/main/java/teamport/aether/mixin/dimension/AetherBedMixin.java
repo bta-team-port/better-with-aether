@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
@@ -34,7 +35,7 @@ public class AetherBedMixin extends BlockLogic {
     @Unique
     private void doEffect(World world, Random r, int x, int y, int z) {
         for (int i = 0; i < 8; i++) {
-            world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                     "largesmoke",
                     x + r.nextFloat(), y + r.nextFloat(), z + r.nextFloat(),
                     0, 0.01, 0, 0
@@ -55,12 +56,12 @@ public class AetherBedMixin extends BlockLogic {
         Vec3 wind = Vec3.getTempVec3(0.1, 0, 0);
         wind.rotateAroundY(MathHelper.toRadians(rand.nextInt(360)));
         for (int i = 0; i < 32; i++) {
-            world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                 "flame",
                 x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
                 wind.x, 0.2, wind.z, 0
             );
-            world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                 "smoke",
                 x + rand.nextGaussian(), y + rand.nextGaussian(), z + rand.nextGaussian(),
                 wind.x, 0.2, wind.z, 0
