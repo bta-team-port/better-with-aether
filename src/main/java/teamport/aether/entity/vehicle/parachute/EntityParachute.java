@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -43,7 +44,7 @@ public class EntityParachute extends Mob implements AetherRideable {
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
 
         if (!EnvironmentHelper.isServerEnvironment()) {
-            world.spawnParticle(pathParticle, x, y, z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(world, pathParticle, x, y, z, 0.0, 0.0, 0.0, 0);
         }
 
         if (this.passenger == null) {
@@ -108,7 +109,7 @@ public class EntityParachute extends Mob implements AetherRideable {
                     break;
             }
 
-            world.spawnParticle("block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
+            ParticleHelper.spawnParticle(world, "block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
         }
 
         world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.particle.ParticalHelper;
+import teamport.aether.helper.ParticleHelper;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinJump extends Entity {
@@ -64,7 +64,7 @@ public abstract class MobMixinJump extends Entity {
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;
-            ParticalHelper.spawnCloudParticles(world, x, y, z, bbHeight);
+            ParticleHelper.spawnCloudParticles(world, x, y, z, bbHeight);
             usedDoubleJump = true;
         }
         if (onGround) {

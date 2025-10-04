@@ -14,6 +14,7 @@ import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
@@ -179,8 +180,8 @@ public class DungeonMapEntry {
 
         if (treasureDoor != null) {
             for (WorldFeaturePoint coordinate : treasureDoor) {
-                world.spawnParticle("smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
-                world.spawnParticle("largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(world, "smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
+                ParticleHelper.spawnParticle(world, "largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
                 world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
             }
         }

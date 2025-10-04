@@ -8,7 +8,7 @@ import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
 
-import teamport.aether.particle.ParticalHelper;
+import teamport.aether.helper.ParticleHelper;
 
 import java.util.List;
 import java.util.Random;
@@ -51,9 +51,9 @@ public class PoisonEffect extends Effect {
         if (mob.tickCount % 4 == 0) {
             if (mob instanceof Player) {
                 Direction dir = Direction.getDirection(mob).getOpposite();
-                ParticalHelper.spawnPoisonParticles(mob.world, mob.x + dir.getOffsetX(), mob.y - 2, mob.z + dir.getOffsetZ(), mob.bbHeight, mob.bbWidth);
+                ParticleHelper.spawnPoisonParticles(mob.world, mob.x + dir.getOffsetX(), mob.y - 2, mob.z + dir.getOffsetZ(), mob.bbHeight, mob.bbWidth);
             } else {
-                ParticalHelper.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
+                ParticleHelper.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
             }
         }
         slideEntity(mob);

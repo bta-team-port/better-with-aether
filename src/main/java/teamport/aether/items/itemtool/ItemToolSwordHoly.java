@@ -24,9 +24,9 @@ public class ItemToolSwordHoly extends ItemToolSword {
             double motionX = (random.nextDouble() * 0.1) - 0.05;
             double motionY = (random.nextDouble() * 0.1) - 0.05;
             double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            target.world.spawnParticle("blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            target.world.spawnParticle("blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
+            target.ParticleHelper.spawnParticle(world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            target.ParticleHelper.spawnParticle(world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            target.ParticleHelper.spawnParticle(world, "blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
             target.hurt(attacker, 20, DamageType.COMBAT);
         }
 

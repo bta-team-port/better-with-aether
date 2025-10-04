@@ -34,7 +34,7 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
     @Override
     public void tick() {
         for (int j = 0; j < 1; j++) {
-            world.spawnParticle("flame", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+            ParticleHelper.spawnParticle(world, "flame", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
         }
 
         super.tick();
@@ -47,7 +47,7 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
-            world.spawnParticle(particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
+            ParticleHelper.spawnParticle(world, particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
         }
 
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "mob.ghast.fireball", 0.25F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);

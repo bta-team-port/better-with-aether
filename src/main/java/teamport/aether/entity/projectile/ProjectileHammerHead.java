@@ -59,10 +59,10 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     public void doEffect() {
         world.playSoundAtEntity(null, this, "random.explode", 0.5F, 0.5F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
         for (int j = 0; j < 8; ++j) {
-            this.world.spawnParticle("explode", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            this.world.spawnParticle("flame", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.ParticleHelper.spawnParticle(world, "explode", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.ParticleHelper.spawnParticle(world, "smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.ParticleHelper.spawnParticle(world, "largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            this.ParticleHelper.spawnParticle(world, "flame", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
         }
     }
 
