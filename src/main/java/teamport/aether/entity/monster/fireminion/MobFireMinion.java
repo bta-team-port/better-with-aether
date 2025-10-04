@@ -61,7 +61,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
                 double e = this.bb.minY + b - 0.5;
                 double f = this.z + c * b;
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    world.spawnParticle("flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+                    ParticleHelper.spawnParticle(world,"flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
                 }
             }
         }

@@ -25,7 +25,7 @@ public class ParticleHelper {
             );
         }
 
-        else world.spawnParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
+        else ParticleHelper.spawnParticle(world,particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance);
     }
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
@@ -39,7 +39,7 @@ public class ParticleHelper {
             double dx = random.nextGaussian() * 0.02;
             double dy = random.nextGaussian() * 0.02;
             double dz = random.nextGaussian() * 0.02;
-            world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                     "snowshovel",
                     x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                     y - bbHeight + (double) (random.nextFloat() * width),
@@ -53,7 +53,7 @@ public class ParticleHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        world.spawnParticle(
+        ParticleHelper.spawnParticle(world,
                 "smoke",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
@@ -67,7 +67,7 @@ public class ParticleHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        world.spawnParticle("flame",
+        ParticleHelper.spawnParticle(world,"flame",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
                 z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,

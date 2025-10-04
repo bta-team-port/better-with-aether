@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileKnifeLightning extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileKnifeLightning> {
@@ -74,7 +75,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
         }
 
         for (int j = 0; j < 16; j++) {
-            world.spawnParticle(
+            ParticleHelper.spawnParticle(world,
                 "lightning",
                 this.x, this.y, this.z,
                 world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
