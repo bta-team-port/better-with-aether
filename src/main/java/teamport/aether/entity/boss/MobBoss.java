@@ -18,6 +18,7 @@ import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
 
         if (trophy != null) {
-            world.dropItem((int) x, (int) y, (int) z, trophy);
+            if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
             world.playBlockEvent(null, 1003, (int) x, (int) y, (int) z, 0);
         }
 
