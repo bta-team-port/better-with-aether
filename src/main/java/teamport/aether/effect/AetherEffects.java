@@ -1,6 +1,7 @@
 package teamport.aether.effect;
 
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
@@ -12,6 +13,9 @@ import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
 import teamport.aether.effect.render.ExtraHealthEffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
+import teamport.aether.entity.AetherEntities;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
+import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.gui.IHudVisibility;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -82,6 +86,8 @@ public class AetherEffects {
     public static Effect remedyEffect;
     public static Effect extraHealthEffect;
 
+    public static Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
+
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
@@ -119,6 +125,9 @@ public class AetherEffects {
         effects.register(poisonEffect.id, poisonEffect);
         effects.register(remedyEffect.id, remedyEffect);
 
+        IMMUNE_TO_POISON.tag(poisonEffect);
+        EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
+        EffectTagDispatcher.setImmunityFor(MobCockatrice.class, IMMUNE_TO_POISON);
     }
 
     private static void assignEffectRenderers() {
