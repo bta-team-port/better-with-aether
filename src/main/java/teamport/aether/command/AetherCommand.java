@@ -17,9 +17,9 @@ import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFea
 public class AetherCommand {
 
     static {
-        registerWorldFeatureClass(WorldFeatureAetherBronzeDungeon.class);
-        registerWorldFeatureClass(WorldFeatureAetherSilverDungeon.class);
-        registerWorldFeatureClass(WorldFeatureAetherGoldDungeon.class);
+        registerWorldFeatureClass(WorldFeatureAetherBronzeDungeon.class, "maze");
+        registerWorldFeatureClass(WorldFeatureAetherSilverDungeon.class, "temple");
+        registerWorldFeatureClass(WorldFeatureAetherGoldDungeon.class, "sanctuary");
         registerWorldFeatureClass(WorldFeatureAetherClouds.class);
         registerWorldFeatureClass(WorldFeatureAetherLiquid.class);
         registerWorldFeatureClass(WorldFeatureAetherOre.class);
