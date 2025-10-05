@@ -100,6 +100,8 @@ public class DungeonMapEntry {
         doorReplacementMeta = data.getInteger("doorReplacementMeta");
         entranceLocked = data.getBoolean("entranceLocked");
 
+        position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
+
         clearArea = new Pair<>(
                 WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
                 WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
@@ -138,6 +140,8 @@ public class DungeonMapEntry {
         data.putInt("doorReplacementID", doorReplacementID);
         data.putInt("doorReplacementMeta", doorReplacementMeta);
         data.putBoolean("entranceLocked", entranceLocked);
+
+        data.putCompound("position", this.position.toCompoundTag());
 
         if (clearArea != null) {
             data.put("clearPos1", clearArea.first.toCompoundTag());
