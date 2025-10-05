@@ -1,9 +1,12 @@
 package teamport.aether.mixin.fix;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,7 +18,9 @@ import java.util.List;
 import static teamport.aether.AetherMod.LOGGER;
 
 @Mixin(value = World.class, remap = false, priority = 0)
-public class WorldGetCubesMixin {
+public abstract class WorldGetCubesMixin {
+
+    @Shadow @Nullable public abstract Block<?> getBlock(int x, int y, int z);
 
     public boolean isBrokenAABB(AABB aabb) {
         double diffX = Math.abs(aabb.maxX - aabb.minX);
@@ -35,9 +40,16 @@ public class WorldGetCubesMixin {
     public void preventStupidShit(Entity entity, AABB aabb, CallbackInfoReturnable<List<Entity>> cir) {
         if (isBrokenAABB(aabb)) {
             if (entity != null) {
-                LOGGER.error("{} is moving too fast! Please send this to a developer!", Entity.getNameFromEntity(entity, true));
+                LOGGER.error("{} is moving too fast. Entity at {} {} {} with speed {}! Please send this to a developer!",
+                        Entity.getNameFromEntity(entity, true),
+                        entity.x, entity.y, entity.z,
+                        Math.sqrt(entity.xd * entity.xd + entity.yd * entity.yd + entity.zd * entity.zd)
+                );
+                Block<?> block = this.getBlock((int)Math.round(entity.x), (int)Math.round(entity.y - 1), (int)Math.round(entity.z));
+                String name = block == null ? "air" : block.getLanguageKey(0);
+                LOGGER.error("Currently standing on: {} at ", name);
+                LOGGER.error("Please send this log to a BWA developer!");
                 Thread.dumpStack();
-
                 entity.absMoveTo(0, 255, 0, 0f, 0f);
                 entity.xo = 0;
                 entity.yo = 0;
