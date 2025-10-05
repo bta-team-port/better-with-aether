@@ -13,7 +13,6 @@ import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
-import teamport.aether.helper.Pair;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.generate.feature.BlockPallet;
@@ -32,7 +31,7 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public float MAX_WEIGHT = 40;
+    public float MAX_WEIGHT = 400;
     public static final int TUNNEL_WIDTH = 6;
     public static final int TUNNEL_COUNT = 4;
     public World world;
@@ -191,9 +190,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
             List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
             Collections.shuffle(listAnchor, random);
-            currentRoom.markDoor(door);
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (this.intercept(seenRooms, nextRoom, anchor)) {
+                    currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.INTERCEPT);
                     currentRoom = null;
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
@@ -209,11 +208,14 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     roomWeight += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
                     availableRooms.add(nextRoom);
-                    nextRoom.markDoor(nextRoom.getDoor(nextDoor));
+                    currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.PLACED);
+                    nextRoom.markDoor(nextRoom.getDoor(nextDoor), BaseBronzeRoom.ClosingType.PLACED);
                     currentRoom = nextRoom;
                     break;
                 }
             }
+            if(currentRoom == null) continue;
+            currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.NO_SPACE);
         }
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
@@ -246,7 +248,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             PriorityEntry<Door> entry = tunnels.peek();
             tunnels.remove(entry);
             Door door = entry.getData();
-            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
+            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
             drawVolume(0, 0, door.p1, door.p2, true).place(world);
         }
         return true;

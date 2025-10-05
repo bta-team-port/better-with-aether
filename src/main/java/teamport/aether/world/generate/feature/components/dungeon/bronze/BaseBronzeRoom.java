@@ -22,6 +22,7 @@ import java.util.*;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
+import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 
 public abstract class BaseBronzeRoom extends WorldFeature {
     public World world;
@@ -275,16 +276,16 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     public List<Door> getAvailableDoors() {
         List<Door> freeDoors = new ArrayList<>();
         for (Door door : doors) {
-            if (!door.mark) {
+            if (door.mark == OPEN || door.mark == NO_SPACE) {
                 freeDoors.add(door);
             }
         }
         return freeDoors;
     }
 
-    public void markDoor(@Nullable Door door) {
+    public void markDoor(@Nullable Door door, ClosingType closingType) {
         if(door == null) return;
-        door.mark = true;
+        door.mark = closingType;
     }
 
     public List<WorldFeaturePoint> getAchors(WorldFeaturePoint doorPoint, Direction heading) {
@@ -326,13 +327,16 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         public Direction heading;
         public WorldFeaturePoint p1;
         public WorldFeaturePoint p2;
-        public boolean mark;
+//        public boolean mark;
+        public ClosingType mark;
 
         Door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2) {
             this.heading = heading;
             this.p1 = p1;
             this.p2 = p2;
-            this.mark = false;
+//            this.mark = false;
+            this.mark = OPEN;
+
         }
 
         public static Door door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2){
