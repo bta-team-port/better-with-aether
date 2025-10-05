@@ -4,15 +4,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.core.net.NetworkManager;
 import net.minecraft.core.util.helper.Color;
+import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.awt.image.BufferedImage;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
@@ -48,15 +50,32 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         return !isPaused;
     }
 
+    public static final List<DungeonMapEntry> entryCache = new ArrayList<>();
+    private long lastUpdate = 0;
+
+    private Collection<DungeonMapEntry> getDungeonList() {
+        if (EnvironmentHelper.isClientWorld()) {
+            long time = System.currentTimeMillis();
+            if (time - lastUpdate >= 3000) {
+                lastUpdate = time;
+                NetworkHandler.sendToServer(new AetherDungeonMapUpdateNetworkMessage());
+            }
+
+            return entryCache;
+        }
+        return AetherDimension.dungeonMap.values();
+    }
+
     public double getAngle() {
         if (this.mc.currentWorld == null || this.mc.thePlayer == null) return 0.0;
 
-        if (this.mc.currentWorld.dimension.id != AetherDimension.AETHER.id || AetherDimension.dungeonMap.isEmpty()) {
+        Collection<DungeonMapEntry> dungeonList = getDungeonList();
+        if (this.mc.currentWorld.dimension.id != AetherDimension.AETHER.id || dungeonList.isEmpty()) {
             return Math.random() * Math.PI * 2.0;
         }
 
         PlayerLocal player = mc.thePlayer;
-        Optional<WorldFeaturePoint> closestCoord = AetherDimension.dungeonMap.values().stream()
+        Optional<WorldFeaturePoint> closestCoord = dungeonList.stream()
             .filter(Objects::nonNull)
             .map(DungeonMapEntry::getPosition)
             .filter(Objects::nonNull) // :^)

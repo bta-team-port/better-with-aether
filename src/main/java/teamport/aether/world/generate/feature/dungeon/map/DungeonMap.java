@@ -75,25 +75,30 @@ public class DungeonMap {
         return result;
     }
 
+    public static DungeonMapEntry readDungeonMapEntryFromNBT(CompoundTag tag, int id) {
+        String type = tag.getString("type");
+
+        DungeonMapEntry dungeonEntry;
+
+        try {  dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor(Integer.class).newInstance(id); }
+        catch (Exception e) {
+            AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
+            AetherMod.LOGGER.error("Defaulting to base dungeon entry...");
+            dungeonEntry = new DungeonMapEntry(id);
+        }
+
+        dungeonEntry.loadFromNBT(tag);
+        return dungeonEntry;
+    }
+
     public void loadFromNBT(CompoundTag data) {
         dungeonMap.clear();
 
         for (Tag<?> tag : data.getValues()) {
             if (tag instanceof CompoundTag) {
-                Integer id = Integer.parseInt(tag.getTagName());
-                String type = ((CompoundTag) tag).getString("type");
-
-                DungeonMapEntry dungeonEntry;
-
-                try {  dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor(Integer.class).newInstance(id); }
-                catch (Exception e) {
-                    AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
-                    AetherMod.LOGGER.error("Defaulting to base dungeon entry...");
-                    dungeonEntry = new DungeonMapEntry(id);
-                }
-
-                dungeonEntry.loadFromNBT((CompoundTag) tag);
-                dungeonMap.put(id, dungeonEntry);
+                int id = Integer.parseInt(tag.getTagName());
+                DungeonMapEntry dungeonEntry = readDungeonMapEntryFromNBT((CompoundTag) tag, id);
+                dungeonMap.put(dungeonEntry.id, dungeonEntry);
             }
         }
     }
