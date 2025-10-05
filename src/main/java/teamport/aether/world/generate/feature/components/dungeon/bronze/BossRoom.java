@@ -90,9 +90,10 @@ public class BossRoom extends BaseBronzeRoom {
     }
 
     @Override
-    public void markDoor(Door door) {
+    public void markDoor(Door door, ClosingType closingType) {
+        if(closingType != ClosingType.PLACED) return;
         this.bossDoor = door;
-        doors.forEach(d -> d.mark = true);
+        doors.forEach(d -> d.mark = ClosingType.ROOM_LOCKED);
         if (door == null){
             AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.",x,y,z);
             return;
