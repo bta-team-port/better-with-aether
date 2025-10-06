@@ -63,8 +63,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     public BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
         this.airTolerance = this.liquidTolerance = 0.45F;
-        this.topAirTolerance = this.topLiquidTolerance = 0.35F;
-        this.bottomAirTolerance = this.bottomLiquidTolerance = 0.35F;
+        this.topAirTolerance = this.topLiquidTolerance = 0.2F;
+        this.bottomAirTolerance = this.bottomLiquidTolerance = 0.2F;
         this.roomWeight = 1.0F;
         this.room = new WorldFeatureComponent();
         this.chest = new WorldFeatureComponent();
@@ -107,9 +107,9 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         return chest;
     }
 
-    public @Nullable List<Door> getAdjustedDoors(){
+    public List<Door> getAdjustedDoors(){
         if(doorCoordinatesAdjusted) return doors;
-        return null;
+        return new ArrayList<>();
     }
 
     public List<Door> getDoors(){
@@ -276,7 +276,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     public List<Door> getAvailableDoors() {
         List<Door> freeDoors = new ArrayList<>();
         for (Door door : doors) {
-            if (door.mark == OPEN || door.mark == NO_SPACE) {
+            if (door.mark == OPEN) {
                 freeDoors.add(door);
             }
         }

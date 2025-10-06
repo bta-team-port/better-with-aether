@@ -46,19 +46,7 @@ public class HallwayRoom extends BaseBronzeRoom {
 
 
     @Override
-    public void makeRoom() {
-//        List<Door> doorList = new ArrayList<>(doors);
-//        Collections.shuffle(doorList, random);
-//        int end = random.nextInt(2) + 2;
-//        for(int c = 0; c < end; c++){
-//            Door closingDoor = doorList.get(c);
-//            room.add(drawVolume(0, 0, closingDoor.p1, wfp(0,0,0).moveInDirection(closingDoor.heading.getOpposite()).multiply(6).add(closingDoor.p2), true));
-//            closingDoor.mark = ClosingType.OPEN;
-//        }
-//        for(int c = end; c < doorList.size(); c++){
-//            doorList.get(c).mark = ClosingType.ROOM_LOCKED;
-//        }
-    }
+    public void makeRoom() {}
 
 
     @Override

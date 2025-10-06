@@ -28,10 +28,11 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
+import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public float MAX_WEIGHT = 400;
+    public float MAX_WEIGHT = 40;
     public static final int TUNNEL_WIDTH = 6;
     public static final int TUNNEL_COUNT = 4;
     public World world;
@@ -192,7 +193,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             Collections.shuffle(listAnchor, random);
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (this.intercept(seenRooms, nextRoom, anchor)) {
-                    currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.INTERCEPT);
+                    currentRoom.markDoor(door, INTERCEPT);
                     currentRoom = null;
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
@@ -208,18 +209,26 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     roomWeight += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
                     availableRooms.add(nextRoom);
-                    currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.PLACED);
-                    nextRoom.markDoor(nextRoom.getDoor(nextDoor), BaseBronzeRoom.ClosingType.PLACED);
+                    currentRoom.markDoor(door, PLACED);
+                    nextRoom.markDoor(nextRoom.getDoor(nextDoor), PLACED);
                     currentRoom = nextRoom;
                     break;
                 }
             }
             if(currentRoom == null) continue;
-            currentRoom.markDoor(door, BaseBronzeRoom.ClosingType.NO_SPACE);
+            currentRoom.markDoor(door, NO_SPACE);
         }
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
-            for (Door door : room.getAvailableDoors()) {
+            List<Door> listDoor = room.getAdjustedDoors();
+            if(room instanceof BossRoom){
+                Door d = listDoor.get(random.nextInt(listDoor.size()));
+                listDoor = new ArrayList<>();
+                listDoor.add(d);
+                room.markDoor(d, PLACED);
+            }
+            for (Door door : listDoor) {
+                if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) continue;
                 WorldFeaturePoint p1 = door.p1.copy();
                 WorldFeaturePoint p2 = door.p2.copy();
                 while (!this.breaksSurface(p1, p2)
@@ -240,13 +249,15 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), door(door.heading, p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
             }
         }
-        if (tunnels.size() < 3) {
+        if (tunnels.isEmpty()) {
             AetherMod.LOGGER.warn("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
-        for (int i = 0; i < TUNNEL_COUNT; i++) {
+        int tunnel_amount = tunnels.size() > 4 ? TUNNEL_COUNT : tunnels.size();
+        for (int i = 0; i < tunnel_amount; i++) {
             PriorityEntry<Door> entry = tunnels.peek();
             tunnels.remove(entry);
+            if(entry == null) continue;
             Door door = entry.getData();
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
             drawVolume(0, 0, door.p1, door.p2, true).place(world);
