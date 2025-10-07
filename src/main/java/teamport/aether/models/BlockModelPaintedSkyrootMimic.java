@@ -23,9 +23,12 @@ public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> exten
     }
 
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-        int metadata = blockAccess.getBlockMetadata(x, y, z);
-        int color = metadata >> 4;
-        Side facing = BlockLogicChestMimic.getDirectionFromMeta(metadata).getSide();
+        int meta = blockAccess.getBlockMetadata(x, y, z);
+        int color = meta >> 4;
+        Side facing = BlockLogicChest.getDirectionFromMeta(meta).getSide();
+        if (side == Side.TOP || side == Side.BOTTOM) {
+            return topTextures[color];
+        }
         if (side == facing) {
             return frontTextures[color];
         }

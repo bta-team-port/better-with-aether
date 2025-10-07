@@ -1,6 +1,7 @@
 package teamport.aether.blocks.dungeon;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.IPaintable;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
@@ -21,8 +22,10 @@ public class BlockLogicPaintableChestMimic extends BlockLogicChestMimic implemen
 
     @Override
     public void setColor(World world, int x, int y, int z, DyeColor dyeColor) {
-        int meta = world.getBlockMetadata(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z); // frank
+        world.setBlockAndMetadataRaw(x, y, z, paintedBlock.id(), meta);
         world.setBlockAndMetadata(x, y, z, paintedBlock.id(), meta);
-        paintedBlock.getLogic().setColor(world, x, y, z, dyeColor);
+        paintedBlock.getLogic().setColor(world, x, y, z, dyeColor); // no frank
+
     }
 }
