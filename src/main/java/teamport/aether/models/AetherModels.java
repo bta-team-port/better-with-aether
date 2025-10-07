@@ -87,9 +87,15 @@ public class AetherModels implements ModelEntrypoint {
     @Override
     public void initBlockModels(BlockModelDispatcher dispatcher) {
 
+        this.setBlockDungeonModels(dispatcher);
+        this.setBlockMachineModels(dispatcher);
+        this.setBlockSkyrootModels(dispatcher);
+        this.setBlockPlantModels(dispatcher);
+        this.setBlockCloudModels(dispatcher);
+
+
         dispatcher.addDispatch(new BlockModelPortal<>(AetherBlocks.PORTAL_AETHER, "aether:block/portal_aether/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/portal_aether"));
-
 
         dispatcher.addDispatch(new BlockModelGrassAether<>(AetherBlocks.GRASS_AETHER)
                 .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/top", Side.TOP)
@@ -110,7 +116,6 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/top_retro", Side.TOP)
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/bottom_retro", Side.BOTTOM)
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/side_retro", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH));
-
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone"));
@@ -167,6 +172,286 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top_retro", Side.TOP, Side.BOTTOM)
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side_retro", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/ambrosium/holystone")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/ambrosium/holystone_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_ZANITE_HOLYSTONE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/zanite/holystone")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/zanite/holystone_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/gravitite/holystone")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/gravitite/holystone_retro"));
+
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.BLOCK_AMBER, true).onRenderLayer(1)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/block_amber"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/block_ambrosium"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_ZANITE)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/bottom", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/side_retro", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/bottom_retro", Side.BOTTOM));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_GRAVITITE)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/bottom", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/side_retro", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/bottom_retro", Side.BOTTOM));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BRICK_ZANITE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/brick_zanite"));
+
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_COBBLE_HOLYSTONE));
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_HOLYSTONE));
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_ZANITE));
+
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_COBBLE_HOLYSTONE));
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_HOLYSTONE));
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_HOLYSTONE_POLISHED));
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_ZANITE));
+
+
+        dispatcher.addDispatch(AetherBlocks.TORCH_AMBROSIUM, new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/torch_ambrosium"));
+
+
+        dispatcher.addDispatch(AetherBlocks.LANTERN_FIREFLY_SILVER, new BlockModelLantern<>(AetherBlocks.LANTERN_FIREFLY_SILVER)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/lantern_firefly_silver"));
+
+
+
+//        dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
+//                .setAllTextures(0, "aether:block/chest/skyroot/top"));
+
+
+
+//        BlockModelChestMimic<?> blockModelChestMimic = new BlockModelChestMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
+//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/front", Side.NORTH)
+//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+//
+//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/front", Side.NORTH)
+//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM)
+//
+//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
+//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM)
+//
+//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/front", Side.NORTH)
+//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM)
+//
+//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/front", Side.NORTH)
+//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM);
+//
+//        for (DyeColor dye : DyeColor.values()) {
+//            String path = String.format("minecraft:block/chest/planks_%s", dye.colorID);
+//            blockModelChestMimic
+//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/front", Side.NORTH)
+//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/side", Side.EAST, Side.WEST, Side.SOUTH)
+//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/top", Side.TOP, Side.BOTTOM);
+//        }
+//
+//        dispatcher.addDispatch(blockModelChestMimic);
+
+
+    }
+
+    @Override
+    public void initItemModels(ItemModelDispatcher dispatcher) {
+        this.setItemToolModels(dispatcher);
+        this.setItemArmorModels(dispatcher);
+        this.setItemBlockModels(dispatcher);
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.MEDAL_VICTORY, null).setIcon("aether:item/medal_victory"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_BRONZE, null).setIcon("aether:item/key_bronze"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_SILVER, null).setIcon("aether:item/key_silver"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_GOLD, null).setIcon("aether:item/key_gold"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_BLUE, null).setIcon("aether:item/egg_moa_blue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_WHITE, null).setIcon("aether:item/egg_moa_white"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_BLACK, null).setIcon("aether:item/egg_moa_black"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_AETHER, null).setIcon("aether:item/record_aether"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_MORNING, null).setIcon("aether:item/record_morning"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_DAWN, null).setIcon("aether:item/record_dawn"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_NETHER, null).setIcon("aether:item/record_nether"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMBER, null).setIcon("aether:item/amber"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PETAL_AECHOR, null).setIcon("aether:item/petal_aechor"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.STICK_SKYROOT, null).setIcon("aether:item/stick_skyroot"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMBROSIUM, null).setIcon("aether:item/ambrosium"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ZANITE, null).setIcon("aether:item/zanite"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT, null).setIcon("aether:item/bucket_skyroot"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_WATER, null).setIcon("aether:item/bucket_skyroot_water"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_MILK, null).setIcon("aether:item/bucket_skyroot_milk"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_POISON, null).setIcon("aether:item/bucket_skyroot_poison"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_REMEDY, null).setIcon("aether:item/bucket_skyroot_remedy"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_ICECREAM, null).setIcon("aether:item/bucket_skyroot_icecream"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_HEALING_STONE, null).setIcon("aether:item/food_healing_stone"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_blue"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_gold"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.LIFESHARD, null).setIcon("aether:item/food_lifeshard"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PARACHUTE_CLOUD, null).setIcon("aether:item/parachute"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PARACHUTE_CLOUD_GOLD, null).setIcon("aether:item/parachute_gold"));
+
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver").setFullBright());
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_ICE, null).setIcon("aether:item/projectile_ice"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_LIGHTNING, null).setIcon("aether:item/projectile_lightning"));
+
+        dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
+        dispatcher.addDispatch((new ItemModelStandard(AetherItems.DEATH_RAY, null)).setIcon("minecraft:item/wand_monster").setFullBright());
+
+    }
+
+    @Override
+    public void initEntityModels(EntityRenderDispatcher dispatcher) {
+        this.setProjectileModels();
+        this.setMobEnemyModels();
+        this.setMobBossModels();
+        this.setMobAnimalModels();
+
+        ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
+        ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
+        ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
+        ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
+    }
+
+    @Override
+    public void initBlockColors(BlockColorDispatcher dispatcher) {
+    }
+
+    private void setBlockSkyrootModels(BlockModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootPlanks<>(AetherBlocks.PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
+        dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, false)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP, true)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
+
+        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+        );
+        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+        );
+
+        dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
+                .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT, "aether:block/chest/skyroot/")
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
+                .setAllTextures(0, "aether:block/chest/skyroot/top"));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootButton<>(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED)
+                .withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootPreasurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
+                .withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
+
+        dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED));
+    }
+    private void setBlockMachineModels(BlockModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_IDLE)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/idle_front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/idle_front_retro", Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/side_retro", Side.EAST, Side.WEST, Side.SOUTH));
+        dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_ACTIVE)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/active_front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/active_front_retro", Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/side_retro", Side.EAST, Side.WEST, Side.SOUTH));
+
+        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_IDLE)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/idle_top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/idle_top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_ACTIVE)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/active_top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/active_top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+
+        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_IDLE)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/idle_top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/idle_top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_ACTIVE)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/active_top", Side.TOP)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/bottom", Side.BOTTOM)
+                .setTex(BLOCK_TEXTURES, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/active_top_retro", Side.TOP)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/bottom_retro", Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
+
 
         dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
                 .setParticleTexture(false, "aether:block/ctm/boss_door/bronze/particle")
@@ -212,184 +497,8 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/front_retro", Side.NORTH)
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/front_overbright_retro", Side.NORTH)
         );
-
-
-        dispatcher.addDispatch(new BlockModelFlowerStackableAether<>(AetherBlocks.FLOWER_PURPLE, "aether:block/flower_purple/"));
-        dispatcher.addDispatch(new BlockModelFlowerStackableAether<>(AetherBlocks.FLOWER_WHITE, "aether:block/flower_white/"));
-
-        dispatcher.addDispatch(new BlockModelAetherTallgrass<>(AetherBlocks.TALLGRASS_AETHER).setAllTextures(BLOCK_TEXTURES, "aether:block/tallgrass_aether"));
-
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
-
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootPlanks(AetherBlocks.PLANKS_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
-        dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
-
-
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, false)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP, true)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
-
-        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-        );
-
-        dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-        );
-
-        dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
-                .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
-
-
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT, "aether:block/chest/skyroot/")
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
-
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
-                .setAllTextures(0, "aether:block/chest/skyroot/top"));
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootButton<>(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED)
-                .withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootPreasurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
-                .withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
-
-        dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED));
-
-
-        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
-                .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_top", Side.TOP, Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_side_retro", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_top_retro", Side.TOP, Side.BOTTOM));
-        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_OAK_GOLDEN)
-                .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_top", Side.TOP, Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_side_retro", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_top_retro", Side.TOP, Side.BOTTOM));
-
-        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot"));
-        dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", true));
-
-        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_SKYROOT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/skyroot")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/sapling/skyroot_retro"));
-        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_OAK_GOLDEN)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/oak_golden")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/sapling/oak_golden_retro"));
-
-
-        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_WHITE, false).onRenderLayer(1)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_white"));
-        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_BLUE, false).onRenderLayer(1)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_blue"));
-        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_GOLD, false).onRenderLayer(1)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_gold"));
-
-        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AEROGEL, false).onRenderLayer(1)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/aerogel"));
-
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/ambrosium/holystone")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/ambrosium/holystone_retro"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_ZANITE_HOLYSTONE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/zanite/holystone")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/zanite/holystone_retro"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_GRAVITITE_HOLYSTONE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/ore/gravitite/holystone")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/ore/gravitite/holystone_retro"));
-
-        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.BLOCK_AMBER, true).onRenderLayer(1)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/block_amber"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/block_ambrosium"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_ZANITE)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/bottom", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/side_retro", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/bottom_retro", Side.BOTTOM));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_GRAVITITE)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/bottom", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/side_retro", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/bottom_retro", Side.BOTTOM));
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BRICK_ZANITE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/brick_zanite"));
-
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_LIGHT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved_glow")
-                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/carved_overlay")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_glow_retro")
-                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/carved_overlay_retro"));
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_LIGHT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic_glow")
-                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/angelic_overlay")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_glow_retro")
-                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/angelic_overlay_retro"));
-
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_retro"));
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE_LIGHT)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire_glow")
-                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/hellfire_overlay")
-                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_glow_retro")
-                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/hellfire_overlay_retro"));
-
-
-        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR)
-                .setTex(BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/pillar/top", Side.TOP, Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/top_retro", Side.TOP, Side.BOTTOM));
-        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR_CAPSTONE)
-                .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
-                .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/top", Side.TOP, Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/top_retro", Side.TOP, Side.BOTTOM));
-
+    }
+    private void setBlockDungeonModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
@@ -455,198 +564,101 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
 
-        BlockModelChestMimic<?> blockModelChestMimic = new BlockModelChestMimic<>(AetherBlocks.CHEST_MIMIC)
-                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_LIGHT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved_glow")
+                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/carved_overlay")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_glow_retro")
+                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/carved_overlay_retro"));
 
-                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_LIGHT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic_glow")
+                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/angelic_overlay")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_glow_retro")
+                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/angelic_overlay_retro"));
 
-                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE_LIGHT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire_glow")
+                .setAllTextures(OVERBRIGHT_TEXTURES, "aether:block/dungeon/hellfire_overlay")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_glow_retro")
+                .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/hellfire_overlay_retro"));
 
-                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM)
+        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR)
+                .setTex(BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/pillar/top", Side.TOP, Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/top_retro", Side.TOP, Side.BOTTOM));
+        dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR_CAPSTONE)
+                .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/top", Side.TOP, Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/top_retro", Side.TOP, Side.BOTTOM));
 
-                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM);
-
-        for (DyeColor dye : DyeColor.values()) {
-            String path = String.format("minecraft:block/chest/planks_%s", dye.colorID);
-            blockModelChestMimic
-                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/front", Side.NORTH)
-                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/side", Side.EAST, Side.WEST, Side.SOUTH)
-                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/top", Side.TOP, Side.BOTTOM);
-        }
-
-        dispatcher.addDispatch(blockModelChestMimic);
-
-        dispatcher.addDispatch(AetherBlocks.TORCH_AMBROSIUM, new BlockModelTorch<>(AetherBlocks.TORCH_AMBROSIUM)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/torch_ambrosium"));
-
-
-        dispatcher.addDispatch(AetherBlocks.LANTERN_FIREFLY_SILVER, new BlockModelLantern<>(AetherBlocks.LANTERN_FIREFLY_SILVER)
-                .setAllTextures(BLOCK_TEXTURES, "aether:block/lantern_firefly_silver"));
-
-        dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_IDLE)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/idle_front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/idle_front_retro", Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/side_retro", Side.EAST, Side.WEST, Side.SOUTH));
-        dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_ACTIVE)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/active_front", Side.NORTH)
-                .setTex(BLOCK_TEXTURES, "aether:block/enchanter/side", Side.EAST, Side.WEST, Side.SOUTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/active_front_retro", Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/enchanter/side_retro", Side.EAST, Side.WEST, Side.SOUTH));
-
-        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_IDLE)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/idle_top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/idle_top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelFreezer<>(AetherBlocks.FREEZER_ACTIVE)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/active_top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/freezer/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/active_top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/freezer/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-
-        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_IDLE)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/idle_top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/idle_top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-        dispatcher.addDispatch(new BlockModelIncubator<>(AetherBlocks.INCUBATOR_ACTIVE)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/active_top", Side.TOP)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/bottom", Side.BOTTOM)
-                .setTex(BLOCK_TEXTURES, "aether:block/incubator/side", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/active_top_retro", Side.TOP)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/bottom_retro", Side.BOTTOM)
-                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/incubator/side_retro", Side.EAST, Side.WEST, Side.SOUTH, Side.NORTH));
-
-
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_COBBLE_HOLYSTONE));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_HOLYSTONE));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_STONE));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_ANGELIC));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_HELLFIRE));
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_BRICK_ZANITE));
-
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_COBBLE_HOLYSTONE));
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_HOLYSTONE));
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_HOLYSTONE_POLISHED));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_STONE));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_ANGELIC));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_HELLFIRE));
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_BRICK_ZANITE));
 
-        dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT));
-        dispatcher.addDispatch(new BlockModelPaintedSkyrootStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED));
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_STONE));
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_ANGELIC));
+        dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_HELLFIRE));
 
     }
+    private void setBlockPlantModels(BlockModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
+                .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_top", Side.TOP, Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_side_retro", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_top_retro", Side.TOP, Side.BOTTOM));
+        dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_OAK_GOLDEN)
+                .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_side", Side.sides)
+                .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_top", Side.TOP, Side.BOTTOM)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_side_retro", Side.sides)
+                .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_top_retro", Side.TOP, Side.BOTTOM));
 
-    @Override
-    public void initItemModels(ItemModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot"));
+        dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", true));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.MEDAL_VICTORY, null).setIcon("aether:item/medal_victory"));
+        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_SKYROOT)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/skyroot")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/sapling/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_OAK_GOLDEN)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/oak_golden")
+                .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/sapling/oak_golden_retro"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_BRONZE, null).setIcon("aether:item/key_bronze"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_SILVER, null).setIcon("aether:item/key_silver"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.KEY_GOLD, null).setIcon("aether:item/key_gold"));
+        dispatcher.addDispatch(new BlockModelFlowerStackableAether<>(AetherBlocks.FLOWER_PURPLE, "aether:block/flower_purple/"));
+        dispatcher.addDispatch(new BlockModelFlowerStackableAether<>(AetherBlocks.FLOWER_WHITE, "aether:block/flower_white/"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_BLUE, null).setIcon("aether:item/egg_moa_blue"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_WHITE, null).setIcon("aether:item/egg_moa_white"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.EGG_MOA_BLACK, null).setIcon("aether:item/egg_moa_black"));
+        dispatcher.addDispatch(new BlockModelAetherTallgrass<>(AetherBlocks.TALLGRASS_AETHER).setAllTextures(BLOCK_TEXTURES, "aether:block/tallgrass_aether"));
+    }
+    private void setBlockCloudModels(BlockModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_WHITE, false).onRenderLayer(1)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_white"));
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_BLUE, false).onRenderLayer(1)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_blue"));
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_GOLD, false).onRenderLayer(1)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_gold"));
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_AETHER, null).setIcon("aether:item/record_aether"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_MORNING, null).setIcon("aether:item/record_morning"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_DAWN, null).setIcon("aether:item/record_dawn"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.RECORD_NETHER, null).setIcon("aether:item/record_nether"));
+        dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AEROGEL, false).onRenderLayer(1)
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/aerogel"));
+    }
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMBER, null).setIcon("aether:item/amber"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PETAL_AECHOR, null).setIcon("aether:item/petal_aechor"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.STICK_SKYROOT, null).setIcon("aether:item/stick_skyroot"));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMBROSIUM, null).setIcon("aether:item/ambrosium"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.ZANITE, null).setIcon("aether:item/zanite"));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT, null).setIcon("aether:item/bucket_skyroot"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_WATER, null).setIcon("aether:item/bucket_skyroot_water"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_MILK, null).setIcon("aether:item/bucket_skyroot_milk"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_POISON, null).setIcon("aether:item/bucket_skyroot_poison"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_REMEDY, null).setIcon("aether:item/bucket_skyroot_remedy"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BUCKET_SKYROOT_ICECREAM, null).setIcon("aether:item/bucket_skyroot_icecream"));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_SKYROOT, null).setIcon("aether:item/tool_sword_skyroot").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_SKYROOT, null).setIcon("aether:item/tool_shovel_skyroot").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_SKYROOT, null).setIcon("aether:item/tool_pickaxe_skyroot").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_SKYROOT, null).setIcon("aether:item/tool_axe_skyroot").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_HOLYSTONE, null).setIcon("aether:item/tool_sword_holystone").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_HOLYSTONE, null).setIcon("aether:item/tool_shovel_holystone").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_HOLYSTONE, null).setIcon("aether:item/tool_pickaxe_holystone").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_HOLYSTONE, null).setIcon("aether:item/tool_axe_holystone").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_ZANITE, null).setIcon("aether:item/tool_sword_zanite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_ZANITE, null).setIcon("aether:item/tool_shovel_zanite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_ZANITE, null).setIcon("aether:item/tool_pickaxe_zanite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_ZANITE, null).setIcon("aether:item/tool_axe_zanite").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_GRAVITITE, null).setIcon("aether:item/tool_sword_gravitite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_GRAVITITE, null).setIcon("aether:item/tool_shovel_gravitite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_GRAVITITE, null).setIcon("aether:item/tool_pickaxe_gravitite").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_GRAVITITE, null).setIcon("aether:item/tool_axe_gravitite").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_VALKYRIE, null).setIcon("aether:item/tool_sword_valk").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_VALKYRIE, null).setIcon("aether:item/tool_shovel_valk").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_VALKYRIE, null).setIcon("aether:item/tool_pickaxe_valk").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_VALKYRIE, null).setIcon("aether:item/tool_axe_valk").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_KNIFE_LIGHTNING, null).setIcon("aether:item/tool_knife_lightning").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_HAMMER_NOTCH, null).setIcon("aether:item/tool_hammer_notch").setFull3D());
+    private void setItemArmorModels(ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_HAMMER_HEAD, null).setIcon("aether:item/notch_wave"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_SHIELD_REPULSION, null).setIcon("aether:item/tool_shield_repulsion"));
-        dispatcher.addDispatch(new ItemModelBow(AetherItems.TOOL_BOW_PHOENIX, null).setIcon("aether:item/tool_bow_phoenix").setFullBright());
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_GOLDEN, null).setIcon("aether:item/dart_golden"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_POISON, null).setIcon("aether:item/dart_poison"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_DART_ENCHANTED, null).setIcon("aether:item/dart_enchanted"));
 
-        dispatcher.addDispatch(new ItemModelShooter(AetherItems.TOOL_SHOOTER, null).setIcon("aether:item/shooter_gold"));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_PIG, null).setIcon("aether:item/tool_knife_pig").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_VAMPIRE, null).setIcon("aether:item/tool_sword_vampire").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_FLAME, null).setIcon("aether:item/tool_sword_element_fire").setFull3D().setFullBright());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_HOLY, null).setIcon("aether:item/tool_sword_element_holy").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_LIGHTNING, null).setIcon("aether:item/tool_sword_element_lightning").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_STAFF_NATURE, null).setIcon("aether:item/staff_nature").setFull3D());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_STAFF_CLOUD, null).setIcon("aether:item/staff_cloud").setFull3D());
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS, null).setIcon("aether:item/tool_dungeon_compass"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_HELMET_ZANITE, null).setIcon("aether:item/armor_helmet_zanite"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CHESTPLATE_ZANITE, null).setIcon("aether:item/armor_chestplate_zanite"));
@@ -723,58 +735,77 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PURPLE, null).setIcon("aether:item/armor_cape_purple"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_MAGENTA, null).setIcon("aether:item/armor_cape_magenta"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PINK, null).setIcon("aether:item/armor_cape_pink"));
+    }
+    private void setItemToolModels(ItemModelDispatcher dispatcher) {
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_SKYROOT, null).setIcon("aether:item/tool_sword_skyroot").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_SKYROOT, null).setIcon("aether:item/tool_shovel_skyroot").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_SKYROOT, null).setIcon("aether:item/tool_pickaxe_skyroot").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_SKYROOT, null).setIcon("aether:item/tool_axe_skyroot").setFull3D());
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_HOLYSTONE, null).setIcon("aether:item/tool_sword_holystone").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_HOLYSTONE, null).setIcon("aether:item/tool_shovel_holystone").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_HOLYSTONE, null).setIcon("aether:item/tool_pickaxe_holystone").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_HOLYSTONE, null).setIcon("aether:item/tool_axe_holystone").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_HEALING_STONE, null).setIcon("aether:item/food_healing_stone"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_ZANITE, null).setIcon("aether:item/tool_sword_zanite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_ZANITE, null).setIcon("aether:item/tool_shovel_zanite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_ZANITE, null).setIcon("aether:item/tool_pickaxe_zanite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_ZANITE, null).setIcon("aether:item/tool_axe_zanite").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_blue"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_gold"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_GRAVITITE, null).setIcon("aether:item/tool_sword_gravitite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_GRAVITITE, null).setIcon("aether:item/tool_shovel_gravitite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_GRAVITITE, null).setIcon("aether:item/tool_pickaxe_gravitite").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_GRAVITITE, null).setIcon("aether:item/tool_axe_gravitite").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.LIFESHARD, null).setIcon("aether:item/food_lifeshard"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_VALKYRIE, null).setIcon("aether:item/tool_sword_valk").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_VALKYRIE, null).setIcon("aether:item/tool_shovel_valk").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_PICKAXE_VALKYRIE, null).setIcon("aether:item/tool_pickaxe_valk").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_AXE_VALKYRIE, null).setIcon("aether:item/tool_axe_valk").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PARACHUTE_CLOUD, null).setIcon("aether:item/parachute"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PARACHUTE_CLOUD_GOLD, null).setIcon("aether:item/parachute_gold"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_KNIFE_LIGHTNING, null).setIcon("aether:item/tool_knife_lightning").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_HAMMER_NOTCH, null).setIcon("aether:item/tool_hammer_notch").setFull3D());
+        dispatcher.addDispatch(new ItemModelBow(AetherItems.TOOL_BOW_PHOENIX, null).setIcon("aether:item/tool_bow_phoenix").setFullBright());
+        dispatcher.addDispatch(new ItemModelShooter(AetherItems.TOOL_SHOOTER, null).setIcon("aether:item/shooter_gold"));
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_FLAME, null).setIcon("aether:item/tool_sword_element_fire").setFull3D().setFullBright());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_HOLY, null).setIcon("aether:item/tool_sword_element_holy").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_LIGHTNING, null).setIcon("aether:item/tool_sword_element_lightning").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_PIG, null).setIcon("aether:item/tool_knife_pig").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_VAMPIRE, null).setIcon("aether:item/tool_sword_vampire").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.LANTERN_FIREFLY_SILVER, null).setIcon("aether:item/lantern_firefly_silver").setFullBright());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_STAFF_NATURE, null).setIcon("aether:item/staff_nature").setFull3D());
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_STAFF_CLOUD, null).setIcon("aether:item/staff_cloud").setFull3D());
 
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
-        dispatcher.addDispatch(new ItemModelPaintedSkyrootDoor(AetherItems.DOOR_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
-
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS, null).setIcon("aether:item/tool_dungeon_compass"));
+    }
+    private void setItemBlockModels(ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_BRONZE, null).setIcon("aether:item/door_dungeon_bronze"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_SILVER, null).setIcon("aether:item/door_dungeon_silver"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_GOLD, null).setIcon("aether:item/door_dungeon_gold"));
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_GLASS_AMBROSIUM, null).setIcon("aether:item/door_glass_ambrosium"));
+
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_SKYROOT, null).setIcon("aether:item/door_skyroot"));
+        dispatcher.addDispatch(new ItemModelPaintedSkyrootDoor(AetherItems.DOOR_SKYROOT_PAINTED));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.SIGN_SKYROOT, null).setIcon("aether:item/sign_skyroot"));
         dispatcher.addDispatch(new ItemModelPaintedSkyrootSign(AetherItems.SIGN_SKYROOT_PAINTED));
-
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.AMMO_WINDBALL, null).setIcon("aether:item/windball"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_FIRE, null).setIcon("aether:item/projectile_fire").setFullBright());
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_ICE, null).setIcon("aether:item/projectile_ice"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_LIGHTNING, null).setIcon("aether:item/projectile_lightning"));
-
-
-        dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
-        dispatcher.addDispatch((new ItemModelStandard(AetherItems.DEATH_RAY, null)).setIcon("minecraft:item/wand_monster").setFullBright());
-
     }
 
-    @Override
-    public void initEntityModels(EntityRenderDispatcher dispatcher) {
-
-        ModelHelper.setEntityModel(ProjectileHammerHead.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD).setScale(2.0f));
-        ModelHelper.setEntityModel(ProjectileWindball.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
-        ModelHelper.setEntityModel(ProjectileElementFire.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(3.0F).setFullBright());
-        ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
-        ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
-        ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
-        ModelHelper.setEntityModel(ProjectileNeedle.class, EntityRendererNeedle::new);
-        ModelHelper.setEntityModel(ProjectileArrowFlaming.class, EntityRendererArrowFlaming::new);
-        ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
-
-
+    private void setMobAnimalModels() {
+        ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
+        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), 0.7F));
+        ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
+        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), 0.7F));
+        ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
+        ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
+    }
+    private void setMobBossModels() {
+        ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
+        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
+        ModelHelper.setEntityModel(MobFireMinion.class, MobRendererFireMinion::new);
+    }
+    private void setMobEnemyModels() {
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
         ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
@@ -784,26 +815,18 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererBiped<>(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
+    }
 
-        ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
-        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped<>(new ModelValkyrie(), 0.5F));
-        ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
-        ModelHelper.setEntityModel(MobFireMinion.class, MobRendererFireMinion::new);
-
-
-        ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
-        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), 0.7F));
-        ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
-        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(new ModelPhyg(), 0.7F));
-        ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
-        ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
-
-
-        ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
-        ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
-        ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
-
-
+    private void setProjectileModels() {
+        ModelHelper.setEntityModel(ProjectileHammerHead.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_HAMMER_HEAD).setScale(2.0f));
+        ModelHelper.setEntityModel(ProjectileWindball.class, () -> new EntityRendererSprite<>(AetherItems.AMMO_WINDBALL).setScale(4.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementFire.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_FIRE).setScale(3.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementIce.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_ICE).setScale(3.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileElementLightning.class, () -> new EntityRendererSprite<>(AetherItems.PROJECTILE_LIGHTNING).setScale(3.0F).setFullBright());
+        ModelHelper.setEntityModel(ProjectileDart.class, EntityRendererDart::new);
+        ModelHelper.setEntityModel(ProjectileNeedle.class, EntityRendererNeedle::new);
+        ModelHelper.setEntityModel(ProjectileArrowFlaming.class, EntityRendererArrowFlaming::new);
+        ModelHelper.setEntityModel(ProjectileKnifeLightning.class, EntityRendererKnifeLightning::new);
     }
 
     @Override
@@ -819,9 +842,5 @@ public class AetherModels implements ModelEntrypoint {
                     return renderer;
                 }
         );
-    }
-
-    @Override
-    public void initBlockColors(BlockColorDispatcher dispatcher) {
     }
 }
