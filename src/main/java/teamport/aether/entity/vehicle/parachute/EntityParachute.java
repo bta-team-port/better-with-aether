@@ -43,9 +43,7 @@ public class EntityParachute extends Mob implements AetherRideable {
         double y = this.bb.minY - 0.5 + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
         double z = this.z + ((EntityAccessor) this).getRandom().nextDouble() * 0.75 * 2.0 - 0.75;
 
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            ParticleHelper.spawnParticle(world, pathParticle, x, y, z, 0.0, 0.0, 0.0, 0);
-        }
+        ParticleHelper.spawnParticle(world, pathParticle, x, y, z, 0.0, 0.0, 0.0, 0);
 
         if (this.passenger == null) {
             breakParachute();
