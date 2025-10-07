@@ -100,7 +100,7 @@ public class WorldFeatureComponent {
             component.add(wfb(x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0, true));
             return component;
         }
-        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC.id(), 0, true));
+        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, true));
         return component;
     }
 

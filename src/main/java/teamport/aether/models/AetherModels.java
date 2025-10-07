@@ -14,6 +14,7 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
@@ -223,9 +224,6 @@ public class AetherModels implements ModelEntrypoint {
 
 
 
-//        dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
-//                .setAllTextures(0, "aether:block/chest/skyroot/top"));
-
 
 
 //        BlockModelChestMimic<?> blockModelChestMimic = new BlockModelChestMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
@@ -372,7 +370,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT, "aether:block/chest/skyroot/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootChest<>(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED)
-                .setAllTextures(0, "aether:block/chest/skyroot/top"));
+                .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
@@ -528,6 +526,39 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/front_locked", Side.NORTH)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC_SKYROOT)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
+        );
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC_OAK)
+                .setTex(BLOCK_TEXTURES, "minecraft:block/chest/planks/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM)
+        );
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootMimic<>(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
+        dispatcher.addDispatch(new BlockModelPaintedOakMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED));
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC_BRONZE)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
+
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC_SILVER)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
+
+
+        dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_MIMIC_GOLD)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/front", Side.NORTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
+                .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
+
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_LOCKED)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")

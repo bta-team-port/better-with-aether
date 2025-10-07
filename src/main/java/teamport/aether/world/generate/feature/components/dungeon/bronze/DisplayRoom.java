@@ -22,7 +22,7 @@ public class DisplayRoom extends BaseBronzeRoom {
     static {
         CHESTORMIMIC.addEntry(0, 1.5);
         CHESTORMIMIC.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        CHESTORMIMIC.addEntry(AetherBlocks.CHEST_MIMIC.id(), 2);
+        CHESTORMIMIC.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 2);
 
         DISPLAY.addEntry(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.id(), 10);
         DISPLAY.addEntry(AetherBlocks.ORE_ZANITE_HOLYSTONE.id(), 5);

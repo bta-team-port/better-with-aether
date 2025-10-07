@@ -73,7 +73,7 @@ public class AetherAchievements {
             .registerAchievement();
 
     public static final Achievement ITS_A_TRAP = new Achievement
-            (key("its_a_trap"), lang("its_a_trap"), AetherBlocks.CHEST_MIMIC, WEVE_GOT_HOSTILES)
+            (key("its_a_trap"), lang("its_a_trap"), AetherBlocks.CHEST_MIMIC_SKYROOT, WEVE_GOT_HOSTILES)
             .setType(Achievement.TYPE_NORMAL)
             .registerAchievement();
     public static final Achievement SILVER = new Achievement

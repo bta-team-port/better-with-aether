@@ -1,6 +1,5 @@
 package teamport.aether.mixin.gui;
 
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
@@ -11,11 +10,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.monster.mimic.MimicVariant;
+import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeItems;
@@ -29,49 +27,47 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
         List<ItemStack> newCreativeItems = new ArrayList<>();
 
         for (ItemStack item : creativeItems) {
-            if (item.itemID == AetherBlocks.CHEST_MIMIC.id() && item.getMetadata() == 0) {
-                for (MimicVariant variant : MimicVariant.values()) {
-                    newCreativeItems.add(new ItemStack(AetherBlocks.CHEST_MIMIC, 1, variant.getId() << 3));
-                }
-            }
-            else if (
+//            if (item.getMetadata() == 0 && (
+//                    item.itemID == AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id()
+//                    || item.itemID == AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id()
+//                )
+//            ) {
+//                for (DyeColor dyeColor : DyeColor.values()) {
+//                    newCreativeItems.add(new ItemStack(AetherBlocks.CHEST_MIMIC_OAK_PAINTED, 1, dyeColor.blockMeta << 4));
+//                    newCreativeItems.add(new ItemStack(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+//                }
+            if (
                     item.getMetadata() == 0
-                    && (
+                            && (
                             item.itemID == AetherBlocks.PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id()
+                                    || item.itemID == AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id()
                     )
             ) {
                 for (DyeColor dyeColor : DyeColor.blockOrderedColors()) {
                     newCreativeItems.add(new ItemStack(item.itemID, 1, dyeColor.blockMeta));
                 }
-            }
-            else if (
-                    item.getMetadata() == 0
-                    && (
-                            item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id()
-                            || item.itemID == AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id()
+            } else if (item.getMetadata() == 0
+                    && (item.itemID == AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id()
+                    || item.itemID == AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id()
+                    || item.itemID == AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id()
                     )
             ) {
                 for (DyeColor dyeColor : DyeColor.blockOrderedColors()) {
                     newCreativeItems.add(new ItemStack(item.itemID, 1, dyeColor.blockMeta << 4));
                 }
-            }
-            else if (item.getMetadata() == 0
-                    && (
-                            item.itemID == AetherItems.SIGN_SKYROOT_PAINTED.id
-                            || item.itemID == AetherItems.DOOR_SKYROOT_PAINTED.id
-                    )
+            } else if (item.getMetadata() == 0
+                    && (item.itemID == AetherItems.SIGN_SKYROOT_PAINTED.id || item.itemID == AetherItems.DOOR_SKYROOT_PAINTED.id)
             ) {
                 for (DyeColor dyeColor : DyeColor.itemOrderedColors()) {
                     newCreativeItems.add(new ItemStack(item.itemID, 1, dyeColor.itemMeta));
                 }
-            }
-            else newCreativeItems.add(item);
+            } else newCreativeItems.add(item);
         }
 
         creativeItems = newCreativeItems;

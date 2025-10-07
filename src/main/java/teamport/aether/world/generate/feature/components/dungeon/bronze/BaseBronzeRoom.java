@@ -57,7 +57,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     static {
         chestOrMimic.addEntry(0, 2);
         chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
+        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
     }
 
     public BaseBronzeRoom() {
@@ -261,7 +261,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             return true;
         }
 
-        if (blockID == AetherBlocks.CHEST_MIMIC.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
+        if (blockID == AetherBlocks.CHEST_MIMIC_OAK.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
             world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
             return true;
         }
