@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.*;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
@@ -23,6 +24,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.entity.tile.TileEntityMimic;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
@@ -46,26 +48,34 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.setSize(1.0F, 2.0F);
         this.attackStrength = 5;
         this.scoreValue = 2000;
-        this.mimicTime = 120 * Global.TICKS_PER_SECOND;
+        this.mimicTime = 5 * Global.TICKS_PER_SECOND; //temp set to 2, was 120
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.setSkinVariant(this.getSkinVariant());
     }
-    public void setBlockData(int mimicChestID, int mimicChestMetadata){
+
+    public void setBlockData(int mimicChestID, int mimicChestMetadata) {
         this.mimicChestID = mimicChestID;
         this.mimicChestMetadata = mimicChestMetadata;
     }
+
+    public void setChatColor(byte chatColor){
+        this.chatColor = chatColor;
+    }
+
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("MimicChestID", mimicChestID);
         tag.putInt("MimicChestMetadata", mimicChestMetadata);
     }
+
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.mimicChestID = tag.getShort("MimicChestID");
         this.mimicChestMetadata = tag.getShort("MimicChestMetadata");
     }
+
     @Override
     public void dropDeathItems() {
         MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
@@ -77,15 +87,17 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             }
         }
     }
+
     @Override
-    public void updateAI(){
+    public void updateAI() {
         super.updateAI();
-        if(target == null){
-            if(mimicTime-- == 0){
+        if (target == null) {
+            if (mimicTime-- == 0) {
                 this.remove();
             }
         }
     }
+
     @Override
     public Entity findPlayerToAttack() {
         assert this.world != null;
@@ -97,7 +109,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             return player;
         }
         AetherInvisibility invPlayer = (AetherInvisibility) player;
-        if(invPlayer.aether$isInvisible()){
+        if (invPlayer.aether$isInvisible()) {
             Player newPlayer = this.world.getClosestPlayerToEntity(this, 2.0);
             if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
                 return null;
@@ -106,6 +118,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
         return player;
     }
+
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
@@ -113,10 +126,12 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
 
     }
+
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         return super.hurt(attacker, this.extraDamage(attacker, damage), type);
     }
+
     public int extraDamage(Entity attacker, int damage) {
         if (!(attacker instanceof Player)) {
             return damage;
@@ -126,51 +141,57 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             return damage;
         }
         Block<?> block = Blocks.getBlock(this.mimicChestID);
-        if(block == null){
+        if (block == null) {
             return damage;
         }
         if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
                 && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)
         ) {
-            return damage << 2;
+            return damage << 1;
         }
         if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
-            return damage << 2;
+            return damage << 1;
         }
         return damage;
     }
+
     @Override
     public String getHurtSound() {
         Block<?> block = Blocks.getBlock(mimicChestID);
-        if(block == null){
+        if (block == null) {
             return "step.wood";
         }
         return block.getSound().getStepSoundName();
     }
+
     @Override
     public String getDeathSound() {
         Block<?> block = Blocks.getBlock(mimicChestID);
-        Material material = block == null ? Material.wood: block.getMaterial();
+        Material material = block == null ? Material.wood : block.getMaterial();
         if (material == Material.stone) {
             return "step.stone";
         }
         return "random.door_open";
     }
+
     @Override
     public float getSoundVolume() {
         return 0.6F;
     }
+
     @Override
     public int getMaxHealth() {
         return 80;
     }
+
     public void setLoot(List<ItemStack> loot) {
         if (loot == null || loot.isEmpty()) return;
         for (ItemStack itemStack : loot) {
             mobDrops.add(new WeightedRandomLootObject(itemStack));
         }
     }
+
     @Override
     public void remove() {
         if (this.isAlive()) {
@@ -178,6 +199,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         }
         super.remove();
     }
+
     private void place() {
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
         Direction[] check = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST, UP, DOWN};
@@ -192,6 +214,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.placeChest(point);
         this.populateChest(point);
     }
+
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
         Block<?> block = world.getBlock(point.x, point.y, point.z);
         int blockID = block == null ? 0 : block.id();
@@ -203,86 +226,42 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         IntPair blockAndMeta = getTarget(world, point);
         world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, blockAndMeta.first, blockAndMeta.second);
         BlockLogicChestMimic.setDefaultDirection(world, point.x, point.y, point.z);
+        TileEntity tileEntity = world.getTileEntity(point.x, point.y, point.z);
+        if (tileEntity instanceof TileEntityMimic)
+            ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
     }
-    private IntPair getTarget(World world, WorldFeaturePoint point){
+
+    private IntPair getTarget(World world, WorldFeaturePoint point) {
         Map<WorldFeaturePoint, Integer> distance = new HashMap<>();
         Queue<WorldFeaturePoint> queue = new ArrayDeque<>();
         Direction[] check = new Direction[]{NORTH, EAST, SOUTH, WEST, UP, DOWN};
         queue.add(point);
         distance.put(point, 0);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             WorldFeaturePoint next = queue.poll();
             int cdist = distance.get(next);
-            if(cdist >= 5) break;
-            for(Direction direction: check){
+            if (cdist >= 5) break;
+            for (Direction direction : check) {
                 WorldFeaturePoint to = new WorldFeaturePoint(next.x + direction.getOffsetX(), next.y + direction.getOffsetY(), next.z + direction.getOffsetZ());
-                if(distance.getOrDefault(to, -1) != -1) continue;
+                if (distance.getOrDefault(to, -1) != -1) continue;
                 distance.put(to, cdist + 1);
                 Block<?> block = world.getBlock(to.x, to.y, to.z);
                 int metadata = world.getBlockMetadata(to.x, to.y, to.z);
                 BlockLogic blockLogic = block == null ? null : block.getLogic();
-                if(blockLogic instanceof BlockLogicChestMimic){
+                if (blockLogic instanceof BlockLogicChestMimic) {
                     return ipair(block.id(), metadata);
                 }
-                if(blockLogic instanceof BlockLogicChest){
-                    if(blockLogic instanceof IPainted){
-                        metadata <<= 4;
-                    }
-                    MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata);
+                if (blockLogic instanceof BlockLogicChest) {
+                    MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata &= 240);
                     return ipair(variant.getMimicChestId(), variant.getMimicChestMetadata());
                 }
+                queue.add(to);
             }
         }
-        return ipair(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0);
-//
-//
-//
-//
-//        for (int ix = -5; ix < 5; ix++) {
-//            for (int iy = -2; iy < 2; iy++) {
-//                for (int iz = -5; iz < 5; iz++) {
-//
-//                    Block<?> block = world.getBlock(point.x + ix, point.y + iy, point.z + iz);
-//                    int blockID = block == null ? 0 : block.id();
-//                    Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
-//                    BlockLogic blockLogic = block == null ? null : block.getLogic();
-//
-//                    if (block == null) {
-//                        continue;
-//                    }
-//
-////                    if (blockLogic instanceof BlockLogicChestLocked && blockMaterial.isStone()) {
-////                        if (blockID == AetherBlocks.CHEST_DUNGEON_BRONZE.id() || blockID == AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id()) {
-////                            return MimicVariant.DUNGEON_BRONZE;
-////                        }
-////                        if (blockID == AetherBlocks.CHEST_DUNGEON_SILVER.id() || blockID == AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED.id()) {
-////                            return MimicVariant.DUNGEON_SILVER;
-////                        }
-////                        if (blockID == AetherBlocks.CHEST_DUNGEON_GOLD.id() || blockID == AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED.id()) {
-////                            return MimicVariant.DUNGEON_GOLD;
-////                        }
-////                    }
-////
-////                    if(blockLogic instanceof BlockLogicChestMimic){
-////                        int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
-////                        return MimicVariant.fromId(BlockLogicChestMimic.getVariantFromMeta(meta));
-////                    }
-//
-////                    if(blockMaterial != Material.wood) {
-////                        continue;
-////                    }
-//                    if(blockLogic instanceof BlockLogicChestPainted && blockID == Blocks.CHEST_PLANKS_OAK_PAINTED.id()){
-//                        int meta = world.getBlockMetadata(point.x + ix, point.y +iy, point.z +iz);
-//                        return MimicVariant.getMimicVariant(BlockLogicChestMimic.getColorIDFromMeta(meta) + 2);
-//                    }
-//                    if(blockID == Blocks.CHEST_PLANKS_OAK.id()){
-//                        return MimicVariant.OAK;
-//                    }
-//                }
-//            }
-//        }
-//        return MimicVariant.getMimicVariant(this.getSkinVariant());
+        MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
+        return ipair(variant.getMimicChestId(), variant.getMimicChestMetadata());
     }
+
     private void populateChest(WorldFeaturePoint point) {
         Container inventory = BlockLogicChest.getInventory(world, point.x, point.y, point.z);
         if (inventory == null) {

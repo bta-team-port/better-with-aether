@@ -61,6 +61,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         world.setBlockMetadataWithNotify(x, y, z, metadata);
     }
 
+    @Override
     public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return stack.getMetadata();
     }
@@ -91,10 +92,15 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         mimic.spawnInit();
         mimic.setSkinVariant(variant.getMimicVariant());
         mimic.setBlockData(variant.getMimicChestId(), variant.getMimicChestMetadata());
+        if(tileEntity instanceof TileEntityMimic){
+            mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
+            mimic.setChatColor(((TileEntityMimic) tileEntity).getChatColor());
+        }
         world.entityJoinedWorld(mimic);
         return mimic;
     }
 
+    @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:
@@ -131,11 +137,16 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     }
 
     /// To prevent player from removing them in peaceful
+    @Override
     public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
         if (world.getDifficulty().canHostileMobsSpawn()) {
             return super.blockStrength(world, x, y, z, side, player);
         }
         return -1;
+    }
+
+    @Override
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
     }
 
     private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
@@ -151,6 +162,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         return stacks;
     }
 
+    @Override
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
         MobMimic mimic = summonMimic(world, x, y, z);
         moveToSafe(world, mimic, x, y, z, 0, 0);
