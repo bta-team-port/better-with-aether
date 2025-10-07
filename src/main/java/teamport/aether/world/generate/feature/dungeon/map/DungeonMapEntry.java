@@ -2,6 +2,7 @@ package teamport.aether.world.generate.feature.dungeon.map;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
+import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
@@ -95,77 +96,71 @@ public class DungeonMapEntry {
     }
 
     public void loadFromNBT(CompoundTag data) {
-        id = data.getInteger("id");
-        doorReplacementID = data.getInteger("doorReplacementID");
-        doorReplacementMeta = data.getInteger("doorReplacementMeta");
-        entranceLocked = data.getBoolean("entranceLocked");
+        this.id = data.getInteger("id");
+        this.doorReplacementID = data.getInteger("doorReplacementID");
+        this.doorReplacementMeta = data.getInteger("doorReplacementMeta");
+        this.entranceLocked = data.getBoolean("entranceLocked");
 
-        position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
+        this.position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
 
-        clearArea = new Pair<>(
-                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
-                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
+        this.clearArea = new Pair<>(
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
+            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
-        if (clearArea.first == null || clearArea.second == null) {
-            clearArea = null;
+        if (this.clearArea.first == null || this.clearArea.second == null) {
+            this.clearArea = null;
         }
 
-        CompoundTag treasureDoorNBT = data.getCompound("blocksDestroyOnDeath");
+        ListTag treasureDoorNBT = data.getList("blocksDestroyOnDeath");
         if (treasureDoorNBT != null) {
             List<WorldFeaturePoint> list = new ArrayList<>();
-            for (int i = 0; i < treasureDoorNBT.getInteger("length"); i++) {
-                CompoundTag blockNBT = treasureDoorNBT.getCompound(String.valueOf(i));
+
+            for (int i = 0; i < treasureDoorNBT.tagCount(); i++) {
+                CompoundTag blockNBT = (CompoundTag) treasureDoorNBT.tagAt(i);
                 list.add(WorldFeaturePoint.fromCompoundTag(blockNBT));
             }
 
-            treasureDoor = list;
+            this.treasureDoor = list;
         }
 
-        CompoundTag entranceDoorNBT = data.getCompound("blocksDungeonEntrance");
+        ListTag entranceDoorNBT = data.getList("blocksDungeonEntrance");
         if (entranceDoorNBT != null) {
             List<WorldFeatureBlock> list = new ArrayList<>();
-            for (int i = 0; i < entranceDoorNBT.getInteger("length"); i++) {
-                CompoundTag blockNBT = entranceDoorNBT.getCompound(String.valueOf(i));
+
+            for (int i = 0; i < entranceDoorNBT.tagCount(); i++) {
+                CompoundTag blockNBT = (CompoundTag) entranceDoorNBT.tagAt(i);
                 list.add(WorldFeatureBlock.fromCompoundTag(blockNBT));
             }
 
-            entranceDoor = list;
+            this.entranceDoor = list;
         }
 
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
-        data.putInt("id", id);
-        data.putInt("doorReplacementID", doorReplacementID);
-        data.putInt("doorReplacementMeta", doorReplacementMeta);
-        data.putBoolean("entranceLocked", entranceLocked);
+        data.putInt("id", this.id);
+        data.putInt("doorReplacementID", this.doorReplacementID);
+        data.putInt("doorReplacementMeta", this.doorReplacementMeta);
+        data.putBoolean("entranceLocked", this.entranceLocked);
 
         data.putCompound("position", this.position.toCompoundTag());
 
-        if (clearArea != null) {
-            data.put("clearPos1", clearArea.first.toCompoundTag());
-            data.put("clearPos2", clearArea.second.toCompoundTag());
+        if (this.clearArea != null) {
+            data.put("clearPos1", this.clearArea.first.toCompoundTag());
+            data.put("clearPos2", this.clearArea.second.toCompoundTag());
         }
 
-        if (treasureDoor != null && !treasureDoor.isEmpty()) {
-            CompoundTag blockList = new CompoundTag();
-            int idx = 0;
-            for (WorldFeaturePoint block : treasureDoor) {
-                blockList.put(String.valueOf(idx++), block.toCompoundTag());
-            }
-            blockList.put("length", new IntTag(idx));
+        if (this.treasureDoor != null && !this.treasureDoor.isEmpty()) {
+            ListTag blockList = new ListTag();
+
+            for (WorldFeaturePoint b : this.treasureDoor) blockList.addTag(b.toCompoundTag());
             data.put("blocksDestroyOnDeath", blockList);
         }
 
-        if (entranceDoor != null && !entranceDoor.isEmpty()) {
-            CompoundTag blockList = new CompoundTag();
-            int idx = 0;
-            for (WorldFeatureBlock block : entranceDoor) {
-                blockList.put(String.valueOf(idx++), block.toCompoundTag());
-            }
-
-            blockList.put("length", new IntTag(idx));
+        if (this.entranceDoor != null && !this.entranceDoor.isEmpty()) {
+            ListTag blockList = new ListTag();
+            for (WorldFeatureBlock b : this.entranceDoor) blockList.addTag(b.toCompoundTag());
             data.put("blocksDungeonEntrance", blockList);
         }
 

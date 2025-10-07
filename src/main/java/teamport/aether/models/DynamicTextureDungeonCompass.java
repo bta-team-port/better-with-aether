@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
-import net.minecraft.core.net.NetworkManager;
 import net.minecraft.core.util.helper.Color;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
@@ -50,43 +49,62 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         return !isPaused;
     }
 
-    public static final List<DungeonMapEntry> entryCache = new ArrayList<>();
-    private long lastUpdate = 0;
+    public static final int MP_LIST_UPDATE_COOLDOWN = 3000;
+    private long lastListUpdateStamp = 0;
+    public static final List<DungeonMapEntry> entryListCache = new ArrayList<>();
+
+    public static final int POSITION_UPDATE_COOLDOWN = 1000;
+    private long lastPositionUpdateStamp = 0;
+    public static WorldFeaturePoint positionCache = null;
 
     private Collection<DungeonMapEntry> getDungeonList() {
         if (EnvironmentHelper.isClientWorld()) {
             long time = System.currentTimeMillis();
-            if (time - lastUpdate >= 3000) {
-                lastUpdate = time;
+            if (time - lastListUpdateStamp >= MP_LIST_UPDATE_COOLDOWN) {
+                lastListUpdateStamp = time;
                 NetworkHandler.sendToServer(new AetherDungeonMapUpdateNetworkMessage());
             }
 
-            return entryCache;
+            return entryListCache;
         }
+
         return AetherDimension.dungeonMap.values();
     }
 
     public double getAngle() {
         if (this.mc.currentWorld == null || this.mc.thePlayer == null) return 0.0;
 
-        Collection<DungeonMapEntry> dungeonList = getDungeonList();
-        if (this.mc.currentWorld.dimension.id != AetherDimension.AETHER.id || dungeonList.isEmpty()) {
-            return Math.random() * Math.PI * 2.0;
-        }
+        if (this.mc.currentWorld.dimension.id == AetherDimension.AETHER.id) {
+            WorldFeaturePoint coord = null;
+            PlayerLocal player = mc.thePlayer;
 
-        PlayerLocal player = mc.thePlayer;
-        Optional<WorldFeaturePoint> closestCoord = dungeonList.stream()
-            .filter(Objects::nonNull)
-            .map(DungeonMapEntry::getPosition)
-            .filter(Objects::nonNull) // :^)
-            .min(Comparator.comparingDouble(p -> p.distanceTo(wfpoint(player))));
+            long time = System.currentTimeMillis();
+            if (time - lastPositionUpdateStamp > POSITION_UPDATE_COOLDOWN) {
 
-        if (closestCoord.isPresent()) {
-            WorldFeaturePoint coord = closestCoord.get();
-            if (player.distanceTo(coord.x, player.y, coord.z) > 16) {
-                double distX = (double)coord.x - player.x;
-                double distZ = (double)coord.z - player.z;
-                return (double)(player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
+                WorldFeaturePoint playerPos = wfpoint(player);
+                for (DungeonMapEntry entry : getDungeonList()) {
+                    if (entry == null) continue;
+
+                    WorldFeaturePoint point = entry.getPosition();
+                    if (point == null) continue;
+
+                    if (coord == null || point.distanceTo(playerPos) < coord.distanceTo(playerPos)) {
+                        coord = point;
+                    }
+                }
+
+                positionCache = coord;
+                lastPositionUpdateStamp = time;
+            }
+
+            else coord = positionCache;
+
+            if (coord != null) {
+                if (player.distanceTo(coord.x, player.y, coord.z) > 16) {
+                    double distX = (double) coord.x - player.x;
+                    double distZ = (double) coord.z - player.z;
+                    return (double) (player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
+                }
             }
         }
 
