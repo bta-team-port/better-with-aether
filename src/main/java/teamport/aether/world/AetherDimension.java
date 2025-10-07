@@ -118,14 +118,14 @@ public class AetherDimension {
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.info("Loading additional level data.");
+        AetherMod.LOGGER.debug("Loading additional level data.");
 
         sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
         dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID + ".dungeon"));
     }
 
     public static void saveDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.info("Saving additional level data.");
+        AetherMod.LOGGER.debug("Saving additional level data.");
 
         dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritIsDead);
         dimensionData.putCompound(AetherMod.MOD_ID + ".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
