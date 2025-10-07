@@ -92,7 +92,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
 
     @Override
     public void handleClientEnv(NetworkContext context) {
-        List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryCache;
+        List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryListCache;
         cache.clear();
         cache.addAll(entriesReceived);
     }
