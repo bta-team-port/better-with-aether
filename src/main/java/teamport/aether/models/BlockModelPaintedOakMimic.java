@@ -5,6 +5,8 @@ import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
@@ -21,9 +23,12 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
     }
 
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-        int metadata = blockAccess.getBlockMetadata(x, y, z);
-        int color = metadata >> 4;
-        Side facing = BlockLogicChestMimic.getDirectionFromMeta(metadata).getSide();
+        int meta = blockAccess.getBlockMetadata(x, y, z);
+        int color = meta >> 4;
+        Side facing = BlockLogicChest.getDirectionFromMeta(meta).getSide();
+        if (side == Side.TOP || side == Side.BOTTOM) {
+            return topTextures[color];
+        }
         if (side == facing) {
             return frontTextures[color];
         }
@@ -41,9 +46,9 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
 
     static {
         for(DyeColor c : DyeColor.blockOrderedColors()) {
-            topTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/top");
-            sideTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/side");
-            frontTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/front");
+            frontTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/front"); // 0
+            sideTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/side");   // 5
+            topTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/top");     // 6
         }
     }
 }

@@ -47,7 +47,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
-        int metadata = mob.getHorizontalPlacementDirection(side).getOpposite().getId();
+        int metadata = world.getBlockMetadata(x, y, z);
+        Direction direction = mob.getHorizontalPlacementDirection(side).getOpposite();
+        metadata = getMetaWithDirection(metadata, direction);
         ItemStack stack = mob.getHeldItem();
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
             metadata = metadata | stack.getMetadata();
@@ -58,6 +60,20 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         }
         world.setBlockMetadataWithNotify(x, y, z, metadata);
     }
+
+    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+        return stack.getMetadata();
+    }
+
+    public static int getMetaWithDirection(int meta, Direction direction) {
+        if (direction == null) {
+            return meta;
+        }
+        meta &= -4;
+        meta |= direction.ordinal() & 3;
+        return meta;
+    }
+
 
     private @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
         int metadata = world.getBlockMetadata(x, y, z);
