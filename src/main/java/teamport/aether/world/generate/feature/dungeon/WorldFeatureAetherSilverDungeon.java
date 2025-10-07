@@ -123,7 +123,6 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
         // rare tool & armor
         GADGET.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOOTER.getDefaultStack()), 20);
-        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAIN.getDefaultStack()), 20);
 
         // rare
         GADGET.addEntry(new WeightedRandomLootObject(null), 4);
