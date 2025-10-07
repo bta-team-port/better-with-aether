@@ -13,6 +13,7 @@
     "accessors.SlotArmorAccessor",
     "accessory.ContainerInventoryMixinAccessory",
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
+    "accessory.WorldFeatureLabyrinthMixin",
     "accessory.cape.invisibilitycape.player.PlayerMixinInvisibility",
     "accessory.cape.invisibilitycape.target.MobGhastMixinInvisiblePlayer",
     "accessory.cape.invisibilitycape.target.MobMonsterMixinInvisiblePlayer",
