@@ -23,7 +23,7 @@ public class JumpRoom extends BaseBronzeRoom{
     static {
         chestOrMimic.addEntry(0, 1);
         chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
+        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
     }
 
     public JumpRoom(){

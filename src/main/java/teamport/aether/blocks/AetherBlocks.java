@@ -156,7 +156,13 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> PILLAR;
     public static Block<?> PILLAR_CAPSTONE;
 
-    public static Block<?> CHEST_MIMIC;
+    public static Block<BlockLogicPaintableChestMimic> CHEST_MIMIC_OAK;
+    public static Block<BlockLogicPaintedChestMimic> CHEST_MIMIC_OAK_PAINTED;
+    public static Block<BlockLogicPaintableChestMimic> CHEST_MIMIC_SKYROOT;
+    public static Block<BlockLogicPaintedChestMimic> CHEST_MIMIC_SKYROOT_PAINTED;
+    public static Block<BlockLogicChestMimic> CHEST_MIMIC_BRONZE;
+    public static Block<BlockLogicChestMimic> CHEST_MIMIC_SILVER;
+    public static Block<BlockLogicChestMimic> CHEST_MIMIC_GOLD;
 
     public static Block<?> DOOR_DUNGEON_BRONZE;
     public static Block<?> CHEST_DUNGEON_BRONZE;
@@ -985,9 +991,58 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 ).withDisabledStats();
 
 
-        CHEST_MIMIC = wood
-                .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
-                .build("chest.mimic", "chest_mimic", blockID("CHEST_MIMIC"), BlockLogicChestMimic::new);
+        BlockBuilder mimic = new BlockBuilder(MOD_ID)
+                .setBlockSound(BlockSounds.WOOD)
+                .setHardness(2.0f)
+                .setResistance(5.0f)
+                .setFlammability(20, 5)
+                .setTags(BlockTags.FENCES_CONNECT, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART);
+
+
+        CHEST_MIMIC_OAK = mimic
+                .addTags(BlockTags.MINEABLE_BY_AXE)
+                .build(
+                        "chest.mimic.oak",
+                        "chest_mimic_oak",
+                        blockID("CHEST_MIMIC_OAK"),
+                        block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
+                );
+        CHEST_MIMIC_OAK_PAINTED = mimic
+                .addTags(BlockTags.MINEABLE_BY_AXE)
+                .build(
+                        "chest.mimic.oak.painted",
+                        "chest_mimic_oak_painted",
+                        blockID("CHEST_MIMIC_OAK_PAINTED"),
+                        block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK.id())
+                );
+
+        CHEST_MIMIC_SKYROOT = mimic
+                .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
+                .build(
+                        "chest.mimic.skyroot",
+                        "chest_mimic_skyroot",
+                        blockID("CHEST_MIMIC_SKYROOT"),
+                        block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED)
+                );
+        CHEST_MIMIC_SKYROOT_PAINTED = mimic
+                .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
+                .build(
+                        "chest.mimic.skyroot.painted",
+                        "chest_mimic_skyroot_painted",
+                        blockID("CHEST_MIMIC_SKYROOT_PAINTED"),
+                        block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT.id()))
+        ;
+
+        BlockBuilder mimicBoss = new BlockBuilder(MOD_ID)
+                .setBlockSound(BlockSounds.STONE)
+                .setHardness(4.0f)
+                .setResistance(5.0f)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART);
+
+
+        CHEST_MIMIC_BRONZE = mimicBoss.build("chest.mimic.bronze", "chest_mimic_bronze", blockID("CHEST_MIMIC_BRONZE"), block -> new BlockLogicChestMimic(block, Material.marble));
+        CHEST_MIMIC_SILVER = mimicBoss.build("chest.mimic.silver", "chest_mimic_silver", blockID("CHEST_MIMIC_SILVER"), block -> new BlockLogicChestMimic(block, Material.marble));
+        CHEST_MIMIC_GOLD = mimicBoss.build("chest.mimic.gold", "chest_mimic_gold", blockID("CHEST_MIMIC_GOLD"), block -> new BlockLogicChestMimic(block, Material.marble));
 
 
         LANTERN_FIREFLY_SILVER = new BlockBuilder(MOD_ID)

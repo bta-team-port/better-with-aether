@@ -22,8 +22,9 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.entity.monster.mimic.MimicVariant;
+import teamport.aether.AetherAchievements;
+import teamport.aether.entity.monster.mimic.MimicEntry;
+import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.tile.TileEntityMimic;
 import teamport.aether.helper.ParticleHelper;
@@ -32,34 +33,16 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLogicChestMimic extends BlockLogicRotatable {
+public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     private double dx;
     private double dy;
     private double dz;
-
-    public BlockLogicChestMimic(Block<?> block) {
-        super(block, Material.wood);
-        block.withEntity(TileEntityMimic::new);
-    }
-
     public static final int MASK_VARIANT = 0b11111;
 
-    public static int getVariantFromMeta(int meta) {
-        return (meta >> 3) & MASK_VARIANT;
-    }
-
-    public static int setVariantToMeta(int meta, int variant) {
-        return (meta & ~(MASK_VARIANT << 3)) | ((variant & MASK_VARIANT) << 3);
-    }
-
-    public static int setVariantToMeta(int meta, MimicVariant variant) {
-        return (meta & ~(MASK_VARIANT << 3)) | ((variant.getId() & MASK_VARIANT) << 3);
-    }
-
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta);
+    public BlockLogicChestMimic(Block<?> block, Material material) {
+        super(block, material);
+        block.withEntity(TileEntityMimic::new);
     }
 
     @Override
@@ -67,13 +50,10 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         int metadata = mob.getHorizontalPlacementDirection(side).getOpposite().getId();
         ItemStack stack = mob.getHeldItem();
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
-            int variantId = stack.getMetadata() >> 3;
-            metadata = setVariantToMeta(metadata, variantId);
+            metadata = metadata | stack.getMetadata();
             CompoundTag loot = stack.getData().getCompound("loot");
-
             TileEntityChest chest = new TileEntityMimic();
             chest.readFromNBT(loot);
-
             world.setTileEntity(x, y, z, chest);
         }
         world.setBlockMetadataWithNotify(x, y, z, metadata);
@@ -88,11 +68,13 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     private @Nullable MobMimic summonMimic(World world, TileEntity tileEntity, int x, int y, int z, int metadata) {
         if (EnvironmentHelper.isClientWorld()) return null;
         List<ItemStack> chestInv = getAndClearInventory(tileEntity);
+        MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), metadata & 240);
         MobMimic mimic = new MobMimic(world);
         mimic.setPos(x + 0.5, y, z + 0.5);
         mimic.setLoot(chestInv);
         mimic.spawnInit();
-        mimic.setSkinVariant(getVariantFromMeta(metadata));
+        mimic.setSkinVariant(variant.getMimicVariant());
+        mimic.setBlockData(variant.getMimicChestId(), variant.getMimicChestMetadata());
         world.entityJoinedWorld(mimic);
         return mimic;
     }
@@ -237,7 +219,20 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
 
-    public static int getColorIDFromMeta(int meta) {
-        return (meta & 240) >> 4;
+    @Override
+    public String getLanguageKey(int meta) {
+        return super.getLanguageKey(meta);
     }
+
+
+    /// ############################ thing that have to go ###########################################
+
+    public static int getVariantFromMeta(int meta) {
+        return (meta >> 3) & MASK_VARIANT;
+    }
+
+    public static int setVariantToMeta(int meta, int variant) {
+        return (meta & ~(MASK_VARIANT << 3)) | ((variant & MASK_VARIANT) << 3);
+    }
+
 }

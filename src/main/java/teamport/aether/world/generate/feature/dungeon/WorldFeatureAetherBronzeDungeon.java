@@ -55,7 +55,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 10);
 
         chestsOrMimic.addEntry(0, 1);
-        chestsOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
+        chestsOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
         chestsOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
     }
 

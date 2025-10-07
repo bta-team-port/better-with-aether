@@ -54,7 +54,7 @@ public class WorldFeatureAetherBronzeDungeonLegacy extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 10);
 
         chestsOrMimic.addEntry(0, 1);
-        chestsOrMimic.addEntry(AetherBlocks.CHEST_MIMIC.id(), 1);
+        chestsOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
         chestsOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
     }
 
@@ -151,7 +151,7 @@ public class WorldFeatureAetherBronzeDungeonLegacy extends WorldFeature {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
-        if (blockID == AetherBlocks.CHEST_MIMIC.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
+        if (blockID == AetherBlocks.CHEST_MIMIC_SKYROOT.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
             world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
             return true;
         }

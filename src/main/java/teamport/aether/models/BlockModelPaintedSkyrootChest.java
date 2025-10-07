@@ -16,15 +16,6 @@ import net.minecraft.core.world.WorldSource;
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootChest<T extends BlockLogic> extends BlockModelChest<T> {
     public static final IconCoordinate[][] texCoords = new IconCoordinate[16][];
-    public static final int TEX_SINGLE_FRONT = 0;
-    public static final int TEX_LEFT_FRONT = 1;
-    public static final int TEX_RIGHT_FRONT = 2;
-    public static final int TEX_LEFT_BACK = 3;
-    public static final int TEX_RIGHT_BACK = 4;
-    public static final int TEX_SIDE = 5;
-    public static final int TEX_TOP = 6;
-    public static final int TEX_LEFT_TOP = 7;
-    public static final int TEX_RIGHT_TOP = 8;
 
     public BlockModelPaintedSkyrootChest(Block<T> block) {
         super(block, "aether:block/chest/skyroot/");

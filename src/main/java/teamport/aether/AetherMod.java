@@ -117,7 +117,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_outline_map_filled");
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
-
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.FURNACE_STONE_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_STONE_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
@@ -126,62 +125,53 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.PERMAICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
-
-        Blocks.PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.STAIRS_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.STAIRS_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SLAB_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SLAB_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.FENCE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.FENCE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.FENCE_GATE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.FENCE_GATE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.BUTTON_PLANKS.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.BUTTON_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.TRAPDOOR_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.TRAPDOOR_PLANKS_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.PRESSURE_PLATE_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.PRESSURE_PLATE_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.CHEST_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.CHEST_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.DOOR_PLANKS_OAK_BOTTOM.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.DOOR_PLANKS_OAK_TOP.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.DOOR_PLANKS_PAINTED_BOTTOM.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.DOOR_PLANKS_PAINTED_TOP.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SIGN_POST_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SIGN_POST_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SIGN_WALL_PLANKS_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-        Blocks.SIGN_WALL_PLANKS_OAK_PAINTED.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
-
     }
 
     public static void registerNewFurnaceFuel() {
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.STICK_SKYROOT.id, 100);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 150);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id(), 150);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT_PAINTED.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT_PAINTED.id, 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id(), 75);
+
+        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
+        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
+
+        LookupFuelFurnace.instance.addFuelEntry(AetherItems.BUCKET_SKYROOT.id, 300);
+
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.LOG_SKYROOT.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.LOG_OAK_GOLDEN.id(), 300);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SAPLING_SKYROOT.id(), 100);
         LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SAPLING_OAK_GOLDEN.id(), 100);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.STICK_SKYROOT.id, 100);
+
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_OAK.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 300);
+        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), 300);
+
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_PICKAXE_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SWORD_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_AXE_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOVEL_SKYROOT.id, 500);
         LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOOTER.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.BUCKET_SKYROOT.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
-//        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
-        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
     }
 
     public static void registerBlockInstruments() {
@@ -191,7 +181,12 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         // we do have a lot, a lot, of chests.
         BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC.id(), CLICK);
+
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_OAK.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), CLICK);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), CLICK);
+
         BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE.id(), CLICK);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), CLICK);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_GOLD.id(), CLICK);
