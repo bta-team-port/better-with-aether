@@ -38,7 +38,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     private double dx;
     private double dy;
     private double dz;
-    public static final int MASK_VARIANT = 0b11111;
+    public static final int COLOR_MASK = 0b1111000;
 
     public BlockLogicChestMimic(Block<?> block, Material material) {
         super(block, material);
@@ -52,7 +52,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         metadata = getMetaWithDirection(metadata, direction);
         ItemStack stack = mob.getHeldItem();
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
-            metadata = metadata | stack.getMetadata();
+//            metadata = metadata | stack.getMetadata();
             CompoundTag loot = stack.getData().getCompound("loot");
             TileEntityChest chest = new TileEntityMimic();
             chest.readFromNBT(loot);
@@ -70,9 +70,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         if (direction == null) {
             return meta;
         }
-        meta &= -4;
-        meta |= direction.ordinal() & 3;
-        return meta;
+        return (meta & COLOR_MASK) | (direction.ordinal() & 3);
     }
 
 
@@ -108,7 +106,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
                 if (tileEntity == null) {
                     return null;
                 }
-                ItemStack result = new ItemStack(this.block, 1, meta & (MASK_VARIANT << 3));
+                ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
                 CompoundTag data = result.getData();
                 CompoundTag mimicData = new CompoundTag();
                 tileEntity.writeToNBT(mimicData);
@@ -143,10 +141,6 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
             return super.blockStrength(world, x, y, z, side, player);
         }
         return -1;
-    }
-
-    @Override
-    public void onBlockRemoved(World world, int x, int y, int z, int data) {
     }
 
     private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
@@ -251,16 +245,4 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     public String getLanguageKey(int meta) {
         return super.getLanguageKey(meta);
     }
-
-
-    /// ############################ thing that have to go ###########################################
-
-    public static int getVariantFromMeta(int meta) {
-        return (meta >> 3) & MASK_VARIANT;
-    }
-
-    public static int setVariantToMeta(int meta, int variant) {
-        return (meta & ~(MASK_VARIANT << 3)) | ((variant & MASK_VARIANT) << 3);
-    }
-
 }
