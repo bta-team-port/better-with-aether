@@ -14,7 +14,6 @@ import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
@@ -582,7 +581,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED)
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
                 .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
 
