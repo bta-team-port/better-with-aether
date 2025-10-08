@@ -1,7 +1,6 @@
 package teamport.aether.blocks.dungeon;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.IPaintable;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
