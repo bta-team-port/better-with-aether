@@ -2,7 +2,11 @@ package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTrapDoorPainted;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 
 public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
@@ -16,6 +20,10 @@ public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
     public void removeDye(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & 15);
+    }
+
+    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return new ItemStack[]{new ItemStack(this, 1, meta & 0b1111000)};
     }
 
     @Override
