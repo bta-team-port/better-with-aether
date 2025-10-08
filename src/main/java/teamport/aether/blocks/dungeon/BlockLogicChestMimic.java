@@ -52,7 +52,6 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         metadata = getMetaWithDirection(metadata, direction);
         ItemStack stack = mob.getHeldItem();
         if (stack != null && stack.getItem() instanceof ItemBlock<?>) {
-//            metadata = metadata | stack.getMetadata();
             CompoundTag loot = stack.getData().getCompound("loot");
             TileEntityChest chest = new TileEntityMimic();
             chest.readFromNBT(loot);
@@ -103,13 +102,12 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         switch (dropCause) {
             case SILK_TOUCH:
             case PICK_BLOCK:
-                if (tileEntity == null) {
-                    return null;
-                }
                 ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
                 CompoundTag data = result.getData();
                 CompoundTag mimicData = new CompoundTag();
-                tileEntity.writeToNBT(mimicData);
+                if (tileEntity != null) {
+                    tileEntity.writeToNBT(mimicData);
+                }
                 data.putCompound("loot", mimicData);
                 result.setData(data);
                 return new ItemStack[]{result};
