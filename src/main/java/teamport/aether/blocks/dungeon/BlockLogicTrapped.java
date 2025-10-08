@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
@@ -14,73 +15,68 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleHelper;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
-    public final Block<?> replaceOnStep;
-
+    public final Block<?> breakResult;
     public final Block<?> replaceOnClear;
 
-    public BlockLogicTrapped(Block<?> block, Block<?> replaceOnStep, Block<?> replaceOnClear, Class<? extends Entity> monster) {
+    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster) {
         super(block, Material.stone);
         this.monster = monster;
-        this.replaceOnStep = replaceOnStep;
+        this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
     }
 
     @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        return replaceOnStep.getBreakResult(world, dropCause, meta, tileEntity);
+        return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (world.rand.nextInt(2) == 0 && entity instanceof Player) {
-            Player player = (Player) entity;
-            {
-                int mobs = 1 + world.rand.nextInt(2);
-                int tries = 50;
-                while (tries-- > 0 && mobs > 0) {
-                    final double angleRad = Math.toRadians(world.rand.nextInt(361));
-                    final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
-                    double spawnX = x + 0.5 + distance * Math.cos(angleRad);
-                    double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
-
-                    if (world.getBlockId((int) spawnX, y + 1, (int) spawnZ) != 0) continue;
-
-                    Entity monster;
-                    try {
-                        monster = this.monster.getConstructor(World.class).newInstance(world);
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                             NoSuchMethodException e) {
-                        throw new RuntimeException(e);
-                    }
-                    monster.spawnInit();
-                    monster.moveTo(spawnX, y + 1, spawnZ, 0.0f, 0.0f);
-                    if (monster.isInWall()) {
-                        monster.remove();
-                        continue;
-                    }
-                    world.entityJoinedWorld(monster);
-                    if (monster instanceof MobSentry) {
-                        player.triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
-                    }
-
-                    mobs--;
-
-                    for (int l = 0; l < 8; ++l) {
-                        double angle = Math.toRadians(l * 45);
-                        ParticleHelper.spawnParticle(world, "snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-                        ParticleHelper.spawnParticle(world, "snowshovel", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-                        ParticleHelper.spawnParticle(world, "largesmoke", spawnX, y + 1.25, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-                    }
-
-                    world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
-                    world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);
-                    world.setBlockWithNotify(x, y, z, this.replaceOnStep.id());
-                }
-            }
+        if (!(entity instanceof Player)) {
+            return;
         }
+        if (world.rand.nextInt(2) != 0) {
+            return;
+        }
+        int mobs = 1 + world.rand.nextInt(2);
+        int tries = 50;
+        while (tries-- > 0 && mobs > 0) {
+            final double angleRad = Math.toRadians(world.rand.nextInt(360));
+            final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
+            double spawnX = x + 0.5 + distance * Math.cos(angleRad);
+            double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
+            double spawnY = y + 1.25;
+            if (!isSafe(world,spawnX,spawnY,spawnZ)) continue;
+            Entity monster = EntityDispatcher.createEntityInWorld(this.monster, world);
+            if(monster == null) continue;
+            monster.spawnInit();
+            monster.moveTo(spawnX, y + 1, spawnZ, 0.0f, 0.0f);
+            world.entityJoinedWorld(monster);
+            spawnDecorations(world, x, y, z, spawnX, spawnY, spawnZ, entity, monster);
+            if (monster instanceof MobSentry) {
+                ((Player)entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
+            }
+            mobs--;
+        }
+    }
+
+    private void spawnDecorations(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ, Entity player, Entity monster) {
+        for (int l = 0; l < 8; ++l) {
+            double angle = Math.toRadians(l * 45);
+            ParticleHelper.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleHelper.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleHelper.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+        }
+        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
+        world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);
+    }
+
+    private static boolean isSafe(World world, double x, double y, double z) {
+        int ix = (int)Math.round(x);
+        int iy = (int)Math.round(y);
+        int iz = (int)Math.round(z);
+        return !world.isBlockNormalCube(ix, iy, iz) && !world.isBlockNormalCube(ix, iy + 1, iz);
     }
 }

@@ -74,7 +74,7 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.SLAB_CARVED_ANGELIC, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_LOCKED, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED, 0, MaterialColor.grassScorched);
-        registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_TRAPPED, 0, MaterialColor.grassScorched);
+        registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_SILVER, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED, 0, MaterialColor.grassScorched);
 

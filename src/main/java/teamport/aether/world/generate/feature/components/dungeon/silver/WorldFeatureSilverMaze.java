@@ -6,7 +6,6 @@ import net.minecraft.core.world.World;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.MazeHelper;
-import teamport.aether.helper.Pair;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
@@ -37,11 +36,11 @@ public class WorldFeatureSilverMaze {
     static {
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 85);
         angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
-        angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), 0, 10);
+        angelicHallway.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), 0, 10);
 
         angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 60);
         angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 20);
-        angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), 0, 20);
+        angelicTrapped.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), 0, 20);
     }
 
     /// Graph
