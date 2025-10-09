@@ -1,6 +1,6 @@
 package teamport.aether.mixin.gui;
 
-import achievements.AetherAchievementPageExtras;
+import teamport.aether.achievements.AetherAchievementPageExtras;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.minecraft.client.gui.achievements.ScreenAchievements;

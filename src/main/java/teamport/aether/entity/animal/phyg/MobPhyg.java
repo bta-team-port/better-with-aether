@@ -10,7 +10,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import achievements.AetherAchievements;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItemTags;
 

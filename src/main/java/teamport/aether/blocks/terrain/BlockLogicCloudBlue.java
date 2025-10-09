@@ -7,7 +7,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
-import achievements.AetherAchievements;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.helper.ParticleHelper;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 

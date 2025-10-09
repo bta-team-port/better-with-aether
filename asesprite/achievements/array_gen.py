@@ -25,14 +25,14 @@ if (out.exists()): remove(out)
 out_handle = out.open("+a")
 
 out_handle.write("""
-package achievements;
+package teamport.aether.achievements;
 
 import teamport.aether.helper.unboxed.IntPair;
 
 public class AetherAchievementPageBackground {
 """)
 
-level = ROOT/"achievements/simplified/Huge"
+level = ROOT/"teamport.aether.achievements/simplified/Huge"
 level_name = level.name.upper()
 
 def make_array(text:str):

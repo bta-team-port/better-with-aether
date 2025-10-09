@@ -1,4 +1,4 @@
-package achievements;
+package teamport.aether.achievements;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,7 +10,6 @@ import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.List;
