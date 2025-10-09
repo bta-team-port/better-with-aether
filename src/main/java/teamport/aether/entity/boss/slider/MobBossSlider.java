@@ -459,6 +459,12 @@ public class MobBossSlider extends MobBoss {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == null && type == null && damage == 100) {
+            this.setHealthRaw(0);
+            this.playDeathSound();
+            this.onDeath(null);
+            return true;
+        }
         if (this.isAwake() && type == DamageType.BLAST) return super.hurt(attacker, damage / 4, type);
 
         if (attacker instanceof Player) {

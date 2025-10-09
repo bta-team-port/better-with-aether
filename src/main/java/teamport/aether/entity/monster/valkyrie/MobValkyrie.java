@@ -263,7 +263,12 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     @Override
-    public boolean hurt(Entity attacker, int i, DamageType type) {
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == null && type == null && damage == 100) {
+            this.setHealthRaw(0);
+            this.playDeathSound();
+            return true;
+        }
         if (attacker instanceof Player && this.world.getDifficulty().canHostileMobsSpawn()) {
             int pokey = this.random.nextInt(3);
             if (this.target == null && this.chatTime <= 0) {
@@ -283,7 +288,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             }
 
             this.becomeAngryAt(attacker);
-            boolean flag = super.hurt(attacker, i, type);
+            boolean flag = super.hurt(attacker, damage, type);
             if (flag && this.getHealth() <= 0) {
                 this.dead = true;
                 if (pokey == 2) {

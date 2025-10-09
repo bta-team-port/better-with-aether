@@ -314,7 +314,13 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     @Override
-    public boolean hurt(Entity attacker, int i, DamageType type) {
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == null && type == null && damage == 100) {
+            this.setHealthRaw(0);
+            this.playDeathSound();
+            this.onDeath(null);
+            return true;
+        }
         assert this.world != null;
 
         /// need to acquire more medals
@@ -344,7 +350,7 @@ public class MobBossValkyrie extends MobBoss {
         } else {
             this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         }
-        return super.hurt(attacker, i, type);
+        return super.hurt(attacker, damage, type);
     }
 
 
