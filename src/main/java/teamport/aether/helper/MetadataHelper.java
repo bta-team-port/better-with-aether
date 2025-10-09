@@ -10,7 +10,7 @@ import static net.minecraft.core.block.BlockLogicTrapDoor.*;
 /**
  * @implNote If you think this class is unnecessary, then you have not worked with metadata
  * long enough.
- * */
+ */
 public class MetadataHelper {
     public static final byte MASK_DIRECTION = 3;
 
@@ -22,7 +22,7 @@ public class MetadataHelper {
         return dyeColor.blockMeta << 4 | lowerBits;
     }
 
-    public static int getMetadataTrapdoor(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction){
+    public static int getMetadataTrapdoor(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
         int upper = isUpper ? 1 : 0;
         int open = isOpen ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
@@ -31,7 +31,7 @@ public class MetadataHelper {
         return metadata | getTrapDoorMetaForDirection(direction);
     }
 
-    public static int getMetaDataDefault(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction){
+    public static int getMetadataDefault(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
         int upper = isUpper ? 1 : 0;
         int open = isOpen ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
@@ -40,8 +40,15 @@ public class MetadataHelper {
         return metadata | direction.getHorizontalIndex();
     }
 
+    public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction){
+        int upper = isUpper ? 1 : 0;
+        int metadata = dyeColor.blockMeta << 4;
+        metadata |= upper << 3;
+        return metadata | getMetadataHorizontalStairs(direction);
+    }
+
     public static int maskDirectionHorizontal(int metadata, Direction direction) {
-       return (metadata & ~MASK_DIRECTION) | direction.getHorizontalIndex();
+        return (metadata & ~MASK_DIRECTION) | direction.getHorizontalIndex();
     }
 
 
@@ -78,8 +85,8 @@ public class MetadataHelper {
         }
     }
 
-    public static int getMetadataTorchPlacement(Direction direction){
-        switch (direction){
+    public static int getMetadataTorchPlacement(Direction direction) {
+        switch (direction) {
             case NORTH:
                 return BlockLogicTorch.SIDE_NORTH;
             case EAST:
@@ -98,5 +105,17 @@ public class MetadataHelper {
         }
     }
 
-
+    public static int getMetadataHorizontalStairs(Direction direction) {
+        switch (direction){
+            case NORTH:
+                return 2;
+            case EAST:
+                return 1;
+            case SOUTH:
+                return 3;
+            case WEST:
+            default:
+                return 0;
+        }
+    }
 }
