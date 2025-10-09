@@ -63,8 +63,11 @@ aether.entity.whirly=Whirly
 guidebook.section.mob.whirly.name=Whirly
 guidebook.section.mob.whirly.desc=Uncommon mob found in the aether, it throws out items but can become angry.
 
+#aether.entity.mimic=Mimic
+#aether.entity.mimic.death_message = [PLAYER] was chomped to death.
 aether.entity.mimic=Mimic
-aether.entity.mimic.death_message = [PLAYER] was chomped to death.
+aether.entity.mimic.death_message = <[PLAYER]> Thank you dark souls.
+
 guidebook.section.mob.mimic.name=Mimic
 guidebook.section.mob.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
