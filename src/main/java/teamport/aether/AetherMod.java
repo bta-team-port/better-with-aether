@@ -220,6 +220,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), BELL);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE.id(), TRANCE);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT.id(), TRANCE);
