@@ -7,6 +7,7 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -34,7 +35,10 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.*;
 
+import static net.minecraft.core.net.command.TextFormatting.RED;
+import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.helper.unboxed.IntPair.ipair;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
@@ -272,4 +276,14 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             WorldFeatureComponent.placeItemInChest(random, lootObj.getDefinedItemStack(), inventory);
         }
     }
+
+    @Override
+    public String deathMessage(Player player){
+        String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
+        String deathMessage = TRANSLATOR
+                .translateKey(key)
+                .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
+        return RED + deathMessage;
+    }
+
 }
