@@ -20,7 +20,7 @@ aether.tooltip.enchanter.progress= Enchanting:
 aether.tooltip.freezer.progress= Freezing:
 aether.tooltip.incubator.progress= Hatching:
 
-aether.tooltip.machine.energy=%s s.
+aether.tooltip.machine.energy=Energy Time: %s s.
 
 
 # Deathray
