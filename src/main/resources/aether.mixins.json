@@ -109,6 +109,7 @@
     "dimension.AetherMusicMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
+    "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",
     "gui.hud.ArmorOverlayMixin",

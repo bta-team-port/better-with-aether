@@ -22,7 +22,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MimicVariant;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.tile.TileEntityMimic;

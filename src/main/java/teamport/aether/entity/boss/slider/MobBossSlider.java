@@ -17,7 +17,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.blocks.dungeon.BlockLogicLocked;

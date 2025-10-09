@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 

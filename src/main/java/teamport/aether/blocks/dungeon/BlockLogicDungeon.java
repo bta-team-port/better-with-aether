@@ -6,7 +6,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 
 public class BlockLogicDungeon extends BlockLogic {
     public BlockLogicDungeon(Block<?> block, Material material) {

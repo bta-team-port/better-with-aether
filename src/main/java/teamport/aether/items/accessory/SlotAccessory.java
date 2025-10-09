@@ -10,7 +10,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 import teamport.aether.items.AetherItemTags;
 
 public class SlotAccessory extends Slot {

@@ -1,5 +1,7 @@
 package teamport.aether;
 
+import achievements.AchievementPageAether;
+import achievements.AetherAchievements;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
