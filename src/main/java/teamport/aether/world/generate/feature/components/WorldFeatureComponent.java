@@ -7,7 +7,6 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.BlockPallet;
 
@@ -90,18 +89,6 @@ public class WorldFeatureComponent {
 
     public WorldFeaturePoint getTail() {
         return tail;
-    }
-
-    public static WorldFeatureComponent placeChestOrMimic(
-            Random random, int x, int y, int z
-    ) {
-        WorldFeatureComponent component = new WorldFeatureComponent();
-        if (random.nextInt(2) == 0) {
-            component.add(wfb(x, y, z, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0, true));
-            return component;
-        }
-        component.add(wfb(x, y, z, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, true));
-        return component;
     }
 
     public static void populateChest(
