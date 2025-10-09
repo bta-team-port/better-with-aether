@@ -38,7 +38,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     private double dx;
     private double dy;
     private double dz;
-    public static final int COLOR_MASK = 0b1111000;
+    public static final int COLOR_MASK = 0b11110000;
 
     public BlockLogicChestMimic(Block<?> block, Material material) {
         super(block, material);
@@ -72,86 +72,25 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         return (meta & COLOR_MASK) | (direction.ordinal() & 3);
     }
 
-
-    private @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
-        int metadata = world.getBlockMetadata(x, y, z);
-        TileEntity tileEntity = world.getTileEntity(x, y, z);
-        return summonMimic(world, tileEntity, x, y, z, metadata);
-    }
-
-    private @Nullable MobMimic summonMimic(World world, TileEntity tileEntity, int x, int y, int z, int metadata) {
-        if (EnvironmentHelper.isClientWorld()) return null;
-        List<ItemStack> chestInv = getAndClearInventory(tileEntity);
-        MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), metadata & 240);
-        MobMimic mimic = new MobMimic(world);
-        mimic.setPos(x + 0.5, y, z + 0.5);
-        mimic.setLoot(chestInv);
-        mimic.spawnInit();
-        mimic.setSkinVariant(variant.getMimicVariant());
-        mimic.setBlockData(variant.getMimicChestId(), variant.getMimicChestMetadata());
-        if(tileEntity instanceof TileEntityMimic){
-            mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
-            mimic.setChatColor(((TileEntityMimic) tileEntity).getChatColor());
-        }
-        world.entityJoinedWorld(mimic);
-        return mimic;
-    }
-
     @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         switch (dropCause) {
+            case EXPLOSION:
+            case PISTON_CRUSH:
+                return dropAsDefeatedMimic(world, x, y, z, meta, tileEntity);
             case SILK_TOUCH:
             case PICK_BLOCK:
-                ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
-                CompoundTag data = result.getData();
-                CompoundTag mimicData = new CompoundTag();
-                if (tileEntity != null) {
-                    tileEntity.writeToNBT(mimicData);
+                return dropAsBlock(meta, tileEntity);
+            case WORLD:
+            case PROPER_TOOL:
+            case IMPROPER_TOOL:
+                if(!world.getDifficulty().canHostileMobsSpawn()){
+                    return dropAsDefeatedMimic(world, x, y, z, meta, tileEntity);
                 }
-                data.putCompound("loot", mimicData);
-                result.setData(data);
-                return new ItemStack[]{result};
             default:
-                MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
-                world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
-                world.setBlockWithNotify(x, y, z, 0);
-                if (!EnvironmentHelper.isServerEnvironment()) ParticleHelper.spawnParticle(world,
-                        "explode",
-                        x + 0.5, y + 1, z + 0.5,
-                        0.0, 0.0, 0.0,
-                        0
-                );
-
-                Player player = world.getClosestPlayer(x, y, z, 16);
-                if (player != null) {
-                    moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
-                    player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-                } else mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
+                triggerMimic(world, x, y, z, meta, tileEntity);
         }
-
         return null;
-    }
-
-    /// To prevent player from removing them in peaceful
-    @Override
-    public float blockStrength(World world, int x, int y, int z, Side side, Player player) {
-        if (world.getDifficulty().canHostileMobsSpawn()) {
-            return super.blockStrength(world, x, y, z, side, player);
-        }
-        return -1;
-    }
-
-    private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
-        if (!(tileEntity instanceof TileEntityMimic)) {
-            return null;
-        }
-        Container inv = (Container) tileEntity;
-        List<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < inv.getContainerSize(); i++) {
-            stacks.add(inv.getItem(i));
-            inv.setItem(i, null);
-        }
-        return stacks;
     }
 
     @Override
@@ -199,6 +138,93 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         return true;
     }
 
+    @Override
+    public String getLanguageKey(int meta) {
+        return super.getLanguageKey(meta);
+    }
+
+    private ItemStack @NotNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
+        if(tileEntity instanceof TileEntityMimic){
+            ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
+        }
+        MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), meta & COLOR_MASK);
+        return new ItemStack[]{new ItemStack(variant.getChestID(), 1, variant.getChestMetadata())};
+    }
+
+    private @Nullable MobMimic summonMimic(World world, int x, int y, int z) {
+        int metadata = world.getBlockMetadata(x, y, z);
+        TileEntity tileEntity = world.getTileEntity(x, y, z);
+        return summonMimic(world, tileEntity, x, y, z, metadata);
+    }
+
+    private void triggerMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
+        MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
+        world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
+        world.setBlockWithNotify(x, y, z, 0);
+        if (!EnvironmentHelper.isServerEnvironment()) ParticleHelper.spawnParticle(world,
+                "explode",
+                x + 0.5, y + 1, z + 0.5,
+                0.0, 0.0, 0.0,
+                0
+        );
+
+        Player player = world.getClosestPlayer(x, y, z, 16);
+        if (player != null) {
+            moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
+            player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
+        } else {
+            mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
+        }
+    }
+
+    private @Nullable MobMimic summonMimic(World world, TileEntity tileEntity, int x, int y, int z, int metadata) {
+        if (EnvironmentHelper.isClientWorld()) return null;
+        List<ItemStack> chestInv = getAndClearInventory(tileEntity);
+        MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), metadata & 240);
+        MobMimic mimic = new MobMimic(world);
+        mimic.setPos(x + 0.5, y, z + 0.5);
+        mimic.setLoot(chestInv);
+        mimic.spawnInit();
+        mimic.setSkinVariant(variant.getMimicVariant());
+        mimic.setBlockData(variant.getMimicChestId(), variant.getMimicChestMetadata());
+        if(tileEntity instanceof TileEntityMimic){
+            mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
+            mimic.setChatColor(((TileEntityMimic) tileEntity).getChatColor());
+        }
+        world.entityJoinedWorld(mimic);
+        return mimic;
+    }
+
+    private ItemStack @NotNull [] dropAsBlock(int meta, TileEntity tileEntity) {
+        ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
+        CompoundTag data = result.getData();
+        CompoundTag mimicData = new CompoundTag();
+        if (tileEntity != null) {
+            if(tileEntity instanceof TileEntityMimic){
+                TileEntityMimic mimicEntity = (TileEntityMimic) tileEntity;
+                result.setCustomColor(mimicEntity.getChatColor());
+                result.setCustomName(mimicEntity.getNickName());
+            }
+            tileEntity.writeToNBT(mimicData);
+        }
+        data.putCompound("loot", mimicData);
+        result.setData(data);
+        return new ItemStack[]{result};
+    }
+
+    private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
+        if (!(tileEntity instanceof TileEntityMimic)) {
+            return null;
+        }
+        Container inv = (Container) tileEntity;
+        List<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            stacks.add(inv.getItem(i));
+            inv.setItem(i, null);
+        }
+        return stacks;
+    }
+
     // not sure if this is the correct place for these functions
     private void moveToSafe(World world, Mob mob, int x, int y, int z, float yRot, float xRot) {
         if (this.isSafe(world, x - 1, y, z)) {
@@ -237,10 +263,5 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     private boolean isSafe(World world, int x, int y, int z) {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
-    }
-
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta);
     }
 }

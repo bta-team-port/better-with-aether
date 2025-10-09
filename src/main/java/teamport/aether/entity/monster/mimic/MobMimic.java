@@ -48,7 +48,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.setSize(1.0F, 2.0F);
         this.attackStrength = 5;
         this.scoreValue = 2000;
-        this.mimicTime = 5 * Global.TICKS_PER_SECOND; //temp set to 2, was 120
+        this.mimicTime = 60 * Global.TICKS_PER_SECOND; //temp set to 2, was 120
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.setSkinVariant(this.getSkinVariant());
     }
