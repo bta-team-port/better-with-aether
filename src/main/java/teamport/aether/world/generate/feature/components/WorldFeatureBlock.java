@@ -1,11 +1,18 @@
 package teamport.aether.world.generate.feature.components;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.block.*;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.helper.Pair;
 
+import static net.minecraft.core.util.helper.Direction.NORTH;
+import static teamport.aether.helper.MetadataHelper.*;
+
 public class WorldFeatureBlock extends WorldFeaturePoint {
+    private static final byte MASK_DIRECTION = 3;
+    private static final byte MASK_DIRECTION_FULL = 7;
     public int blockID = 0;
     public int metadata = 0;
     public boolean withNotify = false;
@@ -84,25 +91,66 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         }
     }
 
+    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
+        super.rotateYAroundPivot(pivotPoint, direction);
+        int rotateAmount = NORTH.getHorizontalIndex() - direction.getHorizontalIndex();
+
+        Block<?> block = Blocks.getBlock(this.blockID);
+        if(block == null) return this;
+
+        BlockLogic logic = block.getLogic();
+        if(logic == null) return this;
+        if(
+                logic instanceof BlockLogicFenceGate
+                || logic instanceof BlockLogicStairs
+        ){
+            int indexDirection = this.metadata & MASK_DIRECTION;
+            if(indexDirection > Direction.horizontalDirections.length) indexDirection = 0;
+            Direction currentDirection = Direction.horizontalDirections[indexDirection];
+            this.metadata = maskDirectionHorizontal(metadata, currentDirection.rotate(rotateAmount));
+        }
+        if(
+             logic instanceof BlockLogicTorch
+        ){
+            int indexDirection = this.metadata & MASK_DIRECTION_FULL;
+            if(indexDirection > Direction.directions.length) indexDirection = 0;
+            Direction currentDirection = Direction.directions[indexDirection];
+            this.metadata = maskDirectionHorizontal(metadata, getMetadataTorchPlacement(currentDirection.rotate(rotateAmount)));
+        }
+        if(
+                logic instanceof BlockLogicTrapDoor
+        ){
+            int indexDirection = this.metadata & MASK_DIRECTION;
+            if(indexDirection > Direction.horizontalDirections.length) indexDirection = 0;
+            Direction currentDirection = getTrapDoorDirectionForMeta(indexDirection);
+            Direction newDirection = currentDirection.rotate(rotateAmount);
+            this.metadata = maskDirectionHorizontal(metadata, getTrapDoorMetaForDirection(newDirection));
+        }
+
+
+        return this;
+    }
+
 
     // TODO make horizontally rotating blocks also rotate
     @Override
     public WorldFeatureBlock rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
         super.rotateYAroundPivot(pivotX, pivotY, pivotZ, angle);
+
         /// For future reference, when I want to rotate the block as well.
         //BlockLogicChest
         //BlockLogicRotatable: furnace, trommle
-        //BlockLogicStairs
+        //BlockLogicStairs ✓
         //BlockLogicLadder
-        //BlockLogicFence
+        //BlockLogicFenceGate ✓
         //BlockLogicAxisAligned: log
         //BlockLogicFlower
-        //BlockLogicTorch: redstone torch
+        //BlockLogicTorch: redstone torch ✓
         //BlockLogicButton
         //BlockLogicPressurePlate
         //BlockLogicVeryRotatable: motion sensor, dispenser, activator
         //BlockLogicPistonBase
-        //BlockLogicTrapDoor
+        //BlockLogicTrapDoor ✓
         //BlockLogicDoor
         //BlockLogicSign
         return this;
