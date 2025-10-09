@@ -17,28 +17,28 @@ import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFea
 public class AetherCommand {
 
     static {
-        registerWorldFeatureClass(WorldFeatureAetherBronzeDungeon.class, "maze");
-        registerWorldFeatureClass(WorldFeatureAetherSilverDungeon.class, "temple");
-        registerWorldFeatureClass(WorldFeatureAetherGoldDungeon.class, "sanctuary");
-        registerWorldFeatureClass(WorldFeatureAetherClouds.class);
-        registerWorldFeatureClass(WorldFeatureAetherLiquid.class);
-        registerWorldFeatureClass(WorldFeatureAetherOre.class);
-        registerWorldFeatureClass(WorldFeatureAetherTree.class);
-        registerWorldFeatureClass(WorldFeatureAetherTreeGoldenOak.class);
-        registerWorldFeatureClass(WorldFeatureAetherQuicksoil.class);
+        registerWorldFeatureClass(WorldFeatureAetherBronzeDungeon.class, "Maze");
+        registerWorldFeatureClass(WorldFeatureAetherSilverDungeon.class, "Temple");
+        registerWorldFeatureClass(WorldFeatureAetherGoldDungeon.class, "Sanctuary");
+        registerWorldFeatureClass(WorldFeatureAetherClouds.class, "Clouds");
+        registerWorldFeatureClass(WorldFeatureAetherLiquid.class, "AetherLakes");
+        registerWorldFeatureClass(WorldFeatureAetherOre.class, "AetherOre");
+        registerWorldFeatureClass(WorldFeatureAetherTree.class, "TreeSkyroot");
+        registerWorldFeatureClass(WorldFeatureAetherTreeGoldenOak.class, "TreeGoldenSkyroot");
+        registerWorldFeatureClass(WorldFeatureAetherQuicksoil.class, "Quicksoil");
 
-        registerWorldFeatureClass(WorldFeatureAetherGoldChest.class);
-        registerWorldFeatureClass(WorldFeatureAetherSilverChest.class);
-        registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class);
+        registerWorldFeatureClass(WorldFeatureAetherGoldChest.class, "SanctuaryTreasure");
+        registerWorldFeatureClass(WorldFeatureAetherSilverChest.class, "TempleTreasure");
+        registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class, "MazeTreasure");
 
-        registerWorldFeatureClass(BossRoom.class, "boss");
-        registerWorldFeatureClass(DisplayRoom.class, "display");
-        registerWorldFeatureClass(HallwayRoom.class, "hallway");
-        registerWorldFeatureClass(JumpRoom.class, "jump");
-        registerWorldFeatureClass(SpikerRoom.class, "spiker");
-        registerWorldFeatureClass(StairwellRoom.class, "well");
-        registerWorldFeatureClass(TallRoom.class, "tall");
-        registerWorldFeatureClass(TreasureRoom.class, "treasure");
+        registerWorldFeatureClass(BossRoom.class, "DebugMazeBoss");
+        registerWorldFeatureClass(DisplayRoom.class, "DebugMazeDisplay");
+        registerWorldFeatureClass(HallwayRoom.class, "DebugMazeHallway");
+        registerWorldFeatureClass(JumpRoom.class, "DebugMazeJump");
+        registerWorldFeatureClass(SpikerRoom.class, "DebugMazeSpiker");
+        registerWorldFeatureClass(StairwellRoom.class, "DebugMazeWell");
+        registerWorldFeatureClass(TallRoom.class, "DebugMazeTall");
+        registerWorldFeatureClass(TreasureRoom.class, "DebugMazeTreasure");
     }
 
     public static void registerClientCommands(){
