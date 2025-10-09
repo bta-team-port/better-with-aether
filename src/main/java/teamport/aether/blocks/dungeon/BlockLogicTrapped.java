@@ -40,9 +40,8 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         if (world.rand.nextInt(2) != 0) {
             return;
         }
-        int mobs = 1 + world.rand.nextInt(2);
-        int tries = 50;
-        while (tries-- > 0 && mobs > 0) {
+        int tries = 16;
+        while (tries-- > 0) {
             final double angleRad = Math.toRadians(world.rand.nextInt(360));
             final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
             double spawnX = x + 0.5 + distance * Math.cos(angleRad);
@@ -58,7 +57,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             if (monster instanceof MobSentry) {
                 ((Player)entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
             }
-            mobs--;
+            return;
         }
     }
 
