@@ -349,6 +349,12 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == null && type == null && damage == 100) {
+            this.setHealthRaw(0);
+            this.playDeathSound();
+            this.onDeath(null);
+            return true;
+        }
         if (attacker instanceof ProjectileElementIce) {
             super.hurt(attacker, 5, type);
 
