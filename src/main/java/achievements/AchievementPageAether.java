@@ -41,6 +41,15 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     private static final @NotNull IconCoordinate LEAVES_GOLDEN;
     private static final @NotNull IconCoordinate LOG_GOLDEN;
 
+    private static final @NotNull IconCoordinate AMBROSIUM;
+    private static final @NotNull IconCoordinate GRAVITITE;
+    private static final @NotNull IconCoordinate ICE_STONE;
+
+    private static final @NotNull IconCoordinate SLIDER_TOP_LEFT;
+    private static final @NotNull IconCoordinate SLIDER_BOTTOM_LEFT;
+    private static final @NotNull IconCoordinate SLIDER_TOP_RIGHT;
+    private static final @NotNull IconCoordinate SLIDER_BOTTOM_RIGHT;
+
     private static final IconCoordinate[] TERRAIN_MAP;
 
     private static final AetherAchievementPageBackground BACKGROUND = new AetherAchievementPageBackground();
@@ -77,7 +86,27 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         SENTRY_STONE = TextureRegistry.getTexture("aether:block/dungeon/carved");
         SENTRY_STONE_LIGHT = TextureRegistry.getTexture("aether:block/dungeon/carved_glow");
 
-        TERRAIN_MAP = new IconCoordinate[18];
+        AMBROSIUM = TextureRegistry.getTexture("aether:block/ore/ambrosium/holystone");
+        GRAVITITE = TextureRegistry.getTexture("aether:block/ore/gravitite/holystone");
+        ICE_STONE = TextureRegistry.getTexture("aether:block/icestone");
+
+        IconCoordinate slider_sheet = TextureRegistry.getTexture("aether:block/jank/slider");
+        SLIDER_TOP_LEFT     = new IconCoordinate(slider_sheet.parentAtlas, slider_sheet.namespaceId, slider_sheet.getImageSource());
+        SLIDER_BOTTOM_LEFT  = new IconCoordinate(slider_sheet.parentAtlas, slider_sheet.namespaceId, slider_sheet.getImageSource());
+        SLIDER_TOP_RIGHT    = new IconCoordinate(slider_sheet.parentAtlas, slider_sheet.namespaceId, slider_sheet.getImageSource());
+        SLIDER_BOTTOM_RIGHT = new IconCoordinate(slider_sheet.parentAtlas, slider_sheet.namespaceId, slider_sheet.getImageSource());
+
+        SLIDER_TOP_LEFT.setDimension(16, 16);
+        SLIDER_BOTTOM_LEFT.setDimension(16, 16);
+        SLIDER_TOP_RIGHT.setDimension(16, 16);
+        SLIDER_BOTTOM_RIGHT.setDimension(16, 16);
+
+        SLIDER_TOP_LEFT.setPosition(slider_sheet.iconX,             slider_sheet.iconY);
+        SLIDER_BOTTOM_LEFT.setPosition(slider_sheet.iconX,          slider_sheet.iconY + 16);
+        SLIDER_TOP_RIGHT.setPosition(slider_sheet.iconX    + 16, slider_sheet.iconY);
+        SLIDER_BOTTOM_RIGHT.setPosition(slider_sheet.iconX + 16, slider_sheet.iconY + 16);
+
+        TERRAIN_MAP = new IconCoordinate[21];
         TERRAIN_MAP[0] = null;
         TERRAIN_MAP[8] = AETHER_TALL_GRASS;
         TERRAIN_MAP[3] = AETHER_GRASS;
@@ -98,6 +127,10 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
         TERRAIN_MAP[16] = SENTRY_STONE;
         TERRAIN_MAP[17] = SENTRY_STONE_LIGHT;
+
+        TERRAIN_MAP[18] = AMBROSIUM;
+        TERRAIN_MAP[19] = GRAVITITE;
+        TERRAIN_MAP[20] = ICE_STONE;
     }
 
     public AchievementPageAether(String name, ItemStack icon) {
@@ -110,17 +143,44 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public IconCoordinate getBackgroundTile(ScreenAchievements screen, int layer, Random random, int tileX, int tileY) {
-        tileX += 200;
-        tileY += 20;
+        tileX += 50;
+        tileY += 15;
+
+        int height = BACKGROUND.TerrainLayer1.size()-1;
+        int width = BACKGROUND.TerrainLayer1.get(0).size()-1;
+
+        tileX = Math.abs(tileX % width);
+        tileY = Math.abs(tileY % height);
+
+        List<List<Integer>> struct_layer = null;
 
         if (layer == 0) {
             List<IntPair> water = BACKGROUND.WaterSources;
             for (IntPair w: water) {
-                if (w.first == tileX && w.second <= tileY) return WATER_FLOWING;
+                if (w.second == tileX && w.first <= tileY)
+                    return WATER_FLOWING;
             }
         }
 
-        List<List<Integer>> struct_layer = null;
+        if (layer == 3) {
+            struct_layer = BACKGROUND.Specials;
+            List<Integer> row = struct_layer.get(tileY);
+            if (row.get(tileX) == 2) {
+                List<Integer> upperRow = struct_layer.get(tileY + 1);
+
+                boolean upper = upperRow.get(tileX) == 2;
+                boolean left = row.get(tileX - 1) == 2;
+
+                if (!upper) {
+                    if (left) return SLIDER_BOTTOM_RIGHT;
+                    else return SLIDER_BOTTOM_LEFT;
+                }
+
+                if (left) return SLIDER_TOP_RIGHT;
+                return SLIDER_TOP_LEFT;
+            }
+        }
+
         if (layer == 1) struct_layer = BACKGROUND.TerrainLayer1;
         if (layer == 2) struct_layer = BACKGROUND.TerrainLayer2;
         if (layer == 3) struct_layer = BACKGROUND.TerrainLayer3;
@@ -128,10 +188,10 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
         if (struct_layer == null) return null;
 
-        List<Integer> col = struct_layer.get(Math.abs(tileY) % (struct_layer.size() -1));
-        int row = col.get(Math.abs(tileX) % (col.size() -1));
+        List<Integer> row = struct_layer.get(tileY);
+        int col = row.get(tileX);
 
-        return TERRAIN_MAP[row];
+        return TERRAIN_MAP[col];
     }
 
 
