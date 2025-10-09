@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import turniplabs.halplibe.helper.EnvironmentHelper;

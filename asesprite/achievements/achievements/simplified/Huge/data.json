@@ -1,0 +1,13 @@
+{
+	"identifier": "Huge",
+	"uniqueIdentifer": "d2cab620-8560-11f0-a163-4b9f73be1edc",
+	"x": 11,
+	"y": 19,
+	"width": 2736,
+	"height": 1216,
+	"bgColor": "#696A79",
+	"neighbourLevels": [],
+	"customFields" : {},
+	"layers": [],
+	"entities" : {}
+}

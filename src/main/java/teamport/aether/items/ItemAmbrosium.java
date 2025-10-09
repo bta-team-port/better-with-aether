@@ -4,7 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.AetherAchievements;
+import achievements.AetherAchievements;
 
 public class ItemAmbrosium extends ItemFood {
     public final int ticksPerHeal;
