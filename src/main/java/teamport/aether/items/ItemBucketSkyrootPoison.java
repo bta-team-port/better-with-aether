@@ -6,7 +6,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
-import achievements.AetherAchievements;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
 
 public class ItemBucketSkyrootPoison extends Item {

@@ -1,4 +1,4 @@
-package achievements;
+package teamport.aether.achievements;
 
 import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.block.Blocks;

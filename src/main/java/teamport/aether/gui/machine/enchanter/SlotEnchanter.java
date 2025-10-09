@@ -4,7 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
-import achievements.AetherAchievements;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.items.AetherItems;
 
 public class SlotEnchanter extends Slot {

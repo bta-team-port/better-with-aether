@@ -1,5 +1,5 @@
 
-package achievements;
+package teamport.aether.achievements;
 
 import teamport.aether.helper.unboxed.IntPair;
 
