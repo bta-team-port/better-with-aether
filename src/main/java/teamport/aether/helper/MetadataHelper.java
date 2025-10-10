@@ -6,6 +6,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 
 import static net.minecraft.core.block.BlockLogicTrapDoor.*;
+import static net.minecraft.core.util.helper.Direction.*;
 
 /**
  * @implNote If you think this class is unnecessary, then you have not worked with metadata
@@ -28,23 +29,14 @@ public class MetadataHelper {
         int metadata = dyeColor.blockMeta << 4;
         metadata |= upper << 3;
         metadata |= open << 2;
-        return metadata | getTrapDoorMetaForDirection(direction);
-    }
-
-    public static int getMetadataDefault(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
-        int upper = isUpper ? 1 : 0;
-        int open = isOpen ? 1 : 0;
-        int metadata = dyeColor.blockMeta << 4;
-        metadata |= upper << 3;
-        metadata |= open << 2;
-        return metadata | direction.getHorizontalIndex();
+        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
     }
 
     public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction){
         int upper = isUpper ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
         metadata |= upper << 3;
-        return metadata | getMetadataHorizontalStairs(direction);
+        return metadata | getStairMetadataFromDirection(direction);
     }
 
     public static int maskDirectionHorizontal(int metadata, Direction direction) {
@@ -58,32 +50,33 @@ public class MetadataHelper {
 
     public static int getTrapDoorMetaForDirection(Direction dir) {
         switch (dir) {
-            case NORTH:
-                return DIRECTION_NORTH;
             case EAST:
                 return DIRECTION_EAST;
             case WEST:
                 return DIRECTION_WEST;
             case SOUTH:
-            default:
                 return DIRECTION_SOUTH;
+            case NORTH:
+            default:
+                return DIRECTION_NORTH;
         }
     }
 
     public static Direction getTrapDoorDirectionForMeta(int meta) {
         switch (meta & 3) {
             case DIRECTION_SOUTH:
-                return Direction.SOUTH;
+                return SOUTH;
             case DIRECTION_NORTH:
-                return Direction.NORTH;
+                return NORTH;
             case DIRECTION_EAST:
-                return Direction.EAST;
+                return EAST;
             case DIRECTION_WEST:
-                return Direction.WEST;
+                return WEST;
             default:
-                return Direction.NONE;
+                return NONE;
         }
     }
+
 
     public static int getMetadataTorchPlacement(Direction direction) {
         switch (direction) {
@@ -104,18 +97,54 @@ public class MetadataHelper {
                 return BlockLogicTorch.SIDE_NONE;
         }
     }
+    public static Direction getMetadataTorchPlacement(int direction) {
+        switch (direction) {
+            case BlockLogicTorch.SIDE_NORTH:
+                return NORTH;
+            case BlockLogicTorch.SIDE_EAST:
+                return EAST;
+            case BlockLogicTorch.SIDE_SOUTH:
+                return SOUTH;
+            case BlockLogicTorch.SIDE_WEST:
+                return WEST;
+            case BlockLogicTorch.SIDE_BOTTOM:
+                return DOWN;
+            case BlockLogicTorch.SIDE_TOP:
+                return UP;
+            case BlockLogicTorch.SIDE_NONE:
+            default:
+                return NONE;
+        }
+    }
 
-    public static int getMetadataHorizontalStairs(Direction direction) {
+    /**
+     * @implNote The direction is the ascending direction of the stairs.
+     * Importantly this differs from how BlockLogicStairs implements direction, this due to BTA placement setting and many layers of abstraction.
+     * */
+    public static int getStairMetadataFromDirection(Direction direction) {
         switch (direction){
-            case NORTH:
-                return 2;
             case EAST:
+                return 0;
+            case WEST:
                 return 1;
             case SOUTH:
-                return 3;
-            case WEST:
+                return 2;
+            case NORTH:
             default:
-                return 0;
+                return 3;
+        }
+    }
+    public static Direction getStairDirectionFromMetadata(int index) {
+        switch (index){
+            case 0:
+                return EAST;
+            case 1:
+                return WEST;
+            case 2:
+                return SOUTH;
+            case 3:
+            default:
+                return NORTH;
         }
     }
 }
