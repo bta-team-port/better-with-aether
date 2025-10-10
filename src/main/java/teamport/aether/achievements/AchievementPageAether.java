@@ -9,7 +9,10 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
+import net.minecraft.core.util.helper.Color;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Unique;
+import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.List;
@@ -138,25 +141,28 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     }
 
     @Override
-    public void postProcessBackground(ScreenAchievements screen, Random random, ScreenAchievements.BGLayer bGLayer, int i, int j) {}
+    public void postProcessBackground(ScreenAchievements screen, Random random, ScreenAchievements.BGLayer bGLayer, int i, int j) {
+    }
 
     @Override
     public IconCoordinate getBackgroundTile(ScreenAchievements screen, int layer, Random random, int tileX, int tileY) {
         tileX += 50;
         tileY += 15;
 
-        int height = BACKGROUND.TerrainLayer1.size()-1;
-        int width = BACKGROUND.TerrainLayer1.get(0).size()-1;
+        int origY = tileY;
 
-        tileX = Math.abs(tileX % width);
-        tileY = Math.abs(tileY % height);
+        if (tileX < 0) tileX += BACKGROUND.width;
+        if (tileY < 0) tileY += BACKGROUND.height;
+
+        tileX = Math.abs(tileX % BACKGROUND.width);
+        tileY = Math.abs(tileY % BACKGROUND.height);
 
         List<List<Integer>> struct_layer = null;
 
-        if (layer == 0) {
+        if (layer == 0 && origY > 0) {
             List<IntPair> water = BACKGROUND.WaterSources;
             for (IntPair w: water) {
-                if (w.second == tileX && w.first <= tileY)
+                if (w.first == tileX && w.second <= origY)
                     return WATER_FLOWING;
             }
         }
@@ -206,7 +212,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     @Override
     public int backgroundColor() {
-        return 0xc0c0ff;
+        return 0xFFb0b0f7;
     }
 
     @Override
@@ -249,5 +255,34 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         if (layer == 3) return 1.7F;
         if (layer == 2) return 1.30F;
         return 1;
+    }
+
+    public static int mixColor(int colorA, int colorB, float ratio) {
+        int alphaA = Color.alphaFromInt(colorA);
+        int redA   = Color.redFromInt(colorA);
+        int blueA  = Color.blueFromInt(colorA);
+        int greenA = Color.greenFromInt(colorA);
+        int alphaB = Color.alphaFromInt(colorB);
+        int redB   = Color.redFromInt(colorB);
+        int blueB  = Color.blueFromInt(colorB);
+        int greenB = Color.greenFromInt(colorB);
+
+        int alphaRes = (int) (alphaA * ratio + alphaB * (1 - ratio));
+        int redRes = (int) (redA * ratio + redB * (1 - ratio));
+        int blueRes = (int) (blueA * ratio + blueB * (1 - ratio));
+        int greenRes = (int) (greenA * ratio + greenB * (1 - ratio));
+
+        return Color.intToIntARGB(alphaRes, redRes, greenRes, blueRes);
+    }
+
+    @Override
+    public void drawBeforeTiles(ScreenAchievements gui, double shiftX, double shiftY, int mouseX, int mouseY, int left, int top, int right, int bottom) {
+        double shiftYAdjusted = (Math.floor(shiftY) + 288) / 576;
+
+        int bottomTop = 0xFF7970ca;
+        int bottomBottom = 0xFF514f69;
+        int colorBottom = mixColor(bottomBottom, bottomTop, (float) shiftYAdjusted);
+
+        gui.drawGradientRect(left, top, right, bottom, backgroundColor(), colorBottom);
     }
 }

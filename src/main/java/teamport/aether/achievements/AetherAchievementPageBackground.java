@@ -17,6 +17,9 @@ public class AetherAchievementPageBackground {
     public final List<List<Integer>> TerrainLayer3;
     public final List<List<Integer>> TerrainLayer4;
 
+    public final int width;
+    public final int height;
+
     public AetherAchievementPageBackground() {
         String resource = "assets/aether/misc/achievement_page_background";
 
@@ -25,13 +28,16 @@ public class AetherAchievementPageBackground {
         this.TerrainLayer3 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain3.csv"));
         this.TerrainLayer4 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain4.csv"));
 
+        this.height = TerrainLayer1.size()-1;
+        this.width = TerrainLayer1.get(0).size()-1;
+
         this.WaterSources = new ArrayList<>();
         Specials = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Specials.csv"));
 
-        for (int x = 0; x < Specials.size(); x++) {
-            List<Integer> col = Specials.get(x);
-            for (int y = 0; y < col.size(); y++) {
-                if (col.get(y) == 1) this.WaterSources.add(new IntPair(x, y));
+        for (int y = 0; y < Specials.size(); y++) {
+            List<Integer> row = Specials.get(y);
+            for (int x = 0; x < row.size(); x++) {
+                if (row.get(x) == 1) this.WaterSources.add(new IntPair(x, y));
             }
         }
     }
