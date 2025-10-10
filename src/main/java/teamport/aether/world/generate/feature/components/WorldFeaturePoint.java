@@ -156,7 +156,6 @@ public class WorldFeaturePoint {
         return this;
     }
 
-
     public double distanceTo(WorldFeaturePoint point) {
         double dx = (double) this.x - point.x;
         double dy = (double) this.y - point.y;
@@ -181,122 +180,19 @@ public class WorldFeaturePoint {
         return this;
     }
 
-    public WorldFeaturePoint rotateY(Direction direction) {
-        switch (direction) {
-            case EAST: {
-                this.set(this.z, this.y, this.x);
-                break;
-            }
-            case SOUTH: {
-                this.set(-this.x, this.y, -this.z);
-                break;
-            }
-            case WEST: {
-                this.set(-this.z, this.y, this.x);
-                break;
-            }
-            case NORTH:
-            default: {
-                break;
-            }
-        }
-        return this;
-    }
-
-    public WorldFeaturePoint rotateX(float radian) {
-        float cos = MathHelper.cos(radian);
-        float sin = MathHelper.sin(radian);
-        int y = (int) Math.round((double) this.y * (double) cos - (double) this.z * (double) sin);
-        int z = (int) Math.round((double) this.y * (double) sin + (double) this.z * (double) cos);
-        this.y = y;
-        this.z = z;
-        return this;
-    }
-
-    public WorldFeaturePoint rotateX(Direction direction) {
-        switch (direction) {
-            case UP: {
-                this.set(this.x, this.z, this.y);
-                break;
-            }
-            case SOUTH: {
-                this.set(this.x, -this.y, -this.z);
-                break;
-            }
-            case DOWN: {
-                this.set(this.x, this.z, -this.y);
-                break;
-            }
-            case NORTH:
-            default: {
-                break;
-            }
-        }
-        return this;
-    }
-
-    public WorldFeaturePoint rotateZ(float radian) {
-        float cos = MathHelper.cos(radian);
-        float sin = MathHelper.sin(radian);
-        int x = (int) Math.round((double) this.x * (double) cos - (double) this.y * (double) sin);
-        int y = (int) Math.round((double) this.x * (double) sin + (double) this.y * (double) cos);
-        this.x = x;
-        this.y = y;
-        return this;
-    }
-
-    @SuppressWarnings("SuspiciousNameCombination")
-    public WorldFeaturePoint rotateZ(Direction direction) {
-        switch (direction) {
-            case UP: {
-                this.set(this.y, this.x, this.z);
-                break;
-            }
-            case WEST: {
-                this.set(-this.x, -this.y, this.z);
-                break;
-            }
-            case DOWN: {
-                this.set(this.y, -this.x, this.z);
-                break;
-            }
-            case EAST:
-            default: {
-                break;
-            }
-        }
-        return this;
-    }
-
     public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
         return this.subtract(pivotPoint).rotateY(MathHelper.toRadians(angle)).add(pivotPoint);
-    }
-
-    public WorldFeaturePoint rotateXAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
-        return this.subtract(pivotPoint).rotateX(MathHelper.toRadians(angle)).add(pivotPoint);
-    }
-
-    public WorldFeaturePoint rotateZAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
-        return this.subtract(pivotPoint).rotateZ(MathHelper.toRadians(angle)).add(pivotPoint);
     }
 
     public WorldFeaturePoint rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
         return this.subtract(pivotX, pivotY, pivotZ).rotateY(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
     }
 
-    public WorldFeaturePoint rotateXAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
-        return this.subtract(pivotX, pivotY, pivotZ).rotateX(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
-    }
-
-    public WorldFeaturePoint rotateZAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
-        return this.subtract(pivotX, pivotY, pivotZ).rotateZ(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
-    }
-
     public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
         switch (direction) {
             case EAST: {
                 this.subtract(pivotPoint);
-                this.set(this.z, this.y, this.x);
+                this.set(-this.z, this.y, this.x);
                 this.add(pivotPoint);
                 break;
             }
@@ -308,7 +204,7 @@ public class WorldFeaturePoint {
             }
             case WEST: {
                 this.subtract(pivotPoint);
-                this.set(-this.z, this.y, this.x);
+                this.set(this.z, this.y, -this.x);
                 this.add(pivotPoint);
                 break;
             }
