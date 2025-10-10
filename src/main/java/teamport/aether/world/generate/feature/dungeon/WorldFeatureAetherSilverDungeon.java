@@ -278,12 +278,11 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
 
         // Entrance hole into boss room
         int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
-        int entranceDoorMetaOpp = BlockLogicRotatable.setDirection(0, direction.getOpposite());
         WorldFeatureComponent entranceDoor = drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true);
         this.placeComponent(entranceDoor);
         for (WorldFeatureBlock blocks : entranceDoor.blockList) {
             blocks.blockID = AetherBlocks.DOOR_DUNGEON_SILVER.id();
-            blocks.metadata = direction == Direction.EAST || direction == Direction.WEST ? entranceDoorMetaOpp : entranceDoorMeta;
+            blocks.metadata = entranceDoorMeta;
         }
         dungeon.setEntranceDoor(entranceDoor.blockList);
         dungeon.setClearArea(clearArea);
