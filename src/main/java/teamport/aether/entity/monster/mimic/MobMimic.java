@@ -204,6 +204,20 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         super.remove();
     }
 
+    @Override
+    public String deathMessage(Player player){
+        String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
+        String deathMessage = TRANSLATOR
+                .translateKey(key)
+                .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
+        return RED + deathMessage;
+    }
+
+    @Override
+    public float getHeadHeight() {
+        return this.bbHeight;
+    }
+
     private void place() {
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
         Direction[] check = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST, UP, DOWN};
@@ -276,14 +290,4 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             WorldFeatureComponent.placeItemInChest(random, lootObj.getDefinedItemStack(), inventory);
         }
     }
-
-    @Override
-    public String deathMessage(Player player){
-        String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
-        String deathMessage = TRANSLATOR
-                .translateKey(key)
-                .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
-        return RED + deathMessage;
-    }
-
 }
