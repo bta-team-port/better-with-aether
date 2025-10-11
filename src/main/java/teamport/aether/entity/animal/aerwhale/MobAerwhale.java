@@ -39,11 +39,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.ignoreFrustumCheck = true;
     }
 
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         return false;
     }
 
-
+    @Override
     public void updateAI() {
         double[] distances = new double[] {
                 this.openSpace(0.0F, 0.0F),
@@ -93,6 +94,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
     }
 
+    @Override
     public void tick() {
         if (this.newPosRotationIncrements > 0) {
             double lerpXD = this.x + (this.newPosX - this.x) / (double) this.newPosRotationIncrements;
@@ -167,6 +169,46 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.move(this.xd, this.yd, this.zd);
     }
 
+    @Override
+    public String getLivingSound() {
+        return "aether:mob.aerwhale.call";
+    }
+
+    @Override
+    public String getHurtSound() {
+        return "aether:mob.aerwhale.call";
+    }
+
+    @Override
+    public String getDeathSound() {
+        return "aether:mob.aerwhale.call";
+    }
+
+    @Override
+    public float getSoundVolume() {
+        return 3.0F;
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
+
+    @Override
+    public void spawnInit() {
+        if (world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
+            this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
+        }
+    }
+
+    @Override
+    public boolean canSpawnHere() {
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water) && this.world.getFullBlockLightValue(x, y, z) > 8;
+    }
+
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
         float yRot = this.yRot + rotationyRotOffset;
         float pitch = this.xRot + rotationPitchOffset;
@@ -214,38 +256,4 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
 
     }
-
-    public String getLivingSound() {
-        return "aether:mob.aerwhale.call";
-    }
-
-    public String getHurtSound() {
-        return "aether:mob.aerwhale.call";
-    }
-
-    public String getDeathSound() {
-        return "aether:mob.aerwhale.call";
-    }
-
-    public float getSoundVolume() {
-        return 3.0F;
-    }
-
-    public int getMaxSpawnedInChunk() {
-        return 1;
-    }
-
-    public void spawnInit() {
-        if (world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
-            this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
-        }
-    }
-
-    public boolean canSpawnHere() {
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.bb.minY);
-        int z = MathHelper.floor(this.z);
-        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water) && this.world.getFullBlockLightValue(x, y, z) > 8;
-    }
-
 }
