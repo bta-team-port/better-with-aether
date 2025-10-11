@@ -2,10 +2,10 @@ package teamport.aether.entity.monster.valkyrie;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.model.Cube;
 import net.minecraft.client.render.model.ModelBiped;
 import net.minecraft.core.util.helper.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class ModelValkyrie extends ModelBiped {
@@ -48,10 +48,10 @@ public class ModelValkyrie extends ModelBiped {
         this.armLeft.mirror = true;
         this.armLeft.addBox(-1.0F, -1.5F, -1.5F, 3, 12, 3, expandAmount);
         this.armLeft.setRotationPoint(5.0F, 1.5F, 0.0F);
-        this.bipedRightArm2 = new Cube(52, 0);
+        this.bipedRightArm2 = new Cube(52, 11);
         this.bipedRightArm2.addBox(-3.0F, -1.5F, -1.5F, 3, 3, 3, expandAmount + 0.75F);
         this.bipedRightArm2.setRotationPoint(-4.0F, 1.5F, 0.0F);
-        this.bipedLeftArm2 = new Cube(52, 0);
+        this.bipedLeftArm2 = new Cube(52, 11);
         this.bipedLeftArm2.mirror = true;
         this.bipedLeftArm2.addBox(-1.0F, -1.5F, -1.5F, 3, 3, 3, expandAmount + 0.75F);
         this.bipedLeftArm2.setRotationPoint(5.0F, 1.5F, 0.0F);
@@ -158,7 +158,7 @@ public class ModelValkyrie extends ModelBiped {
         this.strand[21].addBox(0.0F, -7.0F, -5.0F, 1, 3, 1, expandAmount);
         this.strand[21].setRotationPoint(0.0F, 0.0F, 0.0F);
 
-        this.halo = new Cube(35, 9);
+        this.halo = new Cube(25, 9);
         this.halo.addBox(-3.5F, -11.0F, -3.5F, 7, 0, 7, expandAmount);
         this.halo.setRotationPoint(0.0F, 0.0F, 0.0F);
     }
@@ -187,18 +187,13 @@ public class ModelValkyrie extends ModelBiped {
             this.strand[i].render(scale);
         }
 
-
         {
-            GL11.glEnable(2977);
-            GL11.glEnable(3042);
-            GL11.glDisable(3008);
-            GL11.glBlendFunc(770, 771);
+            if (LightmapHelper.isLightmapEnabled()) {
+                LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
+            }
 
             this.halo.render(scale);
-
-            GL11.glEnable(3008);
         }
-
 
     }
 
@@ -225,16 +220,6 @@ public class ModelValkyrie extends ModelBiped {
         this.halo.xRot = this.head.xRot;
 
         Cube var10000;
-        if (this.isRiding) {
-            var10000 = this.armRight;
-            var10000.xRot += -0.6283185F;
-            var10000 = this.armLeft;
-            var10000.xRot += -0.6283185F;
-            this.legRight.xRot = -1.256637F;
-            this.legLeft.xRot = -1.256637F;
-            this.legRight.yRot = 0.3141593F;
-            this.legLeft.yRot = -0.3141593F;
-        }
 
         if (this.holdingLeftHand) {
             this.armLeft.xRot = this.armLeft.xRot * 0.5F - 0.3141593F;
