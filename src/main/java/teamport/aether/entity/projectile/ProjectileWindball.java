@@ -22,7 +22,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
         this.setSize(1.0F, 1.0F);
         this.moveTo(x, y, z, this.yRot, this.xRot);
         this.setPos(x, y, z);
-        this.setVelocity(vX, vY, vZ, 1.0);
+        this.setVelocity(vX, vY, vZ);
     }
 
     public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
@@ -35,10 +35,10 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
         vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
         vY += this.random.nextGaussian() * 0.4;
         vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
-        this.setVelocity(vX, vY, vZ, 1.0);
+        this.setVelocity(vX, vY, vZ);
     }
 
-    private void setVelocity(double vX, double vY, double vZ, double speed) {
+    private void setVelocity(double vX, double vY, double vZ) {
         double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
         if (velocity != 0.0) {
             this.xd = vX / velocity;
@@ -67,14 +67,16 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
     }
 
     public void onHit(HitResult result) {
-        if (!this.world.isClientSide) {
-            if (result.entity != null) {
-                if (!(result.entity instanceof ProjectileWindball)) {
-                    result.entity.fling(xd * 4, yd * 0, zd * 4, 0.5F);
+        if (this.tickCount > 5) {
+            if (!this.world.isClientSide) {
+                if (result.entity != null) {
+                    if (!(result.entity instanceof Projectile)) {
+                        result.entity.fling(xd * 4, yd * 0, zd * 4, 0.5F);
+                    }
                 }
             }
-            this.remove();
         }
+        this.remove();
     }
 
     public void afterTick() {
@@ -90,7 +92,6 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
     }
 
     public boolean hurt(Entity entity, int i, DamageType type) {
-        this.markHurt();
         return false;
     }
 

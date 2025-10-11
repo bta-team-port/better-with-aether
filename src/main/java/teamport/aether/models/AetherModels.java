@@ -8,7 +8,6 @@ import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.*;
 import net.minecraft.client.render.entity.EntityRendererFallingBlock;
 import net.minecraft.client.render.entity.EntityRendererSprite;
-import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererBiped;
 import net.minecraft.client.render.item.model.ItemModelBlock;
 import net.minecraft.client.render.item.model.ItemModelBow;
@@ -70,8 +69,6 @@ import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.renderer.EntityRendererNeedle;
 import teamport.aether.entity.tile.TileEntityRendererSignSkyroot;
 import teamport.aether.entity.tile.TileEntitySignSkyroot;
-import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
-import teamport.aether.entity.vehicle.minicloud.ModelMinicloud;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
@@ -805,7 +802,6 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
         ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
-        ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
 
 
     }
@@ -813,15 +809,15 @@ public class AetherModels implements ModelEntrypoint {
     @Override
     public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
         ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, () -> {
-                TileEntityRendererSignSkyroot renderer = new TileEntityRendererSignSkyroot()
-                        .setDefaultTexture("/assets/aether/textures/entity/sign_skyroot.png", new Color().setARGB(0x695E43));
+                    TileEntityRendererSignSkyroot renderer = new TileEntityRendererSignSkyroot()
+                            .setDefaultTexture("/assets/aether/textures/entity/sign_skyroot.png", new Color().setARGB(0x695E43));
 
-                Arrays.stream(DyeColor.values()).iterator().forEachRemaining(
-                        dyeColor -> renderer.setColoredTexture(dyeColor.blockMeta, String.format("/assets/aether/textures/entity/sign_skyroot/%s.png", dyeColor.colorID))
-                );
+                    Arrays.stream(DyeColor.values()).iterator().forEachRemaining(
+                            dyeColor -> renderer.setColoredTexture(dyeColor.blockMeta, String.format("/assets/aether/textures/entity/sign_skyroot/%s.png", dyeColor.colorID))
+                    );
 
-                return renderer;
-            }
+                    return renderer;
+                }
         );
     }
 

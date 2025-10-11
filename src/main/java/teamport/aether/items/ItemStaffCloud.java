@@ -1,47 +1,50 @@
 package teamport.aether.items;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
-
-import java.util.List;
+import teamport.aether.entity.projectile.ProjectileWindball;
 
 public class ItemStaffCloud extends Item {
 
     public ItemStaffCloud(String translationKey, String namespaceId, int id) {
         super(translationKey, namespaceId, id);
         this.setMaxStackSize(1);
-        this.setMaxDamage(60);
-    }
-
-    public ItemStack useCloudStaff(ItemStack itemstack, World world, Player entityplayer) {
-        if (!this.cloudsExist(world, entityplayer)) {
-
-            MobMinicloud c1 = new MobMinicloud(world, entityplayer, false);
-            MobMinicloud c2 = new MobMinicloud(world, entityplayer, true);
-            world.entityJoinedWorld(c1);
-            world.entityJoinedWorld(c2);
-            itemstack.damageItem(1, entityplayer);
-        }
-
-        return itemstack;
+        this.setMaxDamage(192);
     }
 
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
-        return world.isClientSide ? itemstack : useCloudStaff(itemstack, world, entityplayer);
-    }
+        world.playSoundAtEntity(entityplayer, entityplayer, "aether:mob.zephyr.shoot", 0.3F, 1.0F / (itemRand.nextFloat() * -0.2F - 0.4F));
+        if (!world.isClientSide) {
+            double lookX = entityplayer.getLookAngle().x;
+            double lookY = entityplayer.getLookAngle().y;
+            double lookZ = entityplayer.getLookAngle().z;
 
-    public boolean cloudsExist(World world, Player entityplayer) {
-        List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(entityplayer, entityplayer.bb.expand(128.0, 128.0, 128.0));
+            double perpX = -lookZ;
+            double perpZ = lookX;
 
-        for (Entity entity1 : list) {
-            if (entity1 instanceof MobMinicloud) {
-                return true;
+            double length = Math.sqrt(perpX * perpX + perpZ * perpZ);
+            if (length > 0) {
+                perpX = (perpX / length);
+                perpZ = (perpZ / length);
+            } else {
+                perpX = 1;
+                perpZ = 0;
             }
+
+            ProjectileWindball windballLeft = new ProjectileWindball(world);
+            windballLeft.setPos(entityplayer.x + perpX, entityplayer.y, entityplayer.z + perpZ);
+            windballLeft.setHeading(lookX, lookY, lookZ, 1.0f, 0.0f);
+            world.entityJoinedWorld(windballLeft);
+
+            ProjectileWindball windballRight = new ProjectileWindball(world);
+            windballRight.setPos(entityplayer.x - perpX, entityplayer.y, entityplayer.z - perpZ);
+            windballRight.setHeading(lookX, lookY, lookZ, 1.0f, 0.0f);
+            world.entityJoinedWorld(windballRight);
+
+            itemstack.damageItem(1, entityplayer);
         }
-        return false;
+        return itemstack;
     }
 }

@@ -23,10 +23,9 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
-import teamport.aether.entity.vehicle.minicloud.MobMinicloud;
+import teamport.aether.entity.tile.*;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
-import teamport.aether.entity.tile.*;
 import turniplabs.halplibe.helper.EntityHelper;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -35,7 +34,7 @@ public final class AetherEntities {
     private static boolean hasInit = false;
 
     public static void init() {
-        if(!hasInit){
+        if (!hasInit) {
             hasInit = true;
             initializeEntities();
         }
@@ -75,7 +74,6 @@ public final class AetherEntities {
 
         EntityHelper.createEntity(EntityParachute.class, NamespaceID.getPermanent(MOD_ID, "parachute"), entityKey("parachute"));
         EntityHelper.createEntity(EntityParachuteGold.class, NamespaceID.getPermanent(MOD_ID, "parachute_gold"), entityKey("parachute_gold"));
-        EntityHelper.createEntity(MobMinicloud.class, NamespaceID.getPermanent(MOD_ID, "minicloud"), entityKey("minicloud"));
 
         EntityHelper.createEntity(EntityFloatingBlock.class, NamespaceID.getPermanent(MOD_ID, "floating_block"), entityKey("floating_block"));
 
