@@ -1,4 +1,9 @@
-# The Aether - BTA Port
+# Better with Aether
+[![GitHub release](https://img.shields.io/github/v/release/bta-team-port/better-with-aether?color=cyan
+)](https://github.com/bta-team-port/better-with-aether/releases)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bta-team-port/better-with-aether?color=cyan)
+![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan)
+
 
 The legendary dimension is finally here for Better Than Adventure!
 New dimension, plethora of blocks and items.
@@ -19,7 +24,7 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 - Catalyst-Effects >= 2.3.0
 - UselessNumericals >= [1.0.3-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
 
-### Last Release Screenshot:
+### Screenshots from the lates Release:
 
 <p align="center">
   <img width="1920" height="1017" alt="2025-10-09_01 09 30" src="https://github.com/user-attachments/assets/a03c1a1a-4980-43e4-b023-89ab47a3fdb6" />
