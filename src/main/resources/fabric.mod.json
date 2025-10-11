@@ -45,6 +45,7 @@
     "initModels": ["teamport.aether.models.AetherModels"],
     "recipesReady": ["teamport.aether.AetherRecipes"],
     "server": ["teamport.aether.AetherServer"],
+    "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
 
     "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"]
   },
