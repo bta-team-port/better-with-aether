@@ -1,12 +1,11 @@
 
 package teamport.aether.achievements;
 
+import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class AetherAchievementPageBackground {
 
@@ -21,18 +20,58 @@ public class AetherAchievementPageBackground {
     public final int height;
 
     public AetherAchievementPageBackground() {
-        String resource = "assets/aether/misc/achievement_page_background";
+        String resource = "/assets/aether/misc/achievement_page_background";
 
-        this.TerrainLayer1 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain1.csv"));
-        this.TerrainLayer2 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain2.csv"));
-        this.TerrainLayer3 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain3.csv"));
-        this.TerrainLayer4 = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Terrain4.csv"));
+        int heightTemp;
+        int widthTemp;
+        List<List<Integer>> specialsTemp;
+        List<List<Integer>> terrainLayer4Temp;
+        List<List<Integer>> terrainLayer3Temp;
+        List<List<Integer>> terrainLayer2Temp;
+        List<List<Integer>> terrainLayer1Temp;
 
-        this.height = TerrainLayer1.size()-1;
-        this.width = TerrainLayer1.get(0).size()-1;
+        try {
+            terrainLayer1Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain1.csv"));
+            terrainLayer2Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain2.csv"));
+            terrainLayer3Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain3.csv"));
+            terrainLayer4Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain4.csv"));
+            specialsTemp      = loadCSV(getClass().getResourceAsStream(resource + "/Specials.csv"));
 
+            heightTemp = terrainLayer1Temp.size()-1;
+            widthTemp = terrainLayer1Temp.get(0).size()-1;
+        }
+
+        catch (NullPointerException e) {
+            AetherMod.LOGGER.error("Failed to load background files for the achievements screen!", e);
+
+            terrainLayer1Temp = Collections.singletonList(
+                Collections.singletonList(0)
+            );
+            terrainLayer2Temp = Collections.singletonList(
+                Collections.singletonList(1)
+            );
+            terrainLayer3Temp = Collections.singletonList(
+                Collections.singletonList(0)
+            );
+            terrainLayer4Temp = Collections.singletonList(
+                Collections.singletonList(0)
+            );
+            specialsTemp = Collections.singletonList(
+                Collections.singletonList(0)
+            );
+
+            widthTemp = 1;
+            heightTemp = 1;
+        }
+
+        this.height = heightTemp;
+        this.width = widthTemp;
+        this.Specials = specialsTemp;
+        this.TerrainLayer4 = terrainLayer4Temp;
+        this.TerrainLayer3 = terrainLayer3Temp;
+        this.TerrainLayer2 = terrainLayer2Temp;
+        this.TerrainLayer1 = terrainLayer1Temp;
         this.WaterSources = new ArrayList<>();
-        Specials = loadCSV(ClassLoader.getSystemResourceAsStream(resource + "/Specials.csv"));
 
         for (int y = 0; y < Specials.size(); y++) {
             List<Integer> row = Specials.get(y);
