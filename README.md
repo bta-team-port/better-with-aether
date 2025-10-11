@@ -10,13 +10,11 @@ Brand-new compatibility between the two as well.
 
 ### REQUIRES:
 
-- BTA 7.3_04
-- Halplibe 5.3.0
-- Catalyst Core 2.1.4
-- Catalyst Effects 2.0.1
-- UselessNumerical 1.0.2
-
-![](https://imgur.com/Fh7CxjQ "Aether Silver Dungeon")
+- BTA >= 7.3_04
+- Halplibe >= [HalpLibe 5.3.0](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/5.3.0)
+- Catalyst-Core >= 2.2.0
+- Catalyst-Effects >= 2.3.0
+- UselessNumericals >= [1.0.3-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
 
 ### Aether Wiki
 
