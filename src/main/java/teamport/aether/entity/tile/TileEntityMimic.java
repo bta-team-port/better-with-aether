@@ -6,6 +6,7 @@ import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 public class TileEntityMimic extends TileEntityChest implements Container {
     public String nickname = "";
@@ -21,12 +22,18 @@ public class TileEntityMimic extends TileEntityChest implements Container {
     }
 
     public String getNameTranslationKey() {
-        return nickname.isEmpty() ? "aether.container.chest.trapped.name" : TextFormatting.get(this.chatColor).toString() + nickname;
+        if(nickname.isEmpty()){
+            return "aether.container.chest.trapped.name";
+        }
+        if(chatColor < 0){
+            return nickname;
+        }
+        return TextFormatting.get(chatColor).toString() + nickname;
     }
 
     public void setCustomName(String nickname, byte chatColor ){
         this.nickname = nickname;
-        this.chatColor = chatColor < 0 ? (byte)TextFormatting.BLACK.id : chatColor; // to prevent
+        this.chatColor = chatColor; // to prevent
     }
 
 
