@@ -222,41 +222,6 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/lantern_firefly_silver"));
 
 
-
-
-
-//        BlockModelChestMimic<?> blockModelChestMimic = new BlockModelChestMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
-//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/front", Side.NORTH)
-//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                .setTex(BLOCK_TEXTURES, 0, "aether:block/chest/skyroot/top", Side.TOP, Side.BOTTOM)
-//
-//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/front", Side.NORTH)
-//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                .setTex(BLOCK_TEXTURES, 1, "minecraft:block/chest/planks/top", Side.TOP, Side.BOTTOM)
-//
-//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
-//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                .setTex(BLOCK_TEXTURES, 18, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM)
-//
-//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/front", Side.NORTH)
-//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                .setTex(BLOCK_TEXTURES, 19, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM)
-//
-//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/front", Side.NORTH)
-//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                .setTex(BLOCK_TEXTURES, 20, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM);
-//
-//        for (DyeColor dye : DyeColor.values()) {
-//            String path = String.format("minecraft:block/chest/planks_%s", dye.colorID);
-//            blockModelChestMimic
-//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/front", Side.NORTH)
-//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/side", Side.EAST, Side.WEST, Side.SOUTH)
-//                    .setTex(BLOCK_TEXTURES, dye.blockMeta + 2, path + "/top", Side.TOP, Side.BOTTOM);
-//        }
-//
-//        dispatcher.addDispatch(blockModelChestMimic);
-
-
     }
 
     @Override

@@ -2,6 +2,7 @@ package teamport.aether.entity.tile;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.entity.TileEntityChest;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +21,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
     }
 
     public String getNameTranslationKey() {
-        return "aether.container.chest.trapped.name";
+        return nickname.isEmpty() ? "aether.container.chest.trapped.name" : TextFormatting.get(this.chatColor).toString() + nickname;
     }
 
     public void setCustomName(String nickname, byte chatColor ){
