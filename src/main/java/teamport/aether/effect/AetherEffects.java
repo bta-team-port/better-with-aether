@@ -4,6 +4,7 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import sunsetsatellite.catalyst.CatalystEffects;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
 import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
@@ -13,10 +14,9 @@ import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
 import teamport.aether.effect.render.ExtraHealthEffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
-import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
-import teamport.aether.gui.IHudVisibility;
+import teamport.aether.gui.AetherCustomHeartContainer;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -170,8 +170,10 @@ public class AetherEffects {
      */
     public static EffectStack resolveDominantEffect(Player player) {
         EffectStack dominant = null;
+        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
+
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
-            if(effectStack.getEffect() instanceof IHudVisibility){
+            if(dispatcher.getDispatch(effectStack.getEffect()) instanceof AetherCustomHeartContainer){
                 if (dominant == null) dominant = effectStack;
                 int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
                 int dominantPotency = dominant.getAmount() * dominant.getDuration();

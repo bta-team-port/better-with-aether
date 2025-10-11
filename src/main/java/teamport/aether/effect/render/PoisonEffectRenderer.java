@@ -1,12 +1,15 @@
 package teamport.aether.effect.render;
 
+import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.Effect;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.render.TintEffectRender;
-import teamport.aether.gui.IHudVisibility;
+import teamport.aether.effect.HeartContainer;
+import teamport.aether.effect.HeartContainerSimple;
+import teamport.aether.gui.AetherCustomHeartContainer;
 
-public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements IHudVisibility {
-    public String PATH_HEART;
+public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements AetherCustomHeartContainer {
+    public final String PATH_HEART;
 
     public PoisonEffectRenderer(T effect, String vignette, int tint,  String heartPath) {
         super(effect, vignette, tint);
@@ -21,8 +24,9 @@ public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> 
         return 0.35F +  percent / 3.0F;
     }
 
+
     @Override
-    public String getPath() {
-        return PATH_HEART;
+    public HeartContainer getCustomContainer(Player player) {
+        return new HeartContainerSimple(player, this.PATH_HEART);
     }
 }

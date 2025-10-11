@@ -14,6 +14,8 @@ import java.io.IOException;
 @Mixin(value = PacketAddParticle.class, remap = false)
 public class PacketAddParticleMixin {
 
+    // some assembly required...
+
     @Shadow
     public int data;
 
