@@ -1,7 +1,6 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;

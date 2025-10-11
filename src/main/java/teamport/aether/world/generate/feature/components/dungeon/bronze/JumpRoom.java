@@ -19,12 +19,13 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class JumpRoom extends BaseBronzeRoom{
-    public static BlockPallet chestOrMimic = new BlockPallet();
+    public static BlockPallet jumpMimics = new BlockPallet();
     static {
-        chestOrMimic.addEntry(0, 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
+        jumpMimics.addEntry(0, 1.5);
+        jumpMimics.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 2);
+        jumpMimics.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 2);
     }
+
 
     public JumpRoom(){
         super();
@@ -58,12 +59,12 @@ public class JumpRoom extends BaseBronzeRoom{
 
         // Chests
         List<WorldFeatureComponent> listChestPos = new ArrayList<>();
-        listChestPos.add(drawLine(random, chestOrMimic, EAST, 2, x + 5, y + 8, z + 1, true));
-        listChestPos.add(drawLine(random, chestOrMimic, SOUTH, 2, x + 1, y + 8, z + 5, true));
-        listChestPos.add(drawLine(random, chestOrMimic, SOUTH, 2, x + 10, y + 8, z + 5, true));
-        listChestPos.add(drawLine(random, chestOrMimic, EAST, 2, x + 5, y + 8, z + 10, true));
+        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 1, true));
+        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 1, y + 8, z + 5, true));
+        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 10, y + 8, z + 5, true));
+        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 10, true));
         Collections.shuffle(listChestPos, random);
-        int max = random.nextInt(2) + 1;
+        int max = random.nextInt(3) + 1;
         for(int i = 0; i < max; i++){
             chest.add(listChestPos.get(i));
         }

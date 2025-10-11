@@ -2,7 +2,6 @@ package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Blocks;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.world.generate.feature.BlockPallet;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static net.minecraft.core.util.helper.Direction.UP;

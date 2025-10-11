@@ -17,13 +17,8 @@ import static teamport.aether.world.generate.feature.components.WorldFeatureComp
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class DisplayRoom extends BaseBronzeRoom {
-    public static BlockPallet CHESTORMIMIC = new BlockPallet();
     public static BlockPallet DISPLAY = new BlockPallet();
     static {
-        CHESTORMIMIC.addEntry(0, 1.5);
-        CHESTORMIMIC.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        CHESTORMIMIC.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 2);
-
         DISPLAY.addEntry(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.id(), 10);
         DISPLAY.addEntry(AetherBlocks.ORE_ZANITE_HOLYSTONE.id(), 5);
         DISPLAY.addEntry(AetherBlocks.ORE_GRAVITITE_HOLYSTONE.id(), 1);
@@ -70,7 +65,7 @@ public class DisplayRoom extends BaseBronzeRoom {
         for(int i = 2; i < pointList.size(); i++){
             WorldFeaturePoint[] points = pointList.get(i);
             for(WorldFeaturePoint point: points){
-                IntPair idMeta = CHESTORMIMIC.getRandom(random);
+                IntPair idMeta = chestOrMimic.getRandom(random);
                 chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second,  true));
             }
         }
