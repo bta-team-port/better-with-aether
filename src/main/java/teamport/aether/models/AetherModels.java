@@ -292,7 +292,6 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
         ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
-        ModelHelper.setEntityModel(MobMinicloud.class, () -> new MobRenderer<>(new ModelMinicloud(0.0f, 20.0f), 0.35f));
     }
 
     @Override
