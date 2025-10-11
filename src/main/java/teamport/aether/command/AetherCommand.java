@@ -39,6 +39,8 @@ public class AetherCommand {
         registerWorldFeatureClass(StairwellRoom.class, "DebugMazeWell");
         registerWorldFeatureClass(TallRoom.class, "DebugMazeTall");
         registerWorldFeatureClass(TreasureRoom.class, "DebugMazeTreasure");
+
+        registerWorldFeatureClass(RotationBlockTest.class, "DebugRotationBlocks");
     }
 
     public static void registerClientCommands(){
