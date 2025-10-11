@@ -107,6 +107,8 @@
     "dimension.AetherMusicMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
+    "gameSettings.CatalystAddToMixin",
+    "gameSettings.HeartContainerOptionMixin",
     "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",

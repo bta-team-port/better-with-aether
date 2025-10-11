@@ -23,6 +23,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
+import teamport.aether.gameSettings.AetherGameSettings;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.gui.ComponentJumpBar;
 import teamport.aether.particle.*;
@@ -77,6 +78,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
         setupCustomBlockLight();
         AetherMobInfoRegistry.init();
+        AetherGameSettings.init();
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED)
                 .setCloudHeight(8.0f)
