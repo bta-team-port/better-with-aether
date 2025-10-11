@@ -75,6 +75,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+        if(tileEntity == null){
+            tileEntity = world.getTileEntity(x,y,z);
+        }
         switch (dropCause) {
             case EXPLOSION:
             case PISTON_CRUSH:
@@ -153,9 +156,6 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     }
 
     private ItemStack @NotNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
-        if(tileEntity == null){
-            tileEntity = world.getTileEntity(x,y,z);
-        }
         if(tileEntity instanceof TileEntityMimic){
             ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
         }
@@ -276,4 +276,5 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     private boolean isSafe(World world, int x, int y, int z) {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
+
 }

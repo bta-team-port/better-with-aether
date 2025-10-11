@@ -26,7 +26,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
 
     public void setCustomName(String nickname, byte chatColor ){
         this.nickname = nickname;
-        this.chatColor = chatColor;
+        this.chatColor = chatColor < 0 ? (byte)TextFormatting.BLACK.id : chatColor; // to prevent
     }
 
 
