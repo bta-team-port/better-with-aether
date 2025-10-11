@@ -126,9 +126,9 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
              logic instanceof BlockLogicTorch
         ){
             int indexDirection = this.metadata & MASK_DIRECTION_FULL;
-            if(indexDirection > Direction.directions.length) indexDirection = 0;
-            Direction currentDirection = Direction.directions[indexDirection];
-            this.metadata = maskDirectionHorizontal(this.metadata, getMetadataTorchPlacement(currentDirection.rotate(rotateAmount)));
+            Direction currentDirection = getTorchDirectionFromMetadata(indexDirection);
+            Direction newDirection = currentDirection.rotate(rotateAmount);
+            this.metadata = maskDirectionHorizontal(this.metadata, getTorchMetadataFromDirection(newDirection));
         }
         if(
                 logic instanceof BlockLogicTrapDoor
