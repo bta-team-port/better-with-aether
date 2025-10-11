@@ -1,8 +1,8 @@
-package teamport.aether.effect;
+package teamport.aether.effect.render;
 
 import net.minecraft.core.entity.player.Player;
 
-public class HeartContainerSimple extends HeartContainer{
+public class HeartContainerSimple extends HeartContainer {
 
     private final String path;
 
