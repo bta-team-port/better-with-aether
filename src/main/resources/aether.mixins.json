@@ -8,7 +8,6 @@
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
     "accessors.MenuAbstractAccessor",
-    "accessors.MobAccessor",
     "accessors.SlotAccessor",
     "accessors.SlotArmorAccessor",
     "accessory.ContainerInventoryMixinAccessory",
@@ -88,7 +87,6 @@
     "player.PlayerLocalHandleAetherRideableMixin"
   ],
   "client": [
-    "accessors.HudComponentAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",

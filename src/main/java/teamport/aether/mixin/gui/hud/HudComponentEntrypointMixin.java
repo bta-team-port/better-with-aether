@@ -7,6 +7,7 @@ import teamport.aether.AetherClient;
 
 @Mixin(value = HudComponents.class)
 public class HudComponentEntrypointMixin {
-    // this is silly, and, if you are a BTA dev, you should feel bad. >:(
+    // If you don't have this run at the point of creation of the hud component class:
+    // The reset button just won't work.
     static { AetherClient.registerHUDComponents(); }
 }
