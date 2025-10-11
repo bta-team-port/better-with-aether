@@ -199,13 +199,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
                     if (seenRooms.size() == 1) {
-                        topCorner = nextRoom.getDoor(nextDoor).p1.copy().moveInDirection(door.heading);
-                        bottomCorner = door.p2.copy().moveInDirection(door.heading.getOpposite());
+                        topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(DOWN, 2).moveInDirection(door.heading);
                     } else {
                         topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
-                        bottomCorner = door.p1.copy().moveInDirection(door.heading.getOpposite());
                     }
-                    drawVolume(0, 0, topCorner, bottomCorner, true).place(world);
+                    bottomCorner = door.p1.copy();
+                    WorldFeatureComponent.drawVolumeWithPoint(0, 0, bottomCorner, topCorner, door.heading.getOpposite(), true).place(world);
                     roomWeight += nextRoom.roomWeight;
                     seenRooms.add(nextRoom);
                     availableRooms.add(nextRoom);
