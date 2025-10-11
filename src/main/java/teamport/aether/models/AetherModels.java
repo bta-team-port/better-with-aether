@@ -499,15 +499,15 @@ public class AetherModels implements ModelEntrypoint {
                 .setAllTextures(BLOCK_TEXTURES, "minecraft:block/chest/planks/top")
         );
 
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_BRONZE, "aether:block/chest/dungeon_bronze/")
+        dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_BRONZE, "aether:block/chest/dungeon_bronze/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top")
         );
 
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_SILVER, "aether:block/chest/dungeon_silver/")
+        dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_SILVER, "aether:block/chest/dungeon_silver/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top")
         );
 
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_GOLD, "aether:block/chest/dungeon_gold/")
+        dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_GOLD, "aether:block/chest/dungeon_gold/")
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top")
         );
 

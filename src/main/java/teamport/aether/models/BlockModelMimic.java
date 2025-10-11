@@ -1,0 +1,70 @@
+package teamport.aether.models;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.block.model.BlockModelStandard;
+import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
+import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.world.WorldSource;
+import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+
+@Environment(EnvType.CLIENT)
+public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelStandard<T> {
+    protected IconCoordinate frontTexture;
+    protected IconCoordinate sideTexture;
+    protected IconCoordinate topTexture;
+
+    public BlockModelMimic(Block<T> block, String rootKey) {
+        super(block);
+        this.frontTexture = TextureRegistry.getTexture(rootKey + "front");
+        this.sideTexture = TextureRegistry.getTexture(rootKey + "side");
+        this.topTexture = TextureRegistry.getTexture(rootKey + "top");
+    }
+
+    public boolean render(Tessellator tessellator, int x, int y, int z) {
+        int meta = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
+        Direction dir = BlockLogicChest.getDirectionFromMeta(meta);
+        switch (dir) {
+            case NORTH:
+                renderBlocks.uvRotateTop = 3;
+                renderBlocks.uvRotateBottom = 3;
+                break;
+            case EAST:
+                renderBlocks.uvRotateTop = 2;
+                renderBlocks.uvRotateBottom = 1;
+                break;
+            case WEST:
+                renderBlocks.uvRotateTop = 1;
+                renderBlocks.uvRotateBottom = 2;
+        }
+
+        this.renderStandardBlock(tessellator, this.block.getBlockBoundsFromState(renderBlocks.blockAccess, x, y, z), x, y, z);
+        this.resetRenderBlocks();
+        return true;
+    }
+
+    public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
+        int meta = blockAccess.getBlockMetadata(x, y, z);
+        Side facing = BlockLogicChest.getDirectionFromMeta(meta).getSide();
+        if (side == Side.TOP || side == Side.BOTTOM) {
+            return topTexture;
+        }
+        if (side == facing) {
+            return frontTexture;
+        }
+        return side.isHorizontal() ? sideTexture : topTexture;
+    }
+
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+        if (side == Side.SOUTH) {
+            return frontTexture;
+        } else {
+            return side.isHorizontal() ? sideTexture : topTexture;
+        }
+    }
+}
