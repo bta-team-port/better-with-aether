@@ -8,6 +8,9 @@ Brand-new compatibility between the two as well.
 
 "This mod is a remake to port the Aether 1.02 to BTA. We have no relation to the Aether team or the BTA team.
 
+### Aether Wiki
+https://aether.wiki.gg/wiki/Aether_Wiki
+
 ### REQUIRES:
 
 - BTA >= 7.3_04
@@ -16,6 +19,29 @@ Brand-new compatibility between the two as well.
 - Catalyst-Effects >= 2.3.0
 - UselessNumericals >= [1.0.3-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
 
-### Aether Wiki
+### Last Release Screenshot:
 
-https://aether.wiki.gg/wiki/Aether_Wiki
+<p align="center">
+  <img width="1920" height="1017" alt="2025-10-09_01 09 30" src="https://github.com/user-attachments/assets/a03c1a1a-4980-43e4-b023-89ab47a3fdb6" />
+  <br>
+  <em>A showcase of colored planks.</em>
+</p>
+
+<p align="center">
+  <img width="1920" height="1017" alt="2025-10-09_01 54 55" src="https://github.com/user-attachments/assets/750c25ed-41c8-4acc-8baf-40d409788123" />
+  <br>
+  <em>A congregation of mimics, Spot Wallace.</em>
+</p>
+
+<p align="center">
+  <img width="1920" height="1017" alt="2025-10-10_01 43 55" src="https://github.com/user-attachments/assets/1a4d0590-642f-430e-a698-7d9fda80c931" />
+  <br>
+  <em>Valkyrie Sleeping Quater</em>
+</p>
+
+<p align="center">
+  <img width="1920" height="1017" alt="2025-10-09_14 40 25" src="https://github.com/user-attachments/assets/2b1f40c1-534c-4482-8cae-a1efa9f58651" />
+  <br>
+  <em>A soothing place to rest.</em>
+</p>
+
