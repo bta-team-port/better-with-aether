@@ -11,6 +11,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
+import net.minecraft.core.item.ItemLabel;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.item.tag.ItemTags;
@@ -111,6 +112,14 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
+        ItemStack held = player.getHeldItem();
+        if(held != null && held.getItem() instanceof ItemLabel){
+            TileEntity tileEntity = world.getTileEntity(x,y,z);
+            if(tileEntity instanceof TileEntityMimic){
+                ((TileEntityMimic) tileEntity).setCustomName(held.getCustomName(), held.getCustomColor());
+                return true;
+            }
+        }
         if (player.gamemode == Gamemode.creative) {
             ItemStack stack = player.getHeldItem();
             if (stack == null || !stack.getItem().hasTag(ItemTags.PREVENT_CREATIVE_MINING)) {
@@ -144,6 +153,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     }
 
     private ItemStack @NotNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
+        if(tileEntity == null){
+            tileEntity = world.getTileEntity(x,y,z);
+        }
         if(tileEntity instanceof TileEntityMimic){
             ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
         }
