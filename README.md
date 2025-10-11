@@ -3,6 +3,8 @@
 )](https://github.com/bta-team-port/better-with-aether/releases)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bta-team-port/better-with-aether?color=cyan)
 ![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bta-team-port/better-with-aether/total?color=cyan)
+
 
 The legendary dimension is finally here for Better Than Adventure!
 New dimension, plethora of blocks and items.
