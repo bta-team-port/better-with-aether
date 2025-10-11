@@ -4,6 +4,7 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import org.jetbrains.annotations.Nullable;
@@ -55,7 +56,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
 
     public static BlockPallet chestOrMimic = new BlockPallet();
     static {
-        chestOrMimic.addEntry(0, 2);
+        chestOrMimic.addEntry(0, 1.5f);
         chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
         chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
     }
