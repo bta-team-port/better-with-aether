@@ -524,6 +524,26 @@ public class WorldFeatureComponent {
         return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
+    public static WorldFeatureComponent drawVolumeWithPoint(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, Direction direction, boolean withNotify) {
+        int length1 = p1.x - p2.x;
+        int length2 = p1.y - p2.y;
+        int length3 = p1.z - p2.z;
+        Direction dir1 = length1 >= 0 ? WEST : EAST;
+        Direction dir2 = length2 >= 0 ? DOWN : UP;
+        Direction dir3 = length3 >= 0 ? NORTH : SOUTH;
+        return drawVolume(id, meta, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.x, p1.y, p1.z, withNotify);
+    }
+
+    public static WorldFeatureComponent drawVolumeWithPoint(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, Direction direction, boolean withNotify) {
+        int length1 = p1.x - p2.x;
+        int length2 = p1.y - p2.y;
+        int length3 = p1.z - p2.z;
+        Direction dir1 = length1 >= 0 ? WEST : EAST;
+        Direction dir2 = length2 >= 0 ? DOWN : UP;
+        Direction dir3 = length3 >= 0 ? NORTH : SOUTH;
+        return drawVolume(random, pallet, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.x, p1.y, p1.z, withNotify);
+    }
+
     public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
         int minX = Math.min(p1.x, p2.x);
         int minY = Math.min(p1.y, p2.y);
