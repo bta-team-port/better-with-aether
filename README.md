@@ -4,20 +4,18 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bta-team-port/better-with-aether?color=cyan)
 ![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan)
 
-
 The legendary dimension is finally here for Better Than Adventure!
 New dimension, plethora of blocks and items.
 Tons of new mobs and mechanics.
 3 dungeons and bosses to conquer.
 Brand-new compatibility between the two as well.
 
-"This mod is a remake to port the Aether 1.02 to BTA. We have no relation to the Aether team or the BTA team.
+**This mod is a remake to port the Aether 1.02 to BTA. We have no relation to the Aether team or the BTA team.**
 
 ### Aether Wiki
 https://aether.wiki.gg/wiki/Aether_Wiki
 
 ### REQUIRES:
-
 - BTA >= 7.3_04
 - Halplibe >= [HalpLibe 5.3.0](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/5.3.0)
 - Catalyst-Core >= 2.2.0
@@ -25,7 +23,6 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 - UselessNumericals >= [1.0.3-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
 
 ### Screenshots from the lates Release:
-
 <p align="center">
   <img width="1920" height="1017" alt="2025-10-09_01 09 30" src="https://github.com/user-attachments/assets/a03c1a1a-4980-43e4-b023-89ab47a3fdb6" />
   <br>
