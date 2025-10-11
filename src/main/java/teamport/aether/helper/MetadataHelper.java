@@ -23,21 +23,6 @@ public class MetadataHelper {
         return dyeColor.blockMeta << 4 | lowerBits;
     }
 
-    public static int getMetadataTrapdoor(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
-        int upper = isUpper ? 1 : 0;
-        int open = isOpen ? 1 : 0;
-        int metadata = dyeColor.blockMeta << 4;
-        metadata |= upper << 3;
-        metadata |= open << 2;
-        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
-    }
-
-    public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction){
-        int upper = isUpper ? 1 : 0;
-        int metadata = dyeColor.blockMeta << 4;
-        metadata |= upper << 3;
-        return metadata | getStairMetadataFromDirection(direction);
-    }
 
     public static int maskDirectionHorizontal(int metadata, Direction direction) {
         return (metadata & ~MASK_DIRECTION) | direction.getHorizontalIndex();
@@ -48,8 +33,75 @@ public class MetadataHelper {
         return (metadata & ~MASK_DIRECTION) | direction;
     }
 
-    public static int getTrapDoorMetaForDirection(Direction dir) {
-        switch (dir) {
+    /**
+     * @param dyeColor  sets the color of the trapdoor
+     * @param isUpper   determines whether the trapdoor is placed on the lower or upper part of the block
+     * @param isOpen    determines whether the trapdoor is placed as opened or not
+     * @param direction determines the direction the trapdoor is opening too
+     * @return returns the metadata for the trapdoor opening in the direction set
+     * @implNote Sets the metadata for trapdoor using color, the block placement,
+     * whether it opens and its opening direction
+     */
+    public static int setMetadataTrapdoor(DyeColor dyeColor, boolean isUpper, boolean isOpen, Direction direction) {
+        int upper = isUpper ? 1 : 0;
+        int open = isOpen ? 1 : 0;
+        int metadata = dyeColor.blockMeta << 4;
+        metadata |= upper << 3;
+        metadata |= open << 2;
+        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
+    }
+
+    /**
+     * @param isUpper   determines whether the trapdoor is placed on the lower or upper part of the block
+     * @param isOpen    determines whether the trapdoor is placed as opened or not
+     * @param direction determines the direction the trapdoor is opening too
+     * @return returns the metadata for the trapdoor opening in the direction set
+     * @implNote Sets the metadata for trapdoor using the block placement,
+     * whether it opens and its opening direction
+     */
+    public static int setMetadataTrapdoor(boolean isUpper, boolean isOpen, Direction direction) {
+        int upper = isUpper ? 1 : 0;
+        int open = isOpen ? 1 : 0;
+        int metadata = 0;
+        metadata |= upper << 3;
+        metadata |= open << 2;
+        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
+    }
+
+    /**
+     * @param dyeColor sets the color of trapdoor
+     * @param isUpper   determines whether the stair is placed facing upwards or downwards
+     * @param direction determines the direction the stair are ascending
+     * @return returns the metadata for the stairs in the direction ascending
+     * @implNote Sets the metadata for trapdoor using the block placement,
+     * whether it opens and its opening direction
+     */
+    public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction) {
+        int upper = isUpper ? 1 : 0;
+        int metadata = dyeColor.blockMeta << 4;
+        metadata |= upper << 3;
+        return metadata | getStairMetadataFromDirection(direction);
+    }
+
+    /**
+     * @param isUpper   determines whether the stair is placed facing upwards or downwards
+     * @param direction determines the direction the stair are ascending
+     * @return returns the metadata for the stairs in the direction ascending
+     * @implNote Sets the metadata for trapdoor using the block placement,
+     * whether it opens and its opening direction
+     */
+    public static int getMetadataStairs(boolean isUpper, Direction direction) {
+        int upper = isUpper ? 1 : 0;
+        int metadata = 0;
+        metadata |= upper << 3;
+        return metadata | getStairMetadataFromDirection(direction);
+    }
+
+    /**
+     * @implNote The direction is the ascending direction of the trapdoors.
+     */
+    public static int getTrapDoorMetaForDirection(Direction direction) {
+        switch (direction) {
             case EAST:
                 return DIRECTION_EAST;
             case WEST:
@@ -62,8 +114,11 @@ public class MetadataHelper {
         }
     }
 
-    public static Direction getTrapDoorDirectionForMeta(int meta) {
-        switch (meta & 3) {
+    /**
+     * @implNote The direction is the ascending direction of the trapdoors.
+     */
+    public static Direction getTrapDoorDirectionForMeta(int metadata) {
+        switch (metadata) {
             case DIRECTION_SOUTH:
                 return SOUTH;
             case DIRECTION_NORTH:
@@ -77,8 +132,10 @@ public class MetadataHelper {
         }
     }
 
-
-    public static int getMetadataTorchPlacement(Direction direction) {
+    /**
+     * @implNote The direction is the ascending direction of the torches.
+     */
+    public static int getTorchMetadataFromDirection(Direction direction) {
         switch (direction) {
             case NORTH:
                 return BlockLogicTorch.SIDE_NORTH;
@@ -97,8 +154,12 @@ public class MetadataHelper {
                 return BlockLogicTorch.SIDE_NONE;
         }
     }
-    public static Direction getMetadataTorchPlacement(int direction) {
-        switch (direction) {
+
+    /**
+     * @implNote The direction is the ascending direction of the torches.
+     */
+    public static Direction getTorchDirectionFromMetadata(int metadata) {
+        switch (metadata) {
             case BlockLogicTorch.SIDE_NORTH:
                 return NORTH;
             case BlockLogicTorch.SIDE_EAST:
@@ -120,9 +181,9 @@ public class MetadataHelper {
     /**
      * @implNote The direction is the ascending direction of the stairs.
      * Importantly this differs from how BlockLogicStairs implements direction, this due to BTA placement setting and many layers of abstraction.
-     * */
+     */
     public static int getStairMetadataFromDirection(Direction direction) {
-        switch (direction){
+        switch (direction) {
             case EAST:
                 return 0;
             case WEST:
@@ -134,8 +195,13 @@ public class MetadataHelper {
                 return 3;
         }
     }
-    public static Direction getStairDirectionFromMetadata(int index) {
-        switch (index){
+
+    /**
+     * @implNote The metadata of the stairs ascending direction.
+     * Importantly this differs from how BlockLogicStairs implements direction, this due to BTA placement setting and many layers of abstraction.
+     */
+    public static Direction getStairDirectionFromMetadata(int metadata) {
+        switch (metadata) {
             case 0:
                 return EAST;
             case 1:
