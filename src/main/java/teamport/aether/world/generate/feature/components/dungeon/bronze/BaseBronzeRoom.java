@@ -3,6 +3,7 @@ package teamport.aether.world.generate.feature.components.dungeon.bronze;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
@@ -12,6 +13,8 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicChestLocked;
 import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.blocks.dungeon.BlockLogicLocked;
+import teamport.aether.blocks.dungeon.BlockLogicPaintedChestMimic;
+import teamport.aether.entity.tile.TileEntityMimic;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
@@ -231,6 +234,16 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         for (WorldFeatureBlock wfblock : this.chest.blockList) {
             BlockLogicChest.setDefaultDirection(world, wfblock.x, wfblock.y, wfblock.z);
             populateChest(world, random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
+
+            if (
+                world.rand.nextInt(250) == 0
+                && wfblock.blockID == AetherBlocks.CHEST_MIMIC_SKYROOT.id()
+            ) {
+                BlockLogicPaintedChestMimic blockLogic = AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.getLogic();
+                world.setBlockRaw(wfblock.x, wfblock.y, wfblock.z, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id());
+                blockLogic.setColor(world, wfblock.x, wfblock.y, wfblock.z, DyeColor.PURPLE);
+                ((TileEntityMimic) world.getTileEntity(wfblock.x, wfblock.y, wfblock.z)).setCustomName("Wallace", (byte) TextFormatting.PURPLE.id);
+            }
         }
     }
 

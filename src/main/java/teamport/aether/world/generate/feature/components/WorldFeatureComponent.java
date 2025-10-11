@@ -7,6 +7,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.BlockPallet;
 
@@ -98,8 +99,10 @@ public class WorldFeatureComponent {
             LootGenerator lootGenerator
     ) {
         Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
+
         if (inventory == null) return;
         List<ItemStack> stacks = lootGenerator.generate(random);
+
         for (ItemStack stack : stacks) {
             WorldFeatureComponent.placeItemInChest(random, stack, inventory);
         }
