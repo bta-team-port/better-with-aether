@@ -62,19 +62,19 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
 
         // collect all repairable to separate list
-        for(RecipeEntryAetherMachine recipe : recipes){
+        for (RecipeEntryAetherMachine recipe : recipes) {
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
-            if(
+            if (
                     input != null
-                    && output != null
-                    && input.isItemStackDamageable()
-                    && output.isItemStackDamageable()
-                    && output.itemID == input.itemID
-            ){
+                            && output != null
+                            && input.isItemStackDamageable()
+                            && output.isItemStackDamageable()
+                            && output.itemID == input.itemID
+            ) {
 //                recipe = new RecipeEntryAetherMachine(getDamagedVariety(recipe), recipe.getOutput(), recipe.getData());
                 repairable.add(recipe);
-            }else{
+            } else {
                 new_recipes.add(recipe);
             }
         }
@@ -120,6 +120,7 @@ public class GuidebookSectionEnchanter extends SearchableGuidebookSection {
     public List<GuidebookPage> getPages() {
         return this.pages;
     }
+
     public List<GuidebookSection.Index> getIndices() {
         return null;
     }

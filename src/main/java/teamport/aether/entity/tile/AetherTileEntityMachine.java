@@ -24,7 +24,9 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     public int maxProcessTime = 200;    // maxCookTime
     public int currentProcessTime = 0;  // currentCookTime
 
-    public AetherTileEntityMachine(){this.containerItemStacks = new ItemStack[3];}
+    public AetherTileEntityMachine() {
+        this.containerItemStacks = new ItemStack[3];
+    }
 
     public int getContainerSize() {
         return containerItemStacks.length;
@@ -72,6 +74,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     public String getNameTranslationKey() {
         return "";
     }
+
     public void readFromNBT(CompoundTag nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         ListTag nbttaglist = nbttagcompound.getList("Items");
@@ -145,6 +148,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         return 0;
     }
+
     public boolean stillValid(Player entityplayer) {
         if (this.worldObj != null && this.worldObj.getTileEntity(this.x, this.y, this.z) == this) {
             return entityplayer.distanceToSqr((double) this.x + (double) 0.5F, (double) this.y + (double) 0.5F, (double) this.z + (double) 0.5F) <= (double) 64.0F;

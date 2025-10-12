@@ -47,7 +47,7 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
 
     public volatile State state;
 
-    private String URL;
+    private final String URL;
 
     public AetherRemoteResourceDownloaderThread(File file, Minecraft minecraft) {
         super("Aether Resource Download");
@@ -139,8 +139,11 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
                 File soundFile = entry.first;
                 String key = entry.second;
 
-                try { downloadSoundFile(key, soundFile); }
-                catch (Exception e) { LOGGER.error("Failed to download File: {}", key); }
+                try {
+                    downloadSoundFile(key, soundFile);
+                } catch (Exception e) {
+                    LOGGER.error("Failed to download File: {}", key);
+                }
 
                 progress.incrementAndGet();
             }

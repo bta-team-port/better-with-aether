@@ -19,8 +19,8 @@ public abstract class MobWolfNoKnockback extends MobAnimal {
     // prevent any type of knockback
     @Override
     public void fling(double xd, double yd, double zd, float pushTime) {
-        ArmorMaterial material = ((MobWolf)(Object)this).getArmorMaterial();
-        if(material != null && material.equals(AetherArmorMaterial.OBSIDIAN)){
+        ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
+        if (material != null && material.equals(AetherArmorMaterial.OBSIDIAN)) {
             return;
         }
         super.fling(xd, yd, zd, pushTime);
@@ -28,8 +28,8 @@ public abstract class MobWolfNoKnockback extends MobAnimal {
 
     @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
-        ArmorMaterial material = ((MobWolf)(Object)this).getArmorMaterial();
-        if(material != null && material.equals(AetherArmorMaterial.OBSIDIAN)){
+        ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
+        if (material != null && material.equals(AetherArmorMaterial.OBSIDIAN)) {
             return;
         }
         super.knockBack(entity, damage, xd, yd);

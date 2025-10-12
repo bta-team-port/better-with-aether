@@ -38,7 +38,7 @@ public class LookupFuelFreezer {
     }
 
     public int getFuelYield(int id) {
-        return this.fuelList.get(id) == null ? 0 : (Integer)this.fuelList.get(id);
+        return this.fuelList.get(id) == null ? 0 : this.fuelList.get(id);
     }
 
     public Map<Integer, Integer> getFuelList() {

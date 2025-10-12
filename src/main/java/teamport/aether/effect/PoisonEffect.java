@@ -7,7 +7,6 @@ import net.minecraft.core.util.helper.Direction;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
-
 import teamport.aether.helper.ParticleHelper;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class PoisonEffect extends Effect {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        if(AetherEffects.isLocked(effectStack, effectContainer)){
+        if (AetherEffects.isLocked(effectStack, effectContainer)) {
             return;
         }
         if (effectStack.getAmount() == 1) ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);

@@ -22,7 +22,7 @@ public class ModelSheepuffOverlay extends ModelSheepuff {
             brightness = 1.0F;
         }
 
-        int j = ((MobSheepuff)this.sheepuff).getFleeceColor().blockMeta;
+        int j = ((MobSheepuff) this.sheepuff).getFleeceColor().blockMeta;
         GL11.glColor3f(brightness * MobSheepuff.FLEECE_COLOR_TABLE[j][0], brightness * MobSheepuff.FLEECE_COLOR_TABLE[j][1], brightness * MobSheepuff.FLEECE_COLOR_TABLE[j][2]);
     }
 

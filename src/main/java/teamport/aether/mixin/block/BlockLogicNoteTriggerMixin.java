@@ -1,6 +1,5 @@
 package teamport.aether.mixin.block;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
@@ -8,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.helper.ParticleHelper;
 
 import static teamport.aether.AetherMod.*;
 

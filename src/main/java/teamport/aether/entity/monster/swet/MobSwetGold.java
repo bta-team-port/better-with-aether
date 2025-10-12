@@ -1,6 +1,5 @@
 package teamport.aether.entity.monster.swet;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -11,6 +10,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;

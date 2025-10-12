@@ -45,10 +45,10 @@ public class Union {
 
         if (Arrays.stream(allowedTypes).noneMatch(t -> t.isAssignableFrom(value.getClass()))) {
             throw new RuntimeException(
-                String.format("value \"%s\" cannot be assigned to any of: [%s]",
-                    value.getClass().getCanonicalName(),
-                    Arrays.stream(allowedTypes).map(Class::getCanonicalName).collect(Collectors.joining(", "))
-                )
+                    String.format("value \"%s\" cannot be assigned to any of: [%s]",
+                            value.getClass().getCanonicalName(),
+                            Arrays.stream(allowedTypes).map(Class::getCanonicalName).collect(Collectors.joining(", "))
+                    )
             );
         }
 

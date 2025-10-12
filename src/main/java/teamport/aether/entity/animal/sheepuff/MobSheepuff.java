@@ -40,8 +40,8 @@ public class MobSheepuff extends MobAetherAnimal {
 
     public void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(16, (byte)0, Byte.class);
-        this.entityData.define(17, (byte)0, Byte.class);
+        this.entityData.define(16, (byte) 0, Byte.class);
+        this.entityData.define(17, (byte) 0, Byte.class);
     }
 
     public void dropDeathItems() {
@@ -112,14 +112,14 @@ public class MobSheepuff extends MobAetherAnimal {
 
             this.prevTimeSheepEating = this.timeSheepEating++;
             if (this.prevTimeSheepEating == 35 && (blockBelow == AetherBlocks.GRASS_AETHER) && !this.world.isClientSide) {
-                this.world.playBlockEvent(null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
+                this.world.playBlockEvent(null, 2001, (int) this.x, (int) this.y - 1, (int) this.z, this.world.getBlockId((int) this.x, (int) this.y - 1, (int) this.z));
                 this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, AetherBlocks.DIRT_AETHER.id());
                 this.setPuffed(true);
                 this.setSheared(false);
             }
 
             if (this.prevTimeSheepEating == 35 && (blockBelow == Blocks.GRASS || blockBelow == Blocks.GRASS_RETRO) && !this.world.isClientSide) {
-                this.world.playBlockEvent(null, 2001, (int)this.x, (int)this.y - 1, (int)this.z, this.world.getBlockId((int)this.x, (int)this.y - 1, (int)this.z));
+                this.world.playBlockEvent(null, 2001, (int) this.x, (int) this.y - 1, (int) this.z, this.world.getBlockId((int) this.x, (int) this.y - 1, (int) this.z));
                 this.world.setBlockWithNotify(blockX, blockY - 1, blockZ, Blocks.DIRT.id());
                 this.setPuffed(true);
                 this.setSheared(false);
@@ -214,8 +214,8 @@ public class MobSheepuff extends MobAetherAnimal {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Sheared", this.getSheared());
         tag.putBoolean("Puffed", this.getPuffed());
-        tag.putByte("Color", (byte)this.getFleeceColor().blockMeta);
-        tag.putShort("GrowthTimer", (short)this.growthTimer);
+        tag.putByte("Color", (byte) this.getFleeceColor().blockMeta);
+        tag.putShort("GrowthTimer", (short) this.growthTimer);
     }
 
     @Override
@@ -247,7 +247,7 @@ public class MobSheepuff extends MobAetherAnimal {
 
     public void setFleeceColor(DyeColor color) {
         byte woolState = this.entityData.getByte(16);
-        this.entityData.set(16, (byte)(woolState & -16 | color.blockMeta & 15));
+        this.entityData.set(16, (byte) (woolState & -16 | color.blockMeta & 15));
     }
 
     public boolean getSheared() {
@@ -257,9 +257,9 @@ public class MobSheepuff extends MobAetherAnimal {
     public void setSheared(boolean flag) {
         byte woolState = this.entityData.getByte(16);
         if (flag) {
-            this.entityData.set(16, (byte)(woolState | 16));
+            this.entityData.set(16, (byte) (woolState | 16));
         } else {
-            this.entityData.set(16, (byte)(woolState & -17));
+            this.entityData.set(16, (byte) (woolState & -17));
         }
 
     }
@@ -273,7 +273,7 @@ public class MobSheepuff extends MobAetherAnimal {
     }
 
     public void setIsSheepEating(boolean value) {
-        this.entityData.set(17, (byte)(value ? 1 : 0));
+        this.entityData.set(17, (byte) (value ? 1 : 0));
     }
 
     public void setGrowthTimer(int growthTimer) {

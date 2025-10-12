@@ -23,7 +23,7 @@ public class ItemSaddleMixin extends Item {
     @Inject(method = "useItemOnEntity", at = @At("HEAD"), cancellable = true)
     public void callOnItemUse(ItemStack itemstack, Mob entityliving, Player entityPlayer, CallbackInfoReturnable<Boolean> info) {
         if (entityliving instanceof MobPhyg && itemstack.consumeItem(entityPlayer)) {
-            MobPhyg entity = (MobPhyg)entityliving;
+            MobPhyg entity = (MobPhyg) entityliving;
             if (!entity.getSaddled()) {
                 entity.setSaddled(true);
                 entityPlayer.swingItem();
@@ -31,7 +31,7 @@ public class ItemSaddleMixin extends Item {
             }
         }
         if (entityliving instanceof MobPhow && itemstack.consumeItem(entityPlayer)) {
-            MobPhow entity = (MobPhow)entityliving;
+            MobPhow entity = (MobPhow) entityliving;
             if (!entity.getSaddled()) {
                 entity.setSaddled(true);
                 entityPlayer.swingItem();
@@ -39,7 +39,7 @@ public class ItemSaddleMixin extends Item {
             }
         }
         if (entityliving instanceof MobMoaBlue && itemstack.consumeItem(entityPlayer)) {
-            MobMoaBlue entity = (MobMoaBlue)entityliving;
+            MobMoaBlue entity = (MobMoaBlue) entityliving;
             if (!entity.getSaddled() && entity.tamed) {
                 entity.setSaddled(true);
                 entityPlayer.swingItem();

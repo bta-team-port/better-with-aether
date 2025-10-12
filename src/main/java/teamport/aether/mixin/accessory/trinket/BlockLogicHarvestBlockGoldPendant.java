@@ -12,7 +12,6 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolShears;
 import net.minecraft.core.world.World;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,20 +20,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.AetherMod;
 import teamport.aether.items.AetherItems;
-import teamport.aether.items.accessory.pendant.ItemPendant;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = BlockLogic.class, remap = false)
 public abstract class BlockLogicHarvestBlockGoldPendant {
-    @Shadow @Final @NotNull public Block<?> block;
+    @Shadow
+    @Final
+    @NotNull
+    public Block<?> block;
 
     /// spoof the check
     @WrapOperation(method = "harvestBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/Item;isSilkTouch()Z"))
-    public boolean golPendantEquipped(Item instance, Operation<Boolean> original, @Local(argsOnly = true) Player player){
+    public boolean golPendantEquipped(Item instance, Operation<Boolean> original, @Local(argsOnly = true) Player player) {
         ItemStack heldItemStack = player.inventory.getCurrentItem();
         Item heldItem = heldItemStack != null ? Item.itemsList[heldItemStack.itemID] : null;
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
@@ -48,7 +48,7 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
     ///  only one takes damage and only if the check succeed
     @Inject(
             method = "harvestBlock",
-            at= @At(
+            at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/core/block/BlockLogic;dropBlockWithCause(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;IIIILnet/minecraft/core/block/entity/TileEntity;Lnet/minecraft/core/entity/player/Player;)V"
             ),
@@ -61,14 +61,14 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
             World world, Player player,
             int x, int y, int z, int meta,
             TileEntity tileEntity, CallbackInfo ci
-    ){
+    ) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        if(trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id){
+        if (trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id) {
             trinketOne.damageItem(1, player);
             return;
         }
-        if(trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id){
+        if (trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id) {
             trinketTwo.damageItem(1, player);
             return;
         }
@@ -95,10 +95,10 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
             World world, Player player,
             int x, int y, int z, int meta,
             TileEntity tileEntity, CallbackInfo ci
-    ){
+    ) {
         ItemStack heldItemStack = player.inventory.getCurrentItem();
         Item heldItem = heldItemStack != null ? Item.itemsList[heldItemStack.itemID] : null;
-        if(heldItem != null){
+        if (heldItem != null) {
             return;
         }
         BlockLogic asThis = (BlockLogic) (Object) this;
@@ -109,11 +109,11 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
         if ((goldInSlot6 || goldInSlot7) && player.canHarvestBlock(this.block)) {
             asThis.dropBlockWithCause(world, EnumDropCause.SILK_TOUCH, x, y, z, meta, tileEntity, player);
             ci.cancel();
-            if(goldInSlot6){
+            if (goldInSlot6) {
                 trinketOne.damageItem(1, player);
                 return;
             }
-            if(goldInSlot7){
+            if (goldInSlot7) {
                 trinketTwo.damageItem(1, player);
                 return;
             }

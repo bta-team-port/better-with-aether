@@ -14,14 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value =  SaveHandlerBase.class, remap = false)
+@Mixin(value = SaveHandlerBase.class, remap = false)
 public abstract class SaveHandlerMixin implements LevelStorage {
 
     @Shadow
     @Final
     ISaveFormat saveFormat;
 
-    @Shadow @Final
+    @Shadow
+    @Final
     String worldDirName;
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))

@@ -28,6 +28,7 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 
 @Mixin(value = BlockLogicBed.class, remap = false)
 public class AetherBedMixin extends BlockLogic {
+
     public AetherBedMixin(Block<?> block, Material material) {
         super(block, material);
     }
@@ -48,8 +49,7 @@ public class AetherBedMixin extends BlockLogic {
         if (world.dimension.id == AetherDimension.AetherDimensionID) {
             cir.setReturnValue(true);
             cir.cancel();
-        }
-        else return;
+        } else return;
 
         Random rand = world.rand;
 

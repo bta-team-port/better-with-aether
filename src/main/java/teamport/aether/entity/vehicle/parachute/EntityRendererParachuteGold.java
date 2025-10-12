@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 @Environment(EnvType.CLIENT)
 public class EntityRendererParachuteGold extends EntityRenderer<EntityParachuteGold> {
     public ModelBase modelCloud;
+
     public EntityRendererParachuteGold() {
         this.shadowSize = 0.0F;
         this.modelCloud = new ModelParachute();
@@ -17,7 +18,7 @@ public class EntityRendererParachuteGold extends EntityRenderer<EntityParachuteG
 
     public void render(Tessellator tessellator, EntityParachuteGold entity, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x, (float)y, (float)z);
+        GL11.glTranslatef((float) x, (float) y, (float) z);
         GL11.glRotatef(0.0F, 0.0F, 0.0F, 0.0F);
 
         float f4 = 0.75F;

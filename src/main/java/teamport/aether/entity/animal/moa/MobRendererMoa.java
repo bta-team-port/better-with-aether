@@ -27,7 +27,7 @@ public class MobRendererMoa extends MobRenderer<MobMoaBlue> {
     }
 
     public void setupScale(MobMoaBlue entity, float partialTick) {
-        GL11.glScalef(1.8f , 1.8f, 1.8f);
+        GL11.glScalef(1.8f, 1.8f, 1.8f);
     }
 
     public boolean prepareArmor(MobMoaBlue entity, int renderPass, float partialTick) {

@@ -14,9 +14,9 @@ import teamport.aether.items.AetherArmorMaterial;
 abstract public class PlayerMixinPendantFallDamageModifier {
 
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Ljava/lang/Math;ceil(D)D"))
-    public double modifyDamageTaken(double damage, Operation<Double> original){
-        Mob mob = (Mob) (Object)this;
-        if(mob instanceof Player){
+    public double modifyDamageTaken(double damage, Operation<Double> original) {
+        Mob mob = (Mob) (Object) this;
+        if (mob instanceof Player) {
             Player player = (Player) mob;
             return Math.ceil(damage - ContainerHelper.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2);
         }

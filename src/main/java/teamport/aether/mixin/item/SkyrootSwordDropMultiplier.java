@@ -35,7 +35,8 @@ public abstract class SkyrootSwordDropMultiplier {
     @NotNull
     public List<WeightedRandomLootObject> mobDrops;
 
-    @Shadow protected abstract List<WeightedRandomLootObject> getMobDrops();
+    @Shadow
+    protected abstract List<WeightedRandomLootObject> getMobDrops();
 
     @Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V"))
     public void multiplyDrop(Entity entity, CallbackInfo ci) {

@@ -25,7 +25,8 @@ import static net.minecraft.core.item.ItemPaintBrush.getColor;
 @Mixin(value = ItemPaintBrush.class, remap = false)
 public abstract class ItemPaintBrushMixin extends Item {
 
-    @Shadow public abstract void consumePaint(@NotNull ItemStack itemstack, @Nullable Player player);
+    @Shadow
+    public abstract void consumePaint(@NotNull ItemStack itemstack, @Nullable Player player);
 
     public ItemPaintBrushMixin(String name, String namespaceId, int id) {
         super(name, namespaceId, id);

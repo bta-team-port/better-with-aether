@@ -16,7 +16,7 @@ import teamport.aether.items.accessory.AetherInvisibility;
 public class MobGhastMixinInvisiblePlayer {
 
     @WrapOperation(method = "updateAI", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
-    public Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original){
+    public Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
         MobGhast asThis = (MobGhast) (Object) this;
         Player player = original.call(instance, entity, radius);
         if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {

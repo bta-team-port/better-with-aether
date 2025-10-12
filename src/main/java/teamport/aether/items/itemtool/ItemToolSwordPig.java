@@ -1,6 +1,5 @@
 package teamport.aether.items.itemtool;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobPig;
 import net.minecraft.core.entity.monster.MobZombiePig;
@@ -9,6 +8,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.entity.animal.phyg.MobPhyg;
+import teamport.aether.helper.ParticleHelper;
 
 import java.util.Random;
 

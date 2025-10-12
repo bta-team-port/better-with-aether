@@ -12,7 +12,7 @@ import teamport.aether.helper.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class PlayerMixinNoKnockback extends Mob{
+public abstract class PlayerMixinNoKnockback extends Mob {
 
     @Shadow
     public ContainerInventory inventory;

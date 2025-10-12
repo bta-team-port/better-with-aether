@@ -104,7 +104,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target == null) {
-            target = (Player)this.findPlayerToAttack();
+            target = (Player) this.findPlayerToAttack();
         }
 
         if (this.target != null) {

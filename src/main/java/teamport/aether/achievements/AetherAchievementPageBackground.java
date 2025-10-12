@@ -1,11 +1,15 @@
-
 package teamport.aether.achievements;
 
 import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class AetherAchievementPageBackground {
 
@@ -35,29 +39,27 @@ public class AetherAchievementPageBackground {
             terrainLayer2Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain2.csv"));
             terrainLayer3Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain3.csv"));
             terrainLayer4Temp = loadCSV(getClass().getResourceAsStream(resource + "/Terrain4.csv"));
-            specialsTemp      = loadCSV(getClass().getResourceAsStream(resource + "/Specials.csv"));
+            specialsTemp = loadCSV(getClass().getResourceAsStream(resource + "/Specials.csv"));
 
-            heightTemp = terrainLayer1Temp.size()-1;
-            widthTemp = terrainLayer1Temp.get(0).size()-1;
-        }
-
-        catch (NullPointerException e) {
+            heightTemp = terrainLayer1Temp.size() - 1;
+            widthTemp = terrainLayer1Temp.get(0).size() - 1;
+        } catch (NullPointerException e) {
             AetherMod.LOGGER.error("Failed to load background files for the achievements screen!", e);
 
             terrainLayer1Temp = Collections.singletonList(
-                Collections.singletonList(0)
+                    Collections.singletonList(0)
             );
             terrainLayer2Temp = Collections.singletonList(
-                Collections.singletonList(1)
+                    Collections.singletonList(1)
             );
             terrainLayer3Temp = Collections.singletonList(
-                Collections.singletonList(0)
+                    Collections.singletonList(0)
             );
             terrainLayer4Temp = Collections.singletonList(
-                Collections.singletonList(0)
+                    Collections.singletonList(0)
             );
             specialsTemp = Collections.singletonList(
-                Collections.singletonList(0)
+                    Collections.singletonList(0)
             );
 
             widthTemp = 1;
@@ -86,7 +88,7 @@ public class AetherAchievementPageBackground {
 
         InputStreamReader reader = new InputStreamReader(in);
         BufferedReader buf = new BufferedReader(reader);
-        buf.lines().forEach( l -> {
+        buf.lines().forEach(l -> {
             String[] chars = l.split(",");
 
             List<Integer> toAddLine = new ArrayList<>();

@@ -16,9 +16,12 @@ import teamport.aether.AetherServer;
 @Mixin(value = PacketHandlerLogin.class, remap = false)
 public class PlayerLoginMixin {
 
-    @Shadow @Final private MinecraftServer mcServer;
+    @Shadow
+    @Final
+    private MinecraftServer mcServer;
 
-    @Shadow public NetworkManager netManager;
+    @Shadow
+    public NetworkManager netManager;
 
     @Inject(method = {"doLogin"}, at = {@At(value = "TAIL")})
     public void doLogin(PacketLogin loginPacket, CallbackInfo ci) {

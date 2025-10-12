@@ -1,8 +1,5 @@
 package teamport.aether.entity.tile;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.GLAllocation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.camera.ICamera;
@@ -85,18 +82,16 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
 
         GL11.glEnable(32826);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
         int meta = tileEntity.getBlockMeta();
         float angle = getAngleFromMeta(meta);
 
-        if (((BlockLogicSign)block.getLogic()).isFreeStanding) {
-            angle = (float)((meta & 15) * 360) / 16.0F;
+        if (((BlockLogicSign) block.getLogic()).isFreeStanding) {
+            angle = (float) ((meta & 15) * 360) / 16.0F;
             GL11.glRotatef(-angle, 0.0F, 1.0F, 0.0F);
             this.modelSign.signStick.visible = true;
-        }
-
-        else {
+        } else {
             GL11.glRotatef(-angle, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -0.3125F, -0.4375F);
             this.modelSign.signStick.visible = false;
@@ -107,13 +102,11 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
 
         int colorSign;
         if (Block.hasLogicClass(block, IPainted.class)) {
-            DyeColor dyeColor = ((IPainted)block.getLogic()).fromMetadata(meta);
+            DyeColor dyeColor = ((IPainted) block.getLogic()).fromMetadata(meta);
 
             colorSign = dyeColor.color.getARGB();
             this.loadTexture(this.signColorTextures[dyeColor.blockMeta]);
-        }
-
-        else {
+        } else {
             colorSign = defaultSignColor.getARGB();
             this.loadTexture(defaultSignTexture);
         }
@@ -167,9 +160,9 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         GL11.glDepthMask(false);
 
         int color = Colors.allSignColors[tileEntity.getColor().id].getARGB();
-        int r = (int)MathHelper.clamp((float)Color.redFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
-        int g = (int)MathHelper.clamp((float)Color.greenFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
-        int b = (int)MathHelper.clamp((float)Color.blueFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int r = (int) MathHelper.clamp((float) Color.redFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int g = (int) MathHelper.clamp((float) Color.greenFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int b = (int) MathHelper.clamp((float) Color.blueFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
 
         color = Color.intToIntARGB(0, r, g, b);
         CharSequence line1 = tileEntity.signText[0];
@@ -198,8 +191,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         int _y = -tileEntity.signText.length * 5;
         if (tileEntity.isGlowing() && this.mc.gameSettings.fancyGraphics.value >= 1) {
             this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, _y, SF.setOutlined(SF.setColor(0L, color)));
-        }
-        else {
+        } else {
             this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, _y, SF.setColor(0L, color));
         }
 

@@ -16,14 +16,21 @@ import java.util.Random;
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Mixin(value = AchievementToast.class, remap = false)
-public abstract class aetherAchievementMixin{
-    @Shadow @Final private Achievement achievement;
+public abstract class aetherAchievementMixin {
+    @Shadow
+    @Final
+    private Achievement achievement;
 
-    @Shadow private long startTime;
+    @Shadow
+    private long startTime;
 
-    @Shadow @Final private boolean informational;
+    @Shadow
+    @Final
+    private boolean informational;
 
-    @Shadow @Final private Minecraft mc;
+    @Shadow
+    @Final
+    private Minecraft mc;
 
     @Inject(method = "onToastStart", at = @At("HEAD"), cancellable = true)
     public void playAetherSound(CallbackInfo ci) {

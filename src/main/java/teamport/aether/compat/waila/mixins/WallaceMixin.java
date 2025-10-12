@@ -34,6 +34,6 @@ public class WallaceMixin {
                 String name = renderItem.getData().getString("name");
                 if (!name.isEmpty()) blockName.set(name);
             }
-        };
+        }
     }
 }

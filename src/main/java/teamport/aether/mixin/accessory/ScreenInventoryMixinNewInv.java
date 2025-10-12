@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ScreenInventoryMixinNewInv {
 
     // binds new texture
-    @Redirect(method = "drawGuiContainerBackgroundLayer", at= @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))
+    @Redirect(method = "drawGuiContainerBackgroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))
     public Texture bindNewInventory(TextureManager instance, String name) {
         return instance.loadTexture("/assets/aether/textures/gui/container/inventory.png");
     }
 
     // adjust text position
-    @Inject(method = "drawGuiContainerForegroundLayer", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "drawGuiContainerForegroundLayer", at = @At("HEAD"), cancellable = true)
     public void fixLabelPlacement(CallbackInfo ci) {
         Font font = Minecraft.getMinecraft().font;
         font.drawString(I18n.getInstance().translateKey("gui.inventory.label.crafting"), 98, 16, 4210752);

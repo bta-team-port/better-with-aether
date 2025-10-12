@@ -18,15 +18,19 @@ import teamport.aether.items.accessory.IAccessoryEffects;
 @Mixin(value = ContainerInventory.class, remap = false)
 public class ContainerInventoryMixinAccessory {
 
-    @Shadow public Player player;
+    @Shadow
+    public Player player;
 
-    @Shadow public ItemStack[] armorInventory;
-    @Shadow public ItemStack[] mainInventory;
+    @Shadow
+    public ItemStack[] armorInventory;
+
+    @Shadow
+    public ItemStack[] mainInventory;
 
     // armor inventory expanded to fit the extra 4 accessory slots
     @Inject(method = "<init>", at = @At("TAIL"))
     public void setNewSize(Player player, CallbackInfo ci) {
-       ((ContainerInventory) (Object) this).armorInventory = new ItemStack[4 + 4];
+        ((ContainerInventory) (Object) this).armorInventory = new ItemStack[4 + 4];
     }
 
     // change hardcoded size of the armor inventory
@@ -53,9 +57,9 @@ public class ContainerInventoryMixinAccessory {
     }
 
     @Inject(method = "decrementAnimations", at = @At("TAIL"))
-    public void addArmorAnimations(CallbackInfo ci){
-        ContainerInventory inv = (ContainerInventory)(Object) this;
-        for(int slot = 0; slot < inv.armorInventory.length; slot++){
+    public void addArmorAnimations(CallbackInfo ci) {
+        ContainerInventory inv = (ContainerInventory) (Object) this;
+        for (int slot = 0; slot < inv.armorInventory.length; slot++) {
             if (inv.armorInventory[slot] != null) {
                 inv.armorInventory[slot].updateAnimation(inv.player.world, inv.player, slot + inv.mainInventory.length, inv.getCurrentItemIndex() == slot);
             }
@@ -67,14 +71,14 @@ public class ContainerInventoryMixinAccessory {
      * @reason 7.3_04 currently handles left click and drop differently from shift clicking.
      * To guarantee that the effect of the accessories is correctly remove on left click and drop
      * a mixin is needed into removeItem. - Redart15
-     * */
+     */
     @Inject(method = "removeItem", at = @At("HEAD"))
-    public void updateEffects(int index, int takeAmount, CallbackInfoReturnable<ItemStack> cir){
+    public void updateEffects(int index, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
         if (index < this.mainInventory.length) {
             return;
         }
         ItemStack itemStack = this.armorInventory[index - this.mainInventory.length];
-        if(itemStack != null && itemStack.getItem() instanceof IAccessoryEffects){
+        if (itemStack != null && itemStack.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) itemStack.getItem()).removeEffect(player, itemStack);
         }
     }
@@ -84,13 +88,13 @@ public class ContainerInventoryMixinAccessory {
      * @reason 7.3_04 currently handles left click and drop differently from shift clicking.
      * To guarantee that the effect of the accessories is correctly remove on shift clicking
      * a mixin is needed into setItem. - Redart15
-     * */
+     */
     @Inject(method = "setItem", at = @At("HEAD"))
     public void updateEffects(int index, ItemStack newItem, CallbackInfo ci) {
         if (index < this.mainInventory.length) {
             return;
         }
-        ContainerInventory cont = (ContainerInventory)(Object) this;
+        ContainerInventory cont = (ContainerInventory) (Object) this;
 
         ItemStack oldItem = this.armorInventory[index - this.mainInventory.length];
 

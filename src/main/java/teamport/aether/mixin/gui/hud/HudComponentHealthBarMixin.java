@@ -8,12 +8,10 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.layout.Layout;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
-import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.util.helper.DyeColor;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,13 +20,14 @@ import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.effect.render.HeartContainer;
 import teamport.aether.effect.render.AetherCustomHeartContainer;
+import teamport.aether.effect.render.HeartContainer;
 import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
 import teamport.aether.gameSettings.GameSettingsDisplayHeartsOption;
 import teamport.aether.helper.HealthHelper;
 
 import java.util.Random;
+
 @Mixin(value = HudComponentHealthBar.class, remap = false)
 public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
 
@@ -47,6 +46,7 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
         super(key, xSize, ySize, layout);
     }
 
+    @Unique
     private ExtraHealthDisplayEnum getHeartDisplay(Minecraft mc) {
         return ((GameSettingsDisplayHeartsOption) mc.gameSettings).aether$getExtraHealthDisplayOptionEnum().value;
     }
@@ -69,7 +69,7 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
 
     @Override
     public int getAnchorY(ComponentAnchor anchor) {
-        return (int)(anchor.yPosition * (float)this.getYSize(Minecraft.getMinecraft()));
+        return (int) (anchor.yPosition * (float) this.getYSize(Minecraft.getMinecraft()));
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
@@ -77,7 +77,7 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
         Player player = mc.thePlayer;
 
         EffectStack stack = AetherEffects.resolveDominantEffect(player);
-        if (stack == null && getRows(player) == 1 ) return;
+        if (stack == null && getRows(player) == 1) return;
 
         HeartContainer heartContainer = null;
         ci.cancel();
@@ -113,23 +113,23 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
     @Unique
     private void drawNumberBar(Minecraft mc, HudIngame hud, Player player, HeartContainer heartContainer, int x, int y) {
         float playerHealthPercent = (float) player.getHealth() / HealthHelper.getMaxHealth(player);
-        int extraHearts = HealthHelper.getMaxHealth(player)/2;
+        int extraHearts = HealthHelper.getMaxHealth(player) / 2;
         final int heartsToRender = 8;
 
         drawRow(
-            mc, hud, player,
-            heartContainer,
-            heartsToRender,
-            (int) (playerHealthPercent * (heartsToRender * 2)),
-            x, y
+                mc, hud, player,
+                heartContainer,
+                heartsToRender,
+                (int) (playerHealthPercent * (heartsToRender * 2)),
+                x, y
         );
 
         hud.drawString(
-            mc.font,
-            String.format("+%s", extraHearts),
-            x + 3 * spacing + (heartsToRender - 1) * iconWidth,
-            y + (heartContainer.shouldShake() ? this.random.nextInt(2) : 0),
-            DyeColor.WHITE.color.value
+                mc.font,
+                String.format("+%s", extraHearts),
+                x + 3 * spacing + (heartsToRender - 1) * iconWidth,
+                y + (heartContainer.shouldShake() ? this.random.nextInt(2) : 0),
+                DyeColor.WHITE.color.value
         );
     }
 
@@ -176,9 +176,9 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
             if (currentHeart == healthInCurrentRow)
                 heartContainer.drawHeart(glyphVariant, HeartContainer.HeartGlyphType.HALF, xHeart, yHeart, hud);
 
-            if ( player.inventory.getCurrentItem() != null
-                && player.inventory.getCurrentItem().getItem() instanceof ItemFood
-                && mc.gameSettings.foodHealthRegenOverlay.value
+            if (player.inventory.getCurrentItem() != null
+                    && player.inventory.getCurrentItem().getItem() instanceof ItemFood
+                    && mc.gameSettings.foodHealthRegenOverlay.value
             ) {
                 int healing = ((ItemFood) player.inventory.getCurrentItem().getItem()).getHealAmount();
 

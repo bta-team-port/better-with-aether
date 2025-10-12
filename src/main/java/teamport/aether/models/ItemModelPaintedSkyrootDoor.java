@@ -16,7 +16,7 @@ public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
     public static final IconCoordinate[] doorIcons = new IconCoordinate[16];
 
     public ItemModelPaintedSkyrootDoor(Item item) {
-        super(item, (String)null);
+        super(item, null);
 
     }
 
@@ -26,7 +26,7 @@ public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
     }
 
     static {
-        for(DyeColor c : DyeColor.itemOrderedColors()) {
+        for (DyeColor c : DyeColor.itemOrderedColors()) {
             doorIcons[c.itemMeta] = TextureRegistry.getTexture("aether:item/door_skyroot/" + c.colorID);
         }
     }

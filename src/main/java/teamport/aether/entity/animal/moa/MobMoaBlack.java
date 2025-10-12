@@ -25,7 +25,7 @@ public class MobMoaBlack extends MobMoaBlue {
     }
 
     public void onGround() {
-        if (this.onGround ) {
+        if (this.onGround) {
             this.jumpsRemaining = 7;
         }
     }

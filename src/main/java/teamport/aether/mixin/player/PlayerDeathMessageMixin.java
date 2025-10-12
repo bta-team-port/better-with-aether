@@ -15,10 +15,10 @@ public class PlayerDeathMessageMixin {
     @Inject(method = "getDeathMessage", at = @At("HEAD"), cancellable = true)
     public void sendAetherDeathMessages(Entity entityKilledBy, CallbackInfoReturnable<String> cir) {
         Player player = (Player) (Object) this;
-        if(!(entityKilledBy instanceof AetherDeathMessage)){
+        if (!(entityKilledBy instanceof AetherDeathMessage)) {
             return;
         }
-        AetherDeathMessage killer = (AetherDeathMessage)entityKilledBy;
+        AetherDeathMessage killer = (AetherDeathMessage) entityKilledBy;
         cir.setReturnValue(killer.deathMessage(player));
     }
 }

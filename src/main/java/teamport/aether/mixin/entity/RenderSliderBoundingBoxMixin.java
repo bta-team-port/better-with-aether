@@ -14,7 +14,8 @@ import teamport.aether.entity.boss.slider.MobBossSlider;
 @Mixin(value = RenderGlobal.class, remap = false)
 public abstract class RenderSliderBoundingBoxMixin {
 
-    @Shadow public abstract void drawOutlinedBoundingBox(AABB aabb);
+    @Shadow
+    public abstract void drawOutlinedBoundingBox(AABB aabb);
 
     // on today's episode of stupid mixins...
     @Inject(method = "drawInterpolatedEntityBoundingBox", at = @At("HEAD"), cancellable = true)
@@ -24,9 +25,9 @@ public abstract class RenderSliderBoundingBoxMixin {
             double cameraY = camera.getY(partialTicks);
             double cameraZ = camera.getZ(partialTicks);
 
-            double lerpOffsetX = entity.xo + (entity.x - entity.xo) * (double)partialTicks;
-            double lerpOffsetY = entity.yo + (entity.y - entity.yo) * (double)partialTicks;
-            double lerpOffsetZ = entity.zo + (entity.z - entity.zo) * (double)partialTicks;
+            double lerpOffsetX = entity.xo + (entity.x - entity.xo) * (double) partialTicks;
+            double lerpOffsetY = entity.yo + (entity.y - entity.yo) * (double) partialTicks;
+            double lerpOffsetZ = entity.zo + (entity.z - entity.zo) * (double) partialTicks;
 
             AABB boundingBox = entity.bb;
             boundingBox = boundingBox.cloneMove(-entity.x, -entity.y, -entity.z);

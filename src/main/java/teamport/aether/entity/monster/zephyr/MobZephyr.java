@@ -148,7 +148,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
                 if (this.attackCharge == 20) {
                     this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     ProjectileWindball windball = new ProjectileWindball(this.world, this, vX, vY, vZ);
-                    windball.setPos(this.x + vec3.x * d8, this.y + (double) (this.bbHeight / 2.0F) - 0.5, this.z + vec3.z * d8 );
+                    windball.setPos(this.x + vec3.x * d8, this.y + (double) (this.bbHeight / 2.0F) - 0.5, this.z + vec3.z * d8);
                     this.world.entityJoinedWorld(windball);
                     this.attackCharge = -40;
                 }
@@ -158,7 +158,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
                 this.targetedEntity = null;
             }
         } else {
-            this.yBodyRot = this.yRot = -((float)Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
+            this.yBodyRot = this.yRot = -((float) Math.atan2(this.xd, this.zd)) * 180.0F / 3.1415927F;
             if (this.attackCharge > 0) {
                 --this.attackCharge;
             }
@@ -166,7 +166,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         if (!this.world.isClientSide) {
             byte chargeData = this.entityData.getByte(16);
-            byte chargeState = (byte)(this.attackCharge <= 10 ? 0 : 1);
+            byte chargeState = (byte) (this.attackCharge <= 10 ? 0 : 1);
             if (chargeData != chargeState) {
                 this.entityData.set(16, chargeState);
             }
@@ -241,7 +241,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     public boolean canSpawnHere() {
         return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(10) == 0
-                && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double)this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
+                && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double) this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
     }
 
     public void spawnInit() {

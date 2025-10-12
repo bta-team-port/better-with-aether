@@ -34,7 +34,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockLogicChestMimic extends BlockLogicRotatable{
+public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     private double dx;
     private double dy;
@@ -75,8 +75,8 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
 
     @Override
     public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
-        if(tileEntity == null){
-            tileEntity = world.getTileEntity(x,y,z);
+        if (tileEntity == null) {
+            tileEntity = world.getTileEntity(x, y, z);
         }
         switch (dropCause) {
             case EXPLOSION:
@@ -88,7 +88,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
             case WORLD:
             case PROPER_TOOL:
             case IMPROPER_TOOL:
-                if(!world.getDifficulty().canHostileMobsSpawn()){
+                if (!world.getDifficulty().canHostileMobsSpawn()) {
                     return dropAsDefeatedMimic(world, x, y, z, meta, tileEntity);
                 }
             default:
@@ -116,9 +116,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         ItemStack held = player.getHeldItem();
-        if(held != null && held.getItem() instanceof ItemLabel){
-            TileEntity tileEntity = world.getTileEntity(x,y,z);
-            if(tileEntity instanceof TileEntityMimic){
+        if (held != null && held.getItem() instanceof ItemLabel) {
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
+            if (tileEntity instanceof TileEntityMimic) {
                 ((TileEntityMimic) tileEntity).setCustomName(held.getCustomName(), held.getCustomColor());
                 return true;
             }
@@ -156,7 +156,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
     }
 
     private ItemStack @NotNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
-        if(tileEntity instanceof TileEntityMimic){
+        if (tileEntity instanceof TileEntityMimic) {
             ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
         }
         MimicEntry variant = MimicRegistry.getMimicVariantByMimicChest(this.id(), meta & COLOR_MASK);
@@ -199,7 +199,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         mimic.spawnInit();
         mimic.setSkinVariant(variant.getMimicVariant());
         mimic.setBlockData(variant.getMimicChestId(), variant.getMimicChestMetadata());
-        if(tileEntity instanceof TileEntityMimic){
+        if (tileEntity instanceof TileEntityMimic) {
             mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
             mimic.setChatColor(((TileEntityMimic) tileEntity).getChatColor());
         }
@@ -212,7 +212,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable{
         CompoundTag data = result.getData();
         CompoundTag mimicData = new CompoundTag();
         if (tileEntity != null) {
-            if(tileEntity instanceof TileEntityMimic){
+            if (tileEntity instanceof TileEntityMimic) {
                 TileEntityMimic mimicEntity = (TileEntityMimic) tileEntity;
                 result.setCustomColor(mimicEntity.getChatColor());
                 result.setCustomName(mimicEntity.getNickName());

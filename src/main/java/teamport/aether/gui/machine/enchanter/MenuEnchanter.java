@@ -17,18 +17,18 @@ public class MenuEnchanter extends MenuAbstract {
     public int maxProcessTime = 0;
     public int maxEnergyTime = 0;
 
-    public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter){
+    public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
         this.enchanter = tileEntityEnchanter;
         this.addSlot(new Slot(tileEntityEnchanter, 0, 56, 17));
         this.addSlot(new Slot(tileEntityEnchanter, 1, 56, 53));
         this.addSlot(new SlotEnchanter(inventory.player, tileEntityEnchanter, 2, 116, 35));
-        for(int i = 0; i < 3; ++i) {
-            for(int k = 0; k < 9; ++k) {
+        for (int i = 0; i < 3; ++i) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
             }
         }
 
-        for(int j = 0; j < 9; ++j) {
+        for (int j = 0; j < 9; ++j) {
             this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
         }
     }
@@ -84,7 +84,7 @@ public class MenuEnchanter extends MenuAbstract {
     public void broadcastChanges() {
         super.broadcastChanges();
 
-        for(ContainerListener crafter : this.containerListeners) {
+        for (ContainerListener crafter : this.containerListeners) {
             if (this.currentProcessTime != this.enchanter.currentProcessTime) {
                 crafter.updateCraftingInventoryInfo(this, 0, this.enchanter.currentProcessTime);
             }
@@ -124,5 +124,7 @@ public class MenuEnchanter extends MenuAbstract {
     }
 
     @Override
-    public boolean stillValid(Player player) {return this.enchanter.stillValid(player);}
+    public boolean stillValid(Player player) {
+        return this.enchanter.stillValid(player);
+    }
 }

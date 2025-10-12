@@ -27,7 +27,7 @@ public abstract class ItemDyeMixin extends Item {
     public void callOnItemUse(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> info) {
         Block<?> block = world.getBlock(blockX, blockY, blockZ);
         if (Block.hasLogicClass(block, BlockLogicPaintableSignSkyroot.class)) {
-            TileEntitySignSkyroot sign = (TileEntitySignSkyroot)world.getTileEntity(blockX, blockY, blockZ);
+            TileEntitySignSkyroot sign = (TileEntitySignSkyroot) world.getTileEntity(blockX, blockY, blockZ);
             if (DyeColor.WHITE.itemMeta - itemstack.getMetadata() == sign.getColor().id) {
                 info.setReturnValue(false);
             } else {

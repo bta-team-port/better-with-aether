@@ -15,14 +15,15 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinBlastImmunity {
 
-    @Shadow public ContainerInventory inventory;
+    @Shadow
+    public ContainerInventory inventory;
 
     @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"), cancellable = true)
-    public void negateDamage(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir){
-        if(   type == null
-           || !type.equals(DamageType.BLAST)
-           || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 5
-        ){
+    public void negateDamage(Entity attacker, int damage, DamageType type, CallbackInfoReturnable<Boolean> cir) {
+        if (type == null
+                || !type.equals(DamageType.BLAST)
+                || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 5
+        ) {
             return;
         }
         this.inventory.damageArmor((int) Math.ceil((double) damage / (double) 4.0F));

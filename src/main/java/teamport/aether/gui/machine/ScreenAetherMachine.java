@@ -27,15 +27,14 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
     public abstract int getTargetSlot(ItemStack stackInSlot, int clickedItemId);
 
     /**
-    * @implNote
-     * This function is a direct copy of its parent. This allows aether machines an entry to check what slot
+     * @implNote This function is a direct copy of its parent. This allows aether machines an entry to check what slot
      * a given item targets. As such only change the function to keep up to date with its parent.
      * Additional machines can be checked in getTargetSlot. All aether machine screens need to inherit from
      * this class for it work.
-    * */
+     */
     @Override
     public void clickInventory(int x, int y, int mouseButton) {
-        int slotId = ((ScreenContainerAbstractAccessor) (Object) this).invokeGetSlotId(x, y);
+        int slotId = ((ScreenContainerAbstractAccessor) this).invokeGetSlotId(x, y);
         if (slotId != -1) {
             if (slotId == -999) {
                 InventoryAction action = InventoryAction.DROP_HELD_STACK;
@@ -43,7 +42,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                     action = InventoryAction.DROP_HELD_SINGLE;
                 }
 
-                this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, action, (int[]) null, this.mc.thePlayer);
+                this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, action, null, this.mc.thePlayer);
             } else if (!this.mc.thePlayer.getGamemode().consumeBlocks() && mouseButton == 2) {
                 Slot slot = this.inventorySlots.getSlot(slotId);
                 if (slot.getItemStack() == null) {
@@ -78,7 +77,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                 }
 
                 if (slot instanceof SlotResult) {
-                    if ((Boolean) this.mc.gameSettings.swapCraftingButtons.value) {
+                    if (this.mc.gameSettings.swapCraftingButtons.value) {
                         if (shiftPressed && ctrlPressed) {
                             action = InventoryAction.MOVE_SIMILAR;
                         } else if (shiftPressed) {

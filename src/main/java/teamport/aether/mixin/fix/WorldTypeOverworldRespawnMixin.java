@@ -14,9 +14,10 @@ import static teamport.aether.AetherMod.LOGGER;
 @Mixin(value = WorldType.class, remap = false, priority = 0)
 public abstract class WorldTypeOverworldRespawnMixin {
 
-    @Shadow public abstract int getOceanY();
+    @Shadow
+    public abstract int getOceanY();
 
-    @Inject(method = "getRespawnLocation", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "getRespawnLocation", at = @At("HEAD"), cancellable = true)
     public void respawnLocation(World world, CallbackInfo ci) {
         LOGGER.debug("Commandeering respawnLocation...");
 

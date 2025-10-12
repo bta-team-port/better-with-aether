@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static teamport.aether.AetherMod.*;
+import static teamport.aether.AetherMod.BLOCK_INSTRUMENTS;
 
 @Mixin(value = BlockLogicNote.Instrument.class, remap = false)
 public abstract class AddInstrumentsMixin {

@@ -20,12 +20,12 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-import static net.minecraft.core.util.helper.Direction.DOWN;
-import static net.minecraft.core.util.helper.Direction.EAST;
-import static net.minecraft.core.util.helper.Direction.SOUTH;
-import static net.minecraft.core.util.helper.Direction.UP;
+import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 
 public class WorldFeatureAetherBronzeDungeonLegacy extends WorldFeature {
@@ -177,8 +177,7 @@ public class WorldFeatureAetherBronzeDungeonLegacy extends WorldFeature {
             dirList.remove(index);
         }
 
-        if (!finished) return true;
-        return false;
+        return !finished;
     }
 
     private boolean placeNextRoom(final int finalX, final int finalY, final int finalZ, Direction dir) {

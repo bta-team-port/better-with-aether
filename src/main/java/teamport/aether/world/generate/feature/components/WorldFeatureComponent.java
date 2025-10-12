@@ -7,7 +7,6 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.BlockPallet;
 

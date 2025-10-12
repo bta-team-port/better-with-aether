@@ -29,15 +29,16 @@ public class PlayerControllerValkToolsReachMixin {
             return false;
         else if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE)) {
             return true;
-        } else return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE;
+        } else
+            return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.VALKYRIE;
     }
 
-    @ModifyReturnValue(method = "getBlockReachDistance", at=@At("RETURN"))
+    @ModifyReturnValue(method = "getBlockReachDistance", at = @At("RETURN"))
     public float getBlockReachDistance(float original) {
         return original + (held_item_is_valk_tool(this.mc.thePlayer) ? 6 : 0);
     }
 
-    @ModifyReturnValue(method = "getEntityReachDistance", at=@At("RETURN"))
+    @ModifyReturnValue(method = "getEntityReachDistance", at = @At("RETURN"))
     public float getEntityReachDistance(float original) {
         return original + (held_item_is_valk_tool(this.mc.thePlayer) ? 6 : 0);
     }

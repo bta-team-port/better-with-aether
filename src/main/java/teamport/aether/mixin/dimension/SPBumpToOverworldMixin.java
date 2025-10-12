@@ -22,11 +22,14 @@ import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class SPBumpToOverworldMixin extends Player {
 
-    @Shadow protected Minecraft mc;
+    @Shadow
+    protected Minecraft mc;
 
-    @Shadow public abstract void sendMessage(String message);
+    @Shadow
+    public abstract void sendMessage(String message);
 
-    @Shadow public abstract void sendChatMessage(String s);
+    @Shadow
+    public abstract void sendChatMessage(String s);
 
     public SPBumpToOverworldMixin(@Nullable World world) {
         super(world);
@@ -71,14 +74,18 @@ public abstract class SPBumpToOverworldMixin extends Player {
                 float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
                 moveTo(x *= scale, OVERWORLD_RETURN_HEIGHT, z *= scale, yRot, xRot);
 
-                if (isAlive()) { mc.currentWorld.updateEntityWithOptionalForce(this, false); }
+                if (isAlive()) {
+                    mc.currentWorld.updateEntityWithOptionalForce(this, false);
+                }
 
                 WorldClient newWorld = new WorldClient(this.mc.currentWorld, Dimension.OVERWORLD);
                 this.mc.changeWorld(newWorld, "Leaving " + AetherDimension.AETHER.getTranslatedName(), this);
 
                 world = newWorld;
                 dimension = Dimension.OVERWORLD.id;
-                if (isAlive()) { mc.currentWorld.updateEntityWithOptionalForce(this, false); }
+                if (isAlive()) {
+                    mc.currentWorld.updateEntityWithOptionalForce(this, false);
+                }
 
                 if (passengerNBT != null) {
                     Entity p = EntityDispatcher.createEntityFromNBT(passengerNBT, mc.currentWorld);

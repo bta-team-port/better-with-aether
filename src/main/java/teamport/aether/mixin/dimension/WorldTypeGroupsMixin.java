@@ -18,22 +18,24 @@ import java.util.Map;
 @Mixin(value = WorldTypeGroups.class, remap = false)
 public class WorldTypeGroupsMixin {
 
-    @Unique private static final Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();
+    @Unique
+    private static final Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();
 
     static {
-        for (WorldType t : new WorldType[] {
-            WorldTypes.OVERWORLD_AMPLIFIED,
-            WorldTypes.OVERWORLD_INLAND,
-            WorldTypes.OVERWORLD_PARADISE,
-            WorldTypes.OVERWORLD_WOODS,
-            WorldTypes.OVERWORLD_HELL,
-            WorldTypes.OVERWORLD_WINTER,
-            WorldTypes.OVERWORLD_ISLANDS,
-            WorldTypes.OVERWORLD_FLOATING,
-            WorldTypes.FLAT,
-            WorldTypes.EMPTY,
-            WorldTypes.DEBUG,
-        }) overworldToAetherWorldTypeMap.put(t, AetherWorldTypes.AETHER_EXTENDED);
+        for (WorldType t : new WorldType[]{
+                WorldTypes.OVERWORLD_AMPLIFIED,
+                WorldTypes.OVERWORLD_INLAND,
+                WorldTypes.OVERWORLD_PARADISE,
+                WorldTypes.OVERWORLD_WOODS,
+                WorldTypes.OVERWORLD_HELL,
+                WorldTypes.OVERWORLD_WINTER,
+                WorldTypes.OVERWORLD_ISLANDS,
+                WorldTypes.OVERWORLD_FLOATING,
+                WorldTypes.FLAT,
+                WorldTypes.EMPTY,
+                WorldTypes.DEBUG,
+        })
+            overworldToAetherWorldTypeMap.put(t, AetherWorldTypes.AETHER_EXTENDED);
 
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_SKYBLOCK, AetherWorldTypes.AETHER_SKYBLOCK);
 
@@ -47,7 +49,7 @@ public class WorldTypeGroupsMixin {
         for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
 
             WorldType overworldType = group.get(Dimension.OVERWORLD);
-                group.with(AetherDimension.AETHER, overworldToAetherWorldTypeMap.computeIfAbsent(overworldType, w -> AetherWorldTypes.AETHER_DEFAULT));
+            group.with(AetherDimension.AETHER, overworldToAetherWorldTypeMap.computeIfAbsent(overworldType, w -> AetherWorldTypes.AETHER_DEFAULT));
         }
     }
 }

@@ -6,21 +6,21 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
     double weight = 0;
     T data;
 
-    private PriorityEntry(double weight, T data){
+    private PriorityEntry(double weight, T data) {
         this.weight = weight;
         this.data = data;
     }
 
-    private PriorityEntry<T> setWeight(double weight){
+    private PriorityEntry<T> setWeight(double weight) {
         this.weight = weight;
         return this;
     }
 
-    public double getWeight(){
+    public double getWeight() {
         return weight;
     }
 
-    public T getData(){
+    public T getData() {
         return data;
     }
 
@@ -29,12 +29,12 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(weight, data.hashCode());
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("(%f, %s)", weight, data.toString());
     }
 
@@ -45,8 +45,8 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o)return true;
-        if(!(o instanceof PriorityEntry)) return false;
+        if (this == o) return true;
+        if (!(o instanceof PriorityEntry)) return false;
         PriorityEntry<?> that = (PriorityEntry<?>) o;
         return this.data.equals(that.data);
     }

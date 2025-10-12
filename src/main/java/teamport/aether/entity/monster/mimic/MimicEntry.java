@@ -2,7 +2,7 @@ package teamport.aether.entity.monster.mimic;
 
 import java.util.Objects;
 
-public class MimicEntry{
+public class MimicEntry {
     int mimicVariant;
     int mimicChestId;
     int mimicChestMetadata;
@@ -13,7 +13,7 @@ public class MimicEntry{
             int mimicVariant,
             int mimicChestId, int mimicChestMetadata,
             int itemChestID, int itemChestMetadata
-    ){
+    ) {
         this.mimicVariant = mimicVariant;
         this.mimicChestId = mimicChestId;
         this.mimicChestMetadata = mimicChestMetadata;
@@ -25,7 +25,7 @@ public class MimicEntry{
             int mimicVariant,
             int mimicChestId, int mimicChestMetadata,
             int chestID, int chestMetadata
-    ){
+    ) {
         return new MimicEntry(mimicVariant, mimicChestId, mimicChestMetadata, chestID, chestMetadata);
     }
 

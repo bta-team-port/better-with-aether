@@ -3,7 +3,10 @@ package teamport.aether.entity.monster.mimic;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.*;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -62,7 +65,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.mimicChestMetadata = mimicChestMetadata;
     }
 
-    public void setChatColor(byte chatColor){
+    public void setChatColor(byte chatColor) {
         this.chatColor = chatColor;
     }
 
@@ -205,7 +208,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     @Override
-    public String deathMessage(Player player){
+    public String deathMessage(Player player) {
         String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
         String deathMessage = TRANSLATOR
                 .translateKey(key)

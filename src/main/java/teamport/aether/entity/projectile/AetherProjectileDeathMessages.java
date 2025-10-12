@@ -16,19 +16,19 @@ public interface AetherProjectileDeathMessages<T extends Projectile> extends Aet
     default String deathMessage(Player player) {
         Projectile proj = (Projectile) this;
         Entity owner = proj.owner;
-        if(owner instanceof Player){
+        if (owner instanceof Player) {
             Player killer = (Player) owner;
             String keys = EntityDispatcher.nameKeyForClass(proj.getClass()) + ".death_message";
-            if((killer).uuid.equals(player.uuid)){
+            if ((killer).uuid.equals(player.uuid)) {
                 return RED + TRANSLATOR.translateKey(keys + ".suicide")
                         .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
-            }else{
-                return RED + TRANSLATOR.translateKey(keys  + ".player")
+            } else {
+                return RED + TRANSLATOR.translateKey(keys + ".player")
                         .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
                         .replace("[KILLER]", RESET + killer.getDisplayName() + RESET + RED);
             }
         }
-        if(owner instanceof MobBoss){
+        if (owner instanceof MobBoss) {
             MobBoss boss = (MobBoss) owner;
             String bossName = EntityDispatcher.nameKeyForClass(boss.getClass()) + ".death_message";
             String projectileName = TRANSLATOR.translateKey(EntityDispatcher.nameKeyForClass(proj.getClass()));
@@ -36,7 +36,7 @@ public interface AetherProjectileDeathMessages<T extends Projectile> extends Aet
                     .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
                     .replace("[BOSS]", boss.getBossTitle());
         }
-        return ((AetherDeathMessage)owner).deathMessage(player);
+        return ((AetherDeathMessage) owner).deathMessage(player);
     }
 
 }

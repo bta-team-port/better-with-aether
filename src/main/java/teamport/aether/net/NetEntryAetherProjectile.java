@@ -16,7 +16,7 @@ import teamport.aether.entity.projectile.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NetEntryAetherProjectile  implements IVehicleEntry<ProjectileAether>, ITrackedEntry<ProjectileAether> {
+public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>, ITrackedEntry<ProjectileAether> {
     public static final int TYPE_BITS = 0xff00_0000;
     public static final Map<Integer, ProjectileAether.ConstructorLambda> idToConstructor = new HashMap<>();
     public static final Map<Class<?>, Integer> classToId = new HashMap<>();

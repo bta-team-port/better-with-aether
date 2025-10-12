@@ -19,11 +19,11 @@ public class RemedyEffect extends Effect implements ILockInteractable {
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
         HashSet<Effect> remove = AetherEffects.LookupLooks.instance.getLockedEffects(this);
-        if(remove == null) return;
+        if (remove == null) return;
         List<EffectStack> check = new ArrayList<>(effectContainer.getEffects());
-        for(EffectStack stack : check){
-            for(Effect effect : remove){
-                if(effect.equals(stack.getEffect())){
+        for (EffectStack stack : check) {
+            for (Effect effect : remove) {
+                if (effect.equals(stack.getEffect())) {
                     effectContainer.remove(stack.getEffect());
                     Mob mob = (Mob) effectContainer.getParent();
                     spawnParticles(mob);

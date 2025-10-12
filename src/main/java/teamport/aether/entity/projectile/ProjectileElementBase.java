@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -12,6 +11,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.ParticleHelper;
 
 
 abstract public class ProjectileElementBase extends Projectile implements ProjectileAether {
@@ -169,8 +169,11 @@ abstract public class ProjectileElementBase extends Projectile implements Projec
 
     protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
         ProjectileElementBase element = null;
-        try {element = clazz.getDeclaredConstructor(World.class).newInstance(world);}
-        catch (Exception e) {throw new RuntimeException(e);}
+        try {
+            element = clazz.getDeclaredConstructor(World.class).newInstance(world);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         element.setPos(x, y, z);
         if (hasVelocity) element.setHeading(xd, yd, zd, 1, 0);

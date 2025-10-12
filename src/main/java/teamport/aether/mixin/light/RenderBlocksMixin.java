@@ -12,6 +12,6 @@ public abstract class RenderBlocksMixin {
 
     @Redirect(method = "setupLighting", at = @At(value = "FIELD", target = "Lnet/minecraft/core/block/Block;emission:I"))
     public int fixAO(Block<?> instance) {
-        return ((IBlockAether)(Object)instance).better_with_aether$getEmissionOverride();
+        return ((IBlockAether) (Object) instance).better_with_aether$getEmissionOverride();
     }
 }

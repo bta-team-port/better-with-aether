@@ -14,7 +14,8 @@ import teamport.aether.entity.AetherRideable;
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
 
-    @Shadow public PlayerInput input;
+    @Shadow
+    public PlayerInput input;
 
     public PlayerLocalHandleAetherRideableMixin(World world) {
         super(world);
@@ -24,9 +25,7 @@ public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
     public void handleAetherRideableControl(CallbackInfo ci) {
         if (vehicle instanceof AetherRideable) {
             ((AetherRideable) vehicle).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
-        }
-
-        else if (passenger instanceof AetherRideable) {
+        } else if (passenger instanceof AetherRideable) {
             ((AetherRideable) passenger).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
         }
     }

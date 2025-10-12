@@ -1,10 +1,11 @@
 package teamport.aether.blocks.skyroot;
 
-import net.minecraft.core.block.*;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicSlabPaintable;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 
-public class BlockLogicPaintableSlab extends BlockLogicSlabPaintable{
+public class BlockLogicPaintableSlab extends BlockLogicSlabPaintable {
     protected final Block<? extends BlockLogicPaintedSlab> paintedBlock;
 
     public BlockLogicPaintableSlab(Block<?> block, Block<?> modelBlock, Block<? extends BlockLogicPaintedSlab> paintedBlock) {

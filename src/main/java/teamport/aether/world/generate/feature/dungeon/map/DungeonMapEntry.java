@@ -1,7 +1,6 @@
 package teamport.aether.world.generate.feature.dungeon.map;
 
 import com.mojang.nbt.tags.CompoundTag;
-import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
@@ -91,7 +90,7 @@ public class DungeonMapEntry {
         this.treasureDoor.addAll(doorBlocks);
     }
 
-    public void setEntranceDoor(List<WorldFeatureBlock> entranceDoor){
+    public void setEntranceDoor(List<WorldFeatureBlock> entranceDoor) {
         this.entranceDoor.addAll(entranceDoor);
     }
 
@@ -104,8 +103,8 @@ public class DungeonMapEntry {
         this.position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
 
         this.clearArea = new Pair<>(
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
-            WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
+                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos1")),
+                WorldFeaturePoint.fromCompoundTag(data.getCompound("clearPos2"))
         );
 
         if (this.clearArea.first == null || this.clearArea.second == null) {
@@ -193,13 +192,9 @@ public class DungeonMapEntry {
                 BlockLogic logic = block.getLogic();
                 if (logic instanceof BlockLogicLocked) {
                     world.setBlockWithNotify(p.x, p.y, p.z, ((BlockLogicLocked) logic).replacement.id());
-                }
-
-                else if (logic instanceof BlockLogicTrapped) {
+                } else if (logic instanceof BlockLogicTrapped) {
                     world.setBlockWithNotify(p.x, p.y, p.z, ((BlockLogicTrapped) logic).replaceOnClear.id());
-                }
-
-                else if (logic instanceof BlockLogicDungeonDoor) {
+                } else if (logic instanceof BlockLogicDungeonDoor) {
                     world.setBlockWithNotify(p.x, p.y, p.z, 0);
                 }
             });

@@ -1,17 +1,14 @@
 package teamport.aether.models;
 
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
-import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
-import teamport.aether.blocks.dungeon.BlockLogicPaintedChestMimic;
 
 public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
     public static final IconCoordinate[] topTextures = new IconCoordinate[16];
@@ -45,7 +42,7 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
     }
 
     static {
-        for(DyeColor c : DyeColor.blockOrderedColors()) {
+        for (DyeColor c : DyeColor.blockOrderedColors()) {
             frontTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/front"); // 0
             sideTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/side");   // 5
             topTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/top");     // 6

@@ -6,7 +6,6 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.items.itemtool.ItemToolShovelAether;
-import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 

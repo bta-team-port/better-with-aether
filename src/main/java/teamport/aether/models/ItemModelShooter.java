@@ -27,7 +27,7 @@ public class ItemModelShooter extends ItemModelStandard {
         super.renderItem(tessellator, renderer, itemstack, entity, brightness, handheldTransform);
         Item nextDart = null;
         if (entity instanceof Player) {
-            Player entityplayer = (Player)entity;
+            Player entityplayer = (Player) entity;
             nextDart = this.getNextDart(entityplayer);
         }
 
@@ -46,15 +46,15 @@ public class ItemModelShooter extends ItemModelStandard {
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
             GL11.glEnable(2884);
-            ItemModelStandard dartModel = (ItemModelStandard)ItemModelDispatcher.getInstance().getDispatch(nextDart);
+            ItemModelStandard dartModel = (ItemModelStandard) ItemModelDispatcher.getInstance().getDispatch(nextDart);
             IconCoordinate textureIndex = dartModel.getIcon(mc.thePlayer, nextDart.getDefaultStack());
             GL11.glDisable(2896);
             textureIndex.parentAtlas.bind();
             if (this.useColor) {
                 int color = this.getColor(itemStack);
-                float r = (float)(color >> 16 & 255) / 255.0F;
-                float g = (float)(color >> 8 & 255) / 255.0F;
-                float b = (float)(color & 255) / 255.0F;
+                float r = (float) (color >> 16 & 255) / 255.0F;
+                float g = (float) (color >> 8 & 255) / 255.0F;
+                float b = (float) (color & 255) / 255.0F;
                 GL11.glColor4f(r * brightness, g * brightness, b * brightness, alpha);
             } else {
                 GL11.glColor4f(brightness, brightness, brightness, alpha);

@@ -16,7 +16,7 @@ import teamport.aether.recipe.RecipeEntryAetherMachine;
 
 import java.util.*;
 
-public abstract class RecipePageAetherMachines  extends RecipePage<RecipeEntryAetherMachine> {
+public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAetherMachine> {
     public List<SlotGuidebook> slots;
     public Map<RecipeEntryAetherMachine, List<SlotGuidebook>> map;
     public final TooltipElement tooltipElement;

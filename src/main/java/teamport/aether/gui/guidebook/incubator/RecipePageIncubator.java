@@ -35,10 +35,10 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         buildSlots(recipes);
     }
 
-    public void buildSlots(List<RecipeEntryIncubator> recipes){
+    public void buildSlots(List<RecipeEntryIncubator> recipes) {
         for (RecipeEntryIncubator recipe : recipes) {
             int yOffset = 32 * (this.map.size() + 1) - 16;
-            SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput() , false, recipe);
+            SlotGuidebook recipeSlot = new SlotGuidebook(0, 20, 2 * yOffset, recipe.getInput(), false, recipe);
             this.map.put(recipe, recipeSlot);
             this.slots.add(recipeSlot);
         }
@@ -64,10 +64,10 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
             StringBuilder buildTime = new StringBuilder();
             int time = Math.round(recipe.getData() / 20.0F);
-            if(time >= 60){
+            if (time >= 60) {
                 time = Math.round(time / 60.0f);
                 buildTime.append(time).append(" min");
-            }else{
+            } else {
                 buildTime.append(time).append(" sec");
             }
             String duration = buildTime.toString();
@@ -75,9 +75,9 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
 
             boolean discovered = slot.getIsDiscovered(mc.thePlayer);
-            if(discovered){
+            if (discovered) {
                 description = createDescLines(fr, root + "." + entityName);
-            }else{
+            } else {
                 description = createDescLines(fr, "aether.guidebook.section.incubator.undiscovered");
                 title = (new String(new char[title.length()])).replace("\u0000", "?");
                 duration = (new String(new char[duration.length()])).replace("\u0000", "?");
@@ -89,11 +89,11 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
             yOffset += 10;
             this.drawStringNoShadow(fr, "Duration: " + duration, xOffset, yOffset, 0);
             yOffset += 10;
-            for(String descLine : description) {
+            for (String descLine : description) {
                 this.drawStringNoShadow(fr, descLine, xOffset, yOffset, 5263440);
                 yOffset += 10;
             }
-            this.itemElement.render(slot.getItemStack(), x + slot.x, y + slot.y, mouseOverSlot==slot, slot);
+            this.itemElement.render(slot.getItemStack(), x + slot.x, y + slot.y, mouseOverSlot == slot, slot);
         }
     }
 
@@ -126,7 +126,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         List<String> lines = new ArrayList<>();
         StringBuilder line = new StringBuilder();
 
-        for(String word : words) {
+        for (String word : words) {
             if (fr.getStringWidth(line + " " + word) > 100) {
                 lines.add(line.toString());
                 line = new StringBuilder();
@@ -136,7 +136,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
                 String safeWord = word.replace("\r", "");
                 String[] wordParts = safeWord.split("\n");
 
-                for(int i = 0; i < wordParts.length; ++i) {
+                for (int i = 0; i < wordParts.length; ++i) {
                     if (i > 0) {
                         lines.add(line.toString());
                         line = new StringBuilder();
@@ -150,7 +150,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
 
         lines.add(line.toString());
-        return (String[])lines.toArray(new String[0]);
+        return lines.toArray(new String[0]);
     }
 
     public boolean keyTyped(char c, int key, int x, int y, int mouseX, int mouseY) {

@@ -20,8 +20,6 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
@@ -114,7 +112,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         CompoundTag trophyNBT = tag.getCompound("trophy");
         if (trophyNBT != null) {
             trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        };
+        }
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");
@@ -168,8 +166,8 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         String playerName = player.getDisplayName() + RESET + RED;
 
         String deathMessage = TRANSLATOR.translateKey(name)
-            .replace("[PLAYER]", playerName)
-            .replace("[BOSS]", bossName);
+                .replace("[PLAYER]", playerName)
+                .replace("[BOSS]", bossName);
 
         return RED + deathMessage;
     }
@@ -186,7 +184,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     public void returnToOriginalState() {
         this.target = null;
         returnToHome();
-        runWithDungeon(d-> d.unlock(this, world));
+        runWithDungeon(d -> d.unlock(this, world));
         this.setHealthRaw(this.getMaxHealth());
     }
 }

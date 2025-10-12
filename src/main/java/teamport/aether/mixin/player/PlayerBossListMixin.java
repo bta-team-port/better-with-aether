@@ -25,6 +25,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
     public PlayerBossListMixin(@Nullable World world) {
         super(world);
     }
+
     @Unique
     List<Mob> aether$bossList = new ArrayList<>();
 
@@ -34,10 +35,10 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
 
         for (Mob boss : aether$bossList) {
             if (
-                (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight())
-                || !boss.isAlive()
-                || boss.world.dimension != world.dimension
-                || boss.distanceTo(this) > AetherDimension.bossDetectionRadius
+                    (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight())
+                            || !boss.isAlive()
+                            || boss.world.dimension != world.dimension
+                            || boss.distanceTo(this) > AetherDimension.bossDetectionRadius
             ) {
                 _bosses.remove(boss);
             }
@@ -54,8 +55,8 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToPlayer(
-                    Player.class.cast(this),
-                    new BossListNetworkMessage(BossListNetworkMessage.Type.ADD, mob)
+                        Player.class.cast(this),
+                        new BossListNetworkMessage(BossListNetworkMessage.Type.ADD, mob)
                 );
             }
         }
@@ -67,8 +68,8 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
 
         if (EnvironmentHelper.isServerEnvironment()) {
             NetworkHandler.sendToPlayer(
-                Player.class.cast(this),
-                BossListNetworkMessage.clear()
+                    Player.class.cast(this),
+                    BossListNetworkMessage.clear()
             );
         }
     }
@@ -79,15 +80,15 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
 
         if (EnvironmentHelper.isServerEnvironment()) {
             NetworkHandler.sendToPlayer(
-                Player.class.cast(this),
-                new BossListNetworkMessage(BossListNetworkMessage.Type.REMOVE, mob)
+                    Player.class.cast(this),
+                    new BossListNetworkMessage(BossListNetworkMessage.Type.REMOVE, mob)
             );
         }
     }
 
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At("HEAD"))
     public void attackTargetEntityWithCurrentItem(Entity entity, CallbackInfo ci) {
-        if ((entity instanceof EnemyBoss && entity instanceof Mob) && !aether$bossList.contains(entity))  {
+        if ((entity instanceof EnemyBoss && entity instanceof Mob) && !aether$bossList.contains(entity)) {
             aether$TryAddBossList((Mob) entity);
         }
     }

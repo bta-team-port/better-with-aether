@@ -8,7 +8,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import teamport.aether.blocks.AetherBlockTags;
 
-public class  ItemToolSwordAether extends ItemToolSword {
+public class ItemToolSwordAether extends ItemToolSword {
 
     protected ToolMaterial publicMaterial;
 

@@ -12,9 +12,9 @@ import teamport.aether.items.AetherItemTags;
 public class MobPigMixin {
 
     @Inject(method = "isFavouriteItem", at = @At(value = "HEAD"), cancellable = true)
-    public void isFavouriteItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir){
-         if (itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW)) {
-             cir.setReturnValue(true);
-         }
+    public void isFavouriteItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
+        if (itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW)) {
+            cir.setReturnValue(true);
+        }
     }
 }

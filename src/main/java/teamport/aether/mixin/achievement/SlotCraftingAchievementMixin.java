@@ -17,8 +17,9 @@ import teamport.aether.items.AetherItems;
 public abstract class SlotCraftingAchievementMixin {
     @Shadow
     private Player thePlayer;
+
     @Inject(method = "onTake", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;onCrafting(Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;)V", shift = At.Shift.AFTER))
-    public void addCraftingAchievements(ItemStack itemstack, CallbackInfo ci){
+    public void addCraftingAchievements(ItemStack itemstack, CallbackInfo ci) {
         if (itemstack.itemID == AetherItems.TOOL_PICKAXE_SKYROOT.id) {
             this.thePlayer.addStat(AetherAchievements.SKYROOT, 1);
         }

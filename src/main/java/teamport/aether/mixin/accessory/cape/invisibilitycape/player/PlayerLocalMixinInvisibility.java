@@ -14,6 +14,7 @@ public class PlayerLocalMixinInvisibility implements AetherInvisibility {
     public void aether$setInvisible(boolean invisible) {
         this.invisible = invisible;
     }
+
     @Unique
     public boolean aether$isInvisible() {
         return invisible;

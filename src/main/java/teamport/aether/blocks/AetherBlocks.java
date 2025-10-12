@@ -12,7 +12,6 @@ import teamport.aether.blocks.machine.BlockLogicEnchanter;
 import teamport.aether.blocks.machine.BlockLogicFreezer;
 import teamport.aether.blocks.machine.BlockLogicIncubator;
 import teamport.aether.blocks.skyroot.*;
-import teamport.aether.blocks.skyroot.BlockLogicPaintedDoor;
 import teamport.aether.blocks.terrain.*;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
@@ -521,8 +520,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "fence.planks.skyroot.painted",
                         "fence_planks_skyroot_painted",
                         blockID("FENCE_PLANKS_SKYROOT_PAINTED"),
-                        block ->  new BlockLogicPaintedFence(
-                           block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
+                        block -> new BlockLogicPaintedFence(
+                                block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
                         )
                 );
 
@@ -646,7 +645,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
                 .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot_painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
-                    b -> new BlockLogicPaintedSignSkyroot(b, true)
+                        b -> new BlockLogicPaintedSignSkyroot(b, true)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
@@ -655,7 +654,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
                 .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot_painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
-                    b -> new BlockLogicPaintedSignSkyroot(b, false)
+                        b -> new BlockLogicPaintedSignSkyroot(b, false)
                 )
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
@@ -676,7 +675,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "chest.planks.skyroot",
                         "chest_planks_skyroot",
                         blockID("CHEST_PLANKS_SKYROOT"),
-                        b -> new BlockLogicPaintableChest(b, Material.wood,CHEST_PLANKS_SKYROOT_PAINTED));
+                        b -> new BlockLogicPaintableChest(b, Material.wood, CHEST_PLANKS_SKYROOT_PAINTED));
 
         CHEST_PLANKS_SKYROOT_PAINTED = wood
                 .setVisualUpdateOnMetadata()
@@ -684,8 +683,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("chest.planks.skyroot.painted",
                         "chest_planks_skyroot_painted",
                         blockID("CHEST_PLANKS_SKYROOT_PAINTED"),
-                        b -> new BlockLogicPaintedChest(b, Material.wood,CHEST_PLANKS_SKYROOT.id()));
-
+                        b -> new BlockLogicPaintedChest(b, Material.wood, CHEST_PLANKS_SKYROOT.id()));
 
 
         BUTTON_PLANKS_SKYROOT = wood
@@ -708,7 +706,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         "button_planks_skyroot_painted",
                         blockID("BUTTON_PLANKS_SKYROOT_PAINTED"),
                         block -> new BlockLogicPaintedButton(
-                            block, BUTTON_PLANKS_SKYROOT.id()
+                                block, BUTTON_PLANKS_SKYROOT.id()
                         )
                 );
 

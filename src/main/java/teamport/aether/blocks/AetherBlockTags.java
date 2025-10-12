@@ -20,8 +20,6 @@ public class AetherBlockTags {
     public static Tag<Block<?>> GROWS_AETHER_TREES = Tag.of("grows_aether_trees");
     public static Tag<Block<?>> PASSIVE_MOBS_SPAWN = Tag.of("aether_passive_mobs_spawn");
 
-    public static Tag<Block<?>> AETHER_JAR_RENDERING = Tag.of("aether_jar_dirt");
-
     public static Tag<Block<?>> AETHER_DOES_NOT_FIT_IN_MINECART = Tag.of("aether_does_not_fit_in_minecart");
 
     static {

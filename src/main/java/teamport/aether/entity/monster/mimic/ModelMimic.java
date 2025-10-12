@@ -14,34 +14,34 @@ public class ModelMimic extends ModelBase {
     public Cube rightLeg;
 
     public ModelMimic() {
-            this.box = new Cube(0, 19);
-            this.box.addBox(-4.0F, -5.0F, -4.0F, 8, 5, 8);
+        this.box = new Cube(0, 19);
+        this.box.addBox(-4.0F, -5.0F, -4.0F, 8, 5, 8);
 
-            this.boxLid = new Cube(12, 0);
-            this.boxLid.addBox(-4.0F, -3.0F, -8, 8, 3, 8);
+        this.boxLid = new Cube(12, 0);
+        this.boxLid.addBox(-4.0F, -3.0F, -8, 8, 3, 8);
 
-            this.leftLeg = new Cube(0, 0);
-            this.leftLeg.addBox(-1.5F, 0.0F, -1.5F, 3, 7, 3);
+        this.leftLeg = new Cube(0, 0);
+        this.leftLeg.addBox(-1.5F, 0.0F, -1.5F, 3, 7, 3);
 
-            this.rightLeg = new Cube(0, 0);
-            this.rightLeg.addBox(-1.5F, 0.0F, -1.5F, 3, 7, 3);
+        this.rightLeg = new Cube(0, 0);
+        this.rightLeg.addBox(-1.5F, 0.0F, -1.5F, 3, 7, 3);
 
-            this.box.setRotationPoint(0, 17.0F, 0);
-            this.boxLid.setRotationPoint(0, 12.0F, 4.0F);
+        this.box.setRotationPoint(0, 17.0F, 0);
+        this.boxLid.setRotationPoint(0, 12.0F, 4.0F);
 
-            this.leftLeg.setRotationPoint(-2.0F, 17.0F, 0);
-            this.rightLeg.setRotationPoint(2.0F, 17.0F, 0);
+        this.leftLeg.setRotationPoint(-2.0F, 17.0F, 0);
+        this.rightLeg.setRotationPoint(2.0F, 17.0F, 0);
 
     }
 
-        @Override
-        public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
-            this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
-            this.box.render(scale);
-            this.boxLid.render(scale);
-            this.rightLeg.render(scale);
-            this.leftLeg.render(scale);
-        }
+    @Override
+    public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+        this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
+        this.box.render(scale);
+        this.boxLid.render(scale);
+        this.rightLeg.render(scale);
+        this.leftLeg.render(scale);
+    }
 
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);

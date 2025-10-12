@@ -30,7 +30,7 @@ public class ComponentJumpBar extends HudComponentMovable {
     private int rowAmount;
 
     public ComponentJumpBar(String key, Layout layout) {
-        super(key, iconWidth*9, iconHeight, layout);
+        super(key, iconWidth * 9, iconHeight, layout);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ComponentJumpBar extends HudComponentMovable {
         if (!(mc.currentScreen instanceof ScreenHudDesigner) && !this.isVisible(mc)) {
             return 0;
         }
-        return (iconHeight - spacingY) * rowAmount      ;
+        return (iconHeight - spacingY) * rowAmount;
     }
 
     @Override
@@ -48,12 +48,12 @@ public class ComponentJumpBar extends HudComponentMovable {
 
     @Override
     public int getAnchorY(ComponentAnchor anchor) {
-        return (int)(anchor.yPosition * getYSize(mc));
+        return (int) (anchor.yPosition * getYSize(mc));
     }
 
     @Override
     public int getAnchorX(ComponentAnchor anchor) {
-        return (int)(anchor.xPosition * getXSize(mc));
+        return (int) (anchor.xPosition * getXSize(mc));
     }
 
     @Override
@@ -84,10 +84,10 @@ public class ComponentJumpBar extends HudComponentMovable {
         this.xScreenSize = xScreenSize;
         this.yScreenSize = yScreenSize;
 
-        drawJumpBar(3,2);
+        drawJumpBar(3, 2);
     }
 
-    public void drawJumpBar(int jumpMaxAmount, int jumpAmount){
+    public void drawJumpBar(int jumpMaxAmount, int jumpAmount) {
         rowAmount = getRows(jumpMaxAmount);
 
         int barX = getLayout().getComponentX(mc, this, xScreenSize);
@@ -98,14 +98,14 @@ public class ComponentJumpBar extends HudComponentMovable {
         mc.textureManager.bindTexture(mc.textureManager.loadTexture(texture));
 
         drawRowsOfIcons(barX, barY, iconWidth, 0, jumpMaxAmount);
-        drawRowsOfIcons(barX, barY, 0,0 ,jumpAmount);
+        drawRowsOfIcons(barX, barY, 0, 0, jumpAmount);
     }
 
     public int getRows(int amount) {
-        return (amount%rowLength) <= 0 ? amount/rowLength : (amount/rowLength) + 1;
+        return (amount % rowLength) <= 0 ? amount / rowLength : (amount / rowLength) + 1;
     }
 
-    public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount){
+    public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount) {
         int iconsToDraw = iconAmount;
         for (int row = 0; row < getRows(iconAmount); row++) {
             for (int collumn = 0; collumn < Math.min(rowLength, iconsToDraw); collumn++) {

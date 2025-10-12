@@ -14,15 +14,23 @@ public class SlotFreezer extends Slot {
     }
 
     @Override
-    public void onTake(ItemStack itemstack){
+    public void onTake(ItemStack itemstack) {
         // check for achievement
     }
 
     // prevent item to be put in the output slot
     @Override
-    public boolean mayPlace(ItemStack itemstack)    {return false;}
+    public boolean mayPlace(ItemStack itemstack) {
+        return false;
+    }
+
     @Override
-    public boolean enableDragAndPickup()            {return false;}
+    public boolean enableDragAndPickup() {
+        return false;
+    }
+
     @Override
-    public boolean allowItemInteraction()           {return false;}
+    public boolean allowItemInteraction() {
+        return false;
+    }
 }

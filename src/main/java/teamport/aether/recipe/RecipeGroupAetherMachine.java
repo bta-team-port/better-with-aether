@@ -9,17 +9,18 @@ public class RecipeGroupAetherMachine extends RecipeGroup<RecipeEntryAetherMachi
         super(machine);
     }
 
-    public ItemStack findOutput(ItemStack stack){
+    public ItemStack findOutput(ItemStack stack) {
         for (RecipeEntryAetherMachine recipe : getAllRecipes()) {
-            if(recipe.matches(stack)){
+            if (recipe.matches(stack)) {
                 return recipe.getOutput().copy();
             }
         }
         return null;
     }
-    public RecipeEntryAetherMachine findRecipe(ItemStack stack){
+
+    public RecipeEntryAetherMachine findRecipe(ItemStack stack) {
         for (RecipeEntryAetherMachine recipe : getAllRecipes()) {
-            if(recipe.matches(stack)){
+            if (recipe.matches(stack)) {
                 return recipe;
             }
         }

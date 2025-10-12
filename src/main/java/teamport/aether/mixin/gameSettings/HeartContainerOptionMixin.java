@@ -13,7 +13,8 @@ import teamport.aether.gameSettings.GameSettingsDisplayHeartsOption;
 )
 public class HeartContainerOptionMixin implements GameSettingsDisplayHeartsOption {
 
-    private final GameSettings thisAs = ((GameSettings)(Object)this);
+    @Unique
+    private final GameSettings thisAs = ((GameSettings) (Object) this);
 
     @Unique
     public OptionEnum<ExtraHealthDisplayEnum> aether$extraHealthDisplayOptionEnum = new OptionEnum<>(

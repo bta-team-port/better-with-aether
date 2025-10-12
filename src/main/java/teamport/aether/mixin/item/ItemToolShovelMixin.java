@@ -17,12 +17,12 @@ import teamport.aether.blocks.terrain.BlockLogicPathDirtAether;
 @Mixin(value = ItemToolShovel.class, remap = false)
 public class ItemToolShovelMixin {
     @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
-    public void addNewPathBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
-        int blockId = world.getBlockId(blockX,blockY,blockZ);
-        int blockAbove = world.getBlockId(blockX,blockY + 1,blockZ);
+    public void addNewPathBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
+        int blockId = world.getBlockId(blockX, blockY, blockZ);
+        int blockAbove = world.getBlockId(blockX, blockY + 1, blockZ);
         if (side != Side.BOTTOM && blockAbove == 0 && (blockId == AetherBlocks.GRASS_AETHER.id() || blockId == AetherBlocks.DIRT_AETHER.id())) {
             Block<BlockLogicPathDirtAether> pathBlock = AetherBlocks.PATH_DIRT_AETHER;
-            world.playBlockSoundEffect(null, (float)blockX + 0.5f, (float)blockY + 0.5f, (float)blockZ + 0.5f, pathBlock, EnumBlockSoundEffectType.PLACE);
+            world.playBlockSoundEffect(null, (float) blockX + 0.5f, (float) blockY + 0.5f, (float) blockZ + 0.5f, pathBlock, EnumBlockSoundEffectType.PLACE);
             if (!world.isClientSide) {
                 world.setBlockWithNotify(blockX, blockY, blockZ, pathBlock.id());
                 itemstack.damageItem(1, entityplayer);

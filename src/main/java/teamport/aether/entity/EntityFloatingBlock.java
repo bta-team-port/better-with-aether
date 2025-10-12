@@ -105,8 +105,8 @@ public class EntityFloatingBlock extends EntityFallingBlock {
             this.yd *= 0.5;
 
             // JANK JANK JANK JANK JANK
-            if (pushedByPiston && ceilingTime < 60) {}
-            else this.remove();
+            if (pushedByPiston && ceilingTime < 60) {
+            } else this.remove();
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -138,9 +138,7 @@ public class EntityFloatingBlock extends EntityFallingBlock {
 
                     boolean blockPlacedSuccessfully = this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId);
                     if (!blockPlacedSuccessfully) this.drop();
-                }
-
-                else {
+                } else {
                     this.world.setBlockMetadataWithNotify(x, y, z, this.carriedBlock.metadata);
 
                     // this seems more concerned with rider than actual block setting logic

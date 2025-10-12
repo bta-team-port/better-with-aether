@@ -26,8 +26,8 @@ abstract public class MobPathfinderMixinForgetPlayerWhenToFar {
     public void forgetsPlayer(CallbackInfo ci) {
         if (
                 this.target != null
-                && target instanceof Player
-                && ((AetherInvisibility) target).aether$isInvisible()
+                        && target instanceof Player
+                        && ((AetherInvisibility) target).aether$isInvisible()
         ) {
             MobPathfinder mob = (MobPathfinder) (Object) this;
             float distanceToEntity = this.target.distanceTo(mob);

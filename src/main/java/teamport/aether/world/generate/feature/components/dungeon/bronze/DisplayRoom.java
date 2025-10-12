@@ -1,10 +1,8 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
-import net.minecraft.core.block.Blocks;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.generate.feature.BlockPallet;
-import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
@@ -18,11 +16,13 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 
 public class DisplayRoom extends BaseBronzeRoom {
     public static BlockPallet DISPLAY = new BlockPallet();
+
     static {
         DISPLAY.addEntry(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.id(), 10);
         DISPLAY.addEntry(AetherBlocks.ORE_ZANITE_HOLYSTONE.id(), 5);
         DISPLAY.addEntry(AetherBlocks.ORE_GRAVITITE_HOLYSTONE.id(), 1);
     }
+
     public DisplayRoom() {
         super();
         addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
@@ -30,7 +30,7 @@ public class DisplayRoom extends BaseBronzeRoom {
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
 
-        addDoor(UP, wfp(5,this.height,5), EAST, 2, SOUTH, 2);
+        addDoor(UP, wfp(5, this.height, 5), EAST, 2, SOUTH, 2);
     }
 
     @Override
@@ -50,23 +50,23 @@ public class DisplayRoom extends BaseBronzeRoom {
 
         // deco in corner
         List<WorldFeaturePoint[]> pointList = new ArrayList<>();
-        pointList.add(new WorldFeaturePoint[]{wfp(x + 1, y + 2, z + 1), wfp(x + 2, y + 2, z + 1), wfp(x + 1, y + 2, z + 2) });
-        pointList.add(new WorldFeaturePoint[]{wfp(x + 9, y + 2, z + 1), wfp(x + 10, y + 2, z + 1), wfp(x + 10, y + 2, z + 2) });
-        pointList.add(new WorldFeaturePoint[]{wfp(x + 1, y + 2, z + 9), wfp(x + 1, y + 2, z + 10), wfp(x + 2, y + 2, z + 10) });
-        pointList.add(new WorldFeaturePoint[]{wfp(x + 9, y + 2, z + 10), wfp(x + 10, y + 2, z + 10), wfp(x + 10, y + 2, z + 9) });
+        pointList.add(new WorldFeaturePoint[]{wfp(x + 1, y + 2, z + 1), wfp(x + 2, y + 2, z + 1), wfp(x + 1, y + 2, z + 2)});
+        pointList.add(new WorldFeaturePoint[]{wfp(x + 9, y + 2, z + 1), wfp(x + 10, y + 2, z + 1), wfp(x + 10, y + 2, z + 2)});
+        pointList.add(new WorldFeaturePoint[]{wfp(x + 1, y + 2, z + 9), wfp(x + 1, y + 2, z + 10), wfp(x + 2, y + 2, z + 10)});
+        pointList.add(new WorldFeaturePoint[]{wfp(x + 9, y + 2, z + 10), wfp(x + 10, y + 2, z + 10), wfp(x + 10, y + 2, z + 9)});
         Collections.shuffle(pointList, random);
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             WorldFeaturePoint[] points = pointList.get(i);
-            for(WorldFeaturePoint point: points){
+            for (WorldFeaturePoint point : points) {
                 IntPair idMeta = DISPLAY.getRandom(random);
-                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second,  true));
+                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, true));
             }
         }
-        for(int i = 2; i < pointList.size(); i++){
+        for (int i = 2; i < pointList.size(); i++) {
             WorldFeaturePoint[] points = pointList.get(i);
-            for(WorldFeaturePoint point: points){
+            for (WorldFeaturePoint point : points) {
                 IntPair idMeta = chestOrMimic.getRandom(random);
-                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second,  true));
+                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, true));
             }
         }
     }

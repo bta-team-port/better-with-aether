@@ -5,13 +5,10 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
-import teamport.aether.blocks.dungeon.BlockLogicPaintedChestMimic;
 
 public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
     public static final IconCoordinate[] topTextures = new IconCoordinate[16];
@@ -45,7 +42,7 @@ public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> exten
     }
 
     static {
-        for(DyeColor c : DyeColor.blockOrderedColors()) {
+        for (DyeColor c : DyeColor.blockOrderedColors()) {
             topTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/top");
             sideTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/side");
             frontTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/front");

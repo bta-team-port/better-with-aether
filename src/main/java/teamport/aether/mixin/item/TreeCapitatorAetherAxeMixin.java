@@ -24,8 +24,11 @@ import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 @Mixin(value = TreecapitatorHelper.class, remap = false)
 public abstract class TreeCapitatorAetherAxeMixin {
-    @Unique private Item tool = null;
-    @Unique int metadata = 0;
+    @Unique
+    private Item tool = null;
+    @Unique
+    int metadata = 0;
+    @Unique
     public TreecapitatorHelper helper = (TreecapitatorHelper) (Object) this;
 
 
@@ -39,16 +42,16 @@ public abstract class TreeCapitatorAetherAxeMixin {
         }
     }
 
-    @Inject(method = "chopTree", at = @At("HEAD"), cancellable = true)
-    public void preventNormalAxeMiningAetherTrees(CallbackInfoReturnable<Boolean> cir){
+    @Inject(method = "chopTree", at = @At("HEAD"))
+    public void preventNormalAxeMiningAetherTrees(CallbackInfoReturnable<Boolean> cir) {
         int id = helper.world.getBlockId(helper.basePosition.x, helper.basePosition.y, helper.basePosition.z);
-        if(id == 0) return;
+        if (id == 0) return;
         Block<?> block = Blocks.getBlock(id);
-        if(
+        if (
                 tool == null
-                || block == null
-                || (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) && !(tool instanceof ItemToolAxeAether))
-        ){
+                        || block == null
+                        || (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) && !(tool instanceof ItemToolAxeAether))
+        ) {
             cir.cancel();
         }
     }
@@ -57,7 +60,7 @@ public abstract class TreeCapitatorAetherAxeMixin {
     public void captureMetadata(
             CallbackInfoReturnable<Boolean> cir,
             @Local ChunkPosition pos
-            ){
+    ) {
         this.metadata = helper.world.getBlockMetadata(pos.x, pos.y, pos.z);
     }
 
@@ -69,9 +72,9 @@ public abstract class TreeCapitatorAetherAxeMixin {
             int x, int y, int z, int meta,
             TileEntity tileEntity,
             Operation<ItemStack[]> original
-    ){
+    ) {
         ItemStack[] results = original.call(instance, world, dropCause, x, y, z, meta, tileEntity);
-        if(this.tool != null && this.tool instanceof ItemToolAxeAether && instance.getLogic() instanceof BlockLogicLogAether){
+        if (this.tool != null && this.tool instanceof ItemToolAxeAether && instance.getLogic() instanceof BlockLogicLogAether) {
             BlockLogicLogAether logic = (BlockLogicLogAether) instance.getLogic();
             return logic.getAdditionalBreakResult(world, tool, results, this.metadata);
         }

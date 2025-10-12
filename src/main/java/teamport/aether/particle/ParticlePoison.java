@@ -20,17 +20,16 @@ public class ParticlePoison extends Particle {
         this.yd = ya + (Math.random() * 0.4F);
         float speed = 0.15F;
         float dd = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-        this.yd = this.yd / (double)dd * (double)speed * 0.4 + 0.1;
+        this.yd = this.yd / (double) dd * (double) speed * 0.4 + 0.1;
     }
-
 
 
     public void tick() {
         this.age++;
-        if(this.age + 4 < this.lifetime){
+        if (this.age + 4 < this.lifetime) {
             this.yo = this.y;
             this.move(this.xd, this.yd, this.zd);
-            this.yd -= 0.04 * (double)this.gravity;
+            this.yd -= 0.04 * (double) this.gravity;
             this.yd *= 0.8;
             return;
         }

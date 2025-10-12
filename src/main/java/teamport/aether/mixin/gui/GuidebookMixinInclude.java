@@ -18,13 +18,13 @@ public abstract class GuidebookMixinInclude {
     @Unique
     private static boolean includedAetherSections = false;
 
-    @Inject(method = "init", at=@At("TAIL"))
-    private static void includeAetherSection(CallbackInfo ci){
-        if(includedAetherSections){
+    @Inject(method = "init", at = @At("TAIL"))
+    private static void includeAetherSection(CallbackInfo ci) {
+        if (includedAetherSections) {
             return;
         }
         includedAetherSections = true;
-        GuidebookSections.register(new GuidebookSectionEnchanter("aether.guidebook.section.enchanter", new ItemStack(AetherBlocks.ENCHANTER_ACTIVE), 0x606060,   0x00A29C));
+        GuidebookSections.register(new GuidebookSectionEnchanter("aether.guidebook.section.enchanter", new ItemStack(AetherBlocks.ENCHANTER_ACTIVE), 0x606060, 0x00A29C));
         GuidebookSections.register(new GuidebookSectionFreezer("aether.guidebook.section.freezer", new ItemStack(AetherBlocks.FREEZER_ACTIVE), 0x6E6E50, 0xbacce5));
         GuidebookSections.register(new GuidebookIncubatorSection("aether.guidebook.section.incubator", new ItemStack(AetherBlocks.INCUBATOR_ACTIVE), 0x9F8558, 0xECD13B));
     }

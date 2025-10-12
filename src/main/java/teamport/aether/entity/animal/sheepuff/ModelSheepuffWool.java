@@ -61,11 +61,11 @@ public class ModelSheepuffWool extends ModelQuadruped {
     }
 
     public void setLivingAnimations(Mob mob, float limbSwing, float limbYaw, float partialTick) {
-        MobSheepuff entitySheep = (MobSheepuff)mob;
+        MobSheepuff entitySheep = (MobSheepuff) mob;
         this.head.y = 6.0F;
         this.isEatingAnimPlaying = false;
         if (entitySheep.getIsSheepEating()) {
-            this.headBobTime = (float)entitySheep.prevTimeSheepEating + (float)(entitySheep.timeSheepEating - entitySheep.prevTimeSheepEating) * partialTick;
+            this.headBobTime = (float) entitySheep.prevTimeSheepEating + (float) (entitySheep.timeSheepEating - entitySheep.prevTimeSheepEating) * partialTick;
             this.isEatingAnimPlaying = true;
             if (this.headBobTime < 5.0F) {
                 this.head.y = 6.0F + 2.0F * (this.headBobTime + 1.0F);

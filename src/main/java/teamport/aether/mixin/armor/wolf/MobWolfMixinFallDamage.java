@@ -24,7 +24,7 @@ public abstract class MobWolfMixinFallDamage extends MobAnimal {
         if (material.equals(AetherArmorMaterial.GRAVITITE)) {
             return;
         }
-        if(material.equals(AetherArmorMaterial.OBSIDIAN)){
+        if (material.equals(AetherArmorMaterial.OBSIDIAN)) {
             distance = 1.4f * distance;
         }
         super.causeFallDamage(distance);

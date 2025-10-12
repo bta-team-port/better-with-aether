@@ -30,17 +30,17 @@ public class ParticleRemedy extends Particle {
         bindNextTesture();
         this.yd -= 0.01;
         super.tick();
-        if(this.onGround){
+        if (this.onGround) {
             this.remove();
         }
     }
 
     private void bindNextTesture() {
-        if(age > 8 * timScaling){
+        if (age > 8 * timScaling) {
             this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/remedy_2");
             return;
         }
-        if(age > 4 * timScaling){
+        if (age > 4 * timScaling) {
             this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/remedy_1");
         }
     }

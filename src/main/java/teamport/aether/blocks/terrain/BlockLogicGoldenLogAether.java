@@ -31,7 +31,7 @@ public class BlockLogicGoldenLogAether extends BlockLogicLogAether {
         ItemStack[] additionalResults = super.getAdditionalBreakResult(world, tool, results, meta);
         ItemStack[] addedAmber = new ItemStack[additionalResults.length + results.length];
         System.arraycopy(additionalResults, 0, addedAmber, 0, additionalResults.length);
-        for(int i = 0; i < results.length; i++){
+        for (int i = 0; i < results.length; i++) {
             addedAmber[additionalResults.length + i] = new ItemStack(AetherItems.AMBER, world.rand.nextInt(3) + 1);
         }
         return addedAmber;

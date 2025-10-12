@@ -177,11 +177,11 @@ item.aether.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
 item.aether.medal.victory.name=Victory Medal
 item.aether.medal.victory.desc=A prize for defeating a valkyrie. Collect 10!
 
-item.aether.key.bronze.name=Bronze Key
+item.aether.key.bronze.name=Maze Key
 item.aether.key.bronze.desc=Dropped by the Slider, use it on a treasure chest!
-item.aether.key.silver.name=Silver Key
+item.aether.key.silver.name=Temple Key
 item.aether.key.silver.desc=Dropped by the Valkyrie Queen, use it on a treasure chest!
-item.aether.key.gold.name=Gold Key
+item.aether.key.gold.name=Sanctuary Key
 item.aether.key.gold.desc=Dropped by the Sun Spirit, use it on a treasure chest!
 
 
@@ -317,11 +317,11 @@ item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of green 
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
 
-item.aether.door.dungeon.bronze.name=Bronze Dungeon Door
-item.aether.door.dungeon.bronze.desc=Every labyrinth needs one.
-item.aether.door.dungeon.silver.name=Silver Dungeon Door
+item.aether.door.dungeon.bronze.name=Maze Dungeon Door
+item.aether.door.dungeon.bronze.desc=Every maze needs one.
+item.aether.door.dungeon.silver.name=Temple Dungeon Door
 item.aether.door.dungeon.silver.desc=Every temple needs one.
-item.aether.door.dungeon.gold.name=Gold Dungeon Door
+item.aether.door.dungeon.gold.name=Sanctuary Dungeon Door
 item.aether.door.dungeon.gold.desc=Every sanctuary needs one.
 
 item.aether.sign.skyroot.name=Skyroot Sign

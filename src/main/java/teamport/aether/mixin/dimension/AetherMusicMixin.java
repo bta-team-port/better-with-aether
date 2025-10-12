@@ -40,7 +40,7 @@ public abstract class AetherMusicMixin {
     @Shadow
     private static @Nullable SoundSystem soundSystem;
 
-    @Inject(method = "tick", at= @At(value = "INVOKE", target = "Ljava/util/concurrent/locks/Lock;lock()V", shift = At.Shift.AFTER), cancellable = true)
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/concurrent/locks/Lock;lock()V", shift = At.Shift.AFTER), cancellable = true)
     public void tick(CallbackInfo ci) {
         if (this.mc.currentWorld.dimension.id == AetherDimension.AetherDimensionID) ci.cancel();
         else return;

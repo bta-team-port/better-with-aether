@@ -2,17 +2,13 @@ package teamport.aether;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.SemanticVersion;
-import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.impl.util.version.SemanticVersionImpl;
-import net.minecraft.core.Global;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Optional;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -49,9 +45,7 @@ public class AetherConfig {
         String result;
         if (loader.isDevelopmentEnvironment() || !modContainerOpt.isPresent()) {
             result = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/remoteAssets/";
-        }
-
-        else {
+        } else {
             ModContainer modContainer = modContainerOpt.get();
 
             String version = modContainer
@@ -62,8 +56,8 @@ public class AetherConfig {
 
             if (version.endsWith(".0")) version = version.substring(0, 3);
             result = String.format(
-                "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-alpha/remoteAssets/",
-                version
+                    "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-alpha/remoteAssets/",
+                    version
             );
         }
 
@@ -80,8 +74,11 @@ public class AetherConfig {
 
         if (cfg.getConfigFile().exists()) cfg.loadConfig();
         else {
-            try { cfg.getConfigFile().createNewFile(); }
-            catch (IOException e) { throw new RuntimeException(e); }
+            try {
+                cfg.getConfigFile().createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             cfg.writeConfig();
         }
@@ -90,40 +87,47 @@ public class AetherConfig {
     }
 
     private static void loadProperties() {
-        DIMENSION            = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
-        EXTRA_HEALTH         = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
+        DIMENSION = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
+        EXTRA_HEALTH = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
         QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GeneralCategory + ".QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP);
-        ENCHANTER_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
-        FREEZER_SCREEN_ID    = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
-        INCUBATOR_SCREEN_ID  = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
+        ENCHANTER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
+        FREEZER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
+        INCUBATOR_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
         currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-        currentItemID  = ITEM_ID_STARTING_FROM  = cfgGetValueOrDefault(GeneralCategory  + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
+        currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
 
         synchronized (CONFIGURATION_LOCK) {
             REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
         }
 
-        if (!REMOTE_RESOURCE_URL.endsWith("/")) { LOGGER.error("Remote resource URL lacks trailing slash!"); }
+        if (!REMOTE_RESOURCE_URL.endsWith("/")) {
+            LOGGER.error("Remote resource URL lacks trailing slash!");
+        }
     }
 
     private static void assembleProperties(Toml properties) {
         properties.addCategory(GeneralCategory)
-            .addEntry("cfgVersion", 6)
-            .addEntry("DIMENSION", DIMENSION)
-            .addEntry("EXTRA_HEALTH", EXTRA_HEALTH)
-            .addEntry("QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP)
-            .addEntry("REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL)
-            .addEntry("ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID)
-            .addEntry("FREEZER_SCREEN_ID", FREEZER_SCREEN_ID)
-            .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID)
-            .addEntry("BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM)
-            .addEntry("ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
+                .addEntry("cfgVersion", 6)
+                .addEntry("DIMENSION", DIMENSION)
+                .addEntry("EXTRA_HEALTH", EXTRA_HEALTH)
+                .addEntry("QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP)
+                .addEntry("REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL)
+                .addEntry("ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID)
+                .addEntry("FREEZER_SCREEN_ID", FREEZER_SCREEN_ID)
+                .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID)
+                .addEntry("BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM)
+                .addEntry("ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
     }
 
     // Useless Numerical will sort it out for us.
-    public static int itemID(String itemName) { return currentItemID++; }
-    public static int blockID(String blockName) { return currentBlockID++; }
+    public static int itemID(String itemName) {
+        return currentItemID++;
+    }
+
+    public static int blockID(String blockName) {
+        return currentBlockID++;
+    }
 
     @SuppressWarnings("unchecked")
     static <T> T cfgGetValueOrDefault(String key, T def) {
@@ -138,13 +142,14 @@ public class AetherConfig {
             else if (def instanceof Double || def instanceof Float) {
                 double raw = cfg.getDouble(key);
 
-                if (def instanceof Float) res = (T) new Float(raw);
+                if (def instanceof Float) res = (T) Float.valueOf((float) raw);
                 else res = (T) Double.valueOf(raw);
+            } else {
+                throw new RuntimeException("Invalid value type!");
             }
 
-            else { throw new RuntimeException("Invalid value type!"); }
-
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
 
         if (res == null) {
             LOGGER.warn("Failed to load \"{}\"! Assuming default...", key);

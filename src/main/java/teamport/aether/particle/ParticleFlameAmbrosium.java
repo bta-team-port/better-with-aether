@@ -25,20 +25,20 @@ public class ParticleFlameAmbrosium extends Particle {
         this.z += (this.random.nextFloat() - this.random.nextFloat()) * 0.05F;
         this.originalScale = this.size;
         this.rCol = this.gCol = this.bCol = 1.0F;
-        this.lifetime = (int)(8.0 / (Math.random() * 0.8 + 0.2)) + 4;
+        this.lifetime = (int) (8.0 / (Math.random() * 0.8 + 0.2)) + 4;
         this.noPhysics = true;
         this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/flameambrosium");
     }
 
     @Override
     public void render(Tessellator t, float partialTick, double xOff, double yOff, double zOff, float xa, float ya, float za, float xa2, float za2) {
-        float s = ((float)this.age + partialTick) / (float)this.lifetime;
+        float s = ((float) this.age + partialTick) / (float) this.lifetime;
         this.size = this.originalScale * (1.0F - s * s * 0.5F);
         super.render(t, partialTick, xOff, yOff, zOff, xa, ya, za, xa2, za2);
     }
 
     public float getBrightness(float partialTick) {
-        float decay = MathHelper.clamp(((float)this.age + partialTick) / (float)this.lifetime, 0.0F, 1.0F);
+        float decay = MathHelper.clamp(((float) this.age + partialTick) / (float) this.lifetime, 0.0F, 1.0F);
         return super.getBrightness(partialTick) * decay + (1.0F - decay);
     }
 

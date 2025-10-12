@@ -9,10 +9,11 @@ public class IntPair {
     public int first;
     public int second;
 
-    public IntPair(int first, int second){
+    public IntPair(int first, int second) {
         this.first = first;
         this.second = second;
     }
+
     public static IntPair ipair(int first, int second) {
         return new IntPair(first, second);
     }
@@ -23,14 +24,14 @@ public class IntPair {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(first, second);
     }
 
     @Override
     public boolean equals(Object o) {
-        if(this == o)return true;
-        if(!(o instanceof IntPair)) return false;
+        if (this == o) return true;
+        if (!(o instanceof IntPair)) return false;
         IntPair that = (IntPair) o;
         return this.first == that.first && this.second == that.second;
     }

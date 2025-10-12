@@ -15,19 +15,19 @@ import teamport.aether.blocks.AetherBlocks;
 @Mixin(value = BlockLogicMoss.class, remap = false)
 public class BlockLogicMossMixin {
     @Inject(method = "onBonemealUsed", at = @At(value = "TAIL"), cancellable = true)
-    public void addOnBonemealUsed(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir){
+    public void addOnBonemealUsed(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
         if (!world.isClientSide) {
             if (player == null || player.getGamemode().consumeBlocks()) {
                 --itemstack.stackSize;
             }
 
-            for(int j1 = 0; j1 < 32; ++j1) {
+            for (int j1 = 0; j1 < 32; ++j1) {
                 int k1 = blockX;
                 int l1 = blockY;
                 int i2 = blockZ;
 
                 int blockId;
-                for(blockId = 0; blockId < j1 / 16; ++blockId) {
+                for (blockId = 0; blockId < j1 / 16; ++blockId) {
                     k1 += world.rand.nextInt(3) - 1;
                     l1 += (world.rand.nextInt(3) - 1) * world.rand.nextInt(3) / 2;
                     i2 += world.rand.nextInt(3) - 1;

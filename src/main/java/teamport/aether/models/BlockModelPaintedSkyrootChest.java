@@ -69,7 +69,7 @@ public class BlockModelPaintedSkyrootChest<T extends BlockLogic> extends BlockMo
     }
 
     static {
-        for(DyeColor c : DyeColor.blockOrderedColors()) {
+        for (DyeColor c : DyeColor.blockOrderedColors()) {
             String rootKey = "aether:block/chest/skyroot/" + c.colorID + "/";
             texCoords[c.blockMeta] = new IconCoordinate[9];
             texCoords[c.blockMeta][0] = TextureRegistry.getTexture(rootKey + "front");

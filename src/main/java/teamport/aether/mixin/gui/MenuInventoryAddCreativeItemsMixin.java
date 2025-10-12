@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
                     || item.itemID == AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id()
                     || item.itemID == AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id()
                     || item.itemID == AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id()
-                    )
+            )
             ) {
                 for (DyeColor dyeColor : DyeColor.blockOrderedColors()) {
                     newCreativeItems.add(new ItemStack(item.itemID, 1, dyeColor.blockMeta << 4));

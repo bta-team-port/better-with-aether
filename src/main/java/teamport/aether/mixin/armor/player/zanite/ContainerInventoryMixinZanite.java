@@ -22,11 +22,11 @@ public abstract class ContainerInventoryMixinZanite {
             )
     )
     public float modifyProtectionAmount(ArmorMaterial instance, DamageType damageType, Operation<Float> original, @Local ItemStack itemStack, @Local(ordinal = 0) int i) {
-        if(instance != AetherArmorMaterial.ZANITE){
+        if (instance != AetherArmorMaterial.ZANITE) {
             return original.call(instance, damageType);
         }
         float durability_progress = (float) itemStack.getMetadata() / instance.durability;
-        return MathHelper.lerp(instance.getProtection(damageType),ArmorMaterial.GOLD.getProtection(damageType), durability_progress);
+        return MathHelper.lerp(instance.getProtection(damageType), ArmorMaterial.GOLD.getProtection(damageType), durability_progress);
     }
 
 }

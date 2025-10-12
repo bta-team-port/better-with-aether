@@ -1,6 +1,5 @@
 package teamport.aether.items.accessory;
 
-import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.lookup.LookupTrinketIcons;

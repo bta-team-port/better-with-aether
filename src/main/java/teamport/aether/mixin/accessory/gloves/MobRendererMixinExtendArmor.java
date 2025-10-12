@@ -10,7 +10,9 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(value = MobRenderer.class, remap = false)
 public class MobRendererMixinExtendArmor {
-    @Shadow @Final private Minecraft mc;
+    @Shadow
+    @Final
+    private Minecraft mc;
 
     @ModifyConstant(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", constant = @Constant(intValue = 4))
     public int replace4WithArmorSize(int value) {

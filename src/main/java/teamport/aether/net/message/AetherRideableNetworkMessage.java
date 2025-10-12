@@ -12,7 +12,8 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
     float xRot, yRot;
     boolean isJumping;
 
-    public AetherRideableNetworkMessage() {}
+    public AetherRideableNetworkMessage() {
+    }
 
     public AetherRideableNetworkMessage(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         this.moveForward = moveForward;

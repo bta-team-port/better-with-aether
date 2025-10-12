@@ -22,14 +22,22 @@ import static teamport.aether.AetherClient.resourceDownloaderThread;
 @Mixin(value = Minecraft.class, remap = false)
 public class ResourceDownloadToastMixin {
 
-    @Shadow public GuiElementToastsHud guiToasts;
+    @Shadow
+    public GuiElementToastsHud guiToasts;
 
-    @Shadow public Font font;
+    @Shadow
+    public Font font;
 
-    @Shadow public ScaledResolution resolution;
+    @Shadow
+    public ScaledResolution resolution;
 
-    @Shadow private int ticksRan;
-    @Shadow @Final private Timer timer;
+    @Shadow
+    private int ticksRan;
+
+    @Shadow
+    @Final
+    private Timer timer;
+
     @Unique
     int dark = DyeColor.SILVER.color.value;
 

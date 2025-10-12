@@ -9,15 +9,15 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import teamport.aether.items.AetherItems;
 
-public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot implements IPainted{
+public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot implements IPainted {
     public BlockLogicPaintedSignSkyroot(Block<?> block, boolean isFreeStanding) {
         super(block, isFreeStanding);
     }
 
     @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-            ItemStack item = new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1,  this.fromMetadata(meta).itemMeta);
-        return new ItemStack[] { item };
+        ItemStack item = new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, this.fromMetadata(meta).itemMeta);
+        return new ItemStack[]{item};
     }
 
     public DyeColor fromMetadata(int meta) {

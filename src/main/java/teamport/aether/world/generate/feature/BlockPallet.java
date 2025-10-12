@@ -13,8 +13,8 @@ public class BlockPallet {
         this.addEntry(id, 0, weight);
     }
 
-    public void addEntry(int id , int meta, double weight){
-        IntPair entry  = IntPair.ipair(id, meta);
+    public void addEntry(int id, int meta, double weight) {
+        IntPair entry = IntPair.ipair(id, meta);
         this.pallet.addEntry(entry, weight);
     }
 

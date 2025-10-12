@@ -12,11 +12,11 @@ import net.minecraft.core.util.helper.DyeColor;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class ItemModelPaintedSkyrootSign extends ItemModelStandard{
+public class ItemModelPaintedSkyrootSign extends ItemModelStandard {
     public static final IconCoordinate[] sign = new IconCoordinate[16];
 
     public ItemModelPaintedSkyrootSign(Item item) {
-        super(item, (String) null);
+        super(item, null);
     }
 
     public @NotNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {

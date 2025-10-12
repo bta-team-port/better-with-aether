@@ -24,23 +24,32 @@ import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 @Mixin(value = Entity.class, remap = false)
 public abstract class MPEntityBumpToOverworldMixin {
 
-    @Shadow @Nullable public World world;
-    @Shadow public double y;
+    @Shadow
+    @Nullable
+    public World world;
 
+    @Shadow
+    public double y;
 
-    @Shadow public abstract boolean save(@NotNull CompoundTag tag);
+    @Shadow
+    public abstract boolean save(@NotNull CompoundTag tag);
 
-    @Shadow public abstract void remove();
+    @Shadow
+    public abstract void remove();
 
-    @Shadow public abstract Entity ejectRider();
+    @Shadow
+    public abstract Entity ejectRider();
 
-    @Shadow public abstract boolean isPassenger();
+    @Shadow
+    public abstract boolean isPassenger();
 
-    @Shadow public abstract @Nullable Entity getPassenger();
+    @Shadow
+    public abstract @Nullable Entity getPassenger();
 
     @Shadow
     @Nullable
     public Entity passenger;
+
     @Unique
     public int teleportDelay = 0;
 

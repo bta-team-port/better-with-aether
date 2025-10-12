@@ -9,9 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static net.minecraft.core.util.helper.Direction.EAST;
-import static net.minecraft.core.util.helper.Direction.SOUTH;
-import static net.minecraft.core.util.helper.Direction.UP;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;

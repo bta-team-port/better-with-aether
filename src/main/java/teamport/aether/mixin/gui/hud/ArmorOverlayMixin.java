@@ -28,12 +28,12 @@ public class ArmorOverlayMixin extends Gui {
         ContainerInventory inv = player.inventory;
 
         int height = this.mc.resolution.getScaledHeightScreenCoords();
-        int sp = (int)(this.mc.gameSettings.screenPadding.value * (float)height / 8.0F);
+        int sp = (int) (this.mc.gameSettings.screenPadding.value * (float) height / 8.0F);
 
         Font font = this.mc.font;
 
         for (int i = 0; i < inv.armorInventory.length; i++) {
-            ItemStack stack = inv.armorInventory[inv.armorInventory.length -1 - i];
+            ItemStack stack = inv.armorInventory[inv.armorInventory.length - 1 - i];
             if (stack != null) {
                 int x = 2 + 48 + sp;
                 int y = height - sp - 64 + i * 16;
@@ -41,8 +41,8 @@ public class ArmorOverlayMixin extends Gui {
                 ItemModelDispatcher.getInstance().getDispatch(stack).renderItemIntoGui(Tessellator.instance, font, this.mc.textureManager, stack, x, y, 1.0F);
 
                 if (stack.isItemStackDamageable()) {
-                    float durability = (float)(stack.getMaxDamage() - stack.getMetadata()) / (float)stack.getMaxDamage();
-                    int l = (int)(durability * 255.0F);
+                    float durability = (float) (stack.getMaxDamage() - stack.getMetadata()) / (float) stack.getMaxDamage();
+                    int l = (int) (durability * 255.0F);
                     int color = 255 - l << 16 | l << 8;
 
                     GL11.glDisable(GL11.GL_BLEND);

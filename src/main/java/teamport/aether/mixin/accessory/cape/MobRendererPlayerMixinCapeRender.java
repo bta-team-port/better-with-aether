@@ -33,7 +33,7 @@ abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
         if (itemStack == null) return;
         if (!(itemStack.getItem() instanceof ItemAccessoryArmor)) return;
         Item item = itemStack.getItem();
-        String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor)item).name());
+        String path = String.format("/assets/%s/textures/armor/cape/%s.png", item.namespaceID.namespace(), ((ItemAccessoryArmor) item).name());
         this.renderDispatcher.textureManager.loadTexture(path).bind();
         renderCape.set(true);
     }

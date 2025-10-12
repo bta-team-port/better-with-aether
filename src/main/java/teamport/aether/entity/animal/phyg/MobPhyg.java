@@ -59,7 +59,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
     }
 
     public void defineSynchedData() {
-        this.entityData.define(16, (byte)0, Byte.class);
+        this.entityData.define(16, (byte) 0, Byte.class);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -112,8 +112,8 @@ public class MobPhyg extends MobAetherAnimalRideable {
     }
 
     public void setSaddled(boolean flag) {
-        if (flag) this.entityData.set(16, (byte)1);
-        else this.entityData.set(16, (byte)0);
+        if (flag) this.entityData.set(16, (byte) 1);
+        else this.entityData.set(16, (byte) 0);
     }
 
     public boolean isFavouriteItem(ItemStack itemStack) {

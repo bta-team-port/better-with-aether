@@ -26,9 +26,10 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
 
     private final List<DungeonMapEntry> entriesReceived = new ArrayList<>();
 
-    public  AetherDungeonMapUpdateNetworkMessage() {}
+    public AetherDungeonMapUpdateNetworkMessage() {
+    }
 
-    public  AetherDungeonMapUpdateNetworkMessage(UUID uuid) {
+    public AetherDungeonMapUpdateNetworkMessage(UUID uuid) {
         playerUUID = uuid;
     }
 
@@ -58,9 +59,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
                 packet.writeInt(entry.getId());
                 packet.writeCompoundTag(tag);
             }
-        }
-
-        else {
+        } else {
             packet.writeString(Minecraft.getMinecraft().thePlayer.uuid.toString());
         }
     }
@@ -69,9 +68,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             this.playerUUID = UUID.fromString(packet.readString());
-        }
-
-        else {
+        } else {
             entriesReceived.clear();
 
             int entriesLength = packet.readInt();

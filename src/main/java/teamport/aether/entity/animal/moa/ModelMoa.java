@@ -131,6 +131,6 @@ public class ModelMoa extends ModelBase {
         Cube var10000 = this.jaw;
         var10000.xRot += 0.35F;
     }
-    
-    
+
+
 }

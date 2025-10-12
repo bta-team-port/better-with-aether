@@ -8,7 +8,6 @@ import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -246,7 +245,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilderShaped templateItemtoFuelBlock = new RecipeBuilderShaped(MOD_ID, "XXX", "X X", "XXX");
         templateItemtoFuelBlock.addInput('X', AetherItems.AMBROSIUM).create("block_of_ambrosium", new ItemStack(AetherBlocks.BLOCK_AMBROSIUM, 1));
         templateItemtoFuelBlock.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT, 1));
-        for(DyeColor dye : DyeColor.values()){
+        for (DyeColor dye : DyeColor.values()) {
             templateItemtoFuelBlock.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dye.blockMeta).create(dye.name() + "skyroot_chest", new ItemStack(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED, 1, dye.blockMeta << 4));
         }
 
@@ -528,7 +527,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         templateStairs.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT, 6));
         for (DyeColor dyeColor : DyeColor.values()) {
-            templateStairs.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create( dyeColor.name() + "_skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
+            templateStairs.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_wooden_stairs", new ItemStack(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
         }
     }
 
@@ -593,16 +592,13 @@ public class AetherRecipes implements RecipeEntrypoint {
             templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).addInput('S', AetherItems.STICK_SKYROOT).create(dyeColor.name() + "_skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta));
             templateFences.addInput('S', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).addInput('P', AetherItems.STICK_SKYROOT).create(dyeColor.name() + "_skyroot_fencegate", new ItemStack(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED, 3, dyeColor.blockMeta << 4));
 
-            templateDoor.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create( dyeColor.name() + "_skyroot_door", new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED, 2, dyeColor.itemMeta));
+            templateDoor.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_door", new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED, 2, dyeColor.itemMeta));
             templateSign.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).addInput('S', AetherItems.STICK_SKYROOT).create(dyeColor.name() + "_skyroot_sign", new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 4, dyeColor.itemMeta));
 
             templateButton.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_button", new ItemStack(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED, 4, dyeColor.blockMeta << 4));
-            templatePlate.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED,dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
-            templateTrap.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED,dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
+            templatePlate.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_pressure_plate", new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta << 4));
+            templateTrap.addInput('P', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_trapdoor", new ItemStack(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
         }
-
-
-
 
 
         RecipeBuilder.Shaped(MOD_ID, "X", "X")
@@ -625,7 +621,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         templateSlab.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT, 6));
         for (DyeColor dyeColor : DyeColor.values()) {
-            templateSlab.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create( dyeColor.name() + "_skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
+            templateSlab.addInput('X', AetherBlocks.PLANKS_SKYROOT_PAINTED, dyeColor.blockMeta).create(dyeColor.name() + "_skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, 6, dyeColor.blockMeta << 4));
         }
     }
 

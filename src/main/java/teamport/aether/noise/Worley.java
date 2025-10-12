@@ -18,8 +18,8 @@ public class Worley {
 
         int s = mix(cellX, cellZ, seed);
         Random cellSeed = new Random(s);
-        int relX = padding + cellSeed.nextInt(gridSize - padding*2);
-        int relZ = padding + cellSeed.nextInt(gridSize - padding*2);
+        int relX = padding + cellSeed.nextInt(gridSize - padding * 2);
+        int relZ = padding + cellSeed.nextInt(gridSize - padding * 2);
         int distX = cellX * gridSize + relX - x;
         int distZ = cellZ * gridSize + relZ - z;
 
@@ -42,8 +42,8 @@ public class Worley {
         int s = mix(cellX, cellZ, seed);
         Random cellSeed = new Random(s);
 
-        int relX = bound + cellSeed.nextInt(gridSize - bound*2);
-        int relZ = bound + cellSeed.nextInt(gridSize - bound*2);
+        int relX = bound + cellSeed.nextInt(gridSize - bound * 2);
+        int relZ = bound + cellSeed.nextInt(gridSize - bound * 2);
         int distX = cellX * gridSize + relX - x;
         int distZ = cellZ * gridSize + relZ - z;
 

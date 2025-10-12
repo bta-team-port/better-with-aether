@@ -15,8 +15,14 @@ public class HeartContainer {
         OVERHEAL("overheal");
 
         private final String name;
-        HeartGlyphVariant(String colorName) { this.name = colorName; }
-        public String getName() { return name; }
+
+        HeartGlyphVariant(String colorName) {
+            this.name = colorName;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     public enum HeartGlyphType {
@@ -26,8 +32,14 @@ public class HeartContainer {
         CONTAINER("container");
 
         private final String name;
-        HeartGlyphType(String colorName) { this.name = colorName; }
-        public String getName() { return name; }
+
+        HeartGlyphType(String colorName) {
+            this.name = colorName;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     protected final Player player;

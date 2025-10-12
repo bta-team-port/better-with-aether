@@ -16,7 +16,7 @@ public class SlotEnchanter extends Slot {
     }
 
     @Override
-    public void onTake(ItemStack itemstack){
+    public void onTake(ItemStack itemstack) {
         if (itemstack.itemID == AetherItems.FOOD_HEALING_STONE.id) {
             this.thePlayer.addStat(AetherAchievements.HEALING_STONE, 1);
         }
@@ -25,9 +25,17 @@ public class SlotEnchanter extends Slot {
 
     // prevent item to be put in the output slot
     @Override
-    public boolean mayPlace(ItemStack itemstack)    {return false;}
+    public boolean mayPlace(ItemStack itemstack) {
+        return false;
+    }
+
     @Override
-    public boolean enableDragAndPickup()            {return false;}
+    public boolean enableDragAndPickup() {
+        return false;
+    }
+
     @Override
-    public boolean allowItemInteraction()           {return false;}
+    public boolean allowItemInteraction() {
+        return false;
+    }
 }

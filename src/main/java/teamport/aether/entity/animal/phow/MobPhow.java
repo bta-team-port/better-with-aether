@@ -20,6 +20,7 @@ public class MobPhow extends MobAetherAnimalRideable {
     public float wingAngleO;
     public float aimingForFold;
     public int ticks;
+
     public MobPhow(World world) {
         super(world);
         maxJumps = 1;
@@ -69,16 +70,16 @@ public class MobPhow extends MobAetherAnimalRideable {
 
     public void setSaddled(boolean flag) {
         if (flag) {
-            this.entityData.set(16, (byte)1);
+            this.entityData.set(16, (byte) 1);
         } else {
-            this.entityData.set(16, (byte)0);
+            this.entityData.set(16, (byte) 0);
         }
 
     }
 
     public void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(16, (byte)0, Byte.class);
+        this.entityData.define(16, (byte) 0, Byte.class);
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -114,8 +115,7 @@ public class MobPhow extends MobAetherAnimalRideable {
             if (itemstack.itemID == Items.BUCKET.id) {
                 ItemBucketEmpty.useBucket(player, new ItemStack(Items.BUCKET_MILK));
                 return true;
-            }
-            else if (itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
+            } else if (itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
                 ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_MILK));
                 return true;
             }
