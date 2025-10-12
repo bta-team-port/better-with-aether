@@ -114,9 +114,6 @@ public class MobBossSlider extends MobBoss {
     static final int DATA_ALLOW_MOVEMENT = 18;
     static final int DATA_MOVEMENT_DIRECTION = 19;
     static final int DATA_MOVEMENT_AMOUNT = 20;
-    static final int DATA_POSITION_X = 21;
-    static final int DATA_POSITION_Y = 22;
-    static final int DATA_POSITION_Z = 23;
 
     @Override
     protected void defineSynchedData() {
