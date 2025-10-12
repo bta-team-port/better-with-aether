@@ -78,6 +78,26 @@ guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dung
 
 aether.entity.valkyrie=Valkyrie
 aether.entity.valkyrie.death_message = [PLAYER] lost an honorable duel.
+
+
+aether.entity.valkyrie.show_medal.1=Well... that's a nice pile of medallions you have there...
+aether.entity.valkyrie.show_medal.2=That's pretty impressive, but you won't defeat me.
+aether.entity.valkyrie.show_medal.3=You think you're a touch guy? Well, bring it on!
+
+aether.entity.valkyrie.interact.1=What's that? You want to fight? Aww, what a cute little human.
+aether.entity.valkyrie.interact.2=You're not thinking of fighting a big, strong Valkyrie are you?
+aether.entity.valkyrie.interact.3=I don't think you should bother me, you could get really hurt.
+
+aether.entity.valkyrie.duel_start.1=I'm not going easy on you!
+aether.entity.valkyrie.duel_start.2=You're gonna regret that!
+aether.entity.valkyrie.duel_start.3=Now you're in for it!
+aether.entity.valkyrie.submit.1=Take your medal, you have earned it.
+aether.entity.valkyrie.submit.2=Don't push your luck and take your medal.
+aether.entity.valkyrie.submit.3=Some day has come, take the medal.
+aether.entity.valkyrie.attacked.1=You want a medallion? There are no medallions for participation.
+aether.entity.valkyrie.attacked.2=You are not as cute dead than alive.
+aether.entity.valkyrie.attacked.3=Maybe some other day.
+
 guidebook.section.mob.valkyrie.name=Valkyrie
 guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
 
