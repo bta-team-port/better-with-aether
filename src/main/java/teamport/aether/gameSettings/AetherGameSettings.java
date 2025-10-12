@@ -3,8 +3,9 @@ package teamport.aether.gameSettings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.options.components.BooleanOptionComponent;
 import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
-import net.minecraft.client.option.GameSettings;
+import net.minecraft.client.gui.options.data.OptionsPages;
 import sunsetsatellite.catalyst.CatalystClient;
 
 @Environment(EnvType.CLIENT)
@@ -20,15 +21,22 @@ public class AetherGameSettings {
     }
 
     public static void registerSettings() {
+        AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
+
+        OptionsPages.VIDEO.withComponent(
+            new BooleanOptionComponent(
+                gameSettings.aether$getFlickAccessoryIconsOption()
+            )
+        );
     }
 
     public static void registerCatalystSettings() {
-        GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
+        AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
 
         CatalystClient.effectsCategory.withComponent(
-                new ToggleableOptionComponent<>(
-                        ((GameSettingsDisplayHeartsOption) gameSettings).aether$getExtraHealthDisplayOptionEnum()
-                )
+            new ToggleableOptionComponent<>(
+                gameSettings.aether$getExtraHealthDisplayOptionEnum()
+            )
         );
     }
 }

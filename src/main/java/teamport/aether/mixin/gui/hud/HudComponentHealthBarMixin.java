@@ -23,7 +23,7 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.render.AetherCustomHeartContainer;
 import teamport.aether.effect.render.HeartContainer;
 import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
-import teamport.aether.gameSettings.GameSettingsDisplayHeartsOption;
+import teamport.aether.gameSettings.AetherGameSettingsOptions;
 import teamport.aether.helper.HealthHelper;
 
 import java.util.Random;
@@ -48,7 +48,7 @@ public abstract class HudComponentHealthBarMixin extends HudComponentMovable {
 
     @Unique
     private ExtraHealthDisplayEnum getHeartDisplay(Minecraft mc) {
-        return ((GameSettingsDisplayHeartsOption) mc.gameSettings).aether$getExtraHealthDisplayOptionEnum().value;
+        return ((AetherGameSettingsOptions) mc.gameSettings).aether$getExtraHealthDisplayOptionEnum().value;
     }
 
     @Unique
