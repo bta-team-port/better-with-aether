@@ -46,7 +46,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     int x1 = x + rand.nextInt(3) - 1;
                     int y1 = y + rand.nextInt(5) - 3;
                     int z1 = z + rand.nextInt(3) - 1;
-                    if (world.getBlockId(x1, y1, z1) == this.dirt.id() && world.getBlockLightValue(x1, y1 + 1, z1) >= 4 && Blocks.lightBlock[world.getBlockId(x1, y1 + 1, z1)] <= 2) {
+                    if (world.isBlockLoaded(x1, y1, z1) && world.getBlockId(x1, y1, z1) == this.dirt.id() && world.getBlockLightValue(x1, y1 + 1, z1) >= 4 && Blocks.lightBlock[world.getBlockId(x1, y1 + 1, z1)] <= 2) {
                         world.setBlockWithNotify(x1, y1, z1, this.block.id());
                     }
                 }
