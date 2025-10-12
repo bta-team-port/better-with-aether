@@ -65,23 +65,23 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
     public void doEffect() {
         for (int j = 0; j < 8; ++j) {
             ParticleHelper.spawnParticle(world,
-                "item",
-                this.x, this.y, this.z,
-                world.rand.nextFloat(),
-                world.rand.nextFloat(),
-                world.rand.nextFloat(),
-                AetherItems.TOOL_KNIFE_LIGHTNING.id
+                    "item",
+                    this.x, this.y, this.z,
+                    world.rand.nextFloat(),
+                    world.rand.nextFloat(),
+                    world.rand.nextFloat(),
+                    AetherItems.TOOL_KNIFE_LIGHTNING.id
             );
         }
 
         for (int j = 0; j < 16; j++) {
             ParticleHelper.spawnParticle(world,
-                "lightning",
-                this.x, this.y, this.z,
-                world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
-                world.rand.nextFloat() * 0.25F * -1,
-                world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
-                0
+                    "lightning",
+                    this.x, this.y, this.z,
+                    world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
+                    world.rand.nextFloat() * 0.25F * -1,
+                    world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1),
+                    0
             );
         }
     }

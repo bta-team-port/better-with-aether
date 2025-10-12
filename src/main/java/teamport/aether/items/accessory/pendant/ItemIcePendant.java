@@ -71,7 +71,6 @@ public class ItemIcePendant extends ItemPendant {
         if (player.inventory.armorInventory[TRINKET_2_SLOT] == stack) {
             if (stack.stackSize <= 0) {
                 player.inventory.armorInventory[TRINKET_2_SLOT] = null;
-                return;
             }
         }
     }

@@ -21,9 +21,9 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
         return null;
     }
 
-    public RecipeEntryIncubator findRecipe(ItemStack stack){
+    public RecipeEntryIncubator findRecipe(ItemStack stack) {
         for (RecipeEntryIncubator recipe : getAllRecipes()) {
-            if(recipe.matches(stack)){
+            if (recipe.matches(stack)) {
                 return recipe;
             }
         }
@@ -31,11 +31,11 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
     }
 
     public boolean isOutput(Class<? extends Entity> aClass) {
-        for(RecipeEntryIncubator recipe: getAllRecipes()){
+        for (RecipeEntryIncubator recipe : getAllRecipes()) {
             String entityName = recipe.getOutput();
             Class<? extends Entity> entity = EntityDispatcher.classForId(entityName);
-            if(entity == null) continue;
-            if(entity.equals(aClass)) return true;
+            if (entity == null) continue;
+            if (entity.equals(aClass)) return true;
         }
         return false;
     }

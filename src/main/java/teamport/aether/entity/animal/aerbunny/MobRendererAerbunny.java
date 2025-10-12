@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 @Environment(EnvType.CLIENT)
 public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
     public ModelAerbunny model;
+
     public MobRendererAerbunny(ModelBase model, float shadowSize) {
         super(model, shadowSize);
         this.model = (ModelAerbunny) model;

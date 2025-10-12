@@ -9,7 +9,7 @@ import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
 public interface AetherDeathMessage {
-    default String deathMessage(Player player){
+    default String deathMessage(Player player) {
         String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
         String deathMessage = TRANSLATOR
                 .translateKey(key)

@@ -66,7 +66,7 @@ public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizonta
     public boolean render(Tessellator tessellator, int x, int y, int z) {
         int meta = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
         Direction direction = BlockLogicFreezer.getDirectionFromMeta(meta);
-        
+
         switch (direction) {
             case NORTH:
                 renderBlocks.uvRotateTop = 3;

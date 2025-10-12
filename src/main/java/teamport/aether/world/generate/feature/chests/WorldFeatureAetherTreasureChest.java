@@ -14,7 +14,7 @@ import teamport.aether.helper.AetherMathHelper;
 import java.util.List;
 import java.util.Random;
 
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.LootGenerator;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.placeItemInChest;
 
 public class WorldFeatureAetherTreasureChest extends WorldFeature {
@@ -40,19 +40,19 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
                 inventory.setItem(i, null);
             }
         }
-        if (block == null || block.id() != chestID){
+        if (block == null || block.id() != chestID) {
             world.setBlockAndMetadataWithNotify(ix, iy, iz, chestID, chestMetadata);
         }
         this.setTreasure(world, random, ix, iy, iz);
         return true;
     }
 
-    public void setTreasure(World world, Random random, int ix, int iy, int iz)  {
+    public void setTreasure(World world, Random random, int ix, int iy, int iz) {
         Container inventory = BlockLogicChest.getInventory(world, ix, iy, iz);
         if (inventory == null) return;
         int quantity = AetherMathHelper.invertedExponentialCapped(random, 1, 9);
         List<ItemStack> normalLoot = lootGenerator.generate(random);
-        for (ItemStack stack: normalLoot) {
+        for (ItemStack stack : normalLoot) {
             placeItemInChest(random, stack, inventory);
         }
         for (int i = 0; i < guaranteedRare + quantity; i++) {

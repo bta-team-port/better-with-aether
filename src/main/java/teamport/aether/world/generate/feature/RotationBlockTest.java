@@ -10,7 +10,7 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 
 import java.util.Random;
 
-import static teamport.aether.helper.MetadataHelper.*;
+import static teamport.aether.helper.MetadataHelper.getTorchMetadataFromDirection;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 

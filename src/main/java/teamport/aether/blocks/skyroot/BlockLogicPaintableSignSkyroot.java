@@ -1,7 +1,8 @@
 package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.achievement.Achievements;
-import net.minecraft.core.block.*;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogicSign;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
@@ -23,7 +24,7 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign {
     }
 
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        return new ItemStack[] {new ItemStack(AetherItems.SIGN_SKYROOT)};
+        return new ItemStack[]{new ItemStack(AetherItems.SIGN_SKYROOT)};
     }
 
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {

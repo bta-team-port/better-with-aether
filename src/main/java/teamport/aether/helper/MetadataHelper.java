@@ -69,7 +69,7 @@ public class MetadataHelper {
     }
 
     /**
-     * @param dyeColor sets the color of trapdoor
+     * @param dyeColor  sets the color of trapdoor
      * @param isUpper   determines whether the stair is placed facing upwards or downwards
      * @param direction determines the direction the stair are ascending
      * @return returns the metadata for the stairs in the direction ascending

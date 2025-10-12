@@ -24,7 +24,7 @@ public class HallwayRoom extends BaseBronzeRoom {
     }
 
     @Override
-    public boolean canPlace(){
+    public boolean canPlace() {
         if (this.y <= 11 && this.y + height + 3 >= world.getHeightBlocks()) {
             return false;
         }
@@ -45,13 +45,14 @@ public class HallwayRoom extends BaseBronzeRoom {
 
 
     @Override
-    public void makeRoom() {}
+    public void makeRoom() {
+    }
 
 
     @Override
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
-        if(closingType != ClosingType.PLACED) return;
+        if (closingType != ClosingType.PLACED) return;
         room.add(drawVolume(0, 0, door.p1, wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2), false));
         room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
         this.placeRoom();

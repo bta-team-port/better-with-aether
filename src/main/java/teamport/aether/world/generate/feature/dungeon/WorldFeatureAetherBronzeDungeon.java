@@ -24,7 +24,8 @@ import teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBron
 import java.util.*;
 import java.util.function.Supplier;
 
-import static net.minecraft.core.util.helper.Direction.*;
+import static net.minecraft.core.util.helper.Direction.DOWN;
+import static net.minecraft.core.util.helper.Direction.UP;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
@@ -214,13 +215,13 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     break;
                 }
             }
-            if(currentRoom == null) continue;
+            if (currentRoom == null) continue;
             currentRoom.markDoor(door, NO_SPACE);
         }
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
             List<Door> listDoor = room.getAdjustedDoors();
-            if(room instanceof BossRoom){
+            if (room instanceof BossRoom) {
                 Door d = listDoor.get(random.nextInt(listDoor.size()));
                 listDoor = new ArrayList<>();
                 listDoor.add(d);
@@ -256,7 +257,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         for (int i = 0; i < tunnel_amount; i++) {
             PriorityEntry<Door> entry = tunnels.peek();
             tunnels.remove(entry);
-            if(entry == null) continue;
+            if (entry == null) continue;
             Door door = entry.getData();
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
             drawVolume(0, 0, door.p1, door.p2, true).place(world);

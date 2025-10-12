@@ -363,6 +363,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootStairs<>(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED));
     }
+
     private void setBlockMachineModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelEnchanter<>(AetherBlocks.ENCHANTER_IDLE)
                 .setTex(BLOCK_TEXTURES, "aether:block/enchanter/top", Side.TOP)
@@ -459,6 +460,7 @@ public class AetherModels implements ModelEntrypoint {
                 .setTex(RETRO_OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/front_overbright_retro", Side.NORTH)
         );
     }
+
     private void setBlockDungeonModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
                 .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
@@ -596,6 +598,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStairs<>(AetherBlocks.STAIRS_CARVED_HELLFIRE));
 
     }
+
     private void setBlockPlantModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
                 .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", Side.sides)
@@ -623,6 +626,7 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelAetherTallgrass<>(AetherBlocks.TALLGRASS_AETHER).setAllTextures(BLOCK_TEXTURES, "aether:block/tallgrass_aether"));
     }
+
     private void setBlockCloudModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelTransparent<>(AetherBlocks.AERCLOUD_WHITE, false).onRenderLayer(1)
                 .setAllTextures(BLOCK_TEXTURES, "aether:block/aercloud_white"));
@@ -721,6 +725,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_MAGENTA, null).setIcon("aether:item/armor_cape_magenta"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.ARMOR_CAPE_PINK, null).setIcon("aether:item/armor_cape_pink"));
     }
+
     private void setItemToolModels(ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SWORD_SKYROOT, null).setIcon("aether:item/tool_sword_skyroot").setFull3D());
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_SHOVEL_SKYROOT, null).setIcon("aether:item/tool_shovel_skyroot").setFull3D());
@@ -763,6 +768,7 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.TOOL_DUNGEON_COMPASS, null).setIcon("aether:item/tool_dungeon_compass"));
     }
+
     private void setItemBlockModels(ItemModelDispatcher dispatcher) {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_BRONZE, null).setIcon("aether:item/door_dungeon_bronze"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.DOOR_DUNGEON_SILVER, null).setIcon("aether:item/door_dungeon_silver"));
@@ -784,12 +790,14 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
     }
+
     private void setMobBossModels() {
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
         ModelHelper.setEntityModel(MobFireMinion.class, MobRendererFireMinion::new);
     }
+
     private void setMobEnemyModels() {
         ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
         ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));

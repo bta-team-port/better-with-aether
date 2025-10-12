@@ -14,20 +14,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = MobWolf.class, remap = false)
-public abstract class MobWolfMixinZaniteResistance extends MobAnimal{
+public abstract class MobWolfMixinZaniteResistance extends MobAnimal {
 
-    @Shadow public abstract int getMaxHealth();
+    @Shadow
+    public abstract int getMaxHealth();
 
     public MobWolfMixinZaniteResistance(World world) {
         super(world);
     }
 
     @WrapOperation(method = "damageEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"))
-    public float reduceWolfDamage(ArmorMaterial instance, DamageType damageType, Operation<Float> original){
-        if(instance != AetherArmorMaterial.ZANITE){
+    public float reduceWolfDamage(ArmorMaterial instance, DamageType damageType, Operation<Float> original) {
+        if (instance != AetherArmorMaterial.ZANITE) {
             return original.call(instance, damageType);
         }
-        float healthPercentage  = (float) this.getHealth() / this.getMaxHealth();
+        float healthPercentage = (float) this.getHealth() / this.getMaxHealth();
         return MathHelper.lerp(ArmorMaterial.GOLD.getProtection(damageType) * 1.5f, instance.getProtection(damageType), healthPercentage);
     }
 }

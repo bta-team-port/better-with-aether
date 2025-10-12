@@ -34,7 +34,7 @@ public class BlockModelPaintedSkyrootTrapDoor<T extends BlockLogic> extends Bloc
     }
 
     static {
-        for(DyeColor c : DyeColor.blockOrderedColors()) {
+        for (DyeColor c : DyeColor.blockOrderedColors()) {
             topTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/top");
             sideTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/side");
         }

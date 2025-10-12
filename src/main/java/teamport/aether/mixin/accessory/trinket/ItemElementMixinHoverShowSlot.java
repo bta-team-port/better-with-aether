@@ -36,25 +36,24 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
     Minecraft mc;
 
     @Redirect(
-            method = "Lnet/minecraft/client/gui/ItemElement;render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
+            method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V",
                     ordinal = 0
             )
     )
-    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local Slot currectSlot, @Local ItemStack itemStack) {
+    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local(argsOnly = true) Slot currectSlot, @Local(argsOnly = true) ItemStack itemStack) {
         if (
-                currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
-                && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)
+                currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)
         ) {
             tick++;
-            if(tick > 600){ // 3000
+            if (tick > 600) { // 3000
                 tick = 0;
                 currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
                 currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
             }
-            defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1);
+            defaultIcon = TextureRegistry.getTexture(currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1);
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
@@ -62,8 +61,8 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
             int mouseY = screenHeight - Mouse.getY() * screenHeight / this.mc.resolution.getHeightScreenCoords() - 1;
 
             // TODO better way of checking if an item is dragged or not
-            if(((MenuInventory)((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack() != null){
-                ItemStack hoverStack = ((MenuInventory)((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
+            if (((MenuInventory) ((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack() != null) {
+                ItemStack hoverStack = ((MenuInventory) ((ScreenInventory) this.mc.currentScreen).inventorySlots).inventory.getHeldItemStack();
                 if (hoverStack != null) {
                     Item item = hoverStack.getItem();
                     if (item instanceof IAccessory || item.hasTag(AetherItemTags.TRINKET)) {

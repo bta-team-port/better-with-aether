@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.ContainerHelper;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.helper.ParticleHelper;
 
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinFireImmunity extends Mob {
@@ -29,10 +29,9 @@ public class PlayerMixinFireImmunity extends Mob {
     }
 
 
-
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        if(this.isInLava() || this.isInWater()){
+        if (this.isInLava() || this.isInWater()) {
             return;
         }
         if (fireResistanceCount() >= 3 && random.nextInt(6) == 0) {
@@ -97,6 +96,6 @@ public class PlayerMixinFireImmunity extends Mob {
                 this.world.playSoundAtEntity(null, this, "random.fizz", 0.5F, 0.8F / (this.random.nextFloat() * 0.2F + 0.9F));
             }
         }
-        ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+        ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
     }
 }

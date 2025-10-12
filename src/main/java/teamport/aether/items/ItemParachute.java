@@ -1,13 +1,13 @@
 package teamport.aether.items;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.AetherMod;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
+import teamport.aether.helper.ParticleHelper;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemParachute extends Item {

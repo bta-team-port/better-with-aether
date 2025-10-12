@@ -8,7 +8,7 @@ import sunsetsatellite.catalyst.effects.api.effect.render.TintEffectRender;
 public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements AetherCustomHeartContainer {
     public final String PATH_HEART;
 
-    public PoisonEffectRenderer(T effect, String vignette, int tint,  String heartPath) {
+    public PoisonEffectRenderer(T effect, String vignette, int tint, String heartPath) {
         super(effect, vignette, tint);
         PATH_HEART = heartPath;
     }
@@ -18,7 +18,7 @@ public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> 
         float currentAmount = (float) effectStack.getDuration() * (effectStack.getAmount() - 1);
         float totalTime = (float) effectStack.getDuration() * effectStack.getEffect().getMaxStack();
         float percent = (currentAmount + effectStack.getTimeLeft()) / totalTime;
-        return 0.35F +  percent / 3.0F;
+        return 0.35F + percent / 3.0F;
     }
 
 

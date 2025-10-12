@@ -143,5 +143,5 @@ public class ModelSunspirit extends ModelBiped {
         this.bipedRightArm3.yRot = this.bipedRightArm2.yRot = this.armRight.yRot;
         this.bipedRightArm3.zRot = this.bipedRightArm2.zRot = this.armRight.zRot;
     }
-    
+
 }

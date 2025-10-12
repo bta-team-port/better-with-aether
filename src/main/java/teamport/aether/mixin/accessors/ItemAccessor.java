@@ -11,5 +11,4 @@ public interface ItemAccessor {
 
     @Accessor("itemRand")
     Random getItemRand();
-
 }

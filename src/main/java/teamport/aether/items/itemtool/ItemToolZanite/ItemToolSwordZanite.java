@@ -6,7 +6,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.items.itemtool.AetherToolMaterial;
 import teamport.aether.items.itemtool.ItemToolSwordAether;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
@@ -33,7 +32,7 @@ public class ItemToolSwordZanite extends ItemToolSwordAether {
         float durability_progress = ((float) itemstack.getMetadata() / this.getMaxDamage());
 
         // we will 'lerp' between the starting damage and starting damage time ZANITE_MULTIPLIER
-        float base_efficiency = ((ItemToolSwordAccessor)this).getMaterial().getEfficiency(false);
+        float base_efficiency = ((ItemToolSwordAccessor) this).getMaterial().getEfficiency(false);
         return MathHelper.lerp(base_efficiency, base_efficiency * ZANITE_MULTIPLIER, durability_progress);
     }
 

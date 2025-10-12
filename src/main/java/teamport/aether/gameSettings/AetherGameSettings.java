@@ -13,7 +13,7 @@ public class AetherGameSettings {
     private static boolean hasInit = false;
 
     public static void init() {
-        if(!hasInit){
+        if (!hasInit) {
             hasInit = true;
             registerSettings();
         }

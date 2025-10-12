@@ -13,7 +13,7 @@ import teamport.aether.world.AetherDimension;
 public abstract class HostileParadiseMixin {
 
     @Inject(method = "usePortal", at = @At(value = "HEAD"))
-    public void grantHostileParadise(int dim, DyeColor portalColor, CallbackInfo ci){
+    public void grantHostileParadise(int dim, DyeColor portalColor, CallbackInfo ci) {
         if (dim == AetherDimension.AetherDimensionID) {
             Minecraft.getMinecraft().thePlayer.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
         }

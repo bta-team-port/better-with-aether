@@ -47,15 +47,15 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             double spawnX = x + 0.5 + distance * Math.cos(angleRad);
             double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
             double spawnY = y + 1.25;
-            if (!isSafe(world,spawnX,spawnY,spawnZ)) continue;
+            if (!isSafe(world, spawnX, spawnY, spawnZ)) continue;
             Entity monster = EntityDispatcher.createEntityInWorld(this.monster, world);
-            if(monster == null) continue;
+            if (monster == null) continue;
             monster.spawnInit();
             monster.moveTo(spawnX, y + 1, spawnZ, 0.0f, 0.0f);
             world.entityJoinedWorld(monster);
             spawnDecorations(world, x, y, z, spawnX, spawnY, spawnZ, entity, monster);
             if (monster instanceof MobSentry) {
-                ((Player)entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
+                ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
             }
             return;
         }
@@ -73,9 +73,9 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     }
 
     private static boolean isSafe(World world, double x, double y, double z) {
-        int ix = (int)Math.round(x);
-        int iy = (int)Math.round(y);
-        int iz = (int)Math.round(z);
+        int ix = (int) Math.round(x);
+        int iy = (int) Math.round(y);
+        int iz = (int) Math.round(z);
         return !world.isBlockNormalCube(ix, iy, iz) && !world.isBlockNormalCube(ix, iy + 1, iz);
     }
 }

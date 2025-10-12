@@ -12,7 +12,8 @@ import teamport.aether.ducks.IBlockAether;
 
 @Mixin(value = Block.class, remap = false)
 public abstract class BlockMixin<T extends BlockLogic> implements IBlockAether {
-    @Shadow public int emission;
+    @Shadow
+    public int emission;
     @Unique
     byte emissionOverride = 0;
 

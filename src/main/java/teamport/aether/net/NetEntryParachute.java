@@ -22,8 +22,9 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
         Class<? extends EntityParachute> parachuteClass = (meta >>> 24) > 0 ? EntityParachuteGold.class : EntityParachute.class;
 
         EntityParachute parachute;
-        try { parachute = parachuteClass.getConstructor(World.class).newInstance(world); }
-        catch (Exception e) {
+        try {
+            parachute = parachuteClass.getConstructor(World.class).newInstance(world);
+        } catch (Exception e) {
             LOGGER.error("Failed to spawn parachute cloud!");
             throw new RuntimeException(e);
         }

@@ -4,7 +4,6 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,14 @@ public class MimicRegistry {
         int variantSkinID = 0;
         addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SKYROOT, AetherBlocks.CHEST_PLANKS_SKYROOT);
         addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_OAK, Blocks.CHEST_PLANKS_OAK);
-        for(DyeColor dye : DyeColor.blockOrderedColors()){
+        for (DyeColor dye : DyeColor.blockOrderedColors()) {
             int meta = dye.blockMeta << 4;
             addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), meta, Blocks.CHEST_PLANKS_OAK_PAINTED.id(), meta);
         }
         addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_BRONZE.id(), 0, AetherBlocks.CHEST_DUNGEON_BRONZE.id(), 0);
         addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SILVER.id(), 0, AetherBlocks.CHEST_DUNGEON_SILVER.id(), 0);
         addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_GOLD.id(), 0, AetherBlocks.CHEST_DUNGEON_GOLD.id(), 0);
-        for(DyeColor dye : DyeColor.blockOrderedColors()){
+        for (DyeColor dye : DyeColor.blockOrderedColors()) {
             int meta = dye.blockMeta << 4;
             addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), meta, AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), meta);
         }
@@ -54,7 +53,7 @@ public class MimicRegistry {
         return DEFAULT;
     }
 
-    public static MimicEntry getMimicVariantByMimicChest(int mimicChestID, int mimicMetadata){
+    public static MimicEntry getMimicVariantByMimicChest(int mimicChestID, int mimicMetadata) {
         for (MimicEntry variant : MimicRegistry.instance.MIMIC_ENTRY_LIST) {
             if (variant.mimicChestId == mimicChestID && variant.mimicChestMetadata == mimicMetadata) {
                 return variant;
@@ -63,7 +62,7 @@ public class MimicRegistry {
         return DEFAULT;
     }
 
-    public static MimicEntry getMimicVariantByChest(int chestID, int metadata){
+    public static MimicEntry getMimicVariantByChest(int chestID, int metadata) {
         for (MimicEntry variant : MimicRegistry.instance.MIMIC_ENTRY_LIST) {
             if (variant.chestID == chestID && variant.chestMetadata == metadata) {
                 return variant;
@@ -71,7 +70,6 @@ public class MimicRegistry {
         }
         return DEFAULT;
     }
-
 
 
 }

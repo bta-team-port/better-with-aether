@@ -36,7 +36,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (this.currentEnergyTime > 0) {
             --this.currentEnergyTime;
         }
-        if(canProcess()){
+        if (canProcess()) {
             setMaxProcessTime();
         }
 
@@ -49,16 +49,16 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     public void setMaxProcessTime() {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
-        if(
+        if (
                 containerItemStacks[0] != null
-                && containerItemStacks[0].isItemStackDamageable()
-                && containerItemStacks[0].getMetadata() != 0
-        ){
+                        && containerItemStacks[0].isItemStackDamageable()
+                        && containerItemStacks[0].getMetadata() != 0
+        ) {
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
         }
-        this.maxProcessTime = (int)Math.floor(maxProcessTimeRaw * percent);
+        this.maxProcessTime = (int) Math.floor(maxProcessTimeRaw * percent);
     }
 
     public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
@@ -126,10 +126,10 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         if (resultStack == null) {
             return false;
         }
-        if(toProcess.isItemStackDamageable()
+        if (toProcess.isItemStackDamageable()
 //                Repairable.instance.isRepairable(toProcess)
-                        && toProcess.getMetadata() == 0
-        ){
+                && toProcess.getMetadata() == 0
+        ) {
             return false;
         }
         ItemStack resultItem = this.containerItemStacks[2];
@@ -153,7 +153,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             return;
         }
         ItemStack processedItem = AetherRecipes.ENCHANTER.findOutput(containerItemStacks[0]);
-        if(processedItem != null && processedItem.isItemStackDamageable()){
+        if (processedItem != null && processedItem.isItemStackDamageable()) {
             processedItem.setCustomName(containerItemStacks[0].getCustomName());
             processedItem.setCustomColor(containerItemStacks[0].getCustomColor());
 

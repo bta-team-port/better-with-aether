@@ -37,7 +37,7 @@ public class ComponentBossBar extends HudComponentMovable {
 
     @Override
     public int getAnchorY(ComponentAnchor anchor) {
-        return (int)(anchor.yPosition * height);
+        return (int) (anchor.yPosition * height);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ComponentBossBar extends HudComponentMovable {
     void drawBossBar(Minecraft mc, Gui gui, Mob mob, int offset, int xSizeScreen, int ySizeScreen) {
         int barX = getLayout().getComponentX(mc, this, xSizeScreen);
         int barY = getLayout().getComponentY(mc, this, ySizeScreen) + (barHeight + spacing) * offset + spacing;
-        int textX = barX + barWidth/2;
+        int textX = barX + barWidth / 2;
         int textY = barY + textOffset;
 
         drawProgressBar(mc, gui, barX, barY, mob.getHealth(), mob.getMaxHealth());
@@ -91,8 +91,8 @@ public class ComponentBossBar extends HudComponentMovable {
     }
 
     public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
-        float progress = (float)health/(float)maxHealth;
-        int progressWidth = (int)(barWidth*progress);
+        float progress = (float) health / (float) maxHealth;
+        int progressWidth = (int) (barWidth * progress);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.textureManager.bindTexture(mc.textureManager.loadTexture("/assets/aether/textures/gui/boss_healthbar.png"));

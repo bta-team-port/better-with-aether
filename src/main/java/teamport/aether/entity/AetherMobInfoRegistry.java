@@ -35,7 +35,7 @@ public class AetherMobInfoRegistry {
     private static boolean hasInit = false;
 
     public static void init() {
-        if(!hasInit){
+        if (!hasInit) {
             hasInit = true;
             initializeMobInfoRegistry();
         }
@@ -45,18 +45,18 @@ public class AetherMobInfoRegistry {
         // Passives
 
         MobInfoRegistry.register(MobPhyg.class, "guidebook.section.mob.phyg.name", "guidebook.section.mob.phyg.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.FOOD_PORKCHOP_RAW), 1.0f, 1 ,2),
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.FOOD_PORKCHOP_RAW), 1.0f, 1, 2),
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobSheepuff.class, "guidebook.section.mob.sheepuff.name", "guidebook.section.mob.sheepuff.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0 ,2)});
+                new MobInfoRegistry.MobDrop(new ItemStack(Blocks.WOOL), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobPhow.class, "guidebook.section.mob.phow.name", "guidebook.section.mob.phow.desc", 10, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1 ,5),
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.LEATHER), 1.0f, 1, 5),
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
 
         MobInfoRegistry.register(MobAerbunny.class, "guidebook.section.mob.aerbunny.name", "guidebook.section.mob.aerbunny.desc", 4, 10, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1 ,1)});
+                new MobInfoRegistry.MobDrop(new ItemStack(Items.STRING), 1.0f, 1, 1)});
 
         MobInfoRegistry.register(MobAerwhale.class, "guidebook.section.mob.aerwhale.name", "guidebook.section.mob.aerwhale.desc", 0, 0, null);
 
@@ -67,7 +67,7 @@ public class AetherMobInfoRegistry {
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
         MobInfoRegistry.register(MobMoaBlack.class, "guidebook.section.mob.moa.black.name", "guidebook.section.mob.moa.black.desc", 40, 10, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(Items.FEATHER_CHICKEN), 1.0f, 0, 2)});
-        
+
         // Hostiles
         MobInfoRegistry.register(MobZephyr.class, "guidebook.section.mob.zephyr.name", "guidebook.section.mob.zephyr.desc", 10, 500, new MobInfoRegistry.MobDrop[]{
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.AERCLOUD_WHITE), 1.0f, 0, 6)});
@@ -92,7 +92,7 @@ public class AetherMobInfoRegistry {
         // Bronze Dungeon
 
         MobInfoRegistry.register(MobSentry.class, "guidebook.section.mob.sentry.name", "guidebook.section.mob.sentry.desc", 10, 200, new MobInfoRegistry.MobDrop[]{
-                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1 ,1),
+                new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE), 1.0f, 1, 1),
                 new MobInfoRegistry.MobDrop(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT), 1.0f, 1, 1)});
 
         MobInfoRegistry.register(MobBossSlider.class, "guidebook.section.mob.slider.name", "guidebook.section.mob.slider.desc", 500, 10000, new MobInfoRegistry.MobDrop[]{

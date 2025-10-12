@@ -13,7 +13,7 @@ import teamport.aether.blocks.AetherBlocks;
 @Mixin(value = BlockLogicPathDirt.class, remap = false)
 public class BlockLogicPathDirtMixin {
     @Inject(method = "onNeighborBlockChange", at = @At(value = "HEAD"), cancellable = true)
-    public void addNewPathBlock(World world, int x, int y, int z, int blockId, CallbackInfo ci){
+    public void addNewPathBlock(World world, int x, int y, int z, int blockId, CallbackInfo ci) {
         Material material = world.getBlockMaterial(x, y + 1, z);
         int id = world.getBlockId(x, y + 1, z);
         if (material.isSolid() && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()) {

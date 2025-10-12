@@ -83,18 +83,18 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
     public static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
         List<RecipeEntryAetherMachine> new_recipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
-        for(RecipeEntryAetherMachine recipe : recipes){
+        for (RecipeEntryAetherMachine recipe : recipes) {
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
-            if(
+            if (
                     input != null
-                    && output != null
-                    && input.isItemStackDamageable()
-                    && output.isItemStackDamageable()
-                    && output.itemID == input.itemID
-            ){
+                            && output != null
+                            && input.isItemStackDamageable()
+                            && output.isItemStackDamageable()
+                            && output.itemID == input.itemID
+            ) {
                 repairable.add(recipe);
-            }else{
+            } else {
                 new_recipes.add(recipe);
             }
         }

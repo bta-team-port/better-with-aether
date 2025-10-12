@@ -18,18 +18,19 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinBlastImmunity {
 
-    @Shadow public abstract boolean interact(@NotNull Player player);
+    @Shadow
+    public abstract boolean interact(@NotNull Player player);
 
-    @Inject(method = "hurt", at= @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;getHealth()I"), cancellable = true)
-    public void negateDamage(Entity attacker, int i, DamageType type, CallbackInfoReturnable<Boolean> cir){
-        if(type == null || !type.equals(DamageType.BLAST)){
+    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;getHealth()I"), cancellable = true)
+    public void negateDamage(Entity attacker, int i, DamageType type, CallbackInfoReturnable<Boolean> cir) {
+        if (type == null || !type.equals(DamageType.BLAST)) {
             return;
         }
         Mob mob = (Mob) (Object) this;
         if (!(mob instanceof MobWolf)) {
             return;
         }
-        ArmorMaterial material = ((MobWolf)mob).getArmorMaterial();
+        ArmorMaterial material = ((MobWolf) mob).getArmorMaterial();
         if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) {
             return;
         }

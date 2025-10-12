@@ -7,7 +7,9 @@ import teamport.aether.entity.tile.TileEntitySignSkyroot;
 
 public interface AetherScreens {
     void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity);
+
     void aether$displayFreezerScreen(TileEntityFreezer tileEntity);
+
     void aether$displayIncubatorScreen(TileEntityIncubator tileEntity);
 
     void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity);

@@ -50,7 +50,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
             );
         }
 
-        float yawDeg = (float) (yRot * (Math.PI/180));
+        float yawDeg = (float) (yRot * (Math.PI / 180));
         float step = 0.175F;
 
         if (moveForward > 0.1F) {
@@ -98,8 +98,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
             if (this.onGround) {
                 yd = 1.4;
                 this.onGround = false;
-            }
-            else {
+            } else {
                 if (isInWater()) yd = 0.5;
                 else if (canJump) yd = 1.2;
                 --this.jumpsRemaining;
@@ -142,7 +141,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
     }
 
     public void onGround() {
-        if (this.onGround ) {
+        if (this.onGround) {
             this.jumpsRemaining = getJumpMaxAmount();
         }
     }

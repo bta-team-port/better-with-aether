@@ -101,11 +101,11 @@ public class MobBossSlider extends MobBoss {
 
     public void onDeath(Entity entityKilledBy) {
         this.world.players.stream()
-            .filter(player -> player.distanceTo(this) < 32)
-            .forEach(p -> {
-                p.triggerAchievement(AetherAchievements.BRONZE);
-                this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
-            });
+                .filter(player -> player.distanceTo(this) < 32)
+                .forEach(p -> {
+                    p.triggerAchievement(AetherAchievements.BRONZE);
+                    this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
+                });
 
         super.onDeath(entityKilledBy);
     }
@@ -139,8 +139,12 @@ public class MobBossSlider extends MobBoss {
             double lerpYRot = this.newRotationYaw - (double) this.yRot;
             double lerpXRot = this.newRotationPitch - (double) this.xRot;
 
-            while (lerpYRot < (double) -180.0F) { lerpYRot += 360.0F; }
-            while (lerpYRot >= (double) 180.0F) { lerpYRot -= 360.0F; }
+            while (lerpYRot < (double) -180.0F) {
+                lerpYRot += 360.0F;
+            }
+            while (lerpYRot >= (double) 180.0F) {
+                lerpYRot -= 360.0F;
+            }
 
             this.yRot = (float) ((double) this.yRot + lerpYRot / (double) this.newPosRotationIncrements);
             this.xRot = (float) ((double) this.xRot + lerpXRot / (double) this.newPosRotationIncrements);
@@ -181,24 +185,21 @@ public class MobBossSlider extends MobBoss {
             float moveAmount = speed / TICKS_PER_SECOND;
             if (blocksToMove > moveAmount) {
                 move(
-                    moveAmount * moveDirection.getOffsetX(),
-                    moveAmount * moveDirection.getOffsetY(),
-                    moveAmount * moveDirection.getOffsetZ()
+                        moveAmount * moveDirection.getOffsetX(),
+                        moveAmount * moveDirection.getOffsetY(),
+                        moveAmount * moveDirection.getOffsetZ()
                 );
 
                 blocksToMove -= moveAmount;
-            }
-
-            else {
+            } else {
                 move(
-                    blocksToMove * moveDirection.getOffsetX(),
-                    blocksToMove * moveDirection.getOffsetY(),
-                    blocksToMove * moveDirection.getOffsetZ()
+                        blocksToMove * moveDirection.getOffsetX(),
+                        blocksToMove * moveDirection.getOffsetY(),
+                        blocksToMove * moveDirection.getOffsetZ()
                 );
                 blocksToMove = 0;
             }
-        }
-        else {
+        } else {
             blocksToMove = 0;
         }
 
@@ -224,9 +225,7 @@ public class MobBossSlider extends MobBoss {
             entityData.set(DATA_ALLOW_MOVEMENT, allowedToMove ? 1 : 0);
             entityData.set(DATA_MOVEMENT_DIRECTION, moveDirection.ordinal());
             entityData.set(DATA_MOVEMENT_AMOUNT, Float.floatToIntBits(blocksToMove));
-        }
-
-        else if (EnvironmentHelper.isClientWorld()) {
+        } else if (EnvironmentHelper.isClientWorld()) {
             currentState = State.values()[entityData.getInt(DATA_STATE)];
             allowedToMove = entityData.getInt(DATA_ALLOW_MOVEMENT) > 0;
             moveDirection = Direction.values()[entityData.getInt(DATA_MOVEMENT_DIRECTION)];
@@ -392,11 +391,11 @@ public class MobBossSlider extends MobBoss {
             return false;
         }
 
-        if (   !(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked)
-            && !(block.getLogic() instanceof BlockLogicDungeonDoor)
-            && !(block.getMaterial() instanceof MaterialLiquid)
-            && !(block.getHardness() < 0 || block.getHardness() >= 10)
-            && !(block.getBlastResistance(this) < 0 || block.getBlastResistance(this) >= 10)
+        if (!(block.getLogic() instanceof BlockLogicTrapped || block.getLogic() instanceof BlockLogicLocked)
+                && !(block.getLogic() instanceof BlockLogicDungeonDoor)
+                && !(block.getMaterial() instanceof MaterialLiquid)
+                && !(block.getHardness() < 0 || block.getHardness() >= 10)
+                && !(block.getBlastResistance(this) < 0 || block.getBlastResistance(this) >= 10)
         ) {
             block.dropBlockWithCause(world, EnumDropCause.EXPLOSION, x, y, z, world.getBlockMetadata(x, y, z), world.getTileEntity(x, y, z), null);
             world.setBlockWithNotify(x, y, z, 0);
@@ -592,7 +591,7 @@ public class MobBossSlider extends MobBoss {
     public void tryAwake() {
         if (currentState == State.ASLEEP) {
             this.currentState = State.AWAKE;
-            runWithDungeon(d->d.lock(this, world));
+            runWithDungeon(d -> d.lock(this, world));
             world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
         }
     }

@@ -47,7 +47,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         if (this.currentEnergyTime > 0) {
             --this.currentEnergyTime;
         }
-        if(canProcess()){
+        if (canProcess()) {
             this.maxProcessTime = AetherRecipes.FREEZER.findRecipe(containerItemStacks[0]).getData();
         }
 
@@ -137,18 +137,18 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             return;
         }
         ItemStack processedItem = AetherRecipes.FREEZER.findOutput(containerItemStacks[0]);
-        if(processedItem != null && processedItem.isItemStackDamageable()){
+        if (processedItem != null && processedItem.isItemStackDamageable()) {
             processedItem.setCustomName(containerItemStacks[0].getCustomName());
             processedItem.setCustomColor(containerItemStacks[0].getCustomColor());
         }
 
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {
-            if(
+            if (
                     containerItemStacks[0] != null
-                    && containerItemStacks[0].isItemStackDamageable()
-                    && processedItem.isItemStackDamageable()
-            ){
+                            && containerItemStacks[0].isItemStackDamageable()
+                            && processedItem.isItemStackDamageable()
+            ) {
                 processedItem.setMetadata(containerItemStacks[0].getMetadata());
             }
             this.containerItemStacks[2] = processedItem.copy();
@@ -225,7 +225,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
                         itemstack.stackSize -= i1;
                         EntityItem entityItem = new EntityItem
                                 (world, (float) x + f, (float) y + f1, (float) z + f2,
-                                new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                                        new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
                         entityItem.xd = (float) this.random.nextGaussian() * f3;
                         entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;

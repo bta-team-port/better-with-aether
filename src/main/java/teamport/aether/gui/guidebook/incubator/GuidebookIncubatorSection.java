@@ -32,7 +32,7 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
         allRecipes.removeIf(Objects::isNull);
         int totalRecipes = allRecipes.size();
         int totalPages = MathHelper.ceilInt(totalRecipes, entryPerPage);
-        for(int i = 0; i < totalPages; ++i) {
+        for (int i = 0; i < totalPages; ++i) {
             int j = i * entryPerPage;
             List<RecipeEntryIncubator> recipes = new ArrayList<>(allRecipes.subList(Math.min(j, totalRecipes), Math.min(j + entryPerPage, totalRecipes)));
             this.pages.add(new RecipePageIncubator(this, recipes));
@@ -57,10 +57,10 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
 
         int filteredRecipeSize = filteredRecipes.size();
         int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, entryPerPage);
-        for(int i = 0; i < filteredPageCount; i++){
+        for (int i = 0; i < filteredPageCount; i++) {
             int j = i * entryPerPage;
             List<RecipeEntryIncubator> recipes = new ArrayList<>(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + entryPerPage, filteredRecipeSize)));
-            if(!recipes.isEmpty()){
+            if (!recipes.isEmpty()) {
                 filteredPages.add(new RecipePageIncubator(this, recipes));
             }
         }
@@ -70,7 +70,7 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
 
     @Override
     public List<GuidebookPage> getPages() {
-       return this.pages;
+        return this.pages;
     }
 
     @Override

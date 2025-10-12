@@ -9,5 +9,7 @@ import teamport.aether.AetherClient;
 public class HudComponentEntrypointMixin {
     // If you don't have this run at the point of creation of the hud component class:
     // The reset button just won't work.
-    static { AetherClient.registerHUDComponents(); }
+    static {
+        AetherClient.registerHUDComponents();
+    }
 }

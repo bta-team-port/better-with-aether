@@ -94,6 +94,6 @@ public class EntityRendererKnifeLightning extends EntityRenderer<ProjectileKnife
         tessellator.draw();
         GL11.glDisable(32826);
         GL11.glPopMatrix();
-        }
+    }
 
 }

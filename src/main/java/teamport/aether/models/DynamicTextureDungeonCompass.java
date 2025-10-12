@@ -7,13 +7,15 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
@@ -36,13 +38,13 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         BufferedImage atlas = this.targetTexture.parentAtlas.atlas;
         this.compassImageData = new byte[this.targetTexture.getArea() * 4];
 
-        for(int x = 0; x < this.targetTexture.width; ++x) {
-            for(int y = 0; y < this.targetTexture.height; ++y) {
+        for (int x = 0; x < this.targetTexture.width; ++x) {
+            for (int y = 0; y < this.targetTexture.height; ++y) {
                 putPixel(this.compassImageData, y * this.targetTexture.width + x, atlas.getRGB(this.targetTexture.iconX + x, this.targetTexture.iconY + y));
             }
         }
 
-        this.scaleFactor = (double)this.targetTexture.width / 16.0;
+        this.scaleFactor = (double) this.targetTexture.width / 16.0;
     }
 
     public boolean runUpdates(boolean isPaused) {
@@ -95,9 +97,7 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
 
                 positionCache = coord;
                 lastPositionUpdateStamp = time;
-            }
-
-            else coord = positionCache;
+            } else coord = positionCache;
 
             if (coord != null) {
                 if (player.distanceTo(coord.x, player.y, coord.z) > 16) {
@@ -112,17 +112,17 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
     }
 
     public void update() {
-        for(int _x = 0; _x < this.targetTexture.width; ++_x) {
-            for(int _y = 0; _y < this.targetTexture.height; ++_y) {
+        for (int _x = 0; _x < this.targetTexture.width; ++_x) {
+            for (int _y = 0; _y < this.targetTexture.height; ++_y) {
                 int i = _y * this.targetTexture.width + _x;
                 int a = this.compassImageData[i * 4 + 3] & 255;
-                int r = this.compassImageData[i * 4 + 0] & 255;
+                int r = this.compassImageData[i * 4] & 255;
                 int g = this.compassImageData[i * 4 + 1] & 255;
                 int b = this.compassImageData[i * 4 + 2] & 255;
-                this.imageData[i * 4 + 0] = (byte)r;
-                this.imageData[i * 4 + 1] = (byte)g;
-                this.imageData[i * 4 + 2] = (byte)b;
-                this.imageData[i * 4 + 3] = (byte)a;
+                this.imageData[i * 4] = (byte) r;
+                this.imageData[i * 4 + 1] = (byte) g;
+                this.imageData[i * 4 + 2] = (byte) b;
+                this.imageData[i * 4 + 3] = (byte) a;
             }
         }
 
@@ -133,7 +133,7 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             angleSmooth += Math.PI * 2;
         }
 
-        while(angleSmooth >= Math.PI) {
+        while (angleSmooth >= Math.PI) {
             angleSmooth -= Math.PI * 2;
         }
 
@@ -152,8 +152,8 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         double x = Math.sin(this.angleFinal);
         double y = Math.cos(this.angleFinal);
 
-        double xs = (double)this.targetTexture.width / 2.0 + 0.5;
-        double ys = (double)this.targetTexture.height / 2.0 - 0.5;
+        double xs = (double) this.targetTexture.width / 2.0 + 0.5;
+        double ys = (double) this.targetTexture.height / 2.0 - 0.5;
 
         int r, g, b;
         short a;
@@ -163,34 +163,34 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         int j;
 
         int i;
-        for (i = (int)(-4.0 * this.scaleFactor); i <= (int)(4.0 * this.scaleFactor); ++i) {
-            x2 = (int)(xs + y * (double)i * 0.3);
-            y2 = (int)(ys - x * (double)i * 0.3 * 0.5);
+        for (i = (int) (-4.0 * this.scaleFactor); i <= (int) (4.0 * this.scaleFactor); ++i) {
+            x2 = (int) (xs + y * (double) i * 0.3);
+            y2 = (int) (ys - x * (double) i * 0.3 * 0.5);
             j = y2 * this.targetTexture.width + x2;
             r = 100;
             g = 100;
             b = 100;
             a = 255;
-            this.imageData[j * 4 + 0] = (byte)r;
-            this.imageData[j * 4 + 1] = (byte)g;
-            this.imageData[j * 4 + 2] = (byte)b;
-            this.imageData[j * 4 + 3] = (byte)a;
+            this.imageData[j * 4] = (byte) r;
+            this.imageData[j * 4 + 1] = (byte) g;
+            this.imageData[j * 4 + 2] = (byte) b;
+            this.imageData[j * 4 + 3] = (byte) a;
         }
 
-        for (i = (int)(-8.0 * this.scaleFactor); i <= (int)(16.0 * this.scaleFactor); ++i) {
+        for (i = (int) (-8.0 * this.scaleFactor); i <= (int) (16.0 * this.scaleFactor); ++i) {
             r = i >= 0 ? needleColor.getRed() : 100;
             g = i >= 0 ? needleColor.getGreen() : 100;
             b = i >= 0 ? needleColor.getBlue() : 100;
             a = 255;
 
-            x2 = (int)(xs + x * (double)i * 0.3);
-            y2 = (int)(ys + y * (double)i * 0.3 * 0.5);
+            x2 = (int) (xs + x * (double) i * 0.3);
+            y2 = (int) (ys + y * (double) i * 0.3 * 0.5);
             j = y2 * this.targetTexture.width + x2;
 
-            this.imageData[j * 4 + 0] = (byte)r;
-            this.imageData[j * 4 + 1] = (byte)g;
-            this.imageData[j * 4 + 2] = (byte)b;
-            this.imageData[j * 4 + 3] = (byte)a;
+            this.imageData[j * 4] = (byte) r;
+            this.imageData[j * 4 + 1] = (byte) g;
+            this.imageData[j * 4 + 2] = (byte) b;
+            this.imageData[j * 4 + 3] = (byte) a;
         }
     }
 }

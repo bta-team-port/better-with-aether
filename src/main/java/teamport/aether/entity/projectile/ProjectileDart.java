@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
@@ -22,6 +21,7 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileDart> {

@@ -19,8 +19,6 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class MobBossFlying extends MobFlying implements EnemyBoss {
@@ -111,7 +109,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         CompoundTag trophyNBT = tag.getCompound("trophy");
         if (trophyNBT != null) {
             trophy = ItemStack.readItemStackFromNbt(trophyNBT);
-        };
+        }
 
         if (tag.getBoolean("hasHadReturnPointSet")) {
             CompoundTag returnPointNBT = tag.getCompound("returnPoint");

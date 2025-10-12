@@ -37,10 +37,10 @@ public class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBase {
             world.entityJoinedWorld(floatingBlock);
             double speed = 1.0F;
             floatingBlock.fling(
-                (double)direction.getOffsetX() * speed,
-                (double)direction.getOffsetY() * speed,
-                (double)direction.getOffsetZ() * speed,
-                1.0F
+                    (double) direction.getOffsetX() * speed,
+                    (double) direction.getOffsetY() * speed,
+                    (double) direction.getOffsetZ() * speed,
+                    1.0F
             );
 
             this.flungBlock = floatingBlock;

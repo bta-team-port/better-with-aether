@@ -35,7 +35,7 @@ public class ParticleHelper {
         spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 16D);
     }
 
-    public static void spawnCloudParticles(World world, double x, double y, double z, double bbHeight){
+    public static void spawnCloudParticles(World world, double x, double y, double z, double bbHeight) {
         float width = 1.0f;
 
         for (int i = 0; i < 20; ++i) {
@@ -70,7 +70,7 @@ public class ParticleHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        ParticleHelper.spawnParticle(world,"flame",
+        ParticleHelper.spawnParticle(world, "flame",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
                 z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
@@ -92,7 +92,7 @@ public class ParticleHelper {
 
     public static void spawnRemedyParticle(@Nullable World world, double x, double y, double z, double bbHeight, double bbWidth) {
         double radius = bbWidth + 0.1;
-        for(int i = 0; i < 36; i++){
+        for (int i = 0; i < 36; i++) {
             double theta = MathHelper.toRadians(10 * i);
             double offX = radius * Math.cos(theta);
             double offZ = radius * Math.sin(theta);

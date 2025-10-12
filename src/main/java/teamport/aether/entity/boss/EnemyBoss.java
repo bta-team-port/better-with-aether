@@ -6,6 +6,7 @@ import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 public interface EnemyBoss {
 
     void setDungeonID(int id);
+
     String getBossTitle();
 
     String getBossName();
@@ -17,5 +18,6 @@ public interface EnemyBoss {
     boolean canFight();
 
     void setTrophy(ItemStack itemStack);
+
     ItemStack getTrophy();
 }

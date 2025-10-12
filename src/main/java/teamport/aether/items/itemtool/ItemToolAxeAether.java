@@ -29,9 +29,9 @@ public class ItemToolAxeAether extends ItemTool {
             ItemStack held = player.getHeldItem();
             if (
                     Block.hasLogicClass(Blocks.getBlock(blockId), BlockLogicLog.class)
-                    && (Blocks.getBlock(blockId) != null
-                    && (Blocks.getBlock(blockId).hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE))
-                    || held.itemID == AetherItems.TOOL_AXE_VALKYRIE.id)
+                            && (Blocks.getBlock(blockId) != null
+                            && (Blocks.getBlock(blockId).hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE))
+                            || held.itemID == AetherItems.TOOL_AXE_VALKYRIE.id)
 
             ) {
                 return !(new TreecapitatorHelper(world, x, y, z, player)).chopTree();

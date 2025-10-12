@@ -17,8 +17,8 @@ public class AetherServer implements DedicatedServerModInitializer {
 
     public static void onPlayerJoinedServer(PlayerServer player, NetworkManager netManager) {
         NetworkHandler.sendToPlayer(
-            player,
-            new SunspiritDeathNetworkMessage(AetherDimension.sunspiritIsDead, AetherDimension.sunspiritDeathTimestamp)
+                player,
+                new SunspiritDeathNetworkMessage(AetherDimension.sunspiritIsDead, AetherDimension.sunspiritDeathTimestamp)
         );
     }
 

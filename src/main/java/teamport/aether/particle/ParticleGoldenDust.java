@@ -1,12 +1,16 @@
 package teamport.aether.particle;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLeavesBase;
 import net.minecraft.core.world.World;
 
+@Environment(EnvType.CLIENT)
 public class ParticleGoldenDust extends Particle {
+
     public ParticleGoldenDust(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
         this.bCol = 0.1F;
@@ -25,10 +29,10 @@ public class ParticleGoldenDust extends Particle {
     }
 
     public void tick() {
-        float windDirection = this.world.worldType.getWindManager().getWindDirection(this.world, (float)this.x, (float)this.y, (float)this.z);
-        float windIntensity = this.world.worldType.getWindManager().getWindIntensity(this.world, (float)this.x, (float)this.y, (float)this.z) * 0.01F;
-        float dx = (float)(Math.cos((double)windDirection * Math.PI * 2.0) * ((double)windIntensity / 4));
-        float dz = (float)(Math.sin((double)windDirection * Math.PI * 2.0) * ((double)windIntensity / 4));
+        float windDirection = this.world.worldType.getWindManager().getWindDirection(this.world, (float) this.x, (float) this.y, (float) this.z);
+        float windIntensity = this.world.worldType.getWindManager().getWindIntensity(this.world, (float) this.x, (float) this.y, (float) this.z) * 0.01F;
+        float dx = (float) (Math.cos((double) windDirection * Math.PI * 2.0) * ((double) windIntensity / 4));
+        float dz = (float) (Math.sin((double) windDirection * Math.PI * 2.0) * ((double) windIntensity / 4));
         this.xd += dx / 2;
         this.zd += dz / 2;
         this.xo = this.x;
@@ -45,7 +49,7 @@ public class ParticleGoldenDust extends Particle {
             this.tex = null;
         }
 
-        this.yd -= 0.04 * (double)this.gravity;
+        this.yd -= 0.04 * (double) this.gravity;
         if (this.onGround) {
             this.xd *= 0.0;
             this.zd *= 0.0;

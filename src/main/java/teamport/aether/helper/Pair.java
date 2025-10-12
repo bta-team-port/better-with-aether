@@ -28,14 +28,14 @@ public final class Pair<T, U> {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(first, second);
     }
 
     @Override
     public boolean equals(Object o) {
-        if(this == o)return true;
-        if(!(o instanceof Pair)) return false;
+        if (this == o) return true;
+        if (!(o instanceof Pair)) return false;
         Pair<?, ?> that = (Pair<?, ?>) o;
         return Objects.equals(this.first, that.first) &&
                 Objects.equals(this.second, that.second);

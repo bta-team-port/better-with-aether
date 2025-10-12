@@ -44,7 +44,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
             String path = "/assets/minecraft/textures/armor/quiver.png";
             if (
                     chestplate != null
-                    && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)
+                            && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)
             ) {
                 path = "/assets/aether/textures/armor/quiver_flipped.png";
             }
@@ -59,7 +59,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
             String path = "/assets/minecraft/textures/armor/quiver_golden.png";
             if (
                     chestplate != null
-                    && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)
+                            && (chestplate.getItem() instanceof ItemQuiver || chestplate.getItem() instanceof ItemQuiverEndless)
             ) {
                 path = "/assets/aether/textures/armor/quiver_golden_flipped.png";
             }
@@ -68,7 +68,6 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
             modelBiped.body.visible = true;
             this.setArmorModel(modelBiped);
             info.setReturnValue(true);
-            return;
         }
     }
 }

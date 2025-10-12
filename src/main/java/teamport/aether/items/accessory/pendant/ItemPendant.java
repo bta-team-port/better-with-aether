@@ -1,6 +1,5 @@
 package teamport.aether.items.accessory.pendant;
 
-import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
@@ -49,12 +48,12 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
         return 0;
     }
 
-    public boolean canTakeHarvestDamage(){
+    public boolean canTakeHarvestDamage() {
         return this.harvestDamage;
     }
 
     ///  to check if an item takes damage when harvesting
-    public ItemPendant takeHarvestDamage(){
+    public ItemPendant takeHarvestDamage() {
         this.harvestDamage = true;
         return this;
     }

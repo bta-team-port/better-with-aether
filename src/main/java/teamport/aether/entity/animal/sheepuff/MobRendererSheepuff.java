@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
     public ModelBase wool;
     public ModelBase puffed;
+
     public MobRendererSheepuff(ModelBase body, ModelBase wool, ModelBase puffed, ModelBase overlay, float f) {
         super(body, f);
         this.setArmorModel(body);

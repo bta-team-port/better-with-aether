@@ -14,16 +14,16 @@ import teamport.aether.items.AetherArmorMaterial;
 public class EntityMixinIgnitionImmunity {
 
     @Inject(method = "isInWaterOrRain", at = @At("HEAD"), cancellable = true)
-    public void aether$cantCatchFire(CallbackInfoReturnable<Boolean> cir){
+    public void aether$cantCatchFire(CallbackInfoReturnable<Boolean> cir) {
         Entity entity = (Entity) (Object) this;
-        if(entity instanceof Player){
-            Player player = ((Player)(Object)this);
+        if (entity instanceof Player) {
+            Player player = ((Player) (Object) this);
             int fireResistanceCount = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.PHOENIX);
-            if(fireResistanceCount >= 3){
+            if (fireResistanceCount >= 3) {
                 cir.setReturnValue(true);
             }
         }
-        if(entity instanceof MobWolf){
+        if (entity instanceof MobWolf) {
             cir.setReturnValue(true);
         }
     }

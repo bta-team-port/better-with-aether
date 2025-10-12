@@ -21,7 +21,7 @@ public abstract class MinecartCarriablesFix extends Entity {
 
     @Inject(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getHeldObject()Lnet/minecraft/core/world/ICarriable;", ordinal = 1), cancellable = true)
     public void doNotCarry(Player player, CallbackInfoReturnable<Boolean> cir) {
-        CarriedBlock carriedBlock = (CarriedBlock)player.getHeldObject();
+        CarriedBlock carriedBlock = (CarriedBlock) player.getHeldObject();
         if (carriedBlock == null) return;
 
         if (carriedBlock.block().hasTag(AETHER_DOES_NOT_FIT_IN_MINECART)) {

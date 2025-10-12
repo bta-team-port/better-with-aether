@@ -8,10 +8,11 @@ import net.minecraft.core.world.World;
 
 @Environment(EnvType.CLIENT)
 public class ParticleDartEnchanted extends ParticleArrowGolden {
+
     public ParticleDartEnchanted(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
         this.bCol = this.gCol = 0.8F;
-        this.rCol = (float)(Math.random() * 0.3);
+        this.rCol = (float) (Math.random() * 0.3);
     }
 
     public void tick() {

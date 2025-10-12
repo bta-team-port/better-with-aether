@@ -2,7 +2,6 @@ package teamport.aether.blocks.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTrapDoorPainted;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;

@@ -14,7 +14,7 @@ public class LookupFuelIncubator {
     }
 
     public void register() {
-        addFuelEntry(AetherBlocks.TORCH_AMBROSIUM.id(),500);
+        addFuelEntry(AetherBlocks.TORCH_AMBROSIUM.id(), 500);
     }
 
     public void addFuelEntry(int id, int fuelYield) {
@@ -22,7 +22,7 @@ public class LookupFuelIncubator {
     }
 
     public int getFuelYield(int id) {
-        return this.fuelList.get(id) == null ? 0 : (Integer)this.fuelList.get(id);
+        return this.fuelList.get(id) == null ? 0 : this.fuelList.get(id);
     }
 
     public Map<Integer, Integer> getFuelList() {

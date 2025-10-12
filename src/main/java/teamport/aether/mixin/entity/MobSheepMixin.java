@@ -12,7 +12,7 @@ import teamport.aether.items.AetherItemTags;
 public class MobSheepMixin {
 
     @Inject(method = "isFavouriteItem", at = @At(value = "HEAD"), cancellable = true)
-    public void isFavouriteItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir){
+    public void isFavouriteItem(ItemStack itemStack, CallbackInfoReturnable<Boolean> cir) {
         if (itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW)) {
             cir.setReturnValue(true);
         }

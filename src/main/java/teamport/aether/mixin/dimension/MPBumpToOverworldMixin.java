@@ -24,7 +24,9 @@ import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class MPBumpToOverworldMixin extends Player {
-    @Shadow public abstract @NotNull String getDisplayName();
+
+    @Shadow
+    public abstract @NotNull String getDisplayName();
 
     public MPBumpToOverworldMixin(World world) {
         super(world);

@@ -1,8 +1,5 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.world.generate.feature.BlockPallet;
-
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
@@ -18,9 +15,10 @@ public class TreasureRoom extends BaseBronzeRoom {
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
 
-        addDoor(UP, wfp(5,12,5), EAST, 2, SOUTH, 2);
+        addDoor(UP, wfp(5, 12, 5), EAST, 2, SOUTH, 2);
     }
-//    @Override
+
+    //    @Override
     public void makeRoom() {
         // Shell
         room.add(drawShell(random, ROOM_PALLET, EAST, 12, UP, height, SOUTH, 12, x, y, z, true));

@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import static teamport.aether.AetherMod.LOGGER;
+
 public class DungeonMap {
 
     private static final HashMap<String, Class<? extends DungeonMapEntry>> KEY_TYPE_MAP = new HashMap<>();
@@ -28,7 +29,8 @@ public class DungeonMap {
 
     protected static HashMap<Integer, DungeonMapEntry> dungeonMap = new HashMap<>();
 
-    public DungeonMap() {}
+    public DungeonMap() {
+    }
 
     public DungeonMapEntry getDungeon(int id) {
         return dungeonMap.get(id);
@@ -62,11 +64,14 @@ public class DungeonMap {
 
     public <T extends DungeonMapEntry> T register(Class<T> dungeon) {
         int id = dungeonMap.size();
-        while (dungeonMap.get(id) != null) { id++; }
+        while (dungeonMap.get(id) != null) {
+            id++;
+        }
 
         T result;
-        try {  result = dungeon.getConstructor(Integer.class).newInstance(id); }
-        catch (Exception e) {
+        try {
+            result = dungeon.getConstructor(Integer.class).newInstance(id);
+        } catch (Exception e) {
             AetherMod.LOGGER.error("Failed to register dungeon!");
             throw new RuntimeException(e);
         }
@@ -80,8 +85,9 @@ public class DungeonMap {
 
         DungeonMapEntry dungeonEntry;
 
-        try {  dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor(Integer.class).newInstance(id); }
-        catch (Exception e) {
+        try {
+            dungeonEntry = KEY_TYPE_MAP.get(type).getConstructor(Integer.class).newInstance(id);
+        } catch (Exception e) {
             AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
             AetherMod.LOGGER.error("Defaulting to base dungeon entry...");
             dungeonEntry = new DungeonMapEntry(id);
@@ -104,7 +110,7 @@ public class DungeonMap {
     }
 
     public CompoundTag writeToNBT(CompoundTag data) {
-        dungeonMap.forEach( (id, dungeon) -> {
+        dungeonMap.forEach((id, dungeon) -> {
             CompoundTag dungeonData = dungeon.writeToNBT(new CompoundTag());
             dungeonData.putString("type", TYPE_KEY_MAP.get(dungeon.getClass()));
 

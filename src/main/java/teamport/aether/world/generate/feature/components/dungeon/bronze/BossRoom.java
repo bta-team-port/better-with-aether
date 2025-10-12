@@ -13,14 +13,12 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntrySlider;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawShell;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
 public class BossRoom extends BaseBronzeRoom {
@@ -92,11 +90,11 @@ public class BossRoom extends BaseBronzeRoom {
     @Override
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
-        if(closingType != ClosingType.PLACED) return;
+        if (closingType != ClosingType.PLACED) return;
         this.bossDoor = door;
         doors.forEach(d -> d.mark = ClosingType.ROOM_LOCKED);
-        if (door == null){
-            AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.",x,y,z);
+        if (door == null) {
+            AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.", x, y, z);
             return;
         }
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
@@ -104,7 +102,7 @@ public class BossRoom extends BaseBronzeRoom {
         dungeon.setEntranceDoor(doorBlock.blockList);
     }
 
-    public Door getBossDoor(){
+    public Door getBossDoor() {
         return bossDoor;
     }
 }

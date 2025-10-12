@@ -78,10 +78,10 @@ public class BlockLogicIceStone extends BlockLogic {
 
         // jank.
         if ((block == Blocks.FLUID_WATER_STILL.id()
-            || block == Blocks.FLUID_LAVA_STILL.id()
-            || block == Blocks.FLUID_WATER_FLOWING.id()
-            || block == Blocks.FLUID_LAVA_FLOWING.id()
-            ) && meta != 0) return;
+                || block == Blocks.FLUID_LAVA_STILL.id()
+                || block == Blocks.FLUID_WATER_FLOWING.id()
+                || block == Blocks.FLUID_LAVA_FLOWING.id()
+        ) && meta != 0) return;
 
         BlockLogicFluid.getWaterVolume(meta);
 

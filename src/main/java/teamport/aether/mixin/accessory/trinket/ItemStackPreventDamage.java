@@ -26,7 +26,7 @@ public class ItemStackPreventDamage {
     )
     public void preventDamage(int damage, Entity entity, CallbackInfo ci) {
         ItemStack asThis = (ItemStack) (Object) this;
-        if(!(entity instanceof Player)) return;
+        if (!(entity instanceof Player)) return;
         Player player = (Player) entity;
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
@@ -34,14 +34,12 @@ public class ItemStackPreventDamage {
             if (((ItemAccessor) trinketOne.getItem()).getItemRand().nextInt(4) == 0) {
                 trinketOne.damageItem(damage, player);
                 ci.cancel();
-                return;
             }
         }
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id) {
             if (((ItemAccessor) trinketTwo.getItem()).getItemRand().nextInt(4) == 0) {
                 trinketTwo.damageItem(damage, player);
                 ci.cancel();
-                return;
             }
         }
 

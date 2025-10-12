@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.helper.ParticleHelper;
+import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = MobWolf.class, remap = false)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {
@@ -22,9 +22,9 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
 
     @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
     public void aether$lavaImmunity(CallbackInfo ci) {
-        if(isImmuneToFire()) {
-            if(world == null) return;
-            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+        if (isImmuneToFire()) {
+            if (world == null) return;
+            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -32,17 +32,17 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
     public void aether$fireImmunity(CallbackInfo ci) {
         if (isImmuneToFire()) {
-            if(world == null) return;
-            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+            if (world == null) return;
+            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
 
     @Override
-    public void thunderHit(EntityLightning bolt){
-        if(isImmuneToFire()) {
-            if(world == null) return;
-            ParticleHelper.spawnSmokeParticles(world,  x, y, z, bbHeight, bbWidth);
+    public void thunderHit(EntityLightning bolt) {
+        if (isImmuneToFire()) {
+            if (world == null) return;
+            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
         super.thunderHit(bolt);
@@ -51,7 +51,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Override
     public void burn(int damage) {
         if (isImmuneToFire()) {
-            if(world == null) return;
+            if (world == null) return;
             ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
@@ -60,11 +60,11 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
 
     @Unique
     public boolean isImmuneToFire() {
-        ArmorMaterial armorMaterial = ((MobWolf)(Object)this).getArmorMaterial();
-        if(armorMaterial == null){
+        ArmorMaterial armorMaterial = ((MobWolf) (Object) this).getArmorMaterial();
+        if (armorMaterial == null) {
             return false;
         }
-        return     armorMaterial.equals(AetherArmorMaterial.PHOENIX);
+        return armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
 
 }

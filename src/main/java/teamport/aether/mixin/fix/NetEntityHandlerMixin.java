@@ -20,7 +20,8 @@ public abstract class NetEntityHandlerMixin {
     private static boolean isListDirty;
 
     @Shadow
-    private static void sortEntries() {}
+    private static void sortEntries() {
+    }
 
     @Shadow
     @Final
@@ -34,7 +35,7 @@ public abstract class NetEntityHandlerMixin {
     @Final
     private static List<IPacketEntry<?>> packetEntries;
 
-    @Inject(method = "getTrackedEntry", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "getTrackedEntry", at = @At("HEAD"), cancellable = true)
     private static void getTrackedEntry(Object entity, CallbackInfoReturnable<ITrackedEntry<?>> cir) {
         if (isListDirty) sortEntries();
 
@@ -56,7 +57,7 @@ public abstract class NetEntityHandlerMixin {
     }
 
 
-    @Inject(method = "getSpawnPacket", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "getSpawnPacket", at = @At("HEAD"), cancellable = true)
     private static void getSpawnPacket(EntityTrackerEntry trackerEntry, CallbackInfoReturnable<Packet> cir) {
         Packet packet;
 
@@ -84,9 +85,8 @@ public abstract class NetEntityHandlerMixin {
         }
 
         if (match instanceof IVehicleEntry) {
-            packet = ((IVehicleEntry)match).getSpawnPacket(trackerEntry, trackerEntry.getTrackedEntity()).setType(providerToTypeMap.get(match));
-        }
-        else {
+            packet = ((IVehicleEntry) match).getSpawnPacket(trackerEntry, trackerEntry.getTrackedEntity()).setType(providerToTypeMap.get(match));
+        } else {
             packet = match.getSpawnPacket(trackerEntry, trackerEntry.getTrackedEntity());
         }
 

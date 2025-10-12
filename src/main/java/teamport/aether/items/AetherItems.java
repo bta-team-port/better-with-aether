@@ -6,8 +6,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
-import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -41,7 +39,6 @@ import teamport.aether.items.itemtool.ItemToolZanite.ItemToolAxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolPickaxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolSwordZanite;
-import teamport.aether.world.generate.feature.components.dungeon.bronze.StairwellRoom;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherConfig.itemID;

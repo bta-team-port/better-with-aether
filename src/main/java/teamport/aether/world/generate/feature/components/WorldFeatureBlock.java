@@ -4,8 +4,8 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.*;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.helper.Pair;
+import teamport.aether.helper.unboxed.IntPair;
 
 import static net.minecraft.core.util.helper.Direction.NORTH;
 import static teamport.aether.helper.MetadataHelper.*;
@@ -96,43 +96,43 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         int rotateAmount = direction.getHorizontalIndex() - NORTH.getHorizontalIndex();
 
         Block<?> block = Blocks.getBlock(this.blockID);
-        if(block == null) return this;
+        if (block == null) return this;
 
         BlockLogic logic = block.getLogic();
-        if(logic == null) return this;
+        if (logic == null) return this;
 
         /// mask the upper 6 bits with direction horizontal index
-        if(
+        if (
                 logic instanceof BlockLogicFenceGate
-        ){
+        ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
-            if(indexDirection > Direction.horizontalDirections.length) indexDirection = 0;
+            if (indexDirection > Direction.horizontalDirections.length) indexDirection = 0;
             Direction currentDirection = Direction.horizontalDirections[indexDirection];
             Direction newDirection = currentDirection.rotate(rotateAmount);
             this.metadata = maskDirectionHorizontal(this.metadata, newDirection);
         }
 
         /// mask the upper 6 buts with the custom direction of stairs
-        if(
+        if (
                 logic instanceof BlockLogicStairs
-        ){
+        ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
             Direction currentDirection = getStairDirectionFromMetadata(indexDirection);
             Direction newDirection = currentDirection.rotate(rotateAmount);
             this.metadata = maskDirectionHorizontal(this.metadata, getStairMetadataFromDirection(newDirection));
         }
 
-        if(
-             logic instanceof BlockLogicTorch
-        ){
+        if (
+                logic instanceof BlockLogicTorch
+        ) {
             int indexDirection = this.metadata & MASK_DIRECTION_FULL;
             Direction currentDirection = getTorchDirectionFromMetadata(indexDirection);
             Direction newDirection = currentDirection.rotate(rotateAmount);
             this.metadata = maskDirectionHorizontal(this.metadata, getTorchMetadataFromDirection(newDirection));
         }
-        if(
+        if (
                 logic instanceof BlockLogicTrapDoor
-        ){
+        ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
             Direction currentDirection = getTrapDoorDirectionForMeta(indexDirection);
             Direction newDirection = currentDirection.rotate(rotateAmount);

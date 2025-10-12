@@ -13,7 +13,6 @@ import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 
 import java.util.*;
 
-import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.MetadataHelper.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureBlock.wfb;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
@@ -34,12 +33,15 @@ public class WorldFeatureSilverMaze {
     public Map<Integer, List<Integer>> graph;
 
     public static BlockPallet ANGELIC_ROOM = new BlockPallet();
+
     static {
         ANGELIC_ROOM.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 85);
         ANGELIC_ROOM.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
         ANGELIC_ROOM.addEntry(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), 0, 10);
     }
+
     public static BlockPallet CHEST_OR_MIMIC = new BlockPallet();
+
     static {
         CHEST_OR_MIMIC.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), DyeColor.SILVER.blockMeta << 4, 3);
         CHEST_OR_MIMIC.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), DyeColor.SILVER.blockMeta << 4, 3);
@@ -48,8 +50,9 @@ public class WorldFeatureSilverMaze {
     }
 
     public static BlockPallet CHEST_OR_MIMIC_ALT = new BlockPallet();
+
     static {
-        CHEST_OR_MIMIC_ALT.addEntry(0,4);
+        CHEST_OR_MIMIC_ALT.addEntry(0, 4);
         CHEST_OR_MIMIC_ALT.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), DyeColor.SILVER.blockMeta << 4, 3);
         CHEST_OR_MIMIC_ALT.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), DyeColor.SILVER.blockMeta << 4, 3);
         CHEST_OR_MIMIC_ALT.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), DyeColor.YELLOW.blockMeta << 4, 1);
@@ -57,6 +60,7 @@ public class WorldFeatureSilverMaze {
     }
 
     public static BlockPallet CHEST_OR_MIMIC_GARDEN = new BlockPallet();
+
     static {
         CHEST_OR_MIMIC_GARDEN.addEntry(0, 3);
         CHEST_OR_MIMIC_GARDEN.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), DyeColor.GREEN.blockMeta << 4, 1.5f);
@@ -66,6 +70,7 @@ public class WorldFeatureSilverMaze {
     }
 
     public static BlockPallet GARDEN_DECO = new BlockPallet();
+
     static {
         GARDEN_DECO.addEntry(0, 20);
         GARDEN_DECO.addEntry(AetherBlocks.FLOWER_PURPLE.id(), 128, 1);
@@ -97,7 +102,7 @@ public class WorldFeatureSilverMaze {
         GRAPH.put(5, new ArrayList<>(Arrays.asList(2, 4)));
         GRAPH.put(6, new ArrayList<>(Arrays.asList(3, 7)));
         GRAPH.put(7, new ArrayList<>(Arrays.asList(4, 6)));
-        GRAPH.put(8, new ArrayList<>(Arrays.asList(17)));
+        GRAPH.put(8, new ArrayList<>(Collections.singletonList(17)));
         GRAPH.put(9, new ArrayList<>(Arrays.asList(10, 12)));
         GRAPH.put(10, new ArrayList<>(Arrays.asList(9, 11, 13)));
         GRAPH.put(11, new ArrayList<>(Arrays.asList(10, 14)));
@@ -184,19 +189,19 @@ public class WorldFeatureSilverMaze {
             createRoom(roomX, roomY, roomZ, doorDirection);
             return;
         }
-        if(to == ENTRANCE){
+        if (to == ENTRANCE) {
             createHallway(roomX, roomY, roomZ, doorDirection);
             return;
         }
         if (SPANNING_TREE.get(to).size() > 2) {
             List<Integer> neighbor = SPANNING_TREE.get(to);
             int count = 0;
-            for(int id : neighbor){
-                if(this.getDoorDirection(to, id).isHorizontal()){
+            for (int id : neighbor) {
+                if (this.getDoorDirection(to, id).isHorizontal()) {
                     count++;
                 }
             }
-            if(count == neighbor.size()){
+            if (count == neighbor.size()) {
                 createCorridor(roomX, roomY, roomZ, doorDirection);
                 return;
             }

@@ -4,9 +4,6 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.material.ToolMaterial;
-import net.minecraft.core.item.tool.ItemTool;
-import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,9 +17,11 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
 
-    @Shadow public Player player;
+    @Shadow
+    public Player player;
 
-    @Shadow public ItemStack[] mainInventory;
+    @Shadow
+    public ItemStack[] mainInventory;
 
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
     public float aether_getStrVsBlock(float strVsBlock, Block<?> block) {

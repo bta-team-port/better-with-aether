@@ -60,7 +60,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
 
     public void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(16, (byte)0, Byte.class);
+        this.entityData.define(16, (byte) 0, Byte.class);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         super.tick();
         this.oFlap = this.flap;
         this.oFlapSpeed = this.flapSpeed;
-        this.flapSpeed = (float)((double)this.flapSpeed + (double)(this.onGround ? -1 : 4) * 0.3);
+        this.flapSpeed = (float) ((double) this.flapSpeed + (double) (this.onGround ? -1 : 4) * 0.3);
 
         if (this.flapSpeed < 0.0F) {
             this.flapSpeed = 0.0F;
@@ -95,7 +95,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
             this.flapping = 1.0F;
         }
 
-        this.flapping = (float)((double)this.flapping * 0.9);
+        this.flapping = (float) ((double) this.flapping * 0.9);
         if (!this.onGround && this.yd < 0.0) {
             this.yd *= 0.6;
         }
@@ -114,10 +114,13 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
     }
 
     @Override
-    protected void jump() { this.yd = 0.6; }
+    protected void jump() {
+        this.yd = 0.6;
+    }
 
     @Override
-    protected void causeFallDamage(float distance) {}
+    protected void causeFallDamage(float distance) {
+    }
 
     public String getLivingSound() {
         return "aether:mob.moa";
@@ -155,9 +158,9 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
 
     public void setSaddled(boolean flag) {
         if (flag) {
-            this.entityData.set(16, (byte)1);
+            this.entityData.set(16, (byte) 1);
         } else {
-            this.entityData.set(16, (byte)0);
+            this.entityData.set(16, (byte) 0);
         }
 
     }

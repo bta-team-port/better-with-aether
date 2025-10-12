@@ -2,7 +2,6 @@ package teamport.aether.items;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.BlockLogicSignPainted;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.Item;

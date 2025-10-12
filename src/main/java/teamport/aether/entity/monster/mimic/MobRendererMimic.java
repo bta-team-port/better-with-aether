@@ -12,7 +12,7 @@ public class MobRendererMimic extends MobRenderer<MobMimic> {
     }
 
     public void setupScale(MobMimic entity, float partialTick) {
-        GL11.glScalef(2.0f , 2.0f, 2.0f);
+        GL11.glScalef(2.0f, 2.0f, 2.0f);
     }
 
 }

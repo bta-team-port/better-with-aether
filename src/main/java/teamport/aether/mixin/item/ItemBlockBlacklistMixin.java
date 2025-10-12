@@ -1,6 +1,5 @@
 package teamport.aether.mixin.item;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
@@ -18,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.world.AetherDimension;
 
 import java.util.List;

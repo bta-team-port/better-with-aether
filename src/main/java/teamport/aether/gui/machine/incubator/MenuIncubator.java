@@ -17,17 +17,17 @@ public class MenuIncubator extends MenuAbstract {
     public int maxProcessTime = 0;
     public int maxEnergyTime = 0;
 
-    public MenuIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator){
+    public MenuIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator) {
         this.incubator = tileEntityIncubator;
-        this.addSlot(new Slot(tileEntityIncubator, 0,73, 17));
+        this.addSlot(new Slot(tileEntityIncubator, 0, 73, 17));
         this.addSlot(new SlotIncubatorFuel(tileEntityIncubator, 1, 73, 53));
-        for(int i = 0; i < 3; ++i) {
-            for(int k = 0; k < 9; ++k) {
+        for (int i = 0; i < 3; ++i) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
             }
         }
 
-        for(int j = 0; j < 9; ++j) {
+        for (int j = 0; j < 9; ++j) {
             this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
         }
     }
@@ -83,7 +83,7 @@ public class MenuIncubator extends MenuAbstract {
     public void broadcastChanges() {
         super.broadcastChanges();
 
-        for(ContainerListener crafter : this.containerListeners) {
+        for (ContainerListener crafter : this.containerListeners) {
             if (this.currentProcessTime != this.incubator.currentProcessTime) {
                 crafter.updateCraftingInventoryInfo(this, 0, this.incubator.currentProcessTime);
             }
@@ -123,6 +123,8 @@ public class MenuIncubator extends MenuAbstract {
     }
 
     @Override
-    public boolean stillValid(Player player) {return this.incubator.stillValid(player);}
+    public boolean stillValid(Player player) {
+        return this.incubator.stillValid(player);
+    }
 }
 

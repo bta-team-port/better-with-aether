@@ -18,10 +18,10 @@ public class AetherSlotGuidebook extends SlotGuidebook {
         if (this.symbol != null) {
             Random r = new Random();
             List<ItemStack> list = this.symbol.resolve();
-            ItemStack newItem = (ItemStack) list.get(r.nextInt(list.size()));
+            ItemStack newItem = list.get(r.nextInt(list.size()));
             if (list.size() > 1) {
                 while (newItem == this.item) {
-                    newItem = (ItemStack) list.get(r.nextInt(list.size()));
+                    newItem = list.get(r.nextInt(list.size()));
                 }
             }
             this.item = newItem;

@@ -16,12 +16,15 @@ import teamport.aether.models.DynamicTextureDungeonCompass;
 public abstract class DynamicTexturesMixin {
 
 
-    @Shadow @Final
+    @Shadow
+    @Final
     public Minecraft mc;
 
-    @Shadow protected abstract void addDynamicTextureOverride(DynamicTexture texture, boolean override);
+    @Shadow
+    protected abstract void addDynamicTextureOverride(DynamicTexture texture, boolean override);
 
-    @Shadow protected abstract void addDynamicTexture(DynamicTexture texture);
+    @Shadow
+    protected abstract void addDynamicTexture(DynamicTexture texture);
 
     @Inject(method = "initDynamicTextures", at = @At(value = "TAIL"))
     public void initDynamicTextures(CallbackInfo ci) {

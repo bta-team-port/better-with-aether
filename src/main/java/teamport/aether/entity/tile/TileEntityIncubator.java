@@ -11,8 +11,8 @@ import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.AetherRecipes;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.machine.BlockLogicIncubator;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
@@ -32,21 +32,23 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     /// currentProcessTime      -> currentCookTime
     Player thePlayer;
 
-    public TileEntityIncubator(){this.containerItemStacks = new ItemStack[2];}
+    public TileEntityIncubator() {
+        this.containerItemStacks = new ItemStack[2];
+    }
 
     @Override
-    public String getNameTranslationKey(){
+    public String getNameTranslationKey() {
         return "aether.container.incubator.name";
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         boolean isEnergyTimeHigherThan0 = this.currentEnergyTime > 0;
         boolean updateMachine = false;
         if (this.currentEnergyTime > 0) {
             --this.currentEnergyTime;
         }
-        if(canProcess()){
+        if (canProcess()) {
             this.maxProcessTime = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]).getData();
         }
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
@@ -88,7 +90,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
                 updateMachine = true;
             }
 
-            if(containerItemStacks[0] == null){
+            if (containerItemStacks[0] == null) {
                 updateMachine = true;
             }
 

@@ -22,10 +22,10 @@ public abstract class MobMixinSwimming extends Entity {
             at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0)
     )
     public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
-        if (!((Mob)(Object) this instanceof Player)) {
+        if (!((Mob) (Object) this instanceof Player)) {
             return;
         }
-        Player player = (Player)(Object) this;
+        Player player = (Player) (Object) this;
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return;
         }
@@ -49,10 +49,10 @@ public abstract class MobMixinSwimming extends Entity {
             )
     )
     public float aether$changeMoveRelative(float constant) {
-        if (!((Mob)(Object) this instanceof Player)) {
+        if (!((Mob) (Object) this instanceof Player)) {
             return constant;
         }
-        Player player = (Player)(Object) this;
+        Player player = (Player) (Object) this;
 
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return constant;
@@ -62,18 +62,16 @@ public abstract class MobMixinSwimming extends Entity {
 
     @ModifyConstant(method = "onLivingUpdate", constant = @Constant(doubleValue = 0.04, ordinal = 0))
     public double aether$changeRisingSpeed(double constant) {
-        if (!((Mob)(Object) this instanceof Player)) {
+        if (!((Mob) (Object) this instanceof Player)) {
             return constant;
         }
-        Player player = (Player)(Object) this;
+        Player player = (Player) (Object) this;
 
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return constant;
         }
         return 0.16;
     }
-
-
 
 
 }

@@ -56,10 +56,10 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
             ItemStack output = recipe.getOutput();
             if (
                     input != null
-                    && output != null
-                    && input.isItemStackDamageable()
-                    && output.isItemStackDamageable()
-                    && output.itemID == input.itemID
+                            && output != null
+                            && input.isItemStackDamageable()
+                            && output.isItemStackDamageable()
+                            && output.itemID == input.itemID
             ) {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(posX - 1, posY - 1, 0.0f);
@@ -106,7 +106,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
                         && output.itemID == copyInput.itemID
         ) {
             List<ItemStack> variations = new ArrayList<>();
-            for(int i = 1; i < 10; i++){
+            for (int i = 1; i < 10; i++) {
                 int damage = Math.round(copyInput.getMaxDamage() / 10.0f * i);
                 copyInput.setMetadata(damage);
                 ItemStack stack = copyInput.copy();

@@ -12,7 +12,6 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 @Environment(EnvType.CLIENT)

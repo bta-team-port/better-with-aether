@@ -15,8 +15,8 @@ public abstract class PortalLoadingScreenMixin {
     private String backgroundPath;
 
     @Inject(method = "updateLoadingBackground(Lnet/minecraft/core/world/Dimension;)V", at = @At("HEAD"), cancellable = true)
-    public void customBackground(Dimension dimension, CallbackInfo ci){
-        if (dimension == AetherDimension.AETHER){
+    public void customBackground(Dimension dimension, CallbackInfo ci) {
+        if (dimension == AetherDimension.AETHER) {
             this.backgroundPath = "/assets/aether/textures/gui/background-loading-aether.png";
             ci.cancel();
         }

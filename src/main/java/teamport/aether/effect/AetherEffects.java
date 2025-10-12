@@ -32,9 +32,9 @@ public class AetherEffects {
         public final Map<Effect, Effect> locker = new HashMap<>();
         public final Map<Effect, HashSet<Effect>> lockedEffects = new HashMap<>();
 
-        public void addEntry(Effect getLocked, Effect lock){
+        public void addEntry(Effect getLocked, Effect lock) {
             this.locker.put(getLocked, lock);
-            if(this.lockedEffects.containsKey(lock)){
+            if (this.lockedEffects.containsKey(lock)) {
                 HashSet<Effect> effects = this.lockedEffects.get(lock);
                 effects.add(getLocked);
                 return;
@@ -44,23 +44,25 @@ public class AetherEffects {
             this.lockedEffects.put(lock, effects);
         }
 
-        public @Nullable Effect getLocker(Effect id){
-            return this.locker.getOrDefault(id,null);
+        public @Nullable Effect getLocker(Effect id) {
+            return this.locker.getOrDefault(id, null);
         }
 
-        public @Nullable HashSet<Effect> getLockedEffects(Effect id){
+        public @Nullable HashSet<Effect> getLockedEffects(Effect id) {
             return this.lockedEffects.getOrDefault(id, null);
         }
 
-        public Map<Effect, Effect> getLockerMap(){
+        public Map<Effect, Effect> getLockerMap() {
             return this.locker;
         }
-        public Map<Effect, HashSet<Effect>> getLockedEffectsMap(){
+
+        public Map<Effect, HashSet<Effect>> getLockedEffectsMap() {
             return this.lockedEffects;
         }
     }
 
     private static boolean hasInit = false;
+
     public static void init() {
         if (hasInit) {
             return;
@@ -92,11 +94,11 @@ public class AetherEffects {
      */
     private static void assignEffects() {
         extraHealthEffect = new Effect(
-            "effect.aether.extra_health",
-            MOD_ID + ":extra_health" ,
-            Arrays.asList(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1)),
-            EffectTimeType.PERMANENT,
-            40
+                "effect.aether.extra_health",
+                MOD_ID + ":extra_health",
+                Collections.singletonList(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1)),
+                EffectTimeType.PERMANENT,
+                40
         ).setPersistent();
 
         poisonEffect = new PoisonEffect(
@@ -132,8 +134,8 @@ public class AetherEffects {
     private static void assignEffectRenderers() {
         EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
         dispatcher.addDispatch(extraHealthEffect,
-            new ExtraHealthEffectRenderer<>(extraHealthEffect)
-                .setIcon(TextureRegistry.getTexture(AetherItems.LIFESHARD.namespaceID))
+                new ExtraHealthEffectRenderer<>(extraHealthEffect)
+                        .setIcon(TextureRegistry.getTexture(AetherItems.LIFESHARD.namespaceID))
         );
 
         dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
@@ -157,9 +159,9 @@ public class AetherEffects {
 
     /**
      * @param affected effect that lock will act on
-     * @param lock affected effect won't apply if this effect is present
+     * @param lock     affected effect won't apply if this effect is present
      */
-    public static void registerLock(Effect affected, Effect lock){
+    public static void registerLock(Effect affected, Effect lock) {
         LookupLooks.instance.addEntry(affected, lock);
     }
 
@@ -172,7 +174,7 @@ public class AetherEffects {
         EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
 
         for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
-            if(dispatcher.getDispatch(effectStack.getEffect()) instanceof AetherCustomHeartContainer){
+            if (dispatcher.getDispatch(effectStack.getEffect()) instanceof AetherCustomHeartContainer) {
                 if (dominant == null) dominant = effectStack;
                 int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
                 int dominantPotency = dominant.getAmount() * dominant.getDuration();
@@ -184,37 +186,35 @@ public class AetherEffects {
 
 
     /**
+     * @param mob       affected Mob
+     * @param newEffect Effect affecting the mob
+     * @param amount    stack size of the effect
+     * @return true if the effect was applied false otherwise
      * @apiNote If you want aether style effect use this function to add your effects.
-     * @see ILockInteractable
-     * @implNote  Effect can only affect mob if the effect is not locked.
+     * @implNote Effect can only affect mob if the effect is not locked.
      * Each effect defined what effect lock it out from being reapplied.
      * Returns always false if a given effect is locked.
-     *
-     * @param mob affected Mob
-     * @param newEffect Effect affecting the mob
-     * @param amount stack size of the effect
-     * @return true if the effect was applied false otherwise
-     * */
+     * @see ILockInteractable
+     */
     public static boolean add(Mob mob, Effect newEffect, int amount) {
-        if(!(mob instanceof IHasEffects)) return false;
+        if (!(mob instanceof IHasEffects)) return false;
         EffectStack stack = new EffectStack((IHasEffects) mob, newEffect, amount);
         return AetherEffects.add(mob, stack);
     }
 
 
     /**
-     * @apiNote If you want aether style effect use this function to add your effects.
-     * @see ILockInteractable
-     * @implNote  Effect can only affect mob if the effect is not locked.
-     * Each effect defined what effect lock it out from being reapplied.
-     * Returns always false if a given effect is locked.
-     *
-     * @param mob affected Mob
+     * @param mob        affected Mob
      * @param stackToAdd Effect stack affecting the mob
      * @return true if the effect was applied false otherwise
-     * */
+     * @apiNote If you want aether style effect use this function to add your effects.
+     * @implNote Effect can only affect mob if the effect is not locked.
+     * Each effect defined what effect lock it out from being reapplied.
+     * Returns always false if a given effect is locked.
+     * @see ILockInteractable
+     */
     public static boolean add(Mob mob, EffectStack stackToAdd) {
-        if(!(mob instanceof IHasEffects)) return false;
+        if (!(mob instanceof IHasEffects)) return false;
         IHasEffects entity = (IHasEffects) mob;
 
         for (EffectStack currStack : entity.getContainer().getEffects()) {
@@ -222,7 +222,7 @@ public class AetherEffects {
             int currMax = currEffect.getMaxStack();
 
             if (currEffect == stackToAdd.getEffect()) {
-                if (currStack.getAmount() + stackToAdd.getAmount() >= currMax){
+                if (currStack.getAmount() + stackToAdd.getAmount() >= currMax) {
                     int amountToAdd = currMax - currStack.getAmount();
 
                     currStack.add(amountToAdd, entity.getContainer());

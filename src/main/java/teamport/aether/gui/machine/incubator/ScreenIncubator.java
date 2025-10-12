@@ -7,9 +7,9 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
+import teamport.aether.entity.tile.TileEntityIncubator;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelIncubator;
-import teamport.aether.entity.tile.TileEntityIncubator;
 
 @Environment(EnvType.CLIENT)
 public class ScreenIncubator extends ScreenAetherMachine {
@@ -48,7 +48,7 @@ public class ScreenIncubator extends ScreenAetherMachine {
 
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
-        if(stackInSlot == null) return 0;
+        if (stackInSlot == null) return 0;
         boolean isIngredient = AetherRecipes.INCUBATOR.findRecipe(stackInSlot) != null;
         boolean isFuel = LookupFuelIncubator.instance.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {

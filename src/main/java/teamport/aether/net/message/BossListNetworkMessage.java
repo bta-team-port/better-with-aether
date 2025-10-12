@@ -31,7 +31,8 @@ public class BossListNetworkMessage implements NetworkMessage {
         return e;
     }
 
-    public BossListNetworkMessage() {}
+    public BossListNetworkMessage() {
+    }
 
     public BossListNetworkMessage(Type type, Entity entity) {
         this.type = type;
@@ -70,9 +71,7 @@ public class BossListNetworkMessage implements NetworkMessage {
 
             if (type == Type.ADD) ((AetherBossList) player).aether$TryAddBossList((Mob) entity);
             else ((AetherBossList) player).aether$removeFromBossList((Mob) entity);
-        }
-
-        else {
+        } else {
             ((AetherBossList) player).aether$clearBossList();
         }
     }

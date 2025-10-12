@@ -20,8 +20,11 @@ import static teamport.aether.AetherMod.LOGGER;
 @Mixin(value = World.class, remap = false, priority = 0)
 public abstract class WorldGetCubesMixin {
 
-    @Shadow @Nullable public abstract Block<?> getBlock(int x, int y, int z);
+    @Shadow
+    @Nullable
+    public abstract Block<?> getBlock(int x, int y, int z);
 
+    @Unique
     public boolean isBrokenAABB(AABB aabb) {
         double diffX = Math.abs(aabb.maxX - aabb.minX);
         double diffY = Math.abs(aabb.maxY - aabb.minY);
@@ -45,7 +48,7 @@ public abstract class WorldGetCubesMixin {
                         entity.x, entity.y, entity.z,
                         Math.sqrt(entity.xd * entity.xd + entity.yd * entity.yd + entity.zd * entity.zd)
                 );
-                Block<?> block = this.getBlock((int)Math.round(entity.x), (int)Math.round(entity.y - 1), (int)Math.round(entity.z));
+                Block<?> block = this.getBlock((int) Math.round(entity.x), (int) Math.round(entity.y - 1), (int) Math.round(entity.z));
                 String name = block == null ? "air" : block.getLanguageKey(0);
                 LOGGER.error("Currently standing on: {} at ", name);
                 LOGGER.error("Please send this log to a BWA developer!");
@@ -54,8 +57,7 @@ public abstract class WorldGetCubesMixin {
                 entity.xo = 0;
                 entity.yo = 0;
                 entity.zo = 0;
-            }
-            else {
+            } else {
                 LOGGER.error("Something is moving too fast! Please send this to a developer!");
                 Thread.dumpStack();
             }

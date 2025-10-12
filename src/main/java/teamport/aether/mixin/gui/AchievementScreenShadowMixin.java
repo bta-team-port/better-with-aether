@@ -1,6 +1,5 @@
 package teamport.aether.mixin.gui;
 
-import teamport.aether.achievements.AetherAchievementPageExtras;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.minecraft.client.gui.achievements.ScreenAchievements;
@@ -10,6 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.achievements.AetherAchievementPageExtras;
 
 @Mixin(value = ScreenAchievements.class, remap = false)
 public class AchievementScreenShadowMixin {

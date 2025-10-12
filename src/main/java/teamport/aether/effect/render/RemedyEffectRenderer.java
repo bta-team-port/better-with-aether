@@ -15,8 +15,8 @@ public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> 
 
     @Override
     public float calcAlpha(EffectStack effectStack) {
-        float percent = (float)effectStack.getTimeLeft() / (float)(effectStack.getDuration());
-        return (float)(Math.pow(percent, 4.0f));
+        float percent = (float) effectStack.getTimeLeft() / (float) (effectStack.getDuration());
+        return (float) (Math.pow(percent, 4.0f));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -9,6 +8,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.ParticleHelper;
 
 public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileHammerHead> {
 
@@ -60,10 +60,10 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
     public void doEffect() {
         world.playSoundAtEntity(null, this, "random.explode", 0.5F, 0.5F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
         for (int j = 0; j < 8; ++j) {
-            ParticleHelper.spawnParticle(this.world, "explode", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            ParticleHelper.spawnParticle(this.world, "smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            ParticleHelper.spawnParticle(this.world, "largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
-            ParticleHelper.spawnParticle(this.world, "flame", this.x, this.y, this.z, 0.0, 0.0, 0.0,0);
+            ParticleHelper.spawnParticle(this.world, "explode", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(this.world, "smoke", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(this.world, "largesmoke", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
+            ParticleHelper.spawnParticle(this.world, "flame", this.x, this.y, this.z, 0.0, 0.0, 0.0, 0);
         }
     }
 

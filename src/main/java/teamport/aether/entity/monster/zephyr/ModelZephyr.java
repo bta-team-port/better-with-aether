@@ -14,7 +14,7 @@ public class ModelZephyr extends ModelBase {
         this.body.addBox(-7.5F, -5.0F, -8.5F, 15, 12, 17);
         this.body.setRotationPoint(0.0f, 1.0f, 0.0f);
         Cube var10000 = this.body;
-        var10000.y += (float)(16);
+        var10000.y += (float) (16);
     }
 
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {

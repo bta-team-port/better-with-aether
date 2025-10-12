@@ -23,10 +23,10 @@ abstract public class MobMixinDrowning extends Entity {
             at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0)
     )
     public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
-        if (!((Mob)(Object) this instanceof Player)) {
+        if (!((Mob) (Object) this instanceof Player)) {
             return;
         }
-        Player player = (Player)(Object) this;
+        Player player = (Player) (Object) this;
         int count = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
         yd -= 0.004 * count;
     }

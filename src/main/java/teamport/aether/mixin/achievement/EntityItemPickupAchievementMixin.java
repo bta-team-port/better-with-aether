@@ -16,7 +16,8 @@ import teamport.aether.items.AetherItems;
 @Mixin(value = EntityItem.class, remap = false)
 public abstract class EntityItemPickupAchievementMixin {
 
-    @Shadow public ItemStack item;
+    @Shadow
+    public ItemStack item;
 
     @Inject(method = "playerTouch", at = @At("TAIL"), cancellable = true)
     public void playerTouch(Player player, CallbackInfo ci) {

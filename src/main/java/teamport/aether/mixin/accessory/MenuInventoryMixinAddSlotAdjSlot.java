@@ -42,7 +42,6 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
     @Shadow
     public ContainerInventory inventory;
 
-
     @Inject(method = "<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"

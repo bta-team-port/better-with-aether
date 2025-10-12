@@ -1,25 +1,20 @@
 package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.helper.Pair;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static net.minecraft.core.util.helper.Direction.EAST;
-import static net.minecraft.core.util.helper.Direction.SOUTH;
-import static net.minecraft.core.util.helper.Direction.UP;
-import static net.minecraft.core.util.helper.Direction.WEST;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 
-public class JumpRoom extends BaseBronzeRoom{
+public class JumpRoom extends BaseBronzeRoom {
     public static BlockPallet jumpMimics = new BlockPallet();
+
     static {
         jumpMimics.addEntry(0, 1.5);
         jumpMimics.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 2);
@@ -27,7 +22,7 @@ public class JumpRoom extends BaseBronzeRoom{
     }
 
 
-    public JumpRoom(){
+    public JumpRoom() {
         super();
         this.height = 15;
         addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
@@ -35,8 +30,8 @@ public class JumpRoom extends BaseBronzeRoom{
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
 
-        addDoor(DOWN, wfp(5,0,5), EAST, 2, SOUTH, 2);
-        addDoor(UP, wfp(5,this.height,5), EAST, 2, SOUTH, 2);
+        addDoor(DOWN, wfp(5, 0, 5), EAST, 2, SOUTH, 2);
+        addDoor(UP, wfp(5, this.height, 5), EAST, 2, SOUTH, 2);
     }
 
     @Override
@@ -65,7 +60,7 @@ public class JumpRoom extends BaseBronzeRoom{
         listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 10, true));
         Collections.shuffle(listChestPos, random);
         int max = random.nextInt(3) + 1;
-        for(int i = 0; i < max; i++){
+        for (int i = 0; i < max; i++) {
             chest.add(listChestPos.get(i));
         }
     }

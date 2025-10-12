@@ -46,7 +46,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     @Override
     public void updateAI() {
-        double[] distances = new double[] {
+        double[] distances = new double[]{
                 this.openSpace(0.0F, 0.0F),
                 this.openSpace(45.0F, 0.0F),
                 this.openSpace(0.0F, 45.0F),
@@ -67,10 +67,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
                     this.motionYaw *= 0.90F;
                     this.motionPitch *= 0.90F;
 
-                    if (this.y > 225.0) {  this.motionPitch -= 2.0; }
-                    else if (this.y < 180.0) { this.motionPitch += 2.0; }
-                }
-                else {
+                    if (this.y > 225.0) {
+                        this.motionPitch -= 2.0;
+                    } else if (this.y < 180.0) {
+                        this.motionPitch += 2.0;
+                    }
+                } else {
                     this.xRot = -this.xRot;
                     this.yRot = -this.yRot;
                 }
@@ -104,8 +106,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
             double lerpYRot = this.newRotationYaw - (double) this.yRot;
             double lerpXRot = this.newRotationPitch - (double) this.xRot;
 
-            while (lerpYRot < (double) -180.0F) { lerpYRot += 360.0F; }
-            while (lerpYRot >= (double) 180.0F) { lerpYRot -= 360.0F; }
+            while (lerpYRot < (double) -180.0F) {
+                lerpYRot += 360.0F;
+            }
+            while (lerpYRot >= (double) 180.0F) {
+                lerpYRot -= 360.0F;
+            }
 
             this.yRot = (float) ((double) this.yRot + lerpYRot / (double) this.newPosRotationIncrements);
             this.xRot = (float) ((double) this.xRot + lerpXRot / (double) this.newPosRotationIncrements);
@@ -120,8 +126,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         this.xRot = (float) ((double) this.xRot + 0.1 * this.motionPitch);
         this.yRot = (float) ((double) this.yRot + 0.1 * this.motionYaw);
 
-        if (this.xRot < -60.0F) { this.xRot = -60.0F; }
-        if (this.xRot > 60.0F) { this.xRot = 60.0F; }
+        if (this.xRot < -60.0F) {
+            this.xRot = -60.0F;
+        }
+        if (this.xRot > 60.0F) {
+            this.xRot = 60.0F;
+        }
 
         this.xRot = (float) ((double) this.xRot * 0.99);
 
@@ -137,13 +147,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         int floorY = MathHelper.floor(this.bb.minY);
         int floorZ = MathHelper.floor(this.z);
 
-        assert world!=null; // shutupintelij
+        assert world != null; // shutupintelij
 
         if (this.xd > 0.0 && this.world.getBlockId(floorX + 1, floorY, floorZ) != 0) {
             this.xd = -this.xd;
             this.motionYaw -= 10.0;
-        }
-        else if (this.xd < 0.0 && this.world.getBlockId(floorX - 1, floorY, floorZ) != 0) {
+        } else if (this.xd < 0.0 && this.world.getBlockId(floorX - 1, floorY, floorZ) != 0) {
             this.xd = -this.xd;
             this.motionYaw += 10.0;
         }
@@ -151,8 +160,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         if (this.yd > 0.0 && this.world.getBlockId(floorX, floorY + 1, floorZ) != 0) {
             this.yd = -this.yd;
             this.motionPitch -= 10.0;
-        }
-        else if (this.yd < 0.0 && this.world.getBlockId(floorX, floorY - 1, floorZ) != 0) {
+        } else if (this.yd < 0.0 && this.world.getBlockId(floorX, floorY - 1, floorZ) != 0) {
             this.yd = -this.yd;
             this.motionPitch += 10.0;
         }
@@ -160,8 +168,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         if (this.zd > 0.0 && this.world.getBlockId(floorX, floorY, floorZ + 1) != 0) {
             this.zd = -this.zd;
             this.motionYaw -= 10.0;
-        }
-        else if (this.zd < 0.0 && this.world.getBlockId(floorX, floorY, floorZ - 1) != 0) {
+        } else if (this.zd < 0.0 && this.world.getBlockId(floorX, floorY, floorZ - 1) != 0) {
             this.zd = -this.zd;
             this.motionYaw += 10.0;
         }

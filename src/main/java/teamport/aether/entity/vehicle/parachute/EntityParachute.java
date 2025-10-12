@@ -63,7 +63,7 @@ public class EntityParachute extends Mob implements AetherRideable {
     }
 
     public void breakParachute() {
-        for (int i = 0; i < 16 +  random.nextInt(10); i++) {
+        for (int i = 0; i < 16 + random.nextInt(10); i++) {
             float faceX = bbWidth * random.nextFloat();
             float faceY = bbWidth * random.nextFloat();
 
@@ -165,11 +165,11 @@ public class EntityParachute extends Mob implements AetherRideable {
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         if (EnvironmentHelper.isClientWorld()) {
             NetworkHandler.sendToServer(
-                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
         }
 
-        float yawDeg = (float) (yRot * (Math.PI/180));
+        float yawDeg = (float) (yRot * (Math.PI / 180));
         float step = 0.175F;
 
         if (moveForward > 0.1F) {

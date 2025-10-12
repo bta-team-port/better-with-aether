@@ -11,7 +11,8 @@ public class SunspiritDeathNetworkMessage implements NetworkMessage {
     boolean isDead;
     long timestamp;
 
-    public SunspiritDeathNetworkMessage() {}
+    public SunspiritDeathNetworkMessage() {
+    }
 
     public SunspiritDeathNetworkMessage(boolean isDead, long timestamp) {
         this.isDead = isDead;

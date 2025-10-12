@@ -14,8 +14,8 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.AetherMod;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.AetherMathHelper;
@@ -224,7 +224,7 @@ public class MobBossValkyrie extends MobBoss {
             int ix = newX + (this.random.nextInt(6) - this.random.nextInt(6));
             int iy = (int) this.y;
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
-            if (       iy >= 0 && iy < world.getHeightBlocks()
+            if (iy >= 0 && iy < world.getHeightBlocks()
                     && this.isAirySpace(ix, iy, iz) && this.isAirySpace(ix, iy + 1, iz) && !this.isAirySpace(ix, iy - 1, iz)
                     && ix >= p1.x && ix <= p1.x + 16
                     && iy >= p1.y && iy <= p1.y + 16

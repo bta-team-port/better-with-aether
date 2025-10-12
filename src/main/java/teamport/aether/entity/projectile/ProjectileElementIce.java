@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -14,6 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.helper.ParticleHelper;
 
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
 

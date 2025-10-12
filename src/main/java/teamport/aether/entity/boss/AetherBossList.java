@@ -10,5 +10,6 @@ public interface AetherBossList {
     void aether$TryAddBossList(Mob mob);
 
     void aether$clearBossList();
+
     void aether$removeFromBossList(Mob mob);
 }

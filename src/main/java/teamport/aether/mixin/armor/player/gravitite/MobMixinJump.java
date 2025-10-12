@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.helper.ParticleHelper;
+import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinJump extends Entity {

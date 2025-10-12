@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import teamport.aether.helper.ParticleHelper;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
@@ -17,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileNeedle> {
@@ -77,9 +77,9 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         newMotionX /= velocity;
         newMotionY /= velocity;
         newMotionZ /= velocity;
-        newMotionX += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
-        newMotionY += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
-        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double)randomness) / 2;
+        newMotionX += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        newMotionY += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
+        newMotionZ += (this.random.nextGaussian() * 0.0075 * (double) randomness) / 2;
         newMotionX *= speed;
         newMotionY *= speed;
         newMotionZ *= speed;
@@ -87,8 +87,8 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         this.yd = newMotionY;
         this.zd = newMotionZ;
         float f3 = MathHelper.sqrt(newMotionX * newMotionX + newMotionZ * newMotionZ);
-        this.yRotO = this.yRot = (float)(Math.atan2(newMotionX, newMotionZ) * 180.0 / Math.PI);
-        this.xRotO = this.xRot = (float)(Math.atan2(newMotionY, f3) * 180.0 / Math.PI);
+        this.yRotO = this.yRot = (float) (Math.atan2(newMotionX, newMotionZ) * 180.0 / Math.PI);
+        this.xRotO = this.xRot = (float) (Math.atan2(newMotionY, f3) * 180.0 / Math.PI);
         this.ticksInGround = 0;
     }
 
@@ -106,8 +106,8 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         this.zd = zd;
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(xd * xd + zd * zd);
-            this.yRot = (float)(Math.atan2(xd, zd) * 30.0 / Math.PI);
-            this.xRot = (float)(Math.atan2(yd, f) * 30.0 / Math.PI);
+            this.yRot = (float) (Math.atan2(xd, zd) * 30.0 / Math.PI);
+            this.xRot = (float) (Math.atan2(yd, f) * 30.0 / Math.PI);
             this.xRotO = this.xRot;
             this.yRotO = this.yRot;
             this.moveTo(this.x, this.y, this.z, this.yRot, this.xRot);
@@ -123,8 +123,8 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
 
         if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
             float f = MathHelper.sqrt(this.xd * this.xd + this.zd * this.zd);
-            this.yRotO = this.yRot = (float)(Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
-            this.xRotO = this.xRot = (float)(Math.atan2(this.yd, f) * 30.0 / Math.PI);
+            this.yRotO = this.yRot = (float) (Math.atan2(this.xd, this.zd) * 30.0 / Math.PI);
+            this.xRotO = this.xRot = (float) (Math.atan2(this.yd, f) * 30.0 / Math.PI);
         }
 
         Block<?> block = this.world.getBlock(this.xTile, this.yTile, this.zTile);
@@ -146,9 +146,9 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
 
             } else {
                 this.setGrounded(false);
-                this.xd *= (double)this.random.nextFloat() * 0.02;
-                this.yd *= (double)this.random.nextFloat() * 0.02;
-                this.zd *= (double)this.random.nextFloat() * 0.02;
+                this.xd *= (double) this.random.nextFloat() * 0.02;
+                this.yd *= (double) this.random.nextFloat() * 0.02;
+                this.zd *= (double) this.random.nextFloat() * 0.02;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -208,7 +208,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     }
 
     public void waterTick() {
-        for(int k = 0; k < 4; ++k) {
+        for (int k = 0; k < 4; ++k) {
             double particleDistance = 0.25;
             ParticleHelper.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
         }
@@ -218,13 +218,13 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putShort("xTile", (short)this.xTile);
-        tag.putShort("yTile", (short)this.yTile);
-        tag.putShort("zTile", (short)this.zTile);
-        tag.putShort("inTile", (short)this.inTile);
-        tag.putByte("shake", (byte)this.shake);
-        tag.putByte("inData", (byte)this.inData);
-        tag.putByte("inGround", (byte)(this.isGrounded() ? 1 : 0));
+        tag.putShort("xTile", (short) this.xTile);
+        tag.putShort("yTile", (short) this.yTile);
+        tag.putShort("zTile", (short) this.zTile);
+        tag.putShort("inTile", (short) this.inTile);
+        tag.putByte("shake", (byte) this.shake);
+        tag.putByte("inData", (byte) this.inData);
+        tag.putByte("inGround", (byte) (this.isGrounded() ? 1 : 0));
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {

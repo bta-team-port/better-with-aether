@@ -1,7 +1,5 @@
 package teamport.aether;
 
-import teamport.aether.achievements.AchievementPageAether;
-import teamport.aether.achievements.AetherAchievements;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,6 +17,8 @@ import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
+import teamport.aether.achievements.AchievementPageAether;
+import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
@@ -42,7 +42,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static HudComponent JUMP_BAR;
 
     public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
-    public static AtlasStitcher extras = register("extras", new AtlasStitcher("textures/extras", true, false, (String) null));
+    public static AtlasStitcher extras = register("extras", new AtlasStitcher("textures/extras", true, false, null));
 
     @Override
     public void beforeClientStart() {

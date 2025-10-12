@@ -1,6 +1,5 @@
 package teamport.aether.items;
 
-import teamport.aether.helper.ParticleHelper;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityActivator;
@@ -16,6 +15,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.ParticleHelper;
 
 import java.util.Random;
 

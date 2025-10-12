@@ -17,18 +17,18 @@ public class MenuFreezer extends MenuAbstract {
     public int maxProcessTime = 0;
     public int maxEnergyTime = 0;
 
-    public MenuFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer){
+    public MenuFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer) {
         this.freezer = tileEntityFreezer;
         this.addSlot(new Slot(tileEntityFreezer, 0, 56, 17));
         this.addSlot(new Slot(tileEntityFreezer, 1, 56, 53));
         this.addSlot(new SlotFreezer(inventory.player, tileEntityFreezer, 2, 116, 35));
-        for(int i = 0; i < 3; ++i) {
-            for(int k = 0; k < 9; ++k) {
+        for (int i = 0; i < 3; ++i) {
+            for (int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
             }
         }
 
-        for(int j = 0; j < 9; ++j) {
+        for (int j = 0; j < 9; ++j) {
             this.addSlot(new Slot(inventory, j, 8 + j * 18, 142));
         }
     }
@@ -101,7 +101,7 @@ public class MenuFreezer extends MenuAbstract {
     public void broadcastChanges() {
         super.broadcastChanges();
 
-        for(ContainerListener crafter : this.containerListeners) {
+        for (ContainerListener crafter : this.containerListeners) {
             if (this.currentProcessTime != this.freezer.currentProcessTime) {
                 crafter.updateCraftingInventoryInfo(this, 0, this.freezer.currentProcessTime);
             }
@@ -125,6 +125,8 @@ public class MenuFreezer extends MenuAbstract {
     }
 
     @Override
-    public boolean stillValid(Player player) {return this.freezer.stillValid(player);}
+    public boolean stillValid(Player player) {
+        return this.freezer.stillValid(player);
+    }
 }
 

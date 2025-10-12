@@ -26,11 +26,11 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, String, 
     }
 
     public boolean matches(ItemStack stack) {
-        return ((RecipeSymbol)this.getInput()).matches(stack);
+        return this.getInput().matches(stack);
     }
 
     public boolean matchesQuery(SearchQuery query) {
-        switch (query.mode){
+        switch (query.mode) {
             case ALL: {
                 if ((matchesRecipe(query) || matchesUsage(query))) return true;
                 break;
@@ -49,8 +49,8 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, String, 
 
 
     public boolean matchesRecipe(SearchQuery query) {
-        if(query.query.getLeft() == SearchQuery.QueryType.NAME) {
-            if(query.strict && this.getOutput().equalsIgnoreCase(query.query.getRight())){
+        if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
+            if (query.strict && this.getOutput().equalsIgnoreCase(query.query.getRight())) {
                 return true;
             }
             return !query.strict && this.getOutput().toLowerCase().contains(query.query.getRight().toLowerCase());
@@ -62,11 +62,11 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, String, 
         List<ItemStack> stacks = getInput().resolve();
         for (ItemStack stack : stacks) {
             if (stack == null) continue;
-            if(query.query.getLeft() == SearchQuery.QueryType.NAME) {
-                if(query.strict && stack.getDisplayName().equalsIgnoreCase(query.query.getRight())){
+            if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
+                if (query.strict && stack.getDisplayName().equalsIgnoreCase(query.query.getRight())) {
                     return true;
                 }
-                if(!query.strict && stack.getDisplayName().toLowerCase().contains(query.query.getRight().toLowerCase())){
+                if (!query.strict && stack.getDisplayName().toLowerCase().contains(query.query.getRight().toLowerCase())) {
                     return true;
                 }
             }

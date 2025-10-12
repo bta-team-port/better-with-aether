@@ -41,7 +41,7 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
     }
 
     public void setupScale(MobCockatrice entity, float partialTick) {
-        GL11.glScalef(1.8f , 1.8f, 1.8f);
+        GL11.glScalef(1.8f, 1.8f, 1.8f);
     }
 
     public boolean prepareArmor(MobCockatrice entity, int renderPass, float partialTick) {

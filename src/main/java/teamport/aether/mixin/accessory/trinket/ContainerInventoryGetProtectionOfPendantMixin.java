@@ -11,14 +11,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.items.accessory.pendant.ItemPendant;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-abstract public  class ContainerInventoryGetProtectionOfPendantMixin {
+abstract public class ContainerInventoryGetProtectionOfPendantMixin {
 
     @WrapOperation(method = "getTotalProtectionAmount", at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/core/item/IArmorItem;getArmorPiece()I")
     )
-    public int ignoreSlotEqualityForTrickets(IArmorItem instance, Operation<Integer> original, @Local int i){
-        if(instance instanceof ItemPendant){
+    public int ignoreSlotEqualityForTrickets(IArmorItem instance, Operation<Integer> original, @Local int i) {
+        if (instance instanceof ItemPendant) {
             return i;
         }
         return original.call(instance);

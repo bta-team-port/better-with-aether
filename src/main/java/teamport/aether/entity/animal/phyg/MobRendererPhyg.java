@@ -22,17 +22,17 @@ public class MobRendererPhyg extends MobRenderer<MobPhyg> {
         float wingFold = MathHelper.lerp(pig.wingFoldO, pig.wingFold, partialTick);
         float wingAngle = MathHelper.lerp(pig.wingAngleO, pig.wingAngle, partialTick);
 
-        float wingBend = -((float)Math.acos(wingFold));
+        float wingBend = -((float) Math.acos(wingFold));
         float x = 32.0F * wingFold / 4.0F;
-        float y = -32.0F * (float)Math.sqrt(1.0F - wingFold * wingFold) / 4.0F;
+        float y = -32.0F * (float) Math.sqrt(1.0F - wingFold * wingFold) / 4.0F;
         float z = 0.0F;
-        float x2 = x * (float)Math.cos(wingAngle) - y * (float)Math.sin(wingAngle);
-        float y2 = x * (float)Math.sin(wingAngle) + y * (float)Math.cos(wingAngle);
+        float x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
+        float y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
         ModelPhyg.leftWingInner.setRotationPoint(4.0F + x2, y2 + 12.0F, z);
         ModelPhyg.rightWingInner.setRotationPoint(-4.0F - x2, y2 + 12.0F, z);
         x *= 3.0F;
-        x2 = x * (float)Math.cos(wingAngle) - y * (float)Math.sin(wingAngle);
-        y2 = x * (float)Math.sin(wingAngle) + y * (float)Math.cos(wingAngle);
+        x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
+        y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
 
         ModelPhyg.leftWingOuter.setRotationPoint(4.0F + x2, y2 + 12.0F, z);
         ModelPhyg.rightWingOuter.setRotationPoint(-4.0F - x2, y2 + 12.0F, z);

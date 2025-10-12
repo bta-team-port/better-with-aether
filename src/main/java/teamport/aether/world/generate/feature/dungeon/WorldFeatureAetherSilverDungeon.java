@@ -18,8 +18,6 @@ import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.dungeon.silver.WorldFeatureSilverMaze;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 import teamport.aether.world.generate.feature.BlockPallet;
 import teamport.aether.world.generate.feature.WorldFeatureAetherClouds;
 import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
@@ -27,6 +25,8 @@ import teamport.aether.world.generate.feature.chests.WorldFeatureAetherSilverChe
 import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.components.dungeon.silver.WorldFeatureSilverMaze;
+import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,18 +165,18 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     }
 
     public void placeComponent(WorldFeatureComponent component) {
-        for(WorldFeatureBlock block : component.blockList){
+        for (WorldFeatureBlock block : component.blockList) {
             block.rotateYAroundPivot(dungeonAnchor, direction);
             block.place(world);
         }
     }
 
     public boolean canPlace(int x, int y, int z) {
-        if(y + 35 >= world.getHeightBlocks()){
+        if (y + 35 >= world.getHeightBlocks()) {
             return false;
         }
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
-        for(WorldFeaturePoint point : clear.blockList){
+        for (WorldFeaturePoint point : clear.blockList) {
             point.rotateYAroundPivot(this.dungeonAnchor, this.direction);
             Material blockMaterial = world.getBlockMaterial(point.x, point.y, point.z);
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.x, point.y, point.z, BlockLogicCloudBase.class);
@@ -240,7 +240,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         // create clouds
         this.placeComponent(clear);
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
-        for (WorldFeaturePoint cloudPoint : cloudPoints) {;
+        for (WorldFeaturePoint cloudPoint : cloudPoints) {
             cloudPoint.rotateYAroundPivot(dungeonAnchor, direction);
             new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
@@ -302,7 +302,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 43));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 41)); //non trapdoor
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 41));
-        treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x,y,z),direction));
+        treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x, y, z), direction));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);
     }

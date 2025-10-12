@@ -11,8 +11,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.Color;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.AetherMod;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     private static final @NotNull IconCoordinate AETHER_GRASS;
     private static final @NotNull IconCoordinate COBBLED_HOLYSTONE;
     private static final @NotNull IconCoordinate COBBLED_HOLYSTONE_MOSSY;
-    private static final @NotNull IconCoordinate AETHER_DIRT ;
+    private static final @NotNull IconCoordinate AETHER_DIRT;
     private static final @NotNull IconCoordinate QUICKSOIL;
     private static final @NotNull IconCoordinate LOG_SKYROOT;
     private static final @NotNull IconCoordinate LEAVES_SKYROOT;
@@ -63,7 +61,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     static {
         IconCoordinate water = TextureRegistry.getTexture("aether:block/jank/water_flow");
         WATER_FLOWING = new IconCoordinate(water.parentAtlas, water.namespaceId, water.getImageSource());
-        WATER_FLOWING.setDimension(water.width/2, water.height/2);
+        WATER_FLOWING.setDimension(water.width / 2, water.height / 2);
         WATER_FLOWING.setPosition(water.iconX, water.iconY);
 
         AETHER_GRASS = TextureRegistry.getTexture("aether:block/grass_aether/side");
@@ -161,7 +159,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
         if (layer == 0 && origY > 0) {
             List<IntPair> water = BACKGROUND.WaterSources;
-            for (IntPair w: water) {
+            for (IntPair w : water) {
                 if (w.first == tileX && w.second <= origY)
                     return WATER_FLOWING;
             }

@@ -21,12 +21,12 @@ public class EntityRendererArrowFlaming extends EntityRenderer<ProjectileArrowFl
         GL11.glRotatef(arrow.xRotO + (arrow.xRot - arrow.xRotO) * partialTick, 0.0F, 0.0F, 1.0F);
         float bodyMinU = 0.0F;
         float bodyMaxU = 0.5F;
-        float bodyMinV = (float)(0) / 32.0F;
-        float bodyMaxV = (float)(5) / 32.0F;
+        float bodyMinV = (float) (0) / 32.0F;
+        float bodyMaxV = (float) (5) / 32.0F;
         float tailMinU = 0.0F;
         float tailMaxU = 0.15625F;
-        float tailMinV = (float)(5) / 32.0F;
-        float tailMaxV = (float)(10) / 32.0F;
+        float tailMinV = (float) (5) / 32.0F;
+        float tailMaxV = (float) (10) / 32.0F;
         float scale = 0.05625F;
         GL11.glEnable(32826);
         float shakeAmount = (float) arrow.shake - partialTick;
