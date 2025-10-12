@@ -8,6 +8,7 @@ import net.minecraft.client.gui.container.ScreenInventory;
 import net.minecraft.client.gui.container.ScreenInventoryCreative;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.core.Global;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
@@ -32,7 +33,7 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 @Mixin(value = ItemElement.class, remap = false)
 abstract public class ItemElementMixinHoverShowSlot extends Gui {
 
-    @Unique int tick = 0;
+    @Unique int lastTick = 0;
     @Unique String iconPathTrinket1;
     @Unique String iconPathTrinket2;
 
@@ -70,10 +71,9 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
             )
         ) {
             if (((AetherGameSettingsOptions)mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
-                tick++;
-
-                if (tick > 600) { // 3000
-                    tick = 0;
+                int seconds  = ((AetherGameSettingsOptions)mc.gameSettings).aether$getAccessoryFlickSpeed().value;
+                if (this.mc.thePlayer.tickCount - lastTick >= seconds * Global.TICKS_PER_SECOND) { // 3000
+                    lastTick = this.mc.thePlayer.tickCount;
                     iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
                     iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
                 }

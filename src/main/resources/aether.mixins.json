@@ -108,7 +108,7 @@
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "gameSettings.CatalystAddToMixin",
-    "gameSettings.HeartContainerOptionMixin",
+    "gameSettings.SettingsAddOn",
     "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",

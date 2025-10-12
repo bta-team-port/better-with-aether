@@ -1,9 +1,9 @@
 package teamport.aether.mixin.gameSettings;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.option.GameSettings;
-import net.minecraft.client.option.OptionBoolean;
-import net.minecraft.client.option.OptionEnum;
+import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
+import net.minecraft.client.option.*;
+import net.minecraft.core.util.helper.Toggleable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,7 +15,7 @@ import teamport.aether.gameSettings.AetherGameSettingsOptions;
         value = GameSettings.class,
         remap = false
 )
-public class HeartContainerOptionMixin implements AetherGameSettingsOptions {
+public class SettingsAddOn implements AetherGameSettingsOptions {
 
     @Shadow
     @Final
@@ -37,6 +37,9 @@ public class HeartContainerOptionMixin implements AetherGameSettingsOptions {
             true
     );
 
+    @Unique
+    public OptionRange flickAccessorySpeed = new OptionRange(thisAs, "aether.flickAccessorySpeed", 5, 1, 60);
+
     public OptionEnum<ExtraHealthDisplayEnum> aether$getExtraHealthDisplayOptionEnum() {
         return aether$extraHealthDisplayOptionEnum;
     }
@@ -44,5 +47,10 @@ public class HeartContainerOptionMixin implements AetherGameSettingsOptions {
     @Override
     public OptionBoolean aether$getFlickAccessoryIconsOption() {
         return flickAccessoryIconsOption;
+    }
+
+    @Override
+    public OptionRange aether$getAccessoryFlickSpeed() {
+        return flickAccessorySpeed;
     }
 }
