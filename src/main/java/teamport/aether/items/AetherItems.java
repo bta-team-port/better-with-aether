@@ -1,8 +1,6 @@
 package teamport.aether.items;
 
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
@@ -71,8 +69,6 @@ public final class AetherItems {
 
     public static Item AMBROSIUM;
     public static Item ZANITE;
-
-    public static Item DEATH_RAY;
 
     public static Item BUCKET_SKYROOT;
     public static Item BUCKET_SKYROOT_WATER;
@@ -528,23 +524,6 @@ public final class AetherItems {
 
         TOOL_DUNGEON_COMPASS = new ItemBuilder(MOD_ID)
                 .build(new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_clock_outline_alt1"));
-
-
-        DEATH_RAY = new ItemBuilder(MOD_ID)
-                .setStackSize(1)
-                .build(
-                        new Item("death_ray", itemKey("death_ray"), itemID("DEATH_RAY")) {
-                            @Override
-                            public boolean useItemOnEntity(ItemStack itemstack, Mob mob, Player player) {
-                                if (!mob.isAlive()) return false;
-
-                                mob.setHealthRaw(0);
-                                mob.playDeathSound();
-                                mob.onDeath(player);
-                                return true;
-                            }
-                        }
-                );
 
     }
 

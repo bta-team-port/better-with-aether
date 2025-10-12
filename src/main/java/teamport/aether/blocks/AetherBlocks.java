@@ -185,7 +185,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> CARVED_STONE_TRAPPED;
 
-    public static Block<?> CARVED_ANGELIC_TRAPPED;
     public static Block<?> CARVED_ANGELIC_TRAPPED_LOCKED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
@@ -985,16 +984,9 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                         b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class))
                 .withDisabledStats();
 
-        CARVED_ANGELIC_TRAPPED = stone
-                .setHardness(1.5F)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-                .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_STONE_TRAPPED"),
-                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_ANGELIC_TRAPPED, MobSentry.class))
-                .withDisabledStats();
-
         CARVED_ANGELIC_TRAPPED_LOCKED = dungeonStoneLocked
                 .build("carved.angelic.trapped.locked", "carved_angelic_trapped_locked", blockID("CARVED_ANGELIC_TRAPPED_LOCKED"),
-                        b -> new BlockLogicTrapped(b, CARVED_ANGELIC_LOCKED, CARVED_ANGELIC_TRAPPED, MobValkyrie.class)
+                        b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class)
                 ).withDisabledStats();
 
 
@@ -1062,8 +1054,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"), b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
                 .setStatParent(() -> AetherItems.LANTERN_FIREFLY_SILVER);
-
-        new AetherBlockDetails().initializeBlockDetails();
     }
 
     @Override

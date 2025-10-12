@@ -9,6 +9,8 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.helper.ParticleHelper;
+import teamport.aether.items.AetherItems;
 
 public class ProjectileWindball extends Projectile implements ProjectileAether {
 
@@ -77,10 +79,14 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
             }
         }
         this.remove();
-    }
+        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
 
-    public void afterTick() {
-        super.afterTick();
+        for (int l = 0; l < 8; ++l) {
+            double angle = Math.toRadians(l * 45);
+            ParticleHelper.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleHelper.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleHelper.spawnParticle(world, "item", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, AetherItems.AMMO_WINDBALL.id);
+        }
     }
 
     public boolean isPickable() {

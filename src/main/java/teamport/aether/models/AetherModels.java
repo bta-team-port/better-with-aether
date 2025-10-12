@@ -278,7 +278,6 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_LIGHTNING, null).setIcon("aether:item/projectile_lightning"));
 
         dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
-        dispatcher.addDispatch((new ItemModelStandard(AetherItems.DEATH_RAY, null)).setIcon("minecraft:item/wand_monster").setFullBright());
 
     }
 
@@ -793,7 +792,7 @@ public class AetherModels implements ModelEntrypoint {
 
     private void setMobBossModels() {
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
-        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped<>(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
         ModelHelper.setEntityModel(MobFireMinion.class, MobRendererFireMinion::new);
     }
