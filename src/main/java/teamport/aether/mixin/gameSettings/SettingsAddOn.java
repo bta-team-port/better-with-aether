@@ -8,8 +8,14 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.AetherMod;
 import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
 import teamport.aether.gameSettings.AetherGameSettingsOptions;
+
+import java.util.List;
 
 @Mixin(
         value = GameSettings.class,
@@ -52,5 +58,16 @@ public class SettingsAddOn implements AetherGameSettingsOptions {
     @Override
     public OptionRange aether$getAccessoryFlickSpeed() {
         return flickAccessorySpeed;
+    }
+
+    @Inject(method = "getDisplayString", at = @At("HEAD"), cancellable = true)
+    public void changeDisplayString(Option<?> option, CallbackInfoReturnable<String> cir){
+        if (option == null) {
+            cir.setReturnValue("");
+            return;
+        }
+        if(option == flickAccessorySpeed){
+            cir.setReturnValue(option.value + " seconds");
+        }
     }
 }
