@@ -92,18 +92,24 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 int dungeonY = 60 + rand.nextInt(90);
                 int dungeonZ = z + rand.nextInt(16);
                 goldDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-            } else if (silverSeed > -1) {
+            }
+
+            else if (silverSeed > -1) {
                 int dungeonX = x - 15;
                 int dungeonY = 200 + rand.nextInt(30);
                 int dungeonZ = z + 28;
                 silverDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-            } else if (bronzeSeed > -1) {
+            }
+
+            else if (bronzeSeed > -1) {
                 int dungeonX = x + rand.nextInt(16);
                 int dungeonZ = z + rand.nextInt(16);
                 int max = 0;
                 maxY = 0;
+
                 int counter = 0;
                 int startY = 0;
+
                 for (int i = this.world.worldType.getMinY(); i < this.world.worldType.getMaxY(); i++) {
                     if (world.getBlockId(dungeonX, i, dungeonZ) != 0) {
                         counter++;
@@ -120,25 +126,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 bronzeDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             }
         }
-
-        //Flowers/Foliage
-        for (generateChance = 0; generateChance < 2; ++generateChance) {
-            yPosition = rand.nextInt(rangeY);
-            (new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true)).place(this.world, rand, xPosition, yPosition, zPosition);
-        }
-
-        for (generateChance = 0; generateChance < 2; ++generateChance) {
-            if (rand.nextInt(2) == 0) {
-                yPosition = rand.nextInt(rangeY);
-                (new WorldFeatureFlowers(AetherBlocks.FLOWER_PURPLE.id(), 64, true)).place(this.world, rand, xPosition, yPosition, zPosition);
-            }
-        }
-
-        for (generateChance = 0; generateChance < 2; ++generateChance) {
-            yPosition = rand.nextInt(rangeY);
-            (new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())).place(this.world, rand, xPosition, yPosition, zPosition);
-        }
-
 
         // Ores/Features
         for (generateChance = 0; generateChance < 20; ++generateChance) {
