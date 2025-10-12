@@ -4,8 +4,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.options.components.BooleanOptionComponent;
+import net.minecraft.client.gui.options.components.IntegerOptionComponent;
+import net.minecraft.client.gui.options.components.OptionsCategory;
 import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
 import net.minecraft.client.gui.options.data.OptionsPages;
+import net.minecraft.client.option.OptionRange;
 import sunsetsatellite.catalyst.CatalystClient;
 
 @Environment(EnvType.CLIENT)
@@ -23,10 +26,9 @@ public class AetherGameSettings {
     public static void registerSettings() {
         AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
 
-        OptionsPages.VIDEO.withComponent(
-            new BooleanOptionComponent(
-                gameSettings.aether$getFlickAccessoryIconsOption()
-            )
+        OptionsPages.VIDEO.withComponent(new OptionsCategory("aether.options.video.aether")
+                .withComponent(new BooleanOptionComponent(gameSettings.aether$getFlickAccessoryIconsOption()))
+                .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
         );
     }
 
@@ -34,9 +36,9 @@ public class AetherGameSettings {
         AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
 
         CatalystClient.effectsCategory.withComponent(
-            new ToggleableOptionComponent<>(
-                gameSettings.aether$getExtraHealthDisplayOptionEnum()
-            )
+                new ToggleableOptionComponent<>(
+                        gameSettings.aether$getExtraHealthDisplayOptionEnum()
+                )
         );
     }
 }
