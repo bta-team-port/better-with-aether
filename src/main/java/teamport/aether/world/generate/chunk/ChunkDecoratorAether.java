@@ -170,12 +170,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         if (rand.nextInt(5) == 0) {
-            for (xPosition = x; xPosition < x + 16; ++xPosition) {
-                for (zPosition = z; zPosition < z + 16; ++zPosition) {
-                    for (yPosition = 0; yPosition < 192; ++yPosition) {
+            yLoop: for (yPosition = 0; yPosition < 192; ++yPosition) {
+                for (xPosition = x; xPosition < x + 16; ++xPosition) {
+                    for (zPosition = z; zPosition < z + 16; ++zPosition) {
                         if (this.world.getBlockId(xPosition, yPosition, zPosition) == 0 && this.world.getBlockId(xPosition, yPosition + 1, zPosition) == AetherBlocks.GRASS_AETHER.id() && this.world.getBlockId(xPosition, yPosition + 2, zPosition) == 0) {
                             (new WorldFeatureAetherQuicksoil(AetherBlocks.QUICKSOIL.id())).place(this.world, rand, xPosition, yPosition, zPosition);
-                            yPosition = 256;
+                            continue yLoop;
                         }
                     }
                 }
