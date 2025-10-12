@@ -37,8 +37,8 @@ public class WorldFeatureAetherClouds extends WorldFeature {
             for (int x1 = x; x1 < x + random.nextInt(4) + 3 * (this.isFlat ? 3 : 1); x1++) {
                 for (int z1 = z; z1 < z + random.nextInt(4) + 3 * (this.isFlat ? 3 : 1); z1++) {
                     for (int y1 = y; y1 < y + random.nextInt(1) + 2; y1++) {
-                        if (world.getBlockId(x1, y1, z1) == 0 && Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < 4 * (this.isFlat ? 3 : 1) + random.nextInt(2)) {
-                            world.setBlockWithNotify(x1, y1, z1, blockToPlace);
+                        if (Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < 4 * (this.isFlat ? 3 : 1) + random.nextInt(2) && world.getBlockId(x1, y1, z1) == 0) {
+                            world.setBlock(x1, y1, z1, blockToPlace);
                         }
                     }
                 }

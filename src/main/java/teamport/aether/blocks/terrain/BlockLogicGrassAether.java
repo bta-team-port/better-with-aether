@@ -42,18 +42,17 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                 world.setBlockWithNotify(x, y, z, this.dirt.id());
             } else if (world.getBlockLightValue(x, y + 1, z) >= 9) {
                 int idToSpawn;
-                int r;
                 for (idToSpawn = 0; idToSpawn < 4; ++idToSpawn) {
-                    r = x + rand.nextInt(3) - 1;
+                    int x1 = x + rand.nextInt(3) - 1;
                     int y1 = y + rand.nextInt(5) - 3;
                     int z1 = z + rand.nextInt(3) - 1;
-                    if (world.getBlockId(r, y1, z1) == this.dirt.id() && world.getBlockLightValue(r, y1 + 1, z1) >= 4 && Blocks.lightBlock[world.getBlockId(r, y1 + 1, z1)] <= 2) {
-                        world.setBlockWithNotify(r, y1, z1, this.block.id());
+                    if (world.getBlockId(x1, y1, z1) == this.dirt.id() && world.getBlockLightValue(x1, y1 + 1, z1) >= 4 && Blocks.lightBlock[world.getBlockId(x1, y1 + 1, z1)] <= 2) {
+                        world.setBlockWithNotify(x1, y1, z1, this.block.id());
                     }
                 }
 
                 if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.AETHER)) {
-                    r = rand.nextInt(400);
+                    int r = rand.nextInt(400);
                     if (r < 26) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
                     } else if (r < 41) {
