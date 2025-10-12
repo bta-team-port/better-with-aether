@@ -131,10 +131,10 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void extendVanillaGroups() {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("ladder");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("cobblestone_lever");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("sponge_to_wet_sponge");
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:planks").add(AetherBlocks.PLANKS_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_OAK_GOLDEN.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:stones").add(AetherBlocks.HOLYSTONE.getDefaultStack());
@@ -559,6 +559,11 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('X', "aether:sticks")
                 .create("ladder", new ItemStack(Blocks.LADDER_OAK, 2));
 
+        RecipeBuilder.Shaped(MOD_ID, "X", "C")
+                .addInput('X', "aether:sticks")
+                .addInput('C', "minecraft:cobblestones")
+                .create("cobblestone_lever", new ItemStack(Blocks.LEVER_COBBLE_STONE, 2));
+
         RecipeBuilder.Shaped(MOD_ID, "PX", "XP")
                 .addInput('P', (Items.AMMO_PEBBLE))
                 .addInput('X', (AetherBlocks.AERCLOUD_WHITE))
@@ -567,7 +572,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilderShaped templateLogtoPlank = new RecipeBuilderShaped(MOD_ID, "X");
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_SKYROOT).create("skyroot_log_to_skyroot_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT, 4));
         templateLogtoPlank.addInput('X', AetherBlocks.LOG_OAK_GOLDEN).create("golden_oak_log_to_yellow_wooden_planks", new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 4, 4));
-
 
         RecipeBuilderShaped templateFences = new RecipeBuilderShaped(MOD_ID, "PSP", "PSP");
         templateFences.addInput('P', AetherBlocks.PLANKS_SKYROOT).addInput('S', AetherItems.STICK_SKYROOT).create("skyroot_fence", new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT, 6));

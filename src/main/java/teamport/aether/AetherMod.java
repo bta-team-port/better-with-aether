@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.crafting.LookupFuelFurnace;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.item.Items;
@@ -15,6 +14,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import teamport.aether.blocks.AetherBlockDetails;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
@@ -34,14 +34,13 @@ import turniplabs.halplibe.util.GameStartEntrypoint;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.minecraft.core.block.BlockLogicNote.Instrument.CELESTA;
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-    public static String state = "alpha";
+    public static String state = "release";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
@@ -105,9 +104,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
-        registerNewFurnaceFuel();
+        AetherBlockDetails.initializeBlockDetails();
         registerNewTagForItems();
-        registerBlockInstruments();
     }
 
     public static void registerNewTagForItems() {
@@ -125,112 +123,5 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.PERMAICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
-    }
-
-    public static void registerNewFurnaceFuel() {
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.STICK_SKYROOT.id, 100);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 150);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED.id(), 150);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.SIGN_SKYROOT_PAINTED.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.DOOR_SKYROOT_PAINTED.id, 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT.id(), 75);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED.id(), 75);
-
-        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS.id(), 75);
-        LookupFuelFurnace.instance.addFuelEntry(Blocks.BUTTON_PLANKS_PAINTED.id(), 75);
-
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.BUCKET_SKYROOT.id, 300);
-
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.LOG_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.LOG_OAK_GOLDEN.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SAPLING_SKYROOT.id(), 100);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.SAPLING_OAK_GOLDEN.id(), 100);
-
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_OAK.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 300);
-        LookupFuelFurnace.instance.addFuelEntry(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), 300);
-
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_PICKAXE_SKYROOT.id, 500);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SWORD_SKYROOT.id, 500);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_AXE_SKYROOT.id, 500);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOVEL_SKYROOT.id, 500);
-        LookupFuelFurnace.instance.addFuelEntry(AetherItems.TOOL_SHOOTER.id, 300);
-    }
-
-    public static void registerBlockInstruments() {
-        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_WHITE.id(), FLUTE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_BLUE.id(), FLUTE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.AERCLOUD_GOLD.id(), FLUTE);
-
-        // we do have a lot, a lot, of chests.
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), CLICK);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_OAK.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), CLICK);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_GOLD.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_SILVER.id(), CLICK);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED.id(), CLICK);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_ZANITE.id(), MUSICBOX);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.BRICK_ZANITE.id(), MUSICBOX);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_BRICK_ZANITE.id(), MUSICBOX);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_BRICK_ZANITE.id(), MUSICBOX);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_AMBER.id(), SAXOPHONE);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.QUICKSOIL.id(), SITAR);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.GLASS_QUICKSOIL.id(), SITAR);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_GRAVITITE.id(), XYLOPHONE);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE.id(), ORGAN);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT.id(), ORGAN);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_HELLFIRE.id(), ORGAN);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_HELLFIRE.id(), ORGAN);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), ORGAN);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), ORGAN);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_ANGELIC.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_ANGELIC.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), BELL);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), BELL);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.SLAB_CARVED_STONE.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_STONE.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LOCKED.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), TRANCE);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_TRAPPED.id(), TRANCE);
-
-        BLOCK_INSTRUMENTS.put(AetherBlocks.ICESTONE.id(), CELESTA);
-        BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_AMBROSIUM.id(), TRUMPET);
     }
 }
