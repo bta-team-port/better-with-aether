@@ -17,8 +17,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.gameSettings.AetherGameSettingsOptions;
 import teamport.aether.items.AetherItemTags;
+import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
 
@@ -29,11 +33,25 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 abstract public class ItemElementMixinHoverShowSlot extends Gui {
 
     @Unique int tick = 0;
-    @Unique String currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
-    @Unique String currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
+    @Unique String iconPathTrinket1;
+    @Unique String iconPathTrinket2;
 
     @Shadow
     Minecraft mc;
+
+    @Inject(method = "<init>", at=@At("RETURN"))
+    public void init(Minecraft mc, CallbackInfo ci) {
+
+        if (mc != null && ((AetherGameSettingsOptions) mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
+            iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
+            iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
+        }
+
+        else {
+            iconPathTrinket1 = LookupTrinketIcons.instance.getEntry(AetherItems.ARMOR_TALISMAN_ZANITE);
+            iconPathTrinket2 = LookupTrinketIcons.instance.getEntry(AetherItems.ARMOR_TALISMAN_ZANITE);
+        }
+    }
 
     @Redirect(
             method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
@@ -45,15 +63,23 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
     )
     public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local(argsOnly = true) Slot currectSlot, @Local(argsOnly = true) ItemStack itemStack) {
         if (
-                currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)
+            currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
+            && (
+                    this.mc.currentScreen instanceof ScreenInventory
+                || this.mc.currentScreen instanceof ScreenInventoryCreative
+            )
         ) {
-            tick++;
-            if (tick > 600) { // 3000
-                tick = 0;
-                currentIconPath_TRINKET_1 = LookupTrinketIcons.instance.getRandomEntry();
-                currentIconPath_TRINKET_2 = LookupTrinketIcons.instance.getRandomEntry();
+            if (((AetherGameSettingsOptions)mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
+                tick++;
+
+                if (tick > 600) { // 3000
+                    tick = 0;
+                    iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
+                    iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
+                }
             }
-            defaultIcon = TextureRegistry.getTexture(currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? currentIconPath_TRINKET_2 : currentIconPath_TRINKET_1);
+
+            defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
