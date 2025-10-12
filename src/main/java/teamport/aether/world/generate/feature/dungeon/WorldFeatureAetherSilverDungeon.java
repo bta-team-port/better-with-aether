@@ -84,7 +84,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         FOOD.addEntry(new WeightedRandomLootObject(null), 16);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 4), 16);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack()), 8);
-        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_MILK.getDefaultStack()), 8);
+        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_REMEDY.getDefaultStack()), 8);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 2), 2);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 2), 1);
 

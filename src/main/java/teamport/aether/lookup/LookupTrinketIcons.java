@@ -20,6 +20,7 @@ public class LookupTrinketIcons {
     }
 
     public void register() {
+        addEntry(null, "aether:item/armor_wildcard_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID, "aether:item/trinket/armor_pendant_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_CHAIN.namespaceID, "aether:item/trinket/armor_pendant_outline");
         addEntry(AetherItems.ARMOR_TALISMAN_IRON.namespaceID, "aether:item/trinket/armor_pendant_outline");
@@ -62,5 +63,4 @@ public class LookupTrinketIcons {
     public List<String> getTextureList() {
         return this.LIST_TEXTURE;
     }
-
 }
