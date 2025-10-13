@@ -10,7 +10,6 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
-import net.minecraft.core.world.noise.PerlinNoise;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.terrain.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
@@ -26,29 +25,27 @@ import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherG
 import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon.silverDungeon;
 
 public class ChunkDecoratorAether implements ChunkDecorator {
-    public final World world;
-    public final PerlinNoise treeDensityNoise;
+    private final World world;
 
-    public ChunkDecoratorAether(World world) {
+    protected ChunkDecoratorAether(World world) {
         this.world = world;
-        this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
 
     public void decorate(Chunk chunk) {
-        BlockLogicSand.fallInstantly = true;
+        this.world.scheduledUpdatesAreImmediate = true;
         int chunkX = chunk.xPosition;
         int chunkZ = chunk.zPosition;
-        int x = chunkX * 16;
-        int z = chunkZ * 16;
-        Random rand = new Random(this.world.getRandomSeed());
-        rand.setSeed(this.world.getRandomSeed());
-        long l1 = rand.nextLong() / 2L * 2L + 1L;
-        long l2 = rand.nextLong() / 2L * 2L + 1L;
-        rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
         int minY = this.world.getWorldType().getMinY();
         int maxY = this.world.getWorldType().getMaxY();
         int rangeY = maxY + 1 - minY;
         float oreHeightModifier = (float) rangeY / 128.0F;
+        BlockLogicSand.fallInstantly = true;
+        int x = chunkX * 16;
+        int z = chunkZ * 16;
+        Random rand = new Random(this.world.getRandomSeed());
+        long l1 = rand.nextLong() / 2L * 2L + 1L;
+        long l2 = rand.nextLong() / 2L * 2L + 1L;
+        rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
 
         int xPosition = x + rand.nextInt(16);
         int yPosition;
@@ -58,20 +55,20 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         //Aercloud Generation
         if (rand.nextInt(12) == 0) {
             yPosition = rand.nextInt(32) + 224;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4)).place(this.world, rand, x + 8, yPosition, z + 8);
         }
         if (rand.nextInt(12) == 0) {
             yPosition = rand.nextInt(64) + 128;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8)).place(this.world, rand, x + 8, yPosition, z + 8);
         }
         if (rand.nextInt(6) == 0) {
             yPosition = rand.nextInt(192) + 32;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16)).place(this.world, rand, x + 8, yPosition, z + 8);
         }
         //Bottom Flat Clouds
-        if (rand.nextInt(18) == 0) {
+        if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(64) + 8;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 64, true)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherCloudsFlat(AetherBlocks.AERCLOUD_WHITE.id(), 48)).place(this.world, rand, x + 8, yPosition, z + 8);
         }
 
 
@@ -92,16 +89,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 int dungeonY = 60 + rand.nextInt(90);
                 int dungeonZ = z + rand.nextInt(16);
                 goldDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-            }
-
-            else if (silverSeed > -1) {
+            } else if (silverSeed > -1) {
                 int dungeonX = x - 15;
                 int dungeonY = 200 + rand.nextInt(30);
                 int dungeonZ = z + 28;
                 silverDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-            }
-
-            else if (bronzeSeed > -1) {
+            } else if (bronzeSeed > -1) {
                 int dungeonX = x + rand.nextInt(16);
                 int dungeonZ = z + rand.nextInt(16);
                 int max = 0;
@@ -126,6 +119,34 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 bronzeDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
             }
         }
+
+
+        //Flowers/Foliage
+        for (generateChance = 0; generateChance < 2; ++generateChance) {
+            xPosition = x + rand.nextInt(16) + 8;
+            yPosition = minY + rand.nextInt(rangeY);
+            zPosition = z + rand.nextInt(16) + 8;
+            (new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true)).place(this.world, rand, xPosition, yPosition, zPosition);
+        }
+
+        for (generateChance = 0; generateChance < 2; ++generateChance) {
+            if (rand.nextInt(2) == 0) {
+                xPosition = x + rand.nextInt(16) + 8;
+                yPosition = minY + rand.nextInt(rangeY);
+                zPosition = z + rand.nextInt(16) + 8;
+                (new WorldFeatureFlowers(AetherBlocks.FLOWER_PURPLE.id(), 64, true)).place(this.world, rand, xPosition, yPosition, zPosition);
+            }
+        }
+
+        for (generateChance = 0; generateChance < 2; ++generateChance) {
+            xPosition = x + rand.nextInt(16) + 8;
+            yPosition = minY + rand.nextInt(rangeY);
+            zPosition = z + rand.nextInt(16) + 8;
+            if (rand.nextInt(2) == 0) {
+                (new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id())).place(this.world, rand, xPosition, yPosition, zPosition);
+            }
+        }
+
 
         // Ores/Features
         for (generateChance = 0; generateChance < 20; ++generateChance) {
@@ -157,7 +178,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         if (rand.nextInt(5) == 0) {
-            yLoop: for (yPosition = 0; yPosition < 192; ++yPosition) {
+            yLoop:
+            for (yPosition = 0; yPosition < 192; ++yPosition) {
                 for (xPosition = x; xPosition < x + 16; ++xPosition) {
                     for (zPosition = z; zPosition < z + 16; ++zPosition) {
                         if (this.world.getBlockId(xPosition, yPosition, zPosition) == 0 && this.world.getBlockId(xPosition, yPosition + 1, zPosition) == AetherBlocks.GRASS_AETHER.id() && this.world.getBlockId(xPosition, yPosition + 2, zPosition) == 0) {
@@ -187,5 +209,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         BlockLogicSand.fallInstantly = false;
+        this.world.scheduledUpdatesAreImmediate = false;
     }
 }

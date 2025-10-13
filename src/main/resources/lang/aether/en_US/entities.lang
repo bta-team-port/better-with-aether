@@ -7,6 +7,8 @@ guidebook.section.mob.phyg.desc=Phygs are a common but valuable source of food, 
 aether.entity.sheepuff=Sheepuff
 guidebook.section.mob.sheepuff.name=Sheepuff
 guidebook.section.mob.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found anywhere in the aether.
+model.category.entity.sheepuff.slider.color=Color: %s
+model.category.entity.sheepuff.slider.wool_state=State: %s
 
 aether.entity.phow=Phow
 guidebook.section.mob.phow.name=Phow

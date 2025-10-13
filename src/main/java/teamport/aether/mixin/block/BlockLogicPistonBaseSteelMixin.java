@@ -32,7 +32,6 @@ public class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBase {
             int zo = z + direction.getOffsetZ();
 
             EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, xo + 0.5F, yo + 0.5F, zo + 0.5F, block.id(), 0, null);
-            floatingBlock.pushedByPiston = true;
 
             world.entityJoinedWorld(floatingBlock);
             double speed = 1.0F;

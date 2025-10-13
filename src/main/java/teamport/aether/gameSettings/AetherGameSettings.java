@@ -4,11 +4,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.options.components.BooleanOptionComponent;
-import net.minecraft.client.gui.options.components.IntegerOptionComponent;
 import net.minecraft.client.gui.options.components.OptionsCategory;
 import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
 import net.minecraft.client.gui.options.data.OptionsPages;
-import net.minecraft.client.option.OptionRange;
 import sunsetsatellite.catalyst.CatalystClient;
 
 @Environment(EnvType.CLIENT)

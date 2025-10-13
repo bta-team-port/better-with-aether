@@ -36,21 +36,21 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
         long l2 = rand.nextLong() / 2L * 2L + 1L;
         rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
 
-        int xPosition = x + rand.nextInt(16);
+        int xPosition = x + 8;
         int yPosition;
-        int zPosition = z + rand.nextInt(16);
+        int zPosition = z + 8;
 
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(32) + 224;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
         if (rand.nextInt(24) == 0) {
             yPosition = rand.nextInt(64) + 128;
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_BLUE.id(), 8)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
         if (rand.nextInt(12) == 0) {
             yPosition = rand.nextInt(256);
-            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16, false)).place(this.world, rand, xPosition, yPosition, zPosition);
+            (new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), 16)).place(this.world, rand, xPosition, yPosition, zPosition);
         }
 
 

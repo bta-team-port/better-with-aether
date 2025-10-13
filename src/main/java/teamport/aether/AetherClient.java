@@ -42,6 +42,7 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
     public static HudComponent JUMP_BAR;
 
     public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
+    @SuppressWarnings("unused")
     public static AtlasStitcher extras = register("extras", new AtlasStitcher("textures/extras", true, false, null));
 
     @Override

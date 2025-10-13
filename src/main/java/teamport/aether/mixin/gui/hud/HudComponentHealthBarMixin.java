@@ -22,8 +22,8 @@ import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatch
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.effect.render.AetherCustomHeartContainer;
 import teamport.aether.effect.render.HeartContainer;
-import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
 import teamport.aether.gameSettings.AetherGameSettingsOptions;
+import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
 import teamport.aether.helper.HealthHelper;
 
 import java.util.Random;

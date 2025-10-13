@@ -16,7 +16,10 @@ import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
 import javax.annotation.Nullable;
 
 public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>, ITrackedEntry<EntityFloatingBlock> {
-    public @NotNull Class<? extends EntityFloatingBlock> getAppliedClass() {
+    public NetEntryFloatingBlock() {
+    }
+
+    public @NotNull Class<EntityFloatingBlock> getAppliedClass() {
         return EntityFloatingBlock.class;
     }
 
@@ -29,7 +32,7 @@ public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>
     }
 
     public boolean sendMotionUpdates() {
-        return false;
+        return true;
     }
 
     @Override

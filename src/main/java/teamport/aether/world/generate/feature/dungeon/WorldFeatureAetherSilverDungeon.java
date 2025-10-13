@@ -39,8 +39,8 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
-    private Direction direction = Direction.NORTH;
-    public float angle = 0;
+    private final Direction direction;
+    public float angle;
     public WorldFeaturePoint dungeonAnchor;
     public WorldFeaturePoint bossPosition;
     public WorldFeatureSilverMaze silverMaze;
@@ -84,7 +84,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         FOOD.addEntry(new WeightedRandomLootObject(null), 16);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_HEALING_STONE.getDefaultStack(), 1, 4), 16);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_POISON.getDefaultStack()), 8);
-        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_MILK.getDefaultStack()), 8);
+        FOOD.addEntry(new WeightedRandomLootObject(AetherItems.BUCKET_SKYROOT_REMEDY.getDefaultStack()), 8);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_BLUE.getDefaultStack(), 1, 2), 2);
         FOOD.addEntry(new WeightedRandomLootObject(AetherItems.FOOD_GUMMY_GOLD.getDefaultStack(), 1, 2), 1);
 
@@ -242,7 +242,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
         for (WorldFeaturePoint cloudPoint : cloudPoints) {
             cloudPoint.rotateYAroundPivot(dungeonAnchor, direction);
-            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
+            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10))).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
         // holystone base
@@ -302,6 +302,10 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 43));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 41)); //non trapdoor
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 41));
+
+        treasureDoor.add(new WorldFeaturePoint(x - 15, y + 1, z + 41));
+        treasureDoor.add(new WorldFeaturePoint(x - 14, y + 1, z + 41));
+
         treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x, y, z), direction));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);

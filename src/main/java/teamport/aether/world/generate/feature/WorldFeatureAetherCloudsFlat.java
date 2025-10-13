@@ -5,11 +5,11 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 
 import java.util.Random;
 
-public class WorldFeatureAetherClouds extends WorldFeature {
+public class WorldFeatureAetherCloudsFlat extends WorldFeature {
     public final int numBlocks;
     public final int blockToPlace;
 
-    public WorldFeatureAetherClouds(int blockToPlace, int numBlocks) {
+    public WorldFeatureAetherCloudsFlat(int blockToPlace, int numBlocks) {
         this.numBlocks = numBlocks;
         this.blockToPlace = blockToPlace;
     }
@@ -27,10 +27,10 @@ public class WorldFeatureAetherClouds extends WorldFeature {
                 y += random.nextInt(3) - 1;
             }
 
-            for (int x1 = x; x1 < x + random.nextInt(4) + 3; x1++) {
-                for (int z1 = z; z1 < z + random.nextInt(4) + 3; z1++) {
+            for (int x1 = x; x1 < x + random.nextInt(4) + 9; x1++) {
+                for (int z1 = z; z1 < z + random.nextInt(4) + 9; z1++) {
                     for (int y1 = y; y1 < y + random.nextInt(1) + 2; y1++) {
-                        if (Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < 4 + random.nextInt(2) && world.getBlockId(x1, y1, z1) == 0) {
+                        if (Math.abs(x1 - x) + Math.abs(y1 - y) + Math.abs(z1 - z) < 12 + random.nextInt(2) && world.getBlockId(x1, y1, z1) == 0) {
                             world.setBlock(x1, y1, z1, blockToPlace);
                         }
                     }

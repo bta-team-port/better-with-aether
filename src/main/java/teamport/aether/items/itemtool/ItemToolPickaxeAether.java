@@ -29,34 +29,32 @@ public class ItemToolPickaxeAether extends ItemTool {
     }
 
     static {
-        miningLevels.put(COBBLE_HOLYSTONE, 0);
-        miningLevels.put(SLAB_COBBLE_HOLYSTONE, 0);
-        miningLevels.put(STAIRS_COBBLE_HOLYSTONE, 0);
-        miningLevels.put(COBBLE_HOLYSTONE_MOSSY, 0);
-        miningLevels.put(HOLYSTONE, 0);
-        miningLevels.put(HOLYSTONE_MOSSY, 0);
-        miningLevels.put(HOLYSTONE_CARVED, 0);
-        miningLevels.put(HOLYSTONE_POLISHED, 0);
-        miningLevels.put(SLAB_HOLYSTONE_POLISHED, 0);
-        miningLevels.put(BRICK_HOLYSTONE, 0);
-        miningLevels.put(SLAB_BRICK_HOLYSTONE, 0);
-        miningLevels.put(STAIRS_BRICK_HOLYSTONE, 0);
-
         miningLevels.put(ICESTONE, 1);
         miningLevels.put(CARVED_STONE, 1);
         miningLevels.put(SLAB_CARVED_STONE, 1);
         miningLevels.put(STAIRS_CARVED_STONE, 1);
         miningLevels.put(CARVED_STONE_LIGHT, 1);
+        miningLevels.put(CHEST_DUNGEON_BRONZE, 1);
+        miningLevels.put(CHEST_MIMIC_BRONZE, 1);
+        miningLevels.put(CARVED_STONE_TRAPPED, 1);
+
         miningLevels.put(CARVED_ANGELIC, 1);
         miningLevels.put(SLAB_CARVED_ANGELIC, 1);
         miningLevels.put(STAIRS_CARVED_ANGELIC, 1);
         miningLevels.put(CARVED_ANGELIC_LIGHT, 1);
+        miningLevels.put(CHEST_DUNGEON_SILVER, 1);
+        miningLevels.put(CHEST_MIMIC_SILVER, 1);
+
         miningLevels.put(CARVED_HELLFIRE, 1);
         miningLevels.put(SLAB_CARVED_HELLFIRE, 1);
         miningLevels.put(STAIRS_CARVED_HELLFIRE, 1);
         miningLevels.put(CARVED_HELLFIRE_LIGHT, 1);
+        miningLevels.put(CHEST_DUNGEON_GOLD, 1);
+        miningLevels.put(CHEST_MIMIC_GOLD, 1);
+
         miningLevels.put(PILLAR, 1);
         miningLevels.put(PILLAR_CAPSTONE, 1);
+
         miningLevels.put(BLOCK_ZANITE, 1);
         miningLevels.put(ORE_ZANITE_HOLYSTONE, 1);
         miningLevels.put(BRICK_ZANITE, 1);

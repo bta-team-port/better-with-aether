@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.gameSettings.AetherGameSettingsOptions;
 import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
 
@@ -49,8 +48,8 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
         }
 
         else {
-            iconPathTrinket1 = LookupTrinketIcons.instance.getEntry(AetherItems.ARMOR_TALISMAN_ZANITE);
-            iconPathTrinket2 = LookupTrinketIcons.instance.getEntry(AetherItems.ARMOR_TALISMAN_ZANITE);
+            iconPathTrinket1 = "aether:item/armor_wildcard_outline";
+            iconPathTrinket2 = "aether:item/armor_wildcard_outline";
         }
     }
 
