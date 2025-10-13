@@ -1,4 +1,4 @@
-package teamport.aether.models;
+package teamport.aether.models.skyroot;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

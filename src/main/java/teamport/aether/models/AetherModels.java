@@ -74,6 +74,8 @@ import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
 import teamport.aether.items.AetherItems;
+import teamport.aether.models.dungeon.*;
+import teamport.aether.models.skyroot.*;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
 

@@ -1,4 +1,4 @@
-package teamport.aether.models;
+package teamport.aether.models.skyroot;
 
 import net.minecraft.client.render.block.model.BlockModelHorizontalRotation;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
@@ -10,12 +10,12 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 
-public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
+public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
     public static final IconCoordinate[] topTextures = new IconCoordinate[16];
     public static final IconCoordinate[] sideTextures = new IconCoordinate[16];
     public static final IconCoordinate[] frontTextures = new IconCoordinate[16];
 
-    public BlockModelPaintedOakMimic(Block<T> block) {
+    public BlockModelPaintedSkyrootMimic(Block<T> block) {
         super(block);
     }
 
@@ -32,8 +32,8 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
         return side.isHorizontal() ? sideTextures[color] : topTextures[color];
     }
 
-    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
-        int color = data >> 4;
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+        int color = metadata >> 4;
         if (side == Side.SOUTH) {
             return frontTextures[color];
         } else {
@@ -43,9 +43,10 @@ public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends B
 
     static {
         for (DyeColor c : DyeColor.blockOrderedColors()) {
-            frontTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/front"); // 0
-            sideTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/side");   // 5
-            topTextures[c.blockMeta] = TextureRegistry.getTexture("minecraft:block/chest/planks_" + c.colorID + "/top");     // 6
+            topTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/top");
+            sideTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/side");
+            frontTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/front");
         }
     }
+
 }
