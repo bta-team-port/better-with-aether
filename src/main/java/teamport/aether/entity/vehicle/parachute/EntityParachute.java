@@ -55,7 +55,8 @@ public class EntityParachute extends Mob implements AetherRideable {
         handleParachuteMovement();
 
         if (this.onGround || isInWater()) {
-            this.ejectRider().fling(0, 0.30F, 0, 0.5F);
+            Entity rider = this.ejectRider();
+            if (rider != null) rider.fling(0, 0.30F, 0, 0.5F);
 
             breakParachute();
             this.remove();
