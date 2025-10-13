@@ -189,15 +189,11 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
-        if (entityClazz == MobMoaBlue.class) {
-            return new MobMoaBlue(this.worldObj, true);
-        } else if (entityClazz == MobMoaWhite.class) {
-            return new MobMoaWhite(this.worldObj, true);
-        } else if (entityClazz == MobMoaBlack.class) {
-            return new MobMoaBlack(this.worldObj, true);
-        } else {
-            return EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        if(entity instanceof MobMoaBlue){
+            ((MobMoaBlue)entity).setTamed(true);
         }
+        return entity;
     }
 
     @Override
