@@ -19,7 +19,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.entity.EntityFloatingBlock;
+import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
 import teamport.aether.entity.animal.aerbunny.ModelAerbunny;
@@ -42,6 +42,7 @@ import teamport.aether.entity.boss.slider.ModelSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.sunspirit.MobRendererSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.entityFloatingBlock.EntityRendererFloatingBlock;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.aechorplant.MobRendererAechorPlant;
 import teamport.aether.entity.monster.aechorplant.ModelAechorPlant;
@@ -288,7 +289,7 @@ public class AetherModels implements ModelEntrypoint {
         this.setMobBossModels();
         this.setMobAnimalModels();
 
-        ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFallingBlock::new);
+        ModelHelper.setEntityModel(EntityFloatingBlock.class, EntityRendererFloatingBlock::new);
         ModelHelper.setEntityModel(EntityParachute.class, EntityRendererParachute::new);
         ModelHelper.setEntityModel(EntityParachuteGold.class, EntityRendererParachuteGold::new);
     }
