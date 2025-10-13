@@ -5,6 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
+import net.minecraft.core.entity.monster.MobSlime;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
@@ -170,16 +171,12 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
 
-        Entity entity = null;
-        for(int i = 0; i< recipe.getOutput().getAmount(); i++){
-            entity = createEntity(entityClazz);
-            if (entity == null) {
-                return;
-            }
-
-            entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
-            this.worldObj.entityJoinedWorld(entity);
+        Entity entity = createEntity(entityClazz);
+        if (entity == null) {
+            return;
         }
+        entity.moveTo(this.x + 0.5, this.y + 1, this.z, 0.0F, 0.0F);
+        this.worldObj.entityJoinedWorld(entity);
 
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) {
@@ -198,6 +195,9 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
         if(entity instanceof MobMoaBlue){
             ((MobMoaBlue)entity).setTamed(true);
+        }
+        if(entity instanceof MobSlime){
+            ((MobSlime)entity).setSlimeSize(random.nextInt(4) + 1);
         }
         return entity;
     }
