@@ -242,7 +242,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
         for (WorldFeaturePoint cloudPoint : cloudPoints) {
             cloudPoint.rotateYAroundPivot(dungeonAnchor, direction);
-            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10)), false).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
+            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10))).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
         }
 
         // holystone base

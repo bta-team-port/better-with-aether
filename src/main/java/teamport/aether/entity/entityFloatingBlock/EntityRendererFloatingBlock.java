@@ -14,8 +14,6 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.tileentity.TileEntityRenderer;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityFallingBlock;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.BlocksContainer;
 import org.lwjgl.opengl.GL11;
