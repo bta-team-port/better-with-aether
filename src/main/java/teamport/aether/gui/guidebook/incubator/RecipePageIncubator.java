@@ -63,7 +63,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
                 mouseOverSlot = slot;
             }
 
-            String[] substrings = recipe.getOutput().split(":");
+            String[] substrings = recipe.getOutput().getEntity().split(":");
             String entityName = substrings.length > 1 ? substrings[1] : substrings[0];
             String title = getEntityTitle(recipe);
 
@@ -103,7 +103,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
     }
 
     private static @NotNull String getEntityTitle(RecipeEntryIncubator recipe) {
-        Class<? extends Entity> entity = EntityDispatcher.classForId(recipe.getOutput());
+        Class<? extends Entity> entity = EntityDispatcher.classForId(recipe.getOutput().getEntity());
         MobInfoRegistry.MobInfo mobInfo = MobInfoRegistry.getMobInfo(entity);
         String translationKey = mobInfo.getNameTranslationKey();
         return "Hatch " + AetherMod.TRANSLATOR.translateKey(translationKey);

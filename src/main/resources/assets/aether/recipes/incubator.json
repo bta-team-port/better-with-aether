@@ -8,7 +8,9 @@
         "id": "minecraft:item/egg_chicken"
       }
     },
-    "output": "minecraft:chicken"
+    "output":{
+      "entity": "minecraft:chicken"
+    }
   },
   {
     "name": "aether:incubator/hatch_slime",
@@ -19,7 +21,9 @@
         "id": "minecraft:item/slimeball"
       }
     },
-    "output": "minecraft:slime"
+    "output":{
+      "entity": "minecraft:slime"
+    }
   },
   {
     "name": "aether:incubator/hatch_moa_blue",
@@ -30,7 +34,9 @@
         "id": "aether:item/egg_moa_blue"
       }
     },
-    "output": "aether:moa_blue"
+    "output":{
+      "entity": "aether:moa_blue"
+    }
   },
   {
     "name": "aether:incubator/hatch_moa_white",
@@ -41,7 +47,9 @@
         "id": "aether:item/egg_moa_white"
       }
     },
-    "output": "aether:moa_white"
+    "output":{
+      "entity": "aether:moa_white"
+    }
   },
   {
     "name": "aether:incubator/hatch_moa_black",
@@ -52,7 +60,9 @@
         "id": "aether:item/egg_moa_black"
       }
     },
-    "output": "aether:moa_black"
+    "output":{
+      "entity": "aether:moa_black"
+    }
   },
   {
     "name": "aether:incubator/hatch_swet",
@@ -63,7 +73,9 @@
         "id": "aether:item/food_gummy_blue"
       }
     },
-    "output": "aether:swet"
+    "output":{
+      "entity": "aether:swet"
+    }
   },
   {
     "name": "aether:incubator/hatch_golden_swet",
@@ -74,6 +86,8 @@
         "id": "aether:item/food_gummy_gold"
       }
     },
-    "output": "aether:swet_gold"
+    "output":{
+      "entity": "aether:swet_gold"
+    }
   }
 ]

@@ -19,6 +19,7 @@ import teamport.aether.entity.animal.moa.MobMoaBlack;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.lookup.LookupFuelIncubator;
+import teamport.aether.recipe.RecipeEntryIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
     /// canSmelt                -> canProcess
@@ -162,18 +163,23 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
 
-        Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
+        RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]);
+        Class<? extends Entity> entityClazz = EntityDispatcher.classForId(recipe.getOutput().getEntity());
+
         if (entityClazz == null) {
             return;
         }
 
-        Entity entity = createEntity(entityClazz);
-        if (entity == null) {
-            return;
-        }
+        Entity entity = null;
+        for(int i = 0; i< recipe.getOutput().getAmount(); i++){
+            entity = createEntity(entityClazz);
+            if (entity == null) {
+                return;
+            }
 
-        entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
-        this.worldObj.entityJoinedWorld(entity);
+            entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
+            this.worldObj.entityJoinedWorld(entity);
+        }
 
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) {

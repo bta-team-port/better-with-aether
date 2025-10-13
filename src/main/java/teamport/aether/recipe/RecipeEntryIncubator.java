@@ -9,8 +9,8 @@ import net.minecraft.core.item.ItemStack;
 
 import java.util.List;
 
-public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, String, Integer> implements HasJsonAdapter {
-    public RecipeEntryIncubator(RecipeSymbol input, String output, int time) {
+public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, RecipeEntity, Integer> implements HasJsonAdapter {
+    public RecipeEntryIncubator(RecipeSymbol input, RecipeEntity output, int time) {
         super(input, output, time);
     }
 
@@ -50,10 +50,10 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, String, 
 
     public boolean matchesRecipe(SearchQuery query) {
         if (query.query.getLeft() == SearchQuery.QueryType.NAME) {
-            if (query.strict && this.getOutput().equalsIgnoreCase(query.query.getRight())) {
+            if (query.strict && this.getOutput().getEntity().equalsIgnoreCase(query.query.getRight())) {
                 return true;
             }
-            return !query.strict && this.getOutput().toLowerCase().contains(query.query.getRight().toLowerCase());
+            return !query.strict && this.getOutput().getEntity().toLowerCase().contains(query.query.getRight().toLowerCase());
         }
         return false;
     }
