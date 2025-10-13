@@ -57,6 +57,10 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void tick() {
+        if (!isAgro) {
+            this.moveSpeed = 0.0F;
+        }
+
         this.yo = this.yd;
         super.tick();
         if (!this.onGround && this.target != null && this.yo >= 0.0 && this.yd < 0.0 && this.distanceTo(this.target) <= 16.0F && this.canEntityBeSeen(this.target)) {

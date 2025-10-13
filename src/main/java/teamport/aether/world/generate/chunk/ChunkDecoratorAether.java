@@ -10,7 +10,6 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
-import net.minecraft.core.world.noise.PerlinNoise;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.terrain.BlockLogicOreAmbrosium;
 import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
@@ -26,29 +25,27 @@ import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherG
 import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherSilverDungeon.silverDungeon;
 
 public class ChunkDecoratorAether implements ChunkDecorator {
-    public final World world;
-    public final PerlinNoise treeDensityNoise;
+    private final World world;
 
-    public ChunkDecoratorAether(World world) {
+    protected ChunkDecoratorAether(World world) {
         this.world = world;
-        this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
 
     public void decorate(Chunk chunk) {
-        BlockLogicSand.fallInstantly = true;
+        this.world.scheduledUpdatesAreImmediate = true;
         int chunkX = chunk.xPosition;
         int chunkZ = chunk.zPosition;
-        int x = chunkX * 16;
-        int z = chunkZ * 16;
-        Random rand = new Random(this.world.getRandomSeed());
-        rand.setSeed(this.world.getRandomSeed());
-        long l1 = rand.nextLong() / 2L * 2L + 1L;
-        long l2 = rand.nextLong() / 2L * 2L + 1L;
-        rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
         int minY = this.world.getWorldType().getMinY();
         int maxY = this.world.getWorldType().getMaxY();
         int rangeY = maxY + 1 - minY;
         float oreHeightModifier = (float) rangeY / 128.0F;
+        BlockLogicSand.fallInstantly = true;
+        int x = chunkX * 16;
+        int z = chunkZ * 16;
+        Random rand = new Random(this.world.getRandomSeed());
+        long l1 = rand.nextLong() / 2L * 2L + 1L;
+        long l2 = rand.nextLong() / 2L * 2L + 1L;
+        rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
 
         int xPosition = x + rand.nextInt(16);
         int yPosition;
@@ -212,5 +209,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
 
         BlockLogicSand.fallInstantly = false;
+        this.world.scheduledUpdatesAreImmediate = false;
     }
 }

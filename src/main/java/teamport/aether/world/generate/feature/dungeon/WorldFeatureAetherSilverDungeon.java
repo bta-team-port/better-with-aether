@@ -39,8 +39,8 @@ import static teamport.aether.world.generate.feature.components.WorldFeaturePoin
 public class WorldFeatureAetherSilverDungeon extends WorldFeature {
     public static BlockPallet angelic = new BlockPallet();
     public static BlockPallet holystone = new BlockPallet();
-    private Direction direction = Direction.NORTH;
-    public float angle = 0;
+    private final Direction direction;
+    public float angle;
     public WorldFeaturePoint dungeonAnchor;
     public WorldFeaturePoint bossPosition;
     public WorldFeatureSilverMaze silverMaze;
@@ -302,6 +302,10 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 43));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 41)); //non trapdoor
         treasureDoor.add(new WorldFeaturePoint(x - 15, y + 2, z + 41));
+
+        treasureDoor.add(new WorldFeaturePoint(x - 15, y + 1, z + 41));
+        treasureDoor.add(new WorldFeaturePoint(x - 14, y + 1, z + 41));
+
         treasureDoor.forEach(p -> p.rotateYAroundPivot(wfp(x, y, z), direction));
         dungeon.setTreasureDoor(treasureDoor);
         world.entityJoinedWorld(boss);

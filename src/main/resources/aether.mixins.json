@@ -106,6 +106,7 @@
     "dimension.AetherMusicMixin",
     "dimension.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
+    "entity.ViewerCategoryEntityMixin",
     "gameSettings.CatalystAddToMixin",
     "gameSettings.SettingsAddOn",
     "gui.AchievementScreenShadowMixin",

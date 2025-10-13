@@ -52,7 +52,7 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
         int blockZ = MathHelper.floor(fallingBlock.z);
 
         tessellator.startDrawingQuads();
-        tessellator.setTranslation((double)(-blockX) - (double)0.5F, (double)(-blockY) - (double)0.5F, (double)(-blockZ) - (double)0.5F);
+        tessellator.setTranslation((double) (-blockX) - (double) 0.5F, (double) (-blockY) - (double) 0.5F, (double) (-blockZ) - (double) 0.5F);
         BlockModel.setRenderBlocks(this.containerRenderBlock);
 
         this.container.setLightReferenceEntity(fallingBlock);
@@ -63,7 +63,7 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
         this.container.setLightReferenceEntity(null);
         this.container.clear();
 
-        tessellator.setTranslation((double)0.0F, (double)0.0F, (double)0.0F);
+        tessellator.setTranslation(0.0F, 0.0F, 0.0F);
         tessellator.draw();
         Lighting.enableLight();
         GL11.glPopMatrix();
@@ -71,7 +71,7 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
 
         if (renderer != null) {
             GL11.glPushMatrix();
-            renderer.doRender(tessellator, fallingBlock.carriedBlock.entity, x - (double)0.5F, y - (double)0.5F, z - (double)0.5F, partialTick);
+            renderer.doRender(tessellator, fallingBlock.carriedBlock.entity, x - 0.5F, y - 0.5F, z - 0.5F, partialTick);
             GL11.glPopMatrix();
         }
     }

@@ -172,13 +172,12 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         return RED + deathMessage;
     }
 
-    public boolean runWithDungeon(Consumer<DungeonMapEntry> func) {
-        if (dungeonID == null) return false;
+    public void runWithDungeon(Consumer<DungeonMapEntry> func) {
+        if (dungeonID == null) return;
         DungeonMapEntry dungeon = AetherDimension.dungeonMap.getDungeon(dungeonID);
 
-        if (dungeon == null) return false;
+        if (dungeon == null) return;
         func.accept(dungeon);
-        return true;
     }
 
     public void returnToOriginalState() {
