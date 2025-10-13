@@ -23,7 +23,7 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 - Catalyst-Effects >= 2.3.0
 - UselessNumericals >= [1.0.3-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
 
-### Screenshots from the lates Release:
+### Screenshots from the latest Release:
 <p align="center">
   <img width="1920" height="1017" alt="2025-10-09_01 09 30" src="https://github.com/user-attachments/assets/a03c1a1a-4980-43e4-b023-89ab47a3fdb6" />
   <br>
