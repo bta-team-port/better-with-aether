@@ -4,14 +4,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ItemElement;
 import net.minecraft.client.gui.TooltipElement;
 import net.minecraft.client.gui.guidebook.*;
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.client.gui.guidebook.search.GuidebookPageSearch;
 import net.minecraft.client.option.enums.DescriptionPromptEnum;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.SearchQuery;
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.AetherMod;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
 import java.util.*;
@@ -60,7 +65,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
             String[] substrings = recipe.getOutput().split(":");
             String entityName = substrings.length > 1 ? substrings[1] : substrings[0];
-            String title = "Hatch " + entityName;
+            String title = getEntityTitle(recipe);
 
             StringBuilder buildTime = new StringBuilder();
             int time = Math.round(recipe.getData() / 20.0F);
@@ -95,6 +100,13 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
             }
             this.itemElement.render(slot.getItemStack(), x + slot.x, y + slot.y, mouseOverSlot == slot, slot);
         }
+    }
+
+    private static @NotNull String getEntityTitle(RecipeEntryIncubator recipe) {
+        Class<? extends Entity> entity = EntityDispatcher.classForId(recipe.getOutput());
+        MobInfoRegistry.MobInfo mobInfo = MobInfoRegistry.getMobInfo(entity);
+        String translationKey = mobInfo.getNameTranslationKey();
+        return "Hatch " + AetherMod.TRANSLATOR.translateKey(translationKey);
     }
 
     public boolean getIsMouseOverSlot(Slot slot, int x, int y, int mouseX, int mouseY) {
