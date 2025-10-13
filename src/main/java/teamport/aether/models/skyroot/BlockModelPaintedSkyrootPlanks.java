@@ -1,4 +1,4 @@
-package teamport.aether.models;
+package teamport.aether.models.skyroot;
 
 import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;

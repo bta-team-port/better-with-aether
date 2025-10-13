@@ -1,4 +1,4 @@
-package teamport.aether.models;
+package teamport.aether.models.skyroot;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,8 +9,8 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 
 @Environment(EnvType.CLIENT)
-public class BlockModelPaintedSkyrootPreasurePlate<T extends BlockLogic> extends BlockModelStandard<T> {
-    public BlockModelPaintedSkyrootPreasurePlate(Block<T> block) {
+public class BlockModelPaintedSkyrootButton<T extends BlockLogic> extends BlockModelStandard<T> {
+    public BlockModelPaintedSkyrootButton(Block<T> block) {
         super(block);
     }
 
