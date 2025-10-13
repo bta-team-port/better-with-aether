@@ -9,7 +9,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.entity.EntityFloatingBlock;
+import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {

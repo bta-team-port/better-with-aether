@@ -9,7 +9,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import teamport.aether.entity.EntityFloatingBlock;
+import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
 
 import java.util.Random;
 
