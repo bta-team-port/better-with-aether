@@ -9,12 +9,15 @@ import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
+import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.items.AetherItems;
 
 @Mixin(value = HudIngame.class, remap = false)
 public class ArmorOverlayMixin extends Gui {
@@ -52,4 +55,49 @@ public class ArmorOverlayMixin extends Gui {
             }
         }
     }
+
+    @Inject(method = "renderGameOverlay(FZII)V",
+            at = @At(value = "TAIL"), cancellable = true)
+    public void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+        int width = this.mc.resolution.getScaledWidthScreenCoords();
+        int height = this.mc.resolution.getScaledHeightScreenCoords();
+        this.mc.worldRenderer.setupScaledResolution();
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+
+        ItemStack trinketOneSlotItem = this.mc.thePlayer.inventory.armorItemInSlot(6);
+        ItemStack trinketTwoSlotItem = this.mc.thePlayer.inventory.armorItemInSlot(7);
+        double velocity = MathHelper.sqrt(this.mc.thePlayer.xd * this.mc.thePlayer.xd + this.mc.thePlayer.zd * this.mc.thePlayer.zd);
+
+        if (this.mc.gameSettings.thirdPersonView.value == 0 &&
+                ((trinketOneSlotItem != null && trinketOneSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id) ||
+                        (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id))) {
+            if (this.mc.thePlayer.isSneaking() || (this.mc.thePlayer.onGround && velocity < 0.075D)) {
+                this.renderShieldVignette(width, height);
+            }
+        }
+        ci.cancel();
+    }
+
+    @Unique
+    public void renderShieldVignette(int xSize, int ySize) {
+        GL11.glDisable(2929);
+        GL11.glDepthMask(false);
+        GL11.glBlendFunc(770, 771);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glDisable(3008);
+        this.mc.textureManager.loadTexture("/assets/aether/textures/other/shieldvignette.png").bind();
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(0.0, ySize, -90.0, 0.0, 1.0);
+        tessellator.addVertexWithUV(xSize, ySize, -90.0, 1.0, 1.0);
+        tessellator.addVertexWithUV(xSize, 0.0, -90.0, 1.0, 0.0);
+        tessellator.addVertexWithUV(0.0, 0.0, -90.0, 0.0, 0.0);
+        tessellator.draw();
+        GL11.glDepthMask(true);
+        GL11.glEnable(2929);
+        GL11.glEnable(3008);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    }
+
 }

@@ -33,21 +33,16 @@ public class ItemRepulsionShield extends ItemShield {
         }
 
         double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
-        if (!player.isSneaking() && (!player.onGround || velocity > 0.075D)) {
-            return;
-        }
-
-        List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, player.bb.grow(1.25D, 1.25D, 1.25D));
-        if (projectiles.isEmpty()) {
-            return;
-        }
-
-        for (Projectile projectile : projectiles) {
-            if (projectile.owner == player) {
-                continue;
+        if (player.isSneaking() || (player.onGround && velocity <= 0.075D)) {
+            List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, player.bb.grow(1.25D, 1.25D, 1.25D));
+            if (!projectiles.isEmpty()) {
+                for (Projectile projectile : projectiles) {
+                    if (projectile.owner != player) {
+                        projectile.xd = -projectile.xd;
+                        projectile.zd = -projectile.zd;
+                    }
+                }
             }
-            projectile.xd = -projectile.xd;
-            projectile.zd = -projectile.zd;
         }
     }
 }

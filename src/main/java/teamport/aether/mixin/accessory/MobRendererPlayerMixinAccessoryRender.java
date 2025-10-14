@@ -137,10 +137,10 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 this.shield_6 = false;
                 double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
                 String path;
-                if (!player.isSneaking() && (!player.onGround || velocity > 0.075D)) {
-                    path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
-                } else {
+                if (player.isSneaking() || (player.onGround && velocity < 0.075D)) {
                     path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
+                } else {
+                    path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
                 }
 
                 renderDispatcher.textureManager.loadTexture(path).bind();
