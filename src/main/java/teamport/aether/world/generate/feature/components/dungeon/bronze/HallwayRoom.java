@@ -2,12 +2,18 @@ package teamport.aether.world.generate.feature.components.dungeon.bronze;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.world.Dimension;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.adjustCornerForLining;
+import static teamport.aether.world.generate.feature.dungeon.WorldFeatureAetherBronzeDungeon.placeWorldLining;
 
 public class HallwayRoom extends BaseBronzeRoom {
 
@@ -46,6 +52,10 @@ public class HallwayRoom extends BaseBronzeRoom {
 
     @Override
     public void makeRoom() {
+        if(!world.dimension.equals(AetherDimension.AETHER)){
+            room.add(drawVolume(random, WorldFeatureAetherBronzeDungeon.holystone, SOUTH, 6, UP, 8, EAST, 6, x + 3, y, z + 3, false));
+        }
+        room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
     }
 
 
@@ -53,8 +63,14 @@ public class HallwayRoom extends BaseBronzeRoom {
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
         if (closingType != ClosingType.PLACED) return;
-        room.add(drawVolume(0, 0, door.p1, wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2), false));
-        room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
+        WorldFeaturePoint p2 = wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2);
+        if(!world.dimension.equals(AetherDimension.AETHER)) {
+            WorldFeaturePoint liningBottomCorner = door.p1.copy();
+            WorldFeaturePoint liningTopCorner = p2.copy();
+            adjustCornerForLining(door.heading, liningBottomCorner, liningTopCorner);
+            placeWorldLining(world, drawVolumeWithPoint(this.random, WorldFeatureAetherBronzeDungeon.holystone, liningBottomCorner, liningTopCorner, true));
+        }
+        room.add(drawVolume(0, 0, door.p1, p2, false));
         this.placeRoom();
     }
 }
