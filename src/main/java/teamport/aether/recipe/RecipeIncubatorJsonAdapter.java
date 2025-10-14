@@ -12,9 +12,10 @@ public class RecipeIncubatorJsonAdapter implements RecipeJsonAdapter<RecipeEntry
     public RecipeEntryIncubator deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject obj = json.getAsJsonObject();
         RecipeSymbol input = context.deserialize(obj.get("input").getAsJsonObject(), RecipeSymbol.class);
-        String output = obj.get("output").getAsString();
+        RecipeEntity entity = context.deserialize(obj.get("output").getAsJsonObject(), RecipeEntity.class);
+//        String output = obj.get("output").getAsString();
         int time = obj.get("time").getAsInt();
-        return new RecipeEntryIncubator(input, output, time);
+        return new RecipeEntryIncubator(input, entity, time);
     }
 
     @Override
@@ -23,7 +24,8 @@ public class RecipeIncubatorJsonAdapter implements RecipeJsonAdapter<RecipeEntry
         obj.addProperty("name", src.toString());
         obj.addProperty("type", Registries.RECIPE_TYPES.getKey(src.getClass()));
         obj.add("input", context.serialize(src.getInput(), RecipeSymbol.class));
-        obj.add("output", context.serialize(src.getOutput(), String.class));
+        obj.add("output", context.serialize(src.getOutput(), RecipeEntity.class));
+//        obj.add("output", context.serialize(src.getOutput(), String.class));
         obj.add("time", context.serialize(src.getData()));
         return obj;
     }

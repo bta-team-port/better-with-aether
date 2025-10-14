@@ -15,7 +15,7 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
     public @Nullable Class<? extends Entity> findOutput(ItemStack stack) {
         for (RecipeEntryIncubator recipe : getAllRecipes()) {
             if (recipe.matches(stack)) {
-                return EntityDispatcher.classForId(recipe.getOutput());
+                return EntityDispatcher.classForId(recipe.getOutput().getEntity());
             }
         }
         return null;
@@ -32,7 +32,7 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
 
     public boolean isOutput(Class<? extends Entity> aClass) {
         for (RecipeEntryIncubator recipe : getAllRecipes()) {
-            String entityName = recipe.getOutput();
+            String entityName = recipe.getOutput().getEntity();
             Class<? extends Entity> entity = EntityDispatcher.classForId(entityName);
             if (entity == null) continue;
             if (entity.equals(aClass)) return true;

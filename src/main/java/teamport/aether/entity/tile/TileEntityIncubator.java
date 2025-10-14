@@ -5,6 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.EntityItem;
+import net.minecraft.core.entity.monster.MobSlime;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
@@ -19,6 +20,7 @@ import teamport.aether.entity.animal.moa.MobMoaBlack;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.lookup.LookupFuelIncubator;
+import teamport.aether.recipe.RecipeEntryIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
     /// canSmelt                -> canProcess
@@ -162,7 +164,9 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             return;
         }
 
-        Class<? extends Entity> entityClazz = AetherRecipes.INCUBATOR.findOutput(containerItemStacks[0]);
+        RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]);
+        Class<? extends Entity> entityClazz = EntityDispatcher.classForId(recipe.getOutput().getEntity());
+
         if (entityClazz == null) {
             return;
         }
@@ -171,8 +175,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (entity == null) {
             return;
         }
-
-        entity.moveTo(this.x + 0.5, this.y + 1, this.z + 0.5, 0.0F, 0.0F);
+        entity.moveTo(this.x + 0.5, this.y + 1, this.z, 0.0F, 0.0F);
         this.worldObj.entityJoinedWorld(entity);
 
         containerItemStacks[0].stackSize--;
@@ -189,15 +192,14 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
-        if (entityClazz == MobMoaBlue.class) {
-            return new MobMoaBlue(this.worldObj, true);
-        } else if (entityClazz == MobMoaWhite.class) {
-            return new MobMoaWhite(this.worldObj, true);
-        } else if (entityClazz == MobMoaBlack.class) {
-            return new MobMoaBlack(this.worldObj, true);
-        } else {
-            return EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        if(entity instanceof MobMoaBlue){
+            ((MobMoaBlue)entity).setTamed(true);
         }
+        if(entity instanceof MobSlime){
+            ((MobSlime)entity).setSlimeSize(random.nextInt(4) + 1);
+        }
+        return entity;
     }
 
     @Override
