@@ -275,6 +275,10 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addInput('S', AetherItems.STICK_SKYROOT)
                 .create("ambrosium_torch", new ItemStack(AetherBlocks.TORCH_AMBROSIUM, 2));
 
+        RecipeBuilder.Shaped(MOD_ID, "X", "X")
+                .addInput('X', AetherBlocks.HOLYSTONE)
+                .create("holystone_to_polished_holystone", new ItemStack(AetherBlocks.HOLYSTONE_POLISHED, 2));
+
 
         RecipeBuilder.Shaped(MOD_ID, "MMM", "SES", "WWW")
                 .addInput('W', Items.WHEAT)
@@ -639,6 +643,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         templateSlab.addInput('X', AetherBlocks.CARVED_HELLFIRE).create("hellfire_stone_slab", new ItemStack(AetherBlocks.SLAB_CARVED_HELLFIRE, 6));
         templateSlab.addInput('X', AetherBlocks.BRICK_ZANITE).create("zanite_brick_slab", new ItemStack(AetherBlocks.SLAB_BRICK_ZANITE, 6));
         templateSlab.addInput('X', AetherBlocks.BRICK_HOLYSTONE).create("holystone_brick_slab", new ItemStack(AetherBlocks.SLAB_BRICK_HOLYSTONE, 6));
+        templateSlab.addInput('X', AetherBlocks.HOLYSTONE_POLISHED).create("polished_holystone_slab", new ItemStack(AetherBlocks.SLAB_HOLYSTONE_POLISHED, 6));
 
         templateSlab.addInput('X', AetherBlocks.PLANKS_SKYROOT).create("skyroot_wooden_slab", new ItemStack(AetherBlocks.SLAB_PLANKS_SKYROOT, 6));
         for (DyeColor dyeColor : DyeColor.values()) {
