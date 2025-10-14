@@ -54,10 +54,10 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
             Container contain = slot.getContainer();
             // fixing the crafting inventory
             if (contain instanceof ContainerCrafting) {
-                slot.x += 11;
+                slot.x += 12;
             }
             if (slot instanceof SlotResult) {
-                slot.x += 8;
+                slot.x += 9;
             }
             //because getContainerSize now returns 44, both slot and index need to be adjusted for armor slot to work.
             if (slot instanceof SlotArmor) {

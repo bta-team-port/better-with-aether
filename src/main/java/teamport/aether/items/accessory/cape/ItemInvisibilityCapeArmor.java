@@ -16,7 +16,6 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
-    // TODO make the player visible when the item is dragged away from the armor slot
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (

@@ -102,6 +102,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public void afterGameStart() {
         TRANSLATOR = I18n.getInstance();
 
+        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent("aether", "border_amber"));
         EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
         AetherBlockDetails.initializeBlockDetails();
@@ -109,10 +110,10 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     }
 
     public static void registerNewTagForItems() {
-        ItemTrinket.setIcon(Items.TOOL_COMPASS, "aether:item/trinket/armor_compass_outline_alt2");
+        ItemTrinket.setIcon(Items.TOOL_COMPASS, "aether:item/trinket/armor_compass_outline");
         ItemTrinket.setIcon(Items.TOOL_CALENDAR, "aether:item/trinket/armor_calendar_outline");
-        ItemTrinket.setIcon(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline_alt1");
-        ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_outline_map_filled");
+        ItemTrinket.setIcon(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline");
+        ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_map_outline");
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);

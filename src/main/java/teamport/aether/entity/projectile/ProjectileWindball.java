@@ -79,14 +79,17 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
             }
         }
         this.remove();
-        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
+    }
 
+    public void remove() {
+        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45);
             ParticleHelper.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleHelper.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleHelper.spawnParticle(world, "item", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, AetherItems.AMMO_WINDBALL.id);
         }
+        this.removed = true;
     }
 
     public boolean isPickable() {

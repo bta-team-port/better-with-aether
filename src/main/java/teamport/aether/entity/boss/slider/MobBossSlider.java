@@ -69,7 +69,7 @@ public class MobBossSlider extends MobBoss {
     public enum State {
         AWAKE(MobBossSlider::stateAwake),
         SLAM(MobBossSlider::stateSlam),
-        ASLEEP(MobBossSlider::stateASleep);
+        ASLEEP(MobBossSlider::stateAsleep);
 
         public final Consumer<MobBossSlider> consumer;
 
@@ -234,7 +234,7 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    protected void stateASleep() { /* ZZZ... */}
+    protected void stateAsleep() { /* ZZZ... */}
 
     protected void stateAwake() {
         assert world != null;

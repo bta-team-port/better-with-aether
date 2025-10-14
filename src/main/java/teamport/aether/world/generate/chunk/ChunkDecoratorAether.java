@@ -3,14 +3,11 @@ package teamport.aether.world.generate.chunk;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicSand;
 import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.MaterialColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
-import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
 import net.minecraft.core.world.noise.BasePerlinNoise;
 import net.minecraft.core.world.noise.PerlinNoise;
 import teamport.aether.blocks.AetherBlockTags;
@@ -63,8 +60,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
         decorateWithClouds(rand, worldX, worldZ);
 
-        if (   (chunk.xPosition & 1) == 0
-                && (chunk.zPosition&1) == 0) {
+        if ((chunk.xPosition & 1) == 0
+                && (chunk.zPosition & 1) == 0) {
             decorateWithDungeons(chunk, rand);
         }
 
@@ -77,9 +74,13 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.world.scheduledUpdatesAreImmediate = false;
     }
 
-    public static final int[] FLOWERS = new int[] {
-      AetherBlocks.FLOWER_WHITE.id(),
-      AetherBlocks.FLOWER_PURPLE.id()
+    public static final int[] FLOWERS = new int[]{
+            AetherBlocks.FLOWER_WHITE.id(),
+            AetherBlocks.FLOWER_PURPLE.id()
+    };
+
+    public static final int[] METAID = new int[]{
+            0, 16, 32, 48
     };
 
     public void decorateWithFlowers(Chunk chunk, Random rand) {
@@ -115,13 +116,13 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 int blockY = chunk.getHeightValue(x, z);
                 if (blockY >= world.getWorldType().getMaxY()) continue;
 
-                Block<?> blk = Blocks.getBlock(chunk.getBlockID(x, blockY -1, z));
+                Block<?> blk = Blocks.getBlock(chunk.getBlockID(x, blockY - 1, z));
                 if (blk == null) continue;
                 if (!blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) continue;
 
                 if (flowerDensity < 0) {
                     if (rand.nextInt(128) == 0) {
-                        chunk.setBlockID(x, blockY, z, FLOWERS[rand.nextInt(FLOWERS.length)]);
+                        chunk.setBlockIDWithMetadata(x, blockY, z, FLOWERS[rand.nextInt(FLOWERS.length)], METAID[rand.nextInt(METAID.length)]);
                     }
 
                     if (rand.nextInt(16) == 0) {
@@ -129,13 +130,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                     }
 
                     continue;
-                };
+                }
 
                 if (rand.nextInt(10 * (5 - flowerDensity)) == 0) {
                     if (rand.nextInt(2) == 0) {
                         flowerID = FLOWERS[(int) Math.abs(flowerVeinNoise[z / 2 + (x / 2) * 8] * 8) % FLOWERS.length];
-                    }
-                    else flowerID = AetherBlocks.TALLGRASS_AETHER.id();
+                    } else flowerID = AetherBlocks.TALLGRASS_AETHER.id();
 
                     chunk.setBlockID(x, blockY, z, flowerID);
                 }
@@ -300,16 +300,12 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             int dungeonY = 60 + rand.nextInt(90);
             int dungeonZ = z + rand.nextInt(16);
             goldDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-        }
-
-        else if (silverSeed > -1) {
+        } else if (silverSeed > -1) {
             int dungeonX = x - 15;
             int dungeonY = 200 + rand.nextInt(30);
             int dungeonZ = z + 28;
             silverDungeon(rand).place(this.world, rand, dungeonX, dungeonY, dungeonZ);
-        }
-
-        else if (bronzeSeed > -1) {
+        } else if (bronzeSeed > -1) {
             int dungeonX = x + rand.nextInt(16);
             int dungeonZ = z + rand.nextInt(16);
 
@@ -323,8 +319,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             for (int i = this.world.worldType.getMinY(); i < this.world.worldType.getMaxY(); i++) {
                 if (world.getBlockId(dungeonX, i, dungeonZ) != 0) {
                     currentDepth++;
-                }
-                else {
+                } else {
                     currentDepth = 0;
                     currentStart = i;
                 }

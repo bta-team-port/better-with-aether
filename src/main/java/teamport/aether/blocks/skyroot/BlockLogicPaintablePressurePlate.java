@@ -15,6 +15,10 @@ public class BlockLogicPaintablePressurePlate<T extends Entity> extends BlockLog
         this.paintedBlock = paintedBlock;
     }
 
+    public int tickDelay() {
+        return 10;
+    }
+
     @Override
     public boolean canBePainted() {
         return true;

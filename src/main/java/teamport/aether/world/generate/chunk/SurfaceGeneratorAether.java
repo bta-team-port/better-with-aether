@@ -1,8 +1,5 @@
 package teamport.aether.world.generate.chunk;
 
-import net.minecraft.core.WeightedRandomBag;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.chunk.Chunk;
@@ -10,8 +7,6 @@ import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
 import net.minecraft.core.world.generate.chunk.perlin.SurfaceGenerator;
 import net.minecraft.core.world.noise.BasePerlinNoise;
 import net.minecraft.core.world.noise.PerlinNoise;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
 
