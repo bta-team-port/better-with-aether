@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
     public double motionYaw;
@@ -96,8 +97,17 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
     }
 
+    public final int DATA_MOTION_YAW = 16;
+    public final int DATA_MOTION_PITCH = 17;
+
     @Override
-    public void tick() {
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_MOTION_YAW, 0, Integer.class);
+        this.entityData.define(DATA_MOTION_PITCH, 0, Integer.class);
+    }
+
+    public void lerpPosAndRot() {
         if (this.newPosRotationIncrements > 0) {
             double lerpXD = this.x + (this.newPosX - this.x) / (double) this.newPosRotationIncrements;
             double lerpYD = this.y + (this.newPosY - this.y) / (double) this.newPosRotationIncrements;
@@ -120,9 +130,28 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
             this.setPos(lerpXD, lerpYD, lerpZD);
             this.setRot(this.yRot, this.xRot);
         }
+    }
 
-        this.motionYaw += 2.0F * this.random.nextFloat() - 1.0F;
-        this.motionPitch += 2.0F * this.random.nextFloat() - 1.0F;
+    @Override
+    public void tick() {
+        if (!EnvironmentHelper.isClientWorld()) {
+            this.updateAI();
+            this.checkForBeingStuck();
+
+            this.motionYaw += 2.0F * this.random.nextFloat() - 1.0F;
+            this.motionPitch += 2.0F * this.random.nextFloat() - 1.0F;
+
+            this.entityData.set(DATA_MOTION_YAW,   Float.floatToIntBits((float) this.motionYaw));
+            this.entityData.set(DATA_MOTION_PITCH, Float.floatToIntBits((float) this.motionPitch));
+        }
+
+        else {
+            lerpPosAndRot();
+            this.motionYaw = Float.intBitsToFloat(this.entityData.getInt(DATA_MOTION_YAW));
+            this.motionPitch = Float.intBitsToFloat(this.entityData.getInt(DATA_MOTION_PITCH)) ;
+        }
+
+
         this.xRot = (float) ((double) this.xRot + 0.1 * this.motionPitch);
         this.yRot = (float) ((double) this.yRot + 0.1 * this.motionYaw);
 
@@ -242,24 +271,23 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
     }
 
     public void checkForBeingStuck() {
-        long curtime = System.currentTimeMillis();
-        if (curtime > this.checkTime + 3000L) {
-            double diffx = this.x - this.checkX;
-            double diffy = this.y - this.checkY;
-            double diffz = this.z - this.checkZ;
-            double distanceTravelled = Math.sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
+        long currTime = System.currentTimeMillis();
+        if (currTime > this.checkTime + 3000L) {
+            double diffX = this.x - this.checkX;
+            double diffY = this.y - this.checkY;
+            double diffZ = this.z - this.checkZ;
+
+            double distanceTravelled = Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+
             if (distanceTravelled < 3.0) {
-                if (!this.isStuckWarning) {
-                    this.isStuckWarning = true;
-                } else {
-                    this.isRemoved();
-                }
+                if (!this.isStuckWarning) this.isStuckWarning = true;
+                else this.remove();
             }
 
             this.checkX = this.x;
             this.checkY = this.y;
             this.checkZ = this.z;
-            this.checkTime = curtime;
+            this.checkTime = currTime;
         }
 
     }
