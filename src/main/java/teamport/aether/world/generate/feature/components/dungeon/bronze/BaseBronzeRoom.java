@@ -229,7 +229,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             otherBlock.withNotify = block.withNotify;
         }
         for (WorldFeatureBlock wfblock : blockMap.values()) {
-            if (this.roomCanReplace(wfblock)) {
+            if (roomCanReplace(world, wfblock)) {
                 wfblock.place(world);
             }
         }
@@ -249,7 +249,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         }
     }
 
-    private boolean roomCanReplace(WorldFeatureBlock wfblock) {
+    public static boolean roomCanReplace(World world, WorldFeatureBlock wfblock) {
         Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
