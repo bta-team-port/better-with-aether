@@ -33,7 +33,7 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     protected IconCoordinate ctm(TextureLayer layer, IconCoordinate fallback, WorldSource blockAccess, int x, int y, int z, Side side) {
         int meta = blockAccess.getBlockMetadata(x, y, z);
 
-        Side sideRotated = Side.getSideById(Sides.orientationLookUpHorizontal[6 * (meta & 7) + side.getId()]);
+        Side sideRotated = Side.getSideById(Sides.orientationLookUpHorizontal[6 * Math.min(meta & BlockLogicRotatable.MASK_DIRECTION, 5) + side.getId()]);
         IconCoordinate baseTex = layer.get(sideRotated);
 
         if (baseTex == null) return fallback;
