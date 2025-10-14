@@ -20,22 +20,10 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
     public final BasePerlinNoise<?> soilNoise;
     public final BasePerlinNoise<?> mainNoise;
 
-    public final BasePerlinNoise<?> flowerNoise;
-
-    public static final WeightedRandomBag<Integer> flowerBag = new WeightedRandomBag<>();
-
-    static {
-        flowerBag.addEntry(AetherBlocks.TALLGRASS_AETHER.id(), 75F);
-        flowerBag.addEntry(AetherBlocks.FLOWER_PURPLE.id(), 12.5F);
-        flowerBag.addEntry(AetherBlocks.FLOWER_WHITE.id(), 12.5F);
-    }
-
     public SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise, BasePerlinNoise<?> mainNoise) {
         this.world = world;
         this.soilNoise = soilNoise;
         this.mainNoise = mainNoise;
-
-        this.flowerNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);
     }
 
     public SurfaceGeneratorAether(World world) {
@@ -65,21 +53,8 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                 beachScale * 2.0
         );
 
-        double[] flowerNoise = this.flowerNoise.get(
-                null,
-                chunkX * 16,
-                chunkZ * 16,
-                0.0,
-                8, 8, 1,
-                beachScale * 2.0,
-                beachScale * 2.0,
-                beachScale * 2.0
-        );
-
         for (int z = 0; z < 16; ++z) {
             for (int x = 0; x < 16; ++x) {
-
-                int flowerDensity = 9 - (int) Math.min(Math.abs(flowerNoise[z/2 + (x/2)*8] * 8), 8);
 
                 int soilThickness = (int) (soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + rand.nextDouble() * 0.25);
                 int currentLayerDepth = -1;
@@ -124,20 +99,6 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                         currentLayerDepth = soilThickness;
 
                         result.setBlock(x, y, z, topBlock);
-
-                        {
-                            Block<?> blk = Blocks.getBlock(topBlock);
-                            if (
-                                blk != null
-                                && blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
-                                && soilThickness > 0
-                                && rand.nextInt(16 * flowerDensity) == 0
-                            ) {
-                                result.setBlock(x, y+1, z, flowerBag.getRandom(rand));
-                            }
-                        }
-
-
                         continue;
                     }
 
