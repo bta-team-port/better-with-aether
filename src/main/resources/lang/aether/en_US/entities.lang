@@ -140,7 +140,7 @@ guidebook.section.mob.slider.name=Slider
 guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
 aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
-model.category.entity.slider.slider.state=State %s
+model.category.entity.slider.slider.state=State: %s
 
 aether.entity.boss_slider.death_message_0 = [PLAYER] was crushed by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_1 = [PLAYER] was mined by the mighty [BOSS]!

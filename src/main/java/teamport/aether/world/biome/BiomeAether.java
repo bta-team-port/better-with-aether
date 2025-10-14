@@ -3,6 +3,7 @@ package teamport.aether.world.biome;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
@@ -19,6 +20,10 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
+import teamport.aether.world.generate.feature.WorldFeatureAetherTree;
+import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
+
+import java.util.Random;
 
 public class BiomeAether extends Biome {
     public BiomeAether(String key) {
@@ -55,5 +60,10 @@ public class BiomeAether extends Biome {
 
     public int getSkyColor(float temperature) {
         return 0xc0c0ff;
+    }
+
+    public WorldFeature getRandomWorldGenForTrees(Random random) {
+        return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
+                : new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id());
     }
 }
