@@ -52,21 +52,6 @@
     }
   },
   {
-    "name": "aether:enchanter/enchant_gold_dart",
-    "type": "aether:machine",
-    "time": 250,
-    "input": {
-      "stack": {
-        "id": "aether:item/ammo_dart_golden",
-        "meta": -1
-      }
-    },
-    "output": {
-      "id": "aether:item/ammo_dart_enchanted",
-      "meta": 0
-    }
-  },
-  {
     "name": "aether:enchanter/enchant_dart_poison",
     "type": "aether:machine",
     "time": 250,

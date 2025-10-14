@@ -77,6 +77,7 @@ aether.entity.sentry=Sentry
 aether.entity.sentry.death_message = [PLAYER] walked over a living mine.
 guidebook.section.mob.sentry.name=Sentry
 guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
+model.category.entity.sentry.slider.state=State: %s
 
 aether.entity.valkyrie=Valkyrie
 aether.entity.valkyrie.death_message = [PLAYER] lost an honorable duel.
@@ -139,6 +140,7 @@ guidebook.section.mob.slider.name=Slider
 guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
 aether.entity.boss_slider.title=%s, The Slider
 aether.entity.boss_slider.hit_fail=Hmm. Perhaps I need to attack it with a pickaxe?
+model.category.entity.slider.slider.state=State %s
 
 aether.entity.boss_slider.death_message_0 = [PLAYER] was crushed by the mighty [BOSS]!
 aether.entity.boss_slider.death_message_1 = [PLAYER] was mined by the mighty [BOSS]!

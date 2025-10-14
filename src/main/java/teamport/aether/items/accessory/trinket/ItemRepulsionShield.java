@@ -12,7 +12,6 @@ import java.util.List;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemRepulsionShield extends ItemShield {
-    public int coolDown = 0;
 
     public ItemRepulsionShield(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);

@@ -20,10 +20,8 @@ public class BlockLogicFarmlandLeatherPendantMixin {
     public void onEntityWalking(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
         if (!(entity instanceof Player)) return;
         ItemStack[] armor = ((Player) entity).inventory.armorInventory;
-        if (armor[TRINKET_1_SLOT] != null && armor[TRINKET_1_SLOT].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID)) {
-            ci.cancel();
-        }
-        if (armor[TRINKET_2_SLOT] != null && armor[TRINKET_2_SLOT].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID)) {
+        if (armor[TRINKET_1_SLOT] != null && armor[TRINKET_1_SLOT].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID)
+                || armor[TRINKET_2_SLOT] != null && armor[TRINKET_2_SLOT].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID)) {
             ci.cancel();
         }
     }

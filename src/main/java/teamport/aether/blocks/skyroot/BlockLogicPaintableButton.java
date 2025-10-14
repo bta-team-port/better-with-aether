@@ -13,6 +13,10 @@ public class BlockLogicPaintableButton extends BlockLogicButtonPlanks {
         this.paintedBlock = paintedBlock;
     }
 
+    public int tickDelay() {
+        return 5;
+    }
+
     @Override
     public boolean canBePainted() {
         return true;

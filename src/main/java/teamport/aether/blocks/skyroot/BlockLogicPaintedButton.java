@@ -12,6 +12,10 @@ public class BlockLogicPaintedButton extends BlockLogicButtonPainted {
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    public int tickDelay() {
+        return 5;
+    }
+
     @Override
     public void removeDye(World world, int x, int y, int z) {
         world.setBlockWithNotify(x, y, z, unpaintedBlockID);
