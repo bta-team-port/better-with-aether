@@ -47,7 +47,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             decorateWithDungeons(chunk, rand);
         }
 
-        decorateWithFoliage(rand, minY, maxY, worldX, worldZ);
+        //decorateWithFoliage(rand, minY, maxY, worldX, worldZ);
         decorateWithOres(rand, minY, maxY, worldX, worldZ);
         decorateWithQuickSoil(rand, worldX, worldZ);
         decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);
