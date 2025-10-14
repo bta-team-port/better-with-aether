@@ -11,7 +11,7 @@ import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 
 import javax.annotation.Nullable;
 
