@@ -1,4 +1,4 @@
-package teamport.aether.entity.entityFloatingBlock;
+package teamport.aether.entity.floatingBlock;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

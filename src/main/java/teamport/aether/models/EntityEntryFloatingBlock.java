@@ -10,7 +10,7 @@ import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntr
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 
 import java.util.ArrayList;
 import java.util.List;

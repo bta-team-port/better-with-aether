@@ -1,4 +1,4 @@
-package teamport.aether.entity.entityFloatingBlock;
+package teamport.aether.entity.floatingBlock;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
@@ -16,6 +16,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 
 // TODO fix multiplayer desync
@@ -111,10 +112,17 @@ public class EntityFloatingBlock extends Entity {
         boolean onCeiling = isOnCeiling(x, y, z);
         boolean atWorldHeight = this.y >= this.world.getHeightBlocks();
 
-        if (onCeiling || atWorldHeight || this.isInWall() || this.floatTime > 600) {
+        boolean shouldStopExisting =
+                onCeiling
+            || atWorldHeight
+            || this.isInWall()
+            || this.floatTime > 600;
+
+        if (shouldStopExisting) {
             if (onCeiling) {
                 this.y = MathHelper.floor(this.y) + 0.5;
                 this.setPos(this.x, this.y, this.z);
+
                 x = MathHelper.floor(this.x - 0.5);
                 y = MathHelper.floor(this.y);
                 z = MathHelper.floor(this.z - 0.5);
@@ -126,43 +134,50 @@ public class EntityFloatingBlock extends Entity {
                 this.yd *= -0.5;
             }
 
-            if (!this.world.isClientSide) {
-                if (onCeiling && this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)) {
-                    boolean blockPlacedSuccessfully = this.world.setBlockWithNotify(x, y, z, this.carriedBlock.blockId);
+            if (!EnvironmentHelper.isClientWorld()) {
+                if (
+                    onCeiling
+                    && this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
+                ) {
+                    boolean blockPlacedSuccessfully = this.world.setBlockAndMetadata(
+                        x, y, z,
+                        this.carriedBlock.blockId,
+                        this.carriedBlock.metadata
+                    );
+
                     if (blockPlacedSuccessfully) {
-                        this.world.setBlockMetadataWithNotify(x, y, z, this.carriedBlock.metadata);
                         if (this.carriedBlock.entity != null) {
                             TileEntity oldEnt = this.world.getTileEntity(x, y, z);
-                            if (oldEnt != null) {
-                                oldEnt.invalidate();
-                            }
+                            if (oldEnt != null) oldEnt.invalidate();
+
                             this.carriedBlock.entity.validate();
                             this.carriedBlock.entity.x = x;
                             this.carriedBlock.entity.y = y;
                             this.carriedBlock.entity.z = z;
                             this.carriedBlock.entity.worldObj = this.world;
                             this.carriedBlock.entity.carriedBlock = null;
+
                             this.world.replaceBlockTileEntity(x, y, z, this.carriedBlock.entity);
                         }
+
                         this.world.notifyBlockChange(x, y, z, this.carriedBlock.blockId);
 
                         Entity rider = this.getPassenger();
                         if (rider != null) {
                             this.ejectRider();
-                            TileEntity oldEnt = this.world.getTileEntity(x, y, z);
-                            if (oldEnt instanceof IVehicle) {
-                                rider.startRiding((IVehicle) oldEnt);
+
+                            if (this.carriedBlock.entity instanceof IVehicle) {
+                                rider.startRiding((IVehicle) this.carriedBlock.entity);
                             }
                         }
 
                         this.remove();
                         return;
                     }
+
+                    if (this.hasRemovedBlock) this.drop();
                 }
 
-                if (this.hasRemovedBlock) {
-                    this.drop();
-                }
                 this.ejectRider();
                 this.remove();
                 return;

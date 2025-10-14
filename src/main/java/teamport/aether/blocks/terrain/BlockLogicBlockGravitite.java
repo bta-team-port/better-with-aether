@@ -5,7 +5,7 @@ import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 
 public class BlockLogicBlockGravitite extends BlockLogic {
     public static boolean fallInstantly = false;

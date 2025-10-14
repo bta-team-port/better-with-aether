@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
-import teamport.aether.entity.entityFloatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 
 @Mixin(value = BlockLogicPistonBaseSteel.class, remap = false)
 public class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBase {
