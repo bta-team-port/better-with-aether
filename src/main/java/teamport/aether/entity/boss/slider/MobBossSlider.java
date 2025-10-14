@@ -62,7 +62,11 @@ public class MobBossSlider extends MobBoss {
 
     private State currentState = State.ASLEEP;
 
-    enum State {
+    public void setState(State state) {
+        this.currentState = state;
+    }
+
+    public enum State {
         AWAKE(MobBossSlider::stateAwake),
         SLAM(MobBossSlider::stateSlam),
         ASLEEP(MobBossSlider::stateASleep);
@@ -230,9 +234,9 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    public void stateASleep() { /* ZZZ... */}
+    protected void stateASleep() { /* ZZZ... */}
 
-    public void stateAwake() {
+    protected void stateAwake() {
         assert world != null;
 
         if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
@@ -303,7 +307,7 @@ public class MobBossSlider extends MobBoss {
     public double slamY = -1;
     public boolean slamGoingDown = false;
 
-    public void stateSlam() {
+    protected void stateSlam() {
         assert world != null;
 
         if (allowedToMove && !slamGoingDown) {
