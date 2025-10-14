@@ -90,7 +90,7 @@ public class BossRoom extends BaseBronzeRoom {
     @Override
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
-        if (closingType != ClosingType.PLACED) return;
+        if (closingType != ClosingType.PLACED && door.mark != ClosingType.PLACED) return;
         this.bossDoor = door;
         doors.forEach(d -> d.mark = ClosingType.ROOM_LOCKED);
         if (door == null) {
