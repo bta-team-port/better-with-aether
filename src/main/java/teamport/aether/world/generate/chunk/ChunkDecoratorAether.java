@@ -280,8 +280,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int rangeY = maxY + 1 - minY;
 
         int y;
-        x += rand.nextInt(16);
-        z += rand.nextInt(16);
+        x += rand.nextInt(12) + 2;
+        z += rand.nextInt(12) + 2;
 
         int generateChance;
         if (rand.nextInt(8) == 0) {
