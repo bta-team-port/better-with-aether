@@ -241,28 +241,28 @@ public class WorldFeatureSilverMaze {
 
 
     public void createHallway(int x, int y, int z, Direction doorDirection) {
-        rooms.add(drawShell(random, ANGELIC_ROOM, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
+        rooms.add(drawShell(random, ANGELIC_ROOM, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, false));
         // only generate door in horizontal direction
         switch (doorDirection) {
             case NORTH:
-                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z, true));
+                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z, false));
                 break;
             case EAST:
-                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, true));
+                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x, y + 1, z + 3, false));
                 break;
             case WEST:
-                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x - 7, y + 1, z + 3, true));
+                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.SOUTH, 2, x - 7, y + 1, z + 3, false));
                 break;
             case SOUTH:
             default:
-                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z + 7, true));
+                doors.add(drawPlane(0, 0, Direction.UP, 2, Direction.WEST, 2, x - 3, y + 1, z + 7, false));
                 break;
         }
     }
 
     public void createRoom(int x, int y, int z, Direction doorDirection) {
         createHallway(x, y, z, doorDirection);
-        rooms.add(drawPlane(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, true));
+        rooms.add(drawPlane(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, x - 3, y + 1, z + 3, false));
         createChests(x, y, z);
     }
 
@@ -277,45 +277,45 @@ public class WorldFeatureSilverMaze {
             }
             switch (dir) {
                 case EAST:
-                    rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 1, y + 1, z + 3, true));
-                    chests.add(wfb(x - 1, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), true));
-                    chests.add(wfb(x - 1, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), true));
+                    rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 1, y + 1, z + 3, false));
+                    chests.add(wfb(x - 1, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), false));
+                    chests.add(wfb(x - 1, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), false));
                     break;
                 case WEST:
-                    rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 6, y + 1, z + 3, true));
-                    chests.add(wfb(x - 6, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), true));
-                    chests.add(wfb(x - 6, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), true));
+                    rooms.add(drawLine(random, angelic, Direction.SOUTH, 2, x - 6, y + 1, z + 3, false));
+                    chests.add(wfb(x - 6, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), false));
+                    chests.add(wfb(x - 6, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), false));
                     break;
                 case NORTH:
-                    rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 1, true));
-                    chests.add(wfb(x - 3, y + 2, z + 1, CHEST_OR_MIMIC.getRandom(random), true));
-                    chests.add(wfb(x - 4, y + 2, z + 1, CHEST_OR_MIMIC.getRandom(random), true));
+                    rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 1, false));
+                    chests.add(wfb(x - 3, y + 2, z + 1, CHEST_OR_MIMIC.getRandom(random), false));
+                    chests.add(wfb(x - 4, y + 2, z + 1, CHEST_OR_MIMIC.getRandom(random), false));
                     break;
                 case SOUTH:
-                    rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 6, true));
-                    chests.add(wfb(x - 3, y + 2, z + 6, CHEST_OR_MIMIC.getRandom(random), true));
-                    chests.add(wfb(x - 4, y + 2, z + 6, CHEST_OR_MIMIC.getRandom(random), true));
+                    rooms.add(drawLine(random, angelic, Direction.WEST, 2, x - 3, y + 1, z + 6, false));
+                    chests.add(wfb(x - 3, y + 2, z + 6, CHEST_OR_MIMIC.getRandom(random), false));
+                    chests.add(wfb(x - 4, y + 2, z + 6, CHEST_OR_MIMIC.getRandom(random), false));
                 default:
                     break;
             }
         }
 
         // places decorations
-        rooms.add(wfb(x - 1, y + 1, z + 1, AetherBlocks.CARVED_ANGELIC.id(), 0, true));
+        rooms.add(wfb(x - 1, y + 1, z + 1, AetherBlocks.CARVED_ANGELIC.id(), 0, false));
         rooms.add(wfb(x - 1, y + 2, z + 1, AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), DyeColor.WHITE.blockMeta << 4, true));
-        rooms.add(wfb(x - 1, y + 3, z + 1, Blocks.GLOWSTONE.id(), 0, true));
+        rooms.add(wfb(x - 1, y + 3, z + 1, Blocks.GLOWSTONE.id(), 0, false));
 
-        rooms.add(wfb(x - 1, y + 1, z + 6, AetherBlocks.CARVED_ANGELIC.id(), 0, true));
+        rooms.add(wfb(x - 1, y + 1, z + 6, AetherBlocks.CARVED_ANGELIC.id(), 0, false));
         rooms.add(wfb(x - 1, y + 2, z + 6, AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), DyeColor.WHITE.blockMeta << 4, true));
-        rooms.add(wfb(x - 1, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, true));
+        rooms.add(wfb(x - 1, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, false));
 
-        rooms.add(wfb(x - 6, y + 1, z + 1, AetherBlocks.CARVED_ANGELIC.id(), 0, true));
+        rooms.add(wfb(x - 6, y + 1, z + 1, AetherBlocks.CARVED_ANGELIC.id(), 0, false));
         rooms.add(wfb(x - 6, y + 2, z + 1, AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), DyeColor.WHITE.blockMeta << 4, true));
-        rooms.add(wfb(x - 6, y + 3, z + 1, Blocks.GLOWSTONE.id(), 0, true));
+        rooms.add(wfb(x - 6, y + 3, z + 1, Blocks.GLOWSTONE.id(), 0, false));
 
-        rooms.add(wfb(x - 6, y + 1, z + 6, AetherBlocks.CARVED_ANGELIC.id(), 0, true));
+        rooms.add(wfb(x - 6, y + 1, z + 6, AetherBlocks.CARVED_ANGELIC.id(), 0, false));
         rooms.add(wfb(x - 6, y + 2, z + 6, AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED.id(), DyeColor.WHITE.blockMeta << 4, true));
-        rooms.add(wfb(x - 6, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, true));
+        rooms.add(wfb(x - 6, y + 3, z + 6, Blocks.GLOWSTONE.id(), 0, false));
     }
 
     private void createGardenRoom(int x, int y, int z, Direction doorDirection) {
@@ -328,7 +328,7 @@ public class WorldFeatureSilverMaze {
             switch (dir) {
                 case EAST:
                     rooms.add(drawLine(AetherBlocks.GRASS_AETHER.id(), 0, Direction.SOUTH, 2, x - 1, y + 1, z + 3, false));
-                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.SOUTH, 2, x - 1, y + 4, z + 3, true));
+                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.SOUTH, 2, x - 1, y + 4, z + 3, false));
                     rooms.add(drawLine(random, GARDEN_DECO, Direction.SOUTH, 2, x - 1, y + 2, z + 3, false));
 
                     rooms.add(wfb(x - 1, y + 4, z + 2, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
@@ -342,7 +342,7 @@ public class WorldFeatureSilverMaze {
                     break;
                 case WEST:
                     rooms.add(drawLine(AetherBlocks.GRASS_AETHER.id(), 0, Direction.SOUTH, 2, x - 6, y + 1, z + 3, false));
-                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.SOUTH, 2, x - 6, y + 4, z + 3, true));
+                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.SOUTH, 2, x - 6, y + 4, z + 3, false));
                     rooms.add(drawLine(random, GARDEN_DECO, Direction.SOUTH, 2, x - 6, y + 2, z + 3, false));
 
                     rooms.add(wfb(x - 6, y + 4, z + 2, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
@@ -355,7 +355,7 @@ public class WorldFeatureSilverMaze {
                     break;
                 case NORTH:
                     rooms.add(drawLine(AetherBlocks.GRASS_AETHER.id(), 0, Direction.WEST, 2, x - 3, y + 1, z + 1, false));
-                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.WEST, 2, x - 3, y + 4, z + 1, true));
+                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.WEST, 2, x - 3, y + 4, z + 1, false));
                     rooms.add(drawLine(random, GARDEN_DECO, Direction.WEST, 2, x - 3, y + 2, z + 1, false));
 
                     rooms.add(wfb(x - 2, y + 4, z + 1, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, dir)));
@@ -369,7 +369,7 @@ public class WorldFeatureSilverMaze {
                 case SOUTH:
                 default:
                     rooms.add(drawLine(AetherBlocks.GRASS_AETHER.id(), 0, Direction.WEST, 2, x - 3, y + 1, z + 6, false));
-                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.WEST, 2, x - 3, y + 4, z + 6, true));
+                    rooms.add(drawLine(AetherBlocks.LEAVES_SKYROOT.id(), 0, Direction.WEST, 2, x - 3, y + 4, z + 6, false));
                     rooms.add(drawLine(random, GARDEN_DECO, Direction.WEST, 2, x - 3, y + 2, z + 6, false));
 
                     rooms.add(wfb(x - 2, y + 4, z + 6, AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id(), getMetadataFromDyeAndDirection(DyeColor.GREEN, Direction.SOUTH)));
@@ -453,52 +453,52 @@ public class WorldFeatureSilverMaze {
         int chestCount = 0;
         if (random.nextInt(3) == 0) {
             chestCount++;
-            chests.add(wfb(x - 3, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), true));
+            chests.add(wfb(x - 3, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), false));
         }
         if (random.nextInt(3) == 0) {
             chestCount++;
-            chests.add(wfb(x - 4, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), true));
+            chests.add(wfb(x - 4, y + 2, z + 3, CHEST_OR_MIMIC.getRandom(random), false));
         }
         if (random.nextInt(3) == 0) {
             chestCount++;
-            chests.add(wfb(x - 3, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), true));
+            chests.add(wfb(x - 3, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), false));
         }
         if (random.nextInt(2) == 0 || chestCount < 2) {
-            chests.add(wfb(x - 4, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), true));
+            chests.add(wfb(x - 4, y + 2, z + 4, CHEST_OR_MIMIC.getRandom(random), false));
         }
     }
 
     public void createStaircase(int x, int y, int z) {
         // draw room
-        rooms.add(drawShell(random, ANGELIC_ROOM, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, true));
+        rooms.add(drawShell(random, ANGELIC_ROOM, Direction.SOUTH, 8, Direction.UP, 6, Direction.WEST, 8, x, y, z, false));
         // add opening
-        doors.add(drawPlane(0, 0, Direction.SOUTH, 4, Direction.WEST, 4, x - 2, y + 5, z + 2, true));
+        doors.add(drawPlane(0, 0, Direction.SOUTH, 4, Direction.WEST, 4, x - 2, y + 5, z + 2, false));
         // add pillar
-        doors.add(drawVolume(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, Direction.UP, 9, x - 3, y + 1, z + 3, true));
+        doors.add(drawVolume(random, angelic, Direction.SOUTH, 2, Direction.WEST, 2, Direction.UP, 9, x - 3, y + 1, z + 3, false));
 
         // add chests
         createChests(x, y + 5, z);
 
         // add stairs
-        doors.add(wfb(x - 2, y + 1, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
-        doors.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
-        doors.add(wfb(x - 2, y + 2, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
-        doors.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
-        doors.add(wfb(x - 2, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 2, y + 1, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, false));
+        doors.add(wfb(x - 2, y + 1, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
+        doors.add(wfb(x - 2, y + 2, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, false));
+        doors.add(wfb(x - 2, y + 1, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, false));
+        doors.add(wfb(x - 2, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
 
-        doors.add(wfb(x - 3, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
-        doors.add(wfb(x - 3, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
-        doors.add(wfb(x - 4, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
-        doors.add(wfb(x - 5, y + 4, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
-        doors.add(wfb(x - 5, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
+        doors.add(wfb(x - 3, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, false));
+        doors.add(wfb(x - 3, y + 2, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, false));
+        doors.add(wfb(x - 4, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
+        doors.add(wfb(x - 5, y + 4, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, false));
+        doors.add(wfb(x - 5, y + 3, z + 5, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, false));
 
-        doors.add(wfb(x - 5, y + 4, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
-        doors.add(wfb(x - 5, y + 5, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, true));
-        doors.add(wfb(x - 5, y + 4, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, true));
-        doors.add(wfb(x - 5, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 5, y + 4, z + 4, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
+        doors.add(wfb(x - 5, y + 5, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 0, false));
+        doors.add(wfb(x - 5, y + 4, z + 3, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 2, false));
+        doors.add(wfb(x - 5, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
 
-        doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
-        doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, true));
+        doors.add(wfb(x - 4, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
+        doors.add(wfb(x - 3, y + 5, z + 2, AetherBlocks.SLAB_HOLYSTONE_POLISHED.id(), 1, false));
     }
 
     public Direction getDoorDirection(int to, int from) {

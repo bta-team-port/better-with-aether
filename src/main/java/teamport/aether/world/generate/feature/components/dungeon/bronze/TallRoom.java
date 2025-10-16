@@ -41,8 +41,8 @@ public class TallRoom extends BaseBronzeRoom {
     }
 
     public void makeShell() {
-        room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
-        room.add(drawVolume(0, 0, SOUTH, width - 2, UP, height - 2, EAST, width - 2, x + 1, y + 1, z + 1, true));
+        room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, false));
+        room.add(drawVolume(0, 0, SOUTH, width - 2, UP, height - 2, EAST, width - 2, x + 1, y + 1, z + 1, false));
 
         List<WorldFeaturePoint> pillar = new ArrayList<>();
         pillar.add(wfp(x + 3, y, z + 3));
@@ -56,9 +56,9 @@ public class TallRoom extends BaseBronzeRoom {
         for (int i = 0; i < 6; i++) {
             index = index % 4;
             WorldFeaturePoint point = pillar.get(index++);
-            decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, point.x, y + pillar_height, point.z, true));
+            decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, point.x, y + pillar_height, point.z, false));
             if (pillar_height < 6) {
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, EAST, 2, DOWN, pillar_height, point.x, y + pillar_height, point.z, true));
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, EAST, 2, DOWN, pillar_height, point.x, y + pillar_height, point.z, false));
                 pillar_height -= 4;
                 continue;
             }
@@ -69,13 +69,13 @@ public class TallRoom extends BaseBronzeRoom {
             pillar_height -= 4;
         }
 
-        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 4, z + 5, true));
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 5, y + height - 5, z + 5, true));
+        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 4, z + 5, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 5, y + height - 5, z + 5, false));
 
-        decoration.add(wfb(x + 5, y + height - 6, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, true));
-        decoration.add(wfb(x + 6, y + height - 6, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, true));
-        decoration.add(wfb(x + 5, y + height - 6, z + 6, AetherBlocks.AERCLOUD_WHITE.id(), 0, true));
-        decoration.add(wfb(x + 5, y + height - 7, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, true));
+        decoration.add(wfb(x + 5, y + height - 6, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, false));
+        decoration.add(wfb(x + 6, y + height - 6, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, false));
+        decoration.add(wfb(x + 5, y + height - 6, z + 6, AetherBlocks.AERCLOUD_WHITE.id(), 0, false));
+        decoration.add(wfb(x + 5, y + height - 7, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, false));
     }
 
     @Override

@@ -258,7 +258,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             if (entry == null) continue;
             Door door = entry.getData();
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
-            drawVolume(0, 0, door.p1, door.p2, true).place(world);
+            drawVolume(0, 0, door.p1, door.p2, false).place(world);
 //            createTunnel(door.p1, door.p2, door.heading, Blocks.GLASS.id());
         }
         return true;
@@ -269,9 +269,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
             WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, true));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
         }
-        drawVolumeWithPoint(id, 0, bottomCorner, topCorner, true).place(world);
+        drawVolumeWithPoint(id, 0, bottomCorner, topCorner, false).place(world);
     }
 
     public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction) {
@@ -279,9 +279,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
             WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, true));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
         }
-        drawVolumeWithPoint(0, 0, bottomCorner, topCorner, true).place(world);
+        drawVolumeWithPoint(0, 0, bottomCorner, topCorner, false).place(world);
     }
 
     public static void placeWorldLining(World world, WorldFeatureComponent lining) {

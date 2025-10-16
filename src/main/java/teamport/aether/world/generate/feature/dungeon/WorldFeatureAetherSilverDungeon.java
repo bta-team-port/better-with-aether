@@ -260,7 +260,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         }
 
         // Outer walls of dungeon itself
-        this.placeComponent(drawShell(random, angelic, Direction.SOUTH, 22, Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, true));
+        this.placeComponent(drawShell(random, angelic, Direction.SOUTH, 22, Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, false));
         this.placeComponent(drawShell(random, angelic, Direction.NORTH, 26, Direction.UP, 16, Direction.EAST, 22, ix + 4, y, iz - 5, false));
 
 
@@ -323,26 +323,26 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         createTreePods(x, y, z);
 
         // Throne
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, true));
-        this.placeComponent(drawShell(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, true));
+        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, false));
+        this.placeComponent(drawShell(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, false));
 
         // Chest hole
-        this.placeComponent(drawVolume(0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, true));
+        this.placeComponent(drawVolume(0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, false));
 
         // Torches
         WorldFeatureComponent torches = new WorldFeatureComponent();
-        torches.add(wfb(x - 11, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 11, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 18, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
-        torches.add(wfb(x - 18, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+        torches.add(wfb(x - 11, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, false));
+        torches.add(wfb(x - 11, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, false));
+        torches.add(wfb(x - 18, y + 3, z + 49, AetherBlocks.TORCH_AMBROSIUM.id(), 0, false));
+        torches.add(wfb(x - 18, y + 3, z + 44, AetherBlocks.TORCH_AMBROSIUM.id(), 0, false));
         this.placeComponent(torches);
 
         // Throne cushion
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, true));
-        this.placeComponent(drawVolume(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, true));
-        this.placeComponent(drawPlane(Blocks.WOOL.id(), 11, Direction.WEST, 2, Direction.NORTH, 2, x - 14, y + 4, z + 48, true));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 13, y + 5, z + 48, true));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 16, y + 5, z + 48, true));
+        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, false));
+        this.placeComponent(drawVolume(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, false));
+        this.placeComponent(drawPlane(Blocks.WOOL.id(), 11, Direction.WEST, 2, Direction.NORTH, 2, x - 14, y + 4, z + 48, false));
+        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 13, y + 5, z + 48, false));
+        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 16, y + 5, z + 48, false));
 
         // Ceiling lights
         createLight(x - 10, y + 14, z + 28);
@@ -370,7 +370,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         WorldFeatureComponent roof = new WorldFeatureComponent();
         // Roof
         for (int i = 0; i < 7; i++) {
-            roof.add(drawPlane(random, angelic, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, true));
+            roof.add(drawPlane(random, angelic, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, false));
         }
 
         WorldFeatureComponent pillars = new WorldFeatureComponent();
@@ -399,7 +399,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         for (int i = 0; i < 2; i++) {
             int bx = x - 6 - i * 15;
             int bz = z + 45;
-            pod.add(drawPlane(random, angelic, Direction.WEST, 3, Direction.SOUTH, 3, bx, y + 2, bz, true));
+            pod.add(drawPlane(random, angelic, Direction.WEST, 3, Direction.SOUTH, 3, bx, y + 2, bz, false));
             pod.add(wfb(bx - 1, y + 2, bz + 1, AetherBlocks.DIRT_AETHER.id(), 0, true));
             if (world.rand.nextInt(6) == 0) {
                 pod.add(wfb(bx - 1, y + 3, bz + 1, AetherBlocks.SAPLING_OAK_GOLDEN.id(), 0, false));
@@ -457,13 +457,13 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeature {
         lights.add(wfb(x, y, z, AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, false));
         lights.add(wfb(x, y - 1, z, AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, false));
         lights.add(wfb(x, y - 2, z, AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, false));
-        lights.add(wfb(x, y - 3, z, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x, y - 4, z, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x - 1, y - 4, z, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x + 1, y - 4, z, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x, y - 4, z - 1, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x, y - 4, z + 1, Blocks.GLOWSTONE.id(), 0, true));
-        lights.add(wfb(x, y - 5, z, Blocks.GLOWSTONE.id(), 0, true));
+        lights.add(wfb(x, y - 3, z, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x, y - 4, z, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x - 1, y - 4, z, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x + 1, y - 4, z, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x, y - 4, z - 1, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x, y - 4, z + 1, Blocks.GLOWSTONE.id(), 0, false));
+        lights.add(wfb(x, y - 5, z, Blocks.GLOWSTONE.id(), 0, false));
         this.placeComponent(lights);
     }
 }

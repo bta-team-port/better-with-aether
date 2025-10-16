@@ -36,17 +36,17 @@ public class DisplayRoom extends BaseBronzeRoom {
     @Override
     public void makeRoom() {
         //room
-        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, false));
         // center deco
-        decoration.add(drawPlane(AetherBlocks.SLAB_CARVED_STONE.id(), 0, SOUTH, 4, EAST, 2, x + 5, y + 1, z + 4, true));
-        decoration.add(drawPlane(AetherBlocks.SLAB_CARVED_STONE.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 1, z + 5, true));
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 5, y + 1, z + 5, true));
-        decoration.add(drawVolume(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, SOUTH, 2, EAST, 2, UP, 2, x + 5, y + 4, z + 5, true));
+        decoration.add(drawPlane(AetherBlocks.SLAB_CARVED_STONE.id(), 0, SOUTH, 4, EAST, 2, x + 5, y + 1, z + 4, false));
+        decoration.add(drawPlane(AetherBlocks.SLAB_CARVED_STONE.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 1, z + 5, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 5, y + 1, z + 5, false));
+        decoration.add(drawVolume(AetherBlocks.CARVED_STONE_LIGHT.id(), 0, SOUTH, 2, EAST, 2, UP, 2, x + 5, y + 4, z + 5, false));
         // corner plinth
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 1, y + 1, z + 1, true));
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 1, y + 1, z + 9, true));
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 9, y + 1, z + 1, true));
-        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 9, y + 1, z + 9, true));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 1, y + 1, z + 1, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 1, y + 1, z + 9, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 9, y + 1, z + 1, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 9, y + 1, z + 9, false));
 
         // deco in corner
         List<WorldFeaturePoint[]> pointList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class DisplayRoom extends BaseBronzeRoom {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
                 IntPair idMeta = chestOrMimic.getRandom(random);
-                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, true));
+                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, false));
             }
         }
     }

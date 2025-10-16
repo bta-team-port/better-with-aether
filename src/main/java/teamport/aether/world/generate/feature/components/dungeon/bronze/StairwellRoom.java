@@ -32,8 +32,8 @@ public class StairwellRoom extends BaseBronzeRoom {
 
     @Override
     public void makeRoom() {
-        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y, z, true));
-        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y + height - 9, z, true));
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y, z, false));
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, 9, EAST, width, x, y + height - 9, z, false));
 
         decoration.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, width - 2, EAST, width - 2, UP, height - 16, x + 1, y + 8, z + 1, false));
 
@@ -44,22 +44,22 @@ public class StairwellRoom extends BaseBronzeRoom {
 
         switch (dir) {
             case WEST:
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 5, y + height - 9, z + 2, true));
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 5, y + height - 9, z + 2, false));
                 offset = wfp(0, 0, 0);
                 break;
 
             case SOUTH:
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 2, true));
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 2, false));
                 offset = wfp(3, 0, 0);
                 break;
 
             case EAST:
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 2, y + height - 9, z + 2, true));
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 4, UP, 1, EAST, 1, x + 2, y + height - 9, z + 2, false));
                 offset = wfp(3, 0, -3);
                 break;
 
             case NORTH:
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 5, true));
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 1, UP, 1, EAST, 4, x + 2, y + height - 9, z + 5, false));
                 offset = wfp(0, 0, -3);
                 break;
 
@@ -76,6 +76,6 @@ public class StairwellRoom extends BaseBronzeRoom {
 
         staircase.moveByOffset(offset);
         decoration.add(staircase);
-        decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, UP, height, EAST, 2, x + 3, y, z + 3, true));
+        decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, UP, height, EAST, 2, x + 3, y, z + 3, false));
     }
 }

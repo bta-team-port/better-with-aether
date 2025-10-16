@@ -37,27 +37,27 @@ public class JumpRoom extends BaseBronzeRoom {
     @Override
     public void makeRoom() {
         // Shell
-        room.add(drawShell(random, ROOM_PALLET, EAST, 12, UP, height, SOUTH, 12, x, y, z, true));
-        room.add(drawVolume(0, 0, EAST, 10, UP, height - 2, SOUTH, 10, x + 1, y + 1, z + 1, true));
+        room.add(drawShell(random, ROOM_PALLET, EAST, 12, UP, height, SOUTH, 12, x, y, z, false));
+        room.add(drawVolume(0, 0, EAST, 10, UP, height - 2, SOUTH, 10, x + 1, y + 1, z + 1, false));
 
         // Platforms
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 1, true));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 1, y + 7, z + 4, true));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 9, y + 7, z + 4, true));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 9, true));
+        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 1, false));
+        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 1, y + 7, z + 4, false));
+        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 9, y + 7, z + 4, false));
+        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 9, false));
 
         // Clouds
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, EAST, 3, x + 1, y, z + 1, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, WEST, 3, x + 10, y, z + 1, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, EAST, 3, x + 1, y, z + 10, true));
-        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, WEST, 3, x + 10, y, z + 10, true));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, EAST, 3, x + 1, y, z + 1, false));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, WEST, 3, x + 10, y, z + 1, false));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, EAST, 3, x + 1, y, z + 10, false));
+        decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, NORTH, 3, WEST, 3, x + 10, y, z + 10, false));
 
         // Chests
         List<WorldFeatureComponent> listChestPos = new ArrayList<>();
-        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 1, true));
-        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 1, y + 8, z + 5, true));
-        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 10, y + 8, z + 5, true));
-        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 10, true));
+        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 1, false));
+        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 1, y + 8, z + 5, false));
+        listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 10, y + 8, z + 5, false));
+        listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 10, false));
         Collections.shuffle(listChestPos, random);
         int max = random.nextInt(3) + 1;
         for (int i = 0; i < max; i++) {
