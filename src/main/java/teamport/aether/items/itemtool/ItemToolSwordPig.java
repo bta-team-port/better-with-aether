@@ -1,8 +1,10 @@
 package teamport.aether.items.itemtool;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobPig;
 import net.minecraft.core.entity.monster.MobZombiePig;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
@@ -19,7 +21,7 @@ public class ItemToolSwordPig extends ItemToolSword {
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target instanceof MobPig || target instanceof MobZombiePig || target instanceof MobPhyg) {
+        if (pigSwordKills(target)) {
             Random random = new Random();
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
             double dy = target.y + 0.5 + (random.nextDouble() * 0.5) - 0.25;
@@ -36,5 +38,12 @@ public class ItemToolSwordPig extends ItemToolSword {
 
         itemstack.damageItem(1, attacker);
         return true;
+    }
+
+    public static boolean pigSwordKills(Entity target) {
+        return  target instanceof MobPig
+                || target instanceof MobZombiePig
+                || target instanceof MobPhyg
+                || (target instanceof Player && "Tocinin".equals(((Player) target).username));
     }
 }
