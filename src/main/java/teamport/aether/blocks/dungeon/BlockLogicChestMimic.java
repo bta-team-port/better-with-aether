@@ -119,7 +119,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         if (held != null && held.getItem() instanceof ItemLabel) {
             TileEntity tileEntity = world.getTileEntity(x, y, z);
             if (tileEntity instanceof TileEntityMimic) {
-                ((TileEntityMimic) tileEntity).setCustomName(held.getCustomName(), held.getCustomColor());
+                ((TileEntityMimic) tileEntity).setCustomName(held.getCustomName(), (byte) Math.max(held.getCustomColor(), 0));
                 return true;
             }
         }

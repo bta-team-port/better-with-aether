@@ -20,12 +20,15 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.blocks.skyroot.BlockLogicPaintableChest;
+import teamport.aether.blocks.skyroot.BlockLogicPaintedChest;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.tile.TileEntityMimic;
@@ -129,13 +132,18 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
-            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
+
+            int attack = this.attackStrength;
+            if (isWallace()) attack = (int) (attack * 1.5);
+
+            entity.hurt(this, attack, DamageType.COMBAT);
         }
 
     }
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (damage > 0 && this.isWallace()) damage = Math.max(1, damage/3);
         return super.hurt(attacker, this.extraDamage(attacker, damage), type);
     }
 
@@ -292,5 +300,15 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         for (WeightedRandomLootObject lootObj : listLootObj) {
             WorldFeatureComponent.placeItemInChest(random, lootObj.getDefinedItemStack(), inventory);
         }
+    }
+
+    public boolean isWallace() {
+        MimicEntry variantWallace = MimicRegistry.getMimicVariantByChest(
+                AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(),
+                AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.getLogic().toMetadata(DyeColor.PURPLE)
+        );
+
+        return "Wallace".equals(nickname)
+                && variantWallace.getMimicVariant() == this.getSkinVariant();
     }
 }
