@@ -65,6 +65,7 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "fix.CommandHealMixin",
+    "fix.mapFixMixin",
     "fix.MinecartCarriablesFix",
     "fix.PacketAddParticleMixin",
     "fix.WorldGetCubesMixin",

@@ -82,11 +82,15 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         this.world.scheduledUpdatesAreImmediate = false;
     }
 
+    public static final double[] cloudNoiseBuffer = new double[16*16];
+    public static final double[] cloudNoise2Buffer = new double[16*16];
+    public static final double[] cloudNoiseTopBuffer = new double[16*16];
+    public static final double[] cloudNoiseTop2Buffer = new double[16*16];
     public void decorateWithFlatClouds(Chunk chunk, Random rand) {
         double scale = 0.38;
 
-        double[] cloudNoise = this.cloudNoise.getValue(
-                null,
+         this.cloudNoise.getValue(
+                 cloudNoiseBuffer,
                 chunk.xPosition * 16, chunk.zPosition * 16,
                 16, 16,
                 scale * 0.627,
@@ -94,8 +98,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 0
         );
 
-        double[] cloudNoise2 = this.cloudNoise2.get(
-                null,
+        this.cloudNoise2.get(
+                cloudNoise2Buffer,
                 chunk.xPosition * 16, chunk.zPosition * 16 -32,
                 0.0,
                 16, 16, 1,
@@ -104,8 +108,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 scale * 2
         );
 
-        double[] cloudNoiseTop = this.cloudNoise.getValue(
-                null,
+        this.cloudNoise.getValue(
+                cloudNoiseTopBuffer,
                 chunk.xPosition * 16 +32, chunk.zPosition * 16 +32,
                 16, 16,
                 scale * 0.627,
@@ -113,8 +117,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 0
         );
 
-        double[] cloudNoiseTop2 = this.cloudNoise2.get(
-                null,
+        this.cloudNoise2.get(
+                cloudNoiseTop2Buffer,
                 chunk.xPosition * 16 +48, chunk.zPosition * 16 +32,
                 0.0,
                 16, 16, 1,
@@ -126,7 +130,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 int cloudDensity = (int) Math.min(
-                    Math.abs(cloudNoise2[z + x * 16] + cloudNoise[z + x * 16]) * 6 -32, 2
+                    Math.abs(cloudNoise2Buffer[z + x * 16] + cloudNoiseBuffer[z + x * 16]) * 6 -32, 2
                 );
 
                 for (int y = 0; y < cloudDensity; y++) {
@@ -135,7 +139,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 }
 
                 int cloudDensity2 = (int) Math.min(
-                      Math.abs(cloudNoiseTop2[z + x * 16] + cloudNoiseTop[z + x * 16]) * 6 -40, 1
+                      Math.abs(cloudNoiseTop2Buffer[z + x * 16] + cloudNoiseTopBuffer[z + x * 16]) * 6 -40, 1
                 );
 
                 for (int y = 0; y < cloudDensity2; y++) {
@@ -155,14 +159,14 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             0, 16, 32, 48
     };
 
-    private static final double[] flowerDensityNoiseArr = new double[16*16];
-    private static final double[] flowerVeinNoiseArr = new double[8*8];
+    private static final double[] flowerDensityNoiseBuffer = new double[16*16];
+    private static final double[] flowerVeinNoiseBuffer = new double[8*8];
 
     public void decorateWithFlowers(Chunk chunk, Random rand) {
         double beachScale = 0.03125;
 
         this.flowerDensityNoise.get(
-                flowerDensityNoiseArr,
+                flowerDensityNoiseBuffer,
                 chunk.xPosition * 16,
                 chunk.zPosition * 16,
                 0.0,
@@ -173,7 +177,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         );
 
         this.flowerVeinNoise.get(
-                flowerVeinNoiseArr,
+                flowerVeinNoiseBuffer,
                 chunk.xPosition * 16,
                 chunk.zPosition * 16,
                 0.0,
@@ -188,7 +192,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 double noise = MathHelper.clamp(
-                        Math.abs(flowerDensityNoiseArr[z + x * 8]) / 16D,
+                        Math.abs(flowerDensityNoiseBuffer[z + x * 8]) / 16D,
                         0, 1
                 );
 
@@ -228,7 +232,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
                 if (rand.nextInt(3 * (9 - flowerDensity)) == 0) {
                     if (rand.nextInt(2) == 0) {
-                        flowerID = FLOWERS[(int) Math.abs(flowerVeinNoiseArr[z / 2 + (x / 2) * 8] * 8) % FLOWERS.length];
+                        flowerID = FLOWERS[(int) Math.abs(flowerVeinNoiseBuffer[z / 2 + (x / 2) * 8] * 8) % FLOWERS.length];
                         flowerMeta = METAID[rand.nextInt(METAID.length)];
                     }
                     else {
