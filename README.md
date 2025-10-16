@@ -39,7 +39,7 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 <p align="center">
   <img width="1920" height="1017" alt="2025-10-10_01 43 55" src="https://github.com/user-attachments/assets/1a4d0590-642f-430e-a698-7d9fda80c931" />
   <br>
-  <em>Valkyrie Sleeping Quater</em>
+  <em>Valkyrie Sleeping Quarter</em>
 </p>
 
 <p align="center">
