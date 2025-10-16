@@ -37,8 +37,8 @@ public class HallwayRoom extends BaseBronzeRoom {
         WorldFeatureComponent check;
         int countAir = 0, countLiquid = 0;
 
-        check = drawVolume(0, 0, SOUTH, width, UP, 7, EAST, 4, x + 4, y, z, true);
-        check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, true));
+        check = drawVolume(0, 0, SOUTH, width, UP, 7, EAST, 4, x + 4, y, z, false);
+        check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, false));
         for (WorldFeaturePoint point : check.blockList) {
             Block<?> block = world.getBlock(point.x, point.y, point.z);
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
@@ -68,7 +68,7 @@ public class HallwayRoom extends BaseBronzeRoom {
             WorldFeaturePoint liningBottomCorner = door.p1.copy();
             WorldFeaturePoint liningTopCorner = p2.copy();
             adjustCornerForLining(door.heading, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, WorldFeatureAetherBronzeDungeon.holystone, liningBottomCorner, liningTopCorner, true));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, WorldFeatureAetherBronzeDungeon.holystone, liningBottomCorner, liningTopCorner, false));
         }
         room.add(drawVolume(0, 0, door.p1, p2, false));
         this.placeRoom();

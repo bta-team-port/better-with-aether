@@ -21,23 +21,23 @@ public class SpikerRoom extends BaseBronzeRoom {
     }
 
     public void makeShell() {
-        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, true));
+        room.add(drawHollowShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, false));
     }
 
     public void makeSpikePit(int pitHeight) {
-        room.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, 8, EAST, 8, DOWN, pitHeight, x + 2, y, z + 2, true));
+        room.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, 8, EAST, 8, DOWN, pitHeight, x + 2, y, z + 2, false));
         room.add(drawPlane(random, ROOM_PALLET, SOUTH, 6, EAST, 6, x + 3, y - pitHeight + 1, z + 3, false));
         decoration.add(drawPlane(Blocks.SPIKES.id(), 0, SOUTH, 6, EAST, 6, x + 3, y - pitHeight + 2, z + 3, false));
     }
 
     public void makeHangingChest() {
         decoration.add(drawPlane(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 2, SOUTH, 4, EAST, 4, x + 4, y + height - 7, z + 4, false));
-        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 6, z + 5, true));
+        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 6, z + 5, false));
 
-        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height - 2, z + 4, false));
-        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height - 2, z + 4, false));
-        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height - 2, z + 7, false));
-        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height - 2, z + 7, false));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height - 2, z + 4, true));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height - 2, z + 4, true));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height - 2, z + 7, true));
+        decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height - 2, z + 7, true));
     }
 
     @Override

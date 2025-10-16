@@ -199,9 +199,9 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
     private void createMainSphere(int x, int y, int z) {
         // place main spheroid
-        drawSpheroid(random, holystone, x, y + 15, z, RADIUS, (int) (RADIUS * 1.12), RADIUS, true).place(world);
-        wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 1, z, 0, 0, true).place(world);
-        wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, true).place(world);
+        drawSpheroid(random, holystone, x, y + 15, z, RADIUS, (int) (RADIUS * 1.12), RADIUS, false).place(world);
+        wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 1, z, 0, 0, false).place(world);
+        wfb(x, (int) Math.floor(15 * 1.12 * 2 + y) - 2, z, AetherBlocks.GRASS_AETHER.id(), 0, false).place(world);
     }
 
     // TODO these sphere do not rotate
@@ -222,13 +222,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
             double newZ = z + RADIUS * Math.sin(Math.toRadians(angle));
             double radMod = (double) (4 + random.nextInt(5)) / 10;
 
-            drawSphere(random, holystone, (int) newX, (int) (y + (RADIUS * 0.8F)), (int) newZ, (int) (RADIUS * radMod), true).place(world);
+            drawSphere(random, holystone, (int) newX, (int) (y + (RADIUS * 0.8F)), (int) newZ, (int) (RADIUS * radMod), false).place(world);
         }
         double radMod2 = 0.5F;
         WorldFeaturePoint cover = new WorldFeaturePoint(x, (int) (y + (RADIUS * 0.8F)), z + RADIUS);
         cover.rotateYAroundPivot(dungeonAnchor, direction);
 
-        drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), true).place(world);
+        drawSphere(random, holystone, cover.x, cover.y, cover.z, (int) (RADIUS * radMod2), false).place(world);
     }
 
     private void createMainRoom(int x, int y, int z) {
@@ -252,21 +252,21 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                 Direction.WEST, xRoomLength,
                 Direction.NORTH, ZRoomLength,
                 Direction.UP, YRoomHeight,
-                x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, true
+                x + 1 + RADIUS / 2, y + RADIUS / 2, z + 1 + RADIUS / 2, false
         ));
         main.add(drawSquareCylinder(
                 random, hellfire,
                 Direction.WEST, xRoomLength - 2,
                 Direction.NORTH, ZRoomLength - 2,
                 Direction.UP, 1,
-                x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, true
+                x + RADIUS / 2, y + 1 + RADIUS / 2, z + RADIUS / 2, false
         ));
         main.add(drawSquareCylinder(
                 random, hellfire,
                 Direction.WEST, xRoomLength - 2,
                 Direction.NORTH, ZRoomLength - 2,
                 Direction.UP, 1,
-                x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, true)
+                x + RADIUS / 2, y + YRoomHeight - 2 + RADIUS / 2, z + RADIUS / 2, false)
         );
 
         main.add(
@@ -274,7 +274,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                         Direction.NORTH, RADIUS * 2,
                         Direction.WEST, 3,
                         Direction.UP, 3,
-                        x + 1, y + 2 + RADIUS / 2, z - RADIUS / 2 - 1, true
+                        x + 1, y + 2 + RADIUS / 2, z - RADIUS / 2 - 1, false
                 )
         );
 
@@ -303,7 +303,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                 Direction.SOUTH, 7,
                 Direction.WEST, 7,
                 Direction.UP, 5,
-                x + 3, y + 1 + RADIUS / 2, z + RADIUS / 2 + 1, true
+                x + 3, y + 1 + RADIUS / 2, z + RADIUS / 2 + 1, false
         ));
         // Place boss, chest and door
 

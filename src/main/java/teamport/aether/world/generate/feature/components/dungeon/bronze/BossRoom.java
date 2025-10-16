@@ -98,7 +98,7 @@ public class BossRoom extends BaseBronzeRoom {
             return;
         }
         int meta = BlockLogicRotatable.setDirection(0, door.heading);
-        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2, true);
+        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2, false);
         dungeon.setEntranceDoor(doorBlock.blockList);
     }
 
