@@ -24,7 +24,7 @@ public abstract class MobWolfMixinDrowningImmunity extends MobAnimal {
         if (this.getArmorMaterial() != null) {
             ArmorMaterial material = this.getArmorMaterial();
             if(material.equals(AetherArmorMaterial.NEPTUNE)){
-                return false;
+                return true;
             }
         }
         return super.canBreatheUnderwater();
