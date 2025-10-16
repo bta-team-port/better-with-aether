@@ -1,4 +1,4 @@
-package teamport.aether.mixin.armor.player.phoenix.obsidian;
+package teamport.aether.mixin.armor.player.obsidian;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;

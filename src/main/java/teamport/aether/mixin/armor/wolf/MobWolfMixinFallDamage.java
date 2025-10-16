@@ -17,16 +17,8 @@ public abstract class MobWolfMixinFallDamage extends MobAnimal {
     @Override
     public void causeFallDamage(float distance) {
         ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
-        if (material == null) {
+        if (material == null || !material.equals(AetherArmorMaterial.GRAVITITE)) {
             super.causeFallDamage(distance);
-            return;
         }
-        if (material.equals(AetherArmorMaterial.GRAVITITE)) {
-            return;
-        }
-        if (material.equals(AetherArmorMaterial.OBSIDIAN)) {
-            distance = 1.4f * distance;
-        }
-        super.causeFallDamage(distance);
     }
 }
