@@ -64,7 +64,7 @@ public class HallwayRoom extends BaseBronzeRoom {
         super.markDoor(door, closingType);
         if (closingType != ClosingType.PLACED) return;
         WorldFeaturePoint p2 = wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2);
-        if(!world.dimension.equals(AetherDimension.AETHER)) {
+        if(world.dimension.equals(AetherDimension.AETHER)) {
             WorldFeaturePoint liningBottomCorner = door.p1.copy();
             WorldFeaturePoint liningTopCorner = p2.copy();
             adjustCornerForLining(door.heading, liningBottomCorner, liningTopCorner);
