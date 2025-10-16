@@ -16,6 +16,7 @@ import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.generate.feature.BlockPallet;
+import teamport.aether.world.generate.feature.components.WorldFeatureBlock;
 import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.components.dungeon.bronze.*;
@@ -24,18 +25,19 @@ import teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBron
 import java.util.*;
 import java.util.function.Supplier;
 
-import static net.minecraft.core.util.helper.Direction.DOWN;
-import static net.minecraft.core.util.helper.Direction.UP;
+import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+import static teamport.aether.world.AetherDimension.AETHER;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public float MAX_WEIGHT = 40;
+    public float MAX_WEIGHT = 5;
     public static final int TUNNEL_WIDTH = 6;
     public static final int TUNNEL_COUNT = 4;
+    public static final int TUNNEL_MAX_LENGTH = 300;
     public World world;
     public Random random;
 
@@ -199,18 +201,17 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                     break;
                 } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
                     WorldFeaturePoint topCorner, bottomCorner;
-                    if (seenRooms.size() == 1) {
-                        topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(DOWN, 2).moveInDirection(door.heading);
-                    } else {
-                        topCorner = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
-                    }
                     bottomCorner = door.p1.copy();
-                    WorldFeatureComponent.drawVolumeWithPoint(0, 0, bottomCorner, topCorner, door.heading.getOpposite(), true).place(world);
+                    topCorner = getTopCornerPoint(seenRooms, nextRoom, nextDoor, door);
+
+                    createTunnel(bottomCorner, topCorner, door.heading);
                     roomWeight += nextRoom.roomWeight;
+
                     seenRooms.add(nextRoom);
                     availableRooms.add(nextRoom);
                     currentRoom.markDoor(door, PLACED);
                     nextRoom.markDoor(nextRoom.getDoor(nextDoor), PLACED);
+
                     currentRoom = nextRoom;
                     break;
                 }
@@ -221,24 +222,21 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         PriorityQueue<PriorityEntry<Door>> tunnels = new PriorityQueue<>();
         for (BaseBronzeRoom room : seenRooms) {
             List<Door> listDoor = room.getAdjustedDoors();
-            if (room instanceof BossRoom) {
+            if (room instanceof BossRoom && seenRooms.size() < 4) {
                 Door d = listDoor.get(random.nextInt(listDoor.size()));
                 listDoor = new ArrayList<>();
                 listDoor.add(d);
                 room.markDoor(d, PLACED);
             }
             for (Door door : listDoor) {
-                if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) continue;
+                if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) {
+                    continue;
+                }
                 WorldFeaturePoint p1 = door.p1.copy();
                 WorldFeaturePoint p2 = door.p2.copy();
                 while (!this.breaksSurface(p1, p2)
-                        && p1.distanceTo(door.p1) < 100
-                        && y < world.getHeightBlocks()
-                        && y > 5
-                        && x >= -32000000
-                        && z >= -32000000
-                        && x < 32000000
-                        && z <= 32000000
+                        && p1.distanceTo(door.p1) < TUNNEL_MAX_LENGTH
+                        && y > 5 && y < world.getHeightBlocks()
                 ) {
                     p1.moveInDirection(door.heading);
                     p2.moveInDirection(door.heading);
@@ -261,8 +259,68 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             Door door = entry.getData();
             AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
             drawVolume(0, 0, door.p1, door.p2, true).place(world);
+//            createTunnel(door.p1, door.p2, door.heading, Blocks.GLASS.id());
         }
         return true;
+    }
+
+    public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction, int id) {
+        if (!world.dimension.equals(AETHER)) {
+            WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
+            WorldFeaturePoint liningTopCorner = topCorner.copy();
+            adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
+            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, true));
+        }
+        drawVolumeWithPoint(id, 0, bottomCorner, topCorner, true).place(world);
+    }
+
+    public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction) {
+        if (world.dimension.equals(AETHER)) {
+            WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
+            WorldFeaturePoint liningTopCorner = topCorner.copy();
+            adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
+            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, true));
+        }
+        drawVolumeWithPoint(0, 0, bottomCorner, topCorner, true).place(world);
+    }
+
+    public static void placeWorldLining(World world, WorldFeatureComponent lining) {
+        for (WorldFeatureBlock block : lining.blockList) {
+            if (BaseBronzeRoom.roomCanReplace(world, block) && block.y > 5 && block.y <= world.getHeightBlocks()) {
+                block.place(world);
+            }
+        }
+
+    }
+
+    public static void adjustCornerForLining(Direction direction, WorldFeaturePoint liningBottomCorner, WorldFeaturePoint liningTopCorner) {
+        if (direction.isHorizontal()) {
+            liningBottomCorner.moveInDirection(DOWN);
+            liningTopCorner.moveInDirection(UP);
+            if (direction == NORTH | direction == SOUTH) {
+                liningBottomCorner.moveInDirection(WEST);
+                liningTopCorner.moveInDirection(EAST);
+            } else {
+                liningBottomCorner.moveInDirection(NORTH);
+                liningTopCorner.moveInDirection(SOUTH);
+            }
+        } else {
+            if (direction == UP) {
+                liningBottomCorner.moveInDirection(NORTH).moveInDirection(WEST);
+                liningTopCorner.moveInDirection(SOUTH).moveInDirection(EAST);
+            } else {
+                liningBottomCorner.moveInDirection(SOUTH).moveInDirection(EAST);
+                liningTopCorner.moveInDirection(NORTH).moveInDirection(WEST);
+            }
+        }
+    }
+
+    private static WorldFeaturePoint getTopCornerPoint(Set<BaseBronzeRoom> seenRooms, BaseBronzeRoom nextRoom, WorldFeaturePoint nextDoor, Door door) {
+        WorldFeaturePoint point = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
+        if (seenRooms.size() == 1) {
+            return point.moveInDirection(DOWN, 2);
+        }
+        return point;
     }
 
     private boolean intercept(Set<BaseBronzeRoom> seen, BaseBronzeRoom nextRoom, WorldFeaturePoint anchor) {
