@@ -57,13 +57,12 @@ public class ArmorOverlayMixin extends Gui {
     }
 
     @Inject(method = "renderGameOverlay(FZII)V",
-            at = @At(value = "TAIL"), cancellable = true)
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V",
+                    shift = At.Shift.AFTER))
     public void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
         int height = this.mc.resolution.getScaledHeightScreenCoords();
-        this.mc.worldRenderer.setupScaledResolution();
-        GL11.glEnable(3042);
-        GL11.glBlendFunc(770, 771);
 
         ItemStack trinketOneSlotItem = this.mc.thePlayer.inventory.armorItemInSlot(6);
         ItemStack trinketTwoSlotItem = this.mc.thePlayer.inventory.armorItemInSlot(7);
@@ -76,17 +75,20 @@ public class ArmorOverlayMixin extends Gui {
                 this.renderShieldVignette(width, height);
             }
         }
-        ci.cancel();
     }
 
     @Unique
-    public void renderShieldVignette(int xSize, int ySize) {
-        GL11.glDisable(2929);
+    protected void renderShieldVignette(int xSize, int ySize) {
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        GL11.glBlendFunc(770, 771);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(3008);
+        GL11.glDisable(GL11.GL_ALPHA_TEST);
+
         this.mc.textureManager.loadTexture("/assets/aether/textures/other/shieldvignette.png").bind();
+
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(0.0, ySize, -90.0, 0.0, 1.0);
@@ -94,10 +96,12 @@ public class ArmorOverlayMixin extends Gui {
         tessellator.addVertexWithUV(xSize, 0.0, -90.0, 1.0, 0.0);
         tessellator.addVertexWithUV(0.0, 0.0, -90.0, 0.0, 0.0);
         tessellator.draw();
+
         GL11.glDepthMask(true);
-        GL11.glEnable(2929);
-        GL11.glEnable(3008);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
-
 }

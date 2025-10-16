@@ -10,7 +10,6 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.generate.feature.WorldFeatureFlowers;
 import net.minecraft.core.world.generate.feature.WorldFeatureTallGrass;
-import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
@@ -54,13 +53,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
 
-    public static final WeightedRandomBag<Supplier<? extends WorldFeature>> WOLRDFEATURE = new WeightedRandomBag<>();
+    public static final WeightedRandomBag<Supplier<? extends WorldFeature>> worldFeature = new WeightedRandomBag<>();
 
     static {
-        WOLRDFEATURE.addEntry(null, 512);
-        WOLRDFEATURE.addEntry(() -> new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id()), 16);
-        WOLRDFEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 8);
-        WOLRDFEATURE.addEntry(() -> new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()), 8);
+        worldFeature.addEntry(null, 512);
+        worldFeature.addEntry(() -> new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id()), 16);
+        worldFeature.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 8);
+        worldFeature.addEntry(() -> new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()), 8);
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
@@ -138,18 +137,25 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
     }
 
     private boolean canPlace(World world, int x, int y, int z) {
-        if (y + 10 + (2 * RADIUS) >= world.getHeightBlocks()) return false;
-        int diameter = RADIUS << 1;
-        for (int ix = -diameter; ix < diameter; ix++) {
-            for (int iz = -diameter; iz < diameter; iz++) {
-                if (diameter * diameter >= ix * ix + iz * iz) {
-                    for (int iy = y + (2 * RADIUS); iy < y + (5 * RADIUS); iy++) {
-                        Material blockMaterial = world.getBlockMaterial(x + ix, iy, z + iz);
-                        if (blockMaterial != Material.air) {
-                            AetherMod.LOGGER.info("Could not place a gold dungeon at {},{},{}", x + ix, iy, z + iz);
-                            return false;
-                        }
-                    }
+        final int checkDistance = 30;
+
+        int[][] directions = {
+                {1, 0, 0},   // +x
+                {-1, 0, 0},  // -x
+                {0, 1, 0},   // +y
+                {0, -1, 0},  // -y
+                {0, 0, 1},   // +z
+                {0, 0, -1}   // -z
+        };
+
+        for (int[] dir : directions) {
+            for (int i = 1; i <= checkDistance; i++) {
+                int checkX = x + i * dir[0];
+                int checkY = y + i * dir[1];
+                int checkZ = z + i * dir[2];
+                Material blockMaterial = world.getBlockMaterial(checkX, checkY, checkZ);
+                if (blockMaterial != Material.air) {
+                    return false;
                 }
             }
         }
@@ -272,7 +278,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
                 )
         );
 
-        world.setBlockWithNotify(x, y, z, AetherBlocks.BLOCK_GRAVITITE.id());
+        world.setBlock(x, y, z, AetherBlocks.BLOCK_GRAVITITE.id());
 
         WorldFeatureComponent entranceDoor = new WorldFeatureComponent();
 //        Direction doorDir = direction.getHorizontalIndex() % 2 == 0? direction : direction.getOpposite();
@@ -371,7 +377,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
 
     private void createDecorations() {
         for (WorldFeaturePoint point : heightMap) {
-            Supplier<? extends WorldFeature> feature = WOLRDFEATURE.getRandom(random);
+            Supplier<? extends WorldFeature> feature = worldFeature.getRandom(random);
             if (feature == null) continue;
             feature.get().place(world, random, point.x, point.y, point.z);
         }
