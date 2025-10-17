@@ -1,4 +1,4 @@
-package teamport.aether.world.generate.chunk.defaultt;
+package teamport.aether.world.generate.chunk.extended;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.LargeFeature;
@@ -7,8 +7,8 @@ import teamport.aether.world.generate.chunk.ChunkDecoratorAether;
 import teamport.aether.world.generate.chunk.MapGenCavesAether;
 import teamport.aether.world.generate.chunk.SurfaceGeneratorAether;
 
-public class ChunkGeneratorDefaultAether extends ChunkGeneratorPerlin {
-    public ChunkGeneratorDefaultAether(World world) {
-        super(world, new ChunkDecoratorAether(world), new TerrainGeneratorAetherDefault(world), new SurfaceGeneratorAether(world), new LargeFeature[]{new MapGenCavesAether()});
+public class ChunkGeneratorAetherExtended extends ChunkGeneratorPerlin {
+    public ChunkGeneratorAetherExtended(World world) {
+        super(world, new ChunkDecoratorAether(world), new TerrainGeneratorAetherExtended(world), new SurfaceGeneratorAether(world), new LargeFeature[]{new MapGenCavesAether()});
     }
 }

@@ -1,16 +1,16 @@
-package teamport.aether.world.generate.chunk.defaultt;
+package teamport.aether.world.generate.chunk.extended;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.generate.chunk.perlin.TerrainGeneratorLerp;
 import net.minecraft.core.world.type.WorldType;
 
-public class TerrainGeneratorAetherDefault extends TerrainGeneratorLerp {
+public class TerrainGeneratorAetherExtended extends TerrainGeneratorLerp {
     public final DensityGenerator densityGenerator;
 
-    public TerrainGeneratorAetherDefault(World world) {
+    public TerrainGeneratorAetherExtended(World world) {
         super(world);
-        this.densityGenerator = new DensityGeneratorAetherDefault(world);
+        this.densityGenerator = new DensityGeneratorAetherExtended(world);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class TerrainGeneratorAetherDefault extends TerrainGeneratorLerp {
     @Override
     public int getBlockAt(int x, int y, int z, double density) {
         WorldType type = this.world.getWorldType();
-        return density > 1.0 ? type.getFillerBlockId() : 0;
+        return density > 4.0 ? type.getFillerBlockId() : 0;
     }
 }

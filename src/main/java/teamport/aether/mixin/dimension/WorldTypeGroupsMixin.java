@@ -23,6 +23,7 @@ public class WorldTypeGroupsMixin {
 
     static {
         for (WorldType t : new WorldType[]{
+                WorldTypes.OVERWORLD_EXTENDED,
                 WorldTypes.OVERWORLD_AMPLIFIED,
                 WorldTypes.OVERWORLD_INLAND,
                 WorldTypes.OVERWORLD_PARADISE,

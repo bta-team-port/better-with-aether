@@ -29,13 +29,14 @@ public abstract class AetherWorldTypes {
     }
 
     public static void initializeWorldTypes() {
-        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAether
-                (WorldTypeAether.defaultProperties("worldtype.aether.extended")));
+        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAetherExtended
+                (WorldTypeAether.defaultProperties("worldtype.aether.extended")
+                        .portalBounds(64, 192)));
 
-        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAetherDefault
+        AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.default")
                         .bounds(0, 127, 0)
-                        .portalBounds(0, 255)));
+                        .portalBounds(32, 96)));
 
 
         AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock
@@ -46,7 +47,7 @@ public abstract class AetherWorldTypes {
         AETHER_RETRO = WorldTypes.register("aether:aether.retro", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.retro")
                         .bounds(0, 127, 0)
-                        .portalBounds(0, 255)
+                        .portalBounds(32, 96)
                         .setRetro()));
     }
 }

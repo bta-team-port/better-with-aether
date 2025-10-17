@@ -1,18 +1,18 @@
-package teamport.aether.world.generate.chunk.defaultt;
+package teamport.aether.world.generate.chunk.extended;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.PerlinNoise;
 
-public class DensityGeneratorAetherDefault implements DensityGenerator {
+public class DensityGeneratorAetherExtended implements DensityGenerator {
     public World world;
 
     public PerlinNoise minLimitNoise;
     public PerlinNoise maxLimitNoise;
     public PerlinNoise mainNoise;
 
-    public DensityGeneratorAetherDefault(World world) {
+    public DensityGeneratorAetherExtended(World world) {
         this.world = world;
 
         minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
@@ -38,7 +38,7 @@ public class DensityGeneratorAetherDefault implements DensityGenerator {
         double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412D / 4;
-        final double heightScale = 684.412D / 4;
+        final double heightScale = 684.412D / 2;
 
         double upperLimitScale = 128.0;
         double lowerLimitScale = 128.0;
