@@ -57,6 +57,10 @@ public class WorldTypeAether extends WorldType {
         return 0;
     }
 
+    public int getOceanBlockId() {
+        return 0;
+    }
+
     @Override
     public BiomeProvider createBiomeProvider(World world) {
         return new BiomeProviderAether(world.getRandomSeed(), this);

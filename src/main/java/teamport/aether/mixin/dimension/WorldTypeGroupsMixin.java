@@ -23,6 +23,7 @@ public class WorldTypeGroupsMixin {
 
     static {
         for (WorldType t : new WorldType[]{
+                WorldTypes.OVERWORLD_EXTENDED,
                 WorldTypes.OVERWORLD_AMPLIFIED,
                 WorldTypes.OVERWORLD_INLAND,
                 WorldTypes.OVERWORLD_PARADISE,
@@ -36,6 +37,8 @@ public class WorldTypeGroupsMixin {
                 WorldTypes.DEBUG,
         })
             overworldToAetherWorldTypeMap.put(t, AetherWorldTypes.AETHER_EXTENDED);
+
+        overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_DEFAULT, AetherWorldTypes.AETHER_DEFAULT);
 
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_SKYBLOCK, AetherWorldTypes.AETHER_SKYBLOCK);
 

@@ -1,18 +1,18 @@
-package teamport.aether.world.generate.chunk;
+package teamport.aether.world.generate.chunk.extended;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.PerlinNoise;
 
-public class DensityGeneratorAether implements DensityGenerator {
+public class DensityGeneratorAetherExtended implements DensityGenerator {
     public World world;
 
     public PerlinNoise minLimitNoise;
     public PerlinNoise maxLimitNoise;
     public PerlinNoise mainNoise;
 
-    public DensityGeneratorAether(World world) {
+    public DensityGeneratorAetherExtended(World world) {
         this.world = world;
 
         minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
@@ -33,9 +33,9 @@ public class DensityGeneratorAether implements DensityGenerator {
 
         double[] densityMapArray = new double[xSize * ySize * zSize];
 
-        double mainNoiseScaleX = 60.0;
-        double mainNoiseScaleY = 60.0;
-        double mainNoiseScaleZ = 60.0;
+        double mainNoiseScaleX = 80.0;
+        double mainNoiseScaleY = 120.0;
+        double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412D / 4;
         final double heightScale = 684.412D / 2;
@@ -43,7 +43,7 @@ public class DensityGeneratorAether implements DensityGenerator {
         double upperLimitScale = 128.0;
         double lowerLimitScale = 128.0;
 
-        // Generate noise arrays
+        // uses temp and humidity to alter terrain shape.
         double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
         double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
         double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
@@ -52,7 +52,7 @@ public class DensityGeneratorAether implements DensityGenerator {
         for (int dx = 0; dx < xSize; dx++) {
             for (int dz = 0; dz < zSize; dz++) {
                 for (int dy = 0; dy < ySize; dy++) {
-                    int absoluteY = world.getWorldType().getMinY() + (dy * 8); // MinY is 0
+                    int absoluteY = world.getWorldType().getMinY() + (dy * 8);
 
                     double minDensity = minLimitArray[mainIndex] / upperLimitScale;
                     double maxDensity = maxLimitArray[mainIndex] / lowerLimitScale;
@@ -66,21 +66,21 @@ public class DensityGeneratorAether implements DensityGenerator {
                     } else {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 32.0;
+                    density -= 16.0;
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
+                    // Higher Y reduces density, making islands sparser and smaller
                     double yFactor = 1.0 - ((double) (absoluteY - world.getWorldType().getMinY()) / terrainHeight);
                     yFactor = Math.max(0.0, Math.min(1.0, yFactor));
                     density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 
-                    // Adjusted upper and lower limits for 0-127 world
-                    int upperLowerLimit = 25 + 10; // Covers top ~80 blocks (dy * 8)
+                    int upperLowerLimit = 50 + 20;
                     if (dy > ySize - upperLowerLimit) {
                         double densityMod = (float) (dy - (ySize - upperLowerLimit)) / ((float) upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 
-                    upperLowerLimit = 5;
+                    upperLowerLimit = 20;
                     if (dy < upperLowerLimit) {
                         double densityMod = (float) (upperLowerLimit - dy) / ((float) upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);

@@ -279,7 +279,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
             WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, carvedHolystone, liningBottomCorner, liningTopCorner, false));
         }
         drawVolumeWithPoint(0, 0, bottomCorner, topCorner, false).place(world);
     }

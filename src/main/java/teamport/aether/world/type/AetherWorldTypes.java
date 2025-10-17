@@ -1,5 +1,6 @@
 package teamport.aether.world.type;
 
+import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 
@@ -10,6 +11,11 @@ public abstract class AetherWorldTypes {
     public static WorldType AETHER_RETRO;
 
     public AetherWorldTypes() {
+    }
+
+    public static WorldType register(String key, WorldType worldType) {
+        Registries.WORLD_TYPES.register(key, worldType);
+        return worldType;
     }
 
     private static boolean hasInit = false;
@@ -23,13 +29,14 @@ public abstract class AetherWorldTypes {
     }
 
     public static void initializeWorldTypes() {
-        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAether
+        AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAetherExtended
                 (WorldTypeAether.defaultProperties("worldtype.aether.extended")
-                        .portalBounds(128, 192)));
+                        .portalBounds(64, 192)));
 
         AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.default")
-                        .portalBounds(128, 192)));
+                        .bounds(0, 127, 0)
+                        .portalBounds(32, 96)));
 
 
         AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock
@@ -39,7 +46,8 @@ public abstract class AetherWorldTypes {
 
         AETHER_RETRO = WorldTypes.register("aether:aether.retro", new WorldTypeAether
                 (WorldTypeAether.defaultProperties("worldtype.aether.retro")
-                        .portalBounds(128, 192)
+                        .bounds(0, 127, 0)
+                        .portalBounds(32, 96)
                         .setRetro()));
     }
 }
