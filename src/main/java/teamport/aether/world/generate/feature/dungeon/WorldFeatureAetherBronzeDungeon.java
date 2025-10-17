@@ -4,6 +4,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
@@ -28,17 +29,16 @@ import java.util.function.Supplier;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.AetherDimension.AETHER;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolumeWithPoint;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public float MAX_WEIGHT = 5;
+    public float MAX_WEIGHT = 40;
     public static final int TUNNEL_WIDTH = 6;
     public static final int TUNNEL_COUNT = 4;
-    public static final int TUNNEL_MAX_LENGTH = 300;
+    public static final int TUNNEL_MAX_LENGTH = 100;
     public World world;
     public Random random;
 
@@ -141,12 +141,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> hallway = new WeightedRandomBag<>();
         hallway.addEntry(HallwayRoom::new, 10);
         hallway.addEntry(StairwellRoom::new, 2);
-        hallway.addEntry(TallRoom::new, 1);
+        hallway.addEntry(TallRoom::new, 5);
 
-        manager.addBag(treasureRooms, 45);
-        manager.addBag(hallway, 35);
+        manager.addBag(treasureRooms, 55);
+        manager.addBag(hallway, 20);
         manager.addBag(trapRooms, 10);
-        manager.addBag(boss, 5);
+        manager.addBag(boss, 15);
     }
 
     public WorldFeatureAetherBronzeDungeon() {
@@ -229,10 +229,12 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 listDoor.add(d);
                 room.markDoor(d, PLACED);
             }
+            if(room instanceof HallwayRoom) continue;
             for (Door door : listDoor) {
                 if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) {
                     continue;
                 }
+                AetherMod.LOGGER.debug("door type:{}, door heading:{}", door.mark, door.heading);
                 WorldFeaturePoint p1 = door.p1.copy();
                 WorldFeaturePoint p2 = door.p2.copy();
                 while (!this.breaksSurface(p1, p2)
@@ -259,28 +261,17 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             if (entry == null) continue;
             Door door = entry.getData();
             AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
-            drawVolume(0, 0, door.p1, door.p2, false).place(world);
             createTunnel(door.p1, door.p2, door.heading);
         }
         return true;
     }
 
-    public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction, int id) {
-        if (!world.dimension.equals(AETHER)) {
-            WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
-            WorldFeaturePoint liningTopCorner = topCorner.copy();
-            adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
-        }
-        drawVolumeWithPoint(id, 0, bottomCorner, topCorner, false).place(world);
-    }
-
     public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction) {
+        WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
+        WorldFeaturePoint liningTopCorner = topCorner.copy();
         if (world.dimension.equals(AETHER)) {
-            WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
-            WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, carvedHolystone, liningBottomCorner, liningTopCorner, false));
         }
         drawVolumeWithPoint(0, 0, bottomCorner, topCorner, false).place(world);
     }
