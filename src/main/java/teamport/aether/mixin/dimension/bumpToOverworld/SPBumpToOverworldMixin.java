@@ -1,4 +1,4 @@
-package teamport.aether.mixin.dimension;
+package teamport.aether.mixin.dimension.bumpToOverworld;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
@@ -35,17 +35,12 @@ public abstract class SPBumpToOverworldMixin extends Player {
         super(world);
     }
 
-    @Unique
-    public int teleportDelay = 0;
-
     @Override
     public void tick() {
-        teleportDelay--;
 
         assert world != null;
-        if (teleportDelay < 0 && dimension == AetherDimension.AetherDimensionID && this.y < world.worldType.getMinY() - 10) {
+        if (dimension == AetherDimension.AetherDimensionID && this.y < world.worldType.getMinY() - 10) {
             if (EnvironmentHelper.isSinglePlayer()) {
-                teleportDelay = 20;
 
                 AetherMod.LOGGER.info(String.format("Sending %s to overworld", getDisplayName()));
 

@@ -86,7 +86,8 @@
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerExtraHealthMixin",
-    "player.PlayerLocalHandleAetherRideableMixin"
+    "player.PlayerLocalHandleAetherRideableMixin",
+    "dimension.bumpToOverworld.EntityBumpToOverworldMixin"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
@@ -107,7 +108,7 @@
     "achievement.aetherAchievementMixin",
     "achievement.HostileParadiseMixin",
     "dimension.AetherMusicMixin",
-    "dimension.SPBumpToOverworldMixin",
+    "dimension.bumpToOverworld.SPBumpToOverworldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "gameSettings.CatalystAddToMixin",
@@ -128,14 +129,15 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "player.PlayerLocalPortalNoiseMixin"
+    "player.PlayerLocalPortalNoiseMixin",
+    "dimension.bumpToOverworld.SPWorldMixin"
   ],
   "server": [
-    "dimension.MPBumpToOverworldMixin",
-    "dimension.MPEntityBumpToOverworldMixin",
+    "dimension.bumpToOverworld.MPBumpToOverworldMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
     "net.AerBunnyFlyingMixin",
-    "net.PlayerLoginMixin"
+    "net.PlayerLoginMixin",
+    "dimension.bumpToOverworld.MPWorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1
