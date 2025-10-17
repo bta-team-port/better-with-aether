@@ -42,7 +42,7 @@ public abstract class TreeCapitatorAetherAxeMixin {
         }
     }
 
-    @Inject(method = "chopTree", at = @At("HEAD"))
+    @Inject(method = "chopTree", at = @At("HEAD"), cancellable = true)
     public void preventNormalAxeMiningAetherTrees(CallbackInfoReturnable<Boolean> cir) {
         int id = helper.world.getBlockId(helper.basePosition.x, helper.basePosition.y, helper.basePosition.z);
         if (id == 0) return;
