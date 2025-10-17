@@ -2,7 +2,9 @@ package teamport.aether.entity.monster.valkyrie;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.monster.Enemy;
@@ -37,6 +39,10 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         this.scoreValue = 5000;
         this.footSize = 1.5f;
         this.canBreatheUnderwater();
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     public void jump() {
@@ -152,7 +158,9 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     public boolean isAirySpace(int x, int y, int z) {
         int p = this.world.getBlockId(x, y, z);
-        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null;
+        Block<?> block = world.getBlock(x, y, z);
+
+        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Material.water;
     }
 
     @Override

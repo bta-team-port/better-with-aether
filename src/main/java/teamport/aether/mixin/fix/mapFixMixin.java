@@ -1,14 +1,12 @@
 package teamport.aether.mixin.fix;
 
 
-import com.jcraft.jorbis.Block;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.ItemMap;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.saveddata.maps.ItemMapSavedData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

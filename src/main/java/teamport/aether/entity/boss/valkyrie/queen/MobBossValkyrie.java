@@ -3,7 +3,9 @@ package teamport.aether.entity.boss.valkyrie.queen;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -49,6 +51,10 @@ public class MobBossValkyrie extends MobBoss {
         this.footSize = 1.5f;
         this.chatColor = (byte) (LIGHT_GRAY.id & 255);
         this.canBreatheUnderwater();
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     public void jump() {
@@ -267,7 +273,9 @@ public class MobBossValkyrie extends MobBoss {
 
     public boolean isAirySpace(int x, int y, int z) {
         int p = this.world.getBlockId(x, y, z);
-        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null;
+        Block<?> block = world.getBlock(x, y, z);
+
+        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Material.water;
     }
 
     public void swingArm() {

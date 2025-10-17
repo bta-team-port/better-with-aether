@@ -28,6 +28,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
         this.setSize(1f, 1f);
         this.activated = false;
         this.cooldownInactive = 0;
+        this.canBreatheUnderwater();
     }
 
     public boolean canBreatheUnderwater() {

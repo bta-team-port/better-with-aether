@@ -23,6 +23,11 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         this.maxFireTicks = 20;
         this.scoreValue = 5000;
         setSize(1.0f, 2.5f);
+        this.canBreatheUnderwater();
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
     }
 
     public float getBrightness(float partialTick) {
