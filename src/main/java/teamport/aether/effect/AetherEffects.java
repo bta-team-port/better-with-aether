@@ -14,8 +14,14 @@ import teamport.aether.effect.render.AetherCustomHeartContainer;
 import teamport.aether.effect.render.ExtraHealthEffectRenderer;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
+import teamport.aether.entity.boss.slider.MobBossSlider;
+import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
+import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
+import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.entity.monster.sentry.MobSentry;
+import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -129,6 +135,15 @@ public class AetherEffects {
         IMMUNE_TO_POISON.tag(poisonEffect);
         EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
         EffectTagDispatcher.setImmunityFor(MobCockatrice.class, IMMUNE_TO_POISON);
+
+        EffectTagDispatcher.setImmunityFor(MobSentry.class, IMMUNE_TO_POISON);
+        EffectTagDispatcher.setImmunityFor(MobBossSlider.class, IMMUNE_TO_POISON);
+
+        EffectTagDispatcher.setImmunityFor(MobValkyrie.class, IMMUNE_TO_POISON);
+        EffectTagDispatcher.setImmunityFor(MobBossValkyrie.class, IMMUNE_TO_POISON);
+
+        EffectTagDispatcher.setImmunityFor(MobFireMinion.class, IMMUNE_TO_POISON);
+        EffectTagDispatcher.setImmunityFor(MobBossSunspirit.class, IMMUNE_TO_POISON);
     }
 
     private static void assignEffectRenderers() {

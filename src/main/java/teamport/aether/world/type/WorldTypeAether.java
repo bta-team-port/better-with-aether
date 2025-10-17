@@ -30,7 +30,8 @@ public class WorldTypeAether extends WorldType {
                         .withSeasonInCycle(Seasons.OVERWORLD_SPRING, 14)
                         .withSeasonInCycle(Seasons.OVERWORLD_SUMMER, 14)
                         .withSeasonInCycle(Seasons.OVERWORLD_FALL, 14)
-                        .withSeasonInCycle(Seasons.OVERWORLD_WINTER, 14).build())
+                        .withSeasonInCycle(Seasons.OVERWORLD_WINTER, 14)
+                        .build())
                 .dayNightCycleTicks(Global.DAY_LENGTH_TICKS)
                 .oceanBlock(null)
                 .fillerBlock(AetherBlocks.COBBLE_HOLYSTONE);

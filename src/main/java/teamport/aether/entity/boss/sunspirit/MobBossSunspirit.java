@@ -52,6 +52,7 @@ public class MobBossSunspirit extends MobBossFlying {
         this.scoreValue = 100000;
 
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
+        this.canBreatheUnderwater();
     }
 
     public void returnToOriginalState() {

@@ -28,7 +28,8 @@ import java.util.function.Supplier;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.AetherDimension.AETHER;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
@@ -248,7 +249,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
         }
         if (tunnels.isEmpty()) {
-            AetherMod.LOGGER.warn("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
+            AetherMod.LOGGER.debug("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
         int tunnel_amount = tunnels.size() > 4 ? TUNNEL_COUNT : tunnels.size();
@@ -257,9 +258,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             tunnels.remove(entry);
             if (entry == null) continue;
             Door door = entry.getData();
-            AetherMod.LOGGER.info("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
+            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
             drawVolume(0, 0, door.p1, door.p2, false).place(world);
-//            createTunnel(door.p1, door.p2, door.heading, Blocks.GLASS.id());
+            createTunnel(door.p1, door.p2, door.heading);
         }
         return true;
     }
@@ -279,7 +280,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
             WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
-            placeWorldLining(world, drawVolumeWithPoint(this.random, carvedHolystone, liningBottomCorner, liningTopCorner, false));
+            placeWorldLining(world, drawVolumeWithPoint(this.random, holystone, liningBottomCorner, liningTopCorner, false));
         }
         drawVolumeWithPoint(0, 0, bottomCorner, topCorner, false).place(world);
     }

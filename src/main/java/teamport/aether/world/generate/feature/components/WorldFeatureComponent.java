@@ -1,7 +1,6 @@
 package teamport.aether.world.generate.feature.components;
 
 import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;

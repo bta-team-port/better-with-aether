@@ -52,7 +52,7 @@ public class DensityGeneratorAether implements DensityGenerator {
         for (int dx = 0; dx < xSize; dx++) {
             for (int dz = 0; dz < zSize; dz++) {
                 for (int dy = 0; dy < ySize; dy++) {
-                    int absoluteY = world.getWorldType().getMinY() + (dy * 8); // MinY is 0
+                    int absoluteY = world.getWorldType().getMinY() + (dy * 8);
 
                     double minDensity = minLimitArray[mainIndex] / upperLimitScale;
                     double maxDensity = maxLimitArray[mainIndex] / lowerLimitScale;
@@ -69,12 +69,12 @@ public class DensityGeneratorAether implements DensityGenerator {
                     density -= 32.0;
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
+                    // Higher Y reduces density, making islands sparser and smaller
                     double yFactor = 1.0 - ((double) (absoluteY - world.getWorldType().getMinY()) / terrainHeight);
                     yFactor = Math.max(0.0, Math.min(1.0, yFactor));
                     density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 
-                    // Adjusted upper and lower limits for 0-127 world
-                    int upperLowerLimit = 25 + 10; // Covers top ~80 blocks (dy * 8)
+                    int upperLowerLimit = 35;
                     if (dy > ySize - upperLowerLimit) {
                         double densityMod = (float) (dy - (ySize - upperLowerLimit)) / ((float) upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);

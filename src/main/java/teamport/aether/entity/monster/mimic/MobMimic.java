@@ -27,8 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
-import teamport.aether.blocks.skyroot.BlockLogicPaintableChest;
-import teamport.aether.blocks.skyroot.BlockLogicPaintedChest;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.tile.TileEntityMimic;

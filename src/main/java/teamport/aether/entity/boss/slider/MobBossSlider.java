@@ -94,6 +94,10 @@ public class MobBossSlider extends MobBoss {
         this.canBreatheUnderwater();
     }
 
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+
     @Override
     public int getAmbientSoundInterval() {
         return 40 * TICKS_PER_SECOND;
