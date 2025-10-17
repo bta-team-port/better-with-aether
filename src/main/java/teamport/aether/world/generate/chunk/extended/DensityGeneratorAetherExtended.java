@@ -34,7 +34,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
         double[] densityMapArray = new double[xSize * ySize * zSize];
 
         double mainNoiseScaleX = 80.0;
-        double mainNoiseScaleY = 120.0;
+        double mainNoiseScaleY = 100.0;
         double mainNoiseScaleZ = 80.0;
 
         final double coordScale = 684.412D / 4;
@@ -43,7 +43,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
         double upperLimitScale = 128.0;
         double lowerLimitScale = 128.0;
 
-        // uses temp and humidity to alter terrain shape.
+        // Generate noise arrays
         double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
         double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
         double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
@@ -74,13 +74,13 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
                     yFactor = Math.max(0.0, Math.min(1.0, yFactor));
                     density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 
-                    int upperLowerLimit = 50 + 20;
+                    int upperLowerLimit = 70;
                     if (dy > ySize - upperLowerLimit) {
                         double densityMod = (float) (dy - (ySize - upperLowerLimit)) / ((float) upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 
-                    upperLowerLimit = 20;
+                    upperLowerLimit = 15;
                     if (dy < upperLowerLimit) {
                         double densityMod = (float) (upperLowerLimit - dy) / ((float) upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
