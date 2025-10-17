@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleHelper;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
@@ -34,6 +35,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+        if(EnvironmentHelper.isClientWorld()) return;
         if (!(entity instanceof Player)) {
             return;
         }
