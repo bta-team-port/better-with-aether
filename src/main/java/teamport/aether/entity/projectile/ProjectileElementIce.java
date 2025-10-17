@@ -112,6 +112,11 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
                 }
 
                 Vec3 lookAngle = entity.getLookAngle();
+                if (lookAngle == null) {
+                    this.owner = null;
+                    return false;
+                }
+
                 this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 0.5f, 0.0F);
                 bounceCount = 18;
 
