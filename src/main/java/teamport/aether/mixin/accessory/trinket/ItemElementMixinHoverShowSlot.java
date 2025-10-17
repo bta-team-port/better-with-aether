@@ -39,20 +39,6 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
     @Shadow
     Minecraft mc;
 
-    @Inject(method = "<init>", at=@At("RETURN"))
-    public void init(Minecraft mc, CallbackInfo ci) {
-
-        if (mc != null && ((AetherGameSettingsOptions) mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
-            iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
-            iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
-        }
-
-        else {
-            iconPathTrinket1 = "aether:item/armor_wildcard_outline";
-            iconPathTrinket2 = "aether:item/armor_wildcard_outline";
-        }
-    }
-
     @Redirect(
             method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V",
             at = @At(
@@ -76,9 +62,11 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
                     iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
                     iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
                 }
+                if(iconPathTrinket1 != null && iconPathTrinket2 != null){
+                    defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
+                }
             }
 
-            defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
             // got this from WoldRender, works like a charm
             int screenWidth = this.mc.resolution.getScaledWidthScreenCoords();
             int screenHeight = this.mc.resolution.getScaledHeightScreenCoords();
