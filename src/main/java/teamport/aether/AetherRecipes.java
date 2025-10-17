@@ -1,5 +1,6 @@
 package teamport.aether;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.DataLoader;
@@ -8,6 +9,7 @@ import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -21,6 +23,7 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -64,6 +67,9 @@ public class AetherRecipes implements RecipeEntrypoint {
         AetherRecipes.oreGemGroups();
         AetherRecipes.enchanterGroups();
 
+        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, Items.BUCKET_MILK));
+        Registries.ITEM_GROUPS.register("aether:all_eggs", Registries.stackListOf(AetherItems.EGG_MOA_BLACK, AetherItems.EGG_MOA_BLUE, AetherItems.EGG_MOA_WHITE, Items.EGG_CHICKEN));
+
         ENCHANTER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.ENCHANTER_ACTIVE.getDefaultStack())));
         FREEZER = new RecipeGroupAetherMachine(new RecipeSymbol(new ItemStack(AetherBlocks.FREEZER_ACTIVE.getDefaultStack())));
         INCUBATOR = new RecipeGroupIncubator(new RecipeSymbol(new ItemStack(AetherBlocks.INCUBATOR_ACTIVE.getDefaultStack())));
@@ -72,8 +78,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         AETHER.register("enchanter", ENCHANTER);
         AETHER.register("freezer", FREEZER);
         AETHER.register("incubator", INCUBATOR);
-
-
     }
 
     public static void workbenchGroups() {
@@ -90,6 +94,14 @@ public class AetherRecipes implements RecipeEntrypoint {
         List<ItemStack> chests = Registries.stackListOf(AetherBlocks.CHEST_PLANKS_SKYROOT);
         List<ItemStack> trapdoors = Registries.stackListOf(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT);
 
+        List<ItemStack> allplanks = Registries.stackListOf(Blocks.PLANKS_OAK);
+        allplanks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT));
+
+        List<ItemStack> allpressure = Registries.stackListOf(Blocks.PRESSURE_PLATE_STONE);
+        allpressure.add(new ItemStack(Blocks.PRESSURE_PLATE_COBBLE_STONE));
+        allpressure.add(new ItemStack(Blocks.PRESSURE_PLATE_PLANKS_OAK));
+        allpressure.add(new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT));
+
         for (DyeColor dyeColor : DyeColor.values()) {
             planks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
             fences.add(new ItemStack(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
@@ -105,6 +117,11 @@ public class AetherRecipes implements RecipeEntrypoint {
             doors.add(new ItemStack(AetherItems.DOOR_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
             signs.add(new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, dyeColor.itemMeta));
 
+            allplanks.add(new ItemStack(Blocks.PLANKS_OAK_PAINTED, 1, dyeColor.blockMeta));
+            allplanks.add(new ItemStack(AetherBlocks.PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
+
+            allpressure.add(new ItemStack(Blocks.PRESSURE_PLATE_PLANKS_OAK, 1, dyeColor.blockMeta));
+            allpressure.add(new ItemStack(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED, 1, dyeColor.blockMeta));
         }
 
         Registries.ITEM_GROUPS.register("aether:skyroot_planks", planks);
@@ -119,6 +136,12 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.register("aether:skyroot_chests", chests);
         Registries.ITEM_GROUPS.register("aether:skyroot_trap_doors", trapdoors);
 
+        Registries.ITEM_GROUPS.register("aether:all_planks", allplanks);
+
+        Registries.ITEM_GROUPS.register("aether:all_sticks", Registries.stackListOf(Items.STICK.getDefaultStack()));
+        Registries.ITEM_GROUPS.getItem("aether:all_sticks").add(AetherItems.STICK_SKYROOT.getDefaultStack());
+
+        Registries.ITEM_GROUPS.register("aether:all_pressure_plates", allpressure);
     }
 
     public static void oreGemGroups() {
@@ -127,15 +150,40 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(AetherBlocks.ORE_ZANITE_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:gravitite_ores", Registries.stackListOf(AetherBlocks.ORE_GRAVITITE_HOLYSTONE));
-        Registries.ITEM_GROUPS.register("aether:milk_buckets", Registries.stackListOf(AetherItems.BUCKET_SKYROOT_MILK, Items.BUCKET_MILK));
     }
 
     public static void extendVanillaGroups() {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("ladder");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("cobblestone_lever");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("sponge_to_wet_sponge");
+
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("cake");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("pumpkin_pie");
+
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("boat");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("bed");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("bookshelf");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("bowl");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("note_block");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("noteblock");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("paper_wall");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("piston");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rotary_calendar");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("seat");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("workbench");
+
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("flag");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("paper_wall_fence");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("painting");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("paintbrush");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("powered_rail");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rail");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("repeater");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("torch_redstone_active");
+
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("detector_rail");
+
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_SKYROOT.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:logs").add(AetherBlocks.LOG_OAK_GOLDEN.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:leaves").add(AetherBlocks.LEAVES_SKYROOT.getDefaultStack());
@@ -283,7 +331,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.Shaped(MOD_ID, "MMM", "SES", "WWW")
                 .addInput('W', Items.WHEAT)
                 .addInput('S', Items.DUST_SUGAR)
-                .addInput('E', Items.EGG_CHICKEN)
+                .addInput('E', "aether:all_eggs")
                 .addInput('M', "aether:milk_buckets")
                 .create("cake", new ItemStack(Items.FOOD_CAKE, 1));
 
@@ -633,6 +681,29 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
                 .addInput('X', "aether:skyroot_planks")
                 .create("skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
+
+        // bed
+        // boat
+        // bookshelf
+        // bowl
+        // jukebox
+        // noteblock
+        // paperwall
+        // piston
+        // rotatry
+        // seat
+        // workbench
+
+        // flag
+        // paperwall
+        // powered rail
+        // rail
+        // redstone repeater
+        // redstone torch
+
+        // detector rail
+
+
     }
 
     public static void slabRecipes() {
