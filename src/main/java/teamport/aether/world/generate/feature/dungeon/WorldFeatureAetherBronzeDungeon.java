@@ -267,9 +267,9 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction) {
-        WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
-        WorldFeaturePoint liningTopCorner = topCorner.copy();
         if (world.dimension.equals(AETHER)) {
+            WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
+            WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
             placeWorldLining(world, drawVolumeWithPoint(this.random, carvedHolystone, liningBottomCorner, liningTopCorner, false));
         }
