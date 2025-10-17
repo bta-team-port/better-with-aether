@@ -51,8 +51,8 @@ public class HallwayRoom extends BaseBronzeRoom {
 
     @Override
     public void makeRoom() {
-        if(!world.dimension.equals(AetherDimension.AETHER)){
-            room.add(drawVolume(random, WorldFeatureAetherBronzeDungeon.holystone, SOUTH, 6, UP, 8, EAST, 6, x + 3, y, z + 3, false));
+        if(world.dimension.equals(AetherDimension.AETHER)){
+            room.add(drawVolume(random, WorldFeatureAetherBronzeDungeon.carvedHolystone, SOUTH, 6, UP, 8, EAST, 6, x + 3, y, z + 3, false));
         }
         room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
     }

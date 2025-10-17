@@ -14,8 +14,6 @@ public class TreasureRoom extends BaseBronzeRoom {
         addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
-
-        addDoor(UP, wfp(5, 12, 5), EAST, 2, SOUTH, 2);
     }
 
     //    @Override

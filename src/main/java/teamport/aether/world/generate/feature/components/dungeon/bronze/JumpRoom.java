@@ -16,7 +16,7 @@ public class JumpRoom extends BaseBronzeRoom {
     public static BlockPallet jumpMimics = new BlockPallet();
 
     static {
-        jumpMimics.addEntry(0, 1.5);
+        jumpMimics.addEntry(0, 1.25);
         jumpMimics.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 2);
         jumpMimics.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 2);
     }
@@ -29,9 +29,6 @@ public class JumpRoom extends BaseBronzeRoom {
         addDoor(EAST, wfp(11, 1, 4), UP, 6, SOUTH, 4);
         addDoor(SOUTH, wfp(4, 1, 11), UP, 6, EAST, 4);
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
-
-        addDoor(DOWN, wfp(5, 0, 5), EAST, 2, SOUTH, 2);
-        addDoor(UP, wfp(5, this.height, 5), EAST, 2, SOUTH, 2);
     }
 
     @Override
@@ -59,7 +56,7 @@ public class JumpRoom extends BaseBronzeRoom {
         listChestPos.add(drawLine(random, jumpMimics, SOUTH, 2, x + 10, y + 8, z + 5, false));
         listChestPos.add(drawLine(random, jumpMimics, EAST, 2, x + 5, y + 8, z + 10, false));
         Collections.shuffle(listChestPos, random);
-        int max = random.nextInt(3) + 1;
+        int max = random.nextInt(2) + 2;
         for (int i = 0; i < max; i++) {
             chest.add(listChestPos.get(i));
         }
