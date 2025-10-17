@@ -31,7 +31,7 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
         double d7;
         double d8;
         float f2;
-        if (!entity.evil) {
+        if (!entity.evil()) {
             for (i = 0; i < 2; ++i) {
                 d6 = (float) entity.x + rand.nextFloat() * 0.25F;
                 d7 = (float) entity.y + entity.bbHeight + 0.125F;

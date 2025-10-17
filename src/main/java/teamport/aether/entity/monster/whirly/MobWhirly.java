@@ -28,7 +28,22 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
     public float Angle;
     public float Speed;
     public float Curve;
-    public boolean evil;
+
+    public static final int DATA_EVIL = 16;
+    public boolean evil() {
+        return this.entityData.getByte(DATA_EVIL) > 0;
+    }
+
+    public boolean setEvil(boolean isEvil) {
+        this.entityData.set(DATA_EVIL, 0b1);
+        return evil();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_EVIL, (byte) 0, Byte.class);
+    }
 
     public MobWhirly(World world) {
         super(world);
@@ -45,12 +60,12 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
 
     public void spawnInit() {
         if (random.nextInt(5) == 0) {
-            this.evil = true;
+            this.setEvil(true);
         }
     }
 
     public void tick() {
-        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn() && evil) {
+        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn() && evil()) {
             this.remove();
         }
         super.tick();
@@ -89,7 +104,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
     }
 
     public void updateAI() {
-        if (this.evil) {
+        if (this.evil()) {
             Player entityplayer = (Player) this.getPlayer();
             if (entityplayer != null && entityplayer.onGround) {
                 this.target = entityplayer;
@@ -114,7 +129,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
 
         int i;
         if (this.entcount >= 128) {
-            if (this.evil && this.target != null) {
+            if (this.evil() && this.target != null) {
                 MobCreeper entitycreeper = new MobCreeper(this.world);
                 entitycreeper.setPos(this.x, this.y + 0.75, this.z);
                 entitycreeper.xd = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
@@ -188,7 +203,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         tag.putFloat("Curve", this.Curve);
         tag.putShort("Life", (short) this.Life);
         tag.putShort("Counter", (short) this.entcount);
-        tag.putBoolean("Evil", this.evil);
+        tag.putBoolean("Evil", this.evil());
     }
 
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
@@ -198,7 +213,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         this.Curve = tag.getFloat("Curve");
         this.Life = tag.getShort("Life");
         this.entcount = tag.getShort("Counter");
-        this.evil = tag.getBoolean("Evil");
+        this.setEvil(tag.getBoolean("Evil"));
     }
 
     public boolean hurt(Entity entity, int i, DamageType type) {
