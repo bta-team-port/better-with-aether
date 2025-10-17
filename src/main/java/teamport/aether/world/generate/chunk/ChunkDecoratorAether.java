@@ -34,7 +34,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     private final PerlinSimplexNoise cloudNoise;
     private final BasePerlinNoise<?> cloudNoise2;
 
-    protected ChunkDecoratorAether(World world) {
+    public ChunkDecoratorAether(World world) {
         this.world = world;
 
         this.flowerVeinNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);

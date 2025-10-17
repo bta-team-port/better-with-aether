@@ -37,6 +37,8 @@ public class WorldTypeGroupsMixin {
         })
             overworldToAetherWorldTypeMap.put(t, AetherWorldTypes.AETHER_EXTENDED);
 
+        overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_DEFAULT, AetherWorldTypes.AETHER_DEFAULT);
+
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_SKYBLOCK, AetherWorldTypes.AETHER_SKYBLOCK);
 
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_RETRO, AetherWorldTypes.AETHER_RETRO);
