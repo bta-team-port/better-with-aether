@@ -298,7 +298,7 @@ public final class AetherItems {
 
 
         FOOD_HEALING_STONE = new ItemBuilder(MOD_ID)
-                .build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 1, false, 16));
+                .build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 10, false, 4));
 
 
         FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID)
