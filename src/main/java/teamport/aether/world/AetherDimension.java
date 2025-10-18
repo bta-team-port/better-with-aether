@@ -122,7 +122,7 @@ public class AetherDimension {
 
     private static final Map<IntPair, List<CompoundTag>> entitiesMovedToOverworld = new HashMap<>();
 
-    public static void addEntityToFallen(Entity target) {
+    public static synchronized void addEntityToFallen(Entity target) {
         AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
         IntPair chunk = new IntPair(
@@ -138,7 +138,8 @@ public class AetherDimension {
         chunkList.add(data);
     }
 
-    public static void loadEntitiesNearPlayer(Player player) {
+    public static synchronized void loadEntitiesNearPlayer(Player player) {
+        List<IntPair> toRemove = new ArrayList<>();
         for (IntPair pos : entitiesMovedToOverworld.keySet()) {
             if (player.distanceTo(pos.first * 16, player.y, pos.second * 16) < 100) {
                 List<CompoundTag> entities = entitiesMovedToOverworld.computeIfAbsent(pos, intPair -> new ArrayList<>());
@@ -154,11 +155,13 @@ public class AetherDimension {
                     copy.moveTo( copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
                     world.entityJoinedWorld(copy);
-                };
+                }
 
-                entitiesMovedToOverworld.remove(pos);
+                toRemove.add(pos);
             }
         }
+
+        toRemove.forEach(entitiesMovedToOverworld::remove);
     }
 
     public static void setDimensionDataDefaults() {

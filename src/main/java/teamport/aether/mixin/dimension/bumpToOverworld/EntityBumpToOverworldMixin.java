@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.world.AetherDimension.addEntityToFallen;
 
@@ -45,6 +46,8 @@ public abstract class EntityBumpToOverworldMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void fallToOverWorld(CallbackInfo ci) {
+        if (EnvironmentHelper.isClientWorld()) return;
+
         Dimension dimension = world.dimension;
 
         if (dimension.id == AetherDimension.AetherDimensionID && y < world.worldType.getMinY() - 10) {

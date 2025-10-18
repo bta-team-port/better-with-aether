@@ -6,6 +6,7 @@ import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.world.WorldClient;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -13,34 +14,32 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherMod;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
-@Mixin(value = PlayerLocal.class, remap = false)
-public abstract class SPBumpToOverworldMixin extends Player {
+@Mixin(value = Player.class, remap = false)
+public abstract class SPBumpToOverworldMixin extends Mob {
 
     @Shadow
-    protected Minecraft mc;
-
-    @Shadow
-    public abstract void sendMessage(String message);
-
-    @Shadow
-    public abstract void sendChatMessage(String s);
+    public int dimension;
 
     public SPBumpToOverworldMixin(@Nullable World world) {
         super(world);
     }
 
-    @Override
-    public void tick() {
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
 
         assert world != null;
         if (dimension == AetherDimension.AetherDimensionID && this.y < world.worldType.getMinY() - 10) {
             if (EnvironmentHelper.isSinglePlayer()) {
+                Minecraft mc = Minecraft.getMinecraft();
 
                 AetherMod.LOGGER.info(String.format("Sending %s to overworld", getDisplayName()));
 
@@ -73,8 +72,8 @@ public abstract class SPBumpToOverworldMixin extends Player {
                     mc.currentWorld.updateEntityWithOptionalForce(this, false);
                 }
 
-                WorldClient newWorld = new WorldClient(this.mc.currentWorld, Dimension.OVERWORLD);
-                this.mc.changeWorld(newWorld, "Leaving " + AetherDimension.AETHER.getTranslatedName(), this);
+                WorldClient newWorld = new WorldClient(mc.currentWorld, Dimension.OVERWORLD);
+                mc.changeWorld(newWorld, "Leaving " + AetherDimension.AETHER.getTranslatedName(), Player.class.cast(this));
 
                 world = newWorld;
                 dimension = Dimension.OVERWORLD.id;
@@ -102,6 +101,5 @@ public abstract class SPBumpToOverworldMixin extends Player {
             }
 
         }
-        super.tick();
     }
 }
