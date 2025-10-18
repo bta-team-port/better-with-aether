@@ -145,7 +145,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (this.isAlive()) {
             if (!this.friendly) {
-                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() >= 0 && !dead) {
                     this.attackTime = 200;
                     this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     entity.hurt(this, 2, DamageType.COMBAT);

@@ -168,7 +168,7 @@ abstract public class ProjectileElementBase extends Projectile implements Projec
     }
 
     protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        ProjectileElementBase element = null;
+        ProjectileElementBase element;
         try {
             element = clazz.getDeclaredConstructor(World.class).newInstance(world);
         } catch (Exception e) {
