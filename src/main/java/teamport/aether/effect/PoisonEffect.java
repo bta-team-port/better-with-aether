@@ -1,5 +1,6 @@
 package teamport.aether.effect;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
@@ -8,6 +9,7 @@ import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleHelper;
+import teamport.aether.mixin.gui.AchievementScreenShadowMixin;
 
 import java.util.List;
 import java.util.Random;
@@ -23,6 +25,9 @@ public class PoisonEffect extends Effect {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
+        if(!canApplyTo((Entity) effectContainer.getParent())){
+            return;
+        }
         if (AetherEffects.isLocked(effectStack, effectContainer)) {
             return;
         }
@@ -35,6 +40,7 @@ public class PoisonEffect extends Effect {
         EffectStack newStack = new EffectStack((IHasEffects) effectContainer.getParent(), AetherEffects.poisonEffect, effectStack.getAmount() - 1);
         newStack.start(effectContainer);
         effectContainer.add(newStack);
+        assert effectContainer.getParent() instanceof Mob;
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
@@ -56,6 +62,11 @@ public class PoisonEffect extends Effect {
             }
         }
         slideEntity(mob);
+    }
+
+    @Override
+    public boolean canApplyTo(Entity target) {
+        return target instanceof Mob && super.canApplyTo(target);
     }
 
     private void slideEntity(Mob mob) {
