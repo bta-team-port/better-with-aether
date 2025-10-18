@@ -40,7 +40,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-    public static String state = "release";
+    public static String state = "beta";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
