@@ -6,11 +6,11 @@ public class RecipeEntity {
     String entity;
     int amount = 1;
 
-    public RecipeEntity(String entity){
+    public RecipeEntity(String entity) {
         this.entity = entity;
     }
 
-    public RecipeEntity(String entity, int amount){
+    public RecipeEntity(String entity, int amount) {
         this.entity = entity;
         this.amount = amount;
     }

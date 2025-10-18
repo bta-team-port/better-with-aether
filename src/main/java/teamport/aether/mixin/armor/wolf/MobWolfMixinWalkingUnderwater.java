@@ -11,7 +11,9 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value = MobWolf.class, remap = false)
 public abstract class MobWolfMixinWalkingUnderwater extends MobAnimal {
 
-    @Shadow @Nullable public abstract ArmorMaterial getArmorMaterial();
+    @Shadow
+    @Nullable
+    public abstract ArmorMaterial getArmorMaterial();
 
     public MobWolfMixinWalkingUnderwater(World world) {
         super(world);

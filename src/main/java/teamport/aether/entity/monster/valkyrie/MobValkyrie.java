@@ -314,7 +314,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                     int pokey = this.random.nextInt(3) + 1;
                     String formatString = String.format("%s.%d", "aether.entity.valkyrie.attacked", pokey);
                     String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                    ((Player)entity).sendMessage(message);
+                    ((Player) entity).sendMessage(message);
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
                     this.target = null;
                     this.chatTime = 0;

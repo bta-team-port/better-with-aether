@@ -26,6 +26,19 @@
     }
   },
   {
+    "name": "aether:enchanter/ore_raw_gravitite_to_gravitite",
+    "type": "aether:machine",
+    "time": 1000,
+    "input": {
+      "stack": {
+        "id": "aether:item/ore_raw_gravitite"
+      }
+    },
+    "output": {
+      "id": "aether:block/block_gravitite"
+    }
+  },
+  {
     "name": "aether:enchanter/enchant_ore_zanite_to_zanite",
     "type": "aether:machine",
     "time": 500,

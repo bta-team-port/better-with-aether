@@ -13,17 +13,18 @@ import teamport.aether.items.AetherArmorMaterial;
 public abstract class MobWolfMixinDrowningImmunity extends MobAnimal {
 
 
-    @Shadow public abstract @Nullable ArmorMaterial getArmorMaterial();
+    @Shadow
+    public abstract @Nullable ArmorMaterial getArmorMaterial();
 
     public MobWolfMixinDrowningImmunity(World world) {
         super(world);
     }
 
     @Override
-    public boolean canBreatheUnderwater(){
+    public boolean canBreatheUnderwater() {
         if (this.getArmorMaterial() != null) {
             ArmorMaterial material = this.getArmorMaterial();
-            if(material.equals(AetherArmorMaterial.NEPTUNE)){
+            if (material.equals(AetherArmorMaterial.NEPTUNE)) {
                 return true;
             }
         }

@@ -18,17 +18,16 @@ import teamport.aether.world.AetherDimension;
 public class mapFixMixin {
 
     @Inject(
-        method = "update",
-        at = @At(
-            value = "INVOKE_ASSIGN",
-            target = "Lnet/minecraft/core/world/chunk/Chunk;getBlockID(III)I"
-        )
+            method = "update",
+            at = @At(
+                    value = "INVOKE_ASSIGN",
+                    target = "Lnet/minecraft/core/world/chunk/Chunk;getBlockID(III)I"
+            )
     )
     void fixMap(World world, Entity entity, ItemMapSavedData data, CallbackInfo ci,
-        @Local(name = "id") LocalIntRef id,
-        @Local(name = "height") int height
-    )
-    {
+                @Local(name = "id") LocalIntRef id,
+                @Local(name = "height") int height
+    ) {
         if (world.dimension.id != AetherDimension.AetherDimensionID) return;
 
         if (height < 0) {

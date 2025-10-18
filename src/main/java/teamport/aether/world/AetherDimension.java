@@ -8,7 +8,6 @@ import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
-import net.minecraft.core.world.chunk.ChunkCoordinate;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
@@ -16,7 +15,6 @@ import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.generate.chunk.BiomeProviderAether;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import teamport.aether.world.generate.feature.dungeon.map.DungeonMap;
 import teamport.aether.world.type.AetherWorldTypes;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.StreamSupport;
 
 public class AetherDimension {
     public static DungeonMap dungeonMap = new DungeonMap();
@@ -126,8 +123,8 @@ public class AetherDimension {
         AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
         IntPair chunk = new IntPair(
-            ((int) target.x) / 16,
-            ((int) target.z) / 16
+                ((int) target.x) / 16,
+                ((int) target.z) / 16
         );
         List<CompoundTag> chunkList = entitiesMovedToOverworld.computeIfAbsent(chunk, (i) -> new ArrayList<>());
 
@@ -152,7 +149,7 @@ public class AetherDimension {
                     copy.load(data);
 
                     float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
-                    copy.moveTo( copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
+                    copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
                     world.entityJoinedWorld(copy);
                 }
@@ -179,7 +176,7 @@ public class AetherDimension {
 
         entitiesMovedToOverworld.clear();
         ListTag entitiesMoved = dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen");
-        entitiesMoved.forEach( tag -> {
+        entitiesMoved.forEach(tag -> {
             ListTag entities = ((CompoundTag) tag).getList("entities");
             IntPair chunk = new IntPair(
                     ((CompoundTag) tag).getInteger("x"),
@@ -187,7 +184,7 @@ public class AetherDimension {
             );
 
             List<CompoundTag> entitiesList = new ArrayList<>();
-            entities.forEach( e -> entitiesList.add((CompoundTag) e));
+            entities.forEach(e -> entitiesList.add((CompoundTag) e));
             entitiesMovedToOverworld.put(chunk, entitiesList);
         });
     }
@@ -200,7 +197,7 @@ public class AetherDimension {
             CompoundTag entryCompound = new CompoundTag();
 
             ListTag entities = new ListTag();
-            for (CompoundTag entity: entry.getValue()) {
+            for (CompoundTag entity : entry.getValue()) {
                 entities.addTag(entity);
             }
 

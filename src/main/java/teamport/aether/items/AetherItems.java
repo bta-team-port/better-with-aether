@@ -67,8 +67,11 @@ public final class AetherItems {
     public static Item AMMO_DART_ENCHANTED;
     public static Item TOOL_SHOOTER;
 
+    public static Item AMMO_ARROW_FLAMING;
+
     public static Item AMBROSIUM;
     public static Item ZANITE;
+    public static Item ORE_RAW_GRAVITITE;
 
     public static Item BUCKET_SKYROOT;
     public static Item BUCKET_SKYROOT_WATER;
@@ -296,6 +299,9 @@ public final class AetherItems {
         ZANITE = new ItemBuilder(MOD_ID)
                 .build(new Item("zanite", itemKey("zanite"), itemID("ZANITE")));
 
+        ORE_RAW_GRAVITITE = new ItemBuilder(MOD_ID)
+                .build(new Item("ore.raw.gravitite", itemKey("ore_raw_gravitite"), itemID("ORE_RAW_GRAVITITE")));
+
 
         FOOD_HEALING_STONE = new ItemBuilder(MOD_ID)
                 .build(new ItemFood("food.healing.stone", itemKey("food_healing_stone"), itemID("FOOD_HEALING_STONE"), 4, 10, false, 4));
@@ -489,6 +495,10 @@ public final class AetherItems {
 
         TOOL_SHOOTER = new ItemBuilder(MOD_ID)
                 .build(new ItemShooter("tool.shooter", itemKey("tool_shooter"), itemID("TOOL_SHOOTER")));
+
+
+        AMMO_ARROW_FLAMING = new ItemBuilder(MOD_ID)
+                .build(new Item("ammo.arrow.flaming", itemKey("ammo_arrow_flaming"), itemID("AMMO_ARROW_FLAMING")));
 
 
         TOOL_SWORD_PIG = new ItemBuilder(MOD_ID)

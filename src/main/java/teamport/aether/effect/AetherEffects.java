@@ -155,21 +155,21 @@ public class AetherEffects {
         );
 
         dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
-                poisonEffect,
-                "/assets/aether/textures/other/poisonvignette.png",
-                0x8218cb,
-                "aether:gui/hud/poison/"
-        )
-            .setIcon("icon_poison.png")
+                        poisonEffect,
+                        "/assets/aether/textures/other/poisonvignette.png",
+                        0x8218cb,
+                        "aether:gui/hud/poison/"
+                )
+                        .setIcon("icon_poison.png")
         );
 
         dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
-                remedyEffect,
-                "/assets/aether/textures/other/curevignette.png",
-                0x009bc2,
-                "aether:gui/hud/remedy/"
-        )
-            .setIcon("icon_remedy.png")
+                        remedyEffect,
+                        "/assets/aether/textures/other/curevignette.png",
+                        0x009bc2,
+                        "aether:gui/hud/remedy/"
+                )
+                        .setIcon("icon_remedy.png")
         );
     }
 
@@ -202,7 +202,7 @@ public class AetherEffects {
 
 
     /**
-     * @param entity       affected Mob
+     * @param entity    affected Mob
      * @param newEffect Effect affecting the entity
      * @param amount    stack size of the effect
      * @return true if the effect was applied false otherwise
@@ -220,7 +220,7 @@ public class AetherEffects {
 
 
     /**
-     * @param entity        affected Mob
+     * @param entity     affected Mob
      * @param stackToAdd Effect stack affecting the entity
      * @return true if the effect was applied false otherwise
      * @apiNote If you want aether style effect use this function to add your effects.

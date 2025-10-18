@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.gameSettings.AetherGameSettingsOptions;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.accessory.IAccessory;
@@ -32,9 +30,12 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 @Mixin(value = ItemElement.class, remap = false)
 abstract public class ItemElementMixinHoverShowSlot extends Gui {
 
-    @Unique int lastTick = 0;
-    @Unique String iconPathTrinket1;
-    @Unique String iconPathTrinket2;
+    @Unique
+    int lastTick = 0;
+    @Unique
+    String iconPathTrinket1;
+    @Unique
+    String iconPathTrinket2;
 
     @Shadow
     Minecraft mc;
@@ -49,21 +50,21 @@ abstract public class ItemElementMixinHoverShowSlot extends Gui {
     )
     public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, @Local(argsOnly = true) Slot currectSlot, @Local(argsOnly = true) ItemStack itemStack) {
         if (
-            currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
-            && (
-                    this.mc.currentScreen instanceof ScreenInventory
-                || this.mc.currentScreen instanceof ScreenInventoryCreative
-            )
+                currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT
+                        && (
+                        this.mc.currentScreen instanceof ScreenInventory
+                                || this.mc.currentScreen instanceof ScreenInventoryCreative
+                )
         ) {
-            if (((AetherGameSettingsOptions)mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
-                int seconds  = ((AetherGameSettingsOptions)mc.gameSettings).aether$getAccessoryFlickSpeed().value;
+            if (((AetherGameSettingsOptions) mc.gameSettings).aether$getFlickAccessoryIconsOption().value) {
+                int seconds = ((AetherGameSettingsOptions) mc.gameSettings).aether$getAccessoryFlickSpeed().value;
                 if (this.mc.thePlayer.tickCount - lastTick >= seconds * Global.TICKS_PER_SECOND) { // 3000
                     lastTick = this.mc.thePlayer.tickCount;
                     iconPathTrinket1 = LookupTrinketIcons.instance.getRandomEntry();
                     iconPathTrinket2 = LookupTrinketIcons.instance.getRandomEntry();
                 }
-                if(iconPathTrinket1 != null && iconPathTrinket2 != null){
-                    defaultIcon = TextureRegistry.getTexture (currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
+                if (iconPathTrinket1 != null && iconPathTrinket2 != null) {
+                    defaultIcon = TextureRegistry.getTexture(currectSlot.index > ARMOR_START_INDEX + TRINKET_1_SLOT ? iconPathTrinket2 : iconPathTrinket1);
                 }
             }
 

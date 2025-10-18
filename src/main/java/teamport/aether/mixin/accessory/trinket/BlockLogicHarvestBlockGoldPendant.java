@@ -70,7 +70,6 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
         }
         if (trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id) {
             trinketTwo.damageItem(1, player);
-            return;
         }
     }
 
@@ -115,7 +114,6 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
             }
             if (goldInSlot7) {
                 trinketTwo.damageItem(1, player);
-                return;
             }
         }
     }

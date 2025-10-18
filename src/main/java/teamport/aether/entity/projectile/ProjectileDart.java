@@ -236,14 +236,14 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                     ((Player) this.owner).addStat(AetherAchievements.HIT_ZEPHYR, 1);
                 }
             }
-            if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
+            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
-                    if(hitResult.entity instanceof IHasEffects){
+                    if (hitResult.entity instanceof IHasEffects) {
                         AetherEffects.add(hitResult.entity, AetherEffects.poisonEffect, random.nextInt(1) + 1);
                     }
                 }
                 if (dartType >= 2) {
-                    if(hitResult.entity instanceof IHasEffects){
+                    if (hitResult.entity instanceof IHasEffects) {
                         IHasEffects entity = (IHasEffects) hitResult.entity;
                         AetherEffects.add(hitResult.entity, new EffectStack(entity, AetherEffects.remedyEffect, 20, 1));
                     }

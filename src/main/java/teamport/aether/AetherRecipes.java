@@ -1,6 +1,5 @@
 package teamport.aether;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.data.DataLoader;
@@ -9,7 +8,6 @@ import net.minecraft.core.data.registry.recipe.RecipeNamespace;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryDyeing;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryUndyeing;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
@@ -23,7 +21,6 @@ import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.helper.recipeBuilders.RecipeBuilderShaped;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static teamport.aether.AetherMod.MOD_ID;
@@ -808,9 +805,9 @@ public class AetherRecipes implements RecipeEntrypoint {
                 .addEntry(new WeightedRandomLootObject(Items.CLAY.getDefaultStack(), 1, 5), 24.10)
                 .addEntry(new WeightedRandomLootObject(Items.FLINT.getDefaultStack(), 1, 3), 12.05)
                 .addEntry(new WeightedRandomLootObject(Items.SULPHUR.getDefaultStack(), 1), 2.41)
-                .addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1), 0.60)
-                .addEntry(new WeightedRandomLootObject(Items.BONE.getDefaultStack(), 1), 0.30)
-                .addEntry(new WeightedRandomLootObject(AetherItems.STICK_SKYROOT.getDefaultStack(), 1), 0.30)
+                .addEntry(new WeightedRandomLootObject(Items.BONE.getDefaultStack(), 1), 0.60)
+                .addEntry(new WeightedRandomLootObject(AetherItems.ZANITE.getDefaultStack(), 1), 0.30)
+                .addEntry(new WeightedRandomLootObject(AetherItems.ORE_RAW_GRAVITITE.getDefaultStack(), 1), 0.30)
                 .create("trommel_aether_dirt");
 
         RecipeBuilder.Trommel(MOD_ID)

@@ -141,7 +141,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (damage > 0 && this.isWallace()) damage = Math.max(1, damage/3);
+        if (damage > 0 && this.isWallace()) damage = Math.max(1, damage / 3);
         return super.hurt(attacker, this.extraDamage(attacker, damage), type);
     }
 

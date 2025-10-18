@@ -41,7 +41,7 @@ public class ItemToolSwordPig extends ItemToolSword {
     }
 
     public static boolean pigSwordKills(Entity target) {
-        return  target instanceof MobPig
+        return target instanceof MobPig
                 || target instanceof MobZombiePig
                 || target instanceof MobPhyg
                 || (target instanceof Player && "Tocinin".equals(((Player) target).username));

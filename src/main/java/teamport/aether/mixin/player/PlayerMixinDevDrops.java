@@ -13,17 +13,17 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.items.AetherItems;
 
 import static teamport.aether.AetherMod.*;
-import static teamport.aether.AetherMod.UUID_REDART15;
 
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinDevDrops {
 
 
-    @Shadow public int swingProgressInt;
+    @Shadow
+    public int swingProgressInt;
 
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getGameRuleValue(Lnet/minecraft/core/data/gamerule/GameRule;)Ljava/lang/Object;"))
-    public void extraDropsDev(Entity entityKilledBy, CallbackInfo ci){
-        Player asThis  = (Player) (Object) this;
+    public void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
+        Player asThis = (Player) (Object) this;
         String uuid = asThis.uuid.toString();
         switch (uuid) {
             case UUID_LUKEISSTUFF: // LukeisStuff
@@ -38,7 +38,8 @@ public class PlayerMixinDevDrops {
             case UUID_REDART15: // Redart15
                 asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT_LOCKED, 1), true);
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 }

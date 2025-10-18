@@ -193,11 +193,11 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
         Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
-        if(entity instanceof MobMoaBlue){
-            ((MobMoaBlue)entity).setTamed(true);
+        if (entity instanceof MobMoaBlue) {
+            ((MobMoaBlue) entity).setTamed(true);
         }
-        if(entity instanceof MobSlime){
-            ((MobSlime)entity).setSlimeSize(random.nextInt(4) + 1);
+        if (entity instanceof MobSlime) {
+            ((MobSlime) entity).setSlimeSize(random.nextInt(4) + 1);
         }
         return entity;
     }

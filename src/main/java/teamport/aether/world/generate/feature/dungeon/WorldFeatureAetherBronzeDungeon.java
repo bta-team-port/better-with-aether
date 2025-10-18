@@ -4,7 +4,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
@@ -29,7 +28,8 @@ import java.util.function.Supplier;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
 import static teamport.aether.world.AetherDimension.AETHER;
-import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.*;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolume;
+import static teamport.aether.world.generate.feature.components.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.generate.feature.components.dungeon.bronze.BaseBronzeRoom.Door.door;
@@ -229,7 +229,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 listDoor.add(d);
                 room.markDoor(d, PLACED);
             }
-            if(room instanceof HallwayRoom) continue;
+            if (room instanceof HallwayRoom) continue;
             for (Door door : listDoor) {
                 if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) {
                     continue;
