@@ -113,8 +113,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_DUNGEON_COMPASS.getDefaultStack()), 25.0);
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.RECORD_NETHER.getDefaultStack()), 10.0);
 
-        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack()), 200.0);
-        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 200.0);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_INVISIBILITY.getDefaultStack()), 100.0);
+        TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_SHIELD_REPULSION.getDefaultStack()), 100.0);
     }
 
     public WorldFeatureAetherGoldDungeon(int dir) {
