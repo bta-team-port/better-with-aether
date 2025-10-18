@@ -44,6 +44,11 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
+    public static final String UUID_LUKEISSTUFF = "db7db941-6923-4855-a879-1ae655c16122";
+    public static final String UUID_OLYPOLYU = "d561a5ee-57df-491d-80ea-784251df4bef";
+    public static final String UUID_TOCININ = "4f419f3d-c2b0-41de-92bb-9740e43b640d";
+    public static final String UUID_REDART15 = "3da8c87f-1845-455c-b91f-7e9ee8f4c0ec";
+
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");

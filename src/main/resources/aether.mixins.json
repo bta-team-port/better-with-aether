@@ -87,6 +87,8 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerExtraHealthMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
+    "player.PlayerMixinDevDrops",
+    "player.PlayerLocalHandleAetherRideableMixin",
     "dimension.bumpToOverworld.EntityBumpToOverworldMixin"
   ],
   "client": [
