@@ -1,5 +1,7 @@
 package teamport.aether.models;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
+@Environment(EnvType.CLIENT)
 public class DynamicTextureDungeonCompass extends DynamicTexture {
     public Minecraft mc;
     public byte[] compassImageData;
