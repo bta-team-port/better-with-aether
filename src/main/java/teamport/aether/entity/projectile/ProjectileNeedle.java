@@ -167,8 +167,8 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
-                IHasEffects effectPlayer = (IHasEffects) hitResult.entity;
-                AetherEffects.add((Mob) effectPlayer, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                IHasEffects target = (IHasEffects) hitResult.entity;
+                AetherEffects.add((Entity) target, AetherEffects.poisonEffect, random.nextInt(1) + 1);
 
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
