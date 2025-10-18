@@ -20,12 +20,14 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
     public final Block<?> breakResult;
     public final Block<?> replaceOnClear;
+    public final int CHANCE;
 
-    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster) {
+    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int CHANCE) {
         super(block, Material.stone);
         this.monster = monster;
         this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
+        this.CHANCE = CHANCE > 0 ? CHANCE : 2;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         if (!(entity instanceof Player)) {
             return;
         }
-        if (world.rand.nextInt(2) != 0) {
+        if (world.rand.nextInt(CHANCE) != 0) {
             return;
         }
         int tries = 16;
