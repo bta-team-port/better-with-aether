@@ -981,12 +981,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(1.5F)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
                 .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
-                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class))
+                        b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class, 2))
                 .withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED_LOCKED = dungeonStoneLocked
                 .build("carved.angelic.trapped.locked", "carved_angelic_trapped_locked", blockID("CARVED_ANGELIC_TRAPPED_LOCKED"),
-                        b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class)
+                        b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class, 4)
                 ).withDisabledStats();
 
 
