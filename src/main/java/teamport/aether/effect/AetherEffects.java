@@ -2,6 +2,7 @@ package teamport.aether.effect;
 
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.data.tag.Tag;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
@@ -201,38 +202,38 @@ public class AetherEffects {
 
 
     /**
-     * @param mob       affected Mob
-     * @param newEffect Effect affecting the mob
+     * @param entity       affected Mob
+     * @param newEffect Effect affecting the entity
      * @param amount    stack size of the effect
      * @return true if the effect was applied false otherwise
      * @apiNote If you want aether style effect use this function to add your effects.
-     * @implNote Effect can only affect mob if the effect is not locked.
+     * @implNote Effect can only affect entity if the effect is not locked.
      * Each effect defined what effect lock it out from being reapplied.
      * Returns always false if a given effect is locked.
      * @see ILockInteractable
      */
-    public static boolean add(Mob mob, Effect newEffect, int amount) {
-        if (!(mob instanceof IHasEffects)) return false;
-        EffectStack stack = new EffectStack((IHasEffects) mob, newEffect, amount);
-        return AetherEffects.add(mob, stack);
+    public static boolean add(Entity entity, Effect newEffect, int amount) {
+        if (!(entity instanceof IHasEffects)) return false;
+        EffectStack stack = new EffectStack((IHasEffects) entity, newEffect, amount);
+        return AetherEffects.add(entity, stack);
     }
 
 
     /**
-     * @param mob        affected Mob
-     * @param stackToAdd Effect stack affecting the mob
+     * @param entity        affected Mob
+     * @param stackToAdd Effect stack affecting the entity
      * @return true if the effect was applied false otherwise
      * @apiNote If you want aether style effect use this function to add your effects.
-     * @implNote Effect can only affect mob if the effect is not locked.
+     * @implNote Effect can only affect entity if the effect is not locked.
      * Each effect defined what effect lock it out from being reapplied.
      * Returns always false if a given effect is locked.
      * @see ILockInteractable
      */
-    public static boolean add(Mob mob, EffectStack stackToAdd) {
-        if (!(mob instanceof IHasEffects)) return false;
-        IHasEffects entity = (IHasEffects) mob;
+    public static boolean add(Entity entity, EffectStack stackToAdd) {
+        if (!(entity instanceof IHasEffects)) return false;
+        IHasEffects hasEffects = (IHasEffects) entity;
 
-        for (EffectStack currStack : entity.getContainer().getEffects()) {
+        for (EffectStack currStack : hasEffects.getContainer().getEffects()) {
             Effect currEffect = currStack.getEffect();
             int currMax = currEffect.getMaxStack();
 
@@ -240,16 +241,16 @@ public class AetherEffects {
                 if (currStack.getAmount() + stackToAdd.getAmount() >= currMax) {
                     int amountToAdd = currMax - currStack.getAmount();
 
-                    currStack.add(amountToAdd, entity.getContainer());
+                    currStack.add(amountToAdd, hasEffects.getContainer());
                     return true;
                 }
             }
         }
 
-        if (isLocked(stackToAdd, ((IHasEffects) mob).getContainer())) return false;
+        if (isLocked(stackToAdd, ((IHasEffects) entity).getContainer())) return false;
 
-        stackToAdd.start(entity.getContainer());
-        entity.getContainer().add(stackToAdd);
+        stackToAdd.start(hasEffects.getContainer());
+        hasEffects.getContainer().add(stackToAdd);
         return true;
     }
 

@@ -238,13 +238,16 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
             }
             if (hitResult.entity.hurt(this, this.damage, DamageType.COMBAT)) {
                 if (dartType == 1) {
-                    IHasEffects mob = (IHasEffects) hitResult.entity;
-                    AetherEffects.add((Mob) mob, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                    if(hitResult.entity instanceof IHasEffects){
+                        AetherEffects.add(hitResult.entity, AetherEffects.poisonEffect, random.nextInt(1) + 1);
+                    }
                 }
                 if (dartType >= 2) {
-                    IHasEffects mob = (IHasEffects) hitResult.entity;
+                    if(hitResult.entity instanceof IHasEffects){
+                        IHasEffects entity = (IHasEffects) hitResult.entity;
+                        AetherEffects.add(hitResult.entity, new EffectStack(entity, AetherEffects.remedyEffect, 20, 1));
+                    }
                     // slight weaker remedy than the usual one
-                    AetherEffects.add((Mob) mob, new EffectStack(mob, AetherEffects.remedyEffect, 20, 1));
                 }
                 if (this.isOnFire()) {
                     hitResult.entity.fireHurt();
