@@ -62,13 +62,14 @@ guidebook.section.mob.zephyr.name=Zephyr
 guidebook.section.mob.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
 
 aether.entity.whirly=Whirly
+aether.entity.whirly.death_message = [PLAYER] was blown away in a gust of wind.
 guidebook.section.mob.whirly.name=Whirly
 guidebook.section.mob.whirly.desc=Uncommon mob found in the aether, it throws out items but can become angry.
 
 #aether.entity.mimic=Mimic
 #aether.entity.mimic.death_message = [PLAYER] was chomped to death.
 aether.entity.mimic=Mimic
-aether.entity.mimic.death_message = [PLAYER] Thank you dark souls.
+aether.entity.mimic.death_message = <[PLAYER]> Thank you dark souls.
 
 guidebook.section.mob.mimic.name=Mimic
 guidebook.section.mob.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
