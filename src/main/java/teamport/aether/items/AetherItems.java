@@ -533,7 +533,7 @@ public final class AetherItems {
 
 
         TOOL_DUNGEON_COMPASS = new ItemBuilder(MOD_ID)
-                .build(new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_clock_outline_alt1"));
+                .build(new ItemTrinket("tool.dungeon_compass", itemKey("tool_dungeon_compass"), itemID("TOOL_DUNGEON_COMPASS"), "dungeon_compass", "aether:item/trinket/armor_dungeon_compass_outline"));
 
     }
 
