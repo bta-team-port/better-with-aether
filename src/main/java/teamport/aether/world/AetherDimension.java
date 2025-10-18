@@ -30,12 +30,12 @@ public class AetherDimension {
     public static DungeonMap dungeonMap = new DungeonMap();
 
     public static boolean sunspiritIsDead = false;
-
     public static long sunspiritDeathTimestamp = 0;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
-    public static final int bossDetectionRadius = 80;
-    public static final int bossDetectionRangeSQR = 6400;
+
+    public static final int BOSS_DETECTION_RADIUS = 80;
+    public static final int BOSS_DETECTION_RANGE_SQR = 6400;
 
     public static int AetherDimensionID = AetherConfig.DIMENSION;
     public static final HashMap<Integer, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();

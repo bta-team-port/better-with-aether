@@ -243,7 +243,7 @@ public class MobBossSlider extends MobBoss {
     protected void stateAwake() {
         assert world != null;
 
-        if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
+        if (world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
             this.currentState = State.ASLEEP;
             returnToOriginalState();
         }
@@ -259,7 +259,7 @@ public class MobBossSlider extends MobBoss {
             }
 
         } else {
-            if (this.distanceToSqr(target) > AetherDimension.bossDetectionRangeSQR) target = null;
+            if (this.distanceToSqr(target) > AetherDimension.BOSS_DETECTION_RANGE_SQR) target = null;
         }
 
         if (allowedToMove && target != null && blocksToMove <= 0.05F) {
