@@ -7,17 +7,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.AetherImmuneMob;
+import teamport.aether.entity.AetherMobImmuneToSpikes;
 
 @Mixin(value = BlockLogicSpikes.class, remap = false)
 public class SpikeImmunitiesMixin {
 
     @Inject(method = "onEntityCollidedWithBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogicSpikes;isSpikesUp(I)Z"), cancellable = true)
     public void monsterImmuneToSpikes(World world, int x, int y, int z, Entity entity, CallbackInfo ci) {
-        if (!(entity instanceof AetherImmuneMob)) {
+        if (!(entity instanceof AetherMobImmuneToSpikes)) {
             return;
         }
-        AetherImmuneMob immune = (AetherImmuneMob) entity;
+        AetherMobImmuneToSpikes immune = (AetherMobImmuneToSpikes) entity;
         if (immune.canTakeDamageFromSpikes()) {
             return;
         }

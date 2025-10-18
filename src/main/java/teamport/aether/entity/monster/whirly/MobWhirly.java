@@ -15,13 +15,14 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMessage {
+public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobFallingToOverworld {
     public int entcount = 0;
     public int Life;
     public List<Particle> fluffies;
@@ -30,6 +31,11 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
     public float Curve;
 
     public static final int DATA_EVIL = 20;
+
+    @Override
+    public boolean canFallToOverworld() {
+        return false;
+    }
 
     public boolean getEvil() {
         return this.entityData.getInt(DATA_EVIL) > 0;

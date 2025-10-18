@@ -9,14 +9,20 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileWindball extends Projectile implements ProjectileAether {
+public class ProjectileWindball extends Projectile implements ProjectileAether, AetherMobFallingToOverworld {
 
     public ProjectileWindball(World world) {
         super(world);
         this.setSize(1.0F, 1.0F);
+    }
+
+    @Override
+    public boolean canFallToOverworld() {
+        return false;
     }
 
     public ProjectileWindball(World world, double x, double y, double z, double vX, double vY, double vZ) {
@@ -65,6 +71,13 @@ public class ProjectileWindball extends Projectile implements ProjectileAether {
         ++this.ticksInAir;
         if (ticksInAir > 500) {
             remove();
+        }
+
+        if (this.isInWater()) {
+            double speed = Math.abs(Math.sqrt(this.xd * this.xd + this.zd * this.zd + this.yd * this.yd));
+            if (speed < 0.05) {
+                this.remove();
+            }
         }
     }
 
