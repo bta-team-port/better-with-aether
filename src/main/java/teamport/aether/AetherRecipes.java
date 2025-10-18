@@ -142,6 +142,7 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("aether:all_sticks").add(AetherItems.STICK_SKYROOT.getDefaultStack());
 
         Registries.ITEM_GROUPS.register("aether:all_pressure_plates", allpressure);
+        Registries.ITEM_GROUPS.register("aether:all_gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
     }
 
     public static void oreGemGroups() {
@@ -166,11 +167,11 @@ public class AetherRecipes implements RecipeEntrypoint {
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("bowl");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("jukebox");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("note_block");
-        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("noteblock");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("paper_wall");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("piston");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("rotary_calendar");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("seat");
+        RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("workbench");
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("workbench");
 
         RecipeBuilder.ModifyWorkbench("minecraft").removeRecipe("flag");
