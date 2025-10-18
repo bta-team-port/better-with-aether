@@ -124,9 +124,7 @@
       },
       {
         "symbol": "D",
-        "stack": {
-          "id": "minecraft:item/diamond"
-        }
+        "group": "aether:all_gems"
       }
     ],
     "result": {
