@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
+import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.AetherMathHelper;
@@ -26,6 +27,9 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+
+import java.util.Comparator;
+import java.util.Objects;
 
 import static net.minecraft.core.net.command.TextFormatting.LIGHT_GRAY;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -115,6 +119,7 @@ public class MobBossValkyrie extends MobBoss {
         ++this.teleportTimer;
 
         this.target = findPlayerToAttack();
+
         if (this.target == null && isAgro) {
             this.isAgro = false;
             returnToOriginalState();
@@ -124,22 +129,18 @@ public class MobBossValkyrie extends MobBoss {
             if (this.teleportTimer >= 125) {
                 this.teleport(this.target.x, this.target.y, this.target.z, 8);
                 this.remainingFireTicks = 0;
-            } else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
+            }
+
+            else if (this.teleportTimer % 5 == 0 && !this.canEntityBeSeen(this.target)) {
                 this.teleportTimer += 50;
             }
-        } else {
-            this.teleportTimer = this.random.nextInt(40);
         }
+        else this.teleportTimer = this.random.nextInt(40);
 
         if (this.onGround && this.teleportTimer % 10 == 0) {
             this.xo = this.x;
             this.yo = this.y;
             this.zo = this.z;
-        }
-
-        if (this.target != null && !this.target.isAlive()) {
-            this.target = null;
-//            this.isReadyToDuel = false;
         }
 
         if (this.chatTime > 0) {
@@ -192,23 +193,44 @@ public class MobBossValkyrie extends MobBoss {
 
     public Entity findPlayerToAttack() {
         if (!this.isReadyToDuel || !this.isAgro) return null;
-        Player player = this.world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius);
-        if (this.target == null) {
-            return player != null && this.canEntityBeSeen(player) && player.getGamemode().areMobsHostile() ? player : null;
+
+        Entity newTarget = this.world.players.stream()
+            .filter(Objects::nonNull)
+            .filter(player -> player.getGamemode().areMobsHostile())
+            .filter(player -> player.distanceTo(this) < AetherDimension.bossDetectionRadius)
+            .filter(this::canEntityBeSeen)
+            .min(Comparator.comparingDouble(this::distanceTo))
+            .orElse(null);
+
+        boolean currTargetIsBetter = (
+            this.target != null
+            && target.isAlive()
+            && target.distanceToSqr(this) <= AetherDimension.bossDetectionRangeSQR
+            && (
+                newTarget == null
+                || newTarget.distanceTo(this) < this.target.distanceTo(this)
+            )
+        );
+
+        newTarget = currTargetIsBetter ? target : newTarget;
+
+        if (newTarget instanceof AetherBossList) {
+            ((AetherBossList) newTarget).aether$TryAddBossList(this);
         }
-        double dist = AetherMathHelper.distanceToSqr(this.x, this.y, this.z, this.target.x, this.target.y, this.target.z);
-        return AetherDimension.bossDetectionRangeSQR >= dist ? target : player;
+
+        return newTarget;
     }
 
     public void onDeath(Entity entityKilledBy) {
         this.world.players.stream()
-                .filter(player -> player.distanceTo(this) < 32)
-                .forEach(players -> {
-                    this.dead = true;
-                    players.triggerAchievement(AetherAchievements.SILVER);
-                    this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.silver", 0.5f, 1.0f);
-                    players.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
-                });
+            .filter(player -> player.distanceTo(this) < 32)
+            .forEach(player -> {
+                this.world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 0.5f, 1.0f);
+                player.triggerAchievement(AetherAchievements.SILVER);
+
+                player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
+            });
+
         super.onDeath(entityKilledBy);
     }
 
@@ -327,13 +349,15 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        assert this.world != null;
+
+        /// if /kill (jank!)
         if (attacker == null && type == null && damage == 100) {
             this.setHealthRaw(0);
             this.playDeathSound();
             this.onDeath(null);
             return true;
         }
-        assert this.world != null;
 
         /// need to acquire more medals
         if (!this.isReadyToDuel) {
@@ -354,14 +378,22 @@ public class MobBossValkyrie extends MobBoss {
 
         /// can fight valk
         if (this.target == null && attacker instanceof Player) {
+            runWithDungeon(d -> d.lock(this, world));
+
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            ((AetherBossList) attacker).aether$TryAddBossList(this);
+
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
             this.target = attacker;
             this.isAgro = true;
-            runWithDungeon(d -> d.lock(this, world));
-        } else {
-            this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
+
+            this.world.players.stream()
+                .filter(player -> player.distanceTo(this) < 32)
+                .forEach(player -> ((AetherBossList) player).aether$TryAddBossList(this));
         }
+
+        else this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
+
         return super.hurt(attacker, damage, type);
     }
 
@@ -390,14 +422,12 @@ public class MobBossValkyrie extends MobBoss {
             this.attackTime = 20;
             this.swingArm();
             entity.hurt(this, this.attackStrength, DamageType.COMBAT);
+
             if (this.target != null && entity == this.target && entity instanceof Player) {
                 Player target = (Player) entity;
-                if (target.getHealth() <= 0 && this.chatTime <= 0) {
-                    this.target = null;
-                    this.chatTime = 40;
+
+                if (!target.isAlive() && this.chatTime <= 0) {
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
-                    this.heal(400);
-//                    this.isReadyToDuel = false;
                 }
             }
         }
