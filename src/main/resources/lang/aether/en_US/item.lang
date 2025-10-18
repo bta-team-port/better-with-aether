@@ -78,13 +78,13 @@ item.aether.tool.bow.phoenix.name=Phoenix Bow
 item.aether.tool.bow.phoenix.desc=A weapon for shooting rapid-fire flaming arrows.
 
 item.aether.ammo.dart.golden.name=Golden Dart
-item.aether.ammo.dart.golden.desc=A gold spiked projectile for firing from a dart shooter.
+item.aether.ammo.dart.golden.desc=A gold spiked projectile for firing from a blowpipe.
 item.aether.ammo.dart.poison.name=Poison Dart
-item.aether.ammo.dart.poison.desc=A poison tipped projectile for firing from a dart shooter.
-item.aether.ammo.dart.enchanted.name=Enchanted Dart
-item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from a dart shooter.
+item.aether.ammo.dart.poison.desc=A poison tipped projectile for firing from a blowpipe.
+item.aether.ammo.dart.enchanted.name=Remedy Dart
+item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from a blowpipe.
 
-item.aether.tool.shooter.name=Dart Shooter
+item.aether.tool.shooter.name=Blowpipe
 item.aether.tool.shooter.desc=A weapon for blowing rapid-fire darts.
 
 item.aether.bucket.skyroot.name=Skyroot Bucket
