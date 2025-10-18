@@ -19,6 +19,7 @@ import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.ParticleHelper;
+import teamport.aether.items.AetherItems;
 
 public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages<ProjectileArrowFlaming> {
 
@@ -39,7 +40,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.inTile = 0;
         this.shake = 0;
         this.inData = 0;
-        this.stack = new ItemStack(Items.AMMO_ARROW);
+        this.stack = new ItemStack(AetherItems.AMMO_ARROW_FLAMING);
         this.inGround = false;
         this.doesArrowBelongToPlayer = false;
     }
@@ -142,6 +143,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         for (int j = 0; j < 4; ++j) {
             ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
+            ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_ARROW_FLAMING.id);
         }
         blockX += side.getOffsetX();
         blockY += side.getOffsetY();

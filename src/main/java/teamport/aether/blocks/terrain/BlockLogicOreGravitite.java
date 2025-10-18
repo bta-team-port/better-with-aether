@@ -10,6 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.items.AetherItems;
 
 import java.util.Random;
 
@@ -68,10 +69,11 @@ public class BlockLogicOreGravitite extends BlockLogic {
         switch (dropCause) {
             case SILK_TOUCH:
             case PICK_BLOCK:
+                return new ItemStack[]{new ItemStack(this)};
             case EXPLOSION:
             case PROPER_TOOL:
             case PISTON_CRUSH:
-                return new ItemStack[]{new ItemStack(this)};
+                return new ItemStack[]{new ItemStack(AetherItems.ORE_RAW_GRAVITITE)};
             default:
                 return null;
         }
