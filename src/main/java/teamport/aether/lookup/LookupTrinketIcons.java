@@ -13,6 +13,7 @@ public class LookupTrinketIcons {
     public static final LookupTrinketIcons instance = new LookupTrinketIcons();
     public final Map<NamespaceID, String> ID_OUTLINE_TEXTURES = new HashMap<>();
     public final List<String> LIST_TEXTURE = new ArrayList<>();
+    public final Set<String> SET_TEXTURES = new HashSet<>();
     public static final Random random = new Random();
 
     public LookupTrinketIcons() {
@@ -37,6 +38,7 @@ public class LookupTrinketIcons {
 
     public void addEntry(NamespaceID id, String texturePath) {
         this.ID_OUTLINE_TEXTURES.put(id, texturePath);
+        if(SET_TEXTURES.contains(texturePath)) return;
         this.LIST_TEXTURE.add(texturePath);
     }
 
@@ -61,5 +63,9 @@ public class LookupTrinketIcons {
 
     public List<String> getTextureList() {
         return this.LIST_TEXTURE;
+    }
+
+    public Set<String> getSET_TEXTURES() {
+        return SET_TEXTURES;
     }
 }
