@@ -11,6 +11,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;
@@ -152,6 +153,10 @@ public class AetherDimension {
                     copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
                     world.entityJoinedWorld(copy);
+
+                    if (copy instanceof AetherMobFallingToOverworld) {
+                        ((AetherMobFallingToOverworld) copy).onEnteredOverworld();
+                    }
                 }
 
                 toRemove.add(pos);

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.monster.whirly.MobWhirly;
+import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -42,6 +42,8 @@ public abstract class EntityBumpToOverworldMixin {
     @Nullable
     public Entity passenger;
 
+    private final Entity thisAs = Entity.class.cast(this);
+
     @Inject(method = "tick", at = @At("HEAD"))
     public void fallToOverWorld(CallbackInfo ci) {
         if (EnvironmentHelper.isClientWorld()) return;
@@ -55,10 +57,15 @@ public abstract class EntityBumpToOverworldMixin {
                 ejectRider();
             }
 
-            if (Entity.class.cast(this) instanceof MobWhirly) {
-                this.remove();
-                return;
+            if (thisAs instanceof AetherMobFallingToOverworld) {
+                ((AetherMobFallingToOverworld) thisAs).onLeavingAether();
+
+                if (!((AetherMobFallingToOverworld) thisAs).canFallToOverworld()) {
+                    this.remove();
+                    return;
+                }
             }
+
             addEntityToFallen(Entity.class.cast(this));
         }
     }
