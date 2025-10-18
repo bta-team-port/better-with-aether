@@ -6,6 +6,8 @@ import net.minecraft.client.option.OptionRange;
 
 public interface AetherGameSettingsOptions {
     OptionEnum<ExtraHealthDisplayEnum> aether$getExtraHealthDisplayOptionEnum();
+
     OptionBoolean aether$getFlickAccessoryIconsOption();
+
     OptionRange aether$getAccessoryFlickSpeed();
 }

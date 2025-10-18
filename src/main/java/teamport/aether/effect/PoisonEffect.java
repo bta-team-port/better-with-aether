@@ -9,7 +9,6 @@ import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleHelper;
-import teamport.aether.mixin.gui.AchievementScreenShadowMixin;
 
 import java.util.List;
 import java.util.Random;
@@ -25,7 +24,7 @@ public class PoisonEffect extends Effect {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        if(!canApplyTo((Entity) effectContainer.getParent())){
+        if (!canApplyTo((Entity) effectContainer.getParent())) {
             return;
         }
         if (AetherEffects.isLocked(effectStack, effectContainer)) {

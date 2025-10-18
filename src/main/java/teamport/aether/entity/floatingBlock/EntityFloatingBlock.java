@@ -114,9 +114,9 @@ public class EntityFloatingBlock extends Entity {
 
         boolean shouldStopExisting =
                 onCeiling
-            || atWorldHeight
-            || this.isInWall()
-            || this.floatTime > 600;
+                        || atWorldHeight
+                        || this.isInWall()
+                        || this.floatTime > 600;
 
         if (shouldStopExisting) {
             if (onCeiling) {
@@ -136,13 +136,12 @@ public class EntityFloatingBlock extends Entity {
 
             if (!EnvironmentHelper.isClientWorld()) {
                 if (
-                    onCeiling
-                    && this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
+                        onCeiling && this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM)
                 ) {
                     boolean blockPlacedSuccessfully = this.world.setBlockAndMetadata(
-                        x, y, z,
-                        this.carriedBlock.blockId,
-                        this.carriedBlock.metadata
+                            x, y, z,
+                            this.carriedBlock.blockId,
+                            this.carriedBlock.metadata
                     );
 
                     if (blockPlacedSuccessfully) {

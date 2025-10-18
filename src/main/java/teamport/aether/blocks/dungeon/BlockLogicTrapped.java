@@ -37,7 +37,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
 
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if(EnvironmentHelper.isClientWorld()) return;
+        if (EnvironmentHelper.isClientWorld()) return;
         if (!(entity instanceof Player)) {
             return;
         }

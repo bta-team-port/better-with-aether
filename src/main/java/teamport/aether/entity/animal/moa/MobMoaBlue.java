@@ -46,7 +46,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         this.tamed = tamed;
     }
 
-    public void setTamed(boolean tamed){
+    public void setTamed(boolean tamed) {
         this.tamed = tamed;
     }
 

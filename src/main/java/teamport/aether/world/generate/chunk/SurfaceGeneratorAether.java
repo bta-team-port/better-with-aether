@@ -66,11 +66,11 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
 
                     int block = result.getBlock(x, y, z);
 
-                    if ((   biome != lastBiome
+                    if ((biome != lastBiome
                             || topBlock == -1
                             || fillerBlock == -1
-                        )
-                        && block == 0
+                    )
+                            && block == 0
                     ) {
                         topBlock = biome.topBlock;
                         fillerBlock = biome.fillerBlock;

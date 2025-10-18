@@ -28,7 +28,7 @@ public class ItemJarMixin {
 
         for (Entity entity : list) {
             if (entity instanceof MobFireflyCluster) {
-                MobFireflyCluster fireflyCluster = (MobFireflyCluster)entity;
+                MobFireflyCluster fireflyCluster = (MobFireflyCluster) entity;
                 MobFireflyCluster.FireflyColor color = fireflyCluster.getColor();
                 boolean didFillJar = false;
 

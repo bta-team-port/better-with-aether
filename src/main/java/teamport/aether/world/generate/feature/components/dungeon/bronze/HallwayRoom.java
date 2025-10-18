@@ -51,7 +51,7 @@ public class HallwayRoom extends BaseBronzeRoom {
 
     @Override
     public void makeRoom() {
-        if(world.dimension.equals(AetherDimension.AETHER)){
+        if (world.dimension.equals(AetherDimension.AETHER)) {
             room.add(drawVolume(random, WorldFeatureAetherBronzeDungeon.carvedHolystone, SOUTH, 6, UP, 8, EAST, 6, x + 3, y, z + 3, false));
         }
         room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
@@ -63,7 +63,7 @@ public class HallwayRoom extends BaseBronzeRoom {
         super.markDoor(door, closingType);
         if (closingType != ClosingType.PLACED) return;
         WorldFeaturePoint p2 = wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2);
-        if(world.dimension.equals(AetherDimension.AETHER)) {
+        if (world.dimension.equals(AetherDimension.AETHER)) {
             WorldFeaturePoint liningBottomCorner = door.p1.copy();
             WorldFeaturePoint liningTopCorner = p2.copy();
             adjustCornerForLining(door.heading, liningBottomCorner, liningTopCorner);

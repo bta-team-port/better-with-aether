@@ -141,14 +141,12 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
             this.motionYaw += 2.0F * this.random.nextFloat() - 1.0F;
             this.motionPitch += 2.0F * this.random.nextFloat() - 1.0F;
 
-            this.entityData.set(DATA_MOTION_YAW,   Float.floatToIntBits((float) this.motionYaw));
+            this.entityData.set(DATA_MOTION_YAW, Float.floatToIntBits((float) this.motionYaw));
             this.entityData.set(DATA_MOTION_PITCH, Float.floatToIntBits((float) this.motionPitch));
-        }
-
-        else {
+        } else {
             lerpPosAndRot();
             this.motionYaw = Float.intBitsToFloat(this.entityData.getInt(DATA_MOTION_YAW));
-            this.motionPitch = Float.intBitsToFloat(this.entityData.getInt(DATA_MOTION_PITCH)) ;
+            this.motionPitch = Float.intBitsToFloat(this.entityData.getInt(DATA_MOTION_PITCH));
         }
 
 
