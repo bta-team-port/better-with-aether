@@ -73,7 +73,7 @@ public class MobBossSunspirit extends MobBossFlying {
             if (target != null) {
                 this.lookAt(this.target, 20.0F, 20.0F);
                 this.attackEntity(this.target, 32);
-            } else if (world.getClosestPlayerToEntity(this, AetherDimension.bossDetectionRadius) == null) {
+            } else if (world.getClosestPlayerToEntity(this, AetherDimension.BOSS_DETECTION_RADIUS) == null) {
                 returnToOriginalState();
             }
         }

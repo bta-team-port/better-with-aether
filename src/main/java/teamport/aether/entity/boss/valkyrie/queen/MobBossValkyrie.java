@@ -21,7 +21,6 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
-import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -197,7 +196,7 @@ public class MobBossValkyrie extends MobBoss {
         Entity newTarget = this.world.players.stream()
             .filter(Objects::nonNull)
             .filter(player -> player.getGamemode().areMobsHostile())
-            .filter(player -> player.distanceTo(this) < AetherDimension.bossDetectionRadius)
+            .filter(player -> player.distanceTo(this) <= AetherDimension.BOSS_DETECTION_RADIUS)
             .filter(this::canEntityBeSeen)
             .min(Comparator.comparingDouble(this::distanceTo))
             .orElse(null);
@@ -205,7 +204,7 @@ public class MobBossValkyrie extends MobBoss {
         boolean currTargetIsBetter = (
             this.target != null
             && target.isAlive()
-            && target.distanceToSqr(this) <= AetherDimension.bossDetectionRangeSQR
+            && target.distanceToSqr(this) <= AetherDimension.BOSS_DETECTION_RANGE_SQR
             && (
                 newTarget == null
                 || newTarget.distanceTo(this) < this.target.distanceTo(this)

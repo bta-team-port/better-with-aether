@@ -38,7 +38,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
                     (boss instanceof EnemyBoss && !((EnemyBoss) boss).canFight())
                             || !boss.isAlive()
                             || boss.world.dimension != world.dimension
-                            || boss.distanceTo(this) > AetherDimension.bossDetectionRadius
+                            || boss.distanceTo(this) > AetherDimension.BOSS_DETECTION_RADIUS
             ) {
                 _bosses.remove(boss);
             }
