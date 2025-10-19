@@ -5,6 +5,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -181,6 +182,11 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
         int id = this.world.getBlockId(x, y - 1, z);
+
+        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
+            return false;
+        }
+
         if (Blocks.blocksList[id] == null) {
             return false;
         } else {
