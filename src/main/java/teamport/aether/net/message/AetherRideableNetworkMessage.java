@@ -50,6 +50,11 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
                 AetherRideable vehicle = (AetherRideable) player.vehicle;
                 vehicle.controlEntity(moveForward, moveStrafe, isJumping, xRot, yRot);
             }
+
+            else if (player.passenger instanceof AetherRideable) {
+                AetherRideable vehicle = (AetherRideable) player.passenger;
+                vehicle.controlEntity(moveForward, moveStrafe, isJumping, xRot, yRot);
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
 package teamport.aether.entity.animal.aerbunny;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -46,6 +46,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     public double getRidingHeight() {
+        if (EnvironmentHelper.isClientWorld()) {
+            if (this.vehicle != Minecraft.getMinecraft().thePlayer) {
+                return this.heightOffset + 0.5F;
+            }
+        }
         return this.heightOffset - 1.1f;
     }
 
@@ -71,11 +76,12 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             );
         }
 
-        Player player = (Player) vehicle;
+        Entity vehicle = (Entity) this.vehicle;
 
-        assert player != null;
-        if (player.yd < -0.225F && isJumping && !player.noPhysics) {
-            ((Mob) this.vehicle).yd = 0.125F;
+        assert vehicle != null;
+        if (vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
+            (vehicle).yd = 0.125F;
+
             this.cloudPoop();
             setPuffiness(1.15F);
         }
@@ -119,9 +125,9 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (this.vehicle instanceof Player) {
             Player player = (Player) vehicle;
 
-            if (!player.onGround && !player.isInWaterOrRain() && !player.noPhysics) {
+            if (!player.onGround && !player.noPhysics) {
+                if (!player.isInWater()) player.yd += 0.05F;
                 ((EntityAccessor) player).setFallDistance(0.0F);
-                player.yd += 0.05F;
             }
 
             player.handleSpecialVehicleControl();
@@ -169,13 +175,16 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     public void cloudPoop() {
-        double a = this.random.nextFloat() - 0.5F;
-        double d = this.x + a * 0.4000000059604645;
-        double e = this.bb.minY;
-        double f = this.z + a * 0.4000000059604645;
-        if (!EnvironmentHelper.isServerEnvironment()) {
-            ParticleHelper.spawnParticle(world, "explode", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+        double factor = this.random.nextFloat() - 0.5F;
+        double x = this.x + factor * 0.4000000059604645;
+        double y = this.bb.minY;
+        double z = this.z + factor * 0.4000000059604645;
+
+        if (EnvironmentHelper.isServerEnvironment() && this.vehicle != null) {
+            y += ((Player) vehicle).bbHeight;
         }
+
+        ParticleHelper.spawnParticle(world, "explode", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
     public boolean hurt(Entity entity, int i, DamageType type) {
