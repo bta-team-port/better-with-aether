@@ -66,7 +66,7 @@ public class DensityGeneratorAether implements DensityGenerator {
                     } else {
                         density = minDensity + (maxDensity - minDensity) * mainDensity;
                     }
-                    density -= 32.0;
+                    density -= 24.0;
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
                     // Higher Y reduces density, making islands sparser and smaller
