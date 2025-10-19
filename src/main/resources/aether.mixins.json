@@ -62,6 +62,7 @@
     "dimension.AetherBedMixin",
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupsMixin",
+    "dimension.bumpToOverworld.EntityBumpToOverworldMixin",
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
@@ -83,13 +84,12 @@
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.TreeCapitatorAetherAxeMixin",
+    "teamport.aether.packetHistory.PacketStreamMixin",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerExtraHealthMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
-    "player.PlayerMixinDevDrops",
-    "player.PlayerLocalHandleAetherRideableMixin",
-    "dimension.bumpToOverworld.EntityBumpToOverworldMixin"
+    "player.PlayerMixinDevDrops"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
@@ -111,6 +111,7 @@
     "achievement.HostileParadiseMixin",
     "dimension.AetherMusicMixin",
     "dimension.bumpToOverworld.SPBumpToOverworldMixin",
+    "dimension.bumpToOverworld.SPWorldMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "gameSettings.CatalystAddToMixin",
@@ -131,15 +132,14 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "player.PlayerLocalPortalNoiseMixin",
-    "dimension.bumpToOverworld.SPWorldMixin"
+    "player.PlayerLocalPortalNoiseMixin"
   ],
   "server": [
     "dimension.bumpToOverworld.MPBumpToOverworldMixin",
+    "dimension.bumpToOverworld.MPWorldMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
     "net.AerBunnyFlyingMixin",
-    "net.PlayerLoginMixin",
-    "dimension.bumpToOverworld.MPWorldMixin"
+    "net.PlayerLoginMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -82,15 +82,18 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void handleServerEnv(NetworkContext context) {
-        if (context.player == null) return;
-        NetworkHandler.sendToPlayer(context.player, new AetherDungeonMapUpdateNetworkMessage(context.player.uuid));
-    }
+    public void handle(NetworkContext context) {
+        if (EnvironmentHelper.isServerEnvironment()) {
+            if (context.player == null) return;
+            NetworkHandler.sendToPlayer(context.player, new AetherDungeonMapUpdateNetworkMessage(context.player.uuid));
+            return;
+        }
 
-    @Override
-    public void handleClientEnv(NetworkContext context) {
-        List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryListCache;
-        cache.clear();
-        cache.addAll(entriesReceived);
+        if (EnvironmentHelper.isClientWorld()) {
+            List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryListCache;
+            cache.clear();
+            cache.addAll(entriesReceived);
+            return;
+        }
     }
 }
