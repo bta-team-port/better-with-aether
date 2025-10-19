@@ -88,8 +88,7 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerExtraHealthMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
-    "player.PlayerMixinDevDrops",
-    "teamport.aether.packetHistory.PacketStreamMixin"
+    "player.PlayerMixinDevDrops"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
