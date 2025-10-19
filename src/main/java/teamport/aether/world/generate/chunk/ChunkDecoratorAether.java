@@ -18,7 +18,6 @@ import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
 import teamport.aether.blocks.terrain.BlockLogicOreZanite;
 import teamport.aether.noise.Worley;
 import teamport.aether.world.generate.feature.*;
-import teamport.aether.world.type.AetherWorldTypes;
 
 import java.util.Random;
 
@@ -66,10 +65,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         Random rand = deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
         decorateWithClouds(rand, worldX, worldZ);
-
-        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) {
-            decorateWithFlatClouds(chunk, rand);
-        }
+        decorateWithFlatClouds(chunk, rand);
 
         decorateWithFlowers(chunk, rand);
         decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
@@ -328,12 +324,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             AERCLOUD_WHITE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
 
-        if (world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) {
-            if (rand.nextInt(24) == 0) {
-                yPosition = rand.nextInt(32) + 4;
-                AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
-            }
-        }
     }
 
     public static final WorldFeatureAetherOre ORE_DIRT = new WorldFeatureAetherOre(AetherBlocks.DIRT_AETHER.id(), 32);

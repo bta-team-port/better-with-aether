@@ -314,6 +314,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         /// M: MOSS
         HOLYSTONE_MOSSY = stone
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("holystone.mossy", "holystone_mossy", blockID("HOLYSTONE_MOSSY"), b -> new BlockLogicMoss(b, HOLYSTONE));
 
         /// M: MARBEL
@@ -338,6 +339,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         /// M: MARBEL
         COBBLE_HOLYSTONE_MOSSY = stone
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.GROWS_AETHER_FLOWERS)
                 .build("cobble.holystone.mossy", "cobble_holystone_mossy", blockID("COBBLE_HOLYSTONE_MOSSY"), b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
 
         STAIRS_COBBLE_HOLYSTONE = slab

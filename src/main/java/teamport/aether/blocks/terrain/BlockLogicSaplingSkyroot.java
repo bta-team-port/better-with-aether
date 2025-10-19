@@ -18,9 +18,34 @@ public class BlockLogicSaplingSkyroot extends BlockLogicSaplingBase {
     }
 
     public boolean mayPlaceOn(int blockId) {
-        return Blocks.blocksList[blockId] != null && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES));
+        return Blocks.blocksList[blockId] != null
+                && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS)
+                || Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_TREES)
+                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
+                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES));
     }
 
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (!world.isClientSide) {
+            if (!this.canGrowOnSand && world.getBlockId(x, y - 1, z) == Blocks.SAND.id()) {
+                world.setBlockWithNotify(x, y, z, Blocks.DEADBUSH.id());
+            }
+
+            super.updateTick(world, x, y, z, rand);
+            int growthRate = 30;
+
+            if (world.getBlockLightValue(x, y + 1, z) >= 9 && rand.nextInt(growthRate) == 0) {
+                int l = world.getBlockMetadata(x, y, z);
+                if ((l & 8) == 0) {
+                    world.setBlockMetadataWithNotify(x, y, z, l | 8);
+                } else {
+                    this.growTree(world, x, y, z, rand);
+                }
+            }
+
+        }
+    }
 
     @Override
     public void growTree(World world, int x, int y, int z, Random random) {
