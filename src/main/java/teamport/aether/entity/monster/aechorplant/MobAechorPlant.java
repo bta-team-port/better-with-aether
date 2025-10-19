@@ -8,6 +8,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.item.ItemBucketEmpty;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -57,6 +58,10 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         int z = MathHelper.floor(this.z);
 
         if (this.world.getBlockId(x, y - 1, z) != AetherBlocks.GRASS_AETHER.id()) {
+            return false;
+        }
+
+        if (this.world.getSavedLightValue(LightLayer.Block, x, y, z) > 7) {
             return false;
         }
 

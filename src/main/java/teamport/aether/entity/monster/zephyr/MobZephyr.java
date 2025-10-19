@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -240,8 +241,21 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
     @Override
     public boolean canSpawnHere() {
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+
+        boolean tooManyZephyrs = world.loadedEntityList.stream()
+                .filter(e -> e instanceof MobZephyr)
+                .filter(e -> e.distanceTo(this) <= 48)
+                .count() > 5;
+
+        if (tooManyZephyrs) return false;
+
         return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(10) == 0
-                && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double) this.heightOffset) - 1, MathHelper.floor(this.z))) && super.canSpawnHere();
+                && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - (double) this.heightOffset) - 1, MathHelper.floor(this.z)))
+                && super.canSpawnHere()
+                && this.world.getSavedLightValue(LightLayer.Block, x, y, z) < 7;
     }
 
     public void spawnInit() {
