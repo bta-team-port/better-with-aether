@@ -22,10 +22,8 @@ public abstract class AetherMusicMixin {
     @Shadow
     private Minecraft mc;
 
-
     @Shadow
     private @Nullable GameSettings options;
-
 
     @Shadow
     protected abstract boolean isLoaded();
@@ -40,14 +38,18 @@ public abstract class AetherMusicMixin {
     @Shadow
     private static @Nullable SoundSystem soundSystem;
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/concurrent/locks/Lock;lock()V", shift = At.Shift.AFTER), cancellable = true)
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void tick(CallbackInfo ci) {
-        if (this.mc.currentWorld.dimension.id == AetherDimension.AetherDimensionID) ci.cancel();
-        else return;
 
-        if (!(this.isLoaded() && SoundCategoryHelper.getEffectiveVolume(SoundCategory.MUSIC, this.options) != 0.0F)) {
+        if (this.mc.currentWorld.dimension.id != AetherDimension.AETHER.id) return;
+
+        ci.cancel();
+
+        if (!this.isLoaded() || soundSystem == null || SoundCategoryHelper.getEffectiveVolume(SoundCategory.MUSIC, this.options) == 0.0F) {
             return;
         }
+
+        if (soundSystem.playing("BgMusic") || soundSystem.playing("Streaming")) return;
 
         if (this.ticksBeforeMusic > 0) {
             --this.ticksBeforeMusic;
