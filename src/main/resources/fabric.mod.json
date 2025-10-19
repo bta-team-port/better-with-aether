@@ -58,7 +58,7 @@
     "fabricloader": ">=0.15.5",
     "catalyst-effects": ">=2.3.0",
     "catalyst-core": ">=2.2.0",
-    "halplibe": ">=5.3.0",
+    "halplibe": ">=5.3.1",
     "uselessnumerical": ">=1.0.2"
   },
 

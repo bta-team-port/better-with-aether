@@ -90,7 +90,6 @@ repositories {
         metadataSources { artifact() }
     }
 }
-
 dependencies {
 	minecraft "::${project.bta_version}"
 	mappings loom.layered() {}
@@ -98,9 +97,9 @@ dependencies {
     modImplementation "objects:client:43db9b498cb67058d2e12d394e6507722e71bb45" // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// Helper library
-	// If you do not need Halplibe you can comment this line out or delete this line
-	modImplementation("turniplabs:halplibe:${project.halplibe_version}")
+    /// If the maven's failing, use the jitpack version.
+	// modImplementation("turniplabs:halplibe:${project.halplibe_version}")
+    modImplementation("com.github.Turnip-Labs:bta-halplibe:${project.halplibe_version}")
 
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
