@@ -136,7 +136,7 @@ public class AetherDimension {
         chunkList.add(data);
     }
 
-    public static synchronized void loadEntitiesNearPlayer(Player player) {
+    public static synchronized void loadEntitiesNearPlayer(Player player, World world) {
         List<IntPair> toRemove = new ArrayList<>();
         for (IntPair pos : entitiesMovedToOverworld.keySet()) {
             if (player.distanceTo(pos.first * 16, player.y, pos.second * 16) < 100) {
@@ -145,7 +145,6 @@ public class AetherDimension {
                 while (!entities.isEmpty()) {
                     CompoundTag data = entities.remove(0);
 
-                    World world = player.world;
                     Entity copy = EntityDispatcher.createEntityFromNBT(data, world);
                     copy.load(data);
 

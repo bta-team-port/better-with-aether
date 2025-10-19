@@ -13,12 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
+import java.util.Random;
+
 @Mixin(value = World.class, remap = false)
 public class SPWorldMixin {
 
     @Shadow
     public Dimension dimension;
 
+    @Shadow
+    public Random rand;
     @Unique
     public final int COOLDOWN_MAX = Global.TICKS_PER_SECOND;
 
@@ -30,10 +34,10 @@ public class SPWorldMixin {
         cooldown--;
 
         if (cooldown < 0 && dimension.id == Dimension.OVERWORLD.id) {
-            cooldown = COOLDOWN_MAX;
+            cooldown = COOLDOWN_MAX/2 + rand.nextInt(COOLDOWN_MAX/2);
 
             if (EnvironmentHelper.isSinglePlayer()) {
-                AetherDimension.loadEntitiesNearPlayer(Minecraft.getMinecraft().thePlayer);
+                AetherDimension.loadEntitiesNearPlayer(Minecraft.getMinecraft().thePlayer, World.class.cast(this));
             }
         }
     }

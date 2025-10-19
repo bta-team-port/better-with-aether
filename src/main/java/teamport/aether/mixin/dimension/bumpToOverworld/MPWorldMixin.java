@@ -27,11 +27,10 @@ public class MPWorldMixin extends World {
         cooldown--;
 
         if (cooldown < 0 && dimension.id == Dimension.OVERWORLD.id) {
-            cooldown = COOLDOWN_MAX;
+            cooldown = COOLDOWN_MAX/2 + rand.nextInt(COOLDOWN_MAX/2);
 
-            for (
-                Player player : MinecraftServer.getInstance().playerList.playerEntities) {
-                AetherDimension.loadEntitiesNearPlayer(player);
+            for (Player player : players) {
+                AetherDimension.loadEntitiesNearPlayer(player, this);
             }
         }
     }
