@@ -2,10 +2,10 @@ package teamport.aether.entity;
 
 public interface AetherMobImmuneToSpikes {
     default boolean canTakeDamageFromSpikes() {
-        return true;
+        return false;
     }
 
     default boolean canTakeDamageFromCactus() {
-        return true;
+        return false;
     }
 }

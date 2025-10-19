@@ -152,14 +152,4 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
         super.readAdditionalSaveData(tag);
     }
 
-    @Override
-    public boolean canTakeDamageFromSpikes() {
-        return false;
-    }
-
-    @Override
-    public boolean canTakeDamageFromCactus() {
-        return false;
-    }
-
 }

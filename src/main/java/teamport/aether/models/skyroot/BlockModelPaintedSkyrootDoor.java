@@ -1,5 +1,7 @@
 package teamport.aether.models.skyroot;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.block.model.BlockModelDoor;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -9,6 +11,7 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.blocks.skyroot.BlockLogicPaintedDoor;
 
+@Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> extends BlockModelDoor<T> {
     public static final IconCoordinate[] doorBottomTextures = new IconCoordinate[16];
     public static final IconCoordinate[] doorTopTextures = new IconCoordinate[16];

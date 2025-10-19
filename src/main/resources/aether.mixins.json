@@ -84,12 +84,12 @@
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",
     "item.TreeCapitatorAetherAxeMixin",
-    "teamport.aether.packetHistory.PacketStreamMixin",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerExtraHealthMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
-    "player.PlayerMixinDevDrops"
+    "player.PlayerMixinDevDrops",
+    "teamport.aether.packetHistory.PacketStreamMixin"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",

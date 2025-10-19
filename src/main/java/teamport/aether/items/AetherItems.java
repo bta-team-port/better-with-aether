@@ -498,6 +498,7 @@ public final class AetherItems {
 
 
         AMMO_ARROW_FLAMING = new ItemBuilder(MOD_ID)
+                .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
                 .build(new Item("ammo.arrow.flaming", itemKey("ammo_arrow_flaming"), itemID("AMMO_ARROW_FLAMING")));
 
 

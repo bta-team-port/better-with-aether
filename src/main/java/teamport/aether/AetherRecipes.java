@@ -227,19 +227,6 @@ public class AetherRecipes implements RecipeEntrypoint {
     }
 
     public static void enchanterGroups() {
-        Registries.ITEM_GROUPS.register("aether:saplings", Registries.stackListOf(
-                new ItemStack(Blocks.SAPLING_BIRCH),
-                new ItemStack(Blocks.SAPLING_CACAO),
-                new ItemStack(Blocks.SAPLING_CHERRY),
-                new ItemStack(Blocks.SAPLING_OAK),
-                new ItemStack(Blocks.SAPLING_EUCALYPTUS),
-                new ItemStack(Blocks.SAPLING_OAK_RETRO),
-                new ItemStack(Blocks.SAPLING_PALM),
-                new ItemStack(Blocks.SAPLING_PINE),
-                new ItemStack(Blocks.SAPLING_SHRUB),
-                new ItemStack(Blocks.SAPLING_THORN)
-        ));
-
         Registries.ITEM_GROUPS.register("aether:record_aether", Registries.stackListOf(
                 new ItemStack(Items.RECORD_13),
                 new ItemStack(Items.RECORD_BLOCKS),
