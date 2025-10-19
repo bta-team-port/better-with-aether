@@ -12,7 +12,7 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether {
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target instanceof Mob) {
+        if (target instanceof Mob && target.isAlive() && target.getHealth() > 0 && target.hurtMarked && target.hurtTime > 0) {
             target.push(target.xd, target.yd * 3, target.zd);
         }
 

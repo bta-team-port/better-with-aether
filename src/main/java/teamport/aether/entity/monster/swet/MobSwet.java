@@ -122,16 +122,14 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             if (!targetPlayer) {
                 float rotation = (this.world.rand.nextFloat() - 0.5F) * 90.0F;
                 this.yRot += rotation;
-            }
-
-            this.jumpDelay = this.random.nextInt(20) + 10;
-            if (entityplayer != null) {
+                this.jumpDelay = this.random.nextInt(80) + 40;
+            } else {
+                this.jumpDelay = this.random.nextInt(20) + 10;
                 this.jumpDelay /= 3;
             }
 
             this.isJumping = true;
             this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * 0.8F);
-
             this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.moveStrafing = 1.0F - this.random.nextFloat() * 2.0F;
             this.moveForward = 8.0f;
@@ -146,7 +144,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void attackEntity(@NotNull Entity entity, float distance) {
         if (this.isAlive()) {
             if (!this.friendly) {
-                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() >= 0 && !dead) {
+                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                     this.attackTime = 200;
                     this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     entity.hurt(this, 2, DamageType.COMBAT);
