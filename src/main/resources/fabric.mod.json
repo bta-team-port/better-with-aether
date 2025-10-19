@@ -59,7 +59,7 @@
     "catalyst-effects": ">=2.3.0",
     "catalyst-core": ">=2.2.0",
     "halplibe": ">=5.3.1",
-    "uselessnumerical": ">=1.0.2"
+    "uselessnumerical": ">=1.0.3"
   },
 
   "suggests": {}
