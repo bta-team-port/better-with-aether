@@ -6,6 +6,8 @@ import net.minecraft.client.entity.player.PlayerRemote;
 import net.minecraft.client.render.item.model.ItemModelBow;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import teamport.aether.items.AetherItems;
 
 @Environment(EnvType.CLIENT)
@@ -14,13 +16,20 @@ public class ItemModelBowPhoenix extends ItemModelBow {
         super(item, namespace);
     }
 
+    @Override
     public Item getNextArrow(Player player) {
         if (player instanceof PlayerRemote) {
             int id = player.getArrowId();
             return id >= 0 && id < Item.itemsList.length ? Item.itemsList[id] : null;
         } else {
-            return AetherItems.AMMO_ARROW_FLAMING;
+            ItemStack quiverSlot = player.inventory.armorItemInSlot(2);
+            if (quiverSlot != null && (quiverSlot.itemID == Items.ARMOR_QUIVER.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) ||
+                    (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
+                    player.hasItem(Items.AMMO_ARROW_GOLD) ||
+                    player.hasItem(Items.AMMO_ARROW)) {
+                return AetherItems.AMMO_ARROW_FLAMING;
+            }
+            return null;
         }
     }
-
 }

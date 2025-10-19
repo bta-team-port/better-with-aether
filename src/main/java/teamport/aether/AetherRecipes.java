@@ -605,9 +605,13 @@ public class AetherRecipes implements RecipeEntrypoint {
 
     public static void plankRecipes() {
         RecipeBuilder.Shaped(MOD_ID, "XXX", "XGX", "XXX")
-                .addInput('X', "aether:skyroot_planks")
+                .addInput('X', "aether:all_planks")
                 .addInput('G', "aether:gems")
-                .create("aether:jukebox", new ItemStack(Blocks.JUKEBOX, 1));
+                .create("jukebox", new ItemStack(Blocks.JUKEBOX, 1));
+
+        RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
+                .addInput('X', "aether:all_planks")
+                .create("bowl", new ItemStack(Items.BOWL, 1));
 
         RecipeBuilder.Shaped(MOD_ID, "X X", "XXX", "X X")
                 .addInput('X', "aether:sticks")
@@ -665,7 +669,7 @@ public class AetherRecipes implements RecipeEntrypoint {
 
         RecipeBuilder.Shaped(MOD_ID, "X X", " X ")
                 .addInput('X', "aether:skyroot_planks")
-                .create("skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
+                .create("aether_skyroot_bucket", new ItemStack(AetherItems.BUCKET_SKYROOT, 1));
 
         // bed
         // boat

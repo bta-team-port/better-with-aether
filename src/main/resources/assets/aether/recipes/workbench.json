@@ -93,45 +93,6 @@
     }
   },
   {
-    "name": "aether:workbench/bowl",
-    "type": "minecraft:crafting/shaped",
-    "pattern": [
-      "# #",
-      " # "
-    ],
-    "symbols": [
-      {
-        "symbol": "#",
-        "group": "aether:all_planks"
-      }
-    ],
-    "result": {
-      "id": "minecraft:item/bowl"
-    }
-  },
-  {
-    "name": "minecraft:workbench/jukebox",
-    "type": "minecraft:crafting/shaped",
-    "pattern": [
-      "###",
-      "#D#",
-      "###"
-    ],
-    "symbols": [
-      {
-        "symbol": "#",
-        "group": "aether:all_planks"
-      },
-      {
-        "symbol": "D",
-        "group": "aether:all_gems"
-      }
-    ],
-    "result": {
-      "id": "minecraft:block/jukebox"
-    }
-  },
-  {
     "name": "minecraft:workbench/note_block",
     "type": "minecraft:crafting/shaped",
     "pattern": [
