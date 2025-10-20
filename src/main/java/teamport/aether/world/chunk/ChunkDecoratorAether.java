@@ -405,7 +405,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             WorldFeatureAetherGoldDungeon goldDungeon = new WorldFeatureAetherGoldDungeon(rand);
 
             if (goldDungeon.canPlace(world, dungeonX, dungeonY, dungeonZ)) {
-                goldDungeon.register(world, worldSeed, dungeonX, dungeonY, dungeonZ);
+                goldDungeon.register(world, worldSeed ^ rand.nextLong(), dungeonX, dungeonY, dungeonZ);
             }
 
         }
@@ -417,7 +417,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
 
             WorldFeatureAetherSilverDungeon silverDungeon = new WorldFeatureAetherSilverDungeon(rand);
             if (silverDungeon.canPlace(world, dungeonX, dungeonY, dungeonZ)) {
-                silverDungeon.register(this.world, worldSeed, dungeonX, dungeonY, dungeonZ);
+                silverDungeon.register(this.world, worldSeed ^ rand.nextLong(), dungeonX, dungeonY, dungeonZ);
             }
         }
 
