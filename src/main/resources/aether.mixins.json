@@ -114,6 +114,7 @@
     "dimension.dungeonMap.WorldSpMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
+    "fix.RenderGlobalMixin",
     "gameSettings.CatalystAddToMixin",
     "gameSettings.SettingsAddOn",
     "gui.AchievementScreenShadowMixin",

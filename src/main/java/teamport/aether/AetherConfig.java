@@ -56,7 +56,7 @@ public class AetherConfig {
 
             if (version.endsWith(".0")) version = version.substring(0, 3);
             result = String.format(
-                    "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-alpha/remoteAssets/",
+                    "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-" + AetherMod.state + "/remoteAssets/",
                     version
             );
         }
