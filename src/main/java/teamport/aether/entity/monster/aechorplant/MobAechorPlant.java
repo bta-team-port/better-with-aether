@@ -38,10 +38,8 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
         this.setSize(1.0F, 1.0F);
-        this.setPos(this.x, this.y, this.z);
         this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
-
     }
 
     public int getMaxSpawnedInChunk() {
@@ -88,13 +86,18 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return false;
     }
 
+    @Override
     public void onLivingUpdate() {
-        if (this.getHealth() > 0 && this.onGround) {
-            ++this.entityAge;
-            this.tryToDespawn();
-        } else {
-            super.onLivingUpdate();
+        super.onLivingUpdate();
+
+        if (!this.isAlive()) {
+            this.target = null;
+            this.hasTarget = false;
+            return;
         }
+
+        ++this.entityAge;
+        this.tryToDespawn();
 
         if (this.hurtTime > 0) {
             this.sinage += 0.9F;
@@ -109,18 +112,18 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target == null) {
-            target = (Player) this.findPlayerToAttack();
+            this.target = (Mob) this.findPlayerToAttack();
         }
 
         if (this.target != null) {
-            if (!canEntityBeSeen(target)) {
+            if (!this.canEntityBeSeen(this.target)) {
                 this.attackCooldown = 0;
             }
-            if (!this.target.isAlive() || target.distanceTo(this) > 12.0) {
+            if (!this.target.isAlive() || this.target.distanceTo(this) > 12.0) {
                 this.target = null;
                 this.attackCooldown = 0;
-            } else if (this.attackCooldown >= 20 && canEntityBeSeen(target) && target.distanceTo(this) < 6.5 && this.getHealth() >= 0) {
-                this.shootTarget(target);
+            } else if (this.attackCooldown >= 20 && this.canEntityBeSeen(this.target) && this.target.distanceTo(this) < 6.5 && this.getHealth() > 0) {
+                this.shootTarget(this.target);
                 this.attackCooldown = -20;
             }
 
@@ -150,29 +153,27 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     public void shootTarget(Entity target) {
-        if (this.world.getDifficulty().canHostileMobsSpawn() && !this.world.isClientSide) {
-
-            double d1 = this.target.x - this.x;
-            double d2 = this.target.z - this.z;
-            double sqrt = Math.sqrt(d1 * d1 + d2 * d2 + 0.1);
-            double d3 = 1.5 / sqrt;
-            d1 *= d3;
-            d2 *= d3;
-
-            double dX = target.x - this.x;
-            double dZ = target.z - this.z;
-
-            ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
-            needle.y = this.y + 0.5;
-
-            double h = target.y + (double) target.getHeadHeight() - 0.8 - needle.y;
-            float f1 = MathHelper.sqrt(d1 * d1 + d2 * d2) * 0.2F;
-
-            needle.setHeading(dX, h + (double) f1, dZ, 0.6F, 12.0F);
-
-            this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
-            this.world.entityJoinedWorld(needle);
+        if (!this.isAlive() || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
+            return;
         }
+
+        double dX = target.x - this.x;
+        double dZ = target.z - this.z;
+        double sqrt = Math.sqrt(dX * dX + dZ * dZ + 0.1);
+        double d3 = 1.5 / sqrt;
+        dX *= d3;
+        dZ *= d3;
+
+        ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
+        needle.y = this.y + 0.5;
+
+        double h = target.y + (double) target.getHeadHeight() - 0.8 - needle.y;
+        float f1 = MathHelper.sqrt(dX * dX + dZ * dZ) * 0.2F;
+
+        needle.setHeading(dX, h + (double) f1, dZ, 0.6F, 12.0F);
+
+        this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
+        this.world.entityJoinedWorld(needle);
     }
 
     public String getHurtSound() {
@@ -183,6 +184,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return "damage.fallbig";
     }
 
+    @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
         for (int i = 0; i < 8; ++i) {
             double d1 = this.x + (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
@@ -191,10 +193,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             double d4 = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             double d5 = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             ParticleHelper.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
-        }
-
-        if (this.getHealth() <= 0) {
-            super.knockBack(entity, damage, xd, yd);
         }
     }
 
@@ -216,7 +214,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
-        this.setPos(this.x, this.y, this.z);
     }
 
 }

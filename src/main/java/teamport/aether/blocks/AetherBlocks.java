@@ -204,6 +204,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(0.5f)
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
 
+        BlockBuilder hellfire = stone
+                .setHardness(1.5F)
+                .setInfiniburn();
+
         BlockBuilder wood = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
@@ -879,21 +883,17 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
 
-        CARVED_HELLFIRE = stone
-                .setHardness(1.5F)
+        CARVED_HELLFIRE = hellfire
                 .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogicDungeon(b, Material.stone));
-        SLAB_CARVED_HELLFIRE = stone
-                .setHardness(1.5F)
+        SLAB_CARVED_HELLFIRE = hellfire
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("slab.carved.hellfire", "slab_carved_hellfire", blockID("SLAB_CARVED_HELLFIRE"), b -> new BlockLogicSlab(b, CARVED_HELLFIRE));
-        STAIRS_CARVED_HELLFIRE = stone
-                .setHardness(1.5F)
+        STAIRS_CARVED_HELLFIRE = hellfire
                 .setUseInternalLight()
                 .setVisualUpdateOnMetadata()
                 .build("stairs.carved.hellfire", "stairs_carved_hellfire", blockID("STAIRS_CARVED_HELLFIRE"), b -> new BlockLogicStairs(b, CARVED_HELLFIRE));
-        CARVED_HELLFIRE_LIGHT = stone
-                .setHardness(1.5F)
+        CARVED_HELLFIRE_LIGHT = hellfire
                 .setLuminance(10)
                 .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
 
@@ -973,10 +973,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         CARVED_HELLFIRE_LOCKED = dungeonStoneLocked
+                .setInfiniburn()
                 .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE)).withDisabledStats();
 
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
                 .setLuminance(7)
+                .setInfiniburn()
                 .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone

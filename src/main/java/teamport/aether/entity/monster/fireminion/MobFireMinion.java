@@ -47,8 +47,8 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
             this.attackTime = 20;
             entity.hurt(this, this.attackStrength, DamageType.FIRE);
             entity.hurt(this, this.attackStrength / 2, DamageType.COMBAT);
-            entity.remainingFireTicks = 20;
-            entity.maxFireTicks = 20;
+            entity.remainingFireTicks = 300;
+            entity.maxFireTicks = 300;
         }
 
     }
