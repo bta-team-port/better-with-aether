@@ -3,10 +3,10 @@ effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
 
 #Music
-aether\:ascending.dawn=Ascending Dawn
-aether\:a.morning.wish=A Morning Wish
-aether\:aether.tune=Aether Tune
-aether\:nether.menu=Nether Menu
+aether_tune=Aether Tune
+a_morning_wish=A Morning Wish
+ascending_dawn=Ascending Dawn
+nether_menu=Nether Menu
 
 aether.download_resources=Downloading Assets for Aether... [%d | %d]
 

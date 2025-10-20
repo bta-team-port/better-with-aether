@@ -306,6 +306,7 @@
     "sounds": [
       {
         "name": "music/a_light_in_the_night.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -314,6 +315,7 @@
     "sounds": [
       {
         "name": "music/approaches.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -322,6 +324,7 @@
     "sounds": [
       {
         "name": "music/brise.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -330,6 +333,7 @@
     "sounds": [
       {
         "name": "music/clouds.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -338,6 +342,7 @@
     "sounds": [
       {
         "name": "music/crepusculum.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -346,6 +351,7 @@
     "sounds": [
       {
         "name": "music/meadow.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -354,6 +360,7 @@
     "sounds": [
       {
         "name": "music/moas_song.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -362,6 +369,7 @@
     "sounds": [
       {
         "name": "music/welcome_to_paradise.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
@@ -370,6 +378,7 @@
     "sounds": [
       {
         "name": "music/wings.ogg",
+        "volume": 0.01,
         "stream": true
       }
     ]
