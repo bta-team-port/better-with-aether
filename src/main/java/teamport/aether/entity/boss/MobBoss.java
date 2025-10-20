@@ -16,14 +16,13 @@ import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
-
-import java.util.function.Consumer;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
+import static teamport.aether.world.feature.util.map.DungeonMap.runWithDungeon;
 
 public abstract class MobBoss extends MobPathfinder implements EnemyBoss, AetherDeathMessage {
 
@@ -89,7 +88,7 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         }
 
         if (dungeonID != null) {
-            AetherDimension.dungeonMap.notifyBossDead(dungeonID, this);
+            DungeonMap.runWithDungeon(dungeonID, d-> d.notifyBossDead(this));
         }
 
         // try triggering the propagate on dungeon blocks.
@@ -172,18 +171,10 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         return RED + deathMessage;
     }
 
-    public void runWithDungeon(Consumer<DungeonMapEntry> func) {
-        if (dungeonID == null) return;
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.getDungeon(dungeonID);
-
-        if (dungeon == null) return;
-        func.accept(dungeon);
-    }
-
     public void returnToOriginalState() {
         this.target = null;
         returnToHome();
-        runWithDungeon(d -> d.unlock(this, world));
+        runWithDungeon(dungeonID, d -> d.unlock(this, world));
         this.setHealthRaw(this.getMaxHealth());
     }
 }

@@ -34,8 +34,8 @@ import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
-import teamport.aether.world.generate.feature.components.WorldFeatureComponent;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.feature.util.WorldFeatureComponent;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
 
 import java.util.*;
 
@@ -44,7 +44,7 @@ import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.helper.unboxed.IntPair.ipair;
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfp;
+import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
     public int mimicTime;

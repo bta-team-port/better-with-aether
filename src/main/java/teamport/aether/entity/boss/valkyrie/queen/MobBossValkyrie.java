@@ -24,7 +24,8 @@ import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Comparator;
@@ -377,7 +378,7 @@ public class MobBossValkyrie extends MobBoss {
 
         /// can fight valk
         if (this.target == null && attacker instanceof Player) {
-            runWithDungeon(d -> d.lock(this, world));
+            DungeonMap.runWithDungeon(dungeonID,d -> d.lock(this, world));
 
             ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             ((AetherBossList) attacker).aether$TryAddBossList(this);

@@ -1,30 +1,28 @@
 package teamport.aether.net.message;
 
 import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.ListTag;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.PlayerList;
 import org.jetbrains.annotations.NotNull;
-import teamport.aether.models.DynamicTextureDungeonCompass;
-import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMap;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherMod;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
 
 public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
 
     private UUID playerUUID;
 
-    private final List<DungeonMapEntry> entriesReceived = new ArrayList<>();
+    @Nullable
+    private ListTag entriesReceived = null;
 
     public AetherDungeonMapUpdateNetworkMessage() {
     }
@@ -37,29 +35,25 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
-            Optional<PlayerServer> player = playerList.playerEntities.stream()
-                    .filter(p -> p.uuid.compareTo(playerUUID) == 0).findFirst();
+            Player player = playerList.playerEntities.stream()
+                    .filter(p -> p.uuid.compareTo(playerUUID) == 0)
+                    .findFirst()
+                    .orElse(null);
 
-            if (!player.isPresent()) {
+            if (player == null) {
                 packet.writeInt(0);
                 return;
             }
 
-            List<DungeonMapEntry> entries = AetherDimension.dungeonMap.values().stream()
-                    .filter(Objects::nonNull)
-                    .filter(d -> d.getPosition() != null) // :^)
-                    .filter(d -> d.getPosition().distanceTo(wfpoint(player.get())) < 300)
-                    .collect(Collectors.toList());
+            packet.writeInt(1);
 
-            packet.writeInt(entries.toArray().length);
+            CompoundTag tag = new CompoundTag();
+            tag.putList(AetherMod.MOD_ID+".dungeons", DungeonMap.serializeListFor(player));
+            packet.writeCompoundTag(tag);
+            return;
+        }
 
-            for (DungeonMapEntry entry : entries) {
-                CompoundTag tag = new CompoundTag();
-                entry.writeToNBT(tag);
-                packet.writeInt(entry.getId());
-                packet.writeCompoundTag(tag);
-            }
-        } else {
+        if (EnvironmentHelper.isClientWorld()) {
             packet.writeString(Minecraft.getMinecraft().thePlayer.uuid.toString());
         }
     }
@@ -68,16 +62,13 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             this.playerUUID = UUID.fromString(packet.readString());
-        } else {
-            entriesReceived.clear();
+        }
 
-            int entriesLength = packet.readInt();
-            for (int i = 0; i < entriesLength; i++) {
-                int id = packet.readInt();
-                CompoundTag tag = packet.readCompoundTag();
-                DungeonMapEntry entry = DungeonMap.readDungeonMapEntryFromNBT(tag, id);
-                entriesReceived.add(entry);
-            }
+        else {
+            if (packet.readInt() == 0) return;
+
+            CompoundTag tag = packet.readCompoundTag();
+            entriesReceived = tag.getList(AetherMod.MOD_ID+".dungeons");
         }
     }
 
@@ -90,9 +81,9 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
         }
 
         if (EnvironmentHelper.isClientWorld()) {
-            List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryListCache;
-            cache.clear();
-            cache.addAll(entriesReceived);
+            if (entriesReceived != null) {
+                DungeonMap.updateListCache(entriesReceived);
+            }
         }
     }
 }
