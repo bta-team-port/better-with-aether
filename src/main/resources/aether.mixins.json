@@ -111,6 +111,7 @@
     "dimension.AetherMusicMixin",
     "dimension.bumpToOverworld.SPBumpToOverworldMixin",
     "dimension.bumpToOverworld.SPWorldMixin",
+    "dimension.dungeonMap.WorldSpMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "gameSettings.CatalystAddToMixin",
@@ -136,6 +137,7 @@
   "server": [
     "dimension.bumpToOverworld.MPBumpToOverworldMixin",
     "dimension.bumpToOverworld.MPWorldMixin",
+    "dimension.dungeonMap.WorldMpMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
     "net.AerBunnyFlyingMixin",
     "net.PlayerLoginMixin"

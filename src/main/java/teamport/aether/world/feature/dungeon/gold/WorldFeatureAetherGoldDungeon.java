@@ -21,7 +21,6 @@ import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.util.map.DungeonLogic;
 import teamport.aether.world.feature.util.map.WorldFeatureMap;
 
 import java.util.*;
@@ -139,6 +138,13 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
     @Override
     protected Class<DungeonLogicGoldDungeon> getAppliedClass() {
         return DungeonLogicGoldDungeon.class;
+    }
+
+    @Override
+    public DungeonLogicGoldDungeon register(World world, long seed, int x, int y, int z) {
+        DungeonLogicGoldDungeon logic = super.register(world, seed, x, y, z);
+        logic.direction = direction;
+        return logic;
     }
 
     public boolean canPlace(World world, int x, int y, int z) {
