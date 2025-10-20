@@ -171,8 +171,8 @@ public class MobBossSunspirit extends MobBossFlying {
         if (!(entity instanceof MobBossSunspirit || entity instanceof MobFireMinion)) {
             entity.hurt(this, 20, DamageType.FIRE);
             entity.hurt(this, 10, DamageType.COMBAT);
-            entity.maxFireTicks = 300;
-            entity.remainingFireTicks = 300;
+            entity.maxFireTicks = 1000;
+            entity.remainingFireTicks = 1000;
             return false;
         }
 
@@ -180,17 +180,25 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public void evaporateWater() {
-        int x = MathHelper.floor(this.x);
-        int z = MathHelper.floor(this.z);
+        int centerX = MathHelper.floor(this.x);
+        int centerZ = MathHelper.floor(this.z);
+        int radius = 9;
 
-        for (int i = 0; i < 8; ++i) {
-            int b = (int) (this.yo - 2 + i);
-            if (this.world.getBlockMaterial(x, b, z) == Material.water) {
-                this.world.setBlockWithNotify(x, b, z, 0);
-                this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, (float) x + 0.5F, (float) b + 0.5F, (float) z + 0.5F, "random.fizz", 0.25F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
+        for (int dx = -radius; dx < radius; dx++) {
+            for (int dz = -radius; dz < radius; dz++) {
+                int x = centerX + dx;
+                int z = centerZ + dz;
 
-                for (int l = 0; l < 8; ++l) {
-                    ParticleHelper.spawnParticle(world, "largesmoke", (double) x - 1 + (2 * Math.random()), (double) b + 0.75, (double) z - 1 + (2 * Math.random()), 0.0, 0.025F, 0.0, 0);
+                for (int i = 0; i < 9; ++i) {
+                    int y = (int) (this.yo - 2 + i);
+                    if (this.world.getBlockMaterial(x, y, z) == Material.water) {
+                        this.world.setBlockWithNotify(x, y, z, 0);
+                        this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.125F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
+
+                        for (int l = 0; l < 8; ++l) {
+                            ParticleHelper.spawnParticle(world, "largesmoke", (double) x - 1 + (2 * Math.random()), (double) y + 0.75, (double) z - 1 + (2 * Math.random()), 0.0, 0.025F, 0.0, 0);
+                        }
+                    }
                 }
             }
         }

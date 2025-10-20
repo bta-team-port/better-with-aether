@@ -1,6 +1,7 @@
 package teamport.aether.entity.monster.mimic;
 
 import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -53,7 +54,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     public MobMimic(World world) {
         super(world);
-        this.setSize(1.0F, 2.0F);
+        this.setSize(1.0F, 1.8F);
         this.attackStrength = 5;
         this.scoreValue = 2000;
         this.mimicTime = 60 * Global.TICKS_PER_SECOND; //temp set to 2, was 120
@@ -75,13 +76,36 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         super.addAdditionalSaveData(tag);
         tag.putInt("MimicChestID", mimicChestID);
         tag.putInt("MimicChestMetadata", mimicChestMetadata);
+
+        ListTag lootTag = new ListTag();
+        for (WeightedRandomLootObject lootObject : this.mobDrops) {
+            ItemStack stack = lootObject.getDefinedItemStack();
+            if (stack != null && stack.stackSize > 0) {
+                CompoundTag itemTag = new CompoundTag();
+                stack.writeToNBT(itemTag);
+                lootTag.addTag(itemTag);
+            }
+        }
+        tag.put("MimicLoot", lootTag);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.mimicChestID = tag.getShort("MimicChestID");
-        this.mimicChestMetadata = tag.getShort("MimicChestMetadata");
+        this.mimicChestID = tag.getInteger("MimicChestID");
+        this.mimicChestMetadata = tag.getInteger("MimicChestMetadata");
+
+        this.mobDrops.clear();
+        ListTag lootTag = tag.getList("MimicLoot");
+        if (lootTag != null) {
+            for (int i = 0; i < lootTag.tagCount(); i++) {
+                CompoundTag itemTag = (CompoundTag) lootTag.tagAt(i);
+                ItemStack stack = ItemStack.readItemStackFromNbt(itemTag);
+                if (stack != null && stack.stackSize > 0) {
+                    this.mobDrops.add(new WeightedRandomLootObject(stack));
+                }
+            }
+        }
     }
 
     @Override
@@ -200,8 +224,11 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     public void setLoot(List<ItemStack> loot) {
         if (loot == null || loot.isEmpty()) return;
+        this.mobDrops.clear();
         for (ItemStack itemStack : loot) {
-            mobDrops.add(new WeightedRandomLootObject(itemStack));
+            if (itemStack != null && itemStack.stackSize > 0) {
+                mobDrops.add(new WeightedRandomLootObject(itemStack));
+            }
         }
     }
 
