@@ -12,7 +12,7 @@ public class MobMoaBlack extends MobMoaBlue {
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
         this.jumpsRemaining = getJumpMaxAmount();
-        this.eggColor = AetherItems.EGG_MOA_BLUE;
+        this.eggColor = AetherItems.EGG_MOA_BLACK;
     }
 
     public MobMoaBlack(@Nullable World world, boolean tamed) {
@@ -20,7 +20,7 @@ public class MobMoaBlack extends MobMoaBlue {
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
         this.jumpsRemaining = getJumpMaxAmount();
-        this.eggColor = AetherItems.EGG_MOA_BLUE;
+        this.eggColor = AetherItems.EGG_MOA_BLACK;
         this.tamed = tamed;
     }
 
