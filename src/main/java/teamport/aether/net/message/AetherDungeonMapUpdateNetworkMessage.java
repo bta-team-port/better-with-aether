@@ -93,7 +93,6 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
             List<DungeonMapEntry> cache = DynamicTextureDungeonCompass.entryListCache;
             cache.clear();
             cache.addAll(entriesReceived);
-            return;
         }
     }
 }

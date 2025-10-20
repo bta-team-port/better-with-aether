@@ -98,12 +98,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
                 new_recipes.add(recipe);
             }
         }
-        repairable.sort(new Comparator<RecipeEntryAetherMachine>() {
-            @Override
-            public int compare(RecipeEntryAetherMachine self, RecipeEntryAetherMachine other) {
-                return self.getInput().getStack().getDisplayName().compareTo(other.getInput().getStack().getDisplayName());
-            }
-        });
+        repairable.sort(Comparator.comparing(self -> self.getInput().getStack().getDisplayName()));
         new_recipes.addAll(repairable);
         return new_recipes;
     }

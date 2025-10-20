@@ -112,9 +112,7 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
                 trinketOne.damageItem(1, player);
                 return;
             }
-            if (goldInSlot7) {
-                trinketTwo.damageItem(1, player);
-            }
+            trinketTwo.damageItem(1, player);
         }
     }
 }

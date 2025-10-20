@@ -82,7 +82,7 @@ public class MobSheepuff extends MobAetherAnimal {
         int blockX;
         int blockY;
         int blockZ;
-        Block blockBelow;
+        Block<?> blockBelow;
         if (this.growthTimer > 400) {
             blockX = MathHelper.floor(this.x);
             blockY = MathHelper.floor(this.y);

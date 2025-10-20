@@ -19,11 +19,11 @@ public abstract class SaveHandlerMixin implements LevelStorage {
 
     @Shadow
     @Final
-    ISaveFormat saveFormat;
+    protected ISaveFormat saveFormat;
 
     @Shadow
     @Final
-    String worldDirName;
+    protected String worldDirName;
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
     public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {

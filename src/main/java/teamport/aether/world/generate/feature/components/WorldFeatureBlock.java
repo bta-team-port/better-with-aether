@@ -13,9 +13,9 @@ import static teamport.aether.helper.MetadataHelper.*;
 public class WorldFeatureBlock extends WorldFeaturePoint {
     private static final byte MASK_DIRECTION = 3;
     private static final byte MASK_DIRECTION_FULL = 7;
-    public int blockID = 0;
-    public int metadata = 0;
-    public boolean withNotify = false;
+    public int blockID;
+    public int metadata;
+    public boolean withNotify;
 
 
     WorldFeatureBlock(int x, int y, int z, int blockID, int metadata, boolean withNotify) {

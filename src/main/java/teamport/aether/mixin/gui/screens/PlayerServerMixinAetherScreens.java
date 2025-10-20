@@ -16,14 +16,14 @@ import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
 
 @Mixin(value = PlayerServer.class, remap = false)
-public class PlayerServerMixinAetherScreens implements AetherScreens {
-
-    @Shadow
-    private void getNextWindowId() {
-    }
+public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
 
     @Shadow
     private int currentWindowId;
+
+    @Shadow
+    protected abstract void getNextWindowId();
+
     @Unique
     private final PlayerServer thisAs = (PlayerServer) (Object) this;
 
