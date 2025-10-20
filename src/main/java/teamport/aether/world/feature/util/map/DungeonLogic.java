@@ -6,6 +6,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
@@ -16,6 +17,7 @@ import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
 import teamport.aether.helper.ParticleHelper;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
@@ -29,13 +31,16 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.iterate3d
 public abstract class DungeonLogic {
 
     // <base data>
+        public static final int SCHEMA_VERSION = 1;
+
         public boolean hasGenerated = false;
-        public final int dimensionID;
         public final int id;
         public final long seed;
 
         protected WorldFeaturePoint position;
         protected boolean markedRemoved = false;
+
+        private int dimensionID;
     // </base data>
 
     public DungeonLogic(int dimensionID, int id, long seed) {
@@ -56,17 +61,27 @@ public abstract class DungeonLogic {
         return hasGenerated;
     }
 
+    public int getDimensionID() {
+        return dimensionID;
+    }
+
     protected CompoundTag save(CompoundTag data) {
-        if (hasGenerated) this.saveStructureData(data);
+        this.saveStructureData(data);
         data.putBoolean("hasGenerated", this.hasGenerated);
-        data.putCompound("coordinates", this.position.toCompoundTag());
+        data.putCompound("position", this.position.toCompoundTag());
+        data.putInt("SCHEMA_VERSION", SCHEMA_VERSION);
         return data;
     }
 
     protected void load(CompoundTag data) {
+        loadStructureData(data);
         hasGenerated = data.getBoolean("hasGenerated");
-        position = WorldFeaturePoint.fromCompoundTag(data.getCompound("coordinates"));
-        if (hasGenerated) loadStructureData(data);
+        position = WorldFeaturePoint.fromCompoundTag(data.getCompound("position"));
+
+        if (data.getInteger("SCHEMA_VERSION") == 0) {
+            hasGenerated = true;
+            dimensionID = AetherDimension.AetherDimensionID;
+        }
     }
 
     // <structure data>
@@ -145,6 +160,16 @@ public abstract class DungeonLogic {
     public void remove(World world) {
         DungeonMap.remove(this.id);
     }
+
+    public boolean isPlayerWithinBound(Player player) {
+        return false;
+    }
+
+    public boolean canTick(World world) {
+        return false;
+    }
+
+    protected void onTick(World world) {}
 
     protected void onDungeonRemoved(World world) {
         if (hasGenerated) {

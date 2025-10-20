@@ -31,7 +31,7 @@ public class AetherDimension {
     public static long sunspiritDeathTimestamp = 0;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
-
+    public final static int DUNGEON_GENERATION_RADIUS = 16;
     public static final int BOSS_DETECTION_RADIUS = 80;
     public static final int BOSS_DETECTION_RANGE_SQR = 6400;
 
@@ -173,7 +173,7 @@ public class AetherDimension {
 
 
         sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
-        DungeonMap.load(dimensionData.getCompound(AetherMod.MOD_ID + ".dungeon"));
+        DungeonMap.load(dimensionData);
 
         entitiesMovedToOverworld.clear();
         ListTag entitiesMoved = dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen");

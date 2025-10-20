@@ -28,6 +28,7 @@ import teamport.aether.net.message.BossListNetworkMessage;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
+import teamport.aether.world.feature.AetherWorldFeatures;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 
@@ -91,6 +92,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherItems.init();
         AetherDimension.init();
         AetherEffects.init();
+        AetherWorldFeatures.init();
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherBiomes.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
 

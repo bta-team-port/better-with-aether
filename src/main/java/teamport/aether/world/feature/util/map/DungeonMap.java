@@ -2,9 +2,13 @@ package teamport.aether.world.feature.util.map;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import com.mojang.nbt.tags.Tag;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherMod;
+import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
@@ -17,7 +21,6 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
@@ -36,7 +39,29 @@ public class DungeonMap {
         DungeonMap.registerDungeonType("VALKYRIE", DungeonLogicSilverDungeon.class);
         DungeonMap.registerDungeonType("SLIDER", DungeonLogicBronzeDungeon.class);
         DungeonMap.registerDungeonType("SLIDER_LEGACY", DungeonLogicBronzeDungeonLegacy.class);
-        DungeonMap.registerDungeonType("BASE", DungeonLogic.class);
+        DungeonMap.registerDungeonType("BASE", DungeonLogicBase.class);
+
+        FabricLoader.getInstance()
+                .getEntrypointContainers("aether", AetherPlugin.class)
+                .forEach(plugin -> plugin.getEntrypoint().registerDungeonType());
+    }
+
+    /// This is here for compatibility reasons. You could remove it but old alpha/beta worlds will probably crash.
+    protected static class DungeonLogicBase extends DungeonLogic {
+
+        public DungeonLogicBase(int dimensionID, int id, long seed) {
+            super(dimensionID, id, seed);
+        }
+
+        @Override
+        protected boolean placeDungeon(World world, Random random) {
+            return false;
+        }
+
+        @Override
+        protected boolean canPlaceDungeon(World world) {
+            return false;
+        }
     }
 
     public static void registerDungeonType(String key, Class<? extends DungeonLogic> type) {
@@ -51,9 +76,10 @@ public class DungeonMap {
             CompoundTag dungeonData = new CompoundTag();
             dungeon.save(dungeonData);
             dungeonData.putString("type", TYPE_KEY_MAP.get(dungeon.getClass()));
-            dungeonData.putInt("dimensionID", dungeon.dimensionID);
+            dungeonData.putInt("dimensionID", dungeon.getDimensionID());
             dungeonData.putLong("seed", dungeon.seed);
             dungeonData.putInt("id", id);
+            dungeons.addTag(dungeonData);
         });
 
         data.put(AetherMod.MOD_ID+".dungeon", dungeons);
@@ -62,12 +88,27 @@ public class DungeonMap {
 
     static public void load(CompoundTag data) {
         dungeonMap.clear();
-        ListTag dungeons = data.getList(AetherMod.MOD_ID+".dungeon");
 
-        dungeons.forEach( tag -> {
-            DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
-            if (dungeon != null) dungeonMap.put(dungeon.id, dungeon);
-        });
+        Tag<?> dungeons = data.getTagOrDefault(AetherMod.MOD_ID+".dungeon", null);
+
+        if (dungeons instanceof ListTag) {
+            ((ListTag)dungeons).forEach(tag -> {
+                DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
+                if (dungeon != null) dungeonMap.put(dungeon.id, dungeon);
+            });
+        }
+
+        /// for backwards compatibility with alpha.
+        else if (dungeons instanceof CompoundTag) {
+            CompoundTag compoundDungeons = (CompoundTag) dungeons;
+            for (Tag<?> tag : compoundDungeons.getValues()) {
+                if (!(tag instanceof CompoundTag)) continue;
+
+                ((CompoundTag) tag).putInt("id", Integer.parseInt(tag.getTagName()));
+                DungeonLogic dungeon = loadDungeonFromNBT((CompoundTag) tag);
+                if (dungeon != null) dungeonMap.put(dungeon.id, dungeon);
+            }
+        }
     }
 
     public static DungeonLogic loadDungeonFromNBT(CompoundTag tag) {
@@ -142,6 +183,43 @@ public class DungeonMap {
         func.accept(dungeon);
     }
 
+    protected static boolean chunkWithinRadius(Player player, int chunkX, int chunkZ) {
+        int playerChunkX = Math.floorDiv((int) player.x, 16);
+        int playerChunkZ = Math.floorDiv((int) player.z, 16);
+
+        return (
+                chunkX >= playerChunkX - AetherDimension.DUNGEON_GENERATION_RADIUS &&
+                chunkX <= playerChunkX + AetherDimension.DUNGEON_GENERATION_RADIUS &&
+                chunkZ >= playerChunkZ - AetherDimension.DUNGEON_GENERATION_RADIUS &&
+                chunkZ <= playerChunkZ + AetherDimension.DUNGEON_GENERATION_RADIUS
+        );
+    }
+
+    protected static final int ATTEMPT_GENERATE_COOLDOWN = Global.TICKS_PER_SECOND * 2;
+    protected static int currGenerateCooldown = 0;
+
+    public static void onWorldTick(World world) {
+        currGenerateCooldown--;
+
+        if (currGenerateCooldown <= 0) {
+            for (Player player : world.players) {
+                dungeonMap.values().stream()
+                        .filter(Objects::nonNull)
+                        .filter(d -> !d.hasGenerated)
+                        .filter(d -> d.getDimensionID() == world.dimension.id)
+                        .filter(d -> !d.hasGenerated)
+                        .filter(d -> chunkWithinRadius(player, Math.floorDiv(d.position.x, 16), Math.floorDiv(d.position.z, 16)))
+                        .forEach(d -> d.generate(world));
+            }
+
+            currGenerateCooldown = ATTEMPT_GENERATE_COOLDOWN;
+        }
+
+        for (DungeonLogic logic : dungeonMap.values()) {
+            if (logic == null || logic.getDimensionID() != world.dimension.id) return;
+            if (logic.canTick(world)) logic.onTick(world);
+        }
+    }
 
     public static DungeonLogic getDungeon(int id) {
         return dungeonMap.get(id);
