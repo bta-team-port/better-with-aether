@@ -1,6 +1,7 @@
 package teamport.aether.helper;
 
 import net.minecraft.core.net.packet.PacketAddParticle;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
@@ -98,6 +99,16 @@ public class ParticleHelper {
             double offZ = radius * Math.sin(theta);
             ParticleHelper.spawnParticle(world, "remedy", x, y + bbHeight * 1.2, z, offX * 0.13, 0, offZ * 0.13, 0);
         }
+    }
+
+    public static void spawnReplacementEffects(World world, int x, int y, int z) {
+        for (int l = 0; l < 8; ++l) {
+            double angle = Math.toRadians(l * 45);
+            ParticleHelper.spawnParticle(world, "smoke", (double) x + 0.5, (double) y + .2, (double) z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+            ParticleHelper.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+        }
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
     }
 
     public static void spawnPoisonParticlesCluster(World world, double x, double y, double z, double bbHeight, double bbWidth) {

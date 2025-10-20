@@ -77,6 +77,8 @@ public class AetherDimension {
         AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
         AETHER_BLACKLIST.add(Blocks.TORCH_COAL.id());
         AETHER_BLACKLIST.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        AETHER_BLACKLIST.add(Blocks.PUMICE_WET.id());
         AETHER_BLACKLIST.add(Blocks.PORTAL_NETHER.id());
 
         if (sunspiritIsDead) {
