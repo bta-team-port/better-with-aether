@@ -3,7 +3,6 @@ package teamport.aether.mixin.accessory.cape.invisibilitycape.target;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobSpider;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
@@ -22,7 +21,7 @@ public class MobSpiderMixinInvisiblePlayer {
         if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }
-        if (player instanceof AetherInvisibility && asThis instanceof Enemy && !(asThis instanceof EnemyBoss)) {
+        if (player instanceof AetherInvisibility && !(asThis instanceof EnemyBoss)) {
             AetherInvisibility invPlayer = (AetherInvisibility) player;
             if (invPlayer.aether$isInvisible()) {
                 Player newPlayer = asThis.world.getClosestPlayerToEntity(asThis, 2.0);

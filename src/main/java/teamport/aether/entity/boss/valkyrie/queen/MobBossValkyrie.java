@@ -456,10 +456,6 @@ public class MobBossValkyrie extends MobBoss {
         return 400;
     }
 
-    public void onLivingUpdate() {
-        super.onLivingUpdate();
-    }
-
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_HOLY, 1);
     }

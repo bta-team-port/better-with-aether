@@ -22,7 +22,7 @@ public class MobGhastMixinInvisiblePlayer {
         if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }
-        if (player instanceof AetherInvisibility && asThis instanceof Enemy && !(asThis instanceof EnemyBoss)) {
+        if (player instanceof AetherInvisibility && !(asThis instanceof EnemyBoss)) {
             AetherInvisibility invPlayer = (AetherInvisibility) player;
             if (invPlayer.aether$isInvisible()) {
                 Player newPlayer = asThis.world.getClosestPlayerToEntity(asThis, 2.0);

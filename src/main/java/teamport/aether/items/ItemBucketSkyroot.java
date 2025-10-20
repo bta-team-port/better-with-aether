@@ -49,7 +49,7 @@ public class ItemBucketSkyroot extends Item {
 
                     if (y >= 0 && y < world.getHeightBlocks()) {
                         if (world.isAirBlock(x, y, z) || !world.getBlockMaterial(x, y, z).isSolid()) {
-                            if (world.dimension == Dimension.NETHER && blockToPlace != null && blockToPlace.hasTag(BlockTags.IS_WATER)) {
+                            if (world.dimension == Dimension.NETHER && blockToPlace.hasTag(BlockTags.IS_WATER)) {
 
                                 if (world.getBlockId(x, y, z) != 0) {
                                     return stack;

@@ -13,8 +13,4 @@ public class ExtraHealthEffectRenderer<T extends Effect> extends EffectRenderer<
         return false;
     }
 
-    @Override
-    public boolean shouldDisplayScreenEffect() {
-        return false;
-    }
 }

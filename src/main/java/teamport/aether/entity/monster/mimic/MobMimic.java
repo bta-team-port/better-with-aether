@@ -279,7 +279,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                     return ipair(block.id(), metadata);
                 }
                 if (blockLogic instanceof BlockLogicChest) {
-                    MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata &= 240);
+                    MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata & 240);
                     return ipair(variant.getMimicChestId(), variant.getMimicChestMetadata());
                 }
                 queue.add(to);
