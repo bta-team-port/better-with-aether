@@ -182,13 +182,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                 formatString.append(3);
             }
             String message = AetherMod.TRANSLATOR.translateKey(formatString.toString());
-            entityplayer.sendMessage(message);
+            entityplayer.sendTranslatedChatMessage(message);
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         } else {
             int pokey = this.random.nextInt(3) + 1;
             String formatString = String.format("%s.%d", "aether.entity.valkyrie.interact", pokey);
             String message = AetherMod.TRANSLATOR.translateKey(formatString);
-            entityplayer.sendMessage(message);
+            entityplayer.sendTranslatedChatMessage(message);
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         }
         return true;
@@ -277,20 +277,20 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             if (this.target == null && this.chatTime <= 0) {
                 String formatString = String.format("%s.%d", "aether.entity.valkyrie.duel_start", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                ((Player) attacker).sendMessage(message);
+                ((Player) attacker).sendTranslatedChatMessage(message);
                 this.chatTime = 60;
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
             } else {
                 this.teleportTimer += 25;
             }
 
-            this.becomeAngryAt(attacker);
+            this.target = attacker;
             boolean flag = super.hurt(attacker, damage, type);
             if (flag && this.getHealth() <= 0) {
                 this.dead = true;
                 String formatString = String.format("%s.%d", "aether.entity.valkyrie.submit", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                ((Player) attacker).sendMessage(message);
+                ((Player) attacker).sendTranslatedChatMessage(message);
                 this.animateHurt();
             }
             return flag;
@@ -314,17 +314,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                     int pokey = this.random.nextInt(3) + 1;
                     String formatString = String.format("%s.%d", "aether.entity.valkyrie.attacked", pokey);
                     String message = AetherMod.TRANSLATOR.translateKey(formatString);
-                    ((Player) entity).sendMessage(message);
+                    ((Player) entity).sendTranslatedChatMessage(message);
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
                     this.target = null;
                     this.chatTime = 0;
                 }
             }
         }
-    }
-
-    public void becomeAngryAt(Entity entity) {
-        this.target = entity;
     }
 
     public String getLivingSound() {
