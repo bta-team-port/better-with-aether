@@ -1,0 +1,73 @@
+package teamport.aether.world.feature.terrain;
+
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.world.World;
+import net.minecraft.core.world.generate.feature.MethodParametersAnnotation;
+import net.minecraft.core.world.generate.feature.WorldFeature;
+import teamport.aether.blocks.AetherBlocks;
+
+import java.util.Random;
+
+public class WorldFeatureAetherLiquid extends WorldFeature {
+    public int liquidBlockId;
+
+    @MethodParametersAnnotation(
+            names = {"liquidId"}
+    )
+    public WorldFeatureAetherLiquid(int liquidId) {
+        this.liquidBlockId = liquidId;
+    }
+
+    public boolean place(World world, Random random, int x, int y, int z) {
+        if (world.getBlockId(x, y + 1, z) != AetherBlocks.COBBLE_HOLYSTONE.id()) {
+            return false;
+        } else if (world.getBlockId(x, y - 1, z) != AetherBlocks.COBBLE_HOLYSTONE.id()) {
+            return false;
+        } else if (world.getBlockId(x, y, z) != 0 && world.getBlockId(x, y, z) != AetherBlocks.COBBLE_HOLYSTONE.id()) {
+            return false;
+        } else {
+            int l = 0;
+            if (world.getBlockId(x - 1, y, z) == AetherBlocks.COBBLE_HOLYSTONE.id()) {
+                ++l;
+            }
+
+            if (world.getBlockId(x + 1, y, z) == AetherBlocks.COBBLE_HOLYSTONE.id()) {
+                ++l;
+            }
+
+            if (world.getBlockId(x, y, z - 1) == AetherBlocks.COBBLE_HOLYSTONE.id()) {
+                ++l;
+            }
+
+            if (world.getBlockId(x, y, z + 1) == AetherBlocks.COBBLE_HOLYSTONE.id()) {
+                ++l;
+            }
+
+            int i1 = 0;
+            if (world.isAirBlock(x - 1, y, z)) {
+                ++i1;
+            }
+
+            if (world.isAirBlock(x + 1, y, z)) {
+                ++i1;
+            }
+
+            if (world.isAirBlock(x, y, z - 1)) {
+                ++i1;
+            }
+
+            if (world.isAirBlock(x, y, z + 1)) {
+                ++i1;
+            }
+
+            if (l == 3 && i1 == 1) {
+                world.setBlockWithNotify(x, y, z, this.liquidBlockId);
+                world.scheduledUpdatesAreImmediate = true;
+                Blocks.blocksList[this.liquidBlockId].updateTick(world, x, y, z, random);
+                world.scheduledUpdatesAreImmediate = false;
+            }
+
+            return true;
+        }
+    }
+}

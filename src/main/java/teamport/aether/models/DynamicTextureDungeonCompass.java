@@ -9,8 +9,9 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
+import teamport.aether.world.feature.util.map.DungeonLogic;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static teamport.aether.world.generate.feature.components.WorldFeaturePoint.wfpoint;
+import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
 
 @Environment(EnvType.CLIENT)
 public class DynamicTextureDungeonCompass extends DynamicTexture {
@@ -54,27 +55,9 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         return !isPaused;
     }
 
-    public static final int MP_LIST_UPDATE_COOLDOWN = 3000;
-    private long lastListUpdateStamp = 0;
-    public static final List<DungeonMapEntry> entryListCache = new ArrayList<>();
-
     public static final int POSITION_UPDATE_COOLDOWN = 1000;
     private long lastPositionUpdateStamp = 0;
     public static WorldFeaturePoint positionCache = null;
-
-    private Collection<DungeonMapEntry> getDungeonList() {
-        if (EnvironmentHelper.isClientWorld()) {
-            long time = System.currentTimeMillis();
-            if (time - lastListUpdateStamp >= MP_LIST_UPDATE_COOLDOWN) {
-                lastListUpdateStamp = time;
-                NetworkHandler.sendToServer(new AetherDungeonMapUpdateNetworkMessage());
-            }
-
-            return entryListCache;
-        }
-
-        return AetherDimension.dungeonMap.values();
-    }
 
     public double getAngle() {
         if (this.mc.currentWorld == null || this.mc.thePlayer == null) return 0.0;
@@ -87,7 +70,7 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             if (time - lastPositionUpdateStamp > POSITION_UPDATE_COOLDOWN) {
 
                 WorldFeaturePoint playerPos = wfpoint(player);
-                for (DungeonMapEntry entry : getDungeonList()) {
+                for (DungeonLogic entry : DungeonMap.getDungeonList()) {
                     if (entry == null) continue;
 
                     WorldFeaturePoint point = entry.getPosition();

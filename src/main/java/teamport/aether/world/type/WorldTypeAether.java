@@ -13,8 +13,8 @@ import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.chunk.BiomeProviderAether;
-import teamport.aether.world.generate.chunk.ChunkGeneratorAether;
+import teamport.aether.world.chunk.BiomeProviderAether;
+import teamport.aether.world.chunk.ChunkGeneratorAether;
 
 public class WorldTypeAether extends WorldType {
     public WorldTypeAether(WorldType.Properties properties) {

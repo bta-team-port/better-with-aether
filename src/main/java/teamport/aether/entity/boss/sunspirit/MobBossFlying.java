@@ -15,8 +15,9 @@ import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMapEntry;
+import teamport.aether.world.feature.util.map.DungeonMap;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
+import teamport.aether.world.feature.util.map.DungeonLogic;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.function.Consumer;
@@ -86,7 +87,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
         }
 
         if (dungeonID != null) {
-            AetherDimension.dungeonMap.notifyBossDead(dungeonID, this);
+            DungeonMap.runWithDungeon(dungeonID, d -> d.notifyBossDead(this));
         }
 
         // try triggering the propagate on dungeon blocks.
@@ -152,14 +153,5 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     public void setReturnPoint(@Nullable WorldFeaturePoint returnPoint) {
         this.returnPoint = returnPoint;
         this.hasHadReturnPointSet = true;
-    }
-
-    public boolean runWithDungeon(Consumer<DungeonMapEntry> func) {
-        if (EnvironmentHelper.isClientWorld() || dungeonID == null) return false;
-        DungeonMapEntry dungeon = AetherDimension.dungeonMap.getDungeon(dungeonID);
-
-        if (dungeon == null) return false;
-        func.accept(dungeon);
-        return true;
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
+import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
 

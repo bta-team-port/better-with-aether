@@ -12,7 +12,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotatable<T> {

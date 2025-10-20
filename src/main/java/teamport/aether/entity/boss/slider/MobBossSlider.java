@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static net.minecraft.core.Global.TICKS_PER_SECOND;
+import static teamport.aether.world.feature.util.map.DungeonMap.runWithDungeon;
 
 public class MobBossSlider extends MobBoss {
     public float deformX;
@@ -596,7 +597,7 @@ public class MobBossSlider extends MobBoss {
     public void tryAwake() {
         if (currentState == State.ASLEEP) {
             this.currentState = State.AWAKE;
-            runWithDungeon(d -> d.lock(this, world));
+            runWithDungeon(dungeonID, d -> d.lock(this, world));
             world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
         }
     }

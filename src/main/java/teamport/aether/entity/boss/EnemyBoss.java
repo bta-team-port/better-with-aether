@@ -1,7 +1,7 @@
 package teamport.aether.entity.boss;
 
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.world.generate.feature.components.WorldFeaturePoint;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
 
 public interface EnemyBoss {
 

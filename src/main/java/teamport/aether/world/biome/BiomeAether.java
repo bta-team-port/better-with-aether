@@ -20,8 +20,8 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.world.generate.feature.WorldFeatureAetherTree;
-import teamport.aether.world.generate.feature.WorldFeatureAetherTreeGoldenOak;
+import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
+import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
 

@@ -22,6 +22,7 @@ import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.util.map.DungeonMap;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -59,7 +60,7 @@ public class MobBossSunspirit extends MobBossFlying {
         this.isAgro = false;
         this.target = null;
         returnToHome();
-        runWithDungeon(d -> d.unlock(this, world));
+        DungeonMap.runWithDungeon(dungeonID, d -> d.unlock(this, world));
         this.setHealthRaw(this.getMaxHealth());
     }
 
@@ -225,7 +226,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.chatLog++;
                 this.isAgro = true;
 
-                runWithDungeon(d -> d.lock(this, world));
+                DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this, world));
                 return true;
             }
 
@@ -252,7 +253,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public void onDeath(Entity entityKilledBy) {
-        runWithDungeon(d -> d.unlock(this, world));
+        DungeonMap.runWithDungeon(dungeonID, d -> d.unlock(this, world));
 
         if (!world.isClientSide && world.dimension == AetherDimension.AETHER) {
             AetherDimension.unlockDaylightCycle(world);

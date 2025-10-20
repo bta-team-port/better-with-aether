@@ -15,8 +15,8 @@ import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;
-import teamport.aether.world.generate.chunk.BiomeProviderAether;
-import teamport.aether.world.generate.feature.dungeon.map.DungeonMap;
+import teamport.aether.world.chunk.BiomeProviderAether;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import teamport.aether.world.type.AetherWorldTypes;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 public class AetherDimension {
-    public static DungeonMap dungeonMap = new DungeonMap();
-
     public static boolean sunspiritIsDead = false;
     public static long sunspiritDeathTimestamp = 0;
 
@@ -168,7 +166,6 @@ public class AetherDimension {
     public static void setDimensionDataDefaults() {
         sunspiritDeathTimestamp = 0;
         sunspiritIsDead = false;
-        dungeonMap = new DungeonMap();
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
@@ -176,7 +173,7 @@ public class AetherDimension {
 
 
         sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
-        dungeonMap.loadFromNBT(dimensionData.getCompound(AetherMod.MOD_ID + ".dungeon"));
+        DungeonMap.load(dimensionData.getCompound(AetherMod.MOD_ID + ".dungeon"));
 
         entitiesMovedToOverworld.clear();
         ListTag entitiesMoved = dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen");
@@ -214,8 +211,8 @@ public class AetherDimension {
             entitiesToMoveMap.addTag(entryCompound);
         }
 
+        DungeonMap.save(dimensionData);
         dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritIsDead);
-        dimensionData.put(AetherMod.MOD_ID + ".dungeon", AetherDimension.dungeonMap.writeToNBT(new CompoundTag()));
         dimensionData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
     }
 
