@@ -4,8 +4,11 @@ import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.Effect;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.render.TintEffectRender;
+import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartContainer;
+import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartContainerSimple;
+import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.IHasCustomHeartContainer;
 
-public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements AetherCustomHeartContainer {
+public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> implements IHasCustomHeartContainer {
     public final String PATH_HEART;
 
     public PoisonEffectRenderer(T effect, String vignette, int tint, String heartPath) {

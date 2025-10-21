@@ -91,7 +91,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherBlocks.init();
         AetherItems.init();
         AetherDimension.init();
-        AetherEffects.init();
         AetherWorldFeatures.init();
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherBiomes.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
@@ -107,6 +106,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void afterGameStart() {
+        AetherEffects.init();
+
         TRANSLATOR = I18n.getInstance();
 
         EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent("aether", "border_amber"));

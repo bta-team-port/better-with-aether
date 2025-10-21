@@ -42,7 +42,7 @@ import turniplabs.halplibe.helper.ItemBuilder;
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
 
-public final class AetherItems {
+public final class  AetherItems {
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;

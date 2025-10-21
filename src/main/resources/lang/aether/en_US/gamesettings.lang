@@ -1,7 +1,3 @@
-options.catalyst-effect.aether$displayExtraHealthAs=Display Extra Health as
-options.catalyst-effect.aether$displayExtraHealthAs.extra_bars=Extra Hearts
-options.catalyst-effect.aether$displayExtraHealthAs.multiplier=Number
-
 aether.options.video.aether=Aether Video Settings
 options.aether.flickAccessoryIcons=Cycle Inventory Trinkets
 options.aether.flickAccessorySpeed=Cycle Inventory Trinkets Speed

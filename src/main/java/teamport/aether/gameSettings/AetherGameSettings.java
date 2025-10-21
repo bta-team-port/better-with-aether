@@ -29,14 +29,4 @@ public class AetherGameSettings {
                 .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
         );
     }
-
-    public static void registerCatalystSettings() {
-        AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
-
-        CatalystClient.effectsCategory.withComponent(
-                new ToggleableOptionComponent<>(
-                        gameSettings.aether$getExtraHealthDisplayOptionEnum()
-                )
-        );
-    }
 }
