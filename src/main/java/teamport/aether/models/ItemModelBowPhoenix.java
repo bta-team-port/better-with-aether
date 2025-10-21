@@ -20,7 +20,7 @@ public class ItemModelBowPhoenix extends ItemModelBow {
     public Item getNextArrow(Player player) {
         if (player instanceof PlayerRemote) {
             int id = player.getArrowId();
-            return id >= 0 && id < Item.itemsList.length ? Item.itemsList[id] : null;
+            return id >= 0 && id < Item.itemsList.length ? AetherItems.AMMO_ARROW_FLAMING : null;
         } else {
             ItemStack quiverSlot = player.inventory.armorItemInSlot(2);
             if (quiverSlot != null && (quiverSlot.itemID == Items.ARMOR_QUIVER.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) ||

@@ -691,7 +691,7 @@ public final class  AetherItems {
                 .build(new ItemSwetCapeArmor("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
 
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID)
-                .build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisible", 5));
+                .build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
 
 
         ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID)
