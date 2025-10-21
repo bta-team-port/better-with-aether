@@ -22,7 +22,7 @@ public class AetherConfig {
 
     public static final String GeneralCategory = "General";
 
-    public static int DIMENSION = 3;
+    public static int DIMENSION = 9;
     public static int EXTRA_HEALTH = 20;
     public static double QUICK_SOIL_SPEED_CAP = 1.325F;
 
