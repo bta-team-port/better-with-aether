@@ -1,4 +1,4 @@
-package teamport.aether.mixin.gameSettings;
+package teamport.aether.mixin;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.*;
@@ -10,27 +10,18 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.gameSettings.AetherGameSettingsOptions;
-import teamport.aether.gameSettings.ExtraHealthDisplayEnum;
 
 @Mixin(
         value = GameSettings.class,
         remap = false
 )
-public class SettingsAddOn implements AetherGameSettingsOptions {
+public class gameSettingsMixin implements AetherGameSettingsOptions {
 
     @Shadow
     @Final
     public Minecraft mc;
     @Unique
     private final GameSettings thisAs = ((GameSettings) (Object) this);
-
-    @Unique
-    public OptionEnum<ExtraHealthDisplayEnum> aether$extraHealthDisplayOptionEnum = new OptionEnum<>(
-            thisAs,
-            "catalyst-effect.aether$displayExtraHealthAs",
-            ExtraHealthDisplayEnum.class,
-            ExtraHealthDisplayEnum.EXTRA_BARS
-    );
 
     @Unique
     public OptionBoolean flickAccessoryIconsOption = new OptionBoolean(
@@ -42,9 +33,6 @@ public class SettingsAddOn implements AetherGameSettingsOptions {
     @Unique
     public OptionRange flickAccessorySpeed = new OptionRange(thisAs, "aether.flickAccessorySpeed", 5, 1, 60);
 
-    public OptionEnum<ExtraHealthDisplayEnum> aether$getExtraHealthDisplayOptionEnum() {
-        return aether$extraHealthDisplayOptionEnum;
-    }
 
     @Override
     public OptionBoolean aether$getFlickAccessoryIconsOption() {

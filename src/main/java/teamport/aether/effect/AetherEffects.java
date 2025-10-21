@@ -1,18 +1,12 @@
 package teamport.aether.effect;
 
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
-import sunsetsatellite.catalyst.effects.api.attribute.type.IntAttribute;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
-import sunsetsatellite.catalyst.effects.api.modifier.ModifierType;
-import sunsetsatellite.catalyst.effects.api.modifier.type.IntModifier;
-import teamport.aether.effect.render.AetherCustomHeartContainer;
-import teamport.aether.effect.render.ExtraHealthEffectRenderer;
+import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.entity.boss.slider.MobBossSlider;
@@ -23,7 +17,6 @@ import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
-import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import javax.annotation.Nullable;
@@ -75,24 +68,13 @@ public class AetherEffects {
             return;
         }
         hasInit = true;
-        registerAttributes();
         assignEffects();
         registerEffects();
         if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
 
-
-    public static IntAttribute EXTRA_HEALTH = (IntAttribute) new IntAttribute("attribute.aether.extraHealth", 0).setAsDefault();
-
-    private static void registerAttributes() {
-        Attributes catalystAttributes = Attributes.getInstance();
-
-        catalystAttributes.register("aether:extra_health", EXTRA_HEALTH);
-    }
-
     public static Effect poisonEffect;
     public static Effect remedyEffect;
-    public static Effect extraHealthEffect;
 
     public static Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
@@ -100,14 +82,6 @@ public class AetherEffects {
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
-        extraHealthEffect = new Effect(
-                "effect.aether.extra_health",
-                MOD_ID + ":extra_health",
-                Collections.singletonList(new IntModifier(EXTRA_HEALTH, ModifierType.ADD, 1)),
-                EffectTimeType.PERMANENT,
-                40
-        ).setPersistent();
-
         poisonEffect = new PoisonEffect(
                 "effect.aether.poison",
                 MOD_ID + ":poison",
@@ -129,9 +103,11 @@ public class AetherEffects {
 
     private static void registerEffects() {
         Effects effects = Effects.getInstance();
-        effects.register(extraHealthEffect.id, extraHealthEffect);
         effects.register(poisonEffect.id, poisonEffect);
         effects.register(remedyEffect.id, remedyEffect);
+
+        // in here for compatibility reasons.
+        effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
 
         IMMUNE_TO_POISON.tag(poisonEffect);
         EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
@@ -149,10 +125,6 @@ public class AetherEffects {
 
     private static void assignEffectRenderers() {
         EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
-        dispatcher.addDispatch(extraHealthEffect,
-                new ExtraHealthEffectRenderer<>(extraHealthEffect)
-                        .setIcon(TextureRegistry.getTexture(AetherItems.LIFESHARD.namespaceID))
-        );
 
         dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
                         poisonEffect,
@@ -181,24 +153,7 @@ public class AetherEffects {
         LookupLooks.instance.addEntry(affected, lock);
     }
 
-    /**
-     * @param player affected Player
-     * @return most potent EffectStack affecting the player
-     */
-    public static EffectStack resolveDominantEffect(Player player) {
-        EffectStack dominant = null;
-        EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
 
-        for (EffectStack effectStack : ((IHasEffects) player).getContainer().getEffects()) {
-            if (dispatcher.getDispatch(effectStack.getEffect()) instanceof AetherCustomHeartContainer) {
-                if (dominant == null) dominant = effectStack;
-                int effectStackPotency = effectStack.getAmount() * effectStack.getDuration();
-                int dominantPotency = dominant.getAmount() * dominant.getDuration();
-                if (effectStackPotency > dominantPotency) dominant = effectStack;
-            }
-        }
-        return dominant;
-    }
 
 
     /**
@@ -219,16 +174,7 @@ public class AetherEffects {
     }
 
 
-    /**
-     * @param entity     affected Mob
-     * @param stackToAdd Effect stack affecting the entity
-     * @return true if the effect was applied false otherwise
-     * @apiNote If you want aether style effect use this function to add your effects.
-     * @implNote Effect can only affect entity if the effect is not locked.
-     * Each effect defined what effect lock it out from being reapplied.
-     * Returns always false if a given effect is locked.
-     * @see ILockInteractable
-     */
+
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
         IHasEffects hasEffects = (IHasEffects) entity;
@@ -256,8 +202,8 @@ public class AetherEffects {
 
 
     public static <T> boolean isLocked(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        Effect effectBlocked = effectStack.getEffect();
-        Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectBlocked);
+        Effect effectToAdd = effectStack.getEffect();
+        Effect effectBlocker = AetherEffects.LookupLooks.instance.getLocker(effectToAdd);
 
         if (effectBlocker == null) return false;
 
@@ -266,7 +212,7 @@ public class AetherEffects {
             if (effectBlocker instanceof ILockInteractable && effectContainer.hasEffect(effectBlocker)) {
                 ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects) parent);
 
-                effectContainer.remove(effectBlocked);
+                effectContainer.remove(effectToAdd);
                 return true;
             }
         }
