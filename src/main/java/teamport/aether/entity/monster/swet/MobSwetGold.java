@@ -69,20 +69,26 @@ public class MobSwetGold extends MobSwet implements Enemy {
     }
 
     public void attackEntity(@NotNull Entity entity, float distance) {
-        if (!this.friendly) {
-            if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
-                this.attackTime = 200;
-                entity.hurt(this, 3, DamageType.COMBAT);
+        if (this.isAlive()) {
+            if (!this.friendly) {
+                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+                    this.attackTime = 200;
+                    this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    entity.hurt(this, 3, DamageType.COMBAT);
+                }
             }
         }
     }
 
     public void playerTouch(Player player) {
-        int i = 3;
-        if (!this.friendly) {
-            if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 0.6 * (double) i && player.hurt(this, i, DamageType.COMBAT)) {
-                player.startRiding(this);
-                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        if (this.isAlive()) {
+            if (!this.friendly) {
+                if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 3, DamageType.COMBAT) && getHealth() > 0 && !dead) {
+                    if (grabDelay == 0) {
+                        player.startRiding(this);
+                        grabDelay = 50;
+                    }
+                }
             }
         }
     }

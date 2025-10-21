@@ -71,8 +71,9 @@ public class ModelMoa extends ModelBase {
         var10000.yRot += 0.5F;
     }
 
-    public void render(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
-        this.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
+    public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
+        super.render(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
+        this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.head.render(scale);
         this.palate.render(scale);
         this.jaw.render(scale);
@@ -119,7 +120,6 @@ public class ModelMoa extends ModelBase {
             this.wings.zRot = 0.0F;
             this.wings2.zRot = 0.0F;
         }
-
         this.feather1.yRot = -0.375F;
         this.feather2.yRot = 0.0F;
         this.feather3.yRot = 0.375F;
@@ -131,6 +131,4 @@ public class ModelMoa extends ModelBase {
         Cube var10000 = this.jaw;
         var10000.xRot += 0.35F;
     }
-
-
 }

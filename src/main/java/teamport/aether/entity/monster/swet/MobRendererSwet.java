@@ -23,14 +23,12 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
             GL11.glEnable(3042);
             GL11.glBlendFunc(770, 771);
             return true;
-        } else {
-            if (i == 1) {
-                GL11.glDisable(3042);
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            }
-
+        } else if (i == 1) {
+            GL11.glDisable(3042);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             return false;
         }
+        return false;
     }
 
     public void scaleSlime(MobSwet entityswets, float partialTick) {
@@ -39,10 +37,10 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         float f3 = 1.5F;
         double yd = MathHelper.lerp(entityswets.ydO, entityswets.yd, partialTick);
         if (!entityswets.onGround) {
-            if (yd > 0.8500000238418579) {
+            if (yd > 0.85) {
                 f1 = 1.425F;
                 f2 = 0.575F;
-            } else if (yd < -0.8500000238418579) {
+            } else if (yd < -0.85) {
                 f1 = 0.575F;
                 f2 = 1.425F;
             } else {
@@ -55,6 +53,10 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         if (entityswets.passenger != null) {
             f3 = 1.5F + (entityswets.passenger.bbWidth + entityswets.passenger.bbHeight) * 0.75F;
         }
+
+        f1 = MathHelper.clamp(f1, 0.1F, 10.0F);
+        f2 = MathHelper.clamp(f2, 0.1F, 10.0F);
+        f3 = MathHelper.clamp(f3, 0.1F, 10.0F);
 
         GL11.glScalef(f2 * f3, f1 * f3, f2 * f3);
     }

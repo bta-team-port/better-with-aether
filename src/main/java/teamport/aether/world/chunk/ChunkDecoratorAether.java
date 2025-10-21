@@ -20,6 +20,7 @@ import teamport.aether.noise.Worley;
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 import teamport.aether.world.feature.terrain.*;
+import teamport.aether.world.type.AetherWorldTypes;
 
 import java.util.Random;
 
@@ -65,7 +66,10 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         Random rand = deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
         decorateWithClouds(rand, worldX, worldZ);
-        decorateWithFlatClouds(chunk, rand);
+
+        if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) {
+            decorateWithFlatClouds(chunk, rand);
+        }
 
         decorateWithFlowers(chunk, rand);
         decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
@@ -322,6 +326,13 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         if (rand.nextInt(6) == 0) {
             yPosition = rand.nextInt(192) + 32;
             AERCLOUD_WHITE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+        }
+
+        if (world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) {
+            if (rand.nextInt(24) == 0) {
+                yPosition = rand.nextInt(32) + 4;
+                AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
+            }
         }
 
     }
