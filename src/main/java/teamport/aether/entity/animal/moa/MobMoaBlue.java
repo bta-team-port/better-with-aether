@@ -3,11 +3,13 @@ package teamport.aether.entity.animal.moa;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +46,13 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.tamed = tamed;
+    }
+
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == this.passenger) {
+            return false;
+        }
+        return super.hurt(attacker, damage, type);
     }
 
     public void setTamed(boolean tamed) {
@@ -140,6 +149,13 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
 
     public boolean interact(@NotNull Player player) {
         if (super.interact(player)) return true;
+
+        if (player.getHeldItem() != null && player.getHeldItem().itemID == AetherItems.PETAL_AECHOR.id && tamed && player.isSneaking() && this.getHealth() < this.getMaxHealth()) {
+            if (player.getGamemode().consumeBlocks()) {
+                player.getHeldItem().stackSize--;
+            }
+            this.heal(3);
+        }
 
         if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
