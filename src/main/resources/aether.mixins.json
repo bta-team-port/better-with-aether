@@ -140,6 +140,7 @@
     "dimension.bumpToOverworld.MPWorldMixin",
     "dimension.dungeonMap.WorldMpMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
+    "item.PacketHandlerServerValkToolsReachMixin",
     "net.AerBunnyFlyingMixin",
     "net.PlayerLoginMixin"
   ],

@@ -103,9 +103,9 @@ dependencies {
 
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
-    modImplementation 'com.github.Olypolyu.catalyst:catalyst-effects:7.3-SNAPSHOT'
+    //modImplementation 'com.github.Olypolyu.catalyst:catalyst-effects:7.3-SNAPSHOT'
     modImplementation("sunsetsatellite:catalyst-core:${catalystcore_version}")
-    //modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
+    modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
 	modImplementation("useless:btwaila:${project.btwaila_version}")
     modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
 
