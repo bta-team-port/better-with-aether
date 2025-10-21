@@ -33,7 +33,6 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         this.eggTimer = this.random.nextInt(6000) + 6000;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
         this.rideFootSize = 1.5f;
-
         this.eggColor = AetherItems.EGG_MOA_BLUE;
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
@@ -60,7 +59,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
     }
 
     public int getMaxHealth() {
-        return 40;
+        return this.tamed ? 40 : 16;
     }
 
     public int getAmbientSoundInterval() {
@@ -152,11 +151,13 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
 
         if (player.getHeldItem() != null && player.getHeldItem().itemID == AetherItems.PETAL_AECHOR.id && tamed && player.isSneaking() && this.getHealth() < this.getMaxHealth()) {
             if (player.getGamemode().consumeBlocks()) {
+                player.swingItem();
                 player.getHeldItem().stackSize--;
             }
-            this.heal(3);
+            this.heal(6);
         }
 
+        if (player.isSneaking()) return false;
         if (!this.getSaddled() || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 

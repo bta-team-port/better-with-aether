@@ -29,6 +29,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public int jumpDelay;
     public boolean friendly;
     public double ydO;
+    public int grabDelay;
 
     public MobSwet(World world) {
         super(world);
@@ -65,7 +66,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     }
 
     public double getRideHeight() {
-        return this.bbHeight - 1.2f;
+        return 0.1;
     }
 
     public void doTickEffect() {
@@ -80,6 +81,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     public void tick() {
         this.doTickEffect();
+
+        if (this.grabDelay > 0) {
+            this.grabDelay--;
+        }
 
         this.ydO = this.yd;
 
@@ -109,6 +114,12 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.squish *= 0.6F;
     }
 
+    public void knockBack(Entity entity, int i, double d, double d1) {
+        if (this.passenger == null || entity != this.passenger) {
+            super.knockBack(entity, i, d, d1);
+        }
+    }
+
     public void updateAI() {
         this.tryToDespawn();
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
@@ -122,7 +133,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
         if (!this.friendly) {
-            if (entityplayer != null && targetPlayer) {
+            if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
                 this.lookAt(entityplayer, 10.0F, 20.0F);
             }
         }
@@ -166,7 +177,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         if (this.isAlive()) {
             if (!this.friendly) {
                 if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead) {
-                    player.startRiding(this);
+                    if (grabDelay == 0) {
+                        player.startRiding(this);
+                        grabDelay = 100;
+                    }
                 }
             }
         }
