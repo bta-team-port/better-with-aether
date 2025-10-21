@@ -136,6 +136,7 @@
     "player.PlayerLocalPortalNoiseMixin"
   ],
   "server": [
+    "accessory.PlayerServerMixinAccessoryServer",
     "dimension.bumpToOverworld.MPBumpToOverworldMixin",
     "dimension.bumpToOverworld.MPWorldMixin",
     "dimension.dungeonMap.WorldMpMixin",
