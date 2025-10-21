@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.items.itemtool.AetherToolMaterial;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
+import static teamport.aether.items.itemtool.AetherToolMaterial.VALKYRIE_TOOL_EXTEND_RANGE_BY;
+
 @Mixin(value = PlayerController.class, remap = false)
 public class PlayerControllerValkToolsReachMixin {
 
@@ -22,24 +24,13 @@ public class PlayerControllerValkToolsReachMixin {
     @Shadow
     protected Minecraft mc;
 
-    @Unique
-    public boolean held_item_is_valk_tool(Player player) {
-        ItemStack held = player.getHeldItem();
-        if (held == null)
-            return false;
-        else if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie)) {
-            return true;
-        } else
-            return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie;
-    }
-
     @ModifyReturnValue(method = "getBlockReachDistance", at = @At("RETURN"))
     public float getBlockReachDistance(float original) {
-        return original + (held_item_is_valk_tool(this.mc.thePlayer) ? 6 : 0);
+        return original + (AetherToolMaterial.isHoldingValkyrieTool(this.mc.thePlayer) ? VALKYRIE_TOOL_EXTEND_RANGE_BY : 0);
     }
 
     @ModifyReturnValue(method = "getEntityReachDistance", at = @At("RETURN"))
     public float getEntityReachDistance(float original) {
-        return original + (held_item_is_valk_tool(this.mc.thePlayer) ? 6 : 0);
+        return original + (AetherToolMaterial.isHoldingValkyrieTool(this.mc.thePlayer) ? VALKYRIE_TOOL_EXTEND_RANGE_BY : 0);
     }
 }
