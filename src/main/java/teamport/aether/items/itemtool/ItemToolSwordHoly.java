@@ -19,6 +19,21 @@ public class ItemToolSwordHoly extends ItemToolSword {
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+        if (target.isAlive() && target instanceof MobZombie || target instanceof MobZombiePig || target instanceof MobZombieArmored || target instanceof MobGhast || target instanceof MobSnowman || target instanceof MobSkeleton || target instanceof MobGiant) {
+            for (int particle = 0; particle < 16; particle++) {
+                Random random = new Random();
+                double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
+                double dy = target.y + 1.0 + (random.nextDouble());
+                double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
+                double motionX = (random.nextDouble() * 0.1) - 0.05;
+                double motionY = (random.nextDouble() * 0.1) - 0.05;
+                double motionZ = (random.nextDouble() * 0.1) - 0.05;
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+            }
+            target.hurt(attacker, 20, AetherMod.HOLY);
         if (target instanceof MobZombie || target instanceof MobZombiePig || target instanceof MobZombieArmored || target instanceof MobGhast || target instanceof MobSnowman || target instanceof MobSkeleton || target instanceof MobGiant) {
             Random random = new Random();
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;

@@ -64,6 +64,7 @@
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupsMixin",
     "dimension.bumpToOverworld.EntityBumpToOverworldMixin",
+    "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
@@ -87,6 +88,7 @@
     "item.TreeCapitatorAetherAxeMixin",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
+    "player.PlayerFixArmorMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
     "player.PlayerMixinDevDrops"
   ],
