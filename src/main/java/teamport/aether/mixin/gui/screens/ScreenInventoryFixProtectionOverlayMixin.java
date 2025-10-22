@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = ScreenInventory.class, remap = false)
-public abstract class ScreenInventoryMixin extends ScreenContainerAbstract {
+public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenContainerAbstract {
     @Shadow
     protected Color protectionOverlayBgColor;
     @Shadow
@@ -24,7 +24,7 @@ public abstract class ScreenInventoryMixin extends ScreenContainerAbstract {
     @Shadow
     protected int armourValuesFloat;
 
-    public ScreenInventoryMixin(Player player) {
+    public ScreenInventoryFixProtectionOverlayMixin(Player player) {
         super(player.inventorySlots);
     }
 
@@ -59,15 +59,27 @@ public abstract class ScreenInventoryMixin extends ScreenContainerAbstract {
                 if (protection > 1.0F) {
                     protection = 1.0F;
                 }
+                if (protection < -1.0F) {
+                    protection = -1.0F;
+                }
 
-                int l = (int) (protection * 255.0F);
-                int color = 255 - l << 16 | l << 8 | -16777216;
+                int barWidth = Math.max(0, (int) (Math.abs(protection) * (float) w2));
+                int color;
+                if (protection >= 0.0F) {
+                    int l = (int) (protection * 255.0F);
+                    color = (255 - l << 16) | (l << 8) | -16777216;
+                } else {
+                    int l = (int) (Math.abs(protection) * 255.0F);
+                    int blue = 255 - l;
+                    color = blue | -16777216;
+                }
+
                 GL11.glEnable(3553);
                 GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
                 this.drawGuiIcon(x + 2, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
                 GL11.glDisable(3553);
                 this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, -16777216);
-                this.drawRectWidthHeight(x + 15, y2 + 4, (int) (protection * (float) w2), h2, color);
+                this.drawRectWidthHeight(x + 15, y2 + 4, barWidth, h2, color);
                 if (mouseX >= x && mouseY >= y2 + 2 && mouseX <= x + w && mouseY <= y2 + 12) {
                     this.hoveredDamageType = damageType;
                 }
@@ -79,12 +91,12 @@ public abstract class ScreenInventoryMixin extends ScreenContainerAbstract {
         TooltipElement tooltip = ((ScreenContainerAbstractAccessor) this).getTooltipElement();
         if (this.hoveredDamageType != null && tooltip != null) {
             int protection = Math.round(this.mc.thePlayer.inventory.getTotalProtectionAmount(this.hoveredDamageType) * 100.0F);
-            if (protection < 0) {
-                protection = 0;
-            }
 
             if (protection > 100) {
                 protection = 100;
+            }
+            if (protection < -100) {
+                protection = -100;
             }
 
             String str = I18n.getInstance().translateKey(this.hoveredDamageType.getLanguageKey()) + ":\n" + protection + " / 100";

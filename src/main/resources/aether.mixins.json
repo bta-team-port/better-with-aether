@@ -91,6 +91,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
+    "gameSettingsMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",
@@ -114,7 +115,6 @@
     "dimension.dungeonMap.WorldSpMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
-    "gameSettingsMixin",
     "fix.RenderGlobalMixin",
     "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
@@ -125,7 +125,7 @@
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",
     "gui.screens.ScreenContainerAbstractAccessor",
-    "gui.screens.ScreenInventoryMixin",
+    "gui.screens.ScreenInventoryFixProtectionOverlayMixin",
     "gui.screens.UNWarnMixin",
     "item.DynamicTexturesMixin",
     "item.PlayerControllerValkToolsReachMixin",
