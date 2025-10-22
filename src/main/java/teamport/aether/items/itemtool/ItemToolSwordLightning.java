@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
+import teamport.aether.AetherMod;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolSwordLightning extends ItemToolSword {
@@ -20,6 +21,7 @@ public class ItemToolSwordLightning extends ItemToolSword {
             }
         }
 
+        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.LIGHTNING);
         itemstack.damageItem(1, attacker);
         return true;
     }

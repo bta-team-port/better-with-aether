@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
@@ -18,10 +19,11 @@ public class ItemToolSwordFire extends ItemToolSword {
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if (target instanceof Mob && target.isAlive()) {
-            target.maxFireTicks = 30 * 20;
-            target.remainingFireTicks = 30 * 20;
+            target.maxFireTicks = 600;
+            target.remainingFireTicks = 600;
         }
 
+        target.hurt(attacker, getDamageVsEntity(target, itemstack), DamageType.FIRE);
         itemstack.damageItem(1, attacker);
         return true;
     }
