@@ -14,11 +14,6 @@ public class BlockLogicPaintableFenceGate extends BlockLogicFenceGate {
     }
 
     @Override
-    public boolean canBePainted() {
-        return true;
-    }
-
-    @Override
     public void setColor(World world, int x, int y, int z, DyeColor color) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadata(x, y, z, paintedBlock.id(), meta);

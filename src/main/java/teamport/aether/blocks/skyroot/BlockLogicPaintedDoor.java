@@ -43,8 +43,4 @@ public class BlockLogicPaintedDoor extends BlockLogicDoorPainted {
         }
     }
 
-    @Override
-    public boolean canBePainted() {
-        return true;
-    }
 }

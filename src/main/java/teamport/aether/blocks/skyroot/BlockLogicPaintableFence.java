@@ -13,10 +13,6 @@ public class BlockLogicPaintableFence extends BlockLogicFence {
         this.paintedBlock = paintedBlock;
     }
 
-    @Override
-    public boolean canBePainted() {
-        return true;
-    }
 
     @Override
     public void setColor(World world, int x, int y, int z, DyeColor color) {

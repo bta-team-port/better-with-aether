@@ -22,11 +22,7 @@ public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
     }
 
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        return new ItemStack[]{new ItemStack(this, 1, meta & 0b1111000)};
+        return new ItemStack[]{new ItemStack(this, 1, (meta >> 4 & 15) << 4)};
     }
 
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
-    }
 }
