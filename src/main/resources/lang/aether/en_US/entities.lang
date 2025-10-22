@@ -72,10 +72,10 @@ aether.entity.mimic=Mimic
 aether.entity.mimic.death_message = <[PLAYER]> Thank you dark souls.
 
 guidebook.section.mob.mimic.name=Mimic
-guidebook.section.mob.mimic.desc=A iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
+guidebook.section.mob.mimic.desc=An iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
 
 aether.entity.sentry=Sentry
-aether.entity.sentry.death_message = [PLAYER] walked over a living mine.
+aether.entity.sentry.death_message= [PLAYER] walked over a living mine.
 guidebook.section.mob.sentry.name=Sentry
 guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
 model.category.entity.sentry.slider.state=State: %s

@@ -5,7 +5,7 @@ import net.minecraft.core.entity.monster.*;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
-import net.minecraft.core.util.helper.DamageType;
+import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleHelper;
 
 import java.util.Random;
@@ -28,9 +28,10 @@ public class ItemToolSwordHoly extends ItemToolSword {
             ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
             ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
             ParticleHelper.spawnParticle(target.world, "blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
-            target.hurt(attacker, 20, DamageType.COMBAT);
+            target.hurt(attacker, 20, AetherMod.HOLY);
         }
 
+        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.HOLY);
         itemstack.damageItem(1, attacker);
         return true;
     }

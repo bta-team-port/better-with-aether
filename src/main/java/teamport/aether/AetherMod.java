@@ -11,6 +11,7 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.entity.NetEntityHandler;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static String state = "beta";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
+
+    public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
+    public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
 
     public static final String UUID_LUKEISSTUFF = "db7db941-6923-4855-a879-1ae655c16122";
     public static final String UUID_OLYPOLYU = "d561a5ee-57df-491d-80ea-784251df4bef";

@@ -13,6 +13,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.ParticleHelper;
 
@@ -127,7 +128,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
                 }
 
                 if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.GENERIC);
+                    hitResult.entity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
                     this.remove();
                     doExplosion();
                     return;

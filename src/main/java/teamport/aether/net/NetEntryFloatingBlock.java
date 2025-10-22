@@ -11,9 +11,8 @@ import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
-
-import javax.annotation.Nullable;
 
 public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>, ITrackedEntry<EntityFloatingBlock> {
     public NetEntryFloatingBlock() {

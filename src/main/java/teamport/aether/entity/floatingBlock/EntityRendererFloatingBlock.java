@@ -28,9 +28,9 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
         this.shadowSize = 0.5F;
     }
 
-    public void render(Tessellator tessellator, EntityFloatingBlock fallingBlock, double x, double y, double z, float yaw, float partialTick) {
-        if (this.container == null || this.container.world != fallingBlock.world) {
-            this.container = new BlocksContainer(fallingBlock.world);
+    public void render(Tessellator tessellator, EntityFloatingBlock floatingBlock, double x, double y, double z, float yaw, float partialTick) {
+        if (this.container == null || this.container.world != floatingBlock.world) {
+            this.container = new BlocksContainer(floatingBlock.world);
             this.containerRenderBlock = new RenderBlocks(this.container);
         }
 
@@ -47,31 +47,31 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
             GL11.glShadeModel(7424);
         }
 
-        int blockX = MathHelper.floor(fallingBlock.x);
-        int blockY = MathHelper.floor(fallingBlock.y);
-        int blockZ = MathHelper.floor(fallingBlock.z);
+        int blockX = MathHelper.floor(floatingBlock.x);
+        int blockY = MathHelper.floor(floatingBlock.y);
+        int blockZ = MathHelper.floor(floatingBlock.z);
 
         tessellator.startDrawingQuads();
-        tessellator.setTranslation((double) (-blockX) - (double) 0.5F, (double) (-blockY) - (double) 0.5F, (double) (-blockZ) - (double) 0.5F);
+        tessellator.setTranslation((double) (-blockX) - 0.5, (double) (-blockY) - 0.5, (double) (-blockZ) - 0.5);
         BlockModel.setRenderBlocks(this.containerRenderBlock);
 
-        this.container.setLightReferenceEntity(fallingBlock);
-        this.container.setBlock(blockX, blockY, blockZ, fallingBlock.carriedBlock.blockId, fallingBlock.carriedBlock.metadata, fallingBlock.carriedBlock.entity);
+        this.container.setLightReferenceEntity(floatingBlock);
+        this.container.setBlock(blockX, blockY, blockZ, floatingBlock.carriedBlock.blockId, floatingBlock.carriedBlock.metadata, floatingBlock.carriedBlock.entity);
 
-        BlockModelDispatcher.getInstance().getDispatch(Blocks.getBlock(fallingBlock.carriedBlock.blockId)).renderNoCulling(Tessellator.instance, blockX, blockY, blockZ);
+        BlockModelDispatcher.getInstance().getDispatch(Blocks.getBlock(floatingBlock.carriedBlock.blockId)).renderNoCulling(Tessellator.instance, blockX, blockY, blockZ);
 
         this.container.setLightReferenceEntity(null);
         this.container.clear();
 
-        tessellator.setTranslation(0.0F, 0.0F, 0.0F);
+        tessellator.setTranslation(0.0, 0.0, 0.0);
         tessellator.draw();
         Lighting.enableLight();
         GL11.glPopMatrix();
-        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(fallingBlock.carriedBlock.entity);
+        TileEntityRenderer<TileEntity> renderer = TileEntityRenderDispatcher.instance.getRenderer(floatingBlock.carriedBlock.entity);
 
         if (renderer != null) {
             GL11.glPushMatrix();
-            renderer.doRender(tessellator, fallingBlock.carriedBlock.entity, x - 0.5F, y - 0.5F, z - 0.5F, partialTick);
+            renderer.doRender(tessellator, floatingBlock.carriedBlock.entity, x - 0.5, y - 0.5, z - 0.5, partialTick);
             GL11.glPopMatrix();
         }
     }
