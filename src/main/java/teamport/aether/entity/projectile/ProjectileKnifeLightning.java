@@ -6,10 +6,10 @@ import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
 
@@ -36,7 +36,7 @@ public class ProjectileKnifeLightning extends Projectile implements ProjectileAe
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT);
+            hitResult.entity.hurt(this.owner, this.damage, AetherMod.LIGHTNING);
             if (!world.isClientSide) {
                 world.entityJoinedWorld(new EntityLightning(hitResult.entity.world, hitResult.entity.x, hitResult.entity.y, hitResult.entity.z));
             }

@@ -32,6 +32,7 @@
     "accessory.trinket.PlayerMixinPendantFallDamageModifier",
     "achievement.EntityItemPickupAchievementMixin",
     "achievement.SlotCraftingAchievementMixin",
+    "armor.ArmorMaterialMixin",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
     "armor.player.neptune.MobMixinSwimming",
@@ -90,6 +91,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
+    "gameSettingsMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",
@@ -113,7 +115,6 @@
     "dimension.dungeonMap.WorldSpMixin",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
-    "gameSettingsMixin",
     "fix.RenderGlobalMixin",
     "gui.AchievementScreenShadowMixin",
     "gui.GuidebookMixinInclude",
@@ -123,6 +124,8 @@
     "gui.screens.PlayerLocalMixinAetherScreens",
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",
+    "gui.screens.ScreenContainerAbstractAccessor",
+    "gui.screens.ScreenInventoryFixProtectionOverlayMixin",
     "gui.screens.UNWarnMixin",
     "item.DynamicTexturesMixin",
     "item.PlayerControllerValkToolsReachMixin",

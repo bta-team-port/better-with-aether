@@ -6,12 +6,19 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
+import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether {
     public ItemToolPickaxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+    }
+
+    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.HOLY);
+        itemstack.damageItem(2, attacker);
+        return true;
     }
 
     @Override

@@ -56,6 +56,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Unique
     public final ModelBiped modelFeather = new ModelBiped(1.0F);
     @Unique
+    public final ModelBiped modelFeather2 = new ModelBiped(1.0F);
+
+    @Unique
     public final ModelBiped shield = new ModelBiped(1.5F);
     @Unique
     public boolean shield_6 = false;
@@ -121,6 +124,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
         if (armorStack != null && armorStack.getItem() instanceof IAccessory && renderPass >= GLOVES_SLOT) {
             Item item = armorStack.getItem();
+
             if (item instanceof ItemGloves) {
                 String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
                 modelArmorChestplate.holdingRightHand = player.inventory.getCurrentItem() != null;
@@ -162,23 +166,40 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
+
             if (item instanceof ItemGoldenFeather) {
-                int variant = 0;
-                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemGoldenFeather) {
-                    variant = 1;
+                String path;
+                ModelBiped targetModel;
+
+                if (renderPass == TRINKET_1_SLOT) {
+                    path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_helmet.png";
+                    targetModel = modelFeather;
+                    targetModel.head.visible = true;
+                    targetModel.body.visible = false;
+                    targetModel.armLeft.visible = false;
+                    targetModel.armRight.visible = false;
+                    targetModel.legLeft.visible = false;
+                    targetModel.legRight.visible = false;
+                    targetModel.head.addBox(-4.0F, -12.0F, -4.0F, 8, 12, 12, 1.1f);
+                } else {
+                    path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_boots.png";
+                    targetModel = modelFeather2;
+                    targetModel.head.visible = false;
+                    targetModel.body.visible = false;
+                    targetModel.armLeft.visible = false;
+                    targetModel.armRight.visible = false;
+                    targetModel.legLeft.visible = true;
+                    targetModel.legRight.visible = true;
+                    targetModel.legLeft.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
+                    targetModel.legRight.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
                 }
-                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
+
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                setArmorModel(modelFeather);
-                modelFeather.head.addBox(-4.0F, -12.0F, -4.0F, 8, 12, 12, 1.1f);
-                modelFeather.body.addBox(-4.0F, -8.0F, 0.0F, 0, 0, 0, 1.0f);
-                modelFeather.armLeft.addBox(-4.0F, -8.0F, 0.0F, 0, 0, 0, 1.0f);
-                modelFeather.armRight.addBox(-4.0F, -8.0F, 0.0F, 0, 0, 0, 1.0f);
-                modelFeather.legLeft.addBox(-4.0F, -8.0F, 0.0F, 0, 0, 0, 1.0f);
-                modelFeather.legRight.addBox(-4.0F, -8.0F, 0.0F, 0, 0, 0, 1.0f);
+                setArmorModel(targetModel);
                 info.setReturnValue(true);
                 return;
             }
+
             if (item instanceof ItemPendant) {
                 int variant = 0;
                 if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemPendant) {
@@ -191,6 +212,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
+
             if (item instanceof ItemRegenStone) {
                 int variant = 0;
                 if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemRegenStone) {
@@ -203,6 +225,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
+
             if (item instanceof ItemIronBubble) {
                 int variant = 0;
                 if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemIronBubble) {
@@ -216,6 +239,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 return;
             }
         }
+
         info.setReturnValue(false);
     }
 }

@@ -307,7 +307,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             this.swingArm();
-            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
+            entity.hurt(this, this.attackStrength, AetherMod.HOLY);
             if (this.target != null && entity == this.target && entity instanceof Player) {
                 Player player = (Player) entity;
                 if (player.getHealth() <= 0) {

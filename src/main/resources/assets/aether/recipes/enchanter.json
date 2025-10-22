@@ -137,6 +137,20 @@
     }
   },
   {
+    "name": "aether:enchanter/holyfy_soul_sand",
+    "type": "aether:machine",
+    "time": 250,
+    "input": {
+      "stack": {
+        "id": "minecraft:block/soulsand"
+      }
+    },
+    "output": {
+      "id": "aether:block/quicksoil",
+      "meta": 0
+    }
+  },
+  {
     "name": "aether:enchanter/holyfy_cobble_stone",
     "type": "aether:machine",
     "time": 250,

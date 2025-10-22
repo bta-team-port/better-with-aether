@@ -18,8 +18,4 @@ public class BlockLogicPaintedFenceGate extends BlockLogicFenceGatePainted {
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & -241);
     }
 
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
-    }
 }

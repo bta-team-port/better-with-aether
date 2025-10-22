@@ -20,6 +20,8 @@ import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
+import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
+import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.helper.ParticleHelper;
 import teamport.aether.items.AetherItems;
@@ -243,6 +245,9 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                     }
                 }
                 if (dartType >= 2) {
+                    if (hitResult.entity instanceof MobCockatrice || hitResult.entity instanceof MobAechorPlant) {
+                        hitResult.entity.hurt(this.owner, 12, DamageType.COMBAT);
+                    }
                     if (hitResult.entity instanceof IHasEffects) {
                         IHasEffects entity = (IHasEffects) hitResult.entity;
                         AetherEffects.add(hitResult.entity, new EffectStack(entity, AetherEffects.remedyEffect, 20, 1));

@@ -33,6 +33,7 @@ import teamport.aether.items.itemtool.ItemToolHolystone.ItemToolSwordHolystone;
 import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolAxeValkyrie;
 import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolPickaxeValkyrie;
 import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolShovelValkyrie;
+import teamport.aether.items.itemtool.ItemToolValkyrie.ItemToolSwordValkyrie;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolAxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolPickaxeZanite;
 import teamport.aether.items.itemtool.ItemToolZanite.ItemToolShovelZanite;
@@ -452,7 +453,7 @@ public final class  AetherItems {
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-                .build(new ItemToolSwordAether("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie));
+                .build(new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie));
 
         TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID)
                 .build(new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.valkyrie));
@@ -691,7 +692,7 @@ public final class  AetherItems {
                 .build(new ItemSwetCapeArmor("armor.cape.swet", itemKey("armor_cape_swet"), itemID("ARMOR_CAPE_SWET"), "swet", 5));
 
         ARMOR_CAPE_INVISIBILITY = new ItemBuilder(MOD_ID)
-                .build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisible", 5));
+                .build(new ItemInvisibilityCapeArmor("armor.cape.invisibility", itemKey("armor_cape_invisibility"), itemID("ARMOR_CAPE_INVISIBILITY"), "invisibility", 5));
 
 
         ARMOR_CAPE_BLACK = new ItemBuilder(MOD_ID)

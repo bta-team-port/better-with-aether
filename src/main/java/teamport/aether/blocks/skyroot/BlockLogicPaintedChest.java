@@ -19,8 +19,4 @@ public class BlockLogicPaintedChest extends BlockLogicChestPainted {
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta);
     }
 
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
-    }
 }

@@ -14,6 +14,9 @@ aether.container.incubator.name=Incubator
 
 aether.container.chest.trapped.name=Trapped Chest
 
+damagetype.lightning=Lightning
+damagetype.holy=Holy
+
 
 # Bwaila support
 aether.tooltip.enchanter.progress= Enchanting:
