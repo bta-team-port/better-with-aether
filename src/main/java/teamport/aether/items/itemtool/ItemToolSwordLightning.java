@@ -9,9 +9,11 @@ import teamport.aether.AetherMod;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolSwordLightning extends ItemToolSword {
+    public int weaponDamage;
 
     public ItemToolSwordLightning(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.weaponDamage = 1;
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
@@ -21,7 +23,9 @@ public class ItemToolSwordLightning extends ItemToolSword {
             }
         }
 
-        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.LIGHTNING);
+        if(target.hurtTime == 10) {
+            target.hurt(attacker, 11, AetherMod.LIGHTNING);
+        }
         itemstack.damageItem(1, attacker);
         return true;
     }

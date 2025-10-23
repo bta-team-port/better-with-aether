@@ -11,12 +11,16 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether {
+    public int weaponDamage;
     public ItemToolPickaxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.weaponDamage = 1;
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.HOLY);
+        if(target.hurtTime == 10) {
+            target.hurt(attacker, 7, AetherMod.HOLY);
+        }
         itemstack.damageItem(2, attacker);
         return true;
     }

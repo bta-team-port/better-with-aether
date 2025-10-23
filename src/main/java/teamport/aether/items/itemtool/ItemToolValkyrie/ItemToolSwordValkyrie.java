@@ -7,13 +7,17 @@ import teamport.aether.AetherMod;
 import teamport.aether.items.itemtool.ItemToolSwordAether;
 
 public class ItemToolSwordValkyrie extends ItemToolSwordAether {
+    public int weaponDamage;
 
     public ItemToolSwordValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.weaponDamage = 1;
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.HOLY);
+        if(target.hurtTime == 10) {
+            target.hurt(attacker, 13, AetherMod.HOLY);
+        }
         itemstack.damageItem(1, attacker);
         return true;
     }
