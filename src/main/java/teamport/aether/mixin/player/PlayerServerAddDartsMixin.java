@@ -17,8 +17,7 @@ public abstract class PlayerServerAddDartsMixin extends PlayerGetNextDartMixin {
 
     @Inject(method = "onLivingUpdate", at = @At("TAIL"))
     private void syncDartId(CallbackInfo ci) {
-        PlayerServer self = (PlayerServer) (Object) this;
-        if (self.tickCount % 10 == 0) {
+        if (tickCount % 10 == 0) {
             Item dart = better_with_aether$getNextDart();
             entityData.set(19, dart == null ? -1 : dart.id);
         }
