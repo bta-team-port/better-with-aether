@@ -234,7 +234,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.0f)
                 .setResistance(0.0f)
-                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK);
+                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
         BlockBuilder log = new BlockBuilder(MOD_ID)
                 .setBlockSound(BlockSounds.WOOD)
@@ -257,7 +257,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
                 .setHardness(0.0f)
                 .setResistance(0.0f)
-                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR);
+                .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
         BlockBuilder clouds = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))

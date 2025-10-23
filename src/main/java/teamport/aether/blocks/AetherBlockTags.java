@@ -22,6 +22,8 @@ public class AetherBlockTags {
 
     public static Tag<Block<?>> AETHER_DOES_NOT_FIT_IN_MINECART = Tag.of("aether_does_not_fit_in_minecart");
 
+    public static Tag<Block<?>> PLANTABLE_IN_AETHER_JAR = Tag.of("plantable_in_aether_jar");
+
     static {
         Field[] var0 = BlockTags.class.getDeclaredFields();
 
