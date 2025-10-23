@@ -78,12 +78,23 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return true;
     }
 
+    protected boolean isMovementCeased() {
+        return true;
+    }
+
     protected boolean isMovementBlocked() {
         return true;
     }
 
     public boolean isPushable() {
         return false;
+    }
+
+    public void push(Entity entity) {
+    }
+
+    @Override
+    protected void updateAI() {
     }
 
     @Override
@@ -187,13 +198,20 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
         for (int i = 0; i < 8; ++i) {
-            double d1 = this.x + (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
-            double d2 = this.y + 0.25 + (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
-            double d3 = this.z + (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
-            double d4 = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
-            double d5 = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d2 = this.y + 0.25 + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             ParticleHelper.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
         }
+    }
+
+    @Override
+    public void move(double xd, double yd, double zd) {
+        this.xd = 0.0;
+        this.yd = 0.0;
+        this.zd = 0.0;
     }
 
     public boolean interact(@NotNull Player player) {

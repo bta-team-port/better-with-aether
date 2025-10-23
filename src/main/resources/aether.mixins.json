@@ -112,6 +112,7 @@
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
     "achievement.aetherAchievementMixin",
     "achievement.HostileParadiseMixin",
+    "block.BlockModelJarAetherDirtMixin",
     "dimension.AetherMusicMixin",
     "dimension.bumpToOverworld.SPBumpToOverworldMixin",
     "dimension.bumpToOverworld.SPWorldMixin",

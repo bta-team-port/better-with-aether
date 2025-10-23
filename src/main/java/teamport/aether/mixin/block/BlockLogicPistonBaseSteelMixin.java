@@ -37,7 +37,7 @@ public abstract class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBas
             floatingBlock.hasRemovedBlock = true;
 
             world.entityJoinedWorld(floatingBlock);
-            double speed = 1.0F;
+            double speed = 2.0F;
             floatingBlock.fling(
                     (double) direction.getOffsetX() * speed,
                     (double) direction.getOffsetY() * speed,
