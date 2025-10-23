@@ -18,7 +18,7 @@ public class ItemToolShovelValkyrie extends ItemToolShovelAether {
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if(target.hurtTime == 10) {
-            target.hurt(attacker, 6, AetherMod.HOLY);
+            target.hurt(attacker, 5, AetherMod.HOLY);
         }
         itemstack.damageItem(2, attacker);
         return true;

@@ -25,8 +25,8 @@ public class ItemToolSwordFire extends ItemToolSword {
 
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if(target.hurtTime == 10) {
-            target.hurt(attacker, 11, DamageType.FIRE);
+        if (target.hurtTime == 10) {
+            target.hurt(attacker, 10, DamageType.FIRE);
         }
         if (target instanceof Mob && target.isAlive()) {
             for (int particle = 0; particle < 16; particle++) {
@@ -61,6 +61,7 @@ public class ItemToolSwordFire extends ItemToolSword {
         itemstack.damageItem(1, player);
         return true;
     }
+
     public int getDamageVsEntity(Entity entity, ItemStack is) {
         return this.weaponDamage;
     }

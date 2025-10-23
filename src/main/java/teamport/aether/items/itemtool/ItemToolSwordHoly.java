@@ -33,24 +33,12 @@ public class ItemToolSwordHoly extends ItemToolSword {
                 ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
                 ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
-            target.hurt(attacker, 20, AetherMod.HOLY);
-        if (target instanceof MobZombie || target instanceof MobZombiePig || target instanceof MobZombieArmored || target instanceof MobGhast || target instanceof MobSnowman || target instanceof MobSkeleton || target instanceof MobGiant) {
-            Random random = new Random();
-            double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
-            double dy = target.y + 0.5 + (random.nextDouble() * 0.5) - 0.25;
-            double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
-            double motionX = (random.nextDouble() * 0.1) - 0.05;
-            double motionY = (random.nextDouble() * 0.1) - 0.05;
-            double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
-            ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            ParticleHelper.spawnParticle(target.world, "blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
-            if(target.hurtTime == 10) {
+            if (target.hurtTime == 10) {
                 target.hurt(attacker, 20, AetherMod.HOLY);
             }
         }
-        if(target.hurtTime == 10) {
-            target.hurt(attacker, 11, AetherMod.HOLY);
+        if (target.hurtTime == 10) {
+            target.hurt(attacker, 10, AetherMod.HOLY);
         }
         itemstack.damageItem(1, attacker);
         return true;

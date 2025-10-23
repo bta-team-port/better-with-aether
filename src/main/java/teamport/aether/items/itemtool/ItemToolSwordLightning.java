@@ -35,8 +35,8 @@ public class ItemToolSwordLightning extends ItemToolSword {
             target.hurt(attacker, 10, AetherMod.LIGHTNING);
         }
 
-        if(target.hurtTime == 10) {
-            target.hurt(attacker, 11, AetherMod.LIGHTNING);
+        if (target.hurtTime == 10) {
+            target.hurt(attacker, 10, AetherMod.LIGHTNING);
         }
         itemstack.damageItem(1, attacker);
         return true;
