@@ -2,6 +2,7 @@ package teamport.aether.effect;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.helper.ParticleHelper;
@@ -49,9 +50,15 @@ public class RemedyEffect extends Effect implements ILockInteractable {
 
     private static void spawnParticles(Mob mob) {
         if (EnvironmentHelper.isSinglePlayer()) {
-            ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
-        } else {
+            if (mob instanceof Player) {
+                ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
+            } else {
+                ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
+            }
+        } else if (mob instanceof Player) {
             ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight + 1.5, mob.bbWidth);
+        } else {
+            ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
         }
     }
 }
