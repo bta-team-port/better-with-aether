@@ -30,16 +30,16 @@ import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBro
 public class ChunkDecoratorAether implements ChunkDecorator {
     private final World world;
 
-    private final BasePerlinNoise<?> foilageVeinNoise;
-    private final BasePerlinNoise<?> foilageDensityNoise;
+    private final BasePerlinNoise<?> flowerVeinNoise;
+    private final BasePerlinNoise<?> flowerDensityNoise;
     private final PerlinSimplexNoise cloudNoise;
     private final BasePerlinNoise<?> cloudNoise2;
 
     public ChunkDecoratorAether(World world) {
         this.world = world;
 
-        this.foilageVeinNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);
-        this.foilageDensityNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);
+        this.flowerVeinNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);
+        this.flowerDensityNoise = new PerlinNoise(world.getRandomSeed(), 4, 44);
 
         this.cloudNoise = new PerlinSimplexNoise(new Random(world.getRandomSeed()), 4);
         this.cloudNoise2 = new PerlinNoise(world.getRandomSeed() * 31 ^ 7, 4, 44);
@@ -71,11 +71,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             decorateWithFlatClouds(chunk, rand);
         }
 
-        if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO) {
-            decorateWithGrass(chunk, rand);
-        }
         decorateWithFlowers(chunk, rand);
-
         decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
         decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);
 
@@ -158,77 +154,6 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         }
     }
 
-    private static final double[] foilageDensityNoiseBuffer = new double[16 * 16];
-    private static final double[] foilageVeinNoiseBuffer = new double[8 * 8];
-
-    public void decorateWithGrass(Chunk chunk, Random rand) {
-        double beachScale = 0.03125;
-
-        this.foilageDensityNoise.get(
-                foilageDensityNoiseBuffer,
-                chunk.xPosition * 16,
-                chunk.zPosition * 16,
-                0.0,
-                16, 16, 1,
-                beachScale * 1.5,
-                beachScale * 1.5,
-                beachScale * 1.5
-        );
-
-        this.foilageVeinNoise.get(
-                foilageVeinNoiseBuffer,
-                chunk.xPosition * 16,
-                chunk.zPosition * 16,
-                0.0,
-                8, 8, 1,
-                beachScale * 0.627,
-                beachScale * 0.627,
-                beachScale * 0.627
-        );
-
-        for (int x = 0; x < 16; ++x) {
-            for (int z = 0; z < 16; ++z) {
-                double noise = MathHelper.clamp(
-                        Math.abs(foilageDensityNoiseBuffer[z + x * 16]) / 16D,
-                        0, 1
-                );
-
-                int clumpRadius = 8 * 8;
-
-                double influence = MathHelper.clamp(
-                        Worley.sampleAt(
-                                chunk.xPosition * 16 + x, chunk.zPosition * 16 + z,
-                                16,
-                                Worley.mix((int) (world.getRandomSeed() >>> 32), (int) (world.getRandomSeed() & 0xFFFFFFFFL), 0)
-                        ),
-                        -clumpRadius, clumpRadius
-                ) / clumpRadius;
-
-                double flowerDensityFloat = ((noise * -1) / influence) * -1;
-                int flowerDensity = (int) (MathHelper.clamp(flowerDensityFloat, 0, 1) * 16);
-                flowerDensity -= 8;
-
-                int blockY = chunk.getHeightValue(x, z);
-                if (blockY >= world.getWorldType().getMaxY()) continue;
-
-                Block<?> blk = Blocks.getBlock(chunk.getBlockID(x, blockY - 1, z));
-                if (blk == null) continue;
-                if (!blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) continue;
-
-                if (flowerDensity < 0) {
-                    if (rand.nextInt(16) == 0) {
-                        chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
-                    }
-                    continue;
-                }
-
-                if (rand.nextInt(3 * (9 - flowerDensity)) == 0) {
-                    chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
-                }
-            }
-        }
-    }
-
     public static final int[] FLOWERS = new int[]{
             AetherBlocks.FLOWER_WHITE.id(),
             AetherBlocks.FLOWER_PURPLE.id()
@@ -238,11 +163,14 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             0, 16, 32, 48
     };
 
+    private static final double[] flowerDensityNoiseBuffer = new double[16 * 16];
+    private static final double[] flowerVeinNoiseBuffer = new double[8 * 8];
+
     public void decorateWithFlowers(Chunk chunk, Random rand) {
         double beachScale = 0.03125;
 
-        this.foilageDensityNoise.get(
-                foilageDensityNoiseBuffer,
+        this.flowerDensityNoise.get(
+                flowerDensityNoiseBuffer,
                 chunk.xPosition * 16,
                 chunk.zPosition * 16,
                 0.0,
@@ -252,8 +180,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 beachScale * 1.5
         );
 
-        this.foilageVeinNoise.get(
-                foilageVeinNoiseBuffer,
+        this.flowerVeinNoise.get(
+                flowerVeinNoiseBuffer,
                 chunk.xPosition * 16,
                 chunk.zPosition * 16,
                 0.0,
@@ -268,7 +196,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         for (int x = 0; x < 16; ++x) {
             for (int z = 0; z < 16; ++z) {
                 double noise = MathHelper.clamp(
-                        Math.abs(foilageDensityNoiseBuffer[z + x * 16]) / 16D,
+                        Math.abs(flowerDensityNoiseBuffer[z + x * 8]) / 16D,
                         0, 1
                 );
 
@@ -295,15 +223,32 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                 if (!blk.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) continue;
 
                 if (flowerDensity < 0) {
-                    if (rand.nextInt(256) == 0) {
+                    if (rand.nextInt(128) == 0) {
                         chunk.setBlockIDWithMetadataRaw(x, blockY, z, FLOWERS[rand.nextInt(FLOWERS.length)], METAID[rand.nextInt(METAID.length)]);
                     }
+
+                    if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO) {
+                        if (rand.nextInt(16) == 0) {
+                            chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
+                        }
+                    }
+
                     continue;
                 }
 
-                if (rand.nextInt(6 * (9 - flowerDensity)) == 0) {
-                    flowerID = FLOWERS[(int) Math.abs(foilageVeinNoiseBuffer[z / 2 + (x / 2) * 8]) % FLOWERS.length];
-                    flowerMeta = METAID[rand.nextInt(METAID.length)];
+                if (rand.nextInt(3 * (9 - flowerDensity)) == 0) {
+                    if (rand.nextInt(2) == 0) {
+                        flowerID = FLOWERS[(int) Math.abs(flowerVeinNoiseBuffer[z / 2 + (x / 2) * 8] * 8) % FLOWERS.length];
+                        flowerMeta = METAID[rand.nextInt(METAID.length)];
+                    } else {
+                        if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO) {
+                            flowerID = AetherBlocks.TALLGRASS_AETHER.id();
+                        } else {
+                            flowerID = 0;
+                        }
+                        flowerMeta = 0;
+                    }
+
                     chunk.setBlockIDWithMetadataRaw(x, blockY, z, flowerID, flowerMeta);
                 }
             }
