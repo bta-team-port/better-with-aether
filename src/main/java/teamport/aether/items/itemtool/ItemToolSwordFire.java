@@ -1,6 +1,7 @@
 package teamport.aether.items.itemtool;
 
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -12,18 +13,22 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class ItemToolSwordFire extends ItemToolSword {
+    public int weaponDamage;
 
     public ItemToolSwordFire(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.weaponDamage = 1;
     }
 
+    @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+        if(target.hurtTime == 10) {
+            target.hurt(attacker, 11, DamageType.FIRE);
+        }
         if (target instanceof Mob && target.isAlive()) {
             target.maxFireTicks = 600;
             target.remainingFireTicks = 600;
         }
-
-        target.hurt(attacker, getDamageVsEntity(target, itemstack), DamageType.FIRE);
         itemstack.damageItem(1, attacker);
         return true;
     }
@@ -39,5 +44,8 @@ public class ItemToolSwordFire extends ItemToolSword {
         world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (double) blockX + (double) 0.5F, (double) blockY + (double) 0.5F, (double) blockZ + (double) 0.5F, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
         itemstack.damageItem(1, player);
         return true;
+    }
+    public int getDamageVsEntity(Entity entity, ItemStack is) {
+        return this.weaponDamage;
     }
 }

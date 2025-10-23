@@ -11,9 +11,11 @@ import teamport.aether.helper.ParticleHelper;
 import java.util.Random;
 
 public class ItemToolSwordHoly extends ItemToolSword {
+    public int weaponDamage;
 
     public ItemToolSwordHoly(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.weaponDamage = 1;
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
@@ -28,10 +30,13 @@ public class ItemToolSwordHoly extends ItemToolSword {
             ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
             ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
             ParticleHelper.spawnParticle(target.world, "blueflame", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
-            target.hurt(attacker, 20, AetherMod.HOLY);
+            if(target.hurtTime == 10) {
+                target.hurt(attacker, 20, AetherMod.HOLY);
+            }
         }
-
-        target.hurt(attacker, getDamageVsEntity(target, itemstack), AetherMod.HOLY);
+        if(target.hurtTime == 10) {
+            target.hurt(attacker, 11, AetherMod.HOLY);
+        }
         itemstack.damageItem(1, attacker);
         return true;
     }
