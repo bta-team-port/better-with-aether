@@ -1,27 +1,24 @@
-#Portal
+# Portal
 tile.aether.portal.aether.name=Aether Portal
 tile.aether.portal.aether.desc=A portal to the Aether.
 
-#Natural
+# Natural Blocks
 tile.aether.dirt.aether.name=Aether Dirt
 tile.aether.dirt.aether.desc=Crumbly pale dirt.
 tile.aether.grass.aether.name=Aether Grass
 tile.aether.grass.aether.desc=Pale, frosted grass.
 tile.aether.path.dirt.aether.name=Aether Dirt Path
 tile.aether.path.dirt.aether.desc=Aether dirt worn down from frequent traveling.
-
 tile.aether.tallgrass.aether.name=Tall Aether Grass
 tile.aether.tallgrass.aether.desc=Cold, sprouting aether grass.
-
 tile.aether.flower.white.name=Argyony
 tile.aether.flower.white.desc=A majestic white flower.
 tile.aether.flower.purple.name=Porlea
 tile.aether.flower.purple.desc=A gorgeous purple flower.
-
 tile.aether.quicksoil.name=Quicksoil
 tile.aether.quicksoil.desc=Yellow soil that speeds up anything on it.
 
-
+# Holystone Blocks
 tile.aether.holystone.name=Holystone
 tile.aether.holystone.desc=Bright white rock with a cold touch, smoothed with age.
 tile.aether.holystone.mossy.name=Mossy Holystone
@@ -32,7 +29,6 @@ tile.aether.holystone.carved.name=Carved Holystone
 tile.aether.holystone.carved.desc=Polished holystone with lines hewn through the middle.
 tile.aether.slab.holystone.carved.name=Polished Holystone Slab
 tile.aether.slab.holystone.carved.desc=A slab of polished holystone.
-
 tile.aether.cobble.holystone.name=Cobbled Holystone
 tile.aether.cobble.holystone.desc=Bright white rock with a cold touch.
 tile.aether.slab.cobble.holystone.name=Cobbled Holystone Slab
@@ -41,7 +37,6 @@ tile.aether.stairs.cobble.holystone.name=Cobbled Holystone Stairs
 tile.aether.stairs.cobble.holystone.desc=Cobbled holystone block used for rapid vertical movement.
 tile.aether.cobble.holystone.mossy.name=Mossy Cobbled Holystone
 tile.aether.cobble.holystone.mossy.desc=Cobbled holystone, covered in a cold dry moss.
-
 tile.aether.brick.holystone.name=Holystone Bricks
 tile.aether.brick.holystone.desc=Stacked bricks of holystone.
 tile.aether.slab.brick.holystone.name=Holystone Brick Slab
@@ -49,9 +44,13 @@ tile.aether.slab.brick.holystone.desc=A slab of holystone bricks.
 tile.aether.stairs.brick.holystone.name=Holystone Brick Stairs
 tile.aether.stairs.brick.holystone.desc=Holystone brick block used for rapid vertical movement.
 
+# Other Stone Blocks
 tile.aether.icestone.name=Icestone
 tile.aether.icestone.desc=Frozen stone that freezes what it touches.
+tile.aether.aerogel.name=Aerogel
+tile.aether.aerogel.desc=Dense cloud that's explosion proof.
 
+# Aercloud Blocks
 tile.aether.aercloud.white.name=Cold Aercloud
 tile.aether.aercloud.white.desc=White cloud. Very fluffy!
 tile.aether.aercloud.blue.name=Blue Aercloud
@@ -59,58 +58,88 @@ tile.aether.aercloud.blue.desc=Springy cloud that will bounce you sky high.
 tile.aether.aercloud.gold.name=Gold Aercloud
 tile.aether.aercloud.gold.desc=Golden cloud. Very rare!
 
+# Skyroot Wood Blocks
 tile.aether.log.skyroot.name=Skyroot Log
 tile.aether.log.skyroot.desc=A log from a skyroot tree.
-tile.aether.log.oak.golden.name=Golden Oak Log
-tile.aether.log.oak.golden.desc=A log from a golden oak tree.
-
 tile.aether.leaves.skyroot.name=Skyroot Leaves
 tile.aether.leaves.skyroot.desc=Leaves from a skyroot tree.
-tile.aether.leaves.oak.golden.name=Golden Oak Leaves
-tile.aether.leaves.oak.golden.desc=Leaves from a golden oak tree. Drops golden apples rarely.
-
 tile.aether.sapling.skyroot.name=Skyroot Sapling
 tile.aether.sapling.skyroot.desc=Plant to grow a skyroot tree.
+tile.aether.planks.skyroot.name=Skyroot Planks
+tile.aether.planks.skyroot.desc=Processed skyroot logs.
+tile.aether.slab.planks.skyroot.name=Skyroot Slab
+tile.aether.slab.planks.skyroot.desc=A slab of skyroot planks.
+tile.aether.stairs.planks.skyroot.name=Skyroot Stairs
+tile.aether.stairs.planks.skyroot.desc=Skyroot block used for rapid vertical movement.
+tile.aether.fence.planks.skyroot.name=Skyroot Fence
+tile.aether.fence.planks.skyroot.desc=Still too tall to jump over.
+tile.aether.fencegate.planks.skyroot.name=Skyroot Fence Gate
+tile.aether.fencegate.planks.skyroot.desc=Like a trapdoor but for fences.
+tile.aether.trapdoor.planks.skyroot.name=Skyroot Trapdoor
+tile.aether.trapdoor.planks.skyroot.desc=Like a skyroot door, but flat.
+tile.aether.door.planks.skyroot.top.name=Top Skyroot Door
+tile.aether.door.planks.skyroot.top.desc=How did you obtain this!?
+tile.aether.door.planks.skyroot.bottom.name=Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.desc=How did you obtain this!?
+tile.aether.button.planks.skyroot.name=Skyroot Button
+tile.aether.button.planks.skyroot.desc=Emits a brief redstone signal when pushed.
+tile.aether.pressure.plate.planks.skyroot.name=Skyroot Pressure Plate
+tile.aether.pressure.plate.planks.skyroot.desc=Emits a redstone signal when anything steps on it.
+tile.aether.chest.planks.skyroot.name=Skyroot Chest
+tile.aether.chest.planks.skyroot.desc=A place to store your items.
+tile.aether.sign.post.planks.skyroot.name=Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.desc=A free standing skyroot sign.
+tile.aether.sign.wall.planks.skyroot.name=Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.desc=A skyroot sign placed on a wall.
+
+# Golden Oak Wood Blocks
+tile.aether.log.oak.golden.name=Golden Oak Log
+tile.aether.log.oak.golden.desc=A log from a golden oak tree.
+tile.aether.leaves.oak.golden.name=Golden Oak Leaves
+tile.aether.leaves.oak.golden.desc=Leaves from a golden oak tree. Drops golden apples rarely.
 tile.aether.sapling.oak.golden.name=Golden Oak Sapling
 tile.aether.sapling.oak.golden.desc=Plant to grow a golden oak tree.
 
-tile.aether.planks.skyroot.name=Skyroot Planks
-tile.aether.planks.skyroot.desc=Processed skyroot logs.
+# Painted Skyroot Blocks (Grouped by Type)
+# Skyroot Planks (Colored)
+tile.aether.planks.skyroot.painted.name=Mystery Skyroot Planks
+tile.aether.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.planks.skyroot.painted.white.name=White Skyroot Planks
+tile.aether.planks.skyroot.painted.white.desc=Skyroot steps, stained white.
 tile.aether.planks.skyroot.painted.orange.name=Orange Skyroot Planks
+tile.aether.planks.skyroot.painted.orange.desc=Skyroot steps, stained orange.
 tile.aether.planks.skyroot.painted.magenta.name=Magenta Skyroot Planks
+tile.aether.planks.skyroot.painted.magenta.desc=Skyroot steps, stained magenta.
 tile.aether.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Planks
+tile.aether.planks.skyroot.painted.lightblue.desc=Skyroot steps, stained lightblue.
 tile.aether.planks.skyroot.painted.yellow.name=Yellow Skyroot Planks
+tile.aether.planks.skyroot.painted.yellow.desc=Skyroot steps, stained yellow.
 tile.aether.planks.skyroot.painted.lime.name=Lime Skyroot Planks
+tile.aether.planks.skyroot.painted.lime.desc=Skyroot steps, stained lime.
 tile.aether.planks.skyroot.painted.pink.name=Pink Skyroot Planks
+tile.aether.planks.skyroot.painted.pink.desc=Skyroot steps, stained pink.
 tile.aether.planks.skyroot.painted.gray.name=Gray Skyroot Planks
+tile.aether.planks.skyroot.painted.gray.desc=Skyroot steps, stained gray.
 tile.aether.planks.skyroot.painted.silver.name=Light Gray Skyroot Planks
+tile.aether.planks.skyroot.painted.silver.desc=Skyroot steps, stained light gray.
 tile.aether.planks.skyroot.painted.cyan.name=Cyan Skyroot Planks
+tile.aether.planks.skyroot.painted.cyan.desc=Skyroot steps, stained cyan.
 tile.aether.planks.skyroot.painted.purple.name=Purple Skyroot Planks
+tile.aether.planks.skyroot.painted.purple.desc=Skyroot steps, stained purple.
 tile.aether.planks.skyroot.painted.blue.name=Blue Skyroot Planks
+tile.aether.planks.skyroot.painted.blue.desc=Skyroot steps, stained blue.
 tile.aether.planks.skyroot.painted.brown.name=Brown Skyroot Planks
+tile.aether.planks.skyroot.painted.brown.desc=Skyroot steps, stained brown.
 tile.aether.planks.skyroot.painted.green.name=Green Skyroot Planks
+tile.aether.planks.skyroot.painted.green.desc=Skyroot steps, stained green.
 tile.aether.planks.skyroot.painted.red.name=Red Skyroot Planks
+tile.aether.planks.skyroot.painted.red.desc=Skyroot steps, stained red.
 tile.aether.planks.skyroot.painted.black.name=Black Skyroot Planks
-tile.aether.planks.skyroot.painted.white.desc=Skyroot planks stained white.
-tile.aether.planks.skyroot.painted.orange.desc=Skyroot planks stained orange.
-tile.aether.planks.skyroot.painted.magenta.desc=Skyroot planks stained magenta.
-tile.aether.planks.skyroot.painted.lightblue.desc=Skyroot planks stained light blue.
-tile.aether.planks.skyroot.painted.yellow.desc=Skyroot planks stained yellow.
-tile.aether.planks.skyroot.painted.lime.desc=Skyroot planks stained lime.
-tile.aether.planks.skyroot.painted.pink.desc=Skyroot planks stained pink.
-tile.aether.planks.skyroot.painted.gray.desc=Skyroot planks stained gray.
-tile.aether.planks.skyroot.painted.silver.desc=Skyroot planks stained light gray.
-tile.aether.planks.skyroot.painted.cyan.desc=Skyroot planks stained cyan.
-tile.aether.planks.skyroot.painted.purple.desc=Skyroot planks stained purple.
-tile.aether.planks.skyroot.painted.blue.desc=Skyroot planks stained blue.
-tile.aether.planks.skyroot.painted.brown.desc=Skyroot planks stained brown.
-tile.aether.planks.skyroot.painted.green.desc=Skyroot planks stained green.
-tile.aether.planks.skyroot.painted.red.desc=Skyroot planks stained red.
-tile.aether.planks.skyroot.painted.black.desc=Skyroot planks stained black.
+tile.aether.planks.skyroot.painted.black.desc=Skyroot steps, stained black.
 
-tile.aether.slab.planks.skyroot.name=Skyroot Slab
-tile.aether.slab.planks.skyroot.desc=A slab of skyroot planks.
+# Skyroot Slabs (Colored)
+tile.aether.slab.planks.skyroot.painted.name=Mystery Skyroot Slab
+tile.aether.slab.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.slab.planks.skyroot.painted.white.name=White Skyroot Slab
 tile.aether.slab.planks.skyroot.painted.white.desc=A slab of skyroot planks, stained white.
 tile.aether.slab.planks.skyroot.painted.orange.name=Orange Skyroot Slab
@@ -144,8 +173,9 @@ tile.aether.slab.planks.skyroot.painted.red.desc=A slab of skyroot planks, stain
 tile.aether.slab.planks.skyroot.painted.black.name=Black Skyroot Slab
 tile.aether.slab.planks.skyroot.painted.black.desc=A slab of skyroot planks, stained black.
 
-tile.aether.stairs.planks.skyroot.name=Skyroot Stairs
-tile.aether.stairs.planks.skyroot.desc=Skyroot plank block used for rapid vertical movement.
+# Skyroot Stairs (Colored)
+tile.aether.stairs.planks.skyroot.painted.name=Mystery Skyroot Stairs
+tile.aether.stairs.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.stairs.planks.skyroot.painted.white.name=White Skyroot Stairs
 tile.aether.stairs.planks.skyroot.painted.white.desc=Skyroot plank block used for rapid vertical movement, now in white.
 tile.aether.stairs.planks.skyroot.painted.orange.name=Orange Skyroot Stairs
@@ -167,7 +197,7 @@ tile.aether.stairs.planks.skyroot.painted.silver.desc=Skyroot plank block used f
 tile.aether.stairs.planks.skyroot.painted.cyan.name=Cyan Skyroot Stairs
 tile.aether.stairs.planks.skyroot.painted.cyan.desc=Skyroot plank block used for rapid vertical movement, now in cyan.
 tile.aether.stairs.planks.skyroot.painted.purple.name=Purple Skyroot Stairs
-tile.aether.stairs.planks.skyroot.painted.purple.desc=ASkyroot plank block used for rapid vertical movement, now in purple.
+tile.aether.stairs.planks.skyroot.painted.purple.desc=Skyroot plank block used for rapid vertical movement, now in purple.
 tile.aether.stairs.planks.skyroot.painted.blue.name=Blue Skyroot Stairs
 tile.aether.stairs.planks.skyroot.painted.blue.desc=Skyroot plank block used for rapid vertical movement, now in blue.
 tile.aether.stairs.planks.skyroot.painted.brown.name=Brown Skyroot Stairs
@@ -179,8 +209,9 @@ tile.aether.stairs.planks.skyroot.painted.red.desc=Skyroot plank block used for 
 tile.aether.stairs.planks.skyroot.painted.black.name=Black Skyroot Stairs
 tile.aether.stairs.planks.skyroot.painted.black.desc=Skyroot plank block used for rapid vertical movement, now in black.
 
-tile.aether.fence.planks.skyroot.name=Skyroot Fence
-tile.aether.fence.planks.skyroot.desc=Still too tall to jump over.
+# Skyroot Fences (Colored)
+tile.aether.fence.planks.skyroot.painted.name=Mystery Skyroot Fence
+tile.aether.fence.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.fence.planks.skyroot.painted.white.name=White Skyroot Fence
 tile.aether.fence.planks.skyroot.painted.white.desc=Still too tall to jump over, even in white.
 tile.aether.fence.planks.skyroot.painted.orange.name=Orange Skyroot Fence
@@ -214,43 +245,45 @@ tile.aether.fence.planks.skyroot.painted.red.desc=Still too tall to jump over, e
 tile.aether.fence.planks.skyroot.painted.black.name=Black Skyroot Fence
 tile.aether.fence.planks.skyroot.painted.black.desc=Still too tall to jump over, even in black.
 
-tile.aether.fencegate.planks.skyroot.name=Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.desc=Like a trapdoor but for fences.
+# Skyroot Fence Gates (Colored)
+tile.aether.fencegate.planks.skyroot.painted.name=Mystery Skyroot Fence Gate
+tile.aether.fencegate.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.fencegate.planks.skyroot.painted.white.name=White Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.white.desc=Like a trapdoor but for fences and in white.
+tile.aether.fencegate.planks.skyroot.painted.white.desc=A skyroot fence gate, stained white.
 tile.aether.fencegate.planks.skyroot.painted.orange.name=Orange Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.orange.desc=Like a trapdoor but for fences and in orange.
+tile.aether.fencegate.planks.skyroot.painted.orange.desc=A skyroot fence gate, stained orange.
 tile.aether.fencegate.planks.skyroot.painted.magenta.name=Magenta Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.magenta.desc=Like a trapdoor but for fences and in magenta.
+tile.aether.fencegate.planks.skyroot.painted.magenta.desc=A skyroot fence gate, stained magenta.
 tile.aether.fencegate.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.lightblue.desc=Like a trapdoor but for fences and in lightblue.
+tile.aether.fencegate.planks.skyroot.painted.lightblue.desc=A skyroot fence gate, stained lightblue.
 tile.aether.fencegate.planks.skyroot.painted.yellow.name=Yellow Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.yellow.desc=Like a trapdoor but for fences and in yellow.
+tile.aether.fencegate.planks.skyroot.painted.yellow.desc=A skyroot fence gate, stained yellow.
 tile.aether.fencegate.planks.skyroot.painted.lime.name=Lime Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.lime.desc=Like a trapdoor but for fences and in lime.
+tile.aether.fencegate.planks.skyroot.painted.lime.desc=A skyroot fence gate, stained lime.
 tile.aether.fencegate.planks.skyroot.painted.pink.name=Pink Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.pink.desc=Like a trapdoor but for fences and in pink.
+tile.aether.fencegate.planks.skyroot.painted.pink.desc=A skyroot fence gate, stained pink.
 tile.aether.fencegate.planks.skyroot.painted.gray.name=Gray Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.gray.desc=Like a trapdoor but for fences and in gray.
+tile.aether.fencegate.planks.skyroot.painted.gray.desc=A skyroot fence gate, stained gray.
 tile.aether.fencegate.planks.skyroot.painted.silver.name=Light Gray Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.silver.desc=Like a trapdoor but for fences and in light gray.
+tile.aether.fencegate.planks.skyroot.painted.silver.desc=A skyroot fence gate, stained light gray.
 tile.aether.fencegate.planks.skyroot.painted.cyan.name=Cyan Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.cyan.desc=Like a trapdoor but for fences and in cyan.
+tile.aether.fencegate.planks.skyroot.painted.cyan.desc=A skyroot fence gate, stained cyan.
 tile.aether.fencegate.planks.skyroot.painted.purple.name=Purple Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.purple.desc=Like a trapdoor but for fences and in purple.
+tile.aether.fencegate.planks.skyroot.painted.purple.desc=A skyroot fence gate, stained purple.
 tile.aether.fencegate.planks.skyroot.painted.blue.name=Blue Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.blue.desc=Like a trapdoor but for fences and in blue.
+tile.aether.fencegate.planks.skyroot.painted.blue.desc=A skyroot fence gate, staine  blue.
 tile.aether.fencegate.planks.skyroot.painted.brown.name=Brown Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.brown.desc=Like a trapdoor but for fences and in brown.
+tile.aether.fencegate.planks.skyroot.painted.brown.desc=A skyroot fence gate, stained brown.
 tile.aether.fencegate.planks.skyroot.painted.green.name=Green Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.green.desc=Like a trapdoor but for fences and in green.
+tile.aether.fencegate.planks.skyroot.painted.green.desc=A skyroot fence gate, stained green.
 tile.aether.fencegate.planks.skyroot.painted.red.name=Red Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.red.desc=Like a trapdoor but for fences and in red.
+tile.aether.fencegate.planks.skyroot.painted.red.desc=A skyroot fence gate, stained  red.
 tile.aether.fencegate.planks.skyroot.painted.black.name=Black Skyroot Fence Gate
-tile.aether.fencegate.planks.skyroot.painted.black.desc=Like a trapdoor but for fences and in black.
+tile.aether.fencegate.planks.skyroot.painted.black.desc=A skyroot fence gate, stained black.
 
-tile.aether.trapdoor.planks.skyroot.name=Skyroot Trapdoor
-tile.aether.trapdoor.planks.skyroot.desc=Like a skyroot door, but flat.
+# Skyroot Trapdoors (Colored)
+tile.aether.trapdoor.planks.skyroot.painted.name=Mystery Skyroot Trapdoor
+tile.aether.trapdoor.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.trapdoor.planks.skyroot.painted.white.name=White Skyroot Trapdoor
 tile.aether.trapdoor.planks.skyroot.painted.white.desc=Like a skyroot door, but flat and white.
 tile.aether.trapdoor.planks.skyroot.painted.orange.name=Orange Skyroot Trapdoor
@@ -284,43 +317,45 @@ tile.aether.trapdoor.planks.skyroot.painted.red.desc=Like a skyroot door, but fl
 tile.aether.trapdoor.planks.skyroot.painted.black.name=Black Skyroot Trapdoor
 tile.aether.trapdoor.planks.skyroot.painted.black.desc=Like a skyroot door, but flat and black.
 
-tile.aether.button.planks.skyroot.name=Skyroot Button
-tile.aether.button.planks.skyroot.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.white.name=White Skyroot Skyroot Button
+# Skyroot Buttons (Colored)
+tile.aether.button.planks.skyroot.painted.name=Mystery Skyroot Button
+tile.aether.button.planks.skyroot.painted.desc=How did you get this?!
+tile.aether.button.planks.skyroot.painted.white.name=White Skyroot Button
 tile.aether.button.planks.skyroot.painted.white.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.orange.name=Orange Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.orange.name=Orange Skyroot Button
 tile.aether.button.planks.skyroot.painted.orange.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.magenta.name=Magenta Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.magenta.name=Magenta Skyroot Button
 tile.aether.button.planks.skyroot.painted.magenta.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Button
 tile.aether.button.planks.skyroot.painted.lightblue.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.yellow.name=Yellow Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.yellow.name=Yellow Skyroot Button
 tile.aether.button.planks.skyroot.painted.yellow.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.lime.name=Lime Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.lime.name=Lime Skyroot Button
 tile.aether.button.planks.skyroot.painted.lime.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.pink.name=Pink Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.pink.name=Pink Skyroot Button
 tile.aether.button.planks.skyroot.painted.pink.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.gray.name=Gray Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.gray.name=Gray Skyroot Button
 tile.aether.button.planks.skyroot.painted.gray.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.silver.name=Light Gray Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.silver.name=Light Gray Skyroot Button
 tile.aether.button.planks.skyroot.painted.silver.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.cyan.name=Cyan Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.cyan.name=Cyan Skyroot Button
 tile.aether.button.planks.skyroot.painted.cyan.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.purple.name=Purple Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.purple.name=Purple Skyroot Button
 tile.aether.button.planks.skyroot.painted.purple.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.blue.name=Blue Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.blue.name=Blue Skyroot Button
 tile.aether.button.planks.skyroot.painted.blue.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.brown.name=Brown Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.brown.name=Brown Skyroot Button
 tile.aether.button.planks.skyroot.painted.brown.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.green.name=Green Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.green.name=Green Skyroot Button
 tile.aether.button.planks.skyroot.painted.green.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.red.name=Red Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.red.name=Red Skyroot Button
 tile.aether.button.planks.skyroot.painted.red.desc=Emits a brief redstone signal when pushed.
-tile.aether.button.planks.skyroot.painted.black.name=Black Skyroot Skyroot Button
+tile.aether.button.planks.skyroot.painted.black.name=Black Skyroot Button
 tile.aether.button.planks.skyroot.painted.black.desc=Emits a brief redstone signal when pushed.
 
-tile.aether.pressure.plate.planks.skyroot.name=Skyroot Pressure Plate
-tile.aether.pressure.plate.planks.skyroot.desc=Emits a redstone signal when anything steps on it.
+# Skyroot Pressure Plates (Colored)
+tile.aether.pressure.plate.planks.skyroot.painted.name=Mystery Skyroot Pressure Plate
+tile.aether.pressure.plate.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.pressure.plate.planks.skyroot.painted.white.name=White Skyroot Pressure Plate
 tile.aether.pressure.plate.planks.skyroot.painted.white.desc=Emits a redstone signal when anything steps on it.
 tile.aether.pressure.plate.planks.skyroot.painted.orange.name=Orange Skyroot Pressure Plate
@@ -354,8 +389,9 @@ tile.aether.pressure.plate.planks.skyroot.painted.red.desc=Emits a redstone sign
 tile.aether.pressure.plate.planks.skyroot.painted.black.name=Black Skyroot Pressure Plate
 tile.aether.pressure.plate.planks.skyroot.painted.black.desc=Emits a redstone signal when anything steps on it.
 
-tile.aether.chest.planks.skyroot.name=Skyroot Chest
-tile.aether.chest.planks.skyroot.desc=A place to store your items.
+# Skyroot Chests (Colored)
+tile.aether.chest.planks.skyroot.painted.name=Mystery Skyroot Chest
+tile.aether.chest.planks.skyroot.painted.desc=How did you get this?!
 tile.aether.chest.planks.skyroot.painted.white.name=White Skyroot Chest
 tile.aether.chest.planks.skyroot.painted.white.desc=A place to store your items.
 tile.aether.chest.planks.skyroot.painted.orange.name=Orange Skyroot Chest
@@ -381,112 +417,254 @@ tile.aether.chest.planks.skyroot.painted.purple.desc=A place to store your items
 tile.aether.chest.planks.skyroot.painted.blue.name=Blue Skyroot Chest
 tile.aether.chest.planks.skyroot.painted.blue.desc=A place to store your items.
 tile.aether.chest.planks.skyroot.painted.brown.name=Brown Skyroot Chest
-tile.aether.chest.planks.skyroot.painted.brown.desc=A place to store your items..
+tile.aether.chest.planks.skyroot.painted.brown.desc=A place to store your items.
 tile.aether.chest.planks.skyroot.painted.green.name=Green Skyroot Chest
-tile.aether.chest.planks.skyroot.painted.green.desc=A place to store your items..
+tile.aether.chest.planks.skyroot.painted.green.desc=A place to store your items.
 tile.aether.chest.planks.skyroot.painted.red.name=Red Skyroot Chest
 tile.aether.chest.planks.skyroot.painted.red.desc=A place to store your items.
 tile.aether.chest.planks.skyroot.painted.black.name=Black Skyroot Chest
 tile.aether.chest.planks.skyroot.painted.black.desc=A place to store your items.
 
-# Mimics
-tile.aether.chest.mimic.oak.name=Wooden Trapped Chest
+# Oak Mimics (Colored)
+tile.aether.chest.mimic.oak.name=Wooden Mimic
 tile.aether.chest.mimic.oak.desc=Thank you Notch.
-tile.aether.chest.mimic.oak.painted.white.name=White Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.name=Mystery Wooden Mimic
+tile.aether.chest.mimic.oak.painted.desc=How did you get this?!
+tile.aether.chest.mimic.oak.painted.white.name=White Wooden Mimic
 tile.aether.chest.mimic.oak.painted.white.desc=Thank you Dinnerbone.
-tile.aether.chest.mimic.oak.painted.orange.name=Orange Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.orange.name=Orange Wooden Mimic
 tile.aether.chest.mimic.oak.painted.orange.desc=Thank you jeb_.
-tile.aether.chest.mimic.oak.painted.magenta.name=Maganta Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.magenta.name=Magenta Wooden Mimic
 tile.aether.chest.mimic.oak.painted.magenta.desc=Thank you Kodaichi.
-tile.aether.chest.mimic.oak.painted.lightblue.name=Light Blue Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.lightblue.name=Light Blue Wooden Mimic
 tile.aether.chest.mimic.oak.painted.lightblue.desc=Thank you Emile.
-tile.aether.chest.mimic.oak.painted.yellow.name=Yellow Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.yellow.name=Yellow Wooden Mimic
 tile.aether.chest.mimic.oak.painted.yellow.desc=Thank you sunsetsatellite.
-tile.aether.chest.mimic.oak.painted.lime.name=Lime Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.lime.name=Lime Wooden Mimic
 tile.aether.chest.mimic.oak.painted.lime.desc=Thank you C418.
-tile.aether.chest.mimic.oak.painted.pink.name=Pink Wooden Trapped Chest
-tile.aether.chest.mimic.oak.painted.pink.desc=Thank you ...
-tile.aether.chest.mimic.oak.painted.gray.name=Gray Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.pink.name=Pink Wooden Mimic
+tile.aether.chest.mimic.oak.painted.pink.desc=Thank you Tocinin.
+tile.aether.chest.mimic.oak.painted.gray.name=Gray Wooden Mimic
 tile.aether.chest.mimic.oak.painted.gray.desc=Thank you Kingbdogz.
-tile.aether.chest.mimic.oak.painted.silver.name=Light Gray Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.silver.name=Light Gray Wooden Mimic
 tile.aether.chest.mimic.oak.painted.silver.desc=Thank you Shockah.
-tile.aether.chest.mimic.oak.painted.cyan.name=Cyan Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.cyan.name=Cyan Wooden Mimic
 tile.aether.chest.mimic.oak.painted.cyan.desc=Thank you Flan.
-tile.aether.chest.mimic.oak.painted.purple.name=Purple Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.purple.name=Purple Wooden Mimic
 tile.aether.chest.mimic.oak.painted.purple.desc=Thank you 303.
-tile.aether.chest.mimic.oak.painted.blue.name=Blue Wooden Trapped Chest
-tile.aether.chest.mimic.oak.painted.blue.desc=Thank you ...
-tile.aether.chest.mimic.oak.painted.brown.name=Brown Wooden Trapped Chest
-tile.aether.chest.mimic.oak.painted.brown.desc=Thank you ...
-tile.aether.chest.mimic.oak.painted.green.name=Green Wooden Trapped Chest
-tile.aether.chest.mimic.oak.painted.green.desc=Thank you uselessbullet.
-tile.aether.chest.mimic.oak.painted.red.name=Red Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.blue.name=Blue Wooden Mimic
+tile.aether.chest.mimic.oak.painted.blue.desc=Thank you Meefy777
+tile.aether.chest.mimic.oak.painted.brown.name=Brown Wooden Mimic
+tile.aether.chest.mimic.oak.painted.brown.desc=Thank you Bestsoft100.
+tile.aether.chest.mimic.oak.painted.green.name=Green Wooden Mimic
+tile.aether.chest.mimic.oak.painted.green.desc=Thank you uselessbullets.
+tile.aether.chest.mimic.oak.painted.red.name=Red Wooden Mimic
 tile.aether.chest.mimic.oak.painted.red.desc=Thank you MaggAndGeez.
-tile.aether.chest.mimic.oak.painted.black.name=Black Wooden Trapped Chest
+tile.aether.chest.mimic.oak.painted.black.name=Black Wooden Mimic
 tile.aether.chest.mimic.oak.painted.black.desc=Thank you jonkadelic.
 
-tile.aether.chest.mimic.skyroot.name=Skyroot Trapped Chest
+# Skyroot Mimics (Colored)
+tile.aether.chest.mimic.skyroot.name=Skyroot Mimic
 tile.aether.chest.mimic.skyroot.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.white.name=White Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.white.desc=Thank you rogue
-tile.aether.chest.mimic.skyroot.painted.orange.name=Orange Skyroot Trapped Chest
+tile.aether.chest.mimic.skyroot.painted.name=Mystery Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.desc=How did you get this?!
+tile.aether.chest.mimic.skyroot.painted.white.name=White Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.white.desc=Thank you rogue.
+tile.aether.chest.mimic.skyroot.painted.orange.name=Orange Skyroot Mimic
 tile.aether.chest.mimic.skyroot.painted.orange.desc=Thank you 1.5.
-tile.aether.chest.mimic.skyroot.painted.magenta.name=Maganta Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.magenta.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.lightblue.name=Light Blue Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.lightblue.desc=Thank you the dark souls.
-tile.aether.chest.mimic.skyroot.painted.yellow.name=Yellow Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.yellow.desc=Thank you Enter the gungeon.
-tile.aether.chest.mimic.skyroot.painted.lime.name=Lime Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.lime.desc=Thank you Terraria.
-tile.aether.chest.mimic.skyroot.painted.pink.name=Pink Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.pink.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.gray.name=Gray Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.gray.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.silver.name=Light Gray Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.silver.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.cyan.name=Cyan Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.cyan.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.purple.name=Purple Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.purple.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.blue.name=Blue Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.blue.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.brown.name=Brown Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.brown.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.green.name=Green Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.green.desc=Thank you dark souls.
-tile.aether.chest.mimic.skyroot.painted.red.name=Red Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.red.desc=Thank you dragons quest.
-tile.aether.chest.mimic.skyroot.painted.black.name=Black Skyroot Trapped Chest
-tile.aether.chest.mimic.skyroot.painted.black.desc=Thank you dark souls.
+tile.aether.chest.mimic.skyroot.painted.magenta.name=Magenta Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.magenta.desc=Thank you bloodborne.
+tile.aether.chest.mimic.skyroot.painted.lightblue.name=Light Blue Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.lightblue.desc=Thank you the demons souls.
+tile.aether.chest.mimic.skyroot.painted.yellow.name=Yellow Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.yellow.desc=Thank you enter the gungeon.
+tile.aether.chest.mimic.skyroot.painted.lime.name=Lime Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.lime.desc=Thank you terraria.
+tile.aether.chest.mimic.skyroot.painted.pink.name=Pink Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.pink.desc=Thank you final fantasy.
+tile.aether.chest.mimic.skyroot.painted.gray.name=Gray Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.gray.desc=Thank you diablo.
+tile.aether.chest.mimic.skyroot.painted.silver.name=Light Gray Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.silver.desc=Thank you legend of zelda.
+tile.aether.chest.mimic.skyroot.painted.cyan.name=Cyan Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.cyan.desc=Thank you nethack.
+tile.aether.chest.mimic.skyroot.painted.purple.name=Purple Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.purple.desc=Thank you dungeons and dragons.
+tile.aether.chest.mimic.skyroot.painted.blue.name=Blue Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.blue.desc=Thank you elden ring.
+tile.aether.chest.mimic.skyroot.painted.brown.name=Brown Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.brown.desc=Thank you torchlight.
+tile.aether.chest.mimic.skyroot.painted.green.name=Green Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.green.desc=Thank you dark souls 2.
+tile.aether.chest.mimic.skyroot.painted.red.name=Red Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.red.desc=Thank you dragon quest.
+tile.aether.chest.mimic.skyroot.painted.black.name=Black Skyroot Mimic
+tile.aether.chest.mimic.skyroot.painted.black.desc=Thank you dark souls 3.
 
-tile.aether.chest.mimic.bronze.name=Maze Trapped Chest
-tile.aether.chest.mimic.bronze.desc=Thank you Tocinin.
-tile.aether.chest.mimic.silver.name=Temple Trapped Chest
+# Dungeon Mimics
+tile.aether.chest.mimic.bronze.name=Maze Mimic
+tile.aether.chest.mimic.bronze.desc=Thank you Redart15.
+tile.aether.chest.mimic.silver.name=Temple Mimic
 tile.aether.chest.mimic.silver.desc=Thank you LukeisStuff.
-tile.aether.chest.mimic.gold.name=Sanctuary Trapped Chest
+tile.aether.chest.mimic.gold.name=Sanctuary Mimic
 tile.aether.chest.mimic.gold.desc=Thank you Olypolyu.
+tile.aether.chest.dungeon.bronze.name=Maze Treasure Chest
+tile.aether.chest.dungeon.bronze.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.bronze.locked.name=Locked Maze Treasure Chest
+tile.aether.chest.dungeon.bronze.locked.desc=A locked chest filled with mysterious loot.
+tile.aether.chest.dungeon.silver.name=Temple Treasure Chest
+tile.aether.chest.dungeon.silver.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.silver.locked.name=Locked Temple Treasure Chest
+tile.aether.chest.dungeon.silver.locked.desc=A locked chest filled with mysterious loot.
+tile.aether.chest.dungeon.gold.name=Sanctuary Treasure Chest
+tile.aether.chest.dungeon.gold.desc=A chest filled with mysterious loot.
+tile.aether.chest.dungeon.gold.locked.name=Locked Sanctuary Treasure Chest
+tile.aether.chest.dungeon.gold.locked.desc=A locked chest filled with mysterious loot.
 
-tile.aether.door.planks.skyroot.top.name=Top Skyroot Door
-tile.aether.door.planks.skyroot.top.desc=How did you obtain this!?
-tile.aether.door.planks.skyroot.bottom.name=Bottom Skyroot Door
-tile.aether.door.planks.skyroot.bottom.desc=How did you obtain this!?
-
+# Painted Skyroot Doors
 tile.aether.door.planks.skyroot.top.painted.name=Top Skyroot Door Painted
 tile.aether.door.planks.skyroot.top.painted.desc=How did you obtain this!?
+tile.aether.door.planks.skyroot.top.painted.white.name=White Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.white.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.orange.name=Orange Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.orange.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.magenta.name=Magenta Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.magenta.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.lightblue.name=Light Blue Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.lightblue.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.yellow.name=Yellow Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.yellow.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.lime.name=Lime Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.lime.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.pink.name=Pink Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.pink.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.gray.name=Gray Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.gray.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.silver.name=Light Gray Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.silver.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.cyan.name=Cyan Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.cyan.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.purple.name=Purple Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.purple.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.blue.name=Blue Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.blue.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.brown.name=Brown Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.brown.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.green.name=Green Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.green.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.red.name=Red Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.red.desc=How did you get this?!
+tile.aether.door.planks.skyroot.top.painted.black.name=Black Top Skyroot Door
+tile.aether.door.planks.skyroot.top.painted.black.desc=How did you get this?!
+
 tile.aether.door.planks.skyroot.bottom.painted.name=Bottom Skyroot Door Painted
 tile.aether.door.planks.skyroot.bottom.painted.desc=How did you obtain this!?
+tile.aether.door.planks.skyroot.bottom.painted.white.name=White Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.white.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.orange.name=Orange Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.orange.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.magenta.name=Magenta Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.magenta.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.lightblue.name=Light Blue Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.lightblue.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.yellow.name=Yellow Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.yellow.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.lime.name=Lime Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.lime.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.pink.name=Pink Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.pink.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.gray.name=Gray Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.gray.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.silver.name=Light Gray Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.silver.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.cyan.name=Cyan Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.cyan.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.purple.name=Purple Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.purple.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.blue.name=Blue Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.blue.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.brown.name=Brown Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.brown.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.green.name=Green Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.green.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.red.name=Red Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.red.desc=How did you get this?!
+tile.aether.door.planks.skyroot.bottom.painted.black.name=Black Bottom Skyroot Door
+tile.aether.door.planks.skyroot.bottom.painted.black.desc=How did you get this?!
 
-tile.aether.sign.post.planks.skyroot.name=Skyroot Signpost
-tile.aether.sign.post.planks.skyroot.desc=A free standing skyroot sign.
-tile.aether.sign.wall.planks.skyroot.name=Skyroot Wall Sign
-tile.aether.sign.wall.planks.skyroot.desc=A skyroot sign placed on a wall.
-addtile.aether.sign.post.planks.skyroot.painted.name=Painted Skyroot Signpost
-tile.aether.sign.post.planks.skyroot.painted.desc=A free standing painted skyroot sign.
-tile.aether.sign.wall.planks.skyroot.painted.name=Painted Skyroot Wall Sign
-tile.aether.sign.wall.planks.skyroot.painted.desc=A painted skyroot sign placed on a wall.
 
+# Painted Skyroot Signs
+tile.aether.sign.post.planks.skyroot.painted.name=Mystery Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.desc=How did you get this?!
+tile.aether.sign.post.planks.skyroot.painted.white.name=White Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.white.desc=A free standing white skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.orange.name=Orange Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.orange.desc=A free standing orange skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.magenta.name=Magenta Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.magenta.desc=A free standing magenta skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.lightblue.desc=A free standing lightblue skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.yellow.name=Yellow Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.yellow.desc=A free standing yellow skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.lime.name=Lime Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.lime.desc=A free standing lime skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.pink.name=Pink Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.pink.desc=A free standing pink skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.gray.name=Gray Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.gray.desc=A free standing gray skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.silver.name=Light Gray Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.silver.desc=A free standing light gray skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.cyan.name=Cyan Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.cyan.desc=A free standing cyan skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.purple.name=Purple Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.purple.desc=A free standing purple skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.blue.name=Blue Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.blue.desc=A free standing blue skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.brown.name=Brown Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.brown.desc=A free standing brown skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.green.name=Green Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.green.desc=A free standing green skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.red.name=Red Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.red.desc=A free standing red skyroot sign.
+tile.aether.sign.post.planks.skyroot.painted.black.name=Black Skyroot Signpost
+tile.aether.sign.post.planks.skyroot.painted.black.desc=A free standing black skyroot sign.
 
+tile.aether.sign.wall.planks.skyroot.painted.name=Mystery Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.desc=How did you get this?!
+tile.aether.sign.wall.planks.skyroot.painted.white.name=White Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.white.desc=A white skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.orange.name=Orange Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.orange.desc=A orange skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.magenta.name=Magenta Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.magenta.desc=A magenta skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.lightblue.name=Light Blue Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.lightblue.desc=A lightblue skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.yellow.name=Yellow Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.yellow.desc=A yellow skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.lime.name=Lime Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.lime.desc=A lime skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.pink.name=Pink Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.pink.desc=A pink skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.gray.name=Gray Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.gray.desc=A gray skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.silver.name=Light Gray Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.silver.desc=A light gray skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.cyan.name=Cyan Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.cyan.desc=A cyan skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.purple.name=Purple Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.purple.desc=A purple skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.blue.name=Blue Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.blue.desc=A blue skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.brown.name=Brown Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.brown.desc=A brown skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.green.name=Green Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.green.desc=A green skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.red.name=Red Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.red.desc=A red skyroot sign placed on a wall.
+tile.aether.sign.wall.planks.skyroot.painted.black.name=Black Skyroot Wall Sign
+tile.aether.sign.wall.planks.skyroot.painted.black.desc=A black skyroot sign placed on a wall.
+
+# Ores
 tile.aether.ore.ambrosium.holystone.name=Holystone Ambrosium Ore
 tile.aether.ore.ambrosium.holystone.desc=Ambrosium shards embedded in holystone.
 tile.aether.ore.zanite.holystone.name=Holystone Zanite Ore
@@ -494,19 +672,23 @@ tile.aether.ore.zanite.holystone.desc=A lump of zanite embedded in holystone.
 tile.aether.ore.gravitite.holystone.name=Holystone Gravitite Ore
 tile.aether.ore.gravitite.holystone.desc=A chunk of gravitite embedded in holystone.
 
-tile.aether.aerogel.name=Aerogel
-tile.aether.aerogel.desc=Dense cloud that's explosion proof.
-
-#Dungeons
+# Dungeon Blocks
 tile.aether.carved.stone.name=Sentry Stone
 tile.aether.carved.stone.desc=Decorative maze block.
 tile.aether.slab.carved.stone.name=Sentry Stone Slab
 tile.aether.slab.carved.stone.desc=A slab of sentry stone.
 tile.aether.stairs.carved.stone.name=Sentry Stone Stairs
 tile.aether.stairs.carved.stone.desc=Sentry stone block used for rapid vertical movement.
-
 tile.aether.carved.stone.light.name=Light Sentry Stone
 tile.aether.carved.stone.light.desc=Decorative maze block that glows with an ethereal light.
+tile.aether.carved.stone.trapped.name=Trapped Sentry Stone
+tile.aether.carved.stone.trapped.desc=A sneaky block that summons a sentry.
+tile.aether.carved.stone.trapped.locked.name=Locked Trapped Sentry Stone
+tile.aether.carved.stone.trapped.locked.desc=A sneaky block that summons a sentry, currently unbreakable.
+tile.aether.carved.stone.locked.name=Locked Sentry Stone
+tile.aether.carved.stone.locked.desc=Unbreakable maze block.
+tile.aether.carved.stone.light.locked.name=Locked Light Sentry Stone
+tile.aether.carved.stone.light.locked.desc=Unbreakable maze block that glows with an ethereal light.
 
 tile.aether.carved.angelic.name=Angelic Stone
 tile.aether.carved.angelic.desc=Decorative temple block.
@@ -514,9 +696,16 @@ tile.aether.slab.carved.angelic.name=Angelic Stone Slab
 tile.aether.slab.carved.angelic.desc=A slab of angelic stone.
 tile.aether.stairs.carved.angelic.name=Angelic Stone Stairs
 tile.aether.stairs.carved.angelic.desc=Angelic stone block used for rapid vertical movement.
-
 tile.aether.carved.angelic.light.name=Light Angelic Stone
 tile.aether.carved.angelic.light.desc=Decorative temple block that glows with an ethereal light.
+tile.aether.carved.angelic.trapped.name=Trapped Angelic Stone
+tile.aether.carved.angelic.trapped.desc=A sneaky block that summons a valkyrie.
+tile.aether.carved.angelic.trapped.locked.name=Locked Trapped Angelic Stone
+tile.aether.carved.angelic.trapped.locked.desc=A sneaky block that summons a valkyrie, currently unbreakable.
+tile.aether.carved.angelic.locked.name=Locked Angelic Stone
+tile.aether.carved.angelic.locked.desc=Unbreakable temple block.
+tile.aether.carved.angelic.light.locked.name=Locked Light Angelic Stone
+tile.aether.carved.angelic.light.locked.desc=Unbreakable temple block that glows with an ethereal light.
 
 tile.aether.carved.hellfire.name=Hellfire Stone
 tile.aether.carved.hellfire.desc=Decorative sanctuary block.
@@ -524,69 +713,27 @@ tile.aether.slab.carved.hellfire.name=Hellfire Stone Slab
 tile.aether.slab.carved.hellfire.desc=A slab of hellfire stone.
 tile.aether.stairs.carved.hellfire.name=Hellfire Stone Stairs
 tile.aether.stairs.carved.hellfire.desc=Hellfire stone block used for rapid vertical movement.
-
 tile.aether.carved.hellfire.light.name=Light Hellfire Stone
 tile.aether.carved.hellfire.light.desc=Decorative sanctuary block that glows with an ethereal light.
+tile.aether.carved.hellfire.locked.name=Locked Hellfire Stone
+tile.aether.carved.hellfire.locked.desc=Unbreakable sanctuary block.
+tile.aether.carved.hellfire.light.locked.name=Locked Light Hellfire Stone
+tile.aether.carved.hellfire.light.locked.desc=Unbreakable sanctuary block that glows with an ethereal light.
 
 tile.aether.pillar.name=Pillar
 tile.aether.pillar.desc=A pink pillar found at temples.
 tile.aether.pillar.capstone.name=Pillar Capstone
 tile.aether.pillar.capstone.desc=A rare pink pillar capstone found at temples.
 
-tile.aether.carved.stone.trapped.name=Trapped Sentry Stone
-tile.aether.carved.stone.trapped.desc=A sneaky block that summons a sentry.
-tile.aether.carved.stone.trapped.locked.name=Locked Trapped Sentry Stone
-tile.aether.carved.stone.trapped.locked.desc=A sneaky block that summons a sentry, currently unbreakable.
-tile.aether.carved.angelic.trapped.name=Trapped Angelic Stone
-tile.aether.carved.angelic.trapped.desc=A sneaky block that summons a valkyrie.
-tile.aether.carved.angelic.trapped.locked.name=Locked Trapped Angelic Stone
-tile.aether.carved.angelic.trapped.locked.desc=A sneaky block that summons a valkyrie, currently unbreakable.
-
-tile.aether.carved.stone.locked.name=Locked Sentry Stone
-tile.aether.carved.stone.locked.desc=Unbreakable maze block.
-tile.aether.carved.stone.light.locked.name=Locked Light Sentry Stone
-tile.aether.carved.stone.light.locked.desc=Unbreakable maze block that glows with an ethereal light.
-
-tile.aether.carved.angelic.locked.name=Locked Angelic Stone
-tile.aether.carved.angelic.locked.desc=Unbreakable temple block.
-tile.aether.carved.angelic.light.locked.name=Locked Light Angelic Stone
-tile.aether.carved.angelic.light.locked.desc=Unbreakable temple block that glows with an ethereal light.
-
-tile.aether.carved.hellfire.locked.name=Locked Hellfire Stone
-tile.aether.carved.hellfire.locked.desc=Unbreakable sanctuary block.
-tile.aether.carved.hellfire.light.locked.name=Locked Light Hellfire Stone
-tile.aether.carved.hellfire.light.locked.desc=Unbreakable sanctuary block that glows with an ethereal light.
-
-# hidden when btwaila is enabled
-tile.aether.chest.mimic.name=Trapped Chest
-tile.aether.chest.mimic.desc=Thank you dark souls.
-
-tile.aether.chest.dungeon.bronze.name=Maze Treasure Chest
-tile.aether.chest.dungeon.bronze.desc=A chest filled with mysterious loot.
-tile.aether.chest.dungeon.bronze.locked.name=Locked Maze Treasure Chest
-tile.aether.chest.dungeon.bronze.locked.desc=A locked chest filled with mysterious loot.
-
-tile.aether.chest.dungeon.silver.name=Temple Treasure Chest
-tile.aether.chest.dungeon.silver.desc=A chest filled with mysterious loot.
-tile.aether.chest.dungeon.silver.locked.name=Locked Temple Treasure Chest
-tile.aether.chest.dungeon.silver.locked.desc=A locked chest filled with mysterious loot.
-
-tile.aether.chest.dungeon.gold.name=Sanctuary Treasure Chest
-tile.aether.chest.dungeon.gold.desc=A chest filled with mysterious loot.
-tile.aether.chest.dungeon.gold.locked.name=Locked Sanctuary Treasure Chest
-tile.aether.chest.dungeon.gold.locked.desc=A locked chest filled with mysterious loot.
-
-#Doors
+# Dungeon Doors
 tile.aether.door.dungeon.bronze.name=Maze Door
 tile.aether.door.dungeon.bronze.desc=The entrance to the boss of the maze.
-
 tile.aether.door.dungeon.silver.name=Temple Door
 tile.aether.door.dungeon.silver.desc=The entrance to the boss of the temple.
-
 tile.aether.door.dungeon.gold.name=Sanctuary Door
 tile.aether.door.dungeon.gold.desc=The entrance to the boss of the sanctuary.
 
-#Misc
+# Quicksoil Glass
 tile.aether.glass.quicksoil.name=Quicksoil Glass
 tile.aether.glass.quicksoil.desc=Quicksoil enchanted until transparent.
 tile.aether.trapdoor.glass.quicksoil.name=Quicksoil Glass Trapdoor
@@ -596,23 +743,27 @@ tile.aether.door.glass.quicksoil.top.desc=This is impossible to obtain!
 tile.aether.door.glass.quicksoil.bottom.name=Bottom Quicksoil Glass Door
 tile.aether.door.glass.quicksoil.bottom.desc=Don't even try to prove me wrong.
 
+# Functional Blocks
 tile.aether.enchanter.idle.name=Enchanter
 tile.aether.enchanter.idle.desc=For repairing and enchanting blocks and equipment.
-tile.aether.freezer.idle.name=Freezer
-tile.aether.freezer.idle.desc=For freezing and cooling blocks and items.
-tile.aether.incubator.idle.name=Incubator
-tile.aether.incubator.idle.desc=Nurture moa eggs into useful friends.
-
 tile.aether.enchanter.active.name=Lit Enchanter
 tile.aether.enchanter.active.desc=For repairing and enchanting blocks and equipment.
+tile.aether.freezer.idle.name=Freezer
+tile.aether.freezer.idle.desc=For freezing and cooling blocks and items.
 tile.aether.freezer.active.name=Lit Freezer
 tile.aether.freezer.active.desc=For freezing and cooling blocks and items.
+tile.aether.incubator.idle.name=Incubator
+tile.aether.incubator.idle.desc=Nurture moa eggs into useful friends.
 tile.aether.incubator.active.name=Lit Incubator
 tile.aether.incubator.active.desc=Nurture moa eggs into useful friends.
 
+# Light Sources
 tile.aether.torch.ambrosium.name=Ambrosium Torch
 tile.aether.torch.ambrosium.desc=It glows with a cold, ethereal light.
+tile.aether.lantern.firefly.silver.name=Silver Firefly Lantern
+tile.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of silver fireflies.
 
+# Material Blocks
 tile.aether.block.gravitite.name=Block of Enchanted Gravitite
 tile.aether.block.gravitite.desc=Gravity warping block used to make tools. Floats upwards when powered!
 tile.aether.block.zanite.name=Block of Zanite
@@ -621,13 +772,9 @@ tile.aether.block.ambrosium.name=Block of Ambrosium
 tile.aether.block.ambrosium.desc=A solid block of ambrosium. Enchanting!
 tile.aether.block.amber.name=Block of Amber
 tile.aether.block.amber.desc=A solid block of amber. Antique!
-
 tile.aether.brick.zanite.name=Zanite Bricks
 tile.aether.brick.zanite.desc=Stacked bricks of zanite.
 tile.aether.slab.brick.zanite.name=Zanite Brick Slab
 tile.aether.slab.brick.zanite.desc=A slab of zanite bricks.
 tile.aether.stairs.brick.zanite.name=Zanite Brick Stairs
 tile.aether.stairs.brick.zanite.desc=Zanite brick block used for rapid vertical movement.
-
-tile.aether.lantern.firefly.silver.name=Silver Firefly Lantern
-tile.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of silver fireflies.

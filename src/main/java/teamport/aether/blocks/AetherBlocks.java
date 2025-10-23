@@ -660,6 +660,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
+                .setBlockItem(b -> new ItemBlockPainted<>(b, true))
                 .build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot_painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
                         b -> new BlockLogicPaintedSignSkyroot(b, true))
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT_PAINTED);
@@ -668,6 +669,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
                 .setHardness(1.0f)
                 .setVisualUpdateOnMetadata()
+                .setBlockItem(b -> new ItemBlockPainted<>(b, true))
                 .build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot_painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
                         b -> new BlockLogicPaintedSignSkyroot(b, false))
                 .setStatParent(() -> AetherItems.SIGN_SKYROOT_PAINTED);

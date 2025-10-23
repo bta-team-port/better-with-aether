@@ -43,7 +43,7 @@ import turniplabs.halplibe.helper.ItemBuilder;
 import static teamport.aether.AetherConfig.itemID;
 import static teamport.aether.AetherMod.MOD_ID;
 
-public final class  AetherItems {
+public final class AetherItems {
     public static Item MEDAL_VICTORY;
 
     public static Item KEY_BRONZE;
@@ -350,8 +350,10 @@ public final class  AetherItems {
         DOOR_DUNGEON_GOLD = new ItemBuilder(MOD_ID)
                 .build(new ItemDoorDungeon("door.dungeon.gold", itemKey("door_dungeon_gold"), itemID("DOOR_DUNGEON_GOLD"), AetherBlocks.DOOR_DUNGEON_GOLD, ItemDoorDungeon.DoorType.GOLD));
 
-        SIGN_SKYROOT = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT"), false));
-        SIGN_SKYROOT_PAINTED = new ItemBuilder(MOD_ID).build(new ItemSignSkyroot("sign.skyroot.painted", itemKey("sign.skyroot.painted"), itemID("SIGN_SKYROOT_PAINTED"), true));
+        SIGN_SKYROOT = new ItemBuilder(MOD_ID)
+                .build(new ItemSignSkyroot("sign.skyroot", itemKey("sign_skyroot"), itemID("SIGN_SKYROOT"), false));
+        SIGN_SKYROOT_PAINTED = new ItemBuilder(MOD_ID)
+                .build(new ItemSignSkyroot("sign.skyroot.painted", itemKey("sign_skyroot_painted"), itemID("SIGN_SKYROOT_PAINTED"), true));
 
         AMMO_WINDBALL = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.NOT_IN_CREATIVE_MENU)

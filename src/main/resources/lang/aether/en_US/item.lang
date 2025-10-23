@@ -1,7 +1,8 @@
-#Tools
+# Tools
 item.aether.tool.dungeon_compass.name=Dungeon Compass
 item.aether.tool.dungeon_compass.desc=Points towards something yet unknown.
 
+# Pickaxes
 item.aether.tool.pickaxe.skyroot.name=Skyroot Pickaxe
 item.aether.tool.pickaxe.skyroot.desc=Pick some holystone with this doubling wooden tool.
 item.aether.tool.pickaxe.holystone.name=Holystone Pickaxe
@@ -13,6 +14,7 @@ item.aether.tool.pickaxe.gravitite.desc=Pick some holystone with this gravity de
 item.aether.tool.pickaxe.valkyrie.name=Valkyrie Pickaxe
 item.aether.tool.pickaxe.valkyrie.desc=Pick some holystone with this angelic valkyrie tool.
 
+# Shovels
 item.aether.tool.shovel.skyroot.name=Skyroot Shovel
 item.aether.tool.shovel.skyroot.desc=Dig up the Aether dirt with this doubling wooden tool.
 item.aether.tool.shovel.holystone.name=Holystone Shovel
@@ -24,6 +26,7 @@ item.aether.tool.shovel.gravitite.desc=Dig up the Aether dirt with this gravity 
 item.aether.tool.shovel.valkyrie.name=Valkyrie Shovel
 item.aether.tool.shovel.valkyrie.desc=Dig up the Aether dirt with this angelic valkyrie tool.
 
+# Axes
 item.aether.tool.axe.skyroot.name=Skyroot Axe
 item.aether.tool.axe.skyroot.desc=Chop some trees with this doubling wooden tool.
 item.aether.tool.axe.holystone.name=Holystone Axe
@@ -35,6 +38,7 @@ item.aether.tool.axe.gravitite.desc=Chop some trees with this gravity defying gr
 item.aether.tool.axe.valkyrie.name=Valkyrie Axe
 item.aether.tool.axe.valkyrie.desc=Chop some trees with this angelic valkyrie tool.
 
+# Swords
 item.aether.tool.sword.skyroot.name=Skyroot Sword
 item.aether.tool.sword.skyroot.desc=Slay giant bosses with this doubling wooden blade.
 item.aether.tool.sword.holystone.name=Holystone Sword
@@ -46,12 +50,11 @@ item.aether.tool.sword.gravitite.desc=Slay giant bosses with this sharp gravitit
 item.aether.tool.sword.valkyrie.name=Valkyrie Lance
 item.aether.tool.sword.valkyrie.desc=Slay fearsome foes at range with this angelic valkyrie spear.
 
+# Specialty Weapons
 item.aether.tool.sword.pig.name=Pig Slayer
 item.aether.tool.sword.pig.desc=Magical dagger that kills pig-like creatures in 1 hit.
-
 item.aether.tool.sword.vampire.name=Vampire Blade
 item.aether.tool.sword.vampire.desc=Vampiric sword that drains the health of enemies, giving you a fair share.
-
 item.aether.tool.sword.flame.name=Flaming Sword
 item.aether.tool.sword.flame.desc=An elemental blade imbued with the power of fire.
 item.aether.tool.sword.holy.name=Holy Sword
@@ -59,39 +62,43 @@ item.aether.tool.sword.holy.desc=An elemental blade imbued with the power of lig
 item.aether.tool.sword.lightning.name=Lightning Sword
 item.aether.tool.sword.lightning.desc=An elemental blade imbued with the power of electricity.
 
+# Staves
 item.aether.tool.staff.nature.name=Nature Staff
 item.aether.tool.staff.nature.desc=Allows the user to control any mob with full authority.
 item.aether.tool.staff.cloud.name=Cloud Staff
 item.aether.tool.staff.cloud.desc=Summon two mini zephyrs to help defend.
-item.aether.tool.staff.haunting.name=Haunting Staff
-item.aether.tool.staff.haunting.desc=Shift and Right click a chest to turn it into something somber.
 
+# Ranged Weapons and Ammo
 item.aether.tool.knife.lightning.name=Lightning Knife
 item.aether.tool.knife.lightning.desc=Throwable dagger that strikes the foe with a bolt.
-
 item.aether.tool.hammer.notch.name=Hammer of Notch
 item.aether.tool.hammer.notch.desc=Legendary hammer with a special attack for groups of foes.
 item.aether.ammo.hammer.head.name=Hammer Head
 item.aether.ammo.hammer.head.desc=Projectile launched from the hammer of Notch.
-
 item.aether.tool.bow.phoenix.name=Phoenix Bow
 item.aether.tool.bow.phoenix.desc=A weapon for shooting rapid-fire flaming arrows.
-
+item.aether.tool.shooter.name=Blowpipe
+item.aether.tool.shooter.desc=A weapon for blowing rapid-fire darts.
 item.aether.ammo.dart.golden.name=Golden Dart
 item.aether.ammo.dart.golden.desc=A gold spiked projectile for firing from a blowpipe.
 item.aether.ammo.dart.poison.name=Poison Dart
 item.aether.ammo.dart.poison.desc=A poison tipped projectile for firing from a blowpipe.
 item.aether.ammo.dart.enchanted.name=Remedy Dart
-item.aether.ammo.dart.enchanted.desc=A enchanted projectile for firing from a blowpipe.
-
+item.aether.ammo.dart.enchanted.desc=An enchanted projectile for firing from a blowpipe.
 item.aether.ammo.arrow.flaming.name=Flaming Arrow
 item.aether.ammo.arrow.flaming.desc=How did you obtain this!?
+item.aether.ammo.windball.name=Wind Charge
+item.aether.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
+item.aether.projectile.fire.name=Fire Crystal
+item.aether.projectile.fire.desc=Crystallized projectile made of fire.
+item.aether.projectile.ice.name=Ice Crystal
+item.aether.projectile.ice.desc=Crystallized projectile made of ice.
+item.aether.projectile.lightning.name=Lightning Crystal
+item.aether.projectile.lightning.desc=Crystallized projectile made of lightning.
 
-item.aether.tool.shooter.name=Blowpipe
-item.aether.tool.shooter.desc=A weapon for blowing rapid-fire darts.
-
+# Buckets
 item.aether.bucket.skyroot.name=Skyroot Bucket
-item.aether.bucket.skyroot.desc=Used to pickup various liquids.
+item.aether.bucket.skyroot.desc=Used to pick up various liquids.
 item.aether.bucket.skyroot.water.name=Water Skyroot Bucket
 item.aether.bucket.skyroot.water.desc=A bucket full of the bottomless sea.
 item.aether.bucket.skyroot.milk.name=Skyroot Bucket of Milk
@@ -103,12 +110,13 @@ item.aether.bucket.skyroot.remedy.desc=A bucket used to cure poison.
 item.aether.bucket.skyroot.icecream.name=Skyroot Bucket of Ice Cream
 item.aether.bucket.skyroot.icecream.desc=A chilling treat decorated with cocoa flakes and a cherry!
 
+# Parachutes
 item.aether.parachute.cloud.name=Cloud Parachute
 item.aether.parachute.cloud.desc=Gently glide down when activated. Works if you fall out of The Aether.
 item.aether.parachute.cloud.gold.name=Gold Cloud Parachute
 item.aether.parachute.cloud.gold.desc=A longer-lasting variant of the cloud parachute.
 
-#Armor
+# Armor
 item.aether.armor.helmet.zanite.name=Zanite Helmet
 item.aether.armor.helmet.zanite.desc=A shiny zanite helmet.
 item.aether.armor.helmet.gravitite.name=Gravitite Helmet
@@ -121,7 +129,7 @@ item.aether.armor.helmet.neptune.name=Neptune Helmet
 item.aether.armor.helmet.neptune.desc=A stormy neptune helmet.
 
 item.aether.armor.chestplate.zanite.name=Zanite Chestplate
-item.aether.armor.chestplate.zanite.desc=A shiny zanite chestplate
+item.aether.armor.chestplate.zanite.desc=A shiny zanite chestplate.
 item.aether.armor.chestplate.gravitite.name=Gravitite Chestplate
 item.aether.armor.chestplate.gravitite.desc=A forceful gravitite chestplate.
 item.aether.armor.chestplate.phoenix.name=Phoenix Chestplate
@@ -129,7 +137,7 @@ item.aether.armor.chestplate.phoenix.desc=A burning phoenix chestplate.
 item.aether.armor.chestplate.obsidian.name=Obsidian Chestplate
 item.aether.armor.chestplate.obsidian.desc=A powerful obsidian chestplate.
 item.aether.armor.chestplate.neptune.name=Neptune Chestplate
-item.aether.armor.chestplate.neptune.desc=A stormy neptune chestplate
+item.aether.armor.chestplate.neptune.desc=A stormy neptune chestplate.
 
 item.aether.armor.leggings.zanite.name=Zanite Leggings
 item.aether.armor.leggings.zanite.desc=A shiny pair of zanite leggings.
@@ -176,10 +184,9 @@ item.aether.armor.gloves.obsidian.desc=A powerful pair of obsidian gloves.
 item.aether.armor.gloves.neptune.name=Neptune Gloves
 item.aether.armor.gloves.neptune.desc=A stormy pair of neptune gloves.
 
-#Dungeon
+# Dungeon Items
 item.aether.medal.victory.name=Victory Medal
 item.aether.medal.victory.desc=A prize for defeating a valkyrie. Collect 10!
-
 item.aether.key.bronze.name=Maze Key
 item.aether.key.bronze.desc=Dropped by the Slider, use it on a treasure chest!
 item.aether.key.silver.name=Temple Key
@@ -187,9 +194,7 @@ item.aether.key.silver.desc=Dropped by the Valkyrie Queen, use it on a treasure 
 item.aether.key.gold.name=Sanctuary Key
 item.aether.key.gold.desc=Dropped by the Sun Spirit, use it on a treasure chest!
 
-
-#Accessories
-
+# Accessories
 item.aether.armor.talisman.iron.name=Iron Pendant
 item.aether.armor.talisman.iron.desc=A strong iron pendant.
 item.aether.armor.talisman.gold.name=Gold Pendant
@@ -208,26 +213,22 @@ item.aether.armor.talisman.steel.name=Steel Pendant
 item.aether.armor.talisman.steel.desc=A durable steel pendant.
 item.aether.armor.talisman.gravitite.name=Gravitite Pendant
 item.aether.armor.talisman.gravitite.desc=A forceful gravitite pendant.
-
 item.aether.armor.talisman.bubble.name=Iron Bubble
 item.aether.armor.talisman.bubble.desc=Allows you to breathe underwater forever.
-
 item.aether.armor.talisman.feather.gold.name=Golden Feather
 item.aether.armor.talisman.feather.gold.desc=Lets you gently float to the ground without taking fall damage.
-
 item.aether.armor.talisman.regen.name=Regeneration Stone
 item.aether.armor.talisman.regen.desc=Regenerates your health over time.
-
 item.aether.armor.shield.repulsion.name=Shield of Repulsion
 item.aether.armor.shield.repulsion.desc=A shield to repulse projectiles. Can either be worn or held.
 
+# Capes
 item.aether.armor.cape.swet.name=Swet Cape
 item.aether.armor.cape.swet.desc=Tame slimes and swets with this nice cape.
 item.aether.armor.cape.invisibility.name=Invisibility Cloak
 item.aether.armor.cape.invisibility.desc=Go invisible with this neat cloak.
 item.aether.armor.cape.agility.name=Agility Cape
 item.aether.armor.cape.agility.desc=Walk up blocks with this handy cape.
-
 item.aether.armor.cape.white.name=White Cape
 item.aether.armor.cape.white.desc=Decorative cape colored white.
 item.aether.armor.cape.silver.name=Light Gray Cape
@@ -236,7 +237,6 @@ item.aether.armor.cape.gray.name=Gray Cape
 item.aether.armor.cape.gray.desc=Decorative cape colored gray.
 item.aether.armor.cape.black.name=Black Cape
 item.aether.armor.cape.black.desc=Decorative cape colored black.
-
 item.aether.armor.cape.red.name=Red Cape
 item.aether.armor.cape.red.desc=Decorative cape colored red.
 item.aether.armor.cape.yellow.name=Yellow Cape
@@ -245,7 +245,6 @@ item.aether.armor.cape.orange.name=Orange Cape
 item.aether.armor.cape.orange.desc=Decorative cape colored orange.
 item.aether.armor.cape.brown.name=Brown Cape
 item.aether.armor.cape.brown.desc=Decorative cape colored brown.
-
 item.aether.armor.cape.lime.name=Lime Cape
 item.aether.armor.cape.lime.desc=Decorative cape colored lime.
 item.aether.armor.cape.green.name=Green Cape
@@ -254,7 +253,6 @@ item.aether.armor.cape.cyan.name=Cyan Cape
 item.aether.armor.cape.cyan.desc=Decorative cape colored cyan.
 item.aether.armor.cape.blue.name=Blue Cape
 item.aether.armor.cape.blue.desc=Decorative cape colored blue.
-
 item.aether.armor.cape.lightblue.name=Light Blue Cape
 item.aether.armor.cape.lightblue.desc=Decorative cape colored light blue.
 item.aether.armor.cape.purple.name=Purple Cape
@@ -264,14 +262,14 @@ item.aether.armor.cape.magenta.desc=Decorative cape colored magenta.
 item.aether.armor.cape.pink.name=Pink Cape
 item.aether.armor.cape.pink.desc=Decorative cape colored pink.
 
-#Misc
-item.aether.book.lore.overworld.name=Book of Lore : Volume Overworld
+# Miscellaneous
+item.aether.book.lore.overworld.name=Book of Lore: Volume Overworld
 item.aether.book.lore.overworld.desc=Contains information about the Overworld.
-item.aether.book.lore.nether.name=Book of Lore : Volume Nether
+item.aether.book.lore.nether.name=Book of Lore: Volume Nether
 item.aether.book.lore.nether.desc=Contains information about The Nether.
-item.aether.book.lore.aether.name=Book of Lore : Volume Aether
+item.aether.book.lore.aether.name=Book of Lore: Volume Aether
 item.aether.book.lore.aether.desc=Contains information about The Aether.
-item.aether.book.lore.paradise.name=Book of Lore : Volume Paradise
+item.aether.book.lore.paradise.name=Book of Lore: Volume Paradise
 item.aether.book.lore.paradise.desc=Contains information about Paradise.
 
 item.aether.egg.moa.blue.name=Blue Moa Egg
@@ -293,11 +291,9 @@ item.aether.record.nether.desc=§knether
 item.aether.amber.name=Golden Amber
 item.aether.amber.desc=Harvested from a golden oak, useful for darts.
 item.aether.petal.aechor.name=Aechor Petal
-item.aether.petal.aechor.desc=Collected from an aechor plant, a moas favorite food!
-
+item.aether.petal.aechor.desc=Collected from an aechor plant, a moa's favorite food!
 item.aether.stick.skyroot.name=Skyroot Stick
 item.aether.stick.skyroot.desc=Found at the ends of branches. Can craft various Aether items.
-
 item.aether.ambrosium.name=Ambrosium Shard
 item.aether.ambrosium.desc=A magical fuel found in holystone, can be eaten.
 item.aether.zanite.name=Zanite Gemstone
@@ -307,30 +303,67 @@ item.aether.ore.raw.gravitite.desc=A chunk of unprocessed gravitite. Can be ench
 
 item.aether.food.healing.stone.name=Healing Stone
 item.aether.food.healing.stone.desc=Enchanted rock turned into food, tastes divine!
-
 item.aether.food.gummy.blue.name=Blue Gummy Swet
 item.aether.food.gummy.blue.desc=Tasty blue swet flavored sweet. Heals a lot!
 item.aether.food.gummy.gold.name=Gold Gummy Swet
 item.aether.food.gummy.gold.desc=Delicious gold swet flavored sweet. Full heal!
-
 item.aether.food.lifeshard.name=Lifeshard
 item.aether.food.lifeshard.desc=Permanently increases your maximum health by one heart. Amazing!
 
 item.aether.lantern.firefly.silver.name=Silver Firefly Lantern
 item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of silver fireflies.
 
+# Doors
 item.aether.door.glass.ambrosium.name=Quicksoil Glass Door
 item.aether.door.glass.ambrosium.desc=Terrible for aesthetics, terrible for privacy.
-
 item.aether.door.dungeon.bronze.name=Maze Dungeon Door
 item.aether.door.dungeon.bronze.desc=Every maze needs one.
 item.aether.door.dungeon.silver.name=Temple Dungeon Door
 item.aether.door.dungeon.silver.desc=Every temple needs one.
 item.aether.door.dungeon.gold.name=Sanctuary Dungeon Door
 item.aether.door.dungeon.gold.desc=Every sanctuary needs one.
+item.aether.door.skyroot.name=Skyroot Door
+item.aether.door.skyroot.desc=Every home needs one.
+item.aether.door.skyroot.painted.name=Mystery Skyroot Door
+item.aether.door.skyroot.painted.desc=How did you get this?!
+item.aether.door.skyroot.painted.white.name=White Skyroot Door
+item.aether.door.skyroot.painted.white.desc=Every home needs one.
+item.aether.door.skyroot.painted.orange.name=Orange Skyroot Door
+item.aether.door.skyroot.painted.orange.desc=Every home needs one.
+item.aether.door.skyroot.painted.magenta.name=Magenta Skyroot Door
+item.aether.door.skyroot.painted.magenta.desc=Every home needs one.
+item.aether.door.skyroot.painted.lightblue.name=Light Blue Skyroot Door
+item.aether.door.skyroot.painted.lightblue.desc=Every home needs one.
+item.aether.door.skyroot.painted.yellow.name=Yellow Skyroot Door
+item.aether.door.skyroot.painted.yellow.desc=Every home needs one.
+item.aether.door.skyroot.painted.lime.name=Lime Skyroot Door
+item.aether.door.skyroot.painted.lime.desc=Every home needs one.
+item.aether.door.skyroot.painted.pink.name=Pink Skyroot Door
+item.aether.door.skyroot.painted.pink.desc=Every home needs one.
+item.aether.door.skyroot.painted.gray.name=Gray Skyroot Door
+item.aether.door.skyroot.painted.gray.desc=Every home needs one.
+item.aether.door.skyroot.painted.silver.name=Light Gray Skyroot Door
+item.aether.door.skyroot.painted.silver.desc=Every home needs one.
+item.aether.door.skyroot.painted.cyan.name=Cyan Skyroot Door
+item.aether.door.skyroot.painted.cyan.desc=Every home needs one.
+item.aether.door.skyroot.painted.purple.name=Purple Skyroot Door
+item.aether.door.skyroot.painted.purple.desc=Every home needs one.
+item.aether.door.skyroot.painted.blue.name=Blue Skyroot Door
+item.aether.door.skyroot.painted.blue.desc=Every home needs one.
+item.aether.door.skyroot.painted.brown.name=Brown Skyroot Door
+item.aether.door.skyroot.painted.brown.desc=Every home needs one.
+item.aether.door.skyroot.painted.green.name=Green Skyroot Door
+item.aether.door.skyroot.painted.green.desc=Every home needs one.
+item.aether.door.skyroot.painted.red.name=Red Skyroot Door
+item.aether.door.skyroot.painted.red.desc=Every home needs one.
+item.aether.door.skyroot.painted.black.name=Black Skyroot Door
+item.aether.door.skyroot.painted.black.desc=Every home needs one.
 
+# Signs
 item.aether.sign.skyroot.name=Skyroot Sign
 item.aether.sign.skyroot.desc=Sign your land, or put down a notice.
+item.aether.sign.skyroot.painted.name=Mystery Skyroot Sign
+item.aether.sign.skyroot.painted.desc=How did you get this?!
 item.aether.sign.skyroot.painted.white.name=White Skyroot Sign
 item.aether.sign.skyroot.painted.white.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.orange.name=Orange Skyroot Sign
@@ -363,50 +396,3 @@ item.aether.sign.skyroot.painted.red.name=Red Skyroot Sign
 item.aether.sign.skyroot.painted.red.desc=Sign your land, or put down a notice.
 item.aether.sign.skyroot.painted.black.name=Black Skyroot Sign
 item.aether.sign.skyroot.painted.black.desc=Sign your land, or put down a notice.
-
-item.aether.door.skyroot.name=Skyroot Door
-item.aether.door.skyroot.desc=Every home needs one.
-item.aether.door.skyroot.painted.white.name=White Skyroot Door
-item.aether.door.skyroot.painted.white.desc=Every home needs one.
-item.aether.door.skyroot.painted.orange.name=Orange Skyroot Door
-item.aether.door.skyroot.painted.orange.desc=Every home needs one.
-item.aether.door.skyroot.painted.magenta.name=Magenta Skyroot Door
-item.aether.door.skyroot.painted.magenta.desc=Every home needs one.
-item.aether.door.skyroot.painted.lightblue.name=Light Blue Skyroot Door
-item.aether.door.skyroot.painted.lightblue.desc=Every home needs one.
-item.aether.door.skyroot.painted.yellow.name=Yellow Skyroot Door
-item.aether.door.skyroot.painted.yellow.desc=Every home needs one.
-item.aether.door.skyroot.painted.lime.name=Lime Skyroot Door
-item.aether.door.skyroot.painted.lime.desc=Every home needs one.
-item.aether.door.skyroot.painted.pink.name=Pink Skyroot Door
-item.aether.door.skyroot.painted.pink.desc=Every home needs one.
-item.aether.door.skyroot.painted.gray.name=Gray Skyroot Door
-item.aether.door.skyroot.painted.gray.desc=Every home needs one.
-item.aether.door.skyroot.painted.cyan.name=Cyan Skyroot Door
-item.aether.door.skyroot.painted.cyan.desc=Every home needs one.
-item.aether.door.skyroot.painted.silver.name=Light Gray Skyroot Door
-item.aether.door.skyroot.painted.silver.desc=Every home needs one.
-item.aether.door.skyroot.painted.purple.name=Purple Skyroot Door
-item.aether.door.skyroot.painted.purple.desc=Every home needs one.
-item.aether.door.skyroot.painted.blue.name=Blue Skyroot Door
-item.aether.door.skyroot.painted.blue.desc=Every home needs one.
-item.aether.door.skyroot.painted.brown.name=Brown Skyroot Door
-item.aether.door.skyroot.painted.brown.desc=Every home needs one.
-item.aether.door.skyroot.painted.green.name=Green Skyroot Door
-item.aether.door.skyroot.painted.green.desc=Every home needs one.
-item.aether.door.skyroot.painted.red.name=Red Skyroot Door
-item.aether.door.skyroot.painted.red.desc=Every home needs one.
-item.aether.door.skyroot.painted.black.name=Black Skyroot Door
-item.aether.door.skyroot.painted.black.desc=Every home needs one.
-
-item.aether.ammo.windball.name=Wind Charge
-item.aether.ammo.windball.desc=Ammo for a hand cannon. Shoots a gust of wind over a wide area.
-
-item.aether.projectile.fire.name=Fire Crystal
-item.aether.projectile.fire.desc=Crystallized projectile made of fire.
-item.aether.projectile.ice.name=Ice Crystal
-item.aether.projectile.ice.desc=Crystallized projectile made of ice.
-item.aether.projectile.lightning.name=Lightning Crystal
-item.aether.projectile.lightning.desc=Crystallized projectile made of lightning.
-
-
