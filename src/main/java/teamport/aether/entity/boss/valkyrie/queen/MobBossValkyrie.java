@@ -157,14 +157,14 @@ public class MobBossValkyrie extends MobBoss {
         world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            entityplayer.sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peaceful"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peaceful"));
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             this.chatTime = 40;
             return true;
         }
 
         if (this.isReadyToDuel) {
-            entityplayer.sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
             this.chatTime = 40;
             return true;
         }
@@ -175,10 +175,10 @@ public class MobBossValkyrie extends MobBoss {
             if (itemstack.stackSize <= 0) {
                 entityplayer.destroyCurrentEquippedItem();
             }
-            entityplayer.sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
             this.isReadyToDuel = true;
         } else {
-            entityplayer.sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
+            entityplayer.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
         }
         this.chatTime = 40;
         return true;
@@ -228,7 +228,7 @@ public class MobBossValkyrie extends MobBoss {
                 this.world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 0.5f, 1.0f);
                 player.triggerAchievement(AetherAchievements.SILVER);
 
-                player.sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
+                player.sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
             });
 
         super.onDeath(entityKilledBy);
@@ -365,12 +365,12 @@ public class MobBossValkyrie extends MobBoss {
                 return false;
             }
             if (!world.getDifficulty().canHostileMobsSpawn()) {
-                ((Player) attacker).sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             } else {
                 String message = this.random.nextInt(2) == 0 ? "aether.entity.boss_valkyrie.fight_weaklings" : "aether.entity.boss_valkyrie.collect_medals";
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
-                ((Player) attacker).sendTranslatedChatMessage(TRANSLATOR.translateKey(message));
+                ((Player) attacker).sendMessage(TRANSLATOR.translateKey(message));
             }
             this.chatTime = 40;
             return false;
@@ -380,7 +380,7 @@ public class MobBossValkyrie extends MobBoss {
         if (this.target == null && attacker instanceof Player) {
             DungeonMap.runWithDungeon(dungeonID,d -> d.lock(this, world));
 
-            ((Player) attacker).sendTranslatedChatMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            ((Player) attacker).sendMessage(TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
             ((AetherBossList) attacker).aether$TryAddBossList(this);
 
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
@@ -394,6 +394,9 @@ public class MobBossValkyrie extends MobBoss {
 
         else this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
 
+        if (type == AetherMod.HOLY) {
+            super.hurt(attacker, damage / 2, type);
+        }
         return super.hurt(attacker, damage, type);
     }
 

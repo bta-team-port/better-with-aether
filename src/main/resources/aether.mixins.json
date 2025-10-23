@@ -64,6 +64,7 @@
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupsMixin",
     "dimension.bumpToOverworld.EntityBumpToOverworldMixin",
+    "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
@@ -87,6 +88,8 @@
     "item.TreeCapitatorAetherAxeMixin",
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
+    "player.PlayerFixArmorMixin",
+    "player.PlayerGetNextDartMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
     "player.PlayerMixinDevDrops"
   ],
@@ -143,7 +146,8 @@
     "gui.screens.PlayerServerMixinAetherScreens",
     "item.PacketHandlerServerValkToolsReachMixin",
     "net.AerBunnyFlyingMixin",
-    "net.PlayerLoginMixin"
+    "net.PlayerLoginMixin",
+    "player.PlayerServerAddDartsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
