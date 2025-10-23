@@ -261,6 +261,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         BlockBuilder clouds = new BlockBuilder(MOD_ID)
                 .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS)
                 .setLightOpacity(1)
                 .setHardness(0.2f)
                 .setResistance(0.2f);

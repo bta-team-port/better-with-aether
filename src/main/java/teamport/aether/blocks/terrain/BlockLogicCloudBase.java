@@ -17,7 +17,6 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         super(block, Material.air);
     }
 
-
     public int getPistonPushReaction(World world, int x, int y, int z) {
         return 1;
     }
@@ -37,7 +36,6 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
     public void handleEntityInside(World world, int x, int y, int z, Entity entity, Vec3 entityVelocity) {
         entity.fallDistance = 0.0F;
     }
-
 
     public boolean isSolidRender() {
         return false;

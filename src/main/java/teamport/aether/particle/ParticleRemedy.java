@@ -27,7 +27,7 @@ public class ParticleRemedy extends Particle {
 
 
     public void tick() {
-        bindNextTesture();
+        bindNextTexture();
         this.yd -= 0.01;
         super.tick();
         if (this.onGround) {
@@ -35,7 +35,7 @@ public class ParticleRemedy extends Particle {
         }
     }
 
-    private void bindNextTesture() {
+    private void bindNextTexture() {
         if (age > 8 * timScaling) {
             this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/remedy_2");
             return;
