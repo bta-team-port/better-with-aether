@@ -89,6 +89,7 @@
     "player.PlayerBossListMixin",
     "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
+    "player.PlayerGetNextDartMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
     "player.PlayerMixinDevDrops"
   ],
@@ -145,7 +146,8 @@
     "gui.screens.PlayerServerMixinAetherScreens",
     "item.PacketHandlerServerValkToolsReachMixin",
     "net.AerBunnyFlyingMixin",
-    "net.PlayerLoginMixin"
+    "net.PlayerLoginMixin",
+    "player.PlayerServerAddDartsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

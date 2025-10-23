@@ -3,6 +3,7 @@ package teamport.aether.models;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.PlayerRemote;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.ItemRenderer;
 import net.minecraft.client.render.TextureManager;
@@ -15,7 +16,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.items.AetherItems;
+import teamport.aether.items.DartInterface;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {
@@ -70,18 +71,14 @@ public class ItemModelShooter extends ItemModelStandard {
     }
 
     public Item getNextDart(Player player) {
-        Item nextDart = null;
-        if (player.hasItem(AetherItems.AMMO_DART_ENCHANTED)) {
-            nextDart = AetherItems.AMMO_DART_ENCHANTED;
-        } else if (player.hasItem(AetherItems.AMMO_DART_POISON)) {
-            nextDart = AetherItems.AMMO_DART_POISON;
-        } else if (player.hasItem(AetherItems.AMMO_DART_GOLDEN)) {
-            nextDart = AetherItems.AMMO_DART_GOLDEN;
+        DartInterface dartPlayer = (DartInterface) player;
+        if (player instanceof PlayerRemote) {
+            int id = dartPlayer.better_with_aether$getDartId();
+            return id >= 0 && id < Item.itemsList.length ? Item.itemsList[id] : null;
+        } else {
+            return dartPlayer.better_with_aether$getNextDart();
         }
-
-        return nextDart;
     }
-
 
     public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
         GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
