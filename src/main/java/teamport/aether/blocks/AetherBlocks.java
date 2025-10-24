@@ -454,7 +454,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         PLANKS_SKYROOT_PAINTED = wood
                 .setBlockItem(b -> new ItemBlockPainted<>(b, false))
-                .build("planks.skyroot.painted", "planks_skyroot.painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedBlock(b, Material.wood, () -> PLANKS_SKYROOT));
+                .build("planks.skyroot.painted", "planks_skyroot_painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedBlock(b, Material.wood, () -> PLANKS_SKYROOT));
 
         SLAB_PLANKS_SKYROOT = slab
                 .setBlockSound(BlockSounds.WOOD)
