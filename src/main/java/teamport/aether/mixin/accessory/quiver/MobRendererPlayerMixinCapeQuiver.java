@@ -27,8 +27,10 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     @Shadow
     public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
 
+    @Shadow
+    private ModelBiped modelBipedMain;
     @Unique
-    public final ModelBiped quiver = new ModelBiped(1.25F);
+    public final ModelBiped quiver = new ModelBiped(1.05F);
 
     public MobRendererPlayerMixinCapeQuiver(ModelBase model, float shadowSize) {
         super(model, shadowSize);
@@ -36,6 +38,13 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
 
     @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;", shift = At.Shift.AFTER), cancellable = true)
     public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+        quiver.holdingLarge = modelBipedMain.holdingLarge;
+        quiver.holdingRightHand = modelBipedMain.holdingRightHand;
+        quiver.holdingLeftHand = modelBipedMain.holdingLeftHand;
+        quiver.sneaking = modelBipedMain.sneaking;
+        quiver.isRiding = modelBipedMain.isRiding;
+        quiver.onGround = this.getSwingProgress(player, partialTick);
+
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
         if (armorStack == null) return;
         Item item = armorStack.getItem();

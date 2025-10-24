@@ -15,9 +15,9 @@ import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
-import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.chest.WorldFeatureAetherGoldChest;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
+import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -309,13 +309,15 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
     private void createBossAndTreasure(int x, int y, int z) {
         // chest room
-        this.placeComponent(drawHollowShell(
+        WorldFeatureComponent treasureRoom = drawHollowShell(
                 random, hellfire,
                 Direction.SOUTH, 7,
                 Direction.WEST, 7,
                 Direction.UP, 5,
                 x + 3, y + 1 + RADIUS / 2, z + RADIUS / 2 + 1, false
-        ));
+        );
+        this.placeComponent(treasureRoom);
+
         // Place boss, chest and door
 
         MobBossSunspirit boss = new MobBossSunspirit(world);
@@ -342,6 +344,14 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         treasureDoor.add(new WorldFeaturePoint(x + 1, y + 4 + RADIUS / 2, z + RADIUS - 7));
         treasureDoor.forEach(p -> p.rotateYAroundPivot(anchor, direction));
         logic.setTreasureDoor(treasureDoor);
+
+        Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
+                new WorldFeaturePoint(x - RADIUS - 8, y - 5, z - RADIUS - 8),
+                new WorldFeaturePoint(x + RADIUS + 8, y + RADIUS + 8, z + RADIUS + 8)
+        );
+        clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.second.rotateYAroundPivot(dungeonAnchor, direction);
+        logic.setClearArea(clearArea);
     }
 
     public void createHeightMap(int x, int y, int z) {

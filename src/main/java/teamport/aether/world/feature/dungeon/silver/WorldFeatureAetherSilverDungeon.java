@@ -278,7 +278,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
 
     private void createBossAndTreasure(int x, int y, int z) {
         Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
-                new WorldFeaturePoint(x + 2, y, z - 3),
+                new WorldFeaturePoint(x + 2, y - 1, z - 3),
                 new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
         clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);

@@ -8,7 +8,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
@@ -31,16 +30,16 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.iterate3d
 public abstract class DungeonLogic {
 
     // <base data>
-        public static final int SCHEMA_VERSION = 1;
+    public static final int SCHEMA_VERSION = 1;
 
-        public boolean hasGenerated = false;
-        public final int id;
-        public final long seed;
+    public boolean hasGenerated = false;
+    public final int id;
+    public final long seed;
 
-        protected WorldFeaturePoint position;
-        protected boolean markedRemoved = false;
+    protected WorldFeaturePoint position;
+    protected boolean markedRemoved = false;
 
-        private int dimensionID;
+    private int dimensionID;
     // </base data>
 
     public DungeonLogic(int dimensionID, int id, long seed) {
@@ -85,21 +84,22 @@ public abstract class DungeonLogic {
     }
 
     // <structure data>
-        @Nullable
-        protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
+    @Nullable
+    protected Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea;
 
-        protected boolean entranceLocked = false;
+    protected boolean entranceLocked = false;
 
-        protected List<WorldFeatureBlock> entranceDoor = new ArrayList<>();
-        protected List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
+    protected List<WorldFeatureBlock> entranceDoor = new ArrayList<>();
+    protected List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
 
-        protected int doorReplacementID = 0;
-        protected int doorReplacementMeta = 0;
+    protected int doorReplacementID = 0;
+    protected int doorReplacementMeta = 0;
     // </structure data>
 
     public boolean isEntranceLocked() {
         return entranceLocked;
     }
+
     public void setClearArea(Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea) {
         this.setClearArea(clearArea.first, clearArea.second);
     }
@@ -141,6 +141,7 @@ public abstract class DungeonLogic {
     }
 
     protected abstract boolean placeDungeon(World world, Random random);
+
     protected abstract boolean canPlaceDungeon(World world);
 
     protected boolean generate(World world) {
@@ -169,7 +170,8 @@ public abstract class DungeonLogic {
         return false;
     }
 
-    protected void onTick(World world) {}
+    protected void onTick(World world) {
+    }
 
     protected void onDungeonRemoved(World world) {
         if (hasGenerated) {
