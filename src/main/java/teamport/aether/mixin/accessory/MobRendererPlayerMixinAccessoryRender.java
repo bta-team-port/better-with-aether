@@ -109,17 +109,15 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
     public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
-
-        modelAccessories.holdingLarge = shield.holdingLarge = modelBipedMain.holdingLarge;
-        modelAccessories.holdingRightHand = shield.holdingRightHand = modelBipedMain.holdingRightHand;
-        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelBipedMain.holdingLeftHand;
-        modelAccessories.sneaking = shield.sneaking = modelBipedMain.sneaking;
-        modelAccessories.isRiding = shield.isRiding = modelBipedMain.isRiding;
+        modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelFeather2.holdingLarge = modelBipedMain.holdingLarge;
+        modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelFeather2.holdingRightHand = modelBipedMain.holdingRightHand;
+        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelFeather2.holdingLeftHand = modelBipedMain.holdingLeftHand;
+        modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelFeather2.sneaking = modelBipedMain.sneaking;
+        modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelFeather2.isRiding = modelBipedMain.isRiding;
         float swingProgress = this.getSwingProgress(player, partialTick);
-        modelAccessories.onGround = swingProgress;
+        modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelFeather2.onGround = swingProgress;
         modelArmor.onGround = swingProgress;
         modelArmorChestplate.onGround = swingProgress;
-        shield.onGround = swingProgress;
 
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
         if (armorStack != null && armorStack.getItem() instanceof IAccessory && renderPass >= GLOVES_SLOT) {
