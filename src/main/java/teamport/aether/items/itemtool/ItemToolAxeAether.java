@@ -20,10 +20,12 @@ public class ItemToolAxeAether extends ItemTool {
         super(name, namespaceId, id, 3, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_AXE);
     }
 
+    @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
     }
 
+    @Override
     public boolean beforeDestroyBlock(World world, ItemStack itemStack, int blockId, int x, int y, int z, Side side, Player player) {
         if (!world.isClientSide && world.getGameRuleValue(GameRules.TREECAPITATOR) && !player.isSneaking()) {
             ItemStack held = player.getHeldItem();

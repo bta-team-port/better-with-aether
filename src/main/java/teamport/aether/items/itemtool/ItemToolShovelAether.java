@@ -15,18 +15,21 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.items.AetherHasCustomDamageType;
 
 import java.util.Random;
 
-public class ItemToolShovelAether extends ItemTool {
+public class ItemToolShovelAether extends ItemTool{
     public ItemToolShovelAether(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, 1, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
+    @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
+    @Override
     public boolean onUseItemOnBlock(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         return this.shovelBlock(itemstack, player, world, blockX, blockY, blockZ, side);
     }
@@ -54,6 +57,7 @@ public class ItemToolShovelAether extends ItemTool {
         }
     }
 
+    @Override
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
         this.shovelBlock(itemStack, null, world, blockX + direction.getOffsetX(), blockY + direction.getOffsetY(), blockZ + direction.getOffsetZ(), direction.getSide());
     }

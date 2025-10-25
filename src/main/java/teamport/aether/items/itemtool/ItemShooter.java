@@ -14,6 +14,7 @@ public class ItemShooter extends Item {
         this.maxStackSize = 1;
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         if (entityplayer.inventory.consumeInventoryItem(AetherItems.AMMO_DART_ENCHANTED.id)) {
             itemstack.damageItem(1, entityplayer);
