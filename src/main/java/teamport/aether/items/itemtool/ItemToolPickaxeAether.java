@@ -19,6 +19,7 @@ public class ItemToolPickaxeAether extends ItemTool {
         super(name, namespaceId, id, 2, enumtoolmaterial, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
     }
 
+    @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
         Integer miningLevel = miningLevels.get(block);
         if (miningLevel != null) {
