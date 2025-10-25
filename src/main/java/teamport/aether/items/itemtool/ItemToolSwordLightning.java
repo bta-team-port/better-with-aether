@@ -5,6 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
+import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherHasCustomDamageType;
@@ -22,9 +23,14 @@ public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCu
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
                 return false;
             }
-            ParticleHelper.spawnLightningSwordParticles(target);
+            ParticleMaker.spawnLightningSwordParticles(target);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public DamageType getDamageType(){
+        return AetherMod.LIGHTNING;
     }
 }

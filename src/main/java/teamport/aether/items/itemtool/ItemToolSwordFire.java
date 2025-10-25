@@ -26,7 +26,7 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
                 return false;
             }
-            ParticleHelper.spawnLightningSwordParticles(target);
+            ParticleMaker.spawnLightningSwordParticles(target);
             target.maxFireTicks = 600;
             target.remainingFireTicks = 600;
             return true;
