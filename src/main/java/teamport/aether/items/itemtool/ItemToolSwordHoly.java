@@ -5,17 +5,19 @@ import net.minecraft.core.entity.monster.*;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
+import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.items.AetherHasCustomDamageType;
 
 import java.util.Random;
 
-public class ItemToolSwordHoly extends ItemToolSword {
-    public int weaponDamage;
+public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomDamageType {
+//    public int weaponDamage;
 
     public ItemToolSwordHoly(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-        this.weaponDamage = 1;
+//        this.weaponDamage = 1;
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
@@ -28,10 +30,10 @@ public class ItemToolSwordHoly extends ItemToolSword {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
             if (target.hurtTime == 10) {
                 target.hurt(attacker, 20, AetherMod.HOLY);
@@ -40,7 +42,11 @@ public class ItemToolSwordHoly extends ItemToolSword {
         if (target.hurtTime == 10) {
             target.hurt(attacker, 10, AetherMod.HOLY);
         }
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack, target, attacker);
+    }
+
+    @Override
+    public DamageType getDamageType(){
+        return AetherMod.HOLY;
     }
 }

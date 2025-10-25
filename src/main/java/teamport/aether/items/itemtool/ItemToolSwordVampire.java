@@ -11,12 +11,11 @@ public class ItemToolSwordVampire extends ItemToolSword {
         super(name, namespaceId, id, enumtoolmaterial);
     }
 
+    @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if (target instanceof Mob && target.isAlive()) {
             attacker.heal(8);
         }
-
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack, target, attacker);
     }
 }
