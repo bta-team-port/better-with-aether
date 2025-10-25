@@ -15,7 +15,7 @@ import teamport.aether.gameSettings.AetherGameSettingsOptions;
         value = GameSettings.class,
         remap = false
 )
-public class gameSettingsMixin implements AetherGameSettingsOptions {
+public class GameSettingsMixin implements AetherGameSettingsOptions {
 
     @Shadow
     @Final
