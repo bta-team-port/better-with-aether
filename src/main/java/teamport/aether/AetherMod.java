@@ -49,11 +49,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
     public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
 
-    public static final String UUID_LUKEISSTUFF = "db7db941-6923-4855-a879-1ae655c16122";
-    public static final String UUID_OLYPOLYU = "d561a5ee-57df-491d-80ea-784251df4bef";
-    public static final String UUID_TOCININ = "4f419f3d-c2b0-41de-92bb-9740e43b640d";
-    public static final String UUID_REDART15 = "3da8c87f-1845-455c-b91f-7e9ee8f4c0ec";
-
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
@@ -67,8 +62,6 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final BlockLogicNote.Instrument SAXOPHONE = new BlockLogicNote.Instrument(19, "saxophone");
     public static final BlockLogicNote.Instrument MUSICBOX = new BlockLogicNote.Instrument(20, "musicbox");
 
-    // hide the mimic description
-    public static final boolean BTWAILA = FabricLoader.getInstance().isModLoaded("btwaila");
     // for slots
     public static final byte ARMOR_START_INDEX = 41;
 
