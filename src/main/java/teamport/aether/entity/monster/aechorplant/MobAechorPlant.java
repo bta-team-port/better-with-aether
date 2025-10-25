@@ -21,7 +21,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
@@ -203,7 +203,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
-            ParticleHelper.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
+            ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
         }
     }
 

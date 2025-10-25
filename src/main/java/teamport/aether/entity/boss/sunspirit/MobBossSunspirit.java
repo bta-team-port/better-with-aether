@@ -20,7 +20,7 @@ import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
@@ -154,7 +154,7 @@ public class MobBossSunspirit extends MobBossFlying {
             double flameY = this.bb.minY + b - 0.5;
             double flameZ = this.z + c * b;
 
-            ParticleHelper.spawnParticle(world, "flame", flameX, flameY, flameZ, 0.0, -0.075F, 0.0, 0);
+            ParticleMaker.spawnParticle(world, "flame", flameX, flameY, flameZ, 0.0, -0.075F, 0.0, 0);
             this.evaporateWater();
         }
 
@@ -196,7 +196,7 @@ public class MobBossSunspirit extends MobBossFlying {
                         this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "random.fizz", 0.125F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
 
                         for (int l = 0; l < 8; ++l) {
-                            ParticleHelper.spawnParticle(world, "largesmoke", (double) x - 1 + (2 * Math.random()), (double) y + 0.75, (double) z - 1 + (2 * Math.random()), 0.0, 0.025F, 0.0, 0);
+                            ParticleMaker.spawnParticle(world, "largesmoke", (double) x - 1 + (2 * Math.random()), (double) y + 0.75, (double) z - 1 + (2 * Math.random()), 0.0, 0.025F, 0.0, 0);
                         }
                     }
                 }

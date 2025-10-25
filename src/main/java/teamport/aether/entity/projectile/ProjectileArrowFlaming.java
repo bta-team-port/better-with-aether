@@ -18,7 +18,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages<ProjectileArrowFlaming> {
@@ -95,10 +95,10 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
                 this.ticksInAir = 0;
             }
         } else {
-            ParticleHelper.spawnParticle(this.world, "flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-            ParticleHelper.spawnParticle(this.world, "flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-            ParticleHelper.spawnParticle(this.world, "smoke", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-            ParticleHelper.spawnParticle(this.world, "smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleMaker.spawnParticle(this.world, "flame", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleMaker.spawnParticle(this.world, "flame", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleMaker.spawnParticle(this.world, "smoke", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+            ParticleMaker.spawnParticle(this.world, "smoke", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
 
             super.tick();
         }
@@ -139,8 +139,8 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
     public void inGroundAction(Side side, int blockX, int blockY, int blockZ) {
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         for (int j = 0; j < 4; ++j) {
-            ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
-            ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_ARROW_FLAMING.id);
+            ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
+            ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_ARROW_FLAMING.id);
         }
         blockX += side.getOffsetX();
         blockY += side.getOffsetY();

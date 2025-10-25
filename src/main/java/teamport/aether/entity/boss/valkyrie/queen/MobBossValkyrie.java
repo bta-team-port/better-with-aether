@@ -21,7 +21,7 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -276,9 +276,9 @@ public class MobBossValkyrie extends MobBoss {
             this.teleportFailed();
         } else {
             if (!EnvironmentHelper.isServerEnvironment()) {
-                ParticleHelper.spawnParticle(world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
-                ParticleHelper.spawnParticle(world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
-                ParticleHelper.spawnParticle(world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleMaker.spawnParticle(world, "explode", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleMaker.spawnParticle(world, "smoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
+                ParticleMaker.spawnParticle(world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             }
             this.setPos(newX + 0.5, newY, newZ + 0.5);
             world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));

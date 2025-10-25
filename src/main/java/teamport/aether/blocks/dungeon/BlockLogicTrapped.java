@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class BlockLogicTrapped extends BlockLogicDungeon {
@@ -68,9 +68,9 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     private void spawnDecorations(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ, Entity player, Entity monster) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45);
-            ParticleHelper.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-            ParticleHelper.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-            ParticleHelper.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
         }
         world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
         world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);

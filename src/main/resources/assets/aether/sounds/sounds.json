@@ -232,6 +232,12 @@
       "zap.ogg"
     ]
   },
+  "heal": {
+    "subtitle": "subtitles.heal",
+    "sounds": [
+      "heal.ogg"
+    ]
+  },
   "aether_tune": {
     "sounds": [
       {

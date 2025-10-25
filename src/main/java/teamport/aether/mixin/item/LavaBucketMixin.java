@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value = ItemBucket.class, remap = false)
@@ -76,7 +76,7 @@ public abstract class LavaBucketMixin extends Item {
                 player.swingItem();
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                 for (int i = 0; i < 8; ++i) {
-                    ParticleHelper.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+                    ParticleMaker.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
                 }
 
                 world.setBlockWithNotify(x, y, z, 0);
@@ -132,7 +132,7 @@ public abstract class LavaBucketMixin extends Item {
                 world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
                 for (int l = 0; l < 8; ++l) {
                     double angle = Math.toRadians(l * 45);
-                    ParticleHelper.spawnParticle(world, "smoke", (double) x + 0.5, y, (double) z + 0.5, -(Math.cos(angle) * 2) / 20.0, 0.03, -(Math.sin(angle) * 2) / 20.0, 0);
+                    ParticleMaker.spawnParticle(world, "smoke", (double) x + 0.5, y, (double) z + 0.5, -(Math.cos(angle) * 2) / 20.0, 0.03, -(Math.sin(angle) * 2) / 20.0, 0);
                 }
 
                 world.setBlockWithNotify(x, y, z, AetherBlocks.AEROGEL.id());

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntityEnchanter;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -50,13 +50,13 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
             double f3 = 0.52F;
             double f4 = rand.nextFloat() * 0.6F - 0.3F;
             if (l == 4) {
-                ParticleHelper.spawnParticle(world, "flameenchanter", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 5) {
-                ParticleHelper.spawnParticle(world, "flameenchanter", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 2) {
-                ParticleHelper.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
             } else if (l == 3) {
-                ParticleHelper.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
             }
 
         }

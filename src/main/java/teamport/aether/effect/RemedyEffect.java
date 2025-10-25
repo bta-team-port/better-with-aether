@@ -5,7 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
@@ -51,14 +51,14 @@ public class RemedyEffect extends Effect implements ILockInteractable {
     private static void spawnParticles(Mob mob) {
         if (EnvironmentHelper.isSinglePlayer()) {
             if (mob instanceof Player) {
-                ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
+                ParticleMaker.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight, mob.bbWidth);
             } else {
-                ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
+                ParticleMaker.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
             }
         } else if (mob instanceof Player) {
-            ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight + 1.5, mob.bbWidth);
+            ParticleMaker.spawnRemedyParticle(mob.world, mob.x, mob.y - mob.bbHeight, mob.z, mob.bbHeight + 1.5, mob.bbWidth);
         } else {
-            ParticleHelper.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
+            ParticleMaker.spawnRemedyParticle(mob.world, mob.x, mob.y, mob.z, mob.bbHeight + 0.5, mob.bbWidth);
         }
     }
 }

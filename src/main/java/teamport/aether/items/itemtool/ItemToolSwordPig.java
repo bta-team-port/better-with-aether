@@ -10,7 +10,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.entity.animal.phyg.MobPhyg;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -29,9 +29,9 @@ public class ItemToolSwordPig extends ItemToolSword {
             double motionX = (random.nextDouble() * 0.1) - 0.05;
             double motionY = (random.nextDouble() * 0.1) - 0.05;
             double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
-            ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            ParticleHelper.spawnParticle(target.world, "largesmoke", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
+            ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            ParticleMaker.spawnParticle(target.world, "largesmoke", target.x, target.y + 0.5, target.z, 0.0, 0.0, 0.0, 0);
             target.hurt(attacker, 100, DamageType.COMBAT);
             target.remove();
         }

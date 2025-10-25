@@ -9,7 +9,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
@@ -31,7 +31,7 @@ public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
 
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (rand.nextInt(20) == 0 && !EnvironmentHelper.isServerEnvironment()) {
-            ParticleHelper.spawnParticle(world, AetherMod.MOD_ID + "$fallingleaf", x, (double) y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
+            ParticleMaker.spawnParticle(world, AetherMod.MOD_ID + "$fallingleaf", x, (double) y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
         }
     }
 

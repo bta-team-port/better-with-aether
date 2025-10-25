@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 public class ProjectileElementIce extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementIce> {
 
@@ -35,7 +35,7 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
     public void tick() {
         for (int j = 0; j < 2; j++) {
             if (random.nextInt(5) == 0) {
-                ParticleHelper.spawnParticle(world, "snowflake", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+                ParticleMaker.spawnParticle(world, "snowflake", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
             }
         }
 
@@ -54,8 +54,8 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
             double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
             double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
 
-            ParticleHelper.spawnParticle(world, "block", XParticle, YParticle, ZParticle, 0, 0, 0, Blocks.PERMAICE.id());
-            ParticleHelper.spawnParticle(world, "snowshovel", XParticle, YParticle, ZParticle, 0, 0, 0, 0);
+            ParticleMaker.spawnParticle(world, "block", XParticle, YParticle, ZParticle, 0, 0, 0, Blocks.PERMAICE.id());
+            ParticleMaker.spawnParticle(world, "snowshovel", XParticle, YParticle, ZParticle, 0, 0, 0, 0);
 
         }
 

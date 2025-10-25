@@ -6,7 +6,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -28,10 +28,10 @@ public class ItemToolSwordHoly extends ItemToolSword {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
             if (target.hurtTime == 10) {
                 target.hurt(attacker, 20, AetherMod.HOLY);

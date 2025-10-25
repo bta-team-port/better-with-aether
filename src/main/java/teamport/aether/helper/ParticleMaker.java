@@ -12,7 +12,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
-public class ParticleHelper {
+public class ParticleMaker {
     public static Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
@@ -43,7 +43,7 @@ public class ParticleHelper {
             double dx = random.nextGaussian() * 0.02;
             double dy = random.nextGaussian() * 0.02;
             double dz = random.nextGaussian() * 0.02;
-            ParticleHelper.spawnParticle(world,
+            ParticleMaker.spawnParticle(world,
                     "snowshovel",
                     x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                     y - bbHeight + (double) (random.nextFloat() * width),
@@ -57,7 +57,7 @@ public class ParticleHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        ParticleHelper.spawnParticle(world,
+        ParticleMaker.spawnParticle(world,
                 "smoke",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
@@ -71,11 +71,25 @@ public class ParticleHelper {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
-        ParticleHelper.spawnParticle(world, "flame",
+        ParticleMaker.spawnParticle(world, "flame",
                 x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 y + (random.nextFloat() * bbHeight) - bbHeight,
                 z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
                 dx, dy, dz, 0);
+    }
+
+    @Unique
+    public static void spawnHeartParticles(World world, double x, double y, double z, double bbHeight, double bbWidth) {
+        double dx = random.nextGaussian() * 0.02;
+        double dy = random.nextGaussian() * 0.02;
+        double dz = random.nextGaussian() * 0.02;
+        for (int i = 0; i < 2; i++) {
+            ParticleMaker.spawnParticle(world, "heart",
+                    x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+                    y + (random.nextFloat() * bbHeight) - bbHeight,
+                    z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+                    dx, dy, dz, 0);
+        }
     }
 
 
@@ -88,7 +102,7 @@ public class ParticleHelper {
         double posZ = z + radius * Math.sin(theta);
         double dy = random.nextDouble() * 0.05;
 
-        ParticleHelper.spawnParticle(world, "poison", posX, posY, posZ, 0, dy, 0, 0);
+        ParticleMaker.spawnParticle(world, "poison", posX, posY, posZ, 0, dy, 0, 0);
     }
 
     public static void spawnRemedyParticle(@Nullable World world, double x, double y, double z, double bbHeight, double bbWidth) {
@@ -97,15 +111,15 @@ public class ParticleHelper {
             double theta = MathHelper.toRadians(10 * i);
             double offX = radius * Math.cos(theta);
             double offZ = radius * Math.sin(theta);
-            ParticleHelper.spawnParticle(world, "remedy", x, y + bbHeight * 1.2, z, offX * 0.13, 0, offZ * 0.13, 0);
+            ParticleMaker.spawnParticle(world, "remedy", x, y + bbHeight * 1.2, z, offX * 0.13, 0, offZ * 0.13, 0);
         }
     }
 
     public static void spawnReplacementEffects(World world, int x, int y, int z) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45);
-            ParticleHelper.spawnParticle(world, "smoke", (double) x + 0.5, (double) y + .2, (double) z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
-            ParticleHelper.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+            ParticleMaker.spawnParticle(world, "smoke", (double) x + 0.5, (double) y + .2, (double) z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+            ParticleMaker.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
         }
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
@@ -127,7 +141,7 @@ public class ParticleHelper {
             double posY = clusterY + Math.min(random.nextDouble() * 0.03, 0.1);
             double posZ = clusterZ + radius * Math.sin(thetaInner);
             double dy = random.nextDouble() * 0.04;
-            ParticleHelper.spawnParticle(world, "poison", posX, posY, posZ, 0, dy, 0, 0);
+            ParticleMaker.spawnParticle(world, "poison", posX, posY, posZ, 0, dy, 0, 0);
         }
     }
 

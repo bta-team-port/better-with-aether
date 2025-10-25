@@ -11,7 +11,7 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -37,10 +37,10 @@ public class ItemToolSwordFire extends ItemToolSword {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, -motionZ, 0);
-                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
             target.maxFireTicks = 600;
             target.remainingFireTicks = 600;

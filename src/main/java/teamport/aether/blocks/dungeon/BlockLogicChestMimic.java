@@ -28,7 +28,7 @@ import teamport.aether.entity.monster.mimic.MimicEntry;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.tile.TileEntityMimic;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.setBlockWithNotify((int) Math.round(dx), (int) Math.round(dy), (int) Math.round(dz), 0);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
 
-        ParticleHelper.spawnParticle(world,
+        ParticleMaker.spawnParticle(world,
                 "explode",
                 dx, dy, dz,
                 0.0, 0.0, 0.0,
@@ -138,7 +138,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
             world.setBlockWithNotify(x, y, z, 0);
             world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
-            if (!EnvironmentHelper.isServerEnvironment()) ParticleHelper.spawnParticle(world,
+            if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
                     "explode",
                     dx, dy, dz,
                     0.0, 0.0, 0.0,
@@ -173,7 +173,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
         world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
         world.setBlockWithNotify(x, y, z, 0);
-        if (!EnvironmentHelper.isServerEnvironment()) ParticleHelper.spawnParticle(world,
+        if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
                 "explode",
                 x + 0.5, y + 1, z + 0.5,
                 0.0, 0.0, 0.0,
