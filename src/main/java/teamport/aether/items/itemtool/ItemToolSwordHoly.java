@@ -26,7 +26,7 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
                 || target instanceof MobSkeleton
                 || target instanceof MobGiant)
         ) {
-            ParticleHelper.spawnHolySwordParticles(target);
+            ParticleMaker.spawnHolySwordParticles(target);
         }
         return hitEntity;
     }

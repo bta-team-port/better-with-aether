@@ -5,7 +5,6 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
-import teamport.aether.helper.ParticleHelper;
 
 public class ItemToolSwordVampire extends ItemToolSword {
 
