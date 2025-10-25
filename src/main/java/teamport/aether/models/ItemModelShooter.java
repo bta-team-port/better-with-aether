@@ -61,7 +61,7 @@ public class ItemModelShooter extends ItemModelStandard {
                 GL11.glColor4f(brightness, brightness, brightness, alpha);
             }
 
-            this.renderTexturedQuad(tessellator, x, y, textureIndex, true, false);
+            this.renderTexturedQuad(tessellator, x, y, textureIndex, false, false);
             GL11.glEnable(2896);
             GL11.glEnable(2884);
             GL11.glDisable(3042);
