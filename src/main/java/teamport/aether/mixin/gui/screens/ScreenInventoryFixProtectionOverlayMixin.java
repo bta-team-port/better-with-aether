@@ -44,7 +44,11 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
         int h = Math.max(visibleCount * 10 + 4, 44);
 
         GL11.glEnable(3042);
-        this.drawGradientRect(x, y, x + w, y + h, this.protectionOverlayBgColor.getARGB(), this.protectionOverlayBgColor.getARGB());
+        if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+            this.drawGradientRect(x - 5, y, x + w - 5, y + h, this.protectionOverlayBgColor.getARGB(), this.protectionOverlayBgColor.getARGB());
+        } else {
+            this.drawGradientRect(x, y, x + w, y + h, this.protectionOverlayBgColor.getARGB(), this.protectionOverlayBgColor.getARGB());
+        }
         GL11.glDisable(3042);
         GL11.glDisable(2884);
 
@@ -76,10 +80,19 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
 
                 GL11.glEnable(3553);
                 GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
-                this.drawGuiIcon(x + 2, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
+                if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+                    this.drawGuiIcon(x - 3, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
+                } else {
+                    this.drawGuiIcon(x + 2, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
+                }
                 GL11.glDisable(3553);
-                this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, -16777216);
-                this.drawRectWidthHeight(x + 15, y2 + 4, barWidth, h2, color);
+                if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+                    this.drawRectWidthHeight(x + 9, y2 + 4, w2 + 2, h2 + 1, -16777216);
+                    this.drawRectWidthHeight(x + 10, y2 + 4, barWidth, h2, color);
+                } else {
+                    this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, -16777216);
+                    this.drawRectWidthHeight(x + 15, y2 + 4, (int)(protection * (float)w2), h2, color);
+                }
                 if (mouseX >= x && mouseY >= y2 + 2 && mouseX <= x + w && mouseY <= y2 + 12) {
                     this.hoveredDamageType = damageType;
                 }
