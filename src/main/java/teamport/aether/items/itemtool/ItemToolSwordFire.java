@@ -62,12 +62,12 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
         return true;
     }
 
-    public int getDamageVsEntity(Entity entity, ItemStack is) {
-        return this.weaponDamage;
-    }
+//    public int getDamageVsEntity(Entity entity, ItemStack is) {
+//        return this.weaponDamage;
+//    }
 
     @Override
-    public DamageType getDamageTypes(){
+    public DamageType getDamageType(){
         return DamageType.FIRE;
     }
 }
