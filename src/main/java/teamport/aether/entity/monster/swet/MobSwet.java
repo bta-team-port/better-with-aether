@@ -82,6 +82,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void tick() {
         this.doTickEffect();
 
+        if (this.passenger != null && (!this.passenger.isAlive() || this.passenger.removed)) {
+            this.ejectRider();
+        }
+
         if (this.grabDelay > 0) {
             this.grabDelay--;
         }
@@ -177,7 +181,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         if (this.isAlive()) {
             if (!this.friendly) {
                 if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead) {
-                    if (grabDelay == 0) {
+                    if (player.isAlive() && grabDelay == 0) {
                         player.startRiding(this);
                         grabDelay = 100;
                     }
