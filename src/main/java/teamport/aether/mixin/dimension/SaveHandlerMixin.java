@@ -27,7 +27,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
     public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
-        if (dimensionId != AetherDimension.AetherDimensionID) return;
+        if (dimensionId != AetherDimension.AETHER.id) return;
 
         AetherDimension.setDimensionDataDefaults();
 
@@ -39,7 +39,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
 
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
     public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
-        if (dimensionId != AetherDimension.AetherDimensionID) return;
+        if (dimensionId != AetherDimension.AETHER.id) return;
         AetherDimension.saveDimensionData(dimensionData);
     }
 

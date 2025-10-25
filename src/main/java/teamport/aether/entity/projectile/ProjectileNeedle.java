@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileNeedle> {
@@ -201,7 +201,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
         for (int j = 0; j < 4; ++j) {
-            ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
+            ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
         }
 
         this.remove();
@@ -210,7 +210,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
     public void waterTick() {
         for (int k = 0; k < 4; ++k) {
             double particleDistance = 0.25;
-            ParticleHelper.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
+            ParticleMaker.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
         }
 
         this.projectileSpeed = 0.95F;

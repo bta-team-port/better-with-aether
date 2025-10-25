@@ -28,7 +28,7 @@ public class mapFixMixin {
                 @Local(name = "id") LocalIntRef id,
                 @Local(name = "height") int height
     ) {
-        if (world.dimension.id != AetherDimension.AetherDimensionID) return;
+        if (world.dimension.id != AetherDimension.AETHER.id) return;
 
         if (height < 0) {
             id.set(Blocks.TORCH_COAL.id());

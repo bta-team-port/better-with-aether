@@ -20,7 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
@@ -184,7 +184,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             y += ((Player) vehicle).bbHeight;
         }
 
-        ParticleHelper.spawnParticle(world, "explode", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
+        ParticleMaker.spawnParticle(world, "explode", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
     public boolean hurt(Entity entity, int i, DamageType type) {

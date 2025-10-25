@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = MobWolf.class, remap = false)
@@ -24,7 +24,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$lavaImmunity(CallbackInfo ci) {
         if (isImmuneToFire()) {
             if (world == null) return;
-            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -33,7 +33,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void aether$fireImmunity(CallbackInfo ci) {
         if (isImmuneToFire()) {
             if (world == null) return;
-            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             ci.cancel();
         }
     }
@@ -42,7 +42,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void thunderHit(EntityLightning bolt) {
         if (isImmuneToFire()) {
             if (world == null) return;
-            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
         super.thunderHit(bolt);
@@ -52,7 +52,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     public void burn(int damage) {
         if (isImmuneToFire()) {
             if (world == null) return;
-            ParticleHelper.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
             return;
         }
         super.burn(damage);

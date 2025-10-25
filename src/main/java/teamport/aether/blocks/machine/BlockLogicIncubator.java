@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -52,7 +52,7 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         double yPos = (double) y + 1;
         double zPos = (double) z + 0.5 + radius * Math.sin(angle);
         double dy = (rand.nextGaussian() * 0.5f + 1.0f) * 0.01f;
-        ParticleHelper.spawnParticle(world, "flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0);
+        ParticleMaker.spawnParticle(world, "flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0);
     }
 
     @Override

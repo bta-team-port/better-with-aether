@@ -35,7 +35,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
     public void tick(CallbackInfo ci) {
 
         assert world != null;
-        if (dimension == AetherDimension.AetherDimensionID && this.y < world.worldType.getMinY() - 10) {
+        if (dimension == AetherDimension.AETHER.id && this.y < world.worldType.getMinY() - 10) {
             if (EnvironmentHelper.isSinglePlayer()) {
                 Minecraft mc = Minecraft.getMinecraft();
 

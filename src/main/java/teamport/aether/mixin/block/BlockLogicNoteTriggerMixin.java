@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 
 import static teamport.aether.AetherMod.*;
 
@@ -27,7 +27,7 @@ public abstract class BlockLogicNoteTriggerMixin {
         }
 
         world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, soundEvent, 3.0F, f);
-        ParticleHelper.spawnParticle(world, "note", (double) x + 0.5, (double) y + 1.2, (double) z + 0.5, 0.0, 0.0, 0.0, data);
+        ParticleMaker.spawnParticle(world, "note", (double) x + 0.5, (double) y + 1.2, (double) z + 0.5, 0.0, 0.0, 0.0, data);
         ci.cancel();
     }
 }

@@ -15,7 +15,7 @@ import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.EnemyBoss;
 import teamport.aether.helper.Pair;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -79,7 +79,7 @@ public abstract class DungeonLogic {
 
         if (data.getInteger("SCHEMA_VERSION") == 0) {
             hasGenerated = true;
-            dimensionID = AetherDimension.AetherDimensionID;
+            dimensionID = AetherDimension.AETHER.id;
         }
     }
 
@@ -182,8 +182,8 @@ public abstract class DungeonLogic {
 
             if (treasureDoor != null) {
                 for (WorldFeaturePoint coordinate : treasureDoor) {
-                    ParticleHelper.spawnParticle(world, "smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
-                    ParticleHelper.spawnParticle(world, "largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
+                    ParticleMaker.spawnParticle(world, "smoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
+                    ParticleMaker.spawnParticle(world, "largesmoke", coordinate.x, coordinate.y + 0.8F, coordinate.z, 0.0, 0.0, 0.0, 0);
                     world.setBlockAndMetadataWithNotify(coordinate.x, coordinate.y, coordinate.z, doorReplacementID, doorReplacementMeta);
                 }
             }

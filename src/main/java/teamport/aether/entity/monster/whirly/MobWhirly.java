@@ -18,6 +18,7 @@ import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.AetherItems;
+import teamport.aether.items.accessory.AetherInvisibility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,6 +200,12 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
 
     public Entity getPlayer() {
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
+        if (entityplayer instanceof AetherInvisibility) {
+            AetherInvisibility invPlayer = (AetherInvisibility) entityplayer;
+            if (invPlayer.aether$isInvisible()) {
+                entityplayer = this.world.getClosestPlayerToEntity(this, 2.0);
+            }
+        }
         return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
     }
 

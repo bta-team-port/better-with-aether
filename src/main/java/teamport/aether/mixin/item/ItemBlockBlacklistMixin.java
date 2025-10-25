@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public abstract class ItemBlockBlacklistMixin {
                             int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
 
                             if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, replacementId, meta)) {
-                                ParticleHelper.spawnReplacementEffects(world, blockX, blockY, blockZ);
+                                ParticleMaker.spawnReplacementEffects(world, blockX, blockY, blockZ);
                                 if (player != null) {
                                     this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
                                 } else {

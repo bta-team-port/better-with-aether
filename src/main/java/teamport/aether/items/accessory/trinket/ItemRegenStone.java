@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.accessory.IAccessoryEffects;
 import teamport.aether.items.accessory.ItemTrinket;
 
@@ -35,6 +36,8 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
             tag.putInt("time", 0);
             if (player.getHealth() < player.getMaxHealth()) {
                 player.heal(1);
+                world.playSoundAtEntity(player, player, "aether:heal", 1.0f, 1.0f);
+                ParticleMaker.spawnHeartParticles(world, player.x, player.y, player.z, player.bbHeight, player.bbWidth);
             }
         }
     }

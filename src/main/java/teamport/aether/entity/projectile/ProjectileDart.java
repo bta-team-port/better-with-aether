@@ -23,7 +23,7 @@ import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
 import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.helper.ParticleHelper;
+import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
 public class ProjectileDart extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileDart> {
@@ -216,8 +216,8 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
             }
         } else {
             if (dartType >= 2) {
-                ParticleHelper.spawnParticle(this.world, "darttrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
-                ParticleHelper.spawnParticle(this.world, "darttrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+                ParticleMaker.spawnParticle(this.world, "darttrail", this.x, this.y, this.z, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
+                ParticleMaker.spawnParticle(this.world, "darttrail", this.x + this.xd * 0.5, this.y + this.yd * 0.5, this.z + this.zd * 0.5, this.xd * 0.05, this.yd * 0.05 - 0.1, this.zd * 0.05, 0);
             }
 
             super.tick();
@@ -301,7 +301,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
             this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
 
             for (int j = 0; j < 4; ++j) {
-                ParticleHelper.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
+                ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, AetherItems.AMMO_DART_GOLDEN.id);
             }
 
             this.remove();
@@ -311,7 +311,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
     public void waterTick() {
         for (int k = 0; k < 4; ++k) {
             double particleDistance = 0.25;
-            ParticleHelper.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
+            ParticleMaker.spawnParticle(this.world, "bubble", this.x - this.xd * particleDistance, this.y - this.yd * particleDistance, this.z - this.zd * particleDistance, this.xd, this.yd, this.zd, 0);
         }
 
         this.projectileSpeed = 0.95F;
