@@ -21,9 +21,9 @@ public class AetherToolMaterial {
         ItemStack held = player.getHeldItem();
         if (held == null)
             return false;
-        else if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie)) {
+        if (held.getItem() instanceof ItemTool && (((ItemTool) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie)) {
             return true;
-        } else
-            return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie;
+        }
+        return held.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) held.getItem()).getMaterial() == AetherToolMaterial.valkyrie;
     }
 }
