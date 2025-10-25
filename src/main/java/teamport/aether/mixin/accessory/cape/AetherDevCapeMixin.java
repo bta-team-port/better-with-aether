@@ -6,8 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static teamport.aether.AetherMod.*;
+import teamport.aether.AetherGlobals;
 
 @Mixin(MobRendererPlayer.class)
 public class AetherDevCapeMixin {
@@ -16,10 +15,10 @@ public class AetherDevCapeMixin {
     private void injectCapeOverride(Player player, float partialTick, CallbackInfo ci) {
         String uuid = player.uuid.toString();
         switch (uuid) {
-            case UUID_LUKEISSTUFF: // LukeisStuff
-            case UUID_OLYPOLYU: // Olypolyu / Kheprep
-            case UUID_TOCININ: // Tocinin
-            case UUID_REDART15: // Redart15
+            case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
+            case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep
+            case AetherGlobals.UUID_TOCININ: // Tocinin
+            case AetherGlobals.UUID_REDART15: // Redart15
                 player.capeURL = "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/heads/7.3/src/main/resources/assets/aether/textures/armor/cape/aether.png";
                 break;
         }

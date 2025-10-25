@@ -7,6 +7,9 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
 
+import static teamport.aether.AetherGlobals.BODY_SLOT;
+import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
+
 public class ItemBowPhoenix extends ItemBow {
 
     public ItemBowPhoenix(String name, String namespaceId, int id) {
@@ -15,6 +18,7 @@ public class ItemBowPhoenix extends ItemBow {
         this.setMaxDamage(768);
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         int index = findActiveQuiver(entityplayer, 2);
         ItemStack quiverSlot = entityplayer.inventory.armorItemInSlot(index);
@@ -52,8 +56,8 @@ public class ItemBowPhoenix extends ItemBow {
                         || (bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id
                         && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())
         ) {
-            return 5;
+            return CAPE_SLOT;
         }
-        return 2;
+        return BODY_SLOT;
     }
 }
