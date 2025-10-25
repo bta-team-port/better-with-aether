@@ -279,7 +279,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     public int getMaxHealth() {
-        return 50;
+        return 1000;
     }
 
     public Entity findPlayerToAttack() {
@@ -366,7 +366,7 @@ public class MobBossSunspirit extends MobBossFlying {
             return true;
         }
         if (attacker instanceof ProjectileElementIce) {
-            super.hurt(attacker, 5, type);
+            super.hurt(attacker, 100, type);
 
             if (target instanceof Player) {
                 ((Player) target).triggerAchievement(AetherAchievements.ICE_DEFLECT);

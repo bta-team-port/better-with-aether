@@ -17,10 +17,6 @@ import static teamport.aether.AetherMod.*;
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinDevDrops {
 
-
-    @Shadow
-    public int swingProgressInt;
-
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getGameRuleValue(Lnet/minecraft/core/data/gamerule/GameRule;)Ljava/lang/Object;"))
     public void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
         Player asThis = (Player) (Object) this;
@@ -36,7 +32,7 @@ public class PlayerMixinDevDrops {
                 asThis.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1), true);
                 break;
             case UUID_REDART15: // Redart15
-                asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT_LOCKED, 1), true);
+                asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
                 break;
             default:
                 break;

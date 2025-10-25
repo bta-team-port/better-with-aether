@@ -470,7 +470,7 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     public int getMaxHealth() {
-        return 400;
+        return 750;
     }
 
     public ItemStack getHeldItem() {
