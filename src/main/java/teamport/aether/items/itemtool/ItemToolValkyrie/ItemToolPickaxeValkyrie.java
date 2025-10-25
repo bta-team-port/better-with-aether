@@ -9,9 +9,10 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
-public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether{
+public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements AetherHasCustomDamageType {
     public int weaponDamage;
     public ItemToolPickaxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
