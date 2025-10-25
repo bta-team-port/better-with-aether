@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 
-@Mixin(ScreenContainerAbstract.class)
+@Mixin(value = ScreenContainerAbstract.class, remap = false)
 public interface ScreenContainerAbstractAccessor {
     @Accessor("tooltipElement")
     TooltipElement getTooltipElement();
