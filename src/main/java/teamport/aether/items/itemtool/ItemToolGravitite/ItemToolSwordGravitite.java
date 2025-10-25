@@ -21,7 +21,7 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether implements Aethe
     }
 
     @Override
-    public DamageType getDamageTypes(){
+    public DamageType getDamageType(){
         return DamageType.FALL;
     }
 

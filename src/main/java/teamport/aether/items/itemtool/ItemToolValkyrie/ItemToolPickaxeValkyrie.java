@@ -6,24 +6,26 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
+import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
-public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether {
+public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether{
     public int weaponDamage;
     public ItemToolPickaxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-        this.weaponDamage = 1;
+//        this.weaponDamage = 1;
     }
 
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if(target.hurtTime == 10) {
-            target.hurt(attacker, 6, AetherMod.HOLY);
-        }
-        itemstack.damageItem(2, attacker);
-        return true;
-    }
+//    @Override
+//    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+//        if(target.hurtTime == 10) {
+//            target.hurt(attacker, 6, AetherMod.HOLY);
+//        }
+//        itemstack.damageItem(2, attacker);
+//        return true;
+//    }
 
     @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
@@ -35,9 +37,15 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether {
         }
     }
 
+    @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
         if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE))
             return Items.TOOL_PICKAXE_DIAMOND.getStrVsBlock(itemstack, block);
         return this.material.getEfficiency(false);
+    }
+
+    @Override
+    public DamageType getDamageType(){
+        return AetherMod.HOLY;
     }
 }
