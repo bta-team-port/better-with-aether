@@ -12,22 +12,23 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.items.AetherHasCustomDamageType;
 
 import java.util.Random;
 
-public class ItemToolSwordFire extends ItemToolSword {
-    public int weaponDamage;
+public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomDamageType {
+//    public int weaponDamage;
 
     public ItemToolSwordFire(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-        this.weaponDamage = 1;
+//        this.weaponDamage = 1;
     }
 
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target.hurtTime == 10) {
-            target.hurt(attacker, 10, DamageType.FIRE);
-        }
+//        if (target.hurtTime == 10) {
+//            target.hurt(attacker, 10, DamageType.FIRE);
+//        }
         if (target instanceof Mob && target.isAlive()) {
             for (int particle = 0; particle < 16; particle++) {
                 Random random = new Random();
@@ -37,16 +38,15 @@ public class ItemToolSwordFire extends ItemToolSword {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, -motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
             target.maxFireTicks = 600;
             target.remainingFireTicks = 600;
         }
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack, target, attacker);
     }
 
     @Override
@@ -64,5 +64,10 @@ public class ItemToolSwordFire extends ItemToolSword {
 
     public int getDamageVsEntity(Entity entity, ItemStack is) {
         return this.weaponDamage;
+    }
+
+    @Override
+    public DamageType getDamageTypes(){
+        return DamageType.FIRE;
     }
 }

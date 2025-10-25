@@ -20,6 +20,7 @@ public class ItemToolSwordPig extends ItemToolSword {
         super(name, namespaceId, id, enumtoolmaterial);
     }
 
+    @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if (pigSwordKills(target)) {
             Random random = new Random();
@@ -35,9 +36,7 @@ public class ItemToolSwordPig extends ItemToolSword {
             target.hurt(attacker, 100, DamageType.COMBAT);
             target.remove();
         }
-
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack, target, attacker);
     }
 
     public static boolean pigSwordKills(Entity target) {
