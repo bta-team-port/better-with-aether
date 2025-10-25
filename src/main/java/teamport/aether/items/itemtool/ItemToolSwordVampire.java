@@ -18,16 +18,8 @@ public class ItemToolSwordVampire extends ItemToolSword {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.isAlive() && hitEntity) {
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
-                return true;
+                return false;
             }
-            ParticleHelper.spawnLightningSwordParticles(target);
-            target.maxFireTicks = 600;
-            target.remainingFireTicks = 600;
-            return true;
-        }
-
-        if (target instanceof Mob && target.isAlive()) {
-
             attacker.heal(8);
         }
         return super.hitEntity(itemstack, target, attacker);
