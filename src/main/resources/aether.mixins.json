@@ -4,6 +4,7 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "PlayerMixinDamageTypes",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -94,7 +95,7 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
-    "gameSettingsMixin",
+    "GameSettingsMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",

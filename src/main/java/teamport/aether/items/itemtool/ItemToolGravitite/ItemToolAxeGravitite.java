@@ -53,7 +53,7 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHas
     }
 
     @Override
-    public DamageType getDamageTypes(){
+    public DamageType getDamageType(){
         return DamageType.FALL;
     }
 }

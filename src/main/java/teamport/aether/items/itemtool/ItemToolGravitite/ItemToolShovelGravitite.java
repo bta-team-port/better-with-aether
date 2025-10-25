@@ -52,7 +52,7 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
     }
 
     @Override
-    public DamageType getDamageTypes(){
+    public DamageType getDamageType(){
         return DamageType.FALL;
     }
 }

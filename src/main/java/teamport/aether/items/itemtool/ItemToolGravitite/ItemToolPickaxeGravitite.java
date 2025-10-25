@@ -52,7 +52,7 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether implements A
     }
 
     @Override
-    public DamageType getDamageTypes(){
+    public DamageType getDamageType(){
         return DamageType.FALL;
     }
 }
