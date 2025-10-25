@@ -24,7 +24,7 @@ public abstract class HostileParadiseMixin extends Mob {
 
     @Inject(method = "tick", at = @At(value = "HEAD"))
     public void grantHostileParadise(CallbackInfo ci) {
-        if (this.world.dimension.id == AetherDimension.AetherDimensionID) {
+        if (this.world.dimension.id == AetherDimension.AETHER.id) {
             Minecraft.getMinecraft().thePlayer.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
         }
     }

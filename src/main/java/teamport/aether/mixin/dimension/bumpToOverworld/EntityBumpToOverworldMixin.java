@@ -50,7 +50,7 @@ public abstract class EntityBumpToOverworldMixin {
 
         Dimension dimension = world.dimension;
 
-        if (dimension.id == AetherDimension.AetherDimensionID && y < world.worldType.getMinY() - 10) {
+        if (dimension.id == AetherDimension.AETHER.id && y < world.worldType.getMinY() - 10) {
 
             if (getPassenger() != null) {
                 if (getPassenger() instanceof Player) return;

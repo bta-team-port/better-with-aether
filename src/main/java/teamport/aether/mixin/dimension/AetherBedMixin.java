@@ -22,7 +22,7 @@ public class AetherBedMixin extends BlockLogic {
 
     @Inject(method = "onBlockRightClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockWithNotify(IIII)Z", shift = At.Shift.AFTER), cancellable = true)
     public void onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
-        if (world.dimension.id == AetherDimension.AetherDimensionID) {
+        if (world.dimension.id == AetherDimension.AETHER.id) {
             world.createExplosion(null, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, 5.0F, false, false);
             cir.setReturnValue(true);
             cir.cancel();

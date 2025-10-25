@@ -34,7 +34,7 @@ public class UNWarnMixin extends Screen {
         Path savePath = Paths.get(mc.getMinecraftDir().toString(), "saves", save.getFileName());
 
         if (!savePath.resolve("uselessNumericalSave.dat").toFile().exists()
-                && savePath.resolve("dimensions/" + AetherDimension.AetherDimensionID + "/").toFile().exists()
+                && savePath.resolve("dimensions/" + AetherDimension.AETHER.id + "/").toFile().exists()
         ) {
             this.selected = false;
             this.selectedWorld = -1;

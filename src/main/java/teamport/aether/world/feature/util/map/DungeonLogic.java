@@ -79,7 +79,7 @@ public abstract class DungeonLogic {
 
         if (data.getInteger("SCHEMA_VERSION") == 0) {
             hasGenerated = true;
-            dimensionID = AetherDimension.AetherDimensionID;
+            dimensionID = AetherDimension.AETHER.id;
         }
     }
 
