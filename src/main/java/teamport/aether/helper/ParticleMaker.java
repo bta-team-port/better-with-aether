@@ -1,5 +1,6 @@
 package teamport.aether.helper;
 
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.MathHelper;
@@ -145,4 +146,51 @@ public class ParticleMaker {
         }
     }
 
+    public static void spawnFireSwordParticles(Mob target) {
+        for (int particle = 0; particle < 16; particle++) {
+            Random random = new Random();
+            double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
+            double dy = target.y + 1.0 + (random.nextDouble());
+            double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
+            double motionX = (random.nextDouble() * 0.1) - 0.05;
+            double motionY = (random.nextDouble() * 0.1) - 0.05;
+            double motionZ = (random.nextDouble() * 0.1) - 0.05;
+            spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "flame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+            spawnParticle(target.world, "flame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+        }
+    }
+
+    public static void spawnHolySwordParticles(Mob target) {
+        for (int particle = 0; particle < 16; particle++) {
+            Random random = new Random();
+            double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
+            double dy = target.y + 1.0 + (random.nextDouble());
+            double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
+            double motionX = (random.nextDouble() * 0.1) - 0.05;
+            double motionY = (random.nextDouble() * 0.1) - 0.05;
+            double motionZ = (random.nextDouble() * 0.1) - 0.05;
+            spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "blueflame", dx, dy, dz, motionX, motionY, -motionZ, 0);
+            spawnParticle(target.world, "blueflame", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+        }
+    }
+
+    public static void spawnLightningSwordParticles(Mob target) {
+        for (int particle = 0; particle < 16; particle++) {
+            Random random = new Random();
+            double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
+            double dy = target.y + 1.0 + (random.nextDouble());
+            double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
+            double motionX = (random.nextDouble() * 0.1) - 0.05;
+            double motionY = (random.nextDouble() * 0.1) - 0.05;
+            double motionZ = (random.nextDouble() * 0.1) - 0.05;
+            spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, -motionZ, 0);
+            spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+        }
+    }
 }
