@@ -6,10 +6,11 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
+import teamport.aether.items.AetherHasCustomDamageType;
 
 import java.util.Random;
 
-public class ItemToolSwordLightning extends ItemToolSword {
+public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCustomDamageType {
     public int weaponDamage;
 
     public ItemToolSwordLightning(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -17,6 +18,7 @@ public class ItemToolSwordLightning extends ItemToolSword {
         this.weaponDamage = 1;
     }
 
+    @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if (target instanceof Mob && target.isAlive()) {
             for (int particle = 0; particle < 16; particle++) {
@@ -27,10 +29,10 @@ public class ItemToolSwordLightning extends ItemToolSword {
                 double motionX = (random.nextDouble() * 0.1) - 0.05;
                 double motionY = (random.nextDouble() * 0.1) - 0.05;
                 double motionZ = (random.nextDouble() * 0.1) - 0.05;
-                ParticleMaker.spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, -motionZ, 0);
-                ParticleMaker.spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, -motionZ, 0);
+                ParticleHelper.spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, -motionZ, 0);
             }
             target.hurt(attacker, 10, AetherMod.LIGHTNING);
         }
@@ -38,7 +40,6 @@ public class ItemToolSwordLightning extends ItemToolSword {
         if (target.hurtTime == 10) {
             target.hurt(attacker, 10, AetherMod.LIGHTNING);
         }
-        itemstack.damageItem(1, attacker);
-        return true;
+        return super.hitEntity(itemstack, target, attacker);
     }
 }
