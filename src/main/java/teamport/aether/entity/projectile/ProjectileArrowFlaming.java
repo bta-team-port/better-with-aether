@@ -45,6 +45,11 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.doesArrowBelongToPlayer = false;
     }
 
+    protected void initProjectile() {
+        super.initProjectile();
+        this.damage = 6;
+    }
+
     public float getBrightness(float partialTick) {
         return 1.0F;
     }
@@ -101,26 +106,18 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
 
     public void onHit(HitResult hitResult) {
         if (hitResult.entity != null) {
-            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.COMBAT)) {
-                if (this.isOnFire()) {
-                    hitResult.entity.fireHurt();
-                }
-
+            if (hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE)) {
                 if (hitResult.entity instanceof MobCreeper) {
                     MobCreeper entityCreeper = (MobCreeper) hitResult.entity;
                     entityCreeper.setTarget(entityCreeper);
-                    hitResult.entity.fireHurt();
-                    return;
                 }
-
-                hitResult.entity.fireHurt();
 
                 if (!this.world.isClientSide) {
                     this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-                    hitResult.entity.maxFireTicks = 30 * 20;
-                    hitResult.entity.remainingFireTicks = 30 * 20;
-                    this.remove();
                 }
+
+                hitResult.entity.fireHurt();
+                this.remove();
             }
         } else {
             this.xTile = hitResult.x;

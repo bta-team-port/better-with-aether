@@ -30,11 +30,11 @@ public class ArmorMaterialMixin {
                 .withProtectionPercentage(AetherMod.LIGHTNING, -70.0f);
 
         ArmorMaterial.DIAMOND
-                .withProtectionPercentage(AetherMod.HOLY, 66.0f)
+                .withProtectionPercentage(AetherMod.HOLY, -66.0f)
                 .withProtectionPercentage(AetherMod.LIGHTNING, 66.0f);
 
         ArmorMaterial.STEEL
                 .withProtectionPercentage(AetherMod.HOLY, 55.0f)
-                .withProtectionPercentage(AetherMod.LIGHTNING, -20.0f);
+                .withProtectionPercentage(AetherMod.LIGHTNING, -55.0f);
     }
 }
