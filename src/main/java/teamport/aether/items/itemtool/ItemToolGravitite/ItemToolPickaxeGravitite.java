@@ -6,13 +6,15 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
-public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
+public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether implements AetherHasCustomDamageType {
 
     public ItemToolPickaxeGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
@@ -47,5 +49,10 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether {
         world.setBlockWithNotify(blockX, blockY, blockZ, 0);
         itemstack.damageItem(1, player);
         return true;
+    }
+
+    @Override
+    public DamageType getDamageTypes(){
+        return DamageType.FALL;
     }
 }
