@@ -86,6 +86,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             this.ejectRider();
         }
 
+        if (this.getHealth() <= 0) {
+            this.ejectRider();
+        }
+
         if (this.grabDelay > 0) {
             this.grabDelay--;
         }
