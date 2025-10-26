@@ -10,5 +10,6 @@ public class Allias implements UselessNumericalEntrypoint {
       @Override
      public void defineAlias(BiConsumer<NamespaceID, NamespaceID> alias) {
           alias.accept(NamespaceID.getPermanent(AetherMod.MOD_ID, "planks_skyroot.painted"), NamespaceID.getPermanent(AetherMod.MOD_ID, "planks_skyroot_painted"));
+          alias.accept(NamespaceID.getPermanent(AetherMod.MOD_ID, "sign.skyroot.painted"), NamespaceID.getPermanent(AetherMod.MOD_ID, "sign_skyroot_painted"));
       }
 }
