@@ -10,7 +10,6 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -65,69 +64,74 @@ public class EntityFloatingBlock extends Entity {
     public void tick() {
         if (this.carriedBlock.blockId == 0) {
             this.remove();
-        } else {
-            this.pushesThisTick = 0;
-            this.pushTime *= 0.98F;
-            if (this.pushTime < 0.05F || (double) this.pushTime < 0.25 && this.onGround) {
-                this.pushTime = 0.0F;
-            }
-            this.xo = this.x;
-            this.yo = this.y;
-            this.zo = this.z;
-            if ((double) this.pushTime < 0.01 && this.yd >= 0.0) {
-                ++this.floatTime;
-            }
+            return;
+        }
 
-            this.yd += 0.04;
-            double oldYd = this.yd;
-            this.move(this.xd, this.yd, this.zd);
-            this.xd *= 0.98;
-            this.yd *= 0.98;
-            this.zd *= 0.98;
-            int x = MathHelper.round(this.x - 0.5);
-            int y = MathHelper.round(this.y);
-            int z = MathHelper.round(this.z - 0.5);
-            if (this.world.getBlockId(x, y, z) == this.carriedBlock.blockId && !this.hasRemovedBlock) {
-                this.world.setBlockWithNotify(x, y, z, 0);
-                this.hasRemovedBlock = true;
-            }
+        this.pushesThisTick = 0;
+        this.pushTime *= 0.98F;
+        if (this.pushTime < 0.05F || (double) this.pushTime < 0.25 && this.onGround) {
+            this.pushTime = 0.0F;
+        }
 
-            boolean hitCeiling = this.verticalCollision && oldYd > 0.0;
-            if (hitCeiling) {
-                Block<?> selfBlock = this.carriedBlock.block();
-                Block<?> blockAbove = this.world.getBlock(x, y + 1, z);
-                double friction = selfBlock.friction;
-                friction *= blockAbove == null ? 0.98 : (double) (blockAbove.friction * 0.91F);
-                this.xd *= friction;
-                this.zd *= friction;
-                this.yd *= -0.5;
-                this.pushTime *= (float) friction;
-            }
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if ((double) this.pushTime < 0.01 && this.yd >= 0.0) {
+            ++this.floatTime;
+        }
 
-            double v = Math.hypot(this.xd, this.zd);
-            if (v < 0.001 || this.isInWall()) {
-                if (!hitCeiling && !this.isInWall()) {
-                    if (this.floatTime > 600 && !this.world.isClientSide) {
-                        if (this.hasRemovedBlock) {
-                            this.drop();
-                        }
+        this.yd += 0.04;
+        double oldYd = this.yd;
+        this.move(this.xd, this.yd, this.zd);
+        this.xd *= 0.98;
+        this.yd *= 0.98;
+        this.zd *= 0.98;
 
-                        this.ejectRider();
-                        this.remove();
-                    }
-                } else {
-                    Entity rider = this.getPassenger();
-                    this.ejectRider();
+        int x = MathHelper.round(this.x - 0.5);
+        int y = MathHelper.round(this.y);
+        int z = MathHelper.round(this.z - 0.5);
+        if (this.world.getBlockId(x, y, z) == this.carriedBlock.blockId && !this.hasRemovedBlock) {
+            this.world.setBlockWithNotify(x, y, z, 0);
+            this.hasRemovedBlock = true;
+        }
+
+        if (this.y > 256) {
+            this.remove();
+            return;
+        }
+
+        boolean hitCeiling = this.verticalCollision && oldYd > 0.0;
+        if (hitCeiling) {
+            Block<?> selfBlock = this.carriedBlock.block();
+            Block<?> blockAbove = this.world.getBlock(x, y + 1, z);
+            double friction = selfBlock.friction;
+            friction *= blockAbove == null ? 0.98 : (double) (blockAbove.friction * 0.91F);
+            this.xd *= friction;
+            this.zd *= friction;
+            this.yd *= -0.5;
+            this.pushTime *= (float) friction;
+        }
+
+        double v = Math.hypot(this.xd, this.zd);
+        if (v < 0.001 || this.isInWall()) {
+            if (!hitCeiling && !this.isInWall()) {
+                if (this.floatTime > 600 && !this.world.isClientSide) {
+                    this.drop();
                     this.remove();
-                    TileEntity oldEnt;
-                    if ((!this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.BOTTOM) || BlockLogicBlockGravitite.canFallAbove(this.world, x, y + 1, z) || !this.world.setBlock(x, y, z, this.carriedBlock.blockId)) && !this.world.isClientSide) {
+                }
+            } else {
+                this.remove();
+                if (!this.world.isClientSide) {
+                    boolean shouldDrop = !this.world.canBlockBePlacedAt(this.carriedBlock.blockId, x, y, z, true, Side.TOP)
+                            || !this.world.setBlock(x, y, z, this.carriedBlock.blockId);
+                    if (shouldDrop) {
                         if (this.hasRemovedBlock) {
                             this.drop();
                         }
-                    } else if (!this.world.isClientSide) {
+                    } else {
                         this.world.setBlockMetadata(x, y, z, this.carriedBlock.metadata);
                         if (this.carriedBlock.entity != null) {
-                            oldEnt = this.world.getTileEntity(x, y, z);
+                            TileEntity oldEnt = this.world.getTileEntity(x, y, z);
                             if (oldEnt != null) {
                                 oldEnt.invalidate();
                             }
@@ -144,17 +148,10 @@ public class EntityFloatingBlock extends Entity {
 
                         this.world.notifyBlockChange(x, y, z, this.carriedBlock.blockId);
                     }
-
-                    if (rider != null) {
-                        oldEnt = this.world.getTileEntity(x, y, z);
-                        if (oldEnt instanceof IVehicle) {
-                            rider.startRiding((IVehicle) oldEnt);
-                        }
-                    }
                 }
-
-                this.carriedBlock.heldTick(this.world, this);
             }
+
+            this.carriedBlock.heldTick(this.world, this);
         }
     }
 
@@ -169,14 +166,6 @@ public class EntityFloatingBlock extends Entity {
                 }
             }
         }
-
-        if (this.carriedBlock.entity != null) {
-            int x = MathHelper.round(this.x - 0.5);
-            i = MathHelper.round(this.y);
-            int z = MathHelper.round(this.z - 0.5);
-            this.carriedBlock.entity.dropContents(this.world, x, i, z);
-        }
-
     }
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
