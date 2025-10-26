@@ -12,10 +12,11 @@ import teamport.aether.items.accessory.AetherInvisibility;
 @Mixin(value = MobRendererPlayer.class, remap = false)
 public class MobRenderPlayerMixinInvisibility {
 
-    @Inject(method = "drawFirstPersonHand", at = @At("HEAD"), cancellable = true)
-    public void callDrawFirstPersonHandBefore(Player player, boolean isLeft, CallbackInfo ci) {
-        if (((AetherInvisibility) player).aether$isInvisible()) ci.cancel();
-    }
+//    /// TODO remove this cause whats the point
+//    @Inject(method = "drawFirstPersonHand", at = @At("HEAD"), cancellable = true)
+//    public void callDrawFirstPersonHandBefore(Player player, boolean isLeft, CallbackInfo ci) {
+//        if (((AetherInvisibility) player).aether$isInvisible()) ci.cancel();
+//    }
 
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"), cancellable = true)
     public void renderPlayer(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
