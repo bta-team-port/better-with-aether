@@ -117,13 +117,13 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
     public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
-        modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelBipedMain.holdingLarge;
-        modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelBipedMain.holdingRightHand;
-        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelBipedMain.holdingLeftHand;
-        modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelBubble.sneaking = modelBipedMain.sneaking;
-        modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelBubble.isRiding = modelBipedMain.isRiding;
+        modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
+        modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelHeart.holdingRightHand = modelBipedMain.holdingRightHand;
+        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelHeart.holdingLeftHand = modelBipedMain.holdingLeftHand;
+        modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelBubble.sneaking = modelHeart.sneaking = modelBipedMain.sneaking;
+        modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelBubble.isRiding = modelHeart.isRiding = modelBipedMain.isRiding;
         float swingProgress = this.getSwingProgress(player, partialTick);
-        modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
+        modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelHeart.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
 
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
         if (armorStack != null && armorStack.getItem() instanceof IAccessory && renderPass >= GLOVES_SLOT) {
