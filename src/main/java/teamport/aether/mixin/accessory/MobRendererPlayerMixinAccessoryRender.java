@@ -57,6 +57,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     public final ModelBiped modelAccessories = new ModelBiped(1.1F);
 
     @Unique
+    public final ModelBiped modelHeart = new ModelBiped(1.0F);
+
+    @Unique
     public final ModelBiped modelBubble = new ModelBiped(1.0F);
 
     @Unique
@@ -210,14 +213,15 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             if (item instanceof ItemRegenStone) {
-                int variant = 0;
-                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemRegenStone) {
-                    variant = 1;
+                String path;
+                if (renderPass == TRINKET_1_SLOT) {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
+                } else {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
                 }
-                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
-                modelAccessories.body.visible = true;
+                modelHeart.head.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                setArmorModel(modelAccessories);
+                setArmorModel(modelHeart);
                 info.setReturnValue(true);
                 return;
             }
