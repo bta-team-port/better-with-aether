@@ -146,6 +146,7 @@
     "dimension.dungeonMap.WorldMpMixin",
     "gui.screens.PlayerServerMixinAetherScreens",
     "item.PacketHandlerServerValkToolsReachMixin",
+    "item.PlayerListMixinRespawnWithExtraHealth",
     "net.AerBunnyFlyingMixin",
     "net.PlayerLoginMixin",
     "player.PlayerServerAddDartsMixin"
