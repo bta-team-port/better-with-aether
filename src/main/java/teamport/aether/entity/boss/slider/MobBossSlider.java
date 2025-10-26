@@ -24,6 +24,7 @@ import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
+import teamport.aether.helper.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
@@ -552,7 +553,7 @@ public class MobBossSlider extends MobBoss {
 
             if (!this.isAwake()) {
                 String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("aether.entity.boss_slider.hit_fail");
-                ((Player) attacker).sendMessage(message);
+                MessageMaker.sendMessage((Player) attacker, message);
             }
         }
         return false;
