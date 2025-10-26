@@ -104,7 +104,6 @@
     "accessory.ScreenInventoryMixinNewInv",
     "accessory.cape.AetherDevCapeMixin",
     "accessory.cape.MobRendererPlayerMixinCapeRender",
-    "accessory.cape.invisibilitycape.player.PlayerLocalMixinInvisibility",
     "accessory.cape.invisibilitycape.render.EntityRendererMixinRemoveShadow",
     "accessory.cape.invisibilitycape.render.MobRenderPlayerMixinInvisibility",
     "accessory.gloves.MobRendererMixinExtendArmor",
