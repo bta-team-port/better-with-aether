@@ -22,11 +22,11 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
-        if (target instanceof Mob && target.isAlive() && hitEntity) {
+        if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
                 return false;
             }
-            ParticleMaker.spawnLightningSwordParticles(target);
+            ParticleMaker.spawnFireSwordParticles(target);
             target.maxFireTicks = 600;
             target.remainingFireTicks = 600;
             return true;

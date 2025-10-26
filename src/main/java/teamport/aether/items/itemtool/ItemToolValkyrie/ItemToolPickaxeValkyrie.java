@@ -13,20 +13,10 @@ import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolPickaxeAether;
 
 public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements AetherHasCustomDamageType {
-    public int weaponDamage;
+
     public ItemToolPickaxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-//        this.weaponDamage = 1;
     }
-
-//    @Override
-//    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-//        if(target.hurtTime == 10) {
-//            target.hurt(attacker, 6, AetherMod.HOLY);
-//        }
-//        itemstack.damageItem(2, attacker);
-//        return true;
-//    }
 
     @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
@@ -46,7 +36,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
     }
 
     @Override
-    public DamageType getDamageType(){
+    public DamageType getDamageType() {
         return AetherMod.HOLY;
     }
 }

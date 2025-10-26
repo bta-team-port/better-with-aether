@@ -53,6 +53,13 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
 
     }
 
+    public boolean hurt(Entity attacker, int i, DamageType type) {
+        if (type == DamageType.FIRE) {
+            return false;
+        }
+        return super.hurt(attacker, i, type);
+    }
+
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
