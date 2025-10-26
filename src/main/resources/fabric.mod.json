@@ -49,7 +49,9 @@
     "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
 
     "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"],
-    "useless": ["teamport.aether.compat.Allias"]
+    "uselessNumerical": [
+      "teamport.aether.compat.uselessnumerical.Allias"
+    ]
   },
 
   "mixins": ["aether.mixins.json"],
