@@ -169,25 +169,18 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 item = nextSlot.getItem();
             }
 
-            ItemStack slot6 = player.inventory.armorInventory[TRINKET_1_SLOT];
-            ItemStack slot7 = player.inventory.armorInventory[TRINKET_2_SLOT];
+            ItemStack ItemTrinket_Slot1 = player.inventory.armorInventory[TRINKET_1_SLOT];
+            ItemStack ItemTrinket_Slot2 = player.inventory.armorInventory[TRINKET_2_SLOT];
 
             if (item instanceof ItemGoldenFeather) {
                 String path;
 
                 if (renderPass == TRINKET_1_SLOT) {
                     path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_helmet.png";
-                    modelFeather.head.visible = true;
-                    modelFeather.legLeft.visible = false;
-                    modelFeather.legRight.visible = false;
-                    modelFeather.head.addBox(-4.0F, -12.0F, -4.0F, 8, 12, 12, 1.1f);
+                    setUPFeatherOnHelmet();
                 } else {
                     path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_boots.png";
-                    modelFeather.head.visible = false;
-                    modelFeather.legLeft.visible = true;
-                    modelFeather.legRight.visible = true;
-                    modelFeather.legLeft.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
-                    modelFeather.legRight.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
+                    setUpFeathersOnBoots();
                 }
 
                 modelFeather.body.visible = false;
@@ -201,7 +194,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
             if (item instanceof ItemPendant) {
                 int variant = 0;
-                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemPendant) {
+                if (renderPass == 7 && ItemTrinket_Slot1 != null && ItemTrinket_Slot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
@@ -227,9 +220,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             if (item instanceof ItemIronBubble) {
-                if ((renderPass == TRINKET_1_SLOT && (player.inventory.armorInventory[TRINKET_1_SLOT] != null && player.inventory.armorInventory[TRINKET_1_SLOT].getItem() instanceof ItemIronBubble)) ||
-                        (renderPass == TRINKET_2_SLOT && (player.inventory.armorInventory[TRINKET_1_SLOT] == null || !(player.inventory.armorInventory[TRINKET_1_SLOT].getItem() instanceof ItemIronBubble)) &&
-                                player.inventory.armorInventory[TRINKET_2_SLOT] != null && player.inventory.armorInventory[TRINKET_2_SLOT].getItem() instanceof ItemIronBubble)) {
+                boolean isInTrinketSlot1 = ItemTrinket_Slot1 != null && ItemTrinket_Slot1.getItem() instanceof ItemIronBubble;
+                boolean isInTrinketSlot2 = ItemTrinket_Slot2 != null && ItemTrinket_Slot2.getItem() instanceof ItemIronBubble;
+                if ((isInTrinketSlot1 && renderPass == TRINKET_1_SLOT) || (isInTrinketSlot2 && !isInTrinketSlot1 && renderPass == TRINKET_2_SLOT)) {
 
                     String path = "/assets/aether/textures/armor/trinkets/bubble_trinket.png";
 
@@ -254,5 +247,22 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         }
 
         info.setReturnValue(false);
+    }
+
+    @Unique
+    private void setUPFeatherOnHelmet() {
+        modelFeather.head.visible = true;
+        modelFeather.legLeft.visible = false;
+        modelFeather.legRight.visible = false;
+        modelFeather.head.addBox(-4.0F, -12.0F, -4.0F, 8, 12, 12, 1.1f);
+    }
+
+    @Unique
+    private void setUpFeathersOnBoots() {
+        modelFeather.head.visible = false;
+        modelFeather.legLeft.visible = true;
+        modelFeather.legRight.visible = true;
+        modelFeather.legLeft.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
+        modelFeather.legRight.addBox(-2.0F, 2.0F, -3.0F, 4, 12, 8, 1.1f);
     }
 }
