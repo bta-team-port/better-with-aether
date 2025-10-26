@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
@@ -246,7 +247,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                 }
                 if (dartType >= 2) {
                     if (hitResult.entity instanceof MobCockatrice || hitResult.entity instanceof MobAechorPlant) {
-                        hitResult.entity.hurt(this.owner, 12, DamageType.COMBAT);
+                        hitResult.entity.hurt(this.owner, 12, AetherMod.HOLY);
                     }
                     if (hitResult.entity instanceof IHasEffects) {
                         IHasEffects entity = (IHasEffects) hitResult.entity;

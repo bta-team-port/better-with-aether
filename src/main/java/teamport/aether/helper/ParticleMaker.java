@@ -179,18 +179,34 @@ public class ParticleMaker {
     }
 
     public static void spawnLightningSwordParticles(Mob target) {
-        for (int particle = 0; particle < 16; particle++) {
-            Random random = new Random();
-            double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
-            double dy = target.y + 1.0 + (random.nextDouble());
-            double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
+        Random random = new Random();
+        double startY = target.y + 2.0;
+        double endY = target.y;
+        int numPoints = 16;
+        double currentX = target.x;
+        double currentZ = target.z;
+        double stepY = (startY - endY) / numPoints;
+
+        for (int i = 0; i <= numPoints; i++) {
+            double y = startY - (i * stepY);
+
+            if (i > 0) {
+                double dx = (random.nextDouble() - 0.5) * 0.8;
+                double dz = (random.nextDouble() - 0.5) * 0.8;
+                currentX += dx;
+                currentZ += dz;
+            }
+
+            double x = currentX;
+            double z = currentZ;
+
             double motionX = (random.nextDouble() * 0.1) - 0.05;
             double motionY = (random.nextDouble() * 0.1) - 0.05;
             double motionZ = (random.nextDouble() * 0.1) - 0.05;
-            spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, motionZ, 0);
-            spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, motionZ, 0);
-            spawnParticle(target.world, "lightning", dx, dy, dz, motionX, motionY, -motionZ, 0);
-            spawnParticle(target.world, "lightning", dx, dy, dz, -motionX, motionY, -motionZ, 0);
+            spawnParticle(target.world, "lightning", x, y, z, motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "lightning", x, y, z, -motionX, motionY, motionZ, 0);
+            spawnParticle(target.world, "lightning", x, y, z, motionX, motionY, -motionZ, 0);
+            spawnParticle(target.world, "lightning", x, y, z, -motionX, motionY, -motionZ, 0);
         }
     }
 }

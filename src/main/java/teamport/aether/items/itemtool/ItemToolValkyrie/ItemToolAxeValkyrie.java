@@ -11,20 +11,10 @@ import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 
 public class ItemToolAxeValkyrie extends ItemToolAxeAether implements AetherHasCustomDamageType {
-    public int weaponDamage;
+
     public ItemToolAxeValkyrie(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-//        this.weaponDamage = 1;
     }
-
-//    @Override
-//    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-//        if(target.hurtTime == 10) {
-//            target.hurt(attacker, 7, AetherMod.HOLY);
-//        }
-//        itemstack.damageItem(2, attacker);
-//        return true;
-//    }
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
@@ -34,7 +24,7 @@ public class ItemToolAxeValkyrie extends ItemToolAxeAether implements AetherHasC
     }
 
     @Override
-    public DamageType getDamageType(){
+    public DamageType getDamageType() {
         return AetherMod.HOLY;
     }
 }

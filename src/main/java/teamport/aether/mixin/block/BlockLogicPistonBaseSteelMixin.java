@@ -33,6 +33,9 @@ public abstract class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBas
             int yo = y + direction.getOffsetY();
             int zo = z + direction.getOffsetZ();
 
+            world.removeBlockTileEntity(xo, yo, zo);
+            world.setBlockWithNotify(xo, yo, zo, 0);
+
             EntityFloatingBlock floatingBlock = new EntityFloatingBlock(world, (double) xo + 0.5, (double) yo + 0.5, (double) zo + 0.5, block.id(), blockMeta, tileEntity);
             floatingBlock.hasRemovedBlock = true;
 

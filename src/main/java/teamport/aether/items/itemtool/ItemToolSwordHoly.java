@@ -19,7 +19,7 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
-        if (target.isAlive() && hitEntity
+        if (target.hurtTime == 10 && hitEntity
                 && (target instanceof MobZombie
                 || target instanceof MobGhast
                 || target instanceof MobSnowman

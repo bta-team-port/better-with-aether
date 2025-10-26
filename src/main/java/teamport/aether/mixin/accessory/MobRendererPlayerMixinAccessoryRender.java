@@ -57,6 +57,9 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     public final ModelBiped modelAccessories = new ModelBiped(1.1F);
 
     @Unique
+    public final ModelBiped modelHeart = new ModelBiped(1.0F);
+
+    @Unique
     public final ModelBiped modelBubble = new ModelBiped(1.0F);
 
     @Unique
@@ -114,13 +117,13 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
     public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
-        modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelBipedMain.holdingLarge;
-        modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelBipedMain.holdingRightHand;
-        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelBipedMain.holdingLeftHand;
-        modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelBubble.sneaking = modelBipedMain.sneaking;
-        modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelBubble.isRiding = modelBipedMain.isRiding;
+        modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
+        modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelHeart.holdingRightHand = modelBipedMain.holdingRightHand;
+        modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelHeart.holdingLeftHand = modelBipedMain.holdingLeftHand;
+        modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelBubble.sneaking = modelHeart.sneaking = modelBipedMain.sneaking;
+        modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelBubble.isRiding = modelHeart.isRiding = modelBipedMain.isRiding;
         float swingProgress = this.getSwingProgress(player, partialTick);
-        modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
+        modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelHeart.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
 
         ItemStack armorStack = player.inventory.armorInventory[renderPass];
         if (armorStack != null && armorStack.getItem() instanceof IAccessory && renderPass >= GLOVES_SLOT) {
@@ -210,14 +213,15 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             if (item instanceof ItemRegenStone) {
-                int variant = 0;
-                if (renderPass == 7 && slot6 != null && slot6.getItem() instanceof ItemRegenStone) {
-                    variant = 1;
+                String path;
+                if (renderPass == TRINKET_1_SLOT) {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
+                } else {
+                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
                 }
-                String path = String.format("/assets/%s/textures/armor/trinkets/%s_trinket_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
-                modelAccessories.body.visible = true;
+                modelHeart.head.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
-                setArmorModel(modelAccessories);
+                setArmorModel(modelHeart);
                 info.setReturnValue(true);
                 return;
             }

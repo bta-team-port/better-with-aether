@@ -14,16 +14,16 @@ public class ArmorMaterialMixin {
     private static void customizeVanillaProtections(CallbackInfo ci) {
 
         ArmorMaterial.LEATHER
-                .withProtectionPercentage(AetherMod.HOLY, 25.0f)
-                .withProtectionPercentage(AetherMod.LIGHTNING, 10.0f);
+                .withProtectionPercentage(AetherMod.HOLY, 20.0f)
+                .withProtectionPercentage(AetherMod.LIGHTNING, 120.0f);
 
         ArmorMaterial.CHAINMAIL
-                .withProtectionPercentage(AetherMod.HOLY, 120.0f)
-                .withProtectionPercentage(AetherMod.LIGHTNING, -25.0f);
+                .withProtectionPercentage(AetherMod.HOLY, 35.0f)
+                .withProtectionPercentage(AetherMod.LIGHTNING, -35.0f);
 
         ArmorMaterial.IRON
-                .withProtectionPercentage(AetherMod.HOLY, 80.0f)
-                .withProtectionPercentage(AetherMod.LIGHTNING, -40.0f);
+                .withProtectionPercentage(AetherMod.HOLY, 45.0f)
+                .withProtectionPercentage(AetherMod.LIGHTNING, -45.0f);
 
         ArmorMaterial.GOLD
                 .withProtectionPercentage(AetherMod.HOLY, 70.0f)

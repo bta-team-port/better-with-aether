@@ -14,6 +14,7 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHasCustomDamageType {
 
@@ -40,6 +41,10 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHas
                 && nextBlock.id() != Blocks.COBWEB.id()
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
+        }
+
+        if (EnvironmentHelper.isClientWorld()) {
+            return true;
         }
 
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(

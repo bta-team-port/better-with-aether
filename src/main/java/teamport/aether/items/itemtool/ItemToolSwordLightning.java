@@ -19,7 +19,7 @@ public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCu
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
-        if (target instanceof Mob && target.isAlive() && hitEntity) {
+        if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
                 return false;
             }

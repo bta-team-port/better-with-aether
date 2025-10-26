@@ -16,10 +16,11 @@ import teamport.aether.items.AetherHasCustomDamageType;
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixinDamageTypes {
 
-    @Shadow public ContainerInventory inventory;
+    @Shadow
+    public ContainerInventory inventory;
 
     @WrapOperation(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
-    public boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original){
+    public boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original) {
         if (attacker instanceof Player) {
             Player player = (Player) (Object) this;
             ItemStack itemstack = player.getCurrentEquippedItem();
