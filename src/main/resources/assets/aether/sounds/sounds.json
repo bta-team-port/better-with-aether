@@ -308,6 +308,24 @@
       "trigger.ogg"
     ]
   },
+  "aether:music.sliderboss": {
+    "sounds": [
+      {
+        "name": "sliderboss.ogg",
+        "volume": 0.1,
+        "stream": true
+      }
+    ]
+  },
+  "aether:music.fireboss": {
+    "sounds": [
+      {
+        "name": "fireboss.ogg",
+        "volume": 0.1,
+        "stream": true
+      }
+    ]
+  },
   "aether:music.a_light_in_the_night": {
     "sounds": [
       {
