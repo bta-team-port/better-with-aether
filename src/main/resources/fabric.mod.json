@@ -48,7 +48,8 @@
     "server": ["teamport.aether.AetherServer"],
     "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
 
-    "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"]
+    "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"],
+    "useless": ["teamport.aether.compat.Allias"]
   },
 
   "mixins": ["aether.mixins.json"],

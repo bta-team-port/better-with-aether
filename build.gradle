@@ -108,7 +108,9 @@ dependencies {
     modImplementation("sunsetsatellite:catalyst-core:${catalystcore_version}")
     //modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
 	modImplementation("useless:btwaila:${project.btwaila_version}")
-    modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
+//    modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
+	modImplementation("gungun974:uselessnumerical:1.1.0-7.3_04")
+
 
 	// If you read this comment than I have not made this load when building
     compileOnly "useless:btwaila:${project.btwaila_version}"
