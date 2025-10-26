@@ -5,13 +5,16 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.IDispensable;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
+import teamport.aether.items.AetherHasCustomDamageType;
 
 import java.util.Random;
 
-public class ItemToolKnifeLightning extends Item implements IDispensable {
+public class ItemToolKnifeLightning extends Item implements IDispensable, AetherHasCustomDamageType {
     public ItemToolKnifeLightning(String name, String namespaceId, int id) {
         super(name, namespaceId, id);
     }
@@ -44,4 +47,9 @@ public class ItemToolKnifeLightning extends Item implements IDispensable {
             world.entityJoinedWorld(entityknife);
         }
     }
+
+    public DamageType getDamageType() {
+        return AetherMod.LIGHTNING;
+    }
+
 }
