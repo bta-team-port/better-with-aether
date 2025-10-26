@@ -13,6 +13,7 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolShovelAether;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolShovelGravitite extends ItemToolShovelAether implements AetherHasCustomDamageType {
 
@@ -39,6 +40,10 @@ public class ItemToolShovelGravitite extends ItemToolShovelAether implements Aet
                 && nextBlock.id() != Blocks.COBWEB.id()
                 && !nextBlock.hasTag(BlockTags.PLACE_OVERWRITES)) {
             return false;
+        }
+
+        if (EnvironmentHelper.isClientWorld()) {
+            return true;
         }
 
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(

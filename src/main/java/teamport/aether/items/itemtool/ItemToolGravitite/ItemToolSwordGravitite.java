@@ -14,8 +14,8 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether implements Aethe
     }
 
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target instanceof Mob && target.isAlive() && target.getHealth() > 0 && target.hurtMarked && target.hurtTime > 0) {
-            target.push(target.xd, target.yd * 3, target.zd);
+        if (target instanceof Mob && target.hurtTime == 10) {
+            target.fling(target.xd, target.yd * 3, target.zd, 0.0f);
         }
         return super.hitEntity(itemstack, target, attacker);
     }

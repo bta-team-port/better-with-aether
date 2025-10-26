@@ -26,7 +26,7 @@ public class ProjectileHammerHead extends Projectile implements ProjectileAether
         this.damage = 10;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 0.99F;
-        this.setSize(1.0F, 1.0F);
+        this.setSize(2.0F, 2.0F);
     }
 
     public ProjectileHammerHead(World world, double x, double y, double z) {
