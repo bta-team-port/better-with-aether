@@ -166,7 +166,16 @@ public class EntityFloatingBlock extends Entity {
                 }
             }
         }
+
+        if (this.carriedBlock.entity != null) {
+            int x = MathHelper.round(this.x - 0.5);
+            i = MathHelper.round(this.y);
+            int z = MathHelper.round(this.z - 0.5);
+            this.carriedBlock.entity.dropContents(this.world, x, i, z);
+        }
+
     }
+
 
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         tag.putShort("Tile", (short) this.carriedBlock.blockId);
