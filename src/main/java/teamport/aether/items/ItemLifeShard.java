@@ -38,12 +38,13 @@ public class ItemLifeShard extends Item {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F, 0.6F);
             return itemstack;
         }
+        int gainHealth = extraHealth + 2 < EXTRA_HEALTH ? 2 : 1;
+
         // gives Player extra health
-        HealthHelper.addExtraHealth(player, 2);
+        HealthHelper.addExtraHealth(player, gainHealth);
         // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
         int extraHealthCapped = Math.min(extraHealth, EXTRA_HEALTH);
 
-        // TODO fix multiplayer desync
         if (extraHealth >= EXTRA_HEALTH - 2) {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime.final", 0.65F, 1.0F);
             player.triggerAchievement(AetherAchievements.MAX_LIFE);
