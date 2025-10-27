@@ -103,13 +103,14 @@ dependencies {
 
 	modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
 
-    modImplementation 'com.github.MartinSVK12:catalyst:7.3-SNAPSHOT'
+//    modImplementation 'com.github.MartinSVK12:catalyst:7.3-SNAPSHOT'
     //modImplementation 'com.github.Olypolyu:catalyst:heart_containers-SNAPSHOT'
+
     modImplementation("sunsetsatellite:catalyst-core:${catalystcore_version}")
-    //modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
+    modImplementation("sunsetsatellite:catalyst-effects:${catalysteffects_version}")
+
 	modImplementation("useless:btwaila:${project.btwaila_version}")
-//    modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
-	modImplementation("gungun974:uselessnumerical:1.1.0-7.3_04")
+    modImplementation("gungun974:UselessNumerical:${project.uselessnumerical_version}")
 
 
 	// If you read this comment than I have not made this load when building

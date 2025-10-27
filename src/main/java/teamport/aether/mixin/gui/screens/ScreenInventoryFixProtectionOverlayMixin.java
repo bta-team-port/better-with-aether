@@ -69,13 +69,11 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
 
                 int barWidth = Math.max(0, (int) (Math.abs(protection) * (float) w2));
                 int color;
+                int l = (int) (protection * 255.0F);
                 if (protection >= 0.0F) {
-                    int l = (int) (protection * 255.0F);
-                    color = (255 - l << 16) | (l << 8) | -16777216;
+                    color = (0xff - l << 16) | (l << 8) | 0xff000000;
                 } else {
-                    int l = (int) (Math.abs(protection) * 255.0F);
-                    int blue = 255 - l;
-                    color = blue | -16777216;
+                    color = 0xff_ff_00_ff + (l << 16);
                 }
 
                 GL11.glEnable(3553);
@@ -87,10 +85,10 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
                 }
                 GL11.glDisable(3553);
                 if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
-                    this.drawRectWidthHeight(x + 9, y2 + 4, w2 + 2, h2 + 1, -16777216);
+                    this.drawRectWidthHeight(x + 9, y2 + 4, w2 + 2, h2 + 1, 0xff000000);
                     this.drawRectWidthHeight(x + 10, y2 + 4, barWidth, h2, color);
                 } else {
-                    this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, -16777216);
+                    this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, 0xff000000);
                     this.drawRectWidthHeight(x + 15, y2 + 4, barWidth, h2, color);
                 }
                 if (mouseX >= x && mouseY >= y2 + 2 && mouseX <= x + w && mouseY <= y2 + 12) {
