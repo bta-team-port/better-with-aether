@@ -3,6 +3,8 @@ package teamport.aether.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilderLiteral;
 import com.mojang.brigadier.builder.ArgumentBuilderRequired;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.net.command.CommandManager;
@@ -35,38 +37,39 @@ public class CommandCount implements CommandManager.CommandRegistry {
                 .register((ArgumentBuilderLiteral) literal("aether:countBlocks").requires(t -> ((CommandSource) t).hasAdmin())
                         .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVec3.vec3d())
                                 .then(ArgumentBuilderRequired.argument("second", ArgumentTypeVec3.vec3d())
-                                        .executes(c -> {
-                                            CommandSource sauce = (CommandSource) c.getSource();
-                                            World world = sauce.getWorld();
-                                            DoubleCoordinates first = c.getArgument("first", DoubleCoordinates.class);
-                                            DoubleCoordinates second = c.getArgument("second", DoubleCoordinates.class);
+                                        .executes(c -> {calcBlockCount(c);return 1;}))));
+    }
 
-                                            int fx = (int) Math.round(first.getX(sauce));
-                                            int fy = (int) Math.round(first.getY(sauce, true));
-                                            int fz = (int) Math.round(first.getZ(sauce));
+    private static void calcBlockCount(CommandContext<Object> c) throws CommandSyntaxException {
+        CommandSource sauce = (CommandSource) c.getSource();
+        World world = sauce.getWorld();
+        DoubleCoordinates first = c.getArgument("first", DoubleCoordinates.class);
+        DoubleCoordinates second = c.getArgument("second", DoubleCoordinates.class);
 
-                                            int sx = (int) Math.round(second.getX(sauce));
-                                            int sy = (int) Math.round(second.getY(sauce, true));
-                                            int sz = (int) Math.round(second.getZ(sauce));
+        int fx = (int) Math.round(first.getX(sauce));
+        int fy = (int) Math.round(first.getY(sauce, true));
+        int fz = (int) Math.round(first.getZ(sauce));
 
-                                            Map<String, Integer> count = new HashMap<>();
+        int sx = (int) Math.round(second.getX(sauce));
+        int sy = (int) Math.round(second.getY(sauce, true));
+        int sz = (int) Math.round(second.getZ(sauce));
 
-                                            for (int x = Math.min(fx, sx); x <= Math.max(fx, sx); x++) {
-                                                for (int y = Math.min(fy, sy); y <= Math.max(fy, sy); y++) {
-                                                    for (int z = Math.min(fz, sz); z <= Math.max(fz, sz); z++) {
-                                                        int id = world.getBlockId(x, y, z);
-                                                        Block<?> block = Blocks.getBlock(id);
-                                                        String name = block == null ? "Air" : TRANSLATOR.translateNameKey(block.getLanguageKey(0));
-                                                        count.merge(name, 1, Integer::sum);
-                                                    }
-                                                }
-                                            }
-                                            long total = (long) (Math.abs(fx - sx)) * Math.abs(fy - sy) * Math.abs(fz - sz);
-                                            sauce.sendMessage("Total Blocks:" + total);
-                                            count.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach(entry ->
-                                                    sauce.sendMessage(entry.getKey() + "→ Count: " + entry.getValue())
-                                            );
-                                            return 1;
-                                        }))));
+        Map<String, Integer> count = new HashMap<>();
+
+        for (int x = Math.min(fx, sx); x <= Math.max(fx, sx); x++) {
+            for (int y = Math.min(fy, sy); y <= Math.max(fy, sy); y++) {
+                for (int z = Math.min(fz, sz); z <= Math.max(fz, sz); z++) {
+                    int id = world.getBlockId(x, y, z);
+                    Block<?> block = Blocks.getBlock(id);
+                    String name = block == null ? "Air" : TRANSLATOR.translateNameKey(block.getLanguageKey(0));
+                    count.merge(name, 1, Integer::sum);
+                }
+            }
+        }
+        long total = (long) (Math.abs(fx - sx)) * Math.abs(fy - sy) * Math.abs(fz - sz);
+        sauce.sendMessage("Total Blocks:" + total);
+        count.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach(entry ->
+                sauce.sendMessage(entry.getKey() + "→ Count: " + entry.getValue())
+        );
     }
 }
