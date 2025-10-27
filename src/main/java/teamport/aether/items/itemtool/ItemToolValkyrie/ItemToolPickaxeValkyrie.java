@@ -30,9 +30,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE))
-            return Items.TOOL_PICKAXE_DIAMOND.getStrVsBlock(itemstack, block);
-        return this.material.getEfficiency(false);
+        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) || block.hasTag(BlockTags.MINEABLE_BY_PICKAXE) ? this.material.getEfficiency(false) : 1.0F;
     }
 
     @Override

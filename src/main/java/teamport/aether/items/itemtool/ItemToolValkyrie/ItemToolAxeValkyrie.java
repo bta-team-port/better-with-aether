@@ -1,6 +1,7 @@
 package teamport.aether.items.itemtool.ItemToolValkyrie;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -18,9 +19,7 @@ public class ItemToolAxeValkyrie extends ItemToolAxeAether implements AetherHasC
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE))
-            return Items.TOOL_AXE_DIAMOND.getStrVsBlock(itemstack, block);
-        return this.material.getEfficiency(false);
+        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) || block.hasTag(BlockTags.MINEABLE_BY_AXE) ? this.material.getEfficiency(false) : 1.0F;
     }
 
     @Override

@@ -407,6 +407,10 @@ public class MobBossValkyrie extends MobBoss {
                     .forEach(player -> ((AetherBossList) player).aether$TryAddBossList(this));
         }
 
+        if (attacker instanceof Player) {
+            ((AetherBossList) attacker).aether$TryAddBossList(this);
+        }
+
         this.teleportTimer += 2 * Global.TICKS_PER_SECOND;
         if (type == AetherMod.HOLY) {
             return super.hurt(attacker, damage / 2, type);

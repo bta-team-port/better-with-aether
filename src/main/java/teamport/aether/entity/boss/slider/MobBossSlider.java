@@ -481,6 +481,8 @@ public class MobBossSlider extends MobBoss {
                 if (!((Player) attacker).gamemode.areMobsHostile()) creativeAttackersList.add((Player) attacker);
 
                 this.target = attacker;
+                ((AetherBossList) attacker).aether$TryAddBossList(this);
+
                 double a = Math.abs(this.x - attacker.x);
                 double c = Math.abs(this.z - attacker.z);
                 if (a > c) {
