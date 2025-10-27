@@ -232,6 +232,10 @@ public class MobBossSunspirit extends MobBossFlying {
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
                 ((AetherBossList) player).aether$TryAddBossList(this);
 
+                this.world.players.stream()
+                        .filter(p -> p.distanceTo(this) < 32 && p != player)
+                        .forEach(p -> ((AetherBossList) p).aether$TryAddBossList(this));
+
                 this.chatLog++;
                 this.isAgro = true;
 
@@ -396,6 +400,10 @@ public class MobBossSunspirit extends MobBossFlying {
             }
 
             return true;
+        }
+
+        if (attacker instanceof Player) {
+            ((AetherBossList) attacker).aether$TryAddBossList(this);
         }
 
         if (!this.isAgro) {

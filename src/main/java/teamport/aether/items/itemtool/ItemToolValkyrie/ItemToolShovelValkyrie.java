@@ -1,8 +1,8 @@
 package teamport.aether.items.itemtool.ItemToolValkyrie;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.AetherMod;
@@ -18,9 +18,7 @@ public class ItemToolShovelValkyrie extends ItemToolShovelAether implements Aeth
 
     @Override
     public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
-        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL))
-            return Items.TOOL_SHOVEL_DIAMOND.getStrVsBlock(itemstack, block);
-        return this.material.getEfficiency(false);
+        return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL) || block.hasTag(BlockTags.MINEABLE_BY_SHOVEL) ? this.material.getEfficiency(false) : 1.0F;
     }
 
     @Override
