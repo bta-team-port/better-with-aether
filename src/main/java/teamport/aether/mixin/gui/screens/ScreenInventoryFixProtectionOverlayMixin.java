@@ -91,7 +91,7 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
                     this.drawRectWidthHeight(x + 10, y2 + 4, barWidth, h2, color);
                 } else {
                     this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, -16777216);
-                    this.drawRectWidthHeight(x + 15, y2 + 4, (int)(protection * (float)w2), h2, color);
+                    this.drawRectWidthHeight(x + 15, y2 + 4, barWidth, h2, color);
                 }
                 if (mouseX >= x && mouseY >= y2 + 2 && mouseX <= x + w && mouseY <= y2 + 12) {
                     this.hoveredDamageType = damageType;
