@@ -2,6 +2,7 @@ package teamport.aether.items.itemtool.ItemToolGravitite;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -9,6 +10,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 import teamport.aether.items.AetherHasCustomDamageType;
@@ -46,12 +48,16 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether implements A
             return true;
         }
 
+        @Nullable TileEntity tileEntity = world.getTileEntity(blockX, blockY, blockZ);
+        int metadata = world.getBlockMetadata(blockX, blockY, blockZ);
+        world.removeBlockTileEntity(blockX, blockY, blockZ);
+        world.setBlockWithNotify(blockX, blockY, blockZ, 0);
         EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(
                 world,
                 (double) blockX + 0.5F, (double) blockY + 0.5F, (double) blockZ + 0.5F,
-                block.id(), world.getBlockMetadata(blockX, blockY, blockZ), null);
+                block.id(), metadata, tileEntity);
+        entityFloatingBlock.hasRemovedBlock = true;
         world.entityJoinedWorld(entityFloatingBlock);
-        world.setBlockWithNotify(blockX, blockY, blockZ, 0);
         itemstack.damageItem(1, player);
         return true;
     }
