@@ -609,28 +609,28 @@ public final class AetherItems {
 
 
         ARMOR_GLOVES_LEATHER = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, 4).setDamage(1));
+                .build(new ItemGloves("armor.gloves.leather", itemKey("armor_gloves_leather"), itemID("ARMOR_GLOVES_LEATHER"), ArmorMaterial.LEATHER, 4).setDamage(2));
 
         ARMOR_GLOVES_CHAIN = new ItemBuilder(MOD_ID)
                 .build(new ItemGloves("armor.gloves.chainmail", itemKey("armor_gloves_chainmail"), itemID("ARMOR_GLOVES_CHAIN"), ArmorMaterial.CHAINMAIL, 4).setDamage(2));
 
         ARMOR_GLOVES_IRON = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, 4).setDamage(1));
+                .build(new ItemGloves("armor.gloves.iron", itemKey("armor_gloves_iron"), itemID("ARMOR_GLOVES_IRON"), ArmorMaterial.IRON, 4).setDamage(2));
 
         ARMOR_GLOVES_GOLD = new ItemBuilder(MOD_ID)
                 .build(new ItemGloves("armor.gloves.gold", itemKey("armor_gloves_gold"), itemID("ARMOR_GLOVES_GOLD"), ArmorMaterial.GOLD, 4).setDamage(2));
 
         ARMOR_GLOVES_DIAMOND = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, 4).setDamage(3));
+                .build(new ItemGloves("armor.gloves.diamond", itemKey("armor_gloves_diamond"), itemID("ARMOR_GLOVES_DIAMOND"), ArmorMaterial.DIAMOND, 4).setDamage(4));
 
         ARMOR_GLOVES_STEEL = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, 4).setDamage(2));
+                .build(new ItemGloves("armor.gloves.steel", itemKey("armor_gloves_steel"), itemID("ARMOR_GLOVES_STEEL"), ArmorMaterial.STEEL, 4).setDamage(3));
 
         ARMOR_GLOVES_ZANITE = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, 4).setDamage(1));
+                .build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, 4).setDamage(2));
 
         ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, 4).setDamage(2));
+                .build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, 4).setDamage(3));
 
         ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID)
                 .build(new ItemGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 4).setDamage(3));
