@@ -101,6 +101,15 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
+        int belowX = MathHelper.floor(this.x);
+        int belowY = MathHelper.floor(this.bb.minY) - 1;
+        int belowZ = MathHelper.floor(this.z);
+        int belowId = this.world.getBlockId(belowX, belowY, belowZ);
+        Block<?> belowBlock = Blocks.blocksList[belowId];
+        double blockTopY = (belowBlock != null) ? (belowY + belowBlock.getBlockBoundsFromState(this.world, belowX, belowY, belowZ).maxY) : (belowY + 1.0);
+        double gap = this.bb.minY - blockTopY;
+        this.onGround = (belowId != 0) && (gap <= 0.001D);
+
         if (!this.isAlive()) {
             this.target = null;
             this.hasTarget = false;
@@ -150,12 +159,16 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             int j = MathHelper.floor(this.bb.minY);
             int k = MathHelper.floor(this.z);
 
-            if (this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id() && this.onGround) {
+            if (!this.onGround || this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id()) {
                 this.hurt(null, 999999, DamageType.FALL);
             }
         }
 
         this.hasTarget = this.target != null;
+
+        this.xd = 0.0D;
+        this.yd = 0.0D;
+        this.zd = 0.0D;
     }
 
     public boolean canEntityBeSeen(Entity entity) {
@@ -205,13 +218,6 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
             ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
         }
-    }
-
-    @Override
-    public void move(double xd, double yd, double zd) {
-        this.xd = 0.0;
-        this.yd = 0.0;
-        this.zd = 0.0;
     }
 
     public boolean interact(@NotNull Player player) {
