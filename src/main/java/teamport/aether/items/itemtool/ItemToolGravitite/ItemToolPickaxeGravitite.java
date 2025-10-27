@@ -57,7 +57,6 @@ public class ItemToolPickaxeGravitite extends ItemToolPickaxeAether implements A
                 block.id(), world.getBlockMetadata(blockX, blockY, blockZ), tileEntity);
         entityFloatingBlock.hasRemovedBlock = true;
         world.entityJoinedWorld(entityFloatingBlock);
-        world.setBlockWithNotify(blockX, blockY, blockZ, 0);
         itemstack.damageItem(1, player);
         return true;
     }
