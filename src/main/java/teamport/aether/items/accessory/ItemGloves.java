@@ -29,7 +29,12 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem {
 
     @Override
     public int armorPieceProtection() {
-        return 1;
+        return 3;
+    }
+
+    @Override
+    public float getArmorPieceProtectionPercentage() {
+        return (float) this.armorPieceProtection() / 40.0f;
     }
 
     @Override
