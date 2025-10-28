@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.tag.BlockTags;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
@@ -13,14 +14,19 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.helper.MobUtil;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.itemtool.ItemToolAxeAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHasCustomDamageType {
+    public final float knockbackStrength;
+    public final float lift;
+
 
     public ItemToolAxeGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
+        this.knockbackStrength = this.lift = 3.0f/4.0f;
     }
 
     @Override
@@ -60,6 +66,18 @@ public class ItemToolAxeGravitite extends ItemToolAxeAether implements AetherHas
         world.entityJoinedWorld(entityFloatingBlock);
         itemstack.damageItem(1, player);
         return true;
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
+        if (target instanceof Mob && target.hurtTime == 10) {
+            if(attacker.isSneaking() && attacker instanceof Player){
+                MobUtil.knockback(target, attacker,knockbackStrength, 0.4f);
+            }else{
+                MobUtil.knockback(target, attacker, 0.4f, lift);
+            }
+        }
+        return super.hitEntity(itemstack, target, attacker);
     }
 
     @Override
