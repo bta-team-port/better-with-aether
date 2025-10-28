@@ -26,6 +26,18 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 
 ### Screenshots from the latest Release:
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/36ad2d7f-3bba-4733-b933-03381a1e7710" width="49%">
+  <img src="https://github.com/user-attachments/assets/462aadd2-81f0-4e86-9239-5a5f3d9000aa" width="49%">
+ <img src="https://github.com/user-attachments/assets/3207da9e-dbc1-476f-865e-092846d0a8cf" width="100%">
+ <br>
+ <em>New damage types to make the armor and weapons a little bit more interessting. Holysword makes quick work of the undead. The Flamesword clears pesky sentries with ease. And the lighting sword secures the perimeter(I total lived there btw.). 
+</em>
+</p>
+
+
+
+
+<p align="center">
  <img width="1920" height="1017" alt="2025-10-19_12 45 50" src="https://github.com/user-attachments/assets/b02bdce7-a3b5-426d-a1eb-2329edfdc84d" />
   <br>
   <em>Incubating sweats and slimes of various sizes.</em>
