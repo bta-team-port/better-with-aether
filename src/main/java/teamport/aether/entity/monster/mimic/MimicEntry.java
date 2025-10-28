@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class MimicEntry {
     int mimicVariant;
-    int mimicChestId;
+    int mimicChestID;
     int mimicChestMetadata;
     int chestID;
     int chestMetadata;
 
     public MimicEntry(
             int mimicVariant,
-            int mimicChestId, int mimicChestMetadata,
+            int mimicChestID, int mimicChestMetadata,
             int itemChestID, int itemChestMetadata
     ) {
         this.mimicVariant = mimicVariant;
-        this.mimicChestId = mimicChestId;
+        this.mimicChestID = mimicChestID;
         this.mimicChestMetadata = mimicChestMetadata;
         this.chestID = itemChestID;
         this.chestMetadata = itemChestMetadata;
@@ -33,8 +33,8 @@ public class MimicEntry {
         return mimicVariant;
     }
 
-    public int getMimicChestId() {
-        return mimicChestId;
+    public int getMimicChestID() {
+        return mimicChestID;
     }
 
     public int getMimicChestMetadata() {
@@ -53,11 +53,11 @@ public class MimicEntry {
     public boolean equals(Object o) {
         if (!(o instanceof MimicEntry)) return false;
         MimicEntry that = (MimicEntry) o;
-        return mimicVariant == that.mimicVariant && mimicChestId == that.mimicChestId && mimicChestMetadata == that.mimicChestMetadata && chestID == that.chestID && chestMetadata == that.chestMetadata;
+        return mimicVariant == that.mimicVariant && mimicChestID == that.mimicChestID && mimicChestMetadata == that.mimicChestMetadata && chestID == that.chestID && chestMetadata == that.chestMetadata;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mimicVariant, mimicChestId, mimicChestMetadata, chestID, chestMetadata);
+        return Objects.hash(mimicVariant, mimicChestID, mimicChestMetadata, chestID, chestMetadata);
     }
 }
