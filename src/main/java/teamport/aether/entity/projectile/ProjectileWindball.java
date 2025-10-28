@@ -10,6 +10,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherMobFallingToOverworld;
+import teamport.aether.helper.MobUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
@@ -86,7 +87,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
             if (!this.world.isClientSide) {
                 if (result.entity != null) {
                     if (!(result.entity instanceof Projectile)) {
-                        result.entity.fling(xd * 4, yd * 0, zd * 4, 0.0F);
+                        MobUtil.customKnockback(result.entity, this, 4.0f, 0.0f);
                     }
                 }
             }
