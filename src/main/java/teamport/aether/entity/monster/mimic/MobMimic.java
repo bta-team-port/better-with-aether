@@ -60,6 +60,13 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         this.mimicTime = 60 * Global.TICKS_PER_SECOND; //temp set to 2, was 120
         this.textureIdentifier = NamespaceID.getPermanent("aether", "mimic");
         this.setSkinVariant(this.getSkinVariant());
+
+    }
+
+    @Override
+    public void spawnInit() {
+        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
+        this.setBlockData(entry.mimicChestID, entry.mimicChestMetadata);
     }
 
     public void setBlockData(int mimicChestID, int mimicChestMetadata) {
@@ -310,13 +317,13 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
                 }
                 if (blockLogic instanceof BlockLogicChest) {
                     MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata & 240);
-                    return ipair(variant.getMimicChestId(), variant.getMimicChestMetadata());
+                    return ipair(variant.getMimicChestID(), variant.getMimicChestMetadata());
                 }
                 queue.add(to);
             }
         }
         MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
-        return ipair(variant.getMimicChestId(), variant.getMimicChestMetadata());
+        return ipair(variant.getMimicChestID(), variant.getMimicChestMetadata());
     }
 
     private void populateChest(WorldFeaturePoint point) {

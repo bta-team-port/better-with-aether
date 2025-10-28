@@ -45,6 +45,8 @@ public class MimicRegistry {
     }
 
     public static MimicEntry getMimicVariantByID(int mimicVariant) {
+        mimicVariant = mimicVariant % instance.MIMIC_ENTRY_LIST.size();
+
         for (MimicEntry variant : MimicRegistry.instance.MIMIC_ENTRY_LIST) {
             if (variant.mimicVariant == mimicVariant) {
                 return variant;
@@ -55,7 +57,7 @@ public class MimicRegistry {
 
     public static MimicEntry getMimicVariantByMimicChest(int mimicChestID, int mimicMetadata) {
         for (MimicEntry variant : MimicRegistry.instance.MIMIC_ENTRY_LIST) {
-            if (variant.mimicChestId == mimicChestID && variant.mimicChestMetadata == mimicMetadata) {
+            if (variant.mimicChestID == mimicChestID && variant.mimicChestMetadata == mimicMetadata) {
                 return variant;
             }
         }
