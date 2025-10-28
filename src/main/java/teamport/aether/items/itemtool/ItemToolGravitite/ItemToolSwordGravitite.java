@@ -15,17 +15,13 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether implements Aethe
         super(name, namespaceId, id, enumtoolmaterial);
     }
 
-    public boolean useItemOnEntity(ItemStack itemstack, Mob target, Player attacker) {
-        if (target instanceof Mob && target.hurtTime == 0) {
-            MobUtil.customKnockback(target, attacker, 0.4f, 3.0f);
-            return true;
-        }
-        return false;
-    }
-
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         if (target instanceof Mob && target.hurtTime == 10) {
-            MobUtil.customKnockback(target, attacker, 3.0f, 0.4f);
+            if(attacker.isSneaking() && attacker instanceof Player){
+                MobUtil.knockback(target, attacker, 3.0f, 0.4f);
+            }else{
+                MobUtil.knockback(target, attacker, 0.4f, 3.0f);
+            }
         }
         return super.hitEntity(itemstack, target, attacker);
     }
