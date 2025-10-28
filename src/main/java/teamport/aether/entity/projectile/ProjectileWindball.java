@@ -87,7 +87,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
             if (!this.world.isClientSide) {
                 if (result.entity != null) {
                     if (!(result.entity instanceof Projectile)) {
-                        MobUtil.customKnockback(result.entity, this, 4.0f, 0.0f);
+                        MobUtil.knockback(result.entity, this, 4.0f, 0.0f);
                     }
                 }
             }
