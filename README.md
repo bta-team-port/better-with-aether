@@ -11,7 +11,7 @@ Tons of new mobs and mechanics.
 3 dungeons and bosses to conquer.
 Brand-new compatibility between the two as well.
 
-**This mod is a remake to port the Aether 1.02 to BTA. We have no relation to the Aether team or the BTA team.**
+**This mod is a remade version of the Aether 1.02 for BTA. We have no relation to the Aether team or the BTA team.**
 
 ### Aether Wiki
 https://aether.wiki.gg/wiki/Aether_Wiki
@@ -21,7 +21,7 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 - Halplibe >= [5.3.1](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/5.3.1)
 - Catalyst-Core >= [2.2.0](https://github.com/MartinSVK12/catalyst)
 - Catalyst-Effects >= [2.4.0](https://github.com/MartinSVK12/catalyst)
-- UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.0.3-7.3_04)
+- UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.1.0-7.3_04)
 
 
 ### Screenshots from the latest Release:
