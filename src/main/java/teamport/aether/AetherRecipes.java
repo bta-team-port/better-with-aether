@@ -23,6 +23,7 @@ import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import java.util.List;
 
+import static teamport.aether.AetherConfig.INCLUDE_REPAIR_RECIPES;
 import static teamport.aether.AetherMod.MOD_ID;
 
 public class AetherRecipes implements RecipeEntrypoint {
@@ -50,6 +51,11 @@ public class AetherRecipes implements RecipeEntrypoint {
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/enchanter.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/workbench.json");
+
+        if(INCLUDE_REPAIR_RECIPES){
+            Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
+            DataLoader.loadRecipesFromFile("/assets/aether/recipes/repair.json");
+        }
     }
 
     @Override

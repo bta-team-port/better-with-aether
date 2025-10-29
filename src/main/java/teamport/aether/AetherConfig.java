@@ -33,6 +33,8 @@ public class AetherConfig {
     private static int BLOCK_ID_STARTING_FROM = 10000;
     private static int ITEM_ID_STARTING_FROM = 26000;
 
+    public static boolean INCLUDE_REPAIR_RECIPES = false;
+
     public static int currentBlockID;
     public static int currentItemID;
 
@@ -94,6 +96,8 @@ public class AetherConfig {
         FREEZER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
         INCUBATOR_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
+        INCLUDE_REPAIR_RECIPES = cfgGetValueOrDefault(GeneralCategory + "INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
+
         currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
         currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
 
@@ -117,7 +121,8 @@ public class AetherConfig {
                 .addEntry("FREEZER_SCREEN_ID", FREEZER_SCREEN_ID)
                 .addEntry("INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID)
                 .addEntry("BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM)
-                .addEntry("ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
+                .addEntry("ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM)
+                .addEntry("INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
     }
 
     // Useless Numerical will sort it out for us.
