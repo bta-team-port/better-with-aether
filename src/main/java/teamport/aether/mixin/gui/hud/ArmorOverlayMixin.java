@@ -26,7 +26,7 @@ public class ArmorOverlayMixin extends Gui {
     protected Minecraft mc;
 
     @Inject(method = "renderGameOverlay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glDisable(I)V", ordinal = 5))
-    void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    public void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         Player player = this.mc.thePlayer;
         ContainerInventory inv = player.inventory;
 
@@ -35,11 +35,11 @@ public class ArmorOverlayMixin extends Gui {
 
         Font font = this.mc.font;
 
-        for (int i = 0; i < inv.armorInventory.length; i++) {
+        for (int i = 0; i < inv.armorInventory.length - 4; i++) {
             ItemStack stack = inv.armorInventory[inv.armorInventory.length - 1 - i];
             if (stack != null) {
                 int x = 2 + 48 + sp;
-                int y = height - sp - 64 + i * 16;
+                int y = height - sp - 16 - i * 16;
 
                 ItemModelDispatcher.getInstance().getDispatch(stack).renderItemIntoGui(Tessellator.instance, font, this.mc.textureManager, stack, x, y, 1.0F);
 
