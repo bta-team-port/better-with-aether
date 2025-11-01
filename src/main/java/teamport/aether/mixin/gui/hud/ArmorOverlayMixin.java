@@ -57,9 +57,12 @@ public class ArmorOverlayMixin extends Gui {
     }
 
     @Inject(method = "renderGameOverlay(FZII)V",
-            at = @At(value = "INVOKE",
+            at = @At(
+                    value = "INVOKE",
                     target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V",
-                    shift = At.Shift.AFTER))
+                    shift = At.Shift.AFTER
+            )
+    )
     public void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
         int height = this.mc.resolution.getScaledHeightScreenCoords();
