@@ -1,6 +1,5 @@
 package teamport.aether.world.type;
 
-import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypes;
 
@@ -11,11 +10,6 @@ public abstract class AetherWorldTypes {
     public static WorldType AETHER_RETRO;
 
     public AetherWorldTypes() {
-    }
-
-    public static WorldType register(String key, WorldType worldType) {
-        Registries.WORLD_TYPES.register(key, worldType);
-        return worldType;
     }
 
     private static boolean hasInit = false;
