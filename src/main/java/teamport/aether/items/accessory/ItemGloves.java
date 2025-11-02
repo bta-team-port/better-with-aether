@@ -1,6 +1,7 @@
 package teamport.aether.items.accessory;
 
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
@@ -8,6 +9,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.items.AetherHasCustomDamageType;
+
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 
 public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, AetherHasCustomDamageType {
     public final ArmorMaterial material;
@@ -58,9 +61,17 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        itemstack.damageItem(1, attacker);
-        return true;
+    public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
+        if(!(attacker instanceof Player)){
+            return super.hitEntity(gloves, target, attacker);
+        }
+        Player player = (Player) attacker;
+        ItemStack hold = player.getHeldItem();
+        if (hold == null && gloves != null && gloves.getItem() instanceof ItemGloves) {
+            gloves.damageItem(1, attacker);
+            return true;
+        }
+        return false;
     }
 }
 

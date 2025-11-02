@@ -13,12 +13,13 @@ public class ItemGlovesPhoenix extends ItemGloves {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        Item item = itemstack.getItem();
-        if(((ItemAccessor)item).getItemRand().nextInt(4) == 0 && target.hurtTime == 10){
+    public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
+        Item item = gloves.getItem();
+        if(((ItemAccessor)item).getItemRand().nextInt(4) == 0 && target.hurtTime == 10 && super.hitEntity(gloves, target, attacker)){
             target.maxFireTicks = 200;
             target.remainingFireTicks = 200;
+            return true;
         }
-        return super.hitEntity(itemstack, target, attacker);
+        return false;
     }
 }

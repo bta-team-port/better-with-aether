@@ -13,10 +13,11 @@ public class ItemGlovesObsidian extends ItemGloves {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if(((EntityAccessor)target).getRandom().nextInt(2) == 0 && target.hurtTime == 10){
+    public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
+        if(((EntityAccessor)target).getRandom().nextInt(2) == 0 && target.hurtTime == 10 && super.hitEntity(gloves, target, attacker)){
             ParticleMaker.spawnSmokeParticles(target);
+            return true;
         }
-        return super.hitEntity(itemstack, target, attacker);
+        return false;
     }
 }

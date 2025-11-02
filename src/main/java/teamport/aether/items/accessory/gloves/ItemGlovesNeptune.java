@@ -12,8 +12,11 @@ public class ItemGlovesNeptune extends ItemGloves {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        ParticleMaker.spawnDowningBubbles(target);
-        return super.hitEntity(itemstack, target, attacker);
+    public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
+        if(super.hitEntity(gloves, target, attacker)){
+            ParticleMaker.spawnDowningBubbles(target);
+            return true;
+        }
+        return false;
     }
 }
