@@ -4,6 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
+import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -13,6 +14,10 @@ import teamport.aether.items.accessory.ItemTrinket;
 import teamport.aether.items.accessory.cape.ItemAgilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemInvisibilityCapeArmor;
 import teamport.aether.items.accessory.cape.ItemSwetCapeArmor;
+import teamport.aether.items.accessory.gloves.ItemGlovesGravitite;
+import teamport.aether.items.accessory.gloves.ItemGlovesNeptune;
+import teamport.aether.items.accessory.gloves.ItemGlovesObsidian;
+import teamport.aether.items.accessory.gloves.ItemGlovesPhoenix;
 import teamport.aether.items.accessory.pendant.ItemChainPendant;
 import teamport.aether.items.accessory.pendant.ItemGravititePendant;
 import teamport.aether.items.accessory.pendant.ItemIcePendant;
@@ -630,16 +635,16 @@ public final class AetherItems {
                 .build(new ItemGloves("armor.gloves.zanite", itemKey("armor_gloves_zanite"), itemID("ARMOR_GLOVES_ZANITE"), AetherArmorMaterial.ZANITE, 4).setDamage(2));
 
         ARMOR_GLOVES_GRAVITITE = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, 4).setDamage(3));
+                .build(new ItemGlovesGravitite("armor.gloves.gravitite", itemKey("armor_gloves_gravitite"), itemID("ARMOR_GLOVES_GRAVITITE"), AetherArmorMaterial.GRAVITITE, 4).setDamage(3).setDamageType(DamageType.FALL));
 
         ARMOR_GLOVES_OBSIDIAN = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 4).setDamage(3));
+                .build(new ItemGlovesObsidian("armor.gloves.obsidian", itemKey("armor_gloves_obsidian"), itemID("ARMOR_GLOVES_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 4).setDamage(3).setDamageType(DamageType.BLAST));
 
         ARMOR_GLOVES_PHOENIX = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, 4).setDamage(3));
+                .build(new ItemGlovesPhoenix("armor.gloves.phoenix", itemKey("armor_gloves_phoenix"), itemID("ARMOR_GLOVES_PHOENIX"), AetherArmorMaterial.PHOENIX, 4).setDamage(3).setDamageType(DamageType.FIRE));
 
         ARMOR_GLOVES_NEPTUNE = new ItemBuilder(MOD_ID)
-                .build(new ItemGloves("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 4).setDamage(3));
+                .build(new ItemGlovesNeptune("armor.gloves.neptune", itemKey("armor_gloves_neptune"), itemID("ARMOR_GLOVES_NEPTUNE"), AetherArmorMaterial.NEPTUNE, 4).setDamage(3).setDamageType(DamageType.DROWN));
 
 
         ARMOR_TALISMAN_REGEN = new ItemBuilder(MOD_ID)
