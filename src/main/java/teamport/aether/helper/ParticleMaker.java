@@ -9,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
+import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
@@ -51,6 +52,12 @@ public class ParticleMaker {
                     z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
                     dx, dy, dz, 0
             );
+        }
+    }
+
+    public static void spawnSmokeParticles(Mob target) {
+        for(int i = 0 ; i < 10; i++){
+            ParticleMaker.spawnSmokeParticles(target.world, target.x, target.y + 0.5, target.z, target.bbHeight, target.bbWidth);
         }
     }
 
@@ -147,8 +154,8 @@ public class ParticleMaker {
     }
 
     public static void spawnFireSwordParticles(Mob target) {
+        Random random = ((EntityAccessor) target).getRandom();
         for (int particle = 0; particle < 16; particle++) {
-            Random random = new Random();
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
             double dy = target.y + 1.0 + (random.nextDouble());
             double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
@@ -163,8 +170,8 @@ public class ParticleMaker {
     }
 
     public static void spawnHolySwordParticles(Mob target) {
+        Random random = ((EntityAccessor) target).getRandom();
         for (int particle = 0; particle < 16; particle++) {
-            Random random = new Random();
             double dx = target.x + (random.nextDouble() * 0.5) - 0.25;
             double dy = target.y + 1.0 + (random.nextDouble());
             double dz = target.z + (random.nextDouble() * 0.5) - 0.25;
@@ -179,7 +186,7 @@ public class ParticleMaker {
     }
 
     public static void spawnLightningSwordParticles(Mob target) {
-        Random random = new Random();
+        Random random = ((EntityAccessor) target).getRandom();
         double startY = target.y + 2.0;
         double endY = target.y;
         int numPoints = 16;
@@ -207,6 +214,16 @@ public class ParticleMaker {
             spawnParticle(target.world, "lightning", x, y, z, -motionX, motionY, motionZ, 0);
             spawnParticle(target.world, "lightning", x, y, z, motionX, motionY, -motionZ, 0);
             spawnParticle(target.world, "lightning", x, y, z, -motionX, motionY, -motionZ, 0);
+        }
+    }
+
+    public static void spawnDowningBubbles(Mob target){
+        Random random = ((EntityAccessor) target).getRandom();
+        for(int i = 0; i < 30; ++i) {
+            double offX = random.nextFloat() - random.nextFloat();
+            double offY = random.nextFloat() - random.nextFloat();
+            double offZ = random.nextFloat() - random.nextFloat();
+           spawnParticle(target.world, "bubble", target.x + offX, target.y + offY + 1, target.z + offZ, target.xd, target.yd, target.zd, 0);
         }
     }
 }
