@@ -7,6 +7,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.items.AetherItems;
 
@@ -25,17 +26,20 @@ public class ContainerInventoryZanitePendantDamageMixin {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
-            float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-            trinketOne.damageItem(1, player);
-            damage += (int) Math.floor(speed);
+            damage = addDamage(damage, trinketOne);
         }
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            float damagePercent = (float) trinketTwo.getMetadata() / trinketTwo.getMaxDamage();
-            float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-            trinketTwo.damageItem(1, player);
-            damage += (int) Math.floor(speed);
+            damage = addDamage(damage, trinketTwo);
         }
+        return damage;
+    }
+
+    @Unique
+    private int addDamage(int damage, ItemStack trinketOne) {
+        float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
+        float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
+        trinketOne.damageItem(1, player);
+        damage += (int) Math.floor(speed);
         return damage;
     }
 
