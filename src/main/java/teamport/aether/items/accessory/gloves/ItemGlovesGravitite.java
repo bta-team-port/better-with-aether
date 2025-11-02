@@ -7,6 +7,8 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import teamport.aether.helper.MobUtil;
 import teamport.aether.items.accessory.ItemGloves;
 
+import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+
 public class ItemGlovesGravitite extends ItemGloves {
     public final float knockbackStrength;
     public final float lift;
@@ -17,14 +19,15 @@ public class ItemGlovesGravitite extends ItemGloves {
     }
 
     @Override
-    public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
-        if (target instanceof Mob && target.hurtTime == 10) {
+    public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
+        if (target instanceof Mob && target.hurtTime == 10 && super.hitEntity(gloves, target, attacker))  {
             if(attacker.isSneaking() && attacker instanceof Player){
                 MobUtil.knockback(target, attacker,knockbackStrength, 0.4f);
             }else{
                 MobUtil.knockback(target, attacker, 0.4f, lift);
             }
+            return true;
         }
-        return super.hitEntity(itemstack, target, attacker);
+        return false;
     }
 }
