@@ -38,7 +38,7 @@ public class ItemLifeShard extends Item {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F, 0.6F);
             return itemstack;
         }
-        int gainHealth = extraHealth + 2 < EXTRA_HEALTH ? 2 : 1;
+        int gainHealth = extraHealth + 2 <= EXTRA_HEALTH ? 2 : 1;
 
         // gives Player extra health
         HealthHelper.addExtraHealth(player, gainHealth);
