@@ -1,13 +1,13 @@
 package teamport.aether.items.itemtool;
 
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemBow;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileArrowFlaming;
 
-import static teamport.aether.AetherGlobals.BODY_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.CAPE_SLOT;
 
 public class ItemBowPhoenix extends ItemBow {
@@ -58,6 +58,6 @@ public class ItemBowPhoenix extends ItemBow {
         ) {
             return CAPE_SLOT;
         }
-        return BODY_SLOT;
+        return IArmorItem.PIECE_CHEST;
     }
 }
