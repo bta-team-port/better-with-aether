@@ -15,7 +15,7 @@ public class ItemToolSwordGravitite extends ItemToolSwordAether implements Aethe
 
     public ItemToolSwordGravitite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
         super(name, namespaceId, id, enumtoolmaterial);
-        this.knockbackStrength = this.lift = 3.0f;
+        this.knockbackStrength = this.lift = 1.0f;
     }
 
     @Override
