@@ -219,7 +219,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
         BlockBuilder dungeonStoneLocked = stone
-                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
+                .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.PISTON_CRUSHING)
                 .setImmovable()
                 .setHardness(-1.0F)
                 .setResistance(999999999F);
@@ -401,7 +401,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(0.3f)
                 .setLuminance(7)
                 .setLightOpacity(0)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.EXTENDS_MOTION_SENSOR_RANGE)
                 .build("glass.quicksoil", "glass_quicksoil", blockID("GLASS_QUICKSOIL"), BlockLogicGlassQuicksoil::new);
 
 
