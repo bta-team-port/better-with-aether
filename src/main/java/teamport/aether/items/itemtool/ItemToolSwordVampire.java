@@ -19,7 +19,7 @@ public class ItemToolSwordVampire extends ItemToolSword {
             if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
                 return false;
             }
-            attacker.heal(8);
+            attacker.heal(this.getDamageVsEntity(target, itemstack) / 2);
         }
         return super.hitEntity(itemstack, target, attacker);
     }
