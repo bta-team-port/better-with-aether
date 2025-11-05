@@ -512,7 +512,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setBlockSound(BlockSounds.WOOD)
                 .setHardness(2.0f)
                 .setResistance(5.0f)
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT, BlockTags.CAN_HANG_OFF)
                 .build(
                         "fence.planks.skyroot",
                         "fence_planks_skyroot",
@@ -528,7 +528,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 .setHardness(2.0f)
                 .setResistance(5.0f)
                 .setBlockItem(b -> new ItemBlockPainted<>(b, false))
-                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT)
+                .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT,BlockTags.CAN_HANG_OFF)
                 .build(
                         "fence.planks.skyroot.painted",
                         "fence_planks_skyroot_painted",
