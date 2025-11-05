@@ -1,5 +1,6 @@
 package teamport.aether.items;
 
+import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
@@ -142,6 +143,7 @@ public final class AetherItems {
 
     public static Item TOOL_SWORD_PIG;
     public static Item TOOL_SWORD_VAMPIRE;
+    public static ItemFood FOOD_VAMPIRE_SWORD_HEALING;
 
     public static Item TOOL_SWORD_FLAME;
     public static Item TOOL_SWORD_HOLY;
@@ -518,6 +520,9 @@ public final class AetherItems {
                 .setTags(ItemTags.PREVENT_CREATIVE_MINING)
                 .build(new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.special));
 
+        FOOD_VAMPIRE_SWORD_HEALING = new ItemBuilder(MOD_ID)
+                .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
+                .build(new ItemFood("food.sword.vampire", itemKey("food_sword_vampire"), itemID("FOOD_SWORD_VAMPIRE"),5, 10, false, 0));
 
         TOOL_SWORD_FLAME = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.PREVENT_CREATIVE_MINING)
