@@ -82,7 +82,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void beforeGameStart() {
-        AetherConfig.Setup();
+        AetherGlobals.init();
+        AetherConfig.init();
         AetherEntities.init();
         AetherBlocks.init();
         AetherItems.init();

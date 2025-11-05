@@ -66,7 +66,7 @@ public class AetherConfig {
         return result;
     }
 
-    static void Setup() {
+    static void init() {
         LOGGER.info("Initializing config..");
 
         Toml props = new Toml("Aether Configs.toml");
