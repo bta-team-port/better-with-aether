@@ -309,6 +309,9 @@ item.aether.food.gummy.gold.name=Gold Gummy Swet
 item.aether.food.gummy.gold.desc=Delicious gold swet flavored sweet. Full heal!
 item.aether.food.lifeshard.name=Lifeshard
 item.aether.food.lifeshard.desc=Permanently increases your maximum health by one heart. Amazing!
+item.aether.food.sword.vampire.name=Victim's Blood
+item.aether.food.sword.vampire.desc=How did you get this?!
+
 
 item.aether.lantern.firefly.silver.name=Silver Firefly Lantern
 item.aether.lantern.firefly.silver.desc=A glass jar containing a swarm of silver fireflies.
