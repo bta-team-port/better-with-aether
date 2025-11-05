@@ -169,7 +169,7 @@ public class AetherEffects {
      */
     public static boolean add(Entity entity, Effect newEffect, int amount) {
         if (!(entity instanceof IHasEffects)) return false;
-        EffectStack stack = new EffectStack((IHasEffects) entity, newEffect, amount);
+        EffectStack stack = new EffectStack((IHasEffects<?>) entity, newEffect, amount);
         return AetherEffects.add(entity, stack);
     }
 
@@ -177,9 +177,9 @@ public class AetherEffects {
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
-        IHasEffects hasEffects = (IHasEffects) entity;
+        IHasEffects<?> hasEffects = (IHasEffects) entity;
 
-        for (EffectStack currStack : hasEffects.getContainer().getEffects()) {
+        for(EffectStack currStack : hasEffects.getContainer().getEffects()){
             Effect currEffect = currStack.getEffect();
             int currMax = currEffect.getMaxStack();
 
@@ -193,7 +193,7 @@ public class AetherEffects {
             }
         }
 
-        if (isLocked(stackToAdd, ((IHasEffects) entity).getContainer())) return false;
+        if (isLocked(stackToAdd,hasEffects.getContainer())) return false;
 
         stackToAdd.start(hasEffects.getContainer());
         hasEffects.getContainer().add(stackToAdd);
@@ -210,7 +210,7 @@ public class AetherEffects {
         T parent = effectContainer.getParent();
         if (parent instanceof IHasEffects && parent instanceof Mob) {
             if (effectBlocker instanceof ILockInteractable && effectContainer.hasEffect(effectBlocker)) {
-                ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects) parent);
+                ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects<?>) parent);
 
                 effectContainer.remove(effectToAdd);
                 return true;
