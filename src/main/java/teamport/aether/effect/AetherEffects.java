@@ -74,7 +74,6 @@ public class AetherEffects {
 
     public static Effect poisonEffect;
     public static Effect remedyEffect;
-    public static Effect regenerationEffect;
 
     public static Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
@@ -98,14 +97,6 @@ public class AetherEffects {
                 1
         ).setDefaultDuration(240);
 
-        regenerationEffect = new RegenerationEffect(
-                "effect.aether.regeneration",
-                MOD_ID + ":regeneration",
-                new ArrayList<>(),
-                EffectTimeType.RESET,
-                1
-        ).setDefaultDuration(30);
-
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
@@ -113,7 +104,6 @@ public class AetherEffects {
         Effects effects = Effects.getInstance();
         effects.register(poisonEffect.id, poisonEffect);
         effects.register(remedyEffect.id, remedyEffect);
-        effects.register(regenerationEffect.id, regenerationEffect);
 
         // in here for compatibility reasons.
         effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
@@ -152,8 +142,6 @@ public class AetherEffects {
                 )
                         .setIcon("icon_remedy.png")
         );
-
-        dispatcher.addDispatch(regenerationEffect, new EffectRenderer<>(regenerationEffect).setIcon("icon_regeneration.png"));
     }
 
     /**
