@@ -3,10 +3,9 @@ package teamport.aether.effect;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.entity.boss.slider.MobBossSlider;
@@ -75,6 +74,7 @@ public class AetherEffects {
 
     public static Effect poisonEffect;
     public static Effect remedyEffect;
+    public static Effect regenerationEffect;
 
     public static Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
@@ -98,6 +98,14 @@ public class AetherEffects {
                 1
         ).setDefaultDuration(240);
 
+        regenerationEffect = new RegenerationEffect(
+                "effect.aether.regeneration",
+                MOD_ID + ":regeneration",
+                new ArrayList<>(),
+                EffectTimeType.RESET,
+                1
+        ).setDefaultDuration(30);
+
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
 
@@ -105,6 +113,7 @@ public class AetherEffects {
         Effects effects = Effects.getInstance();
         effects.register(poisonEffect.id, poisonEffect);
         effects.register(remedyEffect.id, remedyEffect);
+        effects.register(regenerationEffect.id, regenerationEffect);
 
         // in here for compatibility reasons.
         effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
@@ -143,6 +152,8 @@ public class AetherEffects {
                 )
                         .setIcon("icon_remedy.png")
         );
+
+        dispatcher.addDispatch(regenerationEffect, new EffectRenderer<>(regenerationEffect).setIcon("icon_regeneration.png"));
     }
 
     /**
@@ -177,7 +188,7 @@ public class AetherEffects {
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
-        IHasEffects<?> hasEffects = (IHasEffects) entity;
+        IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
 
         for(EffectStack currStack : hasEffects.getContainer().getEffects()){
             Effect currEffect = currStack.getEffect();
