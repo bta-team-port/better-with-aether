@@ -3,10 +3,9 @@ package teamport.aether.effect;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
-import sunsetsatellite.catalyst.effects.api.attribute.Attributes;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
 import teamport.aether.entity.boss.slider.MobBossSlider;
@@ -177,7 +176,7 @@ public class AetherEffects {
 
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
-        IHasEffects<?> hasEffects = (IHasEffects) entity;
+        IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
 
         for(EffectStack currStack : hasEffects.getContainer().getEffects()){
             Effect currEffect = currStack.getEffect();

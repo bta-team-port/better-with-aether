@@ -66,7 +66,7 @@ public class AetherConfig {
         return result;
     }
 
-    static void Setup() {
+    static void init() {
         LOGGER.info("Initializing config..");
 
         Toml props = new Toml("Aether Configs.toml");
@@ -96,7 +96,7 @@ public class AetherConfig {
         FREEZER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
         INCUBATOR_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
-        INCLUDE_REPAIR_RECIPES = cfgGetValueOrDefault(GeneralCategory + "INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
+        INCLUDE_REPAIR_RECIPES = cfgGetValueOrDefault(GeneralCategory + ".INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
 
         currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
         currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);

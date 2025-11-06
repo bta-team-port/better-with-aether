@@ -522,7 +522,7 @@ public final class AetherItems {
 
         FOOD_VAMPIRE_SWORD_HEALING = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
-                .build(new ItemFood("food.sword.vampire", itemKey("food_sword_vampire"), itemID("FOOD_SWORD_VAMPIRE"),5, 10, false, 0));
+                .build(new ItemFood("food.sword.vampire", itemKey("food_sword_vampire"), itemID("FOOD_SWORD_VAMPIRE"),5, 10, false, 64));
 
         TOOL_SWORD_FLAME = new ItemBuilder(MOD_ID)
                 .setTags(ItemTags.PREVENT_CREATIVE_MINING)
