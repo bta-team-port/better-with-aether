@@ -20,7 +20,7 @@ https://aether.wiki.gg/wiki/Aether_Wiki
 - BTA >= 7.3_04
 - Halplibe >= [5.3.1](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/5.3.1)
 - Catalyst-Core >= [2.2.0](https://github.com/MartinSVK12/catalyst)
-- Catalyst-Effects >= [2.4.0](https://github.com/MartinSVK12/catalyst)
+- Catalyst-Effects = [2.4.0](https://github.com/MartinSVK12/catalyst)
 - UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.1.0-7.3_04)
 
 
