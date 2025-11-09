@@ -31,7 +31,7 @@ import teamport.aether.items.accessory.pendant.ItemPendant;
 import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
 import teamport.aether.items.accessory.trinket.ItemIronBubble;
 import teamport.aether.items.accessory.trinket.ItemRegenStone;
-import teamport.aether.items.accessory.trinket.ItemShield;
+import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
 
@@ -141,7 +141,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
-            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6) {
+            if ((item instanceof ItemRepulsionShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6) {
                 this.shield_6 = false;
                 double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
                 String path;
@@ -163,7 +163,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             ///  redirect the render to next item
-            if (item instanceof ItemShield && renderPass == 6) {
+            if (item instanceof ItemRepulsionShield && renderPass == 6) {
                 this.shield_6 = true;
                 ItemStack nextSlot = player.inventory.armorInventory[renderPass + 1];
                 item = nextSlot.getItem();

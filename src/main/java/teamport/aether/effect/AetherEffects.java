@@ -4,7 +4,6 @@ import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import sunsetsatellite.catalyst.effects.api.effect.*;
-import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
@@ -19,7 +18,10 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
@@ -153,8 +155,6 @@ public class AetherEffects {
     }
 
 
-
-
     /**
      * @param entity    affected Mob
      * @param newEffect Effect affecting the entity
@@ -173,12 +173,11 @@ public class AetherEffects {
     }
 
 
-
     public static boolean add(Entity entity, EffectStack stackToAdd) {
         if (!(entity instanceof IHasEffects)) return false;
         IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
 
-        for(EffectStack currStack : hasEffects.getContainer().getEffects()){
+        for (EffectStack currStack : hasEffects.getContainer().getEffects()) {
             Effect currEffect = currStack.getEffect();
             int currMax = currEffect.getMaxStack();
 
@@ -192,7 +191,7 @@ public class AetherEffects {
             }
         }
 
-        if (isLocked(stackToAdd,hasEffects.getContainer())) return false;
+        if (isLocked(stackToAdd, hasEffects.getContainer())) return false;
 
         stackToAdd.start(hasEffects.getContainer());
         hasEffects.getContainer().add(stackToAdd);

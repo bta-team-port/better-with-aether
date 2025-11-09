@@ -265,7 +265,6 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_BLUE, null).setIcon("aether:item/food_sweet_blue"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_GUMMY_GOLD, null).setIcon("aether:item/food_sweet_gold"));
-        dispatcher.addDispatch(new ItemModelStandard(AetherItems.FOOD_VAMPIRE_SWORD_HEALING, null).setIcon("aether:item/victims_blood"));
 
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.LIFESHARD, null).setIcon("aether:item/food_lifeshard"));
 

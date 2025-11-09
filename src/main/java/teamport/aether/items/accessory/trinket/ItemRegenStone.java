@@ -32,11 +32,11 @@ public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
 
         int time = tag.getInteger("time");
         tag.putInt("time", ++time);
-        if (time > 150) {
+        if (time > 200) {
             tag.putInt("time", 0);
             if (player.getHealth() < player.getMaxHealth()) {
                 player.heal(1);
-                world.playSoundAtEntity(player, player, "aether:heal", 1.0f, 1.0f);
+                world.playSoundAtEntity(player, player, "aether:heal", 0.5f, itemRand.nextFloat() * 0.4F + 0.8F);
                 ParticleMaker.spawnHeartParticles(world, player.x, player.y, player.z, player.bbHeight, player.bbWidth);
             }
         }
