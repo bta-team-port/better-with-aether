@@ -2,10 +2,11 @@ package teamport.aether.items.itemtool;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.item.tool.ItemToolSword;
-import teamport.aether.items.AetherItems;
 
 public class ItemToolSwordVampire extends ItemToolSword {
 
@@ -21,8 +22,8 @@ public class ItemToolSwordVampire extends ItemToolSword {
                 return false;
             }
             if (attacker.getHealth() < attacker.getMaxHealth() && attacker.getHealth() + attacker.getTotalHealingRemaining() < attacker.getMaxHealth()) {
-                attacker.heal(3);
-                attacker.eatFood(AetherItems.FOOD_VAMPIRE_SWORD_HEALING);
+                attacker.heal(2);
+                attacker.eatFood((ItemFood) Items.FOOD_FISH_RAW);
             }
         }
         return hitEntity;

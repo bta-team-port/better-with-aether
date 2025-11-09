@@ -13,7 +13,7 @@ public class AetherToolMaterial {
     public static final ToolMaterial zanite = new ToolMaterial().setDurability(384).setEfficiency(6.0F, 12.0F).setMiningLevel(2);
     public static final ToolMaterial gravitite = new ToolMaterial().setDurability(1536).setEfficiency(10.0F, 25.0F).setMiningLevel(3).setBlockHitDelay(4);
     public static final ToolMaterial valkyrie = new ToolMaterial().setDurability(768).setEfficiency(12.0f, 35.0f).setMiningLevel(3).setDamage(4).setBlockHitDelay(4);
-    public static final ToolMaterial special = new ToolMaterial().setDurability(768).setEfficiency(5.0f, 7.0f).setMiningLevel(2).setDamage(3);
+    public static final ToolMaterial special = new ToolMaterial().setDurability(768).setEfficiency(5.0f, 7.0f).setMiningLevel(3);
 
     public static final int VALKYRIE_TOOL_EXTEND_RANGE_BY = 6;
 
