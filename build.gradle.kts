@@ -171,10 +171,9 @@ tasks {
 		val stringHalplibeVersion = halplibeVersion.get()
 		val stringModMenuVersion = modMenuVersion.get()
 
-		val stringcatalystCoreVersion = catalystCoreVersion.get()
-		val stringcatalystEffectsVersion = catalystEffectsVersion.get()
-		val stringbtwailaVersion = btwailaVersion.get()
-		val stringuselessNumericalVersion = uselessNumericalVersion.get()
+		val stringCatalystCoreVersion = catalystCoreVersion.get()
+		val stringCatalystEffectsVersion = catalystEffectsVersion.get()
+		val stringUselessNumericalVersion = uselessNumericalVersion.get()
 
 		inputs.property("modVersion", stringModVersion)
 		inputs.property("loaderVersion", stringLoaderVersion)
@@ -182,9 +181,9 @@ tasks {
 		inputs.property("HalplibeVersion", stringHalplibeVersion)
 		inputs.property("modMenuVersion", stringModMenuVersion)
 
-		inputs.property("catalystCoreVersion", stringcatalystCoreVersion)
-		inputs.property("catalystEffectsVersion", stringcatalystEffectsVersion)
-		inputs.property("uselessNumericalVersion", stringuselessNumericalVersion)
+		inputs.property("catalystCoreVersion", stringCatalystCoreVersion)
+		inputs.property("catalystEffectsVersion", stringCatalystEffectsVersion)
+		inputs.property("uselessNumericalVersion", stringUselessNumericalVersion)
 
 		filesMatching("fabric.mod.json") {
 			expand(
@@ -195,10 +194,9 @@ tasks {
 					"java" to stringJavaVersion,
 					"modmenu" to stringModMenuVersion,
 
-					"catalystcore" to stringcatalystCoreVersion,
-					"catalysteffects" to stringcatalystEffectsVersion,
-					"btwaila" to stringbtwailaVersion,
-					"uselessnumerical" to stringuselessNumericalVersion
+					"catalystcore" to stringCatalystCoreVersion,
+					"catalysteffects" to stringCatalystEffectsVersion,
+					"uselessnumerical" to stringUselessNumericalVersion
 				)
 			)
 		}
