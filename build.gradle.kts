@@ -84,7 +84,7 @@ dependencies {
 	mappings(loom.layered {})
 
 	// https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
-	modRuntimeOnly("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
+	modImplementation("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
 	// If you do not need Halplibe you can comment out or delete this line.
 	modImplementation("turniplabs:halplibe:${halplibeVersion.get()}")
 	modImplementation("turniplabs:modmenu-bta:${modMenuVersion.get()}")
