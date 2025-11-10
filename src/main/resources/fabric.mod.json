@@ -58,13 +58,16 @@
 
   "accessWidener": "aether.accesswidener",
 
-  "depends": {
-    "fabricloader": ">=0.15.5",
-    "catalyst-effects": ">=2.3.0",
-    "catalyst-core": ">=2.2.0",
-    "halplibe": ">=5.3.1",
-    "uselessnumerical": ">=1.0.3"
-  },
-
-  "suggests": {}
+	"depends": {
+		"fabricloader": ">=${fabricloader}",
+		"halplibe": ">=${halplibe}",
+		"catalystcore": ">=${catalystcore}",
+		"catalysteffects": ">=${catalysteffects}",
+		"uselessnumerical": ">=${uselessnumerical}",
+		"minecraft": "*",
+		"java": ">=${java}"
+	},
+	"suggests": {
+		"modmenu": ">=${modmenu}"
+	}
 }
