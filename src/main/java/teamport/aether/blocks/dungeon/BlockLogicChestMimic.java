@@ -21,7 +21,7 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.mimic.MimicEntry;
@@ -47,7 +47,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         int metadata = world.getBlockMetadata(x, y, z);
         Direction direction = mob.getHorizontalPlacementDirection(side).getOpposite();
         metadata = getMetaWithDirection(metadata, direction);
@@ -155,7 +155,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return super.getLanguageKey(meta);
     }
 
-    private ItemStack @NotNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
+    private ItemStack @NonNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
         if (tileEntity instanceof TileEntityMimic) {
             ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
         }
@@ -207,7 +207,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return mimic;
     }
 
-    private ItemStack @NotNull [] dropAsBlock(int meta, TileEntity tileEntity) {
+    private ItemStack @NonNull [] dropAsBlock(int meta, TileEntity tileEntity) {
         ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
         CompoundTag data = result.getData();
         CompoundTag mimicData = new CompoundTag();

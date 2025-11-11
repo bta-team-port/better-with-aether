@@ -1,6 +1,6 @@
 package teamport.aether.net.message;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -20,13 +20,13 @@ public class SunspiritDeathNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         packet.writeBoolean(isDead);
         packet.writeLong(timestamp);
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         isDead = packet.readBoolean();
         timestamp = packet.readLong();
     }

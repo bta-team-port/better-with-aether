@@ -10,7 +10,7 @@ import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 
@@ -18,7 +18,7 @@ public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>
     public NetEntryFloatingBlock() {
     }
 
-    public @NotNull Class<EntityFloatingBlock> getAppliedClass() {
+    public @NonNull Class<EntityFloatingBlock> getAppliedClass() {
         return EntityFloatingBlock.class;
     }
 

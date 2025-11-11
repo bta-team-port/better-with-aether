@@ -5,7 +5,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.Pair;
 
@@ -106,7 +106,7 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NotNull Container inventory) {
+    public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NonNull Container inventory) {
         if (itemstack == null) return;
         int invSize = inventory.getContainerSize();
         int index = random.nextInt(invSize);

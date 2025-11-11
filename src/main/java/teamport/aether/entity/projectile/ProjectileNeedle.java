@@ -12,7 +12,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
@@ -216,7 +216,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         this.projectileSpeed = 0.95F;
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("xTile", (short) this.xTile);
         tag.putShort("yTile", (short) this.yTile);
@@ -227,7 +227,7 @@ public class ProjectileNeedle extends Projectile implements ProjectileAether, Ae
         tag.putByte("inGround", (byte) (this.isGrounded() ? 1 : 0));
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.xTile = tag.getShort("xTile");
         this.yTile = tag.getShort("yTile");

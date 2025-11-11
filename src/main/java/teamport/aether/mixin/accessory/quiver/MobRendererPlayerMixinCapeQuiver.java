@@ -12,7 +12,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemQuiver;
 import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,7 +37,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     }
 
     @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;", shift = At.Shift.AFTER), cancellable = true)
-    public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+    public void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
         quiver.holdingLarge = modelBipedMain.holdingLarge;
         quiver.holdingRightHand = modelBipedMain.holdingRightHand;
         quiver.holdingLeftHand = modelBipedMain.holdingLeftHand;

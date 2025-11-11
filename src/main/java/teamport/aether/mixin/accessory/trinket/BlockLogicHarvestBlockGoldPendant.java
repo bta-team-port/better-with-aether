@@ -12,7 +12,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolShears;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,7 +29,7 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 public abstract class BlockLogicHarvestBlockGoldPendant {
     @Shadow
     @Final
-    @NotNull
+    @NonNull
     public Block<?> block;
 
     /// spoof the check

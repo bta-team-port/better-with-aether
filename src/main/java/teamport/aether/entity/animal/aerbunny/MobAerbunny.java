@@ -17,7 +17,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
@@ -140,11 +140,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public void causeFallDamage(float distance) {
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
     }
 
@@ -195,7 +195,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         if (player.isSneaking()) return super.interact(player);
 
         if (this.vehicle == player) {

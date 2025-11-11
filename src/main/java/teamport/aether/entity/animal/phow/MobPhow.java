@@ -9,7 +9,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItems;
 
@@ -82,12 +82,12 @@ public class MobPhow extends MobAetherAnimalRideable {
         this.entityData.define(16, (byte) 0, Byte.class);
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
     }
@@ -108,7 +108,7 @@ public class MobPhow extends MobAetherAnimalRideable {
         return 0.4F;
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
         if (itemstack != null) {

@@ -4,7 +4,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.MethodParametersAnnotation;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlocks;
 
 import java.util.Random;
@@ -27,7 +27,7 @@ public class WorldFeatureAetherOre extends WorldFeatureOre {
     @MethodParametersAnnotation(
             names = {"blockId", "numberOfBlocks", "variantMap"}
     )
-    public WorldFeatureAetherOre(@NotNull OreMap variantMap, int numberOfBlocks) {
+    public WorldFeatureAetherOre(@NonNull OreMap variantMap, int numberOfBlocks) {
         super(variantMap, numberOfBlocks);
         this.numberOfBlocks = numberOfBlocks;
         this.variantMap = variantMap;

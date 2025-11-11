@@ -14,7 +14,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.helper.MessageMaker;
@@ -165,7 +165,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     @Override
-    public boolean interact(@NotNull Player entityplayer) {
+    public boolean interact(@NonNull Player entityplayer) {
         if (this.chatTime > 0 || this.target != null) {
             return false;
         }
@@ -250,13 +250,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
     }
@@ -309,7 +309,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     @Override
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             this.swingArm();

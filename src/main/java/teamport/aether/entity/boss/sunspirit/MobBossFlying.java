@@ -9,7 +9,7 @@ import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.EnemyBoss;
@@ -103,7 +103,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         dungeonID = tag.getInteger("dungeonID");
         bossName = tag.getString("bossName");
 
@@ -122,7 +122,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         tag.put("bossName", new StringTag(bossName));
 
         if (dungeonID != null) {

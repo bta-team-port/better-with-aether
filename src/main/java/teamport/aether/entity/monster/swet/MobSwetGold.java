@@ -9,7 +9,7 @@ import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
@@ -68,7 +68,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
         return AetherItems.FOOD_GUMMY_GOLD;
     }
 
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.isAlive()) {
             if (!this.friendly) {
                 if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {

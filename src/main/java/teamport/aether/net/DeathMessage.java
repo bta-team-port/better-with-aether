@@ -2,7 +2,7 @@
 //
 //import com.mojang.nbt.tags.CompoundTag;
 //import net.minecraft.core.entity.Entity;
-//import org.jetbrains.annotations.NotNull;
+//import org.jspecify.annotations.NonNull;
 //import turniplabs.halplibe.helper.network.NetworkMessage;
 //import turniplabs.halplibe.helper.network.UniversalPacket;
 //
@@ -10,14 +10,14 @@
 //    Entity killer;
 //
 //    @Override
-//    public void encodeToUniversalPacket(@NotNull UniversalPacket universalPacket) {
+//    public void encodeToUniversalPacket(@NonNull UniversalPacket universalPacket) {
 //        CompoundTag tag = new CompoundTag();
 //        killer.save(tag);
 //        universalPacket.write;
 //    }
 //
 //    @Override
-//    public void decodeFromUniversalPacket(@NotNull UniversalPacket universalPacket) {
+//    public void decodeFromUniversalPacket(@NonNull UniversalPacket universalPacket) {
 //
 //    }
 //

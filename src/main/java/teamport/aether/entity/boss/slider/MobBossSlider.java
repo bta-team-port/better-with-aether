@@ -16,7 +16,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
@@ -52,7 +52,7 @@ public class MobBossSlider extends MobBoss {
     public static float speed = baseSpeed;
     public float blocksToMove = 0;
 
-    @NotNull
+    @NonNull
     public Direction moveDirection = Direction.NONE;
 
     public int attackCoolDown = 0;
@@ -643,12 +643,12 @@ public class MobBossSlider extends MobBoss {
         }
     }
 
-    public @NotNull String getDefaultEntityTexture() {
+    public @NonNull String getDefaultEntityTexture() {
         return "/assets/aether/textures/entity/boss_slider/slider_awake.png";
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         try {
             currentState = State.valueOf(tag.getString("state"));
         } catch (IllegalArgumentException e) {
@@ -662,7 +662,7 @@ public class MobBossSlider extends MobBoss {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         tag.putString("state", currentState.toString());
         tag.putInt("attackCoolDown", attackCoolDown);
         tag.putBoolean("allowedToMove", allowedToMove);

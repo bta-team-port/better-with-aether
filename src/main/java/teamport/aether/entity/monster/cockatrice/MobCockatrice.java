@@ -10,7 +10,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.AetherDeathMessage;
@@ -72,7 +72,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
         super.onLivingUpdate();
     }
 
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         if (distance < 10.0F) {
             double d = entity.x - this.x;
             double d1 = entity.z - this.z;
@@ -95,11 +95,11 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
     }
 

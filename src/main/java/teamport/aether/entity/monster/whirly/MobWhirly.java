@@ -11,7 +11,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
@@ -209,7 +209,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putFloat("Angle", this.Angle);
         tag.putFloat("Speed", this.Speed);
@@ -219,7 +219,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         tag.putBoolean("Evil", this.getEvil());
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.Angle = tag.getFloat("Angle");
         this.Speed = tag.getFloat("Speed");

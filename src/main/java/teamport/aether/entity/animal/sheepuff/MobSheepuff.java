@@ -14,7 +14,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.items.AetherItemTags;
@@ -136,7 +136,7 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         if (super.interact(player)) {
             return true;
         } else {
@@ -210,7 +210,7 @@ public class MobSheepuff extends MobAetherAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Sheared", this.getSheared());
         tag.putBoolean("Puffed", this.getPuffed());
@@ -219,7 +219,7 @@ public class MobSheepuff extends MobAetherAnimal {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSheared(tag.getBoolean("Sheared"));
         this.setPuffed(tag.getBoolean("Puffed"));

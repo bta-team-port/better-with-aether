@@ -10,7 +10,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItemTags;
@@ -71,14 +71,14 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
         tag.putBoolean("Tamed", this.tamed);
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
         this.tamed = tag.getBoolean("Tamed");
@@ -141,7 +141,7 @@ public class MobMoaBlue extends MobAetherAnimalRideable {
         return "aether:mob.moa";
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         if (super.interact(player)) return true;
 
         if (player.getHeldItem() != null && player.getHeldItem().itemID == AetherItems.PETAL_AECHOR.id && tamed && player.isSneaking() && this.getHealth() < this.getMaxHealth()) {

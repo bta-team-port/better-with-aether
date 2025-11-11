@@ -8,7 +8,7 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -46,7 +46,7 @@ public class BlockLogicIceStone extends BlockLogic {
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         attemptFreeze(true, world, x, y, z);
         attemptFreeze(true, world, x, y, z);
         attemptFreeze(true, world, x, y, z);

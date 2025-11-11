@@ -6,7 +6,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
@@ -43,7 +43,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         return 40;
     }
 
-    protected void attackEntity(@NotNull Entity entity, float distance) {
+    protected void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             entity.hurt(this, this.attackStrength, DamageType.FIRE);

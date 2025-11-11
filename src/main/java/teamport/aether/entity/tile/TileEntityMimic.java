@@ -5,7 +5,7 @@ import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class TileEntityMimic extends TileEntityChest implements Container {
     public String nickname = "";
@@ -50,7 +50,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
         tag.putByte("MimicChatColor", this.chatColor);
     }
 
-    public @NotNull String getNickName() {
+    public @NonNull String getNickName() {
         return nickname;
     }
 

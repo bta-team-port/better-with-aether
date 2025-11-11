@@ -8,7 +8,7 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -41,7 +41,7 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
     }
 
     @Override
-    public @NotNull Class<? extends EntityParachute> getAppliedClass() {
+    public @NonNull Class<? extends EntityParachute> getAppliedClass() {
         return EntityParachute.class;
     }
 

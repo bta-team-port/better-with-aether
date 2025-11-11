@@ -10,7 +10,7 @@ import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.helper.Color;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.List;
@@ -24,31 +24,31 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
     private static final IconCoordinate WATER_FLOWING;
 
-    private static final @NotNull IconCoordinate AETHER_GRASS;
-    private static final @NotNull IconCoordinate COBBLED_HOLYSTONE;
-    private static final @NotNull IconCoordinate COBBLED_HOLYSTONE_MOSSY;
-    private static final @NotNull IconCoordinate AETHER_DIRT;
-    private static final @NotNull IconCoordinate QUICKSOIL;
-    private static final @NotNull IconCoordinate LOG_SKYROOT;
-    private static final @NotNull IconCoordinate LEAVES_SKYROOT;
-    private static final @NotNull IconCoordinate BLUE_CLOUD;
-    private static final @NotNull IconCoordinate YELLOW_CLOUD;
-    private static final @NotNull IconCoordinate CLOUD;
+    private static final @NonNull IconCoordinate AETHER_GRASS;
+    private static final @NonNull IconCoordinate COBBLED_HOLYSTONE;
+    private static final @NonNull IconCoordinate COBBLED_HOLYSTONE_MOSSY;
+    private static final @NonNull IconCoordinate AETHER_DIRT;
+    private static final @NonNull IconCoordinate QUICKSOIL;
+    private static final @NonNull IconCoordinate LOG_SKYROOT;
+    private static final @NonNull IconCoordinate LEAVES_SKYROOT;
+    private static final @NonNull IconCoordinate BLUE_CLOUD;
+    private static final @NonNull IconCoordinate YELLOW_CLOUD;
+    private static final @NonNull IconCoordinate CLOUD;
 
-    private static final @NotNull IconCoordinate AETHER_TALL_GRASS;
-    private static final @NotNull IconCoordinate WHITE_FLOWER;
-    private static final @NotNull IconCoordinate PURPLE_FLOWER;
-    private static final @NotNull IconCoordinate LEAVES_GOLDEN;
-    private static final @NotNull IconCoordinate LOG_GOLDEN;
+    private static final @NonNull IconCoordinate AETHER_TALL_GRASS;
+    private static final @NonNull IconCoordinate WHITE_FLOWER;
+    private static final @NonNull IconCoordinate PURPLE_FLOWER;
+    private static final @NonNull IconCoordinate LEAVES_GOLDEN;
+    private static final @NonNull IconCoordinate LOG_GOLDEN;
 
-    private static final @NotNull IconCoordinate AMBROSIUM;
-    private static final @NotNull IconCoordinate GRAVITITE;
-    private static final @NotNull IconCoordinate ICE_STONE;
+    private static final @NonNull IconCoordinate AMBROSIUM;
+    private static final @NonNull IconCoordinate GRAVITITE;
+    private static final @NonNull IconCoordinate ICE_STONE;
 
-    private static final @NotNull IconCoordinate SLIDER_TOP_LEFT;
-    private static final @NotNull IconCoordinate SLIDER_BOTTOM_LEFT;
-    private static final @NotNull IconCoordinate SLIDER_TOP_RIGHT;
-    private static final @NotNull IconCoordinate SLIDER_BOTTOM_RIGHT;
+    private static final @NonNull IconCoordinate SLIDER_TOP_LEFT;
+    private static final @NonNull IconCoordinate SLIDER_BOTTOM_LEFT;
+    private static final @NonNull IconCoordinate SLIDER_TOP_RIGHT;
+    private static final @NonNull IconCoordinate SLIDER_BOTTOM_RIGHT;
 
     private static final IconCoordinate[] TERRAIN_MAP;
 
@@ -199,7 +199,7 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
 
 
     @Override
-    public @NotNull ItemStack getIcon() {
+    public @NonNull ItemStack getIcon() {
         return this.icon;
     }
 
@@ -234,17 +234,17 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
     }
 
     @Override
-    public @NotNull String getName() {
+    public @NonNull String getName() {
         return I18n.getInstance().translateNameKey(name);
     }
 
     @Override
-    public @NotNull String getDescription() {
+    public @NonNull String getDescription() {
         return I18n.getInstance().translateNameKey(name);
     }
 
     @Override
-    public @NotNull AchievementEntry onOpenAchievement() {
+    public @NonNull AchievementEntry onOpenAchievement() {
         return Objects.requireNonNull(this.getEntry(AetherAchievements.HOSTILE_PARADISE));
     }
 
