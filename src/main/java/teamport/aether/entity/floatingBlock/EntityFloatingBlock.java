@@ -11,8 +11,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.terrain.BlockLogicBlockGravitite;
 
@@ -177,7 +177,7 @@ public class EntityFloatingBlock extends Entity {
     }
 
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         tag.putShort("Tile", (short) this.carriedBlock.blockId);
         tag.putShort("TileData", (short) this.carriedBlock.metadata);
         if (this.carriedBlock.entity != null) {
@@ -187,7 +187,7 @@ public class EntityFloatingBlock extends Entity {
         }
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         this.carriedBlock = new CarriedBlock(this, tag.getShort("Tile") & 16383, tag.getShort("TileData") & 255,
                 tag.containsKey("TileEntity") ? TileEntityDispatcher.createAndLoadEntity(tag.getCompound("TileEntity")) : null);
     }

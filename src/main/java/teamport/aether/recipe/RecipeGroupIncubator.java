@@ -5,7 +5,7 @@ import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
     public RecipeGroupIncubator(RecipeSymbol machine) {

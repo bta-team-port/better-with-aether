@@ -12,8 +12,8 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
@@ -257,7 +257,7 @@ public class MobBossSunspirit extends MobBossFlying {
         return false;
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         if (this.chatWithMe(player)) {
             this.rotary = 57.295772552490234 * Math.atan2(this.x - player.x, this.z - player.z);
             this.target = player;
@@ -310,7 +310,7 @@ public class MobBossSunspirit extends MobBossFlying {
         return this.world.getLightmapCoord(15, 15);
     }
 
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         int totalShots = 4;
         float healthPercentage = (float) this.getHealth() / this.getMaxHealth();
 
@@ -348,7 +348,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.timesShot = tag.getInteger("timesShot");
         this.chatLog = tag.getByte("chatLog");
@@ -356,7 +356,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("timesShot", this.timesShot);
         tag.putByte("chatLog", (byte) this.chatLog);
@@ -434,7 +434,7 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
 
-    public @NotNull String getDefaultEntityTexture() {
+    public @NonNull String getDefaultEntityTexture() {
         if (this.hurtTime > 0) {
             return "/assets/aether/textures/entity/boss_sunspirit/sunspirit_hurt.png";
         }

@@ -11,7 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.items.AetherItems;
 import teamport.aether.mixin.accessors.ItemAccessor;
 
@@ -24,7 +24,7 @@ public class BlockLogicLogAether extends BlockLogicLog {
     }
 
     @Override
-    public void onBlockPlacedByMob(World world, int x, int y, int z, @NotNull Side side, Mob mob, double xPlaced, double yPlaced) {
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         Axis axis = mob.getPlacementDirection(side, PlacementMode.SIDE).getAxis();
         world.setBlockMetadataWithNotify(x, y, z, BlockLogicAxisAligned.axisToMeta(axis) + 4);
     }

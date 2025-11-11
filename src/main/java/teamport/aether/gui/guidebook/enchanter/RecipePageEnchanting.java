@@ -7,7 +7,7 @@ import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
@@ -92,7 +92,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         return buildTime.toString();
     }
 
-    public static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+    public static @NonNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
         ItemStack copyInput = ItemStack.copyItemStack(input);

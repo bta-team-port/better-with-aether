@@ -16,7 +16,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
@@ -220,7 +220,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
             ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
@@ -230,12 +230,12 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("AttTime", (short) this.attackCooldown);
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
     }

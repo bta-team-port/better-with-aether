@@ -9,8 +9,8 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.projectile.*;
 
 import java.util.HashMap;
@@ -69,7 +69,7 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
     }
 
     @Override
-    public @NotNull Class<? extends ProjectileAether> getAppliedClass() {
+    public @NonNull Class<? extends ProjectileAether> getAppliedClass() {
         return ProjectileAether.class;
     }
 

@@ -4,7 +4,7 @@ import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.material.ArmorMaterial;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.accessory.IAccessory;
 

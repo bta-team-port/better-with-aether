@@ -22,13 +22,13 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
 
 public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntitySignSkyroot> {
-    private final @NotNull StringBuilder builder = new StringBuilder();
+    private final @NonNull StringBuilder builder = new StringBuilder();
     private final ModelSign modelSign = new ModelSign();
     private final Minecraft mc = Minecraft.getMinecraft();
 
@@ -76,7 +76,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         return angle;
     }
 
-    public void doRender(@NotNull Tessellator t, @NotNull TileEntitySignSkyroot tileEntity, double x, double y, double z, float partialTick) {
+    public void doRender(@NonNull Tessellator t, @NonNull TileEntitySignSkyroot tileEntity, double x, double y, double z, float partialTick) {
         Block<?> block = tileEntity.getBlock();
         if (!(block != null && block.getLogic() instanceof BlockLogicSign)) return;
 
@@ -200,7 +200,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    private static void drawTexturedModalRect(int color, @NotNull IconCoordinate coordinate) {
+    private static void drawTexturedModalRect(int color, @NonNull IconCoordinate coordinate) {
         coordinate.parentAtlas.bind();
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
@@ -220,7 +220,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         this.textMeshRenderer.flushCaches();
     }
 
-    public boolean isVisible(@NotNull TileEntitySignSkyroot tileEntity, @NotNull ICamera camera, float partialTick) {
+    public boolean isVisible(@NonNull TileEntitySignSkyroot tileEntity, @NonNull ICamera camera, float partialTick) {
         return camera.getFrustum().isVisible(AABB.getTemporaryBB(tileEntity.x, tileEntity.y, tileEntity.z, tileEntity.x + 1, tileEntity.y + 1, tileEntity.z + 1), partialTick);
     }
 }

@@ -3,7 +3,7 @@ package teamport.aether.mixin.player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.world.World;
 import net.minecraft.server.entity.player.PlayerServer;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

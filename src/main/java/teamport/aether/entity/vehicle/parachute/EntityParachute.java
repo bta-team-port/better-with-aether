@@ -7,7 +7,7 @@ import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.helper.ParticleMaker;

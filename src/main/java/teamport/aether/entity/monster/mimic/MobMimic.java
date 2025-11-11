@@ -23,8 +23,8 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
@@ -79,7 +79,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("MimicChestID", mimicChestID);
         tag.putInt("MimicChestMetadata", mimicChestMetadata);
@@ -97,7 +97,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.mimicChestID = tag.getInteger("MimicChestID");
         this.mimicChestMetadata = tag.getInteger("MimicChestMetadata");
@@ -158,7 +158,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return player;
     }
 
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
 

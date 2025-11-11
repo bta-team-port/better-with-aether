@@ -10,7 +10,7 @@ import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.PlayerServer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +25,7 @@ import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 public abstract class MPBumpToOverworldMixin extends Player {
 
     @Shadow
-    public abstract @NotNull String getDisplayName();
+    public abstract @NonNull String getDisplayName();
 
     public MPBumpToOverworldMixin(World world) {
         super(world);

@@ -9,7 +9,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItemTags;
@@ -62,12 +62,12 @@ public class MobPhyg extends MobAetherAnimalRideable {
         this.entityData.define(16, (byte) 0, Byte.class);
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
     }
@@ -84,7 +84,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
         return "mob.pigdeath";
     }
 
-    public boolean interact(@NotNull Player player) {
+    public boolean interact(@NonNull Player player) {
         if (super.interact(player)) return true;
 
         if (!this.getSaddled() || this.world.isClientSide) return false;

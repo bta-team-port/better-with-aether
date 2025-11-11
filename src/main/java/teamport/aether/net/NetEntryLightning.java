@@ -9,8 +9,8 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class NetEntryLightning implements IVehicleEntry<EntityLightning>, ITrackedEntry<EntityLightning> {
     @Override
@@ -24,7 +24,7 @@ public class NetEntryLightning implements IVehicleEntry<EntityLightning>, ITrack
     }
 
     @Override
-    public @NotNull Class<? extends EntityLightning> getAppliedClass() {
+    public @NonNull Class<? extends EntityLightning> getAppliedClass() {
         return EntityLightning.class;
     }
 

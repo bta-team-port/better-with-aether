@@ -8,7 +8,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;

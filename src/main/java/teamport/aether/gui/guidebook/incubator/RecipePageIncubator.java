@@ -14,7 +14,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherMod;
 import teamport.aether.recipe.RecipeEntryIncubator;
@@ -102,7 +102,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
     }
 
-    private static @NotNull String getEntityTitle(RecipeEntryIncubator recipe) {
+    private static @NonNull String getEntityTitle(RecipeEntryIncubator recipe) {
         Class<? extends Entity> entity = EntityDispatcher.classForId(recipe.getOutput().getEntity());
         MobInfoRegistry.MobInfo mobInfo = MobInfoRegistry.getMobInfo(entity);
         String translationKey = mobInfo.getNameTranslationKey();

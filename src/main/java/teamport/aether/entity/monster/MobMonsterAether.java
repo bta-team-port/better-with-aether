@@ -7,7 +7,7 @@ import net.minecraft.core.enums.LightLayer;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public abstract class MobMonsterAether extends MobMonster implements Enemy {
 

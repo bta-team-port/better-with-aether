@@ -10,8 +10,8 @@ import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +26,7 @@ import static net.minecraft.core.item.ItemPaintBrush.getColor;
 public abstract class ItemPaintBrushMixin extends Item {
 
     @Shadow
-    public abstract void consumePaint(@NotNull ItemStack itemstack, @Nullable Player player);
+    public abstract void consumePaint(@NonNull ItemStack itemstack, @Nullable Player player);
 
     public ItemPaintBrushMixin(String name, String namespaceId, int id) {
         super(name, namespaceId, id);

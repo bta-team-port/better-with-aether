@@ -7,7 +7,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Unique;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;

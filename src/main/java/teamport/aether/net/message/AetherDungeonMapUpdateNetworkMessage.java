@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -32,7 +32,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
             Player player = playerList.playerEntities.stream()
@@ -59,7 +59,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             this.playerUUID = UUID.fromString(packet.readString());
         }

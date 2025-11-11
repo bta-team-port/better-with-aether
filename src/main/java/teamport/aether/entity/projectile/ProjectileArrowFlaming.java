@@ -17,7 +17,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 

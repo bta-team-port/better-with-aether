@@ -10,7 +10,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleMaker;

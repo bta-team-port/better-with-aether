@@ -1,7 +1,7 @@
 package teamport.aether.net.message;
 
 import net.minecraft.core.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkMessage;
@@ -24,7 +24,7 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         packet.writeDouble(moveForward);
         packet.writeDouble(moveStrafe);
         packet.writeBoolean(isJumping);
@@ -33,7 +33,7 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         this.moveForward = (float) packet.readDouble();
         this.moveStrafe = (float) packet.readDouble();
         this.isJumping = packet.readBoolean();

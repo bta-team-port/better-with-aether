@@ -14,8 +14,8 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
@@ -149,7 +149,7 @@ public class MobBossValkyrie extends MobBoss {
         }
     }
 
-    public boolean interact(@NotNull Player entityplayer) {
+    public boolean interact(@NonNull Player entityplayer) {
         if (this.chatTime > 0 || (this.isReadyToDuel && this.target == entityplayer)) {
             return false;
         }
@@ -332,7 +332,7 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("teleportTimer", (short) this.teleportTimer);
         tag.putBoolean("isReadyToDuel", this.isReadyToDuel);
@@ -340,7 +340,7 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.teleportTimer = tag.getShort("teleportTimer");
         this.isReadyToDuel = tag.getBoolean("isReadyToDuel");
@@ -420,7 +420,7 @@ public class MobBossValkyrie extends MobBoss {
 
 
     @Override
-    public void attackEntity(@NotNull Entity entity, float distance) {
+    public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.getHealth() < this.getMaxHealth() / 2) {
             if (distance > 5.0F) {
                 double d = entity.x - this.x;

@@ -11,7 +11,7 @@ import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
 import teamport.aether.helper.MobUtil;

@@ -10,7 +10,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.tile.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
@@ -64,7 +64,7 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         return true;
     }
 
-    public static void updateFurnaceBlockState(boolean lit, @NotNull World world, int x, int y, int z) {
+    public static void updateFurnaceBlockState(boolean lit, @NonNull World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity == null) {

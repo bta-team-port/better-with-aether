@@ -13,7 +13,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -76,7 +76,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
-    public void callDrawFirstPersonHandAfter(@NotNull Player player, boolean isLeft, CallbackInfo ci) {
+    public void callDrawFirstPersonHandAfter(@NonNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
         if (itemStack != null && itemStack.getItem() instanceof ItemGloves) {
             Item item = itemStack.getItem();
@@ -116,7 +116,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
-    public void setArmorModel(@NotNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+    public void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
         modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
         modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelHeart.holdingRightHand = modelBipedMain.holdingRightHand;
         modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelHeart.holdingLeftHand = modelBipedMain.holdingLeftHand;

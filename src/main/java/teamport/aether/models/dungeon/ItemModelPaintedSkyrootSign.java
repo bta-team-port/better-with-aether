@@ -9,7 +9,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.DyeColor;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelPaintedSkyrootSign extends ItemModelStandard {
@@ -19,7 +19,7 @@ public class ItemModelPaintedSkyrootSign extends ItemModelStandard {
         super(item, null);
     }
 
-    public @NotNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
+    public @NonNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
         int meta = itemStack.getMetadata();
         return sign[meta & 15];
     }
