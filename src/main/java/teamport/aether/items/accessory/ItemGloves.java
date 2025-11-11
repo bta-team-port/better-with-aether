@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.items.AetherHasCustomDamageType;
 
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;

@@ -7,7 +7,7 @@ import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 
 public class ProjectileHammerHead extends Projectile implements ProjectileAether, AetherProjectileDeathMessages<ProjectileHammerHead> {

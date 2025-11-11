@@ -9,7 +9,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;

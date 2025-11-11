@@ -95,7 +95,7 @@ dependencies {
 	modImplementation("sunsetsatellite:catalyst-effects:${catalystEffectsVersion.get()}")
 
 	modImplementation("useless:btwaila:${btwailaVersion.get()}")
-	modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}")
+	modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}-${btaVersion.get()}")
 
 	implementation(platform("org.lwjgl:lwjgl-bom:${lwjglVersion.get()}"))
 	implementation("org.slf4j:slf4j-api:${slf4jApiVersion.get()}")

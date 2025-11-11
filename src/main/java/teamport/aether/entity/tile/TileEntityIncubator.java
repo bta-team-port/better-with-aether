@@ -11,7 +11,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketTileEntityData;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherRecipes;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.blocks.AetherBlocks;

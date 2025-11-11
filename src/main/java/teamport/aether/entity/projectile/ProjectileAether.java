@@ -5,7 +5,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public interface ProjectileAether {
     default PacketAddEntity getSpawnPacket(Projectile tracked) {

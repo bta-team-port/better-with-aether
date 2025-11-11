@@ -4,7 +4,7 @@ import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.items.AetherArmorMaterial;

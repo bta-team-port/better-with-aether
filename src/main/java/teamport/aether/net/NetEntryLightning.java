@@ -10,7 +10,7 @@ import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class NetEntryLightning implements IVehicleEntry<EntityLightning>, ITrackedEntry<EntityLightning> {
     @Override

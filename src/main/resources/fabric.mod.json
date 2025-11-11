@@ -61,8 +61,8 @@
 	"depends": {
 		"fabricloader": ">=${fabricloader}",
 		"halplibe": ">=${halplibe}",
-		"catalystcore": ">=${catalystcore}",
-		"catalysteffects": ">=${catalysteffects}",
+		"catalyst-core": ">=${catalystcore}",
+		"catalyst-effects": ">=${catalysteffects}",
 		"uselessnumerical": ">=${uselessnumerical}",
 		"minecraft": "*",
 		"java": ">=${java}"

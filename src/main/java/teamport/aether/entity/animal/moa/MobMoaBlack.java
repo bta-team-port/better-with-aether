@@ -2,7 +2,7 @@ package teamport.aether.entity.animal.moa;
 
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
 public class MobMoaBlack extends MobMoaBlue {

@@ -6,7 +6,7 @@ import teamport.aether.items.AetherItemTags;
 import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.IAccessory;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.*;
 
 public class LookupTrinketIcons {

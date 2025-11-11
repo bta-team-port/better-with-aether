@@ -3,6 +3,7 @@ package teamport.aether.effect;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.*;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import teamport.aether.effect.render.PoisonEffectRenderer;
@@ -17,7 +18,6 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
