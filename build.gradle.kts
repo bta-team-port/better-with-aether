@@ -97,9 +97,6 @@ dependencies {
 	modImplementation("useless:btwaila:${btwailaVersion.get()}")
 	modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}")
 
-	modImplementation("net.fabricmc:fabric-loader:${loaderVersion.get()}")
-	modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:1.0.5")
-
 	implementation(platform("org.lwjgl:lwjgl-bom:${lwjglVersion.get()}"))
 	implementation("org.slf4j:slf4j-api:${slf4jApiVersion.get()}")
 
