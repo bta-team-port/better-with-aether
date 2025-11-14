@@ -1,25 +1,22 @@
 package teamport.aether.mixin.block;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicNote;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static teamport.aether.AetherMod.BLOCK_INSTRUMENTS;
 
 @Mixin(value = BlockLogicNote.Instrument.class, remap = false)
 public abstract class AddInstrumentsMixin {
-
-    @Inject(method = "getInstrumentFromBlock", at = @At("HEAD"), cancellable = true)
-    private static void injectCustomInstruments(Block<?> block, CallbackInfoReturnable<BlockLogicNote.Instrument> cir) {
-        if (block == null) return;
-
+    @ModifyReturnValue(method = "getInstrumentFromBlock", at = @At("RETURN"))
+    private static BlockLogicNote.@NonNull Instrument injectCustomInstruments(BlockLogicNote.@NonNull Instrument original, @Nullable Block<?> block) {
+        if (block == null) return original;
         BlockLogicNote.Instrument instrument = BLOCK_INSTRUMENTS.get(block.id());
-        if (instrument != null) {
-            cir.setReturnValue(instrument);
-            cir.cancel();
-        }
+        if (instrument != null) return instrument;
+        return original;
     }
 }

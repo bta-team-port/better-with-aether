@@ -1,9 +1,11 @@
 package teamport.aether.entity.projectile;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
+import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -14,23 +16,24 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 
 
-abstract public class ProjectileElementBase extends Projectile implements ProjectileAether {
-    public int bounceCount = 0;
-    public int maxBounces = 20;
+public abstract class ProjectileElementBase extends Projectile implements ProjectileAether {
+    protected int bounceCount = 0;
+    private static final int MAX_BOUNCES = 20;
 
-    public String[] particles = {"explode"};
+    private static final String[] DEFAULT_PARTICLES = {"explode"};
 
-    public ProjectileElementBase(World world) {
+    protected ProjectileElementBase(World world) {
         super(world);
         this.initProjectile();
     }
 
-    public ProjectileElementBase(World world, Mob owner) {
+    protected ProjectileElementBase(World world, Mob owner) {
         super(world, owner);
         this.initProjectile();
     }
 
-    public ProjectileElementBase(World world, double x, double y, double z) {
+    @SuppressWarnings("unused")
+    protected ProjectileElementBase(World world, double x, double y, double z) {
         super(world, x, y, z);
         this.initProjectile();
     }
@@ -45,83 +48,83 @@ abstract public class ProjectileElementBase extends Projectile implements Projec
     @Override
     public void tick() {
         super.tick();
-
+        if (this.world == null) return;
         int xFloor = MathHelper.floor(this.x);
         int yFloor = MathHelper.floor(this.y);
         int zFloor = MathHelper.floor(this.z);
 
-        if (this.xd > 0 && this.world.getBlockId(xFloor + 1, yFloor, zFloor) != 0) {
-            this.xd = -this.xd;
-            bounceSound();
-            bounceCount++;
-        } else if (this.xd < 0 && this.world.getBlockId(xFloor - 1, yFloor, zFloor) != 0) {
+        if ((this.xd > 0 && this.world.getBlockId(xFloor + 1, yFloor, zFloor) != 0) ||
+            (this.xd < 0 && this.world.getBlockId(xFloor - 1, yFloor, zFloor) != 0)) {
             this.xd = -this.xd;
             bounceSound();
             bounceCount++;
         }
 
-        if (this.yd > 0 && this.world.getBlockId(xFloor, yFloor + 1, zFloor) != 0) {
-            this.yd = -this.yd;
-            bounceSound();
-            bounceCount++;
-        } else if (this.yd < 0 && this.world.getBlockId(xFloor, yFloor - 1, zFloor) != 0) {
+        if ((this.yd > 0 && this.world.getBlockId(xFloor, yFloor + 1, zFloor) != 0) ||
+            (this.yd < 0 && this.world.getBlockId(xFloor, yFloor - 1, zFloor) != 0)) {
             this.yd = -this.yd;
             bounceSound();
             bounceCount++;
         }
 
-        if (this.zd > 0 && this.world.getBlockId(xFloor, yFloor, zFloor + 1) != 0) {
-            this.zd = -this.zd;
-            bounceSound();
-            bounceCount++;
-        } else if (this.zd < 0 && this.world.getBlockId(xFloor, yFloor, zFloor - 1) != 0) {
+        if ((this.zd > 0 && this.world.getBlockId(xFloor, yFloor, zFloor + 1) != 0) ||
+            (this.zd < 0 && this.world.getBlockId(xFloor, yFloor, zFloor - 1) != 0)) {
             this.zd = -this.zd;
             bounceSound();
             bounceCount++;
         }
 
-        if (!this.world.isClientSide && bounceCount >= maxBounces) {
+        if (!this.world.isClientSide && bounceCount >= MAX_BOUNCES) {
             doExplosion();
             this.remove();
         }
     }
 
     public void bounceSound() {
-        this.world.playSoundAtEntity(null, this, "random.explode", 0.1F, 2.0F);
+        if (this.world != null) this.world.playSoundAtEntity(null, this, "random.explode", 0.1F, 2.0F);
     }
 
     public void doExplosion() {
-        for (int particle = 0; particle < 16; particle++) {
-            double XParticle = x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double YParticle = y + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double ZParticle = z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-
-            ParticleMaker.spawnParticle(world, particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
-        }
-
-        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x, y, z, "random.explode", 0.25F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        doExplosionHelper(world, this, DEFAULT_PARTICLES, "random.explode", null, SoundCategory.WORLD_SOUNDS, 0.25F);
     }
 
+    protected static void doExplosionHelper(World world, Entity entity, String[] particles, @Nullable String soundPath, @Nullable Mob target, SoundCategory soundCategory, float volume) {
+        if (world == null) return;
+        Entity usedEntity = target == null ? entity : target;
+        for (int particle = 0; particle < 16; particle++) {
+            double xParticle = usedEntity.x + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+            double yParticle = usedEntity.y + 0.5 + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+            double zParticle = usedEntity.z + (world.rand.nextDouble()) - (world.rand.nextDouble() * 0.375);
+
+            ParticleMaker.spawnParticle(world, particles[world.rand.nextInt(particles.length)], xParticle, yParticle, zParticle, 0, 0, 0, 0);
+        }
+        if (soundPath != null) {
+            world.playSoundEffect(null, soundCategory, usedEntity.x, usedEntity.y, usedEntity.z, soundPath, volume, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        } else {
+            world.playBlockSoundEffect(null, usedEntity.x, usedEntity.y, usedEntity.z, Blocks.ICE, EnumBlockSoundEffectType.MINE);
+        }
+    }
+
+    @SuppressWarnings("java:S131")
     @Override
     public void onHit(HitResult hitResult) {
-        if (!this.world.isClientSide) {
-            if (hitResult.side != null) {
-                switch (hitResult.side) {
-                    case BOTTOM:
-                    case TOP:
-                        this.yd = -this.yd * 1.0F;
-                        break;
-                    case NORTH:
-                    case SOUTH:
-                        this.zd = -this.zd * 1.0F;
-                        break;
-                    case WEST:
-                    case EAST:
-                        this.xd = -this.xd * 1.0F;
-                        break;
-                }
-                bounceCount++;
+        if (this.world == null || this.world.isClientSide) return;
+        if (hitResult.side != null) {
+            switch (hitResult.side) {
+                case BOTTOM:
+                case TOP:
+                    this.yd = -this.yd * 1.0F;
+                    break;
+                case NORTH:
+                case SOUTH:
+                    this.zd = -this.zd * 1.0F;
+                    break;
+                case WEST:
+                case EAST:
+                    this.xd = -this.xd * 1.0F;
+                    break;
             }
+            bounceCount++;
         }
     }
 
@@ -167,7 +170,8 @@ abstract public class ProjectileElementBase extends Projectile implements Projec
         return false;
     }
 
-    protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+    @SuppressWarnings("unused")
+    protected static Entity getEntity(Class<? extends ProjectileElementBase> clazz, World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileElementBase element;
         try {
             element = clazz.getDeclaredConstructor(World.class).newInstance(world);

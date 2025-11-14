@@ -17,25 +17,22 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
 public class EntityParachute extends Mob implements AetherRideable {
+    protected float maxSpeed = 0.10F;
+    protected String pathParticle = "explode";
+    protected Block<?> particleBlock = AetherBlocks.AERCLOUD_WHITE;
+    protected double xdChange = 0;
+    protected double zdChange = 0;
 
     public EntityParachute(@Nullable World world) {
         super(world);
         setSize(1.0f, 1.0f);
     }
-
-    static float maxSpeed = 0.10F;
-
+    @Override
     public boolean makeStepSound() {
         return false;
     }
 
-    protected double xdChange = 0;
-    protected double zdChange = 0;
-
-
-    public String pathParticle = "explode";
-    public Block<?> particleBlock = AetherBlocks.AERCLOUD_WHITE;
-
+    @Override
     public void tick() {
         super.tick();
 
@@ -68,8 +65,10 @@ public class EntityParachute extends Mob implements AetherRideable {
             float faceX = bbWidth * random.nextFloat();
             float faceY = bbWidth * random.nextFloat();
 
-            float posX, posY, posZ;
-            Direction dir = Direction.directions[(int) (random.nextFloat() * Direction.directions.length)];
+            float posX;
+            float posY;
+            float posZ;
+            Direction dir = Direction.directions[random.nextInt(Direction.directions.length)];
             switch (dir) {
                 case WEST:
                     posX = (float) (x);
@@ -108,10 +107,10 @@ public class EntityParachute extends Mob implements AetherRideable {
                     break;
             }
 
-            ParticleMaker.spawnParticle(world, "block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
+            ParticleMaker.spawnParticle(this.world, "block", posX - 0.5F, posY + 0.25F, posZ - 0.5F, 0, 0.005, 0, particleBlock.id());
         }
 
-        world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);
+        if (this.world != null) this.world.playBlockSoundEffect(null, x, y, z, particleBlock, EnumBlockSoundEffectType.MINE);
     }
 
     protected void handleParachuteMovement() {
@@ -145,19 +144,23 @@ public class EntityParachute extends Mob implements AetherRideable {
         }
     }
 
+    @Override
     public void updateAI() {
         if (this.passenger != null) {
             vehicleMovement();
         }
     }
 
+    @Override
     public double getRideHeight() {
         return this.bbHeight + 0.2f;
     }
 
+    @Override
     public void causeFallDamage(float distance) {
     }
 
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         return false;
     }
@@ -166,31 +169,28 @@ public class EntityParachute extends Mob implements AetherRideable {
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         if (EnvironmentHelper.isClientWorld()) {
             NetworkHandler.sendToServer(
-                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
         }
 
         float yawDeg = (float) (yRot * (Math.PI / 180));
         float step = 0.175F;
 
-        if (moveForward > 0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+        if (moveForward > 0.1F || moveForward < -0.1F) {
+            xdChange += moveForward * -Math.sin(yawDeg) * step;
+            zdChange += moveForward * Math.cos(yawDeg) * step;
 
-        } else if (moveForward < -0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
         }
 
-        if (moveStrafe > 0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+        if (moveStrafe > 0.1F || moveStrafe < -0.1F) {
+            xdChange += moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += moveStrafe * Math.sin(yawDeg) * step;
 
-        } else if (moveStrafe < -0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
         }
 
         this.yRotO = this.yRot = yRot;
+    }
+    public String getPathParticle() {
+        return pathParticle;
     }
 }

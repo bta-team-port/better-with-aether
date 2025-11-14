@@ -40,14 +40,14 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         ERROR
     }
 
-    public final Minecraft mc;
-    public File resourcesFolder;
-    public AtomicInteger progress;
-    public volatile int toDownload = 0;
+    private final Minecraft mc;
+    private final File resourcesFolder;
+    private final AtomicInteger progress;
+    private volatile int toDownload = 0;
 
-    public volatile State state;
+    private volatile State state;
 
-    private final String URL;
+    private final String url;
 
     public AetherRemoteResourceDownloaderThread(File file, Minecraft minecraft) {
         super("Aether Resource Download");
@@ -62,16 +62,17 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
         }
 
         synchronized (AetherConfig.CONFIGURATION_LOCK) {
-            URL = AetherConfig.REMOTE_RESOURCE_URL;
+            url = AetherConfig.REMOTE_RESOURCE_URL;
         }
     }
 
+    @SuppressWarnings({"java:S2674", "ResultOfMethodCallIgnored"})
     @Override
     public void run() {
         JsonArray manifest;
 
         try {
-            String manifestURL = URL + "manifest.json";
+            String manifestURL = url + "manifest.json";
             manifest = JsonParser.parseString(StringUtils.getWebsiteContentAsString(manifestURL)).getAsJsonArray();
             LOGGER.info("Manifest Downloaded");
 
@@ -136,8 +137,8 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
             this.state = State.DOWNLOADING;
 
             for (Pair<File, String> entry : entriesToDownload) {
-                File soundFile = entry.first;
-                String key = entry.second;
+                File soundFile = entry.getFirst();
+                String key = entry.getSecond();
 
                 try {
                     downloadSoundFile(key, soundFile);
@@ -160,13 +161,23 @@ public class AetherRemoteResourceDownloaderThread extends Thread {
     }
 
     private void downloadSoundFile(String name, File file) throws Exception {
-        String url = URL + name;
-        url = url.replace(" ", "%20");
-        LOGGER.info("Downloading File: {}", url);
+        String theUrl = this.url + name;
+        theUrl = theUrl.replace(" ", "%20");
+        LOGGER.info("Downloading File: {}", theUrl);
 
         StreamUtils.transferDataAndClose(
-                new BufferedInputStream(CertificateHelper.getWebsiteAsStream(url)),
+                new BufferedInputStream(CertificateHelper.getWebsiteAsStream(theUrl)),
                 new BufferedOutputStream(Files.newOutputStream(FileUtils.createNewFile(file).toPath()))
         );
     }
+    public AtomicInteger getProgress() {
+        return progress;
+    }
+    public int getToDownload() {
+        return toDownload;
+    }
+    public State getTheState() {
+        return state;
+    }
+
 }

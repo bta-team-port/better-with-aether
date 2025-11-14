@@ -13,9 +13,9 @@ import teamport.aether.blocks.skyroot.BlockLogicPaintedDoor;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> extends BlockModelDoor<T> {
-    public static final IconCoordinate[] doorBottomTextures = new IconCoordinate[16];
-    public static final IconCoordinate[] doorTopTextures = new IconCoordinate[16];
-    public static final IconCoordinate[] frameTopTextures = new IconCoordinate[16];
+    private static final IconCoordinate[] DOOR_BOTTOM_TEXTURES = new IconCoordinate[16];
+    private static final IconCoordinate[] DOOR_TOP_TEXTURES = new IconCoordinate[16];
+    private static final IconCoordinate[] FRAME_TOP_TEXTURES = new IconCoordinate[16];
     private final boolean isTop;
 
     public BlockModelPaintedSkyrootDoor(Block<T> block, boolean isTop) {
@@ -23,20 +23,21 @@ public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> exten
         this.isTop = isTop;
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
         int color = data >> 4 & 15;
         if (side.getAxis() == Axis.Y) {
-            return frameTopTextures[color];
+            return FRAME_TOP_TEXTURES[color];
         } else {
-            return this.isTop ? doorTopTextures[color] : doorBottomTextures[color];
+            return this.isTop ? DOOR_TOP_TEXTURES[color] : DOOR_BOTTOM_TEXTURES[color];
         }
     }
 
     static {
         for (DyeColor c : DyeColor.blockOrderedColors()) {
-            doorTopTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/top");
-            doorBottomTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/bottom");
-            frameTopTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/frame_top");
+            DOOR_TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/top");
+            DOOR_BOTTOM_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/bottom");
+            FRAME_TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/door/skyroot_" + c.colorID + "/frame_top");
         }
     }
 }

@@ -58,12 +58,14 @@ public class BiomeAether extends Biome {
         this.spawnableMonsterList.add(new SpawnListEntry(MobWhirly.class, 5));
     }
 
+    @Override
     public int getSkyColor(float temperature) {
         return 0xc0c0ff;
     }
 
+    @Override
     public WorldFeature getRandomWorldGenForTrees(Random random) {
         return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
-                : new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id());
+            : new WorldFeatureAetherTreeGoldenOak();
     }
 }

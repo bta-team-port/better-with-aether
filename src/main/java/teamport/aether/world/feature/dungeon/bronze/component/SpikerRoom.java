@@ -29,7 +29,7 @@ public class SpikerRoom extends BaseBronzeRoom {
 
     public void makeHangingChest() {
         decoration.add(drawPlane(AetherBlocks.SLAB_PLANKS_SKYROOT.id(), 2, SOUTH, 4, EAST, 4, x + 4, y + height - 7, z + 4, false));
-        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 6, z + 5, false));
+        chest.add(drawPlane(random, CHEST_OR_MIMIC, SOUTH, 2, EAST, 2, x + 5, y + height - 6, z + 5, false));
 
         decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 4, y + height - 2, z + 4, true));
         decoration.add(drawPlane(AetherBlocks.FENCE_PLANKS_SKYROOT.id(), 0, DOWN, 5, EAST, 1, x + 7, y + height - 2, z + 4, true));

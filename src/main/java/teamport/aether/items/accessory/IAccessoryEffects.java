@@ -5,16 +5,6 @@ import net.minecraft.core.item.ItemStack;
 
 public interface IAccessoryEffects {
     /**
-     * Called when accessory is inserted into a slot, or the player who had it in a slot is just loaded
-     *
-     * @param player    EntityPlayer who added the accessory
-     * @param accessory accessory which was added
-     * @deprecated Please use inventoryTick.
-     */
-    default void addEffect(Player player, ItemStack accessory) {
-    }
-
-    /**
      * Called when accessory is removed from a slot.
      *
      * @param player    EntityPlayer who removed the accessory

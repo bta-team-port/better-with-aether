@@ -8,8 +8,8 @@ import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
 public class SunspiritDeathNetworkMessage implements NetworkMessage {
-    boolean isDead;
-    long timestamp;
+    private boolean isDead;
+    private long timestamp;
 
     public SunspiritDeathNetworkMessage() {
     }
@@ -35,8 +35,8 @@ public class SunspiritDeathNetworkMessage implements NetworkMessage {
     public void handle(NetworkContext networkContext) {
         if (EnvironmentHelper.isClientWorld()) {
             AetherMod.LOGGER.info("Received SunspiritDeathNetworkMessage.");
-            AetherDimension.sunspiritIsDead = isDead;
-            AetherDimension.sunspiritDeathTimestamp = timestamp;
+            AetherDimension.setSunspiritDead(isDead);
+            AetherDimension.setSunspiritDeathTimestamp(timestamp);
         }
     }
 }

@@ -32,8 +32,6 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     /// currentEnergyTime       -> currentBurnTime
     /// maxProcessTime          -> maxCookTime
     /// currentProcessTime      -> currentCookTime
-    Player thePlayer;
-
     public TileEntityIncubator() {
         this.containerItemStacks = new ItemStack[2];
     }
@@ -45,13 +43,13 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     @Override
     public void tick() {
-        boolean isEnergyTimeHigherThan0 = this.currentEnergyTime > 0;
+        boolean isEnergyTimeHigherThan0 = this.getCurrentEnergyTime() > 0;
         boolean updateMachine = false;
-        if (this.currentEnergyTime > 0) {
-            --this.currentEnergyTime;
+        if (this.getCurrentEnergyTime() > 0) {
+            this.setCurrentEnergyTime(this.getCurrentEnergyTime() - 1);
         }
         if (canProcess()) {
-            this.maxProcessTime = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]).getData();
+            this.setMaxProcessTime(AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]).getData());
         }
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
             this.setChanged();
@@ -62,9 +60,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
-            if (this.currentEnergyTime == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
-                this.maxEnergyTime = this.currentEnergyTime = this.getEnergyTimeFromItem(this.containerItemStacks[1]);
-                if (this.currentEnergyTime > 0) {
+            if (this.getCurrentEnergyTime() == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
+                this.setCurrentEnergyTime(this.getEnergyTimeFromItem(this.containerItemStacks[1]));
+                this.setMaxEnergyTime(this.getCurrentEnergyTime());
+                if (this.getCurrentEnergyTime() > 0) {
                     updateMachine = true;
                     if (this.containerItemStacks[1] != null) {
                         --this.containerItemStacks[1].stackSize;
@@ -77,17 +76,17 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             }
 
             if (this.isProcessing() && this.canProcess()) {
-                ++this.currentProcessTime;
-                if (this.currentProcessTime >= this.maxProcessTime) {
-                    this.currentProcessTime = 0;
+                this.setCurrentProcessTime(this.getCurrentProcessTime() + 1);
+                if (this.getCurrentProcessTime() >= this.getMaxProcessTime()) {
+                    this.setCurrentProcessTime(0);
                     this.processItem();
                     updateMachine = true;
                 }
             } else {
-                this.currentProcessTime = 0;
+                this.setCurrentProcessTime(0);
             }
 
-            if (isEnergyTimeHigherThan0 != this.currentEnergyTime > 0) {
+            if (isEnergyTimeHigherThan0 != this.getCurrentEnergyTime() > 0) {
                 this.updateContainer(false);
                 updateMachine = true;
             }
@@ -102,10 +101,10 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-                || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.INCUBATOR_IDLE.id())
-                && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
-                && this.containerItemStacks[1] != null
-                && this.containerItemStacks[1].itemID == Blocks.WOOL.id()
+            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.INCUBATOR_IDLE.id())
+            && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
+            && this.containerItemStacks[1] != null
+            && this.containerItemStacks[1].itemID == Blocks.WOOL.id()
         ) {
             --this.containerItemStacks[1].stackSize;
             if (this.containerItemStacks[1].stackSize <= 0) {
@@ -175,15 +174,15 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (entity == null) {
             return;
         }
-        entity.moveTo(this.x + 0.5, this.y + 1, this.z, 0.0F, 0.0F);
-        this.worldObj.entityJoinedWorld(entity);
+        entity.moveTo(this.x + 0.5, this.y + 1.0, this.z, 0.0F, 0.0F);
+        if (this.worldObj != null) this.worldObj.entityJoinedWorld(entity);
 
         containerItemStacks[0].stackSize--;
         if (containerItemStacks[0].stackSize <= 0) {
             containerItemStacks[0] = null;
         }
 
-        if (entity instanceof MobMoaBlue || entity instanceof MobMoaWhite || entity instanceof MobMoaBlack) {
+        if (this.worldObj != null && (entity instanceof MobMoaBlue || entity instanceof MobMoaWhite || entity instanceof MobMoaBlack)) {
             Player player = this.worldObj.getClosestPlayerToEntity(entity, 16);
             if (player != null) {
                 player.triggerAchievement(AetherAchievements.MOA);
@@ -218,24 +217,24 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicIncubator.updateFurnaceBlockState(forceLit | this.currentEnergyTime > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicIncubator.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
             return;
         }
         if (this.carriedBlock != null) {
-            this.carriedBlock.blockId = forceLit | this.currentEnergyTime > 0 ? AetherBlocks.INCUBATOR_ACTIVE.id() : AetherBlocks.INCUBATOR_IDLE.id();
+            this.carriedBlock.blockId = forceLit || this.getCurrentEnergyTime() > 0 ? AetherBlocks.INCUBATOR_ACTIVE.id() : AetherBlocks.INCUBATOR_IDLE.id();
         }
     }
 
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack) {
         // just in case where will be more options later
-        return itemStack == null ? 0 : LookupFuelIncubator.instance.getFuelYield(itemStack.getItem().id);
+        return itemStack == null ? 0 : LookupFuelIncubator.INSTANCE.getFuelYield(itemStack.getItem().id);
     }
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
         super.dropContents(world, x, y, z);
-        if (!BlockLogicIncubator.keepIncubatorInventory) {
+        if (!BlockLogicIncubator.isKeepIncubatorInventory()) {
             for (int l = 0; l < this.getContainerSize(); ++l) {
                 ItemStack itemstack = this.getItem(l);
                 if (itemstack != null) {
@@ -251,8 +250,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
                         itemstack.stackSize -= i1;
                         EntityItem entityItem = new EntityItem(
-                                world, (float) x + f, (float) y + f1, (float) z + f2,
-                                new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                            world, x + f, y + f1, z + f2,
+                            new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
                         entityItem.xd = (float) this.random.nextGaussian() * f3;
                         entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;

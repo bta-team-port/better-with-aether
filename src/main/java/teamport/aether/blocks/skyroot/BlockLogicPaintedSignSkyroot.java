@@ -36,6 +36,7 @@ public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot
         world.setBlockMetadata(x, y, z, this.stripColorFromMetadata(world.getBlockMetadata(x, y, z)));
     }
 
+    @Override
     public void setColor(World world, int x, int y, int z, DyeColor color) {
         world.setBlockMetadataWithNotify(x, y, z, color.blockMeta << 4 | this.stripColorFromMetadata(world.getBlockMetadata(x, y, z)));
     }

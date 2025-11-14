@@ -7,18 +7,21 @@ import java.util.Random;
 
 // TODO remove this class
 public class BlockPallet {
-    public WeightedRandomBag<IntPair> pallet = new WeightedRandomBag<>();
+    private final WeightedRandomBag<IntPair> pallet = new WeightedRandomBag<>();
 
     public void addEntry(int id, double weight) {
         this.addEntry(id, 0, weight);
     }
 
     public void addEntry(int id, int meta, double weight) {
-        IntPair entry = IntPair.ipair(id, meta);
+        IntPair entry = new IntPair(id, meta);
         this.pallet.addEntry(entry, weight);
     }
 
     public IntPair getRandom(Random random) {
         return this.pallet.getRandom(random);
+    }
+    public WeightedRandomBag<IntPair> getPallet() {
+        return pallet;
     }
 }

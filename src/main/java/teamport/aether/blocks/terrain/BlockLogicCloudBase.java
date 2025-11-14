@@ -17,26 +17,32 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         super(block, Material.air);
     }
 
+    @Override
     public int getPistonPushReaction(World world, int x, int y, int z) {
         return 1;
     }
 
+    @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         entity.fallDistance = 0.0F;
     }
 
+    @Override
     public boolean isCubeShaped() {
         return false;
     }
 
+    @Override
     public boolean getIsBlockSolid(WorldSource blockAccess, int x, int y, int z, Side side) {
         return false;
     }
 
+    @Override
     public void handleEntityInside(World world, int x, int y, int z, Entity entity, Vec3 entityVelocity) {
         entity.fallDistance = 0.0F;
     }
 
+    @Override
     public boolean isSolidRender() {
         return false;
     }
@@ -62,10 +68,12 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
         return isProjectile ? null : super.collisionRayTrace(world, x, y, z, start, end, useSelectorBoxes);
     }
 
+    @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getPermanentBB(x, y, z, x + 1, y + 0.00001, z + 1);
+        return AABB.getPermanentBB(x, y, z, x + 1.0, y + 0.00001, z + 1.0);
     }
 
+    @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         if (!entity.isSneaking()) {
             if (entity.yd < 0.0) {

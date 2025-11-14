@@ -15,14 +15,12 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = PlayerController.class, remap = false)
-public class PlayerControllerDiamondDelayMixin {
+public abstract class PlayerControllerDiamondDelayMixin {
     @Shadow
     protected int blockHitDelay;
-
     @Shadow
     @Final
     protected Minecraft mc;
-
     @Inject(method = "continueDestroyBlock", at = @At("HEAD"))
     public void BlockHitDelay(CallbackInfo callbackInfo) {
         if (this.mc.thePlayer == null) return;

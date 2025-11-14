@@ -15,10 +15,10 @@ import static teamport.aether.AetherMod.LOGGER;
 @Environment(EnvType.SERVER)
 public class AetherServer implements DedicatedServerModInitializer {
 
-    public static void onPlayerJoinedServer(PlayerServer player, NetworkManager netManager) {
+    public static void onPlayerJoinedServer(PlayerServer player) {
         NetworkHandler.sendToPlayer(
                 player,
-                new SunspiritDeathNetworkMessage(AetherDimension.sunspiritIsDead, AetherDimension.sunspiritDeathTimestamp)
+                new SunspiritDeathNetworkMessage(AetherDimension.isSunspiritDead(), AetherDimension.getSunspiritDeathTimestamp())
         );
     }
 

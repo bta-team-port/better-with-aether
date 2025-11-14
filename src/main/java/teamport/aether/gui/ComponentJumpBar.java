@@ -14,12 +14,12 @@ import teamport.aether.entity.AetherJumpAmount;
 
 public class ComponentJumpBar extends HudComponentMovable {
 
-    private static final String texture = "/assets/aether/textures/gui/jumpbar.png";
-    private static final int iconWidth = 9;
-    private static final int iconHeight = 9;
-    private static final int rowLength = 10;
-    private static final int spacingX = -1;
-    private static final int spacingY = -1;
+    private static final String TEXTURE = "/assets/aether/textures/gui/jumpbar.png";
+    private static final int ICON_WIDTH = 9;
+    private static final int ICON_HEIGHT = 9;
+    private static final int ROW_LENGTH = 10;
+    private static final int SPACING_X = -1;
+    private static final int SPACING_Y = -1;
 
 
     private Minecraft mc = Minecraft.getMinecraft();
@@ -30,7 +30,7 @@ public class ComponentJumpBar extends HudComponentMovable {
     private int rowAmount;
 
     public ComponentJumpBar(String key, Layout layout) {
-        super(key, iconWidth * 9, iconHeight, layout);
+        super(key, ICON_WIDTH * 9, ICON_HEIGHT, layout);
     }
 
     @Override
@@ -38,12 +38,12 @@ public class ComponentJumpBar extends HudComponentMovable {
         if (!(mc.currentScreen instanceof ScreenHudDesigner) && !this.isVisible(mc)) {
             return 0;
         }
-        return (iconHeight - spacingY) * rowAmount;
+        return (ICON_HEIGHT - SPACING_Y) * rowAmount;
     }
 
     @Override
     public int getXSize(Minecraft mc) {
-        return (iconWidth + spacingX) * rowLength - spacingX;
+        return (ICON_WIDTH + SPACING_X) * ROW_LENGTH - SPACING_X;
     }
 
     @Override
@@ -91,30 +91,30 @@ public class ComponentJumpBar extends HudComponentMovable {
         rowAmount = getRows(jumpMaxAmount);
 
         int barX = getLayout().getComponentX(mc, this, xScreenSize);
-        int barY = getLayout().getComponentY(mc, this, yScreenSize) + ((iconHeight - spacingY) * (rowAmount - 1));
+        int barY = getLayout().getComponentY(mc, this, yScreenSize) + ((ICON_HEIGHT - SPACING_Y) * (rowAmount - 1));
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //mc.textureManager.loadTexture(texture).bind();
-        mc.textureManager.bindTexture(mc.textureManager.loadTexture(texture));
+        mc.textureManager.bindTexture(mc.textureManager.loadTexture(TEXTURE));
 
-        drawRowsOfIcons(barX, barY, iconWidth, 0, jumpMaxAmount);
+        drawRowsOfIcons(barX, barY, ICON_WIDTH, 0, jumpMaxAmount);
         drawRowsOfIcons(barX, barY, 0, 0, jumpAmount);
     }
 
     public int getRows(int amount) {
-        return (amount % rowLength) <= 0 ? amount / rowLength : (amount / rowLength) + 1;
+        return (amount % ROW_LENGTH) <= 0 ? amount / ROW_LENGTH : (amount / ROW_LENGTH) + 1;
     }
 
-    public void drawRowsOfIcons(int screenX, int screenY, int U, int V, int iconAmount) {
+    public void drawRowsOfIcons(int screenX, int screenY, int u, int v, int iconAmount) {
         int iconsToDraw = iconAmount;
         for (int row = 0; row < getRows(iconAmount); row++) {
-            for (int collumn = 0; collumn < Math.min(rowLength, iconsToDraw); collumn++) {
-                int currentX = screenX + (iconWidth * collumn) + (spacingX * collumn);
-                int currentY = screenY - (iconHeight * row) + (spacingY * row);
+            for (int collumn = 0; collumn < Math.min(ROW_LENGTH, iconsToDraw); collumn++) {
+                int currentX = screenX + (ICON_WIDTH * collumn) + (SPACING_X * collumn);
+                int currentY = screenY - (ICON_HEIGHT * row) + (SPACING_Y * row);
 
-                gui.drawTexturedModalRect(currentX, currentY, U, V, iconWidth, iconHeight);
+                gui.drawTexturedModalRect(currentX, currentY, u, v, ICON_WIDTH, ICON_HEIGHT);
             }
-            iconsToDraw -= rowLength;
+            iconsToDraw -= ROW_LENGTH;
         }
     }
 }

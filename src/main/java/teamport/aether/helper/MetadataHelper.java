@@ -52,23 +52,6 @@ public class MetadataHelper {
     }
 
     /**
-     * @param isUpper   determines whether the trapdoor is placed on the lower or upper part of the block
-     * @param isOpen    determines whether the trapdoor is placed as opened or not
-     * @param direction determines the direction the trapdoor is opening too
-     * @return returns the metadata for the trapdoor opening in the direction set
-     * @implNote Sets the metadata for trapdoor using the block placement,
-     * whether it opens and its opening direction
-     */
-    public static int setMetadataTrapdoor(boolean isUpper, boolean isOpen, Direction direction) {
-        int upper = isUpper ? 1 : 0;
-        int open = isOpen ? 1 : 0;
-        int metadata = 0;
-        metadata |= upper << 3;
-        metadata |= open << 2;
-        return metadata | getTrapDoorMetaForDirection(direction.getOpposite());
-    }
-
-    /**
      * @param dyeColor  sets the color of trapdoor
      * @param isUpper   determines whether the stair is placed facing upwards or downwards
      * @param direction determines the direction the stair are ascending
@@ -79,20 +62,6 @@ public class MetadataHelper {
     public static int getMetadataStairs(DyeColor dyeColor, boolean isUpper, Direction direction) {
         int upper = isUpper ? 1 : 0;
         int metadata = dyeColor.blockMeta << 4;
-        metadata |= upper << 3;
-        return metadata | getStairMetadataFromDirection(direction);
-    }
-
-    /**
-     * @param isUpper   determines whether the stair is placed facing upwards or downwards
-     * @param direction determines the direction the stair are ascending
-     * @return returns the metadata for the stairs in the direction ascending
-     * @implNote Sets the metadata for trapdoor using the block placement,
-     * whether it opens and its opening direction
-     */
-    public static int getMetadataStairs(boolean isUpper, Direction direction) {
-        int upper = isUpper ? 1 : 0;
-        int metadata = 0;
         metadata |= upper << 3;
         return metadata | getStairMetadataFromDirection(direction);
     }

@@ -3,30 +3,31 @@ package teamport.aether.items;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.tag.ItemTags;
+import teamport.aether.AetherMod;
 
 import java.lang.reflect.Field;
 
-import static net.minecraft.core.block.tag.BlockTags.TAG_LIST;
-import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
-
 public class AetherItemTags {
 
-    public static Tag<Item> MOAS_FAVOURITE_ITEM = Tag.of("moas_favourite_item");
-    public static Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
-    public static Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
+    public static final Tag<Item> MOAS_FAVOURITE_ITEM = Tag.of("moas_favourite_item");
+    public static final Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
+    public static final Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
+
+    @SafeVarargs
+    public static Tag<Item>[] tags(Tag<Item>... tags) {
+        return tags;
+    }
 
     static {
-        Field[] var0 = ItemTags.class.getDeclaredFields();
-
-        for (Field field : var0) {
-            if (field.getType().equals(Tag.class)) {
-                try {
-                    TAG_LIST.add((Tag) field.get(null));
-                } catch (Exception var5) {
-                    LOGGER.error("Failed to add tag '{}'!", field.getName(), var5);
-                }
+        for (Field field : AetherItemTags.class.getDeclaredFields()) {
+            if (!field.getType().equals(Tag.class)) continue;
+            try {
+                @SuppressWarnings("unchecked")
+                Tag<Item> tag = (Tag<Item>) field.get(null);
+                ItemTags.TAG_LIST.add(tag);
+            } catch (Exception e) {
+                AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
             }
         }
-
     }
 }

@@ -22,10 +22,12 @@ public class BlockLogicQuicksoil extends BlockLogic {
         block.friction = 1.1f;
     }
 
+    @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         world.setBlockMetadataWithNotify(x, y, z, 1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return 1;
     }
@@ -37,6 +39,7 @@ public class BlockLogicQuicksoil extends BlockLogic {
         return super.collidesWithEntity(entity, world, x, y, z);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {

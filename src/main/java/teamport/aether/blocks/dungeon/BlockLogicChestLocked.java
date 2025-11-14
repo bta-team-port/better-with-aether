@@ -13,9 +13,9 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 
 public class BlockLogicChestLocked extends BlockLogicRotatable {
-    public ItemStack key;
-    boolean locked;
-    public Block<?> unlockedChest;
+    private final ItemStack key;
+    private final Block<?> unlockedChest;
+    private final boolean locked;
 
     public BlockLogicChestLocked(Block<BlockLogic> block, ItemStack key, boolean locked, Block<?> unlockedChest) {
         super(block, Material.stone);
@@ -25,6 +25,7 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
         block.withEntity(TileEntityChest::new);
     }
 
+    @SuppressWarnings("java:S3516")
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (this.locked && !player.gamemode.isPlayerInvulnerable()) {
@@ -35,8 +36,6 @@ public class BlockLogicChestLocked extends BlockLogicRotatable {
                 world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y, z + 0.5, "random.door_open", 0.5f, 1.5f);
                 world.setBlockAndMetadataRaw(x, y, z, unlockedChest.id(), world.getBlockMetadata(x, y, z));
                 world.markBlockNeedsUpdate(x, y, z);
-
-                return true;
             }
             return true;
         }

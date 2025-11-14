@@ -14,7 +14,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
     protected int maxJumps = 3;
     protected boolean jumpPressed;
 
-    public float rideFootSize;
+    protected float rideFootSize;
 
     protected double xdChange = 0;
     protected double zdChange = 0;
@@ -46,29 +46,23 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         if (EnvironmentHelper.isClientWorld()) {
             NetworkHandler.sendToServer(
-                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
         }
 
         float yawDeg = (float) (yRot * (Math.PI / 180));
         float step = 0.175F;
 
-        if (moveForward > 0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
+        if (moveForward > 0.1F || moveForward < -0.1F) {
+            xdChange += moveForward * -Math.sin(yawDeg) * step;
+            zdChange += moveForward * Math.cos(yawDeg) * step;
 
-        } else if (moveForward < -0.1F) {
-            xdChange += (double) moveForward * -Math.sin(yawDeg) * step;
-            zdChange += (double) moveForward * Math.cos(yawDeg) * step;
         }
 
-        if (moveStrafe > 0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
+        if (moveStrafe > 0.1F || moveStrafe < -0.1F) {
+            xdChange += moveStrafe * Math.cos(yawDeg) * step;
+            zdChange += moveStrafe * Math.sin(yawDeg) * step;
 
-        } else if (moveStrafe < -0.1F) {
-            xdChange += (double) moveStrafe * Math.cos(yawDeg) * step;
-            zdChange += (double) moveStrafe * Math.sin(yawDeg) * step;
         }
 
         if (isJumping && !jumpPressed) {
@@ -104,7 +98,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
                 --this.jumpsRemaining;
             }
 
-            if ((isInWater() || canJump) && !world.isClientSide) {
+            if ((isInWater() || canJump) && this.world != null && !this.world.isClientSide) {
                 world.playSoundAtEntity(null, this, "aether:mob.wingflap", 2.0f, 1.0f);
             }
         }
@@ -123,7 +117,7 @@ public class MobAetherAnimalRideable extends MobAetherAnimal implements AetherRi
 
     @Override
     public void updateAI() {
-        if (this.passenger != null && this.passenger instanceof Player) {
+        if (this.passenger instanceof Player) {
             this.moveSpeed = 0.0F;
             this.moveStrafing = 0.0F;
             this.isJumping = false;

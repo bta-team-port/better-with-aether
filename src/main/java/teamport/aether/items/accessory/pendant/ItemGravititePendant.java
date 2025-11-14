@@ -9,23 +9,21 @@ import net.minecraft.core.world.World;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemGravititePendant extends ItemPendant {
-    public final String name;
-
-    public ItemGravititePendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
+    public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
         super(translationKey, namespaceId, id, material);
-        this.name = name;
     }
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId < player.inventory.mainInventory.length
-                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                        || player.gamemode.isPlayerInvulnerable()
-                        || player.isInWater()
-                        || player.isSneaking()
-                        || player.isPassenger()
-                        || player.passenger != null
+            slotId < player.inventory.mainInventory.length
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                || player.gamemode.isPlayerInvulnerable()
+                || player.isInWater()
+                || player.isSneaking()
+                || player.isPassenger()
+                || player.passenger != null
         ) {
             return;
         }

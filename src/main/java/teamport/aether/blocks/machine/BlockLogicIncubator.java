@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class BlockLogicIncubator extends BlockLogicRotatable {
     public final boolean isActive;
-    public static boolean keepIncubatorInventory = false;
+    private static boolean keepIncubatorInventory = false;
 
     public BlockLogicIncubator(Block<?> block, boolean active) {
         super(block, Material.stone);
@@ -28,6 +28,11 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         block.withEntity(TileEntityIncubator::new);
     }
 
+    public static boolean isKeepIncubatorInventory() {
+        return keepIncubatorInventory;
+    }
+
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case PICK_BLOCK:
@@ -41,17 +46,18 @@ public class BlockLogicIncubator extends BlockLogicRotatable {
         }
     }
 
+    @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (!this.isActive) {
             return;
         }
         if (rand.nextInt(4) > 0) return;
-        double radius = 0.3f;
+        double radius = 0.3;
         double angle = 2 * Math.PI * rand.nextDouble();
-        double xPos = (double) x + 0.5 + radius * Math.cos(angle);
-        double yPos = (double) y + 1;
-        double zPos = (double) z + 0.5 + radius * Math.sin(angle);
-        double dy = (rand.nextGaussian() * 0.5f + 1.0f) * 0.01f;
+        double xPos = x + 0.5 + radius * Math.cos(angle);
+        double yPos = y + 1.0;
+        double zPos = z + 0.5 + radius * Math.sin(angle);
+        double dy = (rand.nextGaussian() * 0.5 + 1.0) * 0.01;
         ParticleMaker.spawnParticle(world, "flameambrosium", xPos, yPos, zPos, 0.0, dy, 0.0, 0);
     }
 

@@ -31,6 +31,7 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         return true;
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         if (this.droppedItem == null) {
             return null;
@@ -54,7 +55,7 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         while (destY > 0 && world.getBlockId(destX, destY - 1, destZ) == 0) --destY;
 
         if (world.isBlockNormalCube(destX, destY, destZ)
-                || world.isBlockNormalCube(destX, destY + 1, destZ)) {
+            || world.isBlockNormalCube(destX, destY + 1, destZ)) {
             return false;
         }
 

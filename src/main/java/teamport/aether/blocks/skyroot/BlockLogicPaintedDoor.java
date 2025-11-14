@@ -17,9 +17,9 @@ public class BlockLogicPaintedDoor extends BlockLogicDoorPainted {
     private final Supplier<Item> paintedDoorItem;
 
     public BlockLogicPaintedDoor(
-            Block<?> block, Material material, boolean isTop,
-            int unpaintedDoorBlockTopID, int unpaintedDoorBlockBottomID,
-            Supplier<Item> paintedDoorItem
+        Block<?> block, Material material, boolean isTop,
+        int unpaintedDoorBlockTopID, int unpaintedDoorBlockBottomID,
+        Supplier<Item> paintedDoorItem
     ) {
         super(block, material, isTop);
         this.unpaintedDoorBlockTopID = unpaintedDoorBlockTopID;
@@ -42,5 +42,4 @@ public class BlockLogicPaintedDoor extends BlockLogicDoorPainted {
             world.setBlockAndMetadataWithNotify(x, y + 1, z, unpaintedDoorBlockTopID, meta & 15);
         }
     }
-
 }

@@ -23,10 +23,12 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign {
         block.withEntity(TileEntitySignSkyroot::new);
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return new ItemStack[]{new ItemStack(AetherItems.SIGN_SKYROOT)};
     }
 
+    @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         TileEntitySignSkyroot signEntity = (TileEntitySignSkyroot) world.getTileEntity(x, y, z);
         if (signEntity != null && player != null) {

@@ -14,6 +14,7 @@ public class BlockLogicPaintedPressurePlate<T extends Entity> extends BlockLogic
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    @Override
     public int tickDelay() {
         return 10;
     }
@@ -22,5 +23,4 @@ public class BlockLogicPaintedPressurePlate<T extends Entity> extends BlockLogic
     public void removeDye(World world, int x, int y, int z) {
         world.setBlockWithNotify(x, y, z, unpaintedBlockID);
     }
-
 }

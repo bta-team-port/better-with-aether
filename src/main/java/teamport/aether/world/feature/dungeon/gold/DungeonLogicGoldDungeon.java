@@ -8,7 +8,6 @@ import teamport.aether.world.feature.util.map.DungeonLogic;
 import java.util.Random;
 
 public class DungeonLogicGoldDungeon extends DungeonLogic {
-
     protected Direction direction;
 
     public DungeonLogicGoldDungeon(int dimensionID, int id, long seed) {
@@ -17,12 +16,12 @@ public class DungeonLogicGoldDungeon extends DungeonLogic {
 
     @Override
     protected boolean placeDungeon(World world, Random random) {
-        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).generate(this, world, this.seed, position.x, position.y, position.z);
+        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).generate(this, world, this.seed, position.getX(), position.getY(), position.getZ());
     }
 
     @Override
     protected boolean canPlaceDungeon(World world) {
-        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).canPlace(world, position.x, position.y, position.z);
+        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).canPlace(world, position.getX(), position.getY(), position.getZ());
     }
 
     @Override

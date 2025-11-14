@@ -29,16 +29,19 @@ public class MobSwetGold extends MobSwet implements Enemy {
         this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 0));
     }
 
+    @Override
     public List<WeightedRandomLootObject> getMobDrops() {
         List<WeightedRandomLootObject> drops = new ArrayList<>();
         drops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 1, 2));
         return drops;
     }
 
+    @Override
     public int getMaxHealth() {
         return 26;
     }
 
+    @Override
     public void jump() {
         if (this.passenger != null) {
             this.yd = 1.8;
@@ -47,12 +50,14 @@ public class MobSwetGold extends MobSwet implements Enemy {
         }
     }
 
+    @Override
     public float getBrightness(float partialTick) {
         return 1.0F;
     }
 
+    @Override
     public int getLightmapCoord(float partialTick) {
-        return this.world.getLightmapCoord(15, 15);
+        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
     }
 
     @Override
@@ -68,21 +73,23 @@ public class MobSwetGold extends MobSwet implements Enemy {
         return AetherItems.FOOD_GUMMY_GOLD;
     }
 
+    @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.isAlive()) {
-            if (!this.friendly) {
+            if (!this.isFriendly()) {
                 if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                     this.attackTime = 200;
-                    this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    if (this.world != null) this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     entity.hurt(this, 3, DamageType.COMBAT);
                 }
             }
         }
     }
 
+    @Override
     public void playerTouch(Player player) {
         if (this.isAlive()) {
-            if (!this.friendly) {
+            if (!this.isFriendly()) {
                 if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 3, DamageType.COMBAT) && getHealth() > 0 && !dead) {
                     if (grabDelay == 0) {
                         player.startRiding(this);

@@ -13,16 +13,16 @@ import net.minecraft.core.world.World;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
-    public double motionYaw;
-    public double motionPitch;
+    private double motionYaw;
+    private double motionPitch;
 
-    public long checkTime = 0L;
+    private long checkTime = 0L;
 
-    public double checkX = 0.0;
-    public double checkY = 0.0;
-    public double checkZ = 0.0;
+    private double checkX = 0.0;
+    private double checkY = 0.0;
+    private double checkZ = 0.0;
 
-    public boolean isStuckWarning = false;
+    private boolean isStuckWarning = false;
 
     public MobAerwhale(World world) {
         super(world);
@@ -45,14 +45,15 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         return false;
     }
 
+    @SuppressWarnings("java:S131")
     @Override
     public void updateAI() {
         double[] distances = new double[]{
-                this.openSpace(0.0F, 0.0F),
-                this.openSpace(45.0F, 0.0F),
-                this.openSpace(0.0F, 45.0F),
-                this.openSpace(-45.0F, 0.0F),
-                this.openSpace(0.0F, -45.0F)
+            this.openSpace(0.0F, 0.0F),
+            this.openSpace(45.0F, 0.0F),
+            this.openSpace(0.0F, 45.0F),
+            this.openSpace(-45.0F, 0.0F),
+            this.openSpace(0.0F, -45.0F)
         };
 
         int longest = 0;
@@ -97,8 +98,8 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
     }
 
-    public final int DATA_MOTION_YAW = 16;
-    public final int DATA_MOTION_PITCH = 17;
+    private static final int DATA_MOTION_YAW = 16;
+    private static final int DATA_MOTION_PITCH = 17;
 
     @Override
     protected void defineSynchedData() {
@@ -109,22 +110,22 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     public void lerpPosAndRot() {
         if (this.newPosRotationIncrements > 0) {
-            double lerpXD = this.x + (this.newPosX - this.x) / (double) this.newPosRotationIncrements;
-            double lerpYD = this.y + (this.newPosY - this.y) / (double) this.newPosRotationIncrements;
-            double lerpZD = this.z + (this.newPosZ - this.z) / (double) this.newPosRotationIncrements;
+            double lerpXD = this.x + (this.newPosX - this.x) / this.newPosRotationIncrements;
+            double lerpYD = this.y + (this.newPosY - this.y) / this.newPosRotationIncrements;
+            double lerpZD = this.z + (this.newPosZ - this.z) / this.newPosRotationIncrements;
 
-            double lerpYRot = this.newRotationYaw - (double) this.yRot;
-            double lerpXRot = this.newRotationPitch - (double) this.xRot;
+            double lerpYRot = this.newRotationYaw - this.yRot;
+            double lerpXRot = this.newRotationPitch - this.xRot;
 
-            while (lerpYRot < (double) -180.0F) {
-                lerpYRot += 360.0F;
+            while (lerpYRot < -180.0) {
+                lerpYRot += 360.0;
             }
-            while (lerpYRot >= (double) 180.0F) {
-                lerpYRot -= 360.0F;
+            while (lerpYRot >= 180.0) {
+                lerpYRot -= 360.0;
             }
 
-            this.yRot = (float) ((double) this.yRot + lerpYRot / (double) this.newPosRotationIncrements);
-            this.xRot = (float) ((double) this.xRot + lerpXRot / (double) this.newPosRotationIncrements);
+            this.yRot = (float) (this.yRot + lerpYRot / this.newPosRotationIncrements);
+            this.xRot = (float) (this.xRot + lerpXRot / this.newPosRotationIncrements);
 
             --this.newPosRotationIncrements;
             this.setPos(lerpXD, lerpYD, lerpZD);
@@ -150,8 +151,8 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         }
 
 
-        this.xRot = (float) ((double) this.xRot + 0.1 * this.motionPitch);
-        this.yRot = (float) ((double) this.yRot + 0.1 * this.motionYaw);
+        this.xRot = (float) (this.xRot + 0.1 * this.motionPitch);
+        this.yRot = (float) (this.yRot + 0.1 * this.motionYaw);
 
         if (this.xRot < -60.0F) {
             this.xRot = -60.0F;
@@ -160,11 +161,11 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
             this.xRot = 60.0F;
         }
 
-        this.xRot = (float) ((double) this.xRot * 0.99);
+        this.xRot = (float) (this.xRot * 0.99);
 
-        this.xd += 0.005 * Math.cos((double) this.yRot / 180.0 * Math.PI) * Math.cos((double) this.xRot / 180.0 * Math.PI);
-        this.yd += 0.005 * Math.sin((double) this.xRot / 180.0 * Math.PI);
-        this.zd += 0.005 * Math.sin((double) this.yRot / 180.0 * Math.PI) * Math.cos((double) this.xRot / 180.0 * Math.PI);
+        this.xd += 0.005 * Math.cos(this.yRot / 180.0 * Math.PI) * Math.cos(this.xRot / 180.0 * Math.PI);
+        this.yd += 0.005 * Math.sin(this.xRot / 180.0 * Math.PI);
+        this.zd += 0.005 * Math.sin(this.yRot / 180.0 * Math.PI) * Math.cos(this.xRot / 180.0 * Math.PI);
 
         this.xd *= 0.98;
         this.yd *= 0.98;
@@ -174,30 +175,30 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         int floorY = MathHelper.floor(this.bb.minY);
         int floorZ = MathHelper.floor(this.z);
 
-        assert world != null; // shutupintelij
+        if (this.world != null) {
+            if (this.xd > 0.0 && this.world.getBlockId(floorX + 1, floorY, floorZ) != 0) {
+                this.xd = -this.xd;
+                this.motionYaw -= 10.0;
+            } else if (this.xd < 0.0 && this.world.getBlockId(floorX - 1, floorY, floorZ) != 0) {
+                this.xd = -this.xd;
+                this.motionYaw += 10.0;
+            }
 
-        if (this.xd > 0.0 && this.world.getBlockId(floorX + 1, floorY, floorZ) != 0) {
-            this.xd = -this.xd;
-            this.motionYaw -= 10.0;
-        } else if (this.xd < 0.0 && this.world.getBlockId(floorX - 1, floorY, floorZ) != 0) {
-            this.xd = -this.xd;
-            this.motionYaw += 10.0;
-        }
+            if (this.yd > 0.0 && this.world.getBlockId(floorX, floorY + 1, floorZ) != 0) {
+                this.yd = -this.yd;
+                this.motionPitch -= 10.0;
+            } else if (this.yd < 0.0 && this.world.getBlockId(floorX, floorY - 1, floorZ) != 0) {
+                this.yd = -this.yd;
+                this.motionPitch += 10.0;
+            }
 
-        if (this.yd > 0.0 && this.world.getBlockId(floorX, floorY + 1, floorZ) != 0) {
-            this.yd = -this.yd;
-            this.motionPitch -= 10.0;
-        } else if (this.yd < 0.0 && this.world.getBlockId(floorX, floorY - 1, floorZ) != 0) {
-            this.yd = -this.yd;
-            this.motionPitch += 10.0;
-        }
-
-        if (this.zd > 0.0 && this.world.getBlockId(floorX, floorY, floorZ + 1) != 0) {
-            this.zd = -this.zd;
-            this.motionYaw -= 10.0;
-        } else if (this.zd < 0.0 && this.world.getBlockId(floorX, floorY, floorZ - 1) != 0) {
-            this.zd = -this.zd;
-            this.motionYaw += 10.0;
+            if (this.zd > 0.0 && this.world.getBlockId(floorX, floorY, floorZ + 1) != 0) {
+                this.zd = -this.zd;
+                this.motionYaw -= 10.0;
+            } else if (this.zd < 0.0 && this.world.getBlockId(floorX, floorY, floorZ - 1) != 0) {
+                this.zd = -this.zd;
+                this.motionYaw += 10.0;
+            }
         }
 
         this.move(this.xd, this.yd, this.zd);
@@ -230,7 +231,7 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     @Override
     public void spawnInit() {
-        if (world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
+        if (this.world != null && this.world.getBlockId((int) (this.x + 0.5), (int) (this.y + 25), (int) (this.z + 0.5)) == 0) {
             this.moveTo(this.x, this.y + 25, this.z, this.yRot, 0.0F);
         }
     }
@@ -240,10 +241,11 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
-        return this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water) && this.world.getFullBlockLightValue(x, y, z) > 8;
+        return this.world != null && this.world.checkIfAABBIsClear(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.isAABBInMaterial(this.bb, Material.water) && this.world.getFullBlockLightValue(x, y, z) > 8;
     }
 
     public double openSpace(float rotationyRotOffset, float rotationPitchOffset) {
+        if (this.world == null) return 50.0;
         float yRot = this.yRot + rotationyRotOffset;
         float pitch = this.xRot + rotationPitchOffset;
         Vec3 vec3d = Vec3.getTempVec3(this.x, this.y, this.z);
@@ -254,14 +256,14 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
         float f7 = f4 * f5;
         float f9 = f3 * f5;
         double d3 = 50.0;
-        Vec3 vec3d1 = vec3d.add((double) f7 * d3, (double) f6 * d3, (double) f9 * d3);
+        Vec3 vec3d1 = vec3d.add(f7 * d3, f6 * d3, f9 * d3);
         HitResult movingobjectposition = this.world.checkBlockCollisionBetweenPoints(vec3d, vec3d1, true);
         if (movingobjectposition == null) {
             return 50.0;
         } else if (movingobjectposition.hitType == HitResult.HitType.TILE) {
-            double i = (double) movingobjectposition.x - this.x;
-            double j = (double) movingobjectposition.y - this.y;
-            double k = (double) movingobjectposition.z - this.z;
+            double i = movingobjectposition.x - this.x;
+            double j = movingobjectposition.y - this.y;
+            double k = movingobjectposition.z - this.z;
             return Math.sqrt(i * i + j * j + k * k);
         } else {
             return 50.0;

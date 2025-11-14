@@ -1,0 +1,28 @@
+package teamport.aether.items.item_tool.item_tool_zanite;
+
+import net.minecraft.core.block.Block;
+import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.material.ToolMaterial;
+import net.minecraft.core.util.helper.MathHelper;
+import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.items.item_tool.ItemToolAxeAether;
+
+import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
+
+public class ItemToolAxeZanite extends ItemToolAxeAether {
+    public ItemToolAxeZanite(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
+        super(name, namespaceId, id, enumtoolmaterial);
+    }
+
+    @Override
+    public float getStrVsBlock(ItemStack itemstack, Block<?> block) {
+        if (itemstack == null) return 0f;
+
+        if (!block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)) return 1.0F;
+        float durabilityProgress = ((float) itemstack.getMetadata() / this.getMaxDamage());
+        // we will 'lerp' between the starting damage and starting damage time ZANITE_MULTIPLIER
+        float baseEfficiency = this.material.getEfficiency(false);
+        return MathHelper.lerp(baseEfficiency, baseEfficiency * ZANITE_MULTIPLIER, durabilityProgress);
+    }
+}
+

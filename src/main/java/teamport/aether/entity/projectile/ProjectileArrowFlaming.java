@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -17,12 +16,12 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
-public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages<ProjectileArrowFlaming> {
+public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages {
 
+    @SuppressWarnings("unused")
     public ProjectileArrowFlaming(World world) {
         super(world);
     }
@@ -45,20 +44,25 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.doesArrowBelongToPlayer = false;
     }
 
+    @Override
     protected void initProjectile() {
         super.initProjectile();
         this.damage = 6;
     }
 
+    @Override
     public float getBrightness(float partialTick) {
         return 1.0F;
     }
 
+    @Override
     public int getLightmapCoord(float partialTick) {
-        return this.world.getLightmapCoord(15, 15);
+        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
     }
 
+    @Override
     public void tick() {
+        if (this.world == null) return;
         if (this.shake > 0) {
             --this.shake;
         }
@@ -88,9 +92,9 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
 
             } else {
                 this.setGrounded(false);
-                this.xd *= (double) this.random.nextFloat() * 0.2;
-                this.yd *= (double) this.random.nextFloat() * 0.2;
-                this.zd *= (double) this.random.nextFloat() * 0.2;
+                this.xd *= this.random.nextDouble() * 0.2;
+                this.yd *= this.random.nextDouble() * 0.2;
+                this.zd *= this.random.nextDouble() * 0.2;
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             }
@@ -104,7 +108,9 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         }
     }
 
+    @Override
     public void onHit(HitResult hitResult) {
+        if (this.world == null) return;
         if (hitResult.entity != null) {
             if (hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE)) {
                 if (hitResult.entity instanceof MobCreeper) {
@@ -129,14 +135,15 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
             this.yd = (float) (hitResult.location.y - this.y);
             this.zd = (float) (hitResult.location.z - this.z);
             float f1 = MathHelper.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-            this.x -= this.xd / (double) f1 * 0.05;
-            this.y -= this.yd / (double) f1 * 0.05;
-            this.z -= this.zd / (double) f1 * 0.05;
+            this.x -= this.xd / f1 * 0.05;
+            this.y -= this.yd / f1 * 0.05;
+            this.z -= this.zd / f1 * 0.05;
             this.inGroundAction(hitResult.side, xTile, yTile, zTile);
         }
     }
 
     public void inGroundAction(Side side, int blockX, int blockY, int blockZ) {
+        if (this.world == null) return;
         this.world.playSoundAtEntity(null, this, "random.drr", 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         for (int j = 0; j < 4; ++j) {
             ParticleMaker.spawnParticle(this.world, "item", this.x, this.y, this.z, 0.0, 0.0, 0.0, Items.AMMO_FIREBALL.id);
@@ -152,7 +159,7 @@ public class ProjectileArrowFlaming extends ProjectileArrow implements Projectil
         this.remove();
     }
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileArrowFlaming projectile = new ProjectileArrowFlaming(world, x, y, z, meta);
         if (hasVelocity) projectile.setHeading(xd, yd, zd, 1, 0);
         if (owner instanceof Mob) projectile.owner = (Mob) owner;

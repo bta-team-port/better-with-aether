@@ -8,6 +8,7 @@ public class SlotIncubatorFuel extends Slot {
         super(container, index, x, y);
     }
 
+    @Override
     public String getItemIcon() {
         return "aether:item/incubator_fuel_outline";
     }

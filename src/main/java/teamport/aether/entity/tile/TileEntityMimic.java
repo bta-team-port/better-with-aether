@@ -8,8 +8,8 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 
 public class TileEntityMimic extends TileEntityChest implements Container {
-    public String nickname = "";
-    public byte chatColor = 0;
+    private String nickname = "";
+    private byte chatColor = 0;
 
 
     public void dropContentForced(World world, int x, int y, int z) {
@@ -20,6 +20,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
     public void dropContents(World world, int x, int y, int z) {
     }
 
+    @Override
     public String getNameTranslationKey() {
         if (nickname.isEmpty()) {
             return "aether.container.chest.trapped.name";

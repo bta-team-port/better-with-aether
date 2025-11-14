@@ -8,10 +8,10 @@ import net.minecraft.core.util.helper.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class ModelMimic extends ModelBase {
-    public Cube box;
-    public Cube boxLid;
-    public Cube leftLeg;
-    public Cube rightLeg;
+    private final Cube box;
+    private final Cube boxLid;
+    private final Cube leftLeg;
+    private final Cube rightLeg;
 
     public ModelMimic() {
         this.box = new Cube(0, 19);
@@ -43,6 +43,7 @@ public class ModelMimic extends ModelBase {
         this.leftLeg.render(scale);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
 
@@ -51,5 +52,4 @@ public class ModelMimic extends ModelBase {
         this.rightLeg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.1F * limbYaw;
         this.leftLeg.xRot = MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.1F * limbYaw;
     }
-
 }

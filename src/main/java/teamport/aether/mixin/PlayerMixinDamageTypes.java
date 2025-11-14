@@ -2,7 +2,6 @@ package teamport.aether.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -21,11 +20,9 @@ import teamport.aether.items.accessory.ItemGloves;
 import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinDamageTypes {
-
+public abstract class PlayerMixinDamageTypes {
     @Shadow
     public ContainerInventory inventory;
-
     @WrapOperation(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
     public boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original) {
         if (attacker instanceof Player) {
@@ -49,7 +46,6 @@ public class PlayerMixinDamageTypes {
         }
         return original.call(instance, attacker, baseDamage, type);
     }
-
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getCurrentEquippedItem()Lnet/minecraft/core/item/ItemStack;", shift = At.Shift.AFTER))
     public void addedEffectsWithGloves(Entity entity, CallbackInfo ci) {
         Player player = (Player) (Object) this;

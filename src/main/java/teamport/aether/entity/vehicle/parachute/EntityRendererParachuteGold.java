@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendererParachuteGold extends EntityRenderer<EntityParachuteGold> {
-    public ModelBase modelCloud;
+    private final ModelBase modelCloud;
 
     public EntityRendererParachuteGold() {
         this.shadowSize = 0.0F;

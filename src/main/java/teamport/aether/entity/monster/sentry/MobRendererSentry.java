@@ -16,7 +16,7 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
     }
 
     public boolean setEyeBrightness(MobSentry sentry, int renderPass) {
-        if (renderPass == 0 && sentry.activated) {
+        if (renderPass == 0 && sentry.isActivated()) {
             this.bindTexture("/assets/aether/textures/entity/sentry/sentry_eye.png");
             if (LightmapHelper.isLightmapEnabled()) {
                 LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
@@ -36,6 +36,7 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
         GL11.glScalef(1.75F, 1.75F, 1.75F);
     }
 
+    @Override
     public void setupScale(MobSentry entity, float partialTick) {
         this.scaleSentry();
     }

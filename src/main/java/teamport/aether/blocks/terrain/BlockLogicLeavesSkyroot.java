@@ -20,6 +20,7 @@ public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
         super(block, material, sapling);
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         if (dropCause != EnumDropCause.PICK_BLOCK && dropCause != EnumDropCause.SILK_TOUCH) {
             int numDropped = 1;
@@ -29,10 +30,10 @@ public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
         }
     }
 
+    @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (rand.nextInt(20) == 0 && !EnvironmentHelper.isServerEnvironment()) {
-            ParticleMaker.spawnParticle(world, AetherMod.MOD_ID + "$fallingleaf", x, (double) y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
+            ParticleMaker.spawnParticle(world, AetherMod.MOD_ID + "$fallingleaf", x, y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
         }
     }
-
 }

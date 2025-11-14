@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(value = SlotArmor.class, remap = false)
 public interface SlotArmorAccessor {
-
-    @Accessor("armorType")
+    @Accessor
     int getArmorType();
 }

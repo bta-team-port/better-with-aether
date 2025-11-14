@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(value = MenuAbstract.class, remap = false)
 public interface MenuAbstractAccessor {
-
-    @Invoker("addSlot")
+    @Invoker
     void invokeAddSlot(Slot slot);
 }

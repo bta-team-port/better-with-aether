@@ -15,6 +15,7 @@ public class BlockLogicPaintablePressurePlate<T extends Entity> extends BlockLog
         this.paintedBlock = paintedBlock;
     }
 
+    @Override
     public int tickDelay() {
         return 10;
     }

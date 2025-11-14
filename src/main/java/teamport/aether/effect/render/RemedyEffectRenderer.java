@@ -9,6 +9,7 @@ import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartCo
 import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.IHasCustomHeartContainer;
 
 public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> implements IHasCustomHeartContainer {
+    @SuppressWarnings("java:S116")
     public final String PATH_HEART;
 
     public RemedyEffectRenderer(T effect, String vignette, int tint, String heartPath) {

@@ -1,5 +1,6 @@
 package teamport.aether.models;
 
+import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -10,9 +11,8 @@ import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntr
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -24,7 +24,7 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
     }
 
     public List<ButtonElement> getEntryButtons(Minecraft mc, Screen parentScreen, final EntityFloatingBlock gravitite) {
-        final TextCycleElement<Integer> blockIdCycle = new TextCycleElement<Integer>(parentScreen, mc.font, -120, 0, 120, 20, gravitite.carriedBlock.blockId) {
+        final TextCycleElement<Integer> blockIdCycle = new TextCycleElement<Integer>(parentScreen, mc.font, -120, 0, 120, 20, gravitite.getCarriedBlock().blockId) {
             public Integer cycleElement(Integer current, int offset) {
                 return ScreenModelViewer.cycleBlockId(current, offset);
             }
@@ -35,10 +35,9 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
                     if (Blocks.blocksList[id] != null) {
                         return id;
                     }
-                } catch (Exception ignored) {
-                }
+                } catch (Exception ignored) { /* noop */ }
 
-                return gravitite.carriedBlock.blockId;
+                return gravitite.getCarriedBlock().blockId;
             }
 
             public String getNameFromElement(Integer element) {
@@ -47,12 +46,8 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
         };
         blockIdCycle.textField.setPrefaceText("ID: ");
         blockIdCycle.textField.setPlaceholder("Block ID");
-        blockIdCycle.setOnValueChanged(() -> gravitite.carriedBlock.blockId = blockIdCycle.getCurrentElement());
-        return new ArrayList<ButtonElement>() {
-            {
-                this.add(blockIdCycle);
-            }
-        };
+        blockIdCycle.setOnValueChanged(() -> gravitite.getCarriedBlock().blockId = blockIdCycle.getCurrentElement());
+        return Lists.newArrayList(blockIdCycle);
     }
 
     public EntityFloatingBlock getEntityInstance(Minecraft mc, World world) {

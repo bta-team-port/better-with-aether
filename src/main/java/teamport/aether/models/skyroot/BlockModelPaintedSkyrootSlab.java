@@ -15,11 +15,13 @@ public class BlockModelPaintedSkyrootSlab<T extends BlockLogicSlab> extends Bloc
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
         meta >>= 4;
-        return BlockModelPaintedSkyrootPlanks.texCoords[meta & 15];
+        return BlockModelPaintedSkyrootPlanks.TEX_COORDS[meta & 15];
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         return this.getBlockTextureFromSideAndMetadata(side, blockAccess.getBlockMetadata(x, y, z));
     }

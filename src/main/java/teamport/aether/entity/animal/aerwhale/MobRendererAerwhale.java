@@ -15,6 +15,7 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
         super(model, shadowSize);
     }
 
+    @Override
     public void render(Tessellator tessellator, MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);
@@ -28,6 +29,7 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
         GL11.glPopMatrix();
     }
 
+    @Override
     public void renderPreview(Tessellator tessellator, MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         GL11.glScalef(0.1F, 0.1F, 0.1F);

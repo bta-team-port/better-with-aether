@@ -18,6 +18,7 @@ public class ItemParachute extends Item {
         this.entity = entity;
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
         if (player.fallDistance > 0 && !player.isInWater()) {
             if (!EnvironmentHelper.isClientWorld()) {
@@ -32,7 +33,7 @@ public class ItemParachute extends Item {
 
                 cloud.absMoveTo(player.x, player.y - 2, player.z, (player.yRot), (player.xRot));
                 world.entityJoinedWorld(cloud);
-                ParticleMaker.spawnParticle(world, cloud.pathParticle, player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
+                ParticleMaker.spawnParticle(world, cloud.getPathParticle(), player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
 
                 player.startRiding(cloud);
 

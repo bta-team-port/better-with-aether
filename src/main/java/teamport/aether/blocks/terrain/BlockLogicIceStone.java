@@ -2,7 +2,6 @@ package teamport.aether.blocks.terrain;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.BlockLogicFluid;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Mob;
@@ -11,6 +10,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class BlockLogicIceStone extends BlockLogic {
@@ -19,9 +19,8 @@ public class BlockLogicIceStone extends BlockLogic {
         super(block, Material.stone);
     }
 
-    public static int radius = 4;
-    public static HashMap<Integer, Integer> freezeResultNatural = new HashMap<>();
-    public static HashMap<Integer, Integer> freezeResultOnPlace = new HashMap<>();
+    private static final Map<Integer, Integer> freezeResultNatural = new HashMap<>();
+    private static final Map<Integer, Integer> freezeResultOnPlace = new HashMap<>();
 
     static {
         freezeResultOnPlace.put(Blocks.FLUID_WATER_STILL.id(), Blocks.ICE.id());
@@ -55,12 +54,14 @@ public class BlockLogicIceStone extends BlockLogic {
         super.onBlockPlacedByMob(world, x, y, z, side, mob, xPlaced, yPlaced);
     }
 
-    public void attemptFreeze(Boolean onPlace, World world, int x, int y, int z) {
-        for (int l = 0; l < 32; ) {
+    public void attemptFreeze(boolean onPlace, World world, int x, int y, int z) {
+        int l = 0;
+        while (l < 32) {
             int x1 = x + world.rand.nextInt(8) - world.rand.nextInt(8);
             int y1 = y + world.rand.nextInt(4) - world.rand.nextInt(4);
             int z1 = z + world.rand.nextInt(8) - world.rand.nextInt(8);
 
+            int radius = 4;
             if (Math.pow((x1 - x), 2) + Math.pow((y1 - y), 2) + Math.pow((z1 - z), 2) > Math.pow(radius, 2)) {
                 continue;
             }
@@ -70,7 +71,7 @@ public class BlockLogicIceStone extends BlockLogic {
         }
     }
 
-    public void freezeBlock(Boolean onPlace, World world, int x, int y, int z) {
+    public void freezeBlock(boolean onPlace, World world, int x, int y, int z) {
         Integer result;
 
         int block = world.getBlockId(x, y, z);
@@ -78,12 +79,10 @@ public class BlockLogicIceStone extends BlockLogic {
 
         // jank.
         if ((block == Blocks.FLUID_WATER_STILL.id()
-                || block == Blocks.FLUID_LAVA_STILL.id()
-                || block == Blocks.FLUID_WATER_FLOWING.id()
-                || block == Blocks.FLUID_LAVA_FLOWING.id()
+            || block == Blocks.FLUID_LAVA_STILL.id()
+            || block == Blocks.FLUID_WATER_FLOWING.id()
+            || block == Blocks.FLUID_LAVA_FLOWING.id()
         ) && meta != 0) return;
-
-        BlockLogicFluid.getWaterVolume(meta);
 
         if (onPlace) result = freezeResultOnPlace.get(block);
         else result = freezeResultNatural.get(block);

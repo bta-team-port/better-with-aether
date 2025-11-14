@@ -32,7 +32,9 @@ import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
 
@@ -73,8 +75,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return (meta & COLOR_MASK) | (direction.ordinal() & 3);
     }
 
+    @SuppressWarnings("java:S128")
     @Override
-    public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
+    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
         if (tileEntity == null) {
             tileEntity = world.getTileEntity(x, y, z);
         }
@@ -97,6 +100,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return null;
     }
 
+    @SuppressWarnings("java:S2259")
     @Override
     public void onActivatorInteract(World world, int x, int y, int z, TileEntityActivator activator, Direction direction) {
         MobMimic mimic = summonMimic(world, x, y, z);
@@ -106,13 +110,14 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
 
         ParticleMaker.spawnParticle(world,
-                "explode",
-                dx, dy, dz,
-                0.0, 0.0, 0.0,
-                0
+            "explode",
+            dx, dy, dz,
+            0.0, 0.0, 0.0,
+            0
         );
     }
 
+    @SuppressWarnings({"java:S3516", "java:S2259"})
     @Override
     public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
         ItemStack held = player.getHeldItem();
@@ -139,10 +144,10 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             world.setBlockWithNotify(x, y, z, 0);
             world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
             if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
-                    "explode",
-                    dx, dy, dz,
-                    0.0, 0.0, 0.0,
-                    0
+                "explode",
+                dx, dy, dz,
+                0.0, 0.0, 0.0,
+                0
             );
             return true;
         }
@@ -150,12 +155,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return true;
     }
 
-    @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta);
-    }
-
-    private ItemStack @NonNull [] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
+    private @NonNull ItemStack[] dropAsDefeatedMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
         if (tileEntity instanceof TileEntityMimic) {
             ((TileEntityMimic) tileEntity).dropContentForced(world, x, y, z);
         }
@@ -169,15 +169,16 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return summonMimic(world, tileEntity, x, y, z, metadata);
     }
 
+    @SuppressWarnings("java:S2259")
     private void triggerMimic(World world, int x, int y, int z, int meta, TileEntity tileEntity) {
         MobMimic mimic = summonMimic(world, tileEntity, x, y, z, meta);
         world.playSoundEffect(mimic, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
         world.setBlockWithNotify(x, y, z, 0);
         if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
-                "explode",
-                x + 0.5, y + 1, z + 0.5,
-                0.0, 0.0, 0.0,
-                0
+            "explode",
+            x + 0.5, y + 1.0, z + 0.5,
+            0.0, 0.0, 0.0,
+            0
         );
 
         Player player = world.getClosestPlayer(x, y, z, 16);
@@ -185,7 +186,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
             player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
         } else {
-            mimic.absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
+            Objects.requireNonNull(mimic).absMoveTo(x + 0.5, y, z + 0.5, mimic.yRot, mimic.xRot);
         }
     }
 
@@ -207,7 +208,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return mimic;
     }
 
-    private ItemStack @NonNull [] dropAsBlock(int meta, TileEntity tileEntity) {
+    private @NonNull ItemStack[] dropAsBlock(int meta, TileEntity tileEntity) {
         ItemStack result = new ItemStack(this.block, 1, meta & COLOR_MASK);
         CompoundTag data = result.getData();
         CompoundTag mimicData = new CompoundTag();
@@ -226,7 +227,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
 
     private List<ItemStack> getAndClearInventory(TileEntity tileEntity) {
         if (!(tileEntity instanceof TileEntityMimic)) {
-            return null;
+            return Collections.emptyList();
         }
         Container inv = (Container) tileEntity;
         List<ItemStack> stacks = new ArrayList<>();
@@ -263,13 +264,13 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         if (this.isSafe(world, x, y, z + 1)) {
             mob.moveTo(x + 0.5F, y, z + 1.5F, yRot, xRot);
             this.dx = x + 0.5F;
-            this.dy = y + 1;
+            this.dy = y + 1.0;
             this.dz = z;
             return;
         }
-        mob.moveTo(x + 0.5F, y + 1, z + 0.5F, yRot, xRot);
+        mob.moveTo(x + 0.5F, y + 1.0, z + 0.5F, yRot, xRot);
         this.dx = x + 0.5F;
-        this.dy = y + 1;
+        this.dy = y + 1.0;
         this.dz = z + 0.5F;
     }
 

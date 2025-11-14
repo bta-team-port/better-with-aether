@@ -15,42 +15,42 @@ import teamport.aether.blocks.dungeon.BlockLogicDungeonDoor;
 import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.entity.tile.TileEntityMimic;
+import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 
 import java.util.*;
 
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.OPEN;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
-import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.OPEN;
 
 public abstract class BaseBronzeRoom extends WorldFeature {
-    public World world;
-    public Random random;
-    public int x;
-    public int y;
-    public int z;
-    public int height;
-    public int width;
-    public int length;
-    public float airTolerance;
-    public float topAirTolerance;
-    public float bottomAirTolerance;
-    public float liquidTolerance;
-    public float topLiquidTolerance;
-    public float bottomLiquidTolerance;
-    public float roomWeight;
+    protected World world;
+    protected Random random;
+    protected int x;
+    protected int y;
+    protected int z;
+    protected int height;
+    protected int width;
+    protected int length;
+    protected float airTolerance;
+    protected float topAirTolerance;
+    protected float bottomAirTolerance;
+    protected float liquidTolerance;
+    protected float topLiquidTolerance;
+    protected float bottomLiquidTolerance;
+    protected float roomWeight;
     protected WorldFeatureComponent room;
     protected WorldFeatureComponent decoration;
     protected WorldFeatureComponent chest;
     protected List<Door> doors;
     private boolean doorCoordinatesAdjusted = false;
 
-    public static BlockPallet ROOM_PALLET = new BlockPallet();
+    protected static final BlockPallet ROOM_PALLET = new BlockPallet();
 
     static {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
@@ -58,15 +58,15 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, 10);
     }
 
-    public static BlockPallet chestOrMimic = new BlockPallet();
+    protected static final BlockPallet CHEST_OR_MIMIC = new BlockPallet();
 
     static {
-        chestOrMimic.addEntry(0, 1.5f);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
-        chestOrMimic.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
+        CHEST_OR_MIMIC.addEntry(0, 1.5f);
+        CHEST_OR_MIMIC.addEntry(AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 1);
+        CHEST_OR_MIMIC.addEntry(AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 1);
     }
 
-    public BaseBronzeRoom() {
+    protected BaseBronzeRoom() {
         this.width = this.length = this.height = 12;
         this.airTolerance = this.liquidTolerance = 0.45F;
         this.topAirTolerance = this.topLiquidTolerance = 0.2F;
@@ -76,20 +76,6 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         this.chest = new WorldFeatureComponent();
         this.decoration = new WorldFeatureComponent();
         this.doors = new ArrayList<>();
-    }
-
-    public BaseBronzeRoom setCoords(WorldFeaturePoint p) {
-        this.x = p.x;
-        this.y = p.y;
-        this.z = p.z;
-        return this;
-    }
-
-    public BaseBronzeRoom setCoords(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        return this;
     }
 
     public BaseBronzeRoom set(World world, Random random, int x, int y, int z) {
@@ -105,10 +91,6 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         return room;
     }
 
-    public WorldFeatureComponent getDecoration() {
-        return decoration;
-    }
-
     public WorldFeatureComponent getChest() {
         return chest;
     }
@@ -118,24 +100,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         return new ArrayList<>();
     }
 
-    public List<Door> getDoors() {
-        if (doorCoordinatesAdjusted) {
-            WorldFeaturePoint point = wfp(this.x, this.y, this.z);
-            List<Door> doorList = new ArrayList<>();
-            for (Door d : doors) {
-                Door copy = d.copy();
-                copy.p1.subtract(point);
-                copy.p2.subtract(point);
-                doorList.add(copy);
-            }
-            return doorList;
-        }
-        return doors;
-    }
-
-
     public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
-        WorldFeaturePoint p2 = new WorldFeaturePoint(p1.x, p1.y, p1.z);
+        WorldFeaturePoint p2 = new WorldFeaturePoint(p1.getX(), p1.getY(), p1.getZ());
         p2.add(direction1.getOffsetX() * length1, direction1.getOffsetY() * length1, direction1.getOffsetZ() * length1);
         p2.add(direction2.getOffsetX() * length2, direction2.getOffsetY() * length2, direction2.getOffsetZ() * length2);
         this.addDoor(heading, p1, p2);
@@ -145,6 +111,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         this.doors.add(new Door(direction, p1, p2));
     }
 
+    @Override
     public final boolean place(World world, Random random, int x, int y, int z) {
         this.x = x;
         this.y = y;
@@ -164,45 +131,46 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             return false;
         }
         WorldFeatureComponent check;
-        int countAir = 0, countLiquid = 0;
+        int countAir = 0;
+        int countLiquid = 0;
 
         // checking top & bottom surface
         check = drawPlane(0, 0, SOUTH, width, EAST, length, x, y + height, z, true);
-        for (WorldFeaturePoint point : check.blockList) {
-            Block<?> block = world.getBlock(point.x, point.y, point.z);
+        for (WorldFeaturePoint point : check.getBlockList()) {
+            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        if (check.blockList.size() * topAirTolerance < countAir || check.blockList.size() * topLiquidTolerance < countLiquid) {
+        if (check.getBlockList().size() * topAirTolerance < countAir || check.getBlockList().size() * topLiquidTolerance < countLiquid) {
             return false;
         }
 
         check = drawPlane(0, 0, SOUTH, width, EAST, length, x, y, z, true);
         countAir = countLiquid = 0;
-        for (WorldFeaturePoint point : check.blockList) {
-            Block<?> block = world.getBlock(point.x, point.y, point.z);
+        for (WorldFeaturePoint point : check.getBlockList()) {
+            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        if (check.blockList.size() * bottomAirTolerance < countAir || check.blockList.size() * bottomLiquidTolerance < countLiquid) {
+        if (check.getBlockList().size() * bottomAirTolerance < countAir || check.getBlockList().size() * bottomLiquidTolerance < countLiquid) {
             return false;
         }
 
         // checking volume
         check = drawVolume(0, 0, SOUTH, width, UP, height, EAST, length, x, y, z, true);
         countAir = countLiquid = 0;
-        for (WorldFeaturePoint point : check.blockList) {
-            Block<?> block = world.getBlock(point.x, point.y, point.z);
+        for (WorldFeaturePoint point : check.getBlockList()) {
+            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        return !(check.blockList.size() * airTolerance < countAir) && !(check.blockList.size() * liquidTolerance < countLiquid);
+        return check.getBlockList().size() * airTolerance >= countAir && check.getBlockList().size() * liquidTolerance >= countLiquid;
     }
 
     public void adjustDoorCoordinates() {
@@ -217,49 +185,49 @@ public abstract class BaseBronzeRoom extends WorldFeature {
 
     public void placeRoom() {
         Map<WorldFeaturePoint, WorldFeatureBlock> blockMap = new HashMap<>();
-        for (WorldFeatureBlock block : room.blockList) {
-            WorldFeaturePoint point = new WorldFeaturePoint(block.x, block.y, block.z);
+        for (WorldFeatureBlock block : room.getBlockList()) {
+            WorldFeaturePoint point = new WorldFeaturePoint(block.getX(), block.getY(), block.getZ());
             blockMap.put(point, block);
         }
         decoration.add(chest);
-        for (WorldFeatureBlock block : decoration.blockList) {
-            WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.x, block.y, block.z), key -> block);
-            otherBlock.blockID = block.blockID;
-            otherBlock.metadata = block.metadata;
-            otherBlock.withNotify = block.withNotify;
+        for (WorldFeatureBlock block : decoration.getBlockList()) {
+            WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.getX(), block.getY(), block.getZ()), key -> block);
+            otherBlock.setBlockId(block.getBlockId());
+            otherBlock.setMetadata(block.getMetadata());
+            otherBlock.setWithNotify(block.isWithNotify());
         }
         for (WorldFeatureBlock wfblock : blockMap.values()) {
             if (roomCanReplace(world, wfblock)) {
                 wfblock.place(world);
             }
         }
-        for (WorldFeatureBlock wfblock : this.chest.blockList) {
-            BlockLogicChest.setDefaultDirection(world, wfblock.x, wfblock.y, wfblock.z);
+        for (WorldFeatureBlock wfblock : this.chest.getBlockList()) {
+            BlockLogicChest.setDefaultDirection(world, wfblock.getX(), wfblock.getY(), wfblock.getZ());
             populateChest(world, random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
 
             if (
-                    world.rand.nextInt(250) == 0
-                            && wfblock.blockID == AetherBlocks.CHEST_MIMIC_SKYROOT.id()
+                world.rand.nextInt(250) == 0
+                    && wfblock.getBlockId() == AetherBlocks.CHEST_MIMIC_SKYROOT.id()
             ) {
                 BlockLogicPaintedChestMimic blockLogic = AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.getLogic();
-                world.setBlockRaw(wfblock.x, wfblock.y, wfblock.z, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id());
-                blockLogic.setColor(world, wfblock.x, wfblock.y, wfblock.z, DyeColor.PURPLE);
-                ((TileEntityMimic) world.getTileEntity(wfblock.x, wfblock.y, wfblock.z)).setCustomName("Wallace", (byte) TextFormatting.PURPLE.id);
+                world.setBlockRaw(wfblock.getX(), wfblock.getY(), wfblock.getZ(), AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id());
+                blockLogic.setColor(world, wfblock.getX(), wfblock.getY(), wfblock.getZ(), DyeColor.PURPLE);
+                ((TileEntityMimic) world.getTileEntity(wfblock.getX(), wfblock.getY(), wfblock.getZ())).setCustomName("Wallace", (byte) TextFormatting.PURPLE.id);
             }
         }
     }
 
     public static boolean roomCanReplace(World world, WorldFeatureBlock wfblock) {
-        Block<?> block = world.getBlock(wfblock.x, wfblock.y, wfblock.z);
+        Block<?> block = world.getBlock(wfblock.getX(), wfblock.getY(), wfblock.getZ());
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
         if (block != null) {
             BlockLogic logic = block.getLogic();
             if (
-                    logic instanceof BlockLogicLocked
-                            || logic instanceof BlockLogicMobSpawner
-                            || logic instanceof BlockLogicChestLocked
-                            || logic instanceof BlockLogicDungeonDoor
+                logic instanceof BlockLogicLocked
+                    || logic instanceof BlockLogicMobSpawner
+                    || logic instanceof BlockLogicChestLocked
+                    || logic instanceof BlockLogicDungeonDoor
             ) {
                 return false;
             }
@@ -278,15 +246,15 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         }
 
         if (blockID == AetherBlocks.CHEST_MIMIC_OAK.id() || blockID == AetherBlocks.CHEST_PLANKS_SKYROOT.id()) {
-            world.removeBlockTileEntity(wfblock.x, wfblock.y, wfblock.z);
+            world.removeBlockTileEntity(wfblock.getX(), wfblock.getY(), wfblock.getZ());
             return true;
         }
         return BlockTags.CAVES_CUT_THROUGH.appliesTo(block)
-                || blockMaterial == Material.grass
-                || blockMaterial == Material.dirt
-                || blockMaterial == Material.marble
-                || blockMaterial == Material.moss
-                || blockMaterial.isStone();
+            || blockMaterial == Material.grass
+            || blockMaterial == Material.dirt
+            || blockMaterial == Material.marble
+            || blockMaterial == Material.moss
+            || blockMaterial.isStone();
     }
 
     public List<Door> getAvailableDoors() {
@@ -304,14 +272,14 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         door.mark = closingType;
     }
 
-    public List<WorldFeaturePoint> getAchors(WorldFeaturePoint doorPoint, Direction heading) {
+    public List<WorldFeaturePoint> getAnchors(WorldFeaturePoint doorPoint, Direction heading) {
         List<WorldFeaturePoint> list = new ArrayList<>();
         for (Door door : doors) {
             if (door.heading == heading.getOpposite()) {
                 list.add(new WorldFeaturePoint(
-                        doorPoint.x - door.p1.x,
-                        doorPoint.y - door.p1.y,
-                        doorPoint.z - door.p1.z
+                    doorPoint.getX() - door.p1.getX(),
+                    doorPoint.getY() - door.p1.getY(),
+                    doorPoint.getZ() - door.p1.getZ()
                 ));
             }
         }
@@ -328,31 +296,28 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     }
 
     public boolean intercept(WorldFeaturePoint point) {
-        return (point.x <= this.x + length && point.x >= this.x)
-                && (point.y <= this.y + height && point.y >= this.y)
-                && (point.z <= this.z + width && point.z >= this.z);
+        return (point.getX() <= this.x + length && point.getX() >= this.x)
+            && (point.getY() <= this.y + height && point.getY() >= this.y)
+            && (point.getZ() <= this.z + width && point.getZ() >= this.z);
     }
 
     public boolean intercept(WorldFeaturePoint point, BaseBronzeRoom room) {
-        return (point.x <= this.x + length && point.x + room.length >= this.x)
-                && (point.y <= this.y + height && point.y + room.height >= this.y)
-                && (point.z <= this.z + width && point.z + room.width >= this.z);
+        return (point.getX() <= this.x + length && point.getX() + room.length >= this.x)
+            && (point.getY() <= this.y + height && point.getY() + room.height >= this.y)
+            && (point.getZ() <= this.z + width && point.getZ() + room.width >= this.z);
     }
 
     public static class Door {
-        public Direction heading;
-        public WorldFeaturePoint p1;
-        public WorldFeaturePoint p2;
-        //        public boolean mark;
-        public ClosingType mark;
+        private final Direction heading;
+        private final WorldFeaturePoint p1;
+        private final WorldFeaturePoint p2;
+        private ClosingType mark;
 
         Door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2) {
             this.heading = heading;
             this.p1 = p1;
             this.p2 = p2;
-//            this.mark = false;
             this.mark = OPEN;
-
         }
 
         public static Door door(Direction heading, WorldFeaturePoint p1, WorldFeaturePoint p2) {
@@ -380,6 +345,22 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         public Door copy() {
             return new Door(this.heading, this.p1.copy(), this.p2.copy());
         }
+        public Direction getHeading() {
+            return heading;
+        }
+        public WorldFeaturePoint getP1() {
+            return p1;
+        }
+        public WorldFeaturePoint getP2() {
+            return p2;
+        }
+        public ClosingType getMark() {
+            return mark;
+        }
+        @SuppressWarnings("SameParameterValue")
+        protected void setMark(ClosingType mark) {
+            this.mark = mark;
+        }
     }
 
     public enum ClosingType {
@@ -388,5 +369,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         ROOM_LOCKED,
         OPEN,
         PLACED
+    }
+    public float getRoomWeight() {
+        return roomWeight;
     }
 }

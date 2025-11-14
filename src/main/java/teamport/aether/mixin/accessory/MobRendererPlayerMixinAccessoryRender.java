@@ -1,5 +1,6 @@
 package teamport.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,7 +24,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.helper.GLManager;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemGloves;
@@ -37,45 +37,36 @@ import static teamport.aether.items.accessory.SlotAccessory.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
-abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
-
+public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
     @Shadow
     private ModelBiped modelBipedMain;
-
     @Shadow
     @Final
     private ModelBiped modelArmor;
-
     @Shadow
     @Final
     private ModelBiped modelArmorChestplate;
-
+    @SuppressWarnings("java:S1161")
     @Shadow
     public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
-
     @Unique
-    public final ModelBiped modelAccessories = new ModelBiped(1.1F);
-
+    private final ModelBiped modelAccessories = new ModelBiped(1.1F);
     @Unique
-    public final ModelBiped modelHeart = new ModelBiped(1.0F);
-
+    private final ModelBiped modelHeart = new ModelBiped(1.0F);
     @Unique
-    public final ModelBiped modelBubble = new ModelBiped(1.0F);
-
+    private final ModelBiped modelBubble = new ModelBiped(1.0F);
     @Unique
-    public final ModelBiped modelFeather = new ModelBiped(1.0F);
-
+    private final ModelBiped modelFeather = new ModelBiped(1.0F);
     @Unique
-    public final ModelBiped shield = new ModelBiped(1.5F);
-
+    private final ModelBiped shield = new ModelBiped(1.5F);
     @Unique
-    public boolean shield_6 = false;
+    private boolean shield6 = false;
 
-    public MobRendererPlayerMixinAccessoryRender(ModelBase model, float shadowSize) {
+    protected MobRendererPlayerMixinAccessoryRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
     }
 
-    @Inject(method = "drawFirstPersonHand", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "drawFirstPersonHand", at = @At("TAIL"))
     public void callDrawFirstPersonHandAfter(@NonNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
         if (itemStack != null && itemStack.getItem() instanceof ItemGloves) {
@@ -106,8 +97,6 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             modelArmorChestplate.holdingLeftHand = modelBipedMain.holdingLeftHand;
             modelArmorChestplate.holdingLarge = modelBipedMain.holdingLarge;
         }
-
-        ci.cancel();
     }
 
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
@@ -115,37 +104,37 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
 
-    @Inject(method = "prepareArmor*", at = @At("TAIL"), cancellable = true)
-    public void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+    @SuppressWarnings({"java:S6541", "java:S1075"})
+    @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))
+    public boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {
         modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
         modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelHeart.holdingRightHand = modelBipedMain.holdingRightHand;
         modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelHeart.holdingLeftHand = modelBipedMain.holdingLeftHand;
         modelAccessories.sneaking = shield.sneaking = modelFeather.sneaking = modelBubble.sneaking = modelHeart.sneaking = modelBipedMain.sneaking;
         modelAccessories.isRiding = shield.isRiding = modelFeather.isRiding = modelBubble.isRiding = modelHeart.isRiding = modelBipedMain.isRiding;
-        float swingProgress = this.getSwingProgress(player, partialTick);
+        float swingProgress = this.getSwingProgress(entity, partialTick);
         modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelHeart.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
 
-        ItemStack armorStack = player.inventory.armorInventory[renderPass];
-        if (armorStack != null && armorStack.getItem() instanceof IAccessory && renderPass >= GLOVES_SLOT) {
+        ItemStack armorStack = entity.inventory.armorInventory[layer];
+        if (armorStack != null && armorStack.getItem() instanceof IAccessory && layer >= GLOVES_SLOT) {
             Item item = armorStack.getItem();
 
             if (item instanceof ItemGloves) {
                 String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
-                modelArmorChestplate.holdingRightHand = player.inventory.getCurrentItem() != null;
-                modelArmorChestplate.sneaking = player.isSneaking();
-                modelArmorChestplate.isRiding = player.isPassenger();
-                modelArmorChestplate.armLeft.visible = renderPass == GLOVES_SLOT;
-                modelArmorChestplate.armRight.visible = renderPass == GLOVES_SLOT;
+                modelArmorChestplate.holdingRightHand = entity.inventory.getCurrentItem() != null;
+                modelArmorChestplate.sneaking = entity.isSneaking();
+                modelArmorChestplate.isRiding = entity.isPassenger();
+                modelArmorChestplate.armLeft.visible = layer == GLOVES_SLOT;
+                modelArmorChestplate.armRight.visible = layer == GLOVES_SLOT;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelArmorChestplate);
-                info.setReturnValue(true);
-                return;
+                return true;
             }
-            if ((item instanceof ItemRepulsionShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6) {
-                this.shield_6 = false;
-                double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
+            if ((item instanceof ItemRepulsionShield && (layer == TRINKET_2_SLOT || entity.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield6) {
+                this.shield6 = false;
+                double velocity = MathHelper.sqrt(entity.xd * entity.xd + entity.zd * entity.zd);
                 String path;
-                if (player.isSneaking() || (player.onGround && velocity < 0.075D)) {
+                if (entity.isSneaking() || (entity.onGround && velocity < 0.075D)) {
                     path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
                 } else {
                     path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
@@ -158,24 +147,23 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 setArmorModel(shield);
 
-                info.setReturnValue(true);
-                return;
+                return true;
             }
 
             ///  redirect the render to next item
-            if (item instanceof ItemRepulsionShield && renderPass == 6) {
-                this.shield_6 = true;
-                ItemStack nextSlot = player.inventory.armorInventory[renderPass + 1];
+            if (item instanceof ItemRepulsionShield && layer == 6) {
+                this.shield6 = true;
+                ItemStack nextSlot = entity.inventory.armorInventory[layer + 1];
                 item = nextSlot.getItem();
             }
 
-            ItemStack ItemTrinket_Slot1 = player.inventory.armorInventory[TRINKET_1_SLOT];
-            ItemStack ItemTrinket_Slot2 = player.inventory.armorInventory[TRINKET_2_SLOT];
+            ItemStack itemTrinketSlot1 = entity.inventory.armorInventory[TRINKET_1_SLOT];
+            ItemStack itemTrinketSlot2 = entity.inventory.armorInventory[TRINKET_2_SLOT];
 
             if (item instanceof ItemGoldenFeather) {
                 String path;
 
-                if (renderPass == TRINKET_1_SLOT) {
+                if (layer == TRINKET_1_SLOT) {
                     path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_helmet.png";
                     setUPFeatherOnHelmet();
                 } else {
@@ -188,26 +176,24 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 modelFeather.armRight.visible = false;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelFeather);
-                info.setReturnValue(true);
-                return;
+                return true;
             }
 
             if (item instanceof ItemPendant) {
                 int variant = 0;
-                if (renderPass == 7 && ItemTrinket_Slot1 != null && ItemTrinket_Slot1.getItem() instanceof ItemPendant) {
+                if (layer == 7 && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
                 modelAccessories.body.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelAccessories);
-                info.setReturnValue(true);
-                return;
+                return true;
             }
 
             if (item instanceof ItemRegenStone) {
                 String path;
-                if (renderPass == TRINKET_1_SLOT) {
+                if (layer == TRINKET_1_SLOT) {
                     path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
                 } else {
                     path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
@@ -215,14 +201,13 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 modelHeart.head.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelHeart);
-                info.setReturnValue(true);
-                return;
+                return true;
             }
 
             if (item instanceof ItemIronBubble) {
-                boolean isInTrinketSlot1 = ItemTrinket_Slot1 != null && ItemTrinket_Slot1.getItem() instanceof ItemIronBubble;
-                boolean isInTrinketSlot2 = ItemTrinket_Slot2 != null && ItemTrinket_Slot2.getItem() instanceof ItemIronBubble;
-                if ((isInTrinketSlot1 && renderPass == TRINKET_1_SLOT) || (isInTrinketSlot2 && !isInTrinketSlot1 && renderPass == TRINKET_2_SLOT)) {
+                boolean isInTrinketSlot1 = itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemIronBubble;
+                boolean isInTrinketSlot2 = itemTrinketSlot2 != null && itemTrinketSlot2.getItem() instanceof ItemIronBubble;
+                if ((isInTrinketSlot1 && layer == TRINKET_1_SLOT) || (isInTrinketSlot2 && !isInTrinketSlot1 && layer == TRINKET_2_SLOT)) {
 
                     String path = "/assets/aether/textures/armor/trinkets/bubble_trinket.png";
 
@@ -240,13 +225,12 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     setArmorModel(modelBubble);
 
-                    info.setReturnValue(true);
-                    return;
+                    return true;
                 }
             }
         }
 
-        info.setReturnValue(false);
+        return false;
     }
 
     @Unique

@@ -12,6 +12,7 @@ public class MobRendererZephyr extends MobRenderer<MobZephyr> {
         super(new ModelZephyr(), 0.5F);
     }
 
+    @Override
     public void renderPreview(Tessellator tessellator, MobZephyr mobZephyr, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         GL11.glScalef(0.25F, 0.25F, 0.25F);
@@ -19,8 +20,9 @@ public class MobRendererZephyr extends MobRenderer<MobZephyr> {
         GL11.glPopMatrix();
     }
 
+    @Override
     public void setupScale(MobZephyr mobZephyr, float partialTick) {
-        float charge = ((float) mobZephyr.attackChargeO + (float) (mobZephyr.attackCharge - mobZephyr.attackChargeO) * partialTick) / 20.0F;
+        float charge = (mobZephyr.getAttackChargeO() + (mobZephyr.getAttackCharge() - mobZephyr.getAttackChargeO()) * partialTick) / 20.0F;
         if (charge < 0.0F) {
             charge = 0.0F;
         }

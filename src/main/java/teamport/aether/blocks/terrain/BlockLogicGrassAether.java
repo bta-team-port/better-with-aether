@@ -32,6 +32,8 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
         this.dirt = dirt;
     }
 
+    @SuppressWarnings("java:S5411")
+    @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
         if (!world.isClientSide) {
             if (world.getBlockLightValue(x, y + 1, z) < 4 && Blocks.lightBlock[world.getBlockId(x, y + 1, z)] > 2) {
@@ -51,7 +53,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     }
                 }
 
-                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.AETHER)) {
+                if (world.getGameRuleValue(GameRules.DO_SEASONAL_GROWTH) && world.getBlockId(x, y + 1, z) == 0 && rand.nextInt(512) == 0 && (world.dimension == AetherDimension.getAether())) {
                     int r = rand.nextInt(400);
                     if (r < 26) {
                         idToSpawn = AetherBlocks.FLOWER_PURPLE.id();
@@ -68,6 +70,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
         }
     }
 
+    @SuppressWarnings("java:S1119")
     public boolean onBonemealUsed(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             Random random = world.rand;
@@ -82,8 +85,9 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
                     y += (random.nextInt(3) - 1) * random.nextInt(3) / 2;
                     z += random.nextInt(3) - 1;
 
-                    int blockBelow = world.getBlockId(x, y - 1, z);
-                    if (Blocks.blocksList[blockBelow] == null || !Blocks.blocksList[blockBelow].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
+                    int blockBelowId = world.getBlockId(x, y - 1, z);
+                    Block<?> blockBelow = Blocks.blocksList[blockBelowId];
+                    if (blockBelow == null || !blockBelow.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)) {
                         continue label175;
                     }
                 }
@@ -113,14 +117,17 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
         return false;
     }
 
+    @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         world.setBlockMetadataWithNotify(x, y, z, 1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return 1;
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
@@ -129,6 +136,7 @@ public class BlockLogicGrassAether extends BlockLogic implements IBonemealable {
     }
 
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

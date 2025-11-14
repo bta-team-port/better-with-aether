@@ -10,9 +10,9 @@ public class MimicEntry {
     int chestMetadata;
 
     public MimicEntry(
-            int mimicVariant,
-            int mimicChestID, int mimicChestMetadata,
-            int itemChestID, int itemChestMetadata
+        int mimicVariant,
+        int mimicChestID, int mimicChestMetadata,
+        int itemChestID, int itemChestMetadata
     ) {
         this.mimicVariant = mimicVariant;
         this.mimicChestID = mimicChestID;
@@ -22,9 +22,9 @@ public class MimicEntry {
     }
 
     public static MimicEntry mimicEntry(
-            int mimicVariant,
-            int mimicChestId, int mimicChestMetadata,
-            int chestID, int chestMetadata
+        int mimicVariant,
+        int mimicChestId, int mimicChestMetadata,
+        int chestID, int chestMetadata
     ) {
         return new MimicEntry(mimicVariant, mimicChestId, mimicChestMetadata, chestID, chestMetadata);
     }

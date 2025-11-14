@@ -15,29 +15,23 @@ import teamport.aether.items.AetherItems;
 
 @Mixin(value = EntityItem.class, remap = false)
 public abstract class EntityItemPickupAchievementMixin {
-
     @Shadow
     public ItemStack item;
-
-    @Inject(method = "playerTouch", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "playerTouch", at = @At("TAIL"))
     public void playerTouch(Player player, CallbackInfo ci) {
-
         String pickUpKey = StatList.STAT_PICKED_UP;
-
         if (this.item.itemID == AetherBlocks.AERCLOUD_GOLD.id()) {
             player.triggerAchievement(AetherAchievements.GOLD_CLOUD);
         }
-
         if ((this.item.itemID == AetherItems.RECORD_AETHER.id
-                || this.item.itemID == AetherItems.RECORD_DAWN.id
-                || this.item.itemID == AetherItems.RECORD_MORNING.id
-                || this.item.itemID == AetherItems.RECORD_NETHER.id
-                && player.getStat(AetherItems.RECORD_AETHER.getStat(pickUpKey)) > 0
-                && player.getStat(AetherItems.RECORD_DAWN.getStat(pickUpKey)) > 0
-                && player.getStat(AetherItems.RECORD_NETHER.getStat(pickUpKey)) > 0
-                && player.getStat(AetherItems.RECORD_MORNING.getStat(pickUpKey)) > 0)) {
+            || this.item.itemID == AetherItems.RECORD_DAWN.id
+            || this.item.itemID == AetherItems.RECORD_MORNING.id
+            || this.item.itemID == AetherItems.RECORD_NETHER.id
+            && player.getStat(AetherItems.RECORD_AETHER.getStat(pickUpKey)) > 0
+            && player.getStat(AetherItems.RECORD_DAWN.getStat(pickUpKey)) > 0
+            && player.getStat(AetherItems.RECORD_NETHER.getStat(pickUpKey)) > 0
+            && player.getStat(AetherItems.RECORD_MORNING.getStat(pickUpKey)) > 0)) {
             player.triggerAchievement(AetherAchievements.ALL_MUSIC_DISCS);
         }
-        ci.cancel();
     }
 }

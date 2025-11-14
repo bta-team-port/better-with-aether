@@ -8,12 +8,13 @@ import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
 public class AetherRideableNetworkMessage implements NetworkMessage {
-    float moveForward, moveStrafe;
-    float xRot, yRot;
-    boolean isJumping;
+    private float moveForward;
+    private float moveStrafe;
+    private float xRot;
+    private float yRot;
+    private boolean isJumping;
 
-    public AetherRideableNetworkMessage() {
-    }
+    public AetherRideableNetworkMessage() {}
 
     public AetherRideableNetworkMessage(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         this.moveForward = moveForward;

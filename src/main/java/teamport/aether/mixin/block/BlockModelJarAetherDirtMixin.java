@@ -20,26 +20,19 @@ import teamport.aether.blocks.AetherBlockTags;
 
 import static net.minecraft.client.render.block.model.BlockModel.renderBlocks;
 
-
 @Environment(EnvType.CLIENT)
 @Mixin(value = BlockModelJar.class, remap = false)
-public class BlockModelJarAetherDirtMixin {
-
+public abstract class BlockModelJarAetherDirtMixin {
     @Unique
     private static final IconCoordinate jarFullAether = TextureRegistry.getTexture("aether:block/jar_aether_dirt");
 
-    @ModifyVariable(
-            method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;III)Z",
-            at = @At(value = "STORE", opcode = Opcodes.ASTORE, ordinal = 0)
-    )
+    @ModifyVariable(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;III)Z", at = @At(value = "STORE", opcode = Opcodes.ASTORE, ordinal = 0))
     private IconCoordinate modifyJarTexture(IconCoordinate originalTexIndex, Tessellator tessellator, int x, int y, int z) {
         WorldSource blockAccess = renderBlocks.blockAccess;
         int meta = blockAccess.getBlockMetadata(x, y, z);
-
         if (meta == 0) {
             return originalTexIndex;
         }
-
         TileEntity tileEntity = blockAccess.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityFlowerJar) {
             TileEntityFlowerJar jarTe = (TileEntityFlowerJar) tileEntity;
@@ -48,7 +41,6 @@ public class BlockModelJarAetherDirtMixin {
                 return jarFullAether;
             }
         }
-
         return originalTexIndex;
     }
 }

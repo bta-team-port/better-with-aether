@@ -24,6 +24,7 @@ public class BlockLogicGlassQuicksoil extends BlockLogicTransparent {
         return super.collidesWithEntity(entity, world, x, y, z);
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

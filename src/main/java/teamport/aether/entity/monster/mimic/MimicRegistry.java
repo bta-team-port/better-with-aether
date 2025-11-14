@@ -12,8 +12,9 @@ import static teamport.aether.entity.monster.mimic.MimicEntry.mimicEntry;
 
 public class MimicRegistry {
     public static final MimicRegistry instance = new MimicRegistry();
+    @SuppressWarnings("java:S116")
     public final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
-    public static MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
+    public static final MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
 
     protected MimicRegistry() {
         this.register();

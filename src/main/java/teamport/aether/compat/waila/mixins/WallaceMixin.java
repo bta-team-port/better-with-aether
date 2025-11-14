@@ -1,5 +1,7 @@
 package teamport.aether.compat.waila.mixins;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.core.block.Block;
@@ -13,20 +15,15 @@ import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 import toufoumaster.btwaila.gui.components.BaseInfoComponent;
 
 @Mixin(value = BaseInfoComponent.class, remap = false)
-public class WallaceMixin {
-
-    @Inject(
-            method = "baseBlockInfo",
-            at = @At(
-                    value = "INVOKE_ASSIGN",
-                    target = "Lnet/minecraft/core/lang/I18n;translateNameKey(Ljava/lang/String;)Ljava/lang/String;"
-            )
-    )
+public abstract class WallaceMixin {
+    @Definition(id = "translateNameKey", method = "Lnet/minecraft/core/lang/I18n;translateNameKey(Ljava/lang/String;)Ljava/lang/String;")
+    @Expression("? = ?.translateNameKey(?)")
+    @Inject(method = "baseBlockInfo", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
     public void injectMimicName(
-            Block<?> block, int blockMetadata,
-            ItemStack[] blockDrops, CallbackInfo ci,
-            @Local ItemStack renderItem,
-            @Local(name = "blockName") LocalRef<String> blockName
+        Block<?> block, int blockMetadata,
+        ItemStack[] blockDrops, CallbackInfo ci,
+        @Local(name = "renderItem") ItemStack renderItem,
+        @Local(name = "blockName") LocalRef<String> blockName
     ) {
         if (renderItem.getItem() instanceof ItemBlock) {
             ItemBlock<?> itemBlock = (ItemBlock<?>) renderItem.getItem();

@@ -16,13 +16,10 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
-
     @Shadow
     public Player player;
-
     @Shadow
     public ItemStack[] mainInventory;
-
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
     public float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];

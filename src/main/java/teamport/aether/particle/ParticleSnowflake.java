@@ -11,7 +11,6 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class ParticleSnowflake extends Particle {
-
     public ParticleSnowflake(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
         this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/snowflake");
@@ -24,7 +23,7 @@ public class ParticleSnowflake extends Particle {
         }
         this.yd = -0.02F - (this.random.nextFloat() * 0.01F);
         this.gravity = 0.01F;
-        this.lifetime = (int) (20.0F / (this.random.nextFloat() * 0.5F + 0.5F));
+        this.lifetime = (int) (20.0 / (0.5 + 0.5 * (this.random.nextInt(10000) / 10000.0)));
         this.xd *= 0.8F;
         this.zd *= 0.8F;
     }

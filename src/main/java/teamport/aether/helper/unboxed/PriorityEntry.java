@@ -3,17 +3,12 @@ package teamport.aether.helper.unboxed;
 import java.util.Objects;
 
 public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
-    double weight;
-    T data;
+    private final double weight;
+    private final T data;
 
     private PriorityEntry(double weight, T data) {
         this.weight = weight;
         this.data = data;
-    }
-
-    private PriorityEntry<T> setWeight(double weight) {
-        this.weight = weight;
-        return this;
     }
 
     public double getWeight() {

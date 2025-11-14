@@ -25,12 +25,12 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
 
         if (slotId > player.inventory.mainInventory.length && slotId - player.inventory.mainInventory.length == CAPE_SLOT) {
             for (MobSwet swet : list) {
-                swet.friendly = true;
+                swet.setFriendly(true);
             }
             return;
         }
         for (MobSwet swet : list) {
-            swet.friendly = false;
+            swet.setFriendly(false);
         }
     }
 
@@ -40,7 +40,7 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
         if (world == null) return;
         List<MobSwet> list = world.getEntitiesWithinAABB(MobSwet.class, player.bb.grow(6.0D, 3.0D, 6.0D));
         for (MobSwet swet : list) {
-            swet.friendly = false;
+            swet.setFriendly(false);
         }
     }
 }

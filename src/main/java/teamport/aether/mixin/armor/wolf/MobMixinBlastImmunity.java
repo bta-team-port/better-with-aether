@@ -1,6 +1,6 @@
 package teamport.aether.mixin.armor.wolf;
 
-
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.animal.MobWolf;
@@ -11,31 +11,19 @@ import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinBlastImmunity {
-
     @Shadow
     public abstract boolean interact(@NonNull Player player);
-
-    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;getHealth()I"), cancellable = true)
-    public void negateDamage(Entity attacker, int i, DamageType type, CallbackInfoReturnable<Boolean> cir) {
-        if (type == null || !type.equals(DamageType.BLAST)) {
-            return;
-        }
+    @ModifyExpressionValue(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;getHealth()I", ordinal = 0))
+    public int negateDamage(int original, Entity attacker, int damage, DamageType type) {
+        if (type == null || !type.equals(DamageType.BLAST)) return original;
         Mob mob = (Mob) (Object) this;
-        if (!(mob instanceof MobWolf)) {
-            return;
-        }
+        if (!(mob instanceof MobWolf)) return original;
         ArmorMaterial material = ((MobWolf) mob).getArmorMaterial();
-        if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) {
-            return;
-        }
-        cir.setReturnValue(false);
+        if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) return original;
+        return 0;
     }
-
-
 }

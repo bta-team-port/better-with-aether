@@ -22,6 +22,7 @@ public class ItemBucketSkyrootEmpty extends Item {
         this.maxStackSize = 64;
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         double reachDistance = entityplayer.getGamemode().getBlockReachDistance();
         HitResult hitResult = entityplayer.rayTrace(reachDistance, 1.0F, true, false);
@@ -45,6 +46,7 @@ public class ItemBucketSkyrootEmpty extends Item {
         return itemstack;
     }
 
+    @Override
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
         if (itemStack.stackSize <= 1) {
             int x = blockX + direction.getOffsetX();
@@ -54,13 +56,13 @@ public class ItemBucketSkyrootEmpty extends Item {
                 world.setBlockWithNotify(x, y, z, 0);
                 itemStack.itemID = AetherItems.BUCKET_SKYROOT_WATER.id;
             } else {
-                AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
+                AABB box = AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
                 List<MobCow> entities = world.getEntitiesWithinAABB(MobCow.class, box);
                 if (!entities.isEmpty()) {
                     itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
                 }
             }
-            AABB box = AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
+            AABB box = AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
             List<MobPhow> entities = world.getEntitiesWithinAABB(MobPhow.class, box);
             if (!entities.isEmpty()) {
                 itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
@@ -68,7 +70,7 @@ public class ItemBucketSkyrootEmpty extends Item {
         }
     }
 
-    public static boolean useBucket(Player player, ItemStack itemToGive) {
+    private static boolean useBucket(Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {
             player.inventory.setItem(player.inventory.getCurrentItemIndex(), itemToGive);
             return true;

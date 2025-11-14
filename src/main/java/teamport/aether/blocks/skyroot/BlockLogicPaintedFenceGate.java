@@ -17,5 +17,4 @@ public class BlockLogicPaintedFenceGate extends BlockLogicFenceGatePainted {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & -241);
     }
-
 }

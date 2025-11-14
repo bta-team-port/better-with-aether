@@ -6,3 +6,4 @@ build/
 out/
 run/
 run-server/
+.PVS-Studio

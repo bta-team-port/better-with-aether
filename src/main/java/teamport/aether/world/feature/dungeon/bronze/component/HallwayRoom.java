@@ -15,8 +15,6 @@ import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBro
 import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon.placeWorldLining;
 
 public class HallwayRoom extends BaseBronzeRoom {
-
-
     public HallwayRoom() {
         super();
         this.roomWeight = 0.25F;
@@ -34,24 +32,25 @@ public class HallwayRoom extends BaseBronzeRoom {
             return false;
         }
         WorldFeatureComponent check;
-        int countAir = 0, countLiquid = 0;
+        int countAir = 0;
+        int countLiquid = 0;
 
         check = drawVolume(0, 0, SOUTH, width, UP, 7, EAST, 4, x + 4, y, z, false);
         check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, false));
-        for (WorldFeaturePoint point : check.blockList) {
-            Block<?> block = world.getBlock(point.x, point.y, point.z);
+        for (WorldFeaturePoint point : check.getBlockList()) {
+            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        return !(check.blockList.size() * airTolerance < countAir) && !(check.blockList.size() * liquidTolerance < countLiquid);
+        return check.getBlockList().size() * airTolerance >= countAir && check.getBlockList().size() * liquidTolerance >= countLiquid;
     }
 
 
     @Override
     public void makeRoom() {
-        if (world.dimension.equals(AetherDimension.AETHER)) {
+        if (world.dimension.equals(AetherDimension.getAether())) {
             room.add(drawVolume(random, WorldFeatureAetherBronzeDungeon.holystone, SOUTH, 6, UP, 8, EAST, 6, x + 3, y, z + 3, false));
         }
         room.add(drawVolume(0, 0, SOUTH, 4, UP, 6, EAST, 4, x + 4, y + 1, z + 4, false));
@@ -62,14 +61,14 @@ public class HallwayRoom extends BaseBronzeRoom {
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
         if (closingType != ClosingType.PLACED) return;
-        WorldFeaturePoint p2 = wfp().moveInDirection(door.heading.getOpposite()).multiply(7).add(door.p2);
-        if (world.dimension.equals(AetherDimension.AETHER)) {
-            WorldFeaturePoint liningBottomCorner = door.p1.copy();
+        WorldFeaturePoint p2 = wfp().moveInDirection(door.getHeading().getOpposite()).multiply(7).add(door.getP2());
+        if (world.dimension.equals(AetherDimension.getAether())) {
+            WorldFeaturePoint liningBottomCorner = door.getP1().copy();
             WorldFeaturePoint liningTopCorner = p2.copy();
-            adjustCornerForLining(door.heading, liningBottomCorner, liningTopCorner);
+            adjustCornerForLining(door.getHeading(), liningBottomCorner, liningTopCorner);
             placeWorldLining(world, drawVolumeWithPoint(this.random, WorldFeatureAetherBronzeDungeon.holystone, liningBottomCorner, liningTopCorner, false));
         }
-        room.add(drawVolume(0, 0, door.p1, p2, false));
+        room.add(drawVolume(0, 0, door.getP1(), p2, false));
         this.placeRoom();
     }
 }

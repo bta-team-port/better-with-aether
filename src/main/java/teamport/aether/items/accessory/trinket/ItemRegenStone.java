@@ -12,19 +12,19 @@ import teamport.aether.items.accessory.ItemTrinket;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 public class ItemRegenStone extends ItemTrinket implements IAccessoryEffects {
-
     public ItemRegenStone(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }
 
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         CompoundTag tag = itemstack.getData();
         if (
-                slotId < player.inventory.mainInventory.length
-                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                        || player.gamemode.isPlayerInvulnerable()
+            slotId < player.inventory.mainInventory.length
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                || player.gamemode.isPlayerInvulnerable()
         ) {
             tag.putInt("time", 0);
             return;

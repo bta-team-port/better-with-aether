@@ -7,6 +7,6 @@ import net.minecraft.client.gui.container.ScreenContainerAbstract;
 
 @Mixin(value = ScreenContainerAbstract.class, remap = false)
 public interface ScreenContainerAbstractAccessor {
-    @Accessor("tooltipElement")
+    @Accessor
     TooltipElement getTooltipElement();
 }

@@ -10,7 +10,6 @@ public class AetherCommand {
         CommandManager.registerCommand(new CommandCount());
     }
 
-    // I am unsure if this is correct way of doing this, cause I could not start server to check
-    public static void registerServerCommands() {
-    }
+    // I am unsure if this is a correct way of doing this, because I could not start server to check
+    public static void registerServerCommands() {}
 }

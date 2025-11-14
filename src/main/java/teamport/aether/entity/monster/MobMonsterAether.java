@@ -11,14 +11,16 @@ import org.jspecify.annotations.Nullable;
 
 public abstract class MobMonsterAether extends MobMonster implements Enemy {
 
-    public MobMonsterAether(@Nullable World world) {
+    protected MobMonsterAether(@Nullable World world) {
         super(world);
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 4;
     }
 
+    @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
         if (super.hurt(attacker, i, type)) {
             if (this.passenger != attacker && this.vehicle != attacker) {
@@ -33,20 +35,17 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
         }
     }
 
+    @Override
     public boolean canSpawnHere() {
         int blockX = MathHelper.floor(this.x);
         int blockY = MathHelper.floor(this.bb.minY);
         int blockZ = MathHelper.floor(this.z);
 
-        if (this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 0) {
+        if (this.world == null || this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 0) {
             return false;
-        }
-
-        else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
+        } else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
             return false;
-        }
-
-        else {
+        } else {
             int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
             if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().doMobsSpawnInDaylight) {
                 blockLight /= 2;

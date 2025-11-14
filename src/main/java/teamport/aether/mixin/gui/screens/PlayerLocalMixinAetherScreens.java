@@ -14,29 +14,23 @@ import teamport.aether.gui.machine.incubator.ScreenIncubator;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalMixinAetherScreens extends Player implements AetherScreens {
-
-    @Shadow
-    protected Minecraft mc;
-
-    public PlayerLocalMixinAetherScreens(World world) {
+    protected PlayerLocalMixinAetherScreens(World world) {
         super(world);
     }
-
+    @Shadow
+    protected Minecraft mc;
     @Override
     public void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity) {
         this.mc.displayScreen(new ScreenEnchanter(this.inventory, tileEntity));
     }
-
     @Override
     public void aether$displayFreezerScreen(TileEntityFreezer tileEntity) {
         this.mc.displayScreen(new ScreenFreezer(this.inventory, tileEntity));
     }
-
     @Override
     public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {
         this.mc.displayScreen(new ScreenIncubator(this.inventory, tileEntity));
     }
-
     @Override
     public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {
         this.mc.displayScreen(new ScreenSignSkyrootEditor(tileEntity));

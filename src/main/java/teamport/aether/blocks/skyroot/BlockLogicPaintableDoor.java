@@ -15,10 +15,10 @@ public class BlockLogicPaintableDoor extends BlockLogicDoor {
     protected final Block<? extends BlockLogicPaintedDoor> paintedDoorBlockTop;
 
     public BlockLogicPaintableDoor(
-            Block<?> block, Material material,
-            boolean isTop, boolean requireTool,
-            Block<? extends BlockLogicPaintedDoor> paintedDoorBlockTop, Block<? extends BlockLogicPaintedDoor> paintedDoorBlockBottom,
-            @Nullable Supplier<Item> droppedItem
+        Block<?> block, Material material,
+        boolean isTop, boolean requireTool,
+        Block<? extends BlockLogicPaintedDoor> paintedDoorBlockTop, Block<? extends BlockLogicPaintedDoor> paintedDoorBlockBottom,
+        @Nullable Supplier<Item> droppedItem
     ) {
         super(block, material, isTop, requireTool, droppedItem);
         this.paintedDoorBlockBottom = paintedDoorBlockBottom;

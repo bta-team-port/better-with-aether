@@ -1,5 +1,6 @@
 package teamport.aether.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.*;
 import org.spongepowered.asm.mixin.Final;
@@ -7,51 +8,30 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.gameSettings.AetherGameSettingsOptions;
+import teamport.aether.game_settings.AetherGameSettingsOptions;
 
-@Mixin(
-        value = GameSettings.class,
-        remap = false
-)
-public class GameSettingsMixin implements AetherGameSettingsOptions {
-
+@Mixin(value = GameSettings.class, remap = false)
+public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
     @Shadow
     @Final
     public Minecraft mc;
     @Unique
-    private final GameSettings thisAs = ((GameSettings) (Object) this);
-
+    private final OptionBoolean flickAccessoryIconsOption = new OptionBoolean((GameSettings) (Object) this, "aether.flickAccessoryIcons", true);
+    @SuppressWarnings("DataFlowIssue")
     @Unique
-    public OptionBoolean flickAccessoryIconsOption = new OptionBoolean(
-            thisAs,
-            "aether.flickAccessoryIcons",
-            true
-    );
-
-    @Unique
-    public OptionRange flickAccessorySpeed = new OptionRange(thisAs, "aether.flickAccessorySpeed", 5, 1, 60);
-
-
+    private final OptionRange flickAccessorySpeed = new OptionRange((GameSettings) (Object) this, "aether.flickAccessorySpeed", 5, 1, 60);
     @Override
     public OptionBoolean aether$getFlickAccessoryIconsOption() {
         return flickAccessoryIconsOption;
     }
-
     @Override
     public OptionRange aether$getAccessoryFlickSpeed() {
         return flickAccessorySpeed;
     }
-
-    @Inject(method = "getDisplayString", at = @At("HEAD"), cancellable = true)
-    public void changeDisplayString(Option<?> option, CallbackInfoReturnable<String> cir) {
-        if (option == null) {
-            cir.setReturnValue("");
-            return;
-        }
-        if (option == flickAccessorySpeed) {
-            cir.setReturnValue(option.value + " seconds");
-        }
+    @ModifyReturnValue(method = "getDisplayString", at = @At("RETURN"))
+    public String changeDisplayString(String original, Option<?> option) {
+        if (option == null) return "";
+        if (option == flickAccessorySpeed) return option.value + " seconds";
+        return original;
     }
 }

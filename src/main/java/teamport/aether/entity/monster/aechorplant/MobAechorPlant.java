@@ -5,7 +5,6 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
@@ -25,11 +24,10 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    public Mob target;
-    public int attackCooldown;
-    public int smokeTime;
-    public boolean hasTarget;
-    public float sinage;
+    private int attackCooldown;
+    private int smokeTime;
+    private boolean hasTarget;
+    private float sinage;
 
     public MobAechorPlant(World world1) {
         super(world1);
@@ -42,15 +40,19 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
 
+    @Override
     public int getMaxHealth() {
         return 14;
     }
 
+    @Override
     public boolean canSpawnHere() {
+        if (this.world == null) return false;
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
@@ -78,18 +80,22 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return true;
     }
 
+    @Override
     protected boolean isMovementCeased() {
         return true;
     }
 
+    @Override
     protected boolean isMovementBlocked() {
         return true;
     }
 
+    @Override
     public boolean isPushable() {
         return false;
     }
 
+    @Override
     public void push(Entity entity) {
     }
 
@@ -100,7 +106,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-
+        if (this.world == null) return;
         int belowX = MathHelper.floor(this.x);
         int belowY = MathHelper.floor(this.bb.minY) - 1;
         int belowZ = MathHelper.floor(this.z);
@@ -132,7 +138,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target == null) {
-            this.target = (Mob) this.findPlayerToAttack();
+            this.target = this.findPlayerToAttack();
         }
 
         if (this.target != null) {
@@ -171,13 +177,14 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.zd = 0.0D;
     }
 
+    @Override
     public boolean canEntityBeSeen(Entity entity) {
-        return this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + (double) this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + (double) entity.getHeadHeight(), entity.z),
-                false, true, false) == null;
+        return this.world != null && this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + entity.getHeadHeight(), entity.z),
+            false, true, false) == null;
     }
 
     public void shootTarget(Entity target) {
-        if (!this.isAlive() || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
+        if (!this.isAlive() || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
             return;
         }
 
@@ -191,19 +198,21 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
         needle.y = this.y + 0.5;
 
-        double h = target.y + (double) target.getHeadHeight() - 0.8 - needle.y;
+        double h = target.y + target.getHeadHeight() - 0.8 - needle.y;
         float f1 = MathHelper.sqrt(dX * dX + dZ * dZ) * 0.2F;
 
-        needle.setHeading(dX, h + (double) f1, dZ, 0.6F, 12.0F);
+        needle.setHeading(dX, h + f1, dZ, 0.6F, 12.0F);
 
         this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
         this.world.entityJoinedWorld(needle);
     }
 
+    @Override
     public String getHurtSound() {
         return "damage.hurtflesh";
     }
 
+    @Override
     public String getDeathSound() {
         return "damage.fallbig";
     }
@@ -220,6 +229,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
+    @Override
     public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
@@ -230,14 +240,21 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
+    @Override
     public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("AttTime", (short) this.attackCooldown);
     }
 
+    @Override
     public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
     }
-
+    public boolean hasTarget() {
+        return hasTarget;
+    }
+    public float getSinage() {
+        return sinage;
+    }
 }

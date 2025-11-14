@@ -12,7 +12,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
 public class NetEntryFloatingBlock implements IVehicleEntry<EntityFloatingBlock>, ITrackedEntry<EntityFloatingBlock> {
     public NetEntryFloatingBlock() {

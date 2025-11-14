@@ -20,18 +20,17 @@ import teamport.aether.blocks.skyroot.BlockLogicPaintableSignSkyroot;
 
 @Environment(EnvType.CLIENT)
 public class ScreenSignSkyrootEditor extends Screen {
-    public boolean inKeyboard = false;
-    public String screenTitle = I18n.getInstance().translateKey("gui.edit_sign.label.title");
-    public final TileEntitySignSkyroot entitySign;
-    public int updateCounter;
-    public int editLine = 0;
-    public int yOffset = 0;
-    public static final String allowedCharacters;
+    private final String screenTitle = I18n.getInstance().translateKey("gui.edit_sign.label.title");
+    private final TileEntitySignSkyroot entitySign;
+    private int updateCounter;
+    private int editLine = 0;
+    private int yOffset = 0;
 
     public ScreenSignSkyrootEditor(TileEntitySignSkyroot sign) {
         this.entitySign = sign;
     }
 
+    @Override
     public void init() {
         this.buttons.clear();
         Keyboard.enableRepeatEvents(true);
@@ -44,36 +43,28 @@ public class ScreenSignSkyrootEditor extends Screen {
         this.buttons.add(new ButtonElement(1, this.width / 2 - 20, 170 + this.yOffset, 20, 20, "<"));
         this.buttons.add(new ButtonElement(2, this.width / 2, 170 + this.yOffset, 20, 20, ">"));
         boolean wallSign = !((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding;
-        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 67 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> {
-            this.editLine = 0;
-            this.inKeyboard = true;
-        })).mute().hide();
-        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 79 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> {
-            this.editLine = 1;
-            this.inKeyboard = true;
-        })).mute().hide();
-        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 91 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> {
-            this.editLine = 2;
-            this.inKeyboard = true;
-        })).mute().hide();
-        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 103 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> {
-            this.editLine = 3;
-            this.inKeyboard = true;
-        })).mute().hide();
+        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 67 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> this.editLine = 0)).mute().hide();
+        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 79 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> this.editLine = 1)).mute().hide();
+        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 91 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> this.editLine = 2)).mute().hide();
+        this.add((new ListenerButtonElement(30, this.width / 2 - 50, 103 + (wallSign ? 31 : 0), 100, 12, "")).setActionListener(() -> this.editLine = 3)).mute().hide();
     }
 
+    @Override
     public void removed() {
         Keyboard.enableRepeatEvents(false);
         if (this.mc.currentWorld != null && this.mc.currentWorld.isClientSide) {
-            this.mc.getSendQueue().addToSendQueue(new PacketSignUpdate(this.entitySign.x, this.entitySign.y, this.entitySign.z, this.entitySign.signText, this.entitySign.getPicture().getId(), this.entitySign.getColor().id));
+            EnumSignPicture enumsignpicture = this.entitySign.getPicture();
+            if (enumsignpicture != null) this.mc.getSendQueue().addToSendQueue(new PacketSignUpdate(this.entitySign.x, this.entitySign.y, this.entitySign.z, this.entitySign.signText, enumsignpicture.getId(), this.entitySign.getColor().id));
         }
 
     }
 
+    @Override
     public void tick() {
         ++this.updateCounter;
     }
 
+    @Override
     public void buttonClicked(ButtonElement button) {
         if (button.enabled) {
             if (button.id == 0) {
@@ -84,30 +75,37 @@ public class ScreenSignSkyrootEditor extends Screen {
             int id;
             int nextId;
             if (button.id == 1) {
-                id = this.entitySign.getPicture().getId();
-                nextId = id - 1;
-                if (nextId < 0) {
-                    nextId = EnumSignPicture.values().length - 1;
-                }
+                EnumSignPicture enumsignpicture = this.entitySign.getPicture();
+                if (enumsignpicture != null) {
+                    id = enumsignpicture.getId();
+                    nextId = id - 1;
+                    if (nextId < 0) {
+                        nextId = EnumSignPicture.values().length - 1;
+                    }
 
-                this.entitySign.setPicture(EnumSignPicture.values()[nextId]);
-                this.entitySign.setChanged();
+                    this.entitySign.setPicture(EnumSignPicture.values()[nextId]);
+                    this.entitySign.setChanged();
+                }
             }
 
             if (button.id == 2) {
-                id = this.entitySign.getPicture().getId();
-                nextId = id + 1;
-                if (nextId >= EnumSignPicture.values().length) {
-                    nextId = 0;
-                }
+                EnumSignPicture enumsignpicture = this.entitySign.getPicture();
+                if (enumsignpicture != null) {
+                    id = this.entitySign.getPicture().getId();
+                    nextId = id + 1;
+                    if (nextId >= EnumSignPicture.values().length) {
+                        nextId = 0;
+                    }
 
-                this.entitySign.setPicture(EnumSignPicture.values()[nextId]);
-                this.entitySign.setChanged();
+                    this.entitySign.setPicture(EnumSignPicture.values()[nextId]);
+                    this.entitySign.setChanged();
+                }
             }
 
         }
     }
 
+    @Override
     public void keyPressed(char eventCharacter, int eventKey, int mx, int my) {
         if (eventKey == Keyboard.KEY_ESCAPE) {
             this.entitySign.setChanged();
@@ -126,7 +124,7 @@ public class ScreenSignSkyrootEditor extends Screen {
             this.entitySign.signText[this.editLine] = this.entitySign.signText[this.editLine].substring(0, this.entitySign.signText[this.editLine].length() - 1);
         }
 
-        if ((allowedCharacters.indexOf(eventCharacter) >= 0 || Character.isLetterOrDigit(eventCharacter)) && this.entitySign.signText[this.editLine].length() < 15) {
+        if ((ChatAllowedCharacters.ALLOWED_CHARACTERS.indexOf(eventCharacter) >= 0 || Character.isLetterOrDigit(eventCharacter)) && this.entitySign.signText[this.editLine].length() < 15) {
             String[] var10002 = this.entitySign.signText;
             int var10004 = this.editLine;
             var10002[var10004] = String.valueOf(var10002[var10004]) + eventCharacter;
@@ -134,17 +132,18 @@ public class ScreenSignSkyrootEditor extends Screen {
 
     }
 
+    @Override
     public void render(int mx, int my, float partialTick) {
         this.renderBackground();
         this.drawStringCentered(this.font, this.screenTitle, this.width / 2, 40, 16777215);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) this.width / 2.0F, 0.0F, 50.0F);
+        GL11.glTranslatef(this.width / 2.0F, 0.0F, 50.0F);
         float scale = 93.75F;
         GL11.glScalef(-scale, -scale, -scale);
         GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
         Block<?> block = this.entitySign.getBlock();
         if (((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding) {
-            float signAngle = (float) ((this.entitySign.getBlockMeta() & 15) * 360) / 16.0F;
+            float signAngle = ((this.entitySign.getBlockMeta() & 15) * 360) / 16.0F;
             GL11.glRotatef(signAngle, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -1.0625F, 0.0F);
         } else {
@@ -176,11 +175,13 @@ public class ScreenSignSkyrootEditor extends Screen {
         GL11.glDisable(3042);
         GL11.glPopMatrix();
         GL11.glDisable(2929);
-        this.drawStringCentered(this.font, I18n.getInstance().translateKey(this.entitySign.getPicture().getLanguageKey()), this.width / 2, 150 + this.yOffset, 16777215);
+        EnumSignPicture enumsignpicture = this.entitySign.getPicture();
+        if (enumsignpicture != null) this.drawStringCentered(this.font, I18n.getInstance().translateKey(enumsignpicture.getLanguageKey()), this.width / 2, 150 + this.yOffset, 16777215);
         GL11.glEnable(2929);
         super.render(mx, my, partialTick);
     }
 
+    @Override
     public void guiSpecificControllerInput(ControllerInput controller) {
         super.guiSpecificControllerInput(controller);
         if (controller.digitalPad.up.pressedThisFrame()) {
@@ -191,9 +192,5 @@ public class ScreenSignSkyrootEditor extends Screen {
             this.editLine = this.editLine + 1 & 3;
         }
 
-    }
-
-    static {
-        allowedCharacters = ChatAllowedCharacters.ALLOWED_CHARACTERS;
     }
 }

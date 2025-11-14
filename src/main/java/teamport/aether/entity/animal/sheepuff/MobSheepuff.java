@@ -22,10 +22,10 @@ import teamport.aether.items.AetherItemTags;
 import java.util.Random;
 
 public class MobSheepuff extends MobAetherAnimal {
-    public static final float[][] FLEECE_COLOR_TABLE = new float[][]{{1.0F, 1.0F, 1.0F}, {0.95F, 0.7F, 0.2F}, {0.9F, 0.5F, 0.85F}, {0.6F, 0.7F, 0.95F}, {0.9F, 0.9F, 0.2F}, {0.5F, 0.8F, 0.1F}, {0.95F, 0.7F, 0.8F}, {0.3F, 0.3F, 0.3F}, {0.6F, 0.6F, 0.6F}, {0.3F, 0.6F, 0.7F}, {0.7F, 0.4F, 0.9F}, {0.2F, 0.4F, 0.8F}, {0.5F, 0.4F, 0.3F}, {0.4F, 0.5F, 0.2F}, {0.8F, 0.3F, 0.3F}, {0.1F, 0.1F, 0.1F}};
-    public int growthTimer;
-    public int timeSheepEating;
-    public int prevTimeSheepEating;
+    protected static final float[][] FLEECE_COLOR_TABLE = new float[][]{{1.0F, 1.0F, 1.0F}, {0.95F, 0.7F, 0.2F}, {0.9F, 0.5F, 0.85F}, {0.6F, 0.7F, 0.95F}, {0.9F, 0.9F, 0.2F}, {0.5F, 0.8F, 0.1F}, {0.95F, 0.7F, 0.8F}, {0.3F, 0.3F, 0.3F}, {0.6F, 0.6F, 0.6F}, {0.3F, 0.6F, 0.7F}, {0.7F, 0.4F, 0.9F}, {0.2F, 0.4F, 0.8F}, {0.5F, 0.4F, 0.3F}, {0.4F, 0.5F, 0.2F}, {0.8F, 0.3F, 0.3F}, {0.1F, 0.1F, 0.1F}};
+    private int growthTimer;
+    private int timeSheepEating;
+    private int prevTimeSheepEating;
 
     public MobSheepuff(World world) {
         super(world);
@@ -34,16 +34,24 @@ public class MobSheepuff extends MobAetherAnimal {
         this.setSize(0.9F, 1.3F);
     }
 
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+        if (itemStack == null) return false;
+        if (itemStack.itemID < Blocks.blocksList.length) {
+            Block<?> block = Blocks.blocksList[itemStack.itemID];
+            if (block != null && block.hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK)) return true;
+        }
+        return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
+    @Override
     public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(16, (byte) 0, Byte.class);
         this.entityData.define(17, (byte) 0, Byte.class);
     }
 
+    @Override
     public void dropDeathItems() {
         super.dropDeathItems();
         if (!this.getSheared()) {
@@ -56,7 +64,9 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
+    @Override
     public void onLivingUpdate() {
+        if (this.world == null) return;
         super.onLivingUpdate();
 
         if (!this.getPuffed()) {
@@ -136,14 +146,34 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
+    @Override
     public boolean interact(@NonNull Player player) {
-        if (super.interact(player)) {
+        if (this.world == null) return super.interact(player);
+        if (super.interact(player)) return true;
+        ItemStack itemstack = player.inventory.getCurrentItem();
+        if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && this.getPuffed()) {
+            if (!this.world.isClientSide) {
+                this.setPuffed(false);
+
+                int count = 2 + this.random.nextInt(3);
+                for (int j = 0; j < count; ++j) {
+                    EntityItem entityitem = this.dropItem(new ItemStack(Blocks.WOOL.id(), 1, this.getFleeceColor().blockMeta), 1.0F);
+                    entityitem.yd += this.random.nextFloat() * 0.05F;
+                    entityitem.xd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
+                    entityitem.zd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
+                }
+            }
+
+            itemstack.damageItem(1, player);
+            if (itemstack.stackSize <= 0) {
+                player.destroyCurrentEquippedItem();
+            }
+
             return true;
         } else {
-            ItemStack itemstack = player.inventory.getCurrentItem();
-            if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && this.getPuffed()) {
+            if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && !this.getSheared() && !this.getPuffed()) {
                 if (!this.world.isClientSide) {
-                    this.setPuffed(false);
+                    this.setSheared(true);
 
                     int count = 2 + this.random.nextInt(3);
                     for (int j = 0; j < count; ++j) {
@@ -161,50 +191,32 @@ public class MobSheepuff extends MobAetherAnimal {
 
                 return true;
             } else {
-                if (itemstack != null && itemstack.getItem() instanceof ItemToolShears && !this.getSheared() && !this.getPuffed()) {
+                if (itemstack != null && itemstack.getItem() instanceof ItemDye) {
                     if (!this.world.isClientSide) {
-                        this.setSheared(true);
-
-                        int count = 2 + this.random.nextInt(3);
-                        for (int j = 0; j < count; ++j) {
-                            EntityItem entityitem = this.dropItem(new ItemStack(Blocks.WOOL.id(), 1, this.getFleeceColor().blockMeta), 1.0F);
-                            entityitem.yd += this.random.nextFloat() * 0.05F;
-                            entityitem.xd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
-                            entityitem.zd += (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
+                        DyeColor woolColor = DyeColor.colorFromItemMeta(itemstack.getMetadata());
+                        if (this.getFleeceColor() != woolColor && itemstack.consumeItem(player)) {
+                            this.setFleeceColor(woolColor);
+                            return true;
                         }
                     }
-
-                    itemstack.damageItem(1, player);
-                    if (itemstack.stackSize <= 0) {
-                        player.destroyCurrentEquippedItem();
-                    }
-
-                    return true;
-                } else {
-                    if (itemstack != null && itemstack.getItem() instanceof ItemDye) {
-                        if (!this.world.isClientSide) {
-                            DyeColor woolColor = DyeColor.colorFromItemMeta(itemstack.getMetadata());
-                            if (this.getFleeceColor() != woolColor && itemstack.consumeItem(player)) {
-                                this.setFleeceColor(woolColor);
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
                 }
+                return false;
             }
         }
     }
 
 
+    @Override
     public String getLivingSound() {
         return "mob.sheep";
     }
 
+    @Override
     public String getHurtSound() {
         return "mob.sheep";
     }
 
+    @Override
     public String getDeathSound() {
         return "mob.sheep";
     }
@@ -264,6 +276,7 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
+    @Override
     public boolean isMovementBlocked() {
         return super.isMovementBlocked() || this.getIsSheepEating();
     }
@@ -280,6 +293,7 @@ public class MobSheepuff extends MobAetherAnimal {
         this.growthTimer = growthTimer;
     }
 
+    @Override
     public void jump() {
         if (this.getPuffed()) {
             this.yd = 1.5;
@@ -291,6 +305,7 @@ public class MobSheepuff extends MobAetherAnimal {
 
     }
 
+    @Override
     public void spawnInit() {
         this.setFleeceColor(getRandomFleeceColor(this.random));
     }
@@ -310,6 +325,11 @@ public class MobSheepuff extends MobAetherAnimal {
             return random.nextInt(500) != 0 ? DyeColor.WHITE : DyeColor.PINK;
         }
     }
-
+    public int getTimeSheepEating() {
+        return timeSheepEating;
+    }
+    public int getPrevTimeSheepEating() {
+        return prevTimeSheepEating;
+    }
 
 }

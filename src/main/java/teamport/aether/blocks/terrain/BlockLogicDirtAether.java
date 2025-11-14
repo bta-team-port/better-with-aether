@@ -23,14 +23,17 @@ public class BlockLogicDirtAether extends BlockLogic implements IBonemealable {
         block.setTicking(true);
     }
 
+    @Override
     public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
         world.setBlockMetadataWithNotify(x, y, z, 1);
     }
 
+    @Override
     public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return 1;
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_SHOVEL_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
@@ -39,7 +42,7 @@ public class BlockLogicDirtAether extends BlockLogic implements IBonemealable {
     }
 
     @Override
-    public boolean onBonemealUsed(ItemStack itemStack, Player player, World world, int i, int j, int k, Side side, double d, double e) {
+    public boolean onBonemealUsed(ItemStack itemStack, @Nullable Player player, World world, int i, int j, int k, Side side, double d, double e) {
         int j1;
         if (!world.isClientSide && Blocks.lightBlock[world.getBlockId(i, j + 1, k)] <= 2) {
             j1 = AetherBlocks.GRASS_AETHER.id();
@@ -47,7 +50,7 @@ public class BlockLogicDirtAether extends BlockLogic implements IBonemealable {
             world.setBlockWithNotify(i, j, k, j1);
             if (player == null || player.getGamemode().consumeBlocks()) {
                 --itemStack.stackSize;
-                player.swingItem();
+                if (player != null) player.swingItem();
             }
             return true;
         }

@@ -7,22 +7,22 @@ import net.minecraft.client.render.model.ModelBase;
 
 @Environment(EnvType.CLIENT)
 public class ModelAerwhale extends ModelBase {
-    public Cube frontBody;
-    public Cube frontPleats;
+    private final Cube frontBody;
+    private final Cube frontPleats;
 
-    public Cube middleBody;
-    public Cube middlePleats;
+    private final Cube middleBody;
+    private final Cube middlePleats;
 
-    public Cube backBody;
-    public Cube backPleats;
+    private final Cube backBody;
+    private final Cube backPleats;
 
-    public Cube topFin;
+    private final Cube topFin;
 
-    public Cube backRightFin;
-    public Cube backLeftFin;
+    private final Cube backRightFin;
+    private final Cube backLeftFin;
 
-    public Cube frontLeftFin;
-    public Cube frontRightFin;
+    private final Cube frontLeftFin;
+    private final Cube frontRightFin;
 
     public ModelAerwhale() {
         this.frontBody = new Cube(20, 0);
@@ -59,6 +59,7 @@ public class ModelAerwhale extends ModelBase {
         this.frontRightFin.setRotationAngle(0.0f, -0.25f, 0.0f);
     }
 
+    @Override
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.frontBody.render(scale);

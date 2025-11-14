@@ -15,13 +15,14 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
         this.setArmorModel(modelbase);
     }
 
+    @Override
     public float limbSway(MobCockatrice entity, float partialTick) {
-        float flap = entity.oFlap + (entity.flap - entity.oFlap) * partialTick;
-        float flapSpeed = entity.oFlapSpeed + (entity.flapSpeed - entity.oFlapSpeed) * partialTick;
+        float flap = entity.getOFlap() + (entity.getFlap() - entity.getOFlap()) * partialTick;
+        float flapSpeed = entity.getOFlapSpeed() + (entity.getFlapSpeed() - entity.getOFlapSpeed()) * partialTick;
         return (MathHelper.sin(flap) + 1.0F) * flapSpeed;
     }
 
-    public boolean setCockatriceGlowBrightness(MobCockatrice entity, int renderPass, float partialTick) {
+    private boolean setCockatriceGlowBrightness(MobCockatrice entity, int renderPass) {
         if (renderPass == 0) {
             this.bindTexture("/assets/aether/textures/entity/cockatrice/glow/" + entity.getTextureReference() + ".png");
             float brightness = entity.getBrightness(1.0F);
@@ -40,11 +41,13 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
         }
     }
 
+    @Override
     public void setupScale(MobCockatrice entity, float partialTick) {
         GL11.glScalef(1.8f, 1.8f, 1.8f);
     }
 
+    @Override
     public boolean prepareArmor(MobCockatrice entity, int renderPass, float partialTick) {
-        return this.setCockatriceGlowBrightness(entity, renderPass, partialTick);
+        return this.setCockatriceGlowBrightness(entity, renderPass);
     }
 }

@@ -15,7 +15,7 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class DisplayRoom extends BaseBronzeRoom {
-    public static BlockPallet DISPLAY = new BlockPallet();
+    private static final BlockPallet DISPLAY = new BlockPallet();
 
     static {
         DISPLAY.addEntry(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE.id(), 10);
@@ -57,14 +57,14 @@ public class DisplayRoom extends BaseBronzeRoom {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
                 IntPair idMeta = DISPLAY.getRandom(random);
-                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, true));
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.getFirst(), idMeta.getSecond(), true));
             }
         }
         for (int i = 2; i < pointList.size(); i++) {
             WorldFeaturePoint[] points = pointList.get(i);
             for (WorldFeaturePoint point : points) {
-                IntPair idMeta = chestOrMimic.getRandom(random);
-                chest.add(wfb(point.x, point.y, point.z, idMeta.first, idMeta.second, false));
+                IntPair idMeta = CHEST_OR_MIMIC.getRandom(random);
+                chest.add(wfb(point.getX(), point.getY(), point.getZ(), idMeta.getFirst(), idMeta.getSecond(), false));
             }
         }
     }

@@ -15,9 +15,9 @@ import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelStandard<T> {
-    protected IconCoordinate frontTexture;
-    protected IconCoordinate sideTexture;
-    protected IconCoordinate topTexture;
+    private final IconCoordinate frontTexture;
+    private final IconCoordinate sideTexture;
+    private final IconCoordinate topTexture;
 
     public BlockModelMimic(Block<T> block, String rootKey) {
         super(block);
@@ -26,6 +26,8 @@ public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelS
         this.topTexture = TextureRegistry.getTexture(rootKey + "top");
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public boolean render(Tessellator tessellator, int x, int y, int z) {
         int meta = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
         Direction dir = BlockLogicChest.getDirectionFromMeta(meta);
@@ -48,6 +50,7 @@ public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelS
         return true;
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         int meta = blockAccess.getBlockMetadata(x, y, z);
         Side facing = BlockLogicChest.getDirectionFromMeta(meta).getSide();
@@ -60,6 +63,7 @@ public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelS
         return side.isHorizontal() ? sideTexture : topTexture;
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
         if (side == Side.SOUTH) {
             return frontTexture;

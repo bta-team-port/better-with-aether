@@ -15,12 +15,11 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-public class ContainerInventoryZanitePendantDamageMixin {
+public abstract class ContainerInventoryZanitePendantDamageMixin {
     @Shadow
     public ItemStack[] mainInventory;
     @Shadow
     public Player player;
-
     @ModifyReturnValue(method = "getDamageVsEntity", at = @At("RETURN"))
     public int getGloveDamage(int damage) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
@@ -33,7 +32,6 @@ public class ContainerInventoryZanitePendantDamageMixin {
         }
         return damage;
     }
-
     @Unique
     private int addDamage(int damage, ItemStack trinketOne) {
         float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
@@ -42,5 +40,4 @@ public class ContainerInventoryZanitePendantDamageMixin {
         damage += (int) Math.floor(speed);
         return damage;
     }
-
 }

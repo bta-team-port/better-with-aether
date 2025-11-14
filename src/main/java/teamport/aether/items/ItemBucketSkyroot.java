@@ -28,6 +28,7 @@ public class ItemBucketSkyroot extends Item {
         this.blockToPlace = blockToPlace;
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack stack, World world, Player player) {
         if (this.blockToPlace == null) {
             return new ItemStack(AetherItems.BUCKET_SKYROOT);
@@ -56,9 +57,9 @@ public class ItemBucketSkyroot extends Item {
                                 }
 
                                 player.swingItem();
-                                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
+                                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x + 0.5f, y + 0.5f, z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
                                 for (int i = 0; i < 8; ++i) {
-                                    ParticleMaker.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+                                    ParticleMaker.spawnParticle(world, "largesmoke", x + Math.random(), y + .2, z + Math.random(), 0.0, 0.0, 0.0, 0);
                                 }
 
                                 world.setBlockWithNotify(x, y, z, 0);
@@ -68,7 +69,7 @@ public class ItemBucketSkyroot extends Item {
                                 }
                             } else {
                                 if (this.blockToPlace == Blocks.FLUID_WATER_FLOWING) {
-                                    world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, "liquid.splash", 0.5F, 1.0F);
+                                    world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, x + 0.5F, y + 0.5F, z + 0.5F, "liquid.splash", 0.5F, 1.0F);
                                 }
 
                                 player.swingItem();
@@ -92,6 +93,7 @@ public class ItemBucketSkyroot extends Item {
         }
     }
 
+    @Override
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
         if (this.blockToPlace == null) {
             itemStack.itemID = AetherItems.BUCKET_SKYROOT.id;

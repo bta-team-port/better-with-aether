@@ -13,15 +13,11 @@ import teamport.aether.helper.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
-abstract public class MobMixinDrowning extends Entity {
-    public MobMixinDrowning(@Nullable World world) {
+public abstract class MobMixinDrowning extends Entity {
+    protected MobMixinDrowning(@Nullable World world) {
         super(world);
     }
-
-    @Inject(
-            method = "moveEntityWithHeading",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0)
-    )
+    @Inject(method = "moveEntityWithHeading", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0))
     public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
@@ -30,5 +26,4 @@ abstract public class MobMixinDrowning extends Entity {
         int count = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
         yd -= 0.004 * count;
     }
-
 }

@@ -1,94 +1,56 @@
 package teamport.aether.mixin.item;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
-import java.util.List;
-
 @Mixin(value = ItemBlock.class, remap = false)
 public abstract class ItemBlockBlacklistMixin {
-
     @Shadow
     @NonNull
     protected Block<?> block;
-
-    @Shadow
-    public abstract int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced);
-
-    @Unique
-    private static final int[] BLOCK_TO_PLACE = {
-            Blocks.PUMPKIN_CARVED_ACTIVE.id(),
-            Blocks.BRAZIER_ACTIVE.id(),
-            Blocks.PUMICE_WET.id(),
-            Blocks.COBBLE_NETHERRACK_IGNEOUS.id()
-    };
-
-    @Unique
-    private static final int[] BLOCK_TO_BECOME = {
-            Blocks.PUMPKIN_CARVED_IDLE.id(),
-            Blocks.BRAZIER_INACTIVE.id(),
-            Blocks.PUMICE_DRY.id(),
-            Blocks.COBBLE_NETHERRACK.id()
-    };
-
-    @Inject(method = "onUseItemOnBlock", at = @At(value = "HEAD"), cancellable = true)
-    public void banBlocksFromDimensions(ItemStack stack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
-        Dimension dim = world.dimension;
-        List<Integer> BLACKLIST = AetherDimension.getDimensionBlacklist(dim);
-
-        if (BLACKLIST.contains(block.id())) {
-            blockX += side.getOffsetX();
-            blockY += side.getOffsetY();
-            blockZ += side.getOffsetZ();
-
-            if (dim == AetherDimension.AETHER) {
-                for (int i = 0; i < BLOCK_TO_PLACE.length; i++) {
-                    if (block.id() == BLOCK_TO_PLACE[i]) {
-                        int replacementId = BLOCK_TO_BECOME[i];
-                        if (world.canBlockBePlacedAt(replacementId, blockX, blockY, blockZ, false, side) && stack.consumeItem(player)) {
-                            int meta = this.getPlacedBlockMetadata(player, stack, world, blockX, blockY, blockZ, side, xPlaced, yPlaced);
-
-                            if (world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, replacementId, meta)) {
-                                ParticleMaker.spawnReplacementEffects(world, blockX, blockY, blockZ);
-                                if (player != null) {
-                                    this.block.onBlockPlacedByMob(world, blockX, blockY, blockZ, side, player, xPlaced, yPlaced);
-                                } else {
-                                    this.block.onBlockPlacedByWorld(world, blockX, blockY, blockZ);
-                                }
-                                world.playBlockSoundEffect(player, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, this.block, EnumBlockSoundEffectType.PLACE);
-                                cir.setReturnValue(true);
-                                return;
-                            } else {
-                                if (player != null && player.getGamemode().consumeBlocks()) {
-                                    ++stack.stackSize;
-                                }
-                            }
-                        }
-                        break;
-                    }
-                }
-            } else {
-                cir.setReturnValue(false);
-                return;
-            }
-            cir.setReturnValue(false);
-        }
+    @Definition(id = "stackSize", field = "Lnet/minecraft/core/item/ItemStack;stackSize:I")
+    @Expression("?.stackSize <= 0")
+    @ModifyExpressionValue(method = "onUseItemOnBlock", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean banBlocksFromDimensionsOne(boolean original, ItemStack stack, @Nullable Player player, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+        return original || world.dimension != AetherDimension.getAether() && AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id());
+    }
+    @Definition(id = "canPlaceInsideBlock", method = "Lnet/minecraft/core/world/World;canPlaceInsideBlock(III)Z")
+    @Expression("?.canPlaceInsideBlock(?, ?, ?) == false")
+    @ModifyExpressionValue(method = "onUseItemOnBlock", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean banBlocksFromDimensionsTwo(boolean original, ItemStack stack, @Nullable Player player, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced, @Share("replacementId") LocalIntRef replacementId) {
+        replacementId.set(AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id()) ? MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), -2) : -1);
+        return original;
+    }
+    @WrapOperation(method = "onUseItemOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;canBlockBePlacedAt(IIIIZLnet/minecraft/core/util/helper/Side;)Z"))
+    private boolean banBlocksFromDimensionsThree(World instance, int blockId, int x, int y, int z, boolean flag, Side side, Operation<Boolean> original, @Share("replacementId") LocalIntRef replacementId) {
+        int id = replacementId.get();
+        if (id == -2) return false;
+        return original.call(instance, id == -1 ? blockId : id, x, y, z, flag, side);
+    }
+    @WrapOperation(method = "onUseItemOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockAndMetadataWithNotify(IIIII)Z"))
+    private boolean banBlocksFromDimensionsFour(World instance, int x, int y, int z, int id, int meta, Operation<Boolean> original, @Share("replacementId") LocalIntRef replacementId) {
+        int theReplacementId = replacementId.get();
+        boolean condition = original.call(instance, x, y, z, theReplacementId == -1 ? id : theReplacementId, meta);
+        if (theReplacementId != -1 && condition) ParticleMaker.spawnReplacementEffects(instance, x, y, z);
+        return condition;
     }
 }

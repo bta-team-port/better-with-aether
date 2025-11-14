@@ -18,16 +18,13 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
 
 public class AetherEffects {
-
+    @SuppressWarnings("java:S6548")
     public static class LookupLooks {
         public static final LookupLooks instance = new LookupLooks();
         public final Map<Effect, Effect> locker = new HashMap<>();
@@ -49,16 +46,8 @@ public class AetherEffects {
             return this.locker.getOrDefault(id, null);
         }
 
-        public @Nullable HashSet<Effect> getLockedEffects(Effect id) {
+        public @Nullable Set<Effect> getLockedEffects(Effect id) {
             return this.lockedEffects.getOrDefault(id, null);
-        }
-
-        public Map<Effect, Effect> getLockerMap() {
-            return this.locker;
-        }
-
-        public Map<Effect, HashSet<Effect>> getLockedEffectsMap() {
-            return this.lockedEffects;
         }
     }
 
@@ -74,29 +63,31 @@ public class AetherEffects {
         if (!EnvironmentHelper.isServerEnvironment()) assignEffectRenderers();
     }
 
+    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect poisonEffect;
+    @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect remedyEffect;
-
-    public static Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
+    @SuppressWarnings("java:S3008")
+    private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
     /**
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
         poisonEffect = new PoisonEffect(
-                "effect.aether.poison",
-                MOD_ID + ":poison",
-                new ArrayList<>(),
-                EffectTimeType.KEEP,
-                10
+            "effect.aether.poison",
+            MOD_ID + ":poison",
+            new ArrayList<>(),
+            EffectTimeType.KEEP,
+            10
         ).setDefaultDuration(60);
 
         remedyEffect = new RemedyEffect(
-                "effect.aether.remedy",
-                MOD_ID + ":remedy",
-                new ArrayList<>(),
-                EffectTimeType.RESET,
-                1
+            "effect.aether.remedy",
+            MOD_ID + ":remedy",
+            new ArrayList<>(),
+            EffectTimeType.RESET,
+            1
         ).setDefaultDuration(240);
 
         AetherEffects.registerLock(poisonEffect, remedyEffect);
@@ -128,21 +119,21 @@ public class AetherEffects {
         EffectRendererDispatcher dispatcher = EffectRendererDispatcher.getInstance();
 
         dispatcher.addDispatch(poisonEffect, new PoisonEffectRenderer<>(
-                        poisonEffect,
-                        "/assets/aether/textures/other/poisonvignette.png",
-                        0x8218cb,
-                        "aether:gui/hud/poison/"
-                )
-                        .setIcon("icon_poison.png")
+                poisonEffect,
+                "/assets/aether/textures/other/poisonvignette.png",
+                0x8218cb,
+                "aether:gui/hud/poison/"
+            )
+                .setIcon("icon_poison.png")
         );
 
         dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
-                        remedyEffect,
-                        "/assets/aether/textures/other/curevignette.png",
-                        0x009bc2,
-                        "aether:gui/hud/remedy/"
-                )
-                        .setIcon("icon_remedy.png")
+                remedyEffect,
+                "/assets/aether/textures/other/curevignette.png",
+                0x009bc2,
+                "aether:gui/hud/remedy/"
+            )
+                .setIcon("icon_remedy.png")
         );
     }
 

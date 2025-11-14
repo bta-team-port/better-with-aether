@@ -8,13 +8,13 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.machine.BlockLogicFreezer;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizontalRotation<T> {
@@ -65,7 +65,7 @@ public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizonta
     @Override
     public boolean render(Tessellator tessellator, int x, int y, int z) {
         int meta = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
-        Direction direction = BlockLogicFreezer.getDirectionFromMeta(meta);
+        Direction direction = BlockLogicRotatable.getDirectionFromMeta(meta);
 
         switch (direction) {
             case NORTH:

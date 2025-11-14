@@ -11,18 +11,16 @@ import net.minecraft.core.world.noise.PerlinNoise;
 import java.util.Random;
 
 public class SurfaceGeneratorAether implements SurfaceGenerator {
-    public final World world;
-    public final BasePerlinNoise<?> soilNoise;
-    public final BasePerlinNoise<?> mainNoise;
+    private final World world;
+    private final BasePerlinNoise<?> soilNoise;
 
-    public SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise, BasePerlinNoise<?> mainNoise) {
+    public SurfaceGeneratorAether(World world, BasePerlinNoise<?> soilNoise) {
         this.world = world;
         this.soilNoise = soilNoise;
-        this.mainNoise = mainNoise;
     }
 
     public SurfaceGeneratorAether(World world) {
-        this(world, new PerlinNoise(world.getRandomSeed(), 4, 44), new PerlinNoise(world.getRandomSeed(), 8, 32));
+        this(world, new PerlinNoise(world.getRandomSeed(), 4, 44));
     }
 
     @Override
@@ -34,24 +32,23 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
         int chunkZ = chunk.zPosition;
         int worldFillBlock = this.world.getWorldType().getFillerBlockId();
 
-        Random rand = new Random((long) chunkX * 341873128712L + (long) chunkZ * 132897987541L);
+        Random rand = new Random(chunkX * 341873128712L + chunkZ * 132897987541L);
         double beachScale = 0.03125;
 
         double[] soilThicknessNoise = this.soilNoise.get(
-                null,
-                chunkX * 16,
-                chunkZ * 16,
-                0.0,
-                16, 16, 1,
-                beachScale * 2.0,
-                beachScale * 2.0,
-                beachScale * 2.0
+            null,
+            chunkX * 16.0,
+            chunkZ * 16.0,
+            0.0,
+            16, 16, 1,
+            beachScale * 2.0,
+            beachScale * 2.0,
+            beachScale * 2.0
         );
 
         for (int z = 0; z < 16; ++z) {
             for (int x = 0; x < 16; ++x) {
-
-                int soilThickness = (int) (soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + rand.nextDouble() * 0.25);
+                int soilThickness = (int)(soilThicknessNoise[z + x * 16] / 3.0 + 3.0 + (rand.nextInt(2500) / 10000.0));
                 int currentLayerDepth = -1;
                 int topBlock = -1;
                 int fillerBlock = -1;
@@ -67,10 +64,10 @@ public class SurfaceGeneratorAether implements SurfaceGenerator {
                     int block = result.getBlock(x, y, z);
 
                     if ((biome != lastBiome
-                            || topBlock == -1
-                            || fillerBlock == -1
+                        || topBlock == -1
+                        || fillerBlock == -1
                     )
-                            && block == 0
+                        && block == 0
                     ) {
                         topBlock = biome.topBlock;
                         fillerBlock = biome.fillerBlock;

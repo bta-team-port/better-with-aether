@@ -13,12 +13,13 @@ public class ItemGoldenFeather extends ItemTrinket {
         super(translationKey, namespaceId, id, name);
     }
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId < player.inventory.mainInventory.length
-                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                        || player.gamemode.isPlayerInvulnerable()
+            slotId < player.inventory.mainInventory.length
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                || player.gamemode.isPlayerInvulnerable()
         ) {
             return;
         }

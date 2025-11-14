@@ -11,8 +11,8 @@ public class MobRendererMimic extends MobRenderer<MobMimic> {
         super(new ModelMimic(), 0.7F);
     }
 
+    @Override
     public void setupScale(MobMimic entity, float partialTick) {
         GL11.glScalef(2.0f, 2.0f, 2.0f);
     }
-
 }

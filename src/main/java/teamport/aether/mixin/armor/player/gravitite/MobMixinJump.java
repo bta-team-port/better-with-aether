@@ -21,20 +21,15 @@ import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinJump extends Entity {
-
-    @Shadow
-    protected boolean isJumping;
-
-    @Unique
-    public boolean usedDoubleJump = false;
-
-    @Unique
-    public boolean isJumpingPrev = false;
-
-    public MobMixinJump(@Nullable World world) {
+    protected MobMixinJump(@Nullable World world) {
         super(world);
     }
-
+    @Shadow
+    protected boolean isJumping;
+    @Unique
+    private boolean usedDoubleJump = false;
+    @Unique
+    private boolean isJumpingPrev = false;
     @Inject(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;isSprinting()Z"))
     public void aether$jump(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
@@ -46,20 +41,16 @@ public abstract class MobMixinJump extends Entity {
             fallDistance = 0.0F;
         }
     }
-
-    @Inject(method = "onLivingUpdate",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
+    @Inject(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
     public void aether$onLivingUpdate(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
         }
         Player player = (Player) (Object) this;
-
         if (noPhysics) {
             usedDoubleJump = true;
             return;
         }
-
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) return;
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
@@ -70,17 +61,9 @@ public abstract class MobMixinJump extends Entity {
         if (onGround) {
             usedDoubleJump = false;
         }
-
         isJumpingPrev = isJumping;
     }
-
-
-    @WrapOperation(
-            method = "causeFallDamage",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z")
-    )
+    @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
     public boolean negateFallDamage(Mob instance, Entity attacker, int damage, DamageType type, Operation<Boolean> original) {
         if (!(instance instanceof Player)) {
             return original.call(instance, attacker, damage, type);
@@ -93,5 +76,4 @@ public abstract class MobMixinJump extends Entity {
         player.inventory.damageArmor(damage > 0 ? damage : 4);
         return false;
     }
-
 }

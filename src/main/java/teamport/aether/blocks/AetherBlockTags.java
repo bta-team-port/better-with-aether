@@ -3,12 +3,11 @@ package teamport.aether.blocks;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
+import teamport.aether.AetherMod;
 
 import java.lang.reflect.Field;
 
-import static net.minecraft.core.block.tag.BlockTags.TAG_LIST;
-import static org.apache.log4j.builders.appender.SocketAppenderBuilder.LOGGER;
-
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008", "unchecked"})
 public class AetherBlockTags {
 
     public static Tag<Block<?>> MINEABLE_BY_AETHER_PICKAXE = Tag.of("mineable_by_aether_pickaxe");
@@ -25,17 +24,16 @@ public class AetherBlockTags {
     public static Tag<Block<?>> PLANTABLE_IN_AETHER_JAR = Tag.of("plantable_in_aether_jar");
 
     static {
-        Field[] var0 = BlockTags.class.getDeclaredFields();
-
-        for (Field field : var0) {
+        for (Field field : AetherBlockTags.class.getDeclaredFields()) {
             if (field.getType().equals(Tag.class)) {
                 try {
-                    TAG_LIST.add((Tag) field.get(null));
-                } catch (Exception var5) {
-                    LOGGER.error("Failed to add tag '{}'!", field.getName(), var5);
+                    @SuppressWarnings("unchecked")
+                    Tag<Block<?>> tag = (Tag<Block<?>>) field.get(null);
+                    BlockTags.TAG_LIST.add(tag);
+                } catch (Exception e) {
+                    AetherMod.LOGGER.error("Failed to add tag '{}'!", field.getName(), e);
                 }
             }
         }
-
     }
 }

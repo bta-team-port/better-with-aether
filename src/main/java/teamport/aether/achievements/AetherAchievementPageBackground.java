@@ -13,12 +13,12 @@ import java.util.Objects;
 
 public class AetherAchievementPageBackground {
 
-    public final List<IntPair> WaterSources;
-    public final List<List<Integer>> Specials;
-    public final List<List<Integer>> TerrainLayer1;
-    public final List<List<Integer>> TerrainLayer2;
-    public final List<List<Integer>> TerrainLayer3;
-    public final List<List<Integer>> TerrainLayer4;
+    public final List<IntPair> waterSources;
+    public final List<List<Integer>> specials;
+    public final List<List<Integer>> terrainLayer1;
+    public final List<List<Integer>> terrainLayer2;
+    public final List<List<Integer>> terrainLayer3;
+    public final List<List<Integer>> terrainLayer4;
 
     public final int width;
     public final int height;
@@ -47,19 +47,19 @@ public class AetherAchievementPageBackground {
             AetherMod.LOGGER.error("Failed to load background files for the achievements screen!", e);
 
             terrainLayer1Temp = Collections.singletonList(
-                    Collections.singletonList(0)
+                Collections.singletonList(0)
             );
             terrainLayer2Temp = Collections.singletonList(
-                    Collections.singletonList(1)
+                Collections.singletonList(1)
             );
             terrainLayer3Temp = Collections.singletonList(
-                    Collections.singletonList(0)
+                Collections.singletonList(0)
             );
             terrainLayer4Temp = Collections.singletonList(
-                    Collections.singletonList(0)
+                Collections.singletonList(0)
             );
             specialsTemp = Collections.singletonList(
-                    Collections.singletonList(0)
+                Collections.singletonList(0)
             );
 
             widthTemp = 1;
@@ -68,17 +68,17 @@ public class AetherAchievementPageBackground {
 
         this.height = heightTemp;
         this.width = widthTemp;
-        this.Specials = specialsTemp;
-        this.TerrainLayer4 = terrainLayer4Temp;
-        this.TerrainLayer3 = terrainLayer3Temp;
-        this.TerrainLayer2 = terrainLayer2Temp;
-        this.TerrainLayer1 = terrainLayer1Temp;
-        this.WaterSources = new ArrayList<>();
+        this.specials = specialsTemp;
+        this.terrainLayer4 = terrainLayer4Temp;
+        this.terrainLayer3 = terrainLayer3Temp;
+        this.terrainLayer2 = terrainLayer2Temp;
+        this.terrainLayer1 = terrainLayer1Temp;
+        this.waterSources = new ArrayList<>();
 
-        for (int y = 0; y < Specials.size(); y++) {
-            List<Integer> row = Specials.get(y);
+        for (int y = 0; y < specials.size(); y++) {
+            List<Integer> row = specials.get(y);
             for (int x = 0; x < row.size(); x++) {
-                if (row.get(x) == 1) this.WaterSources.add(new IntPair(x, y));
+                if (row.get(x) == 1) this.waterSources.add(new IntPair(x, y));
             }
         }
     }

@@ -15,11 +15,12 @@ public class ItemAgilityCapeArmor extends ItemAccessoryArmor implements IAccesso
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId > player.inventory.mainInventory.length
-                        && slotId - player.inventory.mainInventory.length == CAPE_SLOT
+            slotId > player.inventory.mainInventory.length
+                && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
             player.footSize = 1.0f;
             return;

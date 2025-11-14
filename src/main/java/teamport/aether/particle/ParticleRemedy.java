@@ -10,7 +10,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class ParticleRemedy extends Particle {
-    private final int timScaling = 2;
+    private static final int TIM_SCALING = 2;
 
     public ParticleRemedy(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
@@ -22,10 +22,11 @@ public class ParticleRemedy extends Particle {
         this.yd = ya;
         this.zd = za;
         this.size = 1.0F;
-        this.lifetime = 10 * timScaling;
+        this.lifetime = 10 * TIM_SCALING;
     }
 
 
+    @Override
     public void tick() {
         bindNextTexture();
         this.yd -= 0.01;
@@ -36,13 +37,12 @@ public class ParticleRemedy extends Particle {
     }
 
     private void bindNextTexture() {
-        if (age > 8 * timScaling) {
+        if (age > 8 * TIM_SCALING) {
             this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/remedy_2");
             return;
         }
-        if (age > 4 * timScaling) {
+        if (age > 4 * TIM_SCALING) {
             this.tex = TextureRegistry.getTexture(MOD_ID + ":particle/remedy_1");
         }
     }
-
 }

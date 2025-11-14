@@ -37,7 +37,7 @@ public class AetherSyncInvisibilityNetworkMessage implements NetworkMessage {
     public void handleClientEnv(NetworkContext context) {
         World world = context.player.world;
 
-        world.players.stream()
+        if (world != null) world.players.stream()
             .filter(p -> p.uuid.equals(playerUUID))
             .forEach(p -> ((AetherInvisibility) p).aether$SyncVisibility(invisibility));
     }

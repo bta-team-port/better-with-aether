@@ -11,13 +11,14 @@ import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import teamport.aether.items.AetherItems;
 
 public class BlockLogicOreZanite extends BlockLogic {
-    public static WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
+    public static final WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
 
     public BlockLogicOreZanite(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

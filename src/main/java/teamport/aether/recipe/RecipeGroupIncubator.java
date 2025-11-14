@@ -29,14 +29,4 @@ public class RecipeGroupIncubator extends RecipeGroup<RecipeEntryIncubator> {
         }
         return null;
     }
-
-    public boolean isOutput(Class<? extends Entity> aClass) {
-        for (RecipeEntryIncubator recipe : getAllRecipes()) {
-            String entityName = recipe.getOutput().getEntity();
-            Class<? extends Entity> entity = EntityDispatcher.classForId(entityName);
-            if (entity == null) continue;
-            if (entity.equals(aClass)) return true;
-        }
-        return false;
-    }
 }

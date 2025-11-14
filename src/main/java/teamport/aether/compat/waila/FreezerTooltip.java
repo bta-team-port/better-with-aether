@@ -26,13 +26,13 @@ public class FreezerTooltip extends TileTooltip<TileEntityFreezer> {
         ItemStack fuel = freezer.getItem(1);
         ItemStack output = freezer.getItem(2);
         ProgressBarOptions options = new ProgressBarOptions(
-                0, String.format("%s%s%s ", LIGHT_BLUE, translator.translateKey("aether.tooltip.freezer.progress"), RESET), true, true,
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_bg")),
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_fg"))
+            0, String.format("%s%s%s ", LIGHT_BLUE, translator.translateKey("aether.tooltip.freezer.progress"), RESET), true, true,
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_bg")),
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/freezer_fg"))
         );
         advancedInfoComponent.drawProgressBarTextureWithText(freezer.getProcessProgressScaled(100), 100, options, 0); //getCookProgressScaled
 
-        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), freezer.currentEnergyTime / Global.TICKS_PER_SECOND), 0);
+        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), freezer.getCurrentEnergyTime() / Global.TICKS_PER_SECOND), 0);
         ItemStack[] stacks = new ItemStack[]{input, fuel, output};
         advancedInfoComponent.drawItemList(stacks, 0);
     }

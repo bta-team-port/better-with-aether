@@ -3,8 +3,8 @@ package teamport.aether.items.accessory;
 import net.minecraft.core.item.Item;
 
 public class ItemAccessoryArmor extends Item implements IAccessory {
-    public final int slotID;
-    public final String name;
+    private final int slotID;
+    private final String name;
 
     public ItemAccessoryArmor(String translationKey, String namespaceId, int id, String name, int accessoryPiece) {
         super(translationKey, namespaceId, id);

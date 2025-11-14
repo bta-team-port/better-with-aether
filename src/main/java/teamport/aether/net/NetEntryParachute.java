@@ -18,7 +18,6 @@ import static teamport.aether.AetherMod.LOGGER;
 public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrackedEntry<EntityParachute> {
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-
         Class<? extends EntityParachute> parachuteClass = (meta >>> 24) > 0 ? EntityParachuteGold.class : EntityParachute.class;
 
         EntityParachute parachute;
@@ -61,6 +60,5 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
     }
 
     @Override
-    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityParachute object) {
-    }
+    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityParachute object) {}
 }

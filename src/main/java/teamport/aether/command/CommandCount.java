@@ -19,8 +19,6 @@ import java.util.Map;
 import static com.mojang.brigadier.builder.ArgumentBuilderLiteral.literal;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-// for now, TODO figure out what that warning mean
-@SuppressWarnings("unchecked")
 public class CommandCount implements CommandManager.CommandRegistry {
 
     /* @a, all players
@@ -31,13 +29,17 @@ public class CommandCount implements CommandManager.CommandRegistry {
      * */
 
     // TODO temp remove later
+    @SuppressWarnings("unchecked")
     @Override
     public void register(CommandDispatcher<CommandSource> commandDispatcher) {
         commandDispatcher
-                .register((ArgumentBuilderLiteral) literal("aether:countBlocks").requires(t -> ((CommandSource) t).hasAdmin())
-                        .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVec3.vec3d())
-                                .then(ArgumentBuilderRequired.argument("second", ArgumentTypeVec3.vec3d())
-                                        .executes(c -> {calcBlockCount(c);return 1;}))));
+            .register((ArgumentBuilderLiteral<CommandSource>) (Object) literal("aether:countBlocks").requires(t -> ((CommandSource) t).hasAdmin())
+                .then(ArgumentBuilderRequired.argument("first", ArgumentTypeVec3.vec3d())
+                    .then(ArgumentBuilderRequired.argument("second", ArgumentTypeVec3.vec3d())
+                        .executes(c -> {
+                            calcBlockCount(c);
+                            return 1;
+                        }))));
     }
 
     private static void calcBlockCount(CommandContext<Object> c) throws CommandSyntaxException {
@@ -69,7 +71,7 @@ public class CommandCount implements CommandManager.CommandRegistry {
         long total = (long) (Math.abs(fx - sx)) * Math.abs(fy - sy) * Math.abs(fz - sz);
         sauce.sendMessage("Total Blocks:" + total);
         count.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).forEach(entry ->
-                sauce.sendMessage(entry.getKey() + "→ Count: " + entry.getValue())
+            sauce.sendMessage(entry.getKey() + "→ Count: " + entry.getValue())
         );
     }
 }

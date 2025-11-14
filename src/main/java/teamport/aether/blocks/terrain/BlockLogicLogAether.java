@@ -40,8 +40,9 @@ public class BlockLogicLogAether extends BlockLogicLog {
     /**
      * @implNote This is a modifies BreakResult for TreecapitatorHelper, to allow AetherTrees to work nicely with the gamerule
      */
+    @SuppressWarnings("java:S1172")
     public ItemStack[] getAdditionalBreakResult(World world, Item tool, ItemStack[] results, int meta) {
-        if (results == null) return null;
+        if (results == null) return new ItemStack[0];
         if (tool != null && tool.equals(AetherItems.TOOL_AXE_SKYROOT) && meta == 0) {
             ItemStack[] doubleStack = new ItemStack[results.length << 1];
             System.arraycopy(results, 0, doubleStack, 0, results.length);
@@ -49,7 +50,7 @@ public class BlockLogicLogAether extends BlockLogicLog {
             return doubleStack;
         }
         if (tool != null && tool.equals(AetherItems.TOOL_AXE_HOLYSTONE)) {
-            assert results.length <= 64;
+            if (results.length > 64) throw new IllegalStateException("Expected results.length <= 64 but got " + results.length);
             Random random = ((ItemAccessor) tool).getItemRand();
             int count = 0;
             for (int i = 0; i < results.length; i++) {

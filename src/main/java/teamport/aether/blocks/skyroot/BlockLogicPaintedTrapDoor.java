@@ -16,13 +16,14 @@ public class BlockLogicPaintedTrapDoor extends BlockLogicTrapDoorPainted {
         this.unpaintedBlockID = unpaintedBlockID;
     }
 
+    @Override
     public void removeDye(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta & 15);
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return new ItemStack[]{new ItemStack(this, 1, (meta >> 4 & 15) << 4)};
     }
-
 }

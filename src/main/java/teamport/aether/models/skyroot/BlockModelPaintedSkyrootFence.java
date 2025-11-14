@@ -14,7 +14,8 @@ public class BlockModelPaintedSkyrootFence<T extends BlockLogicFence> extends Bl
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
-        return BlockModelPaintedSkyrootPlanks.texCoords[meta & 15];
+        return BlockModelPaintedSkyrootPlanks.TEX_COORDS[meta & 15];
     }
 }

@@ -16,8 +16,8 @@ public class ItemModelLance extends ItemModelStandard {
         super(item, namespace);
     }
 
+    @Override
     public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
-
         GL11.glScalef(1.25F, 1.25F, 1.25F);
         if (entity instanceof MobValkyrie) {
             GL11.glTranslatef(0.05F, 0.55F, -0.45F);

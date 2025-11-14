@@ -17,5 +17,4 @@ public class BlockLogicPaintedStairs extends BlockLogicStairsPainted {
         int meta = world.getBlockMetadata(x, y, z);
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, this.stripColorFromMetadata(meta));
     }
-
 }

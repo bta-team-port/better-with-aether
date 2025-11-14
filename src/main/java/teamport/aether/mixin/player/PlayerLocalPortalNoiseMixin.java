@@ -7,8 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import teamport.aether.blocks.AetherBlocks;
 
 @Mixin(value = PlayerLocal.class, remap = false)
-public class PlayerLocalPortalNoiseMixin {
-
+public abstract class PlayerLocalPortalNoiseMixin {
     @ModifyArg(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundEngine;playSound(Ljava/lang/String;Lnet/minecraft/core/sound/SoundCategory;FF)V", ordinal = 0), index = 0)
     public String modifyPortalTriggerSound(String originalSound) {
         PlayerLocal player = (PlayerLocal) (Object) this;
@@ -17,7 +16,6 @@ public class PlayerLocalPortalNoiseMixin {
         }
         return originalSound;
     }
-
     @ModifyArg(method = "onLivingUpdate()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundEngine;playSound(Ljava/lang/String;Lnet/minecraft/core/sound/SoundCategory;FF)V", ordinal = 1), index = 0)
     public String modifyPortalTravelSound(String originalSound) {
         PlayerLocal player = (PlayerLocal) (Object) this;

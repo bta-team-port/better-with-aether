@@ -1,5 +1,7 @@
 package teamport.aether.mixin.accessory.cape;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.fabricmc.api.EnvType;
@@ -18,17 +20,14 @@ import teamport.aether.items.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
-abstract public class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
-
-    public MobRendererPlayerMixinCapeRender(ModelBase model, float shadowSize) {
+public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Player> {
+    protected MobRendererPlayerMixinCapeRender(ModelBase model, float shadowSize) {
         super(model, shadowSize);
     }
-
-    @Inject(
-            method = "renderSpecials*",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z", ordinal = 0)
-    )
-    public void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local LocalBooleanRef renderCape) {
+    @Definition(id = "bindDownloadableTexture", method = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z")
+    @Expression("? = ?.bindDownloadableTexture(?, ?, ?)")
+    @Inject(method = "renderSpecials*", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
+    public void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local(name = "renderCape") LocalBooleanRef renderCape) {
         ItemStack itemStack = player.inventory.armorItemInSlot(5);
         if (itemStack == null) return;
         if (!(itemStack.getItem() instanceof ItemAccessoryArmor)) return;

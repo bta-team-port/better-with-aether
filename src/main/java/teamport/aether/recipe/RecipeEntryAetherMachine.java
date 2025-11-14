@@ -14,8 +14,8 @@ public class RecipeEntryAetherMachine extends RecipeEntryBase<RecipeSymbol, Item
         super(input, output, time);
     }
 
-    public RecipeEntryAetherMachine() {
-    }
+    @SuppressWarnings("unused")
+    public RecipeEntryAetherMachine() {}
 
 
     public boolean matchesQueryIgnoreExceptions(SearchQuery query) {

@@ -3,11 +3,13 @@ package teamport.aether.recipe;
 import java.util.Objects;
 
 public class RecipeEntity {
-    String entity;
-    int amount = 1;
+    private final String entity;
+    private final int amount;
 
+    @SuppressWarnings("unused")
     public RecipeEntity(String entity) {
-        this.entity = entity;
+        this(entity, 1);
+
     }
 
     public RecipeEntity(String entity, int amount) {
@@ -19,21 +21,10 @@ public class RecipeEntity {
         return entity;
     }
 
-    public void setEntity(String entity) {
-        this.entity = entity;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof RecipeEntity)) return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         RecipeEntity that = (RecipeEntity) o;
         return amount == that.amount && Objects.equals(entity, that.entity);
     }
@@ -42,5 +33,4 @@ public class RecipeEntity {
     public int hashCode() {
         return Objects.hash(entity, amount);
     }
-
 }

@@ -7,13 +7,13 @@ import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
 public class ItemStaffCloud extends Item {
-
     public ItemStaffCloud(String translationKey, String namespaceId, int id) {
         super(translationKey, namespaceId, id);
         this.setMaxStackSize(1);
         this.setMaxDamage(192);
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         world.playSoundAtEntity(entityplayer, entityplayer, "aether:mob.zephyr.shoot", 0.3F, 1.0F / (itemRand.nextFloat() * -0.2F - 0.4F));
         if (!world.isClientSide) {

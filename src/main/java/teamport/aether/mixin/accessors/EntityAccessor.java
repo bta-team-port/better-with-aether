@@ -8,20 +8,8 @@ import java.util.Random;
 
 @Mixin(value = Entity.class, remap = false)
 public interface EntityAccessor {
-
-    @Accessor("fallDistance")
-    float getFallDistance();
-
-    @Accessor("fallDistance")
+    @Accessor
     void setFallDistance(float fallDistance);
-
-    @Accessor("random")
+    @Accessor
     Random getRandom();
-
-    // later for to suppress onFire
-    @Accessor("fireImmune")
-    boolean getFireImmune();
-
-    @Accessor("fireImmune")
-    void setFireImmune(boolean fireImmune);
 }
