@@ -12,17 +12,17 @@ import teamport.aether.blocks.skyroot.BlockLogicPaintedSignSkyroot;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootSign<T extends BlockLogicPaintedSignSkyroot> extends BlockModelEmpty<T> {
-	public BlockModelPaintedSkyrootSign(Block<T> block) {
-		super(block);
-	}
+    public BlockModelPaintedSkyrootSign(Block<T> block) {
+        super(block);
+    }
 
-	@Override
-	public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
-		return BlockModelPaintedSkyrootPlanks.texCoords[(this.block.getLogic()).fromMetadata(meta).blockMeta];
-	}
+    @Override
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
+        return BlockModelPaintedSkyrootPlanks.TEX_COORDS[(this.block.getLogic()).fromMetadata(meta).blockMeta];
+    }
 
-	@Override
-	public @Nullable IconCoordinate getParticleTexture(@NotNull Side side, int meta) {
-		return BlockModelPaintedSkyrootPlanks.texCoords[(this.block.getLogic()).fromMetadata(meta).blockMeta];
-	}
+    @Override
+    public @Nullable IconCoordinate getParticleTexture(@NotNull Side side, int meta) {
+        return BlockModelPaintedSkyrootPlanks.TEX_COORDS[(this.block.getLogic()).fromMetadata(meta).blockMeta];
+    }
 }

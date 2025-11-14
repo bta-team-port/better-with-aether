@@ -302,8 +302,8 @@ public class AetherModels implements ModelEntrypoint {
 
     private void setBlockSkyrootModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot_retro"));
 
         dispatcher.addDispatch(new BlockModelPaintedSkyrootPlanks<>(AetherBlocks.PLANKS_SKYROOT_PAINTED));
 
@@ -321,11 +321,12 @@ public class AetherModels implements ModelEntrypoint {
             .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
 
         dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-        );
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot"));
         dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-        );
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot"));
+
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootSign<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED));
+        dispatcher.addDispatch(new BlockModelPaintedSkyrootSign<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
             .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
@@ -338,25 +339,25 @@ public class AetherModels implements ModelEntrypoint {
             .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BUTTON_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot_retro").withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootButton<>(AetherBlocks.BUTTON_PLANKS_SKYROOT_PAINTED)
             .withCustomItemBounds(0.3125, 0.375, 0.375, 0.6875, 0.625, 0.625));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot_retro").withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootPreasurePlate<>(AetherBlocks.PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED)
             .withCustomItemBounds(0.0, 0.375, 0.0, 1.0, 0.625, 1.0));
 
         dispatcher.addDispatch(AetherBlocks.FENCE_PLANKS_SKYROOT, new BlockModelFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot_retro"));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootFence<>(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(AetherBlocks.FENCEGATE_PLANKS_SKYROOT, new BlockModelFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/skyroot")
-            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/skyroot_retro"));
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot_retro"));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootFenceGate<>(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_PLANKS_SKYROOT));
