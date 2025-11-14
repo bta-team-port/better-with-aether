@@ -95,8 +95,11 @@ public abstract class LavaBucketMixin {
         }
         return original.call(instance, x, y, z, id);
     }
-    @Expression("?.?")
-    @ModifyExpressionValue(method = "onUseByActivator", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 3))
+
+    @Definition(id = "id", field = "Lnet/minecraft/core/item/Item;id:I")
+    @Definition(id = "BUCKET", field = "Lnet/minecraft/core/item/Items;BUCKET:Lnet/minecraft/core/item/Item;")
+    @Expression("BUCKET.id")
+    @ModifyExpressionValue(method = "onUseByActivator", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
     private int aetherAttemptPlaceLavaSeven(int original, ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction, @Share("preventItemChange") LocalBooleanRef preventItemChange) {
         return preventItemChange.get() ? itemStack.itemID : original;
     }
