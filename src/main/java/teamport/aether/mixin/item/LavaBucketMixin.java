@@ -95,7 +95,6 @@ public abstract class LavaBucketMixin {
         }
         return original.call(instance, x, y, z, id);
     }
-
     @Expression("?.?")
     @ModifyExpressionValue(method = "onUseByActivator", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 3))
     private int aetherAttemptPlaceLavaSeven(int original, ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction, @Share("preventItemChange") LocalBooleanRef preventItemChange) {

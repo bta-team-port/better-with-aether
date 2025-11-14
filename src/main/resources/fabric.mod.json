@@ -57,18 +57,16 @@
 
   "mixins": ["aether.mixins.json"],
 
-  "accessWidener": "aether.accesswidener",
-
-	"depends": {
-		"fabricloader": ">=${fabricloader}",
-		"halplibe": ">=${halplibe}",
-		"catalyst-core": ">=${catalystcore}",
-		"catalyst-effects": ">=${catalysteffects}",
-		"uselessnumerical": ">=${uselessnumerical}",
-		"minecraft": "*",
-		"java": ">=${java}"
-	},
-	"suggests": {
-		"modmenu": ">=${modmenu}"
-	}
+  "depends": {
+    "fabricloader": ">=${fabricloader}",
+    "halplibe": ">=${halplibe}",
+    "catalyst-core": ">=${catalystcore}",
+    "catalyst-effects": ">=${catalysteffects}",
+    "uselessnumerical": ">=${uselessnumerical}",
+    "minecraft": "*",
+    "java": ">=${java}"
+  },
+  "suggests": {
+    "modmenu": ">=${modmenu}"
+  }
 }
