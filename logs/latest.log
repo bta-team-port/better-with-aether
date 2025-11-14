@@ -1,0 +1,224 @@
+[00:17:42] [main/INFO] (FabricLoader/GameProvider) Loading Minecraft 7.3_04 with Fabric Loader 0.15.6-bta.7
+[00:17:42] [ForkJoinPool-1-worker-7/WARN] (FabricLoader/Metadata) Mod btwaila uses the version 1.2.2-7.3_04 which isn't compatible with Loader's extended semantic version format (Invalid prerelease string '7.3_04'!), SemVer is recommended for reliably evaluating dependencies and prioritizing newer version
+[00:17:42] [main/INFO] (FabricLoader) Loading 12 mods:
+	- aether 0.12.2+7.3_04
+	- btwaila 1.2.2-7.3_04
+	- catalyst-core 2.2.0
+	- catalyst-effects 2.5.1
+	- fabricloader 0.15.6-bta.7
+	- halplibe 5.3.1
+	- java 17
+	- legacy-lwjgl3 1.0.4
+	- minecraft 7.3.4
+	- mixinextras 0.3.2
+	- modmenu 3.0.0
+	- uselessnumerical 1.1.0
+[00:17:42] [main/INFO] (FabricLoader/Mixin) SpongePowered MIXIN Subsystem Version=0.8.5 Source=file:/var/home/Rin/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.12.5+mixin.0.8.5/8d31fb97c3e0cd7c8dad3441851c523bcfae6d8e/sponge-mixin-0.12.5+mixin.0.8.5.jar Service=Knot/Fabric Env=CLIENT
+[00:17:42] [main/INFO] (FabricLoader/Mixin) Loaded Fabric development mappings for mixin remapper!
+[00:17:43] [main/INFO] (halplibe) Config file name: halplibe.cfg
+[00:17:43] [main/INFO] (halplibe) Config file path: /var/home/Rin/IdeaProjects/better-with-aether/config/halplibe.cfg
+[00:17:43] [main/INFO] (FabricLoader/MixinExtras|Service) Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.3.2).
+[00:17:44] [main/INFO] (Minecraft) LWJGL version = 3.3.3-snapshot
+[00:17:44] [main/INFO] (halplibe) Config file name: catalyst-effects.cfg
+[00:17:44] [main/INFO] (halplibe) Config file path: /var/home/Rin/IdeaProjects/better-with-aether/config/catalyst-effects.cfg
+[00:17:44] [main/INFO] (uselessnumerical) UselessNumerical initialized.
+[00:17:44] [main/INFO] (catalyst-core) Catalyst: Core initialized.
+[00:17:44] [main/INFO] (FabricLoader/Mixin) aether.mixins.json:accessors.ItemAccessor from mod aether->@Accessor[FIELD_GETTER]::getItemRand()Ljava/util/Random; should be static as its target is
+[00:17:44] [main/INFO] (aether) Aether initialized, welcome to a hostile paradise. Version beta 0.12.2+7.3_04
+[00:17:44] [main/INFO] (halplibe) HalpLibe initialized.
+[00:17:45] [main/INFO] (aether) AetherMod client initialized.
+[00:17:45] [main/INFO] (Minecraft) Using bundled let's encrypt certificates
+[00:17:46] [main/ERROR] (halplibe) Failed to find path to assets/aether/textures/gui/sign! [aether]
+[00:17:46] [main/INFO] (aether) Initializing config..
+[00:17:46] [main/INFO] (halplibe) Config file name: aether.cfg
+[00:17:46] [main/INFO] (halplibe) Config file path: /var/home/Rin/IdeaProjects/better-with-aether/config/aether.cfg
+[00:17:47] [main/WARN] (Minecraft) Unknown component: wailaInfoBase
+[00:17:47] [main/WARN] (Minecraft) Unknown component: wailaInfoHarvest
+[00:17:47] [main/WARN] (Minecraft) Unknown component: wailaInfoAdvanced
+[00:17:47] [main/WARN] (Minecraft) Unknown component: wailaInfoIcon
+[00:17:47] [main/WARN] (Minecraft) Unknown component: wailaInfoTool
+[00:17:47] [main/INFO] (Minecraft) Java Version: 17.0.12
+[00:17:47] [main/INFO] (Minecraft) [STDOUT]: If the game crashes with a message similar to 
+"Inconsistency detected by ld.so: dl-lookup.c: 111: check_match: Assertion `version->filename == NULL || ! _dl_name_match_p (version->filename, map)' failed!", 
+Either use Java 8 or 17 from Eclipse Adoptium!
+[00:17:47] [main/INFO] (Minecraft) [STDOUT]: GLFW Init
+[00:17:47] [main/INFO] (Minecraft) Resolution: 854 x 480
+[00:17:47] [main/INFO] (Minecraft) 2944 Translation Keys
+[00:17:47] [main/INFO] (Minecraft) 4.6.0 NVIDIA 580.95.05
+[00:17:47] [main/INFO] (Minecraft) NVIDIA Corporation
+[00:17:47] [main/INFO] (Minecraft) NVIDIA GeForce RTX 2080/PCIe/SSE2
+[00:17:47] [main/INFO] (Minecraft) GL_ARB_framebuffer_object: true
+[00:17:47] [main/INFO] (Minecraft) GL_ARB_occlusion_query: true
+[00:17:47] [main/INFO] (Minecraft) GL_NV_fog_distance: true
+[00:17:47] [main/INFO] (Minecraft) Enable Shaders: true
+[00:17:47] [main/INFO] (Minecraft) [STDOUT]: MultiDraw disabled, using legacy terrain renderer
+[00:17:47] [main/INFO] (Minecraft) Reloading Shaders...
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: java.lang.RuntimeException: Could not find data for entry '/assets/aether/sounds/sliderboss.ogg'! Unable to copy data!
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.NamedSoundRepository.loadFromPath(NamedSoundRepository.java:67)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.NamedSoundRepository.<init>(NamedSoundRepository.java:33)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.<init>(SoundRepository.java:27)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.reload(SoundRepository.java:119)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.initialize(SoundRepository.java:113)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.startGame(Minecraft.java:526)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.run(Minecraft.java:967)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.startMainThread(Minecraft.java:2733)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.main(Minecraft.java:2839)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:475)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:74)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: java.lang.RuntimeException: Could not find data for entry '/assets/aether/sounds/fireboss.ogg'! Unable to copy data!
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.NamedSoundRepository.loadFromPath(NamedSoundRepository.java:67)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.NamedSoundRepository.<init>(NamedSoundRepository.java:33)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.<init>(SoundRepository.java:27)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.reload(SoundRepository.java:119)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.sound.SoundRepository.initialize(SoundRepository.java:113)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.startGame(Minecraft.java:526)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.run(Minecraft.java:967)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.startMainThread(Minecraft.java:2733)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.minecraft.client.Minecraft.main(Minecraft.java:2839)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:475)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:74)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+[00:17:47] [main/INFO] (Minecraft) [STDERR]: 	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
+[00:17:47] [main/INFO] (Minecraft) Drawing Loading Screen...
+[00:17:49] [main/INFO] (Minecraft) Drawing Loading Screen...
+[00:17:49] [main/INFO] (Minecraft) Initializing input
+[00:17:49] [main/INFO] (Minecraft) 2 controllers found!
+[00:17:49] [main/INFO] (Minecraft) Input done!
+[00:17:49] [main/INFO] (Minecraft) Setting up OpenGL values...
+[00:17:49] [main/INFO] (Minecraft) [STDOUT]: 
+[00:17:49] [main/INFO] (Minecraft) [STDOUT]: Starting up SoundSystem...
+[00:17:49] [Thread-1/INFO] (Minecraft) [STDOUT]: Initializing LWJGL OpenAL
+[00:17:49] [Thread-1/INFO] (Minecraft) [STDOUT]:     (The LWJGL3 binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[00:17:49] [Thread-1/INFO] (Minecraft) [STDOUT]: OpenAL initialized.
+[00:17:50] [main/INFO] (Minecraft) [STDOUT]: 
+[00:17:50] [main/INFO] (Minecraft) Drawing Loading Screen...
+[00:17:50] [main/INFO] (Minecraft) Active Texture Packs: 
+[00:17:50] [main/INFO] (Minecraft) Initializing Dynamic Textures...
+[00:17:50] [main/INFO] (Minecraft) Generating Mipmaps...
+[00:17:50] [main/INFO] (Minecraft) Generating Mipmaps...
+[00:17:50] [main/INFO] (Minecraft) [STDOUT]: Expanding buffer to 4194304
+[00:17:50] [main/INFO] (Minecraft) Generating Mipmaps...
+[00:17:50] [main/INFO] (Minecraft) Generating Mipmaps...
+[00:17:50] [main/INFO] (Minecraft) Drawing Loading Screen...
+[00:17:50] [main/INFO] (Minecraft) Initializing Renderer...
+[00:17:50] [main/INFO] (Minecraft) Starting Resource Download Thread...
+[00:17:50] [Resource Download/INFO] (Minecraft) Downloading sounds...
+[00:17:50] [main/INFO] (Minecraft) Registered 23 recipes from /recipes/blast_furnace.json
+[00:17:50] [main/INFO] (Minecraft) Registered 24 recipes from /recipes/furnace.json
+[00:17:50] [main/INFO] (Minecraft) Registered 6 recipes from /recipes/trommel.json
+[00:17:50] [main/INFO] (Minecraft) Registered 487 recipes from /recipes/workbench.json
+[00:17:50] [main/INFO] (Minecraft) Registered 16 recipes from /assets/aether/recipes/freezer.json
+[00:17:50] [main/INFO] (Minecraft) Registered 7 recipes from /assets/aether/recipes/incubator.json
+[00:17:50] [main/INFO] (Minecraft) Registered 13 recipes from /assets/aether/recipes/enchanter.json
+[00:17:50] [main/INFO] (Minecraft) Registered 20 recipes from /assets/aether/recipes/workbench.json
+[00:17:50] [main/INFO] (Minecraft) 59 item groups.
+[00:17:50] [main/INFO] (Minecraft) 876 recipes in 11 groups in 2 namespaces.
+[00:17:51] [main/INFO] (Minecraft) Drawing Loading Screen...
+[00:17:51] [main/INFO] (Minecraft) [STDOUT]: Change to Windowed
+[00:17:51] [main/INFO] (catalyst-effects) 2 attributes registered.
+[00:17:51] [main/INFO] (catalyst-effects) 2 effects registered.
+[00:17:51] [main/INFO] (catalyst-effects) Catalyst: Effects initialized.
+[00:17:51] [main/INFO] (btwaila) BTWaila initialized.
+[00:17:51] [main/INFO] (btwaila) BTWaila VersionHelper: major=1, minor=2, patch=2 [1.2.2]
+[00:17:51] [main/INFO] (btwaila|client) Loading implementations.
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: InventoryTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: BasketTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: FlagTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: FurnaceTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: JarToolTip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: MobSpawnerTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: NoteBlockTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: JukeboxTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: SeatTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: SignTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: TrommelTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: ChickenTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: BoatTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: PigTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: PaintingTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: MinecartTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: PlayerTooltip
+[00:17:51] [main/INFO] (btwaila|client) Loading default tooltips..
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: EnchanterTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: FreezerTooltip
+[00:17:51] [main/INFO] (btwaila) Adding tooltips for: IncubatorTooltip
+[00:17:51] [main/INFO] (aether) Starting Resource Download Thread...
+[00:17:51] [main/INFO] (Minecraft) Display: 854 x 480, Render: 854 x 480
+[00:17:51] [Aether Resource Download/INFO] (aether) Manifest Downloaded
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/clouds.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/sliderboss.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/menu.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/fireboss.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/approaches.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/a_light_in_the_night.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/brise.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/moas_song.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/crepusculum.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/meadow.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/welcome_to_paradise.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/music/wings.ogg
+[00:17:51] [GetSkinUrlThread 0/INFO] (Minecraft) Loading Skin for Player Useless7695...
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/record/ascending_dawn.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/record/menu_nether.ogg
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/record/aether_tune.ogg
+[00:17:51] [GetSkinUrlThread 0/INFO] (Minecraft) Skin URL: http://textures.minecraft.net/texture/2f7a8da1616e3acc11ae756acd9d34650d0672f50568844fa14d512039e3de0f
+[00:17:51] [Aether Resource Download/INFO] (aether) File Already Downloaded: /var/home/Rin/IdeaProjects/better-with-aether/resources/aether/sounds/record/a_morning_wish.ogg
+[00:17:55] [main/INFO] (Minecraft) Display: 1920 x 1052, Render: 1920 x 1052
+[00:18:03] [main/INFO] (Minecraft) Connecting to 192.168.1.115, 25565
+[00:18:03] [main/INFO] (uselessnumerical) Got server configuration
+[00:18:03] [main/INFO] (Minecraft) Using grass color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using water color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using stars color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using oak color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using birch color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using pine color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using cherry color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using shrub color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using eucalyptus color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using cacao color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using thorn color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Using palm color from texture pack Default
+[00:18:03] [main/INFO] (Minecraft) Updating Colorizers
+[00:18:03] [main/INFO] (Minecraft) logged in with session name: notch
+[00:18:03] [GetSkinUrlThread 0/INFO] (Minecraft) Loading Skin for Player notch...
+[00:18:04] [main/INFO] (Minecraft) Loading custom lightmap '/assets/minecraft/textures/environment/lightmap0.png'
+[00:18:04] [main/INFO] (Minecraft) No custom lightmap found
+[00:18:04] [main/INFO] (Minecraft) Receiving 873 recipes from server..
+[00:18:04] [GetSkinUrlThread 0/INFO] (Minecraft) Skin URL: http://textures.minecraft.net/texture/292009a4925b58f02c77dadc3ecef07ea4c7472f64e0fdc32ce5522489362680
+[00:18:04] [GetSkinUrlThread 0/INFO] (Minecraft) Cape URL: null
+[00:18:04] [main/INFO] (Minecraft) All recipes received!
+[00:18:04] [GetSkinUrlThread 1/INFO] (Minecraft) Loading Skin for Player seamurott...
+[00:18:04] [main/INFO] (aether) Received SunspiritDeathNetworkMessage.
+[00:18:04] [main/INFO] (Minecraft) Updating Colorizers
+[00:18:04] [GetSkinUrlThread 1/INFO] (Minecraft) Skin URL: http://textures.minecraft.net/texture/782ba09c9fb81c61a128d49d52dff949f27c6a9fcc2b746ae55f323628386c27
+[00:18:04] [GetSkinUrlThread 1/INFO] (Minecraft) Cape URL: http://textures.minecraft.net/texture/569b7f2a1d00d26f30efe3f9ab9ac817b1e6d35f4f3cfb0324ef2d328223d350
+[00:18:04] [DownloadImage 2/ERROR] (Minecraft) Exception when getting image from 'https://api.betterthanadventure.net/v2/capes?uuid=337409a379c1442f913b7e5b54d1ee9d'!
+java.io.IOException: Server returned HTTP response code: 500 for URL: https://api.betterthanadventure.net/v2/capes?uuid=337409a379c1442f913b7e5b54d1ee9d
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:2075) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:2070) ~[?:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:569) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:2069) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1630) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1610) ~[?:?]
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:224) ~[?:?]
+	at net.minecraft.client.net.thread.ThreadDownloadImage.run(ThreadDownloadImage.java:44) ~[minecraft-merged-1e3f212220-7.3_04-loom.mappings.7_3_04.layered+hash.31-v2.jar:?]
+Caused by: java.io.IOException: Server returned HTTP response code: 500 for URL: https://api.betterthanadventure.net/v2/capes?uuid=337409a379c1442f913b7e5b54d1ee9d
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:2018) ~[?:?]
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1610) ~[?:?]
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:529) ~[?:?]
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:308) ~[?:?]
+	at net.minecraft.client.net.thread.ThreadDownloadImage.run(ThreadDownloadImage.java:41) ~[minecraft-merged-1e3f212220-7.3_04-loom.mappings.7_3_04.layered+hash.31-v2.jar:?]
+[00:20:06] [main/INFO] (Minecraft) Display: 854 x 480, Render: 854 x 480
+[00:20:46] [main/INFO] (Minecraft) [CHAT] §0seamurott§4 left the game.
+[00:20:48] [main/INFO] (Minecraft) Stopping!
+[00:20:48] [main/INFO] (Minecraft) [STDOUT]: 
+[00:20:48] [main/INFO] (Minecraft) [STDOUT]: SoundSystem shutting down...
+[00:20:48] [main/INFO] (Minecraft) [STDOUT]:     Author: Paul Lamb, www.paulscode.com
+[00:20:48] [main/INFO] (Minecraft) [STDOUT]: 

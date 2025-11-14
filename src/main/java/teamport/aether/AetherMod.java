@@ -77,6 +77,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherDungeonMapUpdateNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherSyncInvisibilityNetworkMessage::new);
+        NetworkHandler.registerNetworkMessage(AetherSyncRepulsionNetworkMessage::new);
 
     }
 

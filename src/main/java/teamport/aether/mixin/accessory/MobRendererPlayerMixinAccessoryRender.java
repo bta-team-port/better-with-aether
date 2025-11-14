@@ -3,6 +3,7 @@ package teamport.aether.mixin.accessory;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
@@ -15,16 +16,15 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.helper.GLManager;
+import teamport.aether.items.AetherRepulsion;
+import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.pendant.ItemPendant;
@@ -34,7 +34,7 @@ import teamport.aether.items.accessory.trinket.ItemRegenStone;
 import teamport.aether.items.accessory.trinket.ItemShield;
 
 import static teamport.aether.items.accessory.SlotAccessory.*;
-
+@Debug(export = true)
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)
 abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
@@ -110,6 +110,23 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         ci.cancel();
     }
 
+    @Inject(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("HEAD"))
+    public void renderPlayer(Player entity, int layer, float partialTick, CallbackInfoReturnable<Boolean> ci) {
+        if (((AetherInvisibility) entity).aether$isInvisible() && entity instanceof Player) {
+            GL11.glColor4f(0.5F, 0.5F, 0.5F, 0.15F);
+            GL11.glEnable(3042);
+        }
+    }
+
+    @Inject(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At("HEAD"))
+    public void renderPlayerInvis(Player entity, float partialTick, CallbackInfo ci) {
+        if (((AetherInvisibility) entity).aether$isInvisible() && entity instanceof Player) {
+            GL11.glColor4f(0.5F, 0.5F, 0.5F, 0.15F);
+        }
+    }
+
+
+
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
     public int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3 - renderPass;
@@ -141,11 +158,10 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 info.setReturnValue(true);
                 return;
             }
-            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6) {
+            if ((item instanceof ItemShield && (renderPass == TRINKET_2_SLOT || player.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield_6 && player instanceof Player) {
                 this.shield_6 = false;
-                double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
                 String path;
-                if (player.isSneaking() || (player.onGround && velocity < 0.075D)) {
+                if (((AetherRepulsion) player).aether$isrepulse()) {
                     path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
                 } else {
                     path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
@@ -154,8 +170,13 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLManager.glEnable(GL11.GL_CULL_FACE);
                 GLManager.glEnable(GL11.GL_BLEND);
+                if (((AetherInvisibility) player).aether$isInvisible()) {
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
+                    GL11.glEnable(3042);
+                } else {
                 GL11.glColor4f(1, 1, 1, 1);
                 GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                }
                 setArmorModel(shield);
 
                 info.setReturnValue(true);
@@ -167,6 +188,7 @@ abstract public class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 this.shield_6 = true;
                 ItemStack nextSlot = player.inventory.armorInventory[renderPass + 1];
                 item = nextSlot.getItem();
+                renderPass += 1;
             }
 
             ItemStack ItemTrinket_Slot1 = player.inventory.armorInventory[TRINKET_1_SLOT];

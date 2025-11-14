@@ -15,6 +15,7 @@ public class AetherItemTags {
     public static Tag<Item> NATURE_STAFF_FOLLOW = Tag.of("nature_staff_follow");
     public static Tag<Item> TRINKET = Tag.of("trinket"); // only assign to vanilla items
 
+
     static {
         Field[] var0 = ItemTags.class.getDeclaredFields();
 
