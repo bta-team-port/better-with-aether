@@ -10,6 +10,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
@@ -17,6 +18,7 @@ import net.minecraft.core.item.ItemBucket;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
@@ -28,6 +30,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
+
+import java.util.Random;
 
 @Mixin(value = ItemBucket.class, remap = false)
 public abstract class LavaBucketMixin {
@@ -79,7 +83,22 @@ public abstract class LavaBucketMixin {
         return original.call(instance);
     }
     @WrapOperation(method = "onUseByActivator", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockWithNotify(IIII)Z"))
-    private boolean aetherAttemptPlaceLavaSix(World instance, int x, int y, int z, int id, Operation<Boolean> original) {
-        return original.call(instance, x, y, z, instance.dimension == AetherDimension.getAether() && this.blockToPlace != null && this.blockToPlace.hasTag(BlockTags.IS_LAVA) ? AetherBlocks.AEROGEL.id() : id);
+    private boolean aetherAttemptPlaceLavaSix(World instance, int x, int y, int z, int id, Operation<Boolean> original, ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction, @Share("preventItemChange") LocalBooleanRef preventItemChange) {
+        preventItemChange.set(false);
+        if (instance.dimension == AetherDimension.getAether() && this.blockToPlace != null && this.blockToPlace.hasTag(BlockTags.IS_LAVA)) {
+            if (instance.canBlockBePlacedAt(AetherBlocks.AEROGEL.id(), x, y, z, false, direction.getSide())) {
+                original.call(instance, x, y, z, AetherBlocks.AEROGEL.id());
+                return true;
+            }
+            preventItemChange.set(true);
+            return false;
+        }
+        return original.call(instance, x, y, z, id);
+    }
+
+    @Expression("?.?")
+    @ModifyExpressionValue(method = "onUseByActivator", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 3))
+    private int aetherAttemptPlaceLavaSeven(int original, ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction, @Share("preventItemChange") LocalBooleanRef preventItemChange) {
+        return preventItemChange.get() ? itemStack.itemID : original;
     }
 }
