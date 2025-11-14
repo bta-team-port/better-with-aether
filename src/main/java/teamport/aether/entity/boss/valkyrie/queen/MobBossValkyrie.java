@@ -154,7 +154,8 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public boolean interact(@NonNull Player entityplayer) {
-        if (this.world == null || this.chatTime > 0 || (this.isReadyToDuel && this.target == entityplayer)) return false;
+        if (this.world == null || this.chatTime > 0 || (this.isReadyToDuel && this.target == entityplayer))
+            return false;
 
         this.lookAt(entityplayer, 180.0F, 180.0F);
         world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
@@ -198,7 +199,8 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public Entity findPlayerToAttack() {
-        if (!this.isReadyToDuel || !this.isAgro || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn()) return null;
+        if (!this.isReadyToDuel || !this.isAgro || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn())
+            return null;
 
         Entity newTarget = this.world.players.stream()
             .filter(Objects::nonNull)
@@ -265,18 +267,27 @@ public class MobBossValkyrie extends MobBoss {
         WorldFeaturePoint p1 = new WorldFeaturePoint(this.returnPoint.getX() - 9, this.returnPoint.getY() - 3, this.returnPoint.getZ() - 16);
         for (int q = 0; q < 128 && !flag; ++q) {
             int ix = newX + (this.random.nextInt(6) - this.random.nextInt(6));
-            int iy = (int) this.y;
+            int iy = newY + this.random.nextInt(rad / 2);
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
-            if (this.world != null && iy >= 0 && iy < this.world.getHeightBlocks()
-                && this.isAirySpace(ix, iy, iz) && this.isAirySpace(ix, iy + 1, iz) && !this.isAirySpace(ix, iy - 1, iz)
-                && ix >= p1.getX() && ix <= p1.getX() + 16
-                && iy >= p1.getY() && iy <= p1.getY() + 16
-                && iz >= p1.getZ() && iz <= p1.getZ() + 16
-            ) {
-                newX = ix;
-                newY = iy;
-                newZ = iz;
-                flag = true;
+
+            for (int searchY = iy; searchY >= p1.getY(); --searchY) {
+                if (searchY < 0 || searchY + 1 >= this.world.getHeightBlocks()) continue;
+
+                boolean isAirAbove = this.isAirySpace(ix, searchY, iz);
+                boolean isAirHead = this.isAirySpace(ix, searchY + 1, iz);
+                boolean isGroundBelow = !this.isAirySpace(ix, searchY - 1, iz);
+
+                if (isAirAbove && isAirHead && isGroundBelow
+                    && ix >= p1.getX() && ix <= p1.getX() + 16
+                    && searchY >= p1.getY() && searchY <= p1.getY() + 16
+                    && iz >= p1.getZ() && iz <= p1.getZ() + 16
+                ) {
+                    newX = ix;
+                    newY = searchY;
+                    newZ = iz;
+                    flag = true;
+                    break;
+                }
             }
         }
 
@@ -300,7 +311,7 @@ public class MobBossValkyrie extends MobBoss {
             this.yRot = 0.0F;
             this.setPathToEntity(null);
             this.yBodyRot = this.random.nextFloat() * 360.0F;
-            this.teleportTimer = this.random.nextInt(2 * Global.TICKS_PER_SECOND);
+            this.teleportTimer = this.random.nextInt(Global.TICKS_PER_SECOND);
         }
     }
 
