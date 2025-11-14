@@ -27,7 +27,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     private boolean isSwinging;
     private int teleportTimer;
     private int chatTime;
-    private float sinage;
+    protected static float wingSpeed;
 
 
     public MobValkyrie(World world) {
@@ -95,13 +95,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
 
         if (!this.onGround) {
-            this.sinage += 0.75F;
+            this.wingSpeed += 0.75F;
         } else {
-            this.sinage += 0.15F;
+            this.wingSpeed += 0.15F;
         }
 
-        if (this.sinage > 6.283186F) {
-            this.sinage -= 6.283186F;
+        if (this.wingSpeed > 6.283186F) {
+            this.wingSpeed -= 6.283186F;
         }
     }
 
