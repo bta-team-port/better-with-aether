@@ -12,13 +12,10 @@ import teamport.aether.AetherMod;
 
 @Mixin(value = Entity.class, remap = false)
 public abstract class EntityLightningBoltMixin {
-
     @Shadow
     public abstract boolean hurt(Entity attacker, int baseDamage, DamageType type);
-
     @Inject(method = "thunderHit", at = @At("HEAD"))
     private void thunderHit(EntityLightning bolt, CallbackInfo ci) {
         this.hurt(null, 5, AetherMod.LIGHTNING);
     }
-
 }

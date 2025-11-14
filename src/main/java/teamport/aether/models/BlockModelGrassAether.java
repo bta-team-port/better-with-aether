@@ -16,18 +16,20 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelGrassAether<T extends BlockLogic> extends BlockModelStandard<T> {
-    public IconCoordinate snowSide = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side");
-    public IconCoordinate snowSideRetro = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side_retro");
+    private final IconCoordinate snowSide = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side");
+    private final IconCoordinate snowSideRetro = TextureRegistry.getTexture(MOD_ID + ":block/grass_aether/snowy_side_retro");
 
     public BlockModelGrassAether(Block<T> block) {
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         Material material = blockAccess.getBlockMaterial(x, y + 1, z);
+        boolean isSnow = (material == Material.topSnow || material == Material.snow) && side.getAxis() != Axis.Y;
         if (isRetro()) {
-            return (material == Material.topSnow || material == Material.snow) && side.getAxis() != Axis.Y ? this.snowSideRetro : super.getBlockTexture(blockAccess, x, y, z, side);
+            return isSnow ? this.snowSideRetro : super.getBlockTexture(blockAccess, x, y, z, side);
         }
-        return (material == Material.topSnow || material == Material.snow) && side.getAxis() != Axis.Y ? this.snowSide : super.getBlockTexture(blockAccess, x, y, z, side);
+        return isSnow ? this.snowSide : super.getBlockTexture(blockAccess, x, y, z, side);
     }
 }

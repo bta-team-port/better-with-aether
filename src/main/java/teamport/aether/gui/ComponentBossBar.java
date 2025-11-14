@@ -15,19 +15,17 @@ import teamport.aether.entity.boss.EnemyBoss;
 import java.util.List;
 
 public class ComponentBossBar extends HudComponentMovable {
-    public static final int barWidth = 256;
-    public static final int barHeight = 16;
-    public static final int textOffset = -10;
-    public static final int spacing = 13;
+    private static final int BAR_WIDTH = 256;
+    private static final int BAR_HEIGHT = 16;
+    private static final int TEXT_OFFSET = -10;
+    private static final int SPACING = 13;
 
-    public static final int barAmountLimit = 3;
+    private static final int BAR_AMOUNT_LIMIT = 3;
 
-    //
-
-    public static int height;
+    private static int height;
 
     public ComponentBossBar(String key, Layout layout) {
-        super(key, barWidth, barHeight, layout);
+        super(key, BAR_WIDTH, BAR_HEIGHT, layout);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ComponentBossBar extends HudComponentMovable {
     public List<Mob> getBossesFromPlayer(Minecraft mc) {
         List<Mob> bossList = ((AetherBossList) mc.thePlayer).aether$getBossList();
 
-        return bossList.subList(0, Math.min(bossList.size(), barAmountLimit));
+        return bossList.subList(0, Math.min(bossList.size(), BAR_AMOUNT_LIMIT));
     }
 
     @Override
@@ -56,7 +54,7 @@ public class ComponentBossBar extends HudComponentMovable {
         int i = 0;
 
         List<Mob> mobList = getBossesFromPlayer(mc);
-        height = mobList.isEmpty() ? 0 : (barHeight + spacing) * mobList.size() + spacing;
+        height = mobList.isEmpty() ? 0 : (BAR_HEIGHT + SPACING) * mobList.size() + SPACING;
 
         for (Mob mob : mobList) {
             drawBossBar(mc, hudIngame, mob, i++, xSizeScreen, ySizeScreen);
@@ -65,13 +63,13 @@ public class ComponentBossBar extends HudComponentMovable {
 
     @Override
     public void renderPreview(Minecraft mc, Gui gui, Layout layout, int xSizeScreen, int ySizeScreen) {
-        height = (barHeight + spacing) * 3 + spacing;
+        height = (BAR_HEIGHT + SPACING) * 3 + SPACING;
 
         for (int offset = 0; offset < 3; offset++) {
             int barX = getLayout().getComponentX(mc, this, xSizeScreen);
-            int barY = getLayout().getComponentY(mc, this, ySizeScreen) + (barHeight + spacing) * offset + spacing;
-            int textX = barX + barWidth / 2;
-            int textY = barY + textOffset;
+            int barY = getLayout().getComponentY(mc, this, ySizeScreen) + (BAR_HEIGHT + SPACING) * offset + SPACING;
+            int textX = barX + BAR_WIDTH / 2;
+            int textY = barY + TEXT_OFFSET;
 
             drawProgressBar(mc, gui, barX, barY, 100, 100);
             String title = I18n.getInstance().translateKey("aether.menu.boss_bar.preview_name");
@@ -81,9 +79,9 @@ public class ComponentBossBar extends HudComponentMovable {
 
     void drawBossBar(Minecraft mc, Gui gui, Mob mob, int offset, int xSizeScreen, int ySizeScreen) {
         int barX = getLayout().getComponentX(mc, this, xSizeScreen);
-        int barY = getLayout().getComponentY(mc, this, ySizeScreen) + (barHeight + spacing) * offset + spacing;
-        int textX = barX + barWidth / 2;
-        int textY = barY + textOffset;
+        int barY = getLayout().getComponentY(mc, this, ySizeScreen) + (BAR_HEIGHT + SPACING) * offset + SPACING;
+        int textX = barX + BAR_WIDTH / 2;
+        int textY = barY + TEXT_OFFSET;
 
         drawProgressBar(mc, gui, barX, barY, mob.getHealth(), mob.getMaxHealth());
         String entityName = (mob instanceof EnemyBoss) ? ((EnemyBoss) mob).getBossTitle() : mob.getDisplayName();
@@ -92,11 +90,11 @@ public class ComponentBossBar extends HudComponentMovable {
 
     public void drawProgressBar(Minecraft mc, Gui gui, int barX, int barY, int health, int maxHealth) {
         float progress = (float) health / (float) maxHealth;
-        int progressWidth = (int) (barWidth * progress);
+        int progressWidth = (int) (BAR_WIDTH * progress);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.textureManager.bindTexture(mc.textureManager.loadTexture("/assets/aether/textures/gui/boss_healthbar.png"));
-        gui.drawTexturedModalRect(barX, barY, 0, 16, barWidth, barHeight); // Background
-        gui.drawTexturedModalRect(barX, barY, 0, 0, progressWidth, barHeight); // LifeBar
+        gui.drawTexturedModalRect(barX, barY, 0, 16, BAR_WIDTH, BAR_HEIGHT); // Background
+        gui.drawTexturedModalRect(barX, barY, 0, 0, progressWidth, BAR_HEIGHT); // LifeBar
     }
 }

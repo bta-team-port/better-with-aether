@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.items.AetherItems;
-import teamport.aether.items.itemtool.ItemToolAxeAether;
+import teamport.aether.items.item_tool.ItemToolAxeAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class BlockLogicGoldenLogAether extends BlockLogicLogAether {

@@ -17,12 +17,14 @@ public class BlockLogicSaplingSkyroot extends BlockLogicSaplingBase {
         super(block);
     }
 
+    @Override
     public boolean mayPlaceOn(int blockId) {
-        return Blocks.blocksList[blockId] != null
-                && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS)
-                || Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_TREES)
-                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
-                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES));
+        Block<?> block = Blocks.blocksList[blockId];
+        return block != null
+            && (block.hasTag(BlockTags.GROWS_FLOWERS)
+            || block.hasTag(BlockTags.GROWS_TREES)
+            || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
+            || block.hasTag(AetherBlockTags.GROWS_AETHER_TREES));
     }
 
     @Override

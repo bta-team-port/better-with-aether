@@ -7,13 +7,14 @@ import net.minecraft.core.world.World;
 import teamport.aether.achievements.AetherAchievements;
 
 public class ItemAmbrosium extends ItemFood {
-    public final int ticksPerHeal;
+    private final int ticksPerHeal;
 
     public ItemAmbrosium(String name, String namespaceId, int id, int healAmount, int ticksPerHeal, boolean favouriteWolfMeat, int maxStackSize) {
         super(name, namespaceId, id, healAmount, ticksPerHeal, favouriteWolfMeat, maxStackSize);
         this.ticksPerHeal = ticksPerHeal;
     }
 
+    @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         if (entityplayer.getHealth() < entityplayer.getMaxHealth() && entityplayer.getHealth() + entityplayer.getTotalHealingRemaining() < entityplayer.getMaxHealth() && itemstack.consumeItem(entityplayer)) {
             entityplayer.eatFood(this);

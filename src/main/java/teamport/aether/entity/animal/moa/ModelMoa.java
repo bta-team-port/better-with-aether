@@ -8,32 +8,32 @@ import net.minecraft.core.util.helper.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class ModelMoa extends ModelBase {
-    public Cube head;
-    public Cube palate;
-    public Cube body;
-    public Cube legs;
-    public Cube legs2;
-    public Cube wings;
-    public Cube wings2;
-    public Cube jaw;
-    public Cube neck;
-    public Cube feather1;
-    public Cube feather2;
-    public Cube feather3;
+    private final Cube head;
+    private final Cube palate;
+    private final Cube body;
+    private final Cube legs;
+    private final Cube legs2;
+    private final Cube wings;
+    private final Cube wings2;
+    private final Cube jaw;
+    private final Cube neck;
+    private final Cube feather1;
+    private final Cube feather2;
+    private final Cube feather3;
 
     public ModelMoa() {
         byte byte0 = 16;
         this.head = new Cube(0, 13);
         this.head.addBox(-2.0F, -4.0F, -6.0F, 4, 4, 8, 0.0F);
-        this.head.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
+        this.head.setRotationPoint(0.0F, (-8 + byte0), -4.0F);
 
         this.palate = new Cube(24, 13);
         this.palate.addBox(-2.0F, -1.0F, -6.0F, 4, 0, 8, -0.1F);
-        this.palate.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
+        this.palate.setRotationPoint(0.0F, (-8 + byte0), -4.0F);
 
         this.jaw = new Cube(24, 13);
         this.jaw.addBox(-2.0F, -1.0F, -6.0F, 4, 1, 8, -0.1F);
-        this.jaw.setRotationPoint(0.0F, (float) (-8 + byte0), -4.0F);
+        this.jaw.setRotationPoint(0.0F, (-8 + byte0), -4.0F);
         this.body = new Cube(0, 0);
         this.body.addBox(-3.0F, -3.0F, 0.0F, 6, 8, 5, 0.0F);
         this.body.setRotationPoint(0.0F, byte0, 0.0F);
@@ -46,23 +46,23 @@ public class ModelMoa extends ModelBase {
 
         this.wings = new Cube(52, 0);
         this.wings.addBox(-1.01F, -0.0F, -1.0F, 1, 8, 4);
-        this.wings.setRotationPoint(-3.0F, (float) (-4 + byte0), 0.0F);
+        this.wings.setRotationPoint(-3.0F, (-4 + byte0), 0.0F);
         this.wings2 = new Cube(52, 0);
         this.wings2.addBox(0.01F, -0.0F, -1.0F, 1, 8, 4);
-        this.wings2.setRotationPoint(3.0F, (float) (-4 + byte0), 0.0F);
+        this.wings2.setRotationPoint(3.0F, (-4 + byte0), 0.0F);
 
         this.neck = new Cube(44, 0);
         this.neck.addBox(-1.0F, -6.0F, -1.0F, 2, 6, 2);
-        this.neck.setRotationPoint(0.0F, (float) (-2 + byte0), -4.0F);
+        this.neck.setRotationPoint(0.0F, (-2 + byte0), -4.0F);
         this.feather1 = new Cube(30, 0);
         this.feather1.addBox(-1.0F, -5.0F, 5.0F, 2, 1, 5, -0.3F);
-        this.feather1.setRotationPoint(0.0F, (float) (1 + byte0), 1.0F);
+        this.feather1.setRotationPoint(0.0F, (1 + byte0), 1.0F);
         this.feather2 = new Cube(30, 0);
         this.feather2.addBox(-1.0F, -5.0F, 5.0F, 2, 1, 5, -0.3F);
-        this.feather2.setRotationPoint(0.0F, (float) (1 + byte0), 1.0F);
+        this.feather2.setRotationPoint(0.0F, (1 + byte0), 1.0F);
         this.feather3 = new Cube(30, 0);
         this.feather3.addBox(-1.0F, -5.0F, 5.0F, 2, 1, 5, -0.3F);
-        this.feather3.setRotationPoint(0.0F, (float) (1 + byte0), 1.0F);
+        this.feather3.setRotationPoint(0.0F, (1 + byte0), 1.0F);
         Cube var10000 = this.feather1;
         var10000.yRot += 0.5F;
         var10000 = this.feather2;
@@ -71,6 +71,7 @@ public class ModelMoa extends ModelBase {
         var10000.yRot += 0.5F;
     }
 
+    @Override
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.render(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
@@ -88,6 +89,7 @@ public class ModelMoa extends ModelBase {
         this.feather3.render(scale);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         float f6 = 3.141592653589793238462643383279F; // Pi
         this.head.xRot = headPitch / 57.29578F;
@@ -128,7 +130,6 @@ public class ModelMoa extends ModelBase {
         this.feather3.xRot = 0.25F;
         this.neck.xRot = 0.0F;
         this.neck.yRot = this.head.yRot;
-        Cube var10000 = this.jaw;
-        var10000.xRot += 0.35F;
+        this.jaw.xRot += 0.35F;
     }
 }

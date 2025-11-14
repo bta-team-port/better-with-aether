@@ -4,13 +4,11 @@ import java.util.Random;
 
 public class Worley {
 
-    public static int[][] offsets = {
-            {-1, 1}, {0, 1}, {1, 1},
-            {-1, 0}, {0, 0}, {1, 0},
-            {-1, -1}, {0, -1}, {1, -1},
+    private static final int[][] OFFSETS = {
+        {-1, 1}, {0, 1}, {1, 1},
+        {-1, 0}, {0, 0}, {1, 0},
+        {-1, -1}, {0, -1}, {1, -1},
     };
-
-    public static int bound = 0;
 
     public static int isSeed(int x, int z, int gridSize, int seed, int values, int padding) {
         int cellX = (int) Math.floor((double) x / gridSize);
@@ -32,7 +30,7 @@ public class Worley {
 
         float min = Float.POSITIVE_INFINITY;
         for (int i = 0; i < 9; i++) {
-            min = Math.min(min, distanceFrom(x, z, cellX + offsets[i][0], cellZ + offsets[i][1], gridSize, seed));
+            min = Math.min(min, distanceFrom(x, z, cellX + OFFSETS[i][0], cellZ + OFFSETS[i][1], gridSize, seed));
         }
 
         return min;
@@ -42,12 +40,12 @@ public class Worley {
         int s = mix(cellX, cellZ, seed);
         Random cellSeed = new Random(s);
 
-        int relX = bound + cellSeed.nextInt(gridSize - bound * 2);
-        int relZ = bound + cellSeed.nextInt(gridSize - bound * 2);
+        int relX = cellSeed.nextInt(gridSize);
+        int relZ = cellSeed.nextInt(gridSize);
         int distX = cellX * gridSize + relX - x;
         int distZ = cellZ * gridSize + relZ - z;
 
-        return distX * distX + distZ * distZ;
+        return (float) distX * distX + distZ * distZ;
     }
 
     public static int mix(int a, int b, int c) {

@@ -6,7 +6,7 @@ import net.minecraft.core.world.generate.chunk.perlin.TerrainGeneratorLerp;
 import net.minecraft.core.world.type.WorldType;
 
 public class TerrainGeneratorAether extends TerrainGeneratorLerp {
-    public final DensityGenerator densityGenerator;
+    private final DensityGenerator densityGenerator;
 
     public TerrainGeneratorAether(World world) {
         super(world);

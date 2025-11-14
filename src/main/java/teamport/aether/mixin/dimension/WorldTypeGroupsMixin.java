@@ -5,10 +5,6 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.type.WorldTypeGroups;
 import net.minecraft.core.world.type.WorldTypes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.type.AetherWorldTypes;
 
@@ -16,25 +12,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Mixin(value = WorldTypeGroups.class, remap = false)
-public class WorldTypeGroupsMixin {
-
-    @Unique
-    private static final Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();
-
+public abstract class WorldTypeGroupsMixin {
     static {
+        Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();
         for (WorldType t : new WorldType[]{
-                WorldTypes.OVERWORLD_EXTENDED,
-                WorldTypes.OVERWORLD_AMPLIFIED,
-                WorldTypes.OVERWORLD_INLAND,
-                WorldTypes.OVERWORLD_PARADISE,
-                WorldTypes.OVERWORLD_WOODS,
-                WorldTypes.OVERWORLD_HELL,
-                WorldTypes.OVERWORLD_WINTER,
-                WorldTypes.OVERWORLD_ISLANDS,
-                WorldTypes.OVERWORLD_FLOATING,
-                WorldTypes.FLAT,
-                WorldTypes.EMPTY,
-                WorldTypes.DEBUG,
+            WorldTypes.OVERWORLD_EXTENDED,
+            WorldTypes.OVERWORLD_AMPLIFIED,
+            WorldTypes.OVERWORLD_INLAND,
+            WorldTypes.OVERWORLD_PARADISE,
+            WorldTypes.OVERWORLD_WOODS,
+            WorldTypes.OVERWORLD_HELL,
+            WorldTypes.OVERWORLD_WINTER,
+            WorldTypes.OVERWORLD_ISLANDS,
+            WorldTypes.OVERWORLD_FLOATING,
+            WorldTypes.FLAT,
+            WorldTypes.EMPTY,
+            WorldTypes.DEBUG,
         })
             overworldToAetherWorldTypeMap.put(t, AetherWorldTypes.AETHER_EXTENDED);
 
@@ -45,14 +38,10 @@ public class WorldTypeGroupsMixin {
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_RETRO, AetherWorldTypes.AETHER_RETRO);
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_CLASSIC, AetherWorldTypes.AETHER_RETRO);
         overworldToAetherWorldTypeMap.put(WorldTypes.OVERWORLD_INDEV, AetherWorldTypes.AETHER_RETRO);
-    }
-
-    @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void injectAetherSkyblock(CallbackInfo ci) {
         for (WorldTypeGroups.Group group : WorldTypeGroups.GROUPS) {
 
             WorldType overworldType = group.get(Dimension.OVERWORLD);
-            group.with(AetherDimension.AETHER, overworldToAetherWorldTypeMap.computeIfAbsent(overworldType, w -> AetherWorldTypes.AETHER_DEFAULT));
+            group.with(AetherDimension.getAether(), overworldToAetherWorldTypeMap.computeIfAbsent(overworldType, w -> AetherWorldTypes.AETHER_DEFAULT));
         }
     }
 }

@@ -1,5 +1,6 @@
 package teamport.aether.mixin.armor.player.neptune;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -13,14 +14,10 @@ import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinSwimming extends Entity {
-    public MobMixinSwimming(@Nullable World world) {
+    protected MobMixinSwimming(@Nullable World world) {
         super(world);
     }
-
-    @Inject(
-            method = "moveEntityWithHeading",
-            at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0)
-    )
+    @Inject(method = "moveEntityWithHeading", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0))
     public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
@@ -33,21 +30,7 @@ public abstract class MobMixinSwimming extends Entity {
         yd -= 0.08;
         yd *= 0.98;
     }
-
-    @ModifyConstant(
-            method = "moveEntityWithHeading",
-            constant = @Constant(floatValue = 0.02f),
-            slice = @Slice(
-                    from = @At(
-                            value = "INVOKE",
-                            target = "Lnet/minecraft/core/entity/Mob;isInWater()Z"
-                    ),
-                    to = @At(
-                            value = "FIELD",
-                            target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z"
-                    )
-            )
-    )
+    @ModifyExpressionValue(method = "moveEntityWithHeading", at = @At(value = "CONSTANT", args = "floatValue=0.02F"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;isInWater()Z"), to = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z")))
     public float aether$changeMoveRelative(float constant) {
         if (!((Mob) (Object) this instanceof Player)) {
             return constant;
@@ -59,8 +42,7 @@ public abstract class MobMixinSwimming extends Entity {
         }
         return this.speed * 0.4f;
     }
-
-    @ModifyConstant(method = "onLivingUpdate", constant = @Constant(doubleValue = 0.04, ordinal = 0))
+    @ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "CONSTANT", args = "doubleValue=0.04", ordinal = 0))
     public double aether$changeRisingSpeed(double constant) {
         if (!((Mob) (Object) this instanceof Player)) {
             return constant;
@@ -72,6 +54,4 @@ public abstract class MobMixinSwimming extends Entity {
         }
         return 0.16;
     }
-
-
 }

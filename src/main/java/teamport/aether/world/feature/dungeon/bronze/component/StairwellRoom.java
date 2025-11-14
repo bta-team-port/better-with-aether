@@ -12,7 +12,6 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class StairwellRoom extends BaseBronzeRoom {
-
     public StairwellRoom() {
         super();
         this.roomWeight = 0.25f;
@@ -71,7 +70,7 @@ public class StairwellRoom extends BaseBronzeRoom {
         for (int i = 0; i < (height - 9) << 1; i++) {
             if ((i % 3) == 0) dir = dir.rotate(1);
             stepPosition.moveInDirection(dir);
-            staircase.add(wfb(stepPosition.x, stepPosition.y + MathHelper.floor(i / 2.0f), stepPosition.z, AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
+            staircase.add(wfb(stepPosition.getX(), stepPosition.getY() + MathHelper.floor(i / 2.0f), stepPosition.getZ(), AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
         }
 
         staircase.moveByOffset(offset);

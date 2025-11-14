@@ -15,6 +15,8 @@ public class BlockModelAetherLog<T extends BlockLogic> extends BlockModelAxisAli
         super(block);
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public boolean render(Tessellator tessellator, int x, int y, int z) {
         int meta = renderBlocks.blockAccess.getBlockMetadata(x, y, z);
         Axis axis = BlockLogicAxisAligned.metaToAxis(meta & 0b11);
@@ -40,5 +42,4 @@ public class BlockModelAetherLog<T extends BlockLogic> extends BlockModelAxisAli
         this.resetRenderBlocks();
         return true;
     }
-
 }

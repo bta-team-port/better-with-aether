@@ -9,13 +9,12 @@ import net.minecraft.core.world.World;
 import static teamport.aether.AetherConfig.QUICK_SOIL_SPEED_CAP;
 
 public class BlockLogicTrapDoorGlassQuicksoil extends BlockLogicTrapDoor {
-
     public BlockLogicTrapDoorGlassQuicksoil(Block<?> block, Material material) {
         super(block, material);
-        float f = 0.5F;
-        float f1 = 1.0F;
-        this.setBlockBounds(0.5F - f, 0.0, 0.5F - f, 0.5F + f, f1, 0.5F + f);
-        block.friction = 1.05f;
+        double f = 0.5;
+        double f1 = 1.0;
+        this.setBlockBounds(0.5 - f, 0.0, 0.5 - f, 0.5 + f, f1, 0.5 + f);
+        block.friction = 1.05F;
     }
 
     @Override
@@ -24,5 +23,4 @@ public class BlockLogicTrapDoorGlassQuicksoil extends BlockLogicTrapDoor {
         entity.zd = Math.max(Math.min(entity.zd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
         return super.collidesWithEntity(entity, world, x, y, z);
     }
-
 }

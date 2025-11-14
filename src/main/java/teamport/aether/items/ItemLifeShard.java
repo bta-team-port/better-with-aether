@@ -9,10 +9,9 @@ import teamport.aether.achievements.AetherAchievements;
 
 import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 
-
 public class ItemLifeShard extends Item {
-    public final static float addVolume = 0.4F / EXTRA_HEALTH;
-    public final static float addPitch = 0.3F / EXTRA_HEALTH;
+    private static final float ADD_VOLUME = 0.4F / EXTRA_HEALTH;
+    private static final float ADD_PITCH = 0.3F / EXTRA_HEALTH;
 
 
     public ItemLifeShard(String name, String namespaceId, int id) {
@@ -49,7 +48,7 @@ public class ItemLifeShard extends Item {
             world.playSoundAtEntity(player, player, "aether:life.shard.chime.final", 0.65F, 1.0F);
             player.triggerAchievement(AetherAchievements.MAX_LIFE);
         } else {
-            world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F + addVolume * extraHealthCapped, 0.9F + addPitch * extraHealthCapped);
+            world.playSoundAtEntity(player, player, "aether:life.shard.chime", 0.45F + ADD_VOLUME * extraHealthCapped, 0.9F + ADD_PITCH * extraHealthCapped);
         }
         player.heal(2);
         return itemstack;

@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
-    public ModelAerbunny model;
+    private final ModelAerbunny model;
 
     public MobRendererAerbunny(ModelBase model, float shadowSize) {
         super(model, shadowSize);
@@ -26,9 +26,10 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
             }
         }
 
-        this.model.puffiness = entity.getPuffiness();
+        this.model.setPuffiness(entity.getPuffiness());
     }
 
+    @Override
     public void setupScale(MobAerbunny entity, float partialTick) {
         this.rotateAerbunny(entity);
     }

@@ -241,22 +241,22 @@ public class AetherBlockDetails {
         }
     }
 
-    public static final MaterialColor[] PAINTED_COLORS = {
-            MaterialColor.paintedWhite,
-            MaterialColor.paintedOrange,
-            MaterialColor.paintedMagenta,
-            MaterialColor.paintedLightblue,
-            MaterialColor.paintedYellow,
-            MaterialColor.paintedLime,
-            MaterialColor.paintedPink,
-            MaterialColor.paintedGrey,
-            MaterialColor.paintedSilver,
-            MaterialColor.paintedCyan,
-            MaterialColor.paintedPurple,
-            MaterialColor.paintedBlue,
-            MaterialColor.paintedBrown,
-            MaterialColor.paintedGreen,
-            MaterialColor.paintedRed,
-            MaterialColor.paintedBlack
+    private static final MaterialColor[] PAINTED_COLORS = {
+        MaterialColor.paintedWhite,
+        MaterialColor.paintedOrange,
+        MaterialColor.paintedMagenta,
+        MaterialColor.paintedLightblue,
+        MaterialColor.paintedYellow,
+        MaterialColor.paintedLime,
+        MaterialColor.paintedPink,
+        MaterialColor.paintedGrey,
+        MaterialColor.paintedSilver,
+        MaterialColor.paintedCyan,
+        MaterialColor.paintedPurple,
+        MaterialColor.paintedBlue,
+        MaterialColor.paintedBrown,
+        MaterialColor.paintedGreen,
+        MaterialColor.paintedRed,
+        MaterialColor.paintedBlack
     };
 }

@@ -44,6 +44,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         Arrays.fill(this.signColorTextures, "MissingNo");
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public TileEntityRendererSignSkyroot setColoredTexture(int colorID, String texturePath) {
         this.signColorTextures[colorID] = texturePath;
         return this;
@@ -88,7 +89,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         float angle = getAngleFromMeta(meta);
 
         if (((BlockLogicSign) block.getLogic()).isFreeStanding) {
-            angle = (float) ((meta & 15) * 360) / 16.0F;
+            angle = ((meta & 15) * 360) / 16.0F;
             GL11.glRotatef(-angle, 0.0F, 1.0F, 0.0F);
             this.modelSign.signStick.visible = true;
         } else {
@@ -131,7 +132,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         EnumSignPicture picture = tileEntity.getPicture();
-        if (picture != EnumSignPicture.NONE) {
+        if (picture != null && picture != EnumSignPicture.NONE) {
             drawTexturedModalRect(colorSign, TextureRegistry.getTexture(picture.getTextureKey()));
         }
 
@@ -139,6 +140,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         GL11.glPopMatrix();
     }
 
+    @SuppressWarnings("java:S131")
     protected void drawSignText(Tessellator t, TileEntitySignSkyroot tileEntity) {
         FontRenderer sr = FONT_RENDERER;
 
@@ -160,9 +162,9 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         GL11.glDepthMask(false);
 
         int color = Colors.allSignColors[tileEntity.getColor().id].getARGB();
-        int r = (int) MathHelper.clamp((float) Color.redFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
-        int g = (int) MathHelper.clamp((float) Color.greenFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
-        int b = (int) MathHelper.clamp((float) Color.blueFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int r = (int) MathHelper.clamp(Color.redFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int g = (int) MathHelper.clamp(Color.greenFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
+        int b = (int) MathHelper.clamp(Color.blueFromInt(color) * lightLevel + lightOffset, 0.0F, 255.0F);
 
         color = Color.intToIntARGB(0, r, g, b);
         CharSequence line1 = tileEntity.signText[0];
@@ -188,11 +190,11 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
                 line4 = this.builder.append("§+§f> §-").append(line4).append("§+§f <§-");
         }
 
-        int _y = -tileEntity.signText.length * 5;
+        int y = -tileEntity.signText.length * 5;
         if (tileEntity.isGlowing() && this.mc.gameSettings.fancyGraphics.value >= 1) {
-            this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, _y, SF.setOutlined(SF.setColor(0L, color)));
+            this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, y, SF.setOutlined(SF.setColor(0L, color)));
         } else {
-            this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, _y, SF.setColor(0L, color));
+            this.textMeshRenderer.render(sr, t, line1, line2, line3, line4, 0, y, SF.setColor(0L, color));
         }
 
         GL11.glPopMatrix();
@@ -212,15 +214,18 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         tessellator.draw();
     }
 
+    @Override
     public void tick() {
         this.textMeshRenderer.tick();
     }
 
+    @Override
     public void onWorldChanged(World world) {
         this.textMeshRenderer.flushCaches();
     }
 
+    @Override
     public boolean isVisible(@NonNull TileEntitySignSkyroot tileEntity, @NonNull ICamera camera, float partialTick) {
-        return camera.getFrustum().isVisible(AABB.getTemporaryBB(tileEntity.x, tileEntity.y, tileEntity.z, tileEntity.x + 1, tileEntity.y + 1, tileEntity.z + 1), partialTick);
+        return camera.getFrustum().isVisible(AABB.getTemporaryBB(tileEntity.x, tileEntity.y, tileEntity.z, tileEntity.x + 1.0, tileEntity.y + 1.0, tileEntity.z + 1.0), partialTick);
     }
 }

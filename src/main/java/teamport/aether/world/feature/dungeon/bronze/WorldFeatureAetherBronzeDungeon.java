@@ -15,6 +15,7 @@ import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
+import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
@@ -27,7 +28,6 @@ import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
-import static teamport.aether.world.AetherDimension.AETHER;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
@@ -35,12 +35,12 @@ import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeR
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
-    public float MAX_WEIGHT = 40;
-    public static final int TUNNEL_WIDTH = 6;
-    public static final int TUNNEL_COUNT = 4;
-    public static final int TUNNEL_MAX_LENGTH = 100;
-    public World world;
-    public Random random;
+    private static final float MAX_WEIGHT = 40;
+    private static final int TUNNEL_WIDTH = 6;
+    private static final int TUNNEL_COUNT = 4;
+    private static final int TUNNEL_MAX_LENGTH = 100;
+    private World world;
+    private Random random;
 
     public static final BlockPallet carvedHolystone = new BlockPallet();
     public static final BlockPallet lockedCarvedHolystone = new BlockPallet();
@@ -90,13 +90,13 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         int minTool = AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage() / 2;
         int maxTool = AetherItems.TOOL_PICKAXE_HOLYSTONE.getMaxDamage();
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_HOLYSTONE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_HOLYSTONE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_HOLYSTONE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         // ammo                                     2-5
         AMMO.addEntry(new WeightedRandomLootObject(null), 8);
         AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_GOLDEN.getDefaultStack(), 2, 6), 4);
@@ -119,21 +119,21 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         TREASURE.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CAPE_SWET.getDefaultStack()), 10);
     }
 
-    public static RoomManager manager = new RoomManager();
-    public static WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> treasureRooms;
+    private static final RoomManager MANAGER = new RoomManager();
+    private static final WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> TREASURE_ROOMS;
 
     static {
         FabricLoader.getInstance()
-                .getEntrypointContainers("aether", AetherPlugin.class)
-                .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(manager));
+            .getEntrypointContainers("aether", AetherPlugin.class)
+            .forEach(plugin -> plugin.getEntrypoint().registerBronzeDungeonRoom(MANAGER));
 
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
-        treasureRooms = new WeightedRandomBag<>();
-        treasureRooms.addEntry(TreasureRoom::new, 1);
-        treasureRooms.addEntry(JumpRoom::new, 1);
-        treasureRooms.addEntry(DisplayRoom::new, 1);
+        TREASURE_ROOMS = new WeightedRandomBag<>();
+        TREASURE_ROOMS.addEntry(TreasureRoom::new, 1);
+        TREASURE_ROOMS.addEntry(JumpRoom::new, 1);
+        TREASURE_ROOMS.addEntry(DisplayRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(SpikerRoom::new, 1);
@@ -143,19 +143,15 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         hallway.addEntry(StairwellRoom::new, 2);
         hallway.addEntry(TallRoom::new, 5);
 
-        manager.addBag(treasureRooms, 55);
-        manager.addBag(hallway, 20);
-        manager.addBag(trapRooms, 10);
-        manager.addBag(boss, 15);
+        MANAGER.addBag(TREASURE_ROOMS, 55);
+        MANAGER.addBag(hallway, 20);
+        MANAGER.addBag(trapRooms, 10);
+        MANAGER.addBag(boss, 15);
     }
 
-    public WorldFeatureAetherBronzeDungeon() {
-    }
+    public WorldFeatureAetherBronzeDungeon() {}
 
-    public static WorldFeatureAetherBronzeDungeon bronzeDungeon(Random random) {
-        return new WorldFeatureAetherBronzeDungeon();
-    }
-
+    @SuppressWarnings("java:S6541")
     @Override
     public boolean place(final World world, final Random random, final int x, final int y, final int z) {
         this.world = world;
@@ -166,7 +162,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (world.canBlockSeeTheSky(x, y, z) || !boss.place(world, random, x, y, z)) {
             return false;
         }
-        float roomWeight = boss.roomWeight;
+        float roomWeight = boss.getRoomWeight();
         int bossRoomCount = 1;
         seenRooms.add(boss);
         availableRooms.add(boss);
@@ -185,28 +181,29 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
             WeightedRandomBag<Door> bagDoors = this.makeRoomBag(listDoor);
             Door door = bagDoors.getRandom(random);
-            BaseBronzeRoom nextRoom = manager.getRoom(random).get();
+            BaseBronzeRoom nextRoom = MANAGER.getRoom(random).get();
             if (nextRoom instanceof BossRoom) {
                 bossRoomCount++;
-                if ((float) bossRoomCount / roomWeight > 0.65F) {
-                    nextRoom = treasureRooms.getRandom(random).get();
+                if (bossRoomCount / roomWeight > 0.65F) {
+                    nextRoom = TREASURE_ROOMS.getRandom(random).get();
                 }
             }
-            WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.heading).multiply(TUNNEL_WIDTH).add(door.p1);
-            List<WorldFeaturePoint> listAnchor = nextRoom.getAchors(nextDoor, door.heading);
+            WorldFeaturePoint nextDoor = wfp(0, 0, 0).moveInDirection(door.getHeading()).multiply(TUNNEL_WIDTH).add(door.getP1());
+            List<WorldFeaturePoint> listAnchor = nextRoom.getAnchors(nextDoor, door.getHeading());
             Collections.shuffle(listAnchor, random);
             for (WorldFeaturePoint anchor : listAnchor) {
                 if (this.intercept(seenRooms, nextRoom, anchor)) {
                     currentRoom.markDoor(door, INTERCEPT);
                     currentRoom = null;
                     break;
-                } else if (nextRoom.place(world, random, anchor.x, anchor.y, anchor.z)) {
-                    WorldFeaturePoint topCorner, bottomCorner;
-                    bottomCorner = door.p1.copy();
+                } else if (nextRoom.place(world, random, anchor.getX(), anchor.getY(), anchor.getZ())) {
+                    WorldFeaturePoint topCorner;
+                    WorldFeaturePoint bottomCorner;
+                    bottomCorner = door.getP1().copy();
                     topCorner = getTopCornerPoint(seenRooms, nextRoom, nextDoor, door);
 
-                    createTunnel(bottomCorner, topCorner, door.heading);
-                    roomWeight += nextRoom.roomWeight;
+                    createTunnel(bottomCorner, topCorner, door.getHeading());
+                    roomWeight += nextRoom.getRoomWeight();
 
                     seenRooms.add(nextRoom);
                     availableRooms.add(nextRoom);
@@ -231,43 +228,43 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             }
             if (room instanceof HallwayRoom) continue;
             for (Door door : listDoor) {
-                if (door.mark != OPEN && door.mark != NO_SPACE && !(room instanceof BossRoom)) {
+                if (door.getMark() != OPEN && door.getMark() != NO_SPACE && !(room instanceof BossRoom)) {
                     continue;
                 }
-                AetherMod.LOGGER.debug("door type:{}, door heading:{}", door.mark, door.heading);
-                WorldFeaturePoint p1 = door.p1.copy();
-                WorldFeaturePoint p2 = door.p2.copy();
+                AetherMod.LOGGER.debug("door type:{}, door heading:{}", door.getMark(), door.getHeading());
+                WorldFeaturePoint p1 = door.getP1().copy();
+                WorldFeaturePoint p2 = door.getP2().copy();
                 while (!this.breaksSurface(p1, p2)
-                        && p1.distanceTo(door.p1) < TUNNEL_MAX_LENGTH
-                        && y > 5 && y < world.getHeightBlocks()
+                    && p1.distanceTo(door.getP1()) < TUNNEL_MAX_LENGTH
+                    && y > 5 && y < world.getHeightBlocks()
                 ) {
-                    p1.moveInDirection(door.heading);
-                    p2.moveInDirection(door.heading);
+                    p1.moveInDirection(door.getHeading());
+                    p2.moveInDirection(door.getHeading());
                 }
                 if (seenRooms.stream().anyMatch(r -> r.intercept(p1))) {
                     continue;
                 }
-                tunnels.add(pEntry(p1.distanceTo(door.p1) * bias(door.heading), door(door.heading, p1.moveInDirection(door.heading), door.p2.copy().moveInDirection(door.heading.getOpposite()))));
+                tunnels.add(pEntry(p1.distanceTo(door.getP1()) * bias(door.getHeading()), door(door.getHeading(), p1.moveInDirection(door.getHeading()), door.getP2().copy().moveInDirection(door.getHeading().getOpposite()))));
             }
         }
         if (tunnels.isEmpty()) {
             AetherMod.LOGGER.debug("No exit tunnels are generating for this bronze dungeon at {} {} {}", x, y, z);
             return true;
         }
-        int tunnel_amount = tunnels.size() > 4 ? TUNNEL_COUNT : tunnels.size();
-        for (int i = 0; i < tunnel_amount; i++) {
+        int tunnelAmount = tunnels.size() > 4 ? TUNNEL_COUNT : tunnels.size();
+        for (int i = 0; i < tunnelAmount; i++) {
             PriorityEntry<Door> entry = tunnels.peek();
             tunnels.remove(entry);
             if (entry == null) continue;
             Door door = entry.getData();
-            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.p1, door.p2, door.heading);
-            createTunnel(door.p1, door.p2, door.heading);
+            AetherMod.LOGGER.debug("Tunnel distance:{}, p1:{}, p2:{}, direction:{}.", entry.getWeight(), door.getP1(), door.getP2(), door.getHeading());
+            createTunnel(door.getP1(), door.getP2(), door.getHeading());
         }
         return true;
     }
 
     public void createTunnel(WorldFeaturePoint bottomCorner, WorldFeaturePoint topCorner, Direction direction) {
-        if (world.dimension.equals(AETHER)) {
+        if (world.dimension.equals(AetherDimension.getAether())) {
             WorldFeaturePoint liningBottomCorner = bottomCorner.copy();
             WorldFeaturePoint liningTopCorner = topCorner.copy();
             adjustCornerForLining(direction, liningBottomCorner, liningTopCorner);
@@ -277,8 +274,8 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     public static void placeWorldLining(World world, WorldFeatureComponent lining) {
-        for (WorldFeatureBlock block : lining.blockList) {
-            if (BaseBronzeRoom.roomCanReplace(world, block) && block.y > 5 && block.y <= world.getHeightBlocks()) {
+        for (WorldFeatureBlock block : lining.getBlockList()) {
+            if (BaseBronzeRoom.roomCanReplace(world, block) && block.getY() > 5 && block.getY() <= world.getHeightBlocks()) {
                 block.place(world);
             }
         }
@@ -289,7 +286,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         if (direction.isHorizontal()) {
             liningBottomCorner.moveInDirection(DOWN);
             liningTopCorner.moveInDirection(UP);
-            if (direction == NORTH | direction == SOUTH) {
+            if (direction == NORTH || direction == SOUTH) {
                 liningBottomCorner.moveInDirection(WEST);
                 liningTopCorner.moveInDirection(EAST);
             } else {
@@ -308,7 +305,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     }
 
     private static WorldFeaturePoint getTopCornerPoint(Set<BaseBronzeRoom> seenRooms, BaseBronzeRoom nextRoom, WorldFeaturePoint nextDoor, Door door) {
-        WorldFeaturePoint point = nextRoom.getDoor(nextDoor).p2.copy().moveInDirection(door.heading);
+        WorldFeaturePoint point = nextRoom.getDoor(nextDoor).getP2().copy().moveInDirection(door.getHeading());
         if (seenRooms.size() == 1) {
             return point.moveInDirection(DOWN, 2);
         }
@@ -327,19 +324,19 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     private boolean breaksSurface(WorldFeaturePoint p1, WorldFeaturePoint p2) {
         WorldFeatureComponent door = drawVolume(0, 0, p1, p2, false);
         int count = 0;
-        for (WorldFeaturePoint point : door.blockList) {
-            Block<?> block = world.getBlock(point.x, point.y, point.z);
+        for (WorldFeaturePoint point : door.getBlockList()) {
+            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             int blockID = block == null ? 0 : block.id();
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (blockID == 0 || blockMaterial.isLiquid()) count++;
         }
-        return count >= door.blockList.size();
+        return count >= door.getBlockList().size();
     }
 
     private WeightedRandomBag<Door> makeRoomBag(List<Door> listDoor) {
         WeightedRandomBag<Door> bag = new WeightedRandomBag<>();
         for (Door door : listDoor) {
-            if (door.heading == UP || door.heading == DOWN) {
+            if (door.getHeading() == UP || door.getHeading() == DOWN) {
                 bag.addEntry(door, 1.0F);
             } else {
                 bag.addEntry(door, 4.0F);
@@ -364,11 +361,13 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
             this.bag = new WeightedRandomBag<>();
         }
 
+        @SuppressWarnings("UnusedReturnValue")
         public RoomManager addBag(WeightedRandomBag<?> rooms, float weight) {
             bag.addEntry(rooms, weight);
             return this;
         }
 
+        @SuppressWarnings("unchecked")
         public Supplier<? extends BaseBronzeRoom> getRoom(Random random) {
             Object obj = bag.getRandom(random);
 
@@ -407,5 +406,4 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
         return loot;
     }
-
 }

@@ -2,6 +2,7 @@ package teamport.aether.entity.monster.whirly;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.entity.particle.Particle;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
@@ -24,12 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobFallingToOverworld {
-    public int entcount = 0;
-    public int Life;
-    public List<Particle> fluffies;
-    public float Angle;
-    public float Speed;
-    public float Curve;
+    private final List<Particle> fluffies = new ArrayList<>();
+    private int entcount = 0;
+    private int life;
+    private float angle;
+    private float curve;
 
     public static final int DATA_EVIL = 20;
 
@@ -57,38 +57,42 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         this.setSize(1.0F, 1.5F);
         this.setPos(this.x, this.y, this.z);
         this.moveSpeed = 0.6F;
-        this.Angle = this.random.nextFloat() * 360.0F;
-        this.Speed = this.random.nextFloat() * 0.025F + 0.025F;
-        this.Curve = (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
-        this.Life = this.random.nextInt(512) + 512;
+        this.angle = this.random.nextFloat() * 360.0F;
+        this.speed = this.random.nextFloat() * 0.025F + 0.025F;
+        this.curve = (this.random.nextFloat() - this.random.nextFloat()) * 0.1F;
+        this.life = this.random.nextInt(512) + 512;
         this.scoreValue = 0;
-        this.fluffies = new ArrayList<>();
     }
 
+    @Override
     public void spawnInit() {
         if (random.nextInt(5) == 0) {
             this.setEvil(true);
         }
     }
 
+    @Override
     public void tick() {
-        if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn() && getEvil()) {
+        if (this.world != null && !this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn() && getEvil()) {
             this.remove();
         }
         super.tick();
 
     }
 
+    @Override
     public boolean makeStepSound() {
         return false;
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
         double distanceTo = entity.distanceTo(x, y, z);
 
-        if (!(entity instanceof MobCreeper) && !(entity instanceof MobWhirly)) {
-            switch (Direction.values()[world.rand.nextInt(Direction.values().length)]) {
+        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobWhirly)) {
+            switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
                     entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
                     break;
@@ -110,6 +114,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         return false;
     }
 
+    @Override
     public void updateAI() {
         if (this.getEvil()) {
             Player entityplayer = (Player) this.getPlayer();
@@ -119,14 +124,14 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         }
 
         if (this.target == null) {
-            this.xd = Math.cos(0.01745329F * this.Angle) * (double) this.Speed;
-            this.zd = -Math.sin(0.01745329F * this.Angle) * (double) this.Speed;
-            this.Angle += this.Curve;
+            this.xd = Math.cos(0.01745329F * this.angle) * this.speed;
+            this.zd = -Math.sin(0.01745329F * this.angle) * this.speed;
+            this.angle += this.curve;
         } else {
             super.updateAI();
         }
 
-        if (this.Life-- <= 0 || this.isInWaterOrRain()) {
+        if (this.life-- <= 0 || this.isInWaterOrRain()) {
             this.remove();
         }
 
@@ -139,9 +144,9 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
             if (this.getEvil() && this.target != null) {
                 MobCreeper entitycreeper = new MobCreeper(this.world);
                 entitycreeper.setPos(this.x, this.y + 0.75, this.z);
-                entitycreeper.xd = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
-                entitycreeper.zd = (double) (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
-                this.world.entityJoinedWorld(entitycreeper);
+                entitycreeper.xd = (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
+                entitycreeper.zd = (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
+                if (this.world != null) this.world.entityJoinedWorld(entitycreeper);
                 this.entcount = 0;
             } else {
                 i = this.loot();
@@ -155,8 +160,8 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         int j1 = MathHelper.floor(this.x);
         int k1 = MathHelper.floor(this.y);
         int l1 = MathHelper.floor(this.z);
-        if (this.world.getBlockId(j1, k1 + 1, l1) != 0) {
-            this.Life -= 50;
+        if (this.world != null && this.world.getBlockId(j1, k1 + 1, l1) != 0) {
+            this.life -= 50;
         }
     }
 
@@ -183,22 +188,23 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         }
     }
 
+    @Override
     public boolean canSpawnHere() {
+        if (this.world == null) return false;
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
         int id = this.world.getBlockId(x, y - 1, z);
-        if (Blocks.blocksList[id] == null) {
-            return false;
-        } else {
-            if (this.random.nextInt(10) == 0) {
-                return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
-            }
+        Block<?> block = Blocks.blocksList[id];
+        if (block == null) return false;
+        if (this.random.nextInt(10) == 0) {
+            return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
         }
         return false;
     }
 
     public Entity getPlayer() {
+        if (this.world == null) return null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
         if (entityplayer instanceof AetherInvisibility) {
             AetherInvisibility invPlayer = (AetherInvisibility) entityplayer;
@@ -209,36 +215,43 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
     }
 
+    @Override
     public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        tag.putFloat("Angle", this.Angle);
-        tag.putFloat("Speed", this.Speed);
-        tag.putFloat("Curve", this.Curve);
-        tag.putShort("Life", (short) this.Life);
+        tag.putFloat("Angle", this.angle);
+        tag.putFloat("Speed", this.speed);
+        tag.putFloat("Curve", this.curve);
+        tag.putShort("Life", (short) this.life);
         tag.putShort("Counter", (short) this.entcount);
         tag.putBoolean("Evil", this.getEvil());
     }
 
+    @Override
     public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.Angle = tag.getFloat("Angle");
-        this.Speed = tag.getFloat("Speed");
-        this.Curve = tag.getFloat("Curve");
-        this.Life = tag.getShort("Life");
+        this.angle = tag.getFloat("Angle");
+        this.speed = tag.getFloat("Speed");
+        this.curve = tag.getFloat("Curve");
+        this.life = tag.getShort("Life");
         this.entcount = tag.getShort("Counter");
         this.setEvil(tag.getBoolean("Evil"));
     }
 
+    @Override
     public boolean hurt(Entity entity, int i, DamageType type) {
         return false;
     }
 
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
 
+    @Override
     public boolean canClimb() {
         return false;
     }
-
+    public List<Particle> getFluffies() {
+        return fluffies;
+    }
 }

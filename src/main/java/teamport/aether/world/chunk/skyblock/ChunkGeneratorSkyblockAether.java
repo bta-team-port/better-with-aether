@@ -12,6 +12,7 @@ public class ChunkGeneratorSkyblockAether extends ChunkGenerator {
         super(world, new ChunkDecoratorSkyblockAether(world));
     }
 
+    @Override
     public ChunkGeneratorResult doBlockGeneration(Chunk chunk) {
         ChunkGeneratorResult result = new ChunkGeneratorResult();
 

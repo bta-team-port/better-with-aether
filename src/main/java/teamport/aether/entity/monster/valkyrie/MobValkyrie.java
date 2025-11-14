@@ -23,11 +23,11 @@ import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage {
-    public int attackStrength;
-    public boolean isSwinging;
-    public int teleportTimer;
-    public int chatTime;
-    public float sinage;
+    private static final int ATTACK_STRENGTH = 7;
+    private boolean isSwinging;
+    private int teleportTimer;
+    private int chatTime;
+    private float sinage;
 
 
     public MobValkyrie(World world) {
@@ -36,23 +36,26 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         this.setSize(0.8F, 1.9F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
-        this.attackStrength = 7;
         this.scoreValue = 5000;
         this.footSize = 1.5f;
         this.canBreatheUnderwater();
     }
 
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
+    @Override
     public void jump() {
         this.yd = 0.72;
     }
 
+    @Override
     public void causeFallDamage(float distance) {
     }
 
+    @Override
     public void spawnInit() {
         this.teleportTimer = this.random.nextInt(250);
     }
@@ -77,7 +80,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
 
         this.moveSpeed = this.target == null ? 0.5F : 1.0F;
-        if (!this.world.getDifficulty().canHostileMobsSpawn() && (this.target != null)) {
+        if (this.world != null && !this.world.getDifficulty().canHostileMobsSpawn() && this.target != null) {
             this.target = null;
         }
 
@@ -142,7 +145,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                 ParticleMaker.spawnParticle(this.world, "largesmoke", this.x, this.y + 1, this.z, 0.0, 0.0, 0.0, 0);
             }
             this.setPos(newX + 0.5, newY, newZ + 0.5);
-            world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
+            if (this.world != null) world.playSoundAtEntity(null, this, "mob.ghast.fireball", 1.0F, 1.0F / (random.nextFloat() * 0.4F + 0.8F));
             this.xd = 0.0;
             this.yd = 0.0;
             this.zd = 0.0;
@@ -158,10 +161,12 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     }
 
     public boolean isAirySpace(int x, int y, int z) {
+        if (this.world == null) return true;
         int p = this.world.getBlockId(x, y, z);
         Block<?> block = world.getBlock(x, y, z);
+        Block<?> blockTwo = Blocks.blocksList[p];
 
-        return p == 0 || Blocks.blocksList[p] == null || Blocks.blocksList[p].getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block.getMaterial() == Material.water;
+        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Material.water;
     }
 
     @Override
@@ -184,14 +189,13 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             }
             String message = AetherMod.TRANSLATOR.translateKey(formatString.toString());
             MessageMaker.sendMessage(entityplayer, message);
-            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         } else {
             int pokey = this.random.nextInt(3) + 1;
             String formatString = String.format("%s.%d", "aether.entity.valkyrie.interact", pokey);
             String message = AetherMod.TRANSLATOR.translateKey(formatString);
             MessageMaker.sendMessage(entityplayer, message);
-            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         }
+        if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 1.0f);
         return true;
     }
 
@@ -246,7 +250,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         int i = MathHelper.floor(this.x);
         int j = MathHelper.floor(this.bb.minY);
         int k = MathHelper.floor(this.z);
-        return this.world.getFullBlockLightValue(i, j, k) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
+        return this.world != null && this.world.getFullBlockLightValue(i, j, k) > 8 && this.world.getIsAnySolidGround(this.bb) && this.world.getCollidingSolidBlockBoundingBoxes(this, this.bb).isEmpty() && !this.world.getIsAnyLiquid(this.bb);
     }
 
     @Override
@@ -263,7 +267,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     @Override
     public Entity findPlayerToAttack() {
-        return this.world.getDifficulty().canHostileMobsSpawn() ? super.getTarget() : null;
+        return this.world != null && this.world.getDifficulty().canHostileMobsSpawn() ? super.getTarget() : null;
     }
 
     @Override
@@ -278,7 +282,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             super.hurt(attacker, damage / 2, type);
         }
 
-        if (attacker instanceof Player && this.world.getDifficulty().canHostileMobsSpawn()) {
+        if (attacker instanceof Player && this.world != null && this.world.getDifficulty().canHostileMobsSpawn()) {
             int pokey = this.random.nextInt(3) + 1;
             if (this.target == null && this.chatTime <= 0) {
                 String formatString = String.format("%s.%d", "aether.entity.valkyrie.duel_start", pokey);
@@ -303,7 +307,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         } else {
             this.teleport(this.x, this.y, this.z, 4);
             this.remainingFireTicks = 0;
-            world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
+            if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             return false;
         }
     }
@@ -313,7 +317,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
             this.swingArm();
-            entity.hurt(this, this.attackStrength, AetherMod.HOLY);
+            entity.hurt(this, ATTACK_STRENGTH, AetherMod.HOLY);
             if (this.target != null && entity == this.target && entity instanceof Player) {
                 Player player = (Player) entity;
                 if (player.getHealth() <= 0) {
@@ -321,7 +325,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                     String formatString = String.format("%s.%d", "aether.entity.valkyrie.attacked", pokey);
                     String message = AetherMod.TRANSLATOR.translateKey(formatString);
                     MessageMaker.sendMessage(player, message);
-                    world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
+                    if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
                     this.target = null;
                     this.chatTime = 0;
                 }
@@ -329,22 +333,27 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         }
     }
 
+    @Override
     public String getLivingSound() {
         return null;
     }
 
+    @Override
     public String getHurtSound() {
         return "aether:mob.valkyrie.hurt";
     }
 
+    @Override
     public String getDeathSound() {
         return "aether:mob.valkyrie.death";
     }
 
+    @Override
     public int getMaxHealth() {
         return 50;
     }
 
+    @Override
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1);
     }

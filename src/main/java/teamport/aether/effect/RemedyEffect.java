@@ -9,8 +9,8 @@ import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RemedyEffect extends Effect implements ILockInteractable {
 
@@ -20,7 +20,7 @@ public class RemedyEffect extends Effect implements ILockInteractable {
 
     @Override
     public <T> void activated(EffectStack effectStack, EffectContainer<T> effectContainer) {
-        HashSet<Effect> remove = AetherEffects.LookupLooks.instance.getLockedEffects(this);
+        Set<Effect> remove = AetherEffects.LookupLooks.instance.getLockedEffects(this);
         if (remove == null) return;
         List<EffectStack> check = new ArrayList<>(effectContainer.getEffects());
         for (EffectStack stack : check) {
@@ -40,7 +40,7 @@ public class RemedyEffect extends Effect implements ILockInteractable {
     }
 
     @Override
-    public void lockTriggered(IHasEffects hasEffects) {
+    public void lockTriggered(IHasEffects<?> hasEffects) {
         if (!(hasEffects instanceof Mob)) {
             return;
         }

@@ -15,9 +15,11 @@ import teamport.aether.items.AetherItems;
 import teamport.aether.lookup.LookupFuelFreezer;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class TileEntityFreezer extends AetherTileEntityMachine {
-    public static final HashMap<Integer, Integer> buckets = new HashMap<>();
+    private static final Map<Integer, Integer> buckets = new HashMap<>();
 
     static {
         buckets.put(Items.BUCKET_WATER.id, Items.BUCKET.id);
@@ -42,13 +44,13 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
     @Override
     public void tick() {
-        boolean isEnergyTimeHigherThan0 = this.currentEnergyTime > 0;
+        boolean isEnergyTimeHigherThan0 = this.getCurrentEnergyTime() > 0;
         boolean updateMachine = false;
-        if (this.currentEnergyTime > 0) {
-            --this.currentEnergyTime;
+        if (this.getCurrentEnergyTime() > 0) {
+            this.setCurrentEnergyTime(this.getCurrentEnergyTime() - 1);
         }
         if (canProcess()) {
-            this.maxProcessTime = AetherRecipes.FREEZER.findRecipe(containerItemStacks[0]).getData();
+            this.setMaxProcessTime(AetherRecipes.FREEZER.findRecipe(containerItemStacks[0]).getData());
         }
 
         if (isUpdateMachine(updateMachine, isEnergyTimeHigherThan0)) {
@@ -60,9 +62,10 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
-            if (this.currentEnergyTime == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
-                this.maxEnergyTime = this.currentEnergyTime = this.getEnergyTimeFromItem(this.containerItemStacks[1]);
-                if (this.currentEnergyTime > 0) {
+            if (this.getCurrentEnergyTime() == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
+                this.setCurrentEnergyTime(this.getEnergyTimeFromItem(this.containerItemStacks[1]));
+                this.setMaxEnergyTime(this.getCurrentEnergyTime());
+                if (this.getCurrentEnergyTime() > 0) {
                     updateMachine = true;
                     if (this.containerItemStacks[1] != null) {
                         --this.containerItemStacks[1].stackSize;
@@ -75,17 +78,17 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
             }
 
             if (this.isProcessing() && this.canProcess()) {
-                ++this.currentProcessTime;
-                if (this.currentProcessTime >= this.maxProcessTime) {
-                    this.currentProcessTime = 0;
+                this.setCurrentProcessTime(this.getCurrentProcessTime() + 1);
+                if (this.getCurrentProcessTime() >= this.getMaxProcessTime()) {
+                    this.setCurrentProcessTime(0);
                     this.processItem();
                     updateMachine = true;
                 }
             } else {
-                this.currentProcessTime = 0;
+                this.setCurrentProcessTime(0);
             }
 
-            if (isEnergyTimeHigherThan0 != this.currentEnergyTime > 0) {
+            if (isEnergyTimeHigherThan0 != this.getCurrentEnergyTime() > 0) {
                 this.updateContainer(false);
                 updateMachine = true;
             }
@@ -95,10 +98,10 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-                || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.FREEZER_IDLE.id())
-                && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
-                && this.containerItemStacks[1] != null
-                && this.containerItemStacks[1].itemID == AetherItems.ARMOR_TALISMAN_ICE.id
+            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.FREEZER_IDLE.id())
+            && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
+            && this.containerItemStacks[1] != null
+            && this.containerItemStacks[1].itemID == AetherItems.ARMOR_TALISMAN_ICE.id
         ) {
             this.updateContainer(true);
             return true;
@@ -125,7 +128,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         }
 
         if (resultItem.stackSize < this.getMaxStackSize()
-                && resultItem.stackSize < resultItem.getMaxStackSize()) {
+            && resultItem.stackSize < resultItem.getMaxStackSize()) {
             return true;
         }
         return resultItem.stackSize < resultStack.getMaxStackSize();
@@ -145,9 +148,9 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
         boolean wasEmpty = this.containerItemStacks[2] == null;
         if (this.containerItemStacks[2] == null && processedItem != null) {
             if (
-                    containerItemStacks[0] != null
-                            && containerItemStacks[0].isItemStackDamageable()
-                            && processedItem.isItemStackDamageable()
+                containerItemStacks[0] != null
+                    && containerItemStacks[0].isItemStackDamageable()
+                    && processedItem.isItemStackDamageable()
             ) {
                 processedItem.setMetadata(containerItemStacks[0].getMetadata());
             }
@@ -184,31 +187,30 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
     public ItemStack getBucket(ItemStack stack) {
         int id = buckets.get(stack.getItem().id);
         Item item = Item.getItem(id);
-        assert (item != null); // something went wrong if that's the case
-        return new ItemStack(item, 1);
+        return new ItemStack(Objects.requireNonNull(item), 1);
     }
 
 
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicFreezer.updateFurnaceBlockState(forceLit | this.currentEnergyTime > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicFreezer.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
             return;
         }
         if (this.carriedBlock != null) {
-            this.carriedBlock.blockId = forceLit | this.currentEnergyTime > 0 ? AetherBlocks.FREEZER_ACTIVE.id() : AetherBlocks.FREEZER_IDLE.id();
+            this.carriedBlock.blockId = forceLit || this.getCurrentEnergyTime() > 0 ? AetherBlocks.FREEZER_ACTIVE.id() : AetherBlocks.FREEZER_IDLE.id();
         }
     }
 
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack) {
-        return itemStack == null ? 0 : LookupFuelFreezer.instance.getFuelYield(itemStack.getItem().id);
+        return itemStack == null ? 0 : LookupFuelFreezer.INSTANCE.getFuelYield(itemStack.getItem().id);
     }
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
         super.dropContents(world, x, y, z);
-        if (!BlockLogicFreezer.keepFreezerInventory) {
+        if (!BlockLogicFreezer.isKeepFreezerInventory()) {
             for (int l = 0; l < this.getContainerSize(); ++l) {
                 ItemStack itemstack = this.getItem(l);
                 if (itemstack != null) {
@@ -224,8 +226,8 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
                         itemstack.stackSize -= i1;
                         EntityItem entityItem = new EntityItem
-                                (world, (float) x + f, (float) y + f1, (float) z + f2,
-                                        new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                            (world, x + f, y + f1, z + f2,
+                                new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
                         entityItem.xd = (float) this.random.nextGaussian() * f3;
                         entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;

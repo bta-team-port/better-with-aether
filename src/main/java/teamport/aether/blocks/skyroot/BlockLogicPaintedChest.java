@@ -18,5 +18,4 @@ public class BlockLogicPaintedChest extends BlockLogicChestPainted {
         int meta = this.stripColorFromMetadata(world.getBlockMetadata(x, y, z));
         world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta);
     }
-
 }

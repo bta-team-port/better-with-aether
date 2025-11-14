@@ -17,16 +17,15 @@ import teamport.aether.recipe.RecipeEntryAetherMachine;
 import java.util.*;
 
 public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAetherMachine> {
-    public List<SlotGuidebook> slots;
-    public Map<RecipeEntryAetherMachine, List<SlotGuidebook>> map;
-    public final TooltipElement tooltipElement;
-    public final ItemElement itemElement;
-    public static long ticks = 0L;
-    public Random rand = new Random();
+    private final List<SlotGuidebook> slots;
+    private final Map<RecipeEntryAetherMachine, List<SlotGuidebook>> map;
+    private final TooltipElement tooltipElement;
+    private final ItemElement itemElement;
+    private static long ticks = 0L;
 
     public static final Minecraft mc = Minecraft.getMinecraft();
 
-    public RecipePageAetherMachines(GuidebookSection section, List<RecipeEntryAetherMachine> recipes) {
+    protected RecipePageAetherMachines(GuidebookSection section, List<RecipeEntryAetherMachine> recipes) {
         super(section);
         this.recipes = recipes;
         this.slots = new ArrayList<>();
@@ -38,6 +37,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
 
     public abstract void buildSlots(List<RecipeEntryAetherMachine> recipes);
 
+    @Override
     public void onTick() {
         ++ticks;
 
@@ -52,6 +52,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
 
     }
 
+    @Override
     public void renderForeground(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (this.recipes.isEmpty()) {
             this.drawStringCenteredNoShadow(fr, I18n.getInstance().translateKey("guidebook.section.search.error.no_recipes"), x + 79, y + 110, -8355712);
@@ -74,6 +75,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
         return mouseX >= x + slot.x - 1 && mouseX < x + slot.x + 16 + 1 && mouseY >= y + slot.y - 1 && mouseY < y + slot.y + 16 + 1;
     }
 
+    @Override
     public boolean keyTyped(char c, int key, int x, int y, int mouseX, int mouseY) {
         super.keyTyped(c, key, x, y, mouseX, mouseY);
         if (mc.gameSettings.keyShowRecipe.isKeyboardKey(key)) {
@@ -115,10 +117,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
         return false;
     }
 
-    public void render(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
-        super.render(re, fr, x, y, mouseX, mouseY, partialTicks);
-    }
-
+    @Override
     public void renderBackground(TextureManager re, int x, int y) {
         super.renderBackground(re, x, y);
         re.bindTexture(re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png"));
@@ -131,6 +130,7 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
 
     }
 
+    @Override
     public void renderOverlay(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.renderOverlay(re, fr, x, y, mouseX, mouseY, partialTicks);
         SlotGuidebook mouseOverSlot = null;
@@ -149,6 +149,11 @@ public abstract class RecipePageAetherMachines extends RecipePage<RecipeEntryAet
                 }
             }
         }
-
+    }
+    protected List<SlotGuidebook> getSlots() {
+        return slots;
+    }
+    public Map<RecipeEntryAetherMachine, List<SlotGuidebook>> getMap() {
+        return map;
     }
 }

@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(value = ScreenContainerAbstract.class, remap = false)
 public interface ScreenContainerAbstractAccessor {
-
-    @Invoker("getSlotId")
+    @Invoker
     int invokeGetSlotId(int x, int y);
 }

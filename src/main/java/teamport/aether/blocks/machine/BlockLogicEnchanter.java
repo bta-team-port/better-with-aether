@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class BlockLogicEnchanter extends BlockLogicRotatable {
     public final boolean isActive;
-    public static boolean keepEnchanterInventory = false;
+    private static boolean keepEnchanterInventory = false;
 
     public BlockLogicEnchanter(Block<?> block, boolean active) {
         super(block, Material.stone);
@@ -28,6 +28,11 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
         block.withEntity(TileEntityEnchanter::new);
     }
 
+    public static boolean isKeepEnchanterInventory() {
+        return keepEnchanterInventory;
+    }
+
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case PICK_BLOCK:
@@ -41,22 +46,23 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
         }
     }
 
+    @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (this.isActive) {
             int l = world.getBlockMetadata(x, y, z);
-            double poxX = (double) x + (double) 0.5F;
-            double posY = (double) y + (double) 0.5F + (double) (rand.nextFloat() * 6.0F / 16.0F);
-            double posZ = (double) z + (double) 0.5F;
-            double f3 = 0.52F;
-            double f4 = rand.nextFloat() * 0.6F - 0.3F;
+            double poxX = x + 0.5;
+            double posY = y + 0.5 + (rand.nextDouble() * 6.0 / 16.0);
+            double posZ = z + 0.5;
+            double f3 = 0.52;
+            double f4 = rand.nextDouble() * 0.6 - 0.3;
             if (l == 4) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX - f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX - f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
             } else if (l == 5) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f3, posY, posZ + f4, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
             } else if (l == 2) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ - f3, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ - f3, 0.0, 0.0, 0.0, 0);
             } else if (l == 3) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ + f3, 0.0F, 0.0F, 0.0F, 0);
+                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ + f3, 0.0, 0.0, 0.0, 0);
             }
 
         }

@@ -14,13 +14,14 @@ import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import teamport.aether.items.AetherItems;
 
 public class BlockLogicOreAmbrosium extends BlockLogic {
-    public static WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
+    public static final WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
 
     public BlockLogicOreAmbrosium(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
         if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_PICKAXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
@@ -28,6 +29,7 @@ public class BlockLogicOreAmbrosium extends BlockLogic {
         }
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

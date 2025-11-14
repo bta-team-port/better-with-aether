@@ -27,12 +27,12 @@ public class EnchanterTooltip extends TileTooltip<TileEntityEnchanter> {
         ItemStack output = enchanter.getItem(2);
 
         ProgressBarOptions options = new ProgressBarOptions(
-                0, String.format("%s%s%s ", LIME, translator.translateKey("aether.tooltip.enchanter.progress"), RESET), true, true,
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/enchanter_bg")),
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/enchanter_fg"))
+            0, String.format("%s%s%s ", LIME, translator.translateKey("aether.tooltip.enchanter.progress"), RESET), true, true,
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/enchanter_bg")),
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/enchanter_fg"))
         );
         advancedInfoComponent.drawProgressBarTextureWithText(enchanter.getProcessProgressScaled(100), 100, options, -12); //getCookProgressScaled
-        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), enchanter.currentEnergyTime / Global.TICKS_PER_SECOND), 0);
+        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), enchanter.getCurrentEnergyTime() / Global.TICKS_PER_SECOND), 0);
         ItemStack[] stacks = new ItemStack[]{input, fuel, output};
         advancedInfoComponent.drawItemList(stacks, 0);
     }

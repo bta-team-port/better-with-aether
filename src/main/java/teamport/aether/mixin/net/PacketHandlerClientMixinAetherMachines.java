@@ -17,12 +17,10 @@ import teamport.aether.entity.tile.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
 @Mixin(value = PacketHandlerClient.class, remap = false)
-public class PacketHandlerClientMixinAetherMachines {
-
+public abstract class PacketHandlerClientMixinAetherMachines {
     @Final
     @Shadow
     private Minecraft mc;
-
     @Inject(method = "handleOpenWindow", at = @At("TAIL"))
     public void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci) {
         PlayerLocal playerLocal = this.mc.thePlayer;

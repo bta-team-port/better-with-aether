@@ -16,18 +16,15 @@ import teamport.aether.world.AetherDimension;
 
 @Mixin(value = SaveHandlerBase.class, remap = false)
 public abstract class SaveHandlerMixin implements LevelStorage {
-
     @Shadow
     @Final
     protected ISaveFormat saveFormat;
-
     @Shadow
     @Final
     protected String worldDirName;
-
     @Inject(method = "getDimensionData", at = @At("HEAD"))
     public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
-        if (dimensionId != AetherDimension.AETHER.id) return;
+        if (dimensionId != AetherDimension.getAether().id) return;
 
         AetherDimension.setDimensionDataDefaults();
 
@@ -36,11 +33,9 @@ public abstract class SaveHandlerMixin implements LevelStorage {
             AetherDimension.loadDimensionData(dimensionData);
         }
     }
-
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
     public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
-        if (dimensionId != AetherDimension.AETHER.id) return;
+        if (dimensionId != AetherDimension.getAether().id) return;
         AetherDimension.saveDimensionData(dimensionData);
     }
-
 }

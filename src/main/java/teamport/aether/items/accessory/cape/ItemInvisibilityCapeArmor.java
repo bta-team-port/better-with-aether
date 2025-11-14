@@ -16,11 +16,12 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId > player.inventory.mainInventory.length
-                        && slotId - player.inventory.mainInventory.length == CAPE_SLOT
+            slotId > player.inventory.mainInventory.length
+                && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
             ((AetherInvisibility) player).aether$setInvisible(true);
             return;

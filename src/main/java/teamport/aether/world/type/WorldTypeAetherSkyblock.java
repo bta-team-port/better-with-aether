@@ -10,6 +10,7 @@ public class WorldTypeAetherSkyblock extends WorldTypeAether {
         super(properties);
     }
 
+    @Override
     public ChunkGenerator createChunkGenerator(World world) {
         return new ChunkGeneratorSkyblockAether(world);
     }

@@ -25,10 +25,10 @@ public class ItemIcePendant extends ItemPendant {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId < player.inventory.mainInventory.length
-                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
-                        || player.isInWater()
-                        || player.isSneaking()
+            slotId < player.inventory.mainInventory.length
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+                || player.isInWater()
+                || player.isSneaking()
         ) {
             return;
         }

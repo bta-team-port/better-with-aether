@@ -1,6 +1,5 @@
 package teamport.aether.mixin.accessory.trinket;
 
-
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.Mob;
@@ -11,8 +10,7 @@ import teamport.aether.helper.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
-abstract public class PlayerMixinPendantFallDamageModifier {
-
+public abstract class PlayerMixinPendantFallDamageModifier {
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Ljava/lang/Math;ceil(D)D"))
     public double modifyDamageTaken(double damage, Operation<Double> original) {
         Mob mob = (Mob) (Object) this;

@@ -15,22 +15,25 @@ public class MobRendererMoa extends MobRenderer<MobMoaBlue> {
         this.setArmorModel(modelbase);
     }
 
+    @Override
     public float limbSway(MobMoaBlue moa, float partialTick) {
-        float flap = moa.oFlap + (moa.flap - moa.oFlap) * partialTick;
-        float flapSpeed = moa.oFlapSpeed + (moa.flapSpeed - moa.oFlapSpeed) * partialTick;
+        float flap = moa.getOFlap() + (moa.getFlap() - moa.getOFlap()) * partialTick;
+        float flapSpeed = moa.getOFlapSpeed() + (moa.getFlapSpeed() - moa.getOFlapSpeed()) * partialTick;
         return (MathHelper.sin(flap) + 1.0F) * flapSpeed;
     }
 
-    public boolean renderSaddledMoa(MobMoaBlue moa, int renderPass, float partialTick) {
+    private boolean renderSaddledMoa(MobMoaBlue moa, int renderPass) {
         this.bindTexture("/assets/aether/textures/entity/moa_blue/moa_saddle.png");
         return renderPass == 0 && moa != null && moa.getSaddled();
     }
 
+    @Override
     public void setupScale(MobMoaBlue moa, float partialTick) {
         GL11.glScalef(1.8f, 1.8f, 1.8f);
     }
 
+    @Override
     public boolean prepareArmor(MobMoaBlue moa, int renderPass, float partialTick) {
-        return this.renderSaddledMoa(moa, renderPass, partialTick);
+        return this.renderSaddledMoa(moa, renderPass);
     }
 }

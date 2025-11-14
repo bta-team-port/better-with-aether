@@ -16,6 +16,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         this.shadowSize = 0.0F;
     }
 
+    @Override
     public void renderPreview(Tessellator tessellator, MobBossSlider slider, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         GL11.glScalef(0.75F, 0.75F, 0.75F);
@@ -51,9 +52,10 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         }
     }
 
+    @Override
     public void setupScale(MobBossSlider slider, float partialTick) {
-        if (slider.deformX > 0.01F) {
-            GL11.glRotatef(slider.deformX * -30.0F, (float) slider.deformY, 0.0F, (float) slider.deformZ);
+        if (slider.getDeformX() > 0.01F) {
+            GL11.glRotatef(slider.getDeformX() * -30.0F, (float) slider.getDeformY(), 0.0F, (float) slider.getDeformZ());
         }
 
     }

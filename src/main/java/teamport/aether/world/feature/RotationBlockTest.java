@@ -15,7 +15,6 @@ import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class RotationBlockTest extends WorldFeature {
-
     @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         Direction[] horizontalDirections = Direction.horizontalDirections;
@@ -34,7 +33,7 @@ public class RotationBlockTest extends WorldFeature {
         room.add(wfb(x, y, z + 1, AetherBlocks.TORCH_AMBROSIUM.id(), getTorchMetadataFromDirection(Direction.SOUTH), true));
         room.add(wfb(x - 1, y, z, AetherBlocks.TORCH_AMBROSIUM.id(), getTorchMetadataFromDirection(Direction.WEST), true));
 
-        for (WorldFeatureBlock blocks : room.blockList) {
+        for (WorldFeatureBlock blocks : room.getBlockList()) {
             blocks.rotateYAroundPivot(wfp(x, y, z), direction);
             blocks.place(world);
         }

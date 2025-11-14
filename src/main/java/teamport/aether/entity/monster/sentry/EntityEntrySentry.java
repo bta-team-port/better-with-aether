@@ -15,11 +15,10 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class EntityEntrySentry extends EntityEntry<MobSentry> {
-    public EntityEntrySentry() {
-    }
+    public EntityEntrySentry() {}
 
-    public void onTick(MobSentry entity) {
-    }
+    @Override
+    public void onTick(MobSentry entity) {}
 
     @Override
     public List<ButtonElement> getEntryButtons(Minecraft mc, Screen parentScreen, MobSentry sentry) {
@@ -27,14 +26,14 @@ public class EntityEntrySentry extends EntityEntry<MobSentry> {
         I18n translator = I18n.getInstance();
 
         ListenerSliderElement sentryStateSlider = new ListenerSliderElement(-1, -120, 0, 120, 20,
-                translator.translateKeyAndFormat("model.category.entity.sentry.slider.state", "Deactivated"), 0.0F);
+            translator.translateKeyAndFormat("model.category.entity.sentry.slider.state", "Deactivated"), 0.0F);
         sentryStateSlider.setOnValueChanged(() -> {
             float sentryValue = (float) sentryStateSlider.sliderValue;
             if (sentryValue < 0.50F) {
-                sentry.activated = false;
+                sentry.setActivated(false);
                 sentryStateSlider.displayString = translator.translateKeyAndFormat("model.category.entity.sentry.slider.state", "Deactivated");
             } else {
-                sentry.activated = true;
+                sentry.setActivated(true);
                 sentryStateSlider.displayString = translator.translateKeyAndFormat("model.category.entity.sentry.slider.state", "Activated");
             }
         });
@@ -43,13 +42,14 @@ public class EntityEntrySentry extends EntityEntry<MobSentry> {
         return buttonList;
     }
 
+    @Override
     public MobSentry getEntityInstance(Minecraft mc, World world) {
         return new MobSentry(world);
     }
 
-    public void onOpen() {
-    }
+    @Override
+    public void onOpen() {}
 
-    public void onClose() {
-    }
+    @Override
+    public void onClose() {}
 }

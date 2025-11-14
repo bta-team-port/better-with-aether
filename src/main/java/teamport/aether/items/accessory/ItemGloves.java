@@ -3,26 +3,21 @@ package teamport.aether.items.accessory;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.IArmorItem;
-import net.minecraft.core.item.ItemArmor;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
-import org.jspecify.annotations.Nullable;
 import teamport.aether.items.AetherHasCustomDamageType;
 
-import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
-
 public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, AetherHasCustomDamageType {
-    public final ArmorMaterial material;
-    public int damage;
-    public DamageType damageType;
+    private final ArmorMaterial material;
+    private int damage;
+    private DamageType damageType;
 
     public ItemGloves(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material.identifier.value(), accessoryPiece);
         this.material = material;
-        float maxDurability = ItemArmor.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
+        float maxDurability = IArmorItem.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
-        this.damage = 1;
         this.damageType = DamageType.COMBAT;
     }
 
@@ -41,7 +36,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
     }
 
     @Override
-    public @Nullable ArmorMaterial getArmorMaterial() {
+    public ArmorMaterial getArmorMaterial() {
         return this.material;
     }
 
@@ -52,7 +47,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
 
     @Override
     public float getArmorPieceProtectionPercentage() {
-        return (float) this.armorPieceProtection() / 40.0f;
+        return this.armorPieceProtection() / 40.0f;
     }
 
     @Override
@@ -72,6 +67,9 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
             return true;
         }
         return false;
+    }
+    public int getDamage() {
+        return damage;
     }
 }
 

@@ -14,18 +14,11 @@ import teamport.aether.models.DynamicTextureDungeonCompass;
 
 @Mixin(value = TextureManager.class, remap = false)
 public abstract class DynamicTexturesMixin {
-
-
     @Shadow
     @Final
     public Minecraft mc;
-
-    @Shadow
-    protected abstract void addDynamicTextureOverride(DynamicTexture texture, boolean override);
-
     @Shadow
     protected abstract void addDynamicTexture(DynamicTexture texture);
-
     @Inject(method = "initDynamicTextures", at = @At(value = "TAIL"))
     public void initDynamicTextures(CallbackInfo ci) {
         this.addDynamicTexture(new DynamicTextureDungeonCompass(this.mc, TextureRegistry.getTexture("aether:item/tool_dungeon_compass")));

@@ -19,5 +19,6 @@ public interface EnemyBoss {
 
     void setTrophy(ItemStack itemStack);
 
+    @SuppressWarnings("unused")
     ItemStack getTrophy();
 }

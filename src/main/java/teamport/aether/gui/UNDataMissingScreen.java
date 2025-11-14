@@ -8,8 +8,6 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.save.SaveFile;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Random;
-
 public class UNDataMissingScreen extends Screen {
 
     private final Screen previous;
@@ -19,18 +17,18 @@ public class UNDataMissingScreen extends Screen {
 
     private int y;
 
-    public int currBtn = 0;
+    private int currBtn = 0;
 
-    ButtonElement continueBtn;
+    private ButtonElement continueBtn;
 
-    protected I18n i18n = I18n.getInstance();
-    protected Random rand = new Random();
+    private final I18n i18n = I18n.getInstance();
 
     public UNDataMissingScreen(Screen previous, SaveFile level) {
         this.previous = previous;
         this.level = level;
     }
 
+    @Override
     public void init() {
         Keyboard.enableRepeatEvents(true);
 
@@ -48,10 +46,12 @@ public class UNDataMissingScreen extends Screen {
         buttons.add(continueBtn);
     }
 
+    @Override
     public void removed() {
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Override
     public void render(int mx, int my, float partialTick) {
         this.renderBackground();
 
@@ -62,6 +62,7 @@ public class UNDataMissingScreen extends Screen {
         super.render(mx, my, partialTick);
     }
 
+    @Override
     protected void buttonClicked(ButtonElement button) {
         if (button.enabled) {
             if (button.id == 1) {
@@ -92,5 +93,4 @@ public class UNDataMissingScreen extends Screen {
             }
         }
     }
-
 }

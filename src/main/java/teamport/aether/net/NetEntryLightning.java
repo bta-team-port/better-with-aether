@@ -44,6 +44,5 @@ public class NetEntryLightning implements IVehicleEntry<EntityLightning>, ITrack
     }
 
     @Override
-    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityLightning object) {
-    }
+    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityLightning object) {}
 }

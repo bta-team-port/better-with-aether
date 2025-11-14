@@ -9,8 +9,8 @@ import net.minecraft.core.util.helper.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class ModelSheepuffWool extends ModelQuadruped {
-    boolean isEatingAnimPlaying;
-    float headBobTime;
+    private boolean isEatingAnimPlaying;
+    private float headBobTime;
 
     public ModelSheepuffWool() {
         super(12, 0.0F);
@@ -35,6 +35,7 @@ public class ModelSheepuffWool extends ModelQuadruped {
         this.leg4.setRotationPoint(3.0F, 12.0F, -5.0F);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         float desiredRotateAngleX = headPitch / 57.29578F;
@@ -60,12 +61,13 @@ public class ModelSheepuffWool extends ModelQuadruped {
 
     }
 
+    @Override
     public void setLivingAnimations(Mob mob, float limbSwing, float limbYaw, float partialTick) {
         MobSheepuff entitySheep = (MobSheepuff) mob;
         this.head.y = 6.0F;
         this.isEatingAnimPlaying = false;
         if (entitySheep.getIsSheepEating()) {
-            this.headBobTime = (float) entitySheep.prevTimeSheepEating + (float) (entitySheep.timeSheepEating - entitySheep.prevTimeSheepEating) * partialTick;
+            this.headBobTime = (float) entitySheep.getPrevTimeSheepEating() + (float) (entitySheep.getTimeSheepEating() - entitySheep.getPrevTimeSheepEating()) * partialTick;
             this.isEatingAnimPlaying = true;
             if (this.headBobTime < 5.0F) {
                 this.head.y = 6.0F + 2.0F * (this.headBobTime + 1.0F);
@@ -77,8 +79,5 @@ public class ModelSheepuffWool extends ModelQuadruped {
         } else {
             this.headBobTime = 0.0F;
         }
-
     }
-
-
 }

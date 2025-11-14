@@ -9,28 +9,30 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
-import teamport.aether.entity.floatingBlock.EntityFloatingBlock;
+import teamport.aether.entity.floating_block.EntityFloatingBlock;
 import teamport.aether.items.AetherItems;
 
 import java.util.Random;
 
 public class BlockLogicOreGravitite extends BlockLogic {
-    public static WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
-    public static boolean fallInstantly = false;
+    public static final WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
 
     public BlockLogicOreGravitite(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
     }
 
+    @Override
     public void onBlockPlacedByWorld(World world, int x, int y, int z) {
         world.scheduleBlockUpdate(x, y, z, this.block.id(), this.tickDelay());
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
         world.scheduleBlockUpdate(x, y, z, this.block.id(), this.tickDelay());
     }
 
+    @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
         this.tryToFall(world, x, y, z);
     }
@@ -38,8 +40,8 @@ public class BlockLogicOreGravitite extends BlockLogic {
     public void tryToFall(World world, int x, int y, int z) {
         if (canFallAbove(world, x, y + 1, z) && y < 256) {
             byte byte0 = 32;
-            if (!fallInstantly && world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
-                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, this.block.id(), 0, null);
+            if (world.areBlocksLoaded(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
+                EntityFloatingBlock entityFloatingBlock = new EntityFloatingBlock(world, x + 0.5, y + 0.5, z + 0.5, this.block.id(), 0, null);
                 world.entityJoinedWorld(entityFloatingBlock);
                 world.setBlockWithNotify(x, y, z, 0);
             } else {
@@ -56,6 +58,7 @@ public class BlockLogicOreGravitite extends BlockLogic {
         }
     }
 
+    @Override
     public int tickDelay() {
         return 3;
     }
@@ -65,6 +68,7 @@ public class BlockLogicOreGravitite extends BlockLogic {
         return block == null || block.hasTag(BlockTags.PLACE_OVERWRITES);
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

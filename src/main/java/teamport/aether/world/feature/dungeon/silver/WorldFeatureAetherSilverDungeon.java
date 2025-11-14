@@ -16,11 +16,11 @@ import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.Pair;
 import teamport.aether.items.AetherItems;
-import teamport.aether.world.feature.dungeon.silver.component.WorldFeatureSilverMaze;
-import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.chest.WorldFeatureAetherSilverChest;
+import teamport.aether.world.feature.dungeon.silver.component.WorldFeatureSilverMaze;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherClouds;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
+import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -35,29 +35,28 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogicSilverDungeon> {
-    public static BlockPallet angelic = new BlockPallet();
-    public static BlockPallet holystone = new BlockPallet();
+    public static final BlockPallet ANGELIC = new BlockPallet();
+    private static final BlockPallet HOLYSTONE = new BlockPallet();
     private final Direction direction;
-    public float angle;
-    public WorldFeaturePoint dungeonAnchor;
-    public WorldFeaturePoint bossPosition;
-    public WorldFeatureSilverMaze silverMaze;
-    public World world;
-    public Random random;
-    protected DungeonLogicSilverDungeon logic;
+    private WorldFeaturePoint dungeonAnchor;
+    private WorldFeaturePoint bossPosition;
+    private WorldFeatureSilverMaze silverMaze;
+    private World world;
+    private Random random;
+    private DungeonLogicSilverDungeon logic;
 
     static {
-        angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 95);
-        angelic.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
-        holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
-        holystone.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
+        ANGELIC.addEntry(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), 0, 95);
+        ANGELIC.addEntry(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), 0, 5);
+        HOLYSTONE.addEntry(AetherBlocks.COBBLE_HOLYSTONE.id(), 0, 90);
+        HOLYSTONE.addEntry(AetherBlocks.COBBLE_HOLYSTONE_MOSSY.id(), 0, 10);
     }
 
-    public static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
-    public static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
-    public static final WeightedRandomBag<WeightedRandomLootObject> GADGET = new WeightedRandomBag<>();
-    public static final WeightedRandomBag<WeightedRandomLootObject> FOOD = new WeightedRandomBag<>();
-    public static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
+    private static final WeightedRandomBag<WeightedRandomLootObject> JUNK = new WeightedRandomBag<>();
+    private static final WeightedRandomBag<WeightedRandomLootObject> AMMO = new WeightedRandomBag<>();
+    private static final WeightedRandomBag<WeightedRandomLootObject> GADGET = new WeightedRandomBag<>();
+    private static final WeightedRandomBag<WeightedRandomLootObject> FOOD = new WeightedRandomBag<>();
+    private static final WeightedRandomBag<WeightedRandomLootObject> ARMOR = new WeightedRandomBag<>();
 
     static {
         // junk         8-10
@@ -90,34 +89,34 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         int minTool = AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage() / 2;
         int maxTool = AetherItems.TOOL_PICKAXE_ZANITE.getMaxDamage();
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_PICKAXE_ZANITE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_AXE_ZANITE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOVEL_ZANITE.getDefaultStack())
-                .setRandomMetadata(minTool, maxTool), 1);
+            .setRandomMetadata(minTool, maxTool), 1);
 
         // armor
         float minArmorFactor = 1.0f / 2.0f;
         float maxArmorFactor = 1.0f;
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_BOOTS_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_BOOTS_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_HELMET_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_HELMET_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_LEGGINGS_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_LEGGINGS_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_CHESTPLATE_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
-                .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         // rare tool & armor
         GADGET.addEntry(new WeightedRandomLootObject(AetherItems.TOOL_SHOOTER.getDefaultStack()), 20);
@@ -154,7 +153,6 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     public WorldFeatureAetherSilverDungeon(int direction) {
-        this.angle = direction * 90;
         this.direction = Direction.horizontalDirections[direction & 3]; // to prevent overflow
     }
 
@@ -163,25 +161,26 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     public void placeComponent(WorldFeatureComponent component) {
-        for (WorldFeatureBlock block : component.blockList) {
+        for (WorldFeatureBlock block : component.getBlockList()) {
             block.rotateYAroundPivot(dungeonAnchor, direction);
             block.place(world);
         }
     }
 
+    @Override
     public boolean canPlace(World world, int x, int y, int z) {
         if (y + 35 >= world.getHeightBlocks()) {
             return false;
         }
 
-        WorldFeaturePoint dungeonAnchor = wfp(x, y, z);
+        WorldFeaturePoint theDungeonAnchor = wfp(x, y, z);
 
         WorldFeatureComponent clear = drawVolume(0, 0, Direction.SOUTH, 55, Direction.UP, 30, Direction.WEST, 30, x, y, z, true);
-        for (WorldFeaturePoint point : clear.blockList) {
+        for (WorldFeaturePoint point : clear.getBlockList()) {
 
-            point.rotateYAroundPivot(dungeonAnchor, this.direction);
-            Material blockMaterial = world.getBlockMaterial(point.x, point.y, point.z);
-            BlockLogicCloudBase blockLogic = world.getBlockLogic(point.x, point.y, point.z, BlockLogicCloudBase.class);
+            point.rotateYAroundPivot(theDungeonAnchor, this.direction);
+            Material blockMaterial = world.getBlockMaterial(point.getX(), point.getY(), point.getZ());
+            BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
             if (blockMaterial != null && blockMaterial != Material.air && (blockMaterial != Material.cloth || blockLogic == null)) {
                 AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
@@ -193,9 +192,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
 
     @Override
     public DungeonLogicSilverDungeon register(World world, long seed, int x, int y, int z) {
-        DungeonLogicSilverDungeon logic = super.register(world, seed, x, y, z);
-        logic.direction = direction;
-        return logic;
+        DungeonLogicSilverDungeon theLogic = super.register(world, seed, x, y, z);
+        theLogic.direction = direction;
+        return theLogic;
     }
 
     @Override
@@ -250,59 +249,59 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         List<WorldFeaturePoint> cloudPoints = getCloudPoints(x, y, z);
         for (WorldFeaturePoint cloudPoint : cloudPoints) {
             cloudPoint.rotateYAroundPivot(dungeonAnchor, direction);
-            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10))).place(world, random, cloudPoint.x, cloudPoint.y, cloudPoint.z);
+            new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_WHITE.id(), (6 + random.nextInt(10))).place(world, random, cloudPoint.getX(), cloudPoint.getY(), cloudPoint.getZ());
         }
 
         // holystone base
-        WorldFeatureComponent base = drawVolume(random, holystone, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
-        int ix = base.tail.x;
-        int iz = base.tail.z;
+        WorldFeatureComponent base = drawVolume(random, HOLYSTONE, Direction.SOUTH, 55, Direction.DOWN, 5, Direction.WEST, 30, x, y, z, false);
+        int ix = base.getTail().getX();
+        int iz = base.getTail().getZ();
         this.placeComponent(base);
 
         // generate 3x3x3 grid of rooms
-        silverMaze.createMaze(world, random, x, y, z);
-        this.placeComponent(silverMaze.rooms);
-        this.placeComponent(silverMaze.chests);
-        for (WorldFeatureBlock chest : silverMaze.chests.blockList) {
+        silverMaze.createMaze(random, x, y, z);
+        this.placeComponent(silverMaze.getRooms());
+        this.placeComponent(silverMaze.getChests());
+        for (WorldFeatureBlock chest : silverMaze.getChests().getBlockList()) {
             populateChest(world, random, chest, WorldFeatureAetherSilverDungeon::generateLoot);
         }
 
         // Outer walls of dungeon itself
-        this.placeComponent(drawShell(random, angelic, Direction.SOUTH, 22, Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, false));
-        this.placeComponent(drawShell(random, angelic, Direction.NORTH, 26, Direction.UP, 16, Direction.EAST, 22, ix + 4, y, iz - 5, false));
+        this.placeComponent(drawShell(random, ANGELIC, Direction.SOUTH, 22, Direction.UP, 16, Direction.WEST, 22, x - 4, y, z + 4, false));
+        this.placeComponent(drawShell(random, ANGELIC, Direction.NORTH, 26, Direction.UP, 16, Direction.EAST, 22, ix + 4, y, iz - 5, false));
 
 
         /// Throne room
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
+        this.placeComponent(drawPlane(random, ANGELIC, Direction.WEST, 22, Direction.SOUTH, 25, x - 4, y + 1, z + 26, false));
     }
 
     private void createBossAndTreasure(int x, int y, int z) {
         Pair<WorldFeaturePoint, WorldFeaturePoint> clearArea = new Pair<>(
-                new WorldFeaturePoint(x + 2, y - 1, z - 3),
-                new WorldFeaturePoint(x - 31, y + 23, z + 56)
+            new WorldFeaturePoint(x + 2, y - 1, z - 3),
+            new WorldFeaturePoint(x - 31, y + 23, z + 56)
         );
-        clearArea.first.rotateYAroundPivot(dungeonAnchor, direction);
-        clearArea.second.rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.getFirst().rotateYAroundPivot(dungeonAnchor, direction);
+        clearArea.getSecond().rotateYAroundPivot(dungeonAnchor, direction);
 
         // Entrance hole into boss room
         int entranceDoorMeta = BlockLogicRotatable.setDirection(0, direction);
         WorldFeatureComponent entranceDoor = drawPlane(0, 0, Direction.UP, 3, Direction.WEST, 2, x - 21, y + 1, z + 25, true);
         this.placeComponent(entranceDoor);
-        for (WorldFeatureBlock blocks : entranceDoor.blockList) {
-            blocks.blockID = AetherBlocks.DOOR_DUNGEON_SILVER.id();
-            blocks.metadata = entranceDoorMeta;
+        for (WorldFeatureBlock blocks : entranceDoor.getBlockList()) {
+            blocks.setBlockId(AetherBlocks.DOOR_DUNGEON_SILVER.id());
+            blocks.setMetadata(entranceDoorMeta);
         }
-        logic.setEntranceDoor(entranceDoor.blockList);
+        logic.setEntranceDoor(entranceDoor.getBlockList());
         logic.setClearArea(clearArea);
 
         // Place boss, chest and door
         MobBossValkyrie boss = new MobBossValkyrie(world);
-        boss.moveTo(bossPosition.x, bossPosition.y, bossPosition.z, 0f, 0f);
-        boss.setReturnPoint(new WorldFeaturePoint(bossPosition.x, bossPosition.y, bossPosition.z));
+        boss.moveTo(bossPosition.getX(), bossPosition.getY(), bossPosition.getZ(), 0f, 0f);
+        boss.setReturnPoint(new WorldFeaturePoint(bossPosition.getX(), bossPosition.getY(), bossPosition.getZ()));
         boss.setDungeonID(logic.id);
         boss.setTrophy(AetherItems.KEY_SILVER.getDefaultStack());
 
-        WorldFeatureAetherSilverChest.silverChest().place(world, random, bossPosition.x, y, bossPosition.z);
+        new WorldFeatureAetherSilverChest().place(world, random, bossPosition.getX(), y, bossPosition.getZ());
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 42));
         treasureDoor.add(new WorldFeaturePoint(x - 14, y + 2, z + 43));
@@ -331,8 +330,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         createTreePods(x, y, z);
 
         // Throne
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, false));
-        this.placeComponent(drawShell(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, false));
+        this.placeComponent(drawPlane(random, ANGELIC, Direction.WEST, 8, Direction.SOUTH, 6, x - 11, y + 2, z + 44, false));
+        this.placeComponent(drawShell(random, ANGELIC, Direction.WEST, 4, Direction.NORTH, 4, Direction.DOWN, 4, x - 13, y + 2, z + 44, false));
 
         // Chest hole
         this.placeComponent(drawVolume(0, 0, Direction.WEST, 2, Direction.NORTH, 2, Direction.DOWN, 2, x - 14, y + 1, z + 43, false));
@@ -346,11 +345,11 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         this.placeComponent(torches);
 
         // Throne cushion
-        this.placeComponent(drawPlane(random, angelic, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, false));
-        this.placeComponent(drawVolume(random, angelic, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, false));
+        this.placeComponent(drawPlane(random, ANGELIC, Direction.WEST, 4, Direction.UP, 6, x - 13, y + 3, z + 49, false));
+        this.placeComponent(drawVolume(random, ANGELIC, Direction.WEST, 4, Direction.NORTH, 4, Direction.UP, 2, x - 13, y + 3, z + 49, false));
         this.placeComponent(drawPlane(Blocks.WOOL.id(), 11, Direction.WEST, 2, Direction.NORTH, 2, x - 14, y + 4, z + 48, false));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 13, y + 5, z + 48, false));
-        this.placeComponent(drawLine(random, angelic, Direction.NORTH, 3, x - 16, y + 5, z + 48, false));
+        this.placeComponent(drawLine(random, ANGELIC, Direction.NORTH, 3, x - 13, y + 5, z + 48, false));
+        this.placeComponent(drawLine(random, ANGELIC, Direction.NORTH, 3, x - 16, y + 5, z + 48, false));
 
         // Ceiling lights
         createLight(x - 10, y + 14, z + 28);
@@ -367,8 +366,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
 
     private WorldFeatureComponent createPillar(Random random, int x, int y, int z) {
         WorldFeatureComponent pillar = new WorldFeatureComponent();
-        pillar.add(drawPlane(random, angelic, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false));
-        pillar.add(drawPlane(random, angelic, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false));
+        pillar.add(drawPlane(random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false));
+        pillar.add(drawPlane(random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false));
         pillar.add(drawLine(AetherBlocks.PILLAR.id(), 0, Direction.UP, 13, x + Direction.WEST.getOffsetX(), y, z + Direction.SOUTH.getOffsetZ(), false));
         pillar.add(wfb(x + Direction.WEST.getOffsetX(), y + 13, z + Direction.SOUTH.getOffsetZ(), AetherBlocks.PILLAR_CAPSTONE.id(), 0, false));
         return pillar;
@@ -378,7 +377,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         WorldFeatureComponent roof = new WorldFeatureComponent();
         // Roof
         for (int i = 0; i < 7; i++) {
-            roof.add(drawPlane(random, angelic, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, false));
+            roof.add(drawPlane(random, ANGELIC, Direction.SOUTH, 57, Direction.WEST, 32 - 4 * i, x + 1 - 2 * i, y + 16 + i, z - 1, false));
         }
 
         WorldFeatureComponent pillars = new WorldFeatureComponent();
@@ -407,7 +406,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         for (int i = 0; i < 2; i++) {
             int bx = x - 6 - i * 15;
             int bz = z + 45;
-            pod.add(drawPlane(random, angelic, Direction.WEST, 3, Direction.SOUTH, 3, bx, y + 2, bz, false));
+            pod.add(drawPlane(random, ANGELIC, Direction.WEST, 3, Direction.SOUTH, 3, bx, y + 2, bz, false));
             pod.add(wfb(bx - 1, y + 2, bz + 1, AetherBlocks.DIRT_AETHER.id(), 0, true));
             if (world.rand.nextInt(6) == 0) {
                 pod.add(wfb(bx - 1, y + 3, bz + 1, AetherBlocks.SAPLING_OAK_GOLDEN.id(), 0, false));
@@ -422,8 +421,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         }
         this.placeComponent(pod);
         this.placeComponent(trees);
-        for (WorldFeatureBlock tree : trees.blockList) {
-            new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id()).place(world, random, tree.x, tree.y, tree.z);
+        for (WorldFeatureBlock tree : trees.getBlockList()) {
+            new WorldFeatureAetherTreeGoldenOak().place(world, random, tree.getX(), tree.getY(), tree.getZ());
         }
     }
 
@@ -447,10 +446,10 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         WorldFeatureComponent fountain = new WorldFeatureComponent();
 
         for (int i = 0; i < walls.length; i++) {
-            WorldFeatureComponent end = drawLine(random, angelic, directionEW, walls[i], x, y, z + i, false);
+            WorldFeatureComponent end = drawLine(random, ANGELIC, directionEW, walls[i], x, y, z + i, false);
             fountain.add(end);
             if (torches[i]) {
-                fountain.add(wfb(end.tail.x, end.tail.y + 1, end.tail.z, AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
+                fountain.add(wfb(end.getTail().getX(), end.getTail().getY() + 1, end.getTail().getZ(), AetherBlocks.TORCH_AMBROSIUM.id(), 0, true));
             }
             if (water[i] == 0) {
                 continue;

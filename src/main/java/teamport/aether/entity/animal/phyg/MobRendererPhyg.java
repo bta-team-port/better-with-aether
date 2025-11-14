@@ -13,14 +13,17 @@ public class MobRendererPhyg extends MobRenderer<MobPhyg> {
         this.setArmorModel(modelbase);
     }
 
-    public boolean renderSaddledPig(MobPhyg entity, int i, float f) {
+    private boolean renderSaddledPig(MobPhyg entity, int i) {
         this.bindTexture("/assets/aether/textures/entity/phyg/saddle.png");
         return i == 0 && entity != null && entity.getSaddled();
     }
 
+    @Override
     public float limbSway(MobPhyg pig, float partialTick) {
-        float wingFold = MathHelper.lerp(pig.wingFoldO, pig.wingFold, partialTick);
-        float wingAngle = MathHelper.lerp(pig.wingAngleO, pig.wingAngle, partialTick);
+        if (!(this.mainModel instanceof ModelPhyg)) return super.limbSway(pig, partialTick);
+        ModelPhyg model = (ModelPhyg) this.mainModel;
+        float wingFold = MathHelper.lerp(pig.getWingFoldO(), pig.getWingFold(), partialTick);
+        float wingAngle = MathHelper.lerp(pig.getWingAngleO(), pig.getWingAngle(), partialTick);
 
         float wingBend = -((float) Math.acos(wingFold));
         float x = 32.0F * wingFold / 4.0F;
@@ -28,22 +31,23 @@ public class MobRendererPhyg extends MobRenderer<MobPhyg> {
         float z = 0.0F;
         float x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
         float y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
-        ModelPhyg.leftWingInner.setRotationPoint(4.0F + x2, y2 + 12.0F, z);
-        ModelPhyg.rightWingInner.setRotationPoint(-4.0F - x2, y2 + 12.0F, z);
+        model.getLeftWingInner().setRotationPoint(4.0F + x2, y2 + 12.0F, z);
+        model.getRightWingInner().setRotationPoint(-4.0F - x2, y2 + 12.0F, z);
         x *= 3.0F;
         x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
         y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
 
-        ModelPhyg.leftWingOuter.setRotationPoint(4.0F + x2, y2 + 12.0F, z);
-        ModelPhyg.rightWingOuter.setRotationPoint(-4.0F - x2, y2 + 12.0F, z);
-        ModelPhyg.leftWingInner.zRot = wingAngle + wingBend + 1.5707964F;
-        ModelPhyg.leftWingOuter.zRot = wingAngle - wingBend + 1.5707964F;
-        ModelPhyg.rightWingInner.zRot = -(wingAngle + wingBend - 1.5707964F);
-        ModelPhyg.rightWingOuter.zRot = -(wingAngle - wingBend + 1.5707964F);
+        model.getLeftWingOuter().setRotationPoint(4.0F + x2, y2 + 12.0F, z);
+        model.getRightWingOuter().setRotationPoint(-4.0F - x2, y2 + 12.0F, z);
+        model.getLeftWingInner().zRot = wingAngle + wingBend + 1.5707964F;
+        model.getLeftWingOuter().zRot = wingAngle - wingBend + 1.5707964F;
+        model.getRightWingInner().zRot = -(wingAngle + wingBend - 1.5707964F);
+        model.getRightWingOuter().zRot = -(wingAngle - wingBend + 1.5707964F);
         return wingBend;
     }
 
+    @Override
     public boolean prepareArmor(MobPhyg entity, int renderPass, float partialTick) {
-        return this.renderSaddledPig(entity, renderPass, partialTick);
+        return this.renderSaddledPig(entity, renderPass);
     }
 }

@@ -15,16 +15,14 @@ import teamport.aether.world.AetherDimension;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class HostileParadiseMixin extends Mob {
-    public HostileParadiseMixin(@Nullable World world) {
+    protected HostileParadiseMixin(@Nullable World world) {
         super(world);
     }
-
     @Shadow
     public int dimension;
-
     @Inject(method = "tick", at = @At(value = "HEAD"))
     public void grantHostileParadise(CallbackInfo ci) {
-        if (this.world.dimension.id == AetherDimension.AETHER.id) {
+        if (this.world != null && this.world.dimension.id == AetherDimension.getAether().id) {
             Minecraft.getMinecraft().thePlayer.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
         }
     }

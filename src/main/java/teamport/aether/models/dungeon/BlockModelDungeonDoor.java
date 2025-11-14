@@ -16,19 +16,19 @@ import teamport.aether.world.feature.util.WorldFeaturePoint;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotatable<T> {
-    public int width;
-    public int height;
+    private final int width;
+    private final int height;
 
-    public IconCoordinate particleTexture = TextureRegistry.getTexture("minecraft:block/texture_missing");
-    public IconCoordinate particleTextureRetro = TextureRegistry.getTexture("minecraft:block/texture_missing");
+    private final IconCoordinate buffer = new IconCoordinate(TextureRegistry.blockAtlas, null, null);
+    private IconCoordinate particleTexture = TextureRegistry.getTexture("minecraft:block/texture_missing");
+    private IconCoordinate particleTextureRetro = TextureRegistry.getTexture("minecraft:block/texture_missing");
+
 
     public BlockModelDungeonDoor(Block<T> block, int width, int height) {
         super(block);
         this.width = width;
         this.height = height;
     }
-
-    private final IconCoordinate buffer = new IconCoordinate(TextureRegistry.blockAtlas, null, null);
 
     protected IconCoordinate ctm(TextureLayer layer, IconCoordinate fallback, WorldSource blockAccess, int x, int y, int z, Side side) {
         int meta = blockAccess.getBlockMetadata(x, y, z);
@@ -51,15 +51,15 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
         boolean down = blockAccess.getBlockId(x, y - 1, z) == block.id();
 
         boolean right = blockAccess.getBlockId(
-                x + offsetRight.getOffsetX(),
-                y + offsetRight.getOffsetY(),
-                z + offsetRight.getOffsetZ()
+            x + offsetRight.getOffsetX(),
+            y + offsetRight.getOffsetY(),
+            z + offsetRight.getOffsetZ()
         ) == block.id();
 
         boolean left = blockAccess.getBlockId(
-                x + offsetLeft.getOffsetX(),
-                y + offsetLeft.getOffsetY(),
-                z + offsetLeft.getOffsetZ()
+            x + offsetLeft.getOffsetX(),
+            y + offsetLeft.getOffsetY(),
+            z + offsetLeft.getOffsetZ()
         ) == block.id();
 
         int u;
@@ -82,7 +82,7 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
             WorldFeaturePoint p = new WorldFeaturePoint(x, y, z);
             while (u < width - 1) {
                 p = p.moveInDirection(offsetRight).copy();
-                if (blockAccess.getBlockId(p.x, p.y, p.z) == block.id()) u++;
+                if (blockAccess.getBlockId(p.getX(), p.getY(), p.getZ()) == block.id()) u++;
                 else break;
             }
 
@@ -124,7 +124,6 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     public BlockModelDungeonDoor<T> setParticleTexture(boolean isRetro, String texture) {
         if (isRetro) particleTextureRetro = TextureRegistry.getTexture(texture);
         else particleTexture = TextureRegistry.getTexture(texture);
-
         return this;
     }
 }

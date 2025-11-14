@@ -6,7 +6,6 @@ import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 
 public class TreasureRoom extends BaseBronzeRoom {
-
     public TreasureRoom() {
         super();
         this.topAirTolerance = this.topLiquidTolerance = 0;
@@ -16,7 +15,7 @@ public class TreasureRoom extends BaseBronzeRoom {
         addDoor(WEST, wfp(0, 1, 4), UP, 6, SOUTH, 4);
     }
 
-    //    @Override
+    @Override
     public void makeRoom() {
         // Shell
         room.add(drawShell(random, ROOM_PALLET, EAST, 12, UP, height, SOUTH, 12, x, y, z, false));
@@ -24,6 +23,6 @@ public class TreasureRoom extends BaseBronzeRoom {
         // Plinth
         decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 4, EAST, 4, x + 4, y + 1, z + 4, false));
         // ChestOrMimic
-        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + 2, z + 5, false));
+        chest.add(drawPlane(random, CHEST_OR_MIMIC, SOUTH, 2, EAST, 2, x + 5, y + 2, z + 5, false));
     }
 }

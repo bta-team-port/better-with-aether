@@ -7,14 +7,14 @@ import net.minecraft.client.render.model.ModelQuadruped;
 
 @Environment(EnvType.CLIENT)
 public class ModelPhow extends ModelQuadruped {
-    public Cube udders;
-    public Cube horn1;
-    public Cube horn2;
+    private final Cube udders;
+    private final Cube horn1;
+    private final Cube horn2;
 
-    public static Cube leftWingInner;
-    public static Cube leftWingOuter;
-    public static Cube rightWingInner;
-    public static Cube rightWingOuter;
+    private final Cube leftWingInner;
+    private final Cube leftWingOuter;
+    private final Cube rightWingInner;
+    private final Cube rightWingOuter;
 
     public ModelPhow() {
         super(12, 0.0F);
@@ -78,6 +78,7 @@ public class ModelPhow extends ModelQuadruped {
         --this.leg4.z;
     }
 
+    @Override
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.render(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.horn1.render(scale);
@@ -89,11 +90,24 @@ public class ModelPhow extends ModelQuadruped {
         rightWingOuter.render(scale);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         super.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         this.horn1.yRot = this.head.yRot;
         this.horn1.xRot = this.head.xRot;
         this.horn2.yRot = this.head.yRot;
         this.horn2.xRot = this.head.xRot;
+    }
+    public Cube getLeftWingInner() {
+        return leftWingInner;
+    }
+    public Cube getLeftWingOuter() {
+        return leftWingOuter;
+    }
+    public Cube getRightWingInner() {
+        return rightWingInner;
+    }
+    public Cube getRightWingOuter() {
+        return rightWingOuter;
     }
 }

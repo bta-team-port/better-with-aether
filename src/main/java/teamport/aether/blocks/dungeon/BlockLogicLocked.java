@@ -32,7 +32,7 @@ public class BlockLogicLocked extends BlockLogicDungeon {
     }
 
     @Override
-    public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         if (dropCause != EnumDropCause.IMPROPER_TOOL) {
             return new ItemStack[]{new ItemStack(replacement, 1)};
         }

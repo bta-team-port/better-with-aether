@@ -9,17 +9,13 @@ import teamport.aether.entity.tile.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinAetherScreens implements AetherScreens {
-    public void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity) {
-    }
-
-    public void aether$displayFreezerScreen(TileEntityFreezer tileEntity) {
-    }
-
-    public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {
-    }
-
-    public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {
-    }
-
+public abstract class PlayerMixinAetherScreens implements AetherScreens {
+    @Override
+    public void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity) {}
+    @Override
+    public void aether$displayFreezerScreen(TileEntityFreezer tileEntity) {}
+    @Override
+    public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {}
+    @Override
+    public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {}
 }

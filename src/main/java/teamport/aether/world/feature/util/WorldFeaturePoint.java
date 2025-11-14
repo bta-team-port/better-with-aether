@@ -10,9 +10,9 @@ import net.minecraft.core.util.helper.Side;
 import java.util.Objects;
 
 public class WorldFeaturePoint {
-    public int x;
-    public int y;
-    public int z;
+    private int x;
+    private int y;
+    private int z;
 
     public WorldFeaturePoint() {
         this.x = this.y = this.z = 0;
@@ -82,18 +82,6 @@ public class WorldFeaturePoint {
         );
     }
 
-    public void writeFromNBT(CompoundTag tag) {
-        tag.putInt("x", this.x);
-        tag.putInt("y", this.y);
-        tag.putInt("z", this.z);
-    }
-
-    public void readFromNBT(CompoundTag tag) {
-        this.x = tag.getInteger("x");
-        this.y = tag.getInteger("y");
-        this.z = tag.getInteger("z");
-    }
-
     public WorldFeaturePoint copy() {
         return new WorldFeaturePoint(this.x, this.y, this.z);
     }
@@ -119,6 +107,7 @@ public class WorldFeaturePoint {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public WorldFeaturePoint subtract(WorldFeaturePoint point) {
         this.x -= point.x;
         this.y -= point.y;
@@ -130,13 +119,6 @@ public class WorldFeaturePoint {
         this.x *= scala;
         this.y *= scala;
         this.z *= scala;
-        return this;
-    }
-
-    public WorldFeaturePoint divide(int scala) {
-        this.x /= scala;
-        this.y /= scala;
-        this.z /= scala;
         return this;
     }
 
@@ -173,17 +155,14 @@ public class WorldFeaturePoint {
     public WorldFeaturePoint rotateY(float radian) {
         float cos = MathHelper.cos(radian);
         float sin = MathHelper.sin(radian);
-        int x = (int) Math.round((double) this.x * (double) cos - (double) this.z * (double) sin);
-        int z = (int) Math.round((double) this.x * (double) sin + (double) this.z * (double) cos);
-        this.x = x;
-        this.z = z;
+        int theX = (int) Math.round((double) this.x * (double) cos - (double) this.z * (double) sin);
+        int theZ = (int) Math.round((double) this.x * (double) sin + (double) this.z * (double) cos);
+        this.x = theX;
+        this.z = theZ;
         return this;
     }
 
-    public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, float angle) {
-        return this.subtract(pivotPoint).rotateY(MathHelper.toRadians(angle)).add(pivotPoint);
-    }
-
+    @SuppressWarnings("UnusedReturnValue")
     public WorldFeaturePoint rotateYAroundPivot(int pivotX, int pivotY, int pivotZ, float angle) {
         return this.subtract(pivotX, pivotY, pivotZ).rotateY(MathHelper.toRadians(angle)).add(pivotX, pivotY, pivotZ);
     }
@@ -215,5 +194,13 @@ public class WorldFeaturePoint {
         }
         return this;
     }
-
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+    public int getZ() {
+        return z;
+    }
 }

@@ -6,11 +6,11 @@ import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
 import net.minecraft.core.world.noise.PerlinNoise;
 
 public class DensityGeneratorAether implements DensityGenerator {
-    public World world;
+    private final World world;
 
-    public PerlinNoise minLimitNoise;
-    public PerlinNoise maxLimitNoise;
-    public PerlinNoise mainNoise;
+    private final PerlinNoise minLimitNoise;
+    private final PerlinNoise maxLimitNoise;
+    private final PerlinNoise mainNoise;
 
     public DensityGeneratorAether(World world) {
         this.world = world;
@@ -76,13 +76,13 @@ public class DensityGeneratorAether implements DensityGenerator {
 
                     int upperLowerLimit = 35;
                     if (dy > ySize - upperLowerLimit) {
-                        double densityMod = (float) (dy - (ySize - upperLowerLimit)) / ((float) upperLowerLimit - 1.0F);
+                        double densityMod = (dy - (ySize - upperLowerLimit)) / (upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 
                     upperLowerLimit = 5;
                     if (dy < upperLowerLimit) {
-                        double densityMod = (float) (upperLowerLimit - dy) / ((float) upperLowerLimit - 1.0F);
+                        double densityMod = (upperLowerLimit - dy) / (upperLowerLimit - 1.0F);
                         density = density * (1.0 - densityMod) + (-30.0 * densityMod);
                     }
 

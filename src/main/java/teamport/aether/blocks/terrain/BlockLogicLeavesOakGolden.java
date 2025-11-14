@@ -18,12 +18,14 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
         super(block, Material.leaves, AetherBlocks.SAPLING_OAK_GOLDEN);
     }
 
+    @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (rand.nextInt(5) == 0) {
-            ParticleMaker.spawnParticle(world, "goldendust", x, (double) y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
+            ParticleMaker.spawnParticle(world, "goldendust", x, y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
         }
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         if (dropCause != EnumDropCause.PICK_BLOCK && dropCause != EnumDropCause.SILK_TOUCH) {
             if (world.rand.nextInt(20) == 0) {

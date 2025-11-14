@@ -14,12 +14,12 @@ import teamport.aether.entity.animal.MobAetherAnimalRideable;
 import teamport.aether.items.AetherItems;
 
 public class MobPhow extends MobAetherAnimalRideable {
-    public float wingFold;
-    public float wingFoldO;
-    public float wingAngle;
-    public float wingAngleO;
-    public float aimingForFold;
-    public int ticks;
+    private float wingFold;
+    private float wingFoldO;
+    private float wingAngle;
+    private float wingAngleO;
+
+    private int ticks;
 
     public MobPhow(World world) {
         super(world);
@@ -32,30 +32,33 @@ public class MobPhow extends MobAetherAnimalRideable {
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
     }
 
+    @Override
     public void tick() {
         super.tick();
-        if (this.onGround) this.aimingForFold = 0.1F;
-        else this.aimingForFold = 1.0F;
+        float aimingForFold = this.onGround ? 0.1F : 1.0F;
 
         this.wingAngleO = this.wingAngle;
         this.wingFoldO = this.wingFold;
 
         ++this.ticks;
-        this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
-        this.wingFold += (this.aimingForFold - this.wingFold) / 5.0F;
+        this.wingAngle = this.wingFold * (float) Math.sin(this.ticks / 31.830988F);
+        this.wingFold += (aimingForFold - this.wingFold) / 5.0F;
         this.fallDistance = 0.0F;
 
         if (this.yd < -0.2) this.yd = -0.2;
     }
 
+    @Override
     public double getRideHeight() {
         return this.bbHeight;
     }
 
+    @Override
     public void jump() {
         this.yd = 0.6;
     }
 
+    @Override
     public void dropDeathItems() {
         if (this.getSaddled()) {
             this.dropItem(Items.SADDLE.id, 1);
@@ -77,37 +80,45 @@ public class MobPhow extends MobAetherAnimalRideable {
 
     }
 
+    @Override
     public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(16, (byte) 0, Byte.class);
     }
 
+    @Override
     public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
     }
 
+    @Override
     public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
     }
 
+    @Override
     public String getLivingSound() {
         return "mob.cow";
     }
 
+    @Override
     public String getHurtSound() {
         return "mob.cowhurt";
     }
 
+    @Override
     public String getDeathSound() {
         return "mob.cowhurt";
     }
 
+    @Override
     public float getSoundVolume() {
         return 0.4F;
     }
 
+    @Override
     public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
 
@@ -121,14 +132,27 @@ public class MobPhow extends MobAetherAnimalRideable {
             }
         }
 
-        if (!this.getSaddled() || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world == null || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);
         return true;
     }
 
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
         return itemStack != null && itemStack.getItem().hasTag(ItemTags.COWS_FAVOURITE_ITEM);
+    }
+    public float getWingFold() {
+        return wingFold;
+    }
+    public float getWingFoldO() {
+        return wingFoldO;
+    }
+    public float getWingAngle() {
+        return wingAngle;
+    }
+    public float getWingAngleO() {
+        return wingAngleO;
     }
 }

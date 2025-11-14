@@ -1,6 +1,7 @@
 package teamport.aether.entity.monster.swet;
 
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
@@ -24,12 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    public float squish;
-    public float oSquish;
-    public int jumpDelay;
-    public boolean friendly;
-    public double ydO;
-    public int grabDelay;
+    private boolean friendly;
+    private double ydO;
+    protected int jumpDelay;
+    protected int grabDelay;
 
     public MobSwet(World world) {
         super(world);
@@ -43,20 +42,24 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0));
     }
 
+    @Override
     public List<WeightedRandomLootObject> getMobDrops() {
         List<WeightedRandomLootObject> drops = new ArrayList<>();
         drops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 1, 2));
         return drops;
     }
 
+    @Override
     public void causeFallDamage(float distance) {
         super.causeFallDamage(distance / 2);
     }
 
+    @Override
     public int getMaxHealth() {
         return 16;
     }
 
+    @Override
     public void jump() {
         if (this.passenger != null) {
             this.yd = 1.6;
@@ -65,13 +68,14 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         }
     }
 
+    @Override
     public double getRideHeight() {
         return 0.1;
     }
 
     public void doTickEffect() {
-        if (random.nextInt(2) == 0) {
-            ParticleMaker.spawnParticle(world, "splash", this.x, this.y, this.z, world.rand.nextFloat(), world.rand.nextFloat(), world.rand.nextFloat(), 0);
+        if (this.world != null && random.nextInt(2) == 0) {
+            ParticleMaker.spawnParticle(world, "splash", this.x, this.y, this.z, world.rand.nextDouble(), world.rand.nextDouble(), world.rand.nextDouble(), 0);
         }
     }
 
@@ -79,7 +83,9 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         return AetherItems.FOOD_GUMMY_BLUE;
     }
 
+    @Override
     public void tick() {
+        if (this.world == null) return;
         this.doTickEffect();
 
         if (this.passenger != null && (!this.passenger.isAlive() || this.passenger.removed)) {
@@ -96,7 +102,6 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
         this.ydO = this.yd;
 
-        this.oSquish = this.squish;
         boolean flag = this.onGround;
         super.tick();
         if (this.onGround && !flag) {
@@ -104,32 +109,31 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
             for (int j = 0; j < i * 8; ++j) {
                 float f = this.random.nextFloat() * 3.1415927F * 2.0F;
-                double f1 = (double) this.random.nextFloat() * 0.5 + 0.5;
-                double f2 = (double) (MathHelper.sin(f) * (float) i) * 0.5 * f1;
-                double f3 = (double) (MathHelper.cos(f) * (float) i) * 0.5 * f1;
+                double f1 = this.random.nextDouble() * 0.5 + 0.5;
+                double f2 = (MathHelper.sin(f) * i) * 0.5 * f1;
+                double f3 = (MathHelper.cos(f) * i) * 0.5 * f1;
                 ParticleMaker.spawnParticle(world, "item", this.x + f2, this.bb.minY, this.z + f3, 0.0, 0.0, 0.0, getBounceParticle().id);
             }
 
             this.world.playSoundAtEntity(null, this, "mob.slime", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
-
-            this.squish = -0.5F;
         }
 
         if (!this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
             this.remove();
         }
-
-        this.squish *= 0.6F;
     }
 
+    @Override
     public void knockBack(Entity entity, int i, double d, double d1) {
         if (this.passenger == null || entity != this.passenger) {
             super.knockBack(entity, i, d, d1);
         }
     }
 
+    @Override
     public void updateAI() {
         this.tryToDespawn();
+        if (this.world == null) return;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
 
         if (entityplayer instanceof AetherInvisibility) {
@@ -169,18 +173,20 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         }
     }
 
+    @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.isAlive()) {
             if (!this.friendly) {
                 if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
                     this.attackTime = 200;
-                    this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                    if (this.world != null) this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     entity.hurt(this, 2, DamageType.COMBAT);
                 }
             }
         }
     }
 
+    @Override
     public void playerTouch(Player player) {
         if (this.isAlive()) {
             if (!this.friendly) {
@@ -194,19 +200,24 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         }
     }
 
+    @Override
     public String getHurtSound() {
         return "mob.slime";
     }
 
+    @Override
     public String getDeathSound() {
         return "mob.slime";
     }
 
+    @Override
     public float getSoundVolume() {
         return 0.3F;
     }
 
+    @Override
     public boolean canSpawnHere() {
+        if (this.world == null) return false;
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
@@ -216,14 +227,19 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
             return false;
         }
 
-        if (Blocks.blocksList[id] == null) {
-            return false;
-        } else {
-            if (world.rand.nextInt(5) == 0) {
-                return Blocks.blocksList[id].hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
-            }
-        }
+        Block<?> block = Blocks.blocksList[id];
+        if (block == null) return false;
+        if (world.rand.nextInt(5) == 0) return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
         return false;
     }
-
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isFriendly() {
+        return friendly;
+    }
+    public void setFriendly(boolean friendly) {
+        this.friendly = friendly;
+    }
+    public double getYdO() {
+        return ydO;
+    }
 }

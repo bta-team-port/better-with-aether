@@ -10,8 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
-    public ModelBase wool;
-    public ModelBase puffed;
+    private final ModelBase wool;
+    private final ModelBase puffed;
 
     public MobRendererSheepuff(ModelBase body, ModelBase wool, ModelBase puffed, ModelBase overlay, float f) {
         super(body, f);
@@ -44,10 +44,12 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
         }
     }
 
+    @Override
     public void onUnload() {
         this.overlayModel.onUnload();
     }
 
+    @Override
     public boolean prepareArmor(MobSheepuff entity, int renderPass, float partialTick) {
         return this.setWoolColorAndRender(entity, renderPass, partialTick);
     }

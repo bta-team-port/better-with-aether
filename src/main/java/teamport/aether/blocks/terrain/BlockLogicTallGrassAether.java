@@ -18,11 +18,13 @@ public class BlockLogicTallGrassAether extends BlockLogicFlower {
         this.setBlockBounds(0.5F - f, 0.0, 0.5F - f, 0.5F + f, 0.800000011920929, 0.5F + f);
     }
 
+    @Override
     public boolean mayPlaceOn(int blockId) {
-        Block<?> block = Blocks.getBlock(blockId);
-        return Blocks.blocksList[blockId] != null && (block.getLogic() instanceof BlockLogicMoss || Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS) || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || super.mayPlaceOn(blockId));
+        Block<?> block = Blocks.blocksList[blockId];
+        return block != null && (block.getLogic() instanceof BlockLogicMoss || block.hasTag(BlockTags.GROWS_FLOWERS) || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || super.mayPlaceOn(blockId));
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case PICK_BLOCK:

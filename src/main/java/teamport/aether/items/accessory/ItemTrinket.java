@@ -5,30 +5,26 @@ import teamport.aether.items.AetherItemTags;
 import teamport.aether.lookup.LookupTrinketIcons;
 
 public class ItemTrinket extends Item implements IAccessory {
-    public final String name;
+    private final String name;
 
     public ItemTrinket(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id);
         this.name = name;
         this.maxStackSize = 1;
-        this.withTags(AetherItemTags.TRINKET);
+        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
     public ItemTrinket(String translationKey, String namespaceId, int id, String name, String path) {
         super(translationKey, namespaceId, id);
         this.name = name;
         this.maxStackSize = 1;
-        LookupTrinketIcons.instance.addEntry(this.namespaceID, path);
-        this.withTags(AetherItemTags.TRINKET);
-    }
-
-    public void setIcon(String path) {
-        LookupTrinketIcons.instance.addEntry(this.namespaceID, path);
+        LookupTrinketIcons.INSTANCE.addEntry(this.namespaceID, path);
+        this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
     public static void setIcon(Item item, String path) {
-        LookupTrinketIcons.instance.addEntry(item.namespaceID, path);
-        item.withTags(AetherItemTags.TRINKET);
+        LookupTrinketIcons.INSTANCE.addEntry(item.namespaceID, path);
+        item.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
     }
 
     @Override

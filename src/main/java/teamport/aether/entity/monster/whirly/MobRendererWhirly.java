@@ -16,9 +16,7 @@ import java.util.Random;
 public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
     public final Random rand = new Random();
 
-    public void RenderWhirly() {
-    }
-
+    @Override
     public void render(Tessellator tessellator, MobWhirly entity, double d, double d1, double d2, float f, float f1) {
         ParticleEngine particleManager = Minecraft.getMinecraft().particleEngine;
 
@@ -39,7 +37,7 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
                 f2 = rand.nextFloat() * 360.0F;
                 ParticleExplode entityExplodeFx = new ParticleExplode(entity.world, -Math.sin(0.01745329F * f2) * 0.75, d7 - 0.25, Math.cos(0.01745329F * f2) * 0.75, d6, 0.125, d8);
                 particleManager.add(entityExplodeFx);
-                entity.fluffies.add(entityExplodeFx);
+                entity.getFluffies().add(entityExplodeFx);
                 entityExplodeFx.viewScale = 10.0;
                 entityExplodeFx.noPhysics = true;
                 entityExplodeFx.setRot(0.25F, 0.25F);
@@ -54,7 +52,7 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
                 f2 = rand.nextFloat() * 360.0F;
                 ParticleSmoke entitySmokeFx = new ParticleSmoke(entity.world, -Math.sin(0.01745329F * f2) * 0.75, d7 - 0.25, Math.cos(0.01745329F * f2) * 0.75, d6, 0.125, d8, 3.5F);
                 particleManager.add(entitySmokeFx);
-                entity.fluffies.add(entitySmokeFx);
+                entity.getFluffies().add(entitySmokeFx);
                 entitySmokeFx.viewScale = 10.0;
                 entitySmokeFx.noPhysics = true;
                 entitySmokeFx.setRot(0.25F, 0.25F);
@@ -63,11 +61,11 @@ public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
             }
         }
 
-        if (!entity.fluffies.isEmpty()) {
-            for (i = 0; i < entity.fluffies.size(); ++i) {
-                Particle entityFx = entity.fluffies.get(i);
+        if (!entity.getFluffies().isEmpty()) {
+            for (i = 0; i < entity.getFluffies().size(); ++i) {
+                Particle entityFx = entity.getFluffies().get(i);
                 if (entityFx.removed) {
-                    entity.fluffies.remove(entityFx);
+                    entity.getFluffies().remove(entityFx);
                 } else {
                     d6 = (float) entityFx.x;
                     d7 = (float) entityFx.bb.minY;

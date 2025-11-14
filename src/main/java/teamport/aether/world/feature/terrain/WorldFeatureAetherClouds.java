@@ -6,8 +6,8 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import java.util.Random;
 
 public class WorldFeatureAetherClouds extends WorldFeature {
-    public final int numBlocks;
-    public final int blockToPlace;
+    private final int numBlocks;
+    private final int blockToPlace;
 
     public WorldFeatureAetherClouds(int blockToPlace, int numBlocks) {
         this.numBlocks = numBlocks;

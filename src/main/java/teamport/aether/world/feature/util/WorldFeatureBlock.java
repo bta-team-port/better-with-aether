@@ -13,42 +13,42 @@ import static teamport.aether.helper.MetadataHelper.*;
 public class WorldFeatureBlock extends WorldFeaturePoint {
     private static final byte MASK_DIRECTION = 3;
     private static final byte MASK_DIRECTION_FULL = 7;
-    public int blockID;
-    public int metadata;
-    public boolean withNotify;
+    private int blockId;
+    private int metadata;
+    private boolean withNotify;
 
 
-    WorldFeatureBlock(int x, int y, int z, int blockID, int metadata, boolean withNotify) {
+    WorldFeatureBlock(int x, int y, int z, int blockId, int metadata, boolean withNotify) {
         super(x, y, z);
-        this.blockID = blockID;
+        this.blockId = blockId;
         this.metadata = metadata;
         this.withNotify = withNotify;
     }
 
     WorldFeatureBlock(int x, int y, int z, Pair<Integer, Integer> blockAndMeta, boolean withNotify) {
         super(x, y, z);
-        this.blockID = blockAndMeta.first;
-        this.metadata = blockAndMeta.second;
+        this.blockId = blockAndMeta.getFirst();
+        this.metadata = blockAndMeta.getSecond();
         this.withNotify = withNotify;
     }
 
     WorldFeatureBlock(int x, int y, int z, IntPair blockAndMeta, boolean withNotify) {
         super(x, y, z);
-        this.blockID = blockAndMeta.first;
-        this.metadata = blockAndMeta.second;
+        this.blockId = blockAndMeta.getFirst();
+        this.metadata = blockAndMeta.getSecond();
         this.withNotify = withNotify;
     }
 
     public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata, boolean withNotify) {
-        return new WorldFeatureBlock(point.x, point.y, point.z, blockID, metadata, withNotify);
+        return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, metadata, withNotify);
     }
 
     public static WorldFeatureBlock wfb(WorldFeaturePoint point, int blockID, int metadata) {
-        return new WorldFeatureBlock(point.x, point.y, point.z, blockID, metadata, false);
+        return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), blockID, metadata, false);
     }
 
     public static WorldFeatureBlock wfb(WorldFeaturePoint point) {
-        return new WorldFeatureBlock(point.x, point.y, point.z, 0, 0, false);
+        return new WorldFeatureBlock(point.getX(), point.getY(), point.getZ(), 0, 0, false);
     }
 
     public static WorldFeatureBlock wfb(int x, int y, int z) {
@@ -80,22 +80,23 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     }
 
     public void place(World world) {
-        this.place(world, x, y, z);
+        this.place(world, getX(), getY(), getZ());
     }
 
     private void place(World world, int ix, int iy, int iz) {
         if (this.withNotify) {
-            world.setBlockAndMetadataWithNotify(ix, iy, iz, this.blockID, this.metadata);
+            world.setBlockAndMetadataWithNotify(ix, iy, iz, this.blockId, this.metadata);
         } else {
-            world.setBlockAndMetadata(ix, iy, iz, this.blockID, this.metadata);
+            world.setBlockAndMetadata(ix, iy, iz, this.blockId, this.metadata);
         }
     }
 
+    @Override
     public WorldFeaturePoint rotateYAroundPivot(WorldFeaturePoint pivotPoint, Direction direction) {
         super.rotateYAroundPivot(pivotPoint, direction);
         int rotateAmount = direction.getHorizontalIndex() - NORTH.getHorizontalIndex();
 
-        Block<?> block = Blocks.getBlock(this.blockID);
+        Block<?> block = Blocks.getBlock(this.blockId);
         if (block == null) return this;
 
         BlockLogic logic = block.getLogic();
@@ -103,7 +104,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
         /// mask the upper 6 bits with direction horizontal index
         if (
-                logic instanceof BlockLogicFenceGate
+            logic instanceof BlockLogicFenceGate
         ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
             if (indexDirection > Direction.horizontalDirections.length) indexDirection = 0;
@@ -114,7 +115,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
 
         /// mask the upper 6 buts with the custom direction of stairs
         if (
-                logic instanceof BlockLogicStairs
+            logic instanceof BlockLogicStairs
         ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
             Direction currentDirection = getStairDirectionFromMetadata(indexDirection);
@@ -123,7 +124,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
         }
 
         if (
-                logic instanceof BlockLogicTorch
+            logic instanceof BlockLogicTorch
         ) {
             int indexDirection = this.metadata & MASK_DIRECTION_FULL;
             Direction currentDirection = getTorchDirectionFromMetadata(indexDirection);
@@ -131,7 +132,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
             this.metadata = maskDirectionHorizontal(this.metadata, getTorchMetadataFromDirection(newDirection));
         }
         if (
-                logic instanceof BlockLogicTrapDoor
+            logic instanceof BlockLogicTrapDoor
         ) {
             int indexDirection = this.metadata & MASK_DIRECTION;
             Direction currentDirection = getTrapDoorDirectionForMeta(indexDirection);
@@ -171,7 +172,7 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     @Override
     public CompoundTag toCompoundTag() {
         CompoundTag tag = super.toCompoundTag();
-        tag.putInt("blockID", blockID);
+        tag.putInt("blockID", blockId);
         tag.putInt("blockMetadata", metadata);
         tag.putBoolean("withNotify", withNotify);
         return tag;
@@ -180,4 +181,23 @@ public class WorldFeatureBlock extends WorldFeaturePoint {
     public static WorldFeatureBlock fromCompoundTag(CompoundTag tag) {
         return wfb(WorldFeaturePoint.fromCompoundTag(tag), tag.getInteger("blockID"), tag.getInteger("blockMetadata"), tag.getBoolean("withNotify"));
     }
+    public int getBlockId() {
+        return blockId;
+    }
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
+    }
+    public int getMetadata() {
+        return metadata;
+    }
+    public void setMetadata(int metadata) {
+        this.metadata = metadata;
+    }
+    public boolean isWithNotify() {
+        return withNotify;
+    }
+    public void setWithNotify(boolean withNotify) {
+        this.withNotify = withNotify;
+    }
+
 }

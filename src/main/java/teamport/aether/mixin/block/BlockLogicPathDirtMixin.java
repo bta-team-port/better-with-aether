@@ -1,24 +1,20 @@
 package teamport.aether.mixin.block;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.block.BlockLogicPathDirt;
-import net.minecraft.core.block.Blocks;
-import net.minecraft.core.block.material.Material;
-import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.blocks.AetherBlocks;
 
 @Mixin(value = BlockLogicPathDirt.class, remap = false)
-public class BlockLogicPathDirtMixin {
-    @Inject(method = "onNeighborBlockChange", at = @At(value = "HEAD"), cancellable = true)
-    public void addNewPathBlock(World world, int x, int y, int z, int blockId, CallbackInfo ci) {
-        Material material = world.getBlockMaterial(x, y + 1, z);
-        int id = world.getBlockId(x, y + 1, z);
-        if (material.isSolid() && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()) {
-            world.setBlockWithNotify(x, y, z, Blocks.DIRT.id());
-        }
-        ci.cancel();
+public abstract class BlockLogicPathDirtMixin {
+    @Definition(id = "isSolid", method = "Lnet/minecraft/core/block/material/Material;isSolid()Z")
+    @Expression("?.isSolid()")
+    @ModifyExpressionValue(method = "onNeighborBlockChange", at = @At("MIXINEXTRAS:EXPRESSION"))
+    public boolean addNewPathBlock(boolean original, @Local(name = "id") int id) {
+        return original && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id();
     }
 }

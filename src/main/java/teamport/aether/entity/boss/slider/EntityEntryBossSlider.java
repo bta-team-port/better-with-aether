@@ -15,8 +15,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class EntityEntryBossSlider extends EntityEntry<MobBossSlider> {
-    public EntityEntryBossSlider() {
-    }
+    public EntityEntryBossSlider() {}
 
     @Override
     public void onTick(MobBossSlider entity) {
@@ -28,7 +27,7 @@ public class EntityEntryBossSlider extends EntityEntry<MobBossSlider> {
         I18n translator = I18n.getInstance();
 
         ListenerSliderElement sliderStateSlider = new ListenerSliderElement(-1, -120, 0, 120, 20,
-                translator.translateKeyAndFormat("model.category.entity.slider.slider.state", "Asleep Calm"), 0.0F);
+            translator.translateKeyAndFormat("model.category.entity.slider.slider.state", "Asleep Calm"), 0.0F);
         sliderStateSlider.setOnValueChanged(() -> {
             float sliderValue = (float) sliderStateSlider.sliderValue;
             if (sliderValue < 0.25F) {
@@ -62,10 +61,8 @@ public class EntityEntryBossSlider extends EntityEntry<MobBossSlider> {
     }
 
     @Override
-    public void onOpen() {
-    }
+    public void onOpen() {}
 
     @Override
-    public void onClose() {
-    }
+    public void onClose() {}
 }

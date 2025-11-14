@@ -18,6 +18,7 @@ public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizon
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         int data = blockAccess.getBlockMetadata(x, y, z);
         int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.getId()];
@@ -36,7 +37,7 @@ public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizon
             Container container = (Container) blockAccess.getTileEntity(x, y, z);
             if (container != null) {
                 boolean hasOutput = container.getItem(2) != null;
-                if (hasOutput) {
+                if (hasOutput && originalFront != null) {
                     return TextureRegistry.getTexture(originalFront.namespaceId.namespace() + ":block/" + originalFront.namespaceId.value() + "_filled");
                 }
             }

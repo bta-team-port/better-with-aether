@@ -14,17 +14,19 @@ public class ItemIronBubble extends ItemTrinket implements IAccessoryEffects {
         super(translationKey, namespaceId, id, name);
     }
 
+    @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         Player player = (Player) entity;
         if (
-                slotId < player.inventory.mainInventory.length
-                        || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
+            slotId < player.inventory.mainInventory.length
+                || slotId - player.inventory.mainInventory.length < TRINKET_1_SLOT
         ) {
             return;
         }
         player.airSupply = 0;
     }
 
+    @Override
     public void removeEffect(Player player, ItemStack accessory) {
         player.airSupply = 300;
     }

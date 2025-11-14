@@ -13,16 +13,16 @@ import net.minecraft.core.world.World;
 import java.util.Random;
 
 public class ItemDoorDungeon extends Item {
-    protected final Block<?> doorBlock;
-    protected final DoorType doorType;
+    private final Block<?> doorBlock;
+    private final DoorType doorType;
 
     public enum DoorType {
         BRONZE(4, 4),
         SILVER(2, 3),
         GOLD(3, 3);
 
-        public final int width;
-        public final int height;
+        private final int width;
+        private final int height;
 
         DoorType(int width, int height) {
             this.width = width;
@@ -37,6 +37,7 @@ public class ItemDoorDungeon extends Item {
         this.doorType = doorType;
     }
 
+    @Override
     public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         if (!world.canPlaceInsideBlock(blockX, blockY, blockZ)) {
             blockX += side.getOffsetX();
@@ -94,12 +95,13 @@ public class ItemDoorDungeon extends Item {
             }
         }
         world.noNeighborUpdate = false;
-        world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, this.doorBlock, EnumBlockSoundEffectType.PLACE);
+        world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, this.doorBlock, EnumBlockSoundEffectType.PLACE);
 
         itemstack.consumeItem(entityplayer);
         return true;
     }
 
+    @Override
     public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
         if (!world.canPlaceInsideBlock(blockX, blockY, blockZ)) {
             blockX += direction.getOffsetX();
@@ -161,7 +163,7 @@ public class ItemDoorDungeon extends Item {
             }
         }
         world.noNeighborUpdate = false;
-        world.playBlockSoundEffect(null, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, this.doorBlock, EnumBlockSoundEffectType.PLACE);
+        world.playBlockSoundEffect(null, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, this.doorBlock, EnumBlockSoundEffectType.PLACE);
 
         itemStack.consumeItem(null);
     }

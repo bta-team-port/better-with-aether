@@ -4,10 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
-import net.minecraft.core.block.BlockLogicChest;
-import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -33,8 +30,8 @@ import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.tile.TileEntityMimic;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.items.accessory.AetherInvisibility;
-import teamport.aether.items.itemtool.ItemToolAxeAether;
-import teamport.aether.items.itemtool.ItemToolPickaxeAether;
+import teamport.aether.items.item_tool.ItemToolAxeAether;
+import teamport.aether.items.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
@@ -44,11 +41,10 @@ import static net.minecraft.core.net.command.TextFormatting.RED;
 import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
-import static teamport.aether.helper.unboxed.IntPair.ipair;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    public int mimicTime;
+    private int mimicTime;
     int mimicChestID = AetherBlocks.CHEST_MIMIC_SKYROOT.id();
     int mimicChestMetadata = 0;
 
@@ -139,7 +135,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public Entity findPlayerToAttack() {
-        assert this.world != null;
+        if (this.world == null) return null;
         Player player = this.world.getClosestPlayerToEntity(this, 64.0);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
@@ -158,6 +154,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return player;
     }
 
+    @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
@@ -192,12 +189,12 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             return damage;
         }
         if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-                && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)
+            && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)
         ) {
             return damage << 1;
         }
         if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-                && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
+            && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
             return damage << 1;
         }
         return damage;
@@ -254,8 +251,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     public String deathMessage(Player player) {
         String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
         String deathMessage = TRANSLATOR
-                .translateKey(key)
-                .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
+            .translateKey(key)
+            .replace("[PLAYER]", RESET + String.format("<%s>", player.getDisplayName()) + RESET + RED);
         return RED + deathMessage;
     }
 
@@ -280,17 +277,19 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private boolean isSafe(@Nullable World world, WorldFeaturePoint point) {
-        Block<?> block = world.getBlock(point.x, point.y, point.z);
+        if (world == null) return true;
+        Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
         int blockID = block == null ? 0 : block.id();
         Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
         return blockID == 0 || blockMaterial.isLiquid();
     }
 
     private void placeChest(WorldFeaturePoint point) {
+        if (this.world == null) return;
         IntPair blockAndMeta = getTarget(world, point);
-        world.setBlockAndMetadataWithNotify(point.x, point.y, point.z, blockAndMeta.first, blockAndMeta.second);
-        BlockLogicChestMimic.setDefaultDirection(world, point.x, point.y, point.z);
-        TileEntity tileEntity = world.getTileEntity(point.x, point.y, point.z);
+        world.setBlockAndMetadataWithNotify(point.getX(), point.getY(), point.getZ(), blockAndMeta.getFirst(), blockAndMeta.getSecond());
+        BlockLogicRotatable.setDefaultDirection(world, point.getX(), point.getY(), point.getZ());
+        TileEntity tileEntity = world.getTileEntity(point.getX(), point.getY(), point.getZ());
         if (tileEntity instanceof TileEntityMimic)
             ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
     }
@@ -306,28 +305,29 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             int cdist = distance.get(next);
             if (cdist >= 5) break;
             for (Direction direction : check) {
-                WorldFeaturePoint to = new WorldFeaturePoint(next.x + direction.getOffsetX(), next.y + direction.getOffsetY(), next.z + direction.getOffsetZ());
+                WorldFeaturePoint to = new WorldFeaturePoint(next.getX() + direction.getOffsetX(), next.getY() + direction.getOffsetY(), next.getZ() + direction.getOffsetZ());
                 if (distance.getOrDefault(to, -1) != -1) continue;
                 distance.put(to, cdist + 1);
-                Block<?> block = world.getBlock(to.x, to.y, to.z);
-                int metadata = world.getBlockMetadata(to.x, to.y, to.z);
+                Block<?> block = world.getBlock(to.getX(), to.getY(), to.getZ());
+                int metadata = world.getBlockMetadata(to.getX(), to.getY(), to.getZ());
                 BlockLogic blockLogic = block == null ? null : block.getLogic();
                 if (blockLogic instanceof BlockLogicChestMimic) {
-                    return ipair(block.id(), metadata);
+                    return new IntPair(block.id(), metadata);
                 }
                 if (blockLogic instanceof BlockLogicChest) {
                     MimicEntry variant = MimicRegistry.getMimicVariantByChest(block.id(), metadata & 240);
-                    return ipair(variant.getMimicChestID(), variant.getMimicChestMetadata());
+                    return new IntPair(variant.getMimicChestID(), variant.getMimicChestMetadata());
                 }
                 queue.add(to);
             }
         }
         MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
-        return ipair(variant.getMimicChestID(), variant.getMimicChestMetadata());
+        return new IntPair(variant.getMimicChestID(), variant.getMimicChestMetadata());
     }
 
     private void populateChest(WorldFeaturePoint point) {
-        Container inventory = BlockLogicChest.getInventory(world, point.x, point.y, point.z);
+        if (this.world == null) return;
+        Container inventory = BlockLogicChest.getInventory(world, point.getX(), point.getY(), point.getZ());
         if (inventory == null) {
             return;
         }
@@ -339,11 +339,11 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     public boolean isWallace() {
         MimicEntry variantWallace = MimicRegistry.getMimicVariantByChest(
-                AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(),
-                AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.getLogic().toMetadata(DyeColor.PURPLE)
+            AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(),
+            AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.getLogic().toMetadata(DyeColor.PURPLE)
         );
 
         return "Wallace".equals(nickname)
-                && variantWallace.getMimicVariant() == this.getSkinVariant();
+            && variantWallace.getMimicVariant() == this.getSkinVariant();
     }
 }

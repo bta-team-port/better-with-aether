@@ -12,19 +12,20 @@ import net.minecraft.core.util.helper.Side;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootPlanks<T extends BlockLogic> extends BlockModelStandard<T> {
-    public static final IconCoordinate[] texCoords = new IconCoordinate[16];
+    protected static final IconCoordinate[] TEX_COORDS = new IconCoordinate[16];
 
     public BlockModelPaintedSkyrootPlanks(Block<T> block) {
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
-        return texCoords[data & 15];
+        return TEX_COORDS[data & 15];
     }
 
     static {
         for (DyeColor color : DyeColor.values()) {
-            texCoords[color.blockMeta] = TextureRegistry.getTexture("aether:block/skyroot/" + color.colorID);
+            TEX_COORDS[color.blockMeta] = TextureRegistry.getTexture("aether:block/skyroot/" + color.colorID);
         }
     }
 }

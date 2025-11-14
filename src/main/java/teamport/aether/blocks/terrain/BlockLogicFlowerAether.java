@@ -11,9 +11,11 @@ public class BlockLogicFlowerAether extends BlockLogicFlowerStackable {
         super(block);
     }
 
+    @Override
     public boolean mayPlaceOn(int blockId) {
-        return Blocks.blocksList[blockId] != null
-                && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS)
-                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS));
+        Block<?> block = Blocks.blocksList[blockId];
+        return block != null
+            && (block.hasTag(BlockTags.GROWS_FLOWERS)
+            || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS));
     }
 }

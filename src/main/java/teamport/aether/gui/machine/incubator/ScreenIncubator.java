@@ -13,16 +13,16 @@ import teamport.aether.lookup.LookupFuelIncubator;
 
 @Environment(EnvType.CLIENT)
 public class ScreenIncubator extends ScreenAetherMachine {
-
-    public static final int progressBarHeight = 58;
-    public static final int flameHeight = 14;
-    public final TileEntityIncubator incubator;
+    private static final int PROGRESS_BAR_HEIGHT = 58;
+    private static final int FLAME_HEIGHT = 14;
+    private final TileEntityIncubator incubator;
 
     public ScreenIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator) {
         super(new MenuIncubator(inventory, tileEntityIncubator));
         this.incubator = tileEntityIncubator;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void drawGuiContainerBackgroundLayer(float f) {
         this.mc.textureManager.loadTexture("/assets/aether/textures/gui/container/incubator.png").bind();
@@ -32,10 +32,10 @@ public class ScreenIncubator extends ScreenAetherMachine {
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
         if (this.incubator.isProcessing()) {
             int fireHeight = this.incubator.getEnergyTimeRemainingScaled(12);
-            this.drawTexturedModalRect(x + 73, y + 36 + 12 - fireHeight, 176, 12 - fireHeight, flameHeight, fireHeight + 2);
+            this.drawTexturedModalRect(x + 73, y + 36 + 12 - fireHeight, 176, 12 - fireHeight, FLAME_HEIGHT, fireHeight + 2);
         }
-        int tileProgressHeightScaled = this.incubator.getProcessProgressScaled(progressBarHeight);
-        this.drawTexturedModalRect(x + 100, y + flameHeight + progressBarHeight - tileProgressHeightScaled, 176, progressBarHeight - tileProgressHeightScaled + flameHeight, flameHeight, tileProgressHeightScaled);
+        int tileProgressHeightScaled = this.incubator.getProcessProgressScaled(PROGRESS_BAR_HEIGHT);
+        this.drawTexturedModalRect(x + 100, y + FLAME_HEIGHT + PROGRESS_BAR_HEIGHT - tileProgressHeightScaled, 176, PROGRESS_BAR_HEIGHT - tileProgressHeightScaled + FLAME_HEIGHT, FLAME_HEIGHT, tileProgressHeightScaled);
 
     }
 
@@ -50,7 +50,7 @@ public class ScreenIncubator extends ScreenAetherMachine {
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
         if (stackInSlot == null) return 0;
         boolean isIngredient = AetherRecipes.INCUBATOR.findRecipe(stackInSlot) != null;
-        boolean isFuel = LookupFuelIncubator.instance.getFuelYield(clickedItemId) > 0;
+        boolean isFuel = LookupFuelIncubator.INSTANCE.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {
             return 1;
         }

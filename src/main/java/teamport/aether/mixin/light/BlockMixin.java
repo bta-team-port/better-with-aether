@@ -16,22 +16,18 @@ public abstract class BlockMixin<T extends BlockLogic> implements IBlockAether {
     public int emission;
     @Unique
     byte emissionOverride = 0;
-
     @Inject(method = "withLightEmission(I)Lnet/minecraft/core/block/Block;", at = @At("TAIL"))
     public void saveEmission1(int lightEmission, CallbackInfoReturnable<Block<T>> cir) {
         emissionOverride = (byte) this.emission;
     }
-
     @Inject(method = "withLightEmission(F)Lnet/minecraft/core/block/Block;", at = @At("TAIL"))
     public void saveEmission2(float lightEmission, CallbackInfoReturnable<Block<T>> cir) {
         emissionOverride = (byte) this.emission;
     }
-
     @Override
     public int better_with_aether$getEmissionOverride() {
         return emissionOverride;
     }
-
     @Override
     public void better_with_aether$setEmissionOverride(int emission) {
         this.emissionOverride = (byte) emission;

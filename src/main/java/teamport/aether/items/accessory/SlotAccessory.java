@@ -9,7 +9,6 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
-import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.items.AetherItemTags;
 
@@ -21,11 +20,11 @@ public class SlotAccessory extends Slot {
     public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
-    public static final String[] accessoryOutline = new String[]{
-            "aether:item/armor_gloves_outline",
-            "aether:item/armor_capes_outline",
-            "aether:item/armor_wildcard_outline",
-            "aether:item/armor_wildcard_outline",
+    private static final String[] ACCESSORY_OUTLINE = new String[]{
+        "aether:item/armor_gloves_outline",
+        "aether:item/armor_capes_outline",
+        "aether:item/armor_wildcard_outline",
+        "aether:item/armor_wildcard_outline",
     };
 
     public final MenuInventory menu;
@@ -37,10 +36,12 @@ public class SlotAccessory extends Slot {
         this.armorType = armorType;
     }
 
+    @Override
     public int getMaxStackSize() {
         return 1;
     }
 
+    @Override
     public boolean mayPlace(ItemStack itemstack) {
         Item item = itemstack.getItem();
         if (item instanceof ItemAccessoryArmor) {
@@ -52,6 +53,7 @@ public class SlotAccessory extends Slot {
         return item.hasTag(AetherItemTags.TRINKET) && this.armorType >= TRINKET_1_SLOT;
     }
 
+    @Override
     public void setChanged() {
         super.setChanged();
         int count = 0;
@@ -71,18 +73,15 @@ public class SlotAccessory extends Slot {
 
         if (this.getItemStack() != null && this.container instanceof ContainerInventory) {
             Player player = ((ContainerInventory) this.container).player;
-            player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
+            if (player.world != null) player.world.playSoundAtEntity(player, player, "random.equip", 2.0F, 1.0F);
         }
 
     }
 
-    public void set(@Nullable ItemStack itemstack) {
-        super.set(itemstack);
-    }
-
     // cause of the armor offset
+    @Override
     public String getItemIcon() {
-        return accessoryOutline[this.armorType - 4];
+        return ACCESSORY_OUTLINE[this.armorType - 4];
     }
 
 }

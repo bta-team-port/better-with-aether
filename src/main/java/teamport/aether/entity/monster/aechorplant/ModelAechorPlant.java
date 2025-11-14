@@ -8,20 +8,21 @@ import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class ModelAechorPlant extends ModelBase {
-    public static int petals = 10;
-    public static int thorns = 4;
-    public static int stamens = 3;
-    public float sinage;
-    public float sinage2;
-    public float size;
-    public Cube[] petal;
-    public Cube[] leaf;
-    public Cube[] stamen;
-    public Cube[] stamen2;
-    public Cube[] thorn;
-    public Cube stem;
-    public Cube head;
-    public float pie;
+    private static final int PETALS = 10;
+    private static final int THORNS = 4;
+    private static final int STAMENS = 3;
+
+    private float sinage;
+    private float sinage2;
+    private float size;
+    private final Cube[] petal;
+    private final Cube[] leaf;
+    private final Cube[] stamen;
+    private final Cube[] stamen2;
+    private final Cube[] thorn;
+    private final Cube stem;
+    private final Cube head;
+    private final float pie;
 
     public ModelAechorPlant() {
         this(0.0F);
@@ -34,11 +35,11 @@ public class ModelAechorPlant extends ModelBase {
     public ModelAechorPlant(float f, float f1) {
         this.pie = 6.283186F;
         this.size = 1.0F;
-        this.petal = new Cube[petals];
-        this.leaf = new Cube[petals];
+        this.petal = new Cube[PETALS];
+        this.leaf = new Cube[PETALS];
 
         int i;
-        for (i = 0; i < petals; ++i) {
+        for (i = 0; i < PETALS; ++i) {
             this.petal[i] = new Cube(0, 0);
             if (i % 2 == 0) {
                 this.petal[i] = new Cube(29, 3);
@@ -54,16 +55,16 @@ public class ModelAechorPlant extends ModelBase {
             this.leaf[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
-        this.stamen = new Cube[stamens];
-        this.stamen2 = new Cube[stamens];
+        this.stamen = new Cube[STAMENS];
+        this.stamen2 = new Cube[STAMENS];
 
-        for (i = 0; i < stamens; ++i) {
+        for (i = 0; i < STAMENS; ++i) {
             this.stamen[i] = new Cube(36, 13);
             this.stamen[i].addBox(0.0F, -9.0F, -1.5F, 1, 6, 0, f);
             this.stamen[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
 
-        for (i = 0; i < stamens; ++i) {
+        for (i = 0; i < STAMENS; ++i) {
             this.stamen2[i] = new Cube(32, 15);
             this.stamen2[i].addBox(0.0F, -8.1F, -2.0F, 1, 0, 1, f);
             this.stamen2[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
@@ -75,9 +76,9 @@ public class ModelAechorPlant extends ModelBase {
         this.stem = new Cube(24, 13);
         this.stem.addBox(-1.0F, 0.0F, -1.0F, 2, 6, 2, f);
         this.stem.setRotationPoint(0.0F, 1.0F + f1, 0.0F);
-        this.thorn = new Cube[thorns];
+        this.thorn = new Cube[THORNS];
 
-        for (i = 0; i < thorns; ++i) {
+        for (i = 0; i < THORNS; ++i) {
             this.thorn[i] = new Cube(32, 13);
             this.thorn[i].setRotationPoint(0.0F, 1.0F + f1, 0.0F);
         }
@@ -88,19 +89,20 @@ public class ModelAechorPlant extends ModelBase {
         this.thorn[3].addBox(0.0F, 2.25F, -1.75F, 1, 0, 1, f);
     }
 
+    @Override
     public void render(float f, float f1, float f2, float f3, float f4, float f5) {
-        this.setAngles(f, f1, f2, f3, f4, f5);
+        this.setAngles(f4);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, 1.2F, 0.0F);
         GL11.glScalef(this.size, this.size, this.size);
 
         int i;
-        for (i = 0; i < petals; ++i) {
+        for (i = 0; i < PETALS; ++i) {
             this.petal[i].render(f5);
             this.leaf[i].render(f5);
         }
 
-        for (i = 0; i < stamens; ++i) {
+        for (i = 0; i < STAMENS; ++i) {
             this.stamen[i].render(f5);
             this.stamen2[i].render(f5);
         }
@@ -108,14 +110,14 @@ public class ModelAechorPlant extends ModelBase {
         this.head.render(f5);
         this.stem.render(f5);
 
-        for (i = 0; i < thorns; ++i) {
+        for (i = 0; i < THORNS; ++i) {
             this.thorn[i].render(f5);
         }
 
         GL11.glPopMatrix();
     }
 
-    public void setAngles(float f, float f1, float f2, float f3, float f4, float f5) {
+    private void setAngles(float f4) {
         this.head.xRot = 0.0F;
         this.head.yRot = f4 / 57.29578F;
         float boff = this.sinage2;
@@ -123,40 +125,40 @@ public class ModelAechorPlant extends ModelBase {
         this.stem.y = boff * 0.5F;
 
         int i;
-        for (i = 0; i < thorns; ++i) {
+        for (i = 0; i < THORNS; ++i) {
             this.thorn[i].yRot = this.head.yRot;
             this.thorn[i].y = boff * 0.5F;
         }
 
         Cube var10000;
-        for (i = 0; i < petals; ++i) {
+        for (i = 0; i < PETALS; ++i) {
             this.petal[i].xRot = i % 2 == 0 ? -0.25F : -0.4125F;
             var10000 = this.petal[i];
             var10000.xRot += this.sinage;
             this.petal[i].yRot = this.head.yRot;
             var10000 = this.petal[i];
-            var10000.yRot += this.pie / (float) petals * (float) i;
+            var10000.yRot += this.pie / PETALS * i;
             this.leaf[i].xRot = i % 2 == 0 ? 0.1F : 0.2F;
             var10000 = this.leaf[i];
             var10000.xRot += this.sinage * 0.75F;
-            this.leaf[i].yRot = this.head.yRot + this.pie / (float) petals / 2.0F;
+            this.leaf[i].yRot = this.head.yRot + this.pie / PETALS / 2.0F;
             var10000 = this.leaf[i];
-            var10000.yRot += this.pie / (float) petals * (float) i;
+            var10000.yRot += this.pie / PETALS * i;
             this.petal[i].y = boff;
             this.leaf[i].y = boff;
         }
 
-        for (i = 0; i < stamens; ++i) {
-            this.stamen[i].xRot = 0.2F + (float) i / 15.0F;
+        for (i = 0; i < STAMENS; ++i) {
+            this.stamen[i].xRot = 0.2F + i / 15.0F;
             this.stamen[i].yRot = this.head.yRot + 0.1F;
             var10000 = this.stamen[i];
-            var10000.yRot += this.pie / (float) stamens * (float) i;
+            var10000.yRot += this.pie / STAMENS * i;
             var10000 = this.stamen[i];
             var10000.xRot += this.sinage * 0.4F;
-            this.stamen2[i].xRot = 0.2F + (float) i / 15.0F;
+            this.stamen2[i].xRot = 0.2F + i / 15.0F;
             this.stamen2[i].yRot = this.head.yRot + 0.1F;
             var10000 = this.stamen2[i];
-            var10000.yRot += this.pie / (float) stamens * (float) i;
+            var10000.yRot += this.pie / STAMENS * i;
             var10000 = this.stamen2[i];
             var10000.xRot += this.sinage * 0.4F;
             this.stamen[i].y = boff + this.sinage * 2.0F;
@@ -164,5 +166,14 @@ public class ModelAechorPlant extends ModelBase {
         }
 
         this.head.y = boff + this.sinage * 2.0F;
+    }
+    public void setSinage(float sinage) {
+        this.sinage = sinage;
+    }
+    public void setSinage2(float sinage2) {
+        this.sinage2 = sinage2;
+    }
+    public void setSize(float size) {
+        this.size = size;
     }
 }

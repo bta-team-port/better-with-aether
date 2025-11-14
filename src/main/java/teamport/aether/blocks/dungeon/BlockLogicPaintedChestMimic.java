@@ -44,6 +44,4 @@ public class BlockLogicPaintedChestMimic extends BlockLogicChestMimic implements
     public void setColor(World world, int x, int y, int z, DyeColor color) {
         IPainted.super.setColor(world, x, y, z, color);
     }
-
-
 }

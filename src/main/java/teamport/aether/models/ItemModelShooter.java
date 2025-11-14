@@ -24,6 +24,7 @@ public class ItemModelShooter extends ItemModelStandard {
         super(item, namespace);
     }
 
+    @Override
     public void renderItem(Tessellator tessellator, ItemRenderer renderer, ItemStack itemstack, Entity entity, float brightness, boolean handheldTransform) {
         super.renderItem(tessellator, renderer, itemstack, entity, brightness, handheldTransform);
         Item nextDart = null;
@@ -40,6 +41,7 @@ public class ItemModelShooter extends ItemModelStandard {
 
     }
 
+    @Override
     public void renderItemIntoGui(Tessellator tessellator, Font font, TextureManager textureManager, ItemStack itemStack, int x, int y, float brightness, float alpha) {
         Minecraft mc = Minecraft.getMinecraft();
         Item nextDart = this.getNextDart(mc.thePlayer);
@@ -53,9 +55,9 @@ public class ItemModelShooter extends ItemModelStandard {
             textureIndex.parentAtlas.bind();
             if (this.useColor) {
                 int color = this.getColor(itemStack);
-                float r = (float) (color >> 16 & 255) / 255.0F;
-                float g = (float) (color >> 8 & 255) / 255.0F;
-                float b = (float) (color & 255) / 255.0F;
+                float r = (color >> 16 & 255) / 255.0F;
+                float g = (color >> 8 & 255) / 255.0F;
+                float b = (color & 255) / 255.0F;
                 GL11.glColor4f(r * brightness, g * brightness, b * brightness, alpha);
             } else {
                 GL11.glColor4f(brightness, brightness, brightness, alpha);
@@ -80,6 +82,7 @@ public class ItemModelShooter extends ItemModelStandard {
         }
     }
 
+    @Override
     public void heldTransformThirdPerson(ItemRenderer renderer, Entity entity, ItemStack itemStack) {
         GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
         GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);

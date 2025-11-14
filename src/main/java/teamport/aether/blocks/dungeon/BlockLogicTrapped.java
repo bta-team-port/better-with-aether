@@ -20,28 +20,29 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
     public final Block<?> breakResult;
     public final Block<?> replaceOnClear;
-    public final int CHANCE;
+    public final int chance;
 
-    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int CHANCE) {
+    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int chance) {
         super(block, Material.stone);
         this.monster = monster;
         this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
-        this.CHANCE = CHANCE > 0 ? CHANCE : 2;
+        this.chance = chance > 0 ? chance : 2;
     }
 
     @Override
-    public ItemStack @Nullable [] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
 
+    @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (EnvironmentHelper.isClientWorld()) return;
         if (!(entity instanceof Player)) {
             return;
         }
-        if (world.rand.nextInt(CHANCE) != 0) {
+        if (world.rand.nextInt(chance) != 0) {
             return;
         }
         int tries = 16;
@@ -52,13 +53,13 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
             double spawnY = y + 1.25;
             if (!isSafe(world, spawnX, spawnY, spawnZ)) continue;
-            Entity monster = EntityDispatcher.createEntityInWorld(this.monster, world);
-            if (monster == null) continue;
-            monster.spawnInit();
-            monster.moveTo(spawnX, y + 1, spawnZ, 0.0f, 0.0f);
-            world.entityJoinedWorld(monster);
-            spawnDecorations(world, x, y, z, spawnX, spawnY, spawnZ, entity, monster);
-            if (monster instanceof MobSentry) {
+            Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
+            if (theMonster == null) continue;
+            theMonster.spawnInit();
+            theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
+            world.entityJoinedWorld(theMonster);
+            spawnDecorations(world, x, y, z, spawnX, spawnY, spawnZ, entity, theMonster);
+            if (theMonster instanceof MobSentry) {
                 ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
             }
             return;
@@ -67,7 +68,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
     private void spawnDecorations(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ, Entity player, Entity monster) {
         for (int l = 0; l < 8; ++l) {
-            double angle = Math.toRadians(l * 45);
+            double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);

@@ -7,7 +7,6 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,18 +15,12 @@ import teamport.aether.items.DartInterface;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerGetNextDartMixin extends Mob implements DartInterface {
-
-    @Shadow
-    public abstract boolean hasItem(Item item);
-
-    @Unique
-    private static final int DATA_HELD_DART = 19;
-
-    public PlayerGetNextDartMixin(@Nullable World world) {
+    protected PlayerGetNextDartMixin(@Nullable World world) {
         super(world);
     }
-
-    @Unique
+    @Shadow
+    public abstract boolean hasItem(Item item);
+    @Override
     public Item better_with_aether$getNextDart() {
         Item nextDart = null;
         if (hasItem(AetherItems.AMMO_DART_ENCHANTED)) {
@@ -40,12 +33,10 @@ public abstract class PlayerGetNextDartMixin extends Mob implements DartInterfac
 
         return nextDart;
     }
-
-    @Unique
+    @Override
     public int better_with_aether$getDartId() {
         return entityData.getInt(19);
     }
-
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void addDartData(CallbackInfo ci) {
         entityData.define(19, -1, Integer.class);

@@ -16,18 +16,19 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class EntityEntrySheepuff extends EntityEntry<MobSheepuff> {
-    public EntityEntrySheepuff() {
-    }
+    public EntityEntrySheepuff() {}
 
-    public void onTick(MobSheepuff entity) {
-    }
+    @Override
+    public void onTick(MobSheepuff entity) {}
 
+
+    @Override
     public List<ButtonElement> getEntryButtons(Minecraft mc, Screen parentScreen, MobSheepuff sheepuff) {
         List<ButtonElement> buttonList = new ArrayList<>();
         I18n translator = I18n.getInstance();
 
         ListenerSliderElement colorSlider = new ListenerSliderElement(-1, -120, 0, 120, 20,
-                translator.translateKeyAndFormat("model.category.entity.sheepuff.slider.color", "White"), 0.0F);
+            translator.translateKeyAndFormat("model.category.entity.sheepuff.slider.color", "White"), 0.0F);
         colorSlider.setOnValueChanged(() -> {
             sheepuff.setFleeceColor(DyeColor.colorFromBlockMeta((int) (colorSlider.sliderValue * 15.0)));
             String color = sheepuff.getFleeceColor().colorID;
@@ -38,7 +39,7 @@ public class EntityEntrySheepuff extends EntityEntry<MobSheepuff> {
         buttonList.add(colorSlider);
 
         ListenerSliderElement woolStateSlider = new ListenerSliderElement(-1, -120, 21, 120, 20,
-                translator.translateKeyAndFormat("model.category.entity.sheepuff.slider.wool_state", "Normal"), 0.5F);
+            translator.translateKeyAndFormat("model.category.entity.sheepuff.slider.wool_state", "Normal"), 0.5F);
         woolStateSlider.setOnValueChanged(() -> {
             float sliderValue = (float) woolStateSlider.sliderValue;
             if (sliderValue < 0.33F) {
@@ -60,6 +61,7 @@ public class EntityEntrySheepuff extends EntityEntry<MobSheepuff> {
         return buttonList;
     }
 
+    @Override
     public MobSheepuff getEntityInstance(Minecraft mc, World world) {
         MobSheepuff sheepuff = new MobSheepuff(world);
         sheepuff.setFleeceColor(DyeColor.WHITE);
@@ -68,9 +70,9 @@ public class EntityEntrySheepuff extends EntityEntry<MobSheepuff> {
         return sheepuff;
     }
 
-    public void onOpen() {
-    }
+    @Override
+    public void onOpen() {}
 
-    public void onClose() {
-    }
+    @Override
+    public void onClose() {}
 }

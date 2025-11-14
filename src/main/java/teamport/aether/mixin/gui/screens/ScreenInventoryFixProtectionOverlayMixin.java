@@ -1,119 +1,98 @@
 package teamport.aether.mixin.gui.screens;
 
-import net.minecraft.client.gui.TooltipElement;
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.client.gui.container.ScreenInventory;
-import net.minecraft.client.render.texture.stitcher.TextureRegistry;
+import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.lang.I18n;
-import net.minecraft.core.util.helper.Color;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.DamageType;
-import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = ScreenInventory.class, remap = false)
 public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenContainerAbstract {
-    @Shadow
-    protected Color protectionOverlayBgColor;
-    @Shadow
-    private DamageType hoveredDamageType;
-    @Shadow
-    protected int armourValuesFloat;
-
-    public ScreenInventoryFixProtectionOverlayMixin(Player player) {
+    protected ScreenInventoryFixProtectionOverlayMixin(Player player) {
         super(player.inventorySlots);
     }
-
-    @Inject(method = "drawProtectionOverlay", at = @At("HEAD"), cancellable = true)
-    private void drawProtectionOverlay(int mouseX, int mouseY, CallbackInfo ci) {
-        this.hoveredDamageType = null;
-        int x = this.width / 2 - this.armourValuesFloat - 4;
-        int y = this.height / 2 - 79;
-        int w = 44;
-
+    @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At(value = "CONSTANT", args = "intValue=44", ordinal = 1))
+    private int drawProtectionOverlayOne(int original) {
         int visibleCount = 0;
         for (DamageType dt : DamageType.values()) {
             if (dt.shouldDisplay()) {
                 ++visibleCount;
             }
         }
-        int h = Math.max(visibleCount * 10 + 4, 44);
-
-        GL11.glEnable(3042);
+        return Math.max(visibleCount * 10 + 4, original);
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/container/ScreenInventory;drawGradientRect(IIIIII)V"))
+    private void drawProtectionOverlayTwo(ScreenInventory instance, int minX, int minY, int maxX, int maxY, int argb1, int argb2, Operation<Void> original) {
         if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
-            this.drawGradientRect(x - 5, y, x + w - 5, y + h, this.protectionOverlayBgColor.getARGB(), this.protectionOverlayBgColor.getARGB());
-        } else {
-            this.drawGradientRect(x, y, x + w, y + h, this.protectionOverlayBgColor.getARGB(), this.protectionOverlayBgColor.getARGB());
+            original.call(instance, minX - 5, minY, maxX - 5, maxY, argb1, argb2);
+            return;
         }
-        GL11.glDisable(3042);
-        GL11.glDisable(2884);
+        original.call(instance, minX, minY, maxX, maxY, argb1, argb2);
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;getTotalProtectionAmount(Lnet/minecraft/core/util/helper/DamageType;)F", ordinal = 0))
+    private float drawProtectionOverlayThree(ContainerInventory instance, DamageType armor, Operation<Float> original) {
+        float originalFloat = original.call(instance, armor);
+        return Math.max(originalFloat, -1.0F);
+    }
 
-        int w2 = 26;
-        int h2 = 4;
-        int i = 0;
-
-        for (DamageType damageType : DamageType.values()) {
-            if (damageType.shouldDisplay()) {
-                int y2 = y + i * 10;
-                float protection = this.mc.thePlayer.inventory.getTotalProtectionAmount(damageType);
-                if (protection > 1.0F) {
-                    protection = 1.0F;
-                }
-                if (protection < -1.0F) {
-                    protection = -1.0F;
-                }
-
-                int barWidth = Math.max(0, (int) (Math.abs(protection) * (float) w2));
-                int color;
-                int l = (int) (protection * 255.0F);
-                if (protection >= 0.0F) {
-                    color = (0xff - l << 16) | (l << 8) | 0xff000000;
-                } else {
-                    color = 0xff_ff_00_ff + (l << 16);
-                }
-
-                GL11.glEnable(3553);
-                GL11.glColor4d(1.0, 1.0, 1.0, 1.0);
-                if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
-                    this.drawGuiIcon(x - 3, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
-                } else {
-                    this.drawGuiIcon(x + 2, y2 + 2, 9, 9, TextureRegistry.getTexture(damageType.getIcon()));
-                }
-                GL11.glDisable(3553);
-                if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
-                    this.drawRectWidthHeight(x + 9, y2 + 4, w2 + 2, h2 + 1, 0xff000000);
-                    this.drawRectWidthHeight(x + 10, y2 + 4, barWidth, h2, color);
-                } else {
-                    this.drawRectWidthHeight(x + 14, y2 + 4, w2 + 2, h2 + 1, 0xff000000);
-                    this.drawRectWidthHeight(x + 15, y2 + 4, barWidth, h2, color);
-                }
-                if (mouseX >= x && mouseY >= y2 + 2 && mouseX <= x + w && mouseY <= y2 + 12) {
-                    this.hoveredDamageType = damageType;
-                }
-                ++i;
-            }
+    @Expression("255 - ? << 16 | ? << 8 | -16777216")
+    @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private int drawProtectionOverlayFour(int original, @Local(name = "protection") float protection, @Local(name = "l") int l, @Share("barWidth") LocalIntRef barWidth, @Local(name = "w2") int w2) {
+        barWidth.set(Math.max(0, (int) (Math.abs(protection) * w2)));
+        if (protection >= 0.0F) return original;
+        return 0xff_ff_00_ff + (l << 16);
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/container/ScreenInventory;drawGuiIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V"))
+    private void drawProtectionOverlayFive(ScreenInventory instance, int x, int y, int width, int height, IconCoordinate coordinate, Operation<Void> original) {
+        if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+            original.call(instance, x - 5, y, width, height, coordinate);
+            return;
         }
-
-        GL11.glEnable(3553);
-        TooltipElement tooltip = ((ScreenContainerAbstractAccessor) this).getTooltipElement();
-        if (this.hoveredDamageType != null && tooltip != null) {
-            int protection = Math.round(this.mc.thePlayer.inventory.getTotalProtectionAmount(this.hoveredDamageType) * 100.0F);
-
-            if (protection > 100) {
-                protection = 100;
-            }
-            if (protection < -100) {
-                protection = -100;
-            }
-
-            String str = I18n.getInstance().translateKey(this.hoveredDamageType.getLanguageKey()) + ":\n" + protection + " / 100";
-            tooltip.render(str, mouseX, mouseY, 8, -8);
+        original.call(instance, x, y, width, height, coordinate);
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/container/ScreenInventory;drawRectWidthHeight(IIIII)V", ordinal = 0))
+    private void drawProtectionOverlaySix(ScreenInventory instance, int x, int y, int width, int height, int argb, Operation<Void> original) {
+        if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+            original.call(instance, x - 5, y, width, height, argb);
+            return;
         }
-
-        ci.cancel();
+        original.call(instance, x, y, width, height, argb);
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/container/ScreenInventory;drawRectWidthHeight(IIIII)V", ordinal = 1))
+    private void drawProtectionOverlaySeven(ScreenInventory instance, int x, int y, int width, int height, int argb, Operation<Void> original, @Share("barWidth") LocalIntRef barWidth) {
+        if (this.mc.thePlayer.gamemode.instantPortalTravel() && !this.mc.thePlayer.gamemode.isHiddenFromWorldCreation()) {
+            original.call(instance, x - 5, y, barWidth.get(), height, argb);
+            return;
+        }
+        original.call(instance, x, y, barWidth.get(), height, argb);
+    }
+    @Definition(id = "hoveredDamageType", field = "Lnet/minecraft/client/gui/container/ScreenInventory;hoveredDamageType:Lnet/minecraft/core/util/helper/DamageType;")
+    @Expression("this.hoveredDamageType != null")
+    @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean drawProtectionOverlayEight(boolean original) {
+        return original && ((ScreenContainerAbstractAccessor) this).getTooltipElement() != null;
+    }
+    @Expression("? < 0")
+    @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean drawProtectionOverlayNine(boolean original, @Local(name = "protection") LocalIntRef protection) {
+        if (protection.get() < -100) protection.set(-100);
+        return false;
+    }
+    @WrapOperation(method = "drawProtectionOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/util/helper/DamageType;shouldDisplay()Z"))
+    private boolean drawProtectionOverlayTen(DamageType instance, Operation<Boolean> original, @Local(name = "i") LocalIntRef i) {
+        boolean shouldDisplay = original.call(instance);
+        if (!shouldDisplay) i.set(i.get() - 1);
+        return shouldDisplay;
     }
 }

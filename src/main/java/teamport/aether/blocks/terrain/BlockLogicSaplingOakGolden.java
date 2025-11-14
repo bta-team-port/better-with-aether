@@ -7,7 +7,6 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
 
 import java.util.Random;
@@ -17,12 +16,14 @@ public class BlockLogicSaplingOakGolden extends BlockLogicSaplingBase {
         super(block);
     }
 
+    @Override
     public boolean mayPlaceOn(int blockId) {
-        return Blocks.blocksList[blockId] != null
-                && (Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_FLOWERS)
-                || Blocks.blocksList[blockId].hasTag(BlockTags.GROWS_TREES)
-                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
-                || Blocks.blocksList[blockId].hasTag(AetherBlockTags.GROWS_AETHER_TREES));
+        Block<?> block = Blocks.blocksList[blockId];
+        return block != null
+                && (block.hasTag(BlockTags.GROWS_FLOWERS)
+                || block.hasTag(BlockTags.GROWS_TREES)
+                || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS)
+                || block.hasTag(AetherBlockTags.GROWS_AETHER_TREES));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class BlockLogicSaplingOakGolden extends BlockLogicSaplingBase {
     @Override
     public void growTree(World world, int x, int y, int z, Random random) {
         world.setBlockWithNotify(x, y, z, 0);
-        WorldFeature tree = new WorldFeatureAetherTreeGoldenOak(AetherBlocks.LEAVES_OAK_GOLDEN.id(), AetherBlocks.LOG_OAK_GOLDEN.id());
+        WorldFeature tree = new WorldFeatureAetherTreeGoldenOak();
         if (!tree.place(world, random, x, y, z)) {
             world.setBlockWithNotify(x, y, z, this.id());
         }

@@ -7,11 +7,9 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import teamport.aether.helper.MobUtil;
 import teamport.aether.items.accessory.ItemGloves;
 
-import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
-
 public class ItemGlovesGravitite extends ItemGloves {
-    public final float knockbackStrength;
-    public final float lift;
+    private final float knockbackStrength;
+    private final float lift;
 
     public ItemGlovesGravitite(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material, accessoryPiece);

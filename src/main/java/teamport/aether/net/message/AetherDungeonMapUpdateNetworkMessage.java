@@ -24,8 +24,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     @Nullable
     private ListTag entriesReceived = null;
 
-    public AetherDungeonMapUpdateNetworkMessage() {
-    }
+    public AetherDungeonMapUpdateNetworkMessage() {}
 
     public AetherDungeonMapUpdateNetworkMessage(UUID uuid) {
         playerUUID = uuid;
@@ -36,9 +35,9 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
         if (EnvironmentHelper.isServerEnvironment()) {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
             Player player = playerList.playerEntities.stream()
-                    .filter(p -> p.uuid.compareTo(playerUUID) == 0)
-                    .findFirst()
-                    .orElse(null);
+                .filter(p -> p.uuid.compareTo(playerUUID) == 0)
+                .findFirst()
+                .orElse(null);
 
             if (player == null) {
                 packet.writeInt(0);

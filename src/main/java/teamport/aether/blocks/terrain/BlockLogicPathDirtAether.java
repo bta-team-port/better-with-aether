@@ -20,18 +20,22 @@ public class BlockLogicPathDirtAether extends BlockLogic {
         block.withLightBlock(255);
     }
 
+    @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getTemporaryBB(x, y, z, x + 1, y + 1, z + 1);
+        return AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
     }
 
+    @Override
     public boolean isSolidRender() {
         return false;
     }
 
+    @Override
     public boolean isCubeShaped() {
         return false;
     }
 
+    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, int blockId) {
         super.onNeighborBlockChange(world, x, y, z, blockId);
         Material material = world.getBlockMaterial(x, y + 1, z);
@@ -42,6 +46,7 @@ public class BlockLogicPathDirtAether extends BlockLogic {
 
     }
 
+    @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
         switch (dropCause) {
             case SILK_TOUCH:

@@ -8,7 +8,7 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.items.AetherItems;
 
 public class SlotEnchanter extends Slot {
-    public Player thePlayer;
+    private final Player thePlayer;
 
     public SlotEnchanter(Player theplayer, Container container, int index, int x, int y) {
         super(container, index, x, y);

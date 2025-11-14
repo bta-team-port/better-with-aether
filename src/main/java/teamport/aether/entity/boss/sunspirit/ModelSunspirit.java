@@ -9,12 +9,12 @@ import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
 public class ModelSunspirit extends ModelBiped {
-    public Cube bipedBody2;
-    public Cube bipedBody3;
-    public Cube bipedRightArm2;
-    public Cube bipedLeftArm2;
-    public Cube bipedRightArm3;
-    public Cube bipedLeftArm3;
+    private final Cube bipedBody2;
+    private final Cube bipedBody3;
+    private final Cube bipedRightArm2;
+    private final Cube bipedLeftArm2;
+    private final Cube bipedRightArm3;
+    private final Cube bipedLeftArm3;
 
     public ModelSunspirit() {
         this(0.0F);
@@ -68,6 +68,7 @@ public class ModelSunspirit extends ModelBiped {
         this.bipedLeftArm3.setRotationPoint(8.0F, 2.0F + f1, 0.0F);
     }
 
+    @Override
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glScalef(2.25F, 2.25F, 2.25F);
@@ -86,6 +87,7 @@ public class ModelSunspirit extends ModelBiped {
         this.bipedLeftArm3.render(scale);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         this.head.yRot = headYaw / 57.29578F;
         this.head.xRot = headPitch / 57.29578F;
@@ -121,7 +123,7 @@ public class ModelSunspirit extends ModelBiped {
             float f7 = MathHelper.sin(f6 * 3.141593F);
             float f8 = MathHelper.sin(this.onGround * 3.141593F) * -(this.head.xRot - 0.7F) * 0.75F;
             var10000 = this.armRight;
-            var10000.xRot = (float) ((double) var10000.xRot - ((double) f7 * 1.2 + (double) f8));
+            var10000.xRot = (float) (var10000.xRot - (f7 * 1.2 + f8));
             var10000.yRot += this.body.yRot * 2.0F;
             this.armRight.zRot = MathHelper.sin(this.onGround * 3.141593F) * -0.4F;
         }

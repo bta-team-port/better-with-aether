@@ -12,6 +12,7 @@ public class MobRendererFireMinion extends MobRendererBiped<MobFireMinion> {
         super(new ModelFireMinion(), 0.4f);
     }
 
+    @Override
     public void renderPreview(Tessellator tessellator, MobFireMinion fireMinion, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         super.renderPreview(tessellator, fireMinion, x, y - 1, z, yaw, partialTick);

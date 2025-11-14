@@ -10,7 +10,6 @@ import net.minecraft.core.world.World;
 
 @Environment(EnvType.CLIENT)
 public class ParticleGoldenDust extends Particle {
-
     public ParticleGoldenDust(World world, double x, double y, double z, double xa, double ya, double za) {
         super(world, x, y, z, xa, ya, za);
         this.bCol = 0.1F;
@@ -24,17 +23,20 @@ public class ParticleGoldenDust extends Particle {
         this.zd = 0.0;
     }
 
+    @Override
     public boolean collidesWithBlock(Block<?> block, int metadata) {
         return !Block.hasLogicClass(block, BlockLogicLeavesBase.class);
     }
 
+    @Override
     public void tick() {
+        if (this.world == null) return;
         float windDirection = this.world.worldType.getWindManager().getWindDirection(this.world, (float) this.x, (float) this.y, (float) this.z);
         float windIntensity = this.world.worldType.getWindManager().getWindIntensity(this.world, (float) this.x, (float) this.y, (float) this.z) * 0.01F;
-        float dx = (float) (Math.cos((double) windDirection * Math.PI * 2.0) * ((double) windIntensity / 4));
-        float dz = (float) (Math.sin((double) windDirection * Math.PI * 2.0) * ((double) windIntensity / 4));
-        this.xd += dx / 2;
-        this.zd += dz / 2;
+        double dx = Math.cos(windDirection * Math.PI * 2.0) * (windIntensity / 4.0);
+        double dz = Math.sin(windDirection * Math.PI * 2.0) * (windIntensity / 4.0);
+        this.xd += dx / 2.0;
+        this.zd += dz / 2.0;
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
@@ -49,7 +51,7 @@ public class ParticleGoldenDust extends Particle {
             this.tex = null;
         }
 
-        this.yd -= 0.04 * (double) this.gravity;
+        this.yd -= 0.04 * this.gravity;
         if (this.onGround) {
             this.xd *= 0.0;
             this.zd *= 0.0;
@@ -57,6 +59,4 @@ public class ParticleGoldenDust extends Particle {
 
         this.move(this.xd, this.yd, this.zd);
     }
-
 }
-

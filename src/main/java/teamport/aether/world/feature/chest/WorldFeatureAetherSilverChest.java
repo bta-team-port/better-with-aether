@@ -8,8 +8,4 @@ public class WorldFeatureAetherSilverChest extends WorldFeatureAetherTreasureChe
         super(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED.id(), 4, WorldFeatureAetherSilverDungeon::generateLoot, WorldFeatureAetherSilverDungeon.TREASURE);
         this.guaranteedRare = 4;
     }
-
-    public static WorldFeatureAetherSilverChest silverChest() {
-        return new WorldFeatureAetherSilverChest();
-    }
 }

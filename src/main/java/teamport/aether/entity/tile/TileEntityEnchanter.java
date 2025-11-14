@@ -31,10 +31,10 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     @Override
     public void tick() {
-        boolean isEnergyTimeHigherThan0 = this.currentEnergyTime > 0;
+        boolean isEnergyTimeHigherThan0 = this.getCurrentEnergyTime() > 0;
         boolean updateMachine = false;
-        if (this.currentEnergyTime > 0) {
-            --this.currentEnergyTime;
+        if (this.getCurrentEnergyTime() > 0) {
+            this.setCurrentEnergyTime(this.getCurrentEnergyTime() - 1);
         }
         if (canProcess()) {
             setMaxProcessTime();
@@ -50,24 +50,25 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         float percent = 1.0F;
         int maxProcessTimeRaw = AetherRecipes.ENCHANTER.findRecipe(containerItemStacks[0]).getData();
         if (
-                containerItemStacks[0] != null
-                        && containerItemStacks[0].isItemStackDamageable()
-                        && containerItemStacks[0].getMetadata() != 0
+            containerItemStacks[0] != null
+                && containerItemStacks[0].isItemStackDamageable()
+                && containerItemStacks[0].getMetadata() != 0
         ) {
             int currentDurability = containerItemStacks[0].getMetadata();
             int maxDurability = containerItemStacks[0].getItem().getMaxDamage();
             percent = (float) currentDurability / maxDurability;
         }
-        this.maxProcessTime = (int) Math.floor(maxProcessTimeRaw * percent);
+        this.setMaxProcessTime((int) Math.floor(maxProcessTimeRaw * percent));
     }
 
     public boolean isUpdateMachine(boolean updateMachine, boolean isEnergyTimeHigherThan0) {
         if (this.worldObj == null || !this.worldObj.isClientSide) {
             updateMachine = eternallyLit(updateMachine);
 
-            if (this.currentEnergyTime == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
-                this.maxEnergyTime = this.currentEnergyTime = this.getEnergyTimeFromItem(this.containerItemStacks[1]);
-                if (this.currentEnergyTime > 0) {
+            if (this.getCurrentEnergyTime() == 0 && this.containerItemStacks[1] != null && this.canProcess()) {
+                this.setCurrentEnergyTime(this.getEnergyTimeFromItem(this.containerItemStacks[1]));
+                this.setMaxEnergyTime(this.getCurrentEnergyTime());
+                if (this.getCurrentEnergyTime() > 0) {
                     updateMachine = true;
                     if (this.containerItemStacks[1] != null) {
                         --this.containerItemStacks[1].stackSize;
@@ -80,17 +81,17 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
             }
 
             if (this.isProcessing() && this.canProcess()) {
-                ++this.currentProcessTime;
-                if (this.currentProcessTime >= this.maxProcessTime) {
-                    this.currentProcessTime = 0;
+                this.setCurrentProcessTime(this.getCurrentProcessTime() + 1);
+                if (this.getCurrentProcessTime() >= this.getMaxProcessTime()) {
+                    this.setCurrentProcessTime(0);
                     this.processItem();
                     updateMachine = true;
                 }
             } else {
-                this.currentProcessTime = 0;
+                this.setCurrentProcessTime(0);
             }
 
-            if (isEnergyTimeHigherThan0 != this.currentEnergyTime > 0) {
+            if (isEnergyTimeHigherThan0 != this.getCurrentEnergyTime() > 0) {
                 this.updateContainer(false);
                 updateMachine = true;
             }
@@ -100,10 +101,10 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-                || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())
-                && this.currentEnergyTime == 0 && this.containerItemStacks[0] == null
-                && this.containerItemStacks[1] != null
-                && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
+            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.ENCHANTER_IDLE.id())
+            && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
+            && this.containerItemStacks[1] != null
+            && this.containerItemStacks[1].itemID == AetherBlocks.BLOCK_ZANITE.id()
         ) {
             --this.containerItemStacks[1].stackSize;
             if (this.containerItemStacks[1].stackSize <= 0) {
@@ -128,7 +129,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         }
         if (toProcess.isItemStackDamageable()
 //                Repairable.instance.isRepairable(toProcess)
-                && toProcess.getMetadata() == 0
+            && toProcess.getMetadata() == 0
         ) {
             return false;
         }
@@ -141,7 +142,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
         }
 
         if (resultItem.stackSize < this.getMaxStackSize()
-                && resultItem.stackSize < resultItem.getMaxStackSize()) {
+            && resultItem.stackSize < resultItem.getMaxStackSize()) {
             return true;
         }
         return resultItem.stackSize < resultStack.getMaxStackSize();
@@ -180,23 +181,23 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicEnchanter.updateFurnaceBlockState(forceLit | this.currentEnergyTime > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicEnchanter.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
             return;
         }
         if (this.carriedBlock != null) {
-            this.carriedBlock.blockId = forceLit | this.currentEnergyTime > 0 ? AetherBlocks.ENCHANTER_ACTIVE.id() : AetherBlocks.ENCHANTER_IDLE.id();
+            this.carriedBlock.blockId = forceLit || this.getCurrentEnergyTime() > 0 ? AetherBlocks.ENCHANTER_ACTIVE.id() : AetherBlocks.ENCHANTER_IDLE.id();
         }
     }
 
     @Override
     public int getEnergyTimeFromItem(ItemStack itemStack) {
-        return itemStack == null ? 0 : LookupFuelEnchanter.instance.getFuelYield(itemStack.getItem().id);
+        return itemStack == null ? 0 : LookupFuelEnchanter.INSTANCE.getFuelYield(itemStack.getItem().id);
     }
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
         super.dropContents(world, x, y, z);
-        if (!BlockLogicEnchanter.keepEnchanterInventory) {
+        if (!BlockLogicEnchanter.isKeepEnchanterInventory()) {
             for (int l = 0; l < this.getContainerSize(); ++l) {
                 ItemStack itemstack = this.getItem(l);
                 if (itemstack != null) {
@@ -212,8 +213,8 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
                         itemstack.stackSize -= i1;
                         EntityItem entityItem = new EntityItem(
-                                world, (float) x + f, (float) y + f1, (float) z + f2,
-                                new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
+                            world, x + f, y + f1, z + f2,
+                            new ItemStack(itemstack.itemID, i1, itemstack.getMetadata()));
                         float f3 = 0.05F;
                         entityItem.xd = (float) this.random.nextGaussian() * f3;
                         entityItem.yd = (float) this.random.nextGaussian() * f3 + 0.2F;

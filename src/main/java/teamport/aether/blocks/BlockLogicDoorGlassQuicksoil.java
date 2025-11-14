@@ -13,20 +13,13 @@ import java.util.function.Supplier;
 import static teamport.aether.AetherConfig.QUICK_SOIL_SPEED_CAP;
 
 public class BlockLogicDoorGlassQuicksoil extends BlockLogicDoor {
-    public final boolean isTop;
-    public final boolean requireTool;
-    public final @Nullable Supplier<Item> droppedItem;
-
     public BlockLogicDoorGlassQuicksoil(Block<?> block, Material material, boolean isTop, boolean requireTool, @Nullable Supplier<Item> droppedItem) {
         super(block, material, isTop, requireTool, droppedItem);
-        this.isTop = isTop;
-        this.requireTool = requireTool;
-        this.droppedItem = droppedItem;
-        float f = 0.5F;
+        double f = 0.5;
         if (isTop) {
-            this.setBlockBounds(0.5F - f, -1.0, 0.5F - f, 0.5F + f, 1.0, 0.5F + f);
+            this.setBlockBounds(0.5 - f, -1.0, 0.5 - f, 0.5 + f, 1.0, 0.5 + f);
         } else {
-            this.setBlockBounds(0.5F - f, 0.0, 0.5F - f, 0.5F + f, 2.0, 0.5F + f);
+            this.setBlockBounds(0.5 - f, 0.0, 0.5 - f, 0.5 + f, 2.0, 0.5 + f);
         }
         block.friction = 1.05f;
     }
@@ -37,6 +30,4 @@ public class BlockLogicDoorGlassQuicksoil extends BlockLogicDoor {
         entity.zd = Math.max(Math.min(entity.zd, QUICK_SOIL_SPEED_CAP), -QUICK_SOIL_SPEED_CAP);
         return super.collidesWithEntity(entity, world, x, y, z);
     }
-
-
 }

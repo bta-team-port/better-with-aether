@@ -12,8 +12,8 @@ public interface AetherDeathMessage {
     default String deathMessage(Player player) {
         String key = EntityDispatcher.nameKeyForClass(((Entity) this).getClass()) + ".death_message";
         String deathMessage = TRANSLATOR
-                .translateKey(key)
-                .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
+            .translateKey(key)
+            .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
         return RED + deathMessage;
     }
 }

@@ -8,14 +8,13 @@ import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
 import org.jspecify.annotations.Nullable;
-import org.spongepowered.asm.mixin.Unique;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
 public class ParticleMaker {
-    public static Random random = new Random();
+    private static final Random random = new Random();
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data, double maxDistance) {
         if (EnvironmentHelper.isClientWorld()) return;
@@ -24,8 +23,8 @@ public class ParticleMaker {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
 
             playerList.sendPacketToAllPlayersInDimension(
-                    new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
-                    world.dimension.id
+                new PacketAddParticle(particleKey, x, y, z, motionX, motionY, motionZ, data, maxDistance),
+                world.dimension.id
             );
 
             return;
@@ -46,11 +45,11 @@ public class ParticleMaker {
             double dy = random.nextGaussian() * 0.02;
             double dz = random.nextGaussian() * 0.02;
             ParticleMaker.spawnParticle(world,
-                    "snowshovel",
-                    x + (double) (random.nextFloat() * width * 2.0F) - (double) width,
-                    y - bbHeight + (double) (random.nextFloat() * width),
-                    z + (double) (random.nextFloat() * width * 2.0F) - (double) width,
-                    dx, dy, dz, 0
+                "snowshovel",
+                x + (random.nextFloat() * width * 2.0F) - width,
+                y - bbHeight + (random.nextFloat() * width),
+                z + (random.nextFloat() * width * 2.0F) - width,
+                dx, dy, dz, 0
             );
         }
     }
@@ -66,37 +65,35 @@ public class ParticleMaker {
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
         ParticleMaker.spawnParticle(world,
-                "smoke",
-                x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                y + (random.nextFloat() * bbHeight) - bbHeight,
-                z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                dx, dy, dz, 0
+            "smoke",
+            x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+            y + (random.nextFloat() * bbHeight) - bbHeight,
+            z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+            dx, dy, dz, 0
         );
     }
 
-    @Unique
     public static void spawnFlameParticles(World world, double x, double y, double z, double bbHeight, double bbWidth) {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
         ParticleMaker.spawnParticle(world, "flame",
-                x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                y + (random.nextFloat() * bbHeight) - bbHeight,
-                z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                dx, dy, dz, 0);
+            x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+            y + (random.nextFloat() * bbHeight) - bbHeight,
+            z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+            dx, dy, dz, 0);
     }
 
-    @Unique
     public static void spawnHeartParticles(World world, double x, double y, double z, double bbHeight, double bbWidth) {
         double dx = random.nextGaussian() * 0.02;
         double dy = random.nextGaussian() * 0.02;
         double dz = random.nextGaussian() * 0.02;
         for (int i = 0; i < 2; i++) {
             ParticleMaker.spawnParticle(world, "heart",
-                    x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                    y + (random.nextFloat() * bbHeight) - bbHeight,
-                    z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
-                    dx, dy, dz, 0);
+                x + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+                y + (random.nextFloat() * bbHeight) - bbHeight,
+                z + (random.nextFloat() * bbWidth * 2.0F) - bbWidth,
+                dx, dy, dz, 0);
         }
     }
 
@@ -116,7 +113,7 @@ public class ParticleMaker {
     public static void spawnRemedyParticle(@Nullable World world, double x, double y, double z, double bbHeight, double bbWidth) {
         double radius = bbWidth + 0.1;
         for (int i = 0; i < 36; i++) {
-            double theta = MathHelper.toRadians(10 * i);
+            double theta = MathHelper.toRadians(10.0F * i);
             double offX = radius * Math.cos(theta);
             double offZ = radius * Math.sin(theta);
             ParticleMaker.spawnParticle(world, "remedy", x, y + bbHeight * 1.2, z, offX * 0.13, 0, offZ * 0.13, 0);
@@ -125,32 +122,12 @@ public class ParticleMaker {
 
     public static void spawnReplacementEffects(World world, int x, int y, int z) {
         for (int l = 0; l < 8; ++l) {
-            double angle = Math.toRadians(l * 45);
-            ParticleMaker.spawnParticle(world, "smoke", (double) x + 0.5, (double) y + .2, (double) z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
-            ParticleMaker.spawnParticle(world, "largesmoke", (double) x + Math.random(), (double) y + .2, (double) z + Math.random(), 0.0, 0.0, 0.0, 0);
+            double angle = Math.toRadians(l * 45.0);
+            ParticleMaker.spawnParticle(world, "smoke", x + 0.5, y + 0.2, z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
+            ParticleMaker.spawnParticle(world, "largesmoke", x + Math.random(), y + .2, z + Math.random(), 0.0, 0.0, 0.0, 0);
         }
-        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
-        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, (float) x + 0.5f, (float) y + 0.5f, (float) z + 0.5f, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
-    }
-
-    public static void spawnPoisonParticlesCluster(World world, double x, double y, double z, double bbHeight, double bbWidth) {
-        double radiusOuter = Math.min(bbWidth * 1.2, bbHeight * 1.2);
-        double centerY = bbHeight / 1.75F;
-        double theta = 0.5f * Math.PI * random.nextDouble();
-        double phi = 2 * Math.PI * random.nextDouble();
-        double clusterX = x + radiusOuter * Math.sin(theta) * Math.cos(phi);
-        double clusterY = y + radiusOuter * Math.cos(theta) + centerY;
-        double clusterZ = z + radiusOuter * Math.sin(theta) * Math.sin(phi);
-        double radius = 0.4;
-
-        for (int i = 0; i < 3; i++) {
-            double thetaInner = 2 * Math.PI * random.nextDouble();
-            double posX = clusterX + radius * Math.cos(thetaInner);
-            double posY = clusterY + Math.min(random.nextDouble() * 0.03, 0.1);
-            double posZ = clusterZ + radius * Math.sin(thetaInner);
-            double dy = random.nextDouble() * 0.04;
-            ParticleMaker.spawnParticle(world, "poison", posX, posY, posZ, 0, dy, 0, 0);
-        }
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+        world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x + 0.5F, y + 0.5F, z + 0.5F, "random.fizz", 0.5f, 2.6f + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8f);
     }
 
     public static void spawnFireSwordParticles(Mob target) {
@@ -223,7 +200,7 @@ public class ParticleMaker {
             double offX = random.nextFloat() - random.nextFloat();
             double offY = random.nextFloat() - random.nextFloat();
             double offZ = random.nextFloat() - random.nextFloat();
-           spawnParticle(target.world, "bubble", target.x + offX, target.y + offY + 1, target.z + offZ, target.xd, target.yd, target.zd, 0);
+            spawnParticle(target.world, "bubble", target.x + offX, target.y + offY + 1, target.z + offZ, target.xd, target.yd, target.zd, 0);
         }
     }
 }

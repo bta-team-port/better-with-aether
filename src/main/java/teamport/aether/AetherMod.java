@@ -35,17 +35,19 @@ import java.util.Map;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-    public static String state = "beta";
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+    public static final String STATE = "beta";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
     public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
     public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
-
+    @SuppressWarnings("java:S2386")
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
@@ -71,7 +73,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", state, versionString);
+        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);
@@ -107,9 +109,9 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
         TRANSLATOR = I18n.getInstance();
 
-        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent("aether", "border_amber"));
-        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
-        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
+        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_amber"));
+        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_zanite"));
+        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_gravitite"));
         AetherBlockDetails.initializeBlockDetails();
         registerNewTagForItems();
     }

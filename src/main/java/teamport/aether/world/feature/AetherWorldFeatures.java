@@ -12,7 +12,6 @@ import teamport.aether.world.feature.terrain.*;
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
 
 public class AetherWorldFeatures {
-
     private static boolean hasInit = false;
 
     public static void init() {

@@ -8,6 +8,6 @@ import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
  * it denise the application of specific effects
  */
 public interface ILockInteractable {
-    default void lockTriggered(IHasEffects entity) {
+    default void lockTriggered(IHasEffects<?> entity) {
     }
 }

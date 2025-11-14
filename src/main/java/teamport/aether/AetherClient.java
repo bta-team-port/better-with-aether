@@ -23,7 +23,7 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
-import teamport.aether.gameSettings.AetherGameSettings;
+import teamport.aether.game_settings.AetherGameSettings;
 import teamport.aether.gui.ComponentBossBar;
 import teamport.aether.gui.ComponentJumpBar;
 import teamport.aether.particle.*;
@@ -36,6 +36,7 @@ import static net.minecraft.client.render.texture.stitcher.TextureRegistry.regis
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
     public static HudComponent BOSS_BAR;

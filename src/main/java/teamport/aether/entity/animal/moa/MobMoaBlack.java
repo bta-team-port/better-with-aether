@@ -15,15 +15,13 @@ public class MobMoaBlack extends MobMoaBlue {
         this.eggColor = AetherItems.EGG_MOA_BLACK;
     }
 
+    @SuppressWarnings("unused")
     public MobMoaBlack(@Nullable World world, boolean tamed) {
-        super(world);
-        this.setSize(1.0F, 2.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_black");
-        this.jumpsRemaining = getJumpMaxAmount();
-        this.eggColor = AetherItems.EGG_MOA_BLACK;
+        this(world);
         this.tamed = tamed;
     }
 
+    @Override
     public void onGround() {
         if (this.onGround) {
             this.jumpsRemaining = 7;

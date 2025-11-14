@@ -3,11 +3,8 @@ package teamport.aether.items.accessory.pendant;
 import net.minecraft.core.item.material.ArmorMaterial;
 
 public class ItemChainPendant extends ItemPendant {
-    public final String name;
-
-    public ItemChainPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
+    public ItemChainPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
         super(translationKey, namespaceId, id, material);
-        this.name = name;
     }
 
     @Override
@@ -17,6 +14,6 @@ public class ItemChainPendant extends ItemPendant {
 
     @Override
     public float getArmorPieceProtectionPercentage() {
-        return (float) this.armorPieceProtection() / 20.0F;
+        return this.armorPieceProtection() / 20.0F;
     }
 }

@@ -4,8 +4,6 @@ import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.*;
 
-import static teamport.aether.helper.unboxed.IntPair.ipair;
-
 /// Implements a random maze using kruskal
 public class MazeHelper {
     public static class Dsu {
@@ -29,6 +27,7 @@ public class MazeHelper {
             return a;
         }
 
+        @SuppressWarnings("SuspiciousNameCombination")
         public boolean union(int x, int y) {
             int rootX = find(x);
             int rootY = find(y);
@@ -60,7 +59,7 @@ public class MazeHelper {
         Dsu uf = new Dsu(size);
 
         for (IntPair edge : edges) {
-            if (uf.union(edge.first, edge.second)) {
+            if (uf.union(edge.getFirst(), edge.getSecond())) {
                 mst.add(edge);
             }
             if (mst.size() == size - 1) {
@@ -78,7 +77,7 @@ public class MazeHelper {
             for (Integer next : node.getValue()) {
                 int to = Math.min(next, currentNode);
                 int from = Math.max(next, currentNode);
-                edgeSet.add(ipair(to, from));
+                edgeSet.add(new IntPair(to, from));
             }
         }
         return new ArrayList<>(edgeSet);
@@ -88,8 +87,8 @@ public class MazeHelper {
         Map<Integer, List<Integer>> graph = new HashMap<>();
 
         for (IntPair edge : edgeList) {
-            Integer u = edge.first;
-            Integer v = edge.second;
+            Integer u = edge.getFirst();
+            Integer v = edge.getSecond();
             graph.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
             graph.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
         }

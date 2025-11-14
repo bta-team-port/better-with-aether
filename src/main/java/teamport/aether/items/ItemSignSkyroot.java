@@ -22,16 +22,17 @@ public class ItemSignSkyroot extends Item {
         this.isPainted = isPainted;
     }
 
-    public Block<? extends BlockLogic> getBlockWall() {
+    private Block<? extends BlockLogic> getBlockWall() {
         if (isPainted) return AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED;
         else return AetherBlocks.SIGN_WALL_PLANKS_SKYROOT;
     }
 
-    public Block<? extends BlockLogic> getBlockPost() {
+    private Block<? extends BlockLogic> getBlockPost() {
         if (isPainted) return AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED;
         else return AetherBlocks.SIGN_POST_PLANKS_SKYROOT;
     }
 
+    @Override
     public boolean onUseItemOnBlock(ItemStack itemstack, Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         int sideHit = side.getId();
         if (side == Side.BOTTOM) return false;
@@ -47,12 +48,12 @@ public class ItemSignSkyroot extends Item {
         if (!AetherBlocks.SIGN_POST_PLANKS_SKYROOT.canPlaceBlockAt(world, blockX, blockY, blockZ)) return false;
 
         Block<?> blockToPlace = sideHit == 1 ? getBlockPost() : getBlockWall();
-        int meta = sideHit == 1 ? MathHelper.floor((double) ((entityplayer.yRot + 180.0F) * 16.0F / 360.0F) + 0.5) & 15 : sideHit;
+        int meta = sideHit == 1 ? MathHelper.floor(((entityplayer.yRot + 180.0F) * 16.0F / 360.0F) + 0.5) & 15 : sideHit;
         if (isPainted) {
             meta = DyeColor.colorFromItemMeta(itemstack.getMetadata()).blockMeta << 4 | meta;
         }
 
-        world.playBlockSoundEffect(entityplayer, (float) blockX + 0.5F, (float) blockY + 0.5F, (float) blockZ + 0.5F, blockToPlace, EnumBlockSoundEffectType.PLACE);
+        world.playBlockSoundEffect(entityplayer, blockX + 0.5F, blockY + 0.5F, blockZ + 0.5F, blockToPlace, EnumBlockSoundEffectType.PLACE);
         world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, blockToPlace.id(), meta);
 
         itemstack.consumeItem(entityplayer);
@@ -66,6 +67,7 @@ public class ItemSignSkyroot extends Item {
         return true;
     }
 
+    @Override
     public String getLanguageKey(ItemStack itemstack) {
         if (!isPainted) return super.getLanguageKey(itemstack);
         return super.getKey() + "." + DyeColor.colorFromItemMeta(itemstack.getMetadata()).colorID;

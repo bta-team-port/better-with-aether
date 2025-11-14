@@ -5,8 +5,9 @@ import net.minecraft.client.render.model.ModelBase;
 import org.lwjgl.opengl.GL11;
 
 public class ModelSlider extends ModelBase {
-    public Cube head;
+    private final Cube head;
 
+    @SuppressWarnings("unused")
     public ModelSlider() {
         this(0.0F);
     }
@@ -21,6 +22,7 @@ public class ModelSlider extends ModelBase {
         this.head.setRotationPoint(0.0F, 0.0F + f1, 0.0F);
     }
 
+    @Override
     public void render(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         this.setupAnimation(limbSwing, limbYaw, limbPitch, headYaw, headPitch, scale);
         GL11.glPushMatrix();
@@ -29,6 +31,7 @@ public class ModelSlider extends ModelBase {
         GL11.glPopMatrix();
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbYaw, float limbPitch, float headYaw, float headPitch, float scale) {
         this.head.yRot = 0.0F;
         this.head.xRot = 0.0F;

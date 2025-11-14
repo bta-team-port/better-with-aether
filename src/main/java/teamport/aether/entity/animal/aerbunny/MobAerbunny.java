@@ -1,8 +1,8 @@
 package teamport.aether.entity.animal.aerbunny;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
@@ -28,7 +28,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
 public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
-    public boolean grab;
+    private boolean grab;
 
     public MobAerbunny(World world) {
         super(world);
@@ -37,14 +37,22 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         this.mobDrops.add(new WeightedRandomLootObject(Items.STRING.getDefaultStack(), 1));
     }
 
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+        if (itemStack == null) return false;
+        if (itemStack.itemID < Blocks.blocksList.length) {
+            Block<?> block = Blocks.blocksList[itemStack.itemID];
+            if (block != null && block.hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK)) return true;
+        }
+        return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
+    @Override
     public int getMaxHealth() {
         return 4;
     }
 
+    @Override
     public double getRidingHeight() {
         if (EnvironmentHelper.isClientWorld()) {
             if (this.vehicle != Minecraft.getMinecraft().thePlayer) {
@@ -72,14 +80,13 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         if (EnvironmentHelper.isClientWorld()) {
             NetworkHandler.sendToServer(
-                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
         }
 
         Entity vehicle = (Entity) this.vehicle;
 
-        assert vehicle != null;
-        if (vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
+        if (vehicle!= null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
             (vehicle).yd = 0.125F;
 
             this.cloudPoop();
@@ -87,6 +94,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
     }
 
+    @Override
     public void tick() {
         float puffiness = getPuffiness();
 
@@ -106,9 +114,8 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
                 int y = MathHelper.floor(this.bb.minY);
                 int z = MathHelper.floor(this.z);
 
-                if ((this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0)
-                        && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0
-                ) {
+                if (this.world != null && (this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0)
+                    && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0) {
                     if (this.yd < 0.0) {
                         this.cloudPoop();
                         setPuffiness(0.9F);
@@ -137,17 +144,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         super.tick();
     }
 
+    @Override
     public void causeFallDamage(float distance) {
     }
 
-    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-    }
-
-    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-    }
-
+    @Override
     public void onLivingUpdate() {
         if (onGround && this.moveForward != 0.0F) {
             this.jump();
@@ -158,11 +159,12 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (grab && onGround) {
             grab = false;
 
-            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-
-            for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0))) {
-                if (entity instanceof MobMonster) {
-                    ((MobMonster) entity).setTarget(this);
+            if (this.world != null) {
+                this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0))) {
+                    if (entity instanceof MobMonster) {
+                        ((MobMonster) entity).setTarget(this);
+                    }
                 }
             }
         }
@@ -187,6 +189,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         ParticleMaker.spawnParticle(world, "explode", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
+    @Override
     public boolean hurt(Entity entity, int i, DamageType type) {
         if (this.vehicle != null) {
             return false;
@@ -195,6 +198,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
     }
 
+    @Override
     public boolean interact(@NonNull Player player) {
         if (player.isSneaking()) return super.interact(player);
 
@@ -212,20 +216,25 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         this.startRiding(player);
 
         grab = true;
-        this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        if (this.world != null) {
+            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        }
         this.isJumping = false;
 
         return true;
     }
 
+    @Override
     public String getLivingSound() {
         return "aether:mob.aerbunny.lift";
     }
 
+    @Override
     public String getHurtSound() {
         return "aether:mob.aerbunny.hurt";
     }
 
+    @Override
     public String getDeathSound() {
         return "aether:mob.aerbunny.death";
     }
@@ -235,10 +244,10 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public void startRiding(IVehicle vehicle) {
         super.startRiding(vehicle);
 
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isServerEnvironment() && this.world != null) {
             MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
-                    x, y, z, 32, world.dimension.id,
-                    new PacketSetRiding(this, (Entity) this.vehicle)
+                x, y, z, 32, this.world.dimension.id,
+                new PacketSetRiding(this, (Entity) this.vehicle)
             );
         }
     }

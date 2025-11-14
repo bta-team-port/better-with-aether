@@ -14,8 +14,9 @@ public class BlockModelPaintedSkyrootButton<T extends BlockLogic> extends BlockM
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int meta) {
         meta >>= 4;
-        return BlockModelPaintedSkyrootPlanks.texCoords[meta & 15];
+        return BlockModelPaintedSkyrootPlanks.TEX_COORDS[meta & 15];
     }
 }

@@ -16,6 +16,7 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         super(block);
     }
 
+    @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
         return null;
     }
@@ -37,12 +38,12 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         entity.yd *= 0.005;
 
         if (!EnvironmentHelper.isServerEnvironment()) {
-            if (entity.y > (double) y && !entity.isSneaking() && !(entity instanceof Particle)) {
+            if (entity.y > y && !entity.isSneaking() && !(entity instanceof Particle)) {
                 this.jump(entity);
             }
 
         } else {
-            if (entity.y > (double) y && !entity.isSneaking()) {
+            if (entity.y > y && !entity.isSneaking()) {
                 this.jump(entity);
             }
 
@@ -53,6 +54,4 @@ public class BlockLogicCloudBlue extends BlockLogicCloudBase {
         entity.fallDistance = 0.0F;
         entity.yd = 2.0f;
     }
-
-
 }

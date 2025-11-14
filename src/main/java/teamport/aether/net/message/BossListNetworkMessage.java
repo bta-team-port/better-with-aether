@@ -14,16 +14,15 @@ import java.util.Optional;
 import static teamport.aether.AetherMod.LOGGER;
 
 public class BossListNetworkMessage implements NetworkMessage {
+    private Type type;
+    private int entityID;
     public enum Type {
         CLEAR,
         ADD,
-        REMOVE,
+        REMOVE
     }
 
-    Type type;
-    int entityID;
-
-    static public BossListNetworkMessage clear() {
+    public static BossListNetworkMessage clear() {
         BossListNetworkMessage e = new BossListNetworkMessage();
         e.type = Type.CLEAR;
         e.entityID = -1;
@@ -59,7 +58,7 @@ public class BossListNetworkMessage implements NetworkMessage {
 
         Player player = context.player;
 
-        if (type != Type.CLEAR) {
+        if (player.world != null && type != Type.CLEAR) {
             Optional<Entity> entityOption = player.world.getLoadedEntityList().stream().filter(e -> e.id == entityID).findFirst();
 
             if (!entityOption.isPresent()) {
