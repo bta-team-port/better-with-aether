@@ -24,6 +24,7 @@ val btaVersion = providers.gradleProperty("bta_version")
 
 val loaderVersion = providers.gradleProperty("loader_version")
 
+val dragonflyVersion = providers.gradleProperty("dragonfly_version")
 val halplibeVersion = providers.gradleProperty("halplibe_version")
 val modMenuVersion = providers.gradleProperty("mod_menu_version")
 
@@ -85,7 +86,7 @@ dependencies {
 
     // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
     modImplementation("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
-    // If you do not need Halplibe you can comment out or delete this line.
+    modImplementation("useless:dragonfly:${dragonflyVersion.get()}")
     modImplementation("turniplabs:halplibe:${halplibeVersion.get()}")
     modImplementation("turniplabs:modmenu-bta:${modMenuVersion.get()}")
     modImplementation("net.fabricmc:fabric-loader:${loaderVersion.get()}")
@@ -165,6 +166,7 @@ tasks {
         val stringModVersion = modVersion.get()
         val stringLoaderVersion = loaderVersion.get()
         val stringJavaVersion = javaVersion.get()
+        val stringDragonflyVersion = dragonflyVersion.get()
         val stringHalplibeVersion = halplibeVersion.get()
         val stringModMenuVersion = modMenuVersion.get()
 
@@ -175,7 +177,8 @@ tasks {
         inputs.property("modVersion", stringModVersion)
         inputs.property("loaderVersion", stringLoaderVersion)
         inputs.property("javaVersion", stringJavaVersion)
-        inputs.property("HalplibeVersion", stringHalplibeVersion)
+        inputs.property("dragonflyVersion", stringDragonflyVersion)
+        inputs.property("halplibeVersion", stringHalplibeVersion)
         inputs.property("modMenuVersion", stringModMenuVersion)
 
         inputs.property("catalystCoreVersion", stringCatalystCoreVersion)
@@ -187,6 +190,7 @@ tasks {
                 mapOf(
                     "version" to stringModVersion,
                     "fabricloader" to stringLoaderVersion,
+                    "dragonfly" to stringDragonflyVersion,
                     "halplibe" to stringHalplibeVersion,
                     "java" to stringJavaVersion,
                     "modmenu" to stringModMenuVersion,

@@ -59,6 +59,7 @@
 
   "depends": {
     "fabricloader": ">=${fabricloader}",
+    "dragonfly": ">=${dragonfly}",
     "halplibe": ">=${halplibe}",
     "catalyst-core": ">=${catalystcore}",
     "catalyst-effects": ">=${catalysteffects}",
