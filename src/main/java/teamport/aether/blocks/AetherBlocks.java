@@ -25,6 +25,7 @@ import turniplabs.halplibe.util.BlockInitEntrypoint;
 
 import static teamport.aether.AetherConfig.blockID;
 import static teamport.aether.AetherMod.MOD_ID;
+
 @SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008"})
 public final class AetherBlocks implements BlockInitEntrypoint {
 
@@ -110,8 +111,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<?> SIGN_POST_PLANKS_SKYROOT;
     public static Block<?> SIGN_WALL_PLANKS_SKYROOT;
-    public static Block<?> SIGN_POST_PLANKS_SKYROOT_PAINTED;
-    public static Block<?> SIGN_WALL_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintedSignSkyroot> SIGN_POST_PLANKS_SKYROOT_PAINTED;
+    public static Block<BlockLogicPaintedSignSkyroot> SIGN_WALL_PLANKS_SKYROOT_PAINTED;
 
     public static Block<BlockLogicPaintableTrapDoor> TRAPDOOR_PLANKS_SKYROOT;
     public static Block<BlockLogicPaintedTrapDoor> TRAPDOOR_PLANKS_SKYROOT_PAINTED;
@@ -341,9 +342,9 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build("slab.holystone.carved", "slab_holystone_polished", blockID("SLAB_HOLYSTONE_POLISHED"), b -> new BlockLogicSlab(b, HOLYSTONE_CARVED));
 
-		/// M: MARBEL
-		COBBLE_HOLYSTONE = stone
-			.build("cobble.holystone", "cobble_holystone", blockID("COBBLE_HOLYSTONE"), b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
+        /// M: MARBLE
+        COBBLE_HOLYSTONE = stone
+            .build("cobble.holystone", "cobble_holystone", blockID("COBBLE_HOLYSTONE"), b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
 
         COBBLE_HOLYSTONE_MOSSY = stone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.GROWS_AETHER_FLOWERS)
@@ -527,7 +528,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setHardness(2.0f)
             .setResistance(5.0f)
             .setBlockItem(b -> new ItemBlockPainted<>(b, false))
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT,BlockTags.CAN_HANG_OFF)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT, BlockTags.CAN_HANG_OFF)
             .build(
                 "fence.planks.skyroot.painted",
                 "fence_planks_skyroot_painted",
@@ -1029,7 +1030,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
             );
         CHEST_MIMIC_OAK_PAINTED = mimic
-			.setBlockItem(b -> new ItemBlockPainted<>(b, true))
+            .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .addTags(BlockTags.MINEABLE_BY_AXE)
             .build(
                 "chest.mimic.oak.painted",
@@ -1047,7 +1048,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED)
             );
         CHEST_MIMIC_SKYROOT_PAINTED = mimic
-			.setBlockItem(b -> new ItemBlockPainted<>(b, true))
+            .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
             .build(
                 "chest.mimic.skyroot.painted",
