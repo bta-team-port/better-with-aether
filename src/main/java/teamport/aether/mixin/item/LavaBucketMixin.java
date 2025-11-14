@@ -78,4 +78,8 @@ public abstract class LavaBucketMixin {
         if (world.dimension == AetherDimension.getAether() && this.blockToPlace != null && this.blockToPlace.hasTag(BlockTags.IS_LAVA) && !hasPlacedAerogel.get()) return false;
         return original.call(instance);
     }
+    @WrapOperation(method = "onUseByActivator", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;setBlockWithNotify(IIII)Z"))
+    private boolean aetherAttemptPlaceLavaSix(World instance, int x, int y, int z, int id, Operation<Boolean> original) {
+        return original.call(instance, x, y, z, instance.dimension == AetherDimension.getAether() && this.blockToPlace != null && this.blockToPlace.hasTag(BlockTags.IS_LAVA) ? AetherBlocks.AEROGEL.id() : id);
+    }
 }
