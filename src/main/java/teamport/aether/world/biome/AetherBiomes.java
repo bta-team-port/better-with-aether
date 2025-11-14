@@ -17,6 +17,6 @@ public class AetherBiomes {
     }
 
     private static void initializeBiomes() {
-        AETHER_PLAINS = Biomes.register("aether:plains", (new BiomeAether("aether.plains")));
+        AETHER_PLAINS = Biomes.register("aether:aether.plains", (new BiomeAether("aether.plains")));
     }
 }

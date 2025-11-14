@@ -21,11 +21,6 @@ public class BlockLogicPaintedChestMimic extends BlockLogicChestMimic implements
     }
 
     @Override
-    public String getLanguageKey(int meta) {
-        return super.getLanguageKey(meta) + "." + this.fromMetadata(meta).colorID;
-    }
-
-    @Override
     public DyeColor fromMetadata(int meta) {
         return DyeColor.colorFromBlockMeta((meta & 240) >> 4);
     }

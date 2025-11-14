@@ -25,7 +25,7 @@ public class BlockModelPaintedSkyrootPlanks<T extends BlockLogic> extends BlockM
 
     static {
         for (DyeColor color : DyeColor.values()) {
-            TEX_COORDS[color.blockMeta] = TextureRegistry.getTexture("aether:block/skyroot/" + color.colorID);
+            TEX_COORDS[color.blockMeta] = TextureRegistry.getTexture("aether:block/planks_skyroot/" + color.colorID);
         }
     }
 }
