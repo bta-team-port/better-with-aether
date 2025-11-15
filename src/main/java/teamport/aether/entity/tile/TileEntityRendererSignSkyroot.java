@@ -24,6 +24,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import java.util.Arrays;
 
@@ -81,7 +82,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         Block<?> block = tileEntity.getBlock();
         if (!(block != null && block.getLogic() instanceof BlockLogicSign)) return;
 
-        GL11.glEnable(32826);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
 
@@ -112,7 +113,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
             this.loadTexture(defaultSignTexture);
         }
 
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_BLEND);
         this.modelSign.render();
         GL11.glPopMatrix();
 
@@ -120,12 +121,12 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
         drawSignText(t, tileEntity);
 
         GL11.glPopMatrix();
-        GL11.glDisable(32826);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
 
     protected void drawSignPicture(TileEntitySignSkyroot tileEntity, int colorSign) {
         GL11.glPushMatrix();
-        GL11.glEnable(3042);
+        GL11.glEnable(GL11.GL_BLEND);
         GL11.glTranslatef(0.0F, 0.33545F, 0.04375F);
         GL11.glNormal3f(0.0F, 0.0F, 1.0F);
         GL11.glDepthMask(false);
@@ -136,7 +137,7 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
             drawTexturedModalRect(colorSign, TextureRegistry.getTexture(picture.getTextureKey()));
         }
 
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
 

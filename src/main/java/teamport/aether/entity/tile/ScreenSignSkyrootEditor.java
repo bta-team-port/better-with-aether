@@ -169,15 +169,15 @@ public class ScreenSignSkyrootEditor extends Screen {
             this.entitySign.lineBeingEdited = this.editLine;
         }
 
-        GL11.glEnable(3042);
+        GL11.glEnable(GL11.GL_BLEND);
         TileEntityRenderDispatcher.instance.renderTileEntity(Tessellator.instance, this.entitySign, -0.5, -0.75, -0.5, 0.0F);
         this.entitySign.lineBeingEdited = -1;
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
-        GL11.glDisable(2929);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
         EnumSignPicture enumsignpicture = this.entitySign.getPicture();
         if (enumsignpicture != null) this.drawStringCentered(this.font, I18n.getInstance().translateKey(enumsignpicture.getLanguageKey()), this.width / 2, 150 + this.yOffset, 16777215);
-        GL11.glEnable(2929);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         super.render(mx, my, partialTick);
     }
 

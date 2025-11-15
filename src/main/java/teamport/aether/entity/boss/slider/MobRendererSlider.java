@@ -44,8 +44,8 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
             }
 
             float f1 = (1.0F - slider.getBrightness(1.0F)) * 0.5F;
-            GL11.glEnable(3042);
-            GL11.glDisable(3008);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glBlendFunc(770, 771);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
             return true;
@@ -55,7 +55,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     @Override
     public void setupScale(MobBossSlider slider, float partialTick) {
         if (slider.getDeformX() > 0.01F) {
-            GL11.glRotatef(slider.getDeformX() * -30.0F, (float) slider.getDeformY(), 0.0F, (float) slider.getDeformZ());
+            GL11.glRotatef(slider.getDeformX() * -30.0F, slider.getDeformY(), 0.0F, slider.getDeformZ());
         }
 
     }

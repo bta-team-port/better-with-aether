@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 
 @Environment(EnvType.CLIENT)
@@ -28,7 +29,7 @@ public class EntityRendererNeedle extends EntityRenderer<ProjectileNeedle> {
         float tailMinV = 5.0F / 32.0F;
         float tailMaxV = 10.0F / 32.0F;
         float scale = 0.05625F;
-        GL11.glEnable(32826);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         float shakeAmount = (float) needle.getShake() - partialTick;
         if (shakeAmount > 0.0F) {
             float shakeAngle = -MathHelper.sin(shakeAmount * 3.0F) * shakeAmount;
@@ -65,7 +66,7 @@ public class EntityRendererNeedle extends EntityRenderer<ProjectileNeedle> {
             tessellator.draw();
         }
 
-        GL11.glDisable(32826);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 }

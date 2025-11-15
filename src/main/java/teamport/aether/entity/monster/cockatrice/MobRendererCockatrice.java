@@ -31,8 +31,8 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
             }
 
             float f1 = (1.0F - brightness) * 0.5F;
-            GL11.glEnable(3042);
-            GL11.glDisable(3008);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glBlendFunc(770, 771);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
             return true;

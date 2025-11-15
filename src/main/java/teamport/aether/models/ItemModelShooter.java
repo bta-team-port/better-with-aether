@@ -46,12 +46,12 @@ public class ItemModelShooter extends ItemModelStandard {
         Minecraft mc = Minecraft.getMinecraft();
         Item nextDart = this.getNextDart(mc.thePlayer);
         if (itemStack == mc.thePlayer.getHeldItem() && nextDart != null) {
-            GL11.glEnable(3042);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(770, 771);
-            GL11.glEnable(2884);
+            GL11.glEnable(GL11.GL_CULL_FACE);
             ItemModelStandard dartModel = (ItemModelStandard) ItemModelDispatcher.getInstance().getDispatch(nextDart);
             IconCoordinate textureIndex = dartModel.getIcon(mc.thePlayer, nextDart.getDefaultStack());
-            GL11.glDisable(2896);
+            GL11.glDisable(GL11.GL_LIGHTING);
             textureIndex.parentAtlas.bind();
             if (this.useColor) {
                 int color = this.getColor(itemStack);
@@ -64,9 +64,9 @@ public class ItemModelShooter extends ItemModelStandard {
             }
 
             this.renderTexturedQuad(tessellator, x, y, textureIndex, false, false);
-            GL11.glEnable(2896);
-            GL11.glEnable(2884);
-            GL11.glDisable(3042);
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            GL11.glDisable(GL11.GL_BLEND);
         }
 
         super.renderItemIntoGui(tessellator, font, textureManager, itemStack, x, y, brightness, alpha);

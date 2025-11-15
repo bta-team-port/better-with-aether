@@ -6,13 +6,15 @@ import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import teamport.aether.items.AetherRepulsion;
+import teamport.aether.items.accessory.IAccessoryEffects;
 
 import java.util.List;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-public class ItemRepulsionShield extends ItemShield {
+public class ItemRepulsionShield extends ItemShield implements IAccessoryEffects {
     public ItemRepulsionShield(String translationKey, String namespaceId, int id, String name) {
         super(translationKey, namespaceId, id, name);
     }
@@ -33,6 +35,7 @@ public class ItemRepulsionShield extends ItemShield {
 
         double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
         if (player.isSneaking() || (player.onGround && velocity <= 0.075D)) {
+            ((AetherRepulsion) player).aether$setRepulsion(true);
             List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, player.bb.grow(1.25D, 1.25D, 1.25D));
             if (!projectiles.isEmpty()) {
                 for (Projectile projectile : projectiles) {
@@ -42,6 +45,12 @@ public class ItemRepulsionShield extends ItemShield {
                     }
                 }
             }
+        } else {
+            ((AetherRepulsion) player).aether$setRepulsion(false);
         }
+    }
+    @Override
+    public void removeEffect(Player player, ItemStack accessory) {
+        ((AetherRepulsion) player).aether$setRepulsion(false);
     }
 }

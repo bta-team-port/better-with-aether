@@ -1,7 +1,14 @@
 package teamport.aether.mixin.accessory;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
@@ -13,7 +20,7 @@ import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.player.gamemode.Gamemode;
 import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Final;
@@ -25,6 +32,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.GLManager;
+import teamport.aether.items.AetherRepulsion;
+import teamport.aether.items.accessory.AetherInvisibility;
 import teamport.aether.items.accessory.IAccessory;
 import teamport.aether.items.accessory.ItemGloves;
 import teamport.aether.items.accessory.pendant.ItemPendant;
@@ -99,11 +108,51 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         }
     }
 
+    @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
+    @Expression("spectator")
+    @ModifyExpressionValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 4))
+    public Gamemode renderPlayerOne(Gamemode original, Player entity, int layer, float partialTick) {
+        if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
+        return original;
+    }
+    @WrapOperation(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
+    public void renderPlayerTwo(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
+        if (entity.getGamemode() == Gamemode.spectator) {
+            original.call(red, blue, green, alpha);
+            return;
+        }
+        original.call(red, blue, green, 0.05F);
+        GL11.glEnable(GL11.GL_BLEND);
+    }
+    @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
+    @Expression("spectator")
+    @ModifyExpressionValue(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 2))
+    public Gamemode renderPlayerThree(Gamemode original, Player entity, float partialTick) {
+        if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
+        return original;
+    }
+    @WrapOperation(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
+    public void renderPlayerFour(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
+        if (entity.getGamemode() == Gamemode.spectator) {
+            original.call(red, blue, green, alpha);
+            return;
+        }
+        original.call(red, blue, green, 0.05F);
+        GL11.glEnable(GL11.GL_BLEND);
+    }
+    @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"))
+    public void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+        alphaTest.set(GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF));
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
+    }
+    @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("RETURN"))
+    public void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+        GL11.glAlphaFunc(GL11.GL_GREATER, alphaTest.get());
+    }
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
     public int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
-
     @SuppressWarnings({"java:S6541", "java:S1075"})
     @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))
     public boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {
@@ -132,9 +181,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
             if ((item instanceof ItemRepulsionShield && (layer == TRINKET_2_SLOT || entity.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield6) {
                 this.shield6 = false;
-                double velocity = MathHelper.sqrt(entity.xd * entity.xd + entity.zd * entity.zd);
                 String path;
-                if (entity.isSneaking() || (entity.onGround && velocity < 0.075D)) {
+                if (((AetherRepulsion) entity).aether$isRepulse()) {
                     path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
                 } else {
                     path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
@@ -143,8 +191,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLManager.glEnable(GL11.GL_CULL_FACE);
                 GLManager.glEnable(GL11.GL_BLEND);
-                GL11.glColor4f(1, 1, 1, 1);
-                GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                if (((AetherInvisibility) entity).aether$isInvisible()) {
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
+                    GL11.glEnable(GL11.GL_BLEND);
+                } else {
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                }
                 setArmorModel(shield);
 
                 return true;
@@ -155,6 +208,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 this.shield6 = true;
                 ItemStack nextSlot = entity.inventory.armorInventory[layer + 1];
                 item = nextSlot.getItem();
+                layer += 1;
             }
 
             ItemStack itemTrinketSlot1 = entity.inventory.armorInventory[TRINKET_1_SLOT];

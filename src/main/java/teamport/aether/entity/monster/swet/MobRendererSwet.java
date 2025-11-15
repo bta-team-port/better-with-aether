@@ -19,12 +19,12 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
     private boolean renderSlimePassModel(int renderPass) {
         if (renderPass == 0) {
             this.setArmorModel(this.scaleAmount);
-            GL11.glEnable(2977);
-            GL11.glEnable(3042);
+            GL11.glEnable(GL11.GL_NORMALIZE);
+            GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(770, 771);
             return true;
         } else if (renderPass == 1) {
-            GL11.glDisable(3042);
+            GL11.glDisable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             return false;
         }

@@ -39,8 +39,8 @@ public class EntityRendererFloatingBlock extends EntityRenderer<EntityFloatingBl
         TextureRegistry.blockAtlas.bind();
         Lighting.disable();
         GL11.glBlendFunc(770, 771);
-        GL11.glEnable(3042);
-        GL11.glDisable(2884);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_CULL_FACE);
         if (this.mc.isAmbientOcclusionEnabled()) {
             GL11.glShadeModel(7425);
         } else {

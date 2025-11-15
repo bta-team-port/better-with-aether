@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import teamport.aether.entity.projectile.ProjectileKnifeLightning;
 
 @Environment(EnvType.CLIENT)
@@ -31,7 +32,7 @@ public class EntityRendererKnifeLightning extends EntityRenderer<ProjectileKnife
         Tessellator tessellator = Tessellator.instance;
         float size = 1.0F;
         float thickness = 0.0625F;
-        GL11.glEnable(32826);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glTranslatef(-0.5F, 0.0F, -0.5F);
         tessellator.startDrawingQuads();
 
@@ -92,7 +93,7 @@ public class EntityRendererKnifeLightning extends EntityRenderer<ProjectileKnife
         }
 
         tessellator.draw();
-        GL11.glDisable(32826);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
 
