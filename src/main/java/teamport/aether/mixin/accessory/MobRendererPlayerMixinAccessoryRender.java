@@ -137,7 +137,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             original.call(red, blue, green, alpha);
             return;
         }
-        original.call(red, blue, green, 0.05F);
+        original.call(red, blue, green, 0.0F);
         GL11.glEnable(GL11.GL_BLEND);
     }
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"))
