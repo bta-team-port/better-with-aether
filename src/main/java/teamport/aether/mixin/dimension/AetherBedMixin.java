@@ -3,10 +3,7 @@ package teamport.aether.mixin.dimension;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.achievement.stat.Stat;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.BlockLogicBed;
-import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.Side;
@@ -17,16 +14,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value = BlockLogicBed.class, remap = false)
-public abstract class AetherBedMixin extends BlockLogic {
-    protected AetherBedMixin(Block<?> block, Material material) {
-        super(block, material);
-    }
+public abstract class AetherBedMixin {
     @WrapOperation(method = "onBlockRightClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;addStat(Lnet/minecraft/core/achievement/stat/Stat;I)V"))
-    public void onBlockRightClickedOne(Player instance, Stat statbase, int i, Operation<Void> original, World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+    private void onBlockRightClickedOne(Player instance, Stat statbase, int i, Operation<Void> original, World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
         if (world.dimension.id != AetherDimension.getAether().id) original.call(instance, statbase, i);
     }
     @WrapOperation(method = "onBlockRightClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;createExplosion(Lnet/minecraft/core/entity/Entity;DDDFZZ)Lnet/minecraft/core/world/Explosion;"))
-    public Explosion onBlockRightClickedTwo(World instance, Entity entity, double x, double y, double z, float explosionSize, boolean flaming, boolean isCannonBall, Operation<Explosion> original) {
+    private Explosion onBlockRightClickedTwo(World instance, Entity entity, double x, double y, double z, float explosionSize, boolean flaming, boolean isCannonBall, Operation<Explosion> original) {
         if (instance.dimension.id != AetherDimension.getAether().id) return original.call(instance, entity, x, y, z, explosionSize, flaming, isCannonBall);
         return original.call(instance, entity, x, y, z, explosionSize, false, isCannonBall);
     }

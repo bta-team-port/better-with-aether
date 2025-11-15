@@ -5,6 +5,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,8 +18,8 @@ public abstract class MobMixinDrowning extends Entity {
     protected MobMixinDrowning(@Nullable World world) {
         super(world);
     }
-    @Inject(method = "moveEntityWithHeading", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0))
-    public void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
+    @Inject(method = "moveEntityWithHeading", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;horizontalCollision:Z", ordinal = 0, opcode = Opcodes.GETFIELD))
+    private void aether$changeGravity(float moveStrafing, float moveForward, CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
         }

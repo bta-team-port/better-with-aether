@@ -11,7 +11,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Entity.class, remap = false)
 public abstract class MobWolfNoKnockbackFling {
     @WrapMethod(method = "fling")
-    public void fling(double xd, double yd, double zd, float pushTime, Operation<Void> original) {
+    private void fling(double xd, double yd, double zd, float pushTime, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof MobWolf)) {
             original.call(xd, yd, zd, pushTime);
             return;

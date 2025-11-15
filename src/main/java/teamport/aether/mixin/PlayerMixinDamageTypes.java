@@ -24,7 +24,7 @@ public abstract class PlayerMixinDamageTypes {
     @Shadow
     public ContainerInventory inventory;
     @WrapOperation(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
-    public boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original) {
+    private boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original) {
         if (attacker instanceof Player) {
             Player player = (Player) (Object) this;
             ItemStack itemstack = player.getCurrentEquippedItem();
@@ -47,7 +47,7 @@ public abstract class PlayerMixinDamageTypes {
         return original.call(instance, attacker, baseDamage, type);
     }
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getCurrentEquippedItem()Lnet/minecraft/core/item/ItemStack;", shift = At.Shift.AFTER))
-    public void addedEffectsWithGloves(Entity entity, CallbackInfo ci) {
+    private void addedEffectsWithGloves(Entity entity, CallbackInfo ci) {
         Player player = (Player) (Object) this;
         ItemStack itemstack = player.getCurrentEquippedItem();
         ItemStack gloves = player.inventory.armorInventory[GLOVES_SLOT];

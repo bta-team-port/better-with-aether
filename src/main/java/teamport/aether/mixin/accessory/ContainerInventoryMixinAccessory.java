@@ -22,21 +22,21 @@ public abstract class ContainerInventoryMixinAccessory {
     public ItemStack[] mainInventory;
     // armor inventory expanded to fit the extra 4 accessory slots
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void setNewSize(Player player, CallbackInfo ci) {
+    private void setNewSize(Player player, CallbackInfo ci) {
         ((ContainerInventory) (Object) this).armorInventory = new ItemStack[4 + 4];
     }
     // change hardcoded size of the armor inventory
     @ModifyExpressionValue(method = "readFromNBT", at = @At(value = "CONSTANT", args = "intValue=4"))
-    public int modifyArmourSize(int original) {
+    private int modifyArmourSize(int original) {
         return original + 4;
     }
     @ModifyExpressionValue(method = "getContainerSize", at = @At(value = "CONSTANT", args = "intValue=4"))
-    public int modifyContainerSize(int original) {
+    private int modifyContainerSize(int original) {
         return this.armorInventory.length;
     }
 
     @Inject(method = "decrementAnimations", at = @At("TAIL"))
-    public void addArmorAnimations(CallbackInfo ci) {
+    private void addArmorAnimations(CallbackInfo ci) {
         ContainerInventory inv = (ContainerInventory) (Object) this;
         for (int slot = 0; slot < inv.armorInventory.length; slot++) {
             if (inv.armorInventory[slot] != null && inv.player.world != null) {
@@ -50,7 +50,7 @@ public abstract class ContainerInventoryMixinAccessory {
      * a mixin is needed into removeItem. - Redart15
      */
     @Inject(method = "removeItem", at = @At("HEAD"))
-    public void updateEffects(int index, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
+    private void updateEffects(int index, int takeAmount, CallbackInfoReturnable<ItemStack> cir) {
         if (index < this.mainInventory.length) {
             return;
         }
@@ -67,7 +67,7 @@ public abstract class ContainerInventoryMixinAccessory {
      * a mixin is needed into setItem. - Redart15
      */
     @Inject(method = "setItem", at = @At("HEAD"))
-    public void updateEffects(int index, ItemStack newItem, CallbackInfo ci) {
+    private void updateEffects(int index, ItemStack newItem, CallbackInfo ci) {
         if (index < this.mainInventory.length) {
             return;
         }

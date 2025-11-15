@@ -10,7 +10,7 @@ import teamport.aether.items.AetherItemTags;
 @Mixin(value = MobPig.class, remap = false)
 public abstract class MobPigMixin {
     @ModifyReturnValue(method = "isFavouriteItem", at = @At(value = "RETURN"))
-    public boolean isFavouriteItem(boolean original, ItemStack itemStack) {
+    private boolean isFavouriteItem(boolean original, ItemStack itemStack) {
         if (itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW)) return true;
         return original;
     }

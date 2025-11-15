@@ -14,16 +14,16 @@ public abstract class EntityMixin {
     @Shadow
     public double y;
     @Unique
-    public double prevY = y - 0.5;
+    private double prevY = y - 0.5;
     @Unique
-    public double deltaY;
+    private double deltaY;
     @Inject(method = "baseTick()V", at = @At(value = "HEAD"))
-    public void tick(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         deltaY = y - prevY;
         prevY = y - 0.5;
     }
     @ModifyArg(method = "move(DDD)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/util/helper/MathHelper;floor(D)I", ordinal = 5), index = 0)
-    public double extendBlockRange(double originalY) {
+    private double extendBlockRange(double originalY) {
         return originalY + deltaY;
     }
 }

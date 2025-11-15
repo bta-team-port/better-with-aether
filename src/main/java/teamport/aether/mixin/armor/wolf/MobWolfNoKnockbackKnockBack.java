@@ -12,7 +12,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobWolfNoKnockbackKnockBack {
     @WrapMethod(method = "knockBack")
-    public void knockBack(Entity entity, int i, double d, double d1, Operation<Void> original) {
+    private void knockBack(Entity entity, int i, double d, double d1, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof MobWolf)) {
             original.call(entity, i, d, d1);
             return;

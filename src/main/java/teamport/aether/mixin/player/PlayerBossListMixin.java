@@ -26,7 +26,7 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
         super(world);
     }
     @Unique
-    List<Mob> bossList = new ArrayList<>();
+    private List<Mob> bossList = new ArrayList<>();
     @Override
     public List<Mob> aether$getBossList() {
         List<Mob> bosses = new ArrayList<>(bossList);
@@ -71,13 +71,13 @@ public abstract class PlayerBossListMixin extends Mob implements AetherBossList 
         }
     }
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At("HEAD"))
-    public void attackTargetEntityWithCurrentItem(Entity entity, CallbackInfo ci) {
+    private void attackTargetEntityWithCurrentItem(Entity entity, CallbackInfo ci) {
         if ((entity instanceof EnemyBoss && entity instanceof Mob) && !bossList.contains(entity)) {
             aether$TryAddBossList((Mob) entity);
         }
     }
     @Inject(method = "onDeath", at = @At("HEAD"))
-    public void onDeath(CallbackInfo ci) {
+    private void onDeath(CallbackInfo ci) {
         bossList.clear();
     }
 }

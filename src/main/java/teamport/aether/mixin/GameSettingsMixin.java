@@ -1,6 +1,8 @@
 package teamport.aether.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.*;
 import org.spongepowered.asm.mixin.Final;
@@ -10,6 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.game_settings.AetherGameSettingsOptions;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = GameSettings.class, remap = false)
 public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
     @Shadow
@@ -29,7 +32,7 @@ public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
         return flickAccessorySpeed;
     }
     @ModifyReturnValue(method = "getDisplayString", at = @At("RETURN"))
-    public String changeDisplayString(String original, Option<?> option) {
+    private String changeDisplayString(String original, Option<?> option) {
         if (option == null) return "";
         if (option == flickAccessorySpeed) return option.value + " seconds";
         return original;

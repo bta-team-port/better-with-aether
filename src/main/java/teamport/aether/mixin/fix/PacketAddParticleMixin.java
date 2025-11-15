@@ -16,11 +16,11 @@ public abstract class PacketAddParticleMixin {
     @Shadow
     public int data;
     @Inject(method = "write", at = @At("HEAD"))
-    public void writeData(DataOutputStream dos, CallbackInfo ci) throws IOException {
+    private void writeData(DataOutputStream dos, CallbackInfo ci) throws IOException {
         dos.writeInt(data);
     }
     @Inject(method = "read", at = @At("HEAD"))
-    public void writeData(DataInputStream dis, CallbackInfo ci) throws IOException {
+    private void writeData(DataInputStream dis, CallbackInfo ci) throws IOException {
         data = dis.readInt();
     }
 }

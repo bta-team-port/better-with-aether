@@ -1,5 +1,7 @@
 package teamport.aether.mixin.gui.screens;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ScaledResolution;
 import net.minecraft.client.gui.toasts.GuiElementToastsHud;
@@ -18,6 +20,7 @@ import teamport.aether.helper.MixinHelper;
 
 import static teamport.aether.AetherClient.resourceDownloaderThread;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = Minecraft.class, remap = false)
 public abstract class ResourceDownloadToastMixin {
     @Shadow
@@ -32,7 +35,7 @@ public abstract class ResourceDownloadToastMixin {
     @Final
     private Timer timer;
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/toasts/GuiElementToastsHud;render(F)V", shift = At.Shift.AFTER))
-    public void renderResourceToast(CallbackInfo ci) {
+    private void renderResourceToast(CallbackInfo ci) {
         if (resourceDownloaderThread.getTheState() == AetherRemoteResourceDownloaderThread.State.DOWNLOADING) {
             int screenWidth = resolution.getScaledWidthScreenCoords();
             int padding = 5;

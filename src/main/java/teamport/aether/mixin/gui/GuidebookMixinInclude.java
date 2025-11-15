@@ -2,6 +2,8 @@ package teamport.aether.mixin.gui;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.GuidebookSection;
 import net.minecraft.client.gui.guidebook.GuidebookSections;
 import net.minecraft.core.item.ItemStack;
@@ -12,6 +14,7 @@ import teamport.aether.gui.guidebook.enchanter.GuidebookSectionEnchanter;
 import teamport.aether.gui.guidebook.freezer.GuidebookSectionFreezer;
 import teamport.aether.gui.guidebook.incubator.GuidebookIncubatorSection;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = GuidebookSections.class, remap = false)
 public abstract class GuidebookMixinInclude {
     @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/guidebook/GuidebookSections;register(Lnet/minecraft/client/gui/guidebook/GuidebookSection;)Lnet/minecraft/client/gui/guidebook/GuidebookSection;", ordinal = 7))

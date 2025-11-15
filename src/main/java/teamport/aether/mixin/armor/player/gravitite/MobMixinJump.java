@@ -31,7 +31,7 @@ public abstract class MobMixinJump extends Entity {
     @Unique
     private boolean isJumpingPrev = false;
     @Inject(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;isSprinting()Z"))
-    public void aether$jump(CallbackInfo ci) {
+    private void aether$jump(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
         }
@@ -42,7 +42,7 @@ public abstract class MobMixinJump extends Entity {
         }
     }
     @Inject(method = "onLivingUpdate", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;moveStrafing:F", opcode = Opcodes.PUTFIELD, ordinal = 1))
-    public void aether$onLivingUpdate(CallbackInfo ci) {
+    private void aether$onLivingUpdate(CallbackInfo ci) {
         if (!((Mob) (Object) this instanceof Player)) {
             return;
         }
@@ -64,7 +64,7 @@ public abstract class MobMixinJump extends Entity {
         isJumpingPrev = isJumping;
     }
     @WrapOperation(method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
-    public boolean negateFallDamage(Mob instance, Entity attacker, int damage, DamageType type, Operation<Boolean> original) {
+    private boolean negateFallDamage(Mob instance, Entity attacker, int damage, DamageType type, Operation<Boolean> original) {
         if (!(instance instanceof Player)) {
             return original.call(instance, attacker, damage, type);
         }

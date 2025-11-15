@@ -13,7 +13,7 @@ import static teamport.aether.AetherMod.*;
 public abstract class BlockLogicNoteTriggerMixin {
     @Expression("'note.'")
     @ModifyExpressionValue(method = "triggerEvent", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public String triggerEvent(String original, World world, int x, int y, int z, int index, int data) {
+    private String triggerEvent(String original, World world, int x, int y, int z, int index, int data) {
         if (index == FLUTE.index || index == CLICK.index || index == XYLOPHONE.index || index == BELL.index || index == TRUMPET.index
                 || index == ORGAN.index || index == SITAR.index || index == TRANCE.index || index == SAXOPHONE.index || index == MUSICBOX.index) {
             return "aether:note.";

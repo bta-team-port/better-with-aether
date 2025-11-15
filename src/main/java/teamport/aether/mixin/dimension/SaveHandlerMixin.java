@@ -3,7 +3,6 @@ package teamport.aether.mixin.dimension;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
-import net.minecraft.core.world.save.LevelStorage;
 import net.minecraft.core.world.save.SaveHandlerBase;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value = SaveHandlerBase.class, remap = false)
-public abstract class SaveHandlerMixin implements LevelStorage {
+public abstract class SaveHandlerMixin {
     @Shadow
     @Final
     protected ISaveFormat saveFormat;
@@ -23,7 +22,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
     @Final
     protected String worldDirName;
     @Inject(method = "getDimensionData", at = @At("HEAD"))
-    public void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
+    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
         if (dimensionId != AetherDimension.getAether().id) return;
 
         AetherDimension.setDimensionDataDefaults();
@@ -34,7 +33,7 @@ public abstract class SaveHandlerMixin implements LevelStorage {
         }
     }
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
-    public void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
+    private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
         if (dimensionId != AetherDimension.getAether().id) return;
         AetherDimension.saveDimensionData(dimensionData);
     }

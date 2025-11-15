@@ -1,5 +1,7 @@
 package teamport.aether.mixin.dimension.bump_to_overworld;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.world.Dimension;
@@ -15,6 +17,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = World.class, remap = false)
 public abstract class SPWorldMixin {
     @Shadow
@@ -22,9 +25,9 @@ public abstract class SPWorldMixin {
     @Shadow
     public Random rand;
     @Unique
-    public int cooldown = Global.TICKS_PER_SECOND;
+    private int cooldown = Global.TICKS_PER_SECOND;
     @Inject(method = "tick", at = @At("RETURN"))
-    public void tick(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         cooldown--;
         if (cooldown < 0 && dimension.id == Dimension.OVERWORLD.id) {
             cooldown = Global.TICKS_PER_SECOND / 2 + rand.nextInt(Global.TICKS_PER_SECOND / 2);

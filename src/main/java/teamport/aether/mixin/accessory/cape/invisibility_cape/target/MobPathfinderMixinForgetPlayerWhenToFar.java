@@ -19,7 +19,7 @@ public abstract class MobPathfinderMixinForgetPlayerWhenToFar {
     @Shadow
     public abstract void setTarget(@Nullable Entity target);
     @Inject(method = "updateAI", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/MobPathfinder;isMovementCeased()Z"))
-    public void forgetsPlayer(CallbackInfo ci) {
+    private void forgetsPlayer(CallbackInfo ci) {
         if (this.target != null && target instanceof Player && ((AetherInvisibility) target).aether$isInvisible()) {
             MobPathfinder mob = (MobPathfinder) (Object) this;
             float distanceToEntity = this.target.distanceTo(mob);

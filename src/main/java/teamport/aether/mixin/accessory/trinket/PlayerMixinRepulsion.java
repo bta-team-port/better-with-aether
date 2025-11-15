@@ -11,7 +11,7 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinRepulsion implements AetherRepulsion {
     @Unique
-    public boolean repulsion;
+    private boolean repulsion;
     @Override
     public void aether$setRepulsion(boolean repulsion) {
         if (EnvironmentHelper.isClientWorld()) {

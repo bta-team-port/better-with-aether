@@ -12,7 +12,7 @@ import sunsetsatellite.catalyst.effects.helper.HealthHelper;
 @Mixin(value = PlayerList.class, remap = false)
 public abstract class PlayerListMixinRespawnWithExtraHealth {
     @Inject(method = "recreatePlayerEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;transferAllContents(Lnet/minecraft/core/player/inventory/container/ContainerInventory;)V"), remap = false)
-    public void keepExtraHealthServer(PlayerServer previousPlayer, int dimension, CallbackInfoReturnable<PlayerServer> cir, @Local(name = "newPlayer") final PlayerServer newPlayer) {
+    private void keepExtraHealthServer(PlayerServer previousPlayer, int dimension, CallbackInfoReturnable<PlayerServer> cir, @Local(name = "newPlayer") final PlayerServer newPlayer) {
         HealthHelper.setExtraHealth(newPlayer, HealthHelper.getExtraHealth(previousPlayer));
         newPlayer.heal(newPlayer.getMaxHealth() + HealthHelper.getExtraHealth(previousPlayer));
     }

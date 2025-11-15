@@ -11,7 +11,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobWolfMixinDrowningImmunity {
     @ModifyReturnValue(method = "canBreatheUnderwater", at = @At("RETURN"))
-    public boolean canBreatheUnderwater(boolean original) {
+    private boolean canBreatheUnderwater(boolean original) {
         if (!((Mob) (Object) this instanceof MobWolf)) return original;
         ArmorMaterial material = ((MobWolf) (Object) this).getArmorMaterial();
         if (material != null && material.equals(AetherArmorMaterial.NEPTUNE)) return true;

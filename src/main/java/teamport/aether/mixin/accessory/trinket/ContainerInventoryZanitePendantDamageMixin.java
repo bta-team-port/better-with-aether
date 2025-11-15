@@ -21,7 +21,7 @@ public abstract class ContainerInventoryZanitePendantDamageMixin {
     @Shadow
     public Player player;
     @ModifyReturnValue(method = "getDamageVsEntity", at = @At("RETURN"))
-    public int getGloveDamage(int damage) {
+    private int getGloveDamage(int damage) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {

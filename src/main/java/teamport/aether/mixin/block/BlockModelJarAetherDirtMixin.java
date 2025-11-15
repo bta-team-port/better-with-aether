@@ -11,7 +11,6 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityFlowerJar;
 import net.minecraft.core.world.WorldSource;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,8 +24,7 @@ import static net.minecraft.client.render.block.model.BlockModel.renderBlocks;
 public abstract class BlockModelJarAetherDirtMixin {
     @Unique
     private static final IconCoordinate jarFullAether = TextureRegistry.getTexture("aether:block/jar_aether_dirt");
-
-    @ModifyVariable(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;III)Z", at = @At(value = "STORE", opcode = Opcodes.ASTORE, ordinal = 0))
+    @ModifyVariable(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;III)Z", at = @At(value = "STORE", ordinal = 0))
     private IconCoordinate modifyJarTexture(IconCoordinate originalTexIndex, Tessellator tessellator, int x, int y, int z) {
         WorldSource blockAccess = renderBlocks.blockAccess;
         int meta = blockAccess.getBlockMetadata(x, y, z);

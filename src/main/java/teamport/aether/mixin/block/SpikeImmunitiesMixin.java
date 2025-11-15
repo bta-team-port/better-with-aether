@@ -11,7 +11,7 @@ import teamport.aether.entity.AetherMobImmuneToSpikes;
 @Mixin(value = BlockLogicSpikes.class, remap = false)
 public abstract class SpikeImmunitiesMixin {
     @ModifyExpressionValue(method = "onEntityCollidedWithBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogicSpikes;isSpikesUp(I)Z"))
-    public boolean monsterImmuneToSpikes(boolean original, World world, int x, int y, int z, Entity entity) {
+    private boolean monsterImmuneToSpikes(boolean original, World world, int x, int y, int z, Entity entity) {
         if (!(entity instanceof AetherMobImmuneToSpikes)) return original;
         AetherMobImmuneToSpikes immune = (AetherMobImmuneToSpikes) entity;
         if (immune.canTakeDamageFromSpikes()) return original;

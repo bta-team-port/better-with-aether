@@ -24,7 +24,7 @@ public abstract class PlayerMixinFireImmunity extends Mob {
     @Shadow
     public ContainerInventory inventory;
     @Inject(method = "tick", at = @At("HEAD"))
-    public void tick(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         if (this.isInLava() || this.isInWater()) {
             return;
         }
@@ -39,7 +39,7 @@ public abstract class PlayerMixinFireImmunity extends Mob {
     @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/player/Player;fireImmune:Z")
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "lavaHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean aether$lavaImmunity(boolean original) {
+    private boolean aether$lavaImmunity(boolean original) {
         if (MixinHelper.fireResistanceCount(inventory) >= 5) {
             MixinHelper.damageArmourWithEffect(4, (Player) (Object) this, x, y, z, bbHeight, bbWidth);
             return true;
@@ -49,7 +49,7 @@ public abstract class PlayerMixinFireImmunity extends Mob {
     @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/player/Player;fireImmune:Z")
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "fireHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean aether$fireImmunity(boolean original) {
+    private boolean aether$fireImmunity(boolean original) {
         if (MixinHelper.fireResistanceCount(inventory) >= 3) {
             MixinHelper.damageArmourWithEffect(4, (Player) (Object) this, x, y, z, bbHeight, bbWidth);
             return true;

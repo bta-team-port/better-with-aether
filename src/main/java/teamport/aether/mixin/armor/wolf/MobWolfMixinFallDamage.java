@@ -11,7 +11,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobWolfMixinFallDamage {
     @WrapMethod(method = "causeFallDamage")
-    public void causeFallDamage(float distance, Operation<Void> original) {
+    private void causeFallDamage(float distance, Operation<Void> original) {
         if (!((Mob) (Object) this instanceof MobWolf)) {
             original.call(distance);
             return;

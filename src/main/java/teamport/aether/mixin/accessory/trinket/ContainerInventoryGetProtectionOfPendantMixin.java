@@ -12,7 +12,7 @@ import teamport.aether.items.accessory.pendant.ItemPendant;
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryGetProtectionOfPendantMixin {
     @WrapOperation(method = "getTotalProtectionAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/IArmorItem;getArmorPiece()I"))
-    public int ignoreSlotEqualityForTrickets(IArmorItem instance, Operation<Integer> original, @Local int i) {
+    private int ignoreSlotEqualityForTrickets(IArmorItem instance, Operation<Integer> original, @Local int i) {
         if (instance instanceof ItemPendant) {
             return i;
         }

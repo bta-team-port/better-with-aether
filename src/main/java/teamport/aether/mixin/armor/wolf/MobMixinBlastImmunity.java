@@ -18,7 +18,7 @@ public abstract class MobMixinBlastImmunity {
     @Shadow
     public abstract boolean interact(@NonNull Player player);
     @ModifyExpressionValue(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;getHealth()I", ordinal = 0))
-    public int negateDamage(int original, Entity attacker, int damage, DamageType type) {
+    private int negateDamage(int original, Entity attacker, int damage, DamageType type) {
         if (type == null || !type.equals(DamageType.BLAST)) return original;
         Mob mob = (Mob) (Object) this;
         if (!(mob instanceof MobWolf)) return original;
