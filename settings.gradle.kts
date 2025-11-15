@@ -15,3 +15,6 @@ pluginManagement {
         id("fabric-loom").version(loomVersion.get())
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention")
+}
