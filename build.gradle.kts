@@ -202,7 +202,7 @@ tasks {
                 )
             )
         }
-        filesMatching("*.mixins.json") { expand(mapOf("java" to stringJavaVersion)) }
+        filesMatching("**/*.mixins.json") { expand(mapOf("java" to stringJavaVersion)) }
     }
     java {
         toolchain {
