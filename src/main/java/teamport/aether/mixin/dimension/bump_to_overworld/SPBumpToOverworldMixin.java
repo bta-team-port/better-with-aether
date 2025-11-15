@@ -1,6 +1,8 @@
 package teamport.aether.mixin.dimension.bump_to_overworld;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.WorldClient;
 import net.minecraft.core.entity.Entity;
@@ -21,6 +23,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = Player.class, remap = false)
 public abstract class SPBumpToOverworldMixin extends Mob {
     protected SPBumpToOverworldMixin(@Nullable World world) {
@@ -29,7 +32,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
     @Shadow
     public int dimension;
     @Inject(method = "tick", at = @At("HEAD"))
-    public void tick(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         if (world != null && dimension == AetherDimension.getAether().id && this.y < world.worldType.getMinY() - 10) {
             if (EnvironmentHelper.isSinglePlayer()) {
                 Minecraft mc = Minecraft.getMinecraft();

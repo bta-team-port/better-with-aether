@@ -76,7 +76,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"))
-    public void callDrawFirstPersonHandAfter(@NonNull Player player, boolean isLeft, CallbackInfo ci) {
+    private void callDrawFirstPersonHandAfter(@NonNull Player player, boolean isLeft, CallbackInfo ci) {
         ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
         if (itemStack != null && itemStack.getItem() instanceof ItemGloves) {
             Item item = itemStack.getItem();
@@ -111,12 +111,12 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
     @Expression("spectator")
     @ModifyExpressionValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 4))
-    public Gamemode renderPlayerOne(Gamemode original, Player entity, int layer, float partialTick) {
+    private Gamemode renderPlayerOne(Gamemode original, Player entity, int layer, float partialTick) {
         if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
     @WrapOperation(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
-    public void renderPlayerTwo(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
+    private void renderPlayerTwo(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
             original.call(red, blue, green, alpha);
             return;
@@ -127,12 +127,12 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
     @Expression("spectator")
     @ModifyExpressionValue(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 2))
-    public Gamemode renderPlayerThree(Gamemode original, Player entity, float partialTick) {
+    private Gamemode renderPlayerThree(Gamemode original, Player entity, float partialTick) {
         if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
     @WrapOperation(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
-    public void renderPlayerFour(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
+    private void renderPlayerFour(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
             original.call(red, blue, green, alpha);
             return;
@@ -141,21 +141,21 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         GL11.glEnable(GL11.GL_BLEND);
     }
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"))
-    public void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+    private void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
         alphaTest.set(GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF));
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
     }
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("RETURN"))
-    public void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+    private void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
         GL11.glAlphaFunc(GL11.GL_GREATER, alphaTest.get());
     }
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
-    public int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
+    private int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
     @SuppressWarnings({"java:S6541", "java:S1075"})
     @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))
-    public boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {
+    private boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {
         modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
         modelAccessories.holdingRightHand = shield.holdingRightHand = modelFeather.holdingRightHand = modelBubble.holdingRightHand = modelHeart.holdingRightHand = modelBipedMain.holdingRightHand;
         modelAccessories.holdingLeftHand = shield.holdingLeftHand = modelFeather.holdingLeftHand = modelBubble.holdingLeftHand = modelHeart.holdingLeftHand = modelBipedMain.holdingLeftHand;

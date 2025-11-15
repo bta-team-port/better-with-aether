@@ -14,7 +14,7 @@ import teamport.aether.blocks.AetherBlocks;
 @Mixin(value = BlockLogicFluid.class, remap = false)
 public abstract class BlockCreatePortalMixin {
     @WrapOperation(method = "onBlockPlacedByWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogicFluid;checkForHarden(Lnet/minecraft/core/world/World;III)V"))
-    public void onBlockAdded(BlockLogicFluid instance, World world, int x, int y, int z, Operation<Void> original) {
+    private void onBlockAdded(BlockLogicFluid instance, World world, int x, int y, int z, Operation<Void> original) {
         if (world.getBlockMaterial(x, y, z) == Material.water && world.getBlockId(x, y - 1, z) == Blocks.GLOWSTONE.id() && AetherBlocks.PORTAL_AETHER.getLogic().tryToCreatePortal(world, x, y, z, DyeColor.BLUE)) return;
         original.call(instance, world, x, y, z);
     }

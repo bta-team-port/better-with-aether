@@ -30,10 +30,10 @@ public abstract class TreeCapitatorAetherAxeMixin {
     @Nullable
     private Item tool = null;
     @Unique
-    int metadata = 0;
+    private int metadata = 0;
 
     @WrapMethod(method = "chopTree")
-    public boolean preventNormalAxeMiningAetherTrees(Operation<Boolean> original) {
+    private boolean preventNormalAxeMiningAetherTrees(Operation<Boolean> original) {
         TreecapitatorHelper helper = (TreecapitatorHelper) (Object) this;
         Player player = helper.player;
         if (player.getHeldItem() != null) tool = player.getHeldItem().getItem();
@@ -47,7 +47,7 @@ public abstract class TreeCapitatorAetherAxeMixin {
     }
 
     @Inject(method = "chopTree", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/data/gamerule/TreecapitatorHelper;breakBlock(Lnet/minecraft/core/world/chunk/ChunkPosition;ZLnet/minecraft/core/data/gamerule/TreecapitatorHelper$ItemList;)Z"))
-    public void captureMetadata(CallbackInfoReturnable<Boolean> cir, @Local ChunkPosition pos) {
+    private void captureMetadata(CallbackInfoReturnable<Boolean> cir, @Local ChunkPosition pos) {
         TreecapitatorHelper helper = (TreecapitatorHelper) (Object) this;
         this.metadata = helper.world.getBlockMetadata(pos.x, pos.y, pos.z);
     }

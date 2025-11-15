@@ -1,8 +1,6 @@
 package teamport.aether.mixin.accessory.gloves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -18,7 +16,7 @@ import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixinGlovesDamage {
     @ModifyExpressionValue(method = "getDamageVsEntity", at = @At(value = "CONSTANT", args = "intValue=1"))
-    public int getGloveDamage(int original, @Local(argsOnly = true) Entity entity) {
+    private int getGloveDamage(int original) {
         ContainerInventory inv = (ContainerInventory) (Object) this;
         ItemStack stack = inv.armorInventory[GLOVES_SLOT];
         if (stack == null || !(stack.getItem() instanceof ItemGloves)) {

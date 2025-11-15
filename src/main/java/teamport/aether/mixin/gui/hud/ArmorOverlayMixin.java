@@ -1,5 +1,7 @@
 package teamport.aether.mixin.gui.hud;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
@@ -19,12 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.items.AetherItems;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = HudIngame.class, remap = false)
 public abstract class ArmorOverlayMixin extends Gui {
     @Shadow
     protected Minecraft mc;
     @Inject(method = "renderGameOverlay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glDisable(I)V", ordinal = 5))
-    public void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    private void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         Player player = this.mc.thePlayer;
         ContainerInventory inv = player.inventory;
 
@@ -54,7 +57,7 @@ public abstract class ArmorOverlayMixin extends Gui {
         }
     }
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V", shift = At.Shift.AFTER))
-    public void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    private void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
         int height = this.mc.resolution.getScaledHeightScreenCoords();
 

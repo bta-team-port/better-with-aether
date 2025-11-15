@@ -18,7 +18,7 @@ public abstract class EntityItemPickupAchievementMixin {
     @Shadow
     public ItemStack item;
     @Inject(method = "playerTouch", at = @At("TAIL"))
-    public void playerTouch(Player player, CallbackInfo ci) {
+    private void playerTouch(Player player, CallbackInfo ci) {
         String pickUpKey = StatList.STAT_PICKED_UP;
         if (this.item.itemID == AetherBlocks.AERCLOUD_GOLD.id()) {
             player.triggerAchievement(AetherAchievements.GOLD_CLOUD);

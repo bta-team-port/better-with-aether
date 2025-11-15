@@ -9,7 +9,6 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.piston.BlockLogicPistonBase;
 import net.minecraft.core.block.piston.BlockLogicPistonBaseSteel;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityFallingBlock;
@@ -21,10 +20,7 @@ import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
 @Mixin(value = BlockLogicPistonBaseSteel.class, remap = false)
-public abstract class BlockLogicPistonBaseSteelMixin extends BlockLogicPistonBase {
-    protected BlockLogicPistonBaseSteelMixin(Block<?> block, int maxPushedBlocks) {
-        super(block, maxPushedBlocks);
-    }
+public abstract class BlockLogicPistonBaseSteelMixin {
     @WrapOperation(method = "canPushLine", at = @At(value = "NEW", target = "(Lnet/minecraft/core/world/World;DDDIILnet/minecraft/core/block/entity/TileEntity;)Lnet/minecraft/core/entity/EntityFallingBlock;"))
     private EntityFallingBlock makeFloatingBlockOne(World world, double x, double y, double z, int blockId, int blockMeta, TileEntity tileEntity, Operation<EntityFallingBlock> original, @Local Block<?> block, @Share("entityFloatingBlock") LocalRef<EntityFloatingBlock> entityFloatingBlock) {
         if (!(block.getLogic() instanceof BlockLogicOreGravitite)) return original.call(world, x, y, z, blockId, blockMeta, tileEntity);

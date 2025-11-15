@@ -35,7 +35,7 @@ public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Playe
     private final ModelBiped quiver = new ModelBiped(1.05F);
     @SuppressWarnings("java:S1075")
     @Inject(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemStack;getItem()Lnet/minecraft/core/item/Item;", shift = At.Shift.AFTER), cancellable = true)
-    public void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
+    private void setArmorModel(@NonNull Player player, int renderPass, float partialTick, CallbackInfoReturnable<Boolean> info) {
         quiver.holdingLarge = modelBipedMain.holdingLarge;
         quiver.holdingRightHand = modelBipedMain.holdingRightHand;
         quiver.holdingLeftHand = modelBipedMain.holdingLeftHand;

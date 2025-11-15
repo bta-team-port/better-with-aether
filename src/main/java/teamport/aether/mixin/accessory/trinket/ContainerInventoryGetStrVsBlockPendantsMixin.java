@@ -21,7 +21,7 @@ public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
     @Shadow
     public ItemStack[] mainInventory;
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
-    public float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
+    private float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         float refStrVsBlock = strVsBlock;

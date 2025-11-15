@@ -16,7 +16,7 @@ public abstract class MobMonsterMixinInvisiblePlayer {
     /// All enemies that inherit this method have a harder time seeing the player. Since not all Enemies inherit this method, it is advised
     /// to look in the mixin for the exceptions.
     @WrapOperation(method = "findPlayerToAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
-    public Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
+    private Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
         MobMonster asThis = (MobMonster) (Object) this;
         Player player = original.call(instance, entity, radius);
         if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {

@@ -2,6 +2,8 @@ package teamport.aether.mixin.gui.screens;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.ScreenSelectWorld;
 import net.minecraft.core.world.save.SaveFile;
@@ -15,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = ScreenSelectWorld.class, remap = false, priority = 0)
 public abstract class UNWarnMixin extends Screen {
     @Shadow

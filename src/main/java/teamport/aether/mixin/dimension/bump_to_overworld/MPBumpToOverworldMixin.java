@@ -31,7 +31,7 @@ public abstract class MPBumpToOverworldMixin extends Player {
     @NonNull
     public abstract String getDisplayName();
     @Inject(method = "onUpdateEntity", at = @At("HEAD"))
-    public void bumpPlayerToOverworld(CallbackInfo ci) {
+    private void bumpPlayerToOverworld(CallbackInfo ci) {
         if (this.world != null && dimension == AetherDimension.getAether().id && this.y < this.world.worldType.getMinY() - 10) {
             AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());
             MinecraftServer server = MinecraftServer.getInstance();

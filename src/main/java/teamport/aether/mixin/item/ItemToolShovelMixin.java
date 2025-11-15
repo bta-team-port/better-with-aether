@@ -23,7 +23,7 @@ public abstract class ItemToolShovelMixin {
         return original.call(instance);
     }
     @WrapOperation(method = "shovelBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/Block;id()I", ordinal = 4))
-    private int addNewPathBlockTwo(Block<?> instance, Operation<Integer> original, @Local(name = "blockId") int blockId, @Share("useAetherPath") LocalBooleanRef useAetherPath) {
+    private int addNewPathBlockTwo(Block<?> instance, Operation<Integer> original, @Share("useAetherPath") LocalBooleanRef useAetherPath) {
         if (useAetherPath.get()) return original.call(AetherBlocks.PATH_DIRT_AETHER);
         return original.call(instance);
     }

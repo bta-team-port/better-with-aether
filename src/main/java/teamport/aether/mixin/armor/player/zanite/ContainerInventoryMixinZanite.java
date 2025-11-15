@@ -15,7 +15,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixinZanite {
     @WrapOperation(method = "getTotalProtectionAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"))
-    public float modifyProtectionAmount(ArmorMaterial instance, DamageType damageType, Operation<Float> original, @Local ItemStack itemStack, @Local(ordinal = 0) int i) {
+    private float modifyProtectionAmount(ArmorMaterial instance, DamageType damageType, Operation<Float> original, @Local ItemStack itemStack) {
         if (instance != AetherArmorMaterial.ZANITE) {
             return original.call(instance, damageType);
         }

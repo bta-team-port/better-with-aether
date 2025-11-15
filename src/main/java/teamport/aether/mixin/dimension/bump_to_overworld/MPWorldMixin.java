@@ -15,10 +15,9 @@ import teamport.aether.world.AetherDimension;
 @Mixin(value = WorldServer.class, remap = false)
 public abstract class MPWorldMixin extends World {
     @Unique
-    public int cooldown = Global.TICKS_PER_SECOND;
-
+    private int cooldown = Global.TICKS_PER_SECOND;
     @Inject(method = "tick", at = @At("RETURN"))
-    public void tick(CallbackInfo ci) {
+    private void tick(CallbackInfo ci) {
         cooldown--;
         if (cooldown < 0 && dimension.id == Dimension.OVERWORLD.id) {
             cooldown = Global.TICKS_PER_SECOND / 2 + rand.nextInt(Global.TICKS_PER_SECOND / 2);

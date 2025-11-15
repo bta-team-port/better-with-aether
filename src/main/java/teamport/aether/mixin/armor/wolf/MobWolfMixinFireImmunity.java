@@ -19,7 +19,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/animal/MobWolf;fireImmune:Z")
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "lavaHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean lavaImmunity(boolean original) {
+    private boolean lavaImmunity(boolean original) {
         if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
         ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
         return true;
@@ -27,7 +27,7 @@ public abstract class MobWolfMixinFireImmunity extends MobAnimal {
     @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/animal/MobWolf;fireImmune:Z")
     @Expression("this.fireImmune")
     @ModifyExpressionValue(method = "fireHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean fireImmunity(boolean original) {
+    private boolean fireImmunity(boolean original) {
         if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
         ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
         return true;

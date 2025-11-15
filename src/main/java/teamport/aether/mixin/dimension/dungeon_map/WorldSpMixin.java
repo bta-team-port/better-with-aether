@@ -13,7 +13,7 @@ import teamport.aether.world.feature.util.map.DungeonMap;
 @Mixin(value = World.class, remap = false)
 public abstract class WorldSpMixin {
     @Inject(method = "tick", at = @At("RETURN"))
-    public void onTick(CallbackInfo ci) {
+    private void onTick(CallbackInfo ci) {
         DungeonMap.onWorldTick((World) (Object) this);
     }
 }

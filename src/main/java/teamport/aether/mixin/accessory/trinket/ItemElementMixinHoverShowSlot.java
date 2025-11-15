@@ -3,8 +3,9 @@ package teamport.aether.mixin.accessory.trinket;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ItemElement;
 import net.minecraft.client.gui.container.ScreenInventory;
 import net.minecraft.client.gui.container.ScreenInventoryCreative;
@@ -28,18 +29,19 @@ import teamport.aether.lookup.LookupTrinketIcons;
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = ItemElement.class, remap = false)
-public abstract class ItemElementMixinHoverShowSlot extends Gui {
+public abstract class ItemElementMixinHoverShowSlot {
     @Unique
-    int lastTick = 0;
+    private int lastTick = 0;
     @Unique
-    String iconPathTrinket1;
+    private String iconPathTrinket1;
     @Unique
-    String iconPathTrinket2;
+    private String iconPathTrinket2;
     @Shadow
     Minecraft mc;
     @WrapOperation(method = "render(Lnet/minecraft/core/item/ItemStack;IIZLnet/minecraft/core/player/inventory/slot/Slot;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ItemElement;drawTexturedIcon(IIIILnet/minecraft/client/render/texture/stitcher/IconCoordinate;)V", ordinal = 0))
-    public void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) Slot currectSlot, @Local(argsOnly = true) ItemStack itemStack) {
+    private void changeWildcardIconOnHoverAndClick(ItemElement instance, int x, int y, int slotWidth, int slotHeight, IconCoordinate defaultIcon, Operation<Void> original, @Local(argsOnly = true) Slot currectSlot) {
         if (currectSlot.index >= ARMOR_START_INDEX + TRINKET_1_SLOT && (this.mc.currentScreen instanceof ScreenInventory || this.mc.currentScreen instanceof ScreenInventoryCreative)) {
             if (Boolean.TRUE.equals(((AetherGameSettingsOptions) mc.gameSettings).aether$getFlickAccessoryIconsOption().value)) {
                 int seconds = ((AetherGameSettingsOptions) mc.gameSettings).aether$getAccessoryFlickSpeed().value;

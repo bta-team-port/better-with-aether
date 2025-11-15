@@ -15,7 +15,7 @@ import teamport.aether.items.AetherItems;
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinDevDrops {
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getGameRuleValue(Lnet/minecraft/core/data/gamerule/GameRule;)Ljava/lang/Object;"))
-    public void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
+    private void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
         Player player = (Player) (Object) this;
         String uuid = player.uuid.toString();
         switch (uuid) {

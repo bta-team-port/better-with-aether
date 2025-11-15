@@ -1,5 +1,7 @@
 package teamport.aether.mixin.gui.screens;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.core.entity.player.Player;
@@ -12,6 +14,7 @@ import teamport.aether.gui.machine.enchanter.ScreenEnchanter;
 import teamport.aether.gui.machine.freezer.ScreenFreezer;
 import teamport.aether.gui.machine.incubator.ScreenIncubator;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalMixinAetherScreens extends Player implements AetherScreens {
     protected PlayerLocalMixinAetherScreens(World world) {

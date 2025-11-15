@@ -36,7 +36,7 @@ public abstract class EntityBumpToOverworldMixin {
     @Nullable
     public Entity passenger;
     @Inject(method = "tick", at = @At("HEAD"))
-    public void fallToOverWorld(CallbackInfo ci) {
+    private void fallToOverWorld(CallbackInfo ci) {
         if (world == null || EnvironmentHelper.isClientWorld()) return;
         Dimension dimension = world.dimension;
         if (dimension.id == AetherDimension.getAether().id && y < world.worldType.getMinY() - 10) {

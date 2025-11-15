@@ -14,7 +14,7 @@ public abstract class BlockLogicPathDirtMixin {
     @Definition(id = "isSolid", method = "Lnet/minecraft/core/block/material/Material;isSolid()Z")
     @Expression("?.isSolid()")
     @ModifyExpressionValue(method = "onNeighborBlockChange", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean addNewPathBlock(boolean original, @Local(name = "id") int id) {
+    private boolean addNewPathBlock(boolean original, @Local(name = "id") int id) {
         return original && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id();
     }
 }

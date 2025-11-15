@@ -14,7 +14,7 @@ import teamport.aether.items.accessory.AetherInvisibility;
 @Mixin(value = MobScorpion.class, remap = false)
 public abstract class MobScorpionMixinInvisiblePlayer {
     @WrapOperation(method = "findPlayerToAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
-    public Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
+    private Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
         MobScorpion asThis = (MobScorpion) (Object) this;
         Player player = original.call(instance, entity, radius);
         if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {

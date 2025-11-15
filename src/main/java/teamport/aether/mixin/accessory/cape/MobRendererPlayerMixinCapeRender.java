@@ -61,7 +61,7 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
     @Definition(id = "bindDownloadableTexture", method = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z")
     @Expression("? = ?.bindDownloadableTexture(?, ?, ?)")
     @Inject(method = "renderSpecials*", at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER))
-    public void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local(name = "renderCape") LocalBooleanRef renderCape) {
+    private void renderAetherCape(Player player, float partialTick, CallbackInfo ci, @Local(name = "renderCape") LocalBooleanRef renderCape) {
         ItemStack itemStack = player.inventory.armorItemInSlot(5);
         if (itemStack == null) return;
         if (!(itemStack.getItem() instanceof ItemAccessoryArmor)) return;

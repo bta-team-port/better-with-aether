@@ -4,19 +4,19 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.RenderGlobal;
+import net.minecraft.client.render.camera.ICamera;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.items.accessory.AetherInvisibility;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = EntityRenderer.class, remap = false)
-public abstract class EntityRendererMixinRemoveShadow<T extends Entity> {
-    @WrapMethod(method = "renderShadow")
-    private void removeShadow(Tessellator tessellator, T entity, double posX, double posY, double posZ, float opacity, float partialTick, Operation<Void> original) {
+@Mixin(value = RenderGlobal.class, remap = false)
+public class HideDebugBoxes {
+    @WrapMethod(method = "drawInterpolatedEntityBoundingBox")
+    private void hideInvisibleBoundingBox(Entity entity, ICamera camera, float partialTicks, Operation<Void> original) {
         if (entity instanceof Player && ((AetherInvisibility) entity).aether$isInvisible()) return;
-        original.call(tessellator, entity, posX, posY, posZ, opacity, partialTick);
+        original.call(entity, camera, partialTicks);
     }
 }

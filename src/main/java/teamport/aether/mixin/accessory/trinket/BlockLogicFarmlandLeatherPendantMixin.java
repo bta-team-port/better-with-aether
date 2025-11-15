@@ -18,7 +18,7 @@ import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
 public abstract class BlockLogicFarmlandLeatherPendantMixin {
     @Expression("? instanceof ?")
     @ModifyExpressionValue(method = "onEntityWalking", at = @At(value = "MIXINEXTRAS:EXPRESSION"))
-    public boolean onEntityWalking(boolean original, World world, int x, int y, int z, Entity entity) {
+    private boolean onEntityWalking(boolean original, World world, int x, int y, int z, Entity entity) {
         if (!original) return false;
         ItemStack[] armor = ((Player) entity).inventory.armorInventory;
         return (armor[TRINKET_1_SLOT] == null || !armor[TRINKET_1_SLOT].getItem().namespaceID.equals(AetherItems.ARMOR_TALISMAN_LEATHER.namespaceID))

@@ -1,5 +1,7 @@
 package teamport.aether.mixin.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.modelviewer.ScreenModelViewer;
 import net.minecraft.client.gui.modelviewer.categories.ViewerCategoryEntity;
 import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntry;
@@ -13,6 +15,7 @@ import teamport.aether.entity.boss.slider.EntityEntryBossSlider;
 import teamport.aether.entity.monster.sentry.EntityEntrySentry;
 import teamport.aether.models.EntityEntryFloatingBlock;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = ViewerCategoryEntity.class, remap = false)
 public abstract class ViewerCategoryEntityMixin {
     @Shadow

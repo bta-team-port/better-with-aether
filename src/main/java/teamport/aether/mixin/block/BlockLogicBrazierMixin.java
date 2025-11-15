@@ -25,7 +25,7 @@ public abstract class BlockLogicBrazierMixin extends BlockLogic {
     @Final
     private boolean burning;
     @WrapMethod(method = "onBlockRightClicked")
-    public boolean callOnBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced, Operation<Boolean> original) {
+    private boolean callOnBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced, Operation<Boolean> original) {
         ItemStack heldItem = player.getHeldItem();
         if (world.dimension == AetherDimension.getAether()) {
             if (heldItem != null && heldItem.getItem() instanceof ItemFireStriker && !this.burning) {

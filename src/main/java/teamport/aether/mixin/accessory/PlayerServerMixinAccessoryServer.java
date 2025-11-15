@@ -23,7 +23,7 @@ public abstract class PlayerServerMixinAccessoryServer {
         this.playerInventory = new ItemStack[9];
     }
     @ModifyExpressionValue(method = "tick", at = @At(value = "CONSTANT", args = "intValue=5"))
-    public int modifyContainerSize(int original){
+    private int modifyContainerSize(int original){
         return original + 4;
     }
 }

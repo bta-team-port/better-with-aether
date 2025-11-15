@@ -15,7 +15,7 @@ public abstract class PlayerMixinNextArrow {
     @Shadow
     public ContainerInventory inventory;
     @WrapOperation(method = "getNextArrow", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
-    public ItemStack checkAdditionalSlots(ContainerInventory instance, int slotId, Operation<ItemStack> original) {
+    private ItemStack checkAdditionalSlots(ContainerInventory instance, int slotId, Operation<ItemStack> original) {
         ItemStack bodyItem = original.call(instance, slotId);
         ItemStack capeItem = instance.armorItemInSlot(5);
         if (bodyItem == null || (bodyItem.itemID != Items.ARMOR_QUIVER_GOLD.id && 0 >= bodyItem.getMaxDamage() - bodyItem.getMetadata())) {

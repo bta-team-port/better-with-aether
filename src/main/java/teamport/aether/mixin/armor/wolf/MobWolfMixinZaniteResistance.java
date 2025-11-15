@@ -22,7 +22,7 @@ public abstract class MobWolfMixinZaniteResistance extends MobAnimal {
     @Shadow
     public abstract int getMaxHealth();
     @WrapOperation(method = "damageEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"))
-    public float reduceWolfDamage(ArmorMaterial instance, DamageType damageType, Operation<Float> original) {
+    private float reduceWolfDamage(ArmorMaterial instance, DamageType damageType, Operation<Float> original) {
         if (instance != AetherArmorMaterial.ZANITE) {
             return original.call(instance, damageType);
         }

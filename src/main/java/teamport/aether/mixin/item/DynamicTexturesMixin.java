@@ -1,5 +1,7 @@
 package teamport.aether.mixin.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.models.DynamicTextureDungeonCompass;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = TextureManager.class, remap = false)
 public abstract class DynamicTexturesMixin {
     @Shadow
@@ -20,7 +23,7 @@ public abstract class DynamicTexturesMixin {
     @Shadow
     protected abstract void addDynamicTexture(DynamicTexture texture);
     @Inject(method = "initDynamicTextures", at = @At(value = "TAIL"))
-    public void initDynamicTextures(CallbackInfo ci) {
+    private void initDynamicTextures(CallbackInfo ci) {
         this.addDynamicTexture(new DynamicTextureDungeonCompass(this.mc, TextureRegistry.getTexture("aether:item/tool_dungeon_compass")));
     }
 }

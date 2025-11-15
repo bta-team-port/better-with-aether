@@ -15,7 +15,7 @@ import teamport.aether.blocks.AetherBlocks;
 @Mixin(value = BlockLogicMoss.class, remap = false)
 public abstract class BlockLogicMossMixin {
     @ModifyReturnValue(method = "onBonemealUsed", at = @At(value = "TAIL"))
-    public boolean addOnBonemealUsed(boolean original, ItemStack itemstack, @Nullable Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
+    private boolean addOnBonemealUsed(boolean original, ItemStack itemstack, @Nullable Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             if (player == null || player.getGamemode().consumeBlocks()) {
                 --itemstack.stackSize;

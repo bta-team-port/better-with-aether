@@ -16,7 +16,7 @@ public abstract class PlayerMixinBlastImmunity {
     @Shadow
     public ContainerInventory inventory;
     @ModifyExpressionValue(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
-    public boolean negateDamage(boolean original, Entity attacker, int damage, DamageType type) {
+    private boolean negateDamage(boolean original, Entity attacker, int damage, DamageType type) {
         if (type == null || type.equals(DamageType.BLAST) || ContainerHelper.countArmorPiecesOfMaterial(this.inventory, AetherArmorMaterial.OBSIDIAN) < 5) {
             return original;
         }

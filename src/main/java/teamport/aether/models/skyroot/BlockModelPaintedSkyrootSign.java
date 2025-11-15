@@ -6,8 +6,8 @@ import net.minecraft.client.render.block.model.BlockModelEmpty;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Side;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.blocks.skyroot.BlockLogicPaintedSignSkyroot;
 
 @Environment(EnvType.CLIENT)
@@ -22,7 +22,7 @@ public class BlockModelPaintedSkyrootSign<T extends BlockLogicPaintedSignSkyroot
     }
 
     @Override
-    public @Nullable IconCoordinate getParticleTexture(@NotNull Side side, int meta) {
+    public @Nullable IconCoordinate getParticleTexture(@NonNull Side side, int meta) {
         return BlockModelPaintedSkyrootPlanks.TEX_COORDS[(this.block.getLogic()).fromMetadata(meta).blockMeta];
     }
 }

@@ -1,5 +1,7 @@
 package teamport.aether.mixin.achievement;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -13,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.world.AetherDimension;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = Player.class, remap = false)
 public abstract class HostileParadiseMixin extends Mob {
     protected HostileParadiseMixin(@Nullable World world) {
@@ -21,7 +24,7 @@ public abstract class HostileParadiseMixin extends Mob {
     @Shadow
     public int dimension;
     @Inject(method = "tick", at = @At(value = "HEAD"))
-    public void grantHostileParadise(CallbackInfo ci) {
+    private void grantHostileParadise(CallbackInfo ci) {
         if (this.world != null && this.world.dimension.id == AetherDimension.getAether().id) {
             Minecraft.getMinecraft().thePlayer.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
         }

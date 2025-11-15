@@ -1,5 +1,7 @@
 package teamport.aether.mixin.accessory.cape;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherGlobals;
 
+@Environment(EnvType.CLIENT)
 @Mixin(MobRendererPlayer.class)
 public abstract class AetherDevCapeMixin {
     @SuppressWarnings("java:S131")

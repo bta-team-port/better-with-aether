@@ -10,7 +10,7 @@ import teamport.aether.items.AetherArmorMaterial;
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinMining {
     @ModifyExpressionValue(method = "getCurrentPlayerStrVsBlock", at = @At(value = "CONSTANT", args = "floatValue=5.0F"))
-    public float modifyWaterSlowdownConstant(float original) {
+    private float modifyWaterSlowdownConstant(float original) {
         Player player = (Player) (Object) this;
         if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return original;

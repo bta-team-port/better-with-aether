@@ -11,7 +11,7 @@ import teamport.aether.helper.MixinHelper;
 @Mixin(value = Entity.class, remap = false)
 public abstract class EntityMixinIgnitionImmunity {
     @ModifyReturnValue(method = "isInWaterOrRain", at = @At("RETURN"))
-    public boolean cantCatchFire(boolean original) {
+    private boolean cantCatchFire(boolean original) {
         Entity entity = (Entity) (Object) this;
         if (entity instanceof Player && MixinHelper.fireResistanceCount(((Player) entity).inventory) >= 3) return true;
         if (entity instanceof MobWolf && MixinHelper.isImmuneToFire((MobWolf) entity)) return true;

@@ -19,23 +19,19 @@ import static teamport.aether.AetherMod.LOGGER;
 
 @Mixin(value = World.class, remap = false, priority = 0)
 public abstract class WorldGetCubesMixin {
-
     @Shadow
     @Nullable
     public abstract Block<?> getBlock(int x, int y, int z);
-
     @WrapMethod(method = "getEntitiesWithinAABB")
-    public @NonNull <T extends Entity> List<@NonNull T> getEntitiesWithinAABB(Class<T> ofClass, AABB aabb, Operation<List<T>> original) {
+    private @NonNull <T extends Entity> List<@NonNull T> getEntitiesWithinAABB(Class<T> ofClass, AABB aabb, Operation<List<T>> original) {
         return MixinHelper.preventStupidShit((World) (Object) this, ofClass, null, aabb, original);
     }
-
     @WrapMethod(method = "getEntitiesWithinAABBExcludingEntity")
-    public List<Entity> getEntitiesWithinAABBExcludingEntity(Entity entity, AABB aabb, Operation<List<Entity>> original) {
+    private List<Entity> getEntitiesWithinAABBExcludingEntity(Entity entity, AABB aabb, Operation<List<Entity>> original) {
         return MixinHelper.preventStupidShit((World) (Object) this, null, entity, aabb, original);
     }
-
     @WrapMethod(method = "getCubes")
-    public List<AABB> getCubes(Entity entity, AABB aabb, Operation<List<AABB>> original) {
+    private List<AABB> getCubes(Entity entity, AABB aabb, Operation<List<AABB>> original) {
         if (MixinHelper.isBrokenAABB(aabb)) {
             if (LOGGER.isErrorEnabled()) {
                 LOGGER.error("{} is moving too fast!! Please send this to a developer!", Entity.getNameFromEntity(entity, true));

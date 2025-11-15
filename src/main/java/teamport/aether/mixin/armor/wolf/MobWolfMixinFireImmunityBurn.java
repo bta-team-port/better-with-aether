@@ -28,7 +28,7 @@ public abstract class MobWolfMixinFireImmunityBurn {
     @Shadow
     public float bbWidth;
     @WrapMethod(method = "burn")
-    public void burn(int damage, Operation<Void> original) {
+    private void burn(int damage, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof MobWolf)) {
             original.call(damage);
             return;
@@ -41,7 +41,7 @@ public abstract class MobWolfMixinFireImmunityBurn {
         original.call(damage);
     }
     @WrapMethod(method = "thunderHit")
-    public void thunderHit(EntityLightning bolt, Operation<Void> original) {
+    private void thunderHit(EntityLightning bolt, Operation<Void> original) {
         if (!((Entity) (Object) this instanceof MobWolf)) {
             original.call(bolt);
             return;
