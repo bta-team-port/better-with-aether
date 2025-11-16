@@ -1,5 +1,6 @@
 package teamport.aether.mixin.dimension;
 
+import com.mojang.nbt.NbtIo;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
@@ -13,6 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.world.AetherDimension;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+
 @Mixin(value = SaveHandlerBase.class, remap = false)
 public abstract class SaveHandlerMixin {
     @Shadow
@@ -21,8 +28,22 @@ public abstract class SaveHandlerMixin {
     @Shadow
     @Final
     protected String worldDirName;
+    @Shadow
+    @Final
+    protected File saveDirectory;
+
     @Inject(method = "getDimensionData", at = @At("HEAD"))
-    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
+    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) throws IOException {
+
+        File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
+
+        if (AETHER_CUSTOM_DATA_FILE.exists()) {
+            InputStream dis = Files.newInputStream(AETHER_CUSTOM_DATA_FILE.toPath());
+            CompoundTag aetherCustomTag = NbtIo.readCompressed(dis);
+            AetherDimension.loadWorldData(aetherCustomTag);
+            dis.close();
+        }
+
         if (dimensionId != AetherDimension.getAether().id) return;
 
         AetherDimension.setDimensionDataDefaults();
@@ -33,7 +54,17 @@ public abstract class SaveHandlerMixin {
         }
     }
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
-    private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) {
+    private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) throws IOException {
+
+        File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
+        CompoundTag aetherData = new CompoundTag();
+        AetherDimension.saveWorldData(aetherData);
+
+        AETHER_CUSTOM_DATA_FILE.getParentFile().mkdirs();
+        OutputStream dos = Files.newOutputStream(AETHER_CUSTOM_DATA_FILE.toPath());
+        NbtIo.writeCompressed(aetherData, dos);
+        dos.close();
+
         if (dimensionId != AetherDimension.getAether().id) return;
         AetherDimension.saveDimensionData(dimensionData);
     }

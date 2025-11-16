@@ -194,6 +194,7 @@ public class DungeonMap {
         );
     }
 
+    public static final int DUNGEON_GENERATION_RADIUS = 12;
     private static final int ATTEMPT_GENERATE_COOLDOWN = Global.TICKS_PER_SECOND * 2;
     private static int currGenerateCooldown = 0;
 
@@ -202,13 +203,18 @@ public class DungeonMap {
 
         if (currGenerateCooldown <= 0) {
             for (Player player : world.players) {
-                DUNGEON_MAP.values().stream()
-                    .filter(Objects::nonNull)
-                    .filter(d -> !d.isGenerated())
-                    .filter(d -> d.getDimensionID() == world.dimension.id)
-                    .filter(d -> !d.isGenerated())
-                    .filter(d -> chunkWithinRadius(player, Math.floorDiv(d.position.getX(), 16), Math.floorDiv(d.position.getZ(), 16)))
-                    .forEach(d -> d.generate(world));
+                for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
+                    if (
+                        dungeonLogic != null
+                            && dungeonLogic.getDimensionID() == world.dimension.id
+                            && !dungeonLogic.isGenerated()
+                            && chunkWithinRadius(
+                            player,
+                            Math.floorDiv(dungeonLogic.position.getX(), DUNGEON_GENERATION_RADIUS),
+                            Math.floorDiv(dungeonLogic.position.getZ(), DUNGEON_GENERATION_RADIUS)
+                        )
+                    ) { dungeonLogic.generate(world); }
+                }
             }
 
             currGenerateCooldown = ATTEMPT_GENERATE_COOLDOWN;

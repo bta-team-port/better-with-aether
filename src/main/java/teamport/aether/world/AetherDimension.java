@@ -168,15 +168,11 @@ public class AetherDimension {
         sunspiritDead = false;
     }
 
-    public static void loadDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.debug("Loading additional level data.");
+    private static final int SCHEMA_VERSION = 1;
 
-
-        sunspiritDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
-        DungeonMap.load(dimensionData);
-
+    protected static void loadFallenEntities(ListTag entitiesMoved) {
         entitiesMovedToOverworld.clear();
-        ListTag entitiesMoved = dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen");
+
         entitiesMoved.forEach(tag -> {
             ListTag entities = ((CompoundTag) tag).getList("entities");
             IntPair chunk = new IntPair(
@@ -190,9 +186,7 @@ public class AetherDimension {
         });
     }
 
-    public static void saveDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.debug("Saving additional level data.");
-
+    public static void saveWorldData(CompoundTag aetherWorldData) {
         ListTag entitiesToMoveMap = new ListTag();
         for (Map.Entry<IntPair, List<CompoundTag>> entry : entitiesMovedToOverworld.entrySet()) {
             CompoundTag entryCompound = new CompoundTag();
@@ -211,22 +205,50 @@ public class AetherDimension {
             entitiesToMoveMap.addTag(entryCompound);
         }
 
-        DungeonMap.save(dimensionData);
-        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritDead);
-        dimensionData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
+        aetherWorldData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
+        aetherWorldData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
+        DungeonMap.save(aetherWorldData);
     }
+
+    public static void loadWorldData(CompoundTag aetherWorldData) {
+        AetherMod.LOGGER.debug("Loading additional level data.");
+
+        loadFallenEntities(aetherWorldData.getList(AetherMod.MOD_ID + ".overworldFallen"));
+        DungeonMap.load(aetherWorldData);
+    }
+
+    public static void loadDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.debug("Loading additional dimension data.");
+
+        if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")) {
+            loadFallenEntities(dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen"));
+        }
+        sunspiritDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
+    }
+
+    public static void saveDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.debug("Saving additional dimension data.");
+
+        dimensionData.putInt("__SCHEMA_VERSION__", SCHEMA_VERSION);
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritDead);
+    }
+
     public static boolean isSunspiritDead() {
         return sunspiritDead;
     }
+
     public static void setSunspiritDead(boolean sunspiritDead) {
         AetherDimension.sunspiritDead = sunspiritDead;
     }
+
     public static long getSunspiritDeathTimestamp() {
         return sunspiritDeathTimestamp;
     }
+
     public static void setSunspiritDeathTimestamp(long sunspiritDeathTimestamp) {
         AetherDimension.sunspiritDeathTimestamp = sunspiritDeathTimestamp;
     }
+
     public static Dimension getAether() {
         return aether;
     }
