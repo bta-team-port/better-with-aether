@@ -27,14 +27,12 @@ public abstract class ItemBlockBlacklistMixin {
     @Shadow
     @NonNull
     protected Block<?> block;
-    @SuppressWarnings("DisallowedTargetInsn")
     @Definition(id = "stackSize", field = "Lnet/minecraft/core/item/ItemStack;stackSize:I")
     @Expression("?.stackSize <= 0")
     @ModifyExpressionValue(method = "onUseItemOnBlock", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean banBlocksFromDimensionsOne(boolean original, ItemStack stack, @Nullable Player player, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
         return original || world.dimension != AetherDimension.getAether() && AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id());
     }
-    @SuppressWarnings("DisallowedTargetInsn")
     @Definition(id = "canPlaceInsideBlock", method = "Lnet/minecraft/core/world/World;canPlaceInsideBlock(III)Z")
     @Expression("?.canPlaceInsideBlock(?, ?, ?) == false")
     @ModifyExpressionValue(method = "onUseItemOnBlock", at = @At("MIXINEXTRAS:EXPRESSION"))

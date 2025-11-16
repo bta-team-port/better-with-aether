@@ -48,8 +48,6 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
         float originalFloat = original.call(instance, armor);
         return Math.max(originalFloat, -1.0F);
     }
-
-    @SuppressWarnings("DisallowedTargetInsn")
     @Expression("255 - ? << 16 | ? << 8 | -16777216")
     @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
     private int drawProtectionOverlayFour(int original, @Local(name = "protection") float protection, @Local(name = "l") int l, @Share("barWidth") LocalIntRef barWidth, @Local(name = "w2") int w2) {
@@ -81,14 +79,12 @@ public abstract class ScreenInventoryFixProtectionOverlayMixin extends ScreenCon
         }
         original.call(instance, x, y, barWidth.get(), height, argb);
     }
-    @SuppressWarnings("DisallowedTargetInsn")
     @Definition(id = "hoveredDamageType", field = "Lnet/minecraft/client/gui/container/ScreenInventory;hoveredDamageType:Lnet/minecraft/core/util/helper/DamageType;")
     @Expression("this.hoveredDamageType != null")
     @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean drawProtectionOverlayEight(boolean original) {
         return original && ((ScreenContainerAbstractAccessor) this).getTooltipElement() != null;
     }
-    @SuppressWarnings("DisallowedTargetInsn")
     @Expression("? < 0")
     @ModifyExpressionValue(method = "drawProtectionOverlay", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean drawProtectionOverlayNine(boolean original, @Local(name = "protection") LocalIntRef protection) {
