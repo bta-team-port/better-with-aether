@@ -51,10 +51,9 @@ public abstract class PlayerMixinDamageTypes {
         Player player = (Player) (Object) this;
         ItemStack itemstack = player.getCurrentEquippedItem();
         ItemStack gloves = player.inventory.armorInventory[GLOVES_SLOT];
-        if(itemstack == null && gloves != null){
-            if(gloves.getItem() instanceof ItemGloves){
+        if(itemstack == null && gloves != null && gloves.getItem() instanceof ItemGloves && entity instanceof Mob){
                 gloves.hitEntity((Mob) entity, player);
             }
-        }
+
     }
 }
