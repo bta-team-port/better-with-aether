@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
-    protected ItemStack item;
 
     protected ItemStack[] containerItemStacks;
     private int maxEnergyTime = 0;       // maxBurnTime
@@ -71,7 +70,9 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
         }
     }
 
-    public String getNameTranslationKey() { return ""; }
+    public String getNameTranslationKey() {
+        return "";
+    }
 
     @Override
     public void readFromNBT(CompoundTag compoundTag) {
@@ -111,7 +112,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     public int getMaxStackSize() {
-        return this.item.getMaxStackSize();
+        return 64;
     }
 
     public int getProcessProgressScaled(int i) {
@@ -127,15 +128,18 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     @Override
-    public void tick() {}
+    public void tick() {
+    }
 
     public boolean canProcess() {
         return false;
     }
 
-    public void processItem() {}
+    public void processItem() {
+    }
 
-    public void updateContainer(boolean forceLit) {}
+    public void updateContainer(boolean forceLit) {
+    }
 
     @SuppressWarnings("java:S1172")
     public int getEnergyTimeFromItem(ItemStack itemStack) {
@@ -151,7 +155,8 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     @Override
-    public void sortContainer() {}
+    public void sortContainer() {
+    }
 
     @Override
     public void dropContents(World world, int x, int y, int z) {
@@ -186,27 +191,35 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     public CarriedBlock getCarriedEntry(World world, Entity holder, Block<?> currentBlock, int currentMeta) {
         return super.getCarriedEntry(world, holder, currentBlock, currentMeta & -8 | 2);
     }
+
     public int getMaxEnergyTime() {
         return maxEnergyTime;
     }
+
     public void setMaxEnergyTime(int maxEnergyTime) {
         this.maxEnergyTime = maxEnergyTime;
     }
+
     public int getCurrentEnergyTime() {
         return currentEnergyTime;
     }
+
     public void setCurrentEnergyTime(int currentEnergyTime) {
         this.currentEnergyTime = currentEnergyTime;
     }
+
     public int getMaxProcessTime() {
         return maxProcessTime;
     }
+
     public void setMaxProcessTime(int maxProcessTime) {
         this.maxProcessTime = maxProcessTime;
     }
+
     public int getCurrentProcessTime() {
         return currentProcessTime;
     }
+
     public void setCurrentProcessTime(int currentProcessTime) {
         this.currentProcessTime = currentProcessTime;
     }
