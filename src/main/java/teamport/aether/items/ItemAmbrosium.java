@@ -9,8 +9,8 @@ import teamport.aether.achievements.AetherAchievements;
 public class ItemAmbrosium extends ItemFood {
     private final int ticksPerHeal;
 
-    public ItemAmbrosium(String name, String namespaceId, int id, int healAmount, int ticksPerHeal, boolean favouriteWolfMeat, int maxStackSize) {
-        super(name, namespaceId, id, healAmount, ticksPerHeal, favouriteWolfMeat, maxStackSize);
+    public ItemAmbrosium(String name, String namespaceId, int id, int healAmount, int ticksPerHeal, boolean favouriteWolfMeat) {
+        super(name, namespaceId, id, healAmount, ticksPerHeal, favouriteWolfMeat, 64);
         this.ticksPerHeal = ticksPerHeal;
     }
 

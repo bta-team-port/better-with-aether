@@ -63,7 +63,7 @@ public class ItemBucketSkyrootEmpty extends Item {
         }
     }
 
-    private static boolean useBucket(Player player, ItemStack itemToGive) {
+    public static boolean useBucket(Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {
             player.inventory.setItem(player.inventory.getCurrentItemIndex(), itemToGive);
             return true;
