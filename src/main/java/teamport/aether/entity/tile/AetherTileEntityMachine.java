@@ -7,6 +7,7 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.motion.CarriedBlock;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.player.inventory.container.Container;
@@ -18,6 +19,7 @@ import java.util.Random;
 
 public class AetherTileEntityMachine extends TileEntity implements Container {
     public final Random random = new Random();
+    public ItemStack item;
 
     protected ItemStack[] containerItemStacks;
     private int maxEnergyTime = 0;       // maxBurnTime
@@ -110,7 +112,7 @@ public class AetherTileEntityMachine extends TileEntity implements Container {
     }
 
     public int getMaxStackSize() {
-        return 64;
+        return this.item.getMaxStackSize();
     }
 
     public int getProcessProgressScaled(int i) {
