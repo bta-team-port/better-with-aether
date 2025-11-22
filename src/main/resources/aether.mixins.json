@@ -74,6 +74,7 @@
     "dimension.bump_to_overworld.EntityBumpToOverworldMixin",
     "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
+    "entity.MobCowMilkMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "fix.CommandHealMixin",
