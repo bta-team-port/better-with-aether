@@ -50,9 +50,8 @@
     "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
 
     "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"],
-    "uselessNumerical": [
-      "teamport.aether.compat.uselessnumerical.Allias"
-    ]
+    "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Allias"],
+    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"]
   },
 
   "mixins": ["aether.mixins.json"],
