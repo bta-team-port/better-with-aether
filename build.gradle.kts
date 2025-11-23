@@ -44,6 +44,8 @@ val commonsLang3Version = providers.gradleProperty("commons_lang3_version")
 val javaVersion = providers.gradleProperty("java_version")
 val gradleJavaVersion = providers.gradleProperty("gradle_java_version")
 
+val commandlyVersion = providers.gradleProperty("commandly")
+
 group = modGroup.get()
 base.archivesName = modName.get()
 version = modVersion.get()
@@ -79,6 +81,10 @@ repositories {
         patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
         metadataSources { artifact() }
     }
+    ivy ("https://github.com/"){
+        patternLayout { artifact("[organization]/[module]/releases/download/[revision]/[module]-[revision].jar")}
+        metadataSources { artifact() }
+    }
 }
 
 dependencies {
@@ -98,6 +104,8 @@ dependencies {
 
     modImplementation("useless:btwaila:${btwailaVersion.get()}")
     modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}-${btaVersion.get()}")
+    modImplementation(files("dependencies/Commandly-1.1.2.jar"))
+//    modImplementation("redart15:Commandly:${commandlyVersion.get()}")
 
     implementation(platform("org.lwjgl:lwjgl-bom:${lwjglVersion.get()}"))
     implementation("org.slf4j:slf4j-api:${slf4jApiVersion.get()}")
@@ -112,6 +120,8 @@ dependencies {
 
     implementation("org.apache.commons:commons-lang3:${commonsLang3Version.get()}")
     include("org.apache.commons:commons-lang3:${commonsLang3Version.get()}")
+
+
 
     implementation("org.lwjgl:lwjgl:${lwjglVersion.get()}")
     implementation("org.lwjgl:lwjgl-assimp:${lwjglVersion.get()}")
