@@ -32,7 +32,6 @@ public class ItemDoorDungeon extends Item {
 
     public ItemDoorDungeon(String name, String namespaceId, int id, Block<?> doorBlock, DoorType doorType) {
         super(name, namespaceId, id);
-        this.maxStackSize = 64;
         this.doorBlock = doorBlock;
         this.doorType = doorType;
     }

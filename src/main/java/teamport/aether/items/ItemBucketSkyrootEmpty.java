@@ -12,37 +12,32 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.animal.phow.MobPhow;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 public class ItemBucketSkyrootEmpty extends Item {
     public ItemBucketSkyrootEmpty(String name, String namespaceId, int id) {
         super(name, namespaceId, id);
-        this.maxStackSize = 64;
     }
 
     @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
         double reachDistance = entityplayer.getGamemode().getBlockReachDistance();
         HitResult hitResult = entityplayer.rayTrace(reachDistance, 1.0F, true, false);
-        if (hitResult != null) {
-            if (hitResult.hitType == HitResult.HitType.TILE) {
-                int i = hitResult.x;
-                int j = hitResult.y;
-                int k = hitResult.z;
-                if (!world.canMineBlock(entityplayer, i, j, k)) {
-                    return itemstack;
-                }
+        if (hitResult != null && hitResult.hitType == HitResult.HitType.TILE) {
+            int i = hitResult.x;
+            int j = hitResult.y;
+            int k = hitResult.z;
+            if (!world.canMineBlock(entityplayer, i, j, k)) {
+                return itemstack;
+            }
 
-                if (world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0) {
-                    if (useBucket(entityplayer, new ItemStack(AetherItems.BUCKET_SKYROOT_WATER))) {
-                        world.setBlockWithNotify(i, j, k, 0);
-                        entityplayer.swingItem();
-                    }
-                }
+            if (world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0 && useBucket(entityplayer, new ItemStack(AetherItems.BUCKET_SKYROOT_WATER))) {
+                world.setBlockWithNotify(i, j, k, 0);
+                entityplayer.swingItem();
             }
         }
+
         return itemstack;
     }
 
@@ -55,22 +50,20 @@ public class ItemBucketSkyrootEmpty extends Item {
             if (world.getBlockMaterial(x, y, z) == Material.water && world.getBlockMetadata(x, y, z) == 0) {
                 world.setBlockWithNotify(x, y, z, 0);
                 itemStack.itemID = AetherItems.BUCKET_SKYROOT_WATER.id;
-            } else {
-                AABB box = AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
-                List<MobCow> entities = world.getEntitiesWithinAABB(MobCow.class, box);
-                if (!entities.isEmpty()) {
-                    itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
-                }
             }
-            AABB box = AABB.getTemporaryBB(x, y, z, x + 1.0, y + 1.0, z + 1.0);
-            List<MobPhow> entities = world.getEntitiesWithinAABB(MobPhow.class, box);
-            if (!entities.isEmpty()) {
+
+            AABB box = AABB.getTemporaryBB(x, y, z, x + 0.5, y + 1.0, z + 0.5);
+
+            boolean hasCow = !world.getEntitiesWithinAABB(MobCow.class, box).isEmpty();
+            boolean hasPhow = !world.getEntitiesWithinAABB(MobPhow.class, box).isEmpty();
+
+            if (hasCow || hasPhow) {
                 itemStack.itemID = AetherItems.BUCKET_SKYROOT_MILK.id;
             }
         }
     }
 
-    private static boolean useBucket(Player player, ItemStack itemToGive) {
+    public static boolean useBucket(Player player, ItemStack itemToGive) {
         if (Objects.requireNonNull(player.inventory.getCurrentItem()).stackSize <= 1) {
             player.inventory.setItem(player.inventory.getCurrentItemIndex(), itemToGive);
             return true;

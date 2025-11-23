@@ -301,7 +301,7 @@ public final class AetherItems {
 
 
         AMBROSIUM = new ItemBuilder(MOD_ID)
-            .build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false, 64));
+            .build(new ItemAmbrosium("ambrosium", itemKey("ambrosium"), itemID("AMBROSIUM"), 1, 20, false));
 
         ZANITE = new ItemBuilder(MOD_ID)
             .build(new Item("zanite", itemKey("zanite"), itemID("ZANITE")));

@@ -4,6 +4,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
@@ -11,6 +12,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.items.AetherItems;
 
 public class BlockLogicOreAmbrosium extends BlockLogic {
@@ -19,6 +22,16 @@ public class BlockLogicOreAmbrosium extends BlockLogic {
     public BlockLogicOreAmbrosium(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);
         variantMap.put(parentBlock.id(), block.id());
+    }
+
+    @Override
+    public void onBlockPlacedByMob(World world, int x, int y, int z, @NonNull Side side, Mob mob, double xPlaced, double yPlaced) {
+        world.setBlockMetadataWithNotify(x, y, z, 1);
+    }
+
+    @Override
+    public int getPlacedBlockMetadata(@Nullable Player player, ItemStack stack, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced) {
+        return 1;
     }
 
     @Override
