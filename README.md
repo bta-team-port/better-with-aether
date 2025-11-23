@@ -5,8 +5,11 @@
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bta-team-port/better-with-aether/total?color=cyan)](https://tooomm.github.io/github-release-stats/?username=bta-team-port&repository=better-with-aether)
 
 
+
+## Welcome to the Hostile Paradise: The Aether, now Better than ever.
 The legendary dimension has finally arrived to Better Than Adventure!
-Welcome to the Hostile Paradise: The Aether, now Better than ever.
+
+<img width="2560" height="1009" alt="paradise small" src="https://github.com/user-attachments/assets/d766533b-941c-4fdf-a0a3-963d7dbee6a2" />
 
 Better with Aether offers something for everyone.
 Whether you like to build castles, explore the land, or conquer dangerous dungeons, there’s always an adventure waiting.
