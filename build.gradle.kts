@@ -93,19 +93,18 @@ dependencies {
 
     // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
     modImplementation("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
-    modImplementation("useless:dragonfly:${dragonflyVersion.get()}")
     modImplementation("turniplabs:halplibe:${halplibeVersion.get()}")
     modImplementation("turniplabs:modmenu-bta:${modMenuVersion.get()}")
     modImplementation("net.fabricmc:fabric-loader:${loaderVersion.get()}")
     modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:${legacyLwjglVersion.get()}")
 
+    modImplementation("useless:dragonfly:${dragonflyVersion.get()}")
     modImplementation("sunsetsatellite:catalyst-core:${catalystCoreVersion.get()}")
     modImplementation("sunsetsatellite:catalyst-effects:${catalystEffectsVersion.get()}")
-
-    modImplementation("useless:btwaila:${btwailaVersion.get()}")
     modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}-${btaVersion.get()}")
-    modImplementation(files("dependencies/Commandly-1.1.2.jar"))
-//    modImplementation("redart15:Commandly:${commandlyVersion.get()}")
+
+    compileOnly ("useless:btwaila:${btwailaVersion.get()}")
+    compileOnly ("redart15:Commandly:${commandlyVersion.get()}")
 
     implementation(platform("org.lwjgl:lwjgl-bom:${lwjglVersion.get()}"))
     implementation("org.slf4j:slf4j-api:${slf4jApiVersion.get()}")
