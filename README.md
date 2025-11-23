@@ -5,17 +5,30 @@
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bta-team-port/better-with-aether/total?color=cyan)](https://tooomm.github.io/github-release-stats/?username=bta-team-port&repository=better-with-aether)
 
 
-The legendary dimension is finally here for Better Than Adventure!
-New dimension, plethora of blocks and items.
-Tons of new mobs and mechanics.
-3 dungeons and bosses to conquer.
-Brand-new compatibility between the two as well.
+The legendary dimension has finally arrived to Better Than Adventure!
+Welcome to the Hostile Paradise: The Aether, now Better than ever.
+
+Better with Aether offers something for everyone.
+Whether you like to build castles, explore the land, or conquer dangerous dungeons, there’s always an adventure waiting.
+
+Build with a vast array of blocks and collect countless new items.
+Explore a beautiful, expansive realm and learn to survive its many deadly enemies.
+And if you're up for a challenge, attempt to conquer the three dungeons scattered across the lands.
+At the end of each dungeon, a powerful boss awaits. Defeat them, and riches beyond your wildest dreams will be yours.
+
+Don’t fret, you don’t have to face these challenges alone.
+Set up a server and enjoy this beautiful and unnerving paradise with friends.
+We strive to keep this mod fully compatible with as many other mods as possible.
 
 **This mod is a remade version of the Aether 1.02 for BTA. We have no relation to the Aether team or the BTA team.**
 
 ### Aether Wiki
-https://aether.wiki.gg/wiki/Aether_Wiki
+[Better with Aether Wiki](https://better-with-aether-wiki.readthedocs.io/en/latest/) official BWA wiki.  
+[The Aether Project Wiki](https://aether.wiki.gg/wiki/Aether_Wiki) usefull for when something is not documented on the official.  
+[Aether Fandom Wiki](https://aether.fandom.com/wiki/Aether_Wiki) usefull for when something is not documented on the official.  
 
+If you interessted in contributing to the mod head on over to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether-wiki)
+ 
 ### REQUIRES:
 - BTA == 7.3_04
 - Halplibe >= [5.3.1](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/5.3.1)
