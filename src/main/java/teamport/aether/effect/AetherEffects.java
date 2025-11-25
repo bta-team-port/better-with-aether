@@ -1,5 +1,6 @@
 package teamport.aether.effect;
 
+import net.minecraft.core.Global;
 import net.minecraft.core.data.tag.Tag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -80,7 +81,7 @@ public class AetherEffects {
             new ArrayList<>(),
             EffectTimeType.KEEP,
             10
-        ).setDefaultDuration(60);
+        ).setDefaultDuration(6 * Global.TICKS_PER_SECOND);
 
         remedyEffect = new RemedyEffect(
             "effect.aether.remedy",
@@ -88,7 +89,7 @@ public class AetherEffects {
             new ArrayList<>(),
             EffectTimeType.RESET,
             1
-        ).setDefaultDuration(240);
+        ).setDefaultDuration(12 * Global.TICKS_PER_SECOND);
 
         AetherEffects.registerLock(poisonEffect, remedyEffect);
     }
