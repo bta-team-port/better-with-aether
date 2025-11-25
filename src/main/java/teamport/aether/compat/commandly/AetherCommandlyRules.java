@@ -8,7 +8,10 @@ public class AetherCommandlyRules {
     private AetherCommandlyRules(){}
     protected static boolean isLoaded = FabricLoader.getInstance().isModLoaded("commandly");
 
-    public static boolean isLoaded(){return isLoaded;}
+    @SuppressWarnings("unused")
+    public static boolean isLoaded() {
+        return isLoaded;
+    }
 
     public static boolean canVeinMine(World world){
         if(AetherCommandlyRules.isLoaded){
@@ -24,6 +27,7 @@ public class AetherCommandlyRules {
         return true;
     }
 
+    @SuppressWarnings("unused")
     public static boolean canMossSpread(World world){
         if(AetherCommandlyRules.isLoaded){
             return world.getGameRuleValue(CommandlyMod.MOSS_SPREADING);
