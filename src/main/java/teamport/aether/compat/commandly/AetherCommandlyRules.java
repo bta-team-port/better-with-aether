@@ -5,33 +5,16 @@ import net.minecraft.core.world.World;
 import redart15.commandly.CommandlyMod;
 
 public class AetherCommandlyRules {
-    private AetherCommandlyRules(){}
-    protected static boolean isLoaded = FabricLoader.getInstance().isModLoaded("commandly");
+    private AetherCommandlyRules() {}
+    private static final boolean IS_LOADED = FabricLoader.getInstance().isModLoaded("commandly");
 
-    @SuppressWarnings("unused")
-    public static boolean isLoaded() {
-        return isLoaded;
-    }
-
-    public static boolean canVeinMine(World world){
-        if(AetherCommandlyRules.isLoaded){
-            return world.getGameRuleValue(CommandlyMod.VEINMINING);
-        }
+    public static boolean canVeinMine(World world) {
+        if(IS_LOADED) return world.getGameRuleValue(CommandlyMod.VEINMINING);
         return false;
     }
 
-    public static boolean canGrassSpread(World world){
-        if(AetherCommandlyRules.isLoaded){
-            return world.getGameRuleValue(CommandlyMod.GRASS_SPREADING);
-        }
-        return true;
-    }
-
-    @SuppressWarnings("unused")
-    public static boolean canMossSpread(World world){
-        if(AetherCommandlyRules.isLoaded){
-            return world.getGameRuleValue(CommandlyMod.MOSS_SPREADING);
-        }
+    public static boolean canGrassSpread(World world) {
+        if(IS_LOADED) return world.getGameRuleValue(CommandlyMod.GRASS_SPREADING);
         return true;
     }
 }
