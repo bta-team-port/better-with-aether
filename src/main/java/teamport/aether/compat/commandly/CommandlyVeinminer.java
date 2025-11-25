@@ -1,6 +1,4 @@
 package teamport.aether.compat.commandly;
 
-public class CommandlyVeinminer {
-
-
-}
+@SuppressWarnings("unused")
+public class CommandlyVeinminer {}
