@@ -1,60 +1,23 @@
-@file:Suppress("UnstableApiUsage", "PropertyName")
-
-import org.apache.tools.ant.taskdefs.condition.Os
-
+@file:Suppress("UnstableApiUsage")
+import com.smushytaco.lwjgl_gradle.Preset
 plugins {
-    id("fabric-loom")
+    alias(libs.plugins.loom)
+    alias(libs.plugins.lwjgl)
     java
 }
-
-val lwjglVersion = providers.gradleProperty("lwjgl_version")
-val lwjglNatives = when {
-    Os.isFamily(Os.FAMILY_UNIX) && !Os.isFamily(Os.FAMILY_MAC) -> "natives-linux"
-    Os.isFamily(Os.FAMILY_WINDOWS) -> "natives-windows"
-    Os.isFamily(Os.FAMILY_MAC) -> "natives-macos${if (Os.isArch("aarch64")) "-arm64" else ""}"
-    else -> error("Unsupported OS")
-}
-
 val modVersion = providers.gradleProperty("mod_version")
 val modGroup = providers.gradleProperty("mod_group")
 val modName = providers.gradleProperty("mod_name")
 
-val btaChannel = providers.gradleProperty("bta_channel")
-val btaVersion = providers.gradleProperty("bta_version")
+val javaVersion = libs.versions.java.map { it.toInt() }
 
-val loaderVersion = providers.gradleProperty("loader_version")
-val legacyLwjglVersion = providers.gradleProperty("legacy_lwjgl_version")
-
-val dragonflyVersion = providers.gradleProperty("dragonfly_version")
-val halplibeVersion = providers.gradleProperty("halplibe_version")
-val modMenuVersion = providers.gradleProperty("mod_menu_version")
-
-val catalystCoreVersion = providers.gradleProperty("catalyst_core_version")
-val catalystEffectsVersion = providers.gradleProperty("catalyst_effects_version")
-
-val uselessNumericalVersion = providers.gradleProperty("useless_numerical_version")
-val btwailaVersion = providers.gradleProperty("btwaila_version")
-
-val slf4jApiVersion = providers.gradleProperty("slf4j_api_version")
-val log4jVersion = providers.gradleProperty("log4j_version")
-val guavaVersion = providers.gradleProperty("guava_version")
-val gsonVersion = providers.gradleProperty("gson_version")
-val commonsLang3Version = providers.gradleProperty("commons_lang3_version")
-
-val javaVersion = providers.gradleProperty("java_version")
-val gradleJavaVersion = providers.gradleProperty("gradle_java_version")
-
-val commandlyVersion = providers.gradleProperty("commandly")
-
+base.archivesName = modName
 group = modGroup.get()
-base.archivesName = modName.get()
 version = modVersion.get()
-
 loom {
     noIntermediateMappings()
-    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel.get()}/v${btaVersion.get()}/manifest.json")
+    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${libs.versions.btaChannel.get()}/v${libs.versions.bta.get()}/manifest.json")
 }
-
 repositories {
     mavenCentral()
     maven("https://jitpack.io")
@@ -65,11 +28,11 @@ repositories {
         patternLayout { artifact("[organisation]/releases/download/v[revision]/[module].jar") }
         metadataSources { artifact() }
     }
-    ivy("https://downloads.betterthanadventure.net/bta-client/${btaChannel.get()}/") {
+    ivy("https://downloads.betterthanadventure.net/bta-client/${libs.versions.btaChannel.get()}/") {
         patternLayout { artifact("/v[revision]/client.jar") }
         metadataSources { artifact() }
     }
-    ivy("https://downloads.betterthanadventure.net/bta-server/${btaChannel.get()}/") {
+    ivy("https://downloads.betterthanadventure.net/bta-server/${libs.versions.btaChannel.get()}/") {
         patternLayout { artifact("/v[revision]/server.jar") }
         metadataSources { artifact() }
     }
@@ -86,90 +49,82 @@ repositories {
         metadataSources { artifact() }
     }
 }
-
+lwjgl {
+    version = libs.versions.lwjgl
+    implementation(Preset.MINIMAL_OPENGL)
+}
 dependencies {
-    minecraft("::${btaVersion.get()}")
+    minecraft("::${libs.versions.bta.get()}")
     mappings(loom.layered {})
 
     // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
     modImplementation("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
-    modImplementation("turniplabs:halplibe:${halplibeVersion.get()}")
-    modImplementation("turniplabs:modmenu-bta:${modMenuVersion.get()}")
-    modImplementation("net.fabricmc:fabric-loader:${loaderVersion.get()}")
-    modImplementation("com.github.Better-than-Adventure:legacy-lwjgl3:${legacyLwjglVersion.get()}")
+    modImplementation(libs.loader)
+    modImplementation(libs.halplibe)
+    modImplementation(libs.modMenu)
+    modImplementation(libs.legacyLwjgl)
 
-    modImplementation("useless:dragonfly:${dragonflyVersion.get()}")
-    modImplementation("sunsetsatellite:catalyst-core:${catalystCoreVersion.get()}")
-    modImplementation("sunsetsatellite:catalyst-effects:${catalystEffectsVersion.get()}")
-    modImplementation("gungun974:uselessnumerical:${uselessNumericalVersion.get()}-${btaVersion.get()}")
+    modImplementation(libs.dragonfly)
+    modImplementation(libs.catalyst.core)
+    modImplementation(libs.catalyst.effects)
+    modImplementation(libs.uselessNumerical.get().let { "${it.group}:${it.name}:${it.version}-${libs.versions.bta.get()}" })
 
-    compileOnly ("useless:btwaila:${btwailaVersion.get()}")
-    compileOnly ("redart15:Commandly:${commandlyVersion.get()}")
+    modCompileOnly(libs.btwaila)
+    modCompileOnly(libs.commandly)
 
-    implementation(platform("org.lwjgl:lwjgl-bom:${lwjglVersion.get()}"))
-    implementation("org.slf4j:slf4j-api:${slf4jApiVersion.get()}")
+    implementation(libs.slf4jApi)
+    implementation(libs.guava)
+    implementation(libs.log4j.slf4j2.impl)
+    implementation(libs.log4j.core)
+    implementation(libs.log4j.api)
+    implementation(libs.log4j.api12)
+    implementation(libs.gson)
 
-    implementation("com.google.guava:guava:${guavaVersion.get()}")
-    implementation("com.google.code.gson:gson:${gsonVersion.get()}")
-
-    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:${log4jVersion.get()}")
-    implementation("org.apache.logging.log4j:log4j-core:${log4jVersion.get()}")
-    implementation("org.apache.logging.log4j:log4j-api:${log4jVersion.get()}")
-    implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion.get()}")
-
-    implementation("org.apache.commons:commons-lang3:${commonsLang3Version.get()}")
-    include("org.apache.commons:commons-lang3:${commonsLang3Version.get()}")
-
-
-
-    implementation("org.lwjgl:lwjgl:${lwjglVersion.get()}")
-    implementation("org.lwjgl:lwjgl-assimp:${lwjglVersion.get()}")
-    implementation("org.lwjgl:lwjgl-glfw:${lwjglVersion.get()}")
-    implementation("org.lwjgl:lwjgl-openal:${lwjglVersion.get()}")
-    implementation("org.lwjgl:lwjgl-opengl:${lwjglVersion.get()}")
-    implementation("org.lwjgl:lwjgl-stb:${lwjglVersion.get()}")
-
-    runtimeOnly("org.lwjgl:lwjgl::$lwjglNatives")
-    runtimeOnly("org.lwjgl:lwjgl-assimp::$lwjglNatives")
-    runtimeOnly("org.lwjgl:lwjgl-glfw::$lwjglNatives")
-    runtimeOnly("org.lwjgl:lwjgl-openal::$lwjglNatives")
-    runtimeOnly("org.lwjgl:lwjgl-opengl::$lwjglNatives")
-    runtimeOnly("org.lwjgl:lwjgl-stb::$lwjglNatives")
+    implementation(libs.commonsLang3)
+    include(libs.commonsLang3)
 }
-
+java {
+    toolchain {
+        languageVersion = javaVersion.map { JavaLanguageVersion.of(it) }
+        vendor = JvmVendorSpec.ADOPTIUM
+    }
+    sourceCompatibility = JavaVersion.toVersion(javaVersion.get())
+    targetCompatibility = JavaVersion.toVersion(javaVersion.get())
+    withSourcesJar()
+}
+val licenseFile = run {
+    val rootLicense = layout.projectDirectory.file("LICENSE")
+    val parentLicense = layout.projectDirectory.file("../LICENSE")
+    when {
+        rootLicense.asFile.exists() -> {
+            logger.lifecycle("Using LICENSE from project root: {}", rootLicense.asFile)
+            rootLicense
+        }
+        parentLicense.asFile.exists() -> {
+            logger.lifecycle("Using LICENSE from parent directory: {}", parentLicense.asFile)
+            parentLicense
+        }
+        else -> {
+            logger.warn("No LICENSE file found in project or parent directory.")
+            null
+        }
+    }
+}
 tasks {
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        sourceCompatibility = javaVersion.get()
-        targetCompatibility = javaVersion.get()
-        if (javaVersion.get().toInt() > 8) options.release = javaVersion.get().toInt()
+        sourceCompatibility = javaVersion.get().toString()
+        targetCompatibility = javaVersion.get().toString()
+        if (javaVersion.get() > 8) options.release = javaVersion
     }
     named<UpdateDaemonJvm>("updateDaemonJvm") {
-        languageVersion = JavaLanguageVersion.of(gradleJavaVersion.get().toInt())
+        languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
         vendor = JvmVendorSpec.ADOPTIUM
     }
     withType<JavaExec>().configureEach { defaultCharacterEncoding = "UTF-8" }
     withType<Javadoc>().configureEach { options.encoding = "UTF-8" }
     withType<Test>().configureEach { defaultCharacterEncoding = "UTF-8" }
-    named<Jar>("jar") {
-        val rootLicense = layout.projectDirectory.file("LICENSE")
-        val parentLicense = layout.projectDirectory.file("../LICENSE")
-        val licenseFile = when {
-            rootLicense.asFile.exists() -> {
-                logger.lifecycle("Using LICENSE from project root: ${rootLicense.asFile}")
-                rootLicense
-            }
-
-            parentLicense.asFile.exists() -> {
-                logger.lifecycle("Using LICENSE from parent directory: ${parentLicense.asFile}")
-                parentLicense
-            }
-
-            else -> {
-                logger.warn("No LICENSE file found in project or parent directory.")
-                null
-            }
-        }
+    withType<Jar>().configureEach {
         licenseFile?.let {
             from(it) {
                 rename { original -> "${original}_${archiveBaseName.get()}" }
@@ -178,15 +133,15 @@ tasks {
     }
     processResources {
         val stringModVersion = modVersion.get()
-        val stringLoaderVersion = loaderVersion.get()
-        val stringJavaVersion = javaVersion.get()
-        val stringDragonflyVersion = dragonflyVersion.get()
-        val stringHalplibeVersion = halplibeVersion.get()
-        val stringModMenuVersion = modMenuVersion.get()
+        val stringLoaderVersion = libs.versions.loader.get()
+        val stringJavaVersion = libs.versions.java.get()
+        val stringDragonflyVersion = libs.versions.dragonfly.get()
+        val stringHalplibeVersion = libs.versions.halplibe.get()
+        val stringModMenuVersion = libs.versions.modMenu.get()
 
-        val stringCatalystCoreVersion = catalystCoreVersion.get()
-        val stringCatalystEffectsVersion = catalystEffectsVersion.get()
-        val stringUselessNumericalVersion = uselessNumericalVersion.get()
+        val stringCatalystCoreVersion = libs.versions.catalyst.core.get()
+        val stringCatalystEffectsVersion = libs.versions.catalyst.effects.get()
+        val stringUselessNumericalVersion = libs.versions.uselessNumerical.get()
 
         inputs.property("modVersion", stringModVersion)
         inputs.property("loaderVersion", stringLoaderVersion)
@@ -216,15 +171,6 @@ tasks {
             )
         }
         filesMatching("**/*.mixins.json") { expand(mapOf("java" to stringJavaVersion)) }
-    }
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(javaVersion.get())
-            vendor = JvmVendorSpec.ADOPTIUM
-        }
-        sourceCompatibility = JavaVersion.toVersion(javaVersion.get().toInt())
-        targetCompatibility = JavaVersion.toVersion(javaVersion.get().toInt())
-        withSourcesJar()
     }
 }
 // Removes LWJGL2 dependencies
