@@ -1,6 +1,7 @@
 package teamport.aether.entity.projectile;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.core.Global;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
@@ -256,7 +257,7 @@ public class ProjectileDart extends Projectile implements ProjectileAether, Aeth
                     }
                     if (hitResult.entity instanceof IHasEffects) {
                         IHasEffects<?> entity = (IHasEffects<?>) hitResult.entity;
-                        AetherEffects.add(hitResult.entity, new EffectStack(entity, AetherEffects.remedyEffect, 20, 1));
+                        AetherEffects.add(hitResult.entity, new EffectStack(entity, AetherEffects.remedyEffect, 2 * Global.TICKS_PER_SECOND, 1));
                     }
                     // slight weaker remedy than the usual one
                 }

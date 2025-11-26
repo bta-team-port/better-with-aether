@@ -20,6 +20,6 @@ public abstract class WorldFeatureLabyrinthMixin {
     @Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WeightedRandomBag;addEntry(Ljava/lang/Object;D)V", ordinal = 7, shift = At.Shift.AFTER))
     private void addCustomLoot(World world, Random random, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
         this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_CHAIN.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_GLOVES_CHAIN.getMaxDamage() / 2, AetherItems.ARMOR_GLOVES_CHAIN.getMaxDamage()), 20.0);
-        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAIN.getDefaultStack()), 20.0);
+        this.chestLoot.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_CHAIN.getDefaultStack()).setRandomMetadata(AetherItems.ARMOR_TALISMAN_CHAIN.getMaxDamage() / 2, AetherItems.ARMOR_TALISMAN_CHAIN.getMaxDamage()), 20.0);
     }
 }
