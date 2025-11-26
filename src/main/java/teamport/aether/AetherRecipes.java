@@ -197,16 +197,16 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("minecraft:cobblestones").add(AetherBlocks.COBBLE_HOLYSTONE.getDefaultStack());
         Registries.ITEM_GROUPS.getItem("minecraft:grasses").add(AetherBlocks.GRASS_AETHER.getDefaultStack());
 
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_SKYROOT.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_HOLYSTONE.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_ZANITE.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_GRAVITITE.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_VALKYRIE.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_VAMPIRE.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_HOLY.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_FLAME.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_LIGHTNING.getDefaultStack());
-        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(AetherItems.TOOL_SWORD_PIG.getDefaultStack());
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_SKYROOT, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_HOLYSTONE, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_ZANITE, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_GRAVITITE, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_VAMPIRE, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_HOLY, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_FLAME, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_LIGHTNING, 1, -1));
+        Registries.ITEM_GROUPS.getItem("minecraft:tool_swords").add(new ItemStack(AetherItems.TOOL_SWORD_PIG, 1, -1));
 
     }
 

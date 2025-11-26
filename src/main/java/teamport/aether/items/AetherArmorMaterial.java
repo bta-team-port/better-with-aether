@@ -15,7 +15,7 @@ public class AetherArmorMaterial {
             45.0f,
             45.0f,
             45.0f)
-        .withProtectionPercentage(AetherMod.HOLY, -45.0f)
+        .withProtectionPercentage(AetherMod.HOLY, -23.0f)
         .withProtectionPercentage(AetherMod.LIGHTNING, 45.0f);
 
 
@@ -27,7 +27,7 @@ public class AetherArmorMaterial {
             56.0f,
             154.0f)
         .withProtectionPercentage(AetherMod.HOLY, 56.0f)
-        .withProtectionPercentage(AetherMod.LIGHTNING, -56.0f);
+        .withProtectionPercentage(AetherMod.LIGHTNING, -28.0f);
 
 
     public static final ArmorMaterial PHOENIX = ArmorHelper.createArmorMaterial(MOD_ID,
@@ -38,7 +38,7 @@ public class AetherArmorMaterial {
             150.0f,
             65.0f)
         .withProtectionPercentage(AetherMod.HOLY, 65.0f)
-        .withProtectionPercentage(AetherMod.LIGHTNING, -65.0f)
+        .withProtectionPercentage(AetherMod.LIGHTNING, -33.0f)
         .withProtectionPercentage(DamageType.DROWN, -50.0f);
 
 
@@ -49,7 +49,7 @@ public class AetherArmorMaterial {
             150.0f,
             65.0f,
             25.0f)
-        .withProtectionPercentage(AetherMod.HOLY, -65.0f)
+        .withProtectionPercentage(AetherMod.HOLY, -33.0f)
         .withProtectionPercentage(AetherMod.LIGHTNING, 65.0f);
 
 
@@ -61,6 +61,6 @@ public class AetherArmorMaterial {
             25.0f,
             65.0f)
         .withProtectionPercentage(AetherMod.HOLY, 150.0f)
-        .withProtectionPercentage(AetherMod.LIGHTNING, -65.0f)
+        .withProtectionPercentage(AetherMod.LIGHTNING, -33.0f)
         .withProtectionPercentage(DamageType.DROWN, 50.0f);
 }
