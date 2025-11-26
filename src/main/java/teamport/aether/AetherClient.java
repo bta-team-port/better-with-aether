@@ -24,8 +24,8 @@ import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
 import teamport.aether.game_settings.AetherGameSettings;
-import teamport.aether.gui.ComponentBossBar;
-import teamport.aether.gui.ComponentJumpBar;
+import teamport.aether.gui.HudComponentBossBar;
+import teamport.aether.gui.HudComponentJumpBar;
 import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
@@ -83,21 +83,13 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         AetherGameSettings.init();
 
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_DEFAULT)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_SKYBLOCK)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_RETRO)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
     }
 
     public void setupCustomBlockLight() {
@@ -161,15 +153,15 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     public static void registerHUDComponents() {
         BOSS_BAR = HudComponents.register(
-                new ComponentBossBar(
-                        "aether.boss.bar",
+                new HudComponentBossBar(
+                        "boss_bar",
                         new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
                 )
         );
 
         JUMP_BAR = HudComponents.register(
-                new ComponentJumpBar(
-                        "aether.wing.bar",
+                new HudComponentJumpBar(
+                        "wing_bar",
                         new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
                 )
         );

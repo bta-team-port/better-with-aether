@@ -29,7 +29,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
 
     public MobPhyg(World world) {
         super(world);
-        maxJumps = 1;
+        this.maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phyg");
         this.setSize(0.9F, 0.9F);
         this.rideFootSize = 1.0f;

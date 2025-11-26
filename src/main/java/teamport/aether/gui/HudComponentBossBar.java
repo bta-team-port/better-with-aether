@@ -1,5 +1,7 @@
 package teamport.aether.gui;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
@@ -14,7 +16,8 @@ import teamport.aether.entity.boss.EnemyBoss;
 
 import java.util.List;
 
-public class ComponentBossBar extends HudComponentMovable {
+@Environment(EnvType.CLIENT)
+public class HudComponentBossBar extends HudComponentMovable {
     private static final int BAR_WIDTH = 256;
     private static final int BAR_HEIGHT = 16;
     private static final int TEXT_OFFSET = -10;
@@ -24,7 +27,7 @@ public class ComponentBossBar extends HudComponentMovable {
 
     private static int height;
 
-    public ComponentBossBar(String key, Layout layout) {
+    public HudComponentBossBar(String key, Layout layout) {
         super(key, BAR_WIDTH, BAR_HEIGHT, layout);
     }
 
@@ -71,7 +74,7 @@ public class ComponentBossBar extends HudComponentMovable {
             int textX = barX + BAR_WIDTH / 2;
             int textY = barY + TEXT_OFFSET;
 
-            drawProgressBar(mc, gui, barX, barY, 100, 100);
+            drawProgressBar(mc, gui, barX, barY, 50, 100);
             String title = I18n.getInstance().translateKey("aether.menu.boss_bar.preview_name");
             gui.drawStringCentered(mc.font, title, textX, textY, 0xFFFFFFFF);
         }
