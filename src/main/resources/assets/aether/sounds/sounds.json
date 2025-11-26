@@ -311,7 +311,7 @@
   "aether:music.sliderboss": {
     "sounds": [
       {
-        "name": "sliderboss.ogg",
+        "name": "music/sliderboss.ogg",
         "volume": 0.1,
         "stream": true
       }
@@ -320,7 +320,7 @@
   "aether:music.fireboss": {
     "sounds": [
       {
-        "name": "fireboss.ogg",
+        "name": "music/fireboss.ogg",
         "volume": 0.1,
         "stream": true
       }
