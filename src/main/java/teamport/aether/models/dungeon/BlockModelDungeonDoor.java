@@ -20,9 +20,11 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     private final int height;
 
     private final IconCoordinate buffer = new IconCoordinate(TextureRegistry.blockAtlas, null, null);
+
     private IconCoordinate particleTexture = TextureRegistry.getTexture("minecraft:block/texture_missing");
     private IconCoordinate particleTextureRetro = TextureRegistry.getTexture("minecraft:block/texture_missing");
-
+    private IconCoordinate particleOverbrightTexture = TextureRegistry.getTexture("minecraft:block/texture_missing");
+    private IconCoordinate particleOverbrightTextureRetro = TextureRegistry.getTexture("minecraft:block/texture_missing");
 
     public BlockModelDungeonDoor(Block<T> block, int width, int height) {
         super(block);
@@ -110,9 +112,25 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     @Override
     public IconCoordinate getBlockOverbrightTexture(WorldSource blockAccess, int x, int y, int z, int side) {
         if (isRetro()) {
-            return ctm(this.retroOverbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
+            return ctm(this.retroOverbrightTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, Side.getSideById(side));
         }
-        return ctm(this.overbrightTextures, null, blockAccess, x, y, z, Side.getSideById(side));
+        return ctm(this.overbrightTextures, TextureRegistry.getTexture("minecraft:block/texture_missing"), blockAccess, x, y, z, Side.getSideById(side));
+    }
+
+    @Override
+    public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
+        if (isRetro()) {
+            return particleTextureRetro;
+        }
+        return this.particleTexture;
+    }
+
+    @Override
+    public IconCoordinate getBlockOverbrightTextureFromSideAndMeta(Side side, int metadata) {
+        if (isRetro()) {
+            return particleOverbrightTextureRetro;
+        }
+        return this.particleOverbrightTexture;
     }
 
     @Override
@@ -124,6 +142,12 @@ public class BlockModelDungeonDoor<T extends BlockLogic> extends BlockModelRotat
     public BlockModelDungeonDoor<T> setParticleTexture(boolean isRetro, String texture) {
         if (isRetro) particleTextureRetro = TextureRegistry.getTexture(texture);
         else particleTexture = TextureRegistry.getTexture(texture);
+        return this;
+    }
+
+    public BlockModelDungeonDoor<T> setParticleOverbrightTexture(boolean isRetro, String texture) {
+        if (isRetro) particleOverbrightTextureRetro = TextureRegistry.getTexture(texture);
+        else particleOverbrightTexture = TextureRegistry.getTexture(texture);
         return this;
     }
 }
