@@ -421,6 +421,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_BRONZE, 4, 4)
             .setParticleTexture(false, "aether:block/ctm/boss_door/bronze/particle")
             .setParticleTexture(true, "aether:block/ctm/boss_door/bronze/particle_retro")
+            .setParticleOverbrightTexture(false, "aether:block/ctm/boss_door/bronze/particle_overbright")
+            .setParticleOverbrightTexture(true, "aether:block/ctm/boss_door/bronze/particle_overbright_retro")
 
             .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/bronze/back", Side.sides)
             .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/bronze/back_overbright", Side.sides)
@@ -436,6 +438,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_SILVER, 2, 3)
             .setParticleTexture(false, "aether:block/ctm/boss_door/silver/particle")
             .setParticleTexture(true, "aether:block/ctm/boss_door/silver/particle_retro")
+            .setParticleOverbrightTexture(false, "aether:block/ctm/boss_door/silver/particle_overbright")
+            .setParticleOverbrightTexture(true, "aether:block/ctm/boss_door/silver/particle_overbright_retro")
 
             .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/silver/back", Side.sides)
             .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/silver/back_overbright", Side.sides)
@@ -451,6 +455,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelDungeonDoor<>(AetherBlocks.DOOR_DUNGEON_GOLD, 3, 3)
             .setParticleTexture(false, "aether:block/ctm/boss_door/gold/particle")
             .setParticleTexture(true, "aether:block/ctm/boss_door/gold/particle_retro")
+            .setParticleOverbrightTexture(false, "aether:block/ctm/boss_door/gold/particle_overbright")
+            .setParticleOverbrightTexture(true, "aether:block/ctm/boss_door/gold/particle_overbright_retro")
 
             .setTex(BLOCK_TEXTURES, "aether:block/ctm/boss_door/gold/back", Side.sides)
             .setTex(OVERBRIGHT_TEXTURES, "aether:block/ctm/boss_door/gold/back_overbright", Side.sides)

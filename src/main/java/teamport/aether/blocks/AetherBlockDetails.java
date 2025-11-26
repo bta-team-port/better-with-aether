@@ -146,6 +146,10 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.LEAVES_SKYROOT, 0, MaterialColor.paintedLime);
         registerManualBlockColor(AetherBlocks.LEAVES_OAK_GOLDEN, 0, MaterialColor.paintedYellow);
 
+        registerManualBlockColor(AetherBlocks.TALLGRASS_AETHER, 0, MaterialColor.birchLeaves);
+        registerManualBlockColor(AetherBlocks.FLOWER_PURPLE, 0, MaterialColor.paintedPurple);
+        registerManualBlockColor(AetherBlocks.FLOWER_WHITE, 0, MaterialColor.paintedWhite);
+
         registerManualBlockColor(AetherBlocks.PATH_DIRT_AETHER, 0, MaterialColor.permafrost);
 
         registerManualBlockColor(AetherBlocks.HOLYSTONE, 0, MaterialColor.metal);

@@ -11,7 +11,6 @@ import net.minecraft.core.world.type.WorldType;
 
 @Environment(EnvType.CLIENT)
 public class WorldTypeFXAether extends WorldTypeFX {
-    private Float cloudHeight = null;
 
     public WorldTypeFXAether(WorldType worldType) {
         super(worldType);
@@ -24,13 +23,17 @@ public class WorldTypeFXAether extends WorldTypeFX {
 
     @Override
     public WorldTypeFX setCloudHeight(float cloudHeight) {
-        this.cloudHeight = cloudHeight;
         return this;
     }
 
     @Override
     public float getCloudHeight() {
-        return this.cloudHeight == null ? (float) ((this.worldType.getMaxY() / 2.0) + 1 - 20) : this.cloudHeight;
+        return 8;
+    }
+
+    @Override
+    public boolean hasAurora() {
+        return true;
     }
 
     @Override

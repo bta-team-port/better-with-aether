@@ -15,6 +15,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import org.jspecify.annotations.Nullable;
+import teamport.aether.helper.ParticleMaker;
 
 import java.util.function.Supplier;
 
@@ -96,11 +97,13 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         for (int dx = -3; dx <= 3; dx++) {
             for (int dy = -3; dy <= 3; dy++) {
                 for (int dz = -3; dz <= 3; dz++) {
+                    if (dx == 0 && dy == 0 && dz == 0) continue;
                     int checkX = x + dx;
                     int checkY = y + dy;
                     int checkZ = z + dz;
                     if (world.getBlockId(checkX, checkY, checkZ) == this.block.id() && world.getBlockMetadata(checkX, checkY, checkZ) == meta) {
                         world.setBlockWithNotify(checkX, checkY, checkZ, 0);
+                        ParticleMaker.spawnBlockBreakParticles(world, checkX, checkY, checkZ, this.id());
                     }
                 }
             }

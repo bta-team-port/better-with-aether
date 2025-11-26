@@ -3,6 +3,7 @@ package teamport.aether.helper;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
@@ -37,6 +38,30 @@ public class ParticleMaker {
         spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 16D);
     }
 
+    public static void spawnBlockBreakParticles(World world, int blockX, int blockY, int blockZ, int blockId) {
+        for (int i = 0; i < 16; ++i) {
+            Direction face = Direction.values()[random.nextInt(6)];
+
+            double faceX = blockX + 0.5 + (random.nextDouble() * 0.6 - 0.3);
+            double faceY = blockY + 0.5 + (random.nextDouble() * 0.6 - 0.3);
+            double faceZ = blockZ + 0.5 + (random.nextDouble() * 0.6 - 0.3);
+
+            double offX = face.getOffsetX() * (random.nextDouble() * 0.3);
+            double offY = face.getOffsetY() * (random.nextDouble() * 0.3);
+            double offZ = face.getOffsetZ() * (random.nextDouble() * 0.3);
+
+            double spawnX = faceX + offX;
+            double spawnY = faceY + offY;
+            double spawnZ = faceZ + offZ;
+
+            double vx = offX * 0.3 + (random.nextDouble() - 0.5) * 0.2;
+            double vy = offY * 0.3 + (random.nextDouble() - 0.5) * 0.2;
+            double vz = offZ * 0.3 + (random.nextDouble() - 0.5) * 0.2;
+
+            spawnParticle(world, "block", spawnX, spawnY, spawnZ, vx, vy, vz, blockId);
+        }
+    }
+
     public static void spawnCloudParticles(World world, double x, double y, double z, double bbHeight) {
         float width = 1.0f;
 
@@ -55,7 +80,7 @@ public class ParticleMaker {
     }
 
     public static void spawnSmokeParticles(Mob target) {
-        for(int i = 0 ; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             ParticleMaker.spawnSmokeParticles(target.world, target.x, target.y + 0.5, target.z, target.bbHeight, target.bbWidth);
         }
     }
@@ -194,9 +219,9 @@ public class ParticleMaker {
         }
     }
 
-    public static void spawnDowningBubbles(Mob target){
+    public static void spawnDowningBubbles(Mob target) {
         Random random = ((EntityAccessor) target).getRandom();
-        for(int i = 0; i < 30; ++i) {
+        for (int i = 0; i < 30; ++i) {
             double offX = random.nextFloat() - random.nextFloat();
             double offY = random.nextFloat() - random.nextFloat();
             double offZ = random.nextFloat() - random.nextFloat();

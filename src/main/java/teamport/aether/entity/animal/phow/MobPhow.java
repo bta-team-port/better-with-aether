@@ -23,7 +23,7 @@ public class MobPhow extends MobAetherAnimalRideable {
 
     public MobPhow(World world) {
         super(world);
-        maxJumps = 1;
+        this.maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phow");
         this.setSize(0.9F, 1.3F);
         this.rideFootSize = 1.0f;

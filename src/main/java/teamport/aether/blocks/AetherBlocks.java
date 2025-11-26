@@ -927,18 +927,21 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         DOOR_DUNGEON_BRONZE = dungeonStoneLocked
-            .setLightOpacity(1)
             .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setLuminance(4)
             .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_BRONZE)).setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
 
         DOOR_DUNGEON_SILVER = dungeonStoneLocked
-            .setLightOpacity(1)
             .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setLuminance(4)
             .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_SILVER)).setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
 
         DOOR_DUNGEON_GOLD = dungeonStoneLocked
-            .setLightOpacity(1)
             .setUseInternalLight()
+            .setVisualUpdateOnMetadata()
+            .setLuminance(4)
             .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_GOLD)).setStatParent(() -> AetherItems.DOOR_DUNGEON_GOLD);
 
 
