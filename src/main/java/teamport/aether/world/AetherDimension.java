@@ -47,7 +47,7 @@ public class AetherDimension {
     }
 
 
-    private static Dimension aether;
+    private static Dimension AETHER;
 
     private static boolean hasInit = false;
 
@@ -64,10 +64,10 @@ public class AetherDimension {
         AetherWorldTypes.init();
         BiomeProviderAether.init();
 
-        aether = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
-        Dimension.registerDimension(AETHER_DIMENSION_ID, aether);
+        AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
+        Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER);
 
-        List<Integer> aetherBlacklist = getDimensionBlacklist(aether);
+        List<Integer> aetherBlacklist = getDimensionBlacklist(AETHER);
         aetherBlacklist.add(Blocks.FIRE.id());
         aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
 
@@ -119,7 +119,8 @@ public class AetherDimension {
     private static final Map<IntPair, List<CompoundTag>> entitiesMovedToOverworld = new HashMap<>();
 
     public static synchronized void addEntityToFallen(Entity target) {
-        if (AetherMod.LOGGER.isInfoEnabled()) AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
+        if (AetherMod.LOGGER.isInfoEnabled())
+            AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
         IntPair chunk = new IntPair(
             ((int) target.x) / 16,
@@ -146,7 +147,7 @@ public class AetherDimension {
                     Entity copy = EntityDispatcher.createEntityFromNBT(data, world);
                     copy.load(data);
 
-                    float scale = Dimension.getCoordScale(AetherDimension.aether, Dimension.OVERWORLD);
+                    float scale = Dimension.getCoordScale(AetherDimension.getAether(), Dimension.OVERWORLD);
                     copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
                     world.entityJoinedWorld(copy);
@@ -250,6 +251,6 @@ public class AetherDimension {
     }
 
     public static Dimension getAether() {
-        return aether;
+        return AETHER;
     }
 }

@@ -89,6 +89,7 @@
     "item.ItemFireStrikerMixin",
     "item.ItemJarMixin",
     "item.ItemSaddleMixin",
+    "item.ItemShearsMixin",
     "item.ItemToolShovelMixin",
     "item.LavaBucketMixin",
     "item.SkyrootSwordDropMultiplier",

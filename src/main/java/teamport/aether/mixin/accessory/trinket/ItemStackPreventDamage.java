@@ -20,22 +20,20 @@ public abstract class ItemStackPreventDamage {
     private boolean preventDamage(ItemStack instance, Operation<Boolean> original, int i, @Nullable Entity entity) {
         if (Boolean.FALSE.equals(original.call(instance))) return false;
         ItemStack asThis = (ItemStack) (Object) this;
-        if (!(entity instanceof Player)) return false;
+        if (!(entity instanceof Player)) return true;
         Player player = (Player) entity;
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
-        if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id) {
-            if (((ItemAccessor) trinketOne.getItem()).getItemRand().nextInt(4) == 0) {
-                trinketOne.damageItem(i, player);
-                return false;
-            }
+        if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketOne.getItem()).getItemRand().nextInt(4) == 0) {
+            trinketOne.damageItem(i, player);
+            return false;
         }
-        if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id) {
-            if (((ItemAccessor) trinketTwo.getItem()).getItemRand().nextInt(4) == 0) {
-                trinketTwo.damageItem(i, player);
-                return false;
-            }
+
+        if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketTwo.getItem()).getItemRand().nextInt(4) == 0) {
+            trinketTwo.damageItem(i, player);
+            return false;
         }
+
         return true;
     }
 }
