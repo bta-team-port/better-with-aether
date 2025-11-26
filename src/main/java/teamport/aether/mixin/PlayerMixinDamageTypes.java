@@ -23,6 +23,7 @@ import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
 public abstract class PlayerMixinDamageTypes {
     @Shadow
     public ContainerInventory inventory;
+
     @WrapOperation(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Entity;hurt(Lnet/minecraft/core/entity/Entity;ILnet/minecraft/core/util/helper/DamageType;)Z"))
     private boolean replaceDamageTypes(Entity instance, Entity attacker, int baseDamage, DamageType type, Operation<Boolean> original) {
         if (attacker instanceof Player) {
@@ -37,23 +38,21 @@ public abstract class PlayerMixinDamageTypes {
             if (itemstack == null && player.inventory.armorInventory[GLOVES_SLOT] != null) {
                 ItemStack maybeGlovesStack = player.inventory.armorInventory[GLOVES_SLOT];
                 Item maybeGlovesItem = maybeGlovesStack.getItem();
-                if (maybeGlovesItem instanceof ItemGloves) {
-                    if (maybeGlovesItem instanceof AetherHasCustomDamageType) {
-                        return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) maybeGlovesItem).getDamageType());
-                    }
+                if (maybeGlovesItem instanceof ItemGloves && maybeGlovesItem instanceof AetherHasCustomDamageType) {
+                    return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) maybeGlovesItem).getDamageType());
                 }
             }
         }
         return original.call(instance, attacker, baseDamage, type);
     }
+
     @Inject(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;getCurrentEquippedItem()Lnet/minecraft/core/item/ItemStack;", shift = At.Shift.AFTER))
     private void addedEffectsWithGloves(Entity entity, CallbackInfo ci) {
         Player player = (Player) (Object) this;
         ItemStack itemstack = player.getCurrentEquippedItem();
         ItemStack gloves = player.inventory.armorInventory[GLOVES_SLOT];
-        if(itemstack == null && gloves != null && gloves.getItem() instanceof ItemGloves && entity instanceof Mob){
-                gloves.hitEntity((Mob) entity, player);
-            }
-
+        if (itemstack == null && gloves != null && gloves.getItem() instanceof ItemGloves && entity instanceof Mob) {
+            gloves.hitEntity((Mob) entity, player);
+        }
     }
 }
