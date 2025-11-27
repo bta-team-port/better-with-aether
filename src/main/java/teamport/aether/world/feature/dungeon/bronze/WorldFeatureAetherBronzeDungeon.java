@@ -16,23 +16,23 @@ import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.dungeon.bronze.component.*;
+import teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureBlock;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.dungeon.bronze.component.*;
-import teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door;
 
 import java.util.*;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
+import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.*;
+import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door.door;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
-import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.*;
-import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door.door;
 
 public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
     private static final float MAX_WEIGHT = 40;
