@@ -49,7 +49,7 @@ public class ContainerLorebook implements Container {
 
     @Override
     public int getMaxStackSize() {
-        return 64;
+        return 1;
     }
 
     @Override

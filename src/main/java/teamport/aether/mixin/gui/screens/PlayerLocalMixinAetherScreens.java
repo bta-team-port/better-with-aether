@@ -42,7 +42,6 @@ public abstract class PlayerLocalMixinAetherScreens extends Player implements Ae
     }
     @Override
     public void aether$displayLorebookScreen(String loreID) {
-        MenuLorebook menu = new MenuLorebook(this.inventory, loreID);
-        this.mc.displayScreen(new ScreenLorebook(menu, loreID));
+        this.mc.displayScreen(new ScreenLorebook(new MenuLorebook(this.inventory), loreID));
     }
 }

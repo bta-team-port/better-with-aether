@@ -20,7 +20,7 @@ public class ItemLorebook extends Item {
     public ItemStack onUseItem(ItemStack stack, World world, Player player) {
         if (!world.isClientSide) {
             ((AetherScreens) player).aether$displayLorebookScreen(loreId);
-            player.addStat(AetherAchievements.AMBROSIUM, 1);
+            player.addStat(AetherAchievements.LORE, 1);
         }
         return stack;
     }

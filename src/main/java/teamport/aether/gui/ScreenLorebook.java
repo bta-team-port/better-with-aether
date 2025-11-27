@@ -51,13 +51,13 @@ public class ScreenLorebook extends ScreenContainerAbstract {
         String line2 = i18n.translateKey("aether.gui.lorebook.book." + loreId + ".line2");
         String line3 = i18n.translateKey("aether.gui.lorebook.book." + loreId + ".line3");
 
-        int titleCenterX = 20 + 106 / 2;
-        font.drawCenteredString(line1, titleCenterX, 20, 0x404040);
-        font.drawCenteredString(line2, titleCenterX, 30, 0x404040);
-        font.drawCenteredString(line3, titleCenterX, 40, 0x404040);
+        int titleCenterX = 37;
+        font.drawString(line1, titleCenterX, 19, 4210752);
+        font.drawString(line2, titleCenterX, 29, 4210752);
+        font.drawString(line3, titleCenterX, 39, 4210752);
 
         String itemLabel = i18n.translateKey("aether.gui.lorebook.item");
-        font.drawString(itemLabel, 76 - font.getStringWidth(itemLabel), 73, 0x404040);
+        font.drawString(itemLabel, 70 - font.getStringWidth(itemLabel), 73, 4210752);
 
         Slot loreSlot = inventorySlots.getSlot(0);
         if (loreSlot.hasItem()) {
@@ -71,16 +71,16 @@ public class ScreenLorebook extends ScreenContainerAbstract {
                 loreText = i18n.translateKey("aether.gui.lorebook.unknown");
             } else {
                 String itemName = i18n.translateKey(stack.getItemKey() + ".name");
-                lines.addAll(wrapText(itemName, 15));
+                lines.addAll(wrapText(itemName, 20));
             }
-            lines.addAll(wrapText(loreText, 15));
+            lines.addAll(wrapText(loreText, 20));
 
-            int x = 140;
+            int x = 130;
             int y = 15;
             boolean first = true;
             for (int i = 0; i < Math.min(lines.size(), 6); i++) {
                 String line = lines.get(i).trim();
-                font.drawString(line, x, y + (first ? 0 : 5), 0x404040);
+                font.drawString(line, x, y + (first ? 0 : 5), 4210752);
                 y += 10;
                 first = false;
             }

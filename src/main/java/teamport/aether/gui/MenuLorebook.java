@@ -12,17 +12,15 @@ import java.util.List;
 public class MenuLorebook extends MenuAbstract {
     public final ContainerLorebook loreContainer;
 
-    public MenuLorebook(ContainerInventory playerInventory, String loreId) {
+    public MenuLorebook(ContainerInventory playerInventory) {
         this.loreContainer = new ContainerLorebook(this);
 
         addSlot(new Slot(loreContainer, 0, 82, 66));
 
-        // Main inventory
         for (int y = 0; y < 3; ++y)
             for (int x = 0; x < 9; ++x)
                 addSlot(new Slot(playerInventory, x + y * 9 + 9, 48 + x * 18, 113 + y * 18));
 
-        // Hotbar
         for (int x = 0; x < 9; ++x)
             addSlot(new Slot(playerInventory, x, 48 + x * 18, 171));
     }
