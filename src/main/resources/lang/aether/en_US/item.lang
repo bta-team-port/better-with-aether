@@ -263,15 +263,6 @@ item.aether.armor.cape.pink.name=Pink Cape
 item.aether.armor.cape.pink.desc=Decorative cape colored pink.
 
 # Miscellaneous
-item.aether.book.lore.overworld.name=Book of Lore: Volume Overworld
-item.aether.book.lore.overworld.desc=Contains information about the Overworld.
-item.aether.book.lore.nether.name=Book of Lore: Volume Nether
-item.aether.book.lore.nether.desc=Contains information about the Nether.
-item.aether.book.lore.aether.name=Book of Lore: Volume Aether
-item.aether.book.lore.aether.desc=Contains information about the Aether.
-item.aether.book.lore.drift.name=Book of Lore: Volume Drift
-item.aether.book.lore.drift.desc=Contains information about the Drift.
-
 item.aether.egg.moa.blue.name=Blue Moa Egg
 item.aether.egg.moa.blue.desc=Laid by a blue moa, place it in an incubator.
 item.aether.egg.moa.black.name=Black Moa Egg

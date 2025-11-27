@@ -4,26 +4,6 @@ aether.gui.incubator.title=Incubator
 aether.gui.enchanter.title=Enchanter
 aether.gui.freezer.title=Freezer
 
-aether.gui.lorebook.item=Item:
-
-aether.gui.lorebook.book.overworld.line1=Book of Lore
-aether.gui.lorebook.book.overworld.line2=
-aether.gui.lorebook.book.overworld.line3=The Surface
-
-aether.gui.lorebook.book.nether.line1=Book of Lore
-aether.gui.lorebook.book.nether.line2=
-aether.gui.lorebook.book.nether.line3=The Nether
-
-aether.gui.lorebook.book.aether.line1=Book of Lore
-aether.gui.lorebook.book.aether.line2=
-aether.gui.lorebook.book.aether.line3=The Aether
-
-aether.gui.lorebook.book.paradise.line1=Book of Lore
-aether.gui.lorebook.book.paradise.line2=
-aether.gui.lorebook.book.paradise.line3=The Drift
-
-aether.gui.lorebook.unknown=This book lacks any information on this item.
-
 aether.gui.un_missing_warn.body=§e'%s'§r Does not have §lUselessNumerical§r data!§r\n\n\n Loading this world will likely result in corruption!\n Please reinstall Better with Aether 0.5.1, then reload the world with §lUselessNumerical§r installed.
 aether.gui.un_missing_warn.proceed_0=Play Selected World
 aether.gui.un_missing_warn.proceed_1=Yes, Play Selected World!
