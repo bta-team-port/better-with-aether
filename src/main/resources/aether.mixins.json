@@ -121,6 +121,7 @@
     "achievement.AetherAchievementMixin",
     "achievement.HostileParadiseMixin",
     "block.BlockModelJarAetherDirtMixin",
+    "dimension.AetherColorCorrectionMixin",
     "dimension.AetherMusicMixin",
     "dimension.bump_to_overworld.SPBumpToOverworldMixin",
     "dimension.bump_to_overworld.SPWorldMixin",

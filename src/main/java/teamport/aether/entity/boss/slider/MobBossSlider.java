@@ -564,7 +564,7 @@ public class MobBossSlider extends MobBoss {
             }
 
             if (!this.isAwake()) {
-                String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("aether.entity.boss_slider.hit_fail");
+                String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("boss_slider.hit_fail");
                 MessageMaker.sendMessage((Player) attacker, message);
             }
         }

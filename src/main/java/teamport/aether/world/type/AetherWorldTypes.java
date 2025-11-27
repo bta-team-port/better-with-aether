@@ -10,7 +10,8 @@ public abstract class AetherWorldTypes {
     public static WorldType AETHER_SKYBLOCK;
     public static WorldType AETHER_RETRO;
 
-    protected AetherWorldTypes() {}
+    protected AetherWorldTypes() {
+    }
 
     private static boolean hasInit = false;
 
@@ -24,24 +25,24 @@ public abstract class AetherWorldTypes {
 
     public static void initializeWorldTypes() {
         AETHER_EXTENDED = WorldTypes.register("aether:aether.extended", new WorldTypeAetherExtended
-            (WorldTypeAether.defaultProperties("worldtype.aether.extended")
-                .portalBounds(64, 192)));
+            (WorldTypeAether.defaultProperties("worldType.aether.extended")
+                .portalBounds(0, 192)));
 
         AETHER_DEFAULT = WorldTypes.register("aether:aether.default", new WorldTypeAether
-            (WorldTypeAether.defaultProperties("worldtype.aether.default")
+            (WorldTypeAether.defaultProperties("worldType.aether.default")
                 .bounds(0, 127, 0)
-                .portalBounds(32, 96)));
+                .portalBounds(0, 96)));
 
 
         AETHER_SKYBLOCK = WorldTypes.register("aether:aether.skyblock", new WorldTypeAetherSkyblock
-            (WorldTypeAether.defaultProperties("worldtype.aether.skyblock")
+            (WorldTypeAether.defaultProperties("worldType.aether.skyblock")
                 .bounds(0, 127, 0)));
 
 
         AETHER_RETRO = WorldTypes.register("aether:aether.retro", new WorldTypeAether
-            (WorldTypeAether.defaultProperties("worldtype.aether.retro")
+            (WorldTypeAether.defaultProperties("worldType.aether.retro")
                 .bounds(0, 127, 0)
-                .portalBounds(32, 96)
+                .portalBounds(0, 96)
                 .setRetro()));
     }
 }

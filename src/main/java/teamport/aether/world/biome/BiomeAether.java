@@ -28,7 +28,7 @@ import java.util.Random;
 public class BiomeAether extends Biome {
     public BiomeAether(String key) {
         super(key);
-        setColor(353825);
+        setColor(0xc0c0ff);
         setTopBlock(AetherBlocks.GRASS_AETHER.id());
         setFillerBlock(AetherBlocks.DIRT_AETHER.id());
         setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM);

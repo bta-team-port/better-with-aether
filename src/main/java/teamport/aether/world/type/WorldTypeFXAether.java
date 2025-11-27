@@ -2,7 +2,6 @@ package teamport.aether.world.type;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.colorizer.Colorizers;
 import net.minecraft.client.render.worldtype.WorldTypeFX;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
@@ -62,21 +61,10 @@ public class WorldTypeFXAether extends WorldTypeFX {
         float r;
         float g;
         float b;
-        int x1;
-        if (Colorizers.fog.isEnabled()) {
-            x1 = MathHelper.floor(x);
-            int y1 = MathHelper.floor(y);
-            int z1 = MathHelper.floor(z);
-            int color = Colorizers.fog.getColor(world, x1, y1, z1);
-            r = (color >> 16 & 255) / 255F;
-            g = (color >> 8 & 255) / 255F;
-            b = (color & 255) / 255F;
-        } else {
-            x1 = 0x8080a0;
-            r = (x1 >> 16 & 255) / 255.0F;
-            g = (x1 >> 8 & 255) / 255.0F;
-            b = (x1 & 255) / 255.0F;
-        }
+        int x1 = 0x8080a0;
+        r = (x1 >> 16 & 255) / 255.0F;
+        g = (x1 >> 8 & 255) / 255.0F;
+        b = (x1 & 255) / 255.0F;
 
         if (f2 < 0.0F)
             f2 = 0.0F;

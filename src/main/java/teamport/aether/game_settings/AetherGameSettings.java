@@ -6,7 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.options.components.BooleanOptionComponent;
 import net.minecraft.client.gui.options.components.OptionsCategory;
 import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
+import net.minecraft.client.gui.options.data.OptionsPage;
 import net.minecraft.client.gui.options.data.OptionsPages;
+import net.minecraft.core.item.ItemStack;
+import teamport.aether.blocks.AetherBlocks;
 
 @Environment(EnvType.CLIENT)
 public class AetherGameSettings {
@@ -23,9 +26,11 @@ public class AetherGameSettings {
     public static void registerSettings() {
         AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
 
-        OptionsPages.VIDEO.withComponent(new OptionsCategory("aether.options.video.aether")
-            .withComponent(new BooleanOptionComponent(gameSettings.aether$getFlickAccessoryIconsOption()))
-            .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
-        );
+        OptionsPage AETHER = new OptionsPage("gui.options.page.aether.title", new ItemStack(AetherBlocks.GRASS_AETHER))
+            .withComponent(new OptionsCategory("gui.options.page.aether.category.user_interface")
+                .withComponent(new BooleanOptionComponent(gameSettings.aether$getFlickAccessoryIconsOption()))
+                .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
+            );
+        OptionsPages.register(AETHER);
     }
 }

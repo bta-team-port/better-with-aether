@@ -215,9 +215,9 @@ public class MobBossSunspirit extends MobBossFlying {
         if (this.chatCooldown <= 0) {
 
             if (this.chatLog < START_FIGHT) {
-                MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog));
+                MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + chatLog));
                 if (this.chatLog >= 5 && this.chatLog < 8) {
-                    MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.chat_" + chatLog + "_1"));
+                    MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + chatLog + "_1"));
                 }
 
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
@@ -228,7 +228,7 @@ public class MobBossSunspirit extends MobBossFlying {
             }
 
             if (this.chatLog == START_FIGHT) {
-                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.start"));
+                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.start"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
                 ((AetherBossList) player).aether$TryAddBossList(this);
 
@@ -244,7 +244,7 @@ public class MobBossSunspirit extends MobBossFlying {
             }
 
             if (this.target == null) {
-                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.fight.repeat"));
+                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat"));
                 world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 ((AetherBossList) player).aether$TryAddBossList(this);
 
@@ -277,7 +277,7 @@ public class MobBossSunspirit extends MobBossFlying {
         world.players.stream()
             .filter(player -> player.distanceTo(this) < 32)
             .forEach(players -> {
-                MessageMaker.sendMessage(players, LIGHT_BLUE + TRANSLATOR.translateKey("aether.entity.boss_sunspirit.dies"));
+                MessageMaker.sendMessage(players, LIGHT_BLUE + TRANSLATOR.translateKey("boss_sunspirit.dies"));
                 players.triggerAchievement(AetherAchievements.GOLD);
                 this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
