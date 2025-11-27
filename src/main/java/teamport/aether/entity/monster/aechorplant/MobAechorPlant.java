@@ -41,6 +41,15 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (type == DamageType.FIRE) {
+            super.hurt(attacker, damage * 2, type);
+        }
+
+        return super.hurt(attacker, damage, type);
+    }
+
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
@@ -251,9 +260,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
     }
+
     public boolean hasTarget() {
         return hasTarget;
     }
+
     public float getSinage() {
         return sinage;
     }

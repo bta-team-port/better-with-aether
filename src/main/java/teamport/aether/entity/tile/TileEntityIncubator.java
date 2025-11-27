@@ -38,7 +38,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     @Override
     public String getNameTranslationKey() {
-        return "aether.container.incubator.name";
+        return "container.incubator.name";
     }
 
     @Override

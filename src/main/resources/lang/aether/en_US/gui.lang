@@ -9,3 +9,10 @@ aether.gui.un_missing_warn.proceed_0=Play Selected World
 aether.gui.un_missing_warn.proceed_1=Yes, Play Selected World!
 aether.gui.un_missing_warn.proceed_2=§eI AGREE TO CONTINUE.§r
 aether.gui.un_missing_warn.proceed_3=Continue
+
+model.category.entity.sheepuff.slider.color=Color: %s
+model.category.entity.sheepuff.slider.wool_state=State: %s
+
+model.category.entity.sentry.slider.state=State: %s
+
+model.category.entity.slider.slider.state=State: %s

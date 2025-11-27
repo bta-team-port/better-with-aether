@@ -813,7 +813,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         ENCHANTER_ACTIVE = station
             .setLuminance(13)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true)).setStatParent(() -> ENCHANTER_IDLE);
+            .build("enchanter.active", "enchanter_active", blockID("ENCHANTER_ACTIVE"), b -> new BlockLogicEnchanter(b, true))
+            .setStatParent(() -> ENCHANTER_IDLE);
 
         FREEZER_IDLE = station
             .build("freezer.idle", "freezer_idle", blockID("FREEZER_IDLE"), b -> new BlockLogicFreezer(b, false));
@@ -821,7 +822,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         FREEZER_ACTIVE = station
             .setLuminance(13)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true)).setStatParent(() -> FREEZER_IDLE);
+            .build("freezer.active", "freezer_active", blockID("FREEZER_ACTIVE"), b -> new BlockLogicFreezer(b, true))
+            .setStatParent(() -> FREEZER_IDLE);
 
         INCUBATOR_IDLE = station
             .build("incubator.idle", "incubator_idle", blockID("INCUBATOR_IDLE"), b -> new BlockLogicIncubator(b, false));
@@ -829,7 +831,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         INCUBATOR_ACTIVE = station
             .setLuminance(13)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build("incubator.active", "incubator_active", blockID("INCUBATOR_ACTIVE"), b -> new BlockLogicIncubator(b, true)).setStatParent(() -> INCUBATOR_IDLE);
+            .build("incubator.active", "incubator_active", blockID("INCUBATOR_ACTIVE"), b -> new BlockLogicIncubator(b, true))
+            .setStatParent(() -> INCUBATOR_IDLE);
 
         ///  M:STONE
         ORE_AMBROSIUM_HOLYSTONE = ores
@@ -930,19 +933,22 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
-            .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_BRONZE)).setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
+            .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_BRONZE))
+            .setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
 
         DOOR_DUNGEON_SILVER = dungeonStoneLocked
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
-            .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_SILVER)).setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
+            .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_SILVER))
+            .setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
 
         DOOR_DUNGEON_GOLD = dungeonStoneLocked
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
-            .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_GOLD)).setStatParent(() -> AetherItems.DOOR_DUNGEON_GOLD);
+            .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_GOLD))
+            .setStatParent(() -> AetherItems.DOOR_DUNGEON_GOLD);
 
 
         CHEST_DUNGEON_BRONZE = stone

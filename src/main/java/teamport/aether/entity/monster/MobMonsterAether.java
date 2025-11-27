@@ -23,12 +23,10 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
         if (super.hurt(attacker, i, type)) {
-            if (this.passenger != attacker && this.vehicle != attacker) {
-                if (attacker != this) {
-                    this.target = attacker;
-                }
-
+            if (this.passenger != attacker && this.vehicle != attacker && attacker != this) {
+                this.target = attacker;
             }
+
             return true;
         } else {
             return false;

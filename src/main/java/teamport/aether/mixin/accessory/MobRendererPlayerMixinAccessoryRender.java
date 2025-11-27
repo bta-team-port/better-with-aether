@@ -11,11 +11,11 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
-import net.minecraft.client.render.model.ModelPlayer;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
@@ -55,9 +55,6 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Shadow
     @Final
     private ModelBiped modelArmorChestplate;
-    @SuppressWarnings("java:S1161")
-    @Shadow
-    public abstract void render(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick);
     @Unique
     private final ModelBiped modelAccessories = new ModelBiped(1.1F);
     @Unique
@@ -84,27 +81,28 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             if (renderDispatcher.textureManager == null) return;
             renderDispatcher.textureManager.loadTexture(path).bind();
 
-            modelArmorChestplate.onGround = 0.0f;
-            modelArmorChestplate.isRiding = false;
-            modelArmorChestplate.setupAnimation(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0625f);
+            TextureManager textureManager = renderDispatcher.textureManager;
+            if (textureManager == null) return;
 
-            if (modelBipedMain instanceof ModelPlayer) {
-                if (isLeft) {
-                    GL11.glDisable(GL11.GL_CULL_FACE);
-                    modelArmorChestplate.armLeft.visible = true;
-                    modelArmorChestplate.armLeft.render(0.0625F);
-                } else {
-                    GL11.glDisable(GL11.GL_CULL_FACE);
-                    modelArmorChestplate.armRight.visible = true;
-                    modelArmorChestplate.armRight.render(0.0625F);
-                }
+            int currentTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+
+            textureManager.loadTexture(path).bind();
+
+            GL11.glDisable(GL11.GL_CULL_FACE);
+
+            modelArmorChestplate.onGround = 0.0F;
+            modelArmorChestplate.isRiding = false;
+            modelArmorChestplate.setupAnimation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+
+            if (isLeft) {
+                modelArmorChestplate.armLeft.visible = true;
+                modelArmorChestplate.armLeft.render(0.0625F);
+            } else {
+                modelArmorChestplate.armRight.visible = true;
+                modelArmorChestplate.armRight.render(0.0625F);
             }
-            modelArmorChestplate.armLeft.visible = false;
-            modelArmorChestplate.armRight.visible = false;
-            modelArmorChestplate.sneaking = modelBipedMain.sneaking;
-            modelArmorChestplate.holdingRightHand = modelBipedMain.holdingRightHand;
-            modelArmorChestplate.holdingLeftHand = modelBipedMain.holdingLeftHand;
-            modelArmorChestplate.holdingLarge = modelBipedMain.holdingLarge;
+
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture);
         }
     }
 
@@ -115,6 +113,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
+
     @WrapOperation(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
     private void renderPlayerTwo(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
@@ -124,6 +123,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         original.call(red, blue, green, 0.05F);
         GL11.glEnable(GL11.GL_BLEND);
     }
+
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
     @Expression("spectator")
     @ModifyExpressionValue(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 2))
@@ -131,6 +131,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
+
     @WrapOperation(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
     private void renderPlayerFour(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
@@ -140,19 +141,23 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         original.call(red, blue, green, 0.0F);
         GL11.glEnable(GL11.GL_BLEND);
     }
+
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"))
-    private void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+    private void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
         alphaTest.set(GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF));
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
     }
+
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("RETURN"))
-    private void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest")LocalFloatRef alphaTest) {
+    private void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
         GL11.glAlphaFunc(GL11.GL_GREATER, alphaTest.get());
     }
+
     @ModifyArg(method = "prepareArmor*", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
     private int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
+
     @SuppressWarnings({"java:S6541", "java:S1075"})
     @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))
     private boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {

@@ -161,14 +161,14 @@ public class MobBossValkyrie extends MobBoss {
         world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
 
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
-            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.peaceful"));
+            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("boss_valkyrie.peaceful"));
             world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             this.chatTime = 40;
             return true;
         }
 
         if (this.isReadyToDuel) {
-            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel"));
+            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("boss_valkyrie.duel"));
             this.chatTime = 40;
             return true;
         }
@@ -179,10 +179,10 @@ public class MobBossValkyrie extends MobBoss {
             if (itemstack.stackSize <= 0) {
                 entityplayer.destroyCurrentEquippedItem();
             }
-            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.duel_start"));
+            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("boss_valkyrie.duel_start"));
             this.isReadyToDuel = true;
         } else {
-            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.condition"));
+            MessageMaker.sendMessage(entityplayer, TRANSLATOR.translateKey("boss_valkyrie.condition"));
         }
         this.chatTime = 40;
         return true;
@@ -241,7 +241,7 @@ public class MobBossValkyrie extends MobBoss {
                 this.world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 0.5f, 1.0f);
                 player.triggerAchievement(AetherAchievements.SILVER);
 
-                MessageMaker.sendMessage(player, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.dies"));
+                MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
 
         super.onDeath(entityKilledBy);
@@ -261,7 +261,7 @@ public class MobBossValkyrie extends MobBoss {
         boolean flag = false;
 
         if (returnPoint == null) {
-            AetherMod.LOGGER.info("Queen Valk at {}, {}, {} has no return point!", x, y, z);
+            AetherMod.LOGGER.info("Queen Valkyrie at {}, {}, {} has no return point!", x, y, z);
             return;
         }
         WorldFeaturePoint p1 = new WorldFeaturePoint(this.returnPoint.getX() - 9, this.returnPoint.getY() - 3, this.returnPoint.getZ() - 16);
@@ -388,12 +388,12 @@ public class MobBossValkyrie extends MobBoss {
                 return false;
             }
             if (!world.getDifficulty().canHostileMobsSpawn()) {
-                MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.weakling"));
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
             } else {
                 String message = this.random.nextInt(2) == 0
-                    ? "aether.entity.boss_valkyrie.fight_weaklings"
-                    : "aether.entity.boss_valkyrie.collect_medals";
+                    ? "boss_valkyrie.fight_weaklings"
+                    : "boss_valkyrie.collect_medals";
                 world.playSoundAtEntity(null, this, "aether:mob.valkyrie.talk", 1.0f, 0.75F);
                 MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey(message));
             }
@@ -405,7 +405,7 @@ public class MobBossValkyrie extends MobBoss {
         if (this.target == null && attacker instanceof Player) {
             if (!world.getDifficulty().canHostileMobsSpawn()) {
                 if (this.chatTime <= 0) {
-                    MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.weakling"));
+                    MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.weakling"));
                     world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 0.75F);
                     this.chatTime = 40;
                 }
@@ -414,7 +414,7 @@ public class MobBossValkyrie extends MobBoss {
 
             // Lock dungeon and set boss target
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(world));
-            MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("aether.entity.boss_valkyrie.target"));
+            MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
             ((AetherBossList) attacker).aether$TryAddBossList(this);
 
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
@@ -440,23 +440,22 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.getHealth() < this.getMaxHealth() / 2) {
-            if (distance > 5.0F) {
-                double d = entity.x - this.x;
-                double d1 = entity.z - this.z;
-                if (this.attackTime == 0) {
-                    if (this.world != null && !this.world.isClientSide) {
-                        ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
-                        elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
-                        this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
-                        this.world.entityJoinedWorld(elementLightning);
-                    }
-                    this.attackTime = 50;
+        if (this.getHealth() < this.getMaxHealth() / 2 && distance > 5.0F) {
+            double d = entity.x - this.x;
+            double d1 = entity.z - this.z;
+            if (this.attackTime == 0) {
+                if (this.world != null && !this.world.isClientSide) {
+                    ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
+                    elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+                    this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
+                    this.world.entityJoinedWorld(elementLightning);
                 }
-                this.yRot = (float) (Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
-                this.hasAttacked = true;
+                this.attackTime = 50;
             }
+            this.yRot = (float) (Math.atan2(d1, d) * 180.0 / Math.PI) - 90.0F;
+            this.hasAttacked = true;
         }
+
 
         if (this.attackTime <= 0 && distance < 2.75F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;

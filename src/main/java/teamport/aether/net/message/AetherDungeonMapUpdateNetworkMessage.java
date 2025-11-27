@@ -15,7 +15,7 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
-import java.util.*;
+import java.util.UUID;
 
 public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
 

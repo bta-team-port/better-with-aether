@@ -39,7 +39,7 @@ public class TileEntityFreezer extends AetherTileEntityMachine {
 
     @Override
     public String getNameTranslationKey() {
-        return "aether.container.freezer.name";
+        return "container.freezer.name";
     }
 
     @Override

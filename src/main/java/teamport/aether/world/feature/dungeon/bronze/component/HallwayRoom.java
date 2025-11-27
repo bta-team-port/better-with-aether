@@ -3,16 +3,16 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon.adjustCornerForLining;
+import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon.placeWorldLining;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolumeWithPoint;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
-import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon.adjustCornerForLining;
-import static teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon.placeWorldLining;
 
 public class HallwayRoom extends BaseBronzeRoom {
     public HallwayRoom() {

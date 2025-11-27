@@ -3,7 +3,6 @@ package teamport.aether;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.core.net.NetworkManager;
 import net.minecraft.server.entity.player.PlayerServer;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;

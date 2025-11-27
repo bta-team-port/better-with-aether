@@ -179,7 +179,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         this.chatTime = 60;
         if (itemstack != null && itemstack.itemID == AetherItems.MEDAL_VICTORY.id && itemstack.stackSize >= 0) {
-            StringBuilder formatString = new StringBuilder("aether.entity.valkyrie.show_medal.");
+            StringBuilder formatString = new StringBuilder("valkyrie.show_medal.");
             if (itemstack.stackSize >= 10) {
                 formatString.append(1);
             } else if (itemstack.stackSize >= 5) {
@@ -191,7 +191,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             MessageMaker.sendMessage(entityplayer, message);
         } else {
             int pokey = this.random.nextInt(3) + 1;
-            String formatString = String.format("%s.%d", "aether.entity.valkyrie.interact", pokey);
+            String formatString = String.format("%s.%d", "valkyrie.interact", pokey);
             String message = AetherMod.TRANSLATOR.translateKey(formatString);
             MessageMaker.sendMessage(entityplayer, message);
         }
@@ -285,7 +285,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         if (attacker instanceof Player && this.world != null && this.world.getDifficulty().canHostileMobsSpawn()) {
             int pokey = this.random.nextInt(3) + 1;
             if (this.target == null && this.chatTime <= 0) {
-                String formatString = String.format("%s.%d", "aether.entity.valkyrie.duel_start", pokey);
+                String formatString = String.format("%s.%d", "valkyrie.duel_start", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
                 MessageMaker.sendMessage((Player) attacker, message);
                 this.chatTime = 60;
@@ -298,7 +298,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
             boolean flag = super.hurt(attacker, damage, type);
             if (flag && this.getHealth() <= 0) {
                 this.dead = true;
-                String formatString = String.format("%s.%d", "aether.entity.valkyrie.submit", pokey);
+                String formatString = String.format("%s.%d", "valkyrie.submit", pokey);
                 String message = AetherMod.TRANSLATOR.translateKey(formatString);
                 MessageMaker.sendMessage((Player) attacker, message);
                 this.animateHurt();
@@ -322,7 +322,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
                 Player player = (Player) entity;
                 if (player.getHealth() <= 0) {
                     int pokey = this.random.nextInt(3) + 1;
-                    String formatString = String.format("%s.%d", "aether.entity.valkyrie.attacked", pokey);
+                    String formatString = String.format("%s.%d", "valkyrie.attacked", pokey);
                     String message = AetherMod.TRANSLATOR.translateKey(formatString);
                     MessageMaker.sendMessage(player, message);
                     if (this.world != null) world.playSoundAtEntity(null, this, "aether:mob.valkyrie.laugh", 1.0f, 1.0f);
