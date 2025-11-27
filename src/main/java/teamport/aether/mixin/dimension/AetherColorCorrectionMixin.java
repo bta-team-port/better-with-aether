@@ -49,7 +49,7 @@ public abstract class AetherColorCorrectionMixin {
             this.gMod += 0.15F;
             this.bMod += 0.15F;
             this.saturation += 0.125F;
-            this.exposure -= 0.125F;
+            this.exposure += 0.0625F;
             this.contrast -= 0.05F;
             this.brightness += 0.05F;
             this.heatHaze = 0.0F;
