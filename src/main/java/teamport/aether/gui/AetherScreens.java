@@ -13,4 +13,6 @@ public interface AetherScreens {
     void aether$displayIncubatorScreen(TileEntityIncubator tileEntity);
 
     void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity);
+
+    void aether$displayLorebookScreen(String loreID);
 }

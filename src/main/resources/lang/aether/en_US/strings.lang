@@ -20,11 +20,11 @@ record.nether=Nether Menu
 
 
 #Container
-aether.container.enchanter.name=Enchanter
-aether.container.freezer.name=Freezer
-aether.container.incubator.name=Incubator
+container.enchanter.name=Enchanter
+container.freezer.name=Freezer
+container.incubator.name=Incubator
 
-aether.container.chest.trapped.name=Trapped Chest
+container.chest.trapped.name=Trapped Chest
 
 damagetype.lightning=Lightning
 damagetype.holy=Holy

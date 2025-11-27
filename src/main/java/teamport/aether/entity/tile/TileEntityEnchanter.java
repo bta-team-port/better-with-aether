@@ -26,7 +26,7 @@ public class TileEntityEnchanter extends AetherTileEntityMachine {
 
     @Override
     public String getNameTranslationKey() {
-        return "aether.container.enchanter.name";
+        return "container.enchanter.name";
     }
 
     @Override

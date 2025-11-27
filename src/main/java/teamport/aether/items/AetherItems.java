@@ -5,6 +5,7 @@ import net.minecraft.core.item.*;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.item.tag.ItemTags;
 import net.minecraft.core.util.helper.DamageType;
+import net.minecraft.core.world.Dimension;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
@@ -43,6 +44,7 @@ import teamport.aether.items.item_tool.item_tool_zanite.ItemToolAxeZanite;
 import teamport.aether.items.item_tool.item_tool_zanite.ItemToolPickaxeZanite;
 import teamport.aether.items.item_tool.item_tool_zanite.ItemToolShovelZanite;
 import teamport.aether.items.item_tool.item_tool_zanite.ItemToolSwordZanite;
+import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.ItemBuilder;
 
 import static teamport.aether.AetherConfig.itemID;
@@ -232,6 +234,11 @@ public final class AetherItems {
     public static Item PROJECTILE_ICE;
     public static Item PROJECTILE_LIGHTNING;
 
+    public static Item BOOK_LORE_OVERWORLD;
+    public static Item BOOK_LORE_NETHER;
+    public static Item BOOK_LORE_AETHER;
+    public static Item BOOK_LORE_DRIFT;
+
     private static boolean hasInit = false;
 
     public static void init() {
@@ -376,6 +383,19 @@ public final class AetherItems {
         PROJECTILE_LIGHTNING = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
             .build(new Item("projectile.lightning", itemKey("projectile_lightning"), itemID("PROJECTILE_LIGHTNING")));
+
+
+        BOOK_LORE_OVERWORLD = new ItemBuilder(MOD_ID)
+            .build(new ItemLorebook("book.lore.overworld", itemKey("book_lore_overworld"), itemID("BOOK_LORE_OVERWORLD"), Dimension.OVERWORLD.languageKey));
+
+        BOOK_LORE_NETHER = new ItemBuilder(MOD_ID)
+            .build(new ItemLorebook("book.lore.nether", itemKey("book_lore_nether"), itemID("BOOK_LORE_NETHER"), Dimension.NETHER.languageKey));
+
+        BOOK_LORE_AETHER = new ItemBuilder(MOD_ID)
+            .build(new ItemLorebook("book.lore.aether", itemKey("book_lore_aether"), itemID("BOOK_LORE_AETHER"), AetherDimension.getAether().languageKey));
+
+        BOOK_LORE_DRIFT = new ItemBuilder(MOD_ID)
+            .build(new ItemLorebook("book.lore.drift", itemKey("book_lore_drift"), itemID("BOOK_LORE_DRIFT"), Dimension.PARADISE.languageKey));
     }
 
     public static void registerTool() {

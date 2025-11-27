@@ -32,6 +32,14 @@ public class AetherAchievements {
         .setType(Achievement.TYPE_SPECIAL)
         .registerAchievement();
 
+    public static final Achievement LORE = new Achievement
+        (key("lore"), lang("lore"), AetherItems.BOOK_LORE_OVERWORLD, HOSTILE_PARADISE)
+        .registerAchievement();
+    public static final Achievement LORECEPTION = new Achievement
+        (key("loreception"), lang("loreception"), AetherItems.BOOK_LORE_OVERWORLD, LORE)
+        .setType(Achievement.TYPE_SPECIAL)
+        .registerAchievement();
+
     public static final Achievement POISON = new Achievement
         (key("poison"), lang("poison"), AetherItems.BUCKET_SKYROOT_POISON, HOSTILE_PARADISE)
         .registerAchievement();

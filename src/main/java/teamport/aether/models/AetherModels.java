@@ -279,6 +279,11 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_ICE, null).setIcon("aether:item/projectile_ice"));
         dispatcher.addDispatch(new ItemModelStandard(AetherItems.PROJECTILE_LIGHTNING, null).setIcon("aether:item/projectile_lightning"));
 
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BOOK_LORE_OVERWORLD, null).setIcon("aether:item/book_lore_overworld"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BOOK_LORE_NETHER, null).setIcon("aether:item/book_lore_nether"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BOOK_LORE_AETHER, null).setIcon("aether:item/book_lore_aether"));
+        dispatcher.addDispatch(new ItemModelStandard(AetherItems.BOOK_LORE_DRIFT, null).setIcon("aether:item/book_lore_drift"));
+
 
         dispatcher.addDispatch((new ItemModelBlock((ItemBlock<?>) AetherBlocks.TORCH_AMBROSIUM.asItem())).setFullBright());
 

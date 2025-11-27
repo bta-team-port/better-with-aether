@@ -23,7 +23,7 @@ public class TileEntityMimic extends TileEntityChest implements Container {
     @Override
     public String getNameTranslationKey() {
         if (nickname.isEmpty()) {
-            return "aether.container.chest.trapped.name";
+            return "container.chest.trapped.name";
         }
         if (chatColor < 0) {
             return nickname;
