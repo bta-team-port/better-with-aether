@@ -10,8 +10,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.entity.tile.*;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.gui.MenuLorebook;
-import teamport.aether.gui.ScreenLorebook;
 import teamport.aether.gui.machine.enchanter.ScreenEnchanter;
 import teamport.aether.gui.machine.freezer.ScreenFreezer;
 import teamport.aether.gui.machine.incubator.ScreenIncubator;
@@ -39,9 +37,5 @@ public abstract class PlayerLocalMixinAetherScreens extends Player implements Ae
     @Override
     public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {
         this.mc.displayScreen(new ScreenSignSkyrootEditor(tileEntity));
-    }
-    @Override
-    public void aether$displayLorebookScreen(String loreID) {
-        this.mc.displayScreen(new ScreenLorebook(new MenuLorebook(this.inventory), loreID));
     }
 }

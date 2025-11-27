@@ -113,9 +113,6 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         page.addAchievement(AetherAchievements.SHOOTER, 1, -3);
         page.addAchievement(AetherAchievements.HIT_ZEPHYR, 2, -5);
 
-        page.addAchievement(AetherAchievements.LORE, 0, -4);
-        page.addAchievement(AetherAchievements.LORECEPTION, 2, -6);
-
         page.addAchievement(AetherAchievements.POISON, -1, -3);
         page.addAchievement(AetherAchievements.REMEDY, -2, -5);
 
