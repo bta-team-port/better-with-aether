@@ -9,9 +9,13 @@ public class MobUtil {
         Entity target, Entity attacker,
         float knockBackStrength, float lift
     ) {
+        if (knockBackStrength < 0.001) {
+            throw new RuntimeException("Cannot multiply speed by zero!");
+        }
+
         double distX = attacker.x - target.x;
         double distZ = attacker.z - target.z;
-        float horizonalDistance = MathHelper.sqrt(distX * distX + distZ * distZ);
+        float horizonalDistance = Math.max(0.001F, MathHelper.sqrt(distX * distX + distZ * distZ));
 
         // half momentum, to slow the player down
         target.xd /= 2.0F; // velocity x
