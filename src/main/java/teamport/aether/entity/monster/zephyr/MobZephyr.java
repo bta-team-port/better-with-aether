@@ -103,7 +103,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         double d = this.waypointX - this.x;
         double d1 = this.waypointY - this.y;
         double d2 = this.waypointZ - this.z;
-        double d3 = MathHelper.sqrt(d * d + d1 * d1 + d2 * d2);
+        double d3 =  Math.max(0.001F, MathHelper.sqrt(d * d + d1 * d1 + d2 * d2));
         if (d3 < 1.0 || d3 > 60.0) {
             this.waypointX = this.x + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.waypointY = this.y + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
