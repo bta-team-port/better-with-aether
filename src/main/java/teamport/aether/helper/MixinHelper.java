@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.entity.player.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
@@ -25,18 +26,23 @@ import java.util.Map;
 import static teamport.aether.AetherMod.LOGGER;
 
 public class MixinHelper {
-    private MixinHelper() {}
+    private MixinHelper() {
+    }
+
     public static final int ANIMATION_LENGTH = 30;
     public static final Map<Integer, Integer> BLOCK_TO_BECOME = new HashMap<>();
+
     static {
         BLOCK_TO_BECOME.put(Blocks.PUMPKIN_CARVED_ACTIVE.id(), Blocks.PUMPKIN_CARVED_IDLE.id());
         BLOCK_TO_BECOME.put(Blocks.BRAZIER_ACTIVE.id(), Blocks.BRAZIER_INACTIVE.id());
         BLOCK_TO_BECOME.put(Blocks.PUMICE_WET.id(), Blocks.PUMICE_DRY.id());
         BLOCK_TO_BECOME.put(Blocks.COBBLE_NETHERRACK_IGNEOUS.id(), Blocks.COBBLE_NETHERRACK.id());
     }
+
     public static int fireResistanceCount(ContainerInventory inventory) {
         return ContainerHelper.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
     }
+
     public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {
         if (((EntityAccessor) player).getRandom().nextFloat() < (double) 0.05F) {
             player.inventory.damageArmor(damage);
@@ -46,11 +52,13 @@ public class MixinHelper {
         }
         ParticleMaker.spawnSmokeParticles(player.world, x, y, z, bbHeight, bbWidth);
     }
+
     public static boolean isImmuneToFire(MobWolf mobWolf) {
         ArmorMaterial armorMaterial = mobWolf.getArmorMaterial();
         if (armorMaterial == null) return false;
         return armorMaterial.equals(AetherArmorMaterial.PHOENIX);
     }
+
     public static boolean isBrokenAABB(AABB aabb) {
         double diffX = Math.abs(aabb.maxX - aabb.minX);
         double diffY = Math.abs(aabb.maxY - aabb.minY);
@@ -63,6 +71,7 @@ public class MixinHelper {
             || Double.isNaN(diffY)
             || Double.isNaN(diffZ);
     }
+
     public static <T> List<T> preventStupidShit(World world, Class<T> ofClass, Entity entity, AABB aabb, Operation<List<T>> original) {
         if (MixinHelper.isBrokenAABB(aabb)) {
             if (entity != null) {
@@ -90,7 +99,8 @@ public class MixinHelper {
         }
         return entity != null ? original.call(entity, aabb) : original.call(ofClass, aabb);
     }
-    public static void renderShieldVignette(TextureManager textureManager,  int xSize, int ySize) {
+
+    public static void renderShieldVignette(TextureManager textureManager, int xSize, int ySize) {
         GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -116,14 +126,15 @@ public class MixinHelper {
         GL11.glPopMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
+
     public static int mixColor(int colorA, int colorB, float ratio) {
         int alphaA = Color.alphaFromInt(colorA);
-        int redA   = Color.redFromInt(colorA);
-        int blueA  = Color.blueFromInt(colorA);
+        int redA = Color.redFromInt(colorA);
+        int blueA = Color.blueFromInt(colorA);
         int greenA = Color.greenFromInt(colorA);
         int alphaB = Color.alphaFromInt(colorB);
-        int redB   = Color.redFromInt(colorB);
-        int blueB  = Color.blueFromInt(colorB);
+        int redB = Color.redFromInt(colorB);
+        int blueB = Color.blueFromInt(colorB);
         int greenB = Color.greenFromInt(colorB);
 
         int alphaRes = (int) (alphaA * ratio + alphaB * (1 - ratio));
