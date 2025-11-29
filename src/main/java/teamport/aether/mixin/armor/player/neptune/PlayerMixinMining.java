@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.helper.ContainerHelper;
+import teamport.aether.entity.player.ContainerHelper;
 import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
