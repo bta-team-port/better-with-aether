@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
-import teamport.aether.helper.MobUtil;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.item_tool.ItemToolAxeAether;
 import turniplabs.halplibe.helper.EnvironmentHelper;

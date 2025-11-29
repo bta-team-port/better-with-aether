@@ -5,7 +5,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ToolMaterial;
 import net.minecraft.core.util.helper.DamageType;
-import teamport.aether.helper.MobUtil;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.item_tool.ItemToolSwordAether;
 

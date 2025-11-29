@@ -1,4 +1,4 @@
-package teamport.aether.helper;
+package teamport.aether.entity.boss;
 
 import java.util.Random;
 
