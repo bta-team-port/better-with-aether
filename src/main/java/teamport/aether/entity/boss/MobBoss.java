@@ -14,7 +14,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.helper.NameGenerator;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;

@@ -4,7 +4,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
-import teamport.aether.helper.MobUtil;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.items.accessory.ItemGloves;
 
 public class ItemGlovesGravitite extends ItemGloves {

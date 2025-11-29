@@ -13,7 +13,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.helper.NameGenerator;
+import teamport.aether.entity.boss.NameGenerator;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;

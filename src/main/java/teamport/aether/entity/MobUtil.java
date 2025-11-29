@@ -1,4 +1,4 @@
-package teamport.aether.helper;
+package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.util.helper.MathHelper;

@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.AetherMobFallingToOverworld;
-import teamport.aether.helper.MobUtil;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 
