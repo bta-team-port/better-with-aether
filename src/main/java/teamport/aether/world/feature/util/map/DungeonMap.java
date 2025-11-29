@@ -7,6 +7,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.chunk.Chunk;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
@@ -183,8 +184,8 @@ public class DungeonMap {
     }
 
     protected static boolean chunkWithinRadius(Player player, int chunkX, int chunkZ) {
-        int playerChunkX = Math.floorDiv((int) player.x, 16);
-        int playerChunkZ = Math.floorDiv((int) player.z, 16);
+        int playerChunkX = Math.floorDiv((int) player.x, Chunk.CHUNK_SIZE_X);
+        int playerChunkZ = Math.floorDiv((int) player.z, Chunk.CHUNK_SIZE_Z);
 
         return (
             chunkX >= playerChunkX - AetherDimension.DUNGEON_GENERATION_RADIUS &&
@@ -194,7 +195,6 @@ public class DungeonMap {
         );
     }
 
-    public static final int DUNGEON_GENERATION_RADIUS = 12;
     private static final int ATTEMPT_GENERATE_COOLDOWN = Global.TICKS_PER_SECOND * 2;
     private static int currGenerateCooldown = 0;
 
@@ -210,8 +210,8 @@ public class DungeonMap {
                             && !dungeonLogic.isGenerated()
                             && chunkWithinRadius(
                             player,
-                            Math.floorDiv(dungeonLogic.position.getX(), DUNGEON_GENERATION_RADIUS),
-                            Math.floorDiv(dungeonLogic.position.getZ(), DUNGEON_GENERATION_RADIUS)
+                            Math.floorDiv(dungeonLogic.position.getX(), Chunk.CHUNK_SIZE_X),
+                            Math.floorDiv(dungeonLogic.position.getZ(), Chunk.CHUNK_SIZE_Z)
                         )
                     ) { dungeonLogic.generate(world); }
                 }
