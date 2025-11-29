@@ -8,7 +8,7 @@ import teamport.aether.helper.Pair;
 import teamport.aether.helper.unboxed.IntPair;
 
 import static net.minecraft.core.util.helper.Direction.NORTH;
-import static teamport.aether.helper.MetadataHelper.*;
+import static teamport.aether.world.feature.util.MetadataHelper.*;
 
 public class WorldFeatureBlock extends WorldFeaturePoint {
     private static final byte MASK_DIRECTION = 3;

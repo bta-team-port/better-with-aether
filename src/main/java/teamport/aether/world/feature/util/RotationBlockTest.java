@@ -1,16 +1,14 @@
-package teamport.aether.world.feature;
+package teamport.aether.world.feature.util;
 
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.world.feature.util.WorldFeatureBlock;
-import teamport.aether.world.feature.util.WorldFeatureComponent;
 
 import java.util.Random;
 
-import static teamport.aether.helper.MetadataHelper.getTorchMetadataFromDirection;
+import static teamport.aether.world.feature.util.MetadataHelper.getTorchMetadataFromDirection;
 import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
