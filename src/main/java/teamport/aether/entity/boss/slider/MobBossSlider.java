@@ -24,7 +24,7 @@ import teamport.aether.blocks.dungeon.BlockLogicLocked;
 import teamport.aether.blocks.dungeon.BlockLogicTrapped;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
-import teamport.aether.helper.MessageMaker;
+import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
@@ -434,14 +434,11 @@ public class MobBossSlider extends MobBoss {
     public Player findPlayerToAttack() {
         if (this.world == null) return null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 32.0F);
-
         if (entityplayer == null) return null;
-
         if ((this.canEntityBeSeen(entityplayer) && entityplayer.gamemode.areMobsHostile())) {
             ((AetherBossList) entityplayer).aether$TryAddBossList(this);
             return entityplayer;
         }
-
         return null;
     }
 
@@ -452,7 +449,7 @@ public class MobBossSlider extends MobBoss {
         double deltaY = this.y - entity.y;
         double deltaZ = this.z - entity.z;
 
-        if (Math.abs(deltaY) >= entity.bbHeight * 1.5) {
+        if (Math.abs(deltaY) >= entity.bbHeight) {
             return deltaY < 0 ? Direction.UP : Direction.DOWN;
         } else if (Math.abs(deltaX) > Math.abs(deltaZ)) {
             return deltaX < 0 ? Direction.EAST : Direction.WEST;
@@ -470,105 +467,118 @@ public class MobBossSlider extends MobBoss {
     public void fireHurt() {
     }
 
+    @Override
+    public void lavaHurt() {
+    }
+
     @SuppressWarnings("java:S6541")
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
-            this.setHealthRaw(0);
-            this.playDeathSound();
-            this.onDeath(null);
-            return true;
+            return killCommand();
         }
-        if (this.isAwake() && type == DamageType.BLAST) return super.hurt(attacker, damage / 4, type);
-
-        if (attacker instanceof Player) {
-            ItemStack item = ((Player) attacker).inventory.getCurrentItem();
-
-            if (item != null && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
-                tryAwake();
-                if (!((Player) attacker).gamemode.areMobsHostile()) creativeAttackersList.add((Player) attacker);
-
-                this.target = attacker;
-                ((AetherBossList) attacker).aether$TryAddBossList(this);
-
-                double a = Math.abs(this.x - attacker.x);
-                double c = Math.abs(this.z - attacker.z);
-                if (a > c) {
-                    this.deformZ = 1;
-                    this.deformY = 0;
-                    if (this.x > attacker.x) {
-                        this.deformZ = -1;
-                    }
-                } else {
-                    this.deformY = 1;
-                    this.deformZ = 0;
-                    if (this.z > attacker.z) {
-                        this.deformY = -1;
-                    }
-                }
-
-                this.deformX = 0.7F - this.getHealth() / 875.0F;
-
-                for (int i = 0; i < (Math.min(10, damage + random.nextInt(2)) * 32) / 10; i++) {
-                    // it really doesn't matter if they are inverted somewhere... the slider is square.
-                    float faceX = 2 * random.nextFloat();
-                    float faceY = 2 * random.nextFloat();
-
-                    float posX;
-                    float posY;
-                    float posZ;
-                    Direction dir = Direction.directions[random.nextInt(Direction.directions.length)];
-                    switch (dir) {
-                        case WEST:
-                            posX = (float) (x - 1);
-                            posY = (float) (y + faceY);
-                            posZ = (float) (z - 1 + faceX);
-                            break;
-
-                        case EAST:
-                            posX = (float) (x + 1);
-                            posY = (float) (y + faceY);
-                            posZ = (float) (z - 1 + faceX);
-                            break;
-
-                        case SOUTH:
-                            posX = (float) (x - 1 + faceX);
-                            posY = (float) (y + faceY);
-                            posZ = (float) (z + 1);
-                            break;
-
-                        case NORTH:
-                            posX = (float) (x - 1 + faceX);
-                            posY = (float) (y + faceY);
-                            posZ = (float) (z - 1);
-                            break;
-
-                        case DOWN:
-                            posX = (float) (x - 1 + faceX);
-                            posY = (float) (y);
-                            posZ = (float) (z - 1 + faceY);
-                            break;
-
-                        case UP:
-                        default:
-                            posX = (float) (x - 1 + faceX);
-                            posY = (float) (y + 2);
-                            posZ = (float) (z - 1 + faceY);
-                            break;
-                    }
-
-                    ParticleMaker.spawnParticle(world, "block", posX, posY, posZ, 0, 0, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
-                }
-
-                return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
-            }
-
+        if (this.isAwake() && type == DamageType.BLAST) {
+            return super.hurt(attacker, damage / 4, type);
+        }
+        if (!(attacker instanceof Player)) {
+            return false;
+        }
+        ItemStack item = ((Player) attacker).inventory.getCurrentItem();
+        if (item == null || (!(item.getItem() instanceof ItemToolPickaxe) && !(item.getItem() instanceof ItemToolPickaxeAether))) {
             if (!this.isAwake()) {
                 String message = "<" + ((Player) attacker).getDisplayName() + "> " + I18n.getInstance().translateKey("boss_slider.hit_fail");
                 MessageMaker.sendMessage((Player) attacker, message);
             }
+            return false;
         }
-        return false;
+        tryAwake();
+        if (!((Player) attacker).gamemode.areMobsHostile()) {
+            creativeAttackersList.add((Player) attacker);
+        }
+        this.target = attacker;
+        ((AetherBossList) attacker).aether$TryAddBossList(this);
+        performDeformation(attacker);
+        damageParticle(damage);
+        return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
+    }
+
+    private void performDeformation(Entity attacker) {
+        double a = Math.abs(this.x - attacker.x);
+        double c = Math.abs(this.z - attacker.z);
+        if (a > c) {
+            this.deformZ = 1;
+            this.deformY = 0;
+            if (this.x > attacker.x) {
+                this.deformZ = -1;
+            }
+        } else {
+            this.deformY = 1;
+            this.deformZ = 0;
+            if (this.z > attacker.z) {
+                this.deformY = -1;
+            }
+        }
+        this.deformX = 0.7F - this.getHealth() / 875.0F;
+    }
+
+    private void damageParticle(int damage) {
+        for (int i = 0; i < (Math.min(10, damage + random.nextInt(2)) * 32) / 10; i++) {
+            // it really doesn't matter if they are inverted somewhere... the slider is square.
+            float faceX = 2 * random.nextFloat();
+            float faceY = 2 * random.nextFloat();
+
+            float posX;
+            float posY;
+            float posZ;
+            Direction dir = Direction.directions[random.nextInt(Direction.directions.length)];
+            switch (dir) {
+                case WEST:
+                    posX = (float) (x - 1);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z - 1 + faceX);
+                    break;
+
+                case EAST:
+                    posX = (float) (x + 1);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z - 1 + faceX);
+                    break;
+
+                case SOUTH:
+                    posX = (float) (x - 1 + faceX);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z + 1);
+                    break;
+
+                case NORTH:
+                    posX = (float) (x - 1 + faceX);
+                    posY = (float) (y + faceY);
+                    posZ = (float) (z - 1);
+                    break;
+
+                case DOWN:
+                    posX = (float) (x - 1 + faceX);
+                    posY = (float) (y);
+                    posZ = (float) (z - 1 + faceY);
+                    break;
+
+                case UP:
+                default:
+                    posX = (float) (x - 1 + faceX);
+                    posY = (float) (y + 2);
+                    posZ = (float) (z - 1 + faceY);
+                    break;
+            }
+
+            ParticleMaker.spawnParticle(world, "block", posX, posY, posZ, 0, 0, 0, AetherBlocks.COBBLE_HOLYSTONE.id());
+        }
+    }
+
+    private boolean killCommand() {
+        this.setHealthRaw(0);
+        this.playDeathSound();
+        this.onDeath(null);
+        return true;
     }
 
     @Override
@@ -649,16 +659,13 @@ public class MobBossSlider extends MobBoss {
         if (isAwake() && !doingSlam()) {
             if (isAngry()) {
                 return "/assets/aether/textures/entity/boss_slider/slider_awake_red.png";
-            } else {
-                return "/assets/aether/textures/entity/boss_slider/slider_awake.png";
             }
-        } else {
-            if (isAngry()) {
-                return "/assets/aether/textures/entity/boss_slider/slider_sleep_red.png";
-            } else {
-                return "/assets/aether/textures/entity/boss_slider/slider_sleep.png";
-            }
+            return "/assets/aether/textures/entity/boss_slider/slider_awake.png";
         }
+        if (isAngry()) {
+            return "/assets/aether/textures/entity/boss_slider/slider_sleep_red.png";
+        }
+        return "/assets/aether/textures/entity/boss_slider/slider_sleep.png";
     }
 
     @Override
