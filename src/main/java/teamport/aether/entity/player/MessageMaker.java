@@ -1,4 +1,4 @@
-package teamport.aether.helper;
+package teamport.aether.entity.player;
 
 import net.minecraft.core.entity.player.Player;
 import turniplabs.halplibe.helper.EnvironmentHelper;

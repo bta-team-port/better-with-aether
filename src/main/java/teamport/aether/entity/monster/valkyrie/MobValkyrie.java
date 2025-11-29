@@ -17,7 +17,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.helper.MessageMaker;
+import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;

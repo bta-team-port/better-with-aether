@@ -20,7 +20,7 @@ import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
-import teamport.aether.helper.MessageMaker;
+import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.map.DungeonMap;

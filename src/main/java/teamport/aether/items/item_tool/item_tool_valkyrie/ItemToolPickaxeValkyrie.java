@@ -14,7 +14,7 @@ import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.compat.commandly.AetherCommandlyRules;
-import teamport.aether.helper.AetherUtil;
+import teamport.aether.entity.player.AetherUtil;
 import teamport.aether.items.AetherHasCustomDamageType;
 import teamport.aether.items.item_tool.ItemToolPickaxeAether;
 
