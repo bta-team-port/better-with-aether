@@ -8,6 +8,7 @@ import teamport.aether.world.feature.dungeon.bronze.component.*;
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 import teamport.aether.world.feature.terrain.*;
+import teamport.aether.world.feature.util.RotationBlockTest;
 
 import static net.minecraft.core.net.command.util.CommandHelper.registerWorldFeatureClass;
 

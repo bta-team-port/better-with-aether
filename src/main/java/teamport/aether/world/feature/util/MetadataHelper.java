@@ -1,4 +1,4 @@
-package teamport.aether.helper;
+package teamport.aether.world.feature.util;
 
 
 import net.minecraft.core.block.BlockLogicTorch;
