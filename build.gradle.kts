@@ -132,45 +132,20 @@ tasks {
         }
     }
     processResources {
-        val stringModVersion = modVersion.get()
-        val stringLoaderVersion = libs.versions.loader.get()
-        val stringJavaVersion = libs.versions.java.get()
-        val stringDragonflyVersion = libs.versions.dragonfly.get()
-        val stringHalplibeVersion = libs.versions.halplibe.get()
-        val stringModMenuVersion = libs.versions.modMenu.get()
-
-        val stringCatalystCoreVersion = libs.versions.catalyst.core.get()
-        val stringCatalystEffectsVersion = libs.versions.catalyst.effects.get()
-        val stringUselessNumericalVersion = libs.versions.uselessNumerical.get()
-
-        inputs.property("modVersion", stringModVersion)
-        inputs.property("loaderVersion", stringLoaderVersion)
-        inputs.property("javaVersion", stringJavaVersion)
-        inputs.property("dragonflyVersion", stringDragonflyVersion)
-        inputs.property("halplibeVersion", stringHalplibeVersion)
-        inputs.property("modMenuVersion", stringModMenuVersion)
-
-        inputs.property("catalystCoreVersion", stringCatalystCoreVersion)
-        inputs.property("catalystEffectsVersion", stringCatalystEffectsVersion)
-        inputs.property("uselessNumericalVersion", stringUselessNumericalVersion)
-
-        filesMatching("fabric.mod.json") {
-            expand(
-                mapOf(
-                    "version" to stringModVersion,
-                    "fabricloader" to stringLoaderVersion,
-                    "dragonfly" to stringDragonflyVersion,
-                    "halplibe" to stringHalplibeVersion,
-                    "java" to stringJavaVersion,
-                    "modmenu" to stringModMenuVersion,
-
-                    "catalystcore" to stringCatalystCoreVersion,
-                    "catalysteffects" to stringCatalystEffectsVersion,
-                    "uselessnumerical" to stringUselessNumericalVersion
-                )
-            )
-        }
-        filesMatching("**/*.mixins.json") { expand(mapOf("java" to stringJavaVersion)) }
+        val resourceMap = mapOf(
+            "version" to modVersion.get(),
+            "fabricloader" to libs.versions.loader.get(),
+            "dragonfly" to libs.versions.dragonfly.get(),
+            "halplibe" to libs.versions.halplibe.get(),
+            "java" to libs.versions.java.get(),
+            "modmenu" to libs.versions.modMenu.get(),
+            "catalystcore" to libs.versions.catalyst.core.get(),
+            "catalysteffects" to libs.versions.catalyst.effects.get(),
+            "uselessnumerical" to libs.versions.uselessNumerical.get()
+        )
+        inputs.properties(resourceMap)
+        filesMatching("fabric.mod.json") { expand(resourceMap) }
+        filesMatching("**/*.mixins.json") { expand(resourceMap.filterKeys { it == "java" }) }
     }
 }
 // Removes LWJGL2 dependencies
