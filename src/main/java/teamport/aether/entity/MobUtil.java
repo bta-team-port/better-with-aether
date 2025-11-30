@@ -5,6 +5,8 @@ import net.minecraft.core.util.helper.MathHelper;
 
 public class MobUtil {
 
+    private MobUtil(){}
+
     public static void knockback(
         Entity target, Entity attacker,
         float knockBackStrength, float lift
@@ -31,5 +33,24 @@ public class MobUtil {
         target.xo = target.x;
         target.yo = target.y;
         target.zo = target.z;
+    }
+
+
+    public static boolean multiHit(Entity attacker, Entity victim, DamageInstance ... instances){
+        if(instances == null){
+            return false;
+        }
+        if(instances.length < 2){
+            DamageInstance instance = instances[0];
+            return victim.hurt(attacker, instance.getDamage(), instance.getType());
+        }
+        boolean cumulativeAccept = true;
+        int cumulativeDamage = 0;
+        for (int i = 0, instancesLength = instances.length; i < instancesLength; i++) {
+            DamageInstance instance = instances[i];
+            cumulativeDamage += instance.damage;
+            cumulativeAccept = victim.hurt(attacker, cumulativeDamage, instance.getType());
+        }
+        return cumulativeAccept;
     }
 }
