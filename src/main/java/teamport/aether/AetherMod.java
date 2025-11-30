@@ -20,8 +20,12 @@ import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
+import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.items.AetherItems;
 import teamport.aether.items.accessory.ItemTrinket;
+import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.lookup.LookupFuelFreezer;
+import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
 import teamport.aether.world.AetherDimension;
@@ -106,6 +110,10 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void afterGameStart() {
         AetherEffects.init();
+        LookupFuelEnchanter.init();
+        LookupFuelFreezer.init();
+        LookupFuelIncubator.init();
+        MimicRegistry.init();
 
         TRANSLATOR = I18n.getInstance();
 
