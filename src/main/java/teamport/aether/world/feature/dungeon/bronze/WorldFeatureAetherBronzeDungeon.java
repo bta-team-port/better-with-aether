@@ -11,7 +11,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import teamport.aether.AetherMod;
 import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.api.AetherPlugin;
+import teamport.aether.compat.AetherPlugin;
 import teamport.aether.helper.AetherMathHelper;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.items.AetherItems;
