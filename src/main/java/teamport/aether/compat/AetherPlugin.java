@@ -1,4 +1,4 @@
-package teamport.aether.api;
+package teamport.aether.compat;
 
 import teamport.aether.lookup.LookupFuelEnchanter;
 import teamport.aether.lookup.LookupFuelFreezer;
