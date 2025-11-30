@@ -9,7 +9,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import teamport.aether.AetherMod;
-import teamport.aether.compat.AetherPlugin;
+import teamport.aether.api.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
