@@ -16,6 +16,8 @@ public class MimicRegistry {
     public final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
     public static final MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
 
+    public static void init(){/* just to load this class*/}
+
     protected MimicRegistry() {
         this.register();
     }
