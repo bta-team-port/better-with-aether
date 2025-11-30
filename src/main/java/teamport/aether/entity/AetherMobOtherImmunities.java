@@ -1,6 +1,6 @@
 package teamport.aether.entity;
 
-public interface AetherMobImmuneToSpikes {
+public interface AetherMobOtherImmunities {
     default boolean canTakeDamageFromSpikes() {
         return false;
     }

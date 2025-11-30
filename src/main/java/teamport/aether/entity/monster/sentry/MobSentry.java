@@ -10,11 +10,11 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.entity.AetherMobImmuneToSpikes;
+import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.items.item_tool.ItemToolPickaxeAether;
 
-public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobImmuneToSpikes {
+public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobOtherImmunities {
     private int jumpDelay;
     private int cooldownInactive;
     private boolean activated;
