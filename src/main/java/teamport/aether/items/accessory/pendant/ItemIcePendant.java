@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import teamport.aether.entity.player.PlayerUntil;
 
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
@@ -33,10 +34,9 @@ public class ItemIcePendant extends ItemPendant {
             return;
         }
         Vec3 playerPos = Vec3.getPermanentVec3(player.x, player.y - player.bbHeight, player.z);
-        Vec3 playerNextPos = Vec3.getPermanentVec3(player.x + player.xd, player.y + player.yd - player.bbHeight - 1, player.z + player.zd);
+        Vec3 playerNextPos = Vec3.getPermanentVec3(player.x + player.xd, player.y - player.bbHeight + player.yd - 1, player.z + player.zd);
         HitResult hits = world.checkBlockCollisionBetweenPoints(playerPos, playerNextPos, true);
         if (hits == null || hits.hitType == HitResult.HitType.ENTITY) return;
-        Material material = world.getBlockMaterial(hits.x, hits.y, hits.z);
         int x = MathHelper.ceil(hits.x);
         int y = MathHelper.ceil(hits.y);
         int z = MathHelper.ceil(hits.z);
@@ -45,6 +45,7 @@ public class ItemIcePendant extends ItemPendant {
             for (int depth = -1; depth <= 1; depth++) {
                 int xPos = x + radius;
                 int zPos = z + depth;
+                Material material = world.getBlockMaterial(xPos, y, zPos);
                 if (material == Material.water) {
                     proc++;
                     world.setBlockWithNotify(xPos, y, zPos, Blocks.ICE.id());
@@ -61,17 +62,12 @@ public class ItemIcePendant extends ItemPendant {
 
     private void damagePendant(ItemStack stack, Player player) {
         stack.damageItem(1, player);
-        if (player.inventory.armorInventory[TRINKET_1_SLOT] == stack) {
-            if (stack.stackSize <= 0) {
-                player.inventory.armorInventory[TRINKET_1_SLOT] = null;
-                return;
-            }
+        if (player.inventory.armorInventory[TRINKET_1_SLOT] == stack && stack.stackSize <= 0) {
+            player.inventory.armorInventory[TRINKET_1_SLOT] = null;
+            return;
         }
-
-        if (player.inventory.armorInventory[TRINKET_2_SLOT] == stack) {
-            if (stack.stackSize <= 0) {
-                player.inventory.armorInventory[TRINKET_2_SLOT] = null;
-            }
+        if (player.inventory.armorInventory[TRINKET_2_SLOT] == stack && stack.stackSize <= 0) {
+            player.inventory.armorInventory[TRINKET_2_SLOT] = null;
         }
     }
 }
