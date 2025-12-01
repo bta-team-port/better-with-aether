@@ -5,6 +5,8 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.ItemFood;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -27,12 +29,15 @@ import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
+import java.util.Vector;
+
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobBossSunspirit extends MobBossFlying {
-    @Nullable private Entity target;
+    @Nullable
+    private Entity target;
     private boolean isAgro;
     private int timesShot = 0;
 
@@ -40,7 +45,9 @@ public class MobBossSunspirit extends MobBossFlying {
     private int chatCooldown;
     private static final int START_FIGHT = 9;
 
-    private final Vec2f dvdMoveAmount = new Vec2f(0.25f, 0.25f);
+    private static final double DEFAULT_SPEED = 0.85;
+    private static final double ADDED_MAX_SPEED = 0.45;
+    private final Vec2f defaultVector = new Vec2f(0.25f, 0.25f);
 
     public MobBossSunspirit(@Nullable World world) {
         super(world);
@@ -52,8 +59,10 @@ public class MobBossSunspirit extends MobBossFlying {
         this.maxFireTicks = 0;
         this.remainingFireTicks = 0;
         this.chatColor = (byte) (TextFormatting.YELLOW.id & 255);
+        this.footSize = 2;
         this.canBreatheUnderwater();
     }
+
     public void returnToOriginalState() {
         this.isAgro = false;
         this.target = null;
@@ -61,10 +70,12 @@ public class MobBossSunspirit extends MobBossFlying {
         DungeonMap.runWithDungeon(dungeonID, d -> d.unlock(world));
         this.setHealthRaw(this.getMaxHealth());
     }
-    @Override public void updateAI() {
+
+    @Override
+    public void updateAI() {
         super.updateAI();
         if (this.isAgro) {
-            DVDMove();
+            moveSunspirit();
             this.target = this.findPlayerToAttack();
             if (target != null) {
                 this.lookAt(this.target, 20.0F, 20.0F);
@@ -74,50 +85,38 @@ public class MobBossSunspirit extends MobBossFlying {
             }
         }
     }
-    public double speedness() {
-        return 0.5 - this.getHealth() / 70.0 * 0.2;
-    }
 
     @SuppressWarnings("java:S131")
-    protected void DVDMove() {
+    protected void moveSunspirit() {
         if (this.world == null) {
             return;
         }
-        HitResult hitResult = this.world.checkBlockCollisionBetweenPoints(
-            Vec3.getPermanentVec3(x, y + bbHeight / 2, z),
-            Vec3.getPermanentVec3(
-                x + xd + dvdMoveAmount.x + (dvdMoveAmount.x > 0 ? bbWidth / 2 : -bbWidth / 2),
-                y + bbHeight / 2,
-                z + zd + dvdMoveAmount.y + (dvdMoveAmount.y > 0 ? bbWidth / 2 : -bbWidth / 2)
-            ),
-            false
+        double speed = DEFAULT_SPEED + MathHelper.lerp(0.0f, ADDED_MAX_SPEED, 1.0f - this.getHealth() /(double) this.getMaxHealth());
+        Vec3 currentPos = Vec3.getPermanentVec3(x, y, z);
+        Vec3 nextPos = Vec3.getPermanentVec3(
+            x + xd + defaultVector.x * speed + (defaultVector.x > 0 ? bbWidth / 2 : -bbWidth / 2),
+            y,
+            z + zd + defaultVector.y * speed + (defaultVector.y > 0 ? bbWidth / 2 : -bbWidth / 2)
         );
-        if (hitResult != null) {
-            double speed = 0.25f * speedness();
-            switch (hitResult.side) {
-                case NORTH:
-                    dvdMoveAmount.y += speed;
-                    break;
-                case SOUTH:
-                    dvdMoveAmount.y -= speed;
-                    break;
-                case WEST:
-                    dvdMoveAmount.x += speed;
-                    break;
-                case EAST:
-                    dvdMoveAmount.x -= speed;
-                    break;
-            }
-            dvdMoveAmount.x += random.nextDouble() * 0.2 - random.nextDouble() * 0.2;
-            dvdMoveAmount.y += random.nextDouble() * 0.2 - random.nextDouble() * 0.2;
+        HitResult hitResult = this.world.checkBlockCollisionBetweenPoints(currentPos, nextPos, false);
+        if (hitResult != null || this.isInWall()) {
+            rotateSunspirit(MathHelper.toRadians((float) (45.0f + this.random.nextGaussian() * 15.0f)));
         }
-        double maxSpeed = 0.035D;
-        double currSpeed = Math.hypot(dvdMoveAmount.x, dvdMoveAmount.y);
-        if (currSpeed > maxSpeed) dvdMoveAmount.multiply(maxSpeed / currSpeed);
-        xd += dvdMoveAmount.x;
-        zd += dvdMoveAmount.y;
+        this.xd = this.defaultVector.x * speed;
+        this.zd = this.defaultVector.y * speed;
     }
-    @Override public void returnToHome() {
+
+    private void rotateSunspirit(float angle) {
+        float cos = MathHelper.cos(angle);
+        float sin = MathHelper.sin(angle);
+        double theX = this.defaultVector.x * cos - this.defaultVector.y * sin;
+        double theZ = this.defaultVector.x * sin + this.defaultVector.y * cos;
+        this.defaultVector.x = theX;
+        this.defaultVector.y = theZ;
+    }
+
+    @Override
+    public void returnToHome() {
         if (returnPoint == null || !hasHadReturnPointSet) {
             return;
         }
@@ -126,15 +125,23 @@ public class MobBossSunspirit extends MobBossFlying {
         this.yd = 0.0;
         this.zd = 0.0;
     }
-    @Override public void knockBack(Entity entity, int damage, double xd, double yd) {}
-    @Override public void tick() {
+
+    @Override
+    public void knockBack(Entity entity, int damage, double xd, double yd) {/* cannot be knockbacked */ }
+
+    @Override
+    public void tick() {
         super.tick();
         this.evaporateWaterWithEffect();
         if (this.chatCooldown > 0) {
             --this.chatCooldown;
             this.maxFireTicks = this.remainingFireTicks = 0;
         }
+        if(this.isInLava()){
+            this.eatFood((ItemFood) Items.FOOD_FISH_RAW);
+        }
     }
+
     private void evaporateWaterWithEffect() {
         if (this.getHealth() > 0) {
             double a = this.random.nextDouble() - 0.5;
@@ -149,7 +156,9 @@ public class MobBossSunspirit extends MobBossFlying {
             this.evaporateWater();
         }
     }
-    @Override public boolean collidesWith(Entity entity) {
+
+    @Override
+    public boolean collidesWith(Entity entity) {
         if (entity instanceof MobBossSunspirit || entity instanceof MobFireMinion) {
             return false;
         }
@@ -159,10 +168,21 @@ public class MobBossSunspirit extends MobBossFlying {
         entity.remainingFireTicks = 1000;
         return false;
     }
-    @Override public boolean isOnFire() {return false;}
-    @Override public void fireHurt() {/*cannot be set on fire*/}
-    @Override public void lavaHurt() {/*cannot be take damage from lava*/}
-    @Override public void thunderHit(EntityLightning bolt) {/* cannot be take light */}
+
+    @Override
+    public boolean isOnFire() {
+        return false;
+    }
+
+    @Override
+    public void fireHurt() {/*cannot be set on fire*/}
+
+    @Override
+    public void lavaHurt() {/*cannot be take damage from lava*/}
+
+    @Override
+    public void thunderHit(EntityLightning bolt) {/* cannot be take light */}
+
     public void evaporateWater() {
         int centerX = MathHelper.floor(this.x);
         int centerZ = MathHelper.floor(this.z);
@@ -186,9 +206,12 @@ public class MobBossSunspirit extends MobBossFlying {
             }
         }
     }
-    @Override public boolean isPushable() {
+
+    @Override
+    public boolean isPushable() {
         return false;
     }
+
     public boolean chatWithMe(Player player) {
         if (this.world == null || isAgro && target != null) {
             return false;
@@ -213,6 +236,7 @@ public class MobBossSunspirit extends MobBossFlying {
                     .forEach(p -> ((AetherBossList) p).aether$TryAddBossList(this));
                 this.chatLog++;
                 this.isAgro = true;
+                this.rotateSunspirit(this.random.nextInt(360));
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
                 return true;
             }
@@ -226,13 +250,17 @@ public class MobBossSunspirit extends MobBossFlying {
         }
         return false;
     }
-    @Override public boolean interact(@NonNull Player player) {
+
+    @Override
+    public boolean interact(@NonNull Player player) {
         if (this.chatWithMe(player)) {
             this.target = player;
         }
         return false;
     }
-    @Override public void onDeath(Entity entityKilledBy) {
+
+    @Override
+    public void onDeath(Entity entityKilledBy) {
         if (this.world == null) return;
         DungeonMap.runWithDungeon(dungeonID, d -> d.unlock(world));
 
@@ -250,9 +278,12 @@ public class MobBossSunspirit extends MobBossFlying {
 
         super.onDeath(entityKilledBy);
     }
-    @Override public int getMaxHealth() {
+
+    @Override
+    public int getMaxHealth() {
         return 1000;
     }
+
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
         Player player = this.world.getClosestPlayerToEntity(this, 16.0);
@@ -262,16 +293,23 @@ public class MobBossSunspirit extends MobBossFlying {
         }
         return null;
     }
-    @Override public boolean canFight() {
+
+    @Override
+    public boolean canFight() {
         return isAlive() && isAgro;
     }
-    @Override public float getBrightness(float partialTick) {
+
+    @Override
+    public float getBrightness(float partialTick) {
         return 1.0F;
     }
-    @Override public int getLightmapCoord(float partialTick) {
+
+    @Override
+    public int getLightmapCoord(float partialTick) {
         if (this.world == null) return super.getLightmapCoord(partialTick);
         return this.world.getLightmapCoord(15, 15);
     }
+
     private void attackEntity() {
         int totalShots = 4;
         float healthPercentage = (float) this.getHealth() / this.getMaxHealth();
@@ -305,19 +343,25 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
     }
-    @Override public void readAdditionalSaveData(@NonNull CompoundTag tag) {
+
+    @Override
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.timesShot = tag.getInteger("timesShot");
         this.chatLog = tag.getByte("chatLog");
         this.isAgro = tag.getBoolean("isAgro");
     }
-    @Override public void addAdditionalSaveData(@NonNull CompoundTag tag) {
+
+    @Override
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("timesShot", this.timesShot);
         tag.putByte("chatLog", (byte) this.chatLog);
         tag.putBoolean("isAgro", isAgro);
     }
-    @Override public boolean hurt(Entity attacker, int damage, DamageType type) {
+
+    @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
             return killCommand();
         }
@@ -329,12 +373,14 @@ public class MobBossSunspirit extends MobBossFlying {
         }
         return false;
     }
+
     private boolean hurt(Entity attacker, DamageType type) {
         super.hurt(attacker, 100, type);
         triggerAchievement();
         spawnMinions();
         return true;
     }
+
     private void spawnMinions() {
         if (this.getHealth() <= 0 || this.world == null) {
             return;
@@ -358,33 +404,45 @@ public class MobBossSunspirit extends MobBossFlying {
             this.world.entityJoinedWorld(minion);
         }
     }
+
     private void triggerAchievement() {
         if (target instanceof Player) {
             ((Player) target).triggerAchievement(AetherAchievements.ICE_DEFLECT);
         }
     }
+
     private boolean killCommand() {
         this.setHealthRaw(0);
         this.playDeathSound();
         this.onDeath(null);
         return true;
     }
-    @Override public boolean canBreatheUnderwater() {
+
+    @Override
+    public boolean canBreatheUnderwater() {
         return true;
     }
-    @Override public String getHurtSound() {
+
+    @Override
+    public String getHurtSound() {
         return "aether:mob.sunspirit.hurt";
     }
-    @Override public String getDeathSound() {
+
+    @Override
+    public String getDeathSound() {
         return "aether:mob.sunspirit.death";
     }
-    @Override public String getEntityTexture() {
+
+    @Override
+    public String getEntityTexture() {
         if (this.hurtTime > 0) {
             return "/assets/aether/textures/entity/boss_sunspirit/sunspirit_hurt.png";
         }
         return "/assets/aether/textures/entity/boss_sunspirit/sunspirit.png";
     }
-    @Override public @NonNull String getDefaultEntityTexture() {
+
+    @Override
+    public @NonNull String getDefaultEntityTexture() {
         if (this.hurtTime > 0) {
             return "/assets/aether/textures/entity/boss_sunspirit/sunspirit_hurt.png";
         }
