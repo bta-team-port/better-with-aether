@@ -11,6 +11,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
+import teamport.aether.entity.monster.zephyr.MobZephyr;
 
 public class BlockLogicCloudBase extends BlockLogicTransparent {
     public BlockLogicCloudBase(Block<?> block) {
@@ -49,7 +50,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
 
     @Override
     public boolean collidesWithEntity(Entity entity, World world, int x, int y, int z) {
-        if (entity instanceof Projectile) return false;
+        if (entity instanceof Projectile || entity instanceof MobZephyr) return false;
         return super.collidesWithEntity(entity, world, x, y, z);
     }
 

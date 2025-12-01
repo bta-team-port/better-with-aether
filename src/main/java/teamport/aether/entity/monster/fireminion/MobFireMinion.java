@@ -9,9 +9,12 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
+
+import static teamport.aether.entity.DamageInstance.inst;
 
 public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
@@ -51,8 +54,10 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     protected void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
-            entity.hurt(this, this.attackStrength, DamageType.FIRE);
-            entity.hurt(this, this.attackStrength / 2, DamageType.COMBAT);
+            MobUtil.multiHit(this, entity,
+                inst(this.attackStrength, DamageType.FIRE),
+                inst(this.attackStrength / 2, DamageType.COMBAT)
+            );
             entity.remainingFireTicks = 300;
             entity.maxFireTicks = 300;
         }

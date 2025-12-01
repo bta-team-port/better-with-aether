@@ -7,7 +7,7 @@
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
     "PlayerMixinDamageTypes",
-    "SpawnMobMixinZephyr",
+    "entity.SpawnMobMixinZephyr",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -147,6 +147,7 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
+    "entity.MobRendererMixinFireMinion",
     "player.PlayerLocalPortalNoiseMixin"
   ],
   "server": [
