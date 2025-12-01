@@ -24,10 +24,12 @@ import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
+import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobBossSunspirit extends MobBossFlying {
     @Nullable private Entity target;
@@ -94,20 +96,20 @@ public class MobBossSunspirit extends MobBossFlying {
             double speed = 0.25f * speedness();
             switch (hitResult.side) {
                 case NORTH:
-                    dvdMoveAmount.y -= speed;
-                    break;
-                case SOUTH:
                     dvdMoveAmount.y += speed;
                     break;
-                case WEST:
-                    dvdMoveAmount.x -= speed;
+                case SOUTH:
+                    dvdMoveAmount.y -= speed;
                     break;
-                case EAST:
+                case WEST:
                     dvdMoveAmount.x += speed;
                     break;
+                case EAST:
+                    dvdMoveAmount.x -= speed;
+                    break;
             }
-            dvdMoveAmount.x += random.nextDouble() * 0.1 - random.nextDouble() * 0.1;
-            dvdMoveAmount.y += random.nextDouble() * 0.1 - random.nextDouble() * 0.1;
+            dvdMoveAmount.x += random.nextDouble() * 0.2 - random.nextDouble() * 0.2;
+            dvdMoveAmount.y += random.nextDouble() * 0.2 - random.nextDouble() * 0.2;
         }
         double maxSpeed = 0.035D;
         double currSpeed = Math.hypot(dvdMoveAmount.x, dvdMoveAmount.y);
