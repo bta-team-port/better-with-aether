@@ -1,9 +1,8 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.entity;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.enums.MobCategory;
 import net.minecraft.core.world.SpawnerMobs;

@@ -1,11 +1,13 @@
 package teamport.aether.entity.monster.zephyr;
 
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
+import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -18,6 +20,10 @@ import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.projectile.ProjectileWindball;
 import teamport.aether.items.accessory.AetherInvisibility;
+
+import static teamport.aether.AetherMod.LOGGER;
+
+import java.util.List;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     private int courseChangeCooldown = 0;
