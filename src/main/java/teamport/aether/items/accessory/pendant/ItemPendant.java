@@ -42,6 +42,6 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
 
     @Override
     public int getArmorPiece() {
-        return 0;
+        return -1;
     }
 }
