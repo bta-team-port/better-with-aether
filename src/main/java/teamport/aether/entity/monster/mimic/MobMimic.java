@@ -346,4 +346,12 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return "Wallace".equals(nickname)
             && variantWallace.getMimicVariant() == this.getSkinVariant();
     }
+    
+    @Override
+    public boolean canSpawnHere() {
+        return this.world != null
+            && this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty();
+    }
 }
