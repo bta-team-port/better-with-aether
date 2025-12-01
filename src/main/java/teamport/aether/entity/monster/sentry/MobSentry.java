@@ -146,13 +146,16 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
     @Override
     public boolean canSpawnHere() {
-        if (this.world == null) return super.canSpawnHere();
-        return this.world.getDifficulty().canHostileMobsSpawn();
+        return this.world != null
+            && this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty();
     }
 
     public boolean isActivated() {
         return activated;
     }
+
     public void setActivated(boolean activated) {
         this.activated = activated;
     }

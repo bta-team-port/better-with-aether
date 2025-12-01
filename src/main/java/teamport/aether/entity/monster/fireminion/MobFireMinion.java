@@ -125,4 +125,12 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         }
         this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
+
+    @Override
+    public boolean canSpawnHere() {
+        return this.world != null
+            && this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty();
+    }
 }
