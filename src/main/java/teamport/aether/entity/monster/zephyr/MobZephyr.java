@@ -261,25 +261,10 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
-
-        boolean tooManyZephyrs = world.loadedEntityList.stream()
-            .filter(MobZephyr.class::isInstance)
-            .filter(e -> e.distanceTo(this) <= 32)
-            .count() > 5;
-
-        if (tooManyZephyrs) return false;
-
-        return this.world.getDifficulty().canHostileMobsSpawn() && this.random.nextInt(10) == 0
-            && AetherBlockTags.PASSIVE_MOBS_SPAWN.appliesTo(this.world.getBlock(MathHelper.floor(this.x), MathHelper.floor(this.y - this.heightOffset) - 1, MathHelper.floor(this.z)))
-            && super.canSpawnHere()
+        return this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty()
             && this.world.getSavedLightValue(LightLayer.Block, x, y, z) < 7;
-    }
-
-    @Override
-    public void spawnInit() {
-        if (this.world != null && this.world.getBlockId((int) (this.x + 0.5), (int) (this.y + 15), (int) (this.z + 0.5)) == 0) {
-            this.moveTo(this.x, this.y + 15, this.z, this.yRot, 0.0F);
-        }
     }
 
     @Override
