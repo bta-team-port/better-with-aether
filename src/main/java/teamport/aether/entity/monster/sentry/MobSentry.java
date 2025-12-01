@@ -117,7 +117,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     @Override
     public void playerTouch(Player player) {
         if (this.world != null && findPlayerToAttack() == player && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
-            findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
+            this.findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.createExplosion(this, this.x, this.y - 0.5, this.z, 1f, false, true);
         }
     }

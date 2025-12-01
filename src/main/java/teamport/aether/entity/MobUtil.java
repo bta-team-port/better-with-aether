@@ -1,6 +1,7 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.MathHelper;
 
 public class MobUtil {
@@ -52,5 +53,16 @@ public class MobUtil {
             cumulativeAccept = victim.hurt(attacker, cumulativeDamage, instance.getType());
         }
         return cumulativeAccept;
+    }
+
+    public static boolean killMob(Mob mob) {
+        return MobUtil.killMob(mob, null);
+    }
+
+    public static boolean killMob(Mob mob, Entity attack) {
+        mob.setHealthRaw(0);
+        mob.playDeathSound();
+        mob.onDeath(attack);
+        return true;
     }
 }
