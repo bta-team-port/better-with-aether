@@ -17,6 +17,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.items.AetherItems;
@@ -273,9 +274,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
-            this.setHealthRaw(0);
-            this.playDeathSound();
-            return true;
+            return MobUtil.killMob(this);
         }
 
         if (type == AetherMod.HOLY) {

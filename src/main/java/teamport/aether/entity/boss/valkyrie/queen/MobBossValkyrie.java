@@ -18,6 +18,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.achievements.AetherAchievements;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
@@ -376,10 +377,7 @@ public class MobBossValkyrie extends MobBoss {
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         /// if /kill (jank!)
         if (attacker == null && type == null && damage == 100) {
-            this.setHealthRaw(0);
-            this.playDeathSound();
-            this.onDeath(null);
-            return true;
+            return MobUtil.killMob(this);
         }
         if (this.world == null) return false;
         /// need to acquire more medals

@@ -18,6 +18,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.helper.ParticleMaker;
@@ -175,7 +176,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             int k = MathHelper.floor(this.z);
 
             if (!this.onGround || this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id()) {
-                this.hurt(null, 999999, DamageType.FALL);
+                MobUtil.killMob(this);
             }
         }
 

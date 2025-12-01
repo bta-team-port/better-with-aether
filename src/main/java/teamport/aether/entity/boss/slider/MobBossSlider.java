@@ -305,7 +305,7 @@ public class MobBossSlider extends MobBoss {
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
-            return killCommand();
+            return MobUtil.killMob(this);
         }
         if (this.world != null && !this.world.getDifficulty().canHostileMobsSpawn()) {
             return false;
@@ -333,13 +333,6 @@ public class MobBossSlider extends MobBoss {
         this.performDeformation(attacker);
         this.createDamageParticle(damage);
         return super.hurt(attacker, (int) item.getStrVsBlock(AetherBlocks.COBBLE_HOLYSTONE), type);
-    }
-
-    private boolean killCommand() {
-        this.setHealthRaw(0);
-        this.playDeathSound();
-        this.onDeath(null);
-        return true;
     }
 
     private void performDeformation(Entity attacker) {
