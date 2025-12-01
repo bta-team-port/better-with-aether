@@ -389,14 +389,21 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
 
     public static List<ItemStack> generateLoot(Random random) {
         List<ItemStack> loot = new ArrayList<>();
-        int count = 5;
+        //min 8 max 10
+        int count = random.nextInt(3) + 8;
         for (int i = 0; i < count; i++) loot.add(JUNK.getRandom(random).getItemStack());
         // min 2 max 5
         count = random.nextInt(4) + 2;
         for (int i = 0; i < count; i++) loot.add(AMMO.getRandom(random).getItemStack());
-        loot.add(FOOD.getRandom(random).getItemStack());
-        loot.add(ARMOR.getRandom(random).getItemStack());
-        loot.add(GADGET.getRandom(random).getItemStack());
+        // min 2 max 4
+        count = random.nextInt(3) + 2;
+        for (int i = 0; i < count; i++) loot.add(FOOD.getRandom(random).getItemStack());
+        // min 1 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2) + 1;
+        for (int i = 0; i < count; i++) loot.add(ARMOR.getRandom(random).getItemStack());
+        // min 0 max 2
+        count = AetherMathHelper.invertedExponentialCapped(random, 0.5F, 2);
+        for (int i = 0; i < count; i++) loot.add(GADGET.getRandom(random).getItemStack());
         return loot;
     }
 }
