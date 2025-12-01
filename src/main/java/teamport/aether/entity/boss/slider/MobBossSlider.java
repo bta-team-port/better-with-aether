@@ -58,6 +58,8 @@ public class MobBossSlider extends MobBoss {
     public static final float BASE_DAMAGE = 10F;
     public static final int MAX_ATTACK_COOL_DOWN = 50;
     public static final int MIN_ATTACK_COOL_DOWN = 10;
+    public static final int WAKEUP_TIMER = 14;
+    public int wakeUpTimer = 0;
     private double slamY = -1;
     private boolean slamGoingDown = false;
     private float deformX;
@@ -191,7 +193,7 @@ public class MobBossSlider extends MobBoss {
 
     @Override
     public String getEntityTexture() {
-        if (this.isAwake() && !this.doingSlam()) {
+        if (this.isAwake() && !this.doingSlam() && this.wakeUpTimer <= 0) {
             if (this.isAngry()) {
                 return "/assets/aether/textures/entity/boss_slider/slider_awake_red.png";
             }
@@ -322,7 +324,7 @@ public class MobBossSlider extends MobBoss {
             }
             return false;
         }
-        tryAwake();
+        this.tryAwake();
         if (!((Player) attacker).gamemode.areMobsHostile()) {
             this.creativeAttackersList.add((Player) attacker);
         }
@@ -387,6 +389,7 @@ public class MobBossSlider extends MobBoss {
             this.setState(State.AWAKE);
             runWithDungeon(dungeonID, d -> d.lock(this.world));
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
+            this.wakeUpTimer = WAKEUP_TIMER;
         }
     }
 
@@ -555,6 +558,9 @@ public class MobBossSlider extends MobBoss {
             this.currentState.getConsumer().accept(this);
         }
         this.updateEntityData();
+        if(this.isAwake()) {
+            this.wakeUpTimer--;
+        }
     }
 
     @Override
@@ -570,6 +576,8 @@ public class MobBossSlider extends MobBoss {
     }
 
     private void moveSlider() {
+        if(!this.isAwake() || this.wakeUpTimer > 0) return;
+
         if (this.moveDirection == Direction.NONE) {
             this.blocksToMove = 0;
             return;
