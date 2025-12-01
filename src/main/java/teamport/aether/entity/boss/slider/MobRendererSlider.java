@@ -29,7 +29,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         if (renderPass != 0) {
             return false;
         } else {
-            if (slider.isAwake() && !slider.doingSlam()) {
+            if (slider.isAwake() && !slider.doingSlam() && slider.wakeUpTimer <= 0) {
                 if (slider.isAngry()) {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
                 } else {
