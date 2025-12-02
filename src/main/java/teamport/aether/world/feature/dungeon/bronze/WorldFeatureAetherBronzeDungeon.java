@@ -104,8 +104,10 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         AMMO.addEntry(new WeightedRandomLootObject(AetherItems.AMMO_DART_ENCHANTED.getDefaultStack(), 2, 6), 1);
         // gadget - cape colored, talisman          0-2(super rare)
         GADGET.addEntry(new WeightedRandomLootObject(null), 4);
-        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack()), 3);
-        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack()), 1);
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_LEATHER.getDefaultStack())
+            .setRandomMetadata(AetherItems.ARMOR_TALISMAN_LEATHER.getMaxDamage() / 2, AetherItems.ARMOR_TALISMAN_LEATHER.getMaxDamage()), 3);
+        GADGET.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
+            .setRandomMetadata(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage()/ 2, AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage()), 1);
     }
 
     public static final WeightedRandomBag<WeightedRandomLootObject> TREASURE = new WeightedRandomBag<>();
