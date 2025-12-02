@@ -555,10 +555,24 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_TRAPPED)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
             .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED)
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/carved_retro"));
 
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED)
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/angelic")
             .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/angelic_retro"));
+
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE_TRAPPED)
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_retro"));
+        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_HELLFIRE_TRAPPED_LOCKED)
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/hellfire")
+            .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/dungeon/hellfire_retro"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.CARVED_STONE)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/dungeon/carved")

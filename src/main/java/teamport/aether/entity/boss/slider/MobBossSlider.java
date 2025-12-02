@@ -472,7 +472,8 @@ public class MobBossSlider extends MobBoss {
             for (Entity entity : list) {
                 MobUtil.multiHit(this, entity,
                     inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.75F) * getAngerModifier()), DamageType.COMBAT)
+                    inst((int) Math.floor((BASE_DAMAGE * 0.75F) * getAngerModifier()), DamageType.COMBAT),
+                    inst(2, DamageType.GENERIC)
                 );
                 switch (calculateDirection(entity)) {
                     case NORTH:
@@ -725,7 +726,8 @@ public class MobBossSlider extends MobBoss {
             if (!((Player) entity).gamemode.isPlayerInvulnerable()) {
                 MobUtil.multiHit(this, entity,
                     inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
+                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT),
+                    inst(2, DamageType.GENERIC)
                 );
             }
             return super.collidesWith(entity);

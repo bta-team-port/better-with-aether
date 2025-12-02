@@ -16,6 +16,7 @@ import teamport.aether.blocks.machine.BlockLogicFreezer;
 import teamport.aether.blocks.machine.BlockLogicIncubator;
 import teamport.aether.blocks.skyroot.*;
 import teamport.aether.blocks.terrain.*;
+import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.items.AetherItems;
@@ -28,7 +29,6 @@ import static teamport.aether.AetherMod.MOD_ID;
 
 @SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008"})
 public final class AetherBlocks implements BlockInitEntrypoint {
-
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
     public static Block<?> GRASS_AETHER;
@@ -188,8 +188,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
     public static Block<?> CARVED_HELLFIRE_LIGHT_LOCKED;
 
     public static Block<?> CARVED_STONE_TRAPPED;
+    public static Block<?> CARVED_ANGELIC_TRAPPED;
+    public static Block<?> CARVED_HELLFIRE_TRAPPED;
 
+    public static Block<?> CARVED_STONE_TRAPPED_LOCKED;
     public static Block<?> CARVED_ANGELIC_TRAPPED_LOCKED;
+    public static Block<?> CARVED_HELLFIRE_TRAPPED_LOCKED;
 
     public static Block<?> LANTERN_FIREFLY_SILVER;
     private static boolean hasInit = false;
@@ -220,7 +224,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
         BlockBuilder dungeonStoneLocked = stone
-            .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.PISTON_CRUSHING)
+            .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING)
             .setImmovable()
             .setHardness(-1.0F)
             .setResistance(999999999F);
@@ -930,6 +934,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         DOOR_DUNGEON_BRONZE = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
@@ -937,6 +942,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
 
         DOOR_DUNGEON_SILVER = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
@@ -944,6 +950,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
 
         DOOR_DUNGEON_GOLD = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .setUseInternalLight()
             .setVisualUpdateOnMetadata()
             .setLuminance(4)
@@ -1016,9 +1023,37 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class, 2))
             .withDisabledStats();
 
+        CARVED_STONE_TRAPPED_LOCKED = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
+            .build("carved.stone.trapped.locked", "carved_stone_trapped_locked", blockID("CARVED_STONE_TRAPPED_LOCKED"),
+                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE_TRAPPED, MobSentry.class, 2)
+            ).withDisabledStats();
+
+        CARVED_ANGELIC_TRAPPED = stone
+            .setHardness(1.5F)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"),
+                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class, 2))
+            .withDisabledStats();
+
+
         CARVED_ANGELIC_TRAPPED_LOCKED = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.angelic.trapped.locked", "carved_angelic_trapped_locked", blockID("CARVED_ANGELIC_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class, 4)
+                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC_TRAPPED, MobValkyrie.class, 2)
+            ).withDisabledStats();
+
+        CARVED_HELLFIRE_TRAPPED = stone
+            .setHardness(1.5F)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+            .build("carved.hellfire.trapped", "carved_hellfire_trapped", blockID("CARVED_HELLFIRE_TRAPPED"),
+                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE, MobFireMinion.class, 2))
+            .withDisabledStats();
+
+        CARVED_HELLFIRE_TRAPPED_LOCKED = dungeonStoneLocked
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
+            .build("carved.hellfire.trapped.locked", "carved_hellfire_trapped_locked", blockID("CARVED_HELLFIRE_TRAPPED_LOCKED"),
+                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE_TRAPPED, MobFireMinion.class, 2)
             ).withDisabledStats();
 
 
