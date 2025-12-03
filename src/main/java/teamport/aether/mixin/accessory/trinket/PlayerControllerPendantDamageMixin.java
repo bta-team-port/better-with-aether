@@ -32,9 +32,15 @@ public abstract class PlayerControllerPendantDamageMixin {
         ItemStack trinketSlot2 = armor[TRINKET_2_SLOT];
         if (trinketSlot1 != null && trinketSlot1.getItem() instanceof ItemPendant && ((ItemPendant) trinketSlot1.getItem()).canHarvestDamage()) {
             trinketSlot1.damageItem(1, player);
+            if (trinketSlot1.stackSize <= 0) {
+                this.mc.thePlayer.inventory.armorInventory[TRINKET_1_SLOT] = null;
+            }
         }
         if (trinketSlot2 != null && trinketSlot2.getItem() instanceof ItemPendant && ((ItemPendant) trinketSlot2.getItem()).canHarvestDamage()) {
             trinketSlot2.damageItem(1, player);
+            if (trinketSlot2.stackSize <= 0) {
+                this.mc.thePlayer.inventory.armorInventory[TRINKET_2_SLOT] = null;
+            }
         }
     }
 }
