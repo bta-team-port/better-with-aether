@@ -133,17 +133,19 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> boss = new WeightedRandomBag<>();
         boss.addEntry(BossRoom::new, 1);
         TREASURE_ROOMS = new WeightedRandomBag<>();
-        TREASURE_ROOMS.addEntry(TreasureRoom::new, 1);
         TREASURE_ROOMS.addEntry(JumpRoom::new, 1);
-        TREASURE_ROOMS.addEntry(DisplayRoom::new, 1);
+        TREASURE_ROOMS.addEntry(TreasureChestRoom::new, 0.5);
+        TREASURE_ROOMS.addEntry(TresureOreRoom::new, 0.5);
+        TREASURE_ROOMS.addEntry(StorageRoom::new, 0.5);
+        TREASURE_ROOMS.addEntry(DisplayRoom::new, 0.5);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> trapRooms = new WeightedRandomBag<>();
         trapRooms.addEntry(SpikerRoom::new, 1);
 
         WeightedRandomBag<Supplier<? extends BaseBronzeRoom>> hallway = new WeightedRandomBag<>();
-        hallway.addEntry(HallwayRoom::new, 10);
+        hallway.addEntry(HallwayRoom::new, 12);
+        hallway.addEntry(TallRoom::new, 4);
         hallway.addEntry(StairwellRoom::new, 2);
-        hallway.addEntry(TallRoom::new, 5);
 
         MANAGER.addBag(TREASURE_ROOMS, 55);
         MANAGER.addBag(hallway, 20);

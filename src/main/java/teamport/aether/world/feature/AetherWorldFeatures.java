@@ -1,5 +1,6 @@
 package teamport.aether.world.feature;
 
+import net.fabricmc.loader.api.FabricLoader;
 import teamport.aether.world.feature.chest.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.feature.chest.WorldFeatureAetherGoldChest;
 import teamport.aether.world.feature.chest.WorldFeatureAetherSilverChest;
@@ -38,15 +39,20 @@ public class AetherWorldFeatures {
         registerWorldFeatureClass(WorldFeatureAetherSilverChest.class, "TempleTreasure");
         registerWorldFeatureClass(WorldFeatureAetherBronzeChest.class, "MazeTreasure");
 
-        registerWorldFeatureClass(BossRoom.class, "DebugMazeBoss");
-        registerWorldFeatureClass(DisplayRoom.class, "DebugMazeDisplay");
-        registerWorldFeatureClass(HallwayRoom.class, "DebugMazeHallway");
-        registerWorldFeatureClass(JumpRoom.class, "DebugMazeJump");
-        registerWorldFeatureClass(SpikerRoom.class, "DebugMazeSpiker");
-        registerWorldFeatureClass(StairwellRoom.class, "DebugMazeWell");
-        registerWorldFeatureClass(TallRoom.class, "DebugMazeTall");
-        registerWorldFeatureClass(TreasureRoom.class, "DebugMazeTreasure");
-
-        registerWorldFeatureClass(RotationBlockTest.class, "DebugRotationBlocks");
+        /// for testing bronze dungeon rooms
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            registerWorldFeatureClass(BossRoom.class, "DebugMazeBoss");
+            registerWorldFeatureClass(StorageRoom.class, "DebugMazeDisplay");
+            registerWorldFeatureClass(HallwayRoom.class, "DebugMazeHallway");
+            registerWorldFeatureClass(JumpRoom.class, "DebugMazeJump");
+            registerWorldFeatureClass(SpikerRoom.class, "DebugMazeSpiker");
+            registerWorldFeatureClass(StairwellRoom.class, "DebugMazeWell");
+            registerWorldFeatureClass(TallRoom.class, "DebugMazeTall");
+            registerWorldFeatureClass(TreasureChestRoom.class, "DebugMazeTreasureChest");
+            registerWorldFeatureClass(TresureOreRoom.class, "DebugMazeTreasureOre");
+            registerWorldFeatureClass(StorageRoom.class, "DebugMazeStorage");
+            registerWorldFeatureClass(DisplayRoom.class, "DebugDisplay");
+            registerWorldFeatureClass(RotationBlockTest.class, "DebugRotationBlocks");
+        }
     }
 }
