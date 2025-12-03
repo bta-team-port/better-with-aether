@@ -5,8 +5,8 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 
-public class TreasureRoom extends BaseBronzeRoom {
-    public TreasureRoom() {
+public class TreasureChestRoom extends BaseBronzeRoom {
+    public TreasureChestRoom() {
         super();
         this.topAirTolerance = this.topLiquidTolerance = 0;
         addDoor(NORTH, wfp(4, 1, 0), UP, 6, EAST, 4);
