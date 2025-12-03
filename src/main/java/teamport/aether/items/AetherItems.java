@@ -675,13 +675,17 @@ public final class AetherItems {
             .build(new ItemPendant("armor.talisman.gold", itemKey("armor_talisman_gold"), itemID("ARMOR_TALISMAN_GOLD"), "gold", ArmorMaterial.GOLD));
 
         ARMOR_TALISMAN_DIAMOND = new ItemBuilder(MOD_ID)
-            .build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), "diamond", ArmorMaterial.DIAMOND));
+            .build(new ItemPendant("armor.talisman.diamond", itemKey("armor_talisman_diamond"), itemID("ARMOR_TALISMAN_DIAMOND"), "diamond", ArmorMaterial.DIAMOND)
+                .setHarvestDamagable()
+            );
 
         ARMOR_TALISMAN_STEEL = new ItemBuilder(MOD_ID)
             .build(new ItemPendant("armor.talisman.steel", itemKey("armor_talisman_steel"), itemID("ARMOR_TALISMAN_STEEL"), "steel", ArmorMaterial.STEEL));
 
         ARMOR_TALISMAN_ZANITE = new ItemBuilder(MOD_ID)
-            .build(new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), "zanite", AetherArmorMaterial.ZANITE));
+            .build(new ItemPendant("armor.talisman.zanite", itemKey("armor_talisman_zanite"), itemID("ARMOR_TALISMAN_ZANITE"), "zanite", AetherArmorMaterial.ZANITE)
+                .setHarvestDamagable()
+            );
 
         ARMOR_TALISMAN_GRAVITITE = new ItemBuilder(MOD_ID)
             .build(new ItemGravititePendant("armor.talisman.gravitite", itemKey("armor_talisman_gravitite"), itemID("ARMOR_TALISMAN_GRAVITITE"), AetherArmorMaterial.GRAVITITE));

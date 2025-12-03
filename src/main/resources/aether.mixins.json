@@ -7,7 +7,6 @@
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
     "PlayerMixinDamageTypes",
-    "entity.SpawnMobMixinZephyr",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -78,6 +77,7 @@
     "entity.MobCowMilkMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
+    "entity.SpawnMobMixinZephyr",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
@@ -119,6 +119,7 @@
     "accessory.quiver.MobRendererPlayerMixinCapeQuiver",
     "accessory.trinket.ItemElementMixinHoverShowSlot",
     "accessory.trinket.PlayerControllerDiamondDelayMixin",
+    "accessory.trinket.PlayerControllerPendantDamageMixin",
     "achievement.AetherAchievementMixin",
     "achievement.HostileParadiseMixin",
     "block.BlockModelJarAetherDirtMixin",
@@ -127,6 +128,7 @@
     "dimension.bump_to_overworld.SPBumpToOverworldMixin",
     "dimension.bump_to_overworld.SPWorldMixin",
     "dimension.dungeon_map.WorldSpMixin",
+    "entity.MobRendererMixinFireMinion",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "fix.RenderGlobalMixin",
@@ -147,7 +149,6 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "entity.MobRendererMixinFireMinion",
     "player.PlayerLocalPortalNoiseMixin"
   ],
   "server": [

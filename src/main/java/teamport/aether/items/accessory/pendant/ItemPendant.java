@@ -10,6 +10,7 @@ import teamport.aether.items.accessory.IAccessory;
 public class ItemPendant extends Item implements IAccessory, IArmorItem {
     private final String name;
     private final ArmorMaterial material;
+    private boolean canHarvestDamage;
 
     public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
         super(translationKey, namespaceId, id);
@@ -19,6 +20,7 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
         float maxDurability = IArmorItem.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.withTags(AetherItemTags.tags(AetherItemTags.TRINKET));
+        this.canHarvestDamage = false;
     }
 
     public ItemPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
@@ -43,5 +45,14 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
     @Override
     public int getArmorPiece() {
         return -1;
+    }
+
+    public ItemPendant setHarvestDamagable(){
+        this.canHarvestDamage = true;
+        return this;
+    }
+
+    public boolean canHarvestDamage(){
+        return this.canHarvestDamage;
     }
 }
