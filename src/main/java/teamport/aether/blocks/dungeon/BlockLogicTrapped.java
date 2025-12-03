@@ -16,18 +16,28 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
+import java.util.Random;
+
+import static net.minecraft.core.Global.TICKS_PER_SECOND;
+
 public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
     public final Block<?> breakResult;
     public final Block<?> replaceOnClear;
-    public final int chance;
+    public final int cooldown;
 
-    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int chance) {
+    public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int cooldown) {
         super(block, Material.stone);
+        block.setTicking(true);
         this.monster = monster;
         this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
-        this.chance = chance > 0 ? chance : 2;
+        this.cooldown = Math.max(cooldown, TICKS_PER_SECOND);
+    }
+
+    @Override
+    public int tickDelay() {
+        return cooldown;
     }
 
     @Override
@@ -42,7 +52,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         if (!(entity instanceof Player)) {
             return;
         }
-        if (world.rand.nextInt(chance) != 0) {
+        if (world.getBlockMetadata(x, y, z) == 1) {
             return;
         }
         int tries = 16;
@@ -52,35 +62,44 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             double spawnX = x + 0.5 + distance * Math.cos(angleRad);
             double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
             double spawnY = y + 1.25;
-            if (!isSafe(world, spawnX, spawnY, spawnZ)) continue;
             Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
-            if (theMonster == null) continue;
+            if (theMonster == null || !world.checkIfAABBIsClear(theMonster.bb)) {
+                continue;
+            }
             theMonster.spawnInit();
             theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
             world.entityJoinedWorld(theMonster);
-            spawnDecorations(world, x, y, z, spawnX, spawnY, spawnZ, entity, theMonster);
+            this.spawnParticles(world, x, y, z, spawnX, spawnY, spawnZ);
+            this.playSound(world, x, y, z, entity, theMonster);
             if (theMonster instanceof MobSentry) {
                 ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
             }
+            world.setBlockMetadata(x, y, z, 1);
             return;
         }
     }
 
-    private void spawnDecorations(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ, Entity player, Entity monster) {
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (world.isClientSide) {
+            return;
+        }
+        if (world.getBlockMetadata(x, y, z) == 1) {
+            world.setBlockMetadata(x, y, z, 0);
+        }
+    }
+
+    private void playSound(World world, int x, int y, int z, Entity entity, Entity theMonster) {
+        world.playSoundEffect(entity, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
+        world.playSoundAtEntity(entity, theMonster, "mob.ghast.fireball", 0.25F, 0.75F);
+    }
+
+    private void spawnParticles(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
         }
-        world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
-        world.playSoundAtEntity(player, monster, "mob.ghast.fireball", 0.25F, 0.75F);
-    }
-
-    private static boolean isSafe(World world, double x, double y, double z) {
-        int ix = (int) Math.round(x);
-        int iy = (int) Math.round(y);
-        int iz = (int) Math.round(z);
-        return !world.isBlockNormalCube(ix, iy, iz) && !world.isBlockNormalCube(ix, iy + 1, iz);
     }
 }
