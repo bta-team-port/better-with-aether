@@ -142,4 +142,9 @@ public class WorldTypeAether extends WorldType {
         }
         return (int) (f2 * (11.0f - weatherOffset) + weatherOffset);
     }
+
+    @Override
+    public boolean mayRespawn(){
+        return true;
+    }
 }
