@@ -36,6 +36,16 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     }
 
     @Override
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (world.isClientSide) {
+            return;
+        }
+        if (world.getBlockMetadata(x, y, z) == 1) {
+            world.setBlockMetadata(x, y, z, 0);
+        }
+    }
+
+    @Override
     public int tickDelay() {
         return cooldown;
     }
@@ -48,28 +58,30 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
     @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (EnvironmentHelper.isClientWorld()) return;
-        if (!(entity instanceof Player)) {
+        if (EnvironmentHelper.isClientWorld()) {
             return;
         }
-        if (world.getBlockMetadata(x, y, z) == 1) {
+        if (!(entity instanceof Player) || !world.getDifficulty().canHostileMobsSpawn() || world.getBlockMetadata(x, y, z) == 1) {
+            return;
+        }
+        Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
+        if (theMonster == null) {
             return;
         }
         int tries = 16;
+        theMonster.spawnInit();
         while (tries-- > 0) {
             final double angleRad = Math.toRadians(world.rand.nextInt(360));
             final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
             double spawnX = x + 0.5 + distance * Math.cos(angleRad);
             double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
             double spawnY = y + 1.25;
-            Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
-            if (theMonster == null || !world.checkIfAABBIsClear(theMonster.bb)) {
+            theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
+            if (!world.checkIfAABBIsClear(theMonster.bb)) {
                 continue;
             }
-            theMonster.spawnInit();
-            theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
             world.entityJoinedWorld(theMonster);
-            this.spawnParticles(world, x, y, z, spawnX, spawnY, spawnZ);
+            this.spawnParticles(world, spawnX, spawnY, spawnZ);
             this.playSound(world, x, y, z, entity, theMonster);
             if (theMonster instanceof MobSentry) {
                 ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
@@ -79,27 +91,17 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         }
     }
 
-    @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (world.isClientSide) {
-            return;
-        }
-        if (world.getBlockMetadata(x, y, z) == 1) {
-            world.setBlockMetadata(x, y, z, 0);
-        }
-    }
-
     private void playSound(World world, int x, int y, int z, Entity entity, Entity theMonster) {
         world.playSoundEffect(entity, SoundCategory.ENTITY_SOUNDS, x, y, z, "mob.ghast.fireball", 1.0f, 1.0f);
         world.playSoundAtEntity(entity, theMonster, "mob.ghast.fireball", 0.25F, 0.75F);
     }
 
-    private void spawnParticles(World world, int x, int y, int z, double spawnX, double spawnY, double spawnZ) {
+    private void spawnParticles(World world, double x, double y, double z) {
         for (int l = 0; l < 8; ++l) {
             double angle = Math.toRadians(l * 45.0);
-            ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-            ParticleMaker.spawnParticle(world, "snowshovel", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
-            ParticleMaker.spawnParticle(world, "largesmoke", spawnX, spawnY, spawnZ, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            ParticleMaker.spawnParticle(world, "largesmoke", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
         }
     }
 }
