@@ -21,15 +21,9 @@ public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
     @Shadow
     @Final
     public Minecraft mc;
-    @Unique
-    private final OptionBoolean flickAccessoryIconsOption = new OptionBoolean((GameSettings) (Object) this, "aether.flickAccessoryIcons", true);
     @SuppressWarnings("DataFlowIssue")
     @Unique
-    private final OptionRange flickAccessorySpeed = new OptionRange((GameSettings) (Object) this, "aether.flickAccessorySpeed", 5, 1, 60);
-    @Override
-    public OptionBoolean aether$getFlickAccessoryIconsOption() {
-        return flickAccessoryIconsOption;
-    }
+    private final OptionRange flickAccessorySpeed = new OptionRange((GameSettings) (Object) this, "aether.flickAccessorySpeed", 5, 0, 60);
     @Override
     public OptionRange aether$getAccessoryFlickSpeed() {
         return flickAccessorySpeed;
@@ -37,7 +31,11 @@ public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
     @ModifyReturnValue(method = "getDisplayString", at = @At("RETURN"))
     private String changeDisplayString(String original, Option<?> option) {
         if (option == null) return "";
-        if (option == flickAccessorySpeed) return option.value + " seconds";
+        if (option == flickAccessorySpeed){
+            int speed = Integer.parseInt(option.value.toString());
+            if(speed == 0) return "OFF";
+            return option.value + " seconds";
+        }
         return original;
     }
 }
