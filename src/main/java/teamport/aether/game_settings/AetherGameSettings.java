@@ -14,6 +14,8 @@ import teamport.aether.blocks.AetherBlocks;
 @Environment(EnvType.CLIENT)
 public class AetherGameSettings {
 
+    private AetherGameSettings(){}
+
     private static boolean hasInit = false;
 
     public static void init() {
@@ -28,7 +30,6 @@ public class AetherGameSettings {
 
         OptionsPage AETHER = new OptionsPage("gui.options.page.aether.title", new ItemStack(AetherBlocks.GRASS_AETHER))
             .withComponent(new OptionsCategory("gui.options.page.aether.category.user_interface")
-                .withComponent(new BooleanOptionComponent(gameSettings.aether$getFlickAccessoryIconsOption()))
                 .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
             );
         OptionsPages.register(AETHER);
