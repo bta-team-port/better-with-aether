@@ -1,4 +1,3 @@
-@file:Suppress("UnstableApiUsage")
 import com.smushytaco.lwjgl_gradle.Preset
 plugins {
     alias(libs.plugins.loom)
@@ -15,7 +14,6 @@ base.archivesName = modName
 group = modGroup.get()
 version = modVersion.get()
 loom {
-    noIntermediateMappings()
     customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${libs.versions.btaChannel.get()}/v${libs.versions.bta.get()}/manifest.json")
 }
 repositories {
@@ -55,22 +53,20 @@ lwjgl {
 }
 dependencies {
     minecraft("::${libs.versions.bta.get()}")
-    mappings(loom.layered {})
 
-    // https://piston-data.mojang.com/v1/objects/43db9b498cb67058d2e12d394e6507722e71bb45/client.jar
-    modImplementation("objects:client:43db9b498cb67058d2e12d394e6507722e71bb45")
-    modImplementation(libs.loader)
-    modImplementation(libs.halplibe)
-    modImplementation(libs.modMenu)
-    modImplementation(libs.legacyLwjgl)
+    compileOnly(libs.btwaila)
+    compileOnly(libs.commandly)
 
-    modImplementation(libs.dragonfly)
-    modImplementation(libs.catalyst.core)
-    modImplementation(libs.catalyst.effects)
-    modImplementation(libs.uselessNumerical.get().let { "${it.group}:${it.name}:${it.version}-${libs.versions.bta.get()}" })
+    runtimeOnly(libs.clientJar)
+    implementation(libs.loader)
+    implementation(libs.halplibe)
+    implementation(libs.modMenu)
+    implementation(libs.legacyLwjgl)
 
-    modCompileOnly(libs.btwaila)
-    modCompileOnly(libs.commandly)
+    implementation(libs.dragonfly)
+    implementation(libs.catalyst.core)
+    implementation(libs.catalyst.effects)
+    implementation(libs.uselessNumerical.get().let { "${it.group}:${it.name}:${it.version}-${libs.versions.bta.get()}" })
 
     implementation(libs.slf4jApi)
     implementation(libs.guava)
