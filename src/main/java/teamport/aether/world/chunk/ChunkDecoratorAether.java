@@ -72,13 +72,13 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             decorateWithFlatClouds(chunk);
         }
 
-        decorateWithFlowers(chunk, rand);
-        decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
-        decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);
-
         if ((chunk.xPosition & 1) == 0 && (chunk.zPosition & 1) == 0) {
             decorateWithDungeons(chunk, rand, minY, maxY);
         }
+
+        decorateWithFlowers(chunk, rand);
+        decorateWithQuickSoil(rand, worldX, worldZ, minY, maxY);
+        decorateWithLakesAndTrees(rand, minY, maxY, worldX, worldZ);
 
         decorateWithOres(rand, minY, maxY, worldX, worldZ);
 
@@ -228,10 +228,8 @@ public class ChunkDecoratorAether implements ChunkDecorator {
                         chunk.setBlockIDWithMetadataRaw(x, blockY, z, FLOWERS[rand.nextInt(FLOWERS.length)], META_ID[rand.nextInt(META_ID.length)]);
                     }
 
-                    if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO) {
-                        if (rand.nextInt(16) == 0) {
-                            chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
-                        }
+                    if (world.getWorldType() != AetherWorldTypes.AETHER_RETRO && rand.nextInt(16) == 0) {
+                        chunk.setBlockID(x, blockY, z, AetherBlocks.TALLGRASS_AETHER.id());
                     }
 
                     continue;
@@ -335,11 +333,9 @@ public class ChunkDecoratorAether implements ChunkDecorator {
             AERCLOUD_WHITE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
 
-        if (world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) {
-            if (rand.nextInt(24) == 0) {
-                yPosition = rand.nextInt(32) + 4;
-                AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
-            }
+        if ((world.getWorldType() == AetherWorldTypes.AETHER_DEFAULT || world.getWorldType() == AetherWorldTypes.AETHER_RETRO) && rand.nextInt(24) == 0) {
+            yPosition = rand.nextInt(32) + 4;
+            AERCLOUD_FLAT.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
     }
 
