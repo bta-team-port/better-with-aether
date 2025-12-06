@@ -111,6 +111,8 @@ public class AetherBlockDetails {
         BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_HELLFIRE.id(), ORGAN);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LOCKED.id(), ORGAN);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_LIGHT_LOCKED.id(), ORGAN);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_TRAPPED.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_HELLFIRE_TRAPPED_LOCKED.id(), BELL);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT.id(), BELL);
@@ -118,6 +120,7 @@ public class AetherBlockDetails {
         BLOCK_INSTRUMENTS.put(AetherBlocks.STAIRS_CARVED_ANGELIC.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LOCKED.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_LIGHT_LOCKED.id(), BELL);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED.id(), BELL);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED.id(), BELL);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE.id(), TRANCE);
@@ -127,6 +130,7 @@ public class AetherBlockDetails {
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LOCKED.id(), TRANCE);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), TRANCE);
         BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_TRAPPED.id(), TRANCE);
+        BLOCK_INSTRUMENTS.put(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), TRANCE);
 
         BLOCK_INSTRUMENTS.put(AetherBlocks.ICESTONE.id(), CELESTA);
         BLOCK_INSTRUMENTS.put(AetherBlocks.BLOCK_AMBROSIUM.id(), TRUMPET);
@@ -150,7 +154,15 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.FLOWER_PURPLE, 0, MaterialColor.paintedPurple);
         registerManualBlockColor(AetherBlocks.FLOWER_WHITE, 0, MaterialColor.paintedWhite);
 
+        registerManualBlockColor(AetherBlocks.SAPLING_SKYROOT, 0, MaterialColor.paintedLime);
+        registerManualBlockColor(AetherBlocks.SAPLING_OAK_GOLDEN, 0, MaterialColor.paintedYellow);
+
+        registerManualBlockColor(AetherBlocks.DEADBUSH_AETHER, 0, MaterialColor.paintedGrey);
+
         registerManualBlockColor(AetherBlocks.PATH_DIRT_AETHER, 0, MaterialColor.permafrost);
+
+        registerManualBlockColor(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM, 0, MaterialColor.wood);
+        registerManualBlockColor(AetherBlocks.DOOR_PLANKS_SKYROOT_TOP, 0, MaterialColor.wood);
 
         registerManualBlockColor(AetherBlocks.HOLYSTONE, 0, MaterialColor.metal);
         registerManualBlockColor(AetherBlocks.HOLYSTONE_MOSSY, 0, MaterialColor.birchLeaves);
@@ -168,6 +180,7 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.SLAB_BRICK_HOLYSTONE, 0, MaterialColor.metal);
 
         registerManualBlockColor(AetherBlocks.ICESTONE, 0, MaterialColor.clay);
+        registerManualBlockColor(AetherBlocks.AEROGEL, 0, MaterialColor.clay);
 
         registerManualBlockColor(AetherBlocks.ORE_GRAVITITE_HOLYSTONE, 0, MaterialColor.metal);
         registerManualBlockColor(AetherBlocks.ORE_ZANITE_HOLYSTONE, 0, MaterialColor.metal);
@@ -179,7 +192,7 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM, 0, MaterialColor.paintedYellow);
         registerManualBlockColor(AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP, 0, MaterialColor.paintedYellow);
 
-        registerManualBlockColor(AetherBlocks.BLOCK_AMBER, 0, MaterialColor.gold);
+        registerManualBlockColor(AetherBlocks.BLOCK_AMBER, 0, MaterialColor.dirtScorched);
         registerManualBlockColor(AetherBlocks.BLOCK_AMBROSIUM, 0, MaterialColor.gold);
         registerManualBlockColor(AetherBlocks.BLOCK_ZANITE, 0, MaterialColor.paintedPurple);
         registerManualBlockColor(AetherBlocks.BLOCK_GRAVITITE, 0, MaterialColor.paintedPink);
@@ -195,6 +208,7 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.CARVED_STONE_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CARVED_STONE_LIGHT_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CARVED_STONE_TRAPPED, 0, MaterialColor.stone);
+        registerManualBlockColor(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_BRONZE, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED, 0, MaterialColor.stone);
         registerManualBlockColor(AetherBlocks.CHEST_MIMIC_BRONZE, 0, MaterialColor.stone);
@@ -211,6 +225,8 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.CHEST_MIMIC_SILVER, 0, MaterialColor.grassScorched);
         registerManualBlockColor(AetherBlocks.DOOR_DUNGEON_SILVER, 0, MaterialColor.grassScorched);
+        registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_TRAPPED, 0, MaterialColor.grassScorched);
+        registerManualBlockColor(AetherBlocks.CARVED_ANGELIC_TRAPPED_LOCKED, 0, MaterialColor.grassScorched);
 
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_LIGHT, 0, MaterialColor.brick);
@@ -222,6 +238,8 @@ public class AetherBlockDetails {
         registerManualBlockColor(AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.CHEST_MIMIC_GOLD, 0, MaterialColor.brick);
         registerManualBlockColor(AetherBlocks.DOOR_DUNGEON_GOLD, 0, MaterialColor.brick);
+        registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_TRAPPED, 0, MaterialColor.brick);
+        registerManualBlockColor(AetherBlocks.CARVED_HELLFIRE_TRAPPED_LOCKED, 0, MaterialColor.brick);
 
         registerManualBlockColor(AetherBlocks.PILLAR, 0, MaterialColor.quartz);
         registerManualBlockColor(AetherBlocks.PILLAR_CAPSTONE, 0, MaterialColor.quartz);
@@ -229,6 +247,7 @@ public class AetherBlockDetails {
         for (int i = 0; i < 256; ++i) {
             int colorIndex = i % 16;
             registerManualBlockColor(AetherBlocks.PLANKS_SKYROOT_PAINTED, i, PAINTED_COLORS[colorIndex]);
+            registerManualBlockColor(AetherBlocks.FENCE_PLANKS_SKYROOT_PAINTED, i, PAINTED_COLORS[colorIndex]);
         }
 
         for (int i = 0; i < 16; ++i) {
@@ -237,10 +256,20 @@ public class AetherBlockDetails {
                 registerManualBlockColor(AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
                 registerManualBlockColor(AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
 
+                registerManualBlockColor(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
+
+                registerManualBlockColor(AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
+
+                registerManualBlockColor(AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
+                registerManualBlockColor(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
+
                 registerManualBlockColor(AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
 
                 registerManualBlockColor(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED, meta, PAINTED_COLORS[i]);
                 registerManualBlockColor(AetherBlocks.CHEST_MIMIC_OAK_PAINTED, meta, PAINTED_COLORS[i]);
+
+                registerManualBlockColor(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, meta, PAINTED_COLORS[i]);
+                registerManualBlockColor(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP, meta, PAINTED_COLORS[i]);
             }
         }
     }

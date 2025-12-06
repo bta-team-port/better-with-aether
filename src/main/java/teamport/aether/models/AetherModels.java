@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
+import net.minecraft.client.render.block.color.BlockColorCustom;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.*;
 import net.minecraft.client.render.entity.EntityRendererSprite;
@@ -16,6 +17,7 @@ import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
+import teamport.aether.AetherClient;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
@@ -85,6 +87,8 @@ import static net.minecraft.client.render.block.model.BlockModelStandard.*;
 
 @Environment(EnvType.CLIENT)
 public class AetherModels implements ModelEntrypoint {
+    Side[] TOP_BOTTOM = new Side[]{Side.TOP, Side.BOTTOM};
+    Side[] SIDES = new Side[]{Side.NORTH, Side.EAST, Side.SOUTH, Side.WEST};
 
     @Override
     public void initBlockModels(BlockModelDispatcher dispatcher) {
@@ -99,13 +103,22 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelPortal<>(AetherBlocks.PORTAL_AETHER, "aether:block/portal_aether/")
             .setAllTextures(BLOCK_TEXTURES, "aether:block/portal_aether"));
 
+//        dispatcher.addDispatch((new BlockModelGrass<>(Blocks.GRASS))
+//            .setTex(0, "minecraft:block/grass/top", Side.TOP)
+//            .setTex(0, "minecraft:block/grass/bottom", Side.BOTTOM)
+//            .setTex(0, "minecraft:block/grass/side", SIDES)
+//            .setTex(2, "minecraft:block/grass_retro/top", Side.TOP)
+//            .setTex(2, "minecraft:block/grass_retro/bottom", Side.BOTTOM)
+//            .setTex(2, "minecraft:block/grass_retro/side", SIDES));
+
+
         dispatcher.addDispatch(new BlockModelGrassAether<>(AetherBlocks.GRASS_AETHER)
             .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/top", Side.TOP)
             .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/bottom", Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/side", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH)
+            .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/side", SIDES)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_aether/top_retro", Side.TOP)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_aether/bottom_retro", Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_aether/side_retro", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH));
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_aether/side_retro", SIDES));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.DIRT_AETHER)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/dirt_aether")
@@ -114,10 +127,10 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.PATH_DIRT_AETHER)
             .setTex(BLOCK_TEXTURES, "aether:block/grass_path_aether/top", Side.TOP)
             .setTex(BLOCK_TEXTURES, "aether:block/grass_path_aether/bottom", Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/grass_path_aether/side", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH)
+            .setTex(BLOCK_TEXTURES, "aether:block/grass_path_aether/side", SIDES)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/top_retro", Side.TOP)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/bottom_retro", Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/side_retro", Side.EAST, Side.WEST, Side.NORTH, Side.SOUTH));
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/grass_path_aether/side_retro", SIDES));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone"));
@@ -126,12 +139,12 @@ public class AetherModels implements ModelEntrypoint {
             .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone_mossy"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_POLISHED)
-            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_side", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_side", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_CARVED)
-            .setTex(BLOCK_TEXTURES, "aether:block/carved_holystone", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/carved_holystone", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.COBBLE_HOLYSTONE)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/cobbled_holystone")
@@ -157,21 +170,21 @@ public class AetherModels implements ModelEntrypoint {
             .setAllTextures(RETRO_BLOCK_TEXTURES, "aether:block/glass_quicksoil_retro"));
 
         dispatcher.addDispatch(new BlockModelDoorGlass<>(AetherBlocks.DOOR_GLASS_QUICKSOIL_BOTTOM).onRenderLayer(1)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/bottom", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame_retro", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/bottom_retro", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/bottom", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame_retro", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/bottom_retro", SIDES));
 
         dispatcher.addDispatch(new BlockModelDoorGlass<>(AetherBlocks.DOOR_GLASS_QUICKSOIL_TOP).onRenderLayer(1)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/top", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame_retro", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/top_retro", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/top", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/frame_retro", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/door/glass_quicksoil/top_retro", SIDES));
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_GLASS_QUICKSOIL).onRenderLayer(1)
-            .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top", Side.TOP, Side.BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top", TOP_BOTTOM)
             .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top_retro", Side.TOP, Side.BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/top_retro", TOP_BOTTOM)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/trapdoor/glass_quicksoil/side_retro", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE)
@@ -189,17 +202,17 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_AMBROSIUM)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/block_ambrosium"));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_ZANITE)
-            .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/side", Side.sides)
+            .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/side", SIDES)
             .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/top", Side.TOP)
             .setTex(BLOCK_TEXTURES, "aether:block/block_zanite/bottom", Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/side_retro", Side.sides)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/side_retro", SIDES)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/top_retro", Side.TOP)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_zanite/bottom_retro", Side.BOTTOM));
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.BLOCK_GRAVITITE)
-            .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/side", Side.sides)
+            .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/side", SIDES)
             .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/top", Side.TOP)
             .setTex(BLOCK_TEXTURES, "aether:block/block_gravitite/bottom", Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/side_retro", Side.sides)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/side_retro", SIDES)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/top_retro", Side.TOP)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/block_gravitite/bottom_retro", Side.BOTTOM));
 
@@ -299,6 +312,9 @@ public class AetherModels implements ModelEntrypoint {
 
     @Override
     public void initBlockColors(BlockColorDispatcher dispatcher) {
+        dispatcher.addDispatch(AetherBlocks.GRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
+        dispatcher.addDispatch(AetherBlocks.LEAVES_SKYROOT, new BlockColorCustom(AetherClient.skyroot));
+        dispatcher.addDispatch(AetherBlocks.LEAVES_OAK_GOLDEN, new BlockColorCustom(AetherClient.oakGolden));
     }
 
     private void setBlockSkyrootModels(BlockModelDispatcher dispatcher) {
@@ -309,17 +325,17 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelPaintedSkyrootPlanks<>(AetherBlocks.PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", SIDES));
         dispatcher.addDispatch(new BlockModelDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_TOP)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", SIDES));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM, false)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/bottom", SIDES));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootDoor<>(AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP, true)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", Side.TOP, Side.BOTTOM)
-            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", Side.sides));
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/frame", TOP_BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/door/skyroot/top", SIDES));
 
         dispatcher.addDispatch(new BlockModelEmpty<>(AetherBlocks.SIGN_POST_PLANKS_SKYROOT)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/planks_skyroot/skyroot"));
@@ -330,7 +346,7 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelPaintedSkyrootSign<>(AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED));
 
         dispatcher.addDispatch(new BlockModelTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT)
-            .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", Side.TOP, Side.BOTTOM)
+            .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/top", TOP_BOTTOM)
             .setTex(BLOCK_TEXTURES, "aether:block/trapdoor/skyroot/side", Side.EAST, Side.NORTH, Side.SOUTH, Side.WEST));
         dispatcher.addDispatch(new BlockModelPaintedSkyrootTrapDoor<>(AetherBlocks.TRAPDOOR_PLANKS_SKYROOT_PAINTED));
 
@@ -475,32 +491,32 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/front", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_BRONZE_LOCKED)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/front_locked", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_SILVER)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/front", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_SILVER_LOCKED)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/front_locked", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_GOLD)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/front", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelHorizontalRotation<>(AetherBlocks.CHEST_DUNGEON_GOLD_LOCKED)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/front_locked", Side.NORTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
-            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_SKYROOT, "aether:block/chest/skyroot/")
             .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top")
@@ -603,15 +619,15 @@ public class AetherModels implements ModelEntrypoint {
             .setAllTextures(RETRO_OVERBRIGHT_TEXTURES, "aether:block/dungeon/hellfire_overlay_retro"));
 
         dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR)
-            .setTex(BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/pillar/top", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/side", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/top_retro", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/pillar/side", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/pillar/top", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/side", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar/top_retro", TOP_BOTTOM));
         dispatcher.addDispatch(new BlockModelAxisAligned<>(AetherBlocks.PILLAR_CAPSTONE)
-            .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/top", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/side", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/top_retro", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/side", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/pillar_capstone/top", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/side", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/pillar_capstone/top_retro", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_STONE));
         dispatcher.addDispatch(new BlockModelSlab<>(AetherBlocks.SLAB_CARVED_ANGELIC));
@@ -625,15 +641,15 @@ public class AetherModels implements ModelEntrypoint {
 
     private void setBlockPlantModels(BlockModelDispatcher dispatcher) {
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_SKYROOT)
-            .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_top", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_side_retro", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_top_retro", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_side", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/log/skyroot_top", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_side_retro", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/skyroot_top_retro", TOP_BOTTOM));
         dispatcher.addDispatch(new BlockModelAetherLog<>(AetherBlocks.LOG_OAK_GOLDEN)
-            .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_side", Side.sides)
-            .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_top", Side.TOP, Side.BOTTOM)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_side_retro", Side.sides)
-            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_top_retro", Side.TOP, Side.BOTTOM));
+            .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_side", SIDES)
+            .setTex(BLOCK_TEXTURES, "aether:block/log/oak_golden_top", TOP_BOTTOM)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_side_retro", SIDES)
+            .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_top_retro", TOP_BOTTOM));
 
         dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot"));
         dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", true));
