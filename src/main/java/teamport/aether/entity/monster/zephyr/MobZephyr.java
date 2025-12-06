@@ -262,9 +262,14 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         if (tooManyZephyrs) return false;
 
+        int x = MathHelper.floor(this.x);
+        int y = MathHelper.floor(this.bb.minY);
+        int z = MathHelper.floor(this.z);
+
         return this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)
-            && this.world.getCubes(this, this.bb).isEmpty();
+            && this.world.getCubes(this, this.bb).isEmpty()
+            && this.world.canBlockSeeTheSky(x, y, z);
     }
 
     @Override
