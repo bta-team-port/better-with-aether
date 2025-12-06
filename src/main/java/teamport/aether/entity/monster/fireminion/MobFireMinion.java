@@ -26,7 +26,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         this.fireImmune = true;
         this.maxFireTicks = 20;
         this.scoreValue = 5000;
-        setSize(1.0f, 2.5f);
+        setSize(1.0f, 2.0f);
         this.canBreatheUnderwater();
     }
 
@@ -51,15 +51,15 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     @Override
-    protected void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+    protected void attackEntity(@NonNull Entity target, float distance) {
+        if (this.attackTime <= 0 && distance < 2.0F && target.bb.maxY > this.bb.minY && target.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
-            MobUtil.multiHit(this, entity,
+            MobUtil.multiHit(this, target,
                 inst(this.attackStrength, DamageType.FIRE),
                 inst(this.attackStrength / 2, DamageType.COMBAT)
             );
-            entity.remainingFireTicks = 300;
-            entity.maxFireTicks = 300;
+            target.remainingFireTicks = 300;
+            target.maxFireTicks = 300;
         }
 
     }
@@ -72,11 +72,11 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     @Override
-    public boolean hurt(Entity attacker, int i, DamageType type) {
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (type == DamageType.FIRE) {
             return false;
         }
-        return super.hurt(attacker, i, type);
+        return super.hurt(attacker, damage, type);
     }
 
     @Override
@@ -88,11 +88,11 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
                 double a = this.random.nextFloat() - 0.5F;
                 double b = this.random.nextFloat();
                 double c = this.random.nextFloat() - 0.5F;
-                double d = this.x + a * b;
-                double e = this.bb.minY + b - 0.5;
-                double f = this.z + c * b;
+                double x = this.x + a * b;
+                double y = this.bb.minY + b;
+                double z = this.z + c * b;
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    ParticleMaker.spawnParticle(world, "flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
+                    ParticleMaker.spawnParticle(world, "flame", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
                 }
             }
         }

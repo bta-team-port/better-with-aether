@@ -13,7 +13,6 @@ import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
-import teamport.aether.world.feature.dungeon.bronze_legacy.DungeonLogicBronzeDungeonLegacy;
 import teamport.aether.world.feature.dungeon.gold.DungeonLogicGoldDungeon;
 import teamport.aether.world.feature.dungeon.silver.DungeonLogicSilverDungeon;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
@@ -38,7 +37,6 @@ public class DungeonMap {
         DungeonMap.registerDungeonType("SUNSPIRIT", DungeonLogicGoldDungeon.class);
         DungeonMap.registerDungeonType("VALKYRIE", DungeonLogicSilverDungeon.class);
         DungeonMap.registerDungeonType("SLIDER", DungeonLogicBronzeDungeon.class);
-        DungeonMap.registerDungeonType("SLIDER_LEGACY", DungeonLogicBronzeDungeonLegacy.class);
         DungeonMap.registerDungeonType("BASE", DungeonLogicBase.class);
 
         FabricLoader.getInstance()
