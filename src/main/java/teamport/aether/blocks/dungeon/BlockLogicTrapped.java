@@ -18,13 +18,11 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
-import static net.minecraft.core.Global.TICKS_PER_SECOND;
-
 public class BlockLogicTrapped extends BlockLogicDungeon {
     public final Class<? extends Entity> monster;
-    public final Block<?> breakResult;
-    public final Block<?> replaceOnClear;
-    public final int cooldown;
+    private final Block<?> breakResult;
+    private final Block<?> replaceOnClear;
+    private final int cooldown;
 
     public BlockLogicTrapped(Block<?> block, Block<?> breakResult, Block<?> replaceOnClear, Class<? extends Entity> monster, int cooldown) {
         super(block, Material.stone);
@@ -32,17 +30,12 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         this.monster = monster;
         this.breakResult = breakResult;
         this.replaceOnClear = replaceOnClear;
-        this.cooldown = Math.max(cooldown, TICKS_PER_SECOND);
+        this.cooldown = cooldown;
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (world.isClientSide) {
-            return;
-        }
-        if (world.getBlockMetadata(x, y, z) == 1) {
-            world.setBlockMetadata(x, y, z, 0);
-        }
+    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
     }
 
     @Override
@@ -51,25 +44,31 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
     }
 
     @Override
-    public @Nullable ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        return breakResult.getBreakResult(world, dropCause, meta, tileEntity);
+    public void updateTick(World world, int x, int y, int z, Random rand) {
+        if (!world.isClientSide && world.getBlockMetadata(x, y, z) != 1) {
+            world.setBlockMetadata(x, y, z, 0);
+        }
     }
-
 
     @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        if (EnvironmentHelper.isClientWorld()) {
+        if (EnvironmentHelper.isClientWorld()
+            || !(entity instanceof Player)
+            || !world.getDifficulty().canHostileMobsSpawn()
+            || world.getBlockMetadata(x, y, z) != 0
+        ) {
             return;
         }
-        if (!(entity instanceof Player) || !world.getDifficulty().canHostileMobsSpawn() || world.getBlockMetadata(x, y, z) == 1) {
-            return;
-        }
+        this.triggerTrap(world, x, y, z, entity);
+    }
+
+    private void triggerTrap(World world, int x, int y, int z, Entity entity) {
         Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
         if (theMonster == null) {
             return;
         }
-        int tries = 16;
         theMonster.spawnInit();
+        int tries = 16;
         while (tries-- > 0) {
             final double angleRad = Math.toRadians(world.rand.nextInt(360));
             final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
@@ -77,17 +76,32 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
             double spawnY = y + 1.25;
             theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
-            if (!world.checkIfAABBIsClear(theMonster.bb)) {
+            if (!world.checkIfAABBIsClear(theMonster.bb) && !world.getCubes(theMonster, theMonster.bb).isEmpty()) {
                 continue;
             }
             world.entityJoinedWorld(theMonster);
+            world.setBlockMetadata(x, y, z, 1);
+            world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
             this.spawnParticles(world, spawnX, spawnY, spawnZ);
             this.playSound(world, x, y, z, entity, theMonster);
-            if (theMonster instanceof MobSentry) {
-                ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
-            }
-            world.setBlockMetadata(x, y, z, 1);
+            this.giveAchievement((Player) entity, theMonster);
             return;
+        }
+    }
+
+    @SuppressWarnings("java:S1452")
+    public Block<?> getReplaceOnClear() {
+        return replaceOnClear;
+    }
+
+    @SuppressWarnings("java:S1452")
+    public Block<?> getBreakResult() {
+        return breakResult;
+    }
+
+    private void giveAchievement(Player player, Entity theMonster) {
+        if (theMonster instanceof MobSentry) {
+            player.triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
         }
     }
 
