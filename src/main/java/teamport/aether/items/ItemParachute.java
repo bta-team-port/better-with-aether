@@ -20,33 +20,31 @@ public class ItemParachute extends Item {
 
     @Override
     public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
-        if (player.fallDistance > 0 && !player.isInWater()) {
-            if (!EnvironmentHelper.isClientWorld()) {
+        if (player.fallDistance > 0 && !player.isInWater() && !EnvironmentHelper.isClientWorld()) {
 
-                EntityParachute cloud;
-                try {
-                    cloud = entity.getConstructor(World.class).newInstance(world);
-                } catch (Exception e) {
-                    AetherMod.LOGGER.error("Failed to spawn parachute cloud!");
-                    throw new RuntimeException(e);
-                }
+            EntityParachute cloud;
+            try {
+                cloud = entity.getConstructor(World.class).newInstance(world);
+            } catch (Exception e) {
+                AetherMod.LOGGER.error("Failed to spawn parachute cloud!");
+                throw new RuntimeException(e);
+            }
 
-                cloud.absMoveTo(player.x, player.y - 2, player.z, (player.yRot), (player.xRot));
-                world.entityJoinedWorld(cloud);
-                ParticleMaker.spawnParticle(world, cloud.getPathParticle(), player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
+            cloud.absMoveTo(player.x, player.y - 2, player.z, (player.yRot), (player.xRot));
+            world.entityJoinedWorld(cloud);
+            ParticleMaker.spawnParticle(world, cloud.getPathParticle(), player.x + 0.5, player.y + 1, player.z + 0.5, 0.0, 0.0, 0.0, 0);
 
-                player.startRiding(cloud);
+            player.startRiding(cloud);
 
-                if (!EnvironmentHelper.isServerEnvironment()) {
-                    player.triggerAchievement(AetherAchievements.PARACHUTE);
-                }
+            if (!EnvironmentHelper.isServerEnvironment()) {
+                player.triggerAchievement(AetherAchievements.PARACHUTE);
+            }
 
-                if (player.gamemode.toolDurability()) {
-                    if (itemstack.getMaxDamage() == 1) {
-                        itemstack.consumeItem(player);
-                    } else {
-                        itemstack.damageItem(1, player);
-                    }
+            if (player.gamemode.toolDurability()) {
+                if (itemstack.getMaxDamage() == 1) {
+                    itemstack.consumeItem(player);
+                } else {
+                    itemstack.damageItem(1, player);
                 }
             }
         }

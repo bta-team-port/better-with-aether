@@ -649,6 +649,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelFlowerStackableAether<>(AetherBlocks.FLOWER_WHITE, "aether:block/flower_white/"));
 
         dispatcher.addDispatch(new BlockModelAetherTallgrass<>(AetherBlocks.TALLGRASS_AETHER).setAllTextures(BLOCK_TEXTURES, "aether:block/tallgrass_aether"));
+
+        dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.DEADBUSH_AETHER).setAllTextures(BLOCK_TEXTURES, "aether:block/deadbush_aether"));
     }
 
     private void setBlockCloudModels(BlockModelDispatcher dispatcher) {

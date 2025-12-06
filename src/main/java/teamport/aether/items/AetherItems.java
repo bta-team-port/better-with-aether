@@ -315,10 +315,10 @@ public final class AetherItems {
 
 
         FOOD_GUMMY_BLUE = new ItemBuilder(MOD_ID)
-            .build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), itemID("FOOD_GUMMY_BLUE"), 20, 1, false, 8));
+            .build(new ItemFood("food.gummy.blue", itemKey("food_gummy_blue"), itemID("FOOD_GUMMY_BLUE"), 15, 2, false, 4));
 
         FOOD_GUMMY_GOLD = new ItemBuilder(MOD_ID)
-            .build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), itemID("FOOD_GUMMY_GOLD"), 40, 1, false, 4));
+            .build(new ItemFood("food.gummy.gold", itemKey("food_gummy_gold"), itemID("FOOD_GUMMY_GOLD"), 30, 2, false, 2));
 
 
         LIFESHARD = new ItemBuilder(MOD_ID)

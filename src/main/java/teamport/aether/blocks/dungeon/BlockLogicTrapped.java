@@ -37,11 +37,12 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
+        int meta = world.getBlockMetadata(x, y, z);
         if (world.isClientSide) {
             return;
         }
-        if (world.getBlockMetadata(x, y, z) == 1) {
-            world.setBlockMetadata(x, y, z, 0);
+        if (meta >= 1) {
+            world.setBlockMetadata(x, y, z, meta - 1);
         }
     }
 
@@ -61,7 +62,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         if (EnvironmentHelper.isClientWorld()) {
             return;
         }
-        if (!(entity instanceof Player) || !world.getDifficulty().canHostileMobsSpawn() || world.getBlockMetadata(x, y, z) == 1) {
+        if (!(entity instanceof Player) || !world.getDifficulty().canHostileMobsSpawn() || world.getBlockMetadata(x, y, z) >= 1) {
             return;
         }
         Entity theMonster = EntityDispatcher.createEntityInWorld(this.monster, world);
@@ -86,7 +87,11 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
             if (theMonster instanceof MobSentry) {
                 ((Player) entity).triggerAchievement(AetherAchievements.SENTRY_DEPLOYED);
             }
-            world.setBlockMetadata(x, y, z, 1);
+            if (world.rand.nextInt(5) == 0) {
+                world.setBlock(x, y, z, breakResult.id());
+            } else {
+                world.setBlockMetadata(x, y, z, world.rand.nextInt(3) + 1);
+            }
             return;
         }
     }
