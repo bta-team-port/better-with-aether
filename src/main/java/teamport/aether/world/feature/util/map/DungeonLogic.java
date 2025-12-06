@@ -169,9 +169,9 @@ public abstract class DungeonLogic {
 
                     BlockLogic logic = block.getLogic();
                     if (logic instanceof BlockLogicLocked) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicLocked) logic).replacement.id());
+                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicLocked) logic).getReplacement().id());
                     } else if (logic instanceof BlockLogicTrapped) {
-                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicTrapped) logic).replaceOnClear.id());
+                        world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), ((BlockLogicTrapped) logic).getReplaceOnClear().id());
                     } else if (logic instanceof BlockLogicDungeonDoor) {
                         world.setBlockWithNotify(p.getX(), p.getY(), p.getZ(), 0);
                     }
