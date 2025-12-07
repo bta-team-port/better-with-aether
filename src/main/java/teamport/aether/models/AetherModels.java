@@ -313,6 +313,8 @@ public class AetherModels implements ModelEntrypoint {
     @Override
     public void initBlockColors(BlockColorDispatcher dispatcher) {
         dispatcher.addDispatch(AetherBlocks.GRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
+        dispatcher.addDispatch(AetherBlocks.TALLGRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
+
         dispatcher.addDispatch(AetherBlocks.LEAVES_SKYROOT, new BlockColorCustom(AetherClient.skyroot));
         dispatcher.addDispatch(AetherBlocks.LEAVES_OAK_GOLDEN, new BlockColorCustom(AetherClient.oakGolden));
     }
@@ -651,8 +653,8 @@ public class AetherModels implements ModelEntrypoint {
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_side_retro", SIDES)
             .setTex(RETRO_BLOCK_TEXTURES, "aether:block/log/oak_golden_top_retro", TOP_BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelLeaves<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot"));
-        dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", true));
+        dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_SKYROOT, "aether:block/leaves/skyroot", "aether:block/leaves/skyroot_retro"));
+        dispatcher.addDispatch(new BlockModelLeavesAether<>(AetherBlocks.LEAVES_OAK_GOLDEN, "aether:block/leaves/oak_golden", "aether:block/leaves/oak_golden_retro"));
 
         dispatcher.addDispatch(new BlockModelCrossedSquares<>(AetherBlocks.SAPLING_SKYROOT)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/sapling/skyroot")
