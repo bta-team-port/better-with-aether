@@ -18,12 +18,13 @@ public abstract class PlayerMixinDevDrops {
     private void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
         Player player = (Player) (Object) this;
         String uuid = player.uuid.toString();
+
         switch (uuid) {
             case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
                 player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_WINDBALL, 1), true);
                 break;
             case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.BLOCK_GRAVITITE, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.PARACHUTE_CLOUD, 1), true);
                 break;
             case AetherGlobals.UUID_TOCININ: // Tocinin
                 player.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1), true);
@@ -32,7 +33,7 @@ public abstract class PlayerMixinDevDrops {
                 player.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
                 break;
             case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.TOOL_HAMMER_NOTCH, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.TOOL_HAMMER_NOTCH, 1, AetherItems.TOOL_HAMMER_NOTCH.getMaxDamage()), true);
                 break;
             default:
                 break;
