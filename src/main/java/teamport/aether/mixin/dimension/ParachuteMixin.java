@@ -6,6 +6,7 @@ import net.minecraft.core.entity.EntityItem;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.player.gamemode.Gamemode;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -26,6 +27,9 @@ public abstract class ParachuteMixin extends Mob {
     @Shadow
     public ContainerInventory inventory;
 
+    @Shadow
+    public Gamemode gamemode;
+
     public ParachuteMixin(@Nullable World world) {
         super(world);
     }
@@ -39,8 +43,10 @@ public abstract class ParachuteMixin extends Mob {
             && !EnvironmentHelper.isClientWorld()
         ) {
             if (AetherDimension.canGetParachute(uuid)) {
-                EntityItem chute = new EntityItem(world, x, y, z, new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
-                world.entityJoinedWorld(chute);
+                if (!this.gamemode.isPlayerInvulnerable()) {
+                    EntityItem chute = new EntityItem(world, x, y, z, new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
+                    world.entityJoinedWorld(chute);
+                }
 
                 AetherDimension.setParachuteReceived(uuid);
             }
