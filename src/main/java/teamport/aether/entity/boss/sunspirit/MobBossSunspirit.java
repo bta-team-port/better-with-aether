@@ -91,7 +91,7 @@ public class MobBossSunspirit extends MobBossFlying {
         if (this.world == null) {
             return;
         }
-        double speed = DEFAULT_SPEED + MathHelper.lerp(0.0f, ADDED_MAX_SPEED, 1.0f - this.getHealth() /(double) this.getMaxHealth());
+        double speed = DEFAULT_SPEED + MathHelper.lerp(0.0f, ADDED_MAX_SPEED, 1.0f - this.getHealth() / (double) this.getMaxHealth());
         Vec3 currentPos = Vec3.getPermanentVec3(x, y, z);
         Vec3 nextPos = Vec3.getPermanentVec3(
             x + xd + defaultVector.x * speed + (defaultVector.x > 0 ? bbWidth / 2 : -bbWidth / 2),
@@ -137,7 +137,7 @@ public class MobBossSunspirit extends MobBossFlying {
             --this.chatCooldown;
             this.maxFireTicks = this.remainingFireTicks = 0;
         }
-        if(this.isInLava()){
+        if (this.isInLava()) {
             this.eatFood((ItemFood) Items.FOOD_FISH_RAW);
         }
     }
@@ -216,6 +216,7 @@ public class MobBossSunspirit extends MobBossFlying {
         if (this.world == null || isAgro && target != null) {
             return false;
         }
+
         if (this.chatCooldown <= 0) {
             if (this.chatLog < START_FIGHT) {
                 MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + this.chatLog));
@@ -241,7 +242,11 @@ public class MobBossSunspirit extends MobBossFlying {
                 return true;
             }
             if (this.target == null && !this.isAgro) {
-                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat"));
+                StringBuilder message = new StringBuilder("boss_sunspirit.fight.repeat");
+                if(AetherDimension.isSunspiritDead()){
+                    message.append(".again");
+                }
+                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey(message.toString()));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = START_FIGHT;
                 this.chatCooldown = 40;

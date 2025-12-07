@@ -87,6 +87,7 @@
     "gui.MenuInventoryAddCreativeItemsMixin",
     "gui.screens.PlayerMixinAetherScreens",
     "item.ItemBlockBlacklistMixin",
+    "item.ItemBlockSlabBlacklistMixin",
     "item.ItemFireStrikerMixin",
     "item.ItemJarMixin",
     "item.ItemSaddleMixin",
