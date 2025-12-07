@@ -2,7 +2,7 @@ package teamport.aether.world.feature.chest;
 
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.util.helper.Direction;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.dungeon.gold.WorldFeatureAetherGoldDungeon;
 
 public class WorldFeatureAetherGoldChest extends WorldFeatureAetherTreasureChest {

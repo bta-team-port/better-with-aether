@@ -3,9 +3,9 @@ package teamport.aether.lookup;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.accessory.IAccessory;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.IAccessory;
 
 import java.util.*;
 

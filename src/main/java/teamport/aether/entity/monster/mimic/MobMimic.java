@@ -22,16 +22,16 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.dungeon.BlockLogicChestMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.tile.TileEntityMimic;
+import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.helper.unboxed.IntPair;
-import teamport.aether.items.accessory.AetherInvisibility;
-import teamport.aether.items.item_tool.ItemToolAxeAether;
-import teamport.aether.items.item_tool.ItemToolPickaxeAether;
+import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.item_tool.ItemToolAxeAether;
+import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
@@ -346,7 +346,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         return "Wallace".equals(nickname)
             && variantWallace.getMimicVariant() == this.getSkinVariant();
     }
-    
+
     @Override
     public boolean canSpawnHere() {
         return this.world != null

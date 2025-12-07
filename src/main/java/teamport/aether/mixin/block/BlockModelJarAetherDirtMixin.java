@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import teamport.aether.blocks.AetherBlockTags;
+import teamport.aether.block.AetherBlockTags;
 
 import static net.minecraft.client.render.block.model.BlockModel.renderBlocks;
 

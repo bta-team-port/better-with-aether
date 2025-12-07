@@ -7,11 +7,11 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.items.accessory.ItemGloves;
+import teamport.aether.item.AetherArmorMaterial;
+import teamport.aether.item.accessory.ItemGloves;
 
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
-import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixinGlovesDamage {

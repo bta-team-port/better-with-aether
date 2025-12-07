@@ -5,9 +5,9 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.blocks.terrain.BlockLogicOreGravitite;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.terrain.BlockLogicOreGravitite;
 
 import java.util.Random;
 

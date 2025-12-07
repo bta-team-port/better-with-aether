@@ -8,7 +8,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelBowPhoenix extends ItemModelBow {

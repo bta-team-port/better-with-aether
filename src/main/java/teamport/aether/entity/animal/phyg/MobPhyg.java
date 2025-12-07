@@ -13,7 +13,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,7 +18,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.AetherClient;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
 import teamport.aether.entity.animal.aerbunny.ModelAerbunny;
@@ -69,13 +69,13 @@ import teamport.aether.entity.renderer.EntityRendererArrowFlaming;
 import teamport.aether.entity.renderer.EntityRendererDart;
 import teamport.aether.entity.renderer.EntityRendererKnifeLightning;
 import teamport.aether.entity.renderer.EntityRendererNeedle;
-import teamport.aether.entity.tile.TileEntityRendererSignSkyroot;
-import teamport.aether.entity.tile.TileEntitySignSkyroot;
+import teamport.aether.block.entity.TileEntityRendererSignSkyroot;
+import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachute;
 import teamport.aether.entity.vehicle.parachute.EntityRendererParachuteGold;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 import teamport.aether.models.dungeon.*;
 import teamport.aether.models.skyroot.*;
 import turniplabs.halplibe.helper.ModelHelper;
@@ -102,15 +102,6 @@ public class AetherModels implements ModelEntrypoint {
 
         dispatcher.addDispatch(new BlockModelPortal<>(AetherBlocks.PORTAL_AETHER, "aether:block/portal_aether/")
             .setAllTextures(BLOCK_TEXTURES, "aether:block/portal_aether"));
-
-//        dispatcher.addDispatch((new BlockModelGrass<>(Blocks.GRASS))
-//            .setTex(0, "minecraft:block/grass/top", Side.TOP)
-//            .setTex(0, "minecraft:block/grass/bottom", Side.BOTTOM)
-//            .setTex(0, "minecraft:block/grass/side", SIDES)
-//            .setTex(2, "minecraft:block/grass_retro/top", Side.TOP)
-//            .setTex(2, "minecraft:block/grass_retro/bottom", Side.BOTTOM)
-//            .setTex(2, "minecraft:block/grass_retro/side", SIDES));
-
 
         dispatcher.addDispatch(new BlockModelGrassAether<>(AetherBlocks.GRASS_AETHER)
             .setTex(BLOCK_TEXTURES, "aether:block/grass_aether/top", Side.TOP)

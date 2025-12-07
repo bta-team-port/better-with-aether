@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.player.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class MobMixinSwimming extends Entity {

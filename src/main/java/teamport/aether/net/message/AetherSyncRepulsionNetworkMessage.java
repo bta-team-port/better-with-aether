@@ -3,7 +3,7 @@ package teamport.aether.net.message;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.items.AetherRepulsion;
+import teamport.aether.item.AetherRepulsion;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 

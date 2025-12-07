@@ -13,8 +13,8 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.AetherItems;
 
 public class MobMoaBlue extends MobAetherAnimalRideable {
     private float flap = 0.0F;

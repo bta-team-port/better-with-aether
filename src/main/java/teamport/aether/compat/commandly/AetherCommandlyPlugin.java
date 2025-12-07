@@ -3,9 +3,9 @@ package teamport.aether.compat.commandly;
 import redart15.commandly.api.CommandlyPlugin;
 import redart15.commandly.veincapitator.OreGroups;
 import redart15.commandly.veincapitator.PickAxeRegister;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.item_tool.AetherToolMaterial;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.item_tool.AetherToolMaterial;
 
 public class AetherCommandlyPlugin implements CommandlyPlugin {
 

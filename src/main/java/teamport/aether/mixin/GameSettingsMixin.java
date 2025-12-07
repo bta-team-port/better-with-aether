@@ -6,14 +6,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.option.Option;
-import net.minecraft.client.option.OptionBoolean;
 import net.minecraft.client.option.OptionRange;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.game_settings.AetherGameSettingsOptions;
+import teamport.aether.option.AetherGameSettingsOptions;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = GameSettings.class, remap = false)

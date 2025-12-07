@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.dungeon.BlockLogicChestMimic;
 import toufoumaster.btwaila.gui.components.BaseInfoComponent;
 
 @Mixin(value = BaseInfoComponent.class, remap = false)

@@ -14,7 +14,7 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelFreezer<T extends BlockLogic> extends BlockModelHorizontalRotation<T> {

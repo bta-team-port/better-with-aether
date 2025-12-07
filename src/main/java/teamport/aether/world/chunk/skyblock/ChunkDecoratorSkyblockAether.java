@@ -8,8 +8,8 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherClouds;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
 

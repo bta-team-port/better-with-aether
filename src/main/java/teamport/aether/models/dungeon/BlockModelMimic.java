@@ -11,7 +11,7 @@ import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelMimic<T extends BlockLogicChestMimic> extends BlockModelStandard<T> {

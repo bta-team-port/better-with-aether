@@ -3,7 +3,7 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,7 @@ package teamport.aether.mixin.accessory.cape.invisibility_cape.player;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import teamport.aether.items.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherInvisibility;
 import teamport.aether.net.message.AetherSyncInvisibilityNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;

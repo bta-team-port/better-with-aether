@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 
 import java.util.ArrayList;
 import java.util.List;

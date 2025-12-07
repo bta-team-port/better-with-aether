@@ -9,7 +9,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Axis;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
-import teamport.aether.blocks.skyroot.BlockLogicPaintedDoor;
+import teamport.aether.block.skyroot.BlockLogicPaintedDoor;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> extends BlockModelDoor<T> {

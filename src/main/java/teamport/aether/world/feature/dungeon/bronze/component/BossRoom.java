@@ -2,10 +2,10 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import net.minecraft.core.block.BlockLogicRotatable;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.Pair;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.chest.WorldFeatureAetherBronzeChest;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
 import teamport.aether.world.feature.util.BlockPallet;

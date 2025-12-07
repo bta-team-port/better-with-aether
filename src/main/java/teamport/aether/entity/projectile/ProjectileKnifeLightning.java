@@ -9,7 +9,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class ProjectileKnifeLightning extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
 

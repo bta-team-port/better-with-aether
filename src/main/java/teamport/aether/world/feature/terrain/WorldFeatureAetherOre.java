@@ -5,7 +5,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.MethodParametersAnnotation;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
 

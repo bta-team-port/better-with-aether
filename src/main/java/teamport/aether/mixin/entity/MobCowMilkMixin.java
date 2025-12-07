@@ -6,8 +6,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.ItemBucketSkyrootEmpty;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.ItemBucketSkyrootEmpty;
 
 @Mixin(value = MobCow.class, remap = false)
 public abstract class MobCowMilkMixin {

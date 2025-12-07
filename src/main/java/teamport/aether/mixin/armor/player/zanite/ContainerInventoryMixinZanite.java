@@ -10,7 +10,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixinZanite {

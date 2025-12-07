@@ -15,9 +15,9 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.MobAetherAnimal;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 
 import java.util.Random;
 

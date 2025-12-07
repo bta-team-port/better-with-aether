@@ -6,7 +6,7 @@ import net.minecraft.client.gui.guidebook.mobs.MobInfoRegistry;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
@@ -28,7 +28,7 @@ import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
 public class AetherMobInfoRegistry {

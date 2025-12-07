@@ -10,7 +10,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Mixin(value = BlockLogicMoss.class, remap = false)
 public abstract class BlockLogicMossMixin {

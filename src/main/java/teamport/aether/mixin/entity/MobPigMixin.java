@@ -5,7 +5,7 @@ import net.minecraft.core.entity.animal.MobPig;
 import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 
 @Mixin(value = MobPig.class, remap = false)
 public abstract class MobPigMixin {

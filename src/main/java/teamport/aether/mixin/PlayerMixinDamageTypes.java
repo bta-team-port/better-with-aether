@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.AetherHasCustomDamageType;
-import teamport.aether.items.accessory.ItemGloves;
+import teamport.aether.item.AetherHasCustomDamageType;
+import teamport.aether.item.accessory.ItemGloves;
 
-import static teamport.aether.items.accessory.SlotAccessory.GLOVES_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixinDamageTypes {

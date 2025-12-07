@@ -7,7 +7,7 @@ import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class PlayerMixinPendantFallDamageModifier {

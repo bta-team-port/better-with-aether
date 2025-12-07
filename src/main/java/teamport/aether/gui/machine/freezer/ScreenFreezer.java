@@ -7,7 +7,7 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
-import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelFreezer;
 

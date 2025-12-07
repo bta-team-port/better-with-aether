@@ -9,7 +9,7 @@ import net.minecraft.core.world.SpawnerMobs;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 
 @Mixin(value = SpawnerMobs.class, remap = false)

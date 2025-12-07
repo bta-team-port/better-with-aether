@@ -8,7 +8,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.util.helper.Side;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.blocks.skyroot.BlockLogicPaintedSignSkyroot;
+import teamport.aether.block.skyroot.BlockLogicPaintedSignSkyroot;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootSign<T extends BlockLogicPaintedSignSkyroot> extends BlockModelEmpty<T> {

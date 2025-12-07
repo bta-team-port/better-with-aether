@@ -2,11 +2,11 @@ package teamport.aether.entity.player;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 public class PlayerUntil {
     private PlayerUntil(){/* no need to initiate*/}

@@ -7,7 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.block.BlockLogicPathDirt;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Mixin(value = BlockLogicPathDirt.class, remap = false)
 public abstract class BlockLogicPathDirtMixin {

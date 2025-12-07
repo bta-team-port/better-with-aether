@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import teamport.aether.items.item_tool.AetherToolMaterial;
+import teamport.aether.item.item_tool.AetherToolMaterial;
 
-import static teamport.aether.items.item_tool.AetherToolMaterial.VALKYRIE_TOOL_EXTEND_RANGE_BY;
+import static teamport.aether.item.item_tool.AetherToolMaterial.VALKYRIE_TOOL_EXTEND_RANGE_BY;
 
 @Environment(EnvType.SERVER)
 @Mixin(value = PacketHandlerServer.class, remap = false)

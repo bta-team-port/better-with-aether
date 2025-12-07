@@ -16,7 +16,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.items.DartInterface;
+import teamport.aether.item.DartInterface;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelShooter extends ItemModelStandard {

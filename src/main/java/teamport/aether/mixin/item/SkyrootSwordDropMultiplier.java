@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
-import teamport.aether.items.item_tool.AetherToolMaterial;
+import teamport.aether.item.item_tool.AetherToolMaterial;
 import teamport.aether.mixin.accessors.ItemToolSwordAccessor;
 
 import java.util.List;

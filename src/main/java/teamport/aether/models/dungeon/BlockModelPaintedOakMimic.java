@@ -10,7 +10,7 @@ import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedOakMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {

@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.DartInterface;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.DartInterface;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerGetNextDartMixin extends Mob implements DartInterface {

@@ -23,10 +23,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.IAccessory;
-import teamport.aether.items.accessory.ItemAccessoryArmor;
-import teamport.aether.items.accessory.SlotAccessory;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemAccessoryArmor;
+import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 import teamport.aether.mixin.accessors.SlotAccessor;
 import teamport.aether.mixin.accessors.SlotArmorAccessor;
@@ -34,7 +34,7 @@ import teamport.aether.mixin.accessors.SlotArmorAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Mixin(value = MenuInventory.class, remap = false)
 public abstract class MenuInventoryMixinAddSlotAdjSlot {

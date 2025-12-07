@@ -32,17 +32,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.GLManager;
-import teamport.aether.items.AetherRepulsion;
-import teamport.aether.items.accessory.AetherInvisibility;
-import teamport.aether.items.accessory.IAccessory;
-import teamport.aether.items.accessory.ItemGloves;
-import teamport.aether.items.accessory.pendant.ItemPendant;
-import teamport.aether.items.accessory.trinket.ItemGoldenFeather;
-import teamport.aether.items.accessory.trinket.ItemIronBubble;
-import teamport.aether.items.accessory.trinket.ItemRegenStone;
-import teamport.aether.items.accessory.trinket.ItemRepulsionShield;
+import teamport.aether.item.AetherRepulsion;
+import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemGloves;
+import teamport.aether.item.accessory.pendant.ItemPendant;
+import teamport.aether.item.accessory.trinket.ItemGoldenFeather;
+import teamport.aether.item.accessory.trinket.ItemIronBubble;
+import teamport.aether.item.accessory.trinket.ItemRegenStone;
+import teamport.aether.item.accessory.trinket.ItemRepulsionShield;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)

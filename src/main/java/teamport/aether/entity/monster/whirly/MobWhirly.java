@@ -13,13 +13,13 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.accessory.AetherInvisibility;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.AetherInvisibility;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package teamport.aether.world.feature.chest;
 
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon;
 
 public class WorldFeatureAetherSilverChest extends WorldFeatureAetherTreasureChest {

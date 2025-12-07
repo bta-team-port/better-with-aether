@@ -21,13 +21,13 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.game_settings.AetherGameSettingsOptions;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.IAccessory;
+import teamport.aether.option.AetherGameSettingsOptions;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
 
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = ItemElement.class, remap = false)
