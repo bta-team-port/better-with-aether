@@ -4,6 +4,7 @@ import com.mojang.nbt.NbtIo;
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.world.save.DimensionData;
 import net.minecraft.core.world.save.ISaveFormat;
+import net.minecraft.core.world.save.LevelData;
 import net.minecraft.core.world.save.SaveHandlerBase;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,17 +34,7 @@ public abstract class SaveHandlerMixin {
     protected File saveDirectory;
 
     @Inject(method = "getDimensionData", at = @At("HEAD"))
-    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) throws IOException {
-
-        File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
-
-        if (AETHER_CUSTOM_DATA_FILE.exists()) {
-            InputStream dis = Files.newInputStream(AETHER_CUSTOM_DATA_FILE.toPath());
-            CompoundTag aetherCustomTag = NbtIo.readCompressed(dis);
-            AetherDimension.loadWorldData(aetherCustomTag);
-            dis.close();
-        }
-
+    private void getDimensionData(int dimensionId, CallbackInfoReturnable<DimensionData> cir) {
         if (dimensionId != AetherDimension.getAether().id) return;
 
         AetherDimension.setDimensionDataDefaults();
@@ -53,6 +44,19 @@ public abstract class SaveHandlerMixin {
             AetherDimension.loadDimensionData(dimensionData);
         }
     }
+
+    @Inject(method = "getLevelData", at = @At("HEAD"))
+    private void getWorldData(CallbackInfoReturnable<LevelData> cir) throws IOException  {
+        File AETHER_CUSTOM_DATA_FILE = new File(saveDirectory, "data/aether_custom_data.dat");
+
+        if (AETHER_CUSTOM_DATA_FILE.exists()) {
+            InputStream dis = Files.newInputStream(AETHER_CUSTOM_DATA_FILE.toPath());
+            CompoundTag aetherCustomTag = NbtIo.readCompressed(dis);
+            AetherDimension.loadWorldData(aetherCustomTag);
+            dis.close();
+        }
+    }
+
     @Inject(method = "saveDimensionDataRaw", at = @At("HEAD"))
     private void saveDimensionDataRaw(int dimensionId, CompoundTag dimensionData, CallbackInfo ci) throws IOException {
 

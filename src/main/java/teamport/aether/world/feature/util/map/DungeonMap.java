@@ -84,6 +84,10 @@ public class DungeonMap {
         return data;
     }
 
+    public static void clear() {
+        DUNGEON_MAP.clear();
+    }
+
     public static void load(CompoundTag data) {
         DUNGEON_MAP.clear();
 
