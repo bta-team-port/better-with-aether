@@ -33,7 +33,7 @@ public abstract class PlayerMixinDevDrops {
                 player.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
                 break;
             case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
-                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.TOOL_HAMMER_NOTCH, 1, AetherItems.TOOL_HAMMER_NOTCH.getMaxDamage()), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_HAMMER_HEAD, 1), true);
                 break;
             default:
                 break;
