@@ -13,9 +13,10 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 public class ItemParachute extends Item {
     Class<? extends EntityParachute> entity;
 
-    public ItemParachute(String translationKey, String namespaceId, int id, Class<? extends EntityParachute> entity) {
+    public ItemParachute(String translationKey, String namespaceId, int id, Class<? extends EntityParachute> entity, int durability) {
         super(translationKey, namespaceId, id);
         this.entity = entity;
+        this.setMaxDamage(durability);
     }
 
     @Override

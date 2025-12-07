@@ -326,14 +326,12 @@ public final class AetherItems {
 
 
         PARACHUTE_CLOUD = new ItemBuilder(MOD_ID)
-            .build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class))
-            .setMaxStackSize(1)
-            .setMaxDamage(1);
+            .build(new ItemParachute("parachute.cloud", itemKey("parachute_cloud"), itemID("PARACHUTE_CLOUD"), EntityParachute.class, 1))
+            .setMaxStackSize(1);
 
         PARACHUTE_CLOUD_GOLD = new ItemBuilder(MOD_ID)
-            .build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class))
-            .setMaxStackSize(1)
-            .setMaxDamage(20);
+            .build(new ItemParachute("parachute.cloud.gold", itemKey("parachute_cloud_gold"), itemID("PARACHUTE_CLOUD_GOLD"), EntityParachuteGold.class, 20))
+            .setMaxStackSize(1);
 
 
         LANTERN_FIREFLY_SILVER = new ItemBuilder(MOD_ID)
