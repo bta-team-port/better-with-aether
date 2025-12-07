@@ -81,58 +81,60 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.FIRE.id());
         aetherBlacklist.add(Blocks.TORCH_COAL.id());
 
-        ///  I think those get converted
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-        aetherBlacklist.add(Blocks.PUMICE_WET.id());
-        aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-        aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
-        aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
+        if (!sunspiritDead) {
+            ///  I think those get converted
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+            aetherBlacklist.add(Blocks.PUMICE_WET.id());
+            aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+            aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
+            aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
-        /// blocks that should not be banned or unlocked by sunspirit death
-        aetherBlacklist.add(Blocks.SOULSAND.id());
-        aetherBlacklist.add(Blocks.SOULSCHIST.id());
-        aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
-        aetherBlacklist.add(Blocks.NETHERRACK.id());
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
-        aetherBlacklist.add(Blocks.NETHERRACK_CARVED.id());
-        aetherBlacklist.add(Blocks.NETHERRACK_POLISHED.id());
-        aetherBlacklist.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
-        aetherBlacklist.add(Blocks.BRICK_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.SLAB_BRICK_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
+            /// blocks that should not be banned or unlocked by sunspirit death
+            aetherBlacklist.add(Blocks.SOULSAND.id());
+            aetherBlacklist.add(Blocks.SOULSCHIST.id());
+            aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+            aetherBlacklist.add(Blocks.NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_CARVED.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
 
-        aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
-        aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id());
+            aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id());
+        }
     }
 
     public static void unlockDaylightCycle(World world) {
-        deleteFromBlackLists(AETHER_DIMENSION_ID,
-            Blocks.SOULSAND.id(),
-            Blocks.SOULSCHIST.id(),
-            Blocks.PUMPKIN_CARVED_ACTIVE.id(),
-            Blocks.NETHERRACK.id(),
-            Blocks.COBBLE_NETHERRACK.id(),
-            Blocks.STAIRS_COBBLE_NETHERRACK.id(),
-            Blocks.SLAB_COBBLE_NETHERRACK.id(),
-            Blocks.COBBLE_NETHERRACK_MOSSY.id(),
-            Blocks.NETHERRACK_CARVED.id(),
-            Blocks.NETHERRACK_POLISHED.id(),
-            Blocks.SLAB_NETHERRACK_POLISHED.id(),
-            Blocks.BRICK_NETHERRACK.id(),
-            Blocks.SLAB_BRICK_NETHERRACK.id(),
-            Blocks.STAIRS_BRICK_NETHERRACK.id(),
-            Blocks.ORE_NETHERCOAL_NETHERRACK.id(),
-            Blocks.BLOCK_NETHER_COAL.id()
-        );
         if (!sunspiritDead) {
             AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
-
             sunspiritDead = true;
             sunspiritDeathTimestamp = world.getWorldTime();
+
+            deleteFromBlackLists(AETHER_DIMENSION_ID,
+                Blocks.SOULSAND.id(),
+                Blocks.SOULSCHIST.id(),
+                Blocks.PUMPKIN_CARVED_ACTIVE.id(),
+                Blocks.NETHERRACK.id(),
+                Blocks.COBBLE_NETHERRACK.id(),
+                Blocks.STAIRS_COBBLE_NETHERRACK.id(),
+                Blocks.SLAB_COBBLE_NETHERRACK.id(),
+                Blocks.COBBLE_NETHERRACK_MOSSY.id(),
+                Blocks.NETHERRACK_CARVED.id(),
+                Blocks.NETHERRACK_POLISHED.id(),
+                Blocks.SLAB_NETHERRACK_POLISHED.id(),
+                Blocks.BRICK_NETHERRACK.id(),
+                Blocks.SLAB_BRICK_NETHERRACK.id(),
+                Blocks.STAIRS_BRICK_NETHERRACK.id(),
+                Blocks.ORE_NETHERCOAL_NETHERRACK.id(),
+                Blocks.BLOCK_NETHER_COAL.id()
+            );
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
