@@ -135,8 +135,8 @@ public class AetherModels implements ModelEntrypoint {
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE)
             .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone"));
 
-        dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_MOSSY)
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone_mossy"));
+        dispatcher.addDispatch(new BlockModelAetherStoneMossy<>(AetherBlocks.HOLYSTONE_MOSSY)
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/holystone"));
 
         dispatcher.addDispatch(new BlockModelStandard<>(AetherBlocks.HOLYSTONE_POLISHED)
             .setTex(BLOCK_TEXTURES, "aether:block/polished_holystone_side", SIDES)
@@ -314,6 +314,8 @@ public class AetherModels implements ModelEntrypoint {
     public void initBlockColors(BlockColorDispatcher dispatcher) {
         dispatcher.addDispatch(AetherBlocks.GRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
         dispatcher.addDispatch(AetherBlocks.TALLGRASS_AETHER, new BlockColorCustom(AetherClient.grassAether));
+
+        dispatcher.addDispatch(AetherBlocks.HOLYSTONE_MOSSY, new BlockColorCustom(AetherClient.grassAether));
 
         dispatcher.addDispatch(AetherBlocks.LEAVES_SKYROOT, new BlockColorCustom(AetherClient.skyroot));
         dispatcher.addDispatch(AetherBlocks.LEAVES_OAK_GOLDEN, new BlockColorCustom(AetherClient.oakGolden));

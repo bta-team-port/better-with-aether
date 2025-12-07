@@ -60,7 +60,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
     static {
         WORLD_FEATURE.addEntry(null, 512);
         WORLD_FEATURE.addEntry(() -> new WorldFeatureTallGrass(AetherBlocks.TALLGRASS_AETHER.id()), 16);
-        WORLD_FEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 8);
+        WORLD_FEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_WHITE.id(), 64, true), 4);
+        WORLD_FEATURE.addEntry(() -> new WorldFeatureFlowers(AetherBlocks.FLOWER_PURPLE.id(), 64, true), 4);
         WORLD_FEATURE.addEntry(WorldFeatureAetherTreeGoldenOak::new, 8);
     }
 
