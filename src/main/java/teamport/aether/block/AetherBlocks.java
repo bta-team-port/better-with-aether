@@ -703,6 +703,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CHEST_PLANKS_SKYROOT = wood
             .setVisualUpdateOnMetadata()
+            .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .build(
                 "chest.planks.skyroot",
                 "chest_planks_skyroot",
@@ -711,6 +712,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         CHEST_PLANKS_SKYROOT_PAINTED = wood
             .setVisualUpdateOnMetadata()
+            .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .build("chest.planks.skyroot.painted",
                 "chest_planks_skyroot_painted",
