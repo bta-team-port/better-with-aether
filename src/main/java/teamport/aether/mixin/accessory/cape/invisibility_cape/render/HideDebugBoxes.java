@@ -9,7 +9,7 @@ import net.minecraft.client.render.camera.ICamera;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.items.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherInvisibility;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = RenderGlobal.class, remap = false)

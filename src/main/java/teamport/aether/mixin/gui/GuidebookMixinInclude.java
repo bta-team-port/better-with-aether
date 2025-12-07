@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.gui.guidebook.enchanter.GuidebookSectionEnchanter;
 import teamport.aether.gui.guidebook.freezer.GuidebookSectionFreezer;
 import teamport.aether.gui.guidebook.incubator.GuidebookIncubatorSection;

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.MixinHelper;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = HudIngame.class, remap = false)

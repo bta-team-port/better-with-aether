@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 public class EntityFloatingBlock extends Entity {
     private CarriedBlock carriedBlock;

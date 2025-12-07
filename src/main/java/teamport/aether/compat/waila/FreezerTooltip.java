@@ -3,7 +3,7 @@ package teamport.aether.compat.waila;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.Global;
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.block.entity.TileEntityFreezer;
 import toufoumaster.btwaila.gui.components.AdvancedInfoComponent;
 import toufoumaster.btwaila.tooltips.TileTooltip;
 import toufoumaster.btwaila.util.Colors;

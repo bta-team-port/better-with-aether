@@ -4,7 +4,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.util.MazeHelper;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.feature.util.BlockPallet;

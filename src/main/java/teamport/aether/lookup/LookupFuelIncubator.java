@@ -1,6 +1,6 @@
 package teamport.aether.lookup;
 
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.HashMap;
 import java.util.Map;

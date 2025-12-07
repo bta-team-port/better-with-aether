@@ -8,7 +8,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.mixin.accessors.EntityAccessor;

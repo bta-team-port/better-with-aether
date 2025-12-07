@@ -24,7 +24,7 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
-import teamport.aether.entity.tile.*;
+import teamport.aether.block.entity.*;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import turniplabs.halplibe.helper.EntityHelper;

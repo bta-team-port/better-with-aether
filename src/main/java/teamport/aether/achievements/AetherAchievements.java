@@ -4,8 +4,8 @@ import net.minecraft.core.achievement.Achievement;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 
 import static teamport.aether.AetherMod.MOD_ID;
 

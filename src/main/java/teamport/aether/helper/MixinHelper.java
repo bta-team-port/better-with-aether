@@ -15,7 +15,7 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.entity.player.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
 import java.util.ArrayList;

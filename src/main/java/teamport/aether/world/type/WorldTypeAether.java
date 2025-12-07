@@ -11,7 +11,7 @@ import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.chunk.BiomeProviderAether;
 import teamport.aether.world.chunk.ChunkGeneratorAether;

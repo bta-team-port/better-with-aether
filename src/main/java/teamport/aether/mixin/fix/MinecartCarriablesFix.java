@@ -19,15 +19,15 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import static teamport.aether.blocks.AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART;
+import teamport.aether.block.AetherBlockTags;
 
 @Mixin(value = EntityMinecart.class, remap = false)
 public abstract class MinecartCarriablesFix extends Entity {
     protected MinecartCarriablesFix(@Nullable World world) {
         super(world);
     }
-    @Definition(id = "TileEntityChest", type = { TileEntityChest.class })
+
+    @Definition(id = "TileEntityChest", type = {TileEntityChest.class})
     @Expression("? instanceof TileEntityChest")
     @ModifyExpressionValue(method = "interact", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean doNotCarryOne(boolean original, @Local(name = "carriedBlock") CarriedBlock carriedBlock, @Share("shouldNotCarry") LocalBooleanRef shouldNotCarry) {
@@ -35,18 +35,20 @@ public abstract class MinecartCarriablesFix extends Entity {
             shouldNotCarry.set(false);
             return original;
         }
-        if (carriedBlock.block().hasTag(AETHER_DOES_NOT_FIT_IN_MINECART)) {
+        if (carriedBlock.block().hasTag(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)) {
             shouldNotCarry.set(true);
             return false;
         }
         shouldNotCarry.set(false);
         return original;
     }
+
     @ModifyReturnValue(method = "interact", at = @At("RETURN"))
     private boolean doNotCarryTwo(boolean original, @Share("shouldNotCarry") LocalBooleanRef shouldNotCarry) {
         if (shouldNotCarry.get()) return false;
         return original;
     }
+
     @WrapOperation(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;startRiding(Lnet/minecraft/core/world/IVehicle;)V"))
     private void doNotCarryThree(Player instance, IVehicle iVehicle, Operation<Void> original, @Share("shouldNotCarry") LocalBooleanRef shouldNotCarry) {
         if (shouldNotCarry.get()) return;

@@ -7,7 +7,7 @@ import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.accessory.pendant.ItemPendant;
+import teamport.aether.item.accessory.pendant.ItemPendant;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryGetProtectionOfPendantMixin {

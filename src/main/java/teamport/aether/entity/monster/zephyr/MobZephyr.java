@@ -12,10 +12,10 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.projectile.ProjectileWindball;
-import teamport.aether.items.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherInvisibility;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     private int courseChangeCooldown = 0;

@@ -6,8 +6,8 @@ import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 
 public abstract class MobAetherAnimal extends MobAnimal implements Creature, AetherDeathMessage {

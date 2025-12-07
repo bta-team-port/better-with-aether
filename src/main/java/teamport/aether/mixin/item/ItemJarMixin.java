@@ -10,7 +10,7 @@ import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.AetherMod;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 @Mixin(value = ItemJar.class, remap = false)
 public abstract class ItemJarMixin {

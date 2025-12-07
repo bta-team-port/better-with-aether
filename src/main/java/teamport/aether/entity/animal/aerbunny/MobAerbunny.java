@@ -21,7 +21,7 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;

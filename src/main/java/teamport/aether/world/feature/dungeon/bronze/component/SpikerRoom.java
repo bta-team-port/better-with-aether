@@ -1,7 +1,7 @@
 package teamport.aether.world.feature.dungeon.bronze.component;
 
 import net.minecraft.core.block.Blocks;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;

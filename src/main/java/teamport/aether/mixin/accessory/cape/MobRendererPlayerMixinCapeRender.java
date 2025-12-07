@@ -24,8 +24,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.accessory.AetherInvisibility;
-import teamport.aether.items.accessory.ItemAccessoryArmor;
+import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = MobRendererPlayer.class, remap = false)

@@ -6,7 +6,7 @@ import net.minecraft.client.entity.player.PlayerLocal;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = PlayerLocal.class, remap = false)

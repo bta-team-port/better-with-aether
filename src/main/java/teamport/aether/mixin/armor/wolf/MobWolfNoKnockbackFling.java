@@ -6,7 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Entity.class, remap = false)
 public abstract class MobWolfNoKnockbackFling {

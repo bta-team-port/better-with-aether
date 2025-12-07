@@ -11,7 +11,7 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class MobPhow extends MobAetherAnimalRideable {
     private float wingFold;

@@ -15,7 +15,7 @@ import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class ProjectileNeedle extends Projectile implements ProjectileAether, AetherProjectileDeathMessages {
     private int xTile;

@@ -11,7 +11,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 import java.util.ArrayList;
 import java.util.List;

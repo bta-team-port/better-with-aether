@@ -16,13 +16,13 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int attackCooldown;

@@ -8,7 +8,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import teamport.aether.entity.tile.*;
+import teamport.aether.block.entity.*;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.gui.machine.enchanter.ScreenEnchanter;
 import teamport.aether.gui.machine.freezer.ScreenFreezer;

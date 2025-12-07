@@ -13,10 +13,10 @@ import net.minecraft.core.world.World;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = Mob.class, remap = false)
 public abstract class BlockLogicSlipperyNegationMixin {

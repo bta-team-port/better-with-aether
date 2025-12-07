@@ -3,7 +3,7 @@ package teamport.aether.net.message;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.items.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherInvisibility;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 

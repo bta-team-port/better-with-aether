@@ -10,7 +10,7 @@ import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;

@@ -1,8 +1,7 @@
 package teamport.aether.lookup;
 
-import redart15.commandly.veincapitator.OreGroups;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.terrain.BlockLogicLogAether;
-import teamport.aether.items.item_tool.ItemToolAxeAether;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.terrain.BlockLogicLogAether;
+import teamport.aether.item.item_tool.ItemToolAxeAether;
 
 @Mixin(value = TreecapitatorHelper.class, remap = false)
 public abstract class TreeCapitatorAetherAxeMixin {

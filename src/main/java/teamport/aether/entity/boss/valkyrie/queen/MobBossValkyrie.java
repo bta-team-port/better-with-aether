@@ -24,7 +24,7 @@ import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;

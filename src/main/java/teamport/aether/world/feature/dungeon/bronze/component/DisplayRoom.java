@@ -1,6 +1,6 @@
 package teamport.aether.world.feature.dungeon.bronze.component;
 
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import static net.minecraft.core.util.helper.Direction.EAST;
 import static net.minecraft.core.util.helper.Direction.SOUTH;

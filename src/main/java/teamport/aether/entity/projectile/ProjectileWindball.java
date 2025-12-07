@@ -10,7 +10,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class ProjectileWindball extends Projectile implements ProjectileAether, AetherMobFallingToOverworld {
 

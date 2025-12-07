@@ -17,7 +17,7 @@ import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class ProjectileArrowFlaming extends ProjectileArrow implements ProjectileAether, AetherProjectileDeathMessages {
 

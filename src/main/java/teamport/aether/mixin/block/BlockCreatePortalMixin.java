@@ -9,7 +9,7 @@ import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Mixin(value = BlockLogicFluid.class, remap = false)
 public abstract class BlockCreatePortalMixin {

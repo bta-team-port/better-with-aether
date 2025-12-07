@@ -9,7 +9,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.item.tool.ItemToolShovel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Mixin(value = ItemToolShovel.class, remap = false)
 public abstract class ItemToolShovelMixin {

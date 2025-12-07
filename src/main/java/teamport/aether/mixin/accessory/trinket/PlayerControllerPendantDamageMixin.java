@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.items.accessory.pendant.ItemPendant;
+import teamport.aether.item.accessory.pendant.ItemPendant;
 
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = PlayerController.class, remap = false)

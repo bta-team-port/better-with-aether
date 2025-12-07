@@ -5,7 +5,7 @@ import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.weather.Weathers;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.animal.moa.MobMoaBlack;

@@ -2,7 +2,7 @@ package teamport.aether.compat.waila;
 
 import net.minecraft.core.player.inventory.container.Container;
 import org.slf4j.Logger;
-import teamport.aether.entity.tile.TileEntityMimic;
+import teamport.aether.block.entity.TileEntityMimic;
 import toufoumaster.btwaila.entryplugins.waila.BTWailaCustomTooltipPlugin;
 import toufoumaster.btwaila.entryplugins.waila.BTWailaPlugin;
 import toufoumaster.btwaila.tooltips.TileTooltip;

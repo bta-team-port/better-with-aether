@@ -10,7 +10,7 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelAetherTallgrass<T extends BlockLogic> extends BlockModelCrossedSquares<T> {

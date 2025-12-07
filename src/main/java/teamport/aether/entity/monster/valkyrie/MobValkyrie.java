@@ -20,7 +20,7 @@ import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage {

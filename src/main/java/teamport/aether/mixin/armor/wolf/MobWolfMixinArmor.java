@@ -3,8 +3,8 @@ package teamport.aether.mixin.armor.wolf;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.item.IArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.items.AetherArmorMaterial;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherArmorMaterial;
+import teamport.aether.item.AetherItems;
 
 import static net.minecraft.core.entity.animal.MobWolf.ARMOR_MATERIALS;
 
