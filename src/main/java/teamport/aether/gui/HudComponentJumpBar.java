@@ -47,7 +47,7 @@ public class HudComponentJumpBar extends HudComponentMovable {
             int y = baseY - row * 10;
 
             IconCoordinate icon = (i < currentJumps) ? jump_full : jump_empty;
-            hud.drawGuiIcon(x, y, 9, 10, icon);
+            hud.drawGuiIcon(x, y, 9, 9, icon);
         }
     }
 

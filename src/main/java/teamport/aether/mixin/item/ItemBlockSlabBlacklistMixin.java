@@ -8,6 +8,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.block.ItemBlock;
@@ -23,9 +24,9 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
 @Mixin(value = ItemBlockSlab.class, remap = false)
-public abstract class ItemBlockSlabBlacklistMixin extends ItemBlock {
+public abstract class ItemBlockSlabBlacklistMixin<T extends BlockLogic> extends ItemBlock<T> {
 
-    private ItemBlockSlabBlacklistMixin(@NotNull Block block) {
+    protected ItemBlockSlabBlacklistMixin(@NotNull Block<T> block) {
         super(block);
     }
 
