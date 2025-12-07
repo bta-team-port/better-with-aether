@@ -84,7 +84,7 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
         /// blocks that should be banned until unlocked by the sunspirit's death
-        if (!SunSpiritDeath.isIsDead()) {
+        if (!SunSpiritDeath.isDead()) {
             aetherBlacklist.add(Blocks.SOULSAND.id());
             aetherBlacklist.add(Blocks.SOULSCHIST.id());
             aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
@@ -110,15 +110,15 @@ public class AetherDimension {
     }
 
     public static void unlockDaylightCycle(World world) {
-        if (!SunSpiritDeath.isIsDead()) {
+        if (!SunSpiritDeath.isDead()) {
             AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
 
-            SunSpiritDeath.setIsDead(true);
+            SunSpiritDeath.setDead(true);
             SunSpiritDeath.setDeathTime(world.getWorldTime());
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
-                    new SunspiritDeathNetworkMessage(SunSpiritDeath.isIsDead(), SunSpiritDeath.getDeathTime())
+                    new SunspiritDeathNetworkMessage(SunSpiritDeath.isDead(), SunSpiritDeath.getDeathTime())
                 );
             }
         }
@@ -174,7 +174,7 @@ public class AetherDimension {
 
     public static void setDimensionDataDefaults() {
         SunSpiritDeath.setDeathTime(0);
-        SunSpiritDeath.setIsDead(false);
+        SunSpiritDeath.setDead(false);
     }
 
     private static final int SCHEMA_VERSION = 1;
@@ -233,14 +233,14 @@ public class AetherDimension {
             loadFallenEntities(dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen"));
         }
 
-        SunSpiritDeath.setIsDead(dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp"));
+        SunSpiritDeath.setDead(dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp"));
     }
 
     public static void saveDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional dimension data.");
 
         dimensionData.putInt("__SCHEMA_VERSION__", SCHEMA_VERSION);
-        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", SunSpiritDeath.isIsDead());
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", SunSpiritDeath.isDead());
     }
 
     public static Dimension getAether() {

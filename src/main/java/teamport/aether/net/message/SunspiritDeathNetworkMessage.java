@@ -35,7 +35,7 @@ public class SunspiritDeathNetworkMessage implements NetworkMessage {
     public void handle(NetworkContext networkContext) {
         if (EnvironmentHelper.isClientWorld()) {
             AetherMod.LOGGER.info("Received SunspiritDeathNetworkMessage.");
-            SunSpiritDeath.setIsDead(isDead);
+            SunSpiritDeath.setDead(isDead);
             SunSpiritDeath.setDeathTime(timestamp);
         }
     }

@@ -6,7 +6,6 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
-import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.net.command.TextFormatting;
@@ -29,10 +28,7 @@ import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.SunSpiritDeath;
-import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
-
-import java.util.Vector;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -221,7 +217,7 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
-            if(SunSpiritDeath.isIsDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
+            if(SunSpiritDeath.isDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
                 MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat.again"));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = START_FIGHT;
