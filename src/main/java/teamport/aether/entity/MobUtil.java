@@ -2,7 +2,10 @@ package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
+import teamport.aether.entity.player.ContainerHelper;
+import teamport.aether.item.AetherArmorMaterial;
 
 public class MobUtil {
 
@@ -16,9 +19,20 @@ public class MobUtil {
         if (knockBackStrength < 0.001) {
             throw new RuntimeException("Cannot multiply speed by zero!");
         }
-
         double distX = attacker.x - target.x;
         double distZ = attacker.z - target.z;
+
+        if(target instanceof Player){
+            int count = ContainerHelper.countArmorPiecesOfMaterial(((Player)target).inventory, AetherArmorMaterial.OBSIDIAN);
+            if (count >= 5) {
+                return;
+            }
+            if (count >= 3) {
+                distX /= 2;
+                distZ /= 2;
+            }
+        }
+
         float horizonalDistance = Math.max(0.001F, MathHelper.sqrt(distX * distX + distZ * distZ));
 
         // half momentum, to slow the player down
