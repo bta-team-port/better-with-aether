@@ -247,10 +247,12 @@ public abstract class DungeonLogic {
         }
 
     }
+
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isGenerated() {
         return generated;
     }
+
     public void setGenerated(boolean generated) {
         this.generated = generated;
     }
