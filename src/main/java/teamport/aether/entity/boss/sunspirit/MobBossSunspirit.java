@@ -6,7 +6,9 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -218,6 +220,13 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
+            if(AetherDimension.isSunspiritDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
+                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat.again"));
+                this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
+                this.chatLog = START_FIGHT;
+                this.chatCooldown = 40;
+                return false;
+            }
             if (this.chatLog < START_FIGHT) {
                 MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + this.chatLog));
                 if (this.chatLog >= 5 && this.chatLog < 8) {
@@ -242,11 +251,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 return true;
             }
             if (this.target == null && !this.isAgro) {
-                StringBuilder message = new StringBuilder("boss_sunspirit.fight.repeat");
-                if(AetherDimension.isSunspiritDead()){
-                    message.append(".again");
-                }
-                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey(message.toString()));
+                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat"));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = START_FIGHT;
                 this.chatCooldown = 40;
