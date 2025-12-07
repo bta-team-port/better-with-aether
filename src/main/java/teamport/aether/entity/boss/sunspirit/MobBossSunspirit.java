@@ -28,6 +28,7 @@ import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
+import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
@@ -220,7 +221,7 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
-            if(AetherDimension.isSunspiritDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
+            if(SunSpiritDeath.isIsDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
                 MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat.again"));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = START_FIGHT;

@@ -12,7 +12,7 @@ import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
 import net.minecraft.core.world.wind.WindProviderGeneric;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.world.AetherDimension;
+import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.chunk.BiomeProviderAether;
 import teamport.aether.world.chunk.ChunkGeneratorAether;
 
@@ -80,17 +80,18 @@ public class WorldTypeAether extends WorldType {
 
     @Override
     public float getTimeOfDay(World world, long tick, float partialTick) {
-        if (!AetherDimension.isSunspiritDead()) return 0.0F;
+        if (!SunSpiritDeath.isIsDead()) return 0.0F;
 
         float timeFraction = getTimeFraction(tick, partialTick);
 
         long currTime = world.getWorldTime();
-        if (AetherDimension.getSunspiritDeathTimestamp() != 0 && AetherDimension.getSunspiritDeathTimestamp() + 250 >= currTime) {
-            float animProgress = (((currTime + partialTick) - AetherDimension.getSunspiritDeathTimestamp()) / 250);
+        if (SunSpiritDeath.getDeathTime() != 0 && SunSpiritDeath.getDeathTime() + 250 >= currTime) {
+            float animProgress = (((currTime + partialTick) - SunSpiritDeath.getDeathTime()) / 250);
 
             if (animProgress == 1) {
-                AetherDimension.setSunspiritDeathTimestamp(0);
+                SunSpiritDeath.setDeathTime(0);
             }
+
             return ((float) (-(Math.cos(Math.PI * animProgress) - 1) / 2) * (timeFraction + 1)) % 1;
         }
 

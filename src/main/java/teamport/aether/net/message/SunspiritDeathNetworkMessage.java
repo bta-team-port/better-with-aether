@@ -2,7 +2,7 @@ package teamport.aether.net.message;
 
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
-import teamport.aether.world.AetherDimension;
+import teamport.aether.world.SunSpiritDeath;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
@@ -35,8 +35,8 @@ public class SunspiritDeathNetworkMessage implements NetworkMessage {
     public void handle(NetworkContext networkContext) {
         if (EnvironmentHelper.isClientWorld()) {
             AetherMod.LOGGER.info("Received SunspiritDeathNetworkMessage.");
-            AetherDimension.setSunspiritDead(isDead);
-            AetherDimension.setSunspiritDeathTimestamp(timestamp);
+            SunSpiritDeath.setIsDead(isDead);
+            SunSpiritDeath.setDeathTime(timestamp);
         }
     }
 }
