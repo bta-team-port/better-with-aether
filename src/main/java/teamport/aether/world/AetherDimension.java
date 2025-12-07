@@ -27,6 +27,8 @@ import java.util.*;
 
 public class AetherDimension {
 
+    private static final int SCHEMA_VERSION = 2;
+
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
     public static final int DUNGEON_GENERATION_RADIUS = 16;
     public static final int BOSS_DETECTION_RADIUS = 80;
@@ -34,6 +36,8 @@ public class AetherDimension {
 
     private static final int AETHER_DIMENSION_ID = AetherConfig.DIMENSION;
     private static final HashMap<Integer, List<Integer>> DIMENSION_PLACEMENT_BLACKLIST = new HashMap<>();
+
+    private static final HashMap<UUID, Boolean> HAS_RECEIVED_PARACHUTE_MAP = new HashMap<>();
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension) {
         return getDimensionBlacklist(dimension.id);
@@ -124,7 +128,16 @@ public class AetherDimension {
         }
     }
 
-    private static final Map<IntPair, List<CompoundTag>> entitiesMovedToOverworld = new HashMap<>();
+    public static boolean canGetParachute(UUID uuid) {
+        boolean result = !HAS_RECEIVED_PARACHUTE_MAP.computeIfAbsent(uuid, it -> false);
+        return result;
+    }
+
+    public static void setParachuteReceived(UUID uuid) {
+        HAS_RECEIVED_PARACHUTE_MAP.put(uuid, true);
+    }
+
+    private static final Map<IntPair, List<CompoundTag>> ENTITIES_MOVED_TO_OVERWORLD = new HashMap<>();
 
     public static synchronized void addEntityToFallen(Entity target) {
         if (AetherMod.LOGGER.isInfoEnabled())
@@ -134,7 +147,7 @@ public class AetherDimension {
             ((int) target.x) / 16,
             ((int) target.z) / 16
         );
-        List<CompoundTag> chunkList = entitiesMovedToOverworld.computeIfAbsent(chunk, i -> new ArrayList<>());
+        List<CompoundTag> chunkList = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(chunk, i -> new ArrayList<>());
 
         CompoundTag data = new CompoundTag();
         target.save(data);
@@ -145,9 +158,9 @@ public class AetherDimension {
 
     public static synchronized void loadEntitiesNearPlayer(Player player, World world) {
         List<IntPair> toRemove = new ArrayList<>();
-        for (IntPair pos : entitiesMovedToOverworld.keySet()) {
+        for (IntPair pos : ENTITIES_MOVED_TO_OVERWORLD.keySet()) {
             if (player.distanceTo(pos.getFirst() * 16.0, player.y, pos.getSecond() * 16.0) < 100) {
-                List<CompoundTag> entities = entitiesMovedToOverworld.computeIfAbsent(pos, intPair -> new ArrayList<>());
+                List<CompoundTag> entities = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(pos, intPair -> new ArrayList<>());
 
                 while (!entities.isEmpty()) {
                     CompoundTag data = entities.remove(0);
@@ -169,7 +182,7 @@ public class AetherDimension {
             }
         }
 
-        toRemove.forEach(entitiesMovedToOverworld::remove);
+        toRemove.forEach(ENTITIES_MOVED_TO_OVERWORLD::remove);
     }
 
     public static void setDimensionDataDefaults() {
@@ -177,10 +190,14 @@ public class AetherDimension {
         SunSpiritDeath.setDead(false);
     }
 
-    private static final int SCHEMA_VERSION = 1;
+    public static void setWorldDataDefaults() {
+        ENTITIES_MOVED_TO_OVERWORLD.clear();
+        HAS_RECEIVED_PARACHUTE_MAP.clear();
+        DungeonMap.clear();
+    }
 
     protected static void loadFallenEntities(ListTag entitiesMoved) {
-        entitiesMovedToOverworld.clear();
+        ENTITIES_MOVED_TO_OVERWORLD.clear();
 
         entitiesMoved.forEach(tag -> {
             ListTag entities = ((CompoundTag) tag).getList("entities");
@@ -191,13 +208,13 @@ public class AetherDimension {
 
             List<CompoundTag> entitiesList = new ArrayList<>();
             entities.forEach(e -> entitiesList.add((CompoundTag) e));
-            entitiesMovedToOverworld.put(chunk, entitiesList);
+            ENTITIES_MOVED_TO_OVERWORLD.put(chunk, entitiesList);
         });
     }
 
     public static void saveWorldData(CompoundTag aetherWorldData) {
         ListTag entitiesToMoveMap = new ListTag();
-        for (Map.Entry<IntPair, List<CompoundTag>> entry : entitiesMovedToOverworld.entrySet()) {
+        for (Map.Entry<IntPair, List<CompoundTag>> entry : ENTITIES_MOVED_TO_OVERWORLD.entrySet()) {
             CompoundTag entryCompound = new CompoundTag();
 
             ListTag entities = new ListTag();
@@ -217,6 +234,10 @@ public class AetherDimension {
         aetherWorldData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
         aetherWorldData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
         DungeonMap.save(aetherWorldData);
+
+        CompoundTag canReceiveParachuteCompound = new CompoundTag();
+        HAS_RECEIVED_PARACHUTE_MAP.forEach((key, value) -> canReceiveParachuteCompound.putBoolean(key.toString(), value));
+        aetherWorldData.putCompound(AetherMod.MOD_ID + ".canReceiveParachute", canReceiveParachuteCompound);
     }
 
     public static void loadWorldData(CompoundTag aetherWorldData) {
@@ -224,6 +245,10 @@ public class AetherDimension {
 
         loadFallenEntities(aetherWorldData.getList(AetherMod.MOD_ID + ".overworldFallen"));
         DungeonMap.load(aetherWorldData);
+
+        HAS_RECEIVED_PARACHUTE_MAP.clear();
+        CompoundTag canReceiveParachuteCompound = aetherWorldData.getCompound(AetherMod.MOD_ID + ".canReceiveParachute");
+        canReceiveParachuteCompound.getValues().forEach( it -> HAS_RECEIVED_PARACHUTE_MAP.put(UUID.fromString(it.getTagName()), ((Byte) it.getValue()) > 0 ));
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
