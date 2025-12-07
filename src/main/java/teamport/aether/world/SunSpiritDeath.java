@@ -6,11 +6,11 @@ public final class SunSpiritDeath {
     private static boolean isDead = false;
     private static long deathTimestamp = 0;
 
-    public static boolean isIsDead() {
+    public static boolean isDead() {
         return isDead;
     }
 
-    public static void setIsDead(boolean isDead) {
+    public static void setDead(boolean isDead) {
         SunSpiritDeath.isDead = isDead;
         AetherDimension.initDimensionBlackList();
     }

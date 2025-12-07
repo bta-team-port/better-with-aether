@@ -80,7 +80,7 @@ public class WorldTypeAether extends WorldType {
 
     @Override
     public float getTimeOfDay(World world, long tick, float partialTick) {
-        if (!SunSpiritDeath.isIsDead()) return 0.0F;
+        if (!SunSpiritDeath.isDead()) return 0.0F;
 
         float timeFraction = getTimeFraction(tick, partialTick);
 
