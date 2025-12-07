@@ -11,14 +11,18 @@ import net.minecraft.core.util.helper.Side;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelLeavesAether<T extends BlockLogic> extends BlockModelLeaves<T> {
-    public BlockModelLeavesAether(Block<T> block, String leavesTex, boolean canBeRetro) {
-        super(block, leavesTex, canBeRetro);
+    private final String retroBaseTexture;
+
+    public BlockModelLeavesAether(Block<T> block, String normalLeavesTex, String retroLeavesTex) {
+        super(block, normalLeavesTex, true);
+        this.retroBaseTexture = retroLeavesTex;
     }
 
     @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
+        String retroTex = fancyGraphics ? retroBaseTexture + "_fancy" : retroBaseTexture;
         if (this.canBeRetro && this.isRetro()) {
-            return fancyGraphics ? TextureRegistry.getTexture("aether:block/leaves/oak_golden_retro_fancy") : TextureRegistry.getTexture("aether:block/leaves/oak_golden_retro");
+            return TextureRegistry.getTexture(retroTex);
         } else {
             return fancyGraphics ? this.fancyLeavesTexture : super.getBlockTextureFromSideAndMetadata(side, data);
         }

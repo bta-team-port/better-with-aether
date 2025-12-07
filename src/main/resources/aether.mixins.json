@@ -128,7 +128,6 @@
     "dimension.bump_to_overworld.SPBumpToOverworldMixin",
     "dimension.bump_to_overworld.SPWorldMixin",
     "dimension.dungeon_map.WorldSpMixin",
-    "entity.MobRendererMixinFireMinion",
     "entity.RenderSliderBoundingBoxMixin",
     "entity.ViewerCategoryEntityMixin",
     "fix.RenderGlobalMixin",

@@ -2,14 +2,15 @@ package teamport.aether.entity.monster.fireminion;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.MobRendererBiped;
+import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererFireMinion extends MobRendererBiped<MobFireMinion> {
-    public MobRendererFireMinion() {
-        super(new ModelFireMinion(), 0.4f);
+public class MobRendererFireMinion extends MobRenderer<MobFireMinion> {
+    public MobRendererFireMinion(ModelBase modelbase, float f) {
+        super(modelbase, f);
     }
 
     @Override

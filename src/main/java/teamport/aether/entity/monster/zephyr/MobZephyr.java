@@ -1,13 +1,10 @@
 package teamport.aether.entity.monster.zephyr;
 
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.enums.LightLayer;
-import net.minecraft.core.lang.I18n;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -15,15 +12,10 @@ import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.blocks.AetherBlockTags;
 import teamport.aether.blocks.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.projectile.ProjectileWindball;
 import teamport.aether.items.accessory.AetherInvisibility;
-
-import static teamport.aether.AetherMod.LOGGER;
-
-import java.util.List;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     private int courseChangeCooldown = 0;
@@ -109,7 +101,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         double d = this.waypointX - this.x;
         double d1 = this.waypointY - this.y;
         double d2 = this.waypointZ - this.z;
-        double d3 =  Math.max(0.001F, MathHelper.sqrt(d * d + d1 * d1 + d2 * d2));
+        double d3 = Math.max(0.001F, MathHelper.sqrt(d * d + d1 * d1 + d2 * d2));
         if (d3 < 1.0 || d3 > 60.0) {
             this.waypointX = this.x + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.waypointY = this.y + ((this.random.nextFloat() * 2.0F - 1.0F) * 16.0F);
@@ -229,11 +221,9 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     public boolean hurt(Entity attacker, int i, DamageType type) {
         if (super.hurt(attacker, i, type)) {
-            if (this.passenger != attacker && this.vehicle != attacker) {
-                if (attacker != this) {
-                    this.targetedEntity = attacker;
-                    this.aggroCooldown = 60;
-                }
+            if (this.passenger != attacker && this.vehicle != attacker && attacker != this) {
+                this.targetedEntity = attacker;
+                this.aggroCooldown = 60;
             }
             return true;
         } else {
@@ -264,19 +254,29 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     @Override
     public boolean canSpawnHere() {
         if (this.world == null) return false;
+
+        boolean tooManyZephyrs = world.loadedEntityList.stream()
+            .filter(MobZephyr.class::isInstance)
+            .filter(e -> e.distanceTo(this) <= 32)
+            .count() > 5;
+
+        if (tooManyZephyrs) return false;
+
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
+
         return this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)
             && this.world.getCubes(this, this.bb).isEmpty()
-            && this.world.getSavedLightValue(LightLayer.Block, x, y, z) < 7;
+            && this.world.canBlockSeeTheSky(x, y, z);
     }
 
     @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
+
     public int getAttackChargeO() {
         return attackChargeO;
     }

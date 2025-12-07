@@ -132,13 +132,16 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
         Blocks.FURNACE_STONE_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_STONE_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_BLAST_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_BLAST_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.TROMMEL_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.TROMMEL_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
-        Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+        Blocks.SPIKES.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);

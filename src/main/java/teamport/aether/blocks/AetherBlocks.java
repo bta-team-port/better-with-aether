@@ -45,6 +45,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
     public static Block<BlockLogicTallGrassAether> TALLGRASS_AETHER;
 
+    public static Block<BlockLogicDeadBushAether> DEADBUSH_AETHER;
+
     public static Block<BlockLogicFlowerStackable> FLOWER_PURPLE;
     public static Block<BlockLogicFlowerStackable> FLOWER_WHITE;
 
@@ -452,6 +454,10 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         TALLGRASS_AETHER = flower
             .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
             .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), b -> (BlockLogicTallGrassAether) (new BlockLogicTallGrassAether(b)).setKilledByWeather());
+
+        DEADBUSH_AETHER = flower
+            .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
+            .build("deadbush.aether", "deadbush_aether", blockID("DEADBUSH_AETHER"), b -> (BlockLogicDeadBushAether) (new BlockLogicDeadBushAether(b)).setKilledByWeather());
 
 
         PLANKS_SKYROOT = wood
