@@ -5,4 +5,6 @@ import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDung
 public interface AetherPlugin {
     void registerBronzeDungeonRoom(WorldFeatureAetherBronzeDungeon.RoomManager roomManager);
     void registerDungeonType();
+
+    void initializeDimensionBlacklist();
 }

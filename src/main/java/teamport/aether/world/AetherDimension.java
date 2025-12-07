@@ -2,6 +2,7 @@ package teamport.aether.world;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
@@ -11,6 +12,7 @@ import net.minecraft.core.world.World;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
@@ -43,19 +45,6 @@ public class AetherDimension {
         return DIMENSION_PLACEMENT_BLACKLIST.computeIfAbsent(dimensionID, k -> new ArrayList<>());
     }
 
-    public static void deleteFromBlackLists(Integer dimensionID, Integer... unbannedBlockIds) {
-        if (unbannedBlockIds == null) return;
-        Set<Integer> blocks = new HashSet<>(Arrays.asList(unbannedBlockIds));
-        List<Integer> aetherBlacklist = DIMENSION_PLACEMENT_BLACKLIST.get(dimensionID);
-        List<Integer> newList = new ArrayList<>();
-        for (int id : aetherBlacklist) {
-            if (blocks.contains(id)) continue;
-            newList.add(id);
-        }
-        DIMENSION_PLACEMENT_BLACKLIST.put(dimensionID, newList);
-    }
-
-
     private static Dimension AETHER;
 
     private static boolean hasInit = false;
@@ -76,21 +65,28 @@ public class AetherDimension {
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
         Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER);
 
+        initDimensionBlackList();
+    }
+
+    public static void initDimensionBlackList() {
+        DIMENSION_PLACEMENT_BLACKLIST.clear();
+
         List<Integer> aetherBlacklist = getDimensionBlacklist(AETHER);
+
         aetherBlacklist.add(Blocks.PORTAL_NETHER.id());
         aetherBlacklist.add(Blocks.FIRE.id());
         aetherBlacklist.add(Blocks.TORCH_COAL.id());
 
-        if (!sunspiritDead) {
-            ///  I think those get converted
-            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-            aetherBlacklist.add(Blocks.PUMICE_WET.id());
-            aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
-            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-            aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
-            aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
+        /// these blocks are replaced on placement.
+        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        aetherBlacklist.add(Blocks.PUMICE_WET.id());
+        aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
+        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
+        aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
-            /// blocks that should not be banned or unlocked by sunspirit death
+        /// blocks that should be banned until unlocked by the sunspirit's death
+        if (!sunspiritDead) {
             aetherBlacklist.add(Blocks.SOULSAND.id());
             aetherBlacklist.add(Blocks.SOULSCHIST.id());
             aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
@@ -109,6 +105,10 @@ public class AetherDimension {
             aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
             aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id());
         }
+
+        FabricLoader.getInstance()
+            .getEntrypointContainers("aether", AetherPlugin.class)
+            .forEach(plugin -> plugin.getEntrypoint().initializeDimensionBlacklist());
     }
 
     public static void unlockDaylightCycle(World world) {
@@ -117,24 +117,7 @@ public class AetherDimension {
             sunspiritDead = true;
             sunspiritDeathTimestamp = world.getWorldTime();
 
-            deleteFromBlackLists(AETHER_DIMENSION_ID,
-                Blocks.SOULSAND.id(),
-                Blocks.SOULSCHIST.id(),
-                Blocks.PUMPKIN_CARVED_ACTIVE.id(),
-                Blocks.NETHERRACK.id(),
-                Blocks.COBBLE_NETHERRACK.id(),
-                Blocks.STAIRS_COBBLE_NETHERRACK.id(),
-                Blocks.SLAB_COBBLE_NETHERRACK.id(),
-                Blocks.COBBLE_NETHERRACK_MOSSY.id(),
-                Blocks.NETHERRACK_CARVED.id(),
-                Blocks.NETHERRACK_POLISHED.id(),
-                Blocks.SLAB_NETHERRACK_POLISHED.id(),
-                Blocks.BRICK_NETHERRACK.id(),
-                Blocks.SLAB_BRICK_NETHERRACK.id(),
-                Blocks.STAIRS_BRICK_NETHERRACK.id(),
-                Blocks.ORE_NETHERCOAL_NETHERRACK.id(),
-                Blocks.BLOCK_NETHER_COAL.id()
-            );
+            initDimensionBlackList();
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
