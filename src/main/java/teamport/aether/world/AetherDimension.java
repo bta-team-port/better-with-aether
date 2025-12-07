@@ -26,8 +26,6 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import java.util.*;
 
 public class AetherDimension {
-    private static boolean sunspiritDead = false;
-    private static long sunspiritDeathTimestamp = 0;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
     public static final int DUNGEON_GENERATION_RADIUS = 16;
@@ -86,7 +84,7 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
         /// blocks that should be banned until unlocked by the sunspirit's death
-        if (!sunspiritDead) {
+        if (!SunSpiritDeath.isIsDead()) {
             aetherBlacklist.add(Blocks.SOULSAND.id());
             aetherBlacklist.add(Blocks.SOULSCHIST.id());
             aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
@@ -112,16 +110,15 @@ public class AetherDimension {
     }
 
     public static void unlockDaylightCycle(World world) {
-        if (!sunspiritDead) {
+        if (!SunSpiritDeath.isIsDead()) {
             AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
-            sunspiritDead = true;
-            sunspiritDeathTimestamp = world.getWorldTime();
 
-            initDimensionBlackList();
+            SunSpiritDeath.setIsDead(true);
+            SunSpiritDeath.setDeathTime(world.getWorldTime());
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
-                    new SunspiritDeathNetworkMessage(sunspiritDead, sunspiritDeathTimestamp)
+                    new SunspiritDeathNetworkMessage(SunSpiritDeath.isIsDead(), SunSpiritDeath.getDeathTime())
                 );
             }
         }
@@ -176,8 +173,8 @@ public class AetherDimension {
     }
 
     public static void setDimensionDataDefaults() {
-        sunspiritDeathTimestamp = 0;
-        sunspiritDead = false;
+        SunSpiritDeath.setDeathTime(0);
+        SunSpiritDeath.setIsDead(false);
     }
 
     private static final int SCHEMA_VERSION = 1;
@@ -235,30 +232,15 @@ public class AetherDimension {
         if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")) {
             loadFallenEntities(dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen"));
         }
-        sunspiritDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
+
+        SunSpiritDeath.setIsDead(dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp"));
     }
 
     public static void saveDimensionData(CompoundTag dimensionData) {
         AetherMod.LOGGER.debug("Saving additional dimension data.");
 
         dimensionData.putInt("__SCHEMA_VERSION__", SCHEMA_VERSION);
-        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritDead);
-    }
-
-    public static boolean isSunspiritDead() {
-        return sunspiritDead;
-    }
-
-    public static void setSunspiritDead(boolean sunspiritDead) {
-        AetherDimension.sunspiritDead = sunspiritDead;
-    }
-
-    public static long getSunspiritDeathTimestamp() {
-        return sunspiritDeathTimestamp;
-    }
-
-    public static void setSunspiritDeathTimestamp(long sunspiritDeathTimestamp) {
-        AetherDimension.sunspiritDeathTimestamp = sunspiritDeathTimestamp;
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", SunSpiritDeath.isIsDead());
     }
 
     public static Dimension getAether() {
