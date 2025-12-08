@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -262,7 +263,7 @@ public class MobBossSlider extends MobBoss {
             double explosionX = this.x - slamRadius + this.world.rand.nextInt(slamRadius * 2);
             double explosionY = this.y - slamRadius + this.world.rand.nextInt(slamRadius * 2);
             double explosionZ = this.z - slamRadius + this.world.rand.nextInt(slamRadius * 2);
-            this.doExplosionEffect(this.world, explosionX, explosionY, explosionZ);
+            doExplosionEffect(this.world, explosionX, explosionY, explosionZ);
         }
     }
 
@@ -297,6 +298,10 @@ public class MobBossSlider extends MobBoss {
                 p.triggerAchievement(AetherAchievements.BRONZE);
                 this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
             });
+
+        if (!this.world.isClientSide) {
+            Minecraft.getMinecraft().sndManager.stopMusic();
+        }
 
         super.onDeath(entityKilledBy);
     }
@@ -382,6 +387,11 @@ public class MobBossSlider extends MobBoss {
             this.setState(State.AWAKE);
             runWithDungeon(dungeonID, d -> d.lock(this.world));
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
+
+            if (!this.world.isClientSide) {
+                Minecraft.getMinecraft().sndManager.playMusic("aether:music.sliderboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+            }
+
             this.wakeUpTimer = WAKEUP_TIMER;
         }
     }
@@ -472,8 +482,7 @@ public class MobBossSlider extends MobBoss {
             for (Entity entity : list) {
                 MobUtil.multiHit(this, entity,
                     inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.75F) * getAngerModifier()), DamageType.COMBAT),
-                    inst(2, DamageType.GENERIC)
+                    inst((int) Math.floor((BASE_DAMAGE * 0.75F) * getAngerModifier()), DamageType.COMBAT)
                 );
                 switch (calculateDirection(entity)) {
                     case NORTH:
@@ -726,8 +735,7 @@ public class MobBossSlider extends MobBoss {
             if (!((Player) entity).gamemode.isPlayerInvulnerable()) {
                 MobUtil.multiHit(this, entity,
                     inst((int) Math.floor(BASE_DAMAGE * getAngerModifier()), DamageType.FALL),
-                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT),
-                    inst(2, DamageType.GENERIC)
+                    inst((int) Math.floor((BASE_DAMAGE * 0.50F) * getAngerModifier()), DamageType.COMBAT)
                 );
             }
             return super.collidesWith(entity);

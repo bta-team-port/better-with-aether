@@ -23,7 +23,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
         this.heightOffset = 0.0F;
         this.scoreValue = 400;
         this.setPos(this.x, this.y, this.z);
-        this.jumpDelay = 20;
+        this.jumpDelay = 15;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
         this.moveSpeed = 3.0F;
         this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 0));
@@ -75,28 +75,19 @@ public class MobSwetGold extends MobSwet implements Enemy {
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.isAlive()) {
-            if (!this.isFriendly()) {
-                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
-                    this.attackTime = 200;
-                    if (this.world != null) this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                    entity.hurt(this, 3, DamageType.COMBAT);
-                }
-            }
+        if (this.isAlive() && !this.isFriendly() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+            this.attackTime = 200;
+            if (this.world != null)
+                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            entity.hurt(this, 3, DamageType.COMBAT);
         }
     }
 
     @Override
     public void playerTouch(Player player) {
-        if (this.isAlive()) {
-            if (!this.isFriendly()) {
-                if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 3, DamageType.COMBAT) && getHealth() > 0 && !dead) {
-                    if (grabDelay == 0) {
-                        player.startRiding(this);
-                        grabDelay = 50;
-                    }
-                }
-            }
+        if (this.isAlive() && !this.isFriendly() && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 3, DamageType.COMBAT) && getHealth() > 0 && !dead && grabDelay == 0) {
+            player.startRiding(this);
+            grabDelay = 50;
         }
     }
 

@@ -144,10 +144,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         }
 
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
-        if (!this.friendly) {
-            if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
-                this.lookAt(entityplayer, 10.0F, 20.0F);
-            }
+        if (!this.friendly && entityplayer != null && targetPlayer && entityplayer != this.passenger) {
+            this.lookAt(entityplayer, 10.0F, 20.0F);
         }
 
         if (this.onGround && this.jumpDelay-- <= 0) {
@@ -175,28 +173,19 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.isAlive()) {
-            if (!this.friendly) {
-                if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
-                    this.attackTime = 200;
-                    if (this.world != null) this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                    entity.hurt(this, 2, DamageType.COMBAT);
-                }
-            }
+        if (this.isAlive() && !this.friendly && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+            this.attackTime = 200;
+            if (this.world != null)
+                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            entity.hurt(this, 2, DamageType.COMBAT);
         }
     }
 
     @Override
     public void playerTouch(Player player) {
-        if (this.isAlive()) {
-            if (!this.friendly) {
-                if (this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead) {
-                    if (player.isAlive() && grabDelay == 0) {
-                        player.startRiding(this);
-                        grabDelay = 100;
-                    }
-                }
-            }
+        if (this.isAlive() && !this.friendly && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead && player.isAlive() && grabDelay == 0) {
+            player.startRiding(this);
+            grabDelay = 100;
         }
     }
 
@@ -232,13 +221,16 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         if (world.rand.nextInt(5) == 0) return block.hasTag(AetherBlockTags.PASSIVE_MOBS_SPAWN);
         return false;
     }
+
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isFriendly() {
         return friendly;
     }
+
     public void setFriendly(boolean friendly) {
         this.friendly = friendly;
     }
+
     public double getYdO() {
         return ydO;
     }

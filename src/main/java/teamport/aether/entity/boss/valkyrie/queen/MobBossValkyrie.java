@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -252,6 +253,10 @@ public class MobBossValkyrie extends MobBoss {
                 MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
 
+        if (!this.world.isClientSide) {
+            Minecraft.getMinecraft().sndManager.stopMusic();
+        }
+
         super.onDeath(entityKilledBy);
     }
 
@@ -420,6 +425,11 @@ public class MobBossValkyrie extends MobBoss {
             // Lock dungeon and set boss target
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(world));
             MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
+
+            if (!this.world.isClientSide) {
+                Minecraft.getMinecraft().sndManager.playMusic("aether:music.valkyrieboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+            }
+
             ((AetherBossList) attacker).aether$TryAddBossList(this);
 
             this.chatTime = 2 * Global.TICKS_PER_SECOND;
