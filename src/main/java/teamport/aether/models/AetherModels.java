@@ -41,6 +41,7 @@ import teamport.aether.entity.boss.slider.ModelSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.sunspirit.MobRendererSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
+import teamport.aether.entity.boss.valkyrie.queen.MobRendererBossValkyrie;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
 import teamport.aether.entity.floating_block.EntityRendererFloatingBlock;
 import teamport.aether.entity.monster.aechorplant.MobAechorPlant;
@@ -58,6 +59,7 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.swet.MobRendererSwet;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
+import teamport.aether.entity.monster.valkyrie.MobRendererValkyrie;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
 import teamport.aether.entity.monster.whirly.MobRendererWhirly;
@@ -832,7 +834,7 @@ public class AetherModels implements ModelEntrypoint {
 
     private void setMobBossModels() {
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
-        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBiped<>(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBossValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
         ModelHelper.setEntityModel(MobFireMinion.class, () -> new MobRendererFireMinion(new ModelFireMinion(), 0.4F));
     }
@@ -845,7 +847,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
-        ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererBiped<>(new ModelValkyrie(), 0.5F));
+        ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
     }
 

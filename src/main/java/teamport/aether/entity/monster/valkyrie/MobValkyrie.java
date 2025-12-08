@@ -28,7 +28,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     private boolean isSwinging;
     private int teleportTimer;
     private int chatTime;
-    protected static float wingSpeed;
+    protected float wingSpeed;
 
 
     public MobValkyrie(World world) {
