@@ -51,6 +51,11 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
+    public boolean collidesWith(Entity entity) {
+        return false;
+    }
+
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
@@ -168,15 +173,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             }
         }
 
-        ++this.smokeTime;
-        if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
-            this.smokeTime = 0;
-            int i = MathHelper.floor(this.x);
-            int j = MathHelper.floor(this.bb.minY);
-            int k = MathHelper.floor(this.z);
-
-            if (!this.onGround || this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id()) {
-                MobUtil.killMob(this);
+        if (!this.world.isClientSide) {
+            ++this.smokeTime;
+            if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
+                this.smokeTime = 0;
+                if (this.world.getBlockId(belowX, belowY, belowZ) != AetherBlocks.GRASS_AETHER.id()) {
+                    MobUtil.killMob(this);
+                }
             }
         }
 
