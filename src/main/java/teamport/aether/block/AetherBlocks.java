@@ -1028,40 +1028,40 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setHardness(1.5F)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.stone.trapped", "carved_stone_trapped", blockID("CARVED_STONE_TRAPPED"),
-                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class, 15 * Global.TICKS_PER_SECOND))
+                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE, MobSentry.class, 30 * Global.TICKS_PER_SECOND))
             .withDisabledStats();
 
         CARVED_STONE_TRAPPED_LOCKED = dungeonStoneLocked
             .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.stone.trapped.locked", "carved_stone_trapped_locked", blockID("CARVED_STONE_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE_TRAPPED, MobSentry.class, 15 * Global.TICKS_PER_SECOND)
+                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE_TRAPPED, MobSentry.class, 30 * Global.TICKS_PER_SECOND)
             ).withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED = stone
             .setHardness(1.5F)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.angelic.trapped", "carved_angelic_trapped", blockID("CARVED_ANGELIC_TRAPPED"),
-                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class, 20 * Global.TICKS_PER_SECOND))
+                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC, MobValkyrie.class, 40 * Global.TICKS_PER_SECOND))
             .withDisabledStats();
 
 
         CARVED_ANGELIC_TRAPPED_LOCKED = dungeonStoneLocked
             .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.angelic.trapped.locked", "carved_angelic_trapped_locked", blockID("CARVED_ANGELIC_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC_TRAPPED, MobValkyrie.class, 20 * Global.TICKS_PER_SECOND)
+                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC_TRAPPED, MobValkyrie.class, 40 * Global.TICKS_PER_SECOND)
             ).withDisabledStats();
 
         CARVED_HELLFIRE_TRAPPED = stone
             .setHardness(1.5F)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.hellfire.trapped", "carved_hellfire_trapped", blockID("CARVED_HELLFIRE_TRAPPED"),
-                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE, MobFireMinion.class, 15 * Global.TICKS_PER_SECOND))
+                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE, MobFireMinion.class, 30 * Global.TICKS_PER_SECOND))
             .withDisabledStats();
 
         CARVED_HELLFIRE_TRAPPED_LOCKED = dungeonStoneLocked
             .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.hellfire.trapped.locked", "carved_hellfire_trapped_locked", blockID("CARVED_HELLFIRE_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE_TRAPPED, MobFireMinion.class, 15 * Global.TICKS_PER_SECOND)
+                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE_TRAPPED, MobFireMinion.class, 30 * Global.TICKS_PER_SECOND)
             ).withDisabledStats();
 
 
