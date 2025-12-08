@@ -14,7 +14,6 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -56,7 +55,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
                 double maxSpeedX = rand.nextGaussian() * 0.05;
                 double maxSpeedZ = rand.nextGaussian() * 0.05;
                 ///  this is not broken, it works, its just that vanilla particles are broken at the time
-                ParticleMaker.spawnParticle(world, "snowshovel", poxX, posY, posZ, maxSpeedX, 0.05, maxSpeedZ, 0);
+                world.spawnParticle("snowshovel", poxX, posY, posZ, maxSpeedX, 0.05, maxSpeedZ, 0);
             }
         }
     }

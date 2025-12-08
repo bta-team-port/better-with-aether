@@ -1,7 +1,6 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.util.helper.DamageType;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 

@@ -3,7 +3,6 @@ package teamport.aether.block;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTorch;
 import net.minecraft.core.world.World;
-import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -24,19 +23,19 @@ public class BlockLogicTorchAmbrosium extends BlockLogicTorch {
         int side = world.getBlockMetadata(x, y, z) & 7;
         switch (side) {
             case 1:
-                ParticleMaker.spawnParticle(world, "flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos - d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
                 break;
             case 2:
-                ParticleMaker.spawnParticle(world, "flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos + d4, yPos + d3, zPos, 0.0, 0.0, 0.0, 0);
                 break;
             case 3:
-                ParticleMaker.spawnParticle(world, "flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos - d4, 0.0, 0.0, 0.0, 0);
                 break;
             case 4:
-                ParticleMaker.spawnParticle(world, "flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos + d3, zPos + d4, 0.0, 0.0, 0.0, 0);
                 break;
             case 5:
-                ParticleMaker.spawnParticle(world, "flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameambrosium", xPos, yPos, zPos, 0.0, 0.0, 0.0, 0);
         }
 
     }

@@ -782,7 +782,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         LEAVES_SKYROOT = leaves
-            .build("leaves.skyroot", "leaves_skyroot", blockID("LEAVES_SKYROOT"), block -> new BlockLogicLeavesSkyroot(block, Material.leaves, SAPLING_SKYROOT));
+            .build("leaves.skyroot", "leaves_skyroot", blockID("LEAVES_SKYROOT"), BlockLogicLeavesSkyroot::new);
 
         LEAVES_OAK_GOLDEN = leaves
             .build("leaves.oak.golden", "leaves_oak_golden", blockID("LEAVES_OAK_GOLDEN"), BlockLogicLeavesOakGolden::new);

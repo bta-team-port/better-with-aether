@@ -24,10 +24,10 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
+import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.monster.mimic.MimicEntry;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
 import teamport.aether.entity.monster.mimic.MobMimic;
-import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 

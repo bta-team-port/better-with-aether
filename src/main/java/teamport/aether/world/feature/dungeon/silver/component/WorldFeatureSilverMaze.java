@@ -5,15 +5,15 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.world.feature.util.MazeHelper;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.world.feature.util.BlockPallet;
+import teamport.aether.world.feature.util.MazeHelper;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 
 import java.util.*;
 
-import static teamport.aether.world.feature.util.MetadataHelper.*;
 import static teamport.aether.world.feature.dungeon.silver.WorldFeatureAetherSilverDungeon.ANGELIC;
+import static teamport.aether.world.feature.util.MetadataHelper.*;
 import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 

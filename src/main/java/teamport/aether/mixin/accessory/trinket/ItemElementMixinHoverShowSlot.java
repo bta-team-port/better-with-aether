@@ -21,10 +21,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.option.AetherGameSettingsOptions;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.lookup.LookupTrinketIcons;
+import teamport.aether.option.AetherGameSettingsOptions;
 
 import static teamport.aether.AetherMod.ARMOR_START_INDEX;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;

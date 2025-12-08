@@ -4,12 +4,7 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.util.BlockPallet;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static net.minecraft.core.util.helper.Direction.EAST;
-import static net.minecraft.core.util.helper.Direction.SOUTH;
-import static net.minecraft.core.util.helper.Direction.UP;
-import static net.minecraft.core.util.helper.Direction.WEST;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
-import static teamport.aether.world.feature.util.WorldFeatureComponent.drawPlane;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class TresureOreRoom extends BaseBronzeRoom{

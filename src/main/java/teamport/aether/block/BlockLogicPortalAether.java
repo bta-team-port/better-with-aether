@@ -6,7 +6,6 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
-import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -39,7 +38,7 @@ public class BlockLogicPortalAether extends BlockLogicPortal {
                 zd = rand.nextDouble() * 2.0 * i1;
             }
 
-            ParticleMaker.spawnParticle(world, "portal", px, py, pz, xd, yd, zd, this.fromMetadata(meta).blockMeta);
+            world.spawnParticle("portal", px, py, pz, xd, yd, zd, this.fromMetadata(meta).blockMeta);
         }
 
     }

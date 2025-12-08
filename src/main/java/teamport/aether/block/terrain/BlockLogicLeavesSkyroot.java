@@ -8,16 +8,16 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.wind.WindProvider;
 import teamport.aether.AetherMod;
-import teamport.aether.helper.ParticleMaker;
-import turniplabs.halplibe.helper.EnvironmentHelper;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;
 
 public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
 
-    public BlockLogicLeavesSkyroot(Block<?> block, Material material, Block<?> sapling) {
-        super(block, material, sapling);
+    public BlockLogicLeavesSkyroot(Block<?> block) {
+        super(block, Material.leaves, AetherBlocks.SAPLING_SKYROOT);
     }
 
     @Override
@@ -32,8 +32,10 @@ public class BlockLogicLeavesSkyroot extends BlockLogicLeavesBase {
 
     @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
-        if (rand.nextInt(20) == 0 && !EnvironmentHelper.isServerEnvironment()) {
-            ParticleMaker.spawnParticle(world, AetherMod.MOD_ID + "$fallingleaf", x, y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
+        WindProvider wind = world.getWorldType().getWindManager();
+        float windIntensity = wind.getWindIntensity(world, x, y, z);
+        if (rand.nextInt((int) (40.0F + 200.0F * (1.0F - windIntensity))) == 0) {
+            world.spawnParticle("fallingAetherLeaf", x, (double) y - (double) 0.1F, z, 0.0F, 0.0F, 0.0F, 0);
         }
     }
 }

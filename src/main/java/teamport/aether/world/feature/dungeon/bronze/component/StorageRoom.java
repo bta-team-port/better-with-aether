@@ -11,7 +11,8 @@ import java.util.List;
 
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
-import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
+import static teamport.aether.world.feature.util.WorldFeatureComponent.drawHollowShell;
+import static teamport.aether.world.feature.util.WorldFeatureComponent.drawPlane;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class StorageRoom extends BaseBronzeRoom {

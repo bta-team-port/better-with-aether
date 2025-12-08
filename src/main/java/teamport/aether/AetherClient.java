@@ -6,6 +6,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.particle.ParticleDispatcher;
 import net.minecraft.client.entity.particle.ParticleFirefly;
+import net.minecraft.client.entity.particle.ParticleLambda;
+import net.minecraft.client.entity.particle.ParticleLeaf;
 import net.minecraft.client.gui.achievements.data.AchievementPages;
 import net.minecraft.client.gui.hud.component.ComponentAnchor;
 import net.minecraft.client.gui.hud.component.HudComponent;
@@ -18,15 +20,16 @@ import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
+import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.achievements.AchievementPageAether;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
-import teamport.aether.option.AetherGameSettings;
 import teamport.aether.gui.HudComponentBossBar;
 import teamport.aether.gui.HudComponentJumpBar;
+import teamport.aether.option.AetherGameSettings;
 import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
@@ -65,6 +68,10 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
         dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("remedy", (world, x, y, z, xa, ya, za, id) -> new ParticleRemedy(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
+            int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
+            return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)) : null;
+        });
 
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();

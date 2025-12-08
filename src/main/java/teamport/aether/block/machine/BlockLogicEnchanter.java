@@ -14,7 +14,6 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.entity.TileEntityEnchanter;
 import teamport.aether.gui.AetherScreens;
-import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -56,13 +55,13 @@ public class BlockLogicEnchanter extends BlockLogicRotatable {
             double f3 = 0.52;
             double f4 = rand.nextDouble() * 0.6 - 0.3;
             if (l == 4) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX - f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameenchanter", poxX - f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
             } else if (l == 5) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameenchanter", poxX + f3, posY, posZ + f4, 0.0, 0.0, 0.0, 0);
             } else if (l == 2) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ - f3, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ - f3, 0.0, 0.0, 0.0, 0);
             } else if (l == 3) {
-                ParticleMaker.spawnParticle(world, "flameenchanter", poxX + f4, posY, posZ + f3, 0.0, 0.0, 0.0, 0);
+                world.spawnParticle("flameenchanter", poxX + f4, posY, posZ + f3, 0.0, 0.0, 0.0, 0);
             }
 
         }

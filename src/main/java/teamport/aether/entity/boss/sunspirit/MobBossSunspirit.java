@@ -23,9 +23,9 @@ import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
-import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.SunSpiritDeath;
@@ -34,7 +34,6 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
-import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobBossSunspirit extends MobBossFlying {
     @Nullable

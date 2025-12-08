@@ -2,9 +2,7 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import teamport.aether.block.AetherBlocks;
 
-import static net.minecraft.core.util.helper.Direction.EAST;
-import static net.minecraft.core.util.helper.Direction.SOUTH;
-import static net.minecraft.core.util.helper.Direction.UP;
+import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawPlane;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;
 
