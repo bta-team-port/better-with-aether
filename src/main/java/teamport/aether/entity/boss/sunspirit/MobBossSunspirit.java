@@ -30,6 +30,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.feature.util.map.DungeonMap;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
@@ -247,7 +248,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.rotateSunspirit(this.random.nextInt(360));
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
-                if (!this.world.isClientSide) {
+                if (EnvironmentHelper.isClientWorld()) {
                     Minecraft.getMinecraft().sndManager.playMusic("aether:music.fireboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
                 }
 
@@ -289,7 +290,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
 
-        if (!this.world.isClientSide) {
+        if (EnvironmentHelper.isClientWorld()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 

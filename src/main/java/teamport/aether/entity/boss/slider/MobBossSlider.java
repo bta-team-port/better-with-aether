@@ -299,7 +299,7 @@ public class MobBossSlider extends MobBoss {
                 this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
             });
 
-        if (!this.world.isClientSide) {
+        if (EnvironmentHelper.isClientWorld()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 
@@ -388,7 +388,7 @@ public class MobBossSlider extends MobBoss {
             runWithDungeon(dungeonID, d -> d.lock(this.world));
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
 
-            if (!this.world.isClientSide) {
+            if (EnvironmentHelper.isClientWorld()) {
                 Minecraft.getMinecraft().sndManager.playMusic("aether:music.sliderboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
             }
 

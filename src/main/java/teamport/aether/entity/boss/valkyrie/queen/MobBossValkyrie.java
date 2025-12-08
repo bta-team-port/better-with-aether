@@ -253,7 +253,7 @@ public class MobBossValkyrie extends MobBoss {
                 MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
 
-        if (!this.world.isClientSide) {
+        if (EnvironmentHelper.isClientWorld()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 
@@ -426,7 +426,7 @@ public class MobBossValkyrie extends MobBoss {
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(world));
             MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
 
-            if (!this.world.isClientSide) {
+            if (EnvironmentHelper.isClientWorld()) {
                 Minecraft.getMinecraft().sndManager.playMusic("aether:music.valkyrieboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
             }
 
