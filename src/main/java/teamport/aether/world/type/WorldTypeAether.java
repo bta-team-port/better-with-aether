@@ -10,7 +10,6 @@ import net.minecraft.core.world.season.Seasons;
 import net.minecraft.core.world.type.WorldType;
 import net.minecraft.core.world.weather.Weather;
 import net.minecraft.core.world.weather.Weathers;
-import net.minecraft.core.world.wind.WindProviderGeneric;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.chunk.BiomeProviderAether;
@@ -25,7 +24,6 @@ public class WorldTypeAether extends WorldType {
         return Properties.of(translationKey)
             .brightnessRamp(getLightRamp())
             .defaultWeather(Weathers.OVERWORLD_CLEAR)
-            .windManager(new WindProviderGeneric())
             .seasonConfig(SeasonConfig.builder()
                 .withSeasonInCycle(Seasons.OVERWORLD_SPRING, 14)
                 .withSeasonInCycle(Seasons.OVERWORLD_SUMMER, 14)

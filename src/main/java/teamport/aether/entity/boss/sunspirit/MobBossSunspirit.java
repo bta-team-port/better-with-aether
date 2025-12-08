@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.sunspirit;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
@@ -22,17 +23,17 @@ import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
+import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
-import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.feature.util.map.DungeonMap;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static net.minecraft.core.net.command.TextFormatting.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
-import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class MobBossSunspirit extends MobBossFlying {
     @Nullable
@@ -245,6 +246,11 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.isAgro = true;
                 this.rotateSunspirit(this.random.nextInt(360));
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
+
+                if (EnvironmentHelper.isClientWorld()) {
+                    Minecraft.getMinecraft().sndManager.playMusic("aether:music.fireboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+                }
+
                 return true;
             }
             if (this.target == null && !this.isAgro) {
@@ -282,6 +288,10 @@ public class MobBossSunspirit extends MobBossFlying {
                 players.triggerAchievement(AetherAchievements.GOLD);
                 this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
+
+        if (EnvironmentHelper.isClientWorld()) {
+            Minecraft.getMinecraft().sndManager.stopMusic();
+        }
 
         super.onDeath(entityKilledBy);
     }

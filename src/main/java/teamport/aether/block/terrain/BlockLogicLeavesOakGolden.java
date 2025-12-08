@@ -9,7 +9,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.helper.ParticleMaker;
 
 import java.util.Random;
 
@@ -21,7 +20,7 @@ public class BlockLogicLeavesOakGolden extends BlockLogicLeavesBase {
     @Override
     public void animationTick(World world, int x, int y, int z, Random rand) {
         if (rand.nextInt(5) == 0) {
-            ParticleMaker.spawnParticle(world, "goldendust", x, y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
+            world.spawnParticle("goldendust", x, y - 0.10000000149011612, z, 0.0, 0.0, 0.0, 0);
         }
     }
 

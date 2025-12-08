@@ -18,6 +18,8 @@ public class ModelValkyrie extends ModelBiped {
     private final Cube[] strand;
     private final Cube halo;
 
+    public float wingSpeed;
+
     public ModelValkyrie() {
         this(0.0F);
     }
@@ -263,13 +265,13 @@ public class ModelValkyrie extends ModelBiped {
         this.wingLeft.zRot = -0.125F;
         this.wingRight.zRot = 0.125F;
         var10000 = this.wingLeft;
-        var10000.yRot = (float) (var10000.yRot + Math.sin(MobValkyrie.wingSpeed) / 6.0);
+        var10000.yRot = (float) (var10000.yRot + Math.sin(this.wingSpeed) / 6.0);
         var10000 = this.wingRight;
-        var10000.yRot = (float) (var10000.yRot - Math.sin(MobValkyrie.wingSpeed) / 6.0);
+        var10000.yRot = (float) (var10000.yRot - Math.sin(this.wingSpeed) / 6.0);
         var10000 = this.wingLeft;
-        var10000.zRot = (float) (var10000.zRot + Math.cos(MobValkyrie.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
+        var10000.zRot = (float) (var10000.zRot + Math.cos(this.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
         var10000 = this.wingRight;
-        var10000.zRot = (float) (var10000.zRot - Math.cos(MobValkyrie.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
+        var10000.zRot = (float) (var10000.zRot - Math.cos(this.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
         this.skirt[0].xRot = -0.2F;
         this.skirt[1].xRot = -0.2F;
         this.skirt[2].xRot = 0.2F;

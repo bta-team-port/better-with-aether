@@ -1,6 +1,7 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.util.collection.NamespaceID;
+import teamport.aether.block.entity.*;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.animal.moa.MobMoaBlack;
@@ -24,7 +25,6 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
-import teamport.aether.block.entity.*;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 import turniplabs.halplibe.helper.EntityHelper;

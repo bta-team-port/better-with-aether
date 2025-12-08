@@ -1,6 +1,7 @@
 package teamport.aether.entity.boss.valkyrie.queen;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
@@ -21,8 +22,8 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
-import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.entity.player.MessageMaker;
+import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -43,7 +44,7 @@ public class MobBossValkyrie extends MobBoss {
 
     private int teleportTimer;
     private int chatTime;
-    private float sinage;
+    protected float wingSpeed;
 
     private static final int ATTACK_STRENGTH = 10;
 
@@ -109,13 +110,13 @@ public class MobBossValkyrie extends MobBoss {
         }
 
         if (!this.onGround) {
-            this.sinage += 0.75F;
+            this.wingSpeed += 0.75F;
         } else {
-            this.sinage += 0.15F;
+            this.wingSpeed += 0.15F;
         }
 
-        if (this.sinage > 6.283186F) {
-            this.sinage -= 6.283186F;
+        if (this.wingSpeed > 6.283186F) {
+            this.wingSpeed -= 6.283186F;
         }
     }
 
@@ -124,11 +125,18 @@ public class MobBossValkyrie extends MobBoss {
         super.updateAI();
         ++this.teleportTimer;
 
-        this.target = findPlayerToAttack();
+        if (this.target == null || !this.target.isAlive()) {
+            this.target = findPlayerToAttack();
+        }
 
-        if (this.target == null && isAgro) {
+        boolean anyPlayerInArena = this.world.players.stream()
+            .anyMatch(p -> p.distanceTo(this) <= AetherDimension.BOSS_DETECTION_RADIUS);
+
+        if (!anyPlayerInArena && this.isAgro) {
             this.isAgro = false;
             this.returnToOriginalState();
+            this.isReadyToDuel = false;
+            return;
         }
 
         if (this.isReadyToDuel && this.target != null) {
@@ -245,6 +253,10 @@ public class MobBossValkyrie extends MobBoss {
                 MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
 
+        if (EnvironmentHelper.isClientWorld()) {
+            Minecraft.getMinecraft().sndManager.stopMusic();
+        }
+
         super.onDeath(entityKilledBy);
     }
 
@@ -272,7 +284,7 @@ public class MobBossValkyrie extends MobBoss {
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
 
             for (int searchY = iy; searchY >= p1.getY(); --searchY) {
-                if (searchY < 0 || searchY + 1 >= this.world.getHeightBlocks()) continue;
+                if (searchY < 0 || searchY + 1 >= Objects.requireNonNull(this.world).getHeightBlocks()) continue;
 
                 boolean isAirAbove = this.isAirySpace(ix, searchY, iz);
                 boolean isAirHead = this.isAirySpace(ix, searchY + 1, iz);
@@ -413,6 +425,11 @@ public class MobBossValkyrie extends MobBoss {
             // Lock dungeon and set boss target
             DungeonMap.runWithDungeon(dungeonID, d -> d.lock(world));
             MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
+
+            if (EnvironmentHelper.isClientWorld()) {
+                Minecraft.getMinecraft().sndManager.playMusic("aether:music.valkyrieboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+            }
+
             ((AetherBossList) attacker).aether$TryAddBossList(this);
 
             this.chatTime = 2 * Global.TICKS_PER_SECOND;

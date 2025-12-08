@@ -308,7 +308,7 @@
       "trigger.ogg"
     ]
   },
-  "aether:music.sliderboss": {
+  "music.sliderboss": {
     "sounds": [
       {
         "name": "music/sliderboss.ogg",
@@ -317,7 +317,7 @@
       }
     ]
   },
-  "aether:music.fireboss": {
+  "music.fireboss": {
     "sounds": [
       {
         "name": "music/fireboss.ogg",

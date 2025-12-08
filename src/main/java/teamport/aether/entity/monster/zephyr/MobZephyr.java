@@ -257,7 +257,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         boolean tooManyZephyrs = world.loadedEntityList.stream()
             .filter(MobZephyr.class::isInstance)
-            .filter(e -> e.distanceTo(this) <= 32)
+            .filter(e -> e.distanceTo(this) <= 64)
             .count() > 5;
 
         if (tooManyZephyrs) return false;
@@ -268,6 +268,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
         return this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)
+            && this.random.nextInt(10) == 0
             && this.world.getCubes(this, this.bb).isEmpty()
             && this.world.canBlockSeeTheSky(x, y, z);
     }
