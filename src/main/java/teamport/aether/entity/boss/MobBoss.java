@@ -87,8 +87,12 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         }
 
         if (dungeonID != null) {
-            DungeonMap.runWithDungeon(dungeonID, d-> d.notifyBossDead(this));
+            DungeonMap.runWithDungeon(dungeonID, d -> d.notifyBossDead(this));
         }
+
+        this.world.players.stream()
+            .filter(p -> p.distanceTo(this) < 128)
+            .forEach(p -> ((AetherBossList) p).aether$removeFromBossList(this));
 
         // try triggering the propagate on dungeon blocks.
         for (int x1 = -3; x1 < 3; x1++) {

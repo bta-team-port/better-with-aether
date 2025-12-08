@@ -21,8 +21,8 @@ import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
-import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.entity.player.MessageMaker;
+import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
@@ -124,11 +124,18 @@ public class MobBossValkyrie extends MobBoss {
         super.updateAI();
         ++this.teleportTimer;
 
-        this.target = findPlayerToAttack();
+        if (this.target == null || !this.target.isAlive()) {
+            this.target = findPlayerToAttack();
+        }
 
-        if (this.target == null && isAgro) {
+        boolean anyPlayerInArena = this.world.players.stream()
+            .anyMatch(p -> p.distanceTo(this) <= AetherDimension.BOSS_DETECTION_RADIUS);
+
+        if (!anyPlayerInArena && this.isAgro) {
             this.isAgro = false;
             this.returnToOriginalState();
+            this.isReadyToDuel = false;
+            return;
         }
 
         if (this.isReadyToDuel && this.target != null) {
@@ -272,7 +279,7 @@ public class MobBossValkyrie extends MobBoss {
             int iz = newZ + (this.random.nextInt(6) - this.random.nextInt(6));
 
             for (int searchY = iy; searchY >= p1.getY(); --searchY) {
-                if (searchY < 0 || searchY + 1 >= this.world.getHeightBlocks()) continue;
+                if (searchY < 0 || searchY + 1 >= Objects.requireNonNull(this.world).getHeightBlocks()) continue;
 
                 boolean isAirAbove = this.isAirySpace(ix, searchY, iz);
                 boolean isAirHead = this.isAirySpace(ix, searchY + 1, iz);
