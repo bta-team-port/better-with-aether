@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.item.AetherItems;
 
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryZanitePendantDamageMixin {
@@ -25,18 +25,18 @@ public abstract class ContainerInventoryZanitePendantDamageMixin {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            damage = addDamage(damage, trinketOne);
+            damage = addDamage(damage, trinketOne, TRINKET_1_SLOT);
         }
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            damage = addDamage(damage, trinketTwo);
+            damage = addDamage(damage, trinketTwo, TRINKET_2_SLOT);
         }
         return damage;
     }
     @Unique
-    private int addDamage(int damage, ItemStack trinketOne) {
+    private int addDamage(int damage, ItemStack trinketOne, int slotID) {
         float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
         float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-        trinketOne.damageItem(1, player);
+        PlayerUntil.damageItem(player, trinketOne);
         damage += (int) Math.floor(speed);
         return damage;
     }
