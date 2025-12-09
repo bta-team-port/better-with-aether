@@ -126,10 +126,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     @Override
     public void updateAI() {
         super.updateAI();
-        if (target == null) {
-            if (mimicTime-- == 0) {
-                this.remove();
-            }
+        if (target == null && mimicTime-- == 0) {
+            this.remove();
         }
     }
 

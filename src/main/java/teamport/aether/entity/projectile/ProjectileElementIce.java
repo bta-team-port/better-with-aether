@@ -54,8 +54,8 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
     @Override
     public void onHit(HitResult hitResult) {
         if (this.world != null && !this.world.isClientSide
-                && hitResult.entity != null
-                && !(hitResult.entity instanceof ProjectileElementBase)
+            && hitResult.entity != null
+            && !(hitResult.entity instanceof ProjectileElementBase)
         ) {
             if (hitResult.entity instanceof MobBossSunspirit) {
                 if (this.owner instanceof Player) {
@@ -94,26 +94,22 @@ public class ProjectileElementIce extends ProjectileElementBase implements Aethe
 
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
-        if (this.world != null && !this.world.isClientSide) {
-            if (entity != null) {
-                if (entity instanceof Player) {
-                    this.owner = (Player) entity;
-                }
+        this.markHurt();
+        if (entity != null) {
+            if (entity instanceof Player) {
+                this.owner = (Player) entity;
+            }
 
-                Vec3 lookAngle = entity.getLookAngle();
-                if (lookAngle == null) {
-                    this.owner = null;
-                    return false;
-                }
-
+            Vec3 lookAngle = entity.getLookAngle();
+            if (lookAngle != null) {
                 this.setHeading(lookAngle.x, lookAngle.y, lookAngle.z, 0.5f, 0.0F);
                 bounceCount = 18;
-
-                return true;
             }
-        }
 
-        return false;
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

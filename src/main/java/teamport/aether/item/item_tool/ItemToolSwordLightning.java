@@ -29,7 +29,7 @@ public class ItemToolSwordLightning extends ItemToolSword implements AetherHasCu
     }
 
     @Override
-    public DamageType getDamageType(){
+    public DamageType getDamageType() {
         return AetherMod.LIGHTNING;
     }
 }

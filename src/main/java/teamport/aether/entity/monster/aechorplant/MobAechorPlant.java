@@ -36,7 +36,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.sinage = this.random.nextFloat() * 6.0F;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
-        this.setSize(1.0F, 1.0F);
+        this.setSize(0.9F, 0.9F);
         this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
     }

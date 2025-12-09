@@ -9,7 +9,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.wind.WindProvider;
-import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 
 import java.util.Random;

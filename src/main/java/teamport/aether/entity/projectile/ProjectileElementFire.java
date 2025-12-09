@@ -47,18 +47,13 @@ public class ProjectileElementFire extends ProjectileElementBase implements Aeth
 
     @Override
     public void onHit(HitResult hitResult) {
-        if (this.world != null && !this.world.isClientSide) {
-            if (!(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase || hitResult.entity instanceof MobFireMinion)) {
-                if (hitResult.entity instanceof Mob) {
-                    hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
-                    hitResult.entity.maxFireTicks = 200;
-                    hitResult.entity.remainingFireTicks = 200;
-                    this.remove();
-                    return;
-                }
-            }
+        if (this.world != null && !this.world.isClientSide && !(hitResult.entity instanceof MobBossSunspirit || hitResult.entity instanceof ProjectileElementBase || hitResult.entity instanceof MobFireMinion) && hitResult.entity instanceof Mob) {
+            hitResult.entity.hurt(this.owner, this.damage, DamageType.FIRE);
+            hitResult.entity.maxFireTicks = 200;
+            hitResult.entity.remainingFireTicks = 200;
+            this.remove();
+            return;
         }
-
         super.onHit(hitResult);
     }
 
