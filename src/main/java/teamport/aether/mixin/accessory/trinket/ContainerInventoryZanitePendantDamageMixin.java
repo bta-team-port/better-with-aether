@@ -33,10 +33,10 @@ public abstract class ContainerInventoryZanitePendantDamageMixin {
         return damage;
     }
     @Unique
-    private int addDamage(int damage, ItemStack trinketOne, int slotID) {
-        float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
+    private int addDamage(int damage, ItemStack trinket, int slotID) {
+        float damagePercent = (float) trinket.getMetadata() / trinket.getMaxDamage();
         float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-        PlayerUntil.damageItem(player, trinketOne);
+        PlayerUntil.damageItemArmor(player, trinket, slotID);
         damage += (int) Math.floor(speed);
         return damage;
     }

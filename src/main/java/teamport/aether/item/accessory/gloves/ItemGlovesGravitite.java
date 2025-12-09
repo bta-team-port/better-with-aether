@@ -18,8 +18,8 @@ public class ItemGlovesGravitite extends ItemGloves {
 
     @Override
     public boolean hitEntity(ItemStack gloves, Mob target, Mob attacker) {
-        if (target instanceof Mob && target.hurtTime == 10 && super.hitEntity(gloves, target, attacker))  {
-            if(attacker.isSneaking() && attacker instanceof Player){
+        if (target instanceof Mob && target.hurtTime == 10)  {
+            if(super.hitEntity(gloves, target, attacker) && attacker.isSneaking() && attacker instanceof Player){
                 MobUtil.knockback(target, attacker,knockbackStrength, 0.4f);
             }else{
                 MobUtil.knockback(target, attacker, 0.4f, lift);
