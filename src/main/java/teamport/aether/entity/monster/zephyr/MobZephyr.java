@@ -56,7 +56,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
             String entityTexture = super.getEntityTexture();
             if (entityTexture != null) return entityTexture;
         }
-        return "/assets/aether/textures/entity/zephyr_fire/0.png";
+        return "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
 
     @Override
@@ -83,6 +83,11 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         }
 
         super.tick();
+    }
+
+    @Override
+    public boolean collidesWith(Entity entity) {
+        return !(entity instanceof ProjectileWindball);
     }
 
     @SuppressWarnings("java:S6541")
@@ -180,7 +185,6 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
                 this.entityData.set(16, chargeState);
             }
         }
-
     }
 
     private Entity findPlayerToAttack() {

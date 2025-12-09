@@ -20,7 +20,7 @@ public class SlotAccessory extends Slot {
     public static final byte TRINKET_2_SLOT = 7; // pendant, healing stone, compass, clock, calendar, etc.
 
     // empty slot equipment
-    private static final String[] ACCESSORY_OUTLINE = new String[]{
+    private static final String[] accessoryOutlines = new String[]{
         "aether:item/armor_gloves_outline",
         "aether:item/armor_capes_outline",
         "aether:item/armor_wildcard_outline",
@@ -81,7 +81,7 @@ public class SlotAccessory extends Slot {
     // cause of the armor offset
     @Override
     public String getItemIcon() {
-        return ACCESSORY_OUTLINE[this.armorType - 4];
+        return accessoryOutlines[this.armorType - 4];
     }
 
 }

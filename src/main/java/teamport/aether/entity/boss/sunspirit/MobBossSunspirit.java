@@ -159,13 +159,12 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (entity instanceof MobBossSunspirit || entity instanceof MobFireMinion) {
-            return false;
+        if (!(entity instanceof MobBossSunspirit || entity instanceof MobFireMinion)) {
+            entity.hurt(this, 20, DamageType.FIRE);
+            entity.hurt(this, 10, DamageType.COMBAT);
+            entity.maxFireTicks = 1000;
+            entity.remainingFireTicks = 1000;
         }
-        entity.hurt(this, 20, DamageType.FIRE);
-        entity.hurt(this, 10, DamageType.COMBAT);
-        entity.maxFireTicks = 1000;
-        entity.remainingFireTicks = 1000;
         return false;
     }
 
@@ -218,7 +217,7 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
-            if(SunSpiritDeath.isDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword){
+            if (!SunSpiritDeath.isDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword) {
                 MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat.again"));
                 this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
                 this.chatLog = START_FIGHT;
@@ -303,7 +302,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = this.world.getClosestPlayerToEntity(this, 16.0);
+        Player player = this.world.getClosestPlayerToEntity(this, 32.0);
         if (player != null && canEntityBeSeen(player) && player.gamemode.areMobsHostile()) {
             ((AetherBossList) player).aether$TryAddBossList(this);
             return player;

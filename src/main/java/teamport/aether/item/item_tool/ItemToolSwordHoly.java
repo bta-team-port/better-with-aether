@@ -19,29 +19,31 @@ public class ItemToolSwordHoly extends ItemToolSword implements AetherHasCustomD
     @Override
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
-        if (target.hurtTime == 10 && hitEntity
-            && (target instanceof MobZombie
-            || target instanceof MobGhast
-            || target instanceof MobSnowman
-            || target instanceof MobSkeleton
-            || target instanceof MobGiant)
-        ) {
+        if (target.hurtTime == 10 && (undeadKills(target))) {
             ParticleMaker.spawnHolySwordParticles(target);
         }
         return hitEntity;
     }
 
+    private static boolean undeadKills(Entity target) {
+        return target instanceof MobZombie
+            || target instanceof MobGhast
+            || target instanceof MobSnowman
+            || target instanceof MobGiant
+            || target instanceof MobSkeleton;
+    }
+
     @Override
     public int getDamageVsEntity(Entity entity, ItemStack itemstack) {
         int damage = super.getDamageVsEntity(entity, itemstack);
-        if(entity instanceof MobZombie || entity instanceof MobGhast || entity instanceof MobSnowman || entity instanceof MobSkeleton || entity instanceof MobGiant){
+        if (undeadKills(entity)) {
             damage = damage * 2;
         }
         return damage;
     }
 
     @Override
-    public DamageType getDamageType(){
+    public DamageType getDamageType() {
         return AetherMod.HOLY;
     }
 }
