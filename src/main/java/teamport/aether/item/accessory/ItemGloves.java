@@ -9,6 +9,8 @@ import net.minecraft.core.util.helper.DamageType;
 import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.item.AetherHasCustomDamageType;
 
+import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
+
 public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, AetherHasCustomDamageType {
     private final ArmorMaterial material;
     private int damage;
@@ -64,7 +66,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
         Player player = (Player) attacker;
         ItemStack hold = player.getHeldItem();
         if (hold == null && gloves != null && gloves.getItem() instanceof ItemGloves) {
-            PlayerUntil.damageItem(player, gloves);
+            PlayerUntil.damageItemArmor(player, gloves, GLOVES_SLOT);
             return true;
         }
         return false;
