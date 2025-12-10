@@ -16,9 +16,9 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
 
 public class EntityFloatingBlock extends Entity {
-    private CarriedBlock carriedBlock;
-    private int floatTime;
-    private boolean hasRemovedBlock = false;
+    public CarriedBlock carriedBlock;
+    public int floatTime;
+    public boolean hasRemovedBlock = false;
 
     public EntityFloatingBlock(World world) {
         super(world);
