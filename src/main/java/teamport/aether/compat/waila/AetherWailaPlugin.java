@@ -32,6 +32,8 @@ public class AetherWailaPlugin implements BTWailaCustomTooltipPlugin {
         tooltipRegistry.register(new EnchanterTooltip());
         tooltipRegistry.register(new FreezerTooltip());
         tooltipRegistry.register(new IncubatorTooltip());
+        tooltipRegistry.register(new SignSkyrootTooltip());
+
         addEntityIcon(MobPhyg.class, Items.FOOD_PORKCHOP_RAW);
         addEntityIcon(MobSheepuff.class, Blocks.WOOL);
 

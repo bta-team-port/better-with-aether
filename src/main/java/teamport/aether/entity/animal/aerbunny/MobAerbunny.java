@@ -54,10 +54,8 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public double getRidingHeight() {
-        if (EnvironmentHelper.isClientWorld()) {
-            if (this.vehicle != Minecraft.getMinecraft().thePlayer) {
-                return this.heightOffset + 0.5F;
-            }
+        if (EnvironmentHelper.isClientWorld() && this.vehicle != Minecraft.getMinecraft().thePlayer) {
+            return this.heightOffset + 0.5F;
         }
         return this.heightOffset - 1.1f;
     }
