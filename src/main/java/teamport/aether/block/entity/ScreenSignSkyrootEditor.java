@@ -54,7 +54,8 @@ public class ScreenSignSkyrootEditor extends Screen {
         Keyboard.enableRepeatEvents(false);
         if (this.mc.currentWorld != null && this.mc.currentWorld.isClientSide) {
             EnumSignPicture enumsignpicture = this.entitySign.getPicture();
-            if (enumsignpicture != null) this.mc.getSendQueue().addToSendQueue(new PacketSignUpdate(this.entitySign.x, this.entitySign.y, this.entitySign.z, this.entitySign.signText, enumsignpicture.getId(), this.entitySign.getColor().id));
+            if (enumsignpicture != null)
+                this.mc.getSendQueue().addToSendQueue(new PacketSignUpdate(this.entitySign.x, this.entitySign.y, this.entitySign.z, this.entitySign.signText, enumsignpicture.getId(), this.entitySign.getColor().id));
         }
 
     }
@@ -176,7 +177,8 @@ public class ScreenSignSkyrootEditor extends Screen {
         GL11.glPopMatrix();
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         EnumSignPicture enumsignpicture = this.entitySign.getPicture();
-        if (enumsignpicture != null) this.drawStringCentered(this.font, I18n.getInstance().translateKey(enumsignpicture.getLanguageKey()), this.width / 2, 150 + this.yOffset, 16777215);
+        if (enumsignpicture != null)
+            this.drawStringCentered(this.font, I18n.getInstance().translateKey(enumsignpicture.getLanguageKey()), this.width / 2, 150 + this.yOffset, 16777215);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         super.render(mx, my, partialTick);
     }

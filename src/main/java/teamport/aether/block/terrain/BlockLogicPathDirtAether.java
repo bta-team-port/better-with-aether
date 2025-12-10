@@ -40,7 +40,15 @@ public class BlockLogicPathDirtAether extends BlockLogic {
         super.onNeighborBlockChange(world, x, y, z, blockId);
         Material material = world.getBlockMaterial(x, y + 1, z);
         int id = world.getBlockId(x, y + 1, z);
-        if (material.isSolid() && id != Blocks.FENCE_GATE_PLANKS_OAK.id() && id != Blocks.FENCE_GATE_PLANKS_OAK_PAINTED.id() && id != Blocks.SIGN_WALL_PLANKS_OAK.id() && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()) {
+        if (material.isSolid()
+            && id != Blocks.FENCE_GATE_PLANKS_OAK.id()
+            && id != Blocks.FENCE_GATE_PLANKS_OAK_PAINTED.id()
+            && id != Blocks.SIGN_WALL_PLANKS_OAK.id()
+            && id != AetherBlocks.SIGN_WALL_PLANKS_SKYROOT.id()
+            && id != Blocks.SIGN_WALL_PLANKS_OAK_PAINTED.id()
+            && id != AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED.id()
+            && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
+            && id != AetherBlocks.FENCEGATE_PLANKS_SKYROOT_PAINTED.id()) {
             world.setBlockWithNotify(x, y, z, AetherBlocks.DIRT_AETHER.id());
         }
 

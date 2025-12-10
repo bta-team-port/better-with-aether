@@ -134,7 +134,8 @@ public class TileEntityRendererSignSkyroot extends TileEntityRenderer<TileEntity
 
         EnumSignPicture picture = tileEntity.getPicture();
         if (picture != null && picture != EnumSignPicture.NONE) {
-            drawTexturedModalRect(colorSign, TextureRegistry.getTexture(picture.getTextureKey()));
+            IconCoordinate coordinate = TextureRegistry.getTexture(picture.getTextureKey());
+            drawTexturedModalRect(colorSign, coordinate);
         }
 
         GL11.glDisable(GL11.GL_BLEND);
