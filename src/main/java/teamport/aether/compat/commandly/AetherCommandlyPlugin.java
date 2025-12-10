@@ -23,10 +23,10 @@ public class AetherCommandlyPlugin implements CommandlyPlugin {
 
     @Override
     public void registerPickaxe(PickAxeRegister register) {
-        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_SKYROOT, AetherToolMaterial.SKYROOT);
-        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_HOLYSTONE, AetherToolMaterial.HOLYSTONE);
-        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_ZANITE, AetherToolMaterial.ZANITE);
-        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_GRAVITITE, AetherToolMaterial.GRAVITITE);
-        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_VALKYRIE, AetherToolMaterial.VALKYRIE);
+        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_SKYROOT, AetherToolMaterial.skyroot);
+        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_HOLYSTONE, AetherToolMaterial.holystone);
+        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_ZANITE, AetherToolMaterial.zanite);
+        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_GRAVITITE, AetherToolMaterial.gravitite);
+        PickAxeRegister.register(AetherItems.TOOL_PICKAXE_VALKYRIE, AetherToolMaterial.valkyrie);
     }
 }

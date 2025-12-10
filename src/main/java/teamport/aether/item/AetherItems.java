@@ -404,72 +404,72 @@ public final class AetherItems {
 
         TOOL_SWORD_SKYROOT = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.SKYROOT));
+            .build(new ItemToolSwordAether("tool.sword.skyroot", itemKey("tool_sword_skyroot"), itemID("TOOL_SWORD_SKYROOT"), AetherToolMaterial.skyroot));
 
         TOOL_SHOVEL_SKYROOT = new ItemBuilder(MOD_ID)
-            .build(new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.SKYROOT));
+            .build(new ItemToolShovelAether("tool.shovel.skyroot", itemKey("tool_shovel_skyroot"), itemID("TOOL_SHOVEL_SKYROOT"), AetherToolMaterial.skyroot));
 
         TOOL_PICKAXE_SKYROOT = new ItemBuilder(MOD_ID)
-            .build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.SKYROOT));
+            .build(new ItemToolPickaxeAether("tool.pickaxe.skyroot", itemKey("tool_pickaxe_skyroot"), itemID("TOOL_PICKAXE_SKYROOT"), AetherToolMaterial.skyroot));
 
         TOOL_AXE_SKYROOT = new ItemBuilder(MOD_ID)
-            .build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.SKYROOT));
+            .build(new ItemToolAxeAether("tool.axe.skyroot", itemKey("tool_axe_skyroot"), itemID("TOOL_AXE_SKYROOT"), AetherToolMaterial.skyroot));
 
 
         TOOL_SWORD_HOLYSTONE = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.HOLYSTONE));
+            .build(new ItemToolSwordHolystone("tool.sword.holystone", itemKey("tool_sword_holystone"), itemID("TOOL_SWORD_HOLYSTONE"), AetherToolMaterial.holystone));
 
         TOOL_SHOVEL_HOLYSTONE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.HOLYSTONE));
+            .build(new ItemToolShovelHolystone("tool.shovel.holystone", itemKey("tool_shovel_holystone"), itemID("TOOL_SHOVEL_HOLYSTONE"), AetherToolMaterial.holystone));
 
         TOOL_PICKAXE_HOLYSTONE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.HOLYSTONE));
+            .build(new ItemToolPickaxeHolystone("tool.pickaxe.holystone", itemKey("tool_pickaxe_holystone"), itemID("TOOL_PICKAXE_HOLYSTONE"), AetherToolMaterial.holystone));
 
         TOOL_AXE_HOLYSTONE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.HOLYSTONE));
+            .build(new ItemToolAxeHolystone("tool.axe.holystone", itemKey("tool_axe_holystone"), itemID("TOOL_AXE_HOLYSTONE"), AetherToolMaterial.holystone));
 
 
         TOOL_SWORD_ZANITE = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.ZANITE));
+            .build(new ItemToolSwordZanite("tool.sword.zanite", itemKey("tool_sword_zanite"), itemID("TOOL_SWORD_ZANITE"), AetherToolMaterial.zanite));
 
         TOOL_SHOVEL_ZANITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.ZANITE));
+            .build(new ItemToolShovelZanite("tool.shovel.zanite", itemKey("tool_shovel_zanite"), itemID("TOOL_SHOVEL_ZANITE"), AetherToolMaterial.zanite));
 
         TOOL_PICKAXE_ZANITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.ZANITE));
+            .build(new ItemToolPickaxeZanite("tool.pickaxe.zanite", itemKey("tool_pickaxe_zanite"), itemID("TOOL_PICKAXE_ZANITE"), AetherToolMaterial.zanite));
 
         TOOL_AXE_ZANITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.ZANITE));
+            .build(new ItemToolAxeZanite("tool.axe.zanite", itemKey("tool_axe_zanite"), itemID("TOOL_AXE_ZANITE"), AetherToolMaterial.zanite));
 
 
         TOOL_SWORD_GRAVITITE = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.GRAVITITE));
+            .build(new ItemToolSwordGravitite("tool.sword.gravitite", itemKey("tool_sword_gravitite"), itemID("TOOL_SWORD_GRAVITITE"), AetherToolMaterial.gravitite));
 
         TOOL_SHOVEL_GRAVITITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.GRAVITITE));
+            .build(new ItemToolShovelGravitite("tool.shovel.gravitite", itemKey("tool_shovel_gravitite"), itemID("TOOL_SHOVEL_GRAVITITE"), AetherToolMaterial.gravitite));
 
         TOOL_PICKAXE_GRAVITITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.GRAVITITE));
+            .build(new ItemToolPickaxeGravitite("tool.pickaxe.gravitite", itemKey("tool_pickaxe_gravitite"), itemID("TOOL_PICKAXE_GRAVITITE"), AetherToolMaterial.gravitite));
 
         TOOL_AXE_GRAVITITE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.GRAVITITE));
+            .build(new ItemToolAxeGravitite("tool.axe.gravitite", itemKey("tool_axe_gravitite"), itemID("TOOL_AXE_GRAVITITE"), AetherToolMaterial.gravitite));
 
 
         TOOL_SWORD_VALKYRIE = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+            .build(new ItemToolSwordValkyrie("tool.sword.valkyrie", itemKey("tool_sword_valkyrie"), itemID("TOOL_SWORD_VALKYRIE"), AetherToolMaterial.valkyrie));
 
         TOOL_SHOVEL_VALKYRIE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+            .build(new ItemToolShovelValkyrie("tool.shovel.valkyrie", itemKey("tool_shovel_valkyrie"), itemID("TOOL_SHOVEL_VALKYRIE"), AetherToolMaterial.valkyrie));
 
         TOOL_PICKAXE_VALKYRIE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+            .build(new ItemToolPickaxeValkyrie("tool.pickaxe.valkyrie", itemKey("tool_pickaxe_valkyrie"), itemID("TOOL_PICKAXE_VALKYRIE"), AetherToolMaterial.valkyrie));
 
         TOOL_AXE_VALKYRIE = new ItemBuilder(MOD_ID)
-            .build(new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.VALKYRIE));
+            .build(new ItemToolAxeValkyrie("tool.axe.valkyrie", itemKey("tool_axe_valkyrie"), itemID("TOOL_AXE_VALKYRIE"), AetherToolMaterial.valkyrie));
 
 
         TOOL_KNIFE_LIGHTNING = new ItemBuilder(MOD_ID)
@@ -484,7 +484,7 @@ public final class AetherItems {
 
         TOOL_HAMMER_NOTCH = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolHammerNotch("tool.hammer.notch", itemKey("tool_hammer_notch"), itemID("TOOL_HAMMER_NOTCH"), AetherToolMaterial.special));
 
 
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID)
@@ -512,23 +512,23 @@ public final class AetherItems {
 
         TOOL_SWORD_PIG = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolSwordPig("tool.sword.pig", itemKey("tool_sword_pig"), itemID("TOOL_SWORD_PIG"), AetherToolMaterial.special));
 
         TOOL_SWORD_VAMPIRE = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolSwordVampire("tool.sword.vampire", itemKey("tool_sword_vampire"), itemID("TOOL_SWORD_VAMPIRE"), AetherToolMaterial.special));
 
         TOOL_SWORD_FLAME = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolSwordFire("tool.sword.flame", itemKey("tool_sword_flame"), itemID("TOOL_SWORD_FLAME"), AetherToolMaterial.special));
 
         TOOL_SWORD_HOLY = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolSwordHoly("tool.sword.holy", itemKey("tool_sword_holy"), itemID("TOOL_SWORD_HOLY"), AetherToolMaterial.special));
 
         TOOL_SWORD_LIGHTNING = new ItemBuilder(MOD_ID)
             .setTags(ItemTags.PREVENT_CREATIVE_MINING)
-            .build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.SPECIAL));
+            .build(new ItemToolSwordLightning("tool.sword.lightning", itemKey("tool_sword_lightning"), itemID("TOOL_SWORD_LIGHTNING"), AetherToolMaterial.special));
 
 
         TOOL_STAFF_NATURE = new ItemBuilder(MOD_ID)
