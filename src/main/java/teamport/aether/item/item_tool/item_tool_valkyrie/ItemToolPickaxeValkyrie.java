@@ -25,7 +25,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
 
     @Override
     public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
-        Integer miningLevel = MINING_LEVELS.get(block);
+        Integer miningLevel = aetherMiningLevels.get(block);
         if (miningLevel != null) {
             return this.material.getMiningLevel() >= miningLevel;
         } else {
