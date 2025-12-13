@@ -1,0 +1,16 @@
+{
+  "model_paths": [
+    "/assets/aether/models/entity/phyg/phyg.geo.json",
+    "/assets/aether/models/entity/phow/phow.geo.json"
+  ],
+  "renderers": {
+    "aether:phyg": {
+      "main": "geometry.phyg",
+      "saddle":{"model":"geometry.phyg", "inflation": 0.5}
+    },
+    "aether:phow": {
+      "main": "geometry.phow",
+      "saddle":{"model":"geometry.phow", "inflation": 0.5}
+    }
+  }
+}

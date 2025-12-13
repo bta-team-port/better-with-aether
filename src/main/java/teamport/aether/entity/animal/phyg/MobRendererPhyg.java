@@ -3,20 +3,20 @@ package teamport.aether.entity.animal.phyg;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import teamport.aether.entity.animal.MobRendererQuadruped;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererPhyg extends MobRenderer<MobPhyg> {
-    public MobRendererPhyg(float shadowSize) {
-        super(shadowSize);
+public class MobRendererPhyg extends MobRendererQuadruped<MobPhyg> {
+    public MobRendererPhyg() {
+        super(0.7F);
     }
 
     @Override
-    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NotNull MobPhyg entity, float brightness, float partialTick, int layer) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobPhyg entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model;
         if (layer == 1) {
             this.bindTexture("/assets/aether/textures/entity/phyg/saddle.png");
@@ -46,12 +46,24 @@ public class MobRendererPhyg extends MobRenderer<MobPhyg> {
         leg1.rotX = (MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw);
         leg2.rotX = (MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw);
         leg3.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw);
-        wingLeftInner.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw);
+
+        float wingFold = MathHelper.lerp(entity.getWingFoldO(), entity.getWingFold(), partialTick);
+        float wingAngle = MathHelper.lerp(entity.getWingAngleO(), entity.getWingAngle(), partialTick);
+
+        float wingBend = -((float) Math.acos(wingFold));
+        float baseRot = (float) Math.toRadians(90);
+
+        wingLeftInner.rotZ = wingAngle + wingBend + baseRot;
+        wingRightInner.rotZ = -(wingAngle + wingBend) - baseRot;
+
+        wingLeftOuter.rotZ = -2.0F * wingBend;
+        wingRightOuter.rotZ = 2.0F * wingBend;
+
         return model;
     }
 
     @Override
-    protected int maxRenderLayer(@NotNull MobPhyg entity) {
+    protected int maxRenderLayer(@NonNull MobPhyg entity) {
         return entity.getSaddled() ? 1 : 0;
     }
 }
