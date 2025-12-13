@@ -11,8 +11,8 @@ import teamport.aether.entity.animal.MobRendererQuadruped;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererPhyg extends MobRendererQuadruped<MobPhyg> {
-    public MobRendererPhyg() {
-        super(0.7F);
+    public MobRendererPhyg(float shadowSize) {
+        super(shadowSize);
     }
 
     @Override

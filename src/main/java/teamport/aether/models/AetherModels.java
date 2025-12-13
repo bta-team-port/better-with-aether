@@ -16,7 +16,6 @@ import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
-import org.useless.DragonFly;
 import teamport.aether.AetherClient;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.entity.TileEntityRendererSignSkyroot;
@@ -32,10 +31,10 @@ import teamport.aether.entity.animal.moa.MobRendererMoa;
 import teamport.aether.entity.animal.moa.ModelMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phow.MobRendererPhow;
-import teamport.aether.entity.animal.phow.ModelPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.entity.animal.phyg.MobRendererPhyg;
-import teamport.aether.entity.animal.sheepuff.*;
+import teamport.aether.entity.animal.sheepuff.MobRendererSheepuff;
+import teamport.aether.entity.animal.sheepuff.MobSheepuff;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.slider.MobRendererSlider;
 import teamport.aether.entity.boss.slider.ModelSlider;
@@ -823,10 +822,10 @@ public class AetherModels implements ModelEntrypoint {
     }
 
     private void setMobAnimalModels() {
-        ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
-        ModelHelper.setEntityModel(MobPhow.class, MobRendererPhow::new);
+        ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(0.7F));
+        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(0.7F));
         ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
-        ModelHelper.setEntityModel(MobPhyg.class, MobRendererPhyg::new);
+        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(0.7F));
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
     }
