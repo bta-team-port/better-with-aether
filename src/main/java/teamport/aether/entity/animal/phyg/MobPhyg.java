@@ -138,11 +138,16 @@ public class MobPhyg extends MobAetherAnimalRideable {
         return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
-    public float getWingFold(float partialTick) {
-        return MathHelper.lerp(partialTick, this.wingFoldO, this.wingFold);
+    public float getWingFold() {
+        return wingFold;
     }
-
-    public float getWingAngle(float partialTick) {
-        return MathHelper.lerp(partialTick, this.wingAngleO, this.wingAngle);
+    public float getWingFoldO() {
+        return wingFoldO;
+    }
+    public float getWingAngle() {
+        return wingAngle;
+    }
+    public float getWingAngleO() {
+        return wingAngleO;
     }
 }

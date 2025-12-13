@@ -824,10 +824,9 @@ public class AetherModels implements ModelEntrypoint {
 
     private void setMobAnimalModels() {
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(new ModelSheepuff(), new ModelSheepuffWool(), new ModelSheepuffPuff(), new ModelSheepuffOverlay(), 0.7F));
-        ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(new ModelPhow(), 0.7F));
+        ModelHelper.setEntityModel(MobPhow.class, MobRendererPhow::new);
         ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
-        DragonFly.loadEntityModel("aether:models/entity/phyg/phyg.geo.json", 0.7f);
-        ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(0.7F));
+        ModelHelper.setEntityModel(MobPhyg.class, MobRendererPhyg::new);
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
     }
