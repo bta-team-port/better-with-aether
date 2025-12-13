@@ -9,6 +9,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
@@ -136,16 +137,12 @@ public class MobPhyg extends MobAetherAnimalRideable {
         }
         return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
-    public float getWingFold() {
-        return wingFold;
+
+    public float getWingFold(float partialTick) {
+        return MathHelper.lerp(partialTick, this.wingFoldO, this.wingFold);
     }
-    public float getWingFoldO() {
-        return wingFoldO;
-    }
-    public float getWingAngle() {
-        return wingAngle;
-    }
-    public float getWingAngleO() {
-        return wingAngleO;
+
+    public float getWingAngle(float partialTick) {
+        return MathHelper.lerp(partialTick, this.wingAngleO, this.wingAngle);
     }
 }
