@@ -1,7 +1,8 @@
 {
   "model_paths": [
     "/assets/aether/models/entity/phyg/phyg.geo.json",
-    "/assets/aether/models/entity/phow/phow.geo.json"
+    "/assets/aether/models/entity/phow/phow.geo.json",
+    "/assets/aether/models/entity/sheepuff/sheepuff.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -11,6 +12,11 @@
     "aether:phow": {
       "main": "geometry.phow",
       "saddle":{"model":"geometry.phow", "inflation": 0.5}
+    },
+    "aether:sheepuff": {
+      "main":"geometry.sheepuff.sheared",
+      "wool":"geometry.sheepuff.wool",
+      "puffed":"geometry.sheepuff.puffed"
     }
   }
 }
