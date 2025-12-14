@@ -59,7 +59,6 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (EnvironmentHelper.isClientWorld()
             || !(entity instanceof Player)
-            || !world.getDifficulty().canHostileMobsSpawn()
             || world.getBlockMetadata(x, y, z) != 0
         ) {
             return;
