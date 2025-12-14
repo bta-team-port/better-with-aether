@@ -4,7 +4,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
@@ -19,6 +18,7 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
         super(shadowSize);
     }
 
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobCockatrice entity, float brightness, float partialTick, int layer) {
         if (layer == 1) {
             this.bindTexture("/assets/aether/textures/entity/cockatrice/glow/" + entity.getTextureReference() + ".png");
@@ -73,7 +73,7 @@ public class MobRendererCockatrice extends MobRenderer<MobCockatrice> {
     }
 
     @Override
-    protected int maxRenderLayer(@NotNull MobCockatrice entity) {
+    protected int maxRenderLayer(@NonNull MobCockatrice entity) {
         return 1;
     }
 

@@ -841,7 +841,7 @@ public class AetherModels implements ModelEntrypoint {
     }
 
     private void setMobEnemyModels() {
-        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(0.2F));
+        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(0.6F));
         ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobSwetGold.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));

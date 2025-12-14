@@ -16,6 +16,7 @@ public class MobRendererQuadruped<T extends Mob> extends MobRenderer<T> {
         super(shadowSize);
     }
 
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull T entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();

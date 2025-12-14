@@ -16,6 +16,7 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
         super(shadowSize);
     }
 
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobMoa entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model;
         if (layer == 1) {

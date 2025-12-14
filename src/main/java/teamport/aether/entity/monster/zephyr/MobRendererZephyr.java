@@ -17,6 +17,7 @@ public class MobRendererZephyr extends MobRenderer<MobZephyr> {
         super(shadowSize);
     }
 
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobZephyr entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
