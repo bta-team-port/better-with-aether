@@ -330,7 +330,8 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
 
         WorldFeaturePoint chestPoint = new WorldFeaturePoint(x, y + 2 + RADIUS / 2, z - 4 + RADIUS);
         chestPoint.rotateYAroundPivot(dungeonAnchor, direction);
-        new WorldFeatureAetherGoldChest(direction).place(world, random, chestPoint.getX(), chestPoint.getY(), chestPoint.getZ());
+        new WorldFeatureAetherGoldChest().place(world, random, chestPoint.getX(), chestPoint.getY(), chestPoint.getZ());
+        world.setBlockMetadataWithNotify(chestPoint.getX(), chestPoint.getY(), chestPoint.getZ(), BlockLogicRotatable.setDirection(0, direction));
 
         WorldFeaturePoint anchor = wfp(x, y, z);
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
