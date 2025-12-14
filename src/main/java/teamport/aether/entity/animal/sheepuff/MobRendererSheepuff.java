@@ -16,6 +16,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
         super(shadowSize);
     }
 
+    @Override
     protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobSheepuff entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = null;
         int colorIndex = entity.getFleeceColor().blockMeta;
