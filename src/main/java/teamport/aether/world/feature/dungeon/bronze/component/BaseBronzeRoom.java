@@ -24,6 +24,7 @@ import teamport.aether.world.feature.util.WorldFeaturePoint;
 import java.util.*;
 
 import static net.minecraft.core.util.helper.Direction.*;
+import static teamport.aether.entity.monster.mimic.MobMimic.placeWallace;
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.OPEN;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
@@ -127,7 +128,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
 
     public boolean canPlace() {
         // checking worldHeight
-        if (this.y <= 11 && this.y + height + 3 >= world.getHeightBlocks()) {
+        if (this.y <= 11 && this.y + this.height + 3 >= this.world.getHeightBlocks()) {
             return false;
         }
         WorldFeatureComponent check;
@@ -135,7 +136,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         int countLiquid = 0;
 
         // checking top & bottom surface
-        check = drawPlane(0, 0, SOUTH, width, EAST, length, x, y + height, z, true);
+        check = drawPlane(0, 0, SOUTH, this.width, EAST, this.length, this.x, this.y + this.height, this.z, true);
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
@@ -143,40 +144,40 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        if (check.getBlockList().size() * topAirTolerance < countAir || check.getBlockList().size() * topLiquidTolerance < countLiquid) {
+        if (check.getBlockList().size() * this.topAirTolerance < countAir || check.getBlockList().size() * this.topLiquidTolerance < countLiquid) {
             return false;
         }
 
-        check = drawPlane(0, 0, SOUTH, width, EAST, length, x, y, z, true);
+        check = drawPlane(0, 0, SOUTH, this.width, EAST, this.length, this.x, this.y, this.z, true);
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
-            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
+            Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        if (check.getBlockList().size() * bottomAirTolerance < countAir || check.getBlockList().size() * bottomLiquidTolerance < countLiquid) {
+        if (check.getBlockList().size() * this.bottomAirTolerance < countAir || check.getBlockList().size() * this.bottomLiquidTolerance < countLiquid) {
             return false;
         }
 
         // checking volume
-        check = drawVolume(0, 0, SOUTH, width, UP, height, EAST, length, x, y, z, true);
+        check = drawVolume(0, 0, SOUTH, this.width, UP, this.height, EAST, this.length, this.x, this.y, this.z, true);
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
-            Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
+            Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
             Material blockMaterial = block == null ? Material.air : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
             if (blockMaterial == Material.air) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
-        return check.getBlockList().size() * airTolerance >= countAir && check.getBlockList().size() * liquidTolerance >= countLiquid;
+        return check.getBlockList().size() * this.airTolerance >= countAir && check.getBlockList().size() * this.liquidTolerance >= countLiquid;
     }
 
     public void adjustDoorCoordinates() {
         for (Door door : doors) {
-            door.p1.add(x, y, z);
-            door.p2.add(x, y, z);
+            door.p1.add(this.x, this.y, this.z);
+            door.p2.add(this.x, this.y, this.z);
         }
         this.doorCoordinatesAdjusted = true;
     }
@@ -185,34 +186,28 @@ public abstract class BaseBronzeRoom extends WorldFeature {
 
     public void placeRoom() {
         Map<WorldFeaturePoint, WorldFeatureBlock> blockMap = new HashMap<>();
-        for (WorldFeatureBlock block : room.getBlockList()) {
+        for (WorldFeatureBlock block : this.room.getBlockList()) {
             WorldFeaturePoint point = new WorldFeaturePoint(block.getX(), block.getY(), block.getZ());
             blockMap.put(point, block);
         }
-        decoration.add(chest);
-        for (WorldFeatureBlock block : decoration.getBlockList()) {
+        this.decoration.add(this.chest);
+        for (WorldFeatureBlock block : this.decoration.getBlockList()) {
             WorldFeatureBlock otherBlock = blockMap.computeIfAbsent(wfp(block.getX(), block.getY(), block.getZ()), key -> block);
             otherBlock.setBlockId(block.getBlockId());
             otherBlock.setMetadata(block.getMetadata());
             otherBlock.setWithNotify(block.isWithNotify());
         }
         for (WorldFeatureBlock wfblock : blockMap.values()) {
-            if (roomCanReplace(world, wfblock)) {
-                wfblock.place(world);
+            if (roomCanReplace(this.world, wfblock)) {
+                wfblock.place(this.world);
             }
         }
         for (WorldFeatureBlock wfblock : this.chest.getBlockList()) {
-            BlockLogicChest.setDefaultDirection(world, wfblock.getX(), wfblock.getY(), wfblock.getZ());
-            populateChest(world, random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
+            BlockLogicChest.setDefaultDirection(this.world, wfblock.getX(), wfblock.getY(), wfblock.getZ());
+            populateChest(this.world, this.random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
 
-            if (
-                world.rand.nextInt(250) == 0
-                    && wfblock.getBlockId() == AetherBlocks.CHEST_MIMIC_SKYROOT.id()
-            ) {
-                BlockLogicPaintedChestMimic blockLogic = AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.getLogic();
-                world.setBlockRaw(wfblock.getX(), wfblock.getY(), wfblock.getZ(), AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id());
-                blockLogic.setColor(world, wfblock.getX(), wfblock.getY(), wfblock.getZ(), DyeColor.PURPLE);
-                ((TileEntityMimic) world.getTileEntity(wfblock.getX(), wfblock.getY(), wfblock.getZ())).setCustomName("Wallace", (byte) TextFormatting.PURPLE.id);
+            if (this.world.rand.nextInt(256) == 0 && wfblock.getBlockId() == AetherBlocks.CHEST_MIMIC_SKYROOT.id()) {
+                placeWallace(this.world, wfblock.getX(), wfblock.getY(), wfblock.getZ());
             }
         }
     }

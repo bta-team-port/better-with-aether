@@ -14,6 +14,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolAxe;
 import net.minecraft.core.item.tool.ItemToolPickaxe;
+import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -25,6 +26,7 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
@@ -333,6 +335,13 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         for (WeightedRandomLootObject lootObj : listLootObj) {
             WorldFeatureComponent.placeItemInChest(random, lootObj.getDefinedItemStack(), inventory);
         }
+    }
+
+    public static void placeWallace(World world, int x, int y, int z) {
+        BlockLogicPaintedChestMimic blockLogic = AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.getLogic();
+        world.setBlockRaw(x, y, z, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id());
+        blockLogic.setColor(world, x, y, z, DyeColor.PURPLE);
+        ((TileEntityMimic) world.getTileEntity(x, y, z)).setCustomName("Wallace", (byte) TextFormatting.PURPLE.id);
     }
 
     public boolean isWallace() {
