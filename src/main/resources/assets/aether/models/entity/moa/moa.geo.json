@@ -44,29 +44,29 @@
 			},
 			{
 				"name": "head",
-				"pivot": [0, 34, -9],
+				"pivot": [-0.1, 34, -9],
 				"cubes": [
-					{"origin": [-4.9, 34, -21], "size": [8, 8, 16], "uv": [0, 26]}
+					{"origin": [-4, 34, -21], "size": [8, 8, 16], "uv": [0, 26]}
 				],
 				"locators": {
-					"lead": [0, 34, -9]
+					"lead": [0.9, 34, -9]
 				}
 			},
 			{
 				"name": "jaw",
 				"parent": "head",
-				"pivot": [0, 34, -9],
+				"pivot": [-0.1, 34, -9],
 				"rotation": [20, 0, 0],
 				"cubes": [
-					{"origin": [-4.9, 34.6, -20.9], "size": [8, 2, 16], "uv": [48, 26], "inflate": -0.1}
+					{"origin": [-4, 34.6, -20.9], "size": [8, 2, 16], "uv": [48, 26], "inflate": -0.1}
 				]
 			},
 			{
 				"name": "palate",
 				"parent": "head",
-				"pivot": [0, 34, -9],
+				"pivot": [-0.1, 34, -9],
 				"cubes": [
-					{"origin": [-4.9, 36, -21], "size": [8, 1, 16], "uv": [40, 26], "inflate": -0.1}
+					{"origin": [-4, 36, -21], "size": [8, 1, 16], "uv": [40, 26], "inflate": -0.1}
 				]
 			},
 			{
