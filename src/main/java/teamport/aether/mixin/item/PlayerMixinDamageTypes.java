@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.item.AetherHasCustomDamageType;
 import teamport.aether.item.accessory.ItemGloves;
 

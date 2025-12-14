@@ -6,7 +6,8 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
-    "PlayerMixinDamageTypes",
+    "block.EntityMixinBlockStandOn",
+    "item.PlayerMixinDamageTypes",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -106,7 +107,7 @@
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "client": [
-    "GameSettingsMixin",
+    "gui.GameSettingsMixin",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",

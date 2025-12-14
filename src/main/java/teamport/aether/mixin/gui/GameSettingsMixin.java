@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.gui;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.fabricmc.api.EnvType;
