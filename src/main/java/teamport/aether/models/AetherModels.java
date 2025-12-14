@@ -26,9 +26,10 @@ import teamport.aether.entity.animal.aerbunny.ModelAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.animal.aerwhale.MobRendererAerwhale;
 import teamport.aether.entity.animal.aerwhale.ModelAerwhale;
+import teamport.aether.entity.animal.moa.MobMoaBlack;
 import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.entity.animal.moa.MobRendererMoa;
-import teamport.aether.entity.animal.moa.ModelMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phow.MobRendererPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
@@ -824,7 +825,9 @@ public class AetherModels implements ModelEntrypoint {
     private void setMobAnimalModels() {
         ModelHelper.setEntityModel(MobSheepuff.class, () -> new MobRendererSheepuff(0.7F));
         ModelHelper.setEntityModel(MobPhow.class, () -> new MobRendererPhow(0.7F));
-        ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(new ModelMoa(), 0.7F));
+        ModelHelper.setEntityModel(MobMoaBlue.class, () -> new MobRendererMoa(0.7F));
+        ModelHelper.setEntityModel(MobMoaWhite.class, () -> new MobRendererMoa(0.7F));
+        ModelHelper.setEntityModel(MobMoaBlack.class, () -> new MobRendererMoa(0.7F));
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(0.7F));
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
@@ -842,9 +845,9 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobSwetGold.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
-        ModelHelper.setEntityModel(MobZephyr.class, MobRendererZephyr::new);
+        ModelHelper.setEntityModel(MobZephyr.class, () -> new MobRendererZephyr(0.5F));
         ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
-        ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(new ModelMoa(), 0.7F));
+        ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
     }

@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemSaddle;
 import net.minecraft.core.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 
@@ -29,8 +29,8 @@ public abstract class ItemSaddleMixin {
                 return true;
             }
         }
-        if (mob instanceof MobMoaBlue && itemstack.consumeItem(player)) {
-            MobMoaBlue entity = (MobMoaBlue) mob;
+        if (mob instanceof MobMoa && itemstack.consumeItem(player)) {
+            MobMoa entity = (MobMoa) mob;
             if (!entity.getSaddled() && entity.isTamed()) {
                 entity.setSaddled(true);
                 return true;

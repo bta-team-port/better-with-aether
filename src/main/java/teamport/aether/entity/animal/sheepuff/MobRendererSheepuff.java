@@ -3,8 +3,8 @@ package teamport.aether.entity.animal.sheepuff;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
@@ -16,7 +16,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
         super(shadowSize);
     }
 
-    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NotNull MobSheepuff entity, float brightness, float partialTick, int layer) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobSheepuff entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = null;
         int colorIndex = entity.getFleeceColor().blockMeta;
 
@@ -91,7 +91,7 @@ public class MobRendererSheepuff extends MobRenderer<MobSheepuff> {
     }
 
     @Override
-    protected int maxRenderLayer(@NotNull MobSheepuff entity) {
+    protected int maxRenderLayer(@NonNull MobSheepuff entity) {
         if (entity.getPuffed()) {
             return 3;
         } else if (!entity.getSheared()) {

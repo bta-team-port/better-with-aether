@@ -15,7 +15,7 @@ import net.minecraft.core.item.block.ItemBlock;
 import net.minecraft.core.item.block.ItemBlockSlab;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +26,7 @@ import teamport.aether.world.AetherDimension;
 @Mixin(value = ItemBlockSlab.class, remap = false)
 public abstract class ItemBlockSlabBlacklistMixin<T extends BlockLogic> extends ItemBlock<T> {
 
-    protected ItemBlockSlabBlacklistMixin(@NotNull Block<T> block) {
+    protected ItemBlockSlabBlacklistMixin(@NonNull Block<T> block) {
         super(block);
     }
 
