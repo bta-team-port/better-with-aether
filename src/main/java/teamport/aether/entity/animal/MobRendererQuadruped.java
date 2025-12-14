@@ -4,8 +4,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.MathHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.MobRenderer;
@@ -16,7 +16,7 @@ public class MobRendererQuadruped<T extends Mob> extends MobRenderer<T> {
         super(shadowSize);
     }
 
-    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NotNull T entity, float brightness, float partialTick, int layer) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull T entity, float brightness, float partialTick, int layer) {
         StaticEntityModel model = this.getModel("main");
         model.resetBones();
         BoneTransform head = model.getTransform("head");

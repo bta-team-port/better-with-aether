@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.animal.moa.MobMoaBlue;
+import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.item.item_tool.AetherToolMaterial;
@@ -28,12 +28,15 @@ import java.util.List;
 public abstract class SkyrootSwordDropMultiplier {
     @Shadow
     protected abstract void dropDeathItems();
+
     @Shadow
     @Final
     @NonNull
     public List<WeightedRandomLootObject> mobDrops;
+
     @Shadow
     protected abstract List<WeightedRandomLootObject> getMobDrops();
+
     @Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V"))
     private void multiplyDrop(Entity entity, CallbackInfo ci) {
         if (!(entity instanceof Player)) {
@@ -64,7 +67,7 @@ public abstract class SkyrootSwordDropMultiplier {
                 this.mobDrops.add(new WeightedRandomLootObject(Items.LEATHER.getDefaultStack(), 1, 5));
                 this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
 
-            } else if (self instanceof MobMoaBlue && ((MobMoaBlue) self).getSaddled()) {
+            } else if (self instanceof MobMoa && ((MobMoa) self).getSaddled()) {
                 this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
             } else {
                 dropDeathItems();

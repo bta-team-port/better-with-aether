@@ -188,12 +188,9 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     @Override
-    public boolean hurt(Entity entity, int i, DamageType type) {
-        if (this.vehicle != null) {
-            return false;
-        } else {
-            return super.hurt(entity, i, type);
-        }
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == this.vehicle) return false;
+        return super.hurt(attacker, damage, type);
     }
 
     @Override
