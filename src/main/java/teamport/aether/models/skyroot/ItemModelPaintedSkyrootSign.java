@@ -1,4 +1,4 @@
-package teamport.aether.models.dungeon;
+package teamport.aether.models.skyroot;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,23 +12,23 @@ import net.minecraft.core.util.helper.DyeColor;
 import org.jspecify.annotations.NonNull;
 
 @Environment(EnvType.CLIENT)
-public class ItemModelPaintedSkyrootDoor extends ItemModelStandard {
-    private static final IconCoordinate[] DOOR_ICONS = new IconCoordinate[16];
+public class ItemModelPaintedSkyrootSign extends ItemModelStandard {
+    private static final IconCoordinate[] SIGN = new IconCoordinate[16];
 
-    public ItemModelPaintedSkyrootDoor(Item item) {
+    public ItemModelPaintedSkyrootSign(Item item) {
         super(item, null);
-
     }
 
     @Override
     public @NonNull IconCoordinate getIcon(Entity entity, ItemStack itemStack) {
         int meta = itemStack.getMetadata();
-        return DOOR_ICONS[meta & 15];
+        return SIGN[meta & 15];
     }
 
     static {
-        for (DyeColor c : DyeColor.itemOrderedColors()) {
-            DOOR_ICONS[c.itemMeta] = TextureRegistry.getTexture("aether:item/door_skyroot/" + c.colorID);
+        for (DyeColor dye : DyeColor.itemOrderedColors()) {
+            SIGN[dye.itemMeta] = TextureRegistry.getTexture("aether:item/sign_skyroot/" + dye.colorID);
         }
     }
 }
+
