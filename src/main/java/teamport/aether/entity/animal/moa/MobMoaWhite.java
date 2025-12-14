@@ -5,31 +5,33 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItems;
 
-public class MobMoaWhite extends MobMoaBlue {
+public class MobMoaWhite extends MobMoa {
 
+    @SuppressWarnings("unused")
     public MobMoaWhite(@Nullable World world) {
         super(world);
-        this.setSize(1.0F, 2.0F);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_white");
-        this.jumpsRemaining = getJumpMaxAmount();
-        this.eggColor = AetherItems.EGG_MOA_WHITE;
+        setupAppearance();
     }
 
     @SuppressWarnings("unused")
     public MobMoaWhite(@Nullable World world, boolean tamed) {
-        this(world);
-        this.tamed = tamed;
+        super(world, tamed);
+        setupAppearance();
     }
 
     @Override
-    public void onGround() {
-        if (this.onGround) {
-            this.jumpsRemaining = 5;
-        }
+    protected void setupAppearance() {
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_white");
+        this.eggColor = AetherItems.EGG_MOA_WHITE;
     }
 
     @Override
     public int getJumpMaxAmount() {
         return 5;
+    }
+
+    @Override
+    public void onGround() {
+        if (this.onGround) this.jumpsRemaining = getJumpMaxAmount();
     }
 }

@@ -16,9 +16,7 @@ import teamport.aether.AetherRecipes;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.machine.BlockLogicIncubator;
-import teamport.aether.entity.animal.moa.MobMoaBlack;
-import teamport.aether.entity.animal.moa.MobMoaBlue;
-import teamport.aether.entity.animal.moa.MobMoaWhite;
+import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
@@ -182,7 +180,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
             containerItemStacks[0] = null;
         }
 
-        if (this.worldObj != null && (entity instanceof MobMoaBlue || entity instanceof MobMoaWhite || entity instanceof MobMoaBlack)) {
+        if (this.worldObj != null && (entity instanceof MobMoa)) {
             Player player = this.worldObj.getClosestPlayerToEntity(entity, 16);
             if (player != null) {
                 player.triggerAchievement(AetherAchievements.MOA);
@@ -192,8 +190,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
         Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
-        if (entity instanceof MobMoaBlue) {
-            ((MobMoaBlue) entity).setTamed(true);
+        if (entity instanceof MobMoa) {
+            ((MobMoa) entity).setTamed(true);
         }
         if (entity instanceof MobSlime) {
             ((MobSlime) entity).setSlimeSize(random.nextInt(4) + 1);
