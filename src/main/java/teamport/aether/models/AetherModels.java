@@ -22,7 +22,6 @@ import teamport.aether.block.entity.TileEntityRendererSignSkyroot;
 import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
-import teamport.aether.entity.animal.aerbunny.ModelAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
 import teamport.aether.entity.animal.aerwhale.MobRendererAerwhale;
 import teamport.aether.entity.animal.aerwhale.ModelAerwhale;
@@ -830,7 +829,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMoaBlack.class, () -> new MobRendererMoa(0.7F));
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(0.7F));
         ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
-        ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(new ModelAerbunny(), 0.5F));
+        ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(0.5F));
     }
 
     private void setMobBossModels() {
