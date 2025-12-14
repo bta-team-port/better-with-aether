@@ -18,7 +18,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
 
-public class BlockLogicTrapped extends BlockLogicDungeon {
+public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockTriggerStandOn {
     public final Class<? extends Entity> monster;
     private final Block<?> breakResult;
     private final Block<?> replaceOnClear;
@@ -48,6 +48,11 @@ public class BlockLogicTrapped extends BlockLogicDungeon {
         if (!world.isClientSide && world.getBlockMetadata(x, y, z) != 1) {
             world.setBlockMetadata(x, y, z, 0);
         }
+    }
+
+    @Override
+    public void onEntityStandOn(World world, int x, int y, int z, Entity entity) {
+        this.onEntityWalking(world, x, y, z, entity);
     }
 
     @Override
