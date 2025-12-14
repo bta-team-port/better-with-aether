@@ -308,17 +308,16 @@ public class MobSheepuff extends MobAetherAnimal {
 
     public static DyeColor getRandomFleeceColor(Random random) {
         int i = random.nextInt(100);
-        if (i < 5) {
+        if(i < 5){
             return DyeColor.LIGHT_BLUE;
-        } else if (i < 10) {
+        }else if(i < 10){
             return DyeColor.CYAN;
         } else if (i < 15) {
             return DyeColor.LIME;
         } else if (i < 18) {
             return DyeColor.PINK;
-        } else {
-            return random.nextInt(500) != 0 ? DyeColor.WHITE : DyeColor.PURPLE;
         }
+        return random.nextInt(500) == 0 ? DyeColor.PURPLE : DyeColor.WHITE;
     }
 
     public int getTimeSheepEating() {
