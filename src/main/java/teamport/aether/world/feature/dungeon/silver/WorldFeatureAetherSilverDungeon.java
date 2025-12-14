@@ -28,6 +28,7 @@ import teamport.aether.world.feature.util.map.WorldFeatureMap;
 
 import java.util.*;
 
+import static teamport.aether.entity.monster.mimic.MobMimic.placeWallace;
 import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
@@ -264,6 +265,9 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         Set<WorldFeatureBlock> chestSet = new HashSet<>(this.silverMaze.getChests().getBlockList());
         for (WorldFeatureBlock chest : chestSet) {
             populateChest(this.world, this.random, chest, WorldFeatureAetherSilverDungeon::generateLoot);
+            if (this.world.rand.nextInt(256) == 0 && chest.getBlockId() == AetherBlocks.CHEST_MIMIC_SKYROOT.id()) {
+                placeWallace(this.world, chest.getX(), chest.getY(), chest.getZ());
+            }
         }
 
         // Outer walls of dungeon itself
