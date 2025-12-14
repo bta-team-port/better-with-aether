@@ -5,7 +5,9 @@
     "/assets/aether/models/entity/sheepuff/sheepuff.geo.json",
     "/assets/aether/models/entity/zephyr/zephyr.geo.json",
     "/assets/aether/models/entity/moa/moa.geo.json",
-    "/assets/aether/models/entity/cockatrice/cockatrice.geo.json"
+    "/assets/aether/models/entity/cockatrice/cockatrice.geo.json",
+    "/assets/aether/models/entity/mimic/mimic.geo.json",
+    "/assets/aether/models/entity/sentry/sentry.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -38,6 +40,12 @@
     },
     "aether:cockatrice": {
       "main":"geometry.cockatrice"
+    },
+    "aether:mimic": {
+      "main":"geometry.mimic"
+    },
+    "aether:sentry": {
+      "main":"geometry.sentry"
     }
   }
 }

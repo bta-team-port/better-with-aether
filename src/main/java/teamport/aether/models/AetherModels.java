@@ -841,12 +841,12 @@ public class AetherModels implements ModelEntrypoint {
     }
 
     private void setMobEnemyModels() {
-        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(new ModelSlime(0), 0.2F));
+        ModelHelper.setEntityModel(MobSentry.class, () -> new MobRendererSentry(0.2F));
         ModelHelper.setEntityModel(MobAechorPlant.class, () -> new MobRendererAechorPlant(new ModelAechorPlant(), 0.3F));
         ModelHelper.setEntityModel(MobSwet.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobSwetGold.class, () -> new MobRendererSwet(new ModelSlime(16), new ModelSlime(0), 1.0f));
         ModelHelper.setEntityModel(MobZephyr.class, () -> new MobRendererZephyr(0.5F));
-        ModelHelper.setEntityModel(MobMimic.class, MobRendererMimic::new);
+        ModelHelper.setEntityModel(MobMimic.class, () -> new MobRendererMimic(0.7f));
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);

@@ -137,7 +137,6 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     public void dropDeathItems() {
         if (this.random.nextInt(5) == 0) {
             this.dropItem(AetherBlocks.CARVED_STONE_LIGHT.id(), 1);
-
         } else this.dropItem(AetherBlocks.CARVED_STONE.id(), 1);
 
         super.dropDeathItems();
