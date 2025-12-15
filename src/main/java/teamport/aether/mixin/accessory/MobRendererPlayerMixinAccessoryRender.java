@@ -11,12 +11,18 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Screen;
+import net.minecraft.client.gui.container.ScreenInventory;
+import net.minecraft.client.gui.container.ScreenInventoryCreative;
+import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
 import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -31,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.helper.GLManager;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.AetherInvisibility;
@@ -157,6 +164,30 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     private int getArmorItemNotNegative(int i, @Local(argsOnly = true) int renderPass) {
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
+
+    @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("TAIL"))
+    public void renderBunny(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+        Screen currScreen = Minecraft.getMinecraft().currentScreen;
+        final boolean isInInventory = currScreen instanceof ScreenInventory || currScreen instanceof ScreenInventoryCreative;
+
+        if (entity.passenger instanceof MobAerbunny && isInInventory) {
+            MobAerbunny bunny = (MobAerbunny) entity.passenger;
+            boolean hasHelmet = entity.inventory.armorInventory[3] != null;
+
+            GL11.glPushMatrix();
+            GL11.glColor4f(1F, 1F, 1F, 1F);
+            GL11.glScalef(0.80F,0.80F,0.80F);
+            if (hasHelmet) {
+                GL11.glTranslatef(0, 0.1875F, 0);
+            }
+            else {
+                GL11.glTranslatef(0, 0.0625F, 0);
+            }
+            EntityRenderDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, yaw, partialTick);
+            GL11.glPopMatrix();
+        }
+    }
+
 
     @SuppressWarnings({"java:S6541", "java:S1075"})
     @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))

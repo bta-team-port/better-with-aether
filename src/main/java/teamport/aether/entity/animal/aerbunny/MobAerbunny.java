@@ -6,6 +6,7 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraft.server.MinecraftServer;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
+import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -45,6 +47,56 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             if (block != null && block.hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK)) return true;
         }
         return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+    }
+
+    public boolean beingRidden() {
+        return vehicle != null;
+    }
+
+    private boolean isVehicleSneaking() {
+        return vehicle instanceof Player && ((Player) vehicle).isSneaking();
+    }
+
+    @Override
+    public void trySuffocate() {
+        if (!beingRidden()) {
+            super.trySuffocate();
+        }
+    }
+
+    @Override
+    public boolean collidesWithBlock(Block<?> block, int metadata) {
+        if (beingRidden()) { return false; }
+
+        return super.collidesWithBlock(block, metadata);
+    }
+
+    @Override
+    public boolean collidesWith(Entity entity) {
+        if (beingRidden()) { return false; }
+
+        return super.collidesWith(entity);
+    }
+
+    @Override
+    public boolean isSelectable() {
+        if (beingRidden() && !isVehicleSneaking()) { return false; }
+
+        return super.isSelectable();
+    }
+
+    @Override
+    public boolean isPickable() {
+        if (beingRidden() && !isVehicleSneaking()) { return false; }
+
+        return super.isPickable();
+    }
+
+    @Override
+    public boolean isPushable() {
+        if (beingRidden()) { return false; }
+
+        return super.isPushable();
     }
 
     @Override
@@ -139,6 +191,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             player.sendSpecialVehiclePacket();
         }
 
+        this.noPhysics = beingRidden();
         super.tick();
     }
 
@@ -188,6 +241,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     @Override
+    public void lavaHurt() {
+        if (!beingRidden()) super.lavaHurt();
+    }
+
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == this.vehicle) return false;
         return super.hurt(attacker, damage, type);
@@ -195,7 +253,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean interact(@NonNull Player player) {
-        if (player.isSneaking()) return super.interact(player);
+        if (player.isSneaking() && vehicle == null) return super.interact(player);
 
         if (this.vehicle == player) {
             grab = false;
