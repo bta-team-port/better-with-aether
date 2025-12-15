@@ -47,6 +47,66 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
+    public boolean beingRidden() {
+        return vehicle != null;
+    }
+
+    private boolean isVehicleSneaking() {
+        return vehicle instanceof Player && ((Player) vehicle).isSneaking();
+    }
+
+    @Override
+    public void trySuffocate() {
+        if (!beingRidden()) {
+            super.trySuffocate();
+        }
+    }
+
+    @Override
+    public boolean collidesWithBlock(Block<?> block, int metadata) {
+        if (beingRidden()) {
+            return false;
+        }
+
+        return super.collidesWithBlock(block, metadata);
+    }
+
+    @Override
+    public boolean collidesWith(Entity entity) {
+        if (beingRidden()) {
+            return false;
+        }
+
+        return super.collidesWith(entity);
+    }
+
+    @Override
+    public boolean isSelectable() {
+        if (beingRidden() && !isVehicleSneaking()) {
+            return false;
+        }
+
+        return super.isSelectable();
+    }
+
+    @Override
+    public boolean isPickable() {
+        if (beingRidden() && !isVehicleSneaking()) {
+            return false;
+        }
+
+        return super.isPickable();
+    }
+
+    @Override
+    public boolean isPushable() {
+        if (beingRidden()) {
+            return false;
+        }
+
+        return super.isPushable();
+    }
+
     @Override
     public int getMaxHealth() {
         return 4;
@@ -84,7 +144,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
         Entity vehicle = (Entity) this.vehicle;
 
-        if (vehicle!= null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
+        if (vehicle != null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
             (vehicle).yd = 0.125F;
 
             this.cloudPoop();
@@ -188,6 +248,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     @Override
+    public void lavaHurt() {
+        if (!beingRidden()) super.lavaHurt();
+    }
+
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == this.vehicle) return false;
         return super.hurt(attacker, damage, type);
@@ -195,7 +260,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean interact(@NonNull Player player) {
-        if (player.isSneaking()) return super.interact(player);
+        if (player.isSneaking() && vehicle == null) return super.interact(player);
 
         if (this.vehicle == player) {
             grab = false;
