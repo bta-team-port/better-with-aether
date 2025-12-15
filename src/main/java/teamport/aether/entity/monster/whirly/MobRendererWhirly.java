@@ -2,83 +2,65 @@ package teamport.aether.entity.monster.whirly;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.particle.Particle;
-import net.minecraft.client.entity.particle.ParticleExplode;
-import net.minecraft.client.entity.particle.ParticleSmoke;
-import net.minecraft.client.render.ParticleEngine;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.tessellator.Tessellator;
-
-import java.util.Random;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.lwjgl.opengl.GL11;
+import org.useless.dragonfly.models.entity.BoneTransform;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
+import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererWhirly extends EntityRenderer<MobWhirly> {
-    public final Random rand = new Random();
+public class MobRendererWhirly extends MobRenderer<MobWhirly> {
+
+    public MobRendererWhirly(float shadowSize) {
+        super(shadowSize);
+    }
 
     @Override
-    public void render(Tessellator tessellator, MobWhirly entity, double d, double d1, double d2, float f, float f1) {
-        ParticleEngine particleManager = Minecraft.getMinecraft().particleEngine;
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobWhirly whirly, float brightness, float partialTick, int layer) {
+        StaticEntityModel model = this.getModel("main");
+        model.resetBones();
 
-        double d3 = (float) entity.x;
-        double d4 = (float) entity.y;
-        double d5 = (float) entity.z;
+        float bodyYaw = this.getBodyYaw(whirly, partialTick);
+        float headYaw = this.getHeadYaw(whirly, partialTick) - bodyYaw;
+        float headPitch = this.getHeadPitch(whirly, partialTick);
 
-        int i;
-        double d6;
-        double d7;
-        double d8;
-        float f2;
-        if (!entity.getEvil()) {
-            for (i = 0; i < 2; ++i) {
-                d6 = (float) entity.x + rand.nextFloat() * 0.25F;
-                d7 = (float) entity.y + entity.bbHeight + 0.125F;
-                d8 = (float) entity.z + rand.nextFloat() * 0.25F;
-                f2 = rand.nextFloat() * 360.0F;
-                ParticleExplode entityExplodeFx = new ParticleExplode(entity.world, -Math.sin(0.01745329F * f2) * 0.75, d7 - 0.25, Math.cos(0.01745329F * f2) * 0.75, d6, 0.125, d8);
-                particleManager.add(entityExplodeFx);
-                entity.getFluffies().add(entityExplodeFx);
-                entityExplodeFx.viewScale = 10.0;
-                entityExplodeFx.noPhysics = true;
-                entityExplodeFx.setRot(0.25F, 0.25F);
-                entityExplodeFx.setPos(entity.x, entity.y, entity.z);
-                entityExplodeFx.y = d7;
-            }
-        } else {
-            for (i = 0; i < 3; ++i) {
-                d6 = (float) entity.x + rand.nextFloat() * 0.25F;
-                d7 = (float) entity.y + entity.bbHeight + 0.125F;
-                d8 = (float) entity.z + rand.nextFloat() * 0.25F;
-                f2 = rand.nextFloat() * 360.0F;
-                ParticleSmoke entitySmokeFx = new ParticleSmoke(entity.world, -Math.sin(0.01745329F * f2) * 0.75, d7 - 0.25, Math.cos(0.01745329F * f2) * 0.75, d6, 0.125, d8, 3.5F);
-                particleManager.add(entitySmokeFx);
-                entity.getFluffies().add(entitySmokeFx);
-                entitySmokeFx.viewScale = 10.0;
-                entitySmokeFx.noPhysics = true;
-                entitySmokeFx.setRot(0.25F, 0.25F);
-                entitySmokeFx.setPos(entity.x, entity.y, entity.z);
-                entitySmokeFx.y = d7;
-            }
+        BoneTransform head = model.getTransform("head");
+        head.rotY = headYaw;
+        head.rotX = headPitch;
+
+        if (layer == 1) {
+            this.bindTexture("/assets/aether/textures/armor/wind.png");
+
+            float ticks = whirly.tickCount + partialTick;
+
+            GL11.glMatrixMode(GL11.GL_TEXTURE);
+            GL11.glLoadIdentity();
+            float translateX = ticks * 0.01F;
+            float translateY = ticks * 0.01F;
+            GL11.glTranslatef(translateX, translateY, 0.0F);
+            GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+            GL11.glColor4f(brightness * 0.8F, brightness * 0.9F, brightness, 1.0F);
+        } else if (layer == 2) {
+            GL11.glMatrixMode(GL11.GL_TEXTURE);
+            GL11.glLoadIdentity();
+            GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+            GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_BLEND);
+
+            return null;
         }
 
-        if (!entity.getFluffies().isEmpty()) {
-            for (i = 0; i < entity.getFluffies().size(); ++i) {
-                Particle entityFx = entity.getFluffies().get(i);
-                if (entityFx.removed) {
-                    entity.getFluffies().remove(entityFx);
-                } else {
-                    d6 = (float) entityFx.x;
-                    d7 = (float) entityFx.bb.minY;
-                    d8 = (float) entityFx.z;
-                    double d9 = entity.distanceTo(entityFx);
-                    double d10 = d7 - d4;
-                    entityFx.yd = 0.11500000208616257;
-                    double d11 = Math.atan2(d3 - d6, d5 - d8) / 0.01745329424738884;
-                    d11 += 160.0;
-                    entityFx.xd = -Math.cos(0.01745329424738884 * d11) * (d9 * 2.5 - d10) * 0.10000000149011612;
-                    entityFx.zd = Math.sin(0.01745329424738884 * d11) * (d9 * 2.5 - d10) * 0.10000000149011612;
-                }
-            }
-        }
+        return model;
+    }
+
+    @Override
+    protected int maxRenderLayer(@NonNull MobWhirly entity) {
+        return 2;
     }
 }

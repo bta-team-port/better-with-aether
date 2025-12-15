@@ -4,11 +4,13 @@
     "/assets/aether/models/entity/phow/phow.geo.json",
     "/assets/aether/models/entity/sheepuff/sheepuff.geo.json",
     "/assets/aether/models/entity/aerbunny/aerbunny.geo.json",
+    "/assets/aether/models/entity/aerwhale/aerwhale.geo.json",
     "/assets/aether/models/entity/zephyr/zephyr.geo.json",
     "/assets/aether/models/entity/moa/moa.geo.json",
     "/assets/aether/models/entity/cockatrice/cockatrice.geo.json",
     "/assets/aether/models/entity/mimic/mimic.geo.json",
-    "/assets/aether/models/entity/sentry/sentry.geo.json"
+    "/assets/aether/models/entity/sentry/sentry.geo.json",
+    "/assets/aether/models/entity/whirly/whirly.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -26,6 +28,9 @@
     },
     "aether:aerbunny": {
       "main": "geometry.aerbunny"
+    },
+    "aether:aerwhale": {
+      "main": "geometry.aerwhale"
     },
     "aether:moa_blue": {
       "main": "geometry.moa",
@@ -50,6 +55,9 @@
     },
     "aether:sentry": {
       "main":"geometry.sentry"
+    },
+    "aether:whirly": {
+      "main":"geometry.whirly"
     }
   }
 }

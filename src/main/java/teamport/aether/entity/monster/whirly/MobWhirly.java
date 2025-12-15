@@ -8,6 +8,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
@@ -56,6 +57,7 @@ public class MobWhirly extends MobMonsterAether implements Enemy, AetherDeathMes
         super(world);
         this.setSize(1.0F, 1.5F);
         this.setPos(this.x, this.y, this.z);
+        this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly");
         this.moveSpeed = 0.6F;
         this.angle = this.random.nextFloat() * 360.0F;
         this.speed = this.random.nextFloat() * 0.025F + 0.025F;
