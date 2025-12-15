@@ -1,5 +1,7 @@
 package teamport.aether.mixin.player;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.input.PlayerInput;
 import net.minecraft.core.entity.player.Player;
@@ -11,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.AetherRideable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
     protected PlayerLocalHandleAetherRideableMixin(World world) {

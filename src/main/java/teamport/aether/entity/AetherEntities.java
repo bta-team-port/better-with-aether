@@ -23,6 +23,7 @@ import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.whirly.MobWhirly;
+import teamport.aether.entity.monster.whirly.MobWhirlyEvil;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
@@ -52,6 +53,7 @@ public final class AetherEntities {
         EntityHelper.createEntity(MobCockatrice.class, NamespaceID.getPermanent(MOD_ID, "cockatrice"), "guidebook.section.mob.cockatrice.name");
         EntityHelper.createEntity(MobValkyrie.class, NamespaceID.getPermanent(MOD_ID, "valkyrie"), "guidebook.section.mob.valkyrie.name");
         EntityHelper.createEntity(MobWhirly.class, NamespaceID.getPermanent(MOD_ID, "whirly"), "guidebook.section.mob.whirly.name");
+        EntityHelper.createEntity(MobWhirlyEvil.class, NamespaceID.getPermanent(MOD_ID, "whirly_evil"), "guidebook.section.mob.whirly.evil.name");
         EntityHelper.createEntity(MobFireMinion.class, NamespaceID.getPermanent(MOD_ID, "fire_minion"), "guidebook.section.mob.fireminion.name");
 
         EntityHelper.createEntity(MobBossSlider.class, NamespaceID.getPermanent(MOD_ID, "boss_slider"), "guidebook.section.mob.slider.name");
