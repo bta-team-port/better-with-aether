@@ -6,7 +6,6 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -21,7 +20,6 @@ import net.minecraft.server.MinecraftServer;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
-import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -66,35 +64,45 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean collidesWithBlock(Block<?> block, int metadata) {
-        if (beingRidden()) { return false; }
+        if (beingRidden()) {
+            return false;
+        }
 
         return super.collidesWithBlock(block, metadata);
     }
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (beingRidden()) { return false; }
+        if (beingRidden()) {
+            return false;
+        }
 
         return super.collidesWith(entity);
     }
 
     @Override
     public boolean isSelectable() {
-        if (beingRidden() && !isVehicleSneaking()) { return false; }
+        if (beingRidden() && !isVehicleSneaking()) {
+            return false;
+        }
 
         return super.isSelectable();
     }
 
     @Override
     public boolean isPickable() {
-        if (beingRidden() && !isVehicleSneaking()) { return false; }
+        if (beingRidden() && !isVehicleSneaking()) {
+            return false;
+        }
 
         return super.isPickable();
     }
 
     @Override
     public boolean isPushable() {
-        if (beingRidden()) { return false; }
+        if (beingRidden()) {
+            return false;
+        }
 
         return super.isPushable();
     }
@@ -136,7 +144,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
         Entity vehicle = (Entity) this.vehicle;
 
-        if (vehicle!= null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
+        if (vehicle != null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
             (vehicle).yd = 0.125F;
 
             this.cloudPoop();
@@ -191,7 +199,6 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             player.sendSpecialVehiclePacket();
         }
 
-        this.noPhysics = beingRidden();
         super.tick();
     }
 

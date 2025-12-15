@@ -828,12 +828,12 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMoaWhite.class, () -> new MobRendererMoa(0.7F));
         ModelHelper.setEntityModel(MobMoaBlack.class, () -> new MobRendererMoa(0.7F));
         ModelHelper.setEntityModel(MobPhyg.class, () -> new MobRendererPhyg(0.7F));
-        ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(new ModelAerwhale(), 1.0F));
+        ModelHelper.setEntityModel(MobAerwhale.class, () -> new MobRendererAerwhale(1.0F));
         ModelHelper.setEntityModel(MobAerbunny.class, () -> new MobRendererAerbunny(0.5F));
     }
 
     private void setMobBossModels() {
-        ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
+        ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBossValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
         ModelHelper.setEntityModel(MobFireMinion.class, () -> new MobRendererFireMinion(new ModelFireMinion(), 0.4F));
@@ -848,7 +848,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobMimic.class, () -> new MobRendererMimic(0.7f));
         ModelHelper.setEntityModel(MobCockatrice.class, () -> new MobRendererCockatrice(0.7F));
         ModelHelper.setEntityModel(MobValkyrie.class, () -> new MobRendererValkyrie(new ModelValkyrie(), 0.5F));
-        ModelHelper.setEntityModel(MobWhirly.class, MobRendererWhirly::new);
+        ModelHelper.setEntityModel(MobWhirly.class, () -> new MobRendererWhirly(0.7F));
     }
 
     private void setProjectileModels() {
