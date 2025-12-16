@@ -9,6 +9,8 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundCategory;
+import net.minecraft.core.util.phys.HitResult;
+import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
@@ -72,24 +74,37 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
             return;
         }
         theMonster.spawnInit();
-        int tries = 16;
-        while (tries-- > 0) {
-            final double angleRad = Math.toRadians(world.rand.nextInt(360));
-            final float distance = 2 + world.rand.nextInt(2) - ((float) world.rand.nextInt(11) / 10);
-            double spawnX = x + 0.5 + distance * Math.cos(angleRad);
-            double spawnZ = z + 0.5 + distance * Math.sin(angleRad);
-            double spawnY = y + 1.25;
-            theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
-            if (!world.checkIfAABBIsClear(theMonster.bb) && !world.getCubes(theMonster, theMonster.bb).isEmpty()) {
-                continue;
+
+        int distance = 10;
+        while (distance --> 0) {
+            int tries = 16;
+
+            while (tries-- > 0) {
+                final double angleRad = Math.toRadians(world.rand.nextInt(360));
+
+                float actualDistance = distance - ((float) world.rand.nextInt(11) / 10);
+                double spawnX = x + 0.5 + actualDistance * Math.cos(angleRad);
+                double spawnZ = z + 0.5 + actualDistance * Math.sin(angleRad);
+                double spawnY = y + 1.25;
+
+                theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
+                if (!world.checkIfAABBIsClear(theMonster.bb) && !world.getCubes(theMonster, theMonster.bb).isEmpty()) {
+                    continue;
+                }
+
+                HitResult hit = world.checkBlockCollisionBetweenPoints(
+                    Vec3.getPermanentVec3(entity.x, entity.y, entity.z),
+                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z)
+                );
+
+                world.entityJoinedWorld(theMonster);
+                world.setBlockMetadata(x, y, z, 1);
+                world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
+                this.spawnParticles(world, spawnX, spawnY, spawnZ);
+                this.playSound(world, x, y, z, entity, theMonster);
+                this.giveAchievement((Player) entity, theMonster);
+                return;
             }
-            world.entityJoinedWorld(theMonster);
-            world.setBlockMetadata(x, y, z, 1);
-            world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
-            this.spawnParticles(world, spawnX, spawnY, spawnZ);
-            this.playSound(world, x, y, z, entity, theMonster);
-            this.giveAchievement((Player) entity, theMonster);
-            return;
         }
     }
 
