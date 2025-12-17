@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.MobRenderer;
@@ -22,8 +23,10 @@ public class MobRendererMoa extends MobRenderer<MobMoa> {
         if (layer == 1) {
             this.bindTexture(entity.getSaddleTexturePath());
             model = this.getModel("saddle");
+            GL11.glScalef(1.0f, 1.0f, 1.0f);
         } else {
             model = this.getModel("main");
+            GL11.glScalef(0.85f, 0.85f, 0.85f);
         }
 
         model.resetBones();

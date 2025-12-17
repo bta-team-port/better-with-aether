@@ -1,5 +1,6 @@
 package teamport.aether.helper;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.sound.SoundCategory;
@@ -36,6 +37,27 @@ public class ParticleMaker {
 
     public static void spawnParticle(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
         spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 16D);
+    }
+
+    public static void spawnParticleFar(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
+        spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 72D);
+    }
+
+    public static void spawnWhirlyParticles(World world, Entity entity, int amount, String particleKey) {
+        double baseY = entity.y + entity.bbHeight + 0.125;
+        for (int i = 0; i < amount; ++i) {
+
+            float angle = random.nextFloat() * 360.0F;
+            double offsetX = -Math.sin(angle * (Math.PI / 180.0)) * 0.75;
+            double offsetZ = Math.cos(angle * (Math.PI / 180.0)) * 0.75;
+            double spawnX = entity.x + offsetX;
+            double spawnY = baseY - 1.0;
+            double spawnZ = entity.z + offsetZ;
+            spawnX += random.nextFloat() * 0.25F;
+            spawnZ += random.nextFloat() * 0.25F;
+
+            ParticleMaker.spawnParticleFar(world, particleKey, spawnX, spawnY, spawnZ, 0, 10, 0, 0);
+        }
     }
 
     public static void spawnBlockBreakParticles(World world, int blockX, int blockY, int blockZ, int blockId) {

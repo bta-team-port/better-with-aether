@@ -19,6 +19,7 @@ import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.whirly.MobWhirly;
+import teamport.aether.entity.monster.whirly.MobWhirlyEvil;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTreeGoldenOak;
@@ -43,6 +44,7 @@ public class BiomeAether extends Biome {
         this.spawnableCreatureList.add(new SpawnListEntry(MobSheepuff.class, 102));
         this.spawnableCreatureList.add(new SpawnListEntry(MobAerbunny.class, 102));
 
+        this.spawnableAmbientCreatureList.add(new SpawnListEntry(MobWhirly.class, 6));
         this.spawnableAmbientCreatureList.add(new SpawnListEntry(MobAerwhale.class, 5));
         this.spawnableAmbientCreatureList.add(new SpawnListEntry(MobFireflyCluster.class, 30));
 
@@ -55,7 +57,7 @@ public class BiomeAether extends Biome {
         this.spawnableMonsterList.add(new SpawnListEntry(MobSwetGold.class, 2));
         this.spawnableMonsterList.add(new SpawnListEntry(MobAechorPlant.class, 5));
         this.spawnableMonsterList.add(new SpawnListEntry(MobCockatrice.class, 10));
-        this.spawnableMonsterList.add(new SpawnListEntry(MobWhirly.class, 5));
+        this.spawnableMonsterList.add(new SpawnListEntry(MobWhirlyEvil.class, 5));
     }
 
     @Override

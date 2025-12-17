@@ -1,10 +1,8 @@
 package teamport.aether.entity.monster;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.enums.LightLayer;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
@@ -18,19 +16,6 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
     @Override
     public int getMaxSpawnedInChunk() {
         return 4;
-    }
-
-    @Override
-    public boolean hurt(Entity attacker, int i, DamageType type) {
-        if (super.hurt(attacker, i, type)) {
-            if (this.passenger != attacker && this.vehicle != attacker && attacker != this) {
-                this.target = attacker;
-            }
-
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override
