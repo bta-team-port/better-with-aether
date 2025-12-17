@@ -7,21 +7,21 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.world.World;
 
 @Environment(EnvType.CLIENT)
-public class ParticleWhirlySpiral extends Particle {
+public class ParticleWhirlySpiralEvil extends Particle {
     private final double centerX;
     private final double centerZ;
     private double angle;
     private double radius;
 
-    public ParticleWhirlySpiral(World world, double x, double y, double z) {
+    public ParticleWhirlySpiralEvil(World world, double x, double y, double z) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.centerX = x;
         this.centerZ = z;
         this.noPhysics = true;
         this.viewScale = 10.0F;
-        this.size = 1.0F + this.random.nextFloat();
+        this.size = 2.0F + this.random.nextFloat();
         this.lifetime = 40 + this.random.nextInt(40);
-        this.rCol = this.gCol = this.bCol = (float) ((Math.random() + 0.1) * 1.8);
+        this.rCol = this.gCol = this.bCol = (float) (Math.random() * 0.3);
         this.setRot(0.25F + this.random.nextFloat() * 0.1F, 0.25F + this.random.nextFloat() * 0.1F);
         this.angle = this.random.nextDouble() * Math.PI * 2.0;
         this.radius = 0.25 + this.random.nextDouble() * 0.5;

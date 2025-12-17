@@ -66,7 +66,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
         dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("remedy", (world, x, y, z, xa, ya, za, id) -> new ParticleRemedy(world, x, y, z, xa, ya, za));
-        dispatcher.addDispatch("whirly", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiral(world, x, y, z, null, true));
+        dispatcher.addDispatch("whirly", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiral(world, x, y, z));
+        dispatcher.addDispatch("whirlyevil", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiralEvil(world, x, y, z));
         dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
             int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
             return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)) : null;

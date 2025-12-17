@@ -1,8 +1,5 @@
 package teamport.aether.entity.monster.whirly;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
@@ -13,12 +10,10 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.block.AetherBlockTags;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.accessory.AetherInvisibility;
-import teamport.aether.particle.ParticleWhirlySpiral;
 
 public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
@@ -71,7 +66,7 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
     @Override
     public void tick() {
         super.tick();
-        ParticleMaker.spawnWhirlyParticles(world, this, true, 4);
+        ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirlyevil");
     }
 
     @Override

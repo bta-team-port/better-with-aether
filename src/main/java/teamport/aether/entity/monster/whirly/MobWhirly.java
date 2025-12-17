@@ -1,6 +1,5 @@
 package teamport.aether.entity.monster.whirly;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
@@ -14,8 +13,6 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
-import teamport.aether.particle.ParticleWhirlySpiral;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobWhirly extends MobAetherAnimal implements Creature {
     private int lootTimer;
@@ -31,7 +28,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public void tick() {
         super.tick();
-        ParticleMaker.spawnWhirlyParticles(world, this, false, 2);
+        ParticleMaker.spawnWhirlyParticles(world, this, 2, "whirly");
     }
 
     @Override

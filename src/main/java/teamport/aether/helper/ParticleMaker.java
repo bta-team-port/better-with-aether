@@ -1,6 +1,5 @@
 package teamport.aether.helper;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.net.packet.PacketAddParticle;
@@ -12,7 +11,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.mixin.accessors.EntityAccessor;
-import teamport.aether.particle.ParticleWhirlySpiral;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.Random;
@@ -41,7 +39,11 @@ public class ParticleMaker {
         spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 16D);
     }
 
-    public static void spawnWhirlyParticles(World world, Entity entity, boolean evil, int amount) {
+    public static void spawnParticleFar(World world, String particleKey, double x, double y, double z, double motionX, double motionY, double motionZ, int data) {
+        spawnParticle(world, particleKey, x, y, z, motionX, motionY, motionZ, data, 72D);
+    }
+
+    public static void spawnWhirlyParticles(World world, Entity entity, int amount, String particleKey) {
         double baseY = entity.y + entity.bbHeight + 0.125;
         for (int i = 0; i < amount; ++i) {
 
@@ -54,7 +56,7 @@ public class ParticleMaker {
             spawnX += random.nextFloat() * 0.25F;
             spawnZ += random.nextFloat() * 0.25F;
 
-            ParticleMaker.spawnParticle(world, "whirly", spawnX, spawnY, spawnZ, 0, 0, 0, 0);
+            ParticleMaker.spawnParticleFar(world, particleKey, spawnX, spawnY, spawnZ, 0, 10, 0, 0);
         }
     }
 
