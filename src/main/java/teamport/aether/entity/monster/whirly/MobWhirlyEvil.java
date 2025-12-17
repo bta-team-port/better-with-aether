@@ -4,19 +4,18 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
-import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.accessory.AetherInvisibility;
 
 public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeathMessage {
-
     private int entcount;
     private final float angle;
 
@@ -24,9 +23,8 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
         super(world);
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly_evil");
-        this.moveSpeed = 0.6F;
+        this.moveSpeed = 0.75F;
         this.angle = this.random.nextFloat() * 360.0F;
-        this.speed = this.random.nextFloat() * 0.025F + 0.025F;
         this.entityAge = (this.random.nextInt(256) + 256);
     }
 
@@ -34,6 +32,18 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
     public void tick() {
         super.tick();
         ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirlyevil");
+        ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + world.rand.nextDouble(), this.z,
+            world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+    }
+
+
+    @Override
+    public void attackEntity(@NonNull Entity entity, float distance) {
+        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+            this.attackTime = 20;
+            entity.hurt(this, this.attackStrength, AetherMod.LIGHTNING);
+            world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, entity.x, entity.y, entity.z, "aether:zap", 0.5F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        }
     }
 
 
@@ -67,22 +77,6 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
             this.world.entityJoinedWorld(creeper);
             this.entcount = 0;
         }
-
-        int x = MathHelper.floor(this.x);
-        int y = MathHelper.floor(this.y);
-        int z = MathHelper.floor(this.z);
-        if (this.world != null && this.world.getBlockId(x, y + 1, z) != 0) {
-            this.entityAge -= 50;
-        }
-    }
-
-    @Override
-    protected void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
-
-            this.attackTime = 20;
-            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
-        }
     }
 
     public Entity getPlayer() {
@@ -94,7 +88,7 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
                 entityplayer = this.world.getClosestPlayerToEntity(this, 2.0);
             }
         }
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     @SuppressWarnings("java:S131")
