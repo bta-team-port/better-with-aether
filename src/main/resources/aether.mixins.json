@@ -108,7 +108,6 @@
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
-    "accessors.SoundSystemAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.ScreenInventoryCreativeMixinNewInv",

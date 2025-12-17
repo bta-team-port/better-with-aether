@@ -427,7 +427,8 @@ public class MobBossValkyrie extends MobBoss {
             MessageMaker.sendMessage((Player) attacker, TRANSLATOR.translateKey("boss_valkyrie.target"));
 
             if (!EnvironmentHelper.isServerEnvironment()) {
-                MobBoss.playBossMusic("aether:aether_music_boss.valkyrieboss");
+                Minecraft.getMinecraft().sndManager.stopMusic();
+                world.playSoundAtEntity(null, this, "aether:aether_music_boss.valkyrieboss", 1.0F, 1.0F);
             }
 
             ((AetherBossList) attacker).aether$TryAddBossList(this);
