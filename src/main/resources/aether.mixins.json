@@ -6,8 +6,6 @@
   "package": "teamport.aether.mixin",
   "compatibilityLevel": "JAVA_${java}",
   "mixins": [
-    "block.EntityMixinBlockStandOn",
-    "item.PlayerMixinDamageTypes",
     "accessors.EntityAccessor",
     "accessors.ItemAccessor",
     "accessors.ItemToolSwordAccessor",
@@ -68,6 +66,7 @@
     "block.BlockLogicPathDirtMixin",
     "block.BlockLogicPistonBaseSteelMixin",
     "block.CactusSpikeImmunitiesMixin",
+    "block.EntityMixinBlockStandOn",
     "block.SpikeImmunitiesMixin",
     "dimension.AetherBedMixin",
     "dimension.ParachuteMixin",
@@ -96,6 +95,7 @@
     "item.ItemShearsMixin",
     "item.ItemToolShovelMixin",
     "item.LavaBucketMixin",
+    "item.PlayerMixinDamageTypes",
     "item.SkyrootSwordDropMultiplier",
     "item.TreeCapitatorAetherAxeMixin",
     "player.PlayerBossListMixin",
@@ -107,8 +107,8 @@
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "client": [
-    "gui.GameSettingsMixin",
     "accessors.ScreenContainerAbstractAccessor",
+    "accessors.SoundSystemAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",
     "accessory.ScreenInventoryCreativeMixinNewInv",
@@ -137,6 +137,7 @@
     "entity.ViewerCategoryEntityMixin",
     "fix.RenderGlobalMixin",
     "gui.AchievementScreenShadowMixin",
+    "gui.GameSettingsMixin",
     "gui.GuidebookMixinInclude",
     "gui.MinecraftMixinAddNewAchievements",
     "gui.hud.ArmorOverlayMixin",

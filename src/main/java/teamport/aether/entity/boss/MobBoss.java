@@ -3,17 +3,22 @@ package teamport.aether.entity.boss;
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.sound.SoundEngine;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.command.TextFormatting;
+import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import paulscode.sound.SoundSystem;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.mixin.accessors.SoundSystemAccessor;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -179,5 +184,12 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
         returnToHome();
         runWithDungeon(dungeonID, d -> d.unlock(world));
         this.setHealthRaw(this.getMaxHealth());
+    }
+
+    static public void playBossMusic(String key) {
+        Minecraft minecraft = Minecraft.getMinecraft();
+        SoundEngine sndManager = minecraft.sndManager;
+        SoundSystem soundSystem = ((SoundSystemAccessor) sndManager).getSoundSystem()
+
     }
 }
