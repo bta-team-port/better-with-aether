@@ -308,7 +308,16 @@
       "trigger.ogg"
     ]
   },
-  "music.sliderboss": {
+  "aether_music_boss.valkyrieboss": {
+    "sounds": [
+      {
+        "name": "music/clouds.ogg",
+        "volume": 0.1,
+        "stream": true
+      }
+    ]
+  },
+  "aether_music_boss.sliderboss": {
     "sounds": [
       {
         "name": "music/sliderboss.ogg",
@@ -317,7 +326,7 @@
       }
     ]
   },
-  "music.fireboss": {
+  "aether_music_boss.fireboss": {
     "sounds": [
       {
         "name": "music/fireboss.ogg",
@@ -326,7 +335,7 @@
       }
     ]
   },
-  "aether:music.a_light_in_the_night": {
+  "aether_music.a_light_in_the_night": {
     "sounds": [
       {
         "name": "music/a_light_in_the_night.ogg",
@@ -335,7 +344,7 @@
       }
     ]
   },
-  "aether:music.approaches": {
+  "aether_music.approaches": {
     "sounds": [
       {
         "name": "music/approaches.ogg",
@@ -344,7 +353,7 @@
       }
     ]
   },
-  "aether:music.brise": {
+  "aether_music.brise": {
     "sounds": [
       {
         "name": "music/brise.ogg",
@@ -353,7 +362,7 @@
       }
     ]
   },
-  "aether:music.clouds": {
+  "aether_music.clouds": {
     "sounds": [
       {
         "name": "music/clouds.ogg",
@@ -362,7 +371,7 @@
       }
     ]
   },
-  "aether:music.crepusculum": {
+  "aether_music.crepusculum": {
     "sounds": [
       {
         "name": "music/crepusculum.ogg",
@@ -371,7 +380,7 @@
       }
     ]
   },
-  "aether:music.meadow": {
+  "aether_music.meadow": {
     "sounds": [
       {
         "name": "music/meadow.ogg",
@@ -380,7 +389,7 @@
       }
     ]
   },
-  "aether:music.moas_song": {
+  "aether_music.moas_song": {
     "sounds": [
       {
         "name": "music/moas_song.ogg",
@@ -389,7 +398,7 @@
       }
     ]
   },
-  "aether:music.welcome_to_paradise": {
+  "aether_music.welcome_to_paradise": {
     "sounds": [
       {
         "name": "music/welcome_to_paradise.ogg",
@@ -398,7 +407,7 @@
       }
     ]
   },
-  "aether:music.wings": {
+  "aether_music.wings": {
     "sounds": [
       {
         "name": "music/wings.ogg",

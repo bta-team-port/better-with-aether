@@ -2,6 +2,10 @@ package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.sound.SoundCategoryHelper;
+import net.minecraft.client.sound.SoundEngine;
+import net.minecraft.client.sound.SoundEntry;
+import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -388,8 +392,8 @@ public class MobBossSlider extends MobBoss {
             runWithDungeon(dungeonID, d -> d.lock(this.world));
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
 
-            if (EnvironmentHelper.isClientWorld()) {
-                Minecraft.getMinecraft().sndManager.playMusic("aether:music.sliderboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+            if (!EnvironmentHelper.isServerEnvironment()) {
+                MobBoss.playBossMusic("aether:aether_music_boss.sliderboss");
             }
 
             this.wakeUpTimer = WAKEUP_TIMER;

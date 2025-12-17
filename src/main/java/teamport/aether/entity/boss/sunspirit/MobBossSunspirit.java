@@ -22,6 +22,7 @@ import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
+import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
@@ -246,8 +247,8 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.rotateSunspirit(this.random.nextInt(360));
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
-                if (EnvironmentHelper.isClientWorld()) {
-                    Minecraft.getMinecraft().sndManager.playMusic("aether:music.fireboss", (float) this.x, (float) this.y + 1.0f, (float) this.z, 1.0f, 1.0f);
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    MobBoss.playBossMusic("aether:aether_music_boss.fireboss");
                 }
 
                 return true;

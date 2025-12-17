@@ -27,6 +27,6 @@ public abstract class AetherMusicMixin {
     @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundRepository;getRandomSoundFromCategory(Ljava/lang/String;)Lnet/minecraft/client/sound/SoundEvent;"))
     private SoundEvent tickTwo(SoundRepository instance, String s, Operation<SoundEvent> original) {
         if (this.mc.currentWorld.dimension.id != AetherDimension.getAether().id) return original.call(instance, s);
-        return original.call(instance, "aether:music.");
+        return original.call(instance, "aether_music.");
     }
 }
