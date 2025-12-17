@@ -22,7 +22,7 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
 
     public MobWhirlyEvil(World world) {
         super(world);
-        this.setSize(1.0F, 1.5F);
+        this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly_evil");
         this.moveSpeed = 0.6F;
         this.angle = this.random.nextFloat() * 360.0F;
@@ -31,52 +31,11 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
     }
 
     @Override
-    public boolean makeStepSound() {
-        return false;
-    }
-
-    @SuppressWarnings("java:S131")
-    @Override
-    public boolean collidesWith(Entity entity) {
-        float launchSpeed = 0.75F;
-        double distanceTo = entity.distanceTo(x, y, z);
-
-        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobWhirlyEvil)) {
-            switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
-                case NORTH:
-                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
-                    break;
-
-                case SOUTH:
-                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
-                    break;
-
-                case EAST:
-                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
-                    break;
-
-                case WEST:
-                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
-                    break;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public void tick() {
         super.tick();
         ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirlyevil");
     }
 
-    @Override
-    protected void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
-
-            this.attackTime = 20;
-            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
-        }
-    }
 
     @Override
     public void updateAI() {
@@ -117,6 +76,15 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
         }
     }
 
+    @Override
+    protected void attackEntity(@NonNull Entity entity, float distance) {
+        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+
+            this.attackTime = 20;
+            entity.hurt(this, this.attackStrength, DamageType.COMBAT);
+        }
+    }
+
     public Entity getPlayer() {
         if (this.world == null) return null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
@@ -129,9 +97,42 @@ public class MobWhirlyEvil extends MobMonsterAether implements Enemy, AetherDeat
         return entityplayer != null && this.canEntityBeSeen(entityplayer) ? entityplayer : null;
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
+    public boolean collidesWith(Entity entity) {
+        float launchSpeed = 0.75F;
+        double distanceTo = entity.distanceTo(x, y, z);
+
+        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobWhirlyEvil)) {
+            switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
+                case NORTH:
+                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
+                    break;
+
+                case SOUTH:
+                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
+                    break;
+
+                case EAST:
+                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    break;
+
+                case WEST:
+                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    break;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int getMaxSpawnedInChunk() {
         return 1;
+    }
+
+    @Override
+    public boolean makeStepSound() {
+        return false;
     }
 
     @Override

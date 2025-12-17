@@ -20,7 +20,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
 
     public MobWhirly(World world) {
         super(world);
-        this.setSize(1.0F, 1.5F);
+        this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
     }
