@@ -5,8 +5,6 @@
 loom = "1.14-SNAPSHOT"
 # Check this on https://plugins.gradle.org/plugin/com.smushytaco.lwjgl3/
 lwjglPlugin = "1.0.1"
-# Check this on https://plugins.gradle.org/plugin/org.jetbrains.gradle.plugin.idea-ext/
-ideaExt = "1.3"
 ##########################################################################
 # Java Configuration
 # The Java version the JDK will be for compiling and running code.
@@ -80,4 +78,3 @@ clientJar = { group = "objects", name = "client", version = "43db9b498cb67058d2e
 [plugins]
 loom = { id = "net.fabricmc.fabric-loom", version.ref = "loom" }
 lwjgl = { id = "com.smushytaco.lwjgl3", version.ref = "lwjglPlugin" }
-ideaExt = { id = "org.jetbrains.gradle.plugin.idea-ext", version.ref = "ideaExt" }
