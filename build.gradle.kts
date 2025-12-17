@@ -1,7 +1,11 @@
 import com.smushytaco.lwjgl_gradle.Preset
+import org.jetbrains.gradle.ext.settings
+import org.jetbrains.gradle.ext.taskTriggers
+
 plugins {
     alias(libs.plugins.loom)
     alias(libs.plugins.lwjgl)
+    alias(libs.plugins.ideaExt)
     java
 }
 val modVersion = providers.gradleProperty("mod_version")
@@ -51,12 +55,46 @@ lwjgl {
     version = libs.versions.lwjgl
     implementation(Preset.MINIMAL_OPENGL)
 }
+val clientJarForExtract by configurations.creating {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+}
+val extractPaulscodeJar = tasks.register<Jar>("extractPaulscodeJar") {
+    description = "Extracts the needed jar."
+    group = JavaBasePlugin.BUILD_DEPENDENTS_TASK_NAME
+    archiveBaseName.set("paulscode")
+    archiveVersion.set("")
+    destinationDirectory.set(layout.buildDirectory.dir("generated-libs"))
+
+    from(
+        {
+            val clientJarFile = clientJarForExtract.singleFile
+            zipTree(clientJarFile)
+        }
+    ) {
+        include("paulscode/**")
+    }
+}
+idea {
+    project {
+        settings {
+            taskTriggers {
+                afterSync(extractPaulscodeJar)
+            }
+        }
+    }
+}
 dependencies {
     minecraft("::${libs.versions.bta.get()}")
 
     compileOnly(libs.btwaila)
     compileOnly(libs.commandly)
 
+    compileOnly(
+        files(extractPaulscodeJar.flatMap { it.archiveFile })
+            .builtBy(extractPaulscodeJar)
+    )
+    clientJarForExtract(libs.clientJar)
     runtimeOnly(libs.clientJar)
     implementation(libs.loader)
     implementation(libs.halplibe)
@@ -116,6 +154,9 @@ tasks {
     named<UpdateDaemonJvm>("updateDaemonJvm") {
         languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
         vendor = JvmVendorSpec.ADOPTIUM
+    }
+    named("clean") {
+        finalizedBy(extractPaulscodeJar)
     }
     withType<JavaExec>().configureEach { defaultCharacterEncoding = "UTF-8" }
     withType<Javadoc>().configureEach { options.encoding = "UTF-8" }
