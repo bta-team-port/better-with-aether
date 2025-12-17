@@ -1,8 +1,8 @@
 {
-	"format_version": "1.10.0",
+	"format_version": "1.8.0",
 	"geometry.whirly": {
-		"texturewidth": 64,
-		"textureheight": 32,
+		"texturewidth": 128,
+		"textureheight": 64,
 		"visible_bounds_width": 2,
 		"visible_bounds_height": 3.5,
 		"visible_bounds_offset": [0, 1.25, 0],
@@ -18,29 +18,28 @@
 				"name": "body",
 				"pivot": [0, 0, 0],
 				"cubes": [
-					{"origin": [-8, 14, -8], "size": [16, 6, 16], "uv": [64, 0]},
-					{"origin": [-6, 7, -6], "size": [12, 6, 12], "uv": [80, 22]},
-					{"origin": [-4, 0, -4], "size": [8, 6, 8], "uv": [96, 40]}
+					{"origin": [-8, 14, -8], "size": [16, 6, 16], "uv": [22, 35]},
+					{"origin": [-6, 7, -6], "size": [12, 6, 12], "uv": [36, 39]},
+					{"origin": [-4, 0, -4], "size": [8, 6, 8], "uv": [11, 45]}
 				]
 			}
 		]
 	},
   "geometry.whirly.wind": {
-    "texturewidth": 64,
-    "textureheight": 32,
-    "visible_bounds_width": 2,
-    "visible_bounds_height": 3.5,
-    "visible_bounds_offset": [0, 1.25, 0],
+    "texturewidth": 128,
+    "textureheight": 64,
+    "visible_bounds_width": 3,
+    "visible_bounds_height": 4,
+    "visible_bounds_offset": [0, 1.5, 0],
     "bones": [
       {
         "name": "body",
         "pivot": [0, 0, 0],
         "cubes": [
-          {"origin": [-8, 14, -8], "size": [16, 6, 16], "uv": [64, 0]},
-          {"origin": [-6, 7, -6], "size": [12, 6, 12], "uv": [80, 22]},
-          {"origin": [-4, 0, -4], "size": [8, 6, 8], "uv": [96, 40]}
-        ],
-        "inflate": 1
+          {"origin": [-8, 14, -8], "size": [16, 6, 16], "uv": [22, 35], "inflate": 0.5},
+          {"origin": [-6, 7, -6], "size": [12, 6, 12], "uv": [36, 39], "inflate": 0.5},
+          {"origin": [-4, 0, -4], "size": [8, 6, 8], "uv": [11, 45], "inflate": 0.5}
+        ]
       }
     ]
   }

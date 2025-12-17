@@ -51,7 +51,7 @@ public class ParticleMaker {
             double offsetX = -Math.sin(angle * (Math.PI / 180.0)) * 0.75;
             double offsetZ = Math.cos(angle * (Math.PI / 180.0)) * 0.75;
             double spawnX = entity.x + offsetX;
-            double spawnY = baseY - 1.0;
+            double spawnY = baseY - 2.0;
             double spawnZ = entity.z + offsetZ;
             spawnX += random.nextFloat() * 0.25F;
             spawnZ += random.nextFloat() * 0.25F;

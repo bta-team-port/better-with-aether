@@ -10,7 +10,8 @@
     "/assets/aether/models/entity/cockatrice/cockatrice.geo.json",
     "/assets/aether/models/entity/mimic/mimic.geo.json",
     "/assets/aether/models/entity/sentry/sentry.geo.json",
-    "/assets/aether/models/entity/whirly/whirly.geo.json"
+    "/assets/aether/models/entity/whirly/whirly.geo.json",
+    "/assets/aether/models/entity/whirly_evil/whirly_evil.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -57,7 +58,12 @@
       "main":"geometry.sentry"
     },
     "aether:whirly": {
-      "main":"geometry.whirly"
+      "main":"geometry.whirly",
+      "wind":"geometry.whirly.wind"
+    },
+    "aether:whirly_evil": {
+      "main":"geometry.whirly_evil",
+      "wind":"geometry.whirly_evil.wind"
     }
   }
 }
