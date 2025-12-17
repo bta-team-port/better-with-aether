@@ -75,11 +75,11 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         }
         theMonster.spawnInit();
 
-        int distance = 10;
+        int distance = 12 + world.rand.nextInt(5);
         while (distance --> 0) {
-            int tries = 16;
 
-            while (tries-- > 0) {
+            int tries = 16;
+            while (tries --> 0) {
                 final double angleRad = Math.toRadians(world.rand.nextInt(360));
 
                 float actualDistance = distance - ((float) world.rand.nextInt(11) / 10);
@@ -88,14 +88,15 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
                 double spawnY = y + 1.25;
 
                 theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
-                if (!world.checkIfAABBIsClear(theMonster.bb) && !world.getCubes(theMonster, theMonster.bb).isEmpty()) {
-                    continue;
-                }
+
+                if (world.getIsAnySolidGround(theMonster.bb)) continue;
 
                 HitResult hit = world.checkBlockCollisionBetweenPoints(
                     Vec3.getPermanentVec3(entity.x, entity.y, entity.z),
-                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z)
+                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
+                    false, false, true
                 );
+                if (hit != null) continue;
 
                 world.entityJoinedWorld(theMonster);
                 world.setBlockMetadata(x, y, z, 1);
