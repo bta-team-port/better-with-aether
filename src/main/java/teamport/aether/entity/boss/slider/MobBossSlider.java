@@ -393,7 +393,8 @@ public class MobBossSlider extends MobBoss {
             this.world.playSoundAtEntity(null, this, "aether:mob.slider.awaken", 1F, 1F);
 
             if (!EnvironmentHelper.isServerEnvironment()) {
-                MobBoss.playBossMusic("aether:aether_music_boss.sliderboss");
+                Minecraft.getMinecraft().sndManager.stopMusic();
+                world.playSoundAtEntity(null, this, "aether:aether_music_boss.sliderboss", 1.0F, 1.0F);
             }
 
             this.wakeUpTimer = WAKEUP_TIMER;

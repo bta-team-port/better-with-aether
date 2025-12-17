@@ -248,7 +248,8 @@ public class MobBossSunspirit extends MobBossFlying {
                 DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
 
                 if (!EnvironmentHelper.isServerEnvironment()) {
-                    MobBoss.playBossMusic("aether:aether_music_boss.fireboss");
+                    Minecraft.getMinecraft().sndManager.stopMusic();
+                    world.playSoundAtEntity(null, this, "aether:aether_music_boss.fireboss", 1.0F, 1.0F);
                 }
 
                 return true;

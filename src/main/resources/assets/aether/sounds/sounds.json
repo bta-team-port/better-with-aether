@@ -322,7 +322,8 @@
       {
         "name": "music/sliderboss.ogg",
         "volume": 0.1,
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 128
       }
     ]
   },
@@ -331,7 +332,8 @@
       {
         "name": "music/fireboss.ogg",
         "volume": 0.1,
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 128
       }
     ]
   },
@@ -340,7 +342,8 @@
       {
         "name": "music/a_light_in_the_night.ogg",
         "volume": 0.01,
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 128
       }
     ]
   },
