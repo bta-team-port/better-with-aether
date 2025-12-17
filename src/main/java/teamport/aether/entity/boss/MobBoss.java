@@ -4,7 +4,10 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.IntTag;
 import com.mojang.nbt.tags.StringTag;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.sound.SoundCategoryHelper;
 import net.minecraft.client.sound.SoundEngine;
+import net.minecraft.client.sound.SoundEntry;
+import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.MobPathfinder;
@@ -189,7 +192,15 @@ public abstract class MobBoss extends MobPathfinder implements EnemyBoss, Aether
     static public void playBossMusic(String key) {
         Minecraft minecraft = Minecraft.getMinecraft();
         SoundEngine sndManager = minecraft.sndManager;
-        SoundSystem soundSystem = ((SoundSystemAccessor) sndManager).getSoundSystem()
+        sndManager.stopMusic();
+        SoundSystem soundSystem = ((SoundSystemAccessor) sndManager).getSoundSystem();
 
+        SoundEntry entry = SoundRepository.SOUNDS.getSoundEntry(key);
+        if (entry == null) return;
+
+        soundSystem.backgroundMusic("BgMusic", entry.getURL(), entry.name, false);
+        soundSystem.setPitch("BgMusic", entry.pitch);
+        soundSystem.setVolume("BgMusic", 1.0F);
+        soundSystem.play("BgMusic");
     }
 }
