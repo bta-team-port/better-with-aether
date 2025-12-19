@@ -109,9 +109,9 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
                     entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
                     break;
             }
+            return false;
         }
-
-        return false;
+        return true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package teamport.aether.entity.monster.whirly;
 
+import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.monster.MobCreeper;
@@ -35,7 +36,6 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
             world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
     }
 
-
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
@@ -44,7 +44,6 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
             entity.hurt(this, this.attackStrength, AetherMod.LIGHTNING);
         }
     }
-
 
     @Override
     public void updateAI() {
@@ -73,7 +72,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
     }
 
-    public Entity getPlayer() {
+    protected Entity findPlayerToAttack() {
         if (this.world == null) return null;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
         if (entityplayer instanceof AetherInvisibility) {
@@ -91,7 +90,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         float launchSpeed = 0.75F;
         double distanceTo = entity.distanceTo(x, y, z);
 
-        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobTempest)) {
+        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobTempest) && !(entity instanceof Particle)) {
             switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
                     entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
@@ -109,8 +108,9 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
                     entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
                     break;
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
