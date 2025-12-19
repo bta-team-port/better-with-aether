@@ -1,4 +1,4 @@
-package teamport.aether.entity.monster.whirly;
+package teamport.aether.entity.monster.tempest;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,18 +10,18 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererWhirly extends MobRenderer<MobWhirly> {
-    public MobRendererWhirly(float shadowSize) {
+public class MobRendererTempest extends MobRenderer<MobTempest> {
+    public MobRendererTempest(float shadowSize) {
         super(shadowSize);
     }
 
     @Override
-    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobWhirly whirly, float brightness, float partialTick, int layer) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobTempest whirly, float brightness, float partialTick, int layer) {
         StaticEntityModel model;
         if (layer == 1) {
             model = this.getModel("wind");
-            this.bindTexture("/assets/aether/textures/entity/whirly/wind.png");
-            float ticks = whirly.tickCount * 2 + partialTick;
+            this.bindTexture("/assets/aether/textures/entity/tempest/wind.png");
+            float ticks = whirly.tickCount * 4 + partialTick;
             GL11.glMatrixMode(GL11.GL_TEXTURE);
             GL11.glLoadIdentity();
             float offsetX = ticks * 0.01F;
@@ -53,7 +53,7 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
     }
 
     @Override
-    protected int maxRenderLayer(@NonNull MobWhirly entity) {
+    protected int maxRenderLayer(@NonNull MobTempest entity) {
         return 2;
     }
 }

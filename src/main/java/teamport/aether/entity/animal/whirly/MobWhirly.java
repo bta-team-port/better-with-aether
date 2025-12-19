@@ -1,4 +1,4 @@
-package teamport.aether.entity.monster.whirly;
+package teamport.aether.entity.animal.whirly;
 
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.block.Block;
@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
@@ -31,14 +32,16 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public void tick() {
         super.tick();
+        if (this.getHealth() > 0) {
         ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
+        }
     }
 
     @Override
     public void updateAI() {
         super.updateAI();
 
-        if (this.entityAge >= this.maxLifetime || this.isInWaterOrRain()) {
+        if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
             for (int l = 0; l < 16; ++l) {
                 double angle = Math.toRadians(l * 45.0);
                 ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
@@ -116,6 +119,10 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
 
     @Override
     public boolean hurt(Entity entity, int damage, DamageType type) {
+        if (entity == null && type == null && damage == 100) {
+            return MobUtil.killMob(this);
+        }
+
         return false;
     }
 

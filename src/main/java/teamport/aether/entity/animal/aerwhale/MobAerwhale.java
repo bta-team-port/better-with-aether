@@ -10,6 +10,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
+import teamport.aether.entity.MobUtil;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class MobAerwhale extends MobFlying implements AmbientCreature {
@@ -26,22 +27,21 @@ public class MobAerwhale extends MobFlying implements AmbientCreature {
 
     public MobAerwhale(World world) {
         super(world);
-
         this.setSize(0.1F, 0.1F);
         this.viewScale = 100.0f;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "aerwhale");
-
         this.fireImmune = true;
         this.moveSpeed = 0.5F;
-
         this.yRot = 360.0F * this.random.nextFloat();
         this.xRot = 90.0F * this.random.nextFloat() - 45.0F;
-
         this.ignoreFrustumCheck = true;
     }
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == null && type == null && damage == 100) {
+            return MobUtil.killMob(this);
+        }
         return false;
     }
 

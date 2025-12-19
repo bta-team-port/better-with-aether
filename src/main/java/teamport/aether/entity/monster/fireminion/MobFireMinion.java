@@ -13,7 +13,6 @@ import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import static teamport.aether.entity.DamageInstance.inst;
 
@@ -85,17 +84,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         super.tick();
         if (this.getHealth() > 0) {
             this.maxFireTicks = 20;
-            for (int j = 0; j < 4; ++j) {
-                double a = this.random.nextFloat() - 0.5F;
-                double b = this.random.nextFloat();
-                double c = this.random.nextFloat() - 0.5F;
-                double x = this.x + a * b;
-                double y = this.bb.minY + b;
-                double z = this.z + c * b;
-                if (!EnvironmentHelper.isServerEnvironment()) {
-                    ParticleMaker.spawnParticle(world, "flame", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
-                }
-            }
+            ParticleMaker.spawnWhirlyParticles(world, this, 8, "fire");
         }
     }
 

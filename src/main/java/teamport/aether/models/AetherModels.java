@@ -50,7 +50,6 @@ import teamport.aether.entity.monster.cockatrice.MobCockatrice;
 import teamport.aether.entity.monster.cockatrice.MobRendererCockatrice;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.monster.fireminion.MobRendererFireMinion;
-import teamport.aether.entity.monster.fireminion.ModelFireMinion;
 import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.mimic.MobRendererMimic;
 import teamport.aether.entity.monster.sentry.MobRendererSentry;
@@ -61,10 +60,10 @@ import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.valkyrie.MobRendererValkyrie;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.valkyrie.ModelValkyrie;
-import teamport.aether.entity.monster.whirly.MobRendererWhirly;
-import teamport.aether.entity.monster.whirly.MobRendererTempest;
-import teamport.aether.entity.monster.whirly.MobWhirly;
-import teamport.aether.entity.monster.whirly.MobTempest;
+import teamport.aether.entity.animal.whirly.MobRendererWhirly;
+import teamport.aether.entity.monster.tempest.MobRendererTempest;
+import teamport.aether.entity.animal.whirly.MobWhirly;
+import teamport.aether.entity.monster.tempest.MobTempest;
 import teamport.aether.entity.monster.zephyr.MobRendererZephyr;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.entity.projectile.*;
@@ -838,7 +837,7 @@ public class AetherModels implements ModelEntrypoint {
         ModelHelper.setEntityModel(MobBossSlider.class, () -> new MobRendererSlider(new ModelSlider(0.0F, 12.0623F), 1.5F));
         ModelHelper.setEntityModel(MobBossValkyrie.class, () -> new MobRendererBossValkyrie(new ModelValkyrie(), 0.5F));
         ModelHelper.setEntityModel(MobBossSunspirit.class, MobRendererSunspirit::new);
-        ModelHelper.setEntityModel(MobFireMinion.class, () -> new MobRendererFireMinion(new ModelFireMinion(), 0.4F));
+        ModelHelper.setEntityModel(MobFireMinion.class, () -> new MobRendererFireMinion(0.4F));
     }
 
     private void setMobEnemyModels() {

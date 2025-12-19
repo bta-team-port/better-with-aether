@@ -1,4 +1,4 @@
-package teamport.aether.entity.monster.whirly;
+package teamport.aether.entity.monster.tempest;
 
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
@@ -31,9 +31,11 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     public void tick() {
         super.tick();
-        ParticleMaker.spawnWhirlyParticles(world, this, 12, "tempest");
-        ParticleMaker.spawnParticleFar(world, "lightning", this.x, this.y + world.rand.nextDouble(), this.z,
-            world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+        if (this.getHealth() > 0) {
+            ParticleMaker.spawnWhirlyParticles(world, this, 12, "tempest");
+            ParticleMaker.spawnParticleFar(world, "lightning", this.x, this.y + world.rand.nextDouble(), this.z,
+                world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
+        }
     }
 
     @Override
@@ -49,7 +51,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     public void updateAI() {
         super.updateAI();
 
-        if (this.entityAge >= this.maxLifetime || this.isInWaterOrRain()) {
+        if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
             for (int l = 0; l < 16; ++l) {
                 double angle = Math.toRadians(l * 45.0);
                 ParticleMaker.spawnParticle(world, "largesmoke", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
