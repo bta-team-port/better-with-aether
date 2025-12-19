@@ -16,3 +16,5 @@ model.category.entity.sheepuff.slider.wool_state=State: %s
 model.category.entity.sentry.slider.state=State: %s
 
 model.category.entity.slider.slider.state=State: %s
+
+gui.main_menu.label.splash.aether_birthday=Happy birthday, Aether!

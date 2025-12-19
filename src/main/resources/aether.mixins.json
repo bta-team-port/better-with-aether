@@ -146,6 +146,7 @@
     "gui.screens.ResourceDownloadToastMixin",
     "gui.screens.ScreenContainerAbstractAccessor",
     "gui.screens.ScreenInventoryFixProtectionOverlayMixin",
+    "gui.screens.ScreenMainMenuMixin",
     "gui.screens.UNWarnMixin",
     "item.DynamicTexturesMixin",
     "item.PlayerControllerValkToolsReachMixin",
