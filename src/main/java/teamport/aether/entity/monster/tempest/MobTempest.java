@@ -74,18 +74,6 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
     }
 
-    protected Entity findPlayerToAttack() {
-        if (this.world == null) return null;
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-        if (entityplayer instanceof AetherInvisibility) {
-            AetherInvisibility invPlayer = (AetherInvisibility) entityplayer;
-            if (invPlayer.aether$isInvisible()) {
-                entityplayer = this.world.getClosestPlayerToEntity(this, 2.0);
-            }
-        }
-        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
-    }
-
     @SuppressWarnings("java:S131")
     @Override
     public boolean collidesWith(Entity entity) {
@@ -116,18 +104,13 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     }
 
     @Override
-    public String getLivingSound() {
-        return "random.whoose.out";
-    }
-
-    @Override
     public String getHurtSound() {
         return "random.whoose.out";
     }
 
     @Override
     public String getDeathSound() {
-        return "random.whoose.out";
+        return "random.whoose.in";
     }
 
     @Override
