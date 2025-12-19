@@ -3,8 +3,6 @@ package teamport.aether.entity.monster.tempest;
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
-import net.minecraft.core.entity.monster.MobCreeper;
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.Direction;
@@ -13,11 +11,11 @@ import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.item.accessory.AetherInvisibility;
 
 public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    private int creeperCountdown;
+    private int cooldown;
     private final int maxLifetime;
 
     public MobTempest(World world) {
@@ -61,16 +59,15 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
 
         if (this.target != null) {
-            ++this.creeperCountdown;
+            ++this.cooldown;
         }
 
-        if (this.creeperCountdown >= 256 && this.target != null) {
-            MobCreeper creeper = new MobCreeper(this.world);
-            creeper.setPos(this.x, this.y + 0.75, this.z);
-            creeper.xd = (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
-            creeper.zd = (this.random.nextFloat() - this.random.nextFloat()) * 0.125;
-            this.world.entityJoinedWorld(creeper);
-            this.creeperCountdown = 0;
+        if (this.cooldown >= 64 && this.target != null) {
+            ProjectileElementLightning elementLightning = new ProjectileElementLightning(this.world, this);
+            elementLightning.setHeading(world.rand.nextDouble(), this.getLookAngle().y + 5, world.rand.nextDouble(), 0.5f, 0.0f);
+            this.world.playSoundAtEntity(null, this, "mob.ghast.fireball", this.getSoundVolume(), (this.random.nextFloat() + this.random.nextFloat()) * 1.2F + 1.0F);
+            this.world.entityJoinedWorld(elementLightning);
+            this.cooldown = 0;
         }
     }
 
@@ -80,7 +77,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         float launchSpeed = 0.75F;
         double distanceTo = entity.distanceTo(x, y, z);
 
-        if (this.world != null && !(entity instanceof MobCreeper) && !(entity instanceof MobTempest) && !(entity instanceof Particle)) {
+        if (this.world != null && !(entity instanceof MobTempest) && !(entity instanceof Particle)) {
             switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
                     entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
