@@ -26,7 +26,8 @@ import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
 import teamport.aether.entity.monster.valkyrie.MobValkyrie;
-import teamport.aether.entity.monster.whirly.MobWhirly;
+import teamport.aether.entity.animal.whirly.MobWhirly;
+import teamport.aether.entity.monster.tempest.MobTempest;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.item.AetherItems;
 
@@ -81,6 +82,7 @@ public class AetherMobInfoRegistry {
             new MobInfoRegistry.MobDrop(new ItemStack(Blocks.GLOWSTONE), 1.0f, 1, 2)});
 
         MobInfoRegistry.register(MobWhirly.class, "guidebook.section.mob.whirly.name", "guidebook.section.mob.whirly.desc", 0, 0, null);
+        MobInfoRegistry.register(MobTempest.class, "guidebook.section.mob.tempest.name", "guidebook.section.mob.tempest.desc", 20, 400, null);
 
         MobInfoRegistry.register(MobAechorPlant.class, "guidebook.section.mob.aechorplant.name", "guidebook.section.mob.aechorplant.desc", 14, 200, new MobInfoRegistry.MobDrop[]{
             new MobInfoRegistry.MobDrop(new ItemStack(AetherItems.PETAL_AECHOR), 1.0f, 1, 4)});

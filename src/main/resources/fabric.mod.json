@@ -7,25 +7,31 @@
   "description": "The legendary dimension is finally here for Better than Adventure! Not affiliated with the original Aether team. Aether music by Emile van Krieken, check out at https://emilevankrieken.bandcamp.com/",
   "authors": [
     "LukeisStuff",
-    "jonkadelic",
-    "Mak",
-    "SmushyTaco",
-    "Useless",
-    "CantComplain",
-    "MartinSVK12",
-    "Cookie Cakes",
     "Kheprep",
+    "Redart15",
+    "SmushyTaco",
+
+    "CantComplain",
     "azurelmao",
     "ToufouMaster",
     "bagu_chan",
-    "Redart15",
-    "Slainlight",
-    "Telvarost",
-    "Tocinin",
-    "Klyxlik",
     "big sir",
     "rin",
-    "Yallendallis"
+    "Cookie Cakes",
+
+    "Mak",
+    "jonkadelic",
+    "Useless",
+    "MartinSVK12",
+
+    "Slainlight",
+    "Telvarost"
+  ],
+  "contributors": [
+    "Tocinin",
+    "Klyxlik",
+    "Yallendallis",
+    "Beatrice/Maxine"
   ],
 
   "icon": "icon.png",

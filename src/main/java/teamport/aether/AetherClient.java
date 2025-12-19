@@ -13,6 +13,7 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
+import net.minecraft.client.holiday.Holiday;
 import net.minecraft.client.render.colorizer.Colorizer;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
@@ -34,6 +35,8 @@ import teamport.aether.world.type.WorldTypeFXAether;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
+import java.time.Month;
+
 import static net.minecraft.client.render.colorizer.Colorizers.add;
 import static net.minecraft.client.render.texture.stitcher.TextureRegistry.register;
 import static teamport.aether.AetherMod.LOGGER;
@@ -44,6 +47,8 @@ import static teamport.aether.AetherMod.MOD_ID;
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;
+
+    public static final Holiday ANNIVERSARY_AETHER = new Holiday(Month.JULY, 22);
 
     public static Colorizer grassAether;
     public static Colorizer skyroot;
@@ -67,7 +72,8 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("remedy", (world, x, y, z, xa, ya, za, id) -> new ParticleRemedy(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("whirly", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiral(world, x, y, z));
-        dispatcher.addDispatch("whirlyevil", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiralEvil(world, x, y, z));
+        dispatcher.addDispatch("tempest", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiralEvil(world, x, y, z));
+        dispatcher.addDispatch("fire", (world, x, y, z, xa, ya, za, id) -> new ParticleFireSpiral(world, x, y, z));
         dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
             int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
             return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)) : null;
