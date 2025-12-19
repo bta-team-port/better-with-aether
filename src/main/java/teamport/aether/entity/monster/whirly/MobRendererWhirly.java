@@ -20,13 +20,12 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
         StaticEntityModel model;
         if (layer == 1) {
             model = this.getModel("wind");
-            this.bindTexture("/assets/aether/textures/armor/wind.png");
-            float ticks = whirly.tickCount + partialTick;
+            this.bindTexture("/assets/aether/textures/entity/whirly/wind.png");
+            float ticks = whirly.tickCount * 2 + partialTick;
             GL11.glMatrixMode(GL11.GL_TEXTURE);
             GL11.glLoadIdentity();
             float offsetX = ticks * 0.01F;
-            float offsetY = ticks * 0.01F;
-            GL11.glTranslatef(offsetX, offsetY, 0.0F);
+            GL11.glTranslatef(offsetX, 0.0F, 0.0F);
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

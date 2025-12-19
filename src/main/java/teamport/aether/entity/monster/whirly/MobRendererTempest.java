@@ -10,18 +10,17 @@ import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererWhirlyEvil extends MobRenderer<MobWhirlyEvil> {
-
-    public MobRendererWhirlyEvil(float shadowSize) {
+public class MobRendererTempest extends MobRenderer<MobTempest> {
+    public MobRendererTempest(float shadowSize) {
         super(shadowSize);
     }
 
     @Override
-    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobWhirlyEvil whirly, float brightness, float partialTick, int layer) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobTempest whirly, float brightness, float partialTick, int layer) {
         StaticEntityModel model;
         if (layer == 1) {
             model = this.getModel("wind");
-            this.bindTexture("/assets/aether/textures/armor/wind_evil.png");
+            this.bindTexture("/assets/aether/textures/entity/tempest/wind.png");
             float ticks = whirly.tickCount + partialTick;
             GL11.glMatrixMode(GL11.GL_TEXTURE);
             GL11.glLoadIdentity();
@@ -55,7 +54,7 @@ public class MobRendererWhirlyEvil extends MobRenderer<MobWhirlyEvil> {
     }
 
     @Override
-    protected int maxRenderLayer(@NonNull MobWhirlyEvil entity) {
+    protected int maxRenderLayer(@NonNull MobTempest entity) {
         return 2;
     }
 }

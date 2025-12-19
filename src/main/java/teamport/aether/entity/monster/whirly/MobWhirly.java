@@ -1,10 +1,12 @@
 package teamport.aether.entity.monster.whirly;
 
+import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
@@ -23,12 +25,13 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         this.setSize(1.0F, 2.0F);
         this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
+        this.moveSpeed = 0.35F;
     }
 
     @Override
     public void tick() {
         super.tick();
-        ParticleMaker.spawnWhirlyParticles(world, this, 2, "whirly");
+        ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
     }
 
     @Override
@@ -36,6 +39,11 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         super.updateAI();
 
         if (this.entityAge >= this.maxLifetime || this.isInWaterOrRain()) {
+            for (int l = 0; l < 16; ++l) {
+                double angle = Math.toRadians(l * 45.0);
+                ParticleMaker.spawnParticle(world, "snowshovel", x, y, z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
+            }
+            world.playSoundAtEntity(null, this, "random.whoose.out", 0.6F, 1.0F / (random.nextFloat() * 0.2F + 0.4F));
             this.remove();
         }
 
@@ -83,7 +91,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         float launchSpeed = 0.75F;
         double distanceTo = entity.distanceTo(x, y, z);
 
-        if (this.world != null && !(entity instanceof MobWhirly)) {
+        if (this.world != null && !(entity instanceof MobWhirly) && !(entity instanceof Particle)) {
             switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
                     entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
@@ -103,6 +111,11 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
             }
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean hurt(Entity entity, int damage, DamageType type) {
         return false;
     }
 

@@ -127,18 +127,18 @@ public class WorldTypeAether extends WorldType {
     @Override
     public int getSkyDarken(World world, long tick, float partialTick) {
         float f1 = this.getCelestialAngle(world, tick, partialTick);
-        float f2 = 1.0f - (MathHelper.cos(f1 * 3.141593f * 2.0f) * 2.0f + 0.5f);
-        if (f2 < 0.0f) {
-            f2 = 0.0f;
+        float f2 = 1.0F - (MathHelper.cos((float) (f1 * Math.PI * 2.0F)) * 2.0F + 0.5F);
+        if (f2 < 0.0F) {
+            f2 = 0.0F;
         }
-        if (f2 > 1.0f) {
-            f2 = 1.0f;
+        if (f2 > 1.0F) {
+            f2 = 1.0F;
         }
-        float weatherOffset = 0.0f;
+        float weatherOffset = 0.0F;
         Weather currentWeather = world.getCurrentWeather();
         if (currentWeather != null) {
             weatherOffset = currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
         }
-        return (int) (f2 * (11.0f - weatherOffset) + weatherOffset);
+        return (int) (f2 * (11.0F - weatherOffset) + weatherOffset);
     }
 }

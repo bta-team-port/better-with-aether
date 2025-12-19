@@ -19,13 +19,13 @@ public class ParticleWhirlySpiralEvil extends Particle {
         this.centerZ = z;
         this.noPhysics = true;
         this.viewScale = 10.0F;
-        this.size = 2.0F + this.random.nextFloat();
-        this.lifetime = 40 + this.random.nextInt(40);
+        this.size = 3.0F;
+        this.lifetime = 20;
         this.rCol = this.gCol = this.bCol = (float) (Math.random() * 0.3);
         this.setRot(0.25F + this.random.nextFloat() * 0.1F, 0.25F + this.random.nextFloat() * 0.1F);
         this.angle = this.random.nextDouble() * Math.PI * 2.0;
         this.radius = 0.25 + this.random.nextDouble() * 0.5;
-        this.yd = 0.11 + this.random.nextDouble() * 0.02;
+        this.yd = 0.44;
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ParticleWhirlySpiralEvil extends Particle {
             return;
         }
 
-        this.angle += 0.25;
-        this.radius += 0.002;
+        this.angle += 0.75;
+        this.radius += 0.008 * (age * 2);
 
         this.x = this.centerX + Math.cos(this.angle) * this.radius;
         this.z = this.centerZ + Math.sin(this.angle) * this.radius;

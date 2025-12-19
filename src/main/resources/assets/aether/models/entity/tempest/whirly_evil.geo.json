@@ -1,6 +1,6 @@
 {
 	"format_version": "1.10.0",
-	"geometry.whirly": {
+	"geometry.tempest": {
 		"texturewidth": 64,
 		"textureheight": 32,
 		"visible_bounds_width": 3,
@@ -13,10 +13,37 @@
 				"cubes": [
 					{"origin": [-4, 24, -4], "size": [8, 8, 8], "uv": [0, 0]}
 				]
+			},
+			{
+				"name": "body",
+				"pivot": [0, 23, 0],
+				"cubes": [
+					{"origin": [-4.5, 18, -1], "size": [9, 6, 4], "uv": [38, 0]},
+					{"origin": [-4, 12, 0.5], "size": [8, 6, 3], "uv": [42, 10]},
+					{"origin": [-3.5, 7, 1.5], "size": [7, 5, 2], "uv": [46, 19]}
+				]
+			},
+			{
+				"name": "arm0",
+				"parent": "body",
+				"pivot": [-5, 22, 1],
+				"cubes": [
+					{"origin": [-9, 12, -1], "size": [4, 8, 4], "uv": [0, 20]},
+					{"origin": [-9, 20, -1], "size": [4, 4, 4], "uv": [16, 24], "inflate": 0.5}
+				]
+			},
+			{
+				"name": "arm1",
+				"parent": "body",
+				"pivot": [5, 22, 1],
+				"cubes": [
+					{"origin": [5, 12, -1], "size": [4, 8, 4], "uv": [0, 20], "mirror": true},
+					{"origin": [5, 20, -1], "size": [4, 4, 4], "uv": [16, 24], "inflate": 0.5, "mirror": true}
+				]
 			}
 		]
 	},
-  "geometry.whirly.wind": {
+  "geometry.tempest.wind": {
     "texturewidth": 64,
     "textureheight": 32,
     "visible_bounds_width": 3,

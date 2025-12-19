@@ -77,8 +77,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
     public void attackEntity(@NonNull Entity entity, float distance) {
         if (this.isAlive() && !this.isFriendly() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
-            if (this.world != null)
-                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             entity.hurt(this, 3, DamageType.COMBAT);
         }
     }
