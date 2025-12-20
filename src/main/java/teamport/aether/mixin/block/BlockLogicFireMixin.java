@@ -15,12 +15,12 @@ public abstract class BlockLogicFireMixin extends BlockLogic {
     protected BlockLogicFireMixin(Block<?> block, Material material) {
         super(block, material);
     }
-    @WrapMethod(method = "onBlockPlacedByWorld")
-    private void onBlockPlacedByWorld(World world, int x, int y, int z, Operation<Void> original) {
-        if (world.dimension == AetherDimension.getAether()) {
-            world.setBlock(x, y, z, 0);
-            return;
-        }
-        original.call(world, x, y, z);
-    }
+//    @WrapMethod(method = "onBlockPlacedByWorld")
+//    private void onBlockPlacedByWorld(World world, int x, int y, int z, Operation<Void> original) {
+//        if (world.dimension == AetherDimension.getAether()) {
+//            world.setBlock(x, y, z, 0);
+//            return;
+//        }
+//        original.call(world, x, y, z);
+//    }
 }

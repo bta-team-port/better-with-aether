@@ -2,6 +2,8 @@ package teamport.aether.entity.boss.sunspirit;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
@@ -75,7 +77,8 @@ public class MobBossSunspirit extends MobBossFlying {
     public void updateAI() {
         super.updateAI();
         if (this.isAgro) {
-            moveSunspirit();
+            this.moveSunspirit();
+            this.setFloorOnFire();
             this.target = this.findPlayerToAttack();
             if (target != null) {
                 this.lookAt(this.target, 20.0F, 20.0F);
@@ -85,6 +88,17 @@ public class MobBossSunspirit extends MobBossFlying {
             }
         }
     }
+
+    private void setFloorOnFire() {
+        int ix = (int)Math.floor(this.x);
+        int iy = (int)Math.floor(this.y - 1);
+        int iz = (int)Math.floor(this.z);
+        Block<?> block = this.world.getBlock(ix, iy, iz);
+        if(block == null || block.id() == 0){
+            this.world.setBlockWithNotify(ix, iy, iz, Blocks.FIRE.id());
+        }
+    }
+
 
     @SuppressWarnings("java:S131")
     protected void moveSunspirit() {
@@ -106,9 +120,9 @@ public class MobBossSunspirit extends MobBossFlying {
         this.zd = this.defaultVector.y * speed;
     }
 
-    private void rotateSunspirit(float angle) {
-        float cos = MathHelper.cos(angle);
-        float sin = MathHelper.sin(angle);
+    private void rotateSunspirit(double angle) {
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
         double theX = this.defaultVector.x * cos - this.defaultVector.y * sin;
         double theZ = this.defaultVector.x * sin + this.defaultVector.y * cos;
         this.defaultVector.x = theX;
