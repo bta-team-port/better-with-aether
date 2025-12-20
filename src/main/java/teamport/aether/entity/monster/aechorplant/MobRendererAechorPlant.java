@@ -40,7 +40,7 @@ public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
         body.rotY = getHeadPitch(entity, partialTick) / 57.29578F;
         float boff = sinage2;
         stem.rotY = body.rotY;
-        stem.posY = boff * 0.5F;
+        stem.posY = (boff * 0.5F) - 1;
 
         String[] petals = {
             "petalLarge1", "petalLarge2", "petalLarge3", "petalLarge4", "petalLarge5",
@@ -59,6 +59,17 @@ public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
         for (String bone : thorns) {
             BoneTransform t = model.getTransform(bone);
             t.rotX += sinage;
+        }
+
+        String[] stalks = {
+            "stalk1", "stalk2", "stalk3"
+        };
+
+        for (String bone : stalks) {
+            BoneTransform t = model.getTransform(bone);
+            t.rotX += sinage / 2;
+            t.rotY += sinage / 2;
+            t.rotZ += sinage / 2;
         }
 
         return model;

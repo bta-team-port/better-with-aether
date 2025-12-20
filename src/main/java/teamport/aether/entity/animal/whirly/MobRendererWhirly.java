@@ -28,9 +28,6 @@ public class MobRendererWhirly extends MobRenderer<MobWhirly> {
             this.bindTexture("/assets/aether/textures/entity/whirly/wind.png");
             float spinSpeed = 0.25F;
 
-            BoneTransform windBase = model.getTransform("windBase");
-            windBase.rotY = (whirly.tickCount + partialTick) * (spinSpeed - 0.025);
-
             BoneTransform wind = model.getTransform("wind");
             wind.rotY = (whirly.tickCount + partialTick) * (spinSpeed);
 
