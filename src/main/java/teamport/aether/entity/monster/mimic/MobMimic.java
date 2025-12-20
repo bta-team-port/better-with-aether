@@ -164,15 +164,11 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
             entity.hurt(this, attack, DamageType.COMBAT);
         }
-
     }
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (damage > 0 && this.isWallace()) damage = Math.max(1, damage / 3);
-        if (type == DamageType.FIRE) {
-            return super.hurt(attacker, damage * 2, type);
-        }
         return super.hurt(attacker, this.extraDamage(attacker, damage), type);
     }
 
@@ -181,23 +177,22 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             return damage;
         }
         ItemStack item = ((Player) attacker).inventory.getCurrentItem();
-        if (item == null) {
-            return damage;
-        }
         Block<?> block = Blocks.getBlock(this.mimicChestID);
-        if (block == null) {
+        if (item == null || block == null) {
             return damage;
         }
-        if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-            && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)
+        int baseDamage = damage;
+        if(block.getMaterial().isFlammable()){
+            baseDamage += damage;
+        }
+        if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)
         ) {
-            return damage << 1;
+            return baseDamage + damage;
         }
-        if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-            && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
-            return damage << 1;
+        if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE) && (item.getItem() instanceof ItemToolPickaxe || item.getItem() instanceof ItemToolPickaxeAether)) {
+            return baseDamage + damage;
         }
-        return damage;
+        return baseDamage;
     }
 
     @Override
