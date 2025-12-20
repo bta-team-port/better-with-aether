@@ -322,7 +322,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         // Place boss, chest and door
 
         MobBossSunspirit boss = new MobBossSunspirit(world);
-        boss.moveTo(bossPosition.getX(), bossPosition.getY(), bossPosition.getZ(), 0f, 0f);
+        boss.moveTo(bossPosition.getX(), bossPosition.getY() + 0.5, bossPosition.getZ(), 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(bossPosition.getX(), bossPosition.getY(), bossPosition.getZ()));
         boss.setDungeonID(logic.id);
         boss.setTrophy(AetherItems.KEY_GOLD.getDefaultStack());

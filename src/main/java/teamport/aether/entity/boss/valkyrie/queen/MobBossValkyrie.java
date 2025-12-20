@@ -253,7 +253,7 @@ public class MobBossValkyrie extends MobBoss {
                 MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
 
-        if (EnvironmentHelper.isClientWorld()) {
+        if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 
@@ -428,7 +428,7 @@ public class MobBossValkyrie extends MobBoss {
 
             if (!EnvironmentHelper.isServerEnvironment()) {
                 Minecraft.getMinecraft().sndManager.stopMusic();
-                world.playSoundAtEntity(null, this, "aether:aether_music_boss.valkyrieboss", 1.0F, 1.0F);
+                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.valkyrieboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
             }
 
             ((AetherBossList) attacker).aether$TryAddBossList(this);

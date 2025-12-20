@@ -312,7 +312,7 @@
     "sounds": [
       {
         "name": "music/clouds.ogg",
-        "volume": 0.1,
+        "volume": 0.5,
         "stream": true
       }
     ]
@@ -321,7 +321,7 @@
     "sounds": [
       {
         "name": "music/sliderboss.ogg",
-        "volume": 0.1,
+        "volume": 0.5,
         "stream": true,
         "attenuation_distance": 128
       }
@@ -331,7 +331,7 @@
     "sounds": [
       {
         "name": "music/fireboss.ogg",
-        "volume": 0.1,
+        "volume": 0.5,
         "stream": true,
         "attenuation_distance": 128
       }

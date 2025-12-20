@@ -40,7 +40,7 @@ public class ParticleWhirlySpiralEvil extends Particle {
         }
 
         this.angle += 0.75;
-        this.radius += 0.008 * (age * 2);
+        this.radius += 0.008 * (age * 4);
 
         this.x = this.centerX + Math.cos(this.angle) * this.radius;
         this.z = this.centerZ + Math.sin(this.angle) * this.radius;

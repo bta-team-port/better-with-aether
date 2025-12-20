@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.LightmapHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
 import org.useless.dragonfly.renderer.MobRenderer;
@@ -24,10 +23,6 @@ public class MobRendererSentry extends MobRenderer<MobSentry> {
             if (LightmapHelper.isLightmapEnabled()) {
                 LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
             }
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glDisable(GL11.GL_ALPHA_TEST);
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
         StaticEntityModel model = this.getModel("main");

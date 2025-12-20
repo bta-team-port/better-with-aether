@@ -24,7 +24,7 @@ public abstract class MobMonsterAether extends MobMonster implements Enemy {
         int blockY = MathHelper.floor(this.bb.minY);
         int blockZ = MathHelper.floor(this.z);
 
-        if (this.world == null || this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 0) {
+        if (this.world == null || this.world.getSavedLightValue(LightLayer.Block, blockX, blockY, blockZ) > 7) {
             return false;
         } else if (this.world.getSavedLightValue(LightLayer.Sky, blockX, blockY, blockZ) > this.random.nextInt(32)) {
             return false;

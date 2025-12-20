@@ -1,10 +1,13 @@
 package teamport.aether.entity.animal.whirly;
 
 import net.minecraft.client.entity.particle.Particle;
+import net.minecraft.core.WeightedRandomBag;
+import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.Creature;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
@@ -20,6 +23,7 @@ import teamport.aether.item.AetherItems;
 public class MobWhirly extends MobAetherAnimal implements Creature {
     private int lootTimer;
     private final int maxLifetime;
+    private static final WeightedRandomBag<WeightedRandomLootObject> LOOT_BAG = new WeightedRandomBag<>();
 
     public MobWhirly(World world) {
         super(world);
@@ -33,7 +37,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-        ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
+            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
         }
     }
 
@@ -55,26 +59,31 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         }
 
         if (this.lootTimer >= 256) {
-            int drop = this.loot();
-            if (drop != 0) {
-                this.dropItem(drop, 1);
+            WeightedRandomLootObject lootObject = LOOT_BAG.getRandom();
+            if (lootObject != null) {
+                ItemStack stack = lootObject.getItemStack();
+                if (stack != null) {
+                    this.dropItem(stack.copy(), 0.0F);
+                }
             }
             this.lootTimer = 0;
         }
 
     }
 
-    private int loot() {
-        int i = this.random.nextInt(100) + 1;
-        if (i == 100) return AetherBlocks.BLOCK_GRAVITITE.id();
-        if (i >= 96) return AetherItems.ZANITE.id;
-        if (i >= 91) return AetherItems.PETAL_AECHOR.id;
-        if (i >= 82) return AetherItems.AMBROSIUM.id;
-        if (i >= 75) return AetherBlocks.DIRT_AETHER.id();
-        if (i >= 64) return AetherBlocks.ICESTONE.id();
-        if (i >= 52) return AetherItems.STICK_SKYROOT.id;
-        if (i >= 38) return AetherItems.AMBER.id;
-        return i > 20 ? AetherBlocks.LOG_SKYROOT.id() : AetherBlocks.QUICKSOIL.id();
+    static {
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.BLOCK_GRAVITITE), 1, 1), 1);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.ZANITE),           1, 2), 4);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBROSIUM),        1, 8), 5);
+
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.PETAL_AECHOR),     1, 4), 9);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.STICK_SKYROOT),    1, 8), 12);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBER),            1, 4), 14);
+
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.DIRT_AETHER),     1, 16), 15);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.ICESTONE),        1, 8), 11);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.LOG_SKYROOT),     1, 4), 17);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.QUICKSOIL),       1, 8), 21);
     }
 
     @Override
@@ -97,19 +106,19 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         if (this.world != null && !(entity instanceof MobWhirly) && !(entity instanceof Particle)) {
             switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
-                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
+                    entity.fling(0, launchSpeed / 4, -launchSpeed / distanceTo, 0);
                     break;
 
                 case SOUTH:
-                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
+                    entity.fling(0, launchSpeed / 4, launchSpeed / distanceTo, 0);
                     break;
 
                 case EAST:
-                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    entity.fling(launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
                     break;
 
                 case WEST:
-                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    entity.fling(-launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
                     break;
             }
             return false;

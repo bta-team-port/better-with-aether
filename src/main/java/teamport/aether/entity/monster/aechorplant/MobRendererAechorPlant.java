@@ -2,38 +2,76 @@ package teamport.aether.entity.monster.aechorplant;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.MobRenderer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.useless.dragonfly.models.entity.BoneTransform;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
+import org.useless.dragonfly.renderer.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
-    private final ModelAechorPlant setArmorModel;
 
-    public MobRendererAechorPlant(ModelAechorPlant modelBase, float shadowSize) {
-        super(modelBase, shadowSize);
-        this.setArmorModel(modelBase);
-        this.setArmorModel = modelBase;
+    public MobRendererAechorPlant(float shadowSize) {
+        super(shadowSize);
     }
 
     @Override
-    public void setupScale(MobAechorPlant aechorPlant, float partialTick) {
-        float f1 = (float) Math.sin(aechorPlant.getSinage());
-        float f3;
-        if (aechorPlant.hurtTime > 0) {
-            f1 *= 0.45F;
-            f1 -= 0.125F;
-            f3 = 1.75F + (float) Math.sin(aechorPlant.getSinage() + 2.0F) * 1.5F;
-        } else if (aechorPlant.hasTarget()) {
-            f1 *= 0.25F;
-            f3 = 1.75F + (float) Math.sin(aechorPlant.getSinage() + 2.0F) * 1.5F;
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobAechorPlant entity, float brightness, float partialTick, int layer) {
+        StaticEntityModel model = this.getModel("main");
+        model.resetBones();
+
+        float sinage = (float) Math.sin(entity.getSinage());
+        float sinage2;
+        if (entity.hurtTime > 0) {
+            sinage *= 0.45F;
+            sinage -= 0.125F;
+            sinage2 = 1.75F + (float) Math.sin(entity.getSinage() + 2.0F) * 1.5F;
+        } else if (entity.hasTarget()) {
+            sinage *= 0.25F;
+            sinage2 = 1.75F + (float) Math.sin(entity.getSinage() + 2.0F) * 1.5F;
         } else {
-            f1 *= 0.125F;
-            f3 = 1.75F;
+            sinage *= 0.125F;
+            sinage2 = 1.75F;
         }
 
-        this.setArmorModel.setSinage(f1);
-        this.setArmorModel.setSinage2(f3);
-        float f2 = 0.625F + aechorPlant.footSize / 6.0F;
-        this.setArmorModel.setSize(f2);
-        this.shadowSize = f2 - 0.25F;
+        BoneTransform body = model.getTransform("body");
+        BoneTransform stem = model.getTransform("stem");
+        body.rotX = 0.0F;
+        body.rotY = getHeadPitch(entity, partialTick) / 57.29578F;
+        float boff = sinage2;
+        stem.rotY = body.rotY;
+        stem.posY = (boff * 0.5F) - 1;
+
+        String[] petals = {
+            "petalLarge1", "petalLarge2", "petalLarge3", "petalLarge4", "petalLarge5",
+            "petalSmall1", "petalSmall2", "petalSmall3", "petalSmall4", "petalSmall5"
+        };
+
+        for (String bone : petals) {
+            BoneTransform t = model.getTransform(bone);
+            t.rotX += sinage;
+        }
+
+        String[] thorns = {
+            "thorn1", "thorn2", "thorn3", "thorn4", "thorn5", "thorn6", "thorn7", "thorn8"
+        };
+
+        for (String bone : thorns) {
+            BoneTransform t = model.getTransform(bone);
+            t.rotX += sinage;
+        }
+
+        String[] stalks = {
+            "stalk1", "stalk2", "stalk3"
+        };
+
+        for (String bone : stalks) {
+            BoneTransform t = model.getTransform(bone);
+            t.rotX += sinage / 2;
+            t.rotY += sinage / 2;
+            t.rotZ += sinage / 2;
+        }
+
+        return model;
     }
 }

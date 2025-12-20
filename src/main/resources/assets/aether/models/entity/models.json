@@ -12,7 +12,8 @@
     "/assets/aether/models/entity/sentry/sentry.geo.json",
     "/assets/aether/models/entity/whirly/whirly.geo.json",
     "/assets/aether/models/entity/tempest/tempest.geo.json",
-    "/assets/aether/models/entity/fire_minion/fire_minion.geo.json"
+    "/assets/aether/models/entity/fire_minion/fire_minion.geo.json",
+    "/assets/aether/models/entity/aechorplant/aechorplant.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -69,6 +70,9 @@
     "aether:fire_minion": {
       "main":"geometry.fire_minion",
       "fire":"geometry.fire_minion.fire"
+    },
+    "aether:aechorplant": {
+      "main":"geometry.aechorplant"
     }
   }
 }

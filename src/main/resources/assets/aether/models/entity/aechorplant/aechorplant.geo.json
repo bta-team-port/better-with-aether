@@ -1,0 +1,233 @@
+{
+	"format_version": "1.10.0",
+	"geometry.aechorplant": {
+		"texturewidth": 64,
+		"textureheight": 32,
+		"visible_bounds_width": 3,
+		"visible_bounds_height": 3.5,
+		"visible_bounds_offset": [0, 1.25, 0],
+		"bones": [
+			{
+				"name": "stem",
+				"pivot": [0, 0, 0],
+				"cubes": [
+					{"origin": [-1, 0, -1], "size": [2, 7, 2], "uv": [24, 13]}
+				]
+			},
+			{
+				"name": "thorn",
+				"parent": "stem",
+				"pivot": [0, 0, 0],
+				"cubes": [
+					{"origin": [1, 3, 1], "size": [0, 1, 1], "uv": [33, 12]},
+					{"origin": [-2, 4, 1], "size": [1, 1, 0], "uv": [33, 13]},
+					{"origin": [1, 4, -1], "size": [1, 1, 0], "uv": [33, 13]},
+					{"origin": [-1, 3, -2], "size": [0, 1, 1], "uv": [33, 12]}
+				]
+			},
+			{
+				"name": "body",
+				"parent": "stem",
+				"pivot": [0, 7, 0],
+				"cubes": [
+					{"origin": [-3, 7, -3], "size": [6, 2, 6], "uv": [0, 12]}
+				]
+			},
+			{
+				"name": "petalLarge1",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-25, 180, 0],
+				"cubes": [
+					{"origin": [-4, 7, -13], "size": [8, 0, 10], "uv": [0, 0]}
+				]
+			},
+			{
+				"name": "petalLarge2",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-25, 107.5, 0],
+				"cubes": [
+					{"origin": [-4, 7, -13], "size": [8, 0, 10], "uv": [0, 0]}
+				]
+			},
+			{
+				"name": "petalLarge3",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-25, 40, 0],
+				"cubes": [
+					{"origin": [-4, 7, -13], "size": [8, 0, 10], "uv": [0, 0]}
+				]
+			},
+			{
+				"name": "petalLarge4",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-25, -40, 0],
+				"cubes": [
+					{"origin": [-4, 7, -13], "size": [8, 0, 10], "uv": [0, 0]}
+				]
+			},
+			{
+				"name": "petalLarge5",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-25, -107.5, 0],
+				"cubes": [
+					{"origin": [-4, 7, -13], "size": [8, 0, 10], "uv": [0, 0]}
+				]
+			},
+			{
+				"name": "petalSmall1",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-15, 0, 0],
+				"cubes": [
+					{"origin": [-4, 7, -12], "size": [8, 0, 10], "uv": [28, 2]}
+				]
+			},
+			{
+				"name": "petalSmall2",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-15, -72.5, 0],
+				"cubes": [
+					{"origin": [-4, 7, -12], "size": [8, 0, 10], "uv": [28, 2]}
+				]
+			},
+			{
+				"name": "petalSmall3",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-15, -145, 0],
+				"cubes": [
+					{"origin": [-4, 7, -12], "size": [8, 0, 10], "uv": [28, 2]}
+				]
+			},
+			{
+				"name": "petalSmall4",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-15, 145, 0],
+				"cubes": [
+					{"origin": [-4, 7, -12], "size": [8, 0, 10], "uv": [28, 2]}
+				]
+			},
+			{
+				"name": "petalSmall5",
+				"parent": "body",
+				"pivot": [0, 6, 0],
+				"rotation": [-15, 72.5, 0],
+				"cubes": [
+					{"origin": [-4, 7, -12], "size": [8, 0, 10], "uv": [28, 2]}
+				]
+			},
+			{
+				"name": "thorn1",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [5, 0, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn2",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [5, -90, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn3",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [5, 180, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn4",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [5, 90, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn5",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [15, 45, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn6",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [15, -45, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn7",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [15, -135, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "thorn8",
+				"parent": "body",
+				"pivot": [0, 7, 0],
+				"rotation": [15, 135, 0],
+				"cubes": [
+					{"origin": [-2, 7, -9], "size": [4, 0, 8], "uv": [38, 13]}
+				]
+			},
+			{
+				"name": "stalk1",
+				"parent": "body",
+				"pivot": [0, 9, 0],
+				"rotation": [10, 0, 5],
+				"cubes": [
+					{"origin": [-1, 9, -1.5], "size": [1, 6, 0], "uv": [37, 14]},
+					{"origin": [-0.5, 9, -2], "size": [0, 6, 1], "uv": [37, 13]},
+					{"origin": [-1, 15, -2], "size": [1, 0, 1], "uv": [32, 15]}
+				]
+			},
+			{
+				"name": "stalk2",
+				"parent": "body",
+				"pivot": [0, 9, 0],
+				"rotation": [-10, 0, 10],
+				"cubes": [
+					{"origin": [1, 9, 0.5], "size": [1, 6, 0], "uv": [37, 14]},
+					{"origin": [1.5, 9, 0], "size": [0, 6, 1], "uv": [37, 13]},
+					{"origin": [1, 15, 0], "size": [1, 0, 1], "uv": [32, 15]}
+				]
+			},
+			{
+				"name": "stalk3",
+				"parent": "body",
+				"pivot": [0, 9, 0],
+				"rotation": [-5, 0, -10],
+				"cubes": [
+					{"origin": [-2, 9, 1.5], "size": [1, 6, 0], "uv": [37, 14]},
+					{"origin": [-1.5, 9, 1], "size": [0, 6, 1], "uv": [37, 13]},
+					{"origin": [-2, 15, 1], "size": [1, 0, 1], "uv": [32, 15]}
+				]
+			}
+		]
+	}
+}
