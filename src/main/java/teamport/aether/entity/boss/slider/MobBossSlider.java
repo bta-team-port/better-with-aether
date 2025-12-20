@@ -2,10 +2,6 @@ package teamport.aether.entity.boss.slider;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.sound.SoundCategoryHelper;
-import net.minecraft.client.sound.SoundEngine;
-import net.minecraft.client.sound.SoundEntry;
-import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.MaterialLiquid;
 import net.minecraft.core.entity.Entity;
@@ -303,7 +299,7 @@ public class MobBossSlider extends MobBoss {
                 this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
             });
 
-        if (EnvironmentHelper.isClientWorld()) {
+        if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 
@@ -381,7 +377,7 @@ public class MobBossSlider extends MobBoss {
     }
 
     public void tryAwake() {
-        if(this.world == null){
+        if (this.world == null) {
             return;
         }
         if (!this.world.getDifficulty().canHostileMobsSpawn()) {
@@ -394,7 +390,7 @@ public class MobBossSlider extends MobBoss {
 
             if (!EnvironmentHelper.isServerEnvironment()) {
                 Minecraft.getMinecraft().sndManager.stopMusic();
-                world.playSoundAtEntity(null, this, "aether:aether_music_boss.sliderboss", 1.0F, 1.0F);
+                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.sliderboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
             }
 
             this.wakeUpTimer = WAKEUP_TIMER;
@@ -566,7 +562,7 @@ public class MobBossSlider extends MobBoss {
             this.currentState.getConsumer().accept(this);
         }
         this.updateEntityData();
-        if(this.isAwake()) {
+        if (this.isAwake()) {
             this.wakeUpTimer--;
         }
     }
@@ -584,7 +580,7 @@ public class MobBossSlider extends MobBoss {
     }
 
     private void moveSlider() {
-        if(!this.isAwake() || this.wakeUpTimer > 0) return;
+        if (!this.isAwake() || this.wakeUpTimer > 0) return;
 
         if (this.moveDirection == Direction.NONE) {
             this.blocksToMove = 0;
@@ -598,7 +594,7 @@ public class MobBossSlider extends MobBoss {
                 moveAmount * this.moveDirection.getOffsetZ()
             );
             this.blocksToMove -= moveAmount;
-        }else {
+        } else {
             move(
                 this.blocksToMove * this.moveDirection.getOffsetX(),
                 this.blocksToMove * this.moveDirection.getOffsetY(),
@@ -606,13 +602,13 @@ public class MobBossSlider extends MobBoss {
             );
             this.blocksToMove = 0;
         }
-        if(this.x == this.xo && this.y == this.yo && this.z == this.zo){
+        if (this.x == this.xo && this.y == this.yo && this.z == this.zo) {
             this.moveDirection = Direction.UP;
         }
     }
 
     private int getBlocksBroken() {
-        if(this.world == null){
+        if (this.world == null) {
             return 0;
         }
         int blocksBroken = 0;
@@ -703,7 +699,7 @@ public class MobBossSlider extends MobBoss {
     }
 
     public boolean breakBlock(@NonNull World world, int x, int y, int z) {
-        if(this.getHealth() <= 0){
+        if (this.getHealth() <= 0) {
             return false;
         }
         Block<?> block = world.getBlock(x, y, z);

@@ -22,7 +22,6 @@ import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.core.util.vector.Vec2f;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.boss.AetherBossList;
-import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.monster.fireminion.MobFireMinion;
 import teamport.aether.entity.player.MessageMaker;
 import teamport.aether.entity.projectile.ProjectileElementFire;
@@ -101,7 +100,7 @@ public class MobBossSunspirit extends MobBossFlying {
         );
         HitResult hitResult = this.world.checkBlockCollisionBetweenPoints(currentPos, nextPos, false);
         if (hitResult != null || this.isInWall()) {
-            rotateSunspirit(MathHelper.toRadians((float) (45.0f + this.random.nextGaussian() * 15.0f)));
+            rotateSunspirit(MathHelper.toRadians((float) (90.0f + (this.random.nextFloat() + 0.5) * 45.0f)));
         }
         this.xd = this.defaultVector.x * speed;
         this.zd = this.defaultVector.y * speed;
@@ -249,7 +248,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
                 if (!EnvironmentHelper.isServerEnvironment()) {
                     Minecraft.getMinecraft().sndManager.stopMusic();
-                    world.playSoundAtEntity(null, this, "aether:aether_music_boss.fireboss", 1.0F, 1.0F);
+                    Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.fireboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
                 }
 
                 return true;
@@ -290,7 +289,7 @@ public class MobBossSunspirit extends MobBossFlying {
                 this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
 
-        if (EnvironmentHelper.isClientWorld()) {
+        if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
         }
 

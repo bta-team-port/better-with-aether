@@ -106,19 +106,19 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         if (this.world != null && !(entity instanceof MobWhirly) && !(entity instanceof Particle)) {
             switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
                 case NORTH:
-                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
+                    entity.fling(0, launchSpeed / 4, -launchSpeed / distanceTo, 0);
                     break;
 
                 case SOUTH:
-                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
+                    entity.fling(0, launchSpeed / 4, launchSpeed / distanceTo, 0);
                     break;
 
                 case EAST:
-                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    entity.fling(launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
                     break;
 
                 case WEST:
-                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
+                    entity.fling(-launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
                     break;
             }
             return false;
