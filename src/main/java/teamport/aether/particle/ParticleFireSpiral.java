@@ -29,7 +29,7 @@ public class ParticleFireSpiral extends Particle {
         this.setRot(0.25F + this.random.nextFloat() * 0.1F, 0.25F + this.random.nextFloat() * 0.1F);
         this.angle = this.random.nextDouble() * Math.PI * 2.0;
         this.radius = 0.25 + this.random.nextDouble() * 0.5;
-        this.yd = 0.44;
+        this.yd = 0.24;
     }
 
 
@@ -63,7 +63,7 @@ public class ParticleFireSpiral extends Particle {
         }
 
         this.angle += 0.75;
-        this.radius += 0.008 * (age * 2);
+        this.radius += 0.008 * (age);
         this.x = this.centerX + Math.cos(this.angle) * this.radius;
         this.z = this.centerZ + Math.sin(this.angle) * this.radius;
         this.y += this.yd;
