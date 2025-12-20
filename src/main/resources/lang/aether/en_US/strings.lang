@@ -24,7 +24,7 @@ container.enchanter.name=Enchanter
 container.freezer.name=Freezer
 container.incubator.name=Incubator
 
-container.chest.trapped.name=Trapped Chest
+container.chest.trapped.name=Mimic
 
 damagetype.lightning=Lightning
 damagetype.holy=Holy

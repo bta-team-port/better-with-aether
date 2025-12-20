@@ -76,7 +76,7 @@ public class AetherDimension {
         List<Integer> aetherBlacklist = getDimensionBlacklist(AETHER);
 
         aetherBlacklist.add(Blocks.PORTAL_NETHER.id());
-        aetherBlacklist.add(Blocks.FIRE.id());
+//        aetherBlacklist.add(Blocks.FIRE.id());
         aetherBlacklist.add(Blocks.TORCH_COAL.id());
 
         /// these blocks are replaced on placement.
