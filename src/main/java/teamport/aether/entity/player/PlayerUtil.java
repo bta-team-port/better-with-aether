@@ -88,22 +88,24 @@ public class PlayerUtil {
         return player.y - player.bbHeight;
     }
 
+    public static void damageItem(Player player, ItemStack stack, InventoryType type, int index) {
+        PlayerUtil.damageItem(player, 1, stack, type, index);
+    }
+
     /// The normal damageItem does not destroy the item if the item durability hits zero.
-    public static void damageItem(Player player, ItemStack stack, int itemDamage, InventoryType type, int index) {
+    public static void damageItem(Player player, int itemDamage, ItemStack stack, InventoryType type, int index) {
         stack.damageItem(itemDamage, player);
         if (stack.stackSize <= 0) {
             switch (type) {
                 case HOLD:
                     player.destroyCurrentEquippedItem();
                     return;
-                case MAIN:
-                    player.inventory.mainInventory[index] = null;
-                    return;
                 case ARMOR:
-                    player.inventory.armorInventory[index] = null;
+                    PlayerUtil.damageItemArmor(player, itemDamage, stack, index);
                     return;
+                case MAIN:
                 default:
-                    --stack.stackSize;
+                    PlayerUtil.damageItemMain(player, itemDamage, stack, index);
             }
         }
     }
@@ -149,7 +151,7 @@ public class PlayerUtil {
         }
         if (radius < 0.0F) {
             PriorityEntry<Player> playerEntry = playerHeap.poll();
-            if(playerEntry == null){
+            if (playerEntry == null) {
                 return null;
             }
             return playerEntry.getData();
@@ -160,11 +162,11 @@ public class PlayerUtil {
     @SuppressWarnings("java:S135")
     private static @Nullable Player returnClosestPlayer(PriorityQueue<PriorityEntry<Player>> playerHeap, double radius) {
         double rSquared = radius * radius;
-        while(!playerHeap.isEmpty()){
+        while (!playerHeap.isEmpty()) {
             PriorityEntry<Player> playerEntry = playerHeap.poll();
             Player player = playerEntry.getData();
             double distance = playerEntry.getWeight();
-            if (distance < rSquared){
+            if (distance < rSquared) {
                 continue;
             }
             if (player instanceof AetherInvisibility) {
