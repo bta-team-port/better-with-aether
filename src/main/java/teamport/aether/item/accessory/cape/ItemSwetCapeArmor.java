@@ -20,6 +20,7 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
 
     @Override
     public void inventoryTick(ItemStack itemstack, @NonNull World world, @NonNull Entity entity, int slotId, boolean flag) {
+        if(!(entity instanceof Player)){ return;}
         Player player = (Player) entity;
         List<MobSwet> list = world.getEntitiesWithinAABB(MobSwet.class, entity.bb.grow(6.0D, 3.0D, 6.0D));
 
