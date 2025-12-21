@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherStatus;
 
 @Mixin(value = MobPathfinder.class, remap = false)
 public abstract class MobPathfinderMixinForgetPlayerWhenToFar {
@@ -20,7 +20,7 @@ public abstract class MobPathfinderMixinForgetPlayerWhenToFar {
     public abstract void setTarget(@Nullable Entity target);
     @Inject(method = "updateAI", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/MobPathfinder;isMovementCeased()Z"))
     private void forgetsPlayer(CallbackInfo ci) {
-        if (this.target != null && target instanceof Player && ((AetherInvisibility) target).aether$isInvisible()) {
+        if (this.target != null && target instanceof Player && ((AetherStatus) target).aether$isInvisible()) {
             MobPathfinder mob = (MobPathfinder) (Object) this;
             float distanceToEntity = this.target.distanceTo(mob);
             if (distanceToEntity > 16) {

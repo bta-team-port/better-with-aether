@@ -190,7 +190,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
     private Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = PlayerUtil.getClosestPlayerToEntity(this.world, this, (float) 100.0);
+        Player player = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, (float) 100.0);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }

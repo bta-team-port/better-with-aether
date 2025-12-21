@@ -10,7 +10,7 @@ import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.cape.ItemInvisibilityCapeArmor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.PriorityQueue;
@@ -138,46 +138,59 @@ public class PlayerUtil {
         PlayerUtil.damageItemArmor(player, 1, stack, index);
     }
 
-    /// The default way of finding player does not account for invisible player. The default is used by other function
-    /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.
-    public static Player getClosestPlayerToEntity(World world, Entity entity, double radius) {
-        return getClosestPlayerToEntity(world, entity.x, entity.y, entity.z, radius);
+    @FunctionalInterface
+    public interface PlayerStatus {
+        boolean test(Player player, Double distance);
     }
 
-    public static @Nullable Player getClosestPlayerToEntity(World world, double x, double y, double z, double radius) {
+
+    /// The default way of finding player does not account for invisible player. The default is used by other function
+    /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.
+    public static Player getClosestNonInvisPlayerToEntity(World world, Entity entity, double radius) {
+        return getClosestPlayerToEntity(world, entity, radius, ItemInvisibilityCapeArmor::isInvisible);
+    }
+
+    /// The default way of finding player does not account for invisible player. The default is used by other function
+    /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.
+    public static Player getClosestPlayerToEntity(World world, Entity entity, double radius, PlayerStatus ... playerStatus) {
+        if (radius < 0.0F || playerStatus.length == 0) {
+            return world.getClosestPlayerToEntity(entity, radius);
+        }
+        return PlayerUtil.getClosestPlayerToEntity(world, entity.x, entity.y, entity.z, radius, playerStatus);
+    }
+
+    public static @Nullable Player getClosestPlayerToEntity(World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
+
         PriorityQueue<PriorityEntry<Player>> playerHeap = new PriorityQueue<>();
         for (Player currentPlayer : world.players) {
-            playerHeap.add(PriorityEntry.pEntry(currentPlayer.distanceToSqr(x, y, z), currentPlayer));
+            playerHeap.add(PriorityEntry.Entry(currentPlayer.distanceToSqr(x, y, z), currentPlayer));
         }
-        if (radius < 0.0F) {
-            PriorityEntry<Player> playerEntry = playerHeap.poll();
-            if (playerEntry == null) {
-                return null;
-            }
-            return playerEntry.getData();
-        }
-        return PlayerUtil.returnClosestPlayer(playerHeap, radius);
+        return PlayerUtil.returnClosestPlayer(playerHeap, radius, playerStatus);
     }
 
     @SuppressWarnings("java:S135")
-    private static @Nullable Player returnClosestPlayer(PriorityQueue<PriorityEntry<Player>> playerHeap, double radius) {
-        double rSquared = radius * radius;
+    private static @Nullable Player returnClosestPlayer(PriorityQueue<PriorityEntry<Player>> playerHeap, double radius, PlayerStatus[] playerStatus) {
         while (!playerHeap.isEmpty()) {
             PriorityEntry<Player> playerEntry = playerHeap.poll();
             Player player = playerEntry.getData();
             double distance = playerEntry.getWeight();
-            if (distance < rSquared) {
+            if (distance < radius) {
                 continue;
             }
-            if (player instanceof AetherInvisibility) {
-                AetherInvisibility potentialInvisiblePlayer = (AetherInvisibility) player;
-                if (potentialInvisiblePlayer.aether$isInvisible() && playerEntry.getWeight() > 2) {
-                    continue;
-                }
-                return player;
+            if (PlayerUtil.test(playerStatus, player, distance)) {
+                continue;
             }
             return player;
         }
         return null;
     }
+
+    private static boolean test(PlayerStatus[] playerStatus, Player player, double distance){
+        boolean acc = false;
+        for(PlayerStatus status: playerStatus){
+            acc |=  status.test(player, distance);
+        }
+        return acc;
+    }
+
 }

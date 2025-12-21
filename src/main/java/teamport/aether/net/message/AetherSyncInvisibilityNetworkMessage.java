@@ -3,7 +3,7 @@ package teamport.aether.net.message;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherStatus;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
@@ -18,7 +18,7 @@ public class AetherSyncInvisibilityNetworkMessage implements NetworkMessage {
 
     public AetherSyncInvisibilityNetworkMessage(Player player) {
         this.playerUUID = player.uuid;
-        this.invisibility = ((AetherInvisibility) player).aether$isInvisible();
+        this.invisibility = ((AetherStatus) player).aether$isInvisible();
     }
 
     @Override
@@ -39,6 +39,6 @@ public class AetherSyncInvisibilityNetworkMessage implements NetworkMessage {
 
         if (world != null) world.players.stream()
             .filter(p -> p.uuid.equals(playerUUID))
-            .forEach(p -> ((AetherInvisibility) p).aether$SyncVisibility(invisibility));
+            .forEach(p -> ((AetherStatus) p).aether$SyncVisibility(invisibility));
     }
 }
