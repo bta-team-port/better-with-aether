@@ -14,8 +14,8 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.entity.projectile.ProjectileWindball;
-import teamport.aether.item.accessory.AetherInvisibility;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     private int courseChangeCooldown = 0;
@@ -59,6 +59,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         return "/assets/aether/textures/entity/zephyr_fire/" + this.getTextureReference() + ".png";
     }
 
+    @SuppressWarnings("java:S1192")
     @Override
     public void tick() {
         if (this.world != null && this.world.isClientSide) {
@@ -90,7 +91,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         return !(entity instanceof ProjectileWindball);
     }
 
-    @SuppressWarnings("java:S6541")
+    @SuppressWarnings({"java:S6541", "java:S3776", "java:S1192"})
     @Override
     public void updateAI() {
         if (this.world != null && !this.world.isClientSide && !this.world.getDifficulty().canHostileMobsSpawn()) {
@@ -131,7 +132,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
         }
 
         if (this.targetedEntity == null || this.aggroCooldown-- <= 0) {
-            this.targetedEntity = findPlayerToAttack();
+            this.targetedEntity = this.findPlayerToAttack();
             if (this.targetedEntity != null) {
                 this.aggroCooldown = 20;
             }
@@ -189,19 +190,9 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
     private Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = this.world.getClosestPlayerToEntity(this, (float) 100.0);
+        Player player = PlayerUntil.getClosestPlayerToEntity(this.world, this, (float) 100.0);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
-        }
-        if (player instanceof AetherInvisibility) {
-            AetherInvisibility invPlayer = (AetherInvisibility) player;
-            if (invPlayer.aether$isInvisible()) {
-                Player newPlayer = this.world.getClosestPlayerToEntity(this, 2.0);
-                if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
-                    return null;
-                }
-                return newPlayer;
-            }
         }
         return player;
     }

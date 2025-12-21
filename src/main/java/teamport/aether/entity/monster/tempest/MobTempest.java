@@ -12,8 +12,10 @@ import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.helper.ParticleMaker;
 
+@SuppressWarnings("java:S110")
 public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int cooldown;
     private final int maxLifetime;
@@ -45,6 +47,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         }
     }
 
+    @SuppressWarnings("java:S1192")
     @Override
     public void updateAI() {
         super.updateAI();
@@ -69,6 +72,12 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
             this.world.entityJoinedWorld(elementLightning);
             this.cooldown = 0;
         }
+    }
+    @Override
+    protected Entity findPlayerToAttack() {
+        if (this.world == null) return null;
+        Player entityplayer =  PlayerUntil.getClosestPlayerToEntity(this.world, this, 16.0);
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     @SuppressWarnings("java:S131")

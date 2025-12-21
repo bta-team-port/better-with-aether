@@ -30,8 +30,8 @@ import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.helper.unboxed.IntPair;
-import teamport.aether.item.accessory.AetherInvisibility;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
@@ -45,6 +45,7 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
+@SuppressWarnings("java:S110")
 public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private int mimicTime;
     int mimicChestID = AetherBlocks.CHEST_MIMIC_SKYROOT.id();
@@ -136,20 +137,9 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     @Override
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = this.world.getClosestPlayerToEntity(this, 64.0);
+        Player player = PlayerUntil.getClosestPlayerToEntity(this.world, this, 64);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
-        }
-        if (!(player instanceof AetherInvisibility)) {
-            return player;
-        }
-        AetherInvisibility invPlayer = (AetherInvisibility) player;
-        if (invPlayer.aether$isInvisible()) {
-            Player newPlayer = this.world.getClosestPlayerToEntity(this, 2.0);
-            if (newPlayer == null || !this.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
-                return null;
-            }
-            return newPlayer;
         }
         return player;
     }
@@ -289,6 +279,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);
     }
 
+    @SuppressWarnings("java:S3776")
     private IntPair getTarget(World world, WorldFeaturePoint point) {
         Map<WorldFeaturePoint, Integer> distance = new HashMap<>();
         Queue<WorldFeaturePoint> queue = new ArrayDeque<>();
