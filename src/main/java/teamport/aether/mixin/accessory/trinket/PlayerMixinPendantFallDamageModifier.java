@@ -6,7 +6,7 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.player.ContainerHelper;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
@@ -16,7 +16,7 @@ public abstract class PlayerMixinPendantFallDamageModifier {
         Mob mob = (Mob) (Object) this;
         if (mob instanceof Player) {
             Player player = (Player) mob;
-            return Math.ceil(damage - ContainerHelper.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2);
+            return Math.ceil(damage - PlayerUntil.countAccessoriesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) * 2);
         }
         return original.call(damage);
     }

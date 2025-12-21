@@ -43,7 +43,7 @@ public class ItemToolPickaxeValkyrie extends ItemToolPickaxeAether implements Ae
         if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
             return !VeinMining
                 .veinMining(world, itemStack, x, y, z, player)
-                .setDropCause(PlayerUntil.isSilkTouch(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
+                .setDropCause(PlayerUntil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
                 .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.MINEABLE_BY_PICKAXE)
                 .mine(blockId, side);
         }
