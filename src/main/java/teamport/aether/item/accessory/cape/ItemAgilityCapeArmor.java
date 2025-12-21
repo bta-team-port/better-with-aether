@@ -17,6 +17,7 @@ public class ItemAgilityCapeArmor extends ItemAccessoryArmor implements IAccesso
 
     @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
+        if(!(entity instanceof Player)){ return;}
         Player player = (Player) entity;
         if (
             slotId > player.inventory.mainInventory.length
