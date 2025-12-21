@@ -6,7 +6,7 @@ import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.util.helper.DamageType;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherHasCustomDamageType;
 
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
@@ -66,7 +66,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
         Player player = (Player) attacker;
         ItemStack hold = player.getHeldItem();
         if (hold == null && gloves != null && gloves.getItem() instanceof ItemGloves) {
-            PlayerUntil.damageItemArmor(player, gloves, GLOVES_SLOT);
+            PlayerUtil.damageItemArmor(player, gloves, GLOVES_SLOT);
             return true;
         }
         return false;

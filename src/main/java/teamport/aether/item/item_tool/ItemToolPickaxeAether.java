@@ -12,7 +12,7 @@ import net.minecraft.core.world.World;
 import redart15.commandly.veincapitator.VeinMining;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.compat.commandly.AetherCommandlyRules;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class ItemToolPickaxeAether extends ItemTool {
         if (!world.isClientSide && AetherCommandlyRules.canVeinMine(world) && !player.isSneaking()) {
             return !VeinMining
                 .veinMining(world, itemStack, x, y, z, player)
-                .setDropCause(PlayerUntil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
+                .setDropCause(PlayerUtil.isSilkTouchPendant(player) ? EnumDropCause.SILK_TOUCH : EnumDropCause.PROPER_TOOL)
                 .setMiningTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
                 .mine(blockId, side);
         }

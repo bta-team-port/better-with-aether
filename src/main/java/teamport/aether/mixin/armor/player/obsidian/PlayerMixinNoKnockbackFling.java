@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Entity.class, remap = false)
@@ -17,10 +17,10 @@ public abstract class PlayerMixinNoKnockbackFling {
             return;
         }
         Player player = (Player) (Object) this;
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN) >= 5) {
             return;
         }
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN) >= 3) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN) >= 3) {
             original.call(xd / 4, yd / 4, zd / 4, pushTime / 4);
             return;
         }

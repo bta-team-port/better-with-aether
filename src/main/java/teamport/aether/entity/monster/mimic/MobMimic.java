@@ -30,7 +30,7 @@ import teamport.aether.block.dungeon.BlockLogicPaintedChestMimic;
 import teamport.aether.block.entity.TileEntityMimic;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
@@ -137,7 +137,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     @Override
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = PlayerUntil.getClosestPlayerToEntity(this.world, this, 64);
+        Player player = PlayerUtil.getClosestPlayerToEntity(this.world, this, 64);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }

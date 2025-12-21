@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
@@ -12,7 +12,7 @@ public abstract class PlayerMixinMining {
     @ModifyExpressionValue(method = "getCurrentPlayerStrVsBlock", at = @At(value = "CONSTANT", args = "floatValue=5.0F"))
     private float modifyWaterSlowdownConstant(float original) {
         Player player = (Player) (Object) this;
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return original;
         }
         return 1.0F;

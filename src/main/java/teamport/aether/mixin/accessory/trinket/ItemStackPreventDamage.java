@@ -8,7 +8,7 @@ import net.minecraft.core.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherItems;
 import teamport.aether.mixin.accessors.ItemAccessor;
 
@@ -26,12 +26,12 @@ public abstract class ItemStackPreventDamage {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketOne.getItem()).getItemRand().nextInt(4) == 0) {
-            PlayerUntil.damageItemArmor(player, i, trinketOne, TRINKET_1_SLOT);
+            PlayerUtil.damageItemArmor(player, i, trinketOne, TRINKET_1_SLOT);
             return false;
         }
 
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_STEEL.id && asThis.itemID != AetherItems.ARMOR_TALISMAN_STEEL.id && ((ItemAccessor) trinketTwo.getItem()).getItemRand().nextInt(4) == 0) {
-            PlayerUntil.damageItemArmor(player, i, trinketTwo, TRINKET_2_SLOT);
+            PlayerUtil.damageItemArmor(player, i, trinketTwo, TRINKET_2_SLOT);
             return false;
         }
 

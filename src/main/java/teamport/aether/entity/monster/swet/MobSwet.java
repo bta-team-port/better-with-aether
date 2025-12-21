@@ -17,10 +17,9 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.AetherInvisibility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +136,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void updateAI() {
         this.tryToDespawn();
         if (this.world == null) return;
-        Player entityplayer = PlayerUntil.getClosestPlayerToEntity(this.world, this, 16.0);
+        Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0);
                 boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
         if (!this.friendly && entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);

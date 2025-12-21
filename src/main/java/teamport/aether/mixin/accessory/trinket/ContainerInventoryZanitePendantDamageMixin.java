@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherItems;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
@@ -36,7 +36,7 @@ public abstract class ContainerInventoryZanitePendantDamageMixin {
     private int addDamage(int damage, ItemStack trinket, int slotID) {
         float damagePercent = (float) trinket.getMetadata() / trinket.getMaxDamage();
         float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-        PlayerUntil.damageItemArmor(player, trinket, slotID);
+        PlayerUtil.damageItemArmor(player, trinket, slotID);
         damage += (int) Math.floor(speed);
         return damage;
     }

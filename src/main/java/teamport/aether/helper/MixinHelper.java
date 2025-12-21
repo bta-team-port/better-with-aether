@@ -14,7 +14,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
 
@@ -40,7 +40,7 @@ public class MixinHelper {
     }
 
     public static int fireResistanceCount(ContainerInventory inventory) {
-        return PlayerUntil.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
+        return PlayerUtil.countArmorPiecesOfMaterial(inventory, AetherArmorMaterial.PHOENIX);
     }
 
     public static void damageArmourWithEffect(int damage, Player player, double x, double y, double z, float bbHeight, float bbWidth) {

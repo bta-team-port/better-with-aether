@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Mob.class, remap = false)
@@ -24,7 +24,7 @@ public abstract class MobMixinDrowning extends Entity {
             return;
         }
         Player player = (Player) (Object) this;
-        int count = PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
+        int count = PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.OBSIDIAN);
         yd -= 0.004 * count;
     }
 }

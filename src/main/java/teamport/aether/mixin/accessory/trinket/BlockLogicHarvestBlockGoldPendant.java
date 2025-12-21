@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherItems;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
@@ -52,11 +52,11 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id) {
-            PlayerUntil.damageItemArmor(player, trinketOne, TRINKET_1_SLOT);
+            PlayerUtil.damageItemArmor(player, trinketOne, TRINKET_1_SLOT);
             return;
         }
         if (trinketTwo != null && trinketTwo.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id) {
-            PlayerUntil.damageItemArmor(player, trinketTwo, TRINKET_2_SLOT);
+            PlayerUtil.damageItemArmor(player, trinketTwo, TRINKET_2_SLOT);
         }
     }
     // make it apply when player has no item equipped (e.i barefist)
@@ -82,10 +82,10 @@ public abstract class BlockLogicHarvestBlockGoldPendant {
         original.call(instance, world, exists.get() ? EnumDropCause.SILK_TOUCH : cause, x, y, z, meta, tileEntity, player);
         if (exists.get()) {
             if (goldInSlot6Ref.get()) {
-                PlayerUntil.damageItemArmor(player, player.inventory.armorInventory[TRINKET_1_SLOT], TRINKET_1_SLOT);
+                PlayerUtil.damageItemArmor(player, player.inventory.armorInventory[TRINKET_1_SLOT], TRINKET_1_SLOT);
                 return;
             }
-            PlayerUntil.damageItemArmor(player, player.inventory.armorInventory[TRINKET_2_SLOT], TRINKET_2_SLOT);
+            PlayerUtil.damageItemArmor(player, player.inventory.armorInventory[TRINKET_2_SLOT], TRINKET_2_SLOT);
         }
     }
 }

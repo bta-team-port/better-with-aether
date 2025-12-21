@@ -18,8 +18,8 @@ import java.util.PriorityQueue;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-public class PlayerUntil {
-    private PlayerUntil() {/* no need to initiate*/}
+public class PlayerUtil {
+    private PlayerUtil() {/* no need to initiate*/}
 
     public enum InventoryType {
         HOLD, MAIN, ARMOR
@@ -119,7 +119,7 @@ public class PlayerUntil {
 
     ///  Tool taking only 1 damage is quite common.
     public static void damageItemMain(Player player, ItemStack stack, int index) {
-        PlayerUntil.damageItemMain(player, 1, stack, index);
+        PlayerUtil.damageItemMain(player, 1, stack, index);
     }
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
@@ -133,7 +133,7 @@ public class PlayerUntil {
 
     ///  Tool taking only 1 damage is quite common.
     public static void damageItemArmor(Player player, ItemStack stack, int index) {
-        PlayerUntil.damageItemArmor(player, 1, stack, index);
+        PlayerUtil.damageItemArmor(player, 1, stack, index);
     }
 
     /// The default way of finding player does not account for invisible player. The default is used by other function
@@ -154,7 +154,7 @@ public class PlayerUntil {
             }
             return playerEntry.getData();
         }
-        return PlayerUntil.returnClosestPlayer(playerHeap, radius);
+        return PlayerUtil.returnClosestPlayer(playerHeap, radius);
     }
 
     @SuppressWarnings("java:S135")

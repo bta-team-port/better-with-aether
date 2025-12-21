@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherArmorMaterial;
 
@@ -36,7 +36,7 @@ public abstract class MobMixinJump extends Entity {
             return;
         }
         Player player = (Player) (Object) this;
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) >= 5) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) >= 5) {
             yd = 1.05;
             fallDistance = 0.0F;
         }
@@ -51,7 +51,7 @@ public abstract class MobMixinJump extends Entity {
             usedDoubleJump = true;
             return;
         }
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) return;
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) return;
         if (!onGround && !isJumpingPrev && isJumping && !usedDoubleJump) {
             yd = 1.05;
             fallDistance = 0.0F;
@@ -69,7 +69,7 @@ public abstract class MobMixinJump extends Entity {
             return original.call(instance, attacker, damage, type);
         }
         Player player = (Player) instance;
-        if (PlayerUntil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.GRAVITITE) < 5) {
             return original.call(instance, attacker, damage, type);
         }
         damage = damage - 13;
