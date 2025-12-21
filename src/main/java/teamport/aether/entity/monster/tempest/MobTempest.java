@@ -3,6 +3,7 @@ package teamport.aether.entity.monster.tempest;
 import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.Direction;
@@ -73,6 +74,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
             this.cooldown = 0;
         }
     }
+
     @Override
     protected Entity findPlayerToAttack() {
         if (this.world == null) return null;
