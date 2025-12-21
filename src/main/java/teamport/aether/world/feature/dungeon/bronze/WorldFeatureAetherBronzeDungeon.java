@@ -27,7 +27,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.util.helper.Direction.*;
-import static teamport.aether.helper.unboxed.PriorityEntry.pEntry;
+import static teamport.aether.helper.unboxed.PriorityEntry.Entry;
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.ClosingType.*;
 import static teamport.aether.world.feature.dungeon.bronze.component.BaseBronzeRoom.Door.door;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolume;
@@ -248,7 +248,7 @@ public class WorldFeatureAetherBronzeDungeon extends WorldFeature {
                 if (seenRooms.stream().anyMatch(r -> r.intercept(p1))) {
                     continue;
                 }
-                tunnels.add(pEntry(p1.distanceTo(door.getP1()) * bias(door.getHeading()), door(door.getHeading(), p1.moveInDirection(door.getHeading()), door.getP2().copy().moveInDirection(door.getHeading().getOpposite()))));
+                tunnels.add(Entry(p1.distanceTo(door.getP1()) * bias(door.getHeading()), door(door.getHeading(), p1.moveInDirection(door.getHeading()), door.getP2().copy().moveInDirection(door.getHeading().getOpposite()))));
             }
         }
         if (tunnels.isEmpty()) {
