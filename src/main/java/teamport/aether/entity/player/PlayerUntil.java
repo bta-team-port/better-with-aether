@@ -2,7 +2,10 @@ package teamport.aether.entity.player;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.material.ArmorMaterial;
+import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
 import teamport.aether.helper.unboxed.PriorityEntry;
@@ -22,7 +25,47 @@ public class PlayerUntil {
         HOLD, MAIN, ARMOR
     }
 
-    public static boolean isSilkTouch(Player player) {
+    ///  Count the armor pieces of a specific material.
+    public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
+        int count = 0;
+        for (int i = 0; i < inventory.armorInventory.length; ++i) {
+            ItemStack itemStack = inventory.armorInventory[i];
+            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
+                continue;
+            }
+            IArmorItem armor = (IArmorItem) itemStack.getItem();
+            if (armor.getArmorPiece() != i) {
+                continue;
+            }
+            ArmorMaterial armorMaterial = armor.getArmorMaterial();
+            if (armorMaterial == null || !armorMaterial.equals(material)) {
+                continue;
+            }
+            count++;
+        }
+        return count;
+    }
+
+    /// Counts the accessories of a specific material.
+    public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
+        int count = 0;
+        for (int i = 6; i < inventory.armorInventory.length; ++i) {
+            ItemStack itemStack = inventory.armorInventory[i];
+            if (itemStack == null || !(itemStack.getItem() instanceof IArmorItem)) {
+                continue;
+            }
+            IArmorItem armor = (IArmorItem) itemStack.getItem();
+            ArmorMaterial armorMaterial = armor.getArmorMaterial();
+            if (armorMaterial == null || !armorMaterial.equals(material)) {
+                continue;
+            }
+            count++;
+        }
+        return count;
+    }
+
+    /// Checks if player is wearing gold pendants
+    public static boolean isSilkTouchPendant(Player player) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         return trinketOne != null && trinketOne.getItem().id == AetherItems.ARMOR_TALISMAN_GOLD.id
@@ -64,7 +107,6 @@ public class PlayerUntil {
             }
         }
     }
-
 
     /// The normal damageItem does not destroy the item if the item durability hits zero. This target an item to destroy
     /// in the player main inventory at an index.
