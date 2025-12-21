@@ -29,7 +29,7 @@ import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.boss.AetherBossList;
 import teamport.aether.entity.boss.MobBoss;
 import teamport.aether.entity.player.MessageMaker;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.AetherDimension;
@@ -685,7 +685,7 @@ public class MobBossSlider extends MobBoss {
         double deltaZ = this.z - entity.z;
         double deltaY = this.y;
         if (entity instanceof Player) {
-            deltaY -= PlayerUntil.getY((Player) entity);
+            deltaY -= PlayerUtil.getY((Player) entity);
         } else {
             deltaY -= entity.y;
         }

@@ -14,7 +14,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.entity.projectile.ProjectileWindball;
 
 public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
@@ -190,7 +190,7 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
 
     private Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = PlayerUntil.getClosestPlayerToEntity(this.world, this, (float) 100.0);
+        Player player = PlayerUtil.getClosestPlayerToEntity(this.world, this, (float) 100.0);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }

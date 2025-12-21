@@ -13,7 +13,7 @@ import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
-import teamport.aether.entity.player.PlayerUntil;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 
 @SuppressWarnings("java:S110")
@@ -78,7 +78,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     protected Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player entityplayer =  PlayerUntil.getClosestPlayerToEntity(this.world, this, 16.0);
+        Player entityplayer =  PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
