@@ -19,7 +19,7 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
         return data;
     }
 
-    public static <T> PriorityEntry<T> pEntry(double priority, T data) {
+    public static <T> PriorityEntry<T> Entry(double priority, T data) {
         return new PriorityEntry<>(priority, data);
     }
 
