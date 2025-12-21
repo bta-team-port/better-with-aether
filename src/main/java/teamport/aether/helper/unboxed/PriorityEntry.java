@@ -1,5 +1,7 @@
 package teamport.aether.helper.unboxed;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.Objects;
 
 public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
@@ -19,7 +21,7 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
         return data;
     }
 
-    public static <T> PriorityEntry<T> Entry(double priority, T data) {
+    public static <T> PriorityEntry<T> Entry(double priority, @NonNull T data) {
         return new PriorityEntry<>(priority, data);
     }
 
