@@ -17,6 +17,7 @@ import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
+import teamport.aether.entity.player.PlayerUntil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.AetherInvisibility;
@@ -24,6 +25,7 @@ import teamport.aether.item.accessory.AetherInvisibility;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("java:S110")
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private boolean friendly;
     private double ydO;
@@ -83,6 +85,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         return AetherItems.FOOD_GUMMY_BLUE;
     }
 
+    @SuppressWarnings("java:S1192")
     @Override
     public void tick() {
         if (this.world == null) return;
@@ -134,16 +137,8 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void updateAI() {
         this.tryToDespawn();
         if (this.world == null) return;
-        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
-
-        if (entityplayer instanceof AetherInvisibility) {
-            AetherInvisibility invPlayer = (AetherInvisibility) entityplayer;
-            if (invPlayer.aether$isInvisible()) {
-                entityplayer = this.world.getClosestPlayerToEntity(this, 2.0);
-            }
-        }
-
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
+        Player entityplayer = PlayerUntil.getClosestPlayerToEntity(this.world, this, 16.0);
+                boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
         if (!this.friendly && entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);
         }

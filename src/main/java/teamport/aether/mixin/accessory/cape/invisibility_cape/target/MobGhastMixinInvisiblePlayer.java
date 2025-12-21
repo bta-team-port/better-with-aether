@@ -8,28 +8,12 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.entity.player.PlayerUntil;
 
 @Mixin(value = MobGhast.class, remap = false)
 public abstract class MobGhastMixinInvisiblePlayer {
     @WrapOperation(method = "updateAI", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
     private Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
-        MobGhast asThis = (MobGhast) (Object) this;
-        Player player = original.call(instance, entity, radius);
-        if (player == null || !asThis.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
-            return null;
-        }
-        if (player instanceof AetherInvisibility && !(asThis instanceof EnemyBoss)) {
-            AetherInvisibility invPlayer = (AetherInvisibility) player;
-            if (invPlayer.aether$isInvisible() && asThis.world != null) {
-                Player newPlayer = asThis.world.getClosestPlayerToEntity(asThis, 2.0);
-                if (newPlayer == null || !asThis.canEntityBeSeen(newPlayer) || !newPlayer.getGamemode().areMobsHostile()) {
-                    return null;
-                }
-                return newPlayer;
-            }
-        }
-        return player;
+        return PlayerUntil.getClosestPlayerToEntity(instance, (MobGhast) (Object) this, radius);
     }
 }
