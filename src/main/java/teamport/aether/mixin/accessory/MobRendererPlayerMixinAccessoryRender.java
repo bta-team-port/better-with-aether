@@ -22,7 +22,6 @@ import net.minecraft.client.render.entity.MobRendererPlayer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.model.ModelBiped;
 import net.minecraft.client.render.tessellator.Tessellator;
-import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
@@ -40,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.helper.GLManager;
 import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherStatus;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.item.accessory.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
@@ -117,7 +116,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Expression("spectator")
     @ModifyExpressionValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 4))
     private Gamemode renderPlayerOne(Gamemode original, Player entity, int layer, float partialTick) {
-        if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
+        if (((AetherStatus) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
 
@@ -135,7 +134,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Expression("spectator")
     @ModifyExpressionValue(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 2))
     private Gamemode renderPlayerThree(Gamemode original, Player entity, float partialTick) {
-        if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
+        if (((AetherStatus) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
 
@@ -227,7 +226,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLManager.glEnable(GL11.GL_CULL_FACE);
                 GLManager.glEnable(GL11.GL_BLEND);
-                if (((AetherInvisibility) entity).aether$isInvisible()) {
+                if (((AetherStatus) entity).aether$isInvisible()) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
                     GL11.glEnable(GL11.GL_BLEND);
                 } else {

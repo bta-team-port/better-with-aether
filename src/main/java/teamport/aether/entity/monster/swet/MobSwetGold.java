@@ -12,6 +12,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.AetherStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,16 +76,21 @@ public class MobSwetGold extends MobSwet implements Enemy {
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.isAlive() && !this.isFriendly() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
+        if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
-            this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            if (this.world != null) {
+                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            }
             entity.hurt(this, 3, DamageType.COMBAT);
         }
     }
 
     @Override
     public void playerTouch(Player player) {
-        if (this.isAlive() && !this.isFriendly() && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 3, DamageType.COMBAT) && getHealth() > 0 && !dead && grabDelay == 0) {
+        if(player instanceof AetherStatus && ((AetherStatus)player).aether$isSwetFriendly()){
+            return;
+        }
+        if (this.isAlive() && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead && player.isAlive() && grabDelay == 0) {
             player.startRiding(this);
             grabDelay = 50;
         }

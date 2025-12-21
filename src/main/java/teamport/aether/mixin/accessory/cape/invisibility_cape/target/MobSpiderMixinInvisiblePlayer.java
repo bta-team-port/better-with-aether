@@ -14,6 +14,6 @@ import teamport.aether.entity.player.PlayerUtil;
 public abstract class MobSpiderMixinInvisiblePlayer {
     @WrapOperation(method = "findPlayerToAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
     private Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
-        return PlayerUtil.getClosestPlayerToEntity(instance, (MobSpider) (Object) this, radius);
+        return PlayerUtil.getClosestNonInvisPlayerToEntity(instance, (MobSpider) (Object) this, radius);
     }
 }

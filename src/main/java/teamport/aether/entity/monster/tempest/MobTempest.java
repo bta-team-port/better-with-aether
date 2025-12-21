@@ -78,7 +78,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     protected Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player entityplayer =  PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0);
+        Player entityplayer =  PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 16.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 

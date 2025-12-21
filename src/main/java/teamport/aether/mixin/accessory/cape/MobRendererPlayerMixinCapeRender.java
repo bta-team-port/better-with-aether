@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.item.accessory.AetherInvisibility;
+import teamport.aether.item.accessory.AetherStatus;
 import teamport.aether.item.accessory.ItemAccessoryArmor;
 
 @Environment(EnvType.CLIENT)
@@ -35,7 +35,7 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
     }
     @WrapOperation(method = "renderSpecials(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 4))
     private void renderPlayerInvisSpecialOne(float red, float green, float blue, float alpha, Operation<Void> original, Player player, float partialTick) {
-        if (!((AetherInvisibility) player).aether$isInvisible()) {
+        if (!((AetherStatus) player).aether$isInvisible()) {
             original.call(red, blue, green, alpha);
             return;
         }
@@ -55,7 +55,7 @@ public abstract class MobRendererPlayerMixinCapeRender extends MobRenderer<Playe
     @Expression("spectator")
     @ModifyExpressionValue(method = "renderSpecials(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDD)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
     private Gamemode renderPlayerInvisNametag(Gamemode original, Tessellator tessellator, Player entity, double d, double d1, double d2) {
-        if (((AetherInvisibility) entity).aether$isInvisible()) return entity.getGamemode();
+        if (((AetherStatus) entity).aether$isInvisible()) return entity.getGamemode();
         return original;
     }
     @Definition(id = "bindDownloadableTexture", method = "Lnet/minecraft/client/render/entity/MobRendererPlayer;bindDownloadableTexture(Ljava/lang/String;Ljava/lang/String;Lnet/minecraft/client/render/ImageParser;)Z")

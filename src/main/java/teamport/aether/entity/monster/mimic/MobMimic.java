@@ -137,7 +137,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     @Override
     public Entity findPlayerToAttack() {
         if (this.world == null) return null;
-        Player player = PlayerUtil.getClosestPlayerToEntity(this.world, this, 64);
+        Player player = PlayerUtil.getClosestNonInvisPlayerToEntity(this.world, this, 64);
         if (player == null || !this.canEntityBeSeen(player) || !player.getGamemode().areMobsHostile()) {
             return null;
         }
