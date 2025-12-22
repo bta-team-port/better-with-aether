@@ -101,9 +101,7 @@
     "player.PlayerDeathMessageMixin",
     "player.PlayerFixArmorMixin",
     "player.PlayerGetNextDartMixin",
-    "player.PlayerLocalHandleAetherRideableMixin",
-    "player.PlayerMixinDevDrops",
-    "player.PlayerRespawnExtraHealthMixin"
+    "player.PlayerMixinDevDrops"
   ],
   "client": [
     "accessors.ScreenContainerAbstractAccessor",
@@ -153,7 +151,9 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "player.PlayerLocalPortalNoiseMixin"
+    "player.PlayerLocalPortalNoiseMixin",
+    "player.PlayerLocalHandleAetherRideableMixin",
+    "player.PlayerRespawnExtraHealthMixin"
   ],
   "server": [
     "accessory.PlayerServerMixinAccessoryServer",
