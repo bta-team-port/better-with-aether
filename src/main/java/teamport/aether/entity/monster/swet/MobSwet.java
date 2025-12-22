@@ -12,17 +12,17 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.AetherStatus;
-import teamport.aether.item.accessory.cape.ItemInvisibilityCapeArmor;
-import teamport.aether.item.accessory.cape.ItemSwetCapeArmor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +138,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
     public void updateAI() {
         this.tryToDespawn();
         if (this.world == null) return;
-        Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, ItemInvisibilityCapeArmor::isInvisible,ItemSwetCapeArmor::isSwetFriendly);
+        Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, PlayerUtil::isInvisible, PlayerUtil::isSwetty);
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);
@@ -169,23 +169,32 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
+        this.attaclEntityWithDamage(entity, distance, 2);
+    }
+
+    protected void attaclEntityWithDamage(@NotNull Entity entity, float distance, int damage) {
         if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
             if (this.world != null) {
                 this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             }
-            entity.hurt(this, 2, DamageType.COMBAT);
+            entity.hurt(this, damage, DamageType.COMBAT);
         }
     }
 
     @Override
     public void playerTouch(Player player) {
-        if(player instanceof AetherStatus && ((AetherStatus)player).aether$isSwetFriendly()){
+        this.playerTouchWithDelay(player, 100);
+    }
+
+    protected void playerTouchWithDelay(Player player, int delay){
+        if (((IHasEffects<?>)player).getContainer().hasEffect(AetherEffects.swetty)) {
+            this.ejectRider();
             return;
         }
         if (this.isAlive() && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead && player.isAlive() && grabDelay == 0) {
             player.startRiding(this);
-            grabDelay = 100;
+            grabDelay = delay;
         }
     }
 

@@ -15,14 +15,20 @@ import net.minecraft.core.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.item.accessory.AetherStatus;
+import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = ItemModelBlock.class, remap = false)
 public abstract class MakeHeldBlockInvisible {
+    @SuppressWarnings("java:S107")
     @WrapOperation(method = "renderItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/model/BlockModel;renderBlockOnInventory(Lnet/minecraft/client/render/tessellator/Tessellator;IFLjava/lang/Integer;)V"))
     private void makeItemInvisible(BlockModel<?> instance, Tessellator tessellator, int metadata, float brightness, Integer lightmapCoordinate, Operation<Void> original, Tessellator tessellatorTwo, ItemRenderer renderer, ItemStack itemstack, @Nullable Entity entity, float brightnessTwo, boolean handheldTransform) {
-        if (entity instanceof Player && (entity != Minecraft.getMinecraft().thePlayer || Minecraft.getMinecraft().gameSettings.thirdPersonView.value != 0)  && ((AetherStatus) entity).aether$isInvisible()) {
+        if (entity instanceof Player
+            && (
+                entity != Minecraft.getMinecraft().thePlayer
+                || Minecraft.getMinecraft().gameSettings.thirdPersonView.value != 0)
+                && PlayerUtil.isInvisible(entity)
+        ) {
             instance.renderBlockOnInventory(tessellator, metadata, brightness, 0.05F, lightmapCoordinate);
             return;
         }

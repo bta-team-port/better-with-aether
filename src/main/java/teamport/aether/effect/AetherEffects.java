@@ -6,6 +6,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.*;
+import sunsetsatellite.catalyst.effects.api.effect.render.EffectRenderer;
 import sunsetsatellite.catalyst.effects.api.effect.render.EffectRendererDispatcher;
 import teamport.aether.effect.render.PoisonEffectRenderer;
 import teamport.aether.effect.render.RemedyEffectRenderer;
@@ -54,6 +55,8 @@ public class AetherEffects {
 
     private static boolean hasInit = false;
 
+    private AetherEffects(){}
+
     public static void init() {
         if (hasInit) {
             return;
@@ -68,6 +71,10 @@ public class AetherEffects {
     public static Effect poisonEffect;
     @SuppressWarnings({"java:S1104", "java:S1444"})
     public static Effect remedyEffect;
+    @SuppressWarnings({"java:S1104", "java:S1444"})
+    public static Effect invisibility;
+    @SuppressWarnings({"java:S1104", "java:S1444"})
+    public static Effect swetty;
     @SuppressWarnings("java:S3008")
     private static final Tag<Effect> IMMUNE_TO_POISON = Tag.of("immune_to_poison");
 
@@ -75,34 +82,52 @@ public class AetherEffects {
      * @implNote The path for the assets that effects uses is: assets/ + MOD_ID +/effects/icon/ + imagePath
      */
     private static void assignEffects() {
-        poisonEffect = new PoisonEffect(
+        AetherEffects.poisonEffect = new PoisonEffect(
             "effect.aether.poison",
             MOD_ID + ":poison",
             new ArrayList<>(),
             EffectTimeType.KEEP,
-            10
-        ).setDefaultDuration(6 * Global.TICKS_PER_SECOND);
+            10)
+            .setDefaultDuration(6 * Global.TICKS_PER_SECOND);
 
-        remedyEffect = new RemedyEffect(
+        AetherEffects.remedyEffect = new RemedyEffect(
             "effect.aether.remedy",
             MOD_ID + ":remedy",
             new ArrayList<>(),
             EffectTimeType.RESET,
-            1
-        ).setDefaultDuration(12 * Global.TICKS_PER_SECOND);
+            1)
+            .setDefaultDuration(12 * Global.TICKS_PER_SECOND);
 
-        AetherEffects.registerLock(poisonEffect, remedyEffect);
+        AetherEffects.invisibility = new InvisibilityEffect(
+            "effect.aether.invisibility",
+            MOD_ID + ":invisibility",
+            new ArrayList<>(),
+            EffectTimeType.PERMANENT,
+            1)
+            .setDefaultDuration(6 * Global.TICKS_PER_SECOND);
+
+        AetherEffects.swetty = new SwettyEffect(
+            "effect.aether.swetty",
+            MOD_ID + ":swetty",
+            new ArrayList<>(),
+            EffectTimeType.PERMANENT,
+            1)
+            .setDefaultDuration(30 * Global.TICKS_PER_SECOND);
+
+        AetherEffects.registerLock(AetherEffects.poisonEffect, AetherEffects.remedyEffect);
     }
 
     private static void registerEffects() {
         Effects effects = Effects.getInstance();
-        effects.register(poisonEffect.id, poisonEffect);
-        effects.register(remedyEffect.id, remedyEffect);
+        effects.register(AetherEffects.poisonEffect.id, AetherEffects.poisonEffect);
+        effects.register(AetherEffects.remedyEffect.id, AetherEffects.remedyEffect);
+        effects.register(AetherEffects.invisibility.id, AetherEffects.invisibility);
+        effects.register(AetherEffects.swetty.id, AetherEffects.swetty);
 
         // in here for compatibility reasons.
         effects.register(MOD_ID + ":extra_health", Effects.EXTRA_HEALTH);
 
-        IMMUNE_TO_POISON.tag(poisonEffect);
+        IMMUNE_TO_POISON.tag(AetherEffects.poisonEffect);
         EffectTagDispatcher.setImmunityFor(MobAechorPlant.class, IMMUNE_TO_POISON);
         EffectTagDispatcher.setImmunityFor(MobCockatrice.class, IMMUNE_TO_POISON);
 
@@ -125,7 +150,7 @@ public class AetherEffects {
                 0x8218cb,
                 "aether:gui/hud/poison/"
             )
-                .setIcon("icon_poison.png")
+                .setIcon("poison.png")
         );
 
         dispatcher.addDispatch(remedyEffect, new RemedyEffectRenderer<>(
@@ -134,8 +159,12 @@ public class AetherEffects {
                 0x009bc2,
                 "aether:gui/hud/remedy/"
             )
-                .setIcon("icon_remedy.png")
+                .setIcon("remedy.png")
         );
+
+        dispatcher.addDispatch(invisibility, new EffectRenderer<>(invisibility).setIcon("invisibility.png"));
+
+        dispatcher.addDispatch(swetty, new EffectRenderer<>(swetty).setIcon("swetty.png"));
     }
 
     /**
@@ -169,17 +198,11 @@ public class AetherEffects {
         if (!(entity instanceof IHasEffects)) return false;
         IHasEffects<?> hasEffects = (IHasEffects<?>) entity;
 
-        for (EffectStack currStack : hasEffects.getContainer().getEffects()) {
-            Effect currEffect = currStack.getEffect();
-            int currMax = currEffect.getMaxStack();
-
-            if (currEffect == stackToAdd.getEffect()) {
-                if (currStack.getAmount() + stackToAdd.getAmount() >= currMax) {
-                    int amountToAdd = currMax - currStack.getAmount();
-
-                    currStack.add(amountToAdd, hasEffects.getContainer());
-                    return true;
-                }
+        for (EffectStack effect : hasEffects.getContainer().getEffects()) {
+            if(effect.getEffect() == stackToAdd.getEffect()){
+                int amount = Math.min(stackToAdd.getAmount(), effect.getEffect().getMaxStack() - effect.getAmount());
+                effect.add(amount, hasEffects.getContainer());
+                return true;
             }
         }
 
@@ -198,13 +221,15 @@ public class AetherEffects {
         if (effectBlocker == null) return false;
 
         T parent = effectContainer.getParent();
-        if (parent instanceof IHasEffects && parent instanceof Mob) {
-            if (effectBlocker instanceof ILockInteractable && effectContainer.hasEffect(effectBlocker)) {
-                ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects<?>) parent);
+        if (parent instanceof IHasEffects
+            && parent instanceof Mob
+            && effectBlocker instanceof ILockInteractable
+            && effectContainer.hasEffect(effectBlocker)
+        ) {
+            ((ILockInteractable) effectBlocker).lockTriggered((IHasEffects<?>) parent);
 
-                effectContainer.remove(effectToAdd);
-                return true;
-            }
+            effectContainer.remove(effectToAdd);
+            return true;
         }
 
         return false;

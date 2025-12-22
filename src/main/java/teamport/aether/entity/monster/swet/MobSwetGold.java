@@ -7,16 +7,15 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.AetherStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("java:S110")
 public class MobSwetGold extends MobSwet implements Enemy {
 
     public MobSwetGold(World world) {
@@ -76,24 +75,12 @@ public class MobSwetGold extends MobSwet implements Enemy {
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
-            this.attackTime = 200;
-            if (this.world != null) {
-                this.world.playSoundAtEntity(null, this, "mob.slimeattack", 0.5F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            }
-            entity.hurt(this, 3, DamageType.COMBAT);
-        }
+        this.attaclEntityWithDamage(entity, distance, 3);
     }
 
     @Override
     public void playerTouch(Player player) {
-        if(player instanceof AetherStatus && ((AetherStatus)player).aether$isSwetFriendly()){
-            return;
-        }
-        if (this.isAlive() && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 2.0F && player.hurt(this, 2, DamageType.COMBAT) && getHealth() > 0 && !dead && player.isAlive() && grabDelay == 0) {
-            player.startRiding(this);
-            grabDelay = 50;
-        }
+        this.playerTouchWithDelay(player, 50);
     }
 
 }

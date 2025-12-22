@@ -8,9 +8,10 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.Nullable;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.item.AetherItems;
-import teamport.aether.item.accessory.cape.ItemInvisibilityCapeArmor;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.PriorityQueue;
@@ -25,6 +26,7 @@ public class PlayerUtil {
         HOLD, MAIN, ARMOR
     }
 
+    @SuppressWarnings("java:S135")
     ///  Count the armor pieces of a specific material.
     public static int countArmorPiecesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
@@ -46,6 +48,7 @@ public class PlayerUtil {
         return count;
     }
 
+    @SuppressWarnings("java:S135")
     /// Counts the accessories of a specific material.
     public static int countAccessoriesOfMaterial(ContainerInventory inventory, ArmorMaterial material) {
         int count = 0;
@@ -147,12 +150,12 @@ public class PlayerUtil {
     /// The default way of finding player does not account for invisible player. The default is used by other function
     /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.
     public static Player getClosestNonInvisPlayerToEntity(World world, Entity entity, double radius) {
-        return getClosestPlayerToEntity(world, entity, radius, ItemInvisibilityCapeArmor::isInvisible);
+        return getClosestPlayerToEntity(world, entity, radius, PlayerUtil::isInvisible);
     }
 
     /// The default way of finding player does not account for invisible player. The default is used by other function
     /// aside mobs and as such cannot be changed. Please use these function to search for closest player in mobs.
-    public static Player getClosestPlayerToEntity(World world, Entity entity, double radius, PlayerStatus ... playerStatus) {
+    public static Player getClosestPlayerToEntity(World world, Entity entity, double radius, PlayerStatus... playerStatus) {
         if (radius < 0.0F || playerStatus.length == 0) {
             return world.getClosestPlayerToEntity(entity, radius);
         }
@@ -185,12 +188,34 @@ public class PlayerUtil {
         return null;
     }
 
-    private static boolean test(PlayerStatus[] playerStatus, Player player, double distance){
+    private static boolean test(PlayerStatus[] playerStatus, Player player, double distance) {
         boolean acc = false;
-        for(PlayerStatus status: playerStatus){
-            acc |=  status.test(player, distance);
+        for (PlayerStatus status : playerStatus) {
+            acc |= status.test(player, distance);
         }
         return acc;
     }
 
+     @SuppressWarnings("java:S1172")
+    ///  To check if the player can be attacked by Swets
+    public static boolean isSwetty(Entity entity, double distance){
+        return PlayerUtil.isSwetty(entity);
+    }
+
+    ///  The interface requires the distance but either call is fine, as long it not used to figure out targeting
+    public static boolean isSwetty(Entity entity) {
+        return entity instanceof IHasEffects
+            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.swetty);
+    }
+
+    ///  To check if the player is Invisible for targeting
+    public static boolean isInvisible(Entity entity, double distance){
+        return PlayerUtil.isInvisible(entity) && distance > 2.0f;
+    }
+
+    ///  To check if the player is Invisible
+    public static boolean isInvisible(Entity entity) {
+        return entity instanceof IHasEffects
+            &&((IHasEffects<?>) entity).getContainer().hasEffect(AetherEffects.invisibility);
+    }
 }

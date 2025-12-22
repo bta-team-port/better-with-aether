@@ -37,9 +37,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.GLManager;
 import teamport.aether.item.AetherRepulsion;
-import teamport.aether.item.accessory.AetherStatus;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.item.accessory.ItemGloves;
 import teamport.aether.item.accessory.pendant.ItemPendant;
@@ -115,13 +115,16 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
     @Expression("spectator")
     @ModifyExpressionValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 4))
-    private Gamemode renderPlayerOne(Gamemode original, Player entity, int layer, float partialTick) {
-        if (((AetherStatus) entity).aether$isInvisible()) return entity.getGamemode();
+    private Gamemode spoofPrepareArmorCheckWhenInvisible(Gamemode original, Player entity, int layer, float partialTick) {
+        if (PlayerUtil.isInvisible(entity)) {
+            return entity.getGamemode();
+        }
         return original;
     }
 
+    @SuppressWarnings("java:S107")
     @WrapOperation(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
-    private void renderPlayerTwo(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
+    private void renderPrepareArmorPlayerInvisible(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, int layer, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
             original.call(red, blue, green, alpha);
             return;
@@ -133,13 +136,15 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
     @Expression("spectator")
     @ModifyExpressionValue(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 2))
-    private Gamemode renderPlayerThree(Gamemode original, Player entity, float partialTick) {
-        if (((AetherStatus) entity).aether$isInvisible()) return entity.getGamemode();
+    private Gamemode spoofScaleCheckWhenInvisible(Gamemode original, Player entity, float partialTick) {
+        if (PlayerUtil.isInvisible(entity)) {
+            return entity.getGamemode();
+        }
         return original;
     }
 
     @WrapOperation(method = "setupScale(Lnet/minecraft/core/entity/player/Player;F)V", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glColor4f(FFFF)V", ordinal = 1))
-    private void renderPlayerFour(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
+    private void renderScalePlayerInvisible(float red, float blue, float green, float alpha, Operation<Void> original, Player entity, float partialTick) {
         if (entity.getGamemode() == Gamemode.spectator) {
             original.call(red, blue, green, alpha);
             return;
@@ -148,14 +153,16 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         GL11.glEnable(GL11.GL_BLEND);
     }
 
+    @SuppressWarnings("java:S107")
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("HEAD"))
-    private void renderPlayerFive(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
+    private void pushGL11AlphaTestRef(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
         alphaTest.set(GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF));
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.0F);
     }
 
+    @SuppressWarnings("java:S107")
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("RETURN"))
-    private void renderPlayerSix(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
+    private void popGL11AlphaTestRef(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci, @Share("alphaTest") LocalFloatRef alphaTest) {
         GL11.glAlphaFunc(GL11.GL_GREATER, alphaTest.get());
     }
 
@@ -164,6 +171,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         return (renderPass > 3) ? renderPass : 3 - renderPass;
     }
 
+    @SuppressWarnings("java:S107")
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("TAIL"))
     public void renderBunny(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
         Screen currScreen = Minecraft.getMinecraft().currentScreen;
@@ -188,7 +196,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     }
 
 
-    @SuppressWarnings({"java:S6541", "java:S1075"})
+    @SuppressWarnings({"java:S6541", "java:S1075", "java:S3776"})
     @ModifyReturnValue(method = "prepareArmor(Lnet/minecraft/core/entity/player/Player;IF)Z", at = @At("TAIL"))
     private boolean setArmorModel(boolean original, Player entity, int layer, float partialTick) {
         modelAccessories.holdingLarge = shield.holdingLarge = modelFeather.holdingLarge = modelBubble.holdingLarge = modelHeart.holdingLarge = modelBipedMain.holdingLarge;
@@ -226,7 +234,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 GLManager.glEnable(GL11.GL_CULL_FACE);
                 GLManager.glEnable(GL11.GL_BLEND);
-                if (((AetherStatus) entity).aether$isInvisible()) {
+                if (PlayerUtil.isInvisible(entity)) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
                     GL11.glEnable(GL11.GL_BLEND);
                 } else {
