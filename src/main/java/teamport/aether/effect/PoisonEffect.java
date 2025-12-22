@@ -13,7 +13,7 @@ import teamport.aether.helper.ParticleMaker;
 import java.util.List;
 import java.util.Random;
 
-public class PoisonEffect extends Effect {
+public class PoisonEffect extends AetherEffect {
     public final Random random = new Random();
     private double rotD;
     private double motD;
@@ -60,11 +60,6 @@ public class PoisonEffect extends Effect {
             }
         }
         slideEntity(mob);
-    }
-
-    @Override
-    public boolean canApplyTo(Entity target) {
-        return target instanceof Mob && super.canApplyTo(target);
     }
 
     private void slideEntity(Mob mob) {

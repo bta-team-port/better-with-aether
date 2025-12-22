@@ -7,16 +7,15 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderGlobal;
 import net.minecraft.client.render.camera.ICamera;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
-import teamport.aether.item.accessory.AetherStatus;
+import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = RenderGlobal.class, remap = false)
 public class HideDebugBoxes {
     @WrapMethod(method = "drawInterpolatedEntityBoundingBox")
     private void hideInvisibleBoundingBox(Entity entity, ICamera camera, float partialTicks, Operation<Void> original) {
-        if (entity instanceof Player && ((AetherStatus) entity).aether$isInvisible()) return;
+        if (PlayerUtil.isInvisible(entity)) return;
         original.call(entity, camera, partialTicks);
     }
 }

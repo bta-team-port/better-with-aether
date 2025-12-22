@@ -4,7 +4,8 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import teamport.aether.item.accessory.AetherStatus;
+import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.accessory.IAccessoryEffects;
 import teamport.aether.item.accessory.ItemAccessoryArmor;
 
@@ -16,31 +17,22 @@ public class ItemInvisibilityCapeArmor extends ItemAccessoryArmor implements IAc
         super(translationKey, namespaceId, id, name, accessoryPiece);
     }
 
-    public static boolean  isInvisible(Player player, double distance) {
-        if (player instanceof AetherStatus) {
-            AetherStatus potentialInvisiblePlayer = (AetherStatus) player;
-            return potentialInvisiblePlayer.aether$isInvisible() && distance > 2.0f;
-        }
-        return false;
-    }
-
     @Override
     public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slotId, boolean flag) {
         if(!(entity instanceof Player)){ return;}
         Player player = (Player) entity;
-        if (
-            slotId > player.inventory.mainInventory.length
-                && slotId - player.inventory.mainInventory.length == CAPE_SLOT
+        if (slotId > player.inventory.mainInventory.length
+            && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
-            ((AetherStatus) player).aether$setInvisible(true);
+            AetherEffects.add(player, AetherEffects.invisibility, 1);
             return;
         }
-        ((AetherStatus) player).aether$setInvisible(false);
+        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.invisibility);
     }
 
     @Override
     public void removeEffect(Player player, ItemStack accessory) {
-        ((AetherStatus) player).aether$setInvisible(false);
+        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.invisibility);
     }
 
 

@@ -1,6 +1,5 @@
 package teamport.aether.effect;
 
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import sunsetsatellite.catalyst.effects.api.effect.*;
@@ -32,11 +31,6 @@ public class RemedyEffect extends Effect implements ILockInteractable {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean canApplyTo(Entity target) {
-        return target instanceof Mob && super.canApplyTo(target);
     }
 
     @Override
