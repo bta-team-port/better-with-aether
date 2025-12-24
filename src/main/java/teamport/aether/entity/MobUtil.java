@@ -1,6 +1,7 @@
 package teamport.aether.entity;
 
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.MathHelper;
@@ -78,5 +79,19 @@ public class MobUtil {
         mob.playDeathSound();
         mob.onDeath(attack);
         return true;
+    }
+
+    public static void convertMob(Entity mob, String mobId) {
+        Class<? extends Entity> tempestClazz = EntityDispatcher.classForId(mobId);
+        if (tempestClazz == null) {
+            return;
+        }
+        Entity entity = EntityDispatcher.createEntityInWorld(tempestClazz, mob.world);
+        if (entity == null) {
+            return;
+        }
+        entity.moveTo(mob.x, mob.y, mob.z, mob.yRot, mob.xRot);
+        mob.world.entityJoinedWorld(entity);
+        mob.remove();
     }
 }
