@@ -163,29 +163,20 @@ public class PlayerUtil {
     }
 
     public static @Nullable Player getClosestPlayerToEntity(World world, double x, double y, double z, double radius, PlayerStatus[] playerStatus) {
-
-        PriorityQueue<PriorityEntry<Player>> playerHeap = new PriorityQueue<>();
+        double closestDistance = Double.POSITIVE_INFINITY;
+        Player returnPlayer = null;
         for (Player currentPlayer : world.players) {
-            playerHeap.add(PriorityEntry.Entry(currentPlayer.distanceToSqr(x, y, z), currentPlayer));
-        }
-        return PlayerUtil.returnClosestPlayer(playerHeap, radius, playerStatus);
-    }
-
-    @SuppressWarnings("java:S135")
-    private static @Nullable Player returnClosestPlayer(PriorityQueue<PriorityEntry<Player>> playerHeap, double radius, PlayerStatus[] playerStatus) {
-        while (!playerHeap.isEmpty()) {
-            PriorityEntry<Player> playerEntry = playerHeap.poll();
-            Player player = playerEntry.getData();
-            double distance = playerEntry.getWeight();
-            if (distance < radius) {
+            double currentDistance = currentPlayer.distanceToSqr(x, y, z);
+            if (currentDistance < radius * radius
+                || PlayerUtil.test(playerStatus, currentPlayer, currentDistance)
+                || currentDistance >= closestDistance
+            ) {
                 continue;
             }
-            if (PlayerUtil.test(playerStatus, player, distance)) {
-                continue;
-            }
-            return player;
+            closestDistance = currentDistance;
+            returnPlayer = currentPlayer;
         }
-        return null;
+        return returnPlayer;
     }
 
     private static boolean test(PlayerStatus[] playerStatus, Player player, double distance) {
