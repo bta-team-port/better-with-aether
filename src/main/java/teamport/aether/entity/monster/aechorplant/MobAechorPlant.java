@@ -231,6 +231,9 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
+    public void fling(double xd, double yd, double zd, float pushTime) {/* should not be fling*/}
+
+    @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
         for (int i = 0; i < 8; ++i) {
             double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
