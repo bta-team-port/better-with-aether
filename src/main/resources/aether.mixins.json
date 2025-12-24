@@ -151,8 +151,8 @@
     "light.RenderBlocksCacheMixin",
     "light.RenderBlocksMixin",
     "net.PacketHandlerClientMixinAetherMachines",
-    "player.PlayerLocalPortalNoiseMixin",
     "player.PlayerLocalHandleAetherRideableMixin",
+    "player.PlayerLocalPortalNoiseMixin",
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "server": [
