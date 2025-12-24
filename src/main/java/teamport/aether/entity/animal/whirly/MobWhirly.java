@@ -1,16 +1,15 @@
 package teamport.aether.entity.animal.whirly;
 
-import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
-import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlockTags;
@@ -20,10 +19,26 @@ import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 
+import static teamport.aether.AetherMod.MOD_ID;
+
 public class MobWhirly extends MobAetherAnimal implements Creature {
     private int lootTimer;
     private final int maxLifetime;
     private static final WeightedRandomBag<WeightedRandomLootObject> LOOT_BAG = new WeightedRandomBag<>();
+    static {
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.BLOCK_GRAVITITE), 1, 1), 1);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.ZANITE),           1, 2), 4);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBROSIUM),        1, 8), 5);
+
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.PETAL_AECHOR),     1, 4), 9);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.STICK_SKYROOT),    1, 8), 12);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBER),            1, 4), 14);
+
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.DIRT_AETHER),     1, 16), 15);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.ICESTONE),        1, 8), 11);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.LOG_SKYROOT),     1, 4), 17);
+        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.QUICKSOIL),       1, 8), 21);
+    }
 
     public MobWhirly(World world) {
         super(world);
@@ -31,13 +46,15 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         this.textureIdentifier = NamespaceID.getPermanent("aether", "whirly");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
         this.moveSpeed = 0.35F;
+        this.footSize = 1.0f;
+        this.fireImmune = true;
     }
 
     @Override
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
+            ParticleMaker.spawnWhirlyParticles(world, this, 2, "whirly");
         }
     }
 
@@ -71,21 +88,6 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
 
     }
 
-    static {
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.BLOCK_GRAVITITE), 1, 1), 1);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.ZANITE),           1, 2), 4);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBROSIUM),        1, 8), 5);
-
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.PETAL_AECHOR),     1, 4), 9);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.STICK_SKYROOT),    1, 8), 12);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherItems.AMBER),            1, 4), 14);
-
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.DIRT_AETHER),     1, 16), 15);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.ICESTONE),        1, 8), 11);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.LOG_SKYROOT),     1, 4), 17);
-        LOOT_BAG.addEntry(new WeightedRandomLootObject(new ItemStack(AetherBlocks.QUICKSOIL),       1, 8), 21);
-    }
-
     @Override
     public boolean canSpawnHere() {
         if (this.world == null) return false;
@@ -101,26 +103,10 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        double distanceTo = entity.distanceTo(x, y, z);
-
-        if (this.world != null && !(entity instanceof MobWhirly) && !(entity instanceof Particle)) {
-            switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
-                case NORTH:
-                    entity.fling(0, launchSpeed / 4, -launchSpeed / distanceTo, 0);
-                    break;
-
-                case SOUTH:
-                    entity.fling(0, launchSpeed / 4, launchSpeed / distanceTo, 0);
-                    break;
-
-                case EAST:
-                    entity.fling(launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
-                    break;
-
-                case WEST:
-                    entity.fling(-launchSpeed / distanceTo, launchSpeed / 4, 0, 0);
-                    break;
-            }
+        if (this.world != null && !(entity instanceof MobWhirly)
+        ) {
+            float launchHeightSpeed = launchSpeed / 3.0f;
+            entity.fling(-this.xd, launchHeightSpeed, -this.yd, 0);
             return false;
         }
         return true;
@@ -131,9 +117,11 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         if (entity == null && type == null && damage == 100) {
             return MobUtil.killMob(this);
         }
-
         return false;
     }
+
+    @Override
+    public void causeFallDamage(float distance){/* dont take fall damage*/}
 
     @Override
     public boolean makeStepSound() {
@@ -145,4 +133,11 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
         return false;
     }
 
+    @Override
+    public void thunderHit(EntityLightning bolt) {
+        MobUtil.convertMob(this, MOD_ID + ":tempest");
+    }
+
+    @Override
+    protected void jump(){/* looks weird if it jumps */}
 }

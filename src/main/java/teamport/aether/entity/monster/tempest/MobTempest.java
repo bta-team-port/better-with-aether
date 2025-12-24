@@ -1,12 +1,11 @@
 package teamport.aether.entity.monster.tempest;
 
-import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.Direction;
+import net.minecraft.core.util.helper.DamageType;;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
@@ -27,13 +26,15 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         this.textureIdentifier = NamespaceID.getPermanent("aether", "tempest");
         this.maxLifetime = this.random.nextInt(1024) + 1024;
         this.scoreValue = 400;
+        this.footSize = 1.0f;
+        this.fireImmune = true;
     }
 
     @Override
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-            ParticleMaker.spawnWhirlyParticles(world, this, 12, "tempest");
+            ParticleMaker.spawnWhirlyParticles(world, this, 8, "tempest");
             ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + world.rand.nextDouble(), this.z,
                 world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextDouble() * 0.2F, world.rand.nextDouble() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0, 72);
         }
@@ -52,7 +53,6 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     public void updateAI() {
         super.updateAI();
-
         if (this.isInWaterOrRain() || (this.entityAge >= this.maxLifetime && !this.hadNicknameSet)) {
             for (int l = 0; l < 16; ++l) {
                 double angle = Math.toRadians(l * 45.0);
@@ -82,30 +82,25 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
+    @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (type == AetherMod.LIGHTNING) {
+            return false;
+        }
+        return super.hurt(attacker, damage, type);
+    }
+
+    @Override
+    public void causeFallDamage(float distance){/* dont take fall damage*/}
+
     @SuppressWarnings("java:S131")
     @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        double distanceTo = entity.distanceTo(x, y, z);
-
-        if (this.world != null && !(entity instanceof MobTempest) && !(entity instanceof Particle)) {
-            switch (Direction.values()[this.world.rand.nextInt(Direction.values().length)]) {
-                case NORTH:
-                    entity.push(0, launchSpeed / 4, -launchSpeed / distanceTo);
-                    break;
-
-                case SOUTH:
-                    entity.push(0, launchSpeed / 4, launchSpeed / distanceTo);
-                    break;
-
-                case EAST:
-                    entity.push(launchSpeed / distanceTo, launchSpeed / 4, 0);
-                    break;
-
-                case WEST:
-                    entity.push(-launchSpeed / distanceTo, launchSpeed / 4, 0);
-                    break;
-            }
+        if (this.world != null && !(entity instanceof MobTempest)
+        ) {
+            float launchHeightSpeed = launchSpeed / 2.0f;
+            entity.fling(-this.xd, launchHeightSpeed, -this.yd, 0);
             return false;
         }
         return true;
@@ -135,4 +130,7 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     public boolean canClimb() {
         return false;
     }
+
+    @Override
+    protected void jump(){/* looks weird if it jumps */}
 }
