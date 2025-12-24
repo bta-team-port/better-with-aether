@@ -16,6 +16,6 @@ public abstract class MobMonsterMixinInvisiblePlayer {
     /// to look in the mixin for the exceptions.
     @WrapOperation(method = "findPlayerToAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getClosestPlayerToEntity(Lnet/minecraft/core/entity/Entity;D)Lnet/minecraft/core/entity/player/Player;"))
     private Player hardToSpotInvisPlayer(World instance, Entity entity, double radius, Operation<Player> original) {
-        return PlayerUtil.getClosestNonInvisPlayerToEntity(instance, (MobMonster) (Object) this, radius);
+        return PlayerUtil.getClosestNonInvisPlayerToEntity(instance, entity, radius);
     }
 }
