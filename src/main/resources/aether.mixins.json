@@ -16,6 +16,7 @@
     "accessory.MenuInventoryMixinAddSlotAdjSlot",
     "accessory.MenuInventoryMixinAddSlotAdjSlotTwo",
     "accessory.WorldFeatureLabyrinthMixin",
+    "accessory.cape.MobSlimeMixinSweatyAndInvisibility",
     "accessory.cape.invisibility_cape.target.MobGhastMixinInvisiblePlayer",
     "accessory.cape.invisibility_cape.target.MobMonsterMixinInvisiblePlayer",
     "accessory.cape.invisibility_cape.target.MobPathfinderMixinForgetPlayerWhenToFar",
