@@ -112,6 +112,15 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
 
     @Override
     public void push(Entity entity) {
+        /* should not be fling*/
+        for (int i = 0; i < 8; ++i) {
+            double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d2 = this.y + 0.25 + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
+        }
     }
 
     @Override
@@ -231,7 +240,17 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     }
 
     @Override
-    public void fling(double xd, double yd, double zd, float pushTime) {/* should not be fling*/}
+    public void fling(double xd, double yd, double zd, float pushTime) {
+        /* should not be fling*/
+        for (int i = 0; i < 8; ++i) {
+            double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d2 = this.y + 0.25 + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
+        }
+    }
 
     @Override
     public void knockBack(Entity entity, int damage, double xd, double yd) {
