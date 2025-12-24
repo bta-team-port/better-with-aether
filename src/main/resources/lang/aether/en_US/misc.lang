@@ -1,6 +1,8 @@
 #Effects
 effect.aether.poison.name=Poison
 effect.aether.remedy.name=Remedy
+effect.aether.invisibility.name=Invisibility
+effect.aether.swetty.name=Swetty
 
 #Music
 aether_tune=Aether Tune
