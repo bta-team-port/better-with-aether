@@ -12,7 +12,6 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
@@ -169,10 +168,10 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        this.attaclEntityWithDamage(entity, distance, 2);
+        this.attackEntityWithDamage(entity, distance, 2);
     }
 
-    protected void attaclEntityWithDamage(@NotNull Entity entity, float distance, int damage) {
+    protected void attackEntityWithDamage(@NonNull Entity entity, float distance, int damage) {
         if (this.isAlive() && this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY && getHealth() > 0 && !dead) {
             this.attackTime = 200;
             if (this.world != null) {
