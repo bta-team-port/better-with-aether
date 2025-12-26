@@ -1,5 +1,7 @@
 package teamport.aether.mixin.gui.screens;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.server.entity.player.PlayerServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,12 +10,12 @@ import teamport.aether.AetherConfig;
 import teamport.aether.block.entity.TileEntityEnchanter;
 import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.block.entity.TileEntityIncubator;
-import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.gui.machine.enchanter.MenuEnchanter;
 import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
     @Shadow
@@ -50,6 +52,4 @@ public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
         playerServer.craftingInventory.containerId = this.currentWindowId;
         playerServer.craftingInventory.addSlotListener(playerServer);
     }
-    @Override
-    public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {}
 }

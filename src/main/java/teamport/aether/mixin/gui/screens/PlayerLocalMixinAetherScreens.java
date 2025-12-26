@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
+import net.minecraft.core.block.entity.TileEntitySign;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +36,7 @@ public abstract class PlayerLocalMixinAetherScreens extends Player implements Ae
         this.mc.displayScreen(new ScreenIncubator(this.inventory, tileEntity));
     }
     @Override
-    public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {
+    public void aether$displaySignSkyrootEditorScreen(TileEntitySign tileEntity) {
         this.mc.displayScreen(new ScreenSignSkyrootEditor(tileEntity));
     }
 }

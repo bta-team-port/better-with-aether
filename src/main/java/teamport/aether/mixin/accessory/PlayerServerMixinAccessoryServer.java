@@ -1,6 +1,8 @@
 package teamport.aether.mixin.accessory;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixinAccessoryServer {
     @Shadow

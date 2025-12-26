@@ -2,6 +2,7 @@ package teamport.aether.item;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.entity.TileEntitySign;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumBlockSoundEffectType;
 import net.minecraft.core.item.Item;
@@ -11,7 +12,6 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 
 public class ItemSignSkyroot extends Item {
@@ -57,7 +57,7 @@ public class ItemSignSkyroot extends Item {
         world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, blockToPlace.id(), meta);
 
         itemstack.consumeItem(entityplayer);
-        TileEntitySignSkyroot tileEntity = (TileEntitySignSkyroot) world.getTileEntity(blockX, blockY, blockZ);
+        TileEntitySign tileEntity = (TileEntitySign) world.getTileEntity(blockX, blockY, blockZ);
 
         if (tileEntity != null) {
             tileEntity.setOwner(entityplayer);

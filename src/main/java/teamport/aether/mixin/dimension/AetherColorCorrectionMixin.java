@@ -1,5 +1,7 @@
 package teamport.aether.mixin.dimension;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.PostProcessingManager;
 import org.spongepowered.asm.mixin.Final;
@@ -10,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
+@Environment(EnvType.CLIENT)
 @Mixin(PostProcessingManager.class)
 public abstract class AetherColorCorrectionMixin {
 

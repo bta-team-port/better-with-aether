@@ -13,13 +13,9 @@ import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.model.ModelSlime;
 import net.minecraft.core.item.block.ItemBlock;
-import net.minecraft.core.util.helper.Color;
-import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import teamport.aether.AetherClient;
 import teamport.aether.block.AetherBlocks;
-import teamport.aether.block.entity.TileEntityRendererSignSkyroot;
-import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.animal.aerbunny.MobRendererAerbunny;
 import teamport.aether.entity.animal.aerwhale.MobAerwhale;
@@ -81,8 +77,6 @@ import teamport.aether.models.dungeon.BlockModelPaintedOakMimic;
 import teamport.aether.models.skyroot.*;
 import turniplabs.halplibe.helper.ModelHelper;
 import turniplabs.halplibe.util.ModelEntrypoint;
-
-import java.util.Arrays;
 
 import static net.minecraft.client.render.block.model.BlockModelStandard.*;
 
@@ -867,16 +861,5 @@ public class AetherModels implements ModelEntrypoint {
 
     @Override
     public void initTileEntityModels(TileEntityRenderDispatcher dispatcher) {
-        ModelHelper.setTileEntityModel(TileEntitySignSkyroot.class, () -> {
-                TileEntityRendererSignSkyroot renderer = new TileEntityRendererSignSkyroot()
-                    .setDefaultTexture("/assets/aether/textures/entity/sign_skyroot.png", new Color().setARGB(0x695E43));
-
-                Arrays.stream(DyeColor.values()).iterator().forEachRemaining(
-                    dyeColor -> renderer.setColoredTexture(dyeColor.blockMeta, String.format("/assets/aether/textures/entity/sign_skyroot/%s.png", dyeColor.colorID))
-                );
-
-                return renderer;
-            }
-        );
     }
 }
