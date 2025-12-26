@@ -1,6 +1,8 @@
 package teamport.aether.mixin.dimension.bump_to_overworld;
 
 import com.mojang.nbt.tags.CompoundTag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.entity.player.Player;
@@ -21,6 +23,7 @@ import teamport.aether.world.AetherDimension;
 
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class MPBumpToOverworldMixin extends Player {
     protected MPBumpToOverworldMixin(World world) {

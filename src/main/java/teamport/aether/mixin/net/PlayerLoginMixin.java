@@ -1,5 +1,7 @@
 package teamport.aether.mixin.net;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.net.packet.PacketLogin;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.PlayerServer;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherServer;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = PacketHandlerLogin.class, remap = false)
 public abstract class PlayerLoginMixin {
     @Shadow

@@ -1,5 +1,7 @@
 package teamport.aether.mixin.dimension.bump_to_overworld;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.Dimension;
@@ -12,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = WorldServer.class, remap = false)
 public abstract class MPWorldMixin extends World {
     @Unique

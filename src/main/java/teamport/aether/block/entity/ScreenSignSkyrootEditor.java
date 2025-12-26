@@ -9,6 +9,7 @@ import net.minecraft.client.input.controller.ControllerInput;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.entity.TileEntitySign;
 import net.minecraft.core.enums.EnumSignPicture;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.packet.PacketSignUpdate;
@@ -21,12 +22,12 @@ import teamport.aether.block.skyroot.BlockLogicPaintableSignSkyroot;
 @Environment(EnvType.CLIENT)
 public class ScreenSignSkyrootEditor extends Screen {
     private final String screenTitle = I18n.getInstance().translateKey("gui.edit_sign.label.title");
-    private final TileEntitySignSkyroot entitySign;
+    private final TileEntitySign entitySign;
     private int updateCounter;
     private int editLine = 0;
     private int yOffset = 0;
 
-    public ScreenSignSkyrootEditor(TileEntitySignSkyroot sign) {
+    public ScreenSignSkyrootEditor(TileEntitySign sign) {
         this.entitySign = sign;
     }
 
@@ -143,7 +144,7 @@ public class ScreenSignSkyrootEditor extends Screen {
         GL11.glScalef(-scale, -scale, -scale);
         GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
         Block<?> block = this.entitySign.getBlock();
-        if (((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding) {
+        if (block != null && ((BlockLogicPaintableSignSkyroot) block.getLogic()).isFreeStanding) {
             float signAngle = ((this.entitySign.getBlockMeta() & 15) * 360) / 16.0F;
             GL11.glRotatef(signAngle, 0.0F, 1.0F, 0.0F);
             GL11.glTranslatef(0.0F, -1.0625F, 0.0F);

@@ -14,12 +14,6 @@ public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot
         super(block, isFreeStanding);
     }
 
-    @Override
-    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
-        ItemStack item = new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, this.fromMetadata(meta).itemMeta);
-        return new ItemStack[]{item};
-    }
-
     public DyeColor fromMetadata(int meta) {
         return DyeColor.colorFromBlockMeta((meta & 240) >> 4);
     }
@@ -39,5 +33,10 @@ public class BlockLogicPaintedSignSkyroot extends BlockLogicPaintableSignSkyroot
     @Override
     public void setColor(World world, int x, int y, int z, DyeColor color) {
         world.setBlockMetadataWithNotify(x, y, z, color.blockMeta << 4 | this.stripColorFromMetadata(world.getBlockMetadata(x, y, z)));
+    }
+
+    @Override
+    public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int meta, TileEntity tileEntity) {
+        return new ItemStack[]{new ItemStack(AetherItems.SIGN_SKYROOT_PAINTED, 1, this.fromMetadata(meta).itemMeta)};
     }
 }

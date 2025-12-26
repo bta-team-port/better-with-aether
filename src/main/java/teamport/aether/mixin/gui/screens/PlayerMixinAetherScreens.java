@@ -1,11 +1,11 @@
 package teamport.aether.mixin.gui.screens;
 
+import net.minecraft.core.block.entity.TileEntitySign;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.block.entity.TileEntityEnchanter;
 import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.block.entity.TileEntityIncubator;
-import teamport.aether.block.entity.TileEntitySignSkyroot;
 import teamport.aether.gui.AetherScreens;
 
 @Mixin(value = Player.class, remap = false)
@@ -17,5 +17,5 @@ public abstract class PlayerMixinAetherScreens implements AetherScreens {
     @Override
     public void aether$displayIncubatorScreen(TileEntityIncubator tileEntity) {}
     @Override
-    public void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity) {}
+    public void aether$displaySignSkyrootEditorScreen(TileEntitySign tileEntity) {}
 }

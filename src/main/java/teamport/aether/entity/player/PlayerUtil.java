@@ -7,7 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.helper.unboxed.PriorityEntry;

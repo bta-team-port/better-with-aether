@@ -1,9 +1,9 @@
 package teamport.aether.gui;
 
+import net.minecraft.core.block.entity.TileEntitySign;
 import teamport.aether.block.entity.TileEntityEnchanter;
 import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.block.entity.TileEntityIncubator;
-import teamport.aether.block.entity.TileEntitySignSkyroot;
 
 public interface AetherScreens {
     void aether$displayEnchanterScreen(TileEntityEnchanter tileEntity);
@@ -12,5 +12,5 @@ public interface AetherScreens {
 
     void aether$displayIncubatorScreen(TileEntityIncubator tileEntity);
 
-    void aether$displaySignSkyrootEditorScreen(TileEntitySignSkyroot tileEntity);
+    void aether$displaySignSkyrootEditorScreen(TileEntitySign tileEntity);
 }

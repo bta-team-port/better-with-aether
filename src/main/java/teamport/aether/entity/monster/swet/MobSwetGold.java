@@ -75,7 +75,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
 
     @Override
     public void attackEntity(@NonNull Entity entity, float distance) {
-        this.attaclEntityWithDamage(entity, distance, 3);
+        this.attackEntityWithDamage(entity, distance, 3);
     }
 
     @Override

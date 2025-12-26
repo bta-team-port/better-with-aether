@@ -1,5 +1,7 @@
 package teamport.aether.mixin.dimension;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.world.type.WorldTypeGroups;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.world.AetherDimension;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = Minecraft.class)
 public class ClearLevelDataMixin {
     @Inject(method = "startWorld(Ljava/lang/String;Ljava/lang/String;JLnet/minecraft/core/world/type/WorldTypeGroups$Group;)V", at = @At("HEAD"))
