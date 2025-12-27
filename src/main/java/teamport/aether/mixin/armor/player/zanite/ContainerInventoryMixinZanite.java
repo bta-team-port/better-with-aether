@@ -20,6 +20,6 @@ public abstract class ContainerInventoryMixinZanite {
             return original.call(instance, damageType);
         }
         float durabilityProgress = (float) itemStack.getMetadata() / instance.durability;
-        return MathHelper.lerp(instance.getProtection(damageType), ArmorMaterial.GOLD.getProtection(damageType), durabilityProgress);
+        return MathHelper.lerp(instance.getProtection(damageType), AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType), durabilityProgress);
     }
 }

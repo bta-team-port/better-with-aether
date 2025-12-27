@@ -27,6 +27,6 @@ public abstract class MobWolfMixinZaniteResistance extends MobAnimal {
             return original.call(instance, damageType);
         }
         float healthPercentage = (float) this.getHealth() / this.getMaxHealth();
-        return MathHelper.lerp(ArmorMaterial.GOLD.getProtection(damageType) * 1.5f, instance.getProtection(damageType), healthPercentage);
+        return MathHelper.lerp(AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType) * 1.5f, instance.getProtection(damageType), healthPercentage);
     }
 }
