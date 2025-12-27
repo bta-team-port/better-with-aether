@@ -38,10 +38,10 @@ public class JumpRoom extends BaseBronzeRoom {
         room.add(drawVolume(0, 0, EAST, 10, UP, height - 2, SOUTH, 10, x + 1, y + 1, z + 1, false));
 
         // Platforms
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 1, false));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 1, y + 7, z + 4, false));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 4, EAST, 2, x + 9, y + 7, z + 4, false));
-        decoration.add(drawPlane(AetherBlocks.CARVED_STONE_TRAPPED.id(), 0, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 9, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 1, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 4, EAST, 2, x + 1, y + 7, z + 4, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 4, EAST, 2, x + 9, y + 7, z + 4, false));
+        decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 4, x + 4, y + 7, z + 9, false));
 
         // Clouds
         decoration.add(drawPlane(AetherBlocks.AERCLOUD_BLUE.id(), 0, SOUTH, 3, EAST, 3, x + 1, y, z + 1, false));
