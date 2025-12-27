@@ -116,10 +116,17 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
     @Override
     public void playerTouch(Player player) {
-        if (this.world != null && findPlayerToAttack() == player && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
-            this.findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
+        Player target = (Player) this.findPlayerToAttack();
+        if (this.world != null && target != null && target.uuid.equals(player.uuid) && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
+            target.hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.createExplosion(this, this.x, this.y - 0.5, this.z, 1f, false, true);
         }
+    }
+
+    ///  Sentries have true sight.
+    protected Entity findPlayerToAttack() {
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0F);
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
     @Override
