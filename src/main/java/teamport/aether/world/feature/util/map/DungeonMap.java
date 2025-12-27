@@ -129,6 +129,7 @@ public class DungeonMap {
         catch (Exception e) {
             AetherMod.LOGGER.error("Failed to load dungeon {} from map!", id);
             AetherMod.LOGGER.error("This world might be outdated or corrupted!");
+            AetherMod.LOGGER.error(String.valueOf(e));
             Thread.dumpStack();
             return null;
         }
@@ -162,7 +163,13 @@ public class DungeonMap {
             .filter(Objects::nonNull)
             .filter(d -> d.getPosition() != null) // :^)
             .filter(d -> d.getPosition().distanceTo(wfpoint(player)) < 300)
-            .forEach(d -> resultTag.addTag(d.save(new CompoundTag())));
+            .forEach(d -> {
+                final CompoundTag tag = new CompoundTag();
+                d.save(tag);
+                tag.putString("type", TYPE_KEY_MAP.get(d.getClass()));
+                tag.putInt("dimensionID", d.getDimensionID());
+                resultTag.addTag(tag);
+            });
 
         return resultTag;
     }
