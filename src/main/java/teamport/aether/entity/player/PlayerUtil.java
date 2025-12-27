@@ -167,7 +167,7 @@ public class PlayerUtil {
         Player returnPlayer = null;
         for (Player currentPlayer : world.players) {
             double currentDistance = currentPlayer.distanceToSqr(x, y, z);
-            if (currentDistance < radius * radius
+            if (currentDistance > radius * radius
                 || PlayerUtil.test(playerStatus, currentPlayer, currentDistance)
                 || currentDistance >= closestDistance
             ) {
