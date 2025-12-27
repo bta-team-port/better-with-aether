@@ -84,7 +84,7 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         super.tick();
         if (this.getHealth() > 0) {
             this.maxFireTicks = 20;
-            ParticleMaker.spawnWhirlyParticles(world, this, 8, "fire");
+            ParticleMaker.spawnWhirlyParticles(world, this, 4, "fire");
         }
     }
 
