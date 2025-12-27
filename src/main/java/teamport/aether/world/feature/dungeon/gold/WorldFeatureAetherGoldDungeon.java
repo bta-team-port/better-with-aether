@@ -179,6 +179,7 @@ public class WorldFeatureAetherGoldDungeon extends WorldFeatureMap<DungeonLogicG
         this.world = world;
         this.random = new Random(logic.seed);
         this.logic = logic;
+        this.logic.setGenerated(true);
         this.dungeonAnchor = new WorldFeaturePoint(x, y, z);
         this.bossPosition = new WorldFeaturePoint(x, y + RADIUS / 2 + 2, z);
         this.heightMap = new ArrayList<>();

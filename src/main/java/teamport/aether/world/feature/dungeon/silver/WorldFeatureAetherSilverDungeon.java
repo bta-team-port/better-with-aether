@@ -201,6 +201,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         this.world = world;
         this.random = new Random(logic.seed);
         this.logic = logic;
+        this.logic.setGenerated(true);
         this.dungeonAnchor = wfp(x, y, z);
         this.silverMaze = new WorldFeatureSilverMaze();
         this.bossPosition = wfp(x - 15, y + 4, z + 42).rotateYAroundPivot(dungeonAnchor, direction);
