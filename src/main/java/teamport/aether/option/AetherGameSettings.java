@@ -27,7 +27,7 @@ public class AetherGameSettings {
     public static void registerSettings() {
         AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
 
-        OptionsPage AETHER = new OptionsPage("gui.options.page.aether.title", new ItemStack(AetherBlocks.GRASS_AETHER))
+        OptionsPage AETHER = new OptionsPage("gui.options.page.aether.title", new ItemStack(AetherBlocks.CARVED_STONE_LIGHT))
             .withComponent(new OptionsCategory("gui.options.page.aether.category.user_interface")
                 .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
             );
