@@ -64,22 +64,22 @@ public class AchievementPageAether extends AchievementPage implements AetherAchi
         WATER_FLOWING.setDimension(water.width / 2, water.height / 2);
         WATER_FLOWING.setPosition(water.iconX, water.iconY);
 
-        AETHER_GRASS = TextureRegistry.getTexture("aether:block/grass_aether/side");
+        AETHER_GRASS = TextureRegistry.getTexture("aether:block/grass_aether/side_retro");
         AETHER_DIRT = TextureRegistry.getTexture("aether:block/dirt_aether");
         COBBLED_HOLYSTONE = TextureRegistry.getTexture("aether:block/cobbled_holystone");
         COBBLED_HOLYSTONE_MOSSY = TextureRegistry.getTexture("aether:block/cobbled_holystone_mossy");
         QUICKSOIL = TextureRegistry.getTexture("aether:block/quicksoil");
         LOG_SKYROOT = TextureRegistry.getTexture("aether:block/log/skyroot_side");
-        LEAVES_SKYROOT = TextureRegistry.getTexture("aether:block/leaves/skyroot");
+        LEAVES_SKYROOT = TextureRegistry.getTexture("aether:block/leaves/skyroot_retro");
 
-        LEAVES_GOLDEN = TextureRegistry.getTexture("aether:block/leaves/oak_golden");
+        LEAVES_GOLDEN = TextureRegistry.getTexture("aether:block/leaves/oak_golden_retro");
         LOG_GOLDEN = TextureRegistry.getTexture("aether:block/log/oak_golden_side");
 
         BLUE_CLOUD = TextureRegistry.getTexture("aether:block/aercloud_blue");
         YELLOW_CLOUD = TextureRegistry.getTexture("aether:block/aercloud_gold");
         CLOUD = TextureRegistry.getTexture("aether:block/aercloud_white");
 
-        AETHER_TALL_GRASS = TextureRegistry.getTexture("aether:block/tallgrass_aether");
+        AETHER_TALL_GRASS = TextureRegistry.getTexture("aether:block/tallgrass_aether_retro");
         WHITE_FLOWER = TextureRegistry.getTexture("aether:block/flower_white/0");
         PURPLE_FLOWER = TextureRegistry.getTexture("aether:block/flower_purple/0");
 
