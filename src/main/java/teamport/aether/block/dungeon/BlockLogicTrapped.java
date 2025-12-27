@@ -1,6 +1,7 @@
 package teamport.aether.block.dungeon;
 
 import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -47,7 +48,7 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        if (!world.isClientSide && world.getBlockMetadata(x, y, z) != 1) {
+        if (!world.isClientSide && world.getBlockMetadata(x, y, z) == 1) {
             world.setBlockMetadata(x, y, z, 0);
         }
     }
@@ -75,33 +76,47 @@ public class BlockLogicTrapped extends BlockLogicDungeon implements AetherBlockT
         }
         theMonster.spawnInit();
 
-        int distance = 12 + world.rand.nextInt(5);
+        int distance = 6 + world.rand.nextInt(2);
         while (distance --> 0) {
-
             int tries = 16;
             while (tries --> 0) {
                 final double angleRad = Math.toRadians(world.rand.nextInt(360));
 
                 float actualDistance = distance - ((float) world.rand.nextInt(11) / 10);
-                double spawnX = x + 0.5 + actualDistance * Math.cos(angleRad);
-                double spawnZ = z + 0.5 + actualDistance * Math.sin(angleRad);
-                double spawnY = y + 1.25;
+                double spawnX = x + actualDistance * Math.cos(angleRad);
+                double spawnZ = z + actualDistance * Math.sin(angleRad);
+                double spawnY = y + 1.0;
 
-                theMonster.moveTo(spawnX, y + 1.0, spawnZ, 0.0f, 0.0f);
+                theMonster.moveTo(spawnX, spawnY, spawnZ, 0.0f, 0.0f);
 
-                if (world.getIsAnySolidGround(theMonster.bb)) continue;
+                if (world.getIsAnySolidGround(theMonster.bb)) {
+                    continue;
+                }
 
+                ///  checks sight between player and entity
                 HitResult hit = world.checkBlockCollisionBetweenPoints(
                     Vec3.getPermanentVec3(entity.x, entity.y, entity.z),
                     Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
                     false, false, true
                 );
-                if (hit != null) continue;
+                if (hit != null) {
+                    continue;
+                }
+
+                ///  checks if the entity can be spawned on the choosen block
+                HitResult hit1 = world.checkBlockCollisionBetweenPoints(
+                    Vec3.getPermanentVec3(theMonster.x, theMonster.y, theMonster.z),
+                    Vec3.getPermanentVec3(theMonster.x, theMonster.y - 5, theMonster.z),
+                    true, false, true
+                );
+                if (hit1 == null || hit1.hitType != HitResult.HitType.TILE || !world.getBlockMaterial(hit1.x, hit1.y, hit1.z).isSolid() || world.getBlockId(hit1.x, hit1.y, hit1.z) == Blocks.SPIKES.id()) {
+                    continue;
+                }
 
                 world.entityJoinedWorld(theMonster);
                 world.setBlockMetadata(x, y, z, 1);
                 world.scheduleBlockUpdate(x, y, z, this.id(), this.tickDelay());
-                this.spawnParticles(world, spawnX, spawnY, spawnZ);
+                this.spawnParticles(world, spawnX, spawnY + 0.25, spawnZ);
                 this.playSound(world, x, y, z, entity, theMonster);
                 this.giveAchievement((Player) entity, theMonster);
                 return;
