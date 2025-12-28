@@ -36,6 +36,16 @@ public class MobZephyr extends MobFlying implements Enemy, AetherDeathMessage {
     }
 
     @Override
+    public float getBrightness(float partialTick) {
+        return 1.0F;
+    }
+
+    @Override
+    public int getLightmapCoord(float partialTick) {
+        return this.world.getLightmapCoord(15, 15);
+    }
+
+    @Override
     public int getMaxHealth() {
         return 10;
     }

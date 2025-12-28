@@ -16,6 +16,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.WorldSource;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.ParticleMaker;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.function.Supplier;
 
@@ -61,7 +62,10 @@ public class BlockLogicDungeonDoor extends BlockLogicRotatable {
         }
 
         player.moveTo(destX + .5, destY, destZ + .5, player.yRot, player.xRot);
-        world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, destX, destY, destZ, "random.door_open", 0.5f, 0.5f);
+
+        if (!EnvironmentHelper.isServerEnvironment()) {
+            world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, destX, destY, destZ, "random.door_open", 0.5f, 0.5f);
+        }
         return true;
     }
 

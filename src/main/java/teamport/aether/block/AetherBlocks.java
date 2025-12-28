@@ -457,7 +457,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("tallgrass.aether", "tallgrass_aether", blockID("TALLGRASS_AETHER"), b -> (BlockLogicTallGrassAether) (new BlockLogicTallGrassAether(b)).setKilledByWeather());
 
         DEADBUSH_AETHER = flower
-            .setTags(BlockTags.MINEABLE_BY_SHEARS, BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEEPS_FAVOURITE_BLOCK, BlockTags.SHEARS_DO_SILK_TOUCH)
+            .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLACE_OVERWRITES, BlockTags.SHEARS_DO_SILK_TOUCH, AetherBlockTags.PLANTABLE_IN_AETHER_JAR)
             .build("deadbush.aether", "deadbush_aether", blockID("DEADBUSH_AETHER"), b -> (BlockLogicDeadBushAether) (new BlockLogicDeadBushAether(b)).setKilledByWeather());
 
 

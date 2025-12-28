@@ -18,6 +18,16 @@ public class AetherArmorMaterial {
         .withProtectionPercentage(AetherMod.HOLY, -23.0f)
         .withProtectionPercentage(AetherMod.LIGHTNING, 45.0f);
 
+    public static final ArmorMaterial ZANITE_BROKEN = ArmorHelper.createArmorMaterial(MOD_ID,
+            "zanite",
+            200,
+            70.0f,
+            70.0f,
+            70.0f,
+            70.0f)
+        .withProtectionPercentage(AetherMod.HOLY, -35.0f)
+        .withProtectionPercentage(AetherMod.LIGHTNING, 70.0f);
+
 
     public static final ArmorMaterial GRAVITITE = ArmorHelper.createArmorMaterial(MOD_ID,
             "gravitite",
