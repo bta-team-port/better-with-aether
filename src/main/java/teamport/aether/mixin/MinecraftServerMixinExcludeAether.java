@@ -1,6 +1,5 @@
 package teamport.aether.mixin;
 
-
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
@@ -20,21 +19,29 @@ public abstract class MinecraftServerMixinExcludeAether {
     public PropertyManager propertyManager;
 
     @Definition(id = "dimension", field = "Lnet/minecraft/server/world/WorldServer;dimension:Lnet/minecraft/core/world/Dimension;")
-    @Definition(id = "NETHER", field = "Lnet/minecraft/core/world/Dimension;NETHER:Lnet/minecraft/core/world/Dimension;")
-    @Expression("?.dimension != NETHER")
+    @Definition(id = "PARADISE", field = "Lnet/minecraft/core/world/Dimension;PARADISE:Lnet/minecraft/core/world/Dimension;")
+    @Expression("?.dimension != PARADISE")
     @ModifyExpressionValue(method = "initWorld", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean disableAetherGeneration(boolean origin, @Local WorldServer worldServer){
-        return worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true) && origin;
+    private boolean disableAetherGenerationOne(boolean original, @Local WorldServer worldServer){
+        return original && worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true);
     }
-
-
+    @Definition(id = "getBooleanProperty", method = "Lnet/minecraft/core/net/PropertyManager;getBooleanProperty(Ljava/lang/String;Z)Z")
+    @Expression("?.getBooleanProperty('allow-paradise', false)")
+    @ModifyExpressionValue(method = "initWorld", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean disableAetherGenerationTwo(boolean original, @Local WorldServer worldServer){
+        return original && worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true);
+    }
     @Definition(id = "dimension", field = "Lnet/minecraft/server/world/WorldServer;dimension:Lnet/minecraft/core/world/Dimension;")
-    @Definition(id = "NETHER", field = "Lnet/minecraft/core/world/Dimension;NETHER:Lnet/minecraft/core/world/Dimension;")
-    @Expression("?.dimension != NETHER")
+    @Definition(id = "PARADISE", field = "Lnet/minecraft/core/world/Dimension;PARADISE:Lnet/minecraft/core/world/Dimension;")
+    @Expression("?.dimension != PARADISE")
     @ModifyExpressionValue(method = "doTick", at = @At("MIXINEXTRAS:EXPRESSION"))
-    public boolean disableAetherTravel(boolean origin, @Local WorldServer worldServer){
-        return worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true) && origin;
+    private boolean disableAetherTravelOne(boolean original, @Local WorldServer worldServer){
+        return original && worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true);
     }
-
-
+    @Definition(id = "getBooleanProperty", method = "Lnet/minecraft/core/net/PropertyManager;getBooleanProperty(Ljava/lang/String;Z)Z")
+    @Expression("?.getBooleanProperty('allow-paradise', false)")
+    @ModifyExpressionValue(method = "doTick", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean disableAetherTravelTwo(boolean original, @Local WorldServer worldServer){
+        return original && worldServer.dimension != AetherDimension.getAether() || this.propertyManager.getBooleanProperty("allow-aether", true);
+    }
 }
