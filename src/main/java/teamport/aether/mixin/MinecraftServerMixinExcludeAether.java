@@ -15,6 +15,7 @@ import teamport.aether.world.AetherDimension;
 @Mixin(value = MinecraftServer.class, remap = false)
 public abstract class MinecraftServerMixinExcludeAether {
 
+    //TODO Finish this after release
     @Shadow
     public PropertyManager propertyManager;
 
