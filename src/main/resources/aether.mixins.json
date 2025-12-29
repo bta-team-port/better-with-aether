@@ -80,6 +80,7 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "entity.SpawnMobMixinZephyr",
+    "entity.UnburnableItemMixin",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",

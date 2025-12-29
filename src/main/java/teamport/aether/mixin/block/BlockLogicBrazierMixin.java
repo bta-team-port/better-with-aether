@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 @Mixin(value = BlockLogicBrazier.class, remap = false)
 public abstract class BlockLogicBrazierMixin extends BlockLogic {
@@ -38,7 +39,9 @@ public abstract class BlockLogicBrazierMixin extends BlockLogic {
                     double angle = Math.toRadians(l * 45.0);
                     ParticleMaker.spawnParticle(world, "smoke", x + 0.5, y, z + 0.5, -Math.cos(angle) / 20.0, 0.03, -Math.sin(angle) / 20.0, 0);
                 }
-                world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                if (!EnvironmentHelper.isClientWorld()) {
+                    world.playSoundEffect(null, SoundCategory.WORLD_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+                }
                 return true;
             } else {
                 return false;
