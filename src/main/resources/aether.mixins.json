@@ -159,6 +159,7 @@
   ],
   "server": [
     "MinecraftServerMixinExcludeAether",
+    "PlayerServerMixinExcludeAether",
     "accessory.PlayerServerMixinAccessoryServer",
     "dimension.bump_to_overworld.MPBumpToOverworldMixin",
     "dimension.bump_to_overworld.MPWorldMixin",
