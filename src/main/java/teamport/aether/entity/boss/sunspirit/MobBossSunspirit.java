@@ -8,8 +8,6 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.ItemFood;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -143,18 +141,29 @@ public class MobBossSunspirit extends MobBossFlying {
 
     @Override
     public void tick() {
+        if (this.world == null) {
+            return;
+        }
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            if (this.isAgro) {
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    Minecraft.getMinecraft().sndManager.stopMusic();
+                }
+                this.isAgro = false;
+                this.chatLog = 0;
+                this.returnToOriginalState();
+                this.evaporateMaterialWithEffect(Material.fire);
+            }
+        }
         super.tick();
-        this.evaporateWaterWithEffect();
+        this.evaporateMaterialWithEffect(Material.water);
         if (this.chatCooldown > 0) {
             --this.chatCooldown;
             this.maxFireTicks = this.remainingFireTicks = 0;
         }
-        if (this.isInLava()) {
-            this.eatFood((ItemFood) Items.FOOD_FISH_RAW);
-        }
     }
 
-    private void evaporateWaterWithEffect() {
+    private void evaporateMaterialWithEffect(Material material) {
         if (this.getHealth() > 0) {
             double a = this.random.nextDouble() - 0.5;
             double b = this.random.nextDouble();
@@ -165,7 +174,7 @@ public class MobBossSunspirit extends MobBossFlying {
             double flameZ = this.z + c * b;
 
             ParticleMaker.spawnParticle(world, "flame", flameX, flameY, flameZ, 0.0, -0.075F, 0.0, 0);
-            this.evaporateWater();
+            this.evaporateWater(material);
         }
     }
 
@@ -194,7 +203,7 @@ public class MobBossSunspirit extends MobBossFlying {
     @Override
     public void thunderHit(EntityLightning bolt) {/* cannot be take light */}
 
-    public void evaporateWater() {
+    public void evaporateWater(Material material) {
         int centerX = MathHelper.floor(this.x);
         int centerZ = MathHelper.floor(this.z);
         int radius = 9;
@@ -206,7 +215,7 @@ public class MobBossSunspirit extends MobBossFlying {
 
                 for (int i = 0; i < 9; ++i) {
                     int y = (int) (this.yo - 2 + i);
-                    if (this.world != null && this.world.getBlockMaterial(x, y, z) == Material.water) {
+                    if (this.world != null && this.world.getBlockMaterial(x, y, z) == material) {
                         this.world.setBlockWithNotify(x, y, z, 0);
                         this.world.playSoundEffect(this, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5F, "random.fizz", 0.125F, 2.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.8F);
                         for (int l = 0; l < 8; ++l) {
@@ -229,6 +238,12 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
+            if(!this.world.getDifficulty().canHostileMobsSpawn()){
+                MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.peaceful_" + this.random.nextInt(4)));
+                this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
+                this.chatCooldown = 40;
+                return false;
+            }
             if (this.chatLog < START_FIGHT) {
                 MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + this.chatLog));
                 if (this.chatLog >= 5 && this.chatLog < 8) {
@@ -387,6 +402,9 @@ public class MobBossSunspirit extends MobBossFlying {
     public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (attacker == null && type == null && damage == 100) {
             return killCommand();
+        }
+        if(!this.world.getDifficulty().canHostileMobsSpawn()){
+            return false;
         }
         if (attacker instanceof ProjectileElementIce) {
             return hurt(attacker, type);

@@ -129,6 +129,10 @@ boss_sunspirit.chat_8= This is your final warning. Leave now, or prepare to burn
 boss_sunspirit.fight.start= As you wish, your death will be slow and agonizing.
 boss_sunspirit.fight.repeat= Did your previous death not satisfy your curiosity, human?
 boss_sunspirit.dies= Such bitter cold... is this the feeling... of pain?
+boss_sunspirit.peaceful_0= You are certainly a ... coward.
+boss_sunspirit.peaceful_1= Begone ... coward!
+boss_sunspirit.peaceful_2= Your presence annoys me.
+boss_sunspirit.peaceful_3=  Leave me at peace.
 
 # Misc
 aether.entity.arrow_flaming.death_message.suicide = [PLAYER] kebabbed himself.
