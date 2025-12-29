@@ -11,6 +11,8 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.packet.PacketAddEntity;
+import net.minecraft.core.net.packet.PacketRemoveEntity;
 import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -21,11 +23,11 @@ import net.minecraft.server.MinecraftServer;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
-import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
+import teamport.aether.net.message.EjectRiderNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
@@ -270,9 +272,14 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (player.isSneaking() && vehicle == null) return super.interact(player);
 
         if (this.vehicle == player) {
+            Entity vehicle = (Entity) this.vehicle;
             grab = false;
 
             vehicle.ejectRider();
+            if (EnvironmentHelper.isServerEnvironment()) {
+                NetworkHandler.sendToAllAround(this.x, this.y, this.z, 32, this.world.dimension.id, new EjectRiderNetworkMessage(vehicle));
+            }
+
             return true;
         }
 
@@ -305,7 +312,6 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public String getDeathSound() {
         return "aether:mob.aerbunny.death";
     }
-
 
     @Override
     public void startRiding(IVehicle vehicle) {
