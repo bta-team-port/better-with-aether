@@ -12,6 +12,7 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
+import teamport.aether.world.AetherDimension;
 
 public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomDamageType {
     public ItemToolSwordFire(String name, String namespaceId, int id, ToolMaterial enumtoolmaterial) {
@@ -40,7 +41,7 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
         blockZ += side.getOffsetZ();
         int blockID = world.getBlockId(blockX, blockY, blockZ);
         if (blockID != 0) return false;
-        if (!world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id())) return false;
+        if (world.dimension != AetherDimension.getAether() && player != null && !world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id())) return false;
         world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, (double) blockX + (double) 0.5F, (double) blockY + (double) 0.5F, (double) blockZ + (double) 0.5F, "fire.ignite", 1.0F, itemRand.nextFloat() * 0.4F + 0.8F);
         itemstack.damageItem(1, player);
         return true;

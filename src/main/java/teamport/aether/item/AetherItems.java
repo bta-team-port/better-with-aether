@@ -257,13 +257,13 @@ public final class AetherItems {
 
 
         KEY_BRONZE = new ItemBuilder(MOD_ID)
-            .build(new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
+            .build(new ItemKey("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
 
         KEY_SILVER = new ItemBuilder(MOD_ID)
-            .build(new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
+            .build(new ItemKey("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
 
         KEY_GOLD = new ItemBuilder(MOD_ID)
-            .build(new Item("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
+            .build(new ItemKey("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
 
 
         EGG_MOA_BLUE = new ItemBuilder(MOD_ID)

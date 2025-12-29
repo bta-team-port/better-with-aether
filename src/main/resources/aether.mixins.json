@@ -80,6 +80,7 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "entity.SpawnMobMixinZephyr",
+    "entity.UnburnableItemMixin",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
@@ -158,6 +159,8 @@
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "server": [
+    "MinecraftServerMixinExcludeAether",
+    "PlayerServerMixinExcludeAether",
     "accessory.PlayerServerMixinAccessoryServer",
     "dimension.bump_to_overworld.MPBumpToOverworldMixin",
     "dimension.bump_to_overworld.MPWorldMixin",

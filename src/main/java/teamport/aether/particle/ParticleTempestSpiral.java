@@ -7,13 +7,13 @@ import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.world.World;
 
 @Environment(EnvType.CLIENT)
-public class ParticleWhirlySpiralEvil extends Particle {
+public class ParticleTempestSpiral extends Particle {
     private final double centerX;
     private final double centerZ;
     private double angle;
     private double radius;
 
-    public ParticleWhirlySpiralEvil(World world, double x, double y, double z) {
+    public ParticleTempestSpiral(World world, double x, double y, double z) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.centerX = x;
         this.centerZ = z;

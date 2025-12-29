@@ -161,7 +161,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     };
 
     private static final int[] META_ID = new int[]{
-        0, 16, 32, 48
+        0, 32, 64, 96
     };
 
     private static final double[] FLOWER_DENSITY_NOISE_BUFFER = new double[16 * 16];

@@ -62,7 +62,7 @@ public abstract class LavaBucketMixin {
             if (!hasPlacedAerogel.get()) return;
             playerTwo.swingItem();
             instance.setBlockWithNotify(xTwo, yTwo, zTwo, AetherBlocks.AEROGEL.id());
-            original.call(instance, player, category, z, y, x, "fire.ignite", volume, pitch);
+            original.call(instance, player, category, z, y, x, "fire.ignite", 1.0F, instance.rand.nextFloat() * 0.4F + 0.8F);
             return;
         }
         original.call(instance, player, category, z, y, x, soundPath, volume, pitch);

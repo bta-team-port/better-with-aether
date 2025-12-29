@@ -10,7 +10,6 @@ import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemFood;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -30,7 +29,6 @@ import teamport.aether.entity.projectile.ProjectileElementFire;
 import teamport.aether.entity.projectile.ProjectileElementIce;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
-import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
@@ -90,11 +88,11 @@ public class MobBossSunspirit extends MobBossFlying {
     }
 
     private void setFloorOnFire() {
-        int ix = (int)Math.floor(this.x);
-        int iy = (int)Math.floor(this.y - 1);
-        int iz = (int)Math.floor(this.z);
+        int ix = (int) Math.floor(this.x);
+        int iy = (int) Math.floor(this.y - 1);
+        int iz = (int) Math.floor(this.z);
         Block<?> block = this.world.getBlock(ix, iy, iz);
-        if(block == null || block.id() == 0){
+        if (block == null || block.id() == 0) {
             this.world.setBlockWithNotify(ix, iy, iz, Blocks.FIRE.id());
         }
     }
@@ -231,13 +229,6 @@ public class MobBossSunspirit extends MobBossFlying {
         }
 
         if (this.chatCooldown <= 0) {
-            if (!SunSpiritDeath.isDead() && this.chatLog < START_FIGHT && player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemToolSword) {
-                MessageMaker.sendMessage(player, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.repeat.again"));
-                this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 1.0f);
-                this.chatLog = START_FIGHT;
-                this.chatCooldown = 40;
-                return false;
-            }
             if (this.chatLog < START_FIGHT) {
                 MessageMaker.sendMessage(player, ORANGE + TRANSLATOR.translateKey("boss_sunspirit.chat_" + this.chatLog));
                 if (this.chatLog >= 5 && this.chatLog < 8) {
@@ -300,8 +291,9 @@ public class MobBossSunspirit extends MobBossFlying {
             .forEach(players -> {
                 MessageMaker.sendMessage(players, LIGHT_BLUE + TRANSLATOR.translateKey("boss_sunspirit.dies"));
                 players.triggerAchievement(AetherAchievements.GOLD);
-                this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
+
+        this.world.playSoundAtEntity(null, this, "aether:achievement.gold", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
@@ -402,6 +394,25 @@ public class MobBossSunspirit extends MobBossFlying {
         if (attacker instanceof Player) {
             ((AetherBossList) attacker).aether$TryAddBossList(this);
         }
+
+        if (!this.isAgro && this.chatLog < START_FIGHT) {
+            this.chatLog = START_FIGHT;
+            this.chatCooldown = 40;
+            this.world.players.stream()
+                .filter(p -> p.distanceToSqr(this) < 32 * 32)
+                .forEach(p -> MessageMaker.sendMessage(p, RED + TRANSLATOR.translateKey("boss_sunspirit.fight.start")));
+            this.world.playSoundAtEntity(null, this, "aether:mob.sunspirit.talk", 1.0f, 0.5f);
+            this.isAgro = true;
+            this.target = attacker instanceof Player ? attacker : this.findPlayerToAttack();
+            this.rotateSunspirit(this.random.nextInt(360));
+            DungeonMap.runWithDungeon(dungeonID, d -> d.lock(this.world));
+
+            if (!EnvironmentHelper.isServerEnvironment()) {
+                Minecraft.getMinecraft().sndManager.stopMusic();
+                Minecraft.getMinecraft().sndManager.playMusic("aether:aether_music_boss.fireboss", (float) this.x, (float) this.y, (float) this.z, 1.0F, 1.0F);
+            }
+        }
+
         return false;
     }
 

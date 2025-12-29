@@ -14,6 +14,7 @@ import net.minecraft.core.util.helper.Color;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.mixin.accessors.EntityAccessor;
@@ -37,6 +38,8 @@ public class MixinHelper {
         BLOCK_TO_BECOME.put(Blocks.BRAZIER_ACTIVE.id(), Blocks.BRAZIER_INACTIVE.id());
         BLOCK_TO_BECOME.put(Blocks.PUMICE_WET.id(), Blocks.PUMICE_DRY.id());
         BLOCK_TO_BECOME.put(Blocks.COBBLE_NETHERRACK_IGNEOUS.id(), Blocks.COBBLE_NETHERRACK.id());
+        BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_FLOWING.id(), AetherBlocks.AEROGEL.id());
+        BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_STILL.id(), AetherBlocks.AEROGEL.id());
     }
 
     public static int fireResistanceCount(ContainerInventory inventory) {
