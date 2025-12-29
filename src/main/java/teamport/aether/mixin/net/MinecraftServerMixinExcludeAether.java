@@ -1,4 +1,4 @@
-package teamport.aether.mixin;
+package teamport.aether.mixin.net;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
