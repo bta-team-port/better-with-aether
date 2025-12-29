@@ -234,6 +234,8 @@ public final class AetherItems {
 
     private static boolean hasInit = false;
 
+    private AetherItems(){}
+
     public static void init() {
         if (!hasInit) {
             hasInit = true;
@@ -257,13 +259,16 @@ public final class AetherItems {
 
 
         KEY_BRONZE = new ItemBuilder(MOD_ID)
-            .build(new ItemKey("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .build(new Item("key.bronze", itemKey("key_bronze"), itemID("KEY_BRONZE")));
 
         KEY_SILVER = new ItemBuilder(MOD_ID)
-            .build(new ItemKey("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .build(new Item("key.silver", itemKey("key_silver"), itemID("KEY_SILVER")));
 
         KEY_GOLD = new ItemBuilder(MOD_ID)
-            .build(new ItemKey("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
+            .build(new Item("key.gold", itemKey("key_gold"), itemID("KEY_GOLD")));
 
 
         EGG_MOA_BLUE = new ItemBuilder(MOD_ID)
@@ -574,28 +579,36 @@ public final class AetherItems {
 
 
         ARMOR_HELMET_OBSIDIAN = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
             .build(new ItemArmor("armor.helmet.obsidian", itemKey("armor_helmet_obsidian"), itemID("ARMOR_HELMET_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 3));
 
         ARMOR_CHESTPLATE_OBSIDIAN = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
             .build(new ItemArmor("armor.chestplate.obsidian", itemKey("armor_chestplate_obsidian"), itemID("ARMOR_CHESTPLATE_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 2));
 
         ARMOR_LEGGINGS_OBSIDIAN = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
             .build(new ItemArmor("armor.leggings.obsidian", itemKey("armor_leggings_obsidian"), itemID("ARMOR_LEGGINGS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 1));
 
         ARMOR_BOOTS_OBSIDIAN = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_BLAST_DAMAGE)
             .build(new ItemArmor("armor.boots.obsidian", itemKey("armor_boots_obsidian"), itemID("ARMOR_BOOTS_OBSIDIAN"), AetherArmorMaterial.OBSIDIAN, 0));
 
 
         ARMOR_HELMET_PHOENIX = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new ItemArmor("armor.helmet.phoenix", itemKey("armor_helmet_phoenix"), itemID("ARMOR_HELMET_PHOENIX"), AetherArmorMaterial.PHOENIX, 3));
 
         ARMOR_CHESTPLATE_PHOENIX = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new ItemArmor("armor.chestplate.phoenix", itemKey("armor_chestplate_phoenix"), itemID("ARMOR_CHESTPLATE_PHOENIX"), AetherArmorMaterial.PHOENIX, 2));
 
         ARMOR_LEGGINGS_PHOENIX = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new ItemArmor("armor.leggings.phoenix", itemKey("armor_leggings_phoenix"), itemID("ARMOR_LEGGINGS_PHOENIX"), AetherArmorMaterial.PHOENIX, 1));
 
         ARMOR_BOOTS_PHOENIX = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new ItemArmor("armor.boots.phoenix", itemKey("armor_boots_phoenix"), itemID("ARMOR_BOOTS_PHOENIX"), AetherArmorMaterial.PHOENIX, 0));
 
 
