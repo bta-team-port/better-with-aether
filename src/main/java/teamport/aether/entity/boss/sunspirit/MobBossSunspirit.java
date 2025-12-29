@@ -300,8 +300,9 @@ public class MobBossSunspirit extends MobBossFlying {
             .forEach(players -> {
                 MessageMaker.sendMessage(players, LIGHT_BLUE + TRANSLATOR.translateKey("boss_sunspirit.dies"));
                 players.triggerAchievement(AetherAchievements.GOLD);
-                this.world.playSoundEffect(players, SoundCategory.WORLD_SOUNDS, players.x, players.y, players.z, "aether:achievement.gold", 0.5f, 1.0f);
             });
+
+        this.world.playSoundAtEntity(null, this, "aether:achievement.gold", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();

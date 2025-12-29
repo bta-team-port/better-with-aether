@@ -6,18 +6,21 @@
     ]
   },
   "achievement.bronze": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_bronze.ogg"
     ]
   },
   "achievement.silver": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_silver.ogg"
     ]
   },
   "achievement.gold": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_gold.ogg"

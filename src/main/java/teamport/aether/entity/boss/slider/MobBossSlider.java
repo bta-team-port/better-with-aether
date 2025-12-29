@@ -59,7 +59,7 @@ public class MobBossSlider extends MobBoss {
     public static final float BASE_DAMAGE = 10F;
     public static final int MAX_ATTACK_COOL_DOWN = 50;
     public static final int MIN_ATTACK_COOL_DOWN = 10;
-    public static final int WAKEUP_TIMER = 14;
+    public static final int WAKEUP_TIMER = 20;
     public int wakeUpTimer = 0;
     private double slamY = -1;
     private boolean slamGoingDown = false;
@@ -294,10 +294,9 @@ public class MobBossSlider extends MobBoss {
         if (this.world == null) return;
         this.world.players.stream()
             .filter(player -> player.distanceTo(this) < 32)
-            .forEach(p -> {
-                p.triggerAchievement(AetherAchievements.BRONZE);
-                this.world.playSoundEffect(p, SoundCategory.WORLD_SOUNDS, p.x, p.y, p.z, "aether:achievement.bronze", 0.5f, 1.0f);
-            });
+            .forEach(p -> p.triggerAchievement(AetherAchievements.BRONZE));
+
+        this.world.playSoundAtEntity(null, this, "aether:achievement.bronze", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();

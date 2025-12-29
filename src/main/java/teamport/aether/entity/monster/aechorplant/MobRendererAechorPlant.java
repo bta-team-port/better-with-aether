@@ -49,7 +49,7 @@ public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
 
         for (String bone : petals) {
             BoneTransform t = model.getTransform(bone);
-            t.rotX += sinage;
+            t.rotX += 0.15 - sinage;
         }
 
         String[] thorns = {
@@ -58,7 +58,7 @@ public class MobRendererAechorPlant extends MobRenderer<MobAechorPlant> {
 
         for (String bone : thorns) {
             BoneTransform t = model.getTransform(bone);
-            t.rotX += sinage;
+            t.rotX -= sinage;
         }
 
         String[] stalks = {

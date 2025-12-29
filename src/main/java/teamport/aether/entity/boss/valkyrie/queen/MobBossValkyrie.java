@@ -10,7 +10,6 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
@@ -247,11 +246,11 @@ public class MobBossValkyrie extends MobBoss {
         this.world.players.stream()
             .filter(player -> player.distanceTo(this) < 32)
             .forEach(player -> {
-                this.world.playSoundEffect(player, SoundCategory.WORLD_SOUNDS, player.x, player.y, player.z, "aether:achievement.silver", 0.5f, 1.0f);
                 player.triggerAchievement(AetherAchievements.SILVER);
-
                 MessageMaker.sendMessage(player, TRANSLATOR.translateKey("boss_valkyrie.dies"));
             });
+
+        this.world.playSoundAtEntity(null, this, "aether:achievement.silver", 0.5f, 1.0f);
 
         if (!EnvironmentHelper.isServerEnvironment()) {
             Minecraft.getMinecraft().sndManager.stopMusic();
