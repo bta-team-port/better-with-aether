@@ -71,6 +71,18 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public void tick() {
+        if (this.world == null) {
+            return;
+        }
+        if (!this.world.getDifficulty().canHostileMobsSpawn()) {
+            if (this.isAgro) {
+                if (!EnvironmentHelper.isServerEnvironment()) {
+                    Minecraft.getMinecraft().sndManager.stopMusic();
+                }
+                this.isAgro = false;
+                this.returnToOriginalState();
+            }
+        }
         if (!isAgro) {
             this.moveSpeed = 0.0F;
         }
