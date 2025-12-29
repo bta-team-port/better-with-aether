@@ -195,7 +195,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
         // Well, this is stupid. But so is this bug. :)
         if (EnvironmentHelper.isServerEnvironment()) {
-            if (stupidBullshitCooldown-- <= 0) {
+            if (stupidBullshitCooldown-- <= 0 && this.vehicle != null) {
                 stupidBullshitCooldown = Global.TICKS_PER_SECOND * 2;
                 MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
                     x, y, z, 32, this.world.dimension.id,
