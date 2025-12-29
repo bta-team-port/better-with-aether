@@ -87,6 +87,26 @@ public class AetherDimension {
         aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
         aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
+        /// blocks that should be banned until unlocked by the sunspirit's death
+        if (!SunSpiritDeath.isDead()) {
+            aetherBlacklist.add(Blocks.SOULSAND.id());
+            aetherBlacklist.add(Blocks.SOULSCHIST.id());
+            aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+            aetherBlacklist.add(Blocks.NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_CARVED.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id());
+        }
+
         FabricLoader.getInstance()
             .getEntrypointContainers("aether", AetherPlugin.class)
             .forEach(plugin -> plugin.getEntrypoint().initializeDimensionBlacklist());
