@@ -174,6 +174,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
     @SuppressWarnings("java:S107")
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/player/Player;DDDFF)V", at = @At("TAIL"))
     public void renderBunny(Tessellator tessellator, Player entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {
+        if (entity != Minecraft.getMinecraft().thePlayer) return;
+
         Screen currScreen = Minecraft.getMinecraft().currentScreen;
         final boolean isInInventory = currScreen instanceof ScreenInventory || currScreen instanceof ScreenInventoryCreative;
 
