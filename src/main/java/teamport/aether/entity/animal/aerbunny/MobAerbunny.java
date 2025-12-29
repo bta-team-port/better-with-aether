@@ -1,6 +1,7 @@
 package teamport.aether.entity.animal.aerbunny;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
@@ -143,6 +144,8 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
     }
 
+    private int stupidBullshitCooldown = 300;
+
     @Override
     public void tick() {
         float puffiness = getPuffiness();
@@ -188,6 +191,18 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
             player.handleSpecialVehicleControl();
             player.sendSpecialVehiclePacket();
+        }
+
+        // Well, this is stupid. But so is this bug. :)
+        if (EnvironmentHelper.isServerEnvironment()) {
+            if (stupidBullshitCooldown-- <= 0) {
+                stupidBullshitCooldown = Global.TICKS_PER_SECOND * 2;
+                MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
+                    x, y, z, 32, this.world.dimension.id,
+                    new PacketSetRiding(this, (Entity) this.vehicle)
+                );
+            }
+
         }
 
         this.noPhysics = beingRidden();
