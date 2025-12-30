@@ -47,6 +47,8 @@ public class AetherDimension {
         return DIMENSION_PLACEMENT_BLACKLIST.computeIfAbsent(dimensionID, k -> new ArrayList<>());
     }
 
+    private AetherDimension(){}
+
     private static Dimension AETHER;
 
     private static boolean hasInit = false;
