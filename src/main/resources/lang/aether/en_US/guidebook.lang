@@ -12,3 +12,70 @@ aether.guidebook.section.incubator.moa_black=A powerful mount capable of 7 midai
 
 aether.guidebook.section.incubator.swet_gold=A gorgeous hostile gelatinous creature.
 aether.guidebook.section.incubator.swet=A hostile gelatinous creature.
+
+guidebook.section.mob.phyg.name=Phyg
+guidebook.section.mob.phyg.desc=Phygs are a common but valuable source of food, feathers and transportation. They can be found anywhere in the aether.
+
+guidebook.section.mob.sheepuff.name=Sheepuff
+guidebook.section.mob.sheepuff.desc=Sheepuff provide lots of wool, and are more fluffy and bouncy. They can be found anywhere in the aether.
+
+guidebook.section.mob.phow.name=Phow
+guidebook.section.mob.phow.desc=Phows are a useful source of leather, feathers and transportation. They can be found anywhere in the aether.
+
+guidebook.section.mob.aerbunny.name=Aerbunny
+guidebook.section.mob.aerbunny.desc=A cute and handy source of string, they can be picked up and worn on your head for extra jumps. They can be found anywhere in the aether.
+
+guidebook.section.mob.moa.blue.name=Blue Moa
+guidebook.section.mob.moa.blue.desc=Gentle and docile avian that can be saddled and ridden. Blue variants have 3 midair jumps.
+
+guidebook.section.mob.moa.white.name=White Moa
+guidebook.section.mob.moa.white.desc=Gentle and docile avian that can be saddled and ridden. White variants have 5 midair jumps.
+
+guidebook.section.mob.moa.black.name=Black Moa
+guidebook.section.mob.moa.black.desc=Gentle and docile avian that can be saddled and ridden. Black variants have 7 midair jumps.
+
+guidebook.section.mob.aerwhale.name=Aerwhale
+guidebook.section.mob.aerwhale.desc=Aerwhales are ancient and peaceful creatures known for drifting through the skies.
+
+guidebook.section.mob.swet.name=Blue Swet
+guidebook.section.mob.swet.desc=Blue swets can be dangerous if they manage to grab you. They can be found uncommonly anywhere in the aether.
+
+guidebook.section.mob.swet.gold.name=Gold Swet
+guidebook.section.mob.swet.gold.desc=Gold swets can be tricky to deal with if you let them pick you up. They can be found rarely anywhere in the aether.
+
+guidebook.section.mob.cockatrice.name=Cockatrice
+guidebook.section.mob.cockatrice.desc=Angry and hostile avian that can be found in dark places. They shoot poison needles out of their mouths.
+
+guidebook.section.mob.aechorplant.name=Aechor Plant
+guidebook.section.mob.aechorplant.desc=Aechor plants are a unique fauna that appear commonly in the aether. They shoot poison needles to deter anything from coming near.
+
+guidebook.section.mob.zephyr.name=Zephyr
+guidebook.section.mob.zephyr.desc=Common annoyance found floating all over the aether, they shoot snowballs that send you flying.
+
+guidebook.section.mob.whirly.name=Whirly
+guidebook.section.mob.whirly.desc=Uncommon mob found in the aether, it throws out items and remains calm.
+
+guidebook.section.mob.tempest.name=Tempest
+guidebook.section.mob.tempest.desc=Shockingly good at dealing lightning damage.
+
+guidebook.section.mob.mimic.name=Mimic
+guidebook.section.mob.mimic.desc=An iconic trap for travelers to fall for, found in silver dungeons mixed in with normal chests.
+
+guidebook.section.mob.sentry.name=Sentry
+guidebook.section.mob.sentry.desc=Automatons buried in the floors of bronze dungeons, they spring out when walked on.
+
+guidebook.section.mob.valkyrie.name=Valkyrie
+guidebook.section.mob.valkyrie.desc=A beautiful soldier that can teleport around you, found roaming in silver dungeons.
+
+guidebook.section.mob.fireminion.name=Fire Minion
+guidebook.section.mob.fireminion.desc=A manifestation summoned from the sun spirit, quick and deadly.
+
+guidebook.section.mob.slider.name=Slider
+guidebook.section.mob.slider.desc=A blocky and sturdy boss that can only be defeated using a miners tool, found in bronze dungeons.
+
+guidebook.section.mob.valkyrie.queen.name=Valkyrie Queen
+guidebook.section.mob.valkyrie.queen.desc=An elegant warrior that can teleport and throw lightning, found in silver dungeons.
+
+guidebook.section.mob.sunspirit.name=Sun Spirit
+guidebook.section.mob.sunspirit.desc=A devastating burning god that attacks with fire and ice, found in gold dungeons.
+

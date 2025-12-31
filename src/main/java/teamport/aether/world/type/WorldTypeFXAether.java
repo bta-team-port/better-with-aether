@@ -2,7 +2,6 @@ package teamport.aether.world.type;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.colorizer.Colorizers;
 import net.minecraft.client.render.worldtype.WorldTypeFX;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
@@ -11,25 +10,32 @@ import net.minecraft.core.world.type.WorldType;
 
 @Environment(EnvType.CLIENT)
 public class WorldTypeFXAether extends WorldTypeFX {
-    public Float cloudHeight = null;
 
     public WorldTypeFXAether(WorldType worldType) {
         super(worldType);
     }
 
+    @Override
     public boolean hasGround() {
         return false;
     }
 
+    @Override
     public WorldTypeFX setCloudHeight(float cloudHeight) {
-        this.cloudHeight = cloudHeight;
         return this;
     }
 
+    @Override
     public float getCloudHeight() {
-        return this.cloudHeight == null ? (float) ((this.worldType.getMaxY() / 2) + 1 - 20) : this.cloudHeight;
+        return 8;
     }
 
+    @Override
+    public boolean hasAurora() {
+        return true;
+    }
+
+    @Override
     public float[] getSunriseColor(float timeOfDay, float partialTick) {
         float[] colorsSunriseSunset = new float[4];
         float f2 = 0.4F;
@@ -45,30 +51,20 @@ public class WorldTypeFXAether extends WorldTypeFX {
             colorsSunriseSunset[3] = f6;
             return colorsSunriseSunset;
         } else
-            return null;
+            return new float[4];
     }
 
+    @Override
     public Vec3 getFogColor(World world, double x, double y, double z, float celestialAngle, float partialTick) {
         float f2 = MathHelper.cos(celestialAngle * 3.1415927F * 2.0F) * 2.0F + 0.5F;
         f2 = MathHelper.clamp(f2, 0.0F, 1.0F);
         float r;
         float g;
         float b;
-        int x1;
-        if (Colorizers.fog.isEnabled()) {
-            x1 = MathHelper.floor(x);
-            int y1 = MathHelper.floor(y);
-            int z1 = MathHelper.floor(z);
-            int color = Colorizers.fog.getColor(world, x1, y1, z1);
-            r = (float) (color >> 16 & 255) / 255F;
-            g = (float) (color >> 8 & 255) / 255F;
-            b = (float) (color & 255) / 255F;
-        } else {
-            x1 = 0x8080a0;
-            r = (float) (x1 >> 16 & 255) / 255.0F;
-            g = (float) (x1 >> 8 & 255) / 255.0F;
-            b = (float) (x1 & 255) / 255.0F;
-        }
+        int x1 = 0x8080a0;
+        r = (x1 >> 16 & 255) / 255.0F;
+        g = (x1 >> 8 & 255) / 255.0F;
+        b = (x1 & 255) / 255.0F;
 
         if (f2 < 0.0F)
             f2 = 0.0F;

@@ -8,7 +8,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.blocks.dungeon.BlockLogicChestLocked;
+import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
 
 import java.util.List;
@@ -19,15 +19,15 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.placeItem
 
 public class WorldFeatureAetherTreasureChest extends WorldFeature {
     private final int chestMetadata;
-    public int chestID;
-    public LootGenerator lootGenerator;
-    public WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE;
-    public int guaranteedRare;
+    private final int chestID;
+    private final LootGenerator lootGenerator;
+    private final WeightedRandomBag<WeightedRandomLootObject> lootRare;
+    protected int guaranteedRare;
 
-    public WorldFeatureAetherTreasureChest(int chestID, int chestMetadata, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> LOOT_RARE) {
+    public WorldFeatureAetherTreasureChest(int chestID, int chestMetadata, LootGenerator lootGenerator, WeightedRandomBag<WeightedRandomLootObject> lootRare) {
         this.chestID = chestID;
         this.lootGenerator = lootGenerator;
-        this.LOOT_RARE = LOOT_RARE;
+        this.lootRare = lootRare;
         this.chestMetadata = chestMetadata;
     }
 
@@ -56,7 +56,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
             placeItemInChest(random, stack, inventory);
         }
         for (int i = 0; i < guaranteedRare + quantity; i++) {
-            placeItemInChest(random, LOOT_RARE.getRandom().getItemStack(random), inventory);
+            placeItemInChest(random, lootRare.getRandom().getItemStack(random), inventory);
         }
     }
 }

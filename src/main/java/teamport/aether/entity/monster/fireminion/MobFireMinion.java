@@ -6,14 +6,17 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.AetherMobOtherImmunities;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
-import turniplabs.halplibe.helper.EnvironmentHelper;
 
-public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
+import static teamport.aether.entity.DamageInstance.inst;
+
+public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobOtherImmunities {
 
     public MobFireMinion(@Nullable World world) {
         super(world);
@@ -23,85 +26,111 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
         this.fireImmune = true;
         this.maxFireTicks = 20;
         this.scoreValue = 5000;
-        setSize(1.0f, 2.5f);
+        setSize(1.0f, 2.0f);
         this.canBreatheUnderwater();
     }
 
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
+    @Override
     public float getBrightness(float partialTick) {
         return 1.0F;
     }
 
+    @Override
     public int getLightmapCoord(float partialTick) {
-        return this.world.getLightmapCoord(15, 15);
+        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
     }
 
+    @Override
     public int getMaxHealth() {
         return 40;
     }
 
-    protected void attackEntity(@NotNull Entity entity, float distance) {
-        if (this.attackTime <= 0 && distance < 2.0F && entity.bb.maxY > this.bb.minY && entity.bb.minY < this.bb.maxY) {
+    @Override
+    protected void attackEntity(@NonNull Entity target, float distance) {
+        if (this.attackTime <= 0 && distance < 2.0F && target.bb.maxY > this.bb.minY && target.bb.minY < this.bb.maxY) {
             this.attackTime = 20;
-            entity.hurt(this, this.attackStrength, DamageType.FIRE);
-            entity.hurt(this, this.attackStrength / 2, DamageType.COMBAT);
-            entity.remainingFireTicks = 300;
-            entity.maxFireTicks = 300;
+            MobUtil.multiHit(this, target,
+                inst(this.attackStrength, DamageType.FIRE),
+                inst(this.attackStrength / 2, DamageType.COMBAT)
+            );
+            target.remainingFireTicks = 300;
+            target.maxFireTicks = 300;
         }
 
     }
 
+    @Override
     protected Entity findPlayerToAttack() {
+        if (this.world == null) return super.findPlayerToAttack();
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
         return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
     }
 
-    public boolean hurt(Entity attacker, int i, DamageType type) {
+    @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
         if (type == DamageType.FIRE) {
             return false;
         }
-        return super.hurt(attacker, i, type);
+        return super.hurt(attacker, damage, type);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
             this.maxFireTicks = 20;
-            for (int j = 0; j < 4; ++j) {
-                double a = this.random.nextFloat() - 0.5F;
-                double b = this.random.nextFloat();
-                double c = this.random.nextFloat() - 0.5F;
-                double d = this.x + a * b;
-                double e = this.bb.minY + b - 0.5;
-                double f = this.z + c * b;
-                if (!EnvironmentHelper.isServerEnvironment()) {
-                    ParticleMaker.spawnParticle(world, "flame", d, e, f, 0.0, -0.07500000298023224, 0.0, 0);
-                }
-            }
+            ParticleMaker.spawnWhirlyParticles(world, this, 4, "fire");
         }
     }
 
+    @Override
     public String getLivingSound() {
         return null;
     }
 
+    @Override
     public String getHurtSound() {
         return "aether:mob.sunspirit.hurt";
     }
 
+    @Override
     public String getDeathSound() {
         return "aether:mob.sunspirit.death";
     }
 
+    @Override
     public void playHurtSound() {
+        if (this.world == null) {
+            super.playHurtSound();
+            return;
+        }
         this.world.playSoundAtEntity(null, this, this.getHurtSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
+    @Override
     public void playDeathSound() {
+        if (this.world == null) {
+            super.playDeathSound();
+            return;
+        }
         this.world.playSoundAtEntity(null, this, this.getDeathSound(), 0.5f, (this.random.nextFloat() + this.random.nextFloat()) * 1.5F + 0.25F);
     }
 
+    @Override
+    public boolean canSpawnHere() {
+        return this.world != null
+            && this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty();
+    }
+
+    @Override
+    public boolean canTakeDamageFromCactus() {
+        return true;
+    }
 }

@@ -8,8 +8,6 @@ import net.minecraft.core.crafting.LookupFuelFurnaceBlast;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryBlastFurnace;
 import net.minecraft.core.data.registry.recipe.entry.RecipeEntryFurnace;
-import net.minecraft.core.item.IArmorItem;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.menu.*;
 import net.minecraft.core.player.inventory.slot.Slot;
@@ -20,7 +18,7 @@ import teamport.aether.mixin.accessors.ScreenContainerAbstractAccessor;
 
 public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
 
-    public ScreenAetherMachine(MenuAbstract container) {
+    protected ScreenAetherMachine(MenuAbstract container) {
         super(container);
     }
 
@@ -32,6 +30,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
      * Additional machines can be checked in getTargetSlot. All aether machine screens need to inherit from
      * this class for it work.
      */
+    @SuppressWarnings("java:S6541")
     @Override
     public void clickInventory(int x, int y, int mouseButton) {
         int slotId = ((ScreenContainerAbstractAccessor) this).invokeGetSlotId(x, y);
@@ -66,10 +65,9 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                     action = InventoryAction.SORT;
                 }
 
-                int target = 0;
+                int target;
                 Slot slot = this.inventorySlots.getSlot(slotId);
                 ItemStack stackInSlot = slot != null ? slot.getItemStack() : null;
-                Item itemInSlot = stackInSlot != null ? stackInSlot.getItem() : null;
                 int clickedItemId = stackInSlot != null ? stackInSlot.getItem().id : 0;
                 ItemStack grabbedItem = this.mc.thePlayer.inventory.getHeldItemStack();
                 if (mouseButton == 1) {
@@ -77,7 +75,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                 }
 
                 if (slot instanceof SlotResult) {
-                    if (this.mc.gameSettings.swapCraftingButtons.value) {
+                    if (Boolean.TRUE.equals(this.mc.gameSettings.swapCraftingButtons.value)) {
                         if (shiftPressed && ctrlPressed) {
                             action = InventoryAction.MOVE_SIMILAR;
                         } else if (shiftPressed) {
@@ -128,14 +126,10 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                     }
 
                 } else {
-                    if (this.inventorySlots instanceof MenuInventory && itemInSlot instanceof IArmorItem) {
-                        target = 2;
-                    }
-
                     /// ------------------------------------------------------------------------------------------------
                     /// call the child to get the target slot
-                    target = this.getTargetSlot(stackInSlot, clickedItemId);
                     /// ------------------------------------------------------------------------------------------------
+                    target = this.getTargetSlot(stackInSlot, clickedItemId);
 
                     if (this.inventorySlots instanceof MenuFurnace) {
                         MenuFurnace furnace = (MenuFurnace) this.inventorySlots;
@@ -182,7 +176,7 @@ public abstract class ScreenAetherMachine extends ScreenContainerAbstract {
                     }
 
                     if (this.inventorySlots instanceof MenuInventoryCreative && altPressed) {
-                        this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, InventoryAction.CREATIVE_DELETE, new int[]{slot.index}, this.mc.thePlayer);
+                        if (slot != null) this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, InventoryAction.CREATIVE_DELETE, new int[]{slot.index}, this.mc.thePlayer);
                     } else if (slot != null && slot.allowItemInteraction() && grabbedItem != null && grabbedItem.getItem().hasInventoryInteraction() && mouseButton == 1) {
                         this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.containerId, InventoryAction.INTERACT_GRABBED, new int[]{slot.index}, this.mc.thePlayer);
                     } else if (slot != null && stackInSlot != null && slot.allowItemInteraction() && stackInSlot.getItem().hasInventoryInteraction() && mouseButton == 1) {

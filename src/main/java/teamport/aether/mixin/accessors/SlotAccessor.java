@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(value = Slot.class, remap = false)
 public interface SlotAccessor {
-
-    @Accessor("slot")
+    @Accessor
     int getSlot();
 }

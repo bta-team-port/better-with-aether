@@ -2,16 +2,15 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import net.minecraft.core.block.BlockLogicRotatable;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.helper.Pair;
-import teamport.aether.items.AetherItems;
-import teamport.aether.world.AetherDimension;
-import teamport.aether.world.feature.util.BlockPallet;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.chest.WorldFeatureAetherBronzeChest;
+import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
+import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
 import teamport.aether.world.feature.util.map.DungeonMap;
 
 import java.util.ArrayList;
@@ -23,15 +22,15 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.drawVolum
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class BossRoom extends BaseBronzeRoom {
-    public static final BlockPallet ROOM_PALLET = new BlockPallet();
+    private static final BlockPallet ROOM_PALLET = new BlockPallet();
 
     static {
-        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 90);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LOCKED.id(), 0, 80);
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_LIGHT_LOCKED.id(), 0, 10);
+        ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE_TRAPPED_LOCKED.id(), 0, 10); //
     }
 
-    DungeonLogicBronzeDungeon dungeon;
-    private Door bossDoor;
+    private DungeonLogicBronzeDungeon dungeon;
 
     public BossRoom() {
         super();
@@ -58,10 +57,10 @@ public class BossRoom extends BaseBronzeRoom {
         // you see... My structure fell apart here, so enjoy your quality garbage!
 
         dungeon = DungeonMap.register(DungeonLogicBronzeDungeon.class, world, world.getRandomSeed() + random.nextInt(), x + 8, y + 2, z + 8);
-        dungeon.hasGenerated = true;
+        dungeon.setGenerated(true);
 
         dungeon.setClearArea(new Pair<>(wfp(x, y - 2, z), wfp(x + 16, y + 14, z + 16)));
-        WorldFeatureAetherBronzeChest.bronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
+        new WorldFeatureAetherBronzeChest().place(world, random, x + 7 + random.nextInt(2), y - 1, z + 7 + random.nextInt(2));
         List<WorldFeaturePoint> treasureDoor = new ArrayList<>();
         treasureDoor.add(wfp(x + 7, y + 1, z + 7));
         treasureDoor.add(wfp(x + 8, y + 1, z + 7));
@@ -70,7 +69,7 @@ public class BossRoom extends BaseBronzeRoom {
         dungeon.setTreasureDoor(treasureDoor);
 
         MobBossSlider boss = new MobBossSlider(world);
-        boss.moveTo(x + 8, y + 2, z + 8, 0f, 0f);
+        boss.moveTo(x + 8.0, y + 2.0, z + 8.0, 0f, 0f);
         boss.setReturnPoint(new WorldFeaturePoint(x + 8, y + 2, z + 8));
         boss.setTrophy(AetherItems.KEY_BRONZE.getDefaultStack());
         boss.setDungeonID(dungeon.id);
@@ -93,19 +92,14 @@ public class BossRoom extends BaseBronzeRoom {
     @Override
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
-        if (closingType != ClosingType.PLACED && door.mark != ClosingType.PLACED) return;
-        this.bossDoor = door;
-        doors.forEach(d -> d.mark = ClosingType.ROOM_LOCKED);
+        if (closingType != ClosingType.PLACED && door.getMark() != ClosingType.PLACED) return;
+        doors.forEach(d -> d.setMark(ClosingType.ROOM_LOCKED));
         if (door == null) {
             AetherMod.LOGGER.warn("Bronze dungeon door at: {}, {}, {} does not exist. Thus the slider door was not registered.", x, y, z);
             return;
         }
-        int meta = BlockLogicRotatable.setDirection(0, door.heading);
-        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.p1, door.p2, true);
-        dungeon.setEntranceDoor(doorBlock.blockList);
-    }
-
-    public Door getBossDoor() {
-        return bossDoor;
+        int meta = BlockLogicRotatable.setDirection(0, door.getHeading());
+        WorldFeatureComponent doorBlock = drawVolume(AetherBlocks.DOOR_DUNGEON_BRONZE.id(), meta, door.getP1(), door.getP2(), true);
+        dungeon.setEntranceDoor(doorBlock.getBlockList());
     }
 }

@@ -8,23 +8,21 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
-import net.minecraft.core.world.noise.PerlinNoise;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherClouds;
 import teamport.aether.world.feature.terrain.WorldFeatureAetherTree;
 
 import java.util.Random;
 
 public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
-    public final World world;
-    public final PerlinNoise treeDensityNoise;
+    private final World world;
 
     public ChunkDecoratorSkyblockAether(World world) {
         this.world = world;
-        this.treeDensityNoise = new PerlinNoise(world.getRandomSeed(), 8, 74);
     }
 
+    @Override
     public void decorate(Chunk chunk) {
         int chunkX = chunk.xPosition;
         int chunkZ = chunk.zPosition;
@@ -34,7 +32,7 @@ public class ChunkDecoratorSkyblockAether implements ChunkDecorator {
         rand.setSeed(this.world.getRandomSeed());
         long l1 = rand.nextLong() / 2L * 2L + 1L;
         long l2 = rand.nextLong() / 2L * 2L + 1L;
-        rand.setSeed((long) chunkX * l1 + (long) chunkZ * l2 ^ this.world.getRandomSeed());
+        rand.setSeed(chunkX * l1 + chunkZ * l2 ^ this.world.getRandomSeed());
 
         int xPosition = x + 8;
         int yPosition;

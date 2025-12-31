@@ -2,8 +2,8 @@ package teamport.aether.net.message;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import teamport.aether.items.AetherRepulsion;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.item.AetherRepulsion;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
@@ -17,16 +17,16 @@ public class AetherSyncRepulsionNetworkMessage implements NetworkMessage {
 
     public AetherSyncRepulsionNetworkMessage(Player player) {
         this.playerUUID = player.uuid;
-        this.repulsion = ((AetherRepulsion) player).aether$isrepulse();
+        this.repulsion = ((AetherRepulsion) player).aether$isRepulse();
     }
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         packet.writeUUID(playerUUID);
         packet.writeBoolean(repulsion);
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         playerUUID = packet.readUUID();
         repulsion = packet.readBoolean();
     }
@@ -34,8 +34,8 @@ public class AetherSyncRepulsionNetworkMessage implements NetworkMessage {
     public void handleClientEnv(NetworkContext context) {
         World world = context.player.world;
 
-        world.players.stream()
-                .filter(p -> p.uuid.equals(playerUUID))
-                .forEach(p -> ((AetherRepulsion) p).aether$SyncRepulsion(repulsion));
+        if (world != null) world.players.stream()
+            .filter(p -> p.uuid.equals(playerUUID))
+            .forEach(p -> ((AetherRepulsion) p).aether$SyncRepulsion(repulsion));
     }
 }

@@ -7,34 +7,28 @@ import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.render.dynamictexture.DynamicTexture;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.core.util.helper.Color;
-import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import teamport.aether.world.feature.util.map.DungeonLogic;
 import teamport.aether.world.feature.util.map.DungeonMap;
-import turniplabs.halplibe.helper.EnvironmentHelper;
-import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
 
 @Environment(EnvType.CLIENT)
 public class DynamicTextureDungeonCompass extends DynamicTexture {
-    public Minecraft mc;
-    public byte[] compassImageData;
-    public double angleFinal;
-    public double delta;
-    public double scaleFactor;
+    private final Minecraft minecraft;
+    private byte[] compassImageData;
+    private double angleFinal;
+    private double delta;
+    private double scaleFactor;
 
     public final Color needleColor = new Color().setRGB(255, 222, 60);
 
     public DynamicTextureDungeonCompass(Minecraft minecraft, IconCoordinate iconCoordinate) {
         super(iconCoordinate);
-        this.mc = minecraft;
+        this.minecraft = minecraft;
     }
 
     public void postInit() {
@@ -48,23 +42,24 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             }
         }
 
-        this.scaleFactor = (double) this.targetTexture.width / 16.0;
+        this.scaleFactor = this.targetTexture.width / 16.0;
     }
 
+    @Override
     public boolean runUpdates(boolean isPaused) {
         return !isPaused;
     }
 
-    public static final int POSITION_UPDATE_COOLDOWN = 1000;
+    private static final int POSITION_UPDATE_COOLDOWN = 1000;
     private long lastPositionUpdateStamp = 0;
-    public static WorldFeaturePoint positionCache = null;
+    private static WorldFeaturePoint positionCache = null;
 
     public double getAngle() {
-        if (this.mc.currentWorld == null || this.mc.thePlayer == null) return 0.0;
+        if (this.minecraft.currentWorld == null || this.minecraft.thePlayer == null) return 0.0;
 
-        if (this.mc.currentWorld.dimension.id == AetherDimension.AETHER.id) {
+        if (this.minecraft.currentWorld.dimension.id == AetherDimension.getAether().id) {
             WorldFeaturePoint coord = null;
-            PlayerLocal player = mc.thePlayer;
+            PlayerLocal player = minecraft.thePlayer;
 
             long time = System.currentTimeMillis();
             if (time - lastPositionUpdateStamp > POSITION_UPDATE_COOLDOWN) {
@@ -86,10 +81,10 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             } else coord = positionCache;
 
             if (coord != null) {
-                if (player.distanceTo(coord.x, player.y, coord.z) > 16) {
-                    double distX = (double) coord.x - player.x;
-                    double distZ = (double) coord.z - player.z;
-                    return (double) (player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
+                if (player.distanceTo(coord.getX(), player.y, coord.getZ()) > 16) {
+                    double distX = coord.getX() - player.x;
+                    double distZ = coord.getZ() - player.z;
+                    return (player.yRot - 90.0F) * Math.PI / 180.0 - Math.atan2(distZ, distX);
                 }
             }
         }
@@ -138,10 +133,12 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
         double x = Math.sin(this.angleFinal);
         double y = Math.cos(this.angleFinal);
 
-        double xs = (double) this.targetTexture.width / 2.0 + 0.5;
-        double ys = (double) this.targetTexture.height / 2.0 - 0.5;
+        double xs = this.targetTexture.width / 2.0 + 0.5;
+        double ys = this.targetTexture.height / 2.0 - 0.5;
 
-        int r, g, b;
+        int r;
+        int g;
+        int b;
         short a;
 
         int x2;
@@ -150,8 +147,8 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
 
         int i;
         for (i = (int) (-4.0 * this.scaleFactor); i <= (int) (4.0 * this.scaleFactor); ++i) {
-            x2 = (int) (xs + y * (double) i * 0.3);
-            y2 = (int) (ys - x * (double) i * 0.3 * 0.5);
+            x2 = (int) (xs + y * i * 0.3);
+            y2 = (int) (ys - x * i * 0.3 * 0.5);
             j = y2 * this.targetTexture.width + x2;
             r = 100;
             g = 100;
@@ -169,8 +166,8 @@ public class DynamicTextureDungeonCompass extends DynamicTexture {
             b = i >= 0 ? needleColor.getBlue() : 100;
             a = 255;
 
-            x2 = (int) (xs + x * (double) i * 0.3);
-            y2 = (int) (ys + y * (double) i * 0.3 * 0.5);
+            x2 = (int) (xs + x * i * 0.3);
+            y2 = (int) (ys + y * i * 0.3 * 0.5);
             j = y2 * this.targetTexture.width + x2;
 
             this.imageData[j * 4] = (byte) r;

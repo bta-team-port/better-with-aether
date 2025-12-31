@@ -5,7 +5,6 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.LightLayer;
@@ -16,20 +15,20 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import teamport.aether.blocks.AetherBlocks;
+import org.jspecify.annotations.NonNull;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileNeedle;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDeathMessage {
-    public Mob target;
-    public int attackCooldown;
-    public int smokeTime;
-    public boolean hasTarget;
-    public float sinage;
+    private int attackCooldown;
+    private int smokeTime;
+    private boolean hasTarget;
+    private float sinage;
 
     public MobAechorPlant(World world1) {
         super(world1);
@@ -37,20 +36,38 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.sinage = this.random.nextFloat() * 6.0F;
         this.smokeTime = this.attackCooldown = 0;
         this.hasTarget = false;
-        this.setSize(1.0F, 1.0F);
+        this.setSize(0.9F, 0.9F);
         this.scoreValue = 200;
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.PETAL_AECHOR.getDefaultStack(), 1, 4));
     }
 
+    @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (type == DamageType.FIRE) {
+            super.hurt(attacker, damage * 2, type);
+        }
+
+        return super.hurt(attacker, damage, type);
+    }
+
+    @Override
+    public boolean collidesWith(Entity entity) {
+        return false;
+    }
+
+    @Override
     public int getMaxSpawnedInChunk() {
         return 1;
     }
 
+    @Override
     public int getMaxHealth() {
         return 14;
     }
 
+    @Override
     public boolean canSpawnHere() {
+        if (this.world == null) return false;
         int x = MathHelper.floor(this.x);
         int y = MathHelper.floor(this.bb.minY);
         int z = MathHelper.floor(this.z);
@@ -78,19 +95,32 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         return true;
     }
 
+    @Override
     protected boolean isMovementCeased() {
         return true;
     }
 
+    @Override
     protected boolean isMovementBlocked() {
         return true;
     }
 
+    @Override
     public boolean isPushable() {
         return false;
     }
 
+    @Override
     public void push(Entity entity) {
+        /* should not be fling*/
+        for (int i = 0; i < 8; ++i) {
+            double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d2 = this.y + 0.25 + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
+        }
     }
 
     @Override
@@ -100,7 +130,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-
+        if (this.world == null) return;
         int belowX = MathHelper.floor(this.x);
         int belowY = MathHelper.floor(this.bb.minY) - 1;
         int belowZ = MathHelper.floor(this.z);
@@ -132,7 +162,7 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
 
         if (this.target == null) {
-            this.target = (Mob) this.findPlayerToAttack();
+            this.target = this.findPlayerToAttack();
         }
 
         if (this.target != null) {
@@ -152,15 +182,13 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
             }
         }
 
-        ++this.smokeTime;
-        if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
-            this.smokeTime = 0;
-            int i = MathHelper.floor(this.x);
-            int j = MathHelper.floor(this.bb.minY);
-            int k = MathHelper.floor(this.z);
-
-            if (!this.onGround || this.world.getBlockId(i, j - 1, k) != AetherBlocks.GRASS_AETHER.id()) {
-                this.hurt(null, 999999, DamageType.FALL);
+        if (!this.world.isClientSide) {
+            ++this.smokeTime;
+            if (this.smokeTime >= (this.hasTarget ? 3 : 8)) {
+                this.smokeTime = 0;
+                if (this.world.getBlockId(belowX, belowY, belowZ) != AetherBlocks.GRASS_AETHER.id()) {
+                    MobUtil.killMob(this);
+                }
             }
         }
 
@@ -171,13 +199,14 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         this.zd = 0.0D;
     }
 
+    @Override
     public boolean canEntityBeSeen(Entity entity) {
-        return this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + (double) this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + (double) entity.getHeadHeight(), entity.z),
-                false, true, false) == null;
+        return this.world != null && this.world.checkBlockCollisionBetweenPoints(Vec3.getTempVec3(this.x, this.y + this.getHeadHeight(), this.z), Vec3.getTempVec3(entity.x, entity.y + entity.getHeadHeight(), entity.z),
+            false, true, false) == null;
     }
 
     public void shootTarget(Entity target) {
-        if (!this.isAlive() || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
+        if (!this.isAlive() || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn() || this.world.isClientSide) {
             return;
         }
 
@@ -191,21 +220,36 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         ProjectileNeedle needle = new ProjectileNeedle(this.world, this);
         needle.y = this.y + 0.5;
 
-        double h = target.y + (double) target.getHeadHeight() - 0.8 - needle.y;
+        double h = target.y + target.getHeadHeight() - 0.8 - needle.y;
         float f1 = MathHelper.sqrt(dX * dX + dZ * dZ) * 0.2F;
 
-        needle.setHeading(dX, h + (double) f1, dZ, 0.6F, 12.0F);
+        needle.setHeading(dX, h + f1, dZ, 0.6F, 12.0F);
 
         this.world.playSoundAtEntity(null, this, "random.bow", 0.3F, 2.0F / (this.random.nextFloat() * 0.4F + 0.8F));
         this.world.entityJoinedWorld(needle);
     }
 
+    @Override
     public String getHurtSound() {
         return "damage.hurtflesh";
     }
 
+    @Override
     public String getDeathSound() {
         return "damage.fallbig";
+    }
+
+    @Override
+    public void fling(double xd, double yd, double zd, float pushTime) {
+        /* should not be fling*/
+        for (int i = 0; i < 8; ++i) {
+            double d1 = this.x + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d2 = this.y + 0.25 + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d3 = this.z + (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d4 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            double d5 = (this.random.nextFloat() - this.random.nextFloat()) * 0.5;
+            ParticleMaker.spawnParticle(world, "portal", d1, d2, d3, d4, 0.25, d5, 0);
+        }
     }
 
     @Override
@@ -220,7 +264,8 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
-    public boolean interact(@NotNull Player player) {
+    @Override
+    public boolean interact(@NonNull Player player) {
         ItemStack itemstack = player.inventory.getCurrentItem();
         if (itemstack != null && itemstack.itemID == AetherItems.BUCKET_SKYROOT.id) {
             ItemBucketEmpty.useBucket(player, new ItemStack(AetherItems.BUCKET_SKYROOT_POISON));
@@ -230,14 +275,23 @@ public class MobAechorPlant extends MobMonsterAether implements Enemy, AetherDea
         }
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    @Override
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putShort("AttTime", (short) this.attackCooldown);
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    @Override
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.attackCooldown = tag.getShort("AttTime");
     }
 
+    public boolean hasTarget() {
+        return hasTarget;
+    }
+
+    public float getSinage() {
+        return sinage;
+    }
 }

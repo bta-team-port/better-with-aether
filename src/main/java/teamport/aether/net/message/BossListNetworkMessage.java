@@ -3,7 +3,7 @@ package teamport.aether.net.message;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.boss.AetherBossList;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkMessage;
@@ -14,16 +14,15 @@ import java.util.Optional;
 import static teamport.aether.AetherMod.LOGGER;
 
 public class BossListNetworkMessage implements NetworkMessage {
+    private Type type;
+    private int entityID;
     public enum Type {
         CLEAR,
         ADD,
-        REMOVE,
+        REMOVE
     }
 
-    Type type;
-    int entityID;
-
-    static public BossListNetworkMessage clear() {
+    public static BossListNetworkMessage clear() {
         BossListNetworkMessage e = new BossListNetworkMessage();
         e.type = Type.CLEAR;
         e.entityID = -1;
@@ -40,13 +39,13 @@ public class BossListNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         packet.writeInt(type.ordinal());
         packet.writeInt(entityID);
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         this.type = Type.values()[packet.readInt()];
         this.entityID = packet.readInt();
     }
@@ -59,7 +58,7 @@ public class BossListNetworkMessage implements NetworkMessage {
 
         Player player = context.player;
 
-        if (type != Type.CLEAR) {
+        if (player.world != null && type != Type.CLEAR) {
             Optional<Entity> entityOption = player.world.getLoadedEntityList().stream().filter(e -> e.id == entityID).findFirst();
 
             if (!entityOption.isPresent()) {

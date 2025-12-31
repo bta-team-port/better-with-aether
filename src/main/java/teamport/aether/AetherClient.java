@@ -13,33 +13,46 @@ import net.minecraft.client.gui.hud.component.HudComponentMovable;
 import net.minecraft.client.gui.hud.component.HudComponents;
 import net.minecraft.client.gui.hud.component.layout.LayoutAbsolute;
 import net.minecraft.client.gui.hud.component.layout.LayoutSnap;
+import net.minecraft.client.holiday.Holiday;
+import net.minecraft.client.render.colorizer.Colorizer;
 import net.minecraft.client.render.texture.stitcher.AtlasStitcher;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
 import net.minecraft.client.sound.SoundRepository;
+import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.achievements.AchievementPageAether;
 import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.command.AetherCommand;
 import teamport.aether.ducks.IBlockAether;
 import teamport.aether.entity.AetherMobInfoRegistry;
-import teamport.aether.gameSettings.AetherGameSettings;
-import teamport.aether.gui.ComponentBossBar;
-import teamport.aether.gui.ComponentJumpBar;
+import teamport.aether.gui.HudComponentBossBar;
+import teamport.aether.gui.HudComponentJumpBar;
+import teamport.aether.option.AetherGameSettings;
 import teamport.aether.particle.*;
 import teamport.aether.world.type.AetherWorldTypes;
 import teamport.aether.world.type.WorldTypeFXAether;
 import turniplabs.halplibe.helper.TextureHelper;
 import turniplabs.halplibe.util.ClientStartEntrypoint;
 
+import java.time.Month;
+
+import static net.minecraft.client.render.colorizer.Colorizers.add;
 import static net.minecraft.client.render.texture.stitcher.TextureRegistry.register;
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 @Environment(EnvType.CLIENT)
 public class AetherClient implements ClientModInitializer, ClientStartEntrypoint {
     public static HudComponent BOSS_BAR;
     public static HudComponent JUMP_BAR;
+
+    public static final Holiday ANNIVERSARY_AETHER = new Holiday(Month.JULY, 22);
+
+    public static Colorizer grassAether;
+    public static Colorizer skyroot;
+    public static Colorizer oakGolden;
 
     public static AetherRemoteResourceDownloaderThread resourceDownloaderThread;
     @SuppressWarnings("unused")
@@ -58,6 +71,13 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         dispatcher.addDispatch("fireflySilver", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleFirefly(world, x, y, z, motionX, motionY, motionZ, AetherMod.SILVER.getId()));
         dispatcher.addDispatch("poison", (world, x, y, z, xa, ya, za, id) -> new ParticlePoison(world, x, y, z, xa, ya, za));
         dispatcher.addDispatch("remedy", (world, x, y, z, xa, ya, za, id) -> new ParticleRemedy(world, x, y, z, xa, ya, za));
+        dispatcher.addDispatch("whirly", (world, x, y, z, xa, ya, za, id) -> new ParticleWhirlySpiral(world, x, y, z));
+        dispatcher.addDispatch("tempest", (world, x, y, z, xa, ya, za, id) -> new ParticleTempestSpiral(world, x, y, z));
+        dispatcher.addDispatch("fire", (world, x, y, z, xa, ya, za, id) -> new ParticleFireSpiral(world, x, y, z));
+        dispatcher.addDispatch("fallingAetherLeaf", (world, x, y, z, motionX, motionY, motionZ, data) -> {
+            int id = world.getBlockId(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
+            return id != 0 ? (new ParticleAetherLeaf(world, x, y, z, motionX, motionY, motionX)).init(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z)) : null;
+        });
 
         SoundRepository.registerNamespace(MOD_ID);
         AetherCommand.registerClientCommands();
@@ -81,22 +101,18 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
         AetherMobInfoRegistry.init();
         AetherGameSettings.init();
 
+        grassAether = add(new Colorizer("grassAether"));
+        skyroot = add(new Colorizer("skyroot"));
+        oakGolden = add(new Colorizer("oakGolden"));
+
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_EXTENDED)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_DEFAULT)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_SKYBLOCK)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
         WorldTypeFXDispatcher.getInstance().addDispatch(new WorldTypeFXAether(AetherWorldTypes.AETHER_RETRO)
-                .setCloudHeight(8.0f)
-                .setHasAurora(true)
-                .setHasGround(false));
+            .setHasGround(false));
     }
 
     public void setupCustomBlockLight() {
@@ -160,17 +176,17 @@ public class AetherClient implements ClientModInitializer, ClientStartEntrypoint
 
     public static void registerHUDComponents() {
         BOSS_BAR = HudComponents.register(
-                new ComponentBossBar(
-                        "aether.boss.bar",
-                        new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
-                )
+            new HudComponentBossBar(
+                "boss_bar",
+                new LayoutAbsolute(0.5f, 0.0f, ComponentAnchor.TOP_CENTER)
+            )
         );
 
         JUMP_BAR = HudComponents.register(
-                new ComponentJumpBar(
-                        "aether.wing.bar",
-                        new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
-                )
+            new HudComponentJumpBar(
+                "wing_bar",
+                new LayoutSnap(HudComponents.HEALTH_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT)
+            )
         );
 
         ((HudComponentMovable) HudComponents.OXYGEN_BAR).setLayout(new LayoutSnap(HudComponents.ARMOR_BAR, ComponentAnchor.TOP_LEFT, ComponentAnchor.BOTTOM_LEFT));

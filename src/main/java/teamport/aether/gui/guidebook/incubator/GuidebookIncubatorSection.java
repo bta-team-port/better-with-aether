@@ -12,14 +12,15 @@ import teamport.aether.AetherRecipes;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class GuidebookIncubatorSection extends SearchableGuidebookSection {
     public final List<GuidebookPage> pages = new ArrayList<>();
-    public Pair<String, List<GuidebookPage>> filteredPages = null;
-    public static int entryPerPage = 3;
+    private Pair<String, List<GuidebookPage>> filteredPages = null;
+    private static final int ENTRY_PER_PAGE = 3;
 
     public GuidebookIncubatorSection(String translationKey, ItemStack tabIcon, int bgColor, int fgColor) {
         super(translationKey, tabIcon, bgColor, fgColor);
@@ -31,10 +32,10 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
         List<RecipeEntryIncubator> allRecipes = new ArrayList<>(AetherRecipes.INCUBATOR.getAllRecipes());
         allRecipes.removeIf(Objects::isNull);
         int totalRecipes = allRecipes.size();
-        int totalPages = MathHelper.ceilInt(totalRecipes, entryPerPage);
+        int totalPages = MathHelper.ceilInt(totalRecipes, ENTRY_PER_PAGE);
         for (int i = 0; i < totalPages; ++i) {
-            int j = i * entryPerPage;
-            List<RecipeEntryIncubator> recipes = new ArrayList<>(allRecipes.subList(Math.min(j, totalRecipes), Math.min(j + entryPerPage, totalRecipes)));
+            int j = i * ENTRY_PER_PAGE;
+            List<RecipeEntryIncubator> recipes = new ArrayList<>(allRecipes.subList(Math.min(j, totalRecipes), Math.min(j + ENTRY_PER_PAGE, totalRecipes)));
             this.pages.add(new RecipePageIncubator(this, recipes));
         }
     }
@@ -44,7 +45,7 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
         if (this.filteredPages != null && Objects.equals(this.filteredPages.getLeft(), searchQuery.rawQuery)) {
             return this.filteredPages.getRight();
         }
-        List<GuidebookPage> filteredPages = new ArrayList<>();
+        List<GuidebookPage> theFilteredPages = new ArrayList<>();
         List<RecipeEntryIncubator> allRecipes = new ArrayList<>(AetherRecipes.INCUBATOR.getAllRecipes());
         List<RecipeEntryIncubator> filteredRecipes = new ArrayList<>();
         allRecipes.removeIf(Objects::isNull);
@@ -56,16 +57,16 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
         }
 
         int filteredRecipeSize = filteredRecipes.size();
-        int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, entryPerPage);
+        int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, ENTRY_PER_PAGE);
         for (int i = 0; i < filteredPageCount; i++) {
-            int j = i * entryPerPage;
-            List<RecipeEntryIncubator> recipes = new ArrayList<>(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + entryPerPage, filteredRecipeSize)));
+            int j = i * ENTRY_PER_PAGE;
+            List<RecipeEntryIncubator> recipes = new ArrayList<>(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + ENTRY_PER_PAGE, filteredRecipeSize)));
             if (!recipes.isEmpty()) {
-                filteredPages.add(new RecipePageIncubator(this, recipes));
+                theFilteredPages.add(new RecipePageIncubator(this, recipes));
             }
         }
-        this.filteredPages = Pair.of(searchQuery.rawQuery, filteredPages);
-        return filteredPages;
+        this.filteredPages = Pair.of(searchQuery.rawQuery, theFilteredPages);
+        return theFilteredPages;
     }
 
     @Override
@@ -75,6 +76,6 @@ public class GuidebookIncubatorSection extends SearchableGuidebookSection {
 
     @Override
     public List<Index> getIndices() {
-        return null;
+        return Collections.emptyList();
     }
 }

@@ -9,31 +9,27 @@ import net.minecraft.core.entity.MobFlying;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.EnemyBoss;
-import teamport.aether.helper.NameGenerator;
-import teamport.aether.world.AetherDimension;
-import teamport.aether.world.feature.util.map.DungeonMap;
+import teamport.aether.entity.boss.NameGenerator;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
-import teamport.aether.world.feature.util.map.DungeonLogic;
+import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
-
-import java.util.function.Consumer;
 
 public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Nullable
-    public Integer dungeonID = null;
-    public String bossName = NameGenerator.getRandomName();
+    protected Integer dungeonID = null;
+    private String bossName = NameGenerator.getRandomName();
 
     @Nullable
-    public WorldFeaturePoint returnPoint = null;
+    protected WorldFeaturePoint returnPoint = null;
     protected boolean hasHadReturnPointSet = false;
 
     @Nullable
-    public ItemStack trophy = null;
+    private ItemStack trophy = null;
 
 
     public MobBossFlying(@Nullable World world) {
@@ -78,8 +74,8 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
 
     @Override
     public void onDeath(Entity entityKilledBy) {
-        assert world != null;
-        AetherMod.LOGGER.info(bossName + " of ID " + dungeonID + " has been slain!");
+        if (this.world == null) return;
+        AetherMod.LOGGER.info("{} of ID {} has been slain!", bossName, dungeonID);
 
         if (trophy != null) {
             if (!EnvironmentHelper.isClientWorld()) world.dropItem((int) x, (int) y, (int) z, trophy);
@@ -103,7 +99,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         dungeonID = tag.getInteger("dungeonID");
         bossName = tag.getString("bossName");
 
@@ -122,7 +118,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         tag.put("bossName", new StringTag(bossName));
 
         if (dungeonID != null) {
@@ -146,7 +142,7 @@ public class MobBossFlying extends MobFlying implements EnemyBoss {
     @Override
     public void returnToHome() {
         if (returnPoint == null || !hasHadReturnPointSet) return;
-        moveTo(returnPoint.x, returnPoint.y, returnPoint.z, 0, 0);
+        moveTo(returnPoint.getX(), returnPoint.getY(), returnPoint.getZ(), 0, 0);
     }
 
     @Override

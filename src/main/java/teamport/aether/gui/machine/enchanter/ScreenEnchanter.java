@@ -7,14 +7,14 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
-import teamport.aether.entity.tile.TileEntityEnchanter;
+import teamport.aether.block.entity.TileEntityEnchanter;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelEnchanter;
 
 @Environment(EnvType.CLIENT)
 public class ScreenEnchanter extends ScreenAetherMachine {
 
-    public final TileEntityEnchanter enchanter;
+    private final TileEntityEnchanter enchanter;
 
     public ScreenEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
         super(new MenuEnchanter(inventory, tileEntityEnchanter));
@@ -46,7 +46,7 @@ public class ScreenEnchanter extends ScreenAetherMachine {
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
         boolean isIngredient = AetherRecipes.ENCHANTER.findRecipe(stackInSlot) != null;
-        boolean isFuel = LookupFuelEnchanter.instance.getFuelYield(clickedItemId) > 0;
+        boolean isFuel = LookupFuelEnchanter.INSTANCE.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {
             return 1;
         }

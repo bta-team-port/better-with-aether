@@ -1,8 +1,9 @@
 package teamport.aether.entity.animal.aerbunny;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
@@ -10,6 +11,8 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.net.packet.PacketAddEntity;
+import net.minecraft.core.net.packet.PacketRemoveEntity;
 import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -17,18 +20,19 @@ import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.IVehicle;
 import net.minecraft.core.world.World;
 import net.minecraft.server.MinecraftServer;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import teamport.aether.entity.animal.MobAetherAnimal;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.mixin.accessors.EntityAccessor;
 import teamport.aether.net.message.AetherRideableNetworkMessage;
+import teamport.aether.net.message.EjectRiderNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
 public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
-    public boolean grab;
+    private boolean grab;
 
     public MobAerbunny(World world) {
         super(world);
@@ -37,19 +41,75 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         this.mobDrops.add(new WeightedRandomLootObject(Items.STRING.getDefaultStack(), 1));
     }
 
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+        if (itemStack == null) return false;
+        if (itemStack.itemID < Blocks.blocksList.length) {
+            Block<?> block = Blocks.blocksList[itemStack.itemID];
+            if (block != null && block.hasTag(BlockTags.SHEEPS_FAVOURITE_BLOCK)) return true;
+        }
+        return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
     }
 
+    public boolean beingRidden() {
+        return vehicle != null;
+    }
+
+    private boolean isVehicleSneaking() {
+        return vehicle instanceof Player && ((Player) vehicle).isSneaking();
+    }
+
+    @Override
+    public void trySuffocate() {
+        if (!beingRidden()) {
+            super.trySuffocate();
+        }
+    }
+
+    @Override
+    public boolean collidesWithBlock(Block<?> block, int metadata) {
+        if (beingRidden()) { return false; }
+
+        return super.collidesWithBlock(block, metadata);
+    }
+
+    @Override
+    public boolean collidesWith(Entity entity) {
+        if (beingRidden()) { return false; }
+
+        return super.collidesWith(entity);
+    }
+
+    @Override
+    public boolean isSelectable() {
+        if (beingRidden() && !isVehicleSneaking()) { return false; }
+
+        return super.isSelectable();
+    }
+
+    @Override
+    public boolean isPickable() {
+        if (beingRidden() && !isVehicleSneaking()) { return false; }
+
+        return super.isPickable();
+    }
+
+    @Override
+    public boolean isPushable() {
+        if (beingRidden()) { return false; }
+
+        return super.isPushable();
+    }
+
+    @Override
     public int getMaxHealth() {
         return 4;
     }
 
+    @Override
     public double getRidingHeight() {
-        if (EnvironmentHelper.isClientWorld()) {
-            if (this.vehicle != Minecraft.getMinecraft().thePlayer) {
-                return this.heightOffset + 0.5F;
-            }
+        if (EnvironmentHelper.isClientWorld() && this.vehicle != Minecraft.getMinecraft().thePlayer) {
+            return this.heightOffset + 0.5F;
         }
         return this.heightOffset - 1.1f;
     }
@@ -72,14 +132,13 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     public void controlEntity(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         if (EnvironmentHelper.isClientWorld()) {
             NetworkHandler.sendToServer(
-                    new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
+                new AetherRideableNetworkMessage(moveForward, moveStrafe, isJumping, xRot, yRot)
             );
         }
 
         Entity vehicle = (Entity) this.vehicle;
 
-        assert vehicle != null;
-        if (vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
+        if (vehicle != null && vehicle.yd < -0.225F && isJumping && !vehicle.noPhysics) {
             (vehicle).yd = 0.125F;
 
             this.cloudPoop();
@@ -87,6 +146,9 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
     }
 
+    private int stupidBullshitCooldown = 300;
+
+    @Override
     public void tick() {
         float puffiness = getPuffiness();
 
@@ -106,9 +168,8 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
                 int y = MathHelper.floor(this.bb.minY);
                 int z = MathHelper.floor(this.z);
 
-                if ((this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0)
-                        && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0
-                ) {
+                if (this.world != null && (this.world.getBlockId(x, y - 1, z) != 0 || this.world.getBlockId(x, y - 2, z) != 0)
+                    && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0) {
                     if (this.yd < 0.0) {
                         this.cloudPoop();
                         setPuffiness(0.9F);
@@ -134,20 +195,27 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             player.sendSpecialVehiclePacket();
         }
 
+        // Well, this is stupid. But so is this bug. :)
+        if (EnvironmentHelper.isServerEnvironment()) {
+            if (stupidBullshitCooldown-- <= 0 && this.vehicle != null) {
+                stupidBullshitCooldown = Global.TICKS_PER_SECOND * 2;
+                MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
+                    x, y, z, 32, this.world.dimension.id,
+                    new PacketSetRiding(this, (Entity) this.vehicle)
+                );
+            }
+
+        }
+
+        this.noPhysics = beingRidden();
         super.tick();
     }
 
+    @Override
     public void causeFallDamage(float distance) {
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-    }
-
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-    }
-
+    @Override
     public void onLivingUpdate() {
         if (onGround && this.moveForward != 0.0F) {
             this.jump();
@@ -158,11 +226,12 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (grab && onGround) {
             grab = false;
 
-            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-
-            for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0))) {
-                if (entity instanceof MobMonster) {
-                    ((MobMonster) entity).setTarget(this);
+            if (this.world != null) {
+                this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.land", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, this.bb.expand(12.0, 12.0, 12.0))) {
+                    if (entity instanceof MobMonster) {
+                        ((MobMonster) entity).setTarget(this);
+                    }
                 }
             }
         }
@@ -187,21 +256,30 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         ParticleMaker.spawnParticle(world, "explode", x, y, z, 0.0, -0.07500000298023224, 0.0, 0);
     }
 
-    public boolean hurt(Entity entity, int i, DamageType type) {
-        if (this.vehicle != null) {
-            return false;
-        } else {
-            return super.hurt(entity, i, type);
-        }
+    @Override
+    public void lavaHurt() {
+        if (!beingRidden()) super.lavaHurt();
     }
 
-    public boolean interact(@NotNull Player player) {
-        if (player.isSneaking()) return super.interact(player);
+    @Override
+    public boolean hurt(Entity attacker, int damage, DamageType type) {
+        if (attacker == this.vehicle) return false;
+        return super.hurt(attacker, damage, type);
+    }
+
+    @Override
+    public boolean interact(@NonNull Player player) {
+        if (player.isSneaking() && vehicle == null) return super.interact(player);
 
         if (this.vehicle == player) {
+            Entity vehicle = (Entity) this.vehicle;
             grab = false;
 
             vehicle.ejectRider();
+            if (EnvironmentHelper.isServerEnvironment()) {
+                NetworkHandler.sendToAllAround(this.x, this.y, this.z, 32, this.world.dimension.id, new EjectRiderNetworkMessage(vehicle));
+            }
+
             return true;
         }
 
@@ -212,33 +290,37 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         this.startRiding(player);
 
         grab = true;
-        this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        if (this.world != null) {
+            this.world.playSoundAtEntity(null, this, "aether:mob.aerbunny.lift", 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+        }
         this.isJumping = false;
 
         return true;
     }
 
+    @Override
     public String getLivingSound() {
         return "aether:mob.aerbunny.lift";
     }
 
+    @Override
     public String getHurtSound() {
         return "aether:mob.aerbunny.hurt";
     }
 
+    @Override
     public String getDeathSound() {
         return "aether:mob.aerbunny.death";
     }
-
 
     @Override
     public void startRiding(IVehicle vehicle) {
         super.startRiding(vehicle);
 
-        if (EnvironmentHelper.isServerEnvironment()) {
+        if (EnvironmentHelper.isServerEnvironment() && this.world != null) {
             MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
-                    x, y, z, 32, world.dimension.id,
-                    new PacketSetRiding(this, (Entity) this.vehicle)
+                x, y, z, 32, this.world.dimension.id,
+                new PacketSetRiding(this, (Entity) this.vehicle)
             );
         }
     }

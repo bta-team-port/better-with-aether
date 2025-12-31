@@ -2,21 +2,23 @@ package teamport.aether.lookup;
 
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.accessory.IAccessory;
+import org.jspecify.annotations.Nullable;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.IAccessory;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
+@SuppressWarnings("java:S6548")
 public class LookupTrinketIcons {
-    public static final LookupTrinketIcons instance = new LookupTrinketIcons();
-    public final Map<NamespaceID, String> ID_OUTLINE_TEXTURES = new HashMap<>();
-    public final List<String> LIST_TEXTURE = new ArrayList<>();
-    public final Set<String> SET_TEXTURES = new HashSet<>();
-    public static final Random random = new Random();
+    public static final LookupTrinketIcons INSTANCE = new LookupTrinketIcons();
+    private final Map<NamespaceID, String> idOutlineTextures = new HashMap<>();
+    private final List<String> listTexture = new ArrayList<>();
+    private static final Random random = new Random();
 
-    public LookupTrinketIcons() {
+    public static void init(){/* just to load this class*/}
+
+    private LookupTrinketIcons() {
         this.register();
     }
 
@@ -37,35 +39,22 @@ public class LookupTrinketIcons {
     }
 
     public void addEntry(NamespaceID id, String texturePath) {
-        this.ID_OUTLINE_TEXTURES.put(id, texturePath);
-        if(SET_TEXTURES.contains(texturePath)) return;
-        this.LIST_TEXTURE.add(texturePath);
+        this.idOutlineTextures.put(id, texturePath);
+        this.listTexture.add(texturePath);
     }
 
     public @Nullable String getEntry(Item item) {
         if (item instanceof IAccessory) {
-            return this.ID_OUTLINE_TEXTURES.getOrDefault(item.namespaceID, null);
+            return this.idOutlineTextures.getOrDefault(item.namespaceID, null);
         }
 
         if (item.hasTag(AetherItemTags.TRINKET)) {
-            return this.ID_OUTLINE_TEXTURES.getOrDefault(item.namespaceID, null);
+            return this.idOutlineTextures.getOrDefault(item.namespaceID, null);
         }
         return null;
     }
 
     public String getRandomEntry() {
-        return LIST_TEXTURE.get(random.nextInt(LIST_TEXTURE.size()));
-    }
-
-    public Map<NamespaceID, String> getIDTextureMap() {
-        return this.ID_OUTLINE_TEXTURES;
-    }
-
-    public List<String> getTextureList() {
-        return this.LIST_TEXTURE;
-    }
-
-    public Set<String> getSET_TEXTURES() {
-        return SET_TEXTURES;
+        return listTexture.get(random.nextInt(listTexture.size()));
     }
 }

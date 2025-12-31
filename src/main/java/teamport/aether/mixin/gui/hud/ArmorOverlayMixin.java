@@ -1,5 +1,7 @@
 package teamport.aether.mixin.gui.hud;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.hud.HudIngame;
@@ -13,25 +15,24 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import teamport.aether.items.AetherItems;
+import teamport.aether.helper.MixinHelper;
+import teamport.aether.item.AetherItems;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = HudIngame.class, remap = false)
-public class ArmorOverlayMixin extends Gui {
-
+public abstract class ArmorOverlayMixin extends Gui {
     @Shadow
     protected Minecraft mc;
-
     @Inject(method = "renderGameOverlay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glDisable(I)V", ordinal = 5))
-    public void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    private void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         Player player = this.mc.thePlayer;
         ContainerInventory inv = player.inventory;
 
         int height = this.mc.resolution.getScaledHeightScreenCoords();
-        int sp = (int) (this.mc.gameSettings.screenPadding.value * (float) height / 8.0F);
+        int sp = (int) (this.mc.gameSettings.screenPadding.value * height / 8.0F);
 
         Font font = this.mc.font;
 
@@ -55,15 +56,8 @@ public class ArmorOverlayMixin extends Gui {
             }
         }
     }
-
-    @Inject(method = "renderGameOverlay(FZII)V",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V",
-                    shift = At.Shift.AFTER
-            )
-    )
-    public void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
+    @Inject(method = "renderGameOverlay(FZII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V", shift = At.Shift.AFTER))
+    private void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
         int height = this.mc.resolution.getScaledHeightScreenCoords();
 
@@ -72,39 +66,11 @@ public class ArmorOverlayMixin extends Gui {
         double velocity = MathHelper.sqrt(this.mc.thePlayer.xd * this.mc.thePlayer.xd + this.mc.thePlayer.zd * this.mc.thePlayer.zd);
 
         if (this.mc.gameSettings.thirdPersonView.value == 0 &&
-                ((trinketOneSlotItem != null && trinketOneSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id) ||
-                        (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id))) {
+            ((trinketOneSlotItem != null && trinketOneSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id) ||
+                (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id))) {
             if (this.mc.thePlayer.isSneaking() || (this.mc.thePlayer.onGround && velocity < 0.075D)) {
-                this.renderShieldVignette(width, height);
+                MixinHelper.renderShieldVignette(mc.textureManager, width, height);
             }
         }
-    }
-
-    @Unique
-    protected void renderShieldVignette(int xSize, int ySize) {
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthMask(false);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(GL11.GL_ALPHA_TEST);
-
-        this.mc.textureManager.loadTexture("/assets/aether/textures/other/shieldvignette.png").bind();
-
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(0.0, ySize, -90.0, 0.0, 1.0);
-        tessellator.addVertexWithUV(xSize, ySize, -90.0, 1.0, 1.0);
-        tessellator.addVertexWithUV(xSize, 0.0, -90.0, 1.0, 0.0);
-        tessellator.addVertexWithUV(0.0, 0.0, -90.0, 0.0, 0.0);
-        tessellator.draw();
-
-        GL11.glDepthMask(true);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_ALPHA_TEST);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glPopMatrix();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

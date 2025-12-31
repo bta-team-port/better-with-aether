@@ -1,6 +1,7 @@
 package teamport.aether.mixin.net;
 
-import net.minecraft.core.net.NetworkManager;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.net.packet.PacketLogin;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.entity.player.PlayerServer;
@@ -13,23 +14,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherServer;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = PacketHandlerLogin.class, remap = false)
-public class PlayerLoginMixin {
-
+public abstract class PlayerLoginMixin {
     @Shadow
     @Final
     private MinecraftServer mcServer;
-
-    @Shadow
-    public NetworkManager netManager;
-
-    @Inject(method = {"doLogin"}, at = {@At(value = "TAIL")})
-    public void doLogin(PacketLogin loginPacket, CallbackInfo ci) {
+    @Inject(method = "doLogin", at = @At(value = "TAIL"))
+    private void doLogin(PacketLogin loginPacket, CallbackInfo ci) {
         PlayerServer player = this.mcServer.playerList.getPlayerEntity(loginPacket.username);
-
-        if (player != null) {
-            AetherServer.onPlayerJoinedServer(player, this.netManager);
-        }
+        if (player != null) AetherServer.onPlayerJoinedServer(player);
     }
-
 }

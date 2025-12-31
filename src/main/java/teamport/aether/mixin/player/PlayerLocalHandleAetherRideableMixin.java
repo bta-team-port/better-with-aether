@@ -1,5 +1,7 @@
 package teamport.aether.mixin.player;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.input.PlayerInput;
 import net.minecraft.core.entity.player.Player;
@@ -11,25 +13,20 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.AetherRideable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = PlayerLocal.class, remap = false)
 public abstract class PlayerLocalHandleAetherRideableMixin extends Player {
-
-    @Shadow
-    public PlayerInput input;
-
-    public PlayerLocalHandleAetherRideableMixin(World world) {
+    protected PlayerLocalHandleAetherRideableMixin(World world) {
         super(world);
     }
-
+    @Shadow
+    public PlayerInput input;
     @Inject(method = "handleSpecialVehicleControl", at = @At("HEAD"))
-    public void handleAetherRideableControl(CallbackInfo ci) {
+    private void handleAetherRideableControl(CallbackInfo ci) {
         if (vehicle instanceof AetherRideable) {
             ((AetherRideable) vehicle).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
-        }
-
-        else if (passenger instanceof AetherRideable) {
+        } else if (passenger instanceof AetherRideable) {
             ((AetherRideable) passenger).controlEntity(input.moveForward, input.moveStrafe, isJumping, xRot, yRot);
         }
     }
-
 }

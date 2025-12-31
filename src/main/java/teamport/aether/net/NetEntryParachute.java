@@ -8,8 +8,8 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.vehicle.parachute.EntityParachute;
 import teamport.aether.entity.vehicle.parachute.EntityParachuteGold;
 
@@ -18,7 +18,6 @@ import static teamport.aether.AetherMod.LOGGER;
 public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrackedEntry<EntityParachute> {
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-
         Class<? extends EntityParachute> parachuteClass = (meta >>> 24) > 0 ? EntityParachuteGold.class : EntityParachute.class;
 
         EntityParachute parachute;
@@ -41,7 +40,7 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
     }
 
     @Override
-    public @NotNull Class<? extends EntityParachute> getAppliedClass() {
+    public @NonNull Class<? extends EntityParachute> getAppliedClass() {
         return EntityParachute.class;
     }
 
@@ -61,6 +60,5 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
     }
 
     @Override
-    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityParachute object) {
-    }
+    public void onEntityTracked(EntityTracker entityTracker, EntityTrackerEntry entityTrackerEntry, EntityParachute object) {}
 }

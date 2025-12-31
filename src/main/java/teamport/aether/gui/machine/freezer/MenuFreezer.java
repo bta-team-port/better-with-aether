@@ -6,22 +6,23 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.block.entity.TileEntityFreezer;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MenuFreezer extends MenuAbstract {
-    public final TileEntityFreezer freezer;
-    public int currentProcessTime = 0;
-    public int currentEnergyTime = 0;
-    public int maxProcessTime = 0;
-    public int maxEnergyTime = 0;
+    private final TileEntityFreezer freezer;
+    private int currentProcessTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 0;
+    private int maxEnergyTime = 0;
 
     public MenuFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer) {
         this.freezer = tileEntityFreezer;
         this.addSlot(new Slot(tileEntityFreezer, 0, 56, 17));
         this.addSlot(new Slot(tileEntityFreezer, 1, 56, 53));
-        this.addSlot(new SlotFreezer(inventory.player, tileEntityFreezer, 2, 116, 35));
+        this.addSlot(new SlotFreezer(tileEntityFreezer, 2, 116, 35));
         for (int i = 0; i < 3; ++i) {
             for (int k = 0; k < 9; ++k) {
                 this.addSlot(new Slot(inventory, k + i * 9 + 9, 8 + k * 18, 84 + i * 18));
@@ -77,51 +78,54 @@ public class MenuFreezer extends MenuAbstract {
         if (slot.index >= 0 && slot.index <= 2) {
             return slot.index == 2 ? this.getSlots(3, 36, true) : this.getSlots(3, 36, false);
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public void setData(int id, int value) {
         switch (id) {
             case 0:
-                this.freezer.currentProcessTime = value;
+                this.freezer.setCurrentProcessTime(value);
                 break;
             case 1:
-                this.freezer.currentEnergyTime = value;
+                this.freezer.setCurrentEnergyTime(value);
                 break;
             case 2:
-                this.freezer.maxProcessTime = value;
+                this.freezer.setMaxProcessTime(value);
                 break;
             case 3:
-                this.freezer.maxEnergyTime = value;
+                this.freezer.setMaxEnergyTime(value);
         }
     }
 
 
+    @Override
     public void broadcastChanges() {
         super.broadcastChanges();
 
         for (ContainerListener crafter : this.containerListeners) {
-            if (this.currentProcessTime != this.freezer.currentProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 0, this.freezer.currentProcessTime);
+            if (this.currentProcessTime != this.freezer.getCurrentProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 0, this.freezer.getCurrentProcessTime());
             }
 
-            if (this.currentEnergyTime != this.freezer.currentEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 1, this.freezer.currentEnergyTime);
+            if (this.currentEnergyTime != this.freezer.getCurrentEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 1, this.freezer.getCurrentEnergyTime());
             }
 
-            if (this.maxProcessTime != this.freezer.maxProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 2, this.freezer.maxProcessTime);
+            if (this.maxProcessTime != this.freezer.getMaxProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 2, this.freezer.getMaxProcessTime());
             }
 
-            if (this.maxEnergyTime != this.freezer.maxEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 3, this.freezer.maxEnergyTime);
+            if (this.maxEnergyTime != this.freezer.getMaxEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 3, this.freezer.getMaxEnergyTime());
             }
         }
-        this.currentProcessTime = this.freezer.currentProcessTime;
-        this.currentEnergyTime = this.freezer.currentEnergyTime;
-        this.maxProcessTime = this.freezer.maxProcessTime;
-        this.maxEnergyTime = this.freezer.maxEnergyTime;
+        this.currentProcessTime = this.freezer.getCurrentProcessTime();
+        this.currentEnergyTime = this.freezer.getCurrentEnergyTime();
+        this.maxProcessTime = this.freezer.getMaxProcessTime();
+        this.maxEnergyTime = this.freezer.getMaxEnergyTime();
     }
 
     @Override

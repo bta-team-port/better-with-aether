@@ -11,22 +11,20 @@ import net.minecraft.core.util.helper.MathHelper;
 import teamport.aether.AetherRecipes;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Environment(EnvType.CLIENT)
 public class GuidebookSectionFreezer extends SearchableGuidebookSection {
 
     public final List<GuidebookPage> pages = new ArrayList<>();
-    public Pair<String, List<GuidebookPage>> filteredPages = null;
+    private Pair<String, List<GuidebookPage>> filteredPages = null;
 
     public GuidebookSectionFreezer(String translationKey, ItemStack tabIcon, int bgColor, int fgColor) {
         super(translationKey, tabIcon, bgColor, fgColor);
         this.reloadRecipes();
     }
 
+    @Override
     public List<GuidebookPage> searchPages(SearchQuery query) {
         if (this.filteredPages != null && Objects.equals(this.filteredPages.getLeft(), query.rawQuery)) {
             return this.filteredPages.getRight();
@@ -38,7 +36,7 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
             filterRecipe(query, allRecipes, filteredRecipes);
             filteredRecipes = moveRepairablesToBack(filteredRecipes);
 
-            List<GuidebookPage> filteredPages = new ArrayList<>();
+            List<GuidebookPage> theFilteredPages = new ArrayList<>();
             int filteredRecipeSize = filteredRecipes.size();
             int filteredPageCount = MathHelper.ceilInt(filteredRecipeSize, 6);
 
@@ -46,12 +44,12 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
                 int j = i * 6;
                 List<RecipeEntryAetherMachine> recipes = new ArrayList<>(filteredRecipes.subList(Math.min(j, filteredRecipeSize), Math.min(j + 6, filteredRecipeSize)));
                 if (!recipes.isEmpty()) {
-                    filteredPages.add(new RecipePageFreezer(this, recipes));
+                    theFilteredPages.add(new RecipePageFreezer(this, recipes));
                 }
             }
 
-            this.filteredPages = Pair.of(query.rawQuery, filteredPages);
-            return filteredPages;
+            this.filteredPages = Pair.of(query.rawQuery, theFilteredPages);
+            return theFilteredPages;
         }
     }
 
@@ -81,34 +79,36 @@ public class GuidebookSectionFreezer extends SearchableGuidebookSection {
     }
 
     public static List<RecipeEntryAetherMachine> moveRepairablesToBack(List<RecipeEntryAetherMachine> recipes) {
-        List<RecipeEntryAetherMachine> new_recipes = new ArrayList<>(recipes.size());
+        List<RecipeEntryAetherMachine> newRecipes = new ArrayList<>(recipes.size());
         List<RecipeEntryAetherMachine> repairable = new ArrayList<>();
         for (RecipeEntryAetherMachine recipe : recipes) {
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
             if (
-                    input != null
-                            && output != null
-                            && input.isItemStackDamageable()
-                            && output.isItemStackDamageable()
-                            && output.itemID == input.itemID
+                input != null
+                    && output != null
+                    && input.isItemStackDamageable()
+                    && output.isItemStackDamageable()
+                    && output.itemID == input.itemID
             ) {
                 repairable.add(recipe);
             } else {
-                new_recipes.add(recipe);
+                newRecipes.add(recipe);
             }
         }
         repairable.sort(Comparator.comparing(self -> self.getInput().getStack().getDisplayName()));
-        new_recipes.addAll(repairable);
-        return new_recipes;
+        newRecipes.addAll(repairable);
+        return newRecipes;
     }
 
+    @Override
     public List<GuidebookPage> getPages() {
         return this.pages;
     }
 
+    @Override
     public List<Index> getIndices() {
-        return null;
+        return Collections.emptyList();
     }
 }
 

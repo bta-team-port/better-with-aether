@@ -3,7 +3,7 @@ package teamport.aether.entity.monster.mimic;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,11 @@ import static teamport.aether.entity.monster.mimic.MimicEntry.mimicEntry;
 
 public class MimicRegistry {
     public static final MimicRegistry instance = new MimicRegistry();
+    @SuppressWarnings("java:S116")
     public final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
-    public static MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
+    public static final MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
+
+    public static void init(){/* just to load this class*/}
 
     protected MimicRegistry() {
         this.register();

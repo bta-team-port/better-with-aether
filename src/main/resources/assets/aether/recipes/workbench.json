@@ -24,6 +24,28 @@
     }
   },
   {
+    "name": "minecraft:workbench/scrap_chainmail_gloves",
+    "type": "minecraft:crafting/scrap",
+    "input": {
+      "id": "aether:item/armor_gloves_chainmail"
+    },
+    "output": {
+      "id": "minecraft:item/chainlink"
+    },
+    "maxYield": 4
+  },
+  {
+    "name": "minecraft:workbench/scrap_chainmail_talisman",
+    "type": "minecraft:crafting/scrap",
+    "input": {
+      "id": "aether:item/armor_talisman_chainmail"
+    },
+    "output": {
+      "id": "minecraft:item/chainlink"
+    },
+    "maxYield": 4
+  },
+  {
     "name": "minecraft:workbench/boat",
     "type": "minecraft:crafting/shaped",
     "pattern": [

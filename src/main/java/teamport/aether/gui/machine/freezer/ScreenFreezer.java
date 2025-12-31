@@ -7,14 +7,14 @@ import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherRecipes;
-import teamport.aether.entity.tile.TileEntityFreezer;
+import teamport.aether.block.entity.TileEntityFreezer;
 import teamport.aether.gui.machine.ScreenAetherMachine;
 import teamport.aether.lookup.LookupFuelFreezer;
 
 @Environment(EnvType.CLIENT)
 public class ScreenFreezer extends ScreenAetherMachine {
 
-    public final TileEntityFreezer freezer;
+    private final TileEntityFreezer freezer;
 
     public ScreenFreezer(ContainerInventory inventory, TileEntityFreezer tileEntityFreezer) {
         super(new MenuFreezer(inventory, tileEntityFreezer));
@@ -46,7 +46,7 @@ public class ScreenFreezer extends ScreenAetherMachine {
     @Override
     public int getTargetSlot(ItemStack stackInSlot, int clickedItemId) {
         boolean isIngredient = AetherRecipes.FREEZER.findRecipe(stackInSlot) != null;
-        boolean isFuel = LookupFuelFreezer.instance.getFuelYield(clickedItemId) > 0;
+        boolean isFuel = LookupFuelFreezer.INSTANCE.getFuelYield(clickedItemId) > 0;
         if (isIngredient) {
             return 1;
         }

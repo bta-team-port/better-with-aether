@@ -1,10 +1,10 @@
 package teamport.aether.mixin.achievement;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.core.achievement.stat.Stat;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,17 +15,18 @@ import teamport.aether.world.AetherDimension;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class HostileParadiseMixin extends Mob {
-    public HostileParadiseMixin(@Nullable World world) {
+
+    @Shadow
+    public abstract void addStat(Stat statbase, int i);
+
+    protected HostileParadiseMixin(@Nullable World world) {
         super(world);
     }
 
-    @Shadow
-    public int dimension;
-
-    @Inject(method = "tick", at = @At(value = "HEAD"))
-    public void grantHostileParadise(CallbackInfo ci) {
-        if (this.world.dimension.id == AetherDimension.AETHER.id) {
-            Minecraft.getMinecraft().thePlayer.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void grantHostileParadise(CallbackInfo ci) {
+        if (this.world.dimension.id == AetherDimension.getAether().id) {
+            this.addStat(AetherAchievements.HOSTILE_PARADISE, 1);
         }
     }
 }

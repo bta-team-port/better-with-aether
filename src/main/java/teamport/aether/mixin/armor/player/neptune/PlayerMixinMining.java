@@ -1,22 +1,18 @@
 package teamport.aether.mixin.armor.player.neptune;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import teamport.aether.helper.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinMining {
-
-    @ModifyConstant(
-            method = "getCurrentPlayerStrVsBlock",
-            constant = @Constant(floatValue = 5.0F)
-    )
-    public float modifyWaterSlowdownConstant(float original) {
+public abstract class PlayerMixinMining {
+    @ModifyExpressionValue(method = "getCurrentPlayerStrVsBlock", at = @At(value = "CONSTANT", args = "floatValue=5.0F"))
+    private float modifyWaterSlowdownConstant(float original) {
         Player player = (Player) (Object) this;
-        if (ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
+        if (PlayerUtil.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.NEPTUNE) < 5) {
             return original;
         }
         return 1.0F;

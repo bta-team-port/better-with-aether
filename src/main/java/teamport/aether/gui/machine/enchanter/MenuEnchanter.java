@@ -6,16 +6,17 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import teamport.aether.entity.tile.TileEntityEnchanter;
+import teamport.aether.block.entity.TileEntityEnchanter;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MenuEnchanter extends MenuAbstract {
-    public final TileEntityEnchanter enchanter;
-    public int currentProcessTime = 0;
-    public int currentEnergyTime = 0;
-    public int maxProcessTime = 0;
-    public int maxEnergyTime = 0;
+    private final TileEntityEnchanter enchanter;
+    private int currentProcessTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 0;
+    private int maxEnergyTime = 0;
 
     public MenuEnchanter(ContainerInventory inventory, TileEntityEnchanter tileEntityEnchanter) {
         this.enchanter = tileEntityEnchanter;
@@ -77,49 +78,52 @@ public class MenuEnchanter extends MenuAbstract {
         if (slot.index >= 0 && slot.index <= 2) {
             return slot.index == 2 ? this.getSlots(3, 36, true) : this.getSlots(3, 36, false);
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
+    @Override
     public void broadcastChanges() {
         super.broadcastChanges();
 
         for (ContainerListener crafter : this.containerListeners) {
-            if (this.currentProcessTime != this.enchanter.currentProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 0, this.enchanter.currentProcessTime);
+            if (this.currentProcessTime != this.enchanter.getCurrentProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 0, this.enchanter.getCurrentProcessTime());
             }
 
-            if (this.currentEnergyTime != this.enchanter.currentEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 1, this.enchanter.currentEnergyTime);
+            if (this.currentEnergyTime != this.enchanter.getCurrentEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 1, this.enchanter.getCurrentEnergyTime());
             }
 
-            if (this.maxProcessTime != this.enchanter.maxProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 2, this.enchanter.maxProcessTime);
+            if (this.maxProcessTime != this.enchanter.getMaxProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 2, this.enchanter.getMaxProcessTime());
             }
 
-            if (this.maxEnergyTime != this.enchanter.maxEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 3, this.enchanter.maxEnergyTime);
+            if (this.maxEnergyTime != this.enchanter.getMaxEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 3, this.enchanter.getMaxEnergyTime());
             }
         }
-        this.currentProcessTime = this.enchanter.currentProcessTime;
-        this.currentEnergyTime = this.enchanter.currentEnergyTime;
-        this.maxProcessTime = this.enchanter.maxProcessTime;
-        this.maxEnergyTime = this.enchanter.maxEnergyTime;
+        this.currentProcessTime = this.enchanter.getCurrentProcessTime();
+        this.currentEnergyTime = this.enchanter.getCurrentEnergyTime();
+        this.maxProcessTime = this.enchanter.getMaxProcessTime();
+        this.maxEnergyTime = this.enchanter.getMaxEnergyTime();
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public void setData(int id, int value) {
         switch (id) {
             case 0:
-                this.enchanter.currentProcessTime = value;
+                this.enchanter.setCurrentProcessTime(value);
                 break;
             case 1:
-                this.enchanter.currentEnergyTime = value;
+                this.enchanter.setCurrentEnergyTime(value);
                 break;
             case 2:
-                this.enchanter.maxProcessTime = value;
+                this.enchanter.setMaxProcessTime(value);
                 break;
             case 3:
-                this.enchanter.maxEnergyTime = value;
+                this.enchanter.setMaxEnergyTime(value);
         }
     }
 

@@ -6,16 +6,17 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.block.entity.TileEntityIncubator;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MenuIncubator extends MenuAbstract {
-    public final TileEntityIncubator incubator;
-    public int currentProcessTime = 0;
-    public int currentEnergyTime = 0;
-    public int maxProcessTime = 0;
-    public int maxEnergyTime = 0;
+    private final TileEntityIncubator incubator;
+    private int currentProcessTime = 0;
+    private int currentEnergyTime = 0;
+    private int maxProcessTime = 0;
+    private int maxEnergyTime = 0;
 
     public MenuIncubator(ContainerInventory inventory, TileEntityIncubator tileEntityIncubator) {
         this.incubator = tileEntityIncubator;
@@ -76,49 +77,52 @@ public class MenuIncubator extends MenuAbstract {
         if (slot.index >= 0 && slot.index <= 2) {
             return slot.index == 2 ? this.getSlots(3, 36, true) : this.getSlots(3, 36, false);
         } else {
-            return null;
+            return Collections.emptyList();
         }
     }
 
+    @Override
     public void broadcastChanges() {
         super.broadcastChanges();
 
         for (ContainerListener crafter : this.containerListeners) {
-            if (this.currentProcessTime != this.incubator.currentProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 0, this.incubator.currentProcessTime);
+            if (this.currentProcessTime != this.incubator.getCurrentProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 0, this.incubator.getCurrentProcessTime());
             }
 
-            if (this.currentEnergyTime != this.incubator.currentEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 1, this.incubator.currentEnergyTime);
+            if (this.currentEnergyTime != this.incubator.getCurrentEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 1, this.incubator.getCurrentEnergyTime());
             }
 
-            if (this.maxProcessTime != this.incubator.maxProcessTime) {
-                crafter.updateCraftingInventoryInfo(this, 2, this.incubator.maxProcessTime);
+            if (this.maxProcessTime != this.incubator.getMaxProcessTime()) {
+                crafter.updateCraftingInventoryInfo(this, 2, this.incubator.getMaxProcessTime());
             }
 
-            if (this.maxEnergyTime != this.incubator.maxEnergyTime) {
-                crafter.updateCraftingInventoryInfo(this, 3, this.incubator.maxEnergyTime);
+            if (this.maxEnergyTime != this.incubator.getMaxEnergyTime()) {
+                crafter.updateCraftingInventoryInfo(this, 3, this.incubator.getMaxEnergyTime());
             }
         }
-        this.currentProcessTime = this.incubator.currentProcessTime;
-        this.currentEnergyTime = this.incubator.currentEnergyTime;
-        this.maxProcessTime = this.incubator.maxProcessTime;
-        this.maxEnergyTime = this.incubator.maxEnergyTime;
+        this.currentProcessTime = this.incubator.getCurrentProcessTime();
+        this.currentEnergyTime = this.incubator.getCurrentEnergyTime();
+        this.maxProcessTime = this.incubator.getMaxProcessTime();
+        this.maxEnergyTime = this.incubator.getMaxEnergyTime();
     }
 
+    @SuppressWarnings("java:S131")
+    @Override
     public void setData(int id, int value) {
         switch (id) {
             case 0:
-                this.incubator.currentProcessTime = value;
+                this.incubator.setCurrentProcessTime(value);
                 break;
             case 1:
-                this.incubator.currentEnergyTime = value;
+                this.incubator.setCurrentEnergyTime(value);
                 break;
             case 2:
-                this.incubator.maxProcessTime = value;
+                this.incubator.setMaxProcessTime(value);
                 break;
             case 3:
-                this.incubator.maxEnergyTime = value;
+                this.incubator.setMaxEnergyTime(value);
         }
     }
 

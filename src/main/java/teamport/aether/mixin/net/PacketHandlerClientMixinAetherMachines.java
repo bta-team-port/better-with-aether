@@ -1,5 +1,7 @@
 package teamport.aether.mixin.net;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.client.net.handler.PacketHandlerClient;
@@ -11,20 +13,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherConfig;
-import teamport.aether.entity.tile.TileEntityEnchanter;
-import teamport.aether.entity.tile.TileEntityFreezer;
-import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.block.entity.TileEntityEnchanter;
+import teamport.aether.block.entity.TileEntityFreezer;
+import teamport.aether.block.entity.TileEntityIncubator;
 import teamport.aether.gui.AetherScreens;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = PacketHandlerClient.class, remap = false)
-public class PacketHandlerClientMixinAetherMachines {
-
+public abstract class PacketHandlerClientMixinAetherMachines {
     @Final
     @Shadow
     private Minecraft mc;
-
     @Inject(method = "handleOpenWindow", at = @At("TAIL"))
-    public void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci) {
+    private void handleAetherMachines(PacketContainerOpen packet, CallbackInfo ci) {
         PlayerLocal playerLocal = this.mc.thePlayer;
         AetherScreens playerScreen = (AetherScreens) playerLocal;
         if (packet.inventoryType == AetherConfig.ENCHANTER_SCREEN_ID) {

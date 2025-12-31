@@ -2,10 +2,10 @@ package teamport.aether.helper;
 
 import org.lwjgl.opengl.GL11;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 public class GLManager {
-    static Stack<Integer> intStack = new Stack<>();
+    private static final ArrayDeque<Integer> intStack = new ArrayDeque<>();
 
     public static void glEnable(int target) {
         intStack.push(target);
@@ -21,15 +21,11 @@ public class GLManager {
 
     public static void restore() {
         while (!intStack.isEmpty()) {
-            switch (intStack.pop()) {
-                case 1: {
-                    GL11.glEnable(intStack.pop());
-                    break;
-                }
-                case 0: {
-                    GL11.glDisable(intStack.pop());
-                    break;
-                }
+            int state = intStack.pop();
+            if (state == 1) {
+                GL11.glEnable(intStack.pop());
+            } else if (state == 0) {
+                GL11.glDisable(intStack.pop());
             }
         }
     }

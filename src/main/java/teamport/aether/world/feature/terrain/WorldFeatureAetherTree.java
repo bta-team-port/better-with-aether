@@ -5,22 +5,24 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.block.terrain.BlockLogicOreGravitite;
 
 import java.util.Random;
 
 public class WorldFeatureAetherTree extends WorldFeature {
-    public int leavesID;
-    public int logID;
-    public int heightMod;
+    private final int leavesId;
+    private final int logId;
+    private final int heightMod;
 
-    public WorldFeatureAetherTree(int leavesID, int logID, int heightMod) {
-        this.leavesID = leavesID;
-        this.logID = logID;
+    public WorldFeatureAetherTree(int leavesId, int logId, int heightMod) {
+        this.leavesId = leavesId;
+        this.logId = logId;
         this.heightMod = heightMod;
     }
 
+    @Override
     public boolean place(World world, Random random, int x, int y, int z) {
         int treeHeight = random.nextInt(3) + this.heightMod;
         boolean canSpawn = true;
@@ -44,7 +46,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
                     for (i3 = z - l1; i3 <= z + l1 && canSpawn; ++i3) {
                         if (iy >= 0 && iy < world.getHeightBlocks()) {
                             ix = world.getBlockId(j2, iy, i3);
-                            if (ix != 0 && ix != this.leavesID) {
+                            if (ix != 0 && ix != this.leavesId) {
                                 canSpawn = false;
                             }
                         } else {
@@ -80,7 +82,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
                     for (l1 = 0; l1 < treeHeight; ++l1) {
                         j2 = world.getBlockId(x, y + l1, z);
                         if (j2 == 0 || this.isLeaf(j2)) {
-                            world.setBlockWithNotify(x, y + l1, z, this.logID);
+                            world.setBlockWithNotify(x, y + l1, z, this.logId);
                         }
                     }
 
@@ -95,11 +97,11 @@ public class WorldFeatureAetherTree extends WorldFeature {
     }
 
     public void placeLeaves(World world, int x, int y, int z) {
-        world.setBlockWithNotify(x, y, z, this.leavesID);
+        world.setBlockWithNotify(x, y, z, this.leavesId);
     }
 
     public boolean isLeaf(int id) {
-        return id == this.leavesID;
+        return id == this.leavesId;
     }
 
     public static void onTreeGrown(World world, int x, int y, int z) {
@@ -110,6 +112,7 @@ public class WorldFeatureAetherTree extends WorldFeature {
 
     }
 
+    @SuppressWarnings("java:S3358")
     public static Block<?> getDirtForGrass(int id) {
         if (id != Blocks.GRASS.id() && id != Blocks.GRASS_RETRO.id()) {
             return id == Blocks.GRASS_SCORCHED.id() ? Blocks.DIRT_SCORCHED : id == AetherBlocks.GRASS_AETHER.id() ? AetherBlocks.DIRT_AETHER : null;
@@ -119,7 +122,6 @@ public class WorldFeatureAetherTree extends WorldFeature {
     }
 
     public static boolean canLeavesReplace(World world, int x, int y, int z) {
-        Block<?> b = world.getBlock(x, y, z);
-        return b == null || b.hasTag(BlockTags.PLACE_OVERWRITES);
+        return BlockLogicOreGravitite.canFallAbove(world, x, y, z);
     }
 }

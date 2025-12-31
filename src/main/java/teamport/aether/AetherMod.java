@@ -15,13 +15,17 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import teamport.aether.blocks.AetherBlockDetails;
-import teamport.aether.blocks.AetherBlockTags;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlockDetails;
+import teamport.aether.block.AetherBlockTags;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
-import teamport.aether.items.AetherItems;
-import teamport.aether.items.accessory.ItemTrinket;
+import teamport.aether.entity.monster.mimic.MimicRegistry;
+import teamport.aether.item.AetherItems;
+import teamport.aether.item.accessory.ItemTrinket;
+import teamport.aether.lookup.LookupFuelEnchanter;
+import teamport.aether.lookup.LookupFuelFreezer;
+import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
 import teamport.aether.world.AetherDimension;
@@ -35,17 +39,19 @@ import java.util.Map;
 
 import static net.minecraft.core.entity.animal.MobFireflyCluster.FireflyColor.register;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherMod implements GameStartEntrypoint, ModInitializer {
     public static final String MOD_ID = "aether";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static String versionString = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
-    public static String state = "beta";
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public static final String VERSION_STRING = FabricLoader.getInstance().getModContainer(MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+    public static final String STATE = "release";
     public static I18n TRANSLATOR = null;
     public static MobFireflyCluster.FireflyColor SILVER;
 
     public static final DamageType LIGHTNING = new DamageType("damagetype.lightning", true, true, "aether:gui/hud/protection_lightning");
     public static final DamageType HOLY = new DamageType("damagetype.holy", false, true, "aether:gui/hud/protection_holy");
-
+    @SuppressWarnings("java:S2386")
     public static final Map<Integer, BlockLogicNote.Instrument> BLOCK_INSTRUMENTS = new HashMap<>();
 
     public static final BlockLogicNote.Instrument FLUTE = new BlockLogicNote.Instrument(11, "flute");
@@ -71,14 +77,13 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", state, versionString);
+        LOGGER.info("Aether initialized, welcome to a hostile paradise. Version {} {}", STATE, VERSION_STRING);
         NetworkHandler.registerNetworkMessage(SunspiritDeathNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherRideableNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(BossListNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherDungeonMapUpdateNetworkMessage::new);
-        NetworkHandler.registerNetworkMessage(AetherSyncInvisibilityNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherSyncRepulsionNetworkMessage::new);
-
+        NetworkHandler.registerNetworkMessage(EjectRiderNetworkMessage::new);
     }
 
     @Override
@@ -87,8 +92,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherConfig.init();
         AetherEntities.init();
         AetherBlocks.init();
-        AetherItems.init();
         AetherDimension.init();
+        AetherItems.init();
         AetherWorldFeatures.init();
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherBiomes.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
@@ -105,12 +110,16 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
     @Override
     public void afterGameStart() {
         AetherEffects.init();
+        LookupFuelEnchanter.init();
+        LookupFuelFreezer.init();
+        LookupFuelIncubator.init();
+        MimicRegistry.init();
 
         TRANSLATOR = I18n.getInstance();
 
-        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent("aether", "border_amber"));
-        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_zanite"));
-        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent("aether", "border_gravitite"));
+        EntityPainting.addBorder(AetherItems.AMBER.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_amber"));
+        EntityPainting.addBorder(AetherItems.ZANITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_zanite"));
+        EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_gravitite"));
         AetherBlockDetails.initializeBlockDetails();
         registerNewTagForItems();
     }
@@ -123,13 +132,16 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+        Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
         Blocks.FURNACE_STONE_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_STONE_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_BLAST_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.FURNACE_BLAST_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.TROMMEL_ACTIVE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.TROMMEL_IDLE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
-        Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
+
+        Blocks.SPIKES.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
         Blocks.GLOWSTONE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
         Blocks.ICE.withTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);

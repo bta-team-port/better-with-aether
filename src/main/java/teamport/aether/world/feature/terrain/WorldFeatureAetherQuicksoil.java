@@ -6,8 +6,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 import java.util.Random;
 
 public class WorldFeatureAetherQuicksoil extends WorldFeature {
-
-    public final int blockId;
+    private final int blockId;
 
     public WorldFeatureAetherQuicksoil(int blockId) {
         this.blockId = blockId;

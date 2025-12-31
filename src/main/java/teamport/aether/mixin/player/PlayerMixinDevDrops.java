@@ -9,28 +9,31 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.AetherGlobals;
-import teamport.aether.blocks.AetherBlocks;
-import teamport.aether.items.AetherItems;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.item.AetherItems;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixinDevDrops {
-
+public abstract class PlayerMixinDevDrops {
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;getGameRuleValue(Lnet/minecraft/core/data/gamerule/GameRule;)Ljava/lang/Object;"))
-    public void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
-        Player asThis = (Player) (Object) this;
-        String uuid = asThis.uuid.toString();
+    private void extraDropsDev(Entity entityKilledBy, CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        String uuid = player.uuid.toString();
+
         switch (uuid) {
             case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff
-                asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_WINDBALL, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_WINDBALL, 1), true);
                 break;
             case AetherGlobals.UUID_OLYPOLYU: // Olypolyu / Kheprep
-                asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.BLOCK_GRAVITITE, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.PARACHUTE_CLOUD, 1), true);
                 break;
             case AetherGlobals.UUID_TOCININ: // Tocinin
-                asThis.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_PORKCHOP_RAW, 1), true);
                 break;
             case AetherGlobals.UUID_REDART15: // Redart15
-                asThis.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherBlocks.CARVED_STONE_LIGHT, 1), true);
+                break;
+            case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
+                player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_HAMMER_HEAD, 1), true);
                 break;
             default:
                 break;

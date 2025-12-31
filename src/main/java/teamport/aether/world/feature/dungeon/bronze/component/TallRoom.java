@@ -1,6 +1,6 @@
 package teamport.aether.world.feature.dungeon.bronze.component;
 
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.feature.util.BlockPallet;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 
@@ -14,7 +14,7 @@ import static teamport.aether.world.feature.util.WorldFeatureComponent.*;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 public class TallRoom extends BaseBronzeRoom {
-    public static BlockPallet ROOM_PALLET = new BlockPallet();
+    private static final BlockPallet ROOM_PALLET = new BlockPallet();
 
     static {
         ROOM_PALLET.addEntry(AetherBlocks.CARVED_STONE.id(), 0, 85);
@@ -40,7 +40,7 @@ public class TallRoom extends BaseBronzeRoom {
         addDoor(WEST, wfp(0, 19, 4), UP, 6, SOUTH, 4);
     }
 
-    public void makeShell() {
+    private void makeShell() {
         room.add(drawShell(random, ROOM_PALLET, SOUTH, width, UP, height, EAST, width, x, y, z, false));
         room.add(drawVolume(0, 0, SOUTH, width - 2, UP, height - 2, EAST, width - 2, x + 1, y + 1, z + 1, false));
 
@@ -51,25 +51,25 @@ public class TallRoom extends BaseBronzeRoom {
         pillar.add(wfp(x + 7, y, z + 7));
         Collections.shuffle(pillar, random);
 
-        int pillar_height = height - 10;
+        int pillarheight = height - 10;
         int index = 0;
         for (int i = 0; i < 6; i++) {
             index = index % 4;
             WorldFeaturePoint point = pillar.get(index++);
-            decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, point.x, y + pillar_height, point.z, false));
-            if (pillar_height < 6) {
-                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, EAST, 2, DOWN, pillar_height, point.x, y + pillar_height, point.z, false));
-                pillar_height -= 4;
+            decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, point.getX(), y + pillarheight, point.getZ(), false));
+            if (pillarheight < 6) {
+                decoration.add(drawVolume(random, ROOM_PALLET, SOUTH, 2, EAST, 2, DOWN, pillarheight, point.getX(), y + pillarheight, point.getZ(), false));
+                pillarheight -= 4;
                 continue;
             }
-            decoration.add(wfb(point.x, y - 1 + pillar_height, point.z, AetherBlocks.AERCLOUD_WHITE.id(), 0));
-            decoration.add(wfb(point.x + 1, y - 1 + pillar_height, point.z, AetherBlocks.AERCLOUD_WHITE.id(), 0));
-            decoration.add(wfb(point.x, y - 1 + pillar_height, point.z + 1, AetherBlocks.AERCLOUD_WHITE.id(), 0));
-            decoration.add(wfb(point.x, y - 2 + pillar_height, point.z, AetherBlocks.AERCLOUD_WHITE.id(), 0));
-            pillar_height -= 4;
+            decoration.add(wfb(point.getX(), y - 1 + pillarheight, point.getZ(), AetherBlocks.AERCLOUD_WHITE.id(), 0));
+            decoration.add(wfb(point.getX() + 1, y - 1 + pillarheight, point.getZ(), AetherBlocks.AERCLOUD_WHITE.id(), 0));
+            decoration.add(wfb(point.getX(), y - 1 + pillarheight, point.getZ() + 1, AetherBlocks.AERCLOUD_WHITE.id(), 0));
+            decoration.add(wfb(point.getX(), y - 2 + pillarheight, point.getZ(), AetherBlocks.AERCLOUD_WHITE.id(), 0));
+            pillarheight -= 4;
         }
 
-        chest.add(drawPlane(random, chestOrMimic, SOUTH, 2, EAST, 2, x + 5, y + height - 4, z + 5, false));
+        chest.add(drawPlane(random, CHEST_OR_MIMIC, SOUTH, 2, EAST, 2, x + 5, y + height - 4, z + 5, false));
         decoration.add(drawPlane(random, ROOM_PALLET, SOUTH, 2, EAST, 2, x + 5, y + height - 5, z + 5, false));
 
         decoration.add(wfb(x + 5, y + height - 6, z + 5, AetherBlocks.AERCLOUD_WHITE.id(), 0, false));

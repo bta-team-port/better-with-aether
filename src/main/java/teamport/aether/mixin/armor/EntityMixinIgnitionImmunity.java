@@ -1,31 +1,20 @@
 package teamport.aether.mixin.armor;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.helper.ContainerHelper;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.helper.MixinHelper;
 
 @Mixin(value = Entity.class, remap = false)
-public class EntityMixinIgnitionImmunity {
-
-    @Inject(method = "isInWaterOrRain", at = @At("HEAD"), cancellable = true)
-    public void aether$cantCatchFire(CallbackInfoReturnable<Boolean> cir) {
+public abstract class EntityMixinIgnitionImmunity {
+    @ModifyReturnValue(method = "isInWaterOrRain", at = @At("RETURN"))
+    private boolean cantCatchFire(boolean original) {
         Entity entity = (Entity) (Object) this;
-        if (entity instanceof Player) {
-            Player player = ((Player) (Object) this);
-            int fireResistanceCount = ContainerHelper.countArmorPiecesOfMaterial(player.inventory, AetherArmorMaterial.PHOENIX);
-            if (fireResistanceCount >= 3) {
-                cir.setReturnValue(true);
-            }
-        }
-        if (entity instanceof MobWolf) {
-            cir.setReturnValue(true);
-        }
+        if (entity instanceof Player && MixinHelper.fireResistanceCount(((Player) entity).inventory) >= 3) return true;
+        if (entity instanceof MobWolf && MixinHelper.isImmuneToFire((MobWolf) entity)) return true;
+        return original;
     }
-
 }

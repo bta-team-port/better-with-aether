@@ -1,8 +1,8 @@
 package teamport.aether.entity.vehicle.parachute;
 
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
-import teamport.aether.blocks.AetherBlocks;
+import org.jspecify.annotations.Nullable;
+import teamport.aether.block.AetherBlocks;
 
 public class EntityParachuteGold extends EntityParachute {
     public EntityParachuteGold(@Nullable World world) {

@@ -1,15 +1,18 @@
 package teamport.aether.lookup;
 
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("java:S6548")
 public class LookupFuelIncubator {
-    public static final LookupFuelIncubator instance = new LookupFuelIncubator();
-    public final Map<Integer, Integer> fuelList = new HashMap<>();
+    public static final LookupFuelIncubator INSTANCE = new LookupFuelIncubator();
+    private final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    public LookupFuelIncubator() {
+    public static void init(){/* just to load this class*/}
+
+    private LookupFuelIncubator() {
         this.register();
     }
 
@@ -23,9 +26,5 @@ public class LookupFuelIncubator {
 
     public int getFuelYield(int id) {
         return this.fuelList.get(id) == null ? 0 : this.fuelList.get(id);
-    }
-
-    public Map<Integer, Integer> getFuelList() {
-        return this.fuelList;
     }
 }

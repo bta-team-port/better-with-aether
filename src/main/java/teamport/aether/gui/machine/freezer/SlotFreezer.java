@@ -1,16 +1,13 @@
 package teamport.aether.gui.machine.freezer;
 
-import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
 
 public class SlotFreezer extends Slot {
-    public Player thePlayer;
 
-    public SlotFreezer(Player theplayer, Container container, int index, int x, int y) {
+    public SlotFreezer(Container container, int index, int x, int y) {
         super(container, index, x, y);
-        this.thePlayer = theplayer;
     }
 
     @Override

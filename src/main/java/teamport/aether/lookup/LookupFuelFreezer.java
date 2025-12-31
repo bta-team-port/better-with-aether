@@ -1,16 +1,19 @@
 package teamport.aether.lookup;
 
 import net.minecraft.core.block.Blocks;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("java:S6548")
 public class LookupFuelFreezer {
-    public static final LookupFuelFreezer instance = new LookupFuelFreezer();
-    public final Map<Integer, Integer> fuelList = new HashMap<>();
+    public static final LookupFuelFreezer INSTANCE = new LookupFuelFreezer();
+    private final Map<Integer, Integer> fuelList = new HashMap<>();
 
-    public LookupFuelFreezer() {
+    public static void init(){/* just to load this class*/}
+
+    private LookupFuelFreezer() {
         this.register();
     }
 
@@ -39,9 +42,5 @@ public class LookupFuelFreezer {
 
     public int getFuelYield(int id) {
         return this.fuelList.get(id) == null ? 0 : this.fuelList.get(id);
-    }
-
-    public Map<Integer, Integer> getFuelList() {
-        return this.fuelList;
     }
 }

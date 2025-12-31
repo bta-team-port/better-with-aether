@@ -1,72 +1,32 @@
 package teamport.aether.mixin.dimension;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.option.GameSettings;
-import net.minecraft.client.sound.*;
-import net.minecraft.core.sound.SoundCategory;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.client.sound.SoundEngine;
+import net.minecraft.client.sound.SoundEvent;
+import net.minecraft.client.sound.SoundRepository;
+import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import paulscode.sound.SoundSystem;
 import teamport.aether.world.AetherDimension;
 
-import java.util.Random;
-
+@Environment(EnvType.CLIENT)
 @Mixin(value = SoundEngine.class, remap = false)
 public abstract class AetherMusicMixin {
-
     @Shadow
     private Minecraft mc;
-
-    @Shadow
-    private @Nullable GameSettings options;
-
-    @Shadow
-    protected abstract boolean isLoaded();
-
-    @Shadow
-    public int ticksBeforeMusic;
-
-    @Shadow
-    @Final
-    private Random random;
-
-    @Shadow
-    private static @Nullable SoundSystem soundSystem;
-
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    public void tick(CallbackInfo ci) {
-
-        if (this.mc.currentWorld.dimension.id != AetherDimension.AETHER.id) return;
-
-        ci.cancel();
-
-        if (!this.isLoaded() || soundSystem == null || SoundCategoryHelper.getEffectiveVolume(SoundCategory.MUSIC, this.options) == 0.0F) {
-            return;
-        }
-
-        if (soundSystem.playing("BgMusic") || soundSystem.playing("Streaming")) return;
-
-        if (this.ticksBeforeMusic > 0) {
-            --this.ticksBeforeMusic;
-            return;
-        }
-
-        SoundEvent redirect = SoundRepository.SOUNDS.getRandomSoundFromCategory("aether:music.");
-        if (redirect == null) return;
-
-        SoundEntry entry = redirect.getRandomEntry();
-        if (entry == null) return;
-
-        this.ticksBeforeMusic = this.random.nextInt(6000) + 6000;
-
-        soundSystem.backgroundMusic("BgMusic", entry.getURL(), entry.name, false);
-        soundSystem.setPitch("BgMusic", entry.pitch);
-        soundSystem.setVolume("BgMusic", SoundCategoryHelper.getEffectiveVolume(SoundCategory.MUSIC, this.options) * entry.volume);
-        soundSystem.play("BgMusic");
+    @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/world/World;canBlockSeeTheSky(III)Z"))
+    private boolean tickOne(World instance, int x, int y, int z, Operation<Boolean> original) {
+        if (this.mc.currentWorld.dimension.id != AetherDimension.getAether().id) return original.call(instance, x, y, z);
+        return true;
+    }
+    @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundRepository;getRandomSoundFromCategory(Ljava/lang/String;)Lnet/minecraft/client/sound/SoundEvent;"))
+    private SoundEvent tickTwo(SoundRepository instance, String s, Operation<SoundEvent> original) {
+        if (this.mc.currentWorld.dimension.id != AetherDimension.getAether().id) return original.call(instance, s);
+        return original.call(instance, "aether_music.");
     }
 }

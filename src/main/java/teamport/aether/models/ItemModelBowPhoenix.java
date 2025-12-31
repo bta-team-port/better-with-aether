@@ -8,7 +8,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 @Environment(EnvType.CLIENT)
 public class ItemModelBowPhoenix extends ItemModelBow {
@@ -25,10 +25,10 @@ public class ItemModelBowPhoenix extends ItemModelBow {
             ItemStack quiverSlot = player.inventory.armorItemInSlot(2);
             ItemStack capeSlot = player.inventory.armorItemInSlot(5);
             if (quiverSlot != null && (quiverSlot.itemID == Items.ARMOR_QUIVER.id && quiverSlot.getMetadata() < quiverSlot.getMaxDamage()) ||
-                    (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) || capeSlot != null && (capeSlot.itemID == Items.ARMOR_QUIVER.id && capeSlot.getMetadata() < capeSlot.getMaxDamage()) ||
-                    (capeSlot != null && capeSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
-                    player.hasItem(Items.AMMO_ARROW_GOLD) ||
-                    player.hasItem(Items.AMMO_ARROW)) {
+                (quiverSlot != null && quiverSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) || capeSlot != null && (capeSlot.itemID == Items.ARMOR_QUIVER.id && capeSlot.getMetadata() < capeSlot.getMaxDamage()) ||
+                (capeSlot != null && capeSlot.itemID == Items.ARMOR_QUIVER_GOLD.id) ||
+                player.hasItem(Items.AMMO_ARROW_GOLD) ||
+                player.hasItem(Items.AMMO_ARROW)) {
                 return AetherItems.AMMO_ARROW_FLAMING;
             }
             return null;

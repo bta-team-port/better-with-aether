@@ -10,46 +10,47 @@ import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
-import teamport.aether.blocks.dungeon.BlockLogicChestMimic;
+import teamport.aether.block.dungeon.BlockLogicChestMimic;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootMimic<T extends BlockLogicChestMimic> extends BlockModelHorizontalRotation<T> {
-    public static final IconCoordinate[] topTextures = new IconCoordinate[16];
-    public static final IconCoordinate[] sideTextures = new IconCoordinate[16];
-    public static final IconCoordinate[] frontTextures = new IconCoordinate[16];
+    private static final IconCoordinate[] TOP_TEXTURES = new IconCoordinate[16];
+    private static final IconCoordinate[] SIDE_TEXTURES = new IconCoordinate[16];
+    private static final IconCoordinate[] FRONT_TEXTURES = new IconCoordinate[16];
 
     public BlockModelPaintedSkyrootMimic(Block<T> block) {
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         int meta = blockAccess.getBlockMetadata(x, y, z);
         int color = meta >> 4;
         Side facing = BlockLogicChest.getDirectionFromMeta(meta).getSide();
         if (side == Side.TOP || side == Side.BOTTOM) {
-            return topTextures[color];
+            return TOP_TEXTURES[color];
         }
         if (side == facing) {
-            return frontTextures[color];
+            return FRONT_TEXTURES[color];
         }
-        return side.isHorizontal() ? sideTextures[color] : topTextures[color];
+        return side.isHorizontal() ? SIDE_TEXTURES[color] : TOP_TEXTURES[color];
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int metadata) {
         int color = metadata >> 4;
         if (side == Side.SOUTH) {
-            return frontTextures[color];
+            return FRONT_TEXTURES[color];
         } else {
-            return side.isHorizontal() ? sideTextures[color] : topTextures[color];
+            return side.isHorizontal() ? SIDE_TEXTURES[color] : TOP_TEXTURES[color];
         }
     }
 
     static {
         for (DyeColor c : DyeColor.blockOrderedColors()) {
-            topTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/top");
-            sideTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/side");
-            frontTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/front");
+            TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/top");
+            SIDE_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/side");
+            FRONT_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/chest/skyroot/" + c.colorID + "/front");
         }
     }
-
 }

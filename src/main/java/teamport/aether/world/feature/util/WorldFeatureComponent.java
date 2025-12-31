@@ -5,8 +5,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.helper.Pair;
 
 import java.util.ArrayList;
@@ -18,11 +18,8 @@ import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.world.feature.util.WorldFeatureBlock.wfb;
 
 public class WorldFeatureComponent {
-    WorldFeaturePoint min;
-    WorldFeaturePoint max;
-    public WorldFeaturePoint anker;
-    public WorldFeaturePoint tail;
-    public List<WorldFeatureBlock> blockList;
+    private WorldFeaturePoint tail;
+    private final List<WorldFeatureBlock> blockList;
 
     @FunctionalInterface
     public interface LootGenerator {
@@ -31,15 +28,6 @@ public class WorldFeatureComponent {
 
     public WorldFeatureComponent() {
         this.blockList = new ArrayList<>();
-    }
-
-    public WorldFeatureComponent(int startX, int startY, int startZ) {
-        this.blockList = new ArrayList<>();
-        this.anker = new WorldFeaturePoint(startX, startY, startZ);
-    }
-
-    public static WorldFeatureComponent wfc(int x, int y, int z) {
-        return new WorldFeatureComponent(x, y, z);
     }
 
     public void add(WorldFeatureComponent component) {
@@ -53,7 +41,7 @@ public class WorldFeatureComponent {
     }
 
     private WorldFeaturePoint makePoint(WorldFeatureBlock wfb) {
-        return new WorldFeaturePoint(wfb.x, wfb.y, wfb.z);
+        return new WorldFeaturePoint(wfb.getX(), wfb.getY(), wfb.getZ());
     }
 
     public void add(WorldFeatureBlock wfb) {
@@ -63,12 +51,6 @@ public class WorldFeatureComponent {
 
     public void setTail(int x, int y, int z) {
         this.tail = new WorldFeaturePoint(x, y, z);
-    }
-
-    public void rotateYAxis(int fixPointX, int fixPointY, int fixPointZ, float angle) {
-        for (WorldFeatureBlock block : this.blockList) {
-            block.rotateYAroundPivot(fixPointX, fixPointY, fixPointZ, angle);
-        }
     }
 
     public void rotateYAroundPivot(WorldFeaturePoint pivot, Direction direction) {
@@ -82,21 +64,17 @@ public class WorldFeatureComponent {
         }
     }
 
-    public WorldFeaturePoint getAnker() {
-        return anker;
-    }
-
     public WorldFeaturePoint getTail() {
         return tail;
     }
 
     public static void populateChest(
-            World world,
-            Random random,
-            WorldFeatureBlock wfb,
-            LootGenerator lootGenerator
+        World world,
+        Random random,
+        WorldFeatureBlock wfb,
+        LootGenerator lootGenerator
     ) {
-        Container inventory = BlockLogicChest.getInventory(world, wfb.x, wfb.y, wfb.z);
+        Container inventory = BlockLogicChest.getInventory(world, wfb.getX(), wfb.getY(), wfb.getZ());
 
         if (inventory == null) return;
         List<ItemStack> stacks = lootGenerator.generate(random);
@@ -106,7 +84,7 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NotNull Container inventory) {
+    public static void placeItemInChest(Random random, @Nullable ItemStack itemstack, @NonNull Container inventory) {
         if (itemstack == null) return;
         int invSize = inventory.getContainerSize();
         int index = random.nextInt(invSize);
@@ -134,19 +112,20 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawSphere(
-            Random random, BlockPallet pallet,
-            int x, int y, int z,
-            int radius,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        int x, int y, int z,
+        int radius,
+        boolean withNotify
     ) {
-        assert radius > 0 : "Radius has to be bigger zero!";
+        if (radius <= 0) throw new IllegalArgumentException("Radius has to be greater than zero!");
+
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int blockX = x - radius; blockX <= x + radius; blockX++) {
             for (int blockY = y - radius; blockY <= y + radius; blockY++) {
                 for (int blockZ = z - radius; blockZ <= z + radius; blockZ++) {
-                    double offX = x - blockX;
-                    double offY = y - blockY;
-                    double offZ = z - blockZ;
+                    double offX = (double) x - blockX;
+                    double offY = (double) y - blockY;
+                    double offZ = (double) z - blockZ;
                     double currentDist = offX * offX + offY * offY + offZ * offZ;
                     if (currentDist < radius * radius) {
                         component.add(wfb(blockX, blockY, blockZ, pallet.getRandom(random), withNotify));
@@ -158,10 +137,10 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawSpheroid(
-            Random random, BlockPallet pallet,
-            int x, int y, int z,
-            int width, int height, int depth,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        int x, int y, int z,
+        int width, int height, int depth,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int blockX = x - width; blockX <= x + width; blockX++) {
@@ -181,12 +160,12 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawLine(
-            int id, int meta,
-            Direction direction, int length,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        int id, int meta,
+        Direction direction, int length,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
-        assert length > 0 : "Length has to be bigger zero";
+        if (length <= 0) throw new IllegalArgumentException("Length has to be greater than zero");
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, id, meta, withNotify));
@@ -199,12 +178,12 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawLine(
-            Random random, BlockPallet pallet,
-            Direction direction, int length,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction, int length,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
-        assert length > 0 : "Length has to be bigger zero";
+        if (length <= 0) throw new IllegalArgumentException("Length has to be greater than zero");
         WorldFeatureComponent component = new WorldFeatureComponent();
         for (int i = 0; i < length - 1; i++) {
             component.add(wfb(startX, startY, startZ, pallet.getRandom(random), withNotify));
@@ -217,11 +196,11 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawPlane(
-            int id, int meta,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        int id, int meta,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         int blockX = startX;
@@ -245,11 +224,11 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawPlane(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         int blockX = startX;
@@ -273,12 +252,12 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawVolume(
-            int id, int meta,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify) {
+        int id, int meta,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         int blockX = startX;
         int blockY = startY;
@@ -307,12 +286,12 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawVolume(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         int blockX = startX;
@@ -342,230 +321,230 @@ public class WorldFeatureComponent {
     }
 
     public static WorldFeatureComponent drawShell(
-            int id, int meta,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        int id, int meta,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         component.add(drawPlane(
-                id, meta,
-                direction1, length1,
-                direction2, length2,
-                startX, startY, startZ, withNotify
+            id, meta,
+            direction1, length1,
+            direction2, length2,
+            startX, startY, startZ, withNotify
         ));
         component.add(drawPlane(
-                id, meta,
-                direction1, length1,
-                direction2, length2,
-                startX + direction3.getOffsetX() * (length3 - 1),
-                startY + direction3.getOffsetY() * (length3 - 1),
-                startZ + direction3.getOffsetZ() * (length3 - 1),
-                withNotify
+            id, meta,
+            direction1, length1,
+            direction2, length2,
+            startX + direction3.getOffsetX() * (length3 - 1),
+            startY + direction3.getOffsetY() * (length3 - 1),
+            startZ + direction3.getOffsetZ() * (length3 - 1),
+            withNotify
         ));
         component.add(drawPlane(
-                id, meta,
-                direction1, length1,
-                direction3, length3,
-                startX, startY, startZ,
-                withNotify
+            id, meta,
+            direction1, length1,
+            direction3, length3,
+            startX, startY, startZ,
+            withNotify
         ));
         component.add(drawPlane(
-                id, meta,
-                direction1, length1,
-                direction3, length3,
-                startX + direction2.getOffsetX() * (length2 - 1),
-                startY + direction2.getOffsetY() * (length2 - 1),
-                startZ + direction2.getOffsetZ() * (length2 - 1),
-                withNotify
+            id, meta,
+            direction1, length1,
+            direction3, length3,
+            startX + direction2.getOffsetX() * (length2 - 1),
+            startY + direction2.getOffsetY() * (length2 - 1),
+            startZ + direction2.getOffsetZ() * (length2 - 1),
+            withNotify
         ));
         component.add(drawPlane(
-                id, meta,
-                direction2, length2,
-                direction3, length3,
-                startX, startY, startZ,
-                withNotify
+            id, meta,
+            direction2, length2,
+            direction3, length3,
+            startX, startY, startZ,
+            withNotify
         ));
         component.add(drawPlane(
-                id, meta,
-                direction2, length2,
-                direction3, length3,
-                startX + direction1.getOffsetX() * (length1 - 1),
-                startY + direction1.getOffsetY() * (length1 - 1),
-                startZ + direction1.getOffsetZ() * (length1 - 1),
-                withNotify
+            id, meta,
+            direction2, length2,
+            direction3, length3,
+            startX + direction1.getOffsetX() * (length1 - 1),
+            startY + direction1.getOffsetY() * (length1 - 1),
+            startZ + direction1.getOffsetZ() * (length1 - 1),
+            withNotify
         ));
         return component;
     }
 
     public static WorldFeatureComponent drawShell(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent component = new WorldFeatureComponent();
         component.add(drawPlane(
-                random, pallet,
-                direction1, length1,
-                direction2, length2,
-                startX, startY, startZ,
-                withNotify
+            random, pallet,
+            direction1, length1,
+            direction2, length2,
+            startX, startY, startZ,
+            withNotify
         ));
         component.add(drawPlane(random, pallet,
-                direction1, length1,
-                direction2, length2,
-                startX + direction3.getOffsetX() * (length3 - 1),
-                startY + direction3.getOffsetY() * (length3 - 1),
-                startZ + direction3.getOffsetZ() * (length3 - 1),
-                withNotify
+            direction1, length1,
+            direction2, length2,
+            startX + direction3.getOffsetX() * (length3 - 1),
+            startY + direction3.getOffsetY() * (length3 - 1),
+            startZ + direction3.getOffsetZ() * (length3 - 1),
+            withNotify
         ));
         component.add(drawPlane(
-                random, pallet,
-                direction1, length1,
-                direction3, length3,
-                startX, startY, startZ,
-                withNotify
+            random, pallet,
+            direction1, length1,
+            direction3, length3,
+            startX, startY, startZ,
+            withNotify
         ));
         component.add(drawPlane(
-                random, pallet,
-                direction1, length1,
-                direction3, length3,
-                startX + direction2.getOffsetX() * (length2 - 1),
-                startY + direction2.getOffsetY() * (length2 - 1),
-                startZ + direction2.getOffsetZ() * (length2 - 1),
-                withNotify
+            random, pallet,
+            direction1, length1,
+            direction3, length3,
+            startX + direction2.getOffsetX() * (length2 - 1),
+            startY + direction2.getOffsetY() * (length2 - 1),
+            startZ + direction2.getOffsetZ() * (length2 - 1),
+            withNotify
         ));
         component.add(drawPlane(
-                random, pallet,
-                direction2, length2,
-                direction3, length3,
-                startX, startY, startZ,
-                withNotify
+            random, pallet,
+            direction2, length2,
+            direction3, length3,
+            startX, startY, startZ,
+            withNotify
         ));
         component.add(drawPlane(
-                random, pallet,
-                direction2, length2,
-                direction3, length3,
-                startX + direction1.getOffsetX() * (length1 - 1),
-                startY + direction1.getOffsetY() * (length1 - 1),
-                startZ + direction1.getOffsetZ() * (length1 - 1),
-                withNotify
+            random, pallet,
+            direction2, length2,
+            direction3, length3,
+            startX + direction1.getOffsetX() * (length1 - 1),
+            startY + direction1.getOffsetY() * (length1 - 1),
+            startZ + direction1.getOffsetZ() * (length1 - 1),
+            withNotify
         ));
         return component;
     }
 
     public static WorldFeatureComponent drawHollowShell(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent hollow = drawVolume(
-                random, pallet,
-                direction1, length1,
-                direction2, length2,
-                direction3, length3,
-                startX, startY, startZ, withNotify
+            random, pallet,
+            direction1, length1,
+            direction2, length2,
+            direction3, length3,
+            startX, startY, startZ, withNotify
         );
         hollow.add(drawVolume(
-                0, 0,
-                direction1, length1 - 2,
-                direction2, length2 - 2,
-                direction3, length3 - 2,
-                startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
-                startY + direction1.getOffsetY() + direction2.getOffsetY() + direction3.getOffsetY(),
-                startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
-                withNotify)
+            0, 0,
+            direction1, length1 - 2,
+            direction2, length2 - 2,
+            direction3, length3 - 2,
+            startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
+            startY + direction1.getOffsetY() + direction2.getOffsetY() + direction3.getOffsetY(),
+            startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+            withNotify)
         );
         return hollow;
     }
 
     public static WorldFeatureComponent drawSquareCylinder(
-            Random random, BlockPallet pallet,
-            Direction direction1, int length1,
-            Direction direction2, int length2,
-            Direction direction3, int length3,
-            int startX, int startY, int startZ,
-            boolean withNotify
+        Random random, BlockPallet pallet,
+        Direction direction1, int length1,
+        Direction direction2, int length2,
+        Direction direction3, int length3,
+        int startX, int startY, int startZ,
+        boolean withNotify
     ) {
         WorldFeatureComponent cylinder = drawVolume(
-                random, pallet,
-                direction1, length1,
-                direction2, length2,
-                direction3, length3,
-                startX, startY, startZ, withNotify
+            random, pallet,
+            direction1, length1,
+            direction2, length2,
+            direction3, length3,
+            startX, startY, startZ, withNotify
         );
         cylinder.add(drawVolume(
-                0, 0,
-                direction1, length1 - 2,
-                direction2, length2 - 2,
-                direction3, length3,
-                startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
-                startY,
-                startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
-                withNotify
+            0, 0,
+            direction1, length1 - 2,
+            direction2, length2 - 2,
+            direction3, length3,
+            startX + direction1.getOffsetX() + direction2.getOffsetX() + direction3.getOffsetX(),
+            startY,
+            startZ + direction1.getOffsetZ() + direction2.getOffsetZ() + direction3.getOffsetZ(),
+            withNotify
         ));
         return cylinder;
     }
 
     public static WorldFeatureComponent drawVolume(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int minX = Math.min(p1.x, p2.x);
-        int minY = Math.min(p1.y, p2.y);
-        int minZ = Math.min(p1.z, p2.z);
-        int length1 = Math.abs(p1.x - p2.x);
-        int length2 = Math.abs(p1.y - p2.y);
-        int length3 = Math.abs(p1.z - p2.z);
+        int minX = Math.min(p1.getX(), p2.getX());
+        int minY = Math.min(p1.getY(), p2.getY());
+        int minZ = Math.min(p1.getZ(), p2.getZ());
+        int length1 = Math.abs(p1.getX() - p2.getX());
+        int length2 = Math.abs(p1.getY() - p2.getY());
+        int length3 = Math.abs(p1.getZ() - p2.getZ());
         return drawVolume(id, meta, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
     public static WorldFeatureComponent drawVolumeWithPoint(int id, int meta, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int length1 = p1.x - p2.x;
-        int length2 = p1.y - p2.y;
-        int length3 = p1.z - p2.z;
+        int length1 = p1.getX() - p2.getX();
+        int length2 = p1.getY() - p2.getY();
+        int length3 = p1.getZ() - p2.getZ();
         Direction dir1 = length1 >= 0 ? WEST : EAST;
         Direction dir2 = length2 >= 0 ? DOWN : UP;
         Direction dir3 = length3 >= 0 ? NORTH : SOUTH;
-        return drawVolume(id, meta, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.x, p1.y, p1.z, withNotify);
+        return drawVolume(id, meta, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.getX(), p1.getY(), p1.getZ(), withNotify);
     }
 
     public static WorldFeatureComponent drawVolumeWithPoint(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int length1 = p1.x - p2.x;
-        int length2 = p1.y - p2.y;
-        int length3 = p1.z - p2.z;
+        int length1 = p1.getX() - p2.getX();
+        int length2 = p1.getY() - p2.getY();
+        int length3 = p1.getZ() - p2.getZ();
         Direction dir1 = length1 >= 0 ? WEST : EAST;
         Direction dir2 = length2 >= 0 ? DOWN : UP;
         Direction dir3 = length3 >= 0 ? NORTH : SOUTH;
-        return drawVolume(random, pallet, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.x, p1.y, p1.z, withNotify);
+        return drawVolume(random, pallet, dir1, Math.abs(length1), dir2, Math.abs(length2), dir3, Math.abs(length3), p1.getX(), p1.getY(), p1.getZ(), withNotify);
     }
 
     public static WorldFeatureComponent drawVolume(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int minX = Math.min(p1.x, p2.x);
-        int minY = Math.min(p1.y, p2.y);
-        int minZ = Math.min(p1.z, p2.z);
-        int length1 = Math.abs(p1.x - p2.x);
-        int length2 = Math.abs(p1.y - p2.y);
-        int length3 = Math.abs(p1.z - p2.z);
+        int minX = Math.min(p1.getX(), p2.getX());
+        int minY = Math.min(p1.getY(), p2.getY());
+        int minZ = Math.min(p1.getZ(), p2.getZ());
+        int length1 = Math.abs(p1.getX() - p2.getX());
+        int length2 = Math.abs(p1.getY() - p2.getY());
+        int length3 = Math.abs(p1.getZ() - p2.getZ());
         return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
     }
 
     public static void iterate3d(Pair<WorldFeaturePoint, WorldFeaturePoint> area, Consumer<WorldFeaturePoint> func) {
-        iterate3d(area.first, area.second, func);
+        iterate3d(area.getFirst(), area.getSecond(), func);
     }
 
     public static void iterate3d(WorldFeaturePoint first, WorldFeaturePoint second, Consumer<WorldFeaturePoint> func) {
-        int firstX = Math.min(first.x, second.x);
-        int secondX = Math.max(first.x, second.x);
-        int firstY = Math.min(first.y, second.y);
-        int secondY = Math.max(first.y, second.y);
-        int firstZ = Math.min(first.z, second.z);
-        int secondZ = Math.max(first.z, second.z);
+        int firstX = Math.min(first.getX(), second.getX());
+        int secondX = Math.max(first.getX(), second.getX());
+        int firstY = Math.min(first.getY(), second.getY());
+        int secondY = Math.max(first.getY(), second.getY());
+        int firstZ = Math.min(first.getZ(), second.getZ());
+        int secondZ = Math.max(first.getZ(), second.getZ());
 
         for (int x = firstX; x < secondX; x++) {
             for (int y = firstY; y < secondY; y++) {
@@ -576,28 +555,10 @@ public class WorldFeatureComponent {
         }
     }
 
-    public static WorldFeatureComponent drawVolumeX(int blockID, int metadata, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int dx = p1.x - p2.x;
-        int dy = p1.y - p2.y;
-        int dz = p1.z - p2.z;
-        Direction direction1 = dx > 0 ? WEST : EAST;
-        Direction direction2 = dy > 0 ? DOWN : UP;
-        Direction direction3 = dz > 0 ? NORTH : SOUTH;
-        return drawVolume(blockID, metadata, direction1, Math.abs(dx), direction2, Math.abs(dy), direction3, Math.abs(dz), p1.x, p1.y, p1.z, withNotify);
-    }
-
-    public static WorldFeatureComponent drawVolumeX(Random random, BlockPallet pallet, WorldFeaturePoint p1, WorldFeaturePoint p2, boolean withNotify) {
-        int minX = Math.min(p1.x, p2.x);
-        int minY = Math.min(p1.y, p2.y);
-        int minZ = Math.min(p1.z, p2.z);
-        int length1 = Math.abs(p1.x - p2.x);
-        int length2 = Math.abs(p1.y - p2.y);
-        int length3 = Math.abs(p1.z - p2.z);
-        return drawVolume(random, pallet, EAST, length1, UP, length2, SOUTH, length3, minX, minY, minZ, withNotify);
-    }
-
     public void moveByOffset(WorldFeaturePoint offset) {
         blockList.forEach(p -> p.add(offset));
     }
-
+    public List<WorldFeatureBlock> getBlockList() {
+        return blockList;
+    }
 }

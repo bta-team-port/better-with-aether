@@ -1,19 +1,16 @@
 package teamport.aether.helper.unboxed;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.Objects;
 
 public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
-    double weight;
-    T data;
+    private final double weight;
+    private final T data;
 
     private PriorityEntry(double weight, T data) {
         this.weight = weight;
         this.data = data;
-    }
-
-    private PriorityEntry<T> setWeight(double weight) {
-        this.weight = weight;
-        return this;
     }
 
     public double getWeight() {
@@ -24,7 +21,7 @@ public class PriorityEntry<T> implements Comparable<PriorityEntry<T>> {
         return data;
     }
 
-    public static <T> PriorityEntry<T> pEntry(double priority, T data) {
+    public static <T> PriorityEntry<T> Entry(double priority, @NonNull T data) {
         return new PriorityEntry<>(priority, data);
     }
 

@@ -5,8 +5,7 @@ import net.minecraft.core.world.generate.feature.WorldFeature;
 
 import java.util.Random;
 
-
-abstract public class WorldFeatureMap<T extends DungeonLogic> extends WorldFeature {
+public abstract class WorldFeatureMap<T extends DungeonLogic> extends WorldFeature {
 
     @Override
     public boolean place(World world, Random random, int i, int j, int k) {
@@ -16,6 +15,7 @@ abstract public class WorldFeatureMap<T extends DungeonLogic> extends WorldFeatu
     }
 
     /// places the dungeon logic && generates the structure.
+    @SuppressWarnings("UnusedReturnValue")
     public T registerAndGenerate(World world, long seed, int x, int y, int z) {
         T logic = register(world, seed, x, y, z);
         generate(logic, world, seed, x, y, z);

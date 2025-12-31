@@ -1,6 +1,5 @@
 package teamport.aether.entity.monster.sentry;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -9,17 +8,16 @@ import net.minecraft.core.item.tool.ItemToolPickaxe;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.entity.AetherMobImmuneToSpikes;
+import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.items.itemtool.ItemToolPickaxeAether;
+import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 
-public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobImmuneToSpikes {
-    public int jumpDelay;
-    public int cooldownInactive;
-    public boolean activated;
+public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobOtherImmunities {
+    private int jumpDelay;
+    private int cooldownInactive;
+    private boolean activated;
 
     public MobSentry(World world) {
         super(world);
@@ -31,14 +29,17 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
         this.canBreatheUnderwater();
     }
 
+    @Override
     public boolean canBreatheUnderwater() {
         return true;
     }
 
+    @Override
     public int getMaxHealth() {
         return 10;
     }
 
+    @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
 
         if (attacker instanceof Player) {
@@ -55,6 +56,7 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
     public void tick() {
         boolean flag = this.onGround;
         super.tick();
+        if (this.world == null) return;
         if (this.onGround && !flag) {
             this.world.playSoundAtEntity(null, this, "step.stone", this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.0f) / 0.8f);
         }
@@ -63,8 +65,10 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
         }
     }
 
+    @Override
     public void updateAI() {
         this.tryToDespawn();
+        if (this.world == null) return;
         Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0);
         boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer) {
@@ -110,46 +114,55 @@ public class MobSentry extends MobMonsterAether implements Enemy, AetherDeathMes
 
     }
 
-
     @Override
     public void playerTouch(Player player) {
-        if (findPlayerToAttack() == player && this.canEntityBeSeen(player) && (double) this.distanceTo(player) < 1.5) {
-            findPlayerToAttack().hurt(this, this.attackStrength, DamageType.COMBAT);
+        Player target = (Player) this.findPlayerToAttack();
+        if (this.world != null && target != null && target.uuid.equals(player.uuid) && this.canEntityBeSeen(player) && this.distanceTo(player) < 1.5) {
+            target.hurt(this, this.attackStrength, DamageType.COMBAT);
             this.world.createExplosion(this, this.x, this.y - 0.5, this.z, 1f, false, true);
         }
     }
 
+    ///  Sentries have true sight.
+    protected Entity findPlayerToAttack() {
+        Player entityplayer = this.world.getClosestPlayerToEntity(this, 16.0F);
+        return entityplayer != null && this.canEntityBeSeen(entityplayer) && entityplayer.getGamemode().areMobsHostile() ? entityplayer : null;
+    }
+
+    @Override
     public String getHurtSound() {
         return "step.stone";
     }
 
+    @Override
     public String getDeathSound() {
         return "step.stone";
     }
 
 
+    @Override
     public void dropDeathItems() {
         if (this.random.nextInt(5) == 0) {
             this.dropItem(AetherBlocks.CARVED_STONE_LIGHT.id(), 1);
-
         } else this.dropItem(AetherBlocks.CARVED_STONE.id(), 1);
 
         super.dropDeathItems();
     }
 
 
+    @Override
     public boolean canSpawnHere() {
-        return this.world.getDifficulty().canHostileMobsSpawn();
+        return this.world != null
+            && this.world.getDifficulty().canHostileMobsSpawn()
+            && this.world.checkIfAABBIsClear(this.bb)
+            && this.world.getCubes(this, this.bb).isEmpty();
     }
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    public boolean isActivated() {
+        return activated;
     }
 
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
-
 }

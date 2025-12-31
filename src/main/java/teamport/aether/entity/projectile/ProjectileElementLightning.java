@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightning;
 import net.minecraft.core.entity.Mob;
@@ -11,23 +10,23 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.phys.AABB;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
 import teamport.aether.helper.ParticleMaker;
 
 import java.util.List;
 
-public class ProjectileElementLightning extends ProjectileElementBase implements AetherProjectileDeathMessages<ProjectileElementLightning> {
-    public String[] particles = {"explode", "lightning", "lightning"};
+public class ProjectileElementLightning extends ProjectileElementBase implements AetherProjectileDeathMessages {
+    private static final String[] PARTICLES = {"explode", "lightning", "lightning"};
     private Mob target;
-    private static final float homingPower = 0.15F;
-    private static final float topSpeed = 0.5F;
+    private static final float HOMING_POWER = 0.15F;
+    private static final float TOP_SPEED = 0.5F;
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        return getEntity(ProjectileElementLightning.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner, compoundTag);
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
+        return getEntity(ProjectileElementLightning.class, world, x, y, z, meta, hasVelocity, xd, yd, zd, owner);
     }
 
+    @SuppressWarnings("unused")
     public ProjectileElementLightning(World world) {
         super(world);
         this.initProjectile();
@@ -49,19 +48,12 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
 
     @Override
     public void doExplosion() {
-        for (int particle = 0; particle < 16; particle++) {
-            double XParticle = target.x + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double YParticle = target.y - 1 + 0.5F + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-            double ZParticle = target.z + ((double) world.rand.nextFloat()) - ((double) world.rand.nextFloat() * 0.375F);
-
-            ParticleMaker.spawnParticle(world, particles[world.rand.nextInt(particles.length)], XParticle, YParticle, ZParticle, 0, 0, 0, 0);
-        }
-
-        world.playSoundEffect(target, SoundCategory.ENTITY_SOUNDS, target.x, target.y - 1, target.z, "aether:zap", 0.5F, (1.3F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        doExplosionHelper(world, this, PARTICLES, "aether:zap", target, SoundCategory.ENTITY_SOUNDS, 0.5F);
     }
 
     @Override
     public void tick() {
+        if (this.world == null) return;
         for (int j = 0; j < 2; j++) {
             ParticleMaker.spawnParticle(world, "lightning", this.x, this.y + 0.5, this.z, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), world.rand.nextFloat() * 0.25F * -1, world.rand.nextFloat() * 0.25F * (world.rand.nextBoolean() ? -1 : 1), 0);
         }
@@ -96,17 +88,17 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
             double dz = this.target.z - this.z;
             double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
             if (dist > 0) {
-                double targetXd = dx / dist * topSpeed;
-                double targetYd = dy / dist * topSpeed;
-                double targetZd = dz / dist * topSpeed;
-                this.xd += (targetXd - this.xd) * homingPower;
-                this.yd += (targetYd - this.yd) * homingPower;
-                this.zd += (targetZd - this.zd) * homingPower;
+                double targetXd = dx / dist * TOP_SPEED;
+                double targetYd = dy / dist * TOP_SPEED;
+                double targetZd = dz / dist * TOP_SPEED;
+                this.xd += (targetXd - this.xd) * HOMING_POWER;
+                this.yd += (targetYd - this.yd) * HOMING_POWER;
+                this.zd += (targetZd - this.zd) * HOMING_POWER;
                 double speed = Math.sqrt(this.xd * this.xd + this.yd * this.yd + this.zd * this.zd);
-                if (speed > topSpeed) {
-                    this.xd = this.xd / speed * topSpeed;
-                    this.yd = this.yd / speed * topSpeed;
-                    this.zd = this.zd / speed * topSpeed;
+                if (speed > TOP_SPEED) {
+                    this.xd = this.xd / speed * TOP_SPEED;
+                    this.yd = this.yd / speed * TOP_SPEED;
+                    this.zd = this.zd / speed * TOP_SPEED;
                 }
             }
         }
@@ -116,7 +108,7 @@ public class ProjectileElementLightning extends ProjectileElementBase implements
 
     @Override
     public void onHit(HitResult hitResult) {
-        if (!this.world.isClientSide) {
+        if (this.world != null && !this.world.isClientSide) {
             if (!(hitResult.entity instanceof MobBossValkyrie || hitResult.entity instanceof ProjectileElementBase)) {
                 if (hitResult.entity instanceof MobCreeper || hitResult.entity instanceof MobPig) {
                     EntityLightning bolt = new EntityLightning(world, x, y, z);

@@ -15,28 +15,29 @@ import net.minecraft.core.util.helper.Sides;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelPaintedSkyrootTrapDoor<T extends BlockLogic> extends BlockModelTrapDoor<T> {
-    public static final IconCoordinate[] topTextures = new IconCoordinate[16];
-    public static final IconCoordinate[] sideTextures = new IconCoordinate[16];
+    private static final IconCoordinate[] TOP_TEXTURES = new IconCoordinate[16];
+    private static final IconCoordinate[] SIDE_TEXTURES = new IconCoordinate[16];
 
     public BlockModelPaintedSkyrootTrapDoor(Block<T> block) {
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
         int color = data >> 4 & 15;
         int orientation = data & 3;
         if (BlockLogicTrapDoor.isTrapdoorOpen(data)) {
             int index = Sides.orientationLookUpTrapdoorOpen[6 * orientation + side.getId()];
-            return index < 2 ? topTextures[color] : sideTextures[color];
+            return index < 2 ? TOP_TEXTURES[color] : SIDE_TEXTURES[color];
         } else {
-            return side.getAxis() == Axis.Y ? topTextures[color] : sideTextures[color];
+            return side.getAxis() == Axis.Y ? TOP_TEXTURES[color] : SIDE_TEXTURES[color];
         }
     }
 
     static {
         for (DyeColor c : DyeColor.blockOrderedColors()) {
-            topTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/top");
-            sideTextures[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/side");
+            TOP_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/top");
+            SIDE_TEXTURES[c.blockMeta] = TextureRegistry.getTexture("aether:block/trapdoor/skyroot/" + c.colorID + "/side");
         }
     }
 }

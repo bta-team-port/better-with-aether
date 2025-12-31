@@ -9,38 +9,35 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherItems;
+import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.item.AetherItems;
 
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Mixin(value = ContainerInventory.class, remap = false)
-public class ContainerInventoryZanitePendantDamageMixin {
+public abstract class ContainerInventoryZanitePendantDamageMixin {
     @Shadow
     public ItemStack[] mainInventory;
     @Shadow
     public Player player;
-
     @ModifyReturnValue(method = "getDamageVsEntity", at = @At("RETURN"))
-    public int getGloveDamage(int damage) {
+    private int getGloveDamage(int damage) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         if (trinketOne != null && trinketOne.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            damage = addDamage(damage, trinketOne);
+            damage = addDamage(damage, trinketOne, TRINKET_1_SLOT);
         }
         if (trinketTwo != null && trinketTwo.itemID == AetherItems.ARMOR_TALISMAN_ZANITE.id) {
-            damage = addDamage(damage, trinketTwo);
+            damage = addDamage(damage, trinketTwo, TRINKET_2_SLOT);
         }
         return damage;
     }
-
     @Unique
-    private int addDamage(int damage, ItemStack trinketOne) {
-        float damagePercent = (float) trinketOne.getMetadata() / trinketOne.getMaxDamage();
+    private int addDamage(int damage, ItemStack trinket, int slotID) {
+        float damagePercent = (float) trinket.getMetadata() / trinket.getMaxDamage();
         float speed = MathHelper.lerp(0.0F, 3.0F, damagePercent);
-        trinketOne.damageItem(1, player);
+        PlayerUtil.damageItemArmor(player, trinket, slotID);
         damage += (int) Math.floor(speed);
         return damage;
     }
-
 }

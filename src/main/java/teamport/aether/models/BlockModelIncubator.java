@@ -17,6 +17,7 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
         super(block);
     }
 
+    @Override
     public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
         if (side.getId() == Side.TOP.getId()) {
             IconCoordinate texture;
@@ -28,7 +29,7 @@ public class BlockModelIncubator<T extends BlockLogic> extends BlockModelStandar
             Container container = (Container) blockAccess.getTileEntity(x, y, z);
             if (container != null) {
                 boolean hasInput = container.getItem(0) != null;
-                if (hasInput) {
+                if (hasInput && texture != null) {
                     return TextureRegistry.getTexture(texture.namespaceId.namespace() + ":block/" + texture.namespaceId.value() + "_filled");
                 }
             }

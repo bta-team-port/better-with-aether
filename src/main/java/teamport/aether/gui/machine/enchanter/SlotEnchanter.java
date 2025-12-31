@@ -5,10 +5,10 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.slot.Slot;
 import teamport.aether.achievements.AetherAchievements;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class SlotEnchanter extends Slot {
-    public Player thePlayer;
+    private final Player thePlayer;
 
     public SlotEnchanter(Player theplayer, Container container, int index, int x, int y) {
         super(container, index, x, y);

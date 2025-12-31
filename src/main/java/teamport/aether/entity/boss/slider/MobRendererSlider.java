@@ -16,6 +16,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         this.shadowSize = 0.0F;
     }
 
+    @Override
     public void renderPreview(Tessellator tessellator, MobBossSlider slider, double x, double y, double z, float yaw, float partialTick) {
         GL11.glPushMatrix();
         GL11.glScalef(0.75F, 0.75F, 0.75F);
@@ -28,7 +29,7 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
         if (renderPass != 0) {
             return false;
         } else {
-            if (slider.isAwake() && !slider.doingSlam()) {
+            if (slider.isAwake() && !slider.doingSlam() && slider.wakeUpTimer <= 0) {
                 if (slider.isAngry()) {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
                 } else {
@@ -43,17 +44,18 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
             }
 
             float f1 = (1.0F - slider.getBrightness(1.0F)) * 0.5F;
-            GL11.glEnable(3042);
-            GL11.glDisable(3008);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glBlendFunc(770, 771);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
             return true;
         }
     }
 
+    @Override
     public void setupScale(MobBossSlider slider, float partialTick) {
-        if (slider.deformX > 0.01F) {
-            GL11.glRotatef(slider.deformX * -30.0F, (float) slider.deformY, 0.0F, (float) slider.deformZ);
+        if (slider.getDeformX() > 0.01F) {
+            GL11.glRotatef(slider.getDeformX() * -30.0F, slider.getDeformY(), 0.0F, slider.getDeformZ());
         }
 
     }

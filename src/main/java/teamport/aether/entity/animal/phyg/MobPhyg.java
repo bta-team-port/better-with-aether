@@ -2,33 +2,35 @@ package teamport.aether.entity.animal.phyg;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.WeightedRandomLootObject;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.entity.animal.MobAetherAnimalRideable;
-import teamport.aether.items.AetherItemTags;
+import teamport.aether.item.AetherItemTags;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MobPhyg extends MobAetherAnimalRideable {
-    public float wingFold;
-    public float wingFoldO;
-    public float wingAngle;
-    public float wingAngleO;
-    public float aimingForFold;
-    public int ticks;
-    public List<WeightedRandomLootObject> burningMobDrops = new ArrayList<>();
+    private float wingFold;
+    private float wingFoldO;
+    private float wingAngle;
+    private float wingAngleO;
+
+    private int ticks;
+    private final List<WeightedRandomLootObject> burningMobDrops = new ArrayList<>();
 
     public MobPhyg(World world) {
         super(world);
-        maxJumps = 1;
+        this.maxJumps = 1;
         this.textureIdentifier = NamespaceID.getPermanent("aether", "phyg");
         this.setSize(0.9F, 0.9F);
         this.rideFootSize = 1.0f;
@@ -38,56 +40,64 @@ public class MobPhyg extends MobAetherAnimalRideable {
         this.burningMobDrops.add(new WeightedRandomLootObject(Items.FOOD_PORKCHOP_COOKED.getDefaultStack(), 1, 2));
     }
 
+    @Override
     public void tick() {
         super.tick();
-        if (this.onGround) this.aimingForFold = 0.1F;
-        else this.aimingForFold = 1.0F;
+        float aimingForFold = this.onGround ? 0.1F : 1.0F;
 
         this.wingAngleO = this.wingAngle;
         this.wingFoldO = this.wingFold;
 
         ++this.ticks;
-        this.wingAngle = this.wingFold * (float) Math.sin((float) this.ticks / 31.830988F);
-        this.wingFold += (this.aimingForFold - this.wingFold) / 5.0F;
+        this.wingAngle = this.wingFold * (float) Math.sin(this.ticks / 31.830988F);
+        this.wingFold += (aimingForFold - this.wingFold) / 5.0F;
         this.fallDistance = 0.0F;
 
         if (this.yd < -0.2) this.yd = -0.2;
     }
 
+    @Override
     public void jump() {
         this.yd = 0.6;
     }
 
+    @Override
     public void defineSynchedData() {
         this.entityData.define(16, (byte) 0, Byte.class);
     }
 
-    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+    @Override
+    public void addAdditionalSaveData(@NonNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddle", this.getSaddled());
     }
 
-    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+    @Override
+    public void readAdditionalSaveData(@NonNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.setSaddled(tag.getBoolean("Saddle"));
     }
 
+    @Override
     public String getLivingSound() {
         return "mob.pig";
     }
 
+    @Override
     public String getHurtSound() {
         return "mob.pig";
     }
 
+    @Override
     public String getDeathSound() {
         return "mob.pigdeath";
     }
 
-    public boolean interact(@NotNull Player player) {
+    @Override
+    public boolean interact(@NonNull Player player) {
         if (super.interact(player)) return true;
 
-        if (!this.getSaddled() || this.world.isClientSide) return false;
+        if (!this.getSaddled() || this.world == null || this.world.isClientSide) return false;
         if (this.passenger != null && this.passenger != player) return false;
 
         player.startRiding(this);
@@ -95,6 +105,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
         return true;
     }
 
+    @Override
     public void dropDeathItems() {
         if (this.getSaddled()) {
             this.dropItem(Items.SADDLE.id, 1);
@@ -103,6 +114,7 @@ public class MobPhyg extends MobAetherAnimalRideable {
         super.dropDeathItems();
     }
 
+    @Override
     public List<WeightedRandomLootObject> getMobDrops() {
         return this.remainingFireTicks > 0 ? this.burningMobDrops : this.mobDrops;
     }
@@ -116,7 +128,26 @@ public class MobPhyg extends MobAetherAnimalRideable {
         else this.entityData.set(16, (byte) 0);
     }
 
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
-        return itemStack != null && itemStack.itemID < Blocks.blocksList.length && Blocks.blocksList[itemStack.itemID].hasTag(BlockTags.PIGS_FAVOURITE_BLOCK) || itemStack != null && itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+        if (itemStack == null) return false;
+        if (itemStack.itemID < Blocks.blocksList.length) {
+            Block<?> block = Blocks.blocksList[itemStack.itemID];
+            if (block != null && block.hasTag(BlockTags.PIGS_FAVOURITE_BLOCK)) return true;
+        }
+        return itemStack.getItem().hasTag(AetherItemTags.NATURE_STAFF_FOLLOW);
+    }
+
+    public float getWingFold() {
+        return wingFold;
+    }
+    public float getWingFoldO() {
+        return wingFoldO;
+    }
+    public float getWingAngle() {
+        return wingAngle;
+    }
+    public float getWingAngleO() {
+        return wingAngleO;
     }
 }

@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.net.PlayerList;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.AetherMod;
 import teamport.aether.world.feature.util.map.DungeonMap;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -15,7 +15,7 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
-import java.util.*;
+import java.util.UUID;
 
 public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
 
@@ -24,21 +24,20 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     @Nullable
     private ListTag entriesReceived = null;
 
-    public AetherDungeonMapUpdateNetworkMessage() {
-    }
+    public AetherDungeonMapUpdateNetworkMessage() {}
 
     public AetherDungeonMapUpdateNetworkMessage(UUID uuid) {
         playerUUID = uuid;
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             PlayerList playerList = MinecraftServer.getInstance().playerList;
             Player player = playerList.playerEntities.stream()
-                    .filter(p -> p.uuid.compareTo(playerUUID) == 0)
-                    .findFirst()
-                    .orElse(null);
+                .filter(p -> p.uuid.compareTo(playerUUID) == 0)
+                .findFirst()
+                .orElse(null);
 
             if (player == null) {
                 packet.writeInt(0);
@@ -59,7 +58,7 @@ public class AetherDungeonMapUpdateNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         if (EnvironmentHelper.isServerEnvironment()) {
             this.playerUUID = UUID.fromString(packet.readString());
         }

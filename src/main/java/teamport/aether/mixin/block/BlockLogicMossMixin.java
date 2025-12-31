@@ -1,21 +1,21 @@
 package teamport.aether.mixin.block;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicMoss;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
 
 @Mixin(value = BlockLogicMoss.class, remap = false)
-public class BlockLogicMossMixin {
-    @Inject(method = "onBonemealUsed", at = @At(value = "TAIL"), cancellable = true)
-    public void addOnBonemealUsed(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced, CallbackInfoReturnable<Boolean> cir) {
+public abstract class BlockLogicMossMixin {
+    @ModifyReturnValue(method = "onBonemealUsed", at = @At(value = "TAIL"))
+    private boolean addOnBonemealUsed(boolean original, ItemStack itemstack, @Nullable Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
             if (player == null || player.getGamemode().consumeBlocks()) {
                 --itemstack.stackSize;
@@ -43,7 +43,6 @@ public class BlockLogicMossMixin {
                 }
             }
         }
-        cir.setReturnValue(true);
-        cir.cancel();
+        return true;
     }
 }

@@ -3,7 +3,7 @@ package teamport.aether.compat.waila;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.Global;
 import net.minecraft.core.item.ItemStack;
-import teamport.aether.entity.tile.TileEntityIncubator;
+import teamport.aether.block.entity.TileEntityIncubator;
 import toufoumaster.btwaila.gui.components.AdvancedInfoComponent;
 import toufoumaster.btwaila.tooltips.TileTooltip;
 import toufoumaster.btwaila.util.Colors;
@@ -25,12 +25,12 @@ public class IncubatorTooltip extends TileTooltip<TileEntityIncubator> {
         ItemStack input = incubator.getItem(0);
         ItemStack fuel = incubator.getItem(1);
         ProgressBarOptions options = new ProgressBarOptions(
-                0, String.format("%s%s%s ", ORANGE, translator.translateKey("aether.tooltip.incubator.progress"), RESET), true, true,
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/incubator_bg")),
-                new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/incubator_fg"))
+            0, String.format("%s%s%s ", ORANGE, translator.translateKey("aether.tooltip.incubator.progress"), RESET), true, true,
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/incubator_bg")),
+            new TextureOptions(Colors.WHITE, TextureRegistry.getTexture("aether:extras/incubator_fg"))
         );
         advancedInfoComponent.drawProgressBarTextureWithText(incubator.getProcessProgressScaled(100), 100, options, 0); //getCookProgressScaled
-        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), incubator.currentEnergyTime / Global.TICKS_PER_SECOND), 0);
+        advancedInfoComponent.drawStringWithShadow(String.format(translator.translateKey("aether.tooltip.machine.energy"), incubator.getCurrentEnergyTime() / Global.TICKS_PER_SECOND), 0);
         ItemStack[] stacks = new ItemStack[]{input, fuel};
         advancedInfoComponent.drawItemList(stacks, 0);
     }

@@ -11,7 +11,7 @@ import static net.minecraft.core.net.command.TextFormatting.RED;
 import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static teamport.aether.AetherMod.TRANSLATOR;
 
-public interface AetherProjectileDeathMessages<T extends Projectile> extends AetherDeathMessage {
+public interface AetherProjectileDeathMessages extends AetherDeathMessage {
     @Override
     default String deathMessage(Player player) {
         Projectile proj = (Projectile) this;
@@ -21,11 +21,11 @@ public interface AetherProjectileDeathMessages<T extends Projectile> extends Aet
             String keys = EntityDispatcher.nameKeyForClass(proj.getClass()) + ".death_message";
             if ((killer).uuid.equals(player.uuid)) {
                 return RED + TRANSLATOR.translateKey(keys + ".suicide")
-                        .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
+                    .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED);
             } else {
                 return RED + TRANSLATOR.translateKey(keys + ".player")
-                        .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
-                        .replace("[KILLER]", RESET + killer.getDisplayName() + RESET + RED);
+                    .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
+                    .replace("[KILLER]", RESET + killer.getDisplayName() + RESET + RED);
             }
         }
         if (owner instanceof MobBoss) {
@@ -33,8 +33,8 @@ public interface AetherProjectileDeathMessages<T extends Projectile> extends Aet
             String bossName = EntityDispatcher.nameKeyForClass(boss.getClass()) + ".death_message";
             String projectileName = TRANSLATOR.translateKey(EntityDispatcher.nameKeyForClass(proj.getClass()));
             return RED + TRANSLATOR.translateKey(bossName + "." + projectileName)
-                    .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
-                    .replace("[BOSS]", boss.getBossTitle());
+                .replace("[PLAYER]", RESET + player.getDisplayName() + RESET + RED)
+                .replace("[BOSS]", boss.getBossTitle());
         }
         return ((AetherDeathMessage) owner).deathMessage(player);
     }

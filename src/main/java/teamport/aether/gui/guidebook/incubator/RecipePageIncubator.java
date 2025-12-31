@@ -14,7 +14,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.player.inventory.slot.Slot;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.AetherMod;
 import teamport.aether.recipe.RecipeEntryIncubator;
@@ -23,12 +23,11 @@ import java.util.*;
 
 public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
-    public final List<SlotGuidebook> slots;
-    public final TooltipElement tooltipElement;
-    public final ItemElement itemElement;
-    public Map<RecipeEntryIncubator, SlotGuidebook> map;
-    public static final Minecraft mc = Minecraft.getMinecraft();
-    public static String root = "aether.guidebook.section.incubator";
+    private final List<SlotGuidebook> slots;
+    private final TooltipElement tooltipElement;
+    private final ItemElement itemElement;
+    private final Map<RecipeEntryIncubator, SlotGuidebook> map;
+    private static final Minecraft mc = Minecraft.getMinecraft();
 
     public RecipePageIncubator(GuidebookIncubatorSection section, List<RecipeEntryIncubator> recipes) {
         super(section);
@@ -81,7 +80,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
 
             boolean discovered = slot.getIsDiscovered(mc.thePlayer);
             if (discovered) {
-                description = createDescLines(fr, root + "." + entityName);
+                description = createDescLines(fr, "aether.guidebook.section.incubator." + entityName);
             } else {
                 description = createDescLines(fr, "aether.guidebook.section.incubator.undiscovered");
                 title = (new String(new char[title.length()])).replace("\u0000", "?");
@@ -102,7 +101,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         }
     }
 
-    private static @NotNull String getEntityTitle(RecipeEntryIncubator recipe) {
+    private static @NonNull String getEntityTitle(RecipeEntryIncubator recipe) {
         Class<? extends Entity> entity = EntityDispatcher.classForId(recipe.getOutput().getEntity());
         MobInfoRegistry.MobInfo mobInfo = MobInfoRegistry.getMobInfo(entity);
         String translationKey = mobInfo.getNameTranslationKey();
@@ -113,6 +112,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         return mouseX >= x + slot.x - 1 && mouseX < x + slot.x + 16 + 1 && mouseY >= y + slot.y - 1 && mouseY < y + slot.y + 16 + 1;
     }
 
+    @Override
     public void renderOverlay(TextureManager re, Font fr, int x, int y, int mouseX, int mouseY, float partialTicks) {
         super.renderOverlay(re, fr, x, y, mouseX, mouseY, partialTicks);
         SlotGuidebook mouseOverSlot = null;
@@ -165,6 +165,7 @@ public class RecipePageIncubator extends RecipePage<RecipeEntryIncubator> {
         return lines.toArray(new String[0]);
     }
 
+    @Override
     public boolean keyTyped(char c, int key, int x, int y, int mouseX, int mouseY) {
         super.keyTyped(c, key, x, y, mouseX, mouseY);
         if (mc.gameSettings.keyShowRecipe.isKeyboardKey(key)) {

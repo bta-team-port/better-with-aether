@@ -12,20 +12,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 @Mixin(value = PacketAddParticle.class, remap = false)
-public class PacketAddParticleMixin {
-
-    // some assembly required...
-
+public abstract class PacketAddParticleMixin {
     @Shadow
     public int data;
-
     @Inject(method = "write", at = @At("HEAD"))
-    public void writeData(DataOutputStream dos, CallbackInfo ci) throws IOException {
+    private void writeData(DataOutputStream dos, CallbackInfo ci) throws IOException {
         dos.writeInt(data);
     }
-
     @Inject(method = "read", at = @At("HEAD"))
-    public void writeData(DataInputStream dis, CallbackInfo ci) throws IOException {
+    private void writeData(DataInputStream dis, CallbackInfo ci) throws IOException {
         data = dis.readInt();
     }
 }

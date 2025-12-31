@@ -1,0 +1,78 @@
+{
+  "model_paths": [
+    "/assets/aether/models/entity/phyg/phyg.geo.json",
+    "/assets/aether/models/entity/phow/phow.geo.json",
+    "/assets/aether/models/entity/sheepuff/sheepuff.geo.json",
+    "/assets/aether/models/entity/aerbunny/aerbunny.geo.json",
+    "/assets/aether/models/entity/aerwhale/aerwhale.geo.json",
+    "/assets/aether/models/entity/zephyr/zephyr.geo.json",
+    "/assets/aether/models/entity/moa/moa.geo.json",
+    "/assets/aether/models/entity/cockatrice/cockatrice.geo.json",
+    "/assets/aether/models/entity/mimic/mimic.geo.json",
+    "/assets/aether/models/entity/sentry/sentry.geo.json",
+    "/assets/aether/models/entity/whirly/whirly.geo.json",
+    "/assets/aether/models/entity/tempest/tempest.geo.json",
+    "/assets/aether/models/entity/fire_minion/fire_minion.geo.json",
+    "/assets/aether/models/entity/aechorplant/aechorplant.geo.json"
+  ],
+  "renderers": {
+    "aether:phyg": {
+      "main": "geometry.phyg",
+      "saddle":{"model":"geometry.phyg", "inflation": 0.5}
+    },
+    "aether:phow": {
+      "main": "geometry.phow",
+      "saddle":{"model":"geometry.phow", "inflation": 0.5}
+    },
+    "aether:sheepuff": {
+      "main":"geometry.sheepuff.sheared",
+      "wool":"geometry.sheepuff.wool",
+      "puffed":"geometry.sheepuff.puffed"
+    },
+    "aether:aerbunny": {
+      "main": "geometry.aerbunny"
+    },
+    "aether:aerwhale": {
+      "main": "geometry.aerwhale"
+    },
+    "aether:moa_blue": {
+      "main": "geometry.moa",
+      "saddle":{"model":"geometry.moa", "inflation": 0.5}
+    },
+    "aether:moa_white": {
+      "main": "geometry.moa",
+      "saddle":{"model":"geometry.moa", "inflation": 0.5}
+    },
+    "aether:moa_black": {
+      "main": "geometry.moa",
+      "saddle":{"model":"geometry.moa", "inflation": 0.5}
+    },
+    "aether:zephyr": {
+      "main":"geometry.zephyr"
+    },
+    "aether:cockatrice": {
+      "main":"geometry.cockatrice"
+    },
+    "aether:mimic": {
+      "main":"geometry.mimic"
+    },
+    "aether:sentry": {
+      "main":"geometry.sentry"
+    },
+    "aether:whirly": {
+      "main":"geometry.whirly",
+      "wind":"geometry.whirly.wind"
+    },
+    "aether:tempest": {
+      "main":"geometry.tempest",
+      "wind":"geometry.tempest.wind"
+    },
+    "aether:fire_minion": {
+      "main":"geometry.fire_minion",
+      "fire":"geometry.fire_minion.fire"
+    },
+    "aether:aechorplant": {
+      "main":"geometry.aechorplant"
+    }
+  }
+}

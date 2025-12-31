@@ -7,23 +7,31 @@
   "description": "The legendary dimension is finally here for Better than Adventure! Not affiliated with the original Aether team. Aether music by Emile van Krieken, check out at https://emilevankrieken.bandcamp.com/",
   "authors": [
     "LukeisStuff",
-    "jonkadelic",
-    "Mak",
-    "Useless",
-    "CantComplain",
-    "MartinSVK12",
-    "Cookie Cakes",
     "Kheprep",
+    "Redart15",
+    "SmushyTaco",
+
+    "CantComplain",
     "azurelmao",
     "ToufouMaster",
     "bagu_chan",
-    "Redart15",
+    "big sir",
+    "rin",
+    "Cookie Cakes",
+
+    "Mak",
+    "jonkadelic",
+    "Useless",
+    "MartinSVK12",
+
     "Slainlight",
-    "Telvarost",
+    "Telvarost"
+  ],
+  "contributors": [
     "Tocinin",
     "Klyxlik",
-    "big sir",
-    "rin"
+    "Yallendallis",
+    "Beatrice/Maxine"
   ],
 
   "icon": "icon.png",
@@ -49,22 +57,23 @@
     "preLaunch": ["teamport.aether.compat.waila.AetherWailaLoadMixins"],
 
     "btwaila": ["teamport.aether.compat.waila.AetherWailaPlugin"],
-    "uselessNumerical": [
-      "teamport.aether.compat.uselessnumerical.Allias"
-    ]
+    "uselessNumerical": ["teamport.aether.compat.uselessnumerical.Allias"],
+    "commandly": ["teamport.aether.compat.commandly.AetherCommandlyPlugin"]
   },
 
   "mixins": ["aether.mixins.json"],
 
-  "accessWidener": "aether.accesswidener",
-
   "depends": {
-    "fabricloader": ">=0.15.5",
-    "catalyst-effects": ">=2.3.0",
-    "catalyst-core": ">=2.2.0",
-    "halplibe": ">=5.3.1",
-    "uselessnumerical": ">=1.0.3"
+    "fabricloader": ">=${fabricloader}",
+    "dragonfly": ">=${dragonfly}",
+    "halplibe": ">=${halplibe}",
+    "catalyst-core": ">=${catalystcore}",
+    "catalyst-effects": ">=${catalysteffects}",
+    "uselessnumerical": ">=${uselessnumerical}",
+    "minecraft": "*",
+    "java": ">=${java}"
   },
-
-  "suggests": {}
+  "suggests": {
+    "modmenu": ">=${modmenu}"
+  }
 }

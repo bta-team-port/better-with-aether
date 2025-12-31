@@ -9,17 +9,17 @@ import net.minecraft.core.net.entity.ITrackedEntry;
 import net.minecraft.core.net.entity.IVehicleEntry;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.projectile.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>, ITrackedEntry<ProjectileAether> {
-    public static final int TYPE_BITS = 0xff00_0000;
-    public static final Map<Integer, ProjectileAether.ConstructorLambda> idToConstructor = new HashMap<>();
-    public static final Map<Class<?>, Integer> classToId = new HashMap<>();
+    private static final int TYPE_BITS = 0xff00_0000;
+    private static final Map<Integer, ProjectileAether.ConstructorLambda> ID_TO_CONSTRUCTOR = new HashMap<>();
+    private static final Map<Class<?>, Integer> CLASS_TO_ID = new HashMap<>();
 
     static {
         register(0, ProjectileArrowFlaming::getEntity, ProjectileArrowFlaming.class);
@@ -34,12 +34,12 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
     }
 
     public static void register(int id, ProjectileAether.ConstructorLambda constructor, Class<?> clazz) {
-        idToConstructor.put(id, constructor);
-        classToId.put(clazz, id);
+        ID_TO_CONSTRUCTOR.put(id, constructor);
+        CLASS_TO_ID.put(clazz, id);
     }
 
     public static int getIdBits(ProjectileAether projectile) {
-        return classToId.get(projectile.getClass()) << 24;
+        return CLASS_TO_ID.get(projectile.getClass()) << 24;
     }
 
     @Override
@@ -69,13 +69,13 @@ public class NetEntryAetherProjectile implements IVehicleEntry<ProjectileAether>
     }
 
     @Override
-    public @NotNull Class<? extends ProjectileAether> getAppliedClass() {
+    public @NonNull Class<? extends ProjectileAether> getAppliedClass() {
         return ProjectileAether.class;
     }
 
     @Override
     public Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
-        ProjectileAether.ConstructorLambda projectile = idToConstructor.get(meta >>> 24);
-        return projectile.getEntity(world, x, y, z, meta & ~TYPE_BITS, hasVelocity, xd, yd, zd, owner, compoundTag);
+        ProjectileAether.ConstructorLambda projectile = ID_TO_CONSTRUCTOR.get(meta >>> 24);
+        return projectile.getEntity(world, x, y, z, meta & ~TYPE_BITS, hasVelocity, xd, yd, zd, owner);
     }
 }

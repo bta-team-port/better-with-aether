@@ -7,7 +7,7 @@ import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
@@ -28,10 +28,10 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         for (RecipeEntryAetherMachine recipe : recipes) {
             List<SlotGuidebook> recipeSlots = new ArrayList<>();
             RecipeSymbol varietyItem = getDamagedVariety(recipe);
-            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.map.size() + 1) - 16, varietyItem, false, recipe));
-            recipeSlots.add(new AetherSlotGuidebook(1, 103, 32 * (this.map.size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
-            this.map.put(recipe, recipeSlots);
-            this.slots.addAll(recipeSlots);
+            recipeSlots.add(new AetherSlotGuidebook(0, 47, 32 * (this.getMap().size() + 1) - 16, varietyItem, false, recipe));
+            recipeSlots.add(new AetherSlotGuidebook(1, 103, 32 * (this.getMap().size() + 1) - 16, new RecipeSymbol(recipe.getOutput()), false, recipe));
+            this.getMap().put(recipe, recipeSlots);
+            this.getSlots().addAll(recipeSlots);
         }
     }
 
@@ -43,7 +43,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
 
         for (int i = 1; i <= this.recipes.size(); ++i) {
             RecipeEntryAetherMachine recipe = this.recipes.get(i - 1);
-            List<SlotGuidebook> list = this.map.get(recipe);
+            List<SlotGuidebook> list = this.getMap().get(recipe);
             int posX = x + list.get(list.size() - 1).x - 32;
             int posY = y + list.get(list.size() - 1).y;
             this.drawTexturedModalRect(posX, posY, 234, 0, 22, 15);
@@ -55,14 +55,14 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
             ItemStack input = recipe.getInput().getStack();
             ItemStack output = recipe.getOutput();
             if (
-                    input != null
-                            && output != null
-                            && input.isItemStackDamageable()
-                            && output.isItemStackDamageable()
-                            && output.itemID == input.itemID
+                input != null
+                    && output != null
+                    && input.isItemStackDamageable()
+                    && output.isItemStackDamageable()
+                    && output.itemID == input.itemID
             ) {
                 GL11.glPushMatrix();
-                GL11.glTranslatef(posX - 1, posY - 1, 0.0f);
+                GL11.glTranslatef(posX - 1.0F, posY - 1.0F, 0.0f);
                 GL11.glScalef(0.85f, 0.93f, 1.0f);
                 this.drawStringNoShadow(mc.font, "max", 0, 0, -12566464);
                 GL11.glPopMatrix();
@@ -70,7 +70,7 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
             }
 
             GL11.glPushMatrix();
-            GL11.glTranslatef(posX + alignRight, posY - 1 + adjY, 0.0f);
+            GL11.glTranslatef((float) posX + alignRight, posY - 1.0F + adjY, 0.0f);
             GL11.glScalef(0.85f, 0.93f, 1.0f);
             this.drawStringNoShadow(mc.font, timeString, 0, 0, -12566464);
             GL11.glPopMatrix();
@@ -92,18 +92,18 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
         return buildTime.toString();
     }
 
-    public static @NotNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
+    public static @NonNull RecipeSymbol getDamagedVariety(RecipeEntryAetherMachine recipe) {
         RecipeSymbol varientRecipeInput = recipe.getInput();
         ItemStack input = varientRecipeInput.getStack();
         ItemStack copyInput = ItemStack.copyItemStack(input);
 
         ItemStack output = recipe.getOutput();
         if (
-                copyInput != null
-                        && output != null
-                        && copyInput.isItemStackDamageable()
-                        && output.isItemStackDamageable()
-                        && output.itemID == copyInput.itemID
+            copyInput != null
+                && output != null
+                && copyInput.isItemStackDamageable()
+                && output.isItemStackDamageable()
+                && output.itemID == copyInput.itemID
         ) {
             List<ItemStack> variations = new ArrayList<>();
             for (int i = 1; i < 10; i++) {

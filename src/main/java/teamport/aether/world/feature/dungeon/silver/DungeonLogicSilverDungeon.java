@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class DungeonLogicSilverDungeon extends DungeonLogic {
 
-    public Direction direction;
+    protected Direction direction;
 
     public DungeonLogicSilverDungeon(int dimensionID, int id, long seed) {
         super(dimensionID, id, seed);
@@ -17,12 +17,12 @@ public class DungeonLogicSilverDungeon extends DungeonLogic {
 
     @Override
     protected boolean placeDungeon(World world, Random random) {
-        return new WorldFeatureAetherSilverDungeon(direction.getHorizontalIndex()).generate(this, world, this.seed, position.x, position.y, position.z);
+        return new WorldFeatureAetherSilverDungeon(direction.getHorizontalIndex()).generate(this, world, this.seed, position.getX(), position.getY(), position.getZ());
     }
 
     @Override
     protected boolean canPlaceDungeon(World world) {
-        return new WorldFeatureAetherSilverDungeon(direction.getHorizontalIndex()).canPlace(world, position.x, position.y, position.z);
+        return new WorldFeatureAetherSilverDungeon(direction.getHorizontalIndex()).canPlace(world, position.getX(), position.getY(), position.getZ());
     }
 
     @Override

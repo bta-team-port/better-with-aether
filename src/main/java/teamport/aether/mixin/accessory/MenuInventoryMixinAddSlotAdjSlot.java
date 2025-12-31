@@ -1,6 +1,7 @@
 package teamport.aether.mixin.accessory;
 
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
@@ -11,7 +12,6 @@ import net.minecraft.core.item.ItemQuiverEndless;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.container.ContainerCrafting;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
-import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.menu.MenuInventory;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.core.player.inventory.slot.SlotArmor;
@@ -23,10 +23,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.AetherMod;
-import teamport.aether.items.AetherItemTags;
-import teamport.aether.items.accessory.IAccessory;
-import teamport.aether.items.accessory.ItemAccessoryArmor;
-import teamport.aether.items.accessory.SlotAccessory;
+import teamport.aether.item.AetherItemTags;
+import teamport.aether.item.accessory.IAccessory;
+import teamport.aether.item.accessory.ItemAccessoryArmor;
+import teamport.aether.item.accessory.SlotAccessory;
 import teamport.aether.mixin.accessors.MenuAbstractAccessor;
 import teamport.aether.mixin.accessors.SlotAccessor;
 import teamport.aether.mixin.accessors.SlotArmorAccessor;
@@ -34,20 +34,14 @@ import teamport.aether.mixin.accessors.SlotArmorAccessor;
 import java.util.ArrayList;
 import java.util.List;
 
-import static teamport.aether.items.accessory.SlotAccessory.*;
+import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Mixin(value = MenuInventory.class, remap = false)
-abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
-
+public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;
-
-    @Inject(method = "<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"
-            )
-    )
-    public void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
+    @Inject(method = "<init>(Lnet/minecraft/core/player/inventory/container/ContainerInventory;Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/menu/MenuInventory;slotsChanged(Lnet/minecraft/core/player/inventory/container/Container;)V"))
+    private void addingAndAdjustingSlots(ContainerInventory inventory, boolean active, CallbackInfo ci) {
         MenuInventory menu = (MenuInventory) (Object) this;
         for (int i = 0; i < menu.slots.size(); i++) {
             Slot slot = menu.slots.get(i);
@@ -66,7 +60,6 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
                 menu.slots.set(menu.slots.indexOf(slot), newArmorSlot);
             }
         }
-
         // adding new accessories
         for (int i = 0; i < 4; ++i) {
             int armorPiece = 4 + i;
@@ -74,8 +67,6 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
             ((MenuAbstractAccessor) menu).invokeAddSlot(new SlotAccessory(menu, inventory, inventory.getContainerSize() - 4 + i, 80, 8 + i * 18, armorPiece));
         }
     }
-
-
     /**
      * in the MAIN inventory (not including armor or crafting slots)
      * IDK what target does, but it always seems to be 0 for me - Colin
@@ -85,41 +76,28 @@ abstract public class MenuInventoryMixinAddSlotAdjSlot extends MenuAbstract {
      * as such the target is always the inventory. ScreenContainerAbstractMixinTargetAccessory
      * alters the target to be always 2 for accessories - Redart15
      */
-    @Inject(method = "getTargetSlots", at = @At("HEAD"), cancellable = true)
-    public void accessoryTargets(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir) {
-        if (slot.index < 9
-                || slot.index > 44
-                || target == 1
-                || slot.getItemStack() == null
-                || !(slot.getItemStack().getItem() instanceof IAccessory || slot.getItemStack().getItem().hasTag(AetherItemTags.TRINKET))
-//                || target != 2
-        ) {
-            return;
+    @ModifyReturnValue(method = "getTargetSlots", at = @At("RETURN"))
+    private List<Integer> accessoryTargets(List<Integer> original, InventoryAction action, Slot slot, int target, Player player) {
+        if (slot.index < 9 || slot.index > 44 || target == 1 || slot.getItemStack() == null || !(slot.getItemStack().getItem() instanceof IAccessory || slot.getItemStack().getItem().hasTag(AetherItemTags.TRINKET))) {
+            return original;
         }
         Item accessory = slot.getItemStack().getItem();
         List<Integer> ints = new ArrayList<>();
         if (accessory instanceof ItemAccessoryArmor) {
-            ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).slotID);
+            ints.add(AetherMod.ARMOR_START_INDEX + ((ItemAccessoryArmor) accessory).getSlotID());
         }
         if (accessory.hasTag(AetherItemTags.TRINKET)) {
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_1_SLOT);
             ints.add(AetherMod.ARMOR_START_INDEX + TRINKET_2_SLOT);
         }
-        cir.setReturnValue(ints);
-
+        return ints;
     }
-
     // allow quiver to be shift clicked in either the body or the cape slot
     @Inject(method = "getTargetSlots", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", shift = At.Shift.AFTER))
-    public void quiverTarget(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir, @Local IArmorItem armorItem, @Local List<Integer> ints) {
+    private void quiverTarget(InventoryAction action, Slot slot, int target, Player player, CallbackInfoReturnable<List<Integer>> cir, @Local IArmorItem armorItem, @Local List<Integer> ints) {
         if (!(armorItem instanceof ItemQuiver) && !(armorItem instanceof ItemQuiverEndless)) {
             return;
         }
         ints.add(AetherMod.ARMOR_START_INDEX + CAPE_SLOT);
-    }
-
-    @Override
-    public int getHotbarSlotId(int number) {
-        return 27 + 8 + number;
     }
 }

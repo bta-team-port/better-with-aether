@@ -6,7 +6,6 @@ import org.spongepowered.asm.mixin.Mixins;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 public class AetherWailaLoadMixins implements PreLaunchEntrypoint {
-
     @Override
     public void onPreLaunch() {
         if (!EnvironmentHelper.isServerEnvironment()) {

@@ -1,19 +1,20 @@
 package teamport.aether.net.message;
 
 import net.minecraft.core.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import teamport.aether.entity.AetherRideable;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkMessage;
 import turniplabs.halplibe.helper.network.UniversalPacket;
 
 public class AetherRideableNetworkMessage implements NetworkMessage {
-    float moveForward, moveStrafe;
-    float xRot, yRot;
-    boolean isJumping;
+    private float moveForward;
+    private float moveStrafe;
+    private float xRot;
+    private float yRot;
+    private boolean isJumping;
 
-    public AetherRideableNetworkMessage() {
-    }
+    public AetherRideableNetworkMessage() {}
 
     public AetherRideableNetworkMessage(float moveForward, float moveStrafe, boolean isJumping, float xRot, float yRot) {
         this.moveForward = moveForward;
@@ -24,7 +25,7 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void encodeToUniversalPacket(@NotNull UniversalPacket packet) {
+    public void encodeToUniversalPacket(@NonNull UniversalPacket packet) {
         packet.writeDouble(moveForward);
         packet.writeDouble(moveStrafe);
         packet.writeBoolean(isJumping);
@@ -33,7 +34,7 @@ public class AetherRideableNetworkMessage implements NetworkMessage {
     }
 
     @Override
-    public void decodeFromUniversalPacket(@NotNull UniversalPacket packet) {
+    public void decodeFromUniversalPacket(@NonNull UniversalPacket packet) {
         this.moveForward = (float) packet.readDouble();
         this.moveStrafe = (float) packet.readDouble();
         this.isJumping = packet.readBoolean();

@@ -1,3 +1,4 @@
-aether.options.video.aether=Aether Video Settings
+gui.options.page.aether.title=Aether
+gui.options.page.aether.category.user_interface=User Interface
 options.aether.flickAccessoryIcons=Cycle Inventory Trinkets
 options.aether.flickAccessorySpeed=Cycle Inventory Trinkets Speed

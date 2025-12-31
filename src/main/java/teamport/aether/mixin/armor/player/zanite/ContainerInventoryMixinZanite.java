@@ -10,23 +10,16 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherArmorMaterial;
+import teamport.aether.item.AetherArmorMaterial;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryMixinZanite {
-    @WrapOperation(
-            method = "getTotalProtectionAmount",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"
-            )
-    )
-    public float modifyProtectionAmount(ArmorMaterial instance, DamageType damageType, Operation<Float> original, @Local ItemStack itemStack, @Local(ordinal = 0) int i) {
+    @WrapOperation(method = "getTotalProtectionAmount", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/material/ArmorMaterial;getProtection(Lnet/minecraft/core/util/helper/DamageType;)F"))
+    private float modifyProtectionAmount(ArmorMaterial instance, DamageType damageType, Operation<Float> original, @Local ItemStack itemStack) {
         if (instance != AetherArmorMaterial.ZANITE) {
             return original.call(instance, damageType);
         }
-        float durability_progress = (float) itemStack.getMetadata() / instance.durability;
-        return MathHelper.lerp(instance.getProtection(damageType), ArmorMaterial.GOLD.getProtection(damageType), durability_progress);
+        float durabilityProgress = (float) itemStack.getMetadata() / instance.durability;
+        return MathHelper.lerp(instance.getProtection(damageType), AetherArmorMaterial.ZANITE_BROKEN.getProtection(damageType), durabilityProgress);
     }
-
 }

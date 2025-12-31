@@ -2,6 +2,7 @@ package teamport.aether.world;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
@@ -10,7 +11,8 @@ import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.World;
 import teamport.aether.AetherConfig;
 import teamport.aether.AetherMod;
-import teamport.aether.blocks.AetherBlocks;
+import teamport.aether.block.AetherBlocks;
+import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.AetherMobFallingToOverworld;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
@@ -21,35 +23,33 @@ import teamport.aether.world.type.AetherWorldTypes;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AetherDimension {
-    public static boolean sunspiritIsDead = false;
-    public static long sunspiritDeathTimestamp = 0;
+
+    private static final int SCHEMA_VERSION = 2;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
-    public final static int DUNGEON_GENERATION_RADIUS = 16;
+    public static final int DUNGEON_GENERATION_RADIUS = 16;
     public static final int BOSS_DETECTION_RADIUS = 80;
     public static final int BOSS_DETECTION_RANGE_SQR = 6400;
 
-    public static int AetherDimensionID = AetherConfig.DIMENSION;
-    public static final HashMap<Integer, List<Integer>> dimensionPlacementBlacklist = new HashMap<>();
+    private static final int AETHER_DIMENSION_ID = AetherConfig.DIMENSION;
+    private static final HashMap<Integer, List<Integer>> DIMENSION_PLACEMENT_BLACKLIST = new HashMap<>();
+
+    private static final HashMap<UUID, Boolean> HAS_RECEIVED_PARACHUTE_MAP = new HashMap<>();
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension) {
         return getDimensionBlacklist(dimension.id);
     }
 
     public static List<Integer> getDimensionBlacklist(Integer dimensionID) {
-        if (!dimensionPlacementBlacklist.containsKey(dimensionID)) {
-            dimensionPlacementBlacklist.put(dimensionID, new ArrayList<>());
-        }
-        return dimensionPlacementBlacklist.get(dimensionID);
+        return DIMENSION_PLACEMENT_BLACKLIST.computeIfAbsent(dimensionID, k -> new ArrayList<>());
     }
 
-    public static Dimension AETHER;
+    private AetherDimension(){}
+
+    private static Dimension AETHER;
 
     private static boolean hasInit = false;
 
@@ -67,67 +67,89 @@ public class AetherDimension {
         BiomeProviderAether.init();
 
         AETHER = new Dimension("aether", Dimension.OVERWORLD, 1.0f, AetherBlocks.PORTAL_AETHER, AetherWorldTypes.AETHER_DEFAULT);
-        Dimension.registerDimension(AetherDimensionID, AETHER);
+        Dimension.registerDimension(AETHER_DIMENSION_ID, AETHER);
 
-        List<Integer> AETHER_BLACKLIST = getDimensionBlacklist(AETHER);
-        AETHER_BLACKLIST.add(Blocks.FIRE.id());
-        AETHER_BLACKLIST.add(Blocks.BRAZIER_ACTIVE.id());
+        initDimensionBlackList();
+    }
 
-        AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_FLOWING.id());
-        AETHER_BLACKLIST.add(Blocks.FLUID_LAVA_STILL.id());
-        AETHER_BLACKLIST.add(Blocks.TORCH_COAL.id());
-        AETHER_BLACKLIST.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
-        AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-        AETHER_BLACKLIST.add(Blocks.PUMICE_WET.id());
-        AETHER_BLACKLIST.add(Blocks.PORTAL_NETHER.id());
+    public static void initDimensionBlackList() {
+        DIMENSION_PLACEMENT_BLACKLIST.clear();
 
-        if (sunspiritIsDead) {
+        List<Integer> aetherBlacklist = getDimensionBlacklist(AETHER);
 
-            AETHER_BLACKLIST.add(Blocks.NETHERRACK.id());
-            AETHER_BLACKLIST.add(Blocks.NETHERRACK_CARVED.id());
-            AETHER_BLACKLIST.add(Blocks.NETHERRACK_POLISHED.id());
-            AETHER_BLACKLIST.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+        aetherBlacklist.add(Blocks.PORTAL_NETHER.id());
+        aetherBlacklist.add(Blocks.FIRE.id());
+        aetherBlacklist.add(Blocks.TORCH_COAL.id());
 
-            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK.id());
-            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
-            AETHER_BLACKLIST.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+        /// these blocks are replaced on placement.
+        aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_IGNEOUS.id());
+        aetherBlacklist.add(Blocks.PUMICE_WET.id());
+        aetherBlacklist.add(Blocks.BRAZIER_ACTIVE.id());
+        aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+        aetherBlacklist.add(Blocks.FLUID_LAVA_FLOWING.id());
+        aetherBlacklist.add(Blocks.FLUID_LAVA_STILL.id());
 
-            AETHER_BLACKLIST.add(Blocks.BRICK_NETHERRACK.id());
-            AETHER_BLACKLIST.add(Blocks.SLAB_BRICK_NETHERRACK.id());
-            AETHER_BLACKLIST.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
+        /// blocks that should be banned until unlocked by the sunspirit's death
+        if (!SunSpiritDeath.isDead()) {
+            aetherBlacklist.add(Blocks.SOULSAND.id());
+            aetherBlacklist.add(Blocks.SOULSCHIST.id());
+            aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
+            aetherBlacklist.add(Blocks.NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.COBBLE_NETHERRACK_MOSSY.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_CARVED.id());
+            aetherBlacklist.add(Blocks.NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.SLAB_NETHERRACK_POLISHED.id());
+            aetherBlacklist.add(Blocks.BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.SLAB_BRICK_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.STAIRS_BRICK_NETHERRACK.id());
 
-            AETHER_BLACKLIST.add(Blocks.SOULSAND.id());
-            AETHER_BLACKLIST.add(Blocks.SOULSCHIST.id());
-            AETHER_BLACKLIST.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
-            AETHER_BLACKLIST.add(Blocks.BLOCK_NETHER_COAL.id());
+            aetherBlacklist.add(Blocks.ORE_NETHERCOAL_NETHERRACK.id());
+            aetherBlacklist.add(Blocks.BLOCK_NETHER_COAL.id());
         }
+
+        FabricLoader.getInstance()
+            .getEntrypointContainers("aether", AetherPlugin.class)
+            .forEach(plugin -> plugin.getEntrypoint().initializeDimensionBlacklist());
     }
 
     public static void unlockDaylightCycle(World world) {
-        if (!sunspiritIsDead) {
+        if (!SunSpiritDeath.isDead()) {
             AetherMod.LOGGER.info("Attempted to unlock daylight cycle.");
 
-            sunspiritIsDead = true;
-            sunspiritDeathTimestamp = world.getWorldTime();
+            SunSpiritDeath.setDead(true);
+            SunSpiritDeath.setDeathTime(world.getWorldTime());
 
             if (EnvironmentHelper.isServerEnvironment()) {
                 NetworkHandler.sendToAllPlayers(
-                        new SunspiritDeathNetworkMessage(sunspiritIsDead, sunspiritDeathTimestamp)
+                    new SunspiritDeathNetworkMessage(SunSpiritDeath.isDead(), SunSpiritDeath.getDeathTime())
                 );
             }
         }
     }
 
-    private static final Map<IntPair, List<CompoundTag>> entitiesMovedToOverworld = new HashMap<>();
+    public static boolean canGetParachute(UUID uuid) {
+        boolean result = !HAS_RECEIVED_PARACHUTE_MAP.computeIfAbsent(uuid, it -> false);
+        return result;
+    }
+
+    public static void setParachuteReceived(UUID uuid) {
+        HAS_RECEIVED_PARACHUTE_MAP.put(uuid, true);
+    }
+
+    private static final Map<IntPair, List<CompoundTag>> ENTITIES_MOVED_TO_OVERWORLD = new HashMap<>();
 
     public static synchronized void addEntityToFallen(Entity target) {
-        AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
+        if (AetherMod.LOGGER.isInfoEnabled())
+            AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
         IntPair chunk = new IntPair(
-                ((int) target.x) / 16,
-                ((int) target.z) / 16
+            ((int) target.x) / 16,
+            ((int) target.z) / 16
         );
-        List<CompoundTag> chunkList = entitiesMovedToOverworld.computeIfAbsent(chunk, (i) -> new ArrayList<>());
+        List<CompoundTag> chunkList = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(chunk, i -> new ArrayList<>());
 
         CompoundTag data = new CompoundTag();
         target.save(data);
@@ -138,9 +160,9 @@ public class AetherDimension {
 
     public static synchronized void loadEntitiesNearPlayer(Player player, World world) {
         List<IntPair> toRemove = new ArrayList<>();
-        for (IntPair pos : entitiesMovedToOverworld.keySet()) {
-            if (player.distanceTo(pos.first * 16, player.y, pos.second * 16) < 100) {
-                List<CompoundTag> entities = entitiesMovedToOverworld.computeIfAbsent(pos, intPair -> new ArrayList<>());
+        for (IntPair pos : ENTITIES_MOVED_TO_OVERWORLD.keySet()) {
+            if (player.distanceTo(pos.getFirst() * 16.0, player.y, pos.getSecond() * 16.0) < 100) {
+                List<CompoundTag> entities = ENTITIES_MOVED_TO_OVERWORLD.computeIfAbsent(pos, intPair -> new ArrayList<>());
 
                 while (!entities.isEmpty()) {
                     CompoundTag data = entities.remove(0);
@@ -148,7 +170,7 @@ public class AetherDimension {
                     Entity copy = EntityDispatcher.createEntityFromNBT(data, world);
                     copy.load(data);
 
-                    float scale = Dimension.getCoordScale(AetherDimension.AETHER, Dimension.OVERWORLD);
+                    float scale = Dimension.getCoordScale(AetherDimension.getAether(), Dimension.OVERWORLD);
                     copy.moveTo(copy.x * scale, OVERWORLD_RETURN_HEIGHT, copy.z * scale, copy.yRot, copy.xRot);
 
                     world.entityJoinedWorld(copy);
@@ -162,41 +184,39 @@ public class AetherDimension {
             }
         }
 
-        toRemove.forEach(entitiesMovedToOverworld::remove);
+        toRemove.forEach(ENTITIES_MOVED_TO_OVERWORLD::remove);
     }
 
     public static void setDimensionDataDefaults() {
-        sunspiritDeathTimestamp = 0;
-        sunspiritIsDead = false;
+        SunSpiritDeath.setDeathTime(0);
+        SunSpiritDeath.setDead(false);
     }
 
-    public static void loadDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.debug("Loading additional level data.");
+    public static void setWorldDataDefaults() {
+        ENTITIES_MOVED_TO_OVERWORLD.clear();
+        HAS_RECEIVED_PARACHUTE_MAP.clear();
+        DungeonMap.clear();
+    }
 
+    protected static void loadFallenEntities(ListTag entitiesMoved) {
+        ENTITIES_MOVED_TO_OVERWORLD.clear();
 
-        sunspiritIsDead = dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp");
-        DungeonMap.load(dimensionData);
-
-        entitiesMovedToOverworld.clear();
-        ListTag entitiesMoved = dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen");
         entitiesMoved.forEach(tag -> {
             ListTag entities = ((CompoundTag) tag).getList("entities");
             IntPair chunk = new IntPair(
-                    ((CompoundTag) tag).getInteger("x"),
-                    ((CompoundTag) tag).getInteger("z")
+                ((CompoundTag) tag).getInteger("x"),
+                ((CompoundTag) tag).getInteger("z")
             );
 
             List<CompoundTag> entitiesList = new ArrayList<>();
             entities.forEach(e -> entitiesList.add((CompoundTag) e));
-            entitiesMovedToOverworld.put(chunk, entitiesList);
+            ENTITIES_MOVED_TO_OVERWORLD.put(chunk, entitiesList);
         });
     }
 
-    public static void saveDimensionData(CompoundTag dimensionData) {
-        AetherMod.LOGGER.debug("Saving additional level data.");
-
+    public static void saveWorldData(CompoundTag aetherWorldData) {
         ListTag entitiesToMoveMap = new ListTag();
-        for (Map.Entry<IntPair, List<CompoundTag>> entry : entitiesMovedToOverworld.entrySet()) {
+        for (Map.Entry<IntPair, List<CompoundTag>> entry : ENTITIES_MOVED_TO_OVERWORLD.entrySet()) {
             CompoundTag entryCompound = new CompoundTag();
 
             ListTag entities = new ListTag();
@@ -206,16 +226,51 @@ public class AetherDimension {
 
             IntPair chunkPos = entry.getKey();
 
-            entryCompound.putInt("x", chunkPos.first);
-            entryCompound.putInt("z", chunkPos.second);
+            entryCompound.putInt("x", chunkPos.getFirst());
+            entryCompound.putInt("z", chunkPos.getSecond());
 
             entryCompound.put("entities", entities);
             entitiesToMoveMap.addTag(entryCompound);
         }
 
-        DungeonMap.save(dimensionData);
-        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", AetherDimension.sunspiritIsDead);
-        dimensionData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
+        aetherWorldData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
+        aetherWorldData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
+        DungeonMap.save(aetherWorldData);
+
+        CompoundTag canReceiveParachuteCompound = new CompoundTag();
+        HAS_RECEIVED_PARACHUTE_MAP.forEach((key, value) -> canReceiveParachuteCompound.putBoolean(key.toString(), value));
+        aetherWorldData.putCompound(AetherMod.MOD_ID + ".canReceiveParachute", canReceiveParachuteCompound);
     }
 
+    public static void loadWorldData(CompoundTag aetherWorldData) {
+        AetherMod.LOGGER.debug("Loading additional level data.");
+
+        loadFallenEntities(aetherWorldData.getList(AetherMod.MOD_ID + ".overworldFallen"));
+        DungeonMap.load(aetherWorldData);
+
+        HAS_RECEIVED_PARACHUTE_MAP.clear();
+        CompoundTag canReceiveParachuteCompound = aetherWorldData.getCompound(AetherMod.MOD_ID + ".canReceiveParachute");
+        canReceiveParachuteCompound.getValues().forEach( it -> HAS_RECEIVED_PARACHUTE_MAP.put(UUID.fromString(it.getTagName()), ((Byte) it.getValue()) > 0 ));
+    }
+
+    public static void loadDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.debug("Loading additional dimension data.");
+
+        if (!dimensionData.containsKey(AetherMod.MOD_ID + ".__SCHEMA_VERSION__")) {
+            loadFallenEntities(dimensionData.getList(AetherMod.MOD_ID + ".overworldFallen"));
+        }
+
+        SunSpiritDeath.setDead(dimensionData.getBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp"));
+    }
+
+    public static void saveDimensionData(CompoundTag dimensionData) {
+        AetherMod.LOGGER.debug("Saving additional dimension data.");
+
+        dimensionData.putInt("__SCHEMA_VERSION__", SCHEMA_VERSION);
+        dimensionData.putBoolean(AetherMod.MOD_ID + ".sunspiritDeathTimestamp", SunSpiritDeath.isDead());
+    }
+
+    public static Dimension getAether() {
+        return AETHER;
+    }
 }

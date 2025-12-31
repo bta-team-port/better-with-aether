@@ -6,18 +6,21 @@
     ]
   },
   "achievement.bronze": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_bronze.ogg"
     ]
   },
   "achievement.silver": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_silver.ogg"
     ]
   },
   "achievement.gold": {
+    "volume": 0.2,
     "attenuation_distance": 128,
     "sounds": [
       "achievement_gold.ogg"
@@ -308,34 +311,46 @@
       "trigger.ogg"
     ]
   },
-  "aether:music.sliderboss": {
+  "aether_music_boss.valkyrieboss": {
     "sounds": [
       {
-        "name": "sliderboss.ogg",
-        "volume": 0.1,
+        "name": "music/clouds.ogg",
+        "volume": 0.5,
         "stream": true
       }
     ]
   },
-  "aether:music.fireboss": {
+  "aether_music_boss.sliderboss": {
     "sounds": [
       {
-        "name": "fireboss.ogg",
-        "volume": 0.1,
-        "stream": true
+        "name": "music/sliderboss.ogg",
+        "volume": 0.5,
+        "stream": true,
+        "attenuation_distance": 128
       }
     ]
   },
-  "aether:music.a_light_in_the_night": {
+  "aether_music_boss.fireboss": {
+    "sounds": [
+      {
+        "name": "music/fireboss.ogg",
+        "volume": 0.5,
+        "stream": true,
+        "attenuation_distance": 128
+      }
+    ]
+  },
+  "aether_music.a_light_in_the_night": {
     "sounds": [
       {
         "name": "music/a_light_in_the_night.ogg",
         "volume": 0.01,
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 128
       }
     ]
   },
-  "aether:music.approaches": {
+  "aether_music.approaches": {
     "sounds": [
       {
         "name": "music/approaches.ogg",
@@ -344,7 +359,7 @@
       }
     ]
   },
-  "aether:music.brise": {
+  "aether_music.brise": {
     "sounds": [
       {
         "name": "music/brise.ogg",
@@ -353,7 +368,7 @@
       }
     ]
   },
-  "aether:music.clouds": {
+  "aether_music.clouds": {
     "sounds": [
       {
         "name": "music/clouds.ogg",
@@ -362,7 +377,7 @@
       }
     ]
   },
-  "aether:music.crepusculum": {
+  "aether_music.crepusculum": {
     "sounds": [
       {
         "name": "music/crepusculum.ogg",
@@ -371,7 +386,7 @@
       }
     ]
   },
-  "aether:music.meadow": {
+  "aether_music.meadow": {
     "sounds": [
       {
         "name": "music/meadow.ogg",
@@ -380,7 +395,7 @@
       }
     ]
   },
-  "aether:music.moas_song": {
+  "aether_music.moas_song": {
     "sounds": [
       {
         "name": "music/moas_song.ogg",
@@ -389,7 +404,7 @@
       }
     ]
   },
-  "aether:music.welcome_to_paradise": {
+  "aether_music.welcome_to_paradise": {
     "sounds": [
       {
         "name": "music/welcome_to_paradise.ogg",
@@ -398,7 +413,7 @@
       }
     ]
   },
-  "aether:music.wings": {
+  "aether_music.wings": {
     "sounds": [
       {
         "name": "music/wings.ogg",

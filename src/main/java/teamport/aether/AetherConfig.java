@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
+@SuppressWarnings({"java:S1104", "java:S1444", "java:S3008"})
 public class AetherConfig {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -20,7 +21,7 @@ public class AetherConfig {
     public static final Object CONFIGURATION_LOCK = new Object();
 
 
-    public static final String GeneralCategory = "General";
+    public static final String GENERAL_CATEGORY = "General";
 
     public static int DIMENSION = 9;
     public static int EXTRA_HEALTH = 20;
@@ -58,14 +59,17 @@ public class AetherConfig {
 
             if (version.endsWith(".0")) version = version.substring(0, 3);
             result = String.format(
-                    "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-" + AetherMod.state + "/remoteAssets/",
-                    version
+                "https://raw.githubusercontent.com/bta-team-port/better-with-aether/refs/tags/%s-%s/remoteAssets/",
+                version,
+                AetherMod.STATE
             );
+
         }
 
         return result;
     }
 
+    @SuppressWarnings({"java:S899", "ResultOfMethodCallIgnored"})
     static void init() {
         LOGGER.info("Initializing config..");
 
@@ -89,20 +93,20 @@ public class AetherConfig {
     }
 
     private static void loadProperties() {
-        DIMENSION = cfgGetValueOrDefault(GeneralCategory + ".DIMENSION", DIMENSION);
-        EXTRA_HEALTH = cfgGetValueOrDefault(GeneralCategory + ".EXTRA_HEALTH", EXTRA_HEALTH);
-        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GeneralCategory + ".QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP);
-        ENCHANTER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
-        FREEZER_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
-        INCUBATOR_SCREEN_ID = cfgGetValueOrDefault(GeneralCategory + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
+        DIMENSION = cfgGetValueOrDefault(GENERAL_CATEGORY + ".DIMENSION", DIMENSION);
+        EXTRA_HEALTH = cfgGetValueOrDefault(GENERAL_CATEGORY + ".EXTRA_HEALTH", EXTRA_HEALTH);
+        QUICK_SOIL_SPEED_CAP = cfgGetValueOrDefault(GENERAL_CATEGORY + ".QUICK_SOIL_SPEED_CAP", QUICK_SOIL_SPEED_CAP);
+        ENCHANTER_SCREEN_ID = cfgGetValueOrDefault(GENERAL_CATEGORY + ".ENCHANTER_SCREEN_ID", ENCHANTER_SCREEN_ID);
+        FREEZER_SCREEN_ID = cfgGetValueOrDefault(GENERAL_CATEGORY + ".FREEZER_SCREEN_ID", FREEZER_SCREEN_ID);
+        INCUBATOR_SCREEN_ID = cfgGetValueOrDefault(GENERAL_CATEGORY + ".INCUBATOR_SCREEN_ID", INCUBATOR_SCREEN_ID);
 
-        INCLUDE_REPAIR_RECIPES = cfgGetValueOrDefault(GeneralCategory + ".INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
+        INCLUDE_REPAIR_RECIPES = cfgGetValueOrDefault(GENERAL_CATEGORY + ".INCLUDE_REPAIR_RECIPES", INCLUDE_REPAIR_RECIPES);
 
-        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
-        currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GeneralCategory + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
+        currentBlockID = BLOCK_ID_STARTING_FROM = cfgGetValueOrDefault(GENERAL_CATEGORY + ".BLOCK_ID_STARTING_FROM", BLOCK_ID_STARTING_FROM);
+        currentItemID = ITEM_ID_STARTING_FROM = cfgGetValueOrDefault(GENERAL_CATEGORY + ".ITEM_ID_STARTING_FROM", ITEM_ID_STARTING_FROM);
 
         synchronized (CONFIGURATION_LOCK) {
-            REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GeneralCategory + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
+            REMOTE_RESOURCE_URL = cfgGetValueOrDefault(GENERAL_CATEGORY + ".REMOTE_RESOURCE_URL", REMOTE_RESOURCE_URL);
         }
 
         if (!REMOTE_RESOURCE_URL.endsWith("/")) {
@@ -111,7 +115,7 @@ public class AetherConfig {
     }
 
     private static void assembleProperties(Toml properties) {
-        properties.addCategory(GeneralCategory)
+        properties.addCategory(GENERAL_CATEGORY)
                 .addEntry("cfgVersion", 6)
                 .addEntry("DIMENSION", DIMENSION)
                 .addEntry("EXTRA_HEALTH", EXTRA_HEALTH)
@@ -126,10 +130,11 @@ public class AetherConfig {
     }
 
     // Useless Numerical will sort it out for us.
+    @SuppressWarnings("unused")
     public static int itemID(String itemName) {
         return currentItemID++;
     }
-
+    @SuppressWarnings("unused")
     public static int blockID(String blockName) {
         return currentBlockID++;
     }
@@ -153,8 +158,7 @@ public class AetherConfig {
                 throw new RuntimeException("Invalid value type!");
             }
 
-        } catch (NullPointerException ignored) {
-        }
+        } catch (NullPointerException ignored) { /* noop */ }
 
         if (res == null) {
             LOGGER.warn("Failed to load \"{}\"! Assuming default...", key);

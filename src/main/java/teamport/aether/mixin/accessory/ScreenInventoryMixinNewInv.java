@@ -1,32 +1,27 @@
 package teamport.aether.mixin.accessory;
 
-import net.minecraft.client.Minecraft;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.container.ScreenInventory;
 import net.minecraft.client.render.Font;
 import net.minecraft.client.render.TextureManager;
 import net.minecraft.client.render.texture.Texture;
-import net.minecraft.core.lang.I18n;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = ScreenInventory.class, remap = false)
-public class ScreenInventoryMixinNewInv {
-
+public abstract class ScreenInventoryMixinNewInv {
     // binds new texture
-    @Redirect(method = "drawGuiContainerBackgroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))
-    public Texture bindNewInventory(TextureManager instance, String name) {
-        return instance.loadTexture("/assets/aether/textures/gui/container/inventory.png");
+    @WrapOperation(method = "drawGuiContainerBackgroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/TextureManager;loadTexture(Ljava/lang/String;)Lnet/minecraft/client/render/texture/Texture;"))
+    private Texture bindNewInventory(TextureManager instance, String name, Operation<Texture> original) {
+        return original.call(instance, "/assets/aether/textures/gui/container/inventory.png");
     }
-
     // adjust text position
-    @Inject(method = "drawGuiContainerForegroundLayer", at = @At("HEAD"), cancellable = true)
-    public void fixLabelPlacement(CallbackInfo ci) {
-        Font font = Minecraft.getMinecraft().font;
-        font.drawString(I18n.getInstance().translateKey("gui.inventory.label.crafting"), 98, 16, 4210752);
-        ci.cancel();
+    @WrapOperation(method = "drawGuiContainerForegroundLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Font;drawString(Ljava/lang/String;III)V"))
+    private void fixLabelPlacement(Font instance, String text, int x, int y, int color, Operation<Void> original) {
+        original.call(instance, text, 98, y, color);
     }
-
 }

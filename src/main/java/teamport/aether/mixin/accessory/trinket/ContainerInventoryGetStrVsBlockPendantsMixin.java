@@ -9,22 +9,19 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_1_SLOT;
-import static teamport.aether.items.accessory.SlotAccessory.TRINKET_2_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
+import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Mixin(value = ContainerInventory.class, remap = false)
 public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
-
     @Shadow
     public Player player;
-
     @Shadow
     public ItemStack[] mainInventory;
-
     @ModifyReturnValue(method = "getStrVsBlock", at = @At("RETURN"))
-    public float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
+    private float aether_getStrVsBlock(float strVsBlock, Block<?> block) {
         ItemStack trinketOne = player.inventory.armorInventory[TRINKET_1_SLOT];
         ItemStack trinketTwo = player.inventory.armorInventory[TRINKET_2_SLOT];
         float refStrVsBlock = strVsBlock;

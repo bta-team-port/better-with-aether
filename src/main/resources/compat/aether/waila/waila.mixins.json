@@ -1,8 +1,10 @@
 {
   "required": true,
-  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
   "package": "teamport.aether.compat.waila.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_${java}",
   "client": [
     "WallaceMixin"
   ]

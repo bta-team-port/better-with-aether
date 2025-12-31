@@ -3,29 +3,36 @@ dimension.aether.name=The Aether
 dimension.aether.desc=A hostile Paradise
 
 #Worldtype
-worldType.aether.default.name=The Aether
-worldType.aether.default.desc=Welcome to a hostile paradise.
+worldType.aether.default.name=Default
+worldType.aether.default.desc=An experience more like the original mod.
+worldType.aether.extended.name=Extended
+worldType.aether.extended.desc=The intended experience for\nBWA, featuring larger biomes and\ntaller worlds.
+worldType.aether.skyblock.name=Skyblock
+worldType.aether.skyblock.desc=Hardcore survival on a tiny\nisland in the sky.
+worldType.aether.retro.name=Retro
+worldType.aether.retro.desc=Like default but with the original textures.
+
+#Record
+record.aether=Aether Tune
+record.morning=A Morning Wish
+record.dawn=Ascending Dawn
+record.nether=Nether Menu
 
 
 #Container
-aether.container.enchanter.name=Enchanter
-aether.container.freezer.name=Freezer
-aether.container.incubator.name=Incubator
+container.enchanter.name=Enchanter
+container.freezer.name=Freezer
+container.incubator.name=Incubator
 
-aether.container.chest.trapped.name=Trapped Chest
+container.chest.trapped.name=Mimic
 
 damagetype.lightning=Lightning
 damagetype.holy=Holy
 
 
-# Bwaila support
+#Btwaila support
 aether.tooltip.enchanter.progress= Enchanting:
 aether.tooltip.freezer.progress= Freezing:
 aether.tooltip.incubator.progress= Hatching:
 
 aether.tooltip.machine.energy=Energy Time: %s s.
-
-
-# Deathray
-item.aether.death_ray.name= Wand of Instant Death
-item.aether.death_ray.desc= Right click to install kill stuff. Used for debugging bosses.

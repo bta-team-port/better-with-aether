@@ -1,6 +1,5 @@
 package teamport.aether.entity.projectile;
 
-import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.projectile.Projectile;
@@ -8,17 +7,17 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.HitResult;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 import teamport.aether.entity.AetherMobFallingToOverworld;
-import teamport.aether.helper.MobUtil;
+import teamport.aether.entity.MobUtil;
+import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherItems;
+import teamport.aether.item.AetherItems;
 
 public class ProjectileWindball extends Projectile implements ProjectileAether, AetherMobFallingToOverworld {
 
     public ProjectileWindball(World world) {
         super(world);
-        this.setSize(1.0F, 1.0F);
+        this.setSize(1.5F, 0.5F);
     }
 
     @Override
@@ -28,7 +27,7 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
 
     public ProjectileWindball(World world, double x, double y, double z, double vX, double vY, double vZ) {
         super(world);
-        this.setSize(1.0F, 1.0F);
+        this.setSize(1.5F, 0.5F);
         this.moveTo(x, y, z, this.yRot, this.xRot);
         this.setPos(x, y, z);
         this.setVelocity(vX, vY, vZ);
@@ -36,14 +35,14 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
 
     public ProjectileWindball(World world, Mob owner, double vX, double vY, double vZ) {
         super(world);
-        this.setSize(1.0F, 1.0F);
+        this.setSize(1.5F, 0.5F);
         this.moveTo(owner.x, owner.y, owner.z, owner.yRot, owner.xRot);
         this.setPos(this.x, this.y, this.z);
         this.owner = owner;
         this.heightOffset = 0.0F;
-        vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
-        vY += this.random.nextGaussian() * 0.4;
-        vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.8;
+        vX += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.4;
+        vY += this.random.nextGaussian() * 0.2;
+        vZ += (this.random.nextGaussian() - this.random.nextGaussian()) * 0.4;
         this.setVelocity(vX, vY, vZ);
     }
 
@@ -61,17 +60,24 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
 
     }
 
+    @Override
     public void initProjectile() {
         this.damage = 0;
         this.defaultGravity = 0.0F;
         this.defaultProjectileSpeed = 1.0F;
     }
 
+    @Override
+    public boolean collidesWith(Entity entity) {
+        return !(entity instanceof MobZephyr);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         ++this.ticksInAir;
         if (ticksInAir > 500) {
-            remove();
+            this.remove();
         }
 
         if (this.isInWater()) {
@@ -82,23 +88,23 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
         }
     }
 
+    @Override
     public void onHit(HitResult result) {
-        if (this.tickCount > 5) {
-            if (!this.world.isClientSide) {
-                if (result.entity != null) {
-                    if (!(result.entity instanceof Projectile)) {
-                        MobUtil.knockback(result.entity, this, 4.0f, 0.0f);
-                    }
-                }
-            }
+        if (result.entity instanceof MobZephyr) {
+            return;
+        }
+        if (this.world != null && !this.world.isClientSide && result.entity != null && !(result.entity instanceof Projectile)) {
+            MobUtil.knockback(result.entity, this, 4.0f, 0.0f);
+            this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
         }
         this.remove();
     }
 
+    @Override
     public void remove() {
-        this.world.playSoundAtEntity(null, this, "aether:mob.zephyr.shoot", 0.3F, 2.0F);
+        if (this.world == null) return;
         for (int l = 0; l < 8; ++l) {
-            double angle = Math.toRadians(l * 45);
+            double angle = Math.toRadians(l * 45.0);
             ParticleMaker.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "snowshovel", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, 0);
             ParticleMaker.spawnParticle(world, "item", this.x, this.y + 0.5, this.z, -Math.cos(angle) / 15.0, 0.03, -Math.sin(angle) / 15.0, AetherItems.AMMO_WINDBALL.id);
@@ -106,25 +112,30 @@ public class ProjectileWindball extends Projectile implements ProjectileAether, 
         this.removed = true;
     }
 
+    @Override
     public boolean isPickable() {
         return true;
     }
 
+    @Override
     public float getPickRadius() {
         return 1.0F;
     }
 
+    @Override
     public boolean hurt(Entity entity, int i, DamageType type) {
         return false;
     }
 
+    @Override
     public void lerpMotion(double xd, double yd, double zd) {
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
     }
 
-    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner, @Nullable CompoundTag compoundTag) {
+    @SuppressWarnings("unused")
+    public static Entity getEntity(World world, double x, double y, double z, int meta, boolean hasVelocity, double xd, double yd, double zd, Entity owner) {
         ProjectileWindball windBall = new ProjectileWindball(world, x, y, z, xd, yd, zd);
         if (hasVelocity) windBall.setHeading(xd, yd, zd, 1, 0);
         if (owner instanceof Mob) windBall.owner = (Mob) owner;

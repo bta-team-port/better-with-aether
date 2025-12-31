@@ -2,48 +2,68 @@ package teamport.aether.entity.animal.phow;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.core.util.helper.MathHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.useless.dragonfly.models.entity.BoneTransform;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
+import teamport.aether.entity.animal.MobRendererQuadruped;
 
 @Environment(EnvType.CLIENT)
-public class MobRendererPhow extends MobRenderer<MobPhow> {
-    public MobRendererPhow(ModelBase modelbase, float shadowSize) {
-        super(modelbase, shadowSize);
-        this.setArmorModel(modelbase);
+public class MobRendererPhow extends MobRendererQuadruped<MobPhow> {
+    public MobRendererPhow(float shadowSize) {
+        super(shadowSize);
     }
 
-    public float limbSway(MobPhow cow, float partialTick) {
-        float wingFold = MathHelper.lerp(cow.wingFoldO, cow.wingFold, partialTick);
-        float wingAngle = MathHelper.lerp(cow.wingAngleO, cow.wingAngle, partialTick);
+    @Override
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobPhow entity, float brightness, float partialTick, int layer) {
+        StaticEntityModel model;
+        if (layer == 1) {
+            this.bindTexture("/assets/aether/textures/entity/phow/saddle.png");
+            model = this.getModel("saddle");
+        } else {
+            model = this.getModel("main");
+        }
+
+        model.resetBones();
+        BoneTransform head = model.getTransform("head");
+        BoneTransform leg0 = model.getTransform("leg0");
+        BoneTransform leg1 = model.getTransform("leg1");
+        BoneTransform leg2 = model.getTransform("leg2");
+        BoneTransform leg3 = model.getTransform("leg3");
+        BoneTransform wingLeftInner = model.getTransform("wingLeftInner");
+        BoneTransform wingLeftOuter = model.getTransform("wingLeftOuter");
+        BoneTransform wingRightInner = model.getTransform("wingRightInner");
+        BoneTransform wingRightOuter = model.getTransform("wingRightOuter");
+        float bodyYaw = this.getBodyYaw(entity, partialTick);
+        float headYaw = this.getHeadYaw(entity, partialTick) - bodyYaw;
+        float headPitch = this.getHeadPitch(entity, partialTick);
+        float limbSwing = this.getLimbSwing(entity, partialTick);
+        float limbYaw = this.getLimbYaw(entity, partialTick);
+        head.rotX = headPitch;
+        head.rotY = headYaw;
+        leg0.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw);
+        leg1.rotX = (MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw);
+        leg2.rotX = (MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbYaw);
+        leg3.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbYaw);
+
+        float wingFold = MathHelper.lerp(entity.getWingFoldO(), entity.getWingFold(), partialTick);
+        float wingAngle = MathHelper.lerp(entity.getWingAngleO(), entity.getWingAngle(), partialTick);
 
         float wingBend = -((float) Math.acos(wingFold));
-        float x = 32.0F * wingFold / 4.0F;
-        float y = -32.0F * (float) Math.sqrt(1.0F - wingFold * wingFold) / 4.0F;
-        float z = 0.0F;
-        float x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
-        float y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
-        ModelPhow.leftWingInner.setRotationPoint(4.0F + x2, y2 + 6.0F, z);
-        ModelPhow.rightWingInner.setRotationPoint(-4.0F - x2, y2 + 6.0F, z);
-        x *= 3.0F;
-        x2 = x * (float) Math.cos(wingAngle) - y * (float) Math.sin(wingAngle);
-        y2 = x * (float) Math.sin(wingAngle) + y * (float) Math.cos(wingAngle);
+        float baseRot = (float) Math.toRadians(90);
 
-        ModelPhow.leftWingOuter.setRotationPoint(4.0F + x2, y2 + 6.0F, z);
-        ModelPhow.rightWingOuter.setRotationPoint(-4.0F - x2, y2 + 6.0F, z);
-        ModelPhow.leftWingInner.zRot = wingAngle + wingBend + 1.5707964F;
-        ModelPhow.leftWingOuter.zRot = wingAngle - wingBend + 1.5707964F;
-        ModelPhow.rightWingInner.zRot = -(wingAngle + wingBend - 1.5707964F);
-        ModelPhow.rightWingOuter.zRot = -(wingAngle - wingBend + 1.5707964F);
-        return wingBend;
+        wingLeftInner.rotZ = wingAngle + wingBend + baseRot;
+        wingRightInner.rotZ = -(wingAngle + wingBend) - baseRot;
+
+        wingLeftOuter.rotZ = -2.0F * wingBend;
+        wingRightOuter.rotZ = 2.0F * wingBend;
+
+        return model;
     }
 
-    public boolean renderSaddledPhow(MobPhow entity, int i, float f) {
-        this.bindTexture("/assets/aether/textures/entity/phow/phow_saddle.png");
-        return i == 0 && entity != null && entity.getSaddled();
-    }
-
-    public boolean prepareArmor(MobPhow entity, int renderPass, float partialTick) {
-        return this.renderSaddledPhow(entity, renderPass, partialTick);
+    @Override
+    protected int maxRenderLayer(@NonNull MobPhow entity) {
+        return entity.getSaddled() ? 1 : 0;
     }
 }

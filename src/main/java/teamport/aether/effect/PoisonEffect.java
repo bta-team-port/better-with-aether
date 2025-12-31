@@ -13,10 +13,10 @@ import teamport.aether.helper.ParticleMaker;
 import java.util.List;
 import java.util.Random;
 
-public class PoisonEffect extends Effect {
+public class PoisonEffect extends AetherEffect {
     public final Random random = new Random();
-    public double rotD;
-    public double motD;
+    private double rotD;
+    private double motD;
 
     public PoisonEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
         super(nameKey, id, modifiers, effectTimeType, maxStack);
@@ -36,10 +36,9 @@ public class PoisonEffect extends Effect {
     @Override
     public <T> void expired(EffectStack effectStack, EffectContainer<T> effectContainer) {
         effectContainer.remove(AetherEffects.poisonEffect);
-        EffectStack newStack = new EffectStack((IHasEffects) effectContainer.getParent(), AetherEffects.poisonEffect, effectStack.getAmount() - 1);
+        EffectStack newStack = new EffectStack((IHasEffects<?>) effectContainer.getParent(), AetherEffects.poisonEffect, effectStack.getAmount() - 1);
         newStack.start(effectContainer);
         effectContainer.add(newStack);
-        assert effectContainer.getParent() instanceof Mob;
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
@@ -63,11 +62,6 @@ public class PoisonEffect extends Effect {
         slideEntity(mob);
     }
 
-    @Override
-    public boolean canApplyTo(Entity target) {
-        return target instanceof Mob && super.canApplyTo(target);
-    }
-
     private void slideEntity(Mob mob) {
         double gauss = this.random.nextGaussian();
         double newMotD = 0.1 * gauss;
@@ -76,8 +70,8 @@ public class PoisonEffect extends Effect {
         mob.zd += motD;
         double newRotD = 0.7853981633974483 * gauss;
         rotD = 0.125 * newRotD + (1.0 - 0.125) * rotD;
-        mob.yRot = (float) ((double) mob.yRot + rotD);
-        mob.xRot = (float) ((double) mob.xRot + rotD);
+        mob.yRot = (float) (mob.yRot + rotD);
+        mob.xRot = (float) (mob.xRot + rotD);
     }
 
     @Override

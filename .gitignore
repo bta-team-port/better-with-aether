@@ -1,6 +1,9 @@
 .gradle/
 .idea/
+.vscode/
+bin/
 build/
 out/
 run/
 run-server/
+.PVS-Studio

@@ -14,8 +14,8 @@ public class RecipeEntryIncubator extends RecipeEntryBase<RecipeSymbol, RecipeEn
         super(input, output, time);
     }
 
-    public RecipeEntryIncubator() {
-    }
+    @SuppressWarnings("unused")
+    public RecipeEntryIncubator() {}
 
     public boolean matchesQueryIgnoreExceptions(SearchQuery query) {
         try {

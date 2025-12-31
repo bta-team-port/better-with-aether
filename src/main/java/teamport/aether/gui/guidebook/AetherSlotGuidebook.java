@@ -9,23 +9,23 @@ import java.util.List;
 import java.util.Random;
 
 public class AetherSlotGuidebook extends SlotGuidebook {
+    private Random random = null;
     public AetherSlotGuidebook(int id, int x, int y, RecipeSymbol symbol, boolean discovered, RecipeEntryBase<?, ?, ?> recipe) {
         super(id, x, y, symbol, discovered, recipe);
     }
 
     @Override
     public void showRandomItem() {
+        if (random == null) random = new Random();
         if (this.symbol != null) {
-            Random r = new Random();
             List<ItemStack> list = this.symbol.resolve();
-            ItemStack newItem = list.get(r.nextInt(list.size()));
+            ItemStack newItem = list.get(random.nextInt(list.size()));
             if (list.size() > 1) {
                 while (newItem == this.item) {
-                    newItem = list.get(r.nextInt(list.size()));
+                    newItem = list.get(random.nextInt(list.size()));
                 }
             }
             this.item = newItem;
         }
     }
 }
-

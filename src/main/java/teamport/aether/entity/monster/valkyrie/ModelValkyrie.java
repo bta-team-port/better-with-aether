@@ -9,26 +9,22 @@ import net.minecraft.core.util.helper.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class ModelValkyrie extends ModelBiped {
-    public Cube bipedBody2;
-    public Cube bipedRightArm2;
-    public Cube bipedLeftArm2;
-    public Cube wingLeft;
-    public Cube wingRight;
-    public Cube[] skirt;
-    public Cube[] strand;
-    public Cube halo;
-    public float sinage;
-    public boolean gonRound;
+    private final Cube bipedBody2;
+    private final Cube bipedRightArm2;
+    private final Cube bipedLeftArm2;
+    private final Cube wingLeft;
+    private final Cube wingRight;
+    private final Cube[] skirt;
+    private final Cube[] strand;
+    private final Cube halo;
+
+    public float wingSpeed;
 
     public ModelValkyrie() {
         this(0.0F);
     }
 
     public ModelValkyrie(float expandAmount) {
-        this.Cubes(0.0F);
-    }
-
-    public void Cubes(float expandAmount) {
         this.holdingLeftHand = false;
         this.holdingRightHand = false;
         this.sneaking = false;
@@ -163,6 +159,7 @@ public class ModelValkyrie extends ModelBiped {
         this.halo.setRotationPoint(0.0F, 0.0F, 0.0F);
     }
 
+    @Override
     public void render(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
         this.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
         this.head.render(scale);
@@ -187,16 +184,14 @@ public class ModelValkyrie extends ModelBiped {
             this.strand[i].render(scale);
         }
 
-        {
-            if (LightmapHelper.isLightmapEnabled()) {
-                LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
-            }
-
-            this.halo.render(scale);
+        if (LightmapHelper.isLightmapEnabled()) {
+            LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
         }
 
+        this.halo.render(scale);
     }
 
+    @Override
     public void setupAnimation(float limbSwing, float limbyRot, float limbxRot, float headyRot, float headxRot, float scale) {
         super.setupAnimation(limbSwing, limbyRot, limbxRot, headyRot, headxRot, scale);
         this.head.yRot = headyRot / 57.29578F;
@@ -238,8 +233,7 @@ public class ModelValkyrie extends ModelBiped {
             var10000.yRot += this.body.yRot;
             var10000 = this.armLeft;
             var10000.yRot += this.body.yRot;
-            var10000 = this.armLeft;
-            var10000.xRot += this.body.yRot;
+            var10000.xRot += this.body.xRot;
             f6 = 1.0F - this.onGround;
             f6 *= f6;
             f6 *= f6;
@@ -247,8 +241,7 @@ public class ModelValkyrie extends ModelBiped {
             float f7 = MathHelper.sin(f6 * 3.141593F);
             float f8 = MathHelper.sin(this.onGround * 3.141593F) * -(this.head.xRot - 0.7F) * 0.75F;
             var10000 = this.armRight;
-            var10000.xRot = (float) ((double) var10000.xRot - ((double) f7 * 1.2 + (double) f8));
-            var10000 = this.armRight;
+            var10000.xRot = (float) (var10000.xRot - (f7 * 1.2 + f8));
             var10000.yRot += this.body.yRot * 2.0F;
             this.armRight.zRot = MathHelper.sin(this.onGround * 3.141593F) * -0.4F;
         }
@@ -272,13 +265,13 @@ public class ModelValkyrie extends ModelBiped {
         this.wingLeft.zRot = -0.125F;
         this.wingRight.zRot = 0.125F;
         var10000 = this.wingLeft;
-        var10000.yRot = (float) ((double) var10000.yRot + Math.sin(this.sinage) / 6.0);
+        var10000.yRot = (float) (var10000.yRot + Math.sin(this.wingSpeed) / 6.0);
         var10000 = this.wingRight;
-        var10000.yRot = (float) ((double) var10000.yRot - Math.sin(this.sinage) / 6.0);
+        var10000.yRot = (float) (var10000.yRot - Math.sin(this.wingSpeed) / 6.0);
         var10000 = this.wingLeft;
-        var10000.zRot = (float) ((double) var10000.zRot + Math.cos(this.sinage) / (double) (this.gonRound ? 8.0F : 3.0F));
+        var10000.zRot = (float) (var10000.zRot + Math.cos(this.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
         var10000 = this.wingRight;
-        var10000.zRot = (float) ((double) var10000.zRot - Math.cos(this.sinage) / (double) (this.gonRound ? 8.0F : 3.0F));
+        var10000.zRot = (float) (var10000.zRot - Math.cos(this.wingSpeed) / (this.isRiding ? 8.0F : 3.0F));
         this.skirt[0].xRot = -0.2F;
         this.skirt[1].xRot = -0.2F;
         this.skirt[2].xRot = 0.2F;

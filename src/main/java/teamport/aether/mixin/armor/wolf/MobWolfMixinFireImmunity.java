@@ -1,70 +1,35 @@
 package teamport.aether.mixin.armor.wolf;
 
-import net.minecraft.core.entity.EntityLightning;
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.entity.animal.MobWolf;
-import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
-import teamport.aether.items.AetherArmorMaterial;
 
 @Mixin(value = MobWolf.class, remap = false)
 public abstract class MobWolfMixinFireImmunity extends MobAnimal {
-
-    public MobWolfMixinFireImmunity(World world) {
+    protected MobWolfMixinFireImmunity(World world) {
         super(world);
     }
-
-    @Inject(method = "lavaHurt", at = @At("HEAD"), cancellable = true)
-    public void aether$lavaImmunity(CallbackInfo ci) {
-        if (isImmuneToFire()) {
-            if (world == null) return;
-            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
-            ci.cancel();
-        }
+    @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/animal/MobWolf;fireImmune:Z")
+    @Expression("this.fireImmune")
+    @ModifyExpressionValue(method = "lavaHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean lavaImmunity(boolean original) {
+        if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
+        ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+        return true;
     }
-
-    @Inject(method = "fireHurt", at = @At("HEAD"), cancellable = true)
-    public void aether$fireImmunity(CallbackInfo ci) {
-        if (isImmuneToFire()) {
-            if (world == null) return;
-            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
-            ci.cancel();
-        }
+    @Definition(id = "fireImmune", field = "Lnet/minecraft/core/entity/animal/MobWolf;fireImmune:Z")
+    @Expression("this.fireImmune")
+    @ModifyExpressionValue(method = "fireHurt", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean fireImmunity(boolean original) {
+        if (!MixinHelper.isImmuneToFire((MobWolf) (Object) this)) return original;
+        ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
+        return true;
     }
-
-    @Override
-    public void thunderHit(EntityLightning bolt) {
-        if (isImmuneToFire()) {
-            if (world == null) return;
-            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
-            return;
-        }
-        super.thunderHit(bolt);
-    }
-
-    @Override
-    public void burn(int damage) {
-        if (isImmuneToFire()) {
-            if (world == null) return;
-            ParticleMaker.spawnSmokeParticles(world, x, y, z, bbHeight, bbWidth);
-            return;
-        }
-        super.burn(damage);
-    }
-
-    @Unique
-    public boolean isImmuneToFire() {
-        ArmorMaterial armorMaterial = ((MobWolf) (Object) this).getArmorMaterial();
-        if (armorMaterial == null) {
-            return false;
-        }
-        return armorMaterial.equals(AetherArmorMaterial.PHOENIX);
-    }
-
 }

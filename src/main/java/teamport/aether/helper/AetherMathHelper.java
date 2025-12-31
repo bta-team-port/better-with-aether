@@ -23,11 +23,4 @@ public class AetherMathHelper {
     public static double nextExponential(Random random) {
         return -Math.log(1 - random.nextDouble());
     }
-
-    public static double distanceToSqr(double x, double y, double z, double x1, double y1, double z1) {
-        double d3 = x - x1;
-        double d4 = y - y1;
-        double d5 = z - z1;
-        return d3 * d3 + d4 * d4 + d5 * d5;
-    }
 }
