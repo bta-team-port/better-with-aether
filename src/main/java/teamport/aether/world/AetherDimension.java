@@ -47,7 +47,8 @@ public class AetherDimension {
         return DIMENSION_PLACEMENT_BLACKLIST.computeIfAbsent(dimensionID, k -> new ArrayList<>());
     }
 
-    private AetherDimension(){}
+    private AetherDimension() {
+    }
 
     private static Dimension AETHER;
 
@@ -95,6 +96,7 @@ public class AetherDimension {
             aetherBlacklist.add(Blocks.SOULSCHIST.id());
             aetherBlacklist.add(Blocks.PUMPKIN_CARVED_ACTIVE.id());
             aetherBlacklist.add(Blocks.NETHERRACK.id());
+            aetherBlacklist.add(Blocks.PUMICE_DRY.id());
             aetherBlacklist.add(Blocks.COBBLE_NETHERRACK.id());
             aetherBlacklist.add(Blocks.STAIRS_COBBLE_NETHERRACK.id());
             aetherBlacklist.add(Blocks.SLAB_COBBLE_NETHERRACK.id());
@@ -250,7 +252,7 @@ public class AetherDimension {
 
         HAS_RECEIVED_PARACHUTE_MAP.clear();
         CompoundTag canReceiveParachuteCompound = aetherWorldData.getCompound(AetherMod.MOD_ID + ".canReceiveParachute");
-        canReceiveParachuteCompound.getValues().forEach( it -> HAS_RECEIVED_PARACHUTE_MAP.put(UUID.fromString(it.getTagName()), ((Byte) it.getValue()) > 0 ));
+        canReceiveParachuteCompound.getValues().forEach(it -> HAS_RECEIVED_PARACHUTE_MAP.put(UUID.fromString(it.getTagName()), ((Byte) it.getValue()) > 0));
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
