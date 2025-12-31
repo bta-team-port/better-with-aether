@@ -35,6 +35,9 @@ public abstract class PlayerMixinDevDrops {
             case AetherGlobals.UUID_SMUSHYTACO: // SmushyTaco
                 player.dropPlayerItemWithRandomChoice(new ItemStack(AetherItems.AMMO_HAMMER_HEAD, 1), true);
                 break;
+            case AetherGlobals.UUID_RIN: // Rin
+                player.dropPlayerItemWithRandomChoice(new ItemStack(Items.FOOD_FISH_COOKED, 1), true);
+                break;
             default:
                 break;
         }

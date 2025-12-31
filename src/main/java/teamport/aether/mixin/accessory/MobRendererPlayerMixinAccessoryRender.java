@@ -39,6 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.GLManager;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.item.accessory.ItemGloves;
@@ -225,7 +226,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 return true;
             }
             if ((item instanceof ItemRepulsionShield && (layer == TRINKET_2_SLOT || entity.inventory.armorInventory[TRINKET_2_SLOT] == null)) || this.shield6) {
-                this.shield6 = false;
+                if((entity.inventory.armorInventory[TRINKET_2_SLOT] == null) || entity.inventory.armorInventory[TRINKET_2_SLOT].getItem().hasTag(AetherItemTags.TRINKET)){
+                    this.shield6 = false;
+                }
                 String path;
                 if (((AetherRepulsion) entity).aether$isRepulse()) {
                     path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
