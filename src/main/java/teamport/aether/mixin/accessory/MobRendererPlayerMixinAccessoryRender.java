@@ -25,6 +25,7 @@ import net.minecraft.client.render.tessellator.Tessellator;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.player.gamemode.Gamemode;
 import org.jspecify.annotations.NonNull;
 import org.lwjgl.opengl.GL11;
@@ -39,6 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.GLManager;
+import teamport.aether.helper.MixinHelper;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.item.accessory.ItemGloves;
@@ -80,36 +82,50 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
     @Inject(method = "drawFirstPersonHand", at = @At("TAIL"))
     private void callDrawFirstPersonHandAfter(@NonNull Player player, boolean isLeft, CallbackInfo ci) {
-        ItemStack itemStack = player.inventory.armorInventory[GLOVES_SLOT];
-        if (itemStack != null && itemStack.getItem() instanceof ItemGloves) {
-            Item item = itemStack.getItem();
-            String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name());
-            if (renderDispatcher.textureManager == null) return;
-            renderDispatcher.textureManager.loadTexture(path).bind();
+        ItemStack held = player.inventory.getCurrentItem();
 
-            TextureManager textureManager = renderDispatcher.textureManager;
-            if (textureManager == null) return;
-
-            int currentTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
-
-            textureManager.loadTexture(path).bind();
-
-            GL11.glDisable(GL11.GL_CULL_FACE);
-
-            modelArmorChestplate.onGround = 0.0F;
-            modelArmorChestplate.isRiding = false;
-            modelArmorChestplate.setupAnimation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
-
-            if (isLeft) {
-                modelArmorChestplate.armLeft.visible = true;
-                modelArmorChestplate.armLeft.render(0.0625F);
-            } else {
-                modelArmorChestplate.armRight.visible = true;
-                modelArmorChestplate.armRight.render(0.0625F);
-            }
-
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture);
+        if ((held == null || !held.getItem().equals(Items.MAP)) && isLeft) {
+            return;
         }
+
+        ItemStack glovesStack = player.inventory.armorInventory[GLOVES_SLOT];
+        if (glovesStack == null || !(glovesStack.getItem() instanceof ItemGloves)) {
+            return;
+        }
+
+        Item item = glovesStack.getItem();
+        String path = String.format("/assets/%s/textures/armor/gloves/%s_gloves.png", item.namespaceID.namespace(), ((IAccessory) item).name()
+        );
+
+        TextureManager textureManager = this.renderDispatcher.textureManager;
+        if (textureManager == null) {
+            return;
+        }
+
+        int previousTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+
+        textureManager.loadTexture(path).bind();
+
+        GL11.glDisable(GL11.GL_CULL_FACE);
+
+        modelArmorChestplate.onGround = 0.0F;
+        modelArmorChestplate.isRiding = false;
+        modelArmorChestplate.sneaking = false;
+
+        modelArmorChestplate.armLeft.visible = false;
+        modelArmorChestplate.armRight.visible = false;
+
+        modelArmorChestplate.setupAnimation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+
+        if (isLeft) {
+            modelArmorChestplate.armLeft.visible = true;
+            modelArmorChestplate.armLeft.render(0.0625F);
+        } else {
+            modelArmorChestplate.armRight.visible = true;
+            modelArmorChestplate.armRight.render(0.0625F);
+        }
+
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, previousTexture);
     }
 
     @Definition(id = "spectator", field = "Lnet/minecraft/core/player/gamemode/Gamemode;spectator:Lnet/minecraft/core/player/gamemode/Gamemode;")
@@ -185,11 +201,10 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
             GL11.glPushMatrix();
             GL11.glColor4f(1F, 1F, 1F, 1F);
-            GL11.glScalef(0.80F,0.80F,0.80F);
+            GL11.glScalef(0.80F, 0.80F, 0.80F);
             if (hasHelmet) {
                 GL11.glTranslatef(0, 0.1875F, 0);
-            }
-            else {
+            } else {
                 GL11.glTranslatef(0, 0.0625F, 0);
             }
             EntityRenderDispatcher.instance.renderEntityWithPosYaw(tessellator, bunny, x, y + 0.25F, z, yaw, partialTick);
@@ -210,7 +225,35 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         modelAccessories.onGround = shield.onGround = modelFeather.onGround = modelBubble.onGround = modelHeart.onGround = modelArmor.onGround = modelArmorChestplate.onGround = swingProgress;
 
         ItemStack armorStack = entity.inventory.armorInventory[layer];
-        if (armorStack != null && armorStack.getItem() instanceof IAccessory && layer >= GLOVES_SLOT) {
+        if (armorStack == null) {
+            return false;
+        }
+        Item stackItem = armorStack.getItem();
+
+        String textureKey = MixinHelper.TRINKET_TEXTURES.get(stackItem);
+        if (textureKey != null) {
+            if (layer != TRINKET_1_SLOT && layer != TRINKET_2_SLOT) {
+                return false;
+            }
+
+            boolean leftSlot = (layer == TRINKET_1_SLOT);
+
+            String path = "/assets/aether/textures/armor/trinkets/" + textureKey + ".png";
+
+            modelAccessories.head.visible = false;
+            modelAccessories.body.visible = false;
+            modelAccessories.armLeft.visible = false;
+            modelAccessories.armRight.visible = false;
+
+            modelAccessories.legLeft.visible  = leftSlot;
+            modelAccessories.legRight.visible = !leftSlot;
+
+            renderDispatcher.textureManager.loadTexture(path).bind();
+            setArmorModel(modelAccessories);
+            return true;
+        }
+
+        if (armorStack.getItem() instanceof IAccessory && layer >= GLOVES_SLOT) {
             Item item = armorStack.getItem();
 
             if (item instanceof ItemGloves) {
@@ -244,7 +287,6 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                 }
                 setArmorModel(shield);
-
                 return true;
             }
 
@@ -264,7 +306,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
                 if (layer == TRINKET_1_SLOT) {
                     path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_helmet.png";
-                    setUPFeatherOnHelmet();
+                    setUpFeatherOnHelmet();
                 } else {
                     path = "/assets/aether/textures/armor/trinkets/feather_gold_trinket_boots.png";
                     setUpFeathersOnBoots();
@@ -328,12 +370,11 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 }
             }
         }
-
         return false;
     }
 
     @Unique
-    private void setUPFeatherOnHelmet() {
+    private void setUpFeatherOnHelmet() {
         modelFeather.head.visible = true;
         modelFeather.legLeft.visible = false;
         modelFeather.legRight.visible = false;

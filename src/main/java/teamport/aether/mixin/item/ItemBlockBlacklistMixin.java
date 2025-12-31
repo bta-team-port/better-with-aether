@@ -19,6 +19,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
@@ -31,7 +32,9 @@ import java.util.List;
 @Mixin(value = ItemBlock.class, remap = false)
 public abstract class ItemBlockBlacklistMixin {
 
+    @Unique
     private static final int BANNED_BLOCK = -1;
+    @Unique
     private static final int REPLACED_BLOCK = -2;
 
     @Shadow
@@ -55,7 +58,7 @@ public abstract class ItemBlockBlacklistMixin {
             // This is a hack.
             // if we want to expand it later better make a proper interface for it,
             // blocks that should be banned up to until the sun spirit dies and then be replaced on placement.
-            if (block == Blocks.COBBLE_NETHERRACK_IGNEOUS && !SunSpiritDeath.isDead()) replacementId.set(REPLACED_BLOCK);
+            if (block == Blocks.COBBLE_NETHERRACK_IGNEOUS || block == Blocks.PUMICE_WET && !SunSpiritDeath.isDead()) replacementId.set(REPLACED_BLOCK);
             else replacementId.set(MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), REPLACED_BLOCK));
         }
 
