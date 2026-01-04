@@ -70,6 +70,11 @@ public class MobBossValkyrie extends MobBoss {
     }
 
     @Override
+    public boolean collidesWith(Entity entity) {
+        return this.isAgro;
+    }
+
+    @Override
     public void tick() {
         if (this.world == null) {
             return;
@@ -219,8 +224,9 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public Entity findPlayerToAttack() {
-        if (!this.isReadyToDuel || !this.isAgro || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn())
+        if (!this.isReadyToDuel || !this.isAgro || this.world == null || !this.world.getDifficulty().canHostileMobsSpawn()) {
             return null;
+        }
 
         Entity newTarget = this.world.players.stream()
             .filter(Objects::nonNull)
@@ -393,7 +399,7 @@ public class MobBossValkyrie extends MobBoss {
 
     @Override
     public boolean canFight() {
-        return isAlive() && isReadyToDuel;
+        return isAlive() && this.isReadyToDuel && this.world.getDifficulty().canHostileMobsSpawn();
     }
 
     @Override
