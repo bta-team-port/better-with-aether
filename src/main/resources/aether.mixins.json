@@ -144,7 +144,6 @@
     "gui.screens.PlayerLocalMixinAetherScreens",
     "gui.screens.PortalLoadingScreenMixin",
     "gui.screens.ResourceDownloadToastMixin",
-    "gui.screens.ScreenContainerAbstractAccessor",
     "gui.screens.ScreenInventoryFixProtectionOverlayMixin",
     "gui.screens.ScreenMainMenuMixin",
     "gui.screens.UNWarnMixin",
