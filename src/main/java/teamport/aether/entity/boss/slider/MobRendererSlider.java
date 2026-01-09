@@ -2,6 +2,7 @@ package teamport.aether.entity.boss.slider;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.entity.MobRenderer;
 import net.minecraft.client.render.model.ModelBase;
 import net.minecraft.client.render.tessellator.Tessellator;
@@ -26,10 +27,8 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
     }
 
     public boolean setEyeBrightness(MobBossSlider slider, int renderPass) {
-        if (renderPass != 0) {
-            return false;
-        } else {
-            if (slider.isAwake() && !slider.doingSlam() && slider.wakeUpTimer <= 0) {
+        if (renderPass == 0) {
+            if (slider.isAwake() && !slider.doingSlam()) {
                 if (slider.isAngry()) {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_awake_red_glow.png");
                 } else {
@@ -42,13 +41,17 @@ public class MobRendererSlider extends MobRenderer<MobBossSlider> {
                     this.bindTexture("/assets/aether/textures/entity/boss_slider/slider_sleep_glow.png");
                 }
             }
+            if (LightmapHelper.isLightmapEnabled()) {
+                LightmapHelper.setLightmapCoord(LightmapHelper.getLightmapCoord(15, 15));
+            }
 
-            float f1 = (1.0F - slider.getBrightness(1.0F)) * 0.5F;
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glDisable(GL11.GL_ALPHA_TEST);
+            GL11.glEnable(3042);
+            GL11.glDisable(3008);
             GL11.glBlendFunc(770, 771);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, f1);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             return true;
+        } else {
+            return false;
         }
     }
 
