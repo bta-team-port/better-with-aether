@@ -74,13 +74,14 @@
     "dimension.SaveHandlerMixin",
     "dimension.WorldTypeGroupsMixin",
     "dimension.bump_to_overworld.EntityBumpToOverworldMixin",
+    "entity.EntityItemMixinImmunities",
     "entity.EntityLightningBoltMixin",
     "entity.EntityMixin",
+    "entity.LightningBoltSoundMixin",
     "entity.MobCowMilkMixin",
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "entity.SpawnMobMixinZephyr",
-    "entity.EntityItemMixinImmunities",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
@@ -158,8 +159,6 @@
     "player.PlayerRespawnExtraHealthMixin"
   ],
   "server": [
-    "net.MinecraftServerMixinExcludeAether",
-    "net.PlayerServerMixinExcludeAether",
     "accessory.PlayerServerMixinAccessoryServer",
     "dimension.bump_to_overworld.MPBumpToOverworldMixin",
     "dimension.bump_to_overworld.MPWorldMixin",
@@ -168,7 +167,9 @@
     "item.PacketHandlerServerValkToolsReachMixin",
     "item.PlayerListMixinRespawnWithExtraHealth",
     "net.AerBunnyFlyingMixin",
+    "net.MinecraftServerMixinExcludeAether",
     "net.PlayerLoginMixin",
+    "net.PlayerServerMixinExcludeAether",
     "player.PlayerServerAddDartsMixin"
   ],
   "injectors": {

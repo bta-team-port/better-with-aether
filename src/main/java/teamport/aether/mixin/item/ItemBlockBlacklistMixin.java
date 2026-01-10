@@ -60,6 +60,7 @@ public abstract class ItemBlockBlacklistMixin {
             // blocks that should be banned up to until the sun spirit dies and then be replaced on placement.
             if (block == Blocks.COBBLE_NETHERRACK_IGNEOUS || block == Blocks.PUMICE_WET && !SunSpiritDeath.isDead()) replacementId.set(REPLACED_BLOCK);
             else replacementId.set(MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), REPLACED_BLOCK));
+            player.swingItem();
         }
 
         else replacementId.set(BANNED_BLOCK);

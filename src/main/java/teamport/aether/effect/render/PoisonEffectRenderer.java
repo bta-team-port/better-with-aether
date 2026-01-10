@@ -22,7 +22,7 @@ public class PoisonEffectRenderer<T extends Effect> extends TintEffectRender<T> 
         float currentAmount = (float) effectStack.getDuration() * (effectStack.getAmount() - 1);
         float totalTime = (float) effectStack.getDuration() * effectStack.getEffect().getMaxStack();
         float percent = (currentAmount + effectStack.getTimeLeft()) / totalTime;
-        return 0.35F + percent / 3.0F;
+        return 0.35F + percent / 2.0F;
     }
 
 

@@ -1034,8 +1034,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_STONE_TRAPPED_LOCKED = dungeonStoneLocked
             .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.stone.trapped.locked", "carved_stone_trapped_locked", blockID("CARVED_STONE_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE_TRAPPED, MobSentry.class, 30 * Global.TICKS_PER_SECOND)
-            ).withDisabledStats();
+                b -> new BlockLogicTrapped(b, CARVED_STONE, CARVED_STONE_TRAPPED, MobSentry.class, 30 * Global.TICKS_PER_SECOND))
+            .withDisabledStats();
 
         CARVED_ANGELIC_TRAPPED = stone
             .setHardness(1.5F)
@@ -1048,21 +1048,21 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         CARVED_ANGELIC_TRAPPED_LOCKED = dungeonStoneLocked
             .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.angelic.trapped.locked", "carved_angelic_trapped_locked", blockID("CARVED_ANGELIC_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC_TRAPPED, MobValkyrie.class, 40 * Global.TICKS_PER_SECOND)
-            ).withDisabledStats();
+                b -> new BlockLogicTrapped(b, CARVED_ANGELIC, CARVED_ANGELIC_TRAPPED, MobValkyrie.class, 40 * Global.TICKS_PER_SECOND))
+            .withDisabledStats();
 
-        CARVED_HELLFIRE_TRAPPED = stone
+        CARVED_HELLFIRE_TRAPPED = hellfire
             .setHardness(1.5F)
-            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
             .build("carved.hellfire.trapped", "carved_hellfire_trapped", blockID("CARVED_HELLFIRE_TRAPPED"),
                 b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE, MobFireMinion.class, 30 * Global.TICKS_PER_SECOND))
             .withDisabledStats();
 
         CARVED_HELLFIRE_TRAPPED_LOCKED = dungeonStoneLocked
-            .addTags(BlockTags.NOT_IN_CREATIVE_MENU)
+            .addTags(BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.INFINITE_BURN)
             .build("carved.hellfire.trapped.locked", "carved_hellfire_trapped_locked", blockID("CARVED_HELLFIRE_TRAPPED_LOCKED"),
-                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE_TRAPPED, MobFireMinion.class, 30 * Global.TICKS_PER_SECOND)
-            ).withDisabledStats();
+                b -> new BlockLogicTrapped(b, CARVED_HELLFIRE, CARVED_HELLFIRE_TRAPPED, MobFireMinion.class, 30 * Global.TICKS_PER_SECOND))
+            .withDisabledStats();
 
 
         BlockBuilder mimic = new BlockBuilder(MOD_ID)
@@ -1079,8 +1079,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.oak",
                 "chest_mimic_oak",
                 blockID("CHEST_MIMIC_OAK"),
-                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK_PAINTED)
-            );
+                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK_PAINTED));
+
         CHEST_MIMIC_OAK_PAINTED = mimic
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .addTags(BlockTags.MINEABLE_BY_AXE)
@@ -1088,8 +1088,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.oak.painted",
                 "chest_mimic_oak_painted",
                 blockID("CHEST_MIMIC_OAK_PAINTED"),
-                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK.id())
-            );
+                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK.id()));
 
         CHEST_MIMIC_SKYROOT = mimic
             .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
@@ -1097,8 +1096,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.skyroot",
                 "chest_mimic_skyroot",
                 blockID("CHEST_MIMIC_SKYROOT"),
-                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED)
-            );
+                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
+
         CHEST_MIMIC_SKYROOT_PAINTED = mimic
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
@@ -1106,8 +1105,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.skyroot.painted",
                 "chest_mimic_skyroot_painted",
                 blockID("CHEST_MIMIC_SKYROOT_PAINTED"),
-                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT.id()))
-        ;
+                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT.id()));
 
         BlockBuilder mimicBoss = new BlockBuilder(MOD_ID)
             .setBlockSound(BlockSounds.STONE)
@@ -1129,7 +1127,8 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setLuminance(14)
             .setVisualUpdateOnMetadata()
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-            .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"), b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
+            .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"),
+                b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
             .setStatParent(() -> AetherItems.LANTERN_FIREFLY_SILVER);
     }
 
@@ -1138,6 +1137,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         init();
         AetherDimension.init();
         PORTAL_AETHER.getLogic().targetDimension = AetherDimension.getAether();
-
     }
+
 }
