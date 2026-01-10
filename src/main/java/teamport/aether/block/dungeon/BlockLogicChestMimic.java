@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
-
     private double dx;
     private double dy;
     private double dz;
@@ -106,7 +105,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         MobMimic mimic = summonMimic(world, x, y, z);
         moveToSafe(world, mimic, x, y, z, 0, 0);
 
-        world.setBlockWithNotify((int) Math.round(dx), (int) Math.round(dy), (int) Math.round(dz), 0);
+        world.setBlockWithNotify(x, y, z, 0);
         world.playSoundEffect(null, SoundCategory.ENTITY_SOUNDS, dx, dy, dz, "random.door_open", 1.0f, 0.5f);
 
         ParticleMaker.spawnParticle(world,
@@ -139,9 +138,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             if (!EnvironmentHelper.isClientWorld()) {
                 MobMimic mimic = summonMimic(world, x, y, z);
                 moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
+                world.setBlockWithNotify(x, y, z, 0);
             }
             player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-            world.setBlockWithNotify(x, y, z, 0);
             world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
             if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
                 "explode",
