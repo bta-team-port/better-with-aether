@@ -41,6 +41,7 @@ public abstract class ItemBlockSlabBlacklistMixin<T extends BlockLogic> extends 
     @ModifyExpressionValue(method = "onUseItemOnBlock", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean banBlocksFromDimensionsTwo(boolean original, ItemStack stack, @Nullable Player player, World world, int x, int y, int z, Side side, double xPlaced, double yPlaced, @Share("replacementId") LocalIntRef replacementId) {
         replacementId.set(AetherDimension.getDimensionBlacklist(world.dimension).contains(block.id()) ? MixinHelper.BLOCK_TO_BECOME.getOrDefault(block.id(), -2) : -1);
+        player.swingItem();
         return original;
     }
 
