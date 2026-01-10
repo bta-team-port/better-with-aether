@@ -194,7 +194,7 @@ public class MobBossSlider extends MobBoss {
 
     @Override
     public String getEntityTexture() {
-        if (this.isAwake() && !this.doingSlam() && this.wakeUpTimer <= 0) {
+        if (this.isAwake() && !this.doingSlam()) {
             if (this.isAngry()) {
                 return "/assets/aether/textures/entity/boss_slider/slider_awake_red.png";
             }
