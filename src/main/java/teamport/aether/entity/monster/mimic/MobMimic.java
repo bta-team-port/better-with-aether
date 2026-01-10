@@ -36,6 +36,7 @@ import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
+import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.*;
 
@@ -247,6 +248,8 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
     }
 
     private void place() {
+        if (EnvironmentHelper.isClientWorld()) return;
+
         WorldFeaturePoint point = wfp((int) Math.round(this.x), (int) Math.round(this.y), (int) Math.round(this.z));
         Direction[] check = new Direction[]{NONE, NORTH, EAST, SOUTH, WEST, UP, DOWN};
         for (Direction dir : check) {
