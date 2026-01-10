@@ -11,8 +11,6 @@ import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.world.AetherDimension;
 
-import java.util.Objects;
-
 @Mixin(value = BlockLogicFire.class, remap = false)
 public abstract class BlockLogicFireMixin extends BlockLogic {
     protected BlockLogicFireMixin(Block<?> block, Material material) {
@@ -21,10 +19,16 @@ public abstract class BlockLogicFireMixin extends BlockLogic {
 
     @WrapMethod(method = "onBlockPlacedByWorld")
     private void onBlockPlacedByWorld(World world, int x, int y, int z, Operation<Void> original) {
-        if (world.dimension == AetherDimension.getAether() && !(Objects.requireNonNull(world.getBlock(x, y - 1, z)).hasTag(BlockTags.INFINITE_BURN))) {
-            world.setBlock(x, y, z, 0);
-            return;
+        if (world.dimension == AetherDimension.getAether()) {
+            Block<?> below = world.getBlock(x, y - 1, z);
+            boolean infiniteBurn = below != null && below.hasTag(BlockTags.INFINITE_BURN);
+
+            if (!infiniteBurn) {
+                world.setBlock(x, y, z, 0);
+                return;
+            }
         }
+
         original.call(world, x, y, z);
     }
 }
