@@ -138,9 +138,9 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
             if (!EnvironmentHelper.isClientWorld()) {
                 MobMimic mimic = summonMimic(world, x, y, z);
                 moveToSafe(world, mimic, x, y, z, player.xRot - 180, player.xRot - 180);
+                world.setBlockWithNotify(x, y, z, 0);
             }
             player.triggerAchievement(AetherAchievements.ITS_A_TRAP);
-            world.setBlockWithNotify(x, y, z, 0);
             world.playSoundEffect(player, SoundCategory.ENTITY_SOUNDS, x + 0.5, y + 0.5, z + 0.5, "random.door_open", 1.0f, 0.5f);
             if (!EnvironmentHelper.isServerEnvironment()) ParticleMaker.spawnParticle(world,
                 "explode",
