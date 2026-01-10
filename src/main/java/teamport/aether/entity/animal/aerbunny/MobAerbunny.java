@@ -61,42 +61,42 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public void trySuffocate() {
-        if (!beingRidden()) {
+        if (!this.beingRidden()) {
             super.trySuffocate();
         }
     }
 
     @Override
     public boolean collidesWithBlock(Block<?> block, int metadata) {
-        if (beingRidden()) { return false; }
+        if (this.beingRidden()) { return false; }
 
         return super.collidesWithBlock(block, metadata);
     }
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (beingRidden()) { return false; }
+        if (this.beingRidden()) { return false; }
 
         return super.collidesWith(entity);
     }
 
     @Override
     public boolean isSelectable() {
-        if (beingRidden() && !isVehicleSneaking()) { return false; }
+        if (this.beingRidden() && !this.isVehicleSneaking()) { return false; }
 
         return super.isSelectable();
     }
 
     @Override
     public boolean isPickable() {
-        if (beingRidden() && !isVehicleSneaking()) { return false; }
+        if (this.beingRidden() && !this.isVehicleSneaking()) { return false; }
 
         return super.isPickable();
     }
 
     @Override
     public boolean isPushable() {
-        if (beingRidden()) { return false; }
+        if (this.beingRidden()) { return false; }
 
         return super.isPushable();
     }
@@ -142,7 +142,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             (vehicle).yd = 0.125F;
 
             this.cloudPoop();
-            setPuffiness(1.15F);
+            this.setPuffiness(1.15F);
         }
     }
 
@@ -158,7 +158,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
             puffiness = 0.0F;
         }
 
-        setPuffiness(puffiness);
+        this.setPuffiness(puffiness);
 
         if (vehicle != null) {
             if (this.vehicle.isRemoved()) this.startRiding(this.vehicle);
@@ -172,7 +172,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
                     && this.world.getBlockId(x, y + 1, z) == 0 && this.world.getBlockId(x, y + 2, z) == 0) {
                     if (this.yd < 0.0) {
                         this.cloudPoop();
-                        setPuffiness(0.9F);
+                        this.setPuffiness(0.9F);
                     }
                     this.yd = 0.2;
                 }
@@ -263,7 +263,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker == this.vehicle) return false;
+        if (attacker != null && attacker == this.vehicle ) return false;
         return super.hurt(attacker, damage, type);
     }
 
