@@ -2,6 +2,7 @@ package teamport.aether.entity.monster.mimic;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
+import net.minecraft.client.entity.ClientSkinVariantList;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.*;
@@ -9,6 +10,7 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityDispatcher;
+import net.minecraft.core.entity.SkinVariantList;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
@@ -34,11 +37,15 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
+import teamport.aether.mixin.accessors.EntityVariantsAccessor;
+import teamport.aether.mixin.accessors.SkinVariantAccessor;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.*;
+
+import static teamport.aether.entity.monster.mimic.MimicRegistry.DEFAULT;
 
 import static net.minecraft.core.net.command.TextFormatting.RED;
 import static net.minecraft.core.net.command.TextFormatting.RESET;
@@ -65,9 +72,62 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void spawnInit() {
-        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
-        this.setBlockData(entry.mimicChestID, entry.mimicChestMetadata);
+//        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
+        MimicEntry randomEntry = MimicRegistry.getRandomEntry(this.random);
+        this.entityData.set(3, randomEntry.getMimicVariant());
+        this.setBlockData(randomEntry.mimicChestID, randomEntry.mimicChestMetadata);
     }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(3, DEFAULT.getMimicVariant(), Integer.class);
+    }
+
+    public final void setVariant(int index) {
+        MimicEntry mimicEntry = MimicRegistry.getMimicVariantByID(index);
+        this.entityData.set(3, mimicEntry.getMimicVariant());
+        this.setBlockData(mimicEntry.mimicChestID, mimicEntry.mimicChestMetadata);
+    }
+
+    @Override
+    public @NotNull String getDefaultEntityTexture() {
+        return String.format("/assets/%s/textures/entity/%s/%s/0.png", this.textureIdentifier.namespace(), DEFAULT.getPathName(), this.textureIdentifier.value());
+    }
+
+    @Override
+    public String getEntityTexture() {
+        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
+        String basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
+        return basePath + this.getTextureReference() + ".png";
+    }
+
+    @Override
+    public String getTextureReference() {
+        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
+        SkinVariantList variantList = Global.accessor.getSkinVariantList();
+        String basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
+        return variantList.getSkinReference(basePath + "variants.json", "0", this.getSkinVariant());
+    }
+
+    @Override
+    public boolean cycleVariant() {
+        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
+        SkinVariantList variantList = Global.accessor.getSkinVariantList();
+        String basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
+        ClientSkinVariantList.EntityVariants entityVariants = ((SkinVariantAccessor) variantList).invokeGetEntityVariants(basePath + "variants.json");
+        int skinVar = this.getSkinVariant();
+        if (((EntityVariantsAccessor) entityVariants).getIndexedSkins().length - 1 == this.getSkinVariant()) {
+            int nextPath = MimicRegistry.getNextValue(this.entityData.getInt(3));
+            this.setVariant(nextPath);
+            skinVar = 0;
+            entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
+            basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
+        }
+        this.setSkinVariant(variantList.nextSkinVariant(basePath + "variants.json", skinVar));
+        return MimicRegistry.getLength() > 1;
+    }
+
 
     public void setBlockData(int mimicChestID, int mimicChestMetadata) {
         this.mimicChestID = mimicChestID;
@@ -173,7 +233,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
             return damage;
         }
         int baseDamage = damage;
-        if(block.getMaterial().isFlammable()){
+        if (block.getMaterial().isFlammable()) {
             baseDamage += damage;
         }
         if (block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_AXE) && (item.getItem() instanceof ItemToolAxe || item.getItem() instanceof ItemToolAxeAether)

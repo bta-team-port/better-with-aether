@@ -4,17 +4,19 @@ import java.util.Objects;
 
 public class MimicEntry {
     int mimicVariant;
+    String pathName;
     int mimicChestID;
     int mimicChestMetadata;
     int chestID;
     int chestMetadata;
 
     public MimicEntry(
-        int mimicVariant,
+        int mimicVariant, String pathName,
         int mimicChestID, int mimicChestMetadata,
         int itemChestID, int itemChestMetadata
     ) {
         this.mimicVariant = mimicVariant;
+        this.pathName = pathName;
         this.mimicChestID = mimicChestID;
         this.mimicChestMetadata = mimicChestMetadata;
         this.chestID = itemChestID;
@@ -23,14 +25,19 @@ public class MimicEntry {
 
     public static MimicEntry mimicEntry(
         int mimicVariant,
+        String pathName,
         int mimicChestId, int mimicChestMetadata,
         int chestID, int chestMetadata
     ) {
-        return new MimicEntry(mimicVariant, mimicChestId, mimicChestMetadata, chestID, chestMetadata);
+        return new MimicEntry(mimicVariant, pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata);
     }
 
     public int getMimicVariant() {
         return mimicVariant;
+    }
+
+    public String getPathName() {
+        return pathName;
     }
 
     public int getMimicChestID() {
@@ -53,11 +60,11 @@ public class MimicEntry {
     public boolean equals(Object o) {
         if (!(o instanceof MimicEntry)) return false;
         MimicEntry that = (MimicEntry) o;
-        return mimicVariant == that.mimicVariant && mimicChestID == that.mimicChestID && mimicChestMetadata == that.mimicChestMetadata && chestID == that.chestID && chestMetadata == that.chestMetadata;
+        return mimicVariant == that.mimicVariant && pathName.equalsIgnoreCase(that.pathName) && mimicChestID == that.mimicChestID && mimicChestMetadata == that.mimicChestMetadata && chestID == that.chestID && chestMetadata == that.chestMetadata;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mimicVariant, mimicChestID, mimicChestMetadata, chestID, chestMetadata);
+        return Objects.hash(mimicVariant, pathName, mimicChestID, mimicChestMetadata, chestID, chestMetadata);
     }
 }

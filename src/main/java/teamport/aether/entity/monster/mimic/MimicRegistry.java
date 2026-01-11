@@ -7,44 +7,50 @@ import teamport.aether.block.AetherBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static teamport.aether.entity.monster.mimic.MimicEntry.mimicEntry;
 
 public class MimicRegistry {
+    ///  Static values are initialed in the order of declaration, default has to be the first value!
+    public static final MimicEntry DEFAULT = mimicEntry(0, "skyroot", AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
     public static final MimicRegistry instance = new MimicRegistry();
     @SuppressWarnings("java:S116")
     public final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
-    public static final MimicEntry DEFAULT = mimicEntry(0, AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
 
-    public static void init(){/* just to load this class*/}
+    public static void init() {/* just to load this class*/}
 
     protected MimicRegistry() {
         this.register();
     }
 
     private void register() {
-        int variantSkinID = 0;
-        addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SKYROOT, AetherBlocks.CHEST_PLANKS_SKYROOT);
-        addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_OAK, Blocks.CHEST_PLANKS_OAK);
+        int variantSkinID = 1;
+        addEntry(DEFAULT);
+        addEntry(variantSkinID++, "oak", AetherBlocks.CHEST_MIMIC_OAK, Blocks.CHEST_PLANKS_OAK);
         for (DyeColor dye : DyeColor.blockOrderedColors()) {
             int meta = dye.blockMeta << 4;
-            addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), meta, Blocks.CHEST_PLANKS_OAK_PAINTED.id(), meta);
+            addEntry(variantSkinID++, "oak_" + dye.colorID, AetherBlocks.CHEST_MIMIC_OAK_PAINTED.id(), meta, Blocks.CHEST_PLANKS_OAK_PAINTED.id(), meta);
         }
-        addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_BRONZE.id(), 0, AetherBlocks.CHEST_DUNGEON_BRONZE.id(), 0);
-        addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SILVER.id(), 0, AetherBlocks.CHEST_DUNGEON_SILVER.id(), 0);
-        addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_GOLD.id(), 0, AetherBlocks.CHEST_DUNGEON_GOLD.id(), 0);
+        addEntry(variantSkinID++, "dungeon_bronze", AetherBlocks.CHEST_MIMIC_BRONZE.id(), 0, AetherBlocks.CHEST_DUNGEON_BRONZE.id(), 0);
+        addEntry(variantSkinID++, "dungeon_silver", AetherBlocks.CHEST_MIMIC_SILVER.id(), 0, AetherBlocks.CHEST_DUNGEON_SILVER.id(), 0);
+        addEntry(variantSkinID++, "dungeon_bronze", AetherBlocks.CHEST_MIMIC_GOLD.id(), 0, AetherBlocks.CHEST_DUNGEON_GOLD.id(), 0);
         for (DyeColor dye : DyeColor.blockOrderedColors()) {
             int meta = dye.blockMeta << 4;
-            addEntry(variantSkinID++, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), meta, AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), meta);
+            addEntry(variantSkinID++, "skyroot_" + dye.colorID, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), meta, AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), meta);
         }
     }
 
-    public void addEntry(int mimicVariant, int mimicChestId, int mimicChestMetadata, int chestID, int chestMetadata) {
-        this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
+    public void addEntry(MimicEntry entry) {
+        this.MIMIC_ENTRY_LIST.add(entry);
     }
 
-    public void addEntry(int mimicVariant, Block<?> mimicChest, Block<?> chest) {
-        this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, mimicChest.id(), 0, chest.id(), 0));
+    public void addEntry(int mimicVariant, String pathName, int mimicChestId, int mimicChestMetadata, int chestID, int chestMetadata) {
+        this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
+    }
+
+    public void addEntry(int mimicVariant, String pathName, Block<?> mimicChest, Block<?> chest) {
+        this.MIMIC_ENTRY_LIST.add(mimicEntry(mimicVariant, pathName, mimicChest.id(), 0, chest.id(), 0));
     }
 
     public static MimicEntry getMimicVariantByID(int mimicVariant) {
@@ -76,5 +82,24 @@ public class MimicRegistry {
         return DEFAULT;
     }
 
+    public static MimicEntry getRandomEntry(Random random) {
+        return instance.MIMIC_ENTRY_LIST.get(random.nextInt(instance.MIMIC_ENTRY_LIST.size()));
+    }
+
+    public static int getLength() {
+        return instance.MIMIC_ENTRY_LIST.size();
+    }
+
+    public static int getPrevValue(int index) {
+        return MimicRegistry.getValue(index - 1);
+    }
+
+    public static int getNextValue(int index) {
+        return MimicRegistry.getValue(index + 1);
+    }
+
+    private static int getValue(int index) {
+        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
+    }
 
 }
