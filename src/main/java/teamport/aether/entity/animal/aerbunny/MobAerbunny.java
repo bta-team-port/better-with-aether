@@ -11,8 +11,6 @@ import net.minecraft.core.entity.monster.MobMonster;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
-import net.minecraft.core.net.packet.PacketAddEntity;
-import net.minecraft.core.net.packet.PacketRemoveEntity;
 import net.minecraft.core.net.packet.PacketSetRiding;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.util.helper.DamageType;
@@ -68,35 +66,45 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean collidesWithBlock(Block<?> block, int metadata) {
-        if (this.beingRidden()) { return false; }
+        if (this.beingRidden()) {
+            return false;
+        }
 
         return super.collidesWithBlock(block, metadata);
     }
 
     @Override
     public boolean collidesWith(Entity entity) {
-        if (this.beingRidden()) { return false; }
+        if (this.beingRidden()) {
+            return false;
+        }
 
         return super.collidesWith(entity);
     }
 
     @Override
     public boolean isSelectable() {
-        if (this.beingRidden() && !this.isVehicleSneaking()) { return false; }
+        if (this.beingRidden() && !this.isVehicleSneaking()) {
+            return false;
+        }
 
         return super.isSelectable();
     }
 
     @Override
     public boolean isPickable() {
-        if (this.beingRidden() && !this.isVehicleSneaking()) { return false; }
+        if (this.beingRidden() && !this.isVehicleSneaking()) {
+            return false;
+        }
 
         return super.isPickable();
     }
 
     @Override
     public boolean isPushable() {
-        if (this.beingRidden()) { return false; }
+        if (this.beingRidden()) {
+            return false;
+        }
 
         return super.isPushable();
     }
@@ -196,15 +204,11 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         }
 
         // Well, this is stupid. But so is this bug. :)
-        if (EnvironmentHelper.isServerEnvironment()) {
-            if (stupidBullshitCooldown-- <= 0 && this.vehicle != null) {
-                stupidBullshitCooldown = Global.TICKS_PER_SECOND * 2;
-                MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
-                    x, y, z, 32, this.world.dimension.id,
-                    new PacketSetRiding(this, (Entity) this.vehicle)
-                );
-            }
-
+        if (EnvironmentHelper.isServerEnvironment() && stupidBullshitCooldown-- <= 0 && this.vehicle != null) {
+            stupidBullshitCooldown = Global.TICKS_PER_SECOND * 2;
+            MinecraftServer.getInstance().playerList.sendPacketToPlayersAroundPoint(
+                x, y, z, 32, this.world.dimension.id,
+                new PacketSetRiding(this, (Entity) this.vehicle));
         }
 
         this.noPhysics = beingRidden();
@@ -263,7 +267,7 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker != null && attacker == this.vehicle ) return false;
+        if (attacker != null && attacker == this.vehicle) return false;
         return super.hurt(attacker, damage, type);
     }
 
