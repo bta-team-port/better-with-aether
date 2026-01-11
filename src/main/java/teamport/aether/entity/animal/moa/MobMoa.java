@@ -40,7 +40,7 @@ public abstract class MobMoa extends MobAetherAnimalRideable {
 
     @Override
     public boolean hurt(Entity attacker, int damage, DamageType type) {
-        if (attacker == this.passenger) return false;
+        if (attacker != null && attacker == this.passenger ) return false;
         return super.hurt(attacker, damage, type);
     }
 

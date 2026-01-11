@@ -28,7 +28,8 @@ public class AetherItemTags {
     }
 
     public static boolean isImmuneToType(Item item, DamageType type){
-        return item.hasTag(DAMAGE_IMMUNITIES.get(type));
+        Tag<Item> tag = DAMAGE_IMMUNITIES.get(type);
+        return tag != null && item.hasTag(tag);
     }
 
     @SafeVarargs

@@ -230,29 +230,6 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         }
         Item stackItem = armorStack.getItem();
 
-        String textureKey = MixinHelper.TRINKET_TEXTURES.get(stackItem);
-        if (textureKey != null) {
-            if (layer != TRINKET_1_SLOT && layer != TRINKET_2_SLOT) {
-                return false;
-            }
-
-            boolean leftSlot = (layer == TRINKET_1_SLOT);
-
-            String path = "/assets/aether/textures/armor/trinkets/" + textureKey + ".png";
-
-            modelAccessories.head.visible = false;
-            modelAccessories.body.visible = false;
-            modelAccessories.armLeft.visible = false;
-            modelAccessories.armRight.visible = false;
-
-            modelAccessories.legLeft.visible  = leftSlot;
-            modelAccessories.legRight.visible = !leftSlot;
-
-            renderDispatcher.textureManager.loadTexture(path).bind();
-            setArmorModel(modelAccessories);
-            return true;
-        }
-
         if (armorStack.getItem() instanceof IAccessory && layer >= GLOVES_SLOT) {
             Item item = armorStack.getItem();
 
@@ -317,6 +294,29 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 modelFeather.armRight.visible = false;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelFeather);
+                return true;
+            }
+
+            String textureKey = MixinHelper.TRINKET_TEXTURES.get(stackItem);
+            if (textureKey != null) {
+                if (layer != TRINKET_1_SLOT && layer != TRINKET_2_SLOT) {
+                    return false;
+                }
+
+                boolean leftSlot = (layer == TRINKET_1_SLOT);
+
+                String path = "/assets/aether/textures/armor/trinkets/" + textureKey + ".png";
+
+                modelAccessories.head.visible = false;
+                modelAccessories.body.visible = false;
+                modelAccessories.armLeft.visible = false;
+                modelAccessories.armRight.visible = false;
+
+                modelAccessories.legLeft.visible  = leftSlot;
+                modelAccessories.legRight.visible = !leftSlot;
+
+                renderDispatcher.textureManager.loadTexture(path).bind();
+                setArmorModel(modelAccessories);
                 return true;
             }
 
