@@ -197,7 +197,7 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         mimic.setPos(x + 0.5, y, z + 0.5);
         mimic.setLoot(chestInv);
         mimic.spawnInit();
-        mimic.setSkinVariant(variant.getMimicVariant());
+        mimic.setVariant(variant.getMimicVariant());
         mimic.setBlockData(variant.getMimicChestID(), variant.getMimicChestMetadata());
         if (tileEntity instanceof TileEntityMimic) {
             mimic.setNickname(((TileEntityMimic) tileEntity).getNickName());
