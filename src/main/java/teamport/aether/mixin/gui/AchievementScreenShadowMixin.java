@@ -26,12 +26,14 @@ public abstract class AchievementScreenShadowMixin {
     private int viewportRight;
     @Shadow
     private int viewportBottom;
+
     @Inject(method = "drawBackgroundTiles", at = @At(value = "INVOKE", target = "Ljava/lang/Math;pow(DD)D"))
-    private void ChangeShadow(double shiftX, double shiftY, CallbackInfo ci, @Local LocalFloatRef shadowScaleInitial, @Local(name = "i") int index) {
+    private void changeShadow(double shiftX, double shiftY, CallbackInfo ci, @Local LocalFloatRef shadowScaleInitial, @Local(name = "i") int index) {
         if (currentPage instanceof AetherAchievementPageExtras) {
             shadowScaleInitial.set(((AetherAchievementPageExtras) currentPage).getShadowScale(index));
         }
     }
+
     @Inject(method = "renderAchievementsPanel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/achievements/ScreenAchievements;drawRectDouble(DDDDI)V", shift = At.Shift.AFTER))
     private void drawBackground(int mouseX, int mouseY, float partialTick, CallbackInfo ci, @Local(name = "shiftX") double shiftX, @Local(name = "shiftY") double shiftY) {
         if (currentPage instanceof AetherAchievementPageExtras) {
