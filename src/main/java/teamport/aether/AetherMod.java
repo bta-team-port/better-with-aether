@@ -7,6 +7,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.item.Items;
+import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.net.entity.NetEntityHandler;
 import net.minecraft.core.sound.SoundTypes;
@@ -97,6 +98,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         AetherWorldFeatures.init();
 
         SILVER = register(new MobFireflyCluster.FireflyColor(10, "fireflySilver", new Biome[]{AetherBiomes.AETHER_PLAINS}, new float[]{0.5F, 1.0F, 0.88F}));
+        customProtectionDamages();
 
         NetEntityHandler.registerNetworkEntry(new NetEntryLightning(), 32);
         NetEntityHandler.registerNetworkEntry(new NetEntryAetherProjectile(), 35);
@@ -122,6 +124,15 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         EntityPainting.addBorder(AetherBlocks.BLOCK_GRAVITITE.getDefaultStack(), NamespaceID.getPermanent(MOD_ID, "border_gravitite"));
         AetherBlockDetails.initializeBlockDetails();
         registerNewTagForItems();
+    }
+
+    public static void customProtectionDamages() {
+        ArmorMaterial.LEATHER.withProtectionPercentage(AetherMod.HOLY, 20.0f).withProtectionPercentage(AetherMod.LIGHTNING, 120.0f);
+        ArmorMaterial.CHAINMAIL.withProtectionPercentage(AetherMod.HOLY, 35.0f).withProtectionPercentage(AetherMod.LIGHTNING, -18.0f);
+        ArmorMaterial.IRON.withProtectionPercentage(AetherMod.HOLY, 45.0f).withProtectionPercentage(AetherMod.LIGHTNING, -23.0f);
+        ArmorMaterial.GOLD.withProtectionPercentage(AetherMod.HOLY, 70.0f).withProtectionPercentage(AetherMod.LIGHTNING, -35.0f);
+        ArmorMaterial.DIAMOND.withProtectionPercentage(AetherMod.HOLY, -33.0f).withProtectionPercentage(AetherMod.LIGHTNING, 66.0f);
+        ArmorMaterial.STEEL.withProtectionPercentage(AetherMod.HOLY, 55.0f).withProtectionPercentage(AetherMod.LIGHTNING, -28.0f);
     }
 
     public static void registerNewTagForItems() {
