@@ -46,6 +46,8 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
         puff.scaleY = puffiness;
         puff.scaleZ = puffiness;
 
+        puff.posY = -5f * (puffiness -1.0F);
+
         if (!entity.onGround && entity.vehicle == null) {
             if (entity.yd > 0.5) {
                 GL11.glRotatef(15.0F, -1.0F, 0.0F, 0.0F);
