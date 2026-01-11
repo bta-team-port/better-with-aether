@@ -26,6 +26,7 @@ import teamport.aether.item.AetherItems;
 public abstract class ArmorOverlayMixin extends Gui {
     @Shadow
     protected Minecraft mc;
+
     @Inject(method = "renderGameOverlay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glDisable(I)V", ordinal = 5))
     private void renderAetherArmour(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         Player player = this.mc.thePlayer;
@@ -56,6 +57,7 @@ public abstract class ArmorOverlayMixin extends Gui {
             }
         }
     }
+
     @Inject(method = "renderGameOverlay(FZII)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;setupScaledResolution()V", shift = At.Shift.AFTER))
     private void renderGameOverlay(float partialTicks, boolean flag, int mouseX, int mouseY, CallbackInfo ci) {
         int width = this.mc.resolution.getScaledWidthScreenCoords();
@@ -67,10 +69,10 @@ public abstract class ArmorOverlayMixin extends Gui {
 
         if (this.mc.gameSettings.thirdPersonView.value == 0 &&
             ((trinketOneSlotItem != null && trinketOneSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id) ||
-                (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id))) {
-            if (this.mc.thePlayer.isSneaking() || (this.mc.thePlayer.onGround && velocity < 0.075D)) {
-                MixinHelper.renderShieldVignette(mc.textureManager, width, height);
-            }
+                (trinketTwoSlotItem != null && trinketTwoSlotItem.itemID == AetherItems.ARMOR_SHIELD_REPULSION.id)) &&
+            (this.mc.thePlayer.isSneaking() ||
+                (this.mc.thePlayer.onGround && velocity < 0.075D))) {
+            MixinHelper.renderShieldVignette(mc.textureManager, width, height);
         }
     }
 }

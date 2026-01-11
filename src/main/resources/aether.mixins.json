@@ -37,7 +37,6 @@
     "achievement.EntityItemPickupAchievementMixin",
     "achievement.HostileParadiseMixin",
     "achievement.SlotCraftingAchievementMixin",
-    "armor.ArmorMaterialMixin",
     "armor.EntityMixinIgnitionImmunity",
     "armor.player.gravitite.MobMixinJump",
     "armor.player.neptune.MobMixinSwimming",

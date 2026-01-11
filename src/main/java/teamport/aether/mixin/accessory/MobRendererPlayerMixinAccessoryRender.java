@@ -41,6 +41,7 @@ import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.GLManager;
 import teamport.aether.helper.MixinHelper;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessory;
 import teamport.aether.item.accessory.ItemGloves;
@@ -228,9 +229,8 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
         if (armorStack == null) {
             return false;
         }
-        Item stackItem = armorStack.getItem();
 
-        if (armorStack.getItem() instanceof IAccessory && layer >= GLOVES_SLOT) {
+        if ((armorStack.getItem() instanceof IAccessory || armorStack.getItem().hasTag(AetherItemTags.TRINKET)) && layer >= GLOVES_SLOT) {
             Item item = armorStack.getItem();
 
             if (item instanceof ItemGloves) {
@@ -248,9 +248,9 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 this.shield6 = false;
                 String path;
                 if (((AetherRepulsion) entity).aether$isRepulse()) {
-                    path = String.format("/assets/%s/textures/armor/energyGlow.png", item.namespaceID.namespace());
+                    path = "/assets/aether/textures/armor/energyGlow.png";
                 } else {
-                    path = String.format("/assets/%s/textures/armor/energyNotGlow.png", item.namespaceID.namespace());
+                    path = "/assets/aether/textures/armor/energyNotGlow.png";
                 }
 
                 renderDispatcher.textureManager.loadTexture(path).bind();
@@ -297,7 +297,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 return true;
             }
 
-            String textureKey = MixinHelper.TRINKET_TEXTURES.get(stackItem);
+            String textureKey = MixinHelper.TRINKET_TEXTURES.get(item);
             if (textureKey != null) {
                 if (layer != TRINKET_1_SLOT && layer != TRINKET_2_SLOT) {
                     return false;
@@ -362,8 +362,13 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                     renderDispatcher.textureManager.loadTexture(path).bind();
                     GLManager.glEnable(GL11.GL_CULL_FACE);
                     GLManager.glEnable(GL11.GL_BLEND);
-                    GL11.glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
-                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                    if (PlayerUtil.isInvisible(entity)) {
+                        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.25F);
+                        GL11.glEnable(GL11.GL_BLEND);
+                    } else {
+                        GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
+                        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+                    }
                     setArmorModel(modelBubble);
 
                     return true;

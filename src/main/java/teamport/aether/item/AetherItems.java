@@ -370,7 +370,7 @@ public final class AetherItems {
             .build(new Item("ammo.windball", itemKey("ammo_windball"), itemID("AMMO_WINDBALL")));
 
         PROJECTILE_FIRE = new ItemBuilder(MOD_ID)
-            .setTags(ItemTags.NOT_IN_CREATIVE_MENU)
+            .setTags(ItemTags.NOT_IN_CREATIVE_MENU, AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new Item("projectile.fire", itemKey("projectile_fire"), itemID("PROJECTILE_FIRE")));
 
         PROJECTILE_ICE = new ItemBuilder(MOD_ID)
@@ -493,6 +493,7 @@ public final class AetherItems {
 
 
         TOOL_BOW_PHOENIX = new ItemBuilder(MOD_ID)
+            .addTags(AetherItemTags.IMMUNE_TO_FIRE_DAMAGE)
             .build(new ItemBowPhoenix("tool.bow.phoenix", itemKey("tool_bow_phoenix"), itemID("TOOL_BOW_PHOENIX")));
 
 
