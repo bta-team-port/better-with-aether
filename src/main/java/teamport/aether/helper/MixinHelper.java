@@ -8,8 +8,6 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.animal.MobWolf;
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.item.Item;
-import net.minecraft.core.item.Items;
 import net.minecraft.core.item.material.ArmorMaterial;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.Color;
@@ -42,14 +40,6 @@ public class MixinHelper {
         BLOCK_TO_BECOME.put(Blocks.COBBLE_NETHERRACK_IGNEOUS.id(), Blocks.COBBLE_NETHERRACK.id());
         BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_FLOWING.id(), AetherBlocks.AEROGEL.id());
         BLOCK_TO_BECOME.put(Blocks.FLUID_LAVA_STILL.id(), AetherBlocks.AEROGEL.id());
-    }
-
-    public static final Map<Item, String> TRINKET_TEXTURES = new HashMap<>();
-
-    static {
-        TRINKET_TEXTURES.put(Items.TOOL_COMPASS, "compass_trinket");
-        TRINKET_TEXTURES.put(Items.TOOL_CLOCK, "clock_trinket");
-        TRINKET_TEXTURES.put(Items.TOOL_CALENDAR, "calendar_trinket");
     }
 
     public static int fireResistanceCount(ContainerInventory inventory) {
