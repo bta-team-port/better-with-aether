@@ -508,25 +508,20 @@ public class AetherModels implements ModelEntrypoint {
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/side", Side.EAST, Side.WEST, Side.SOUTH)
             .setTex(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top", TOP_BOTTOM));
 
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_SKYROOT, "aether:block/chest/skyroot/")
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top")
-        );
+        dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_SKYROOT, "aether:block/chest/skyroot/")
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/skyroot/top"));
 
-        dispatcher.addDispatch(new BlockModelChest<>(AetherBlocks.CHEST_MIMIC_OAK, "minecraft:block/chest/planks/")
-            .setAllTextures(BLOCK_TEXTURES, "minecraft:block/chest/planks/top")
-        );
+        dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_OAK, "minecraft:block/chest/planks/")
+            .setAllTextures(BLOCK_TEXTURES, "minecraft:block/chest/planks/top"));
 
         dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_BRONZE, "aether:block/chest/dungeon_bronze/")
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top")
-        );
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_bronze/top"));
 
         dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_SILVER, "aether:block/chest/dungeon_silver/")
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top")
-        );
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_silver/top"));
 
         dispatcher.addDispatch(new BlockModelMimic<>(AetherBlocks.CHEST_MIMIC_GOLD, "aether:block/chest/dungeon_gold/")
-            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top")
-        );
+            .setAllTextures(BLOCK_TEXTURES, "aether:block/chest/dungeon_gold/top"));
 
         dispatcher.addDispatch(new BlockModelPaintedSkyrootMimic<>(AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
         dispatcher.addDispatch(new BlockModelPaintedOakMimic<>(AetherBlocks.CHEST_MIMIC_OAK_PAINTED));

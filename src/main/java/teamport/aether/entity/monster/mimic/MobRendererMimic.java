@@ -23,7 +23,12 @@ public class MobRendererMimic extends MobRenderer<MobMimic> {
         float limbYaw = this.getLimbYaw(entity, partialTick);
 
         BoneTransform head = model.getTransform("head");
-        head.rotX = -0.8F + (MathHelper.cos(limbSwing * 0.6662F) * (limbYaw * 1.4f));
+
+        float flapRotation = -0.8F + (MathHelper.cos(limbSwing * 0.6662F) * (limbYaw * 1.4f));
+        float minRotation = -1.6F;
+        float maxRotation = 0.0F;
+
+        head.rotX = MathHelper.clamp(flapRotation, minRotation, maxRotation);
 
         BoneTransform leg0 = model.getTransform("leg0");
         BoneTransform leg1 = model.getTransform("leg1");

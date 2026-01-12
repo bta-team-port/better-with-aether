@@ -54,7 +54,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-            ParticleMaker.spawnWhirlyParticles(world, this, 2, "whirly");
+//            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
         }
     }
 
