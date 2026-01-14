@@ -54,7 +54,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     public void tick() {
         super.tick();
         if (this.getHealth() > 0) {
-//            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
+            ParticleMaker.spawnWhirlyParticles(world, this, 4, "whirly");
         }
     }
 
@@ -103,10 +103,9 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        if (this.world != null && !(entity instanceof MobWhirly)
-        ) {
+        if (this.world != null && !(entity instanceof MobWhirly)) {
             float launchHeightSpeed = launchSpeed / 3.0f;
-            entity.fling(-this.xd, launchHeightSpeed, -this.yd, 0);
+            entity.fling(world.rand.nextGaussian() * 0.5, launchHeightSpeed, world.rand.nextGaussian() * 0.5, 0);
             return false;
         }
         return true;
@@ -121,7 +120,7 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     }
 
     @Override
-    public void causeFallDamage(float distance){/* dont take fall damage*/}
+    public void causeFallDamage(float distance) {/* dont take fall damage*/}
 
     @Override
     public boolean makeStepSound() {
@@ -139,5 +138,5 @@ public class MobWhirly extends MobAetherAnimal implements Creature {
     }
 
     @Override
-    protected void jump(){/* looks weird if it jumps */}
+    protected void jump() {/* looks weird if it jumps */}
 }

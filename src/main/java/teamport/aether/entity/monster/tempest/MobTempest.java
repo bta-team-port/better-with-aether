@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
+import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.entity.player.PlayerUtil;
@@ -97,10 +98,9 @@ public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMe
     @Override
     public boolean collidesWith(Entity entity) {
         float launchSpeed = 0.75F;
-        if (this.world != null && !(entity instanceof MobTempest)
-        ) {
+        if (this.world != null && !(entity instanceof MobWhirly)) {
             float launchHeightSpeed = launchSpeed / 2.0f;
-            entity.fling(-this.xd, launchHeightSpeed, -this.yd, 0);
+            entity.fling(world.rand.nextGaussian(), launchHeightSpeed, world.rand.nextGaussian(), 0);
             return false;
         }
         return true;
