@@ -30,26 +30,23 @@ public abstract class ParachuteMixin extends Mob {
     @Shadow
     public Gamemode gamemode;
 
-    public ParachuteMixin(@Nullable World world) {
+    protected ParachuteMixin(@Nullable World world) {
         super(world);
     }
 
     @WrapMethod(method = "tick")
     public void grantChute(Operation<Void> original) {
 
-        if (
-            this.world != null
+        if (this.world != null
             && this.world.dimension.id == AetherDimension.getAether().id
             && !EnvironmentHelper.isClientWorld()
-        ) {
-            if (AetherDimension.canGetParachute(uuid)) {
-                if (!this.gamemode.isPlayerInvulnerable()) {
-                    EntityItem chute = new EntityItem(world, x, y, z, new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
-                    world.entityJoinedWorld(chute);
-                }
-
-                AetherDimension.setParachuteReceived(uuid);
+            && AetherDimension.canGetParachute(uuid)) {
+            if (!this.gamemode.isPlayerInvulnerable()) {
+                EntityItem chute = new EntityItem(world, x, y, z, new ItemStack(AetherItems.PARACHUTE_CLOUD, 1));
+                world.entityJoinedWorld(chute);
             }
+
+            AetherDimension.setParachuteReceived(uuid);
         }
 
         original.call();

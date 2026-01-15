@@ -312,6 +312,7 @@ public final class AetherItems {
             .build(new Item("zanite", itemKey("zanite"), itemID("ZANITE")));
 
         ORE_RAW_GRAVITITE = new ItemBuilder(MOD_ID)
+            .setTags(AetherItemTags.FALLS_UPWARDS)
             .build(new Item("ore.raw.gravitite", itemKey("ore_raw_gravitite"), itemID("ORE_RAW_GRAVITITE")));
 
 

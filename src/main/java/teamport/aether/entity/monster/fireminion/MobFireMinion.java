@@ -9,14 +9,13 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.entity.AetherDeathMessage;
-import teamport.aether.entity.AetherMobOtherImmunities;
 import teamport.aether.entity.MobUtil;
 import teamport.aether.entity.monster.MobMonsterAether;
 import teamport.aether.helper.ParticleMaker;
 
 import static teamport.aether.entity.DamageInstance.inst;
 
-public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage, AetherMobOtherImmunities {
+public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeathMessage {
 
     public MobFireMinion(@Nullable World world) {
         super(world);
@@ -127,10 +126,5 @@ public class MobFireMinion extends MobMonsterAether implements Enemy, AetherDeat
             && this.world.getDifficulty().canHostileMobsSpawn()
             && this.world.checkIfAABBIsClear(this.bb)
             && this.world.getCubes(this, this.bb).isEmpty();
-    }
-
-    @Override
-    public boolean canTakeDamageFromCactus() {
-        return true;
     }
 }

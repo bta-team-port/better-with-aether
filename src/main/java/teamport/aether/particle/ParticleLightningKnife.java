@@ -9,14 +9,14 @@ import net.minecraft.client.render.texture.stitcher.IconCoordinate;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import static teamport.aether.AetherMod.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class ParticleLightningKnife extends Particle {
-    public static final @NotNull IconCoordinate BOLT = TextureRegistry.getTexture(MOD_ID + ":particle/lightiningknife_flipped");
-    public static final @NotNull IconCoordinate BOLT_FLIPPED = TextureRegistry.getTexture(MOD_ID + ":particle/lightiningknife");
+    public static final @NonNull IconCoordinate BOLT = TextureRegistry.getTexture(MOD_ID + ":particle/lightiningknife_flipped");
+    public static final @NonNull IconCoordinate BOLT_FLIPPED = TextureRegistry.getTexture(MOD_ID + ":particle/lightiningknife");
     private final float originalScale;
 
     public ParticleLightningKnife(World world, double x, double y, double z, double xd, double yd, double zd) {
