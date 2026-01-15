@@ -22,6 +22,8 @@ public class AetherItemTags {
     public static final Tag<Item> IMMUNE_TO_BLAST_DAMAGE = Tag.of("immune_to_blast_damage");
     private static final Map<DamageType, Tag<Item>> DAMAGE_IMMUNITIES = new HashMap<>();
 
+    public static final Tag<Item> FALLS_UPWARDS = Tag.of("falls_upwards");
+
     static {
         DAMAGE_IMMUNITIES.put(DamageType.FIRE, AetherItemTags.IMMUNE_TO_FIRE_DAMAGE);
         DAMAGE_IMMUNITIES.put(DamageType.BLAST, AetherItemTags.IMMUNE_TO_BLAST_DAMAGE);

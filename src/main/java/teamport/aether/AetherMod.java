@@ -22,6 +22,7 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.entity.AetherEntities;
 import teamport.aether.entity.monster.mimic.MimicRegistry;
+import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.accessory.ItemTrinket;
 import teamport.aether.lookup.LookupFuelEnchanter;
@@ -141,6 +142,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ItemTrinket.setIcon(Items.TOOL_CLOCK, "aether:item/trinket/armor_clock_outline");
         ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_map_outline");
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
+
+        AetherBlocks.ORE_GRAVITITE_HOLYSTONE.asItem().withTags(AetherItemTags.FALLS_UPWARDS);
 
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
