@@ -4,6 +4,7 @@ import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityActivator;
 import net.minecraft.core.block.entity.TileEntityChest;
@@ -21,6 +22,7 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.achievements.AetherAchievements;
@@ -31,10 +33,7 @@ import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.helper.ParticleMaker;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class BlockLogicChestMimic extends BlockLogicRotatable {
     private double dx;
@@ -277,4 +276,15 @@ public class BlockLogicChestMimic extends BlockLogicRotatable {
         return !world.isBlockNormalCube(x, y, z) && !world.isBlockNormalCube(x, y + 1, z);
     }
 
+    public static void setRandomDirections(World world, Random random, int x, int y, int z){
+        if (!world.isClientSide) {
+            world.setBlockMetadataWithNotify(
+                x, y, z,
+                setDirection(
+                    world.getBlockMetadata(x, y, z),
+                    Direction.horizontalDirections[random.nextInt(Direction.horizontalDirections.length)]
+                )
+            );
+        }
+    }
 }

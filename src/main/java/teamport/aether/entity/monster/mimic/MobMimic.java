@@ -336,7 +336,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         if (this.world == null) return;
         IntPair blockAndMeta = getTarget(world, point);
         world.setBlockAndMetadataWithNotify(point.getX(), point.getY(), point.getZ(), blockAndMeta.getFirst(), blockAndMeta.getSecond());
-        BlockLogicRotatable.setDefaultDirection(world, point.getX(), point.getY(), point.getZ());
+        BlockLogicChestMimic.setRandomDirections(world, this.random, point.getX(), point.getY(), point.getZ());
         TileEntity tileEntity = world.getTileEntity(point.getX(), point.getY(), point.getZ());
         if (tileEntity instanceof TileEntityMimic)
             ((TileEntityMimic) tileEntity).setCustomName(this.nickname, this.chatColor);

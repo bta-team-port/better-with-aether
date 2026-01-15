@@ -13,6 +13,9 @@ aether.gui.un_missing_warn.proceed_3=Continue
 model.category.entity.sheepuff.slider.color=Color: %s
 model.category.entity.sheepuff.slider.wool_state=State: %s
 
+model.category.entity.mimic.placeholder.text=T:
+model.category.entity.mimic.placeholder=Mimic Variant
+
 model.category.entity.sentry.slider.state=State: %s
 
 model.category.entity.slider.slider.state=State: %s
