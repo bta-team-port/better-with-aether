@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.animal.sheepuff.EntityEntrySheepuff;
 import teamport.aether.entity.boss.slider.EntityEntryBossSlider;
+import teamport.aether.entity.monster.mimic.EntityEntryMimic;
 import teamport.aether.entity.monster.sentry.EntityEntrySentry;
 import teamport.aether.models.EntityEntryFloatingBlock;
 
@@ -26,5 +27,6 @@ public abstract class ViewerCategoryEntityMixin {
         addEntry(new EntityEntryBossSlider());
         addEntry(new EntityEntrySentry());
         addEntry(new EntityEntryFloatingBlock());
+        addEntry(new EntityEntryMimic());
     }
 }
