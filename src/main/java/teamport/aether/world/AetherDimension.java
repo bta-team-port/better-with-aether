@@ -258,9 +258,9 @@ public class AetherDimension {
             bunnyMap.put(entry.getKey().toString(), entry.getValue());
         }
 
-        aetherWorldData.putInt(AetherMod.MOD_ID + ".bunnyMap", SCHEMA_VERSION);
-
         aetherWorldData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
+
+        aetherWorldData.put(AetherMod.MOD_ID + ".bunnyMap", bunnyMap);
         aetherWorldData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
         DungeonMap.save(aetherWorldData);
 
