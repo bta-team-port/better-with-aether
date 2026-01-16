@@ -171,7 +171,8 @@
     "net.MinecraftServerMixinExcludeAether",
     "net.PlayerLoginMixin",
     "net.PlayerServerMixinExcludeAether",
-    "player.PlayerServerAddDartsMixin"
+    "player.PlayerServerAddDartsMixin",
+    "player.WorldBunnyMixin"
   ],
   "injectors": {
     "defaultRequire": 1

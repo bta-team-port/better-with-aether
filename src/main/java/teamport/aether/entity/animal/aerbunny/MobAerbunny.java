@@ -194,6 +194,10 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
         if (this.vehicle instanceof Player) {
             Player player = (Player) vehicle;
 
+            if (!player.isAlive()) {
+                player.ejectRider();
+            }
+
             if (!player.onGround && !player.noPhysics) {
                 if (!player.isInWater()) player.yd += 0.05F;
                 ((EntityAccessor) player).setFallDistance(0.0F);

@@ -14,6 +14,7 @@ import teamport.aether.AetherMod;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.entity.AetherMobFallingToOverworld;
+import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.net.message.SunspiritDeathNetworkMessage;
 import teamport.aether.world.biome.AetherBiomes;
@@ -27,7 +28,7 @@ import java.util.*;
 
 public class AetherDimension {
 
-    private static final int SCHEMA_VERSION = 2;
+    private static final int SCHEMA_VERSION = 3;
 
     public static final int OVERWORLD_RETURN_HEIGHT = 270;
     public static final int DUNGEON_GENERATION_RADIUS = 16;
@@ -38,6 +39,8 @@ public class AetherDimension {
     private static final HashMap<Integer, List<Integer>> DIMENSION_PLACEMENT_BLACKLIST = new HashMap<>();
 
     private static final HashMap<UUID, Boolean> HAS_RECEIVED_PARACHUTE_MAP = new HashMap<>();
+    private static final HashMap<UUID, CompoundTag> HAS_BUNNY_MAP = new HashMap<>();
+
 
     public static List<Integer> getDimensionBlacklist(Dimension dimension) {
         return getDimensionBlacklist(dimension.id);
@@ -130,6 +133,21 @@ public class AetherDimension {
                 );
             }
         }
+    }
+
+    public static MobAerbunny popBunnyFromPlayer(UUID uuidPlayer, World world) {
+        CompoundTag tag = HAS_BUNNY_MAP.remove(uuidPlayer);
+        if (tag == null) return null;
+        MobAerbunny mobAerbunny = (MobAerbunny) EntityDispatcher.createEntityFromNBT(tag, world);
+        world.entityJoinedWorld(mobAerbunny);
+        return mobAerbunny;
+    }
+
+    public static void addBunnyToPlayer(UUID uuidPlayer, MobAerbunny mobAerbunny) {
+        CompoundTag tag = new CompoundTag();
+        mobAerbunny.save(tag);
+        mobAerbunny.remove();
+        HAS_BUNNY_MAP.put(uuidPlayer, tag);
     }
 
     public static boolean canGetParachute(UUID uuid) {
@@ -235,6 +253,13 @@ public class AetherDimension {
             entitiesToMoveMap.addTag(entryCompound);
         }
 
+        CompoundTag bunnyMap = new CompoundTag();
+        for (Map.Entry<UUID, CompoundTag> entry : HAS_BUNNY_MAP.entrySet()) {
+            bunnyMap.put(entry.getKey().toString(), entry.getValue());
+        }
+
+        aetherWorldData.putInt(AetherMod.MOD_ID + ".bunnyMap", SCHEMA_VERSION);
+
         aetherWorldData.putInt(AetherMod.MOD_ID + ".__SCHEMA_VERSION__", SCHEMA_VERSION);
         aetherWorldData.put(AetherMod.MOD_ID + ".overworldFallen", entitiesToMoveMap);
         DungeonMap.save(aetherWorldData);
@@ -253,6 +278,10 @@ public class AetherDimension {
         HAS_RECEIVED_PARACHUTE_MAP.clear();
         CompoundTag canReceiveParachuteCompound = aetherWorldData.getCompound(AetherMod.MOD_ID + ".canReceiveParachute");
         canReceiveParachuteCompound.getValues().forEach(it -> HAS_RECEIVED_PARACHUTE_MAP.put(UUID.fromString(it.getTagName()), ((Byte) it.getValue()) > 0));
+
+        HAS_BUNNY_MAP.clear();
+        CompoundTag bunnyCompound = aetherWorldData.getCompound(AetherMod.MOD_ID + ".bunnyMap");
+        bunnyCompound.getValues().forEach(it -> HAS_BUNNY_MAP.put(UUID.fromString(it.getTagName()), (CompoundTag) it));
     }
 
     public static void loadDimensionData(CompoundTag dimensionData) {
