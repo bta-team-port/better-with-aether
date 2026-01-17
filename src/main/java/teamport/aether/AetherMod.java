@@ -143,7 +143,7 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ItemTrinket.setIcon(Items.MAP, "aether:item/trinket/armor_map_outline");
         ItemTrinket.setIcon(AetherItems.TOOL_DUNGEON_COMPASS, "aether:item/trinket/armor_compass_outline");
 
-        AetherBlocks.ORE_GRAVITITE_HOLYSTONE.asItem().withTags(AetherItemTags.FALLS_UPWARDS);
+        AetherBlocks.ORE_GRAVITITE_HOLYSTONE.asItem().withTags(AetherItemTags.tags(AetherItemTags.FALLS_UPWARDS));
 
         Blocks.WORKBENCH.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
         Blocks.LADDER_OAK.withTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE);
