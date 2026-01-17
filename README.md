@@ -9,6 +9,8 @@
 
 The legendary dimension has finally arrived to Better Than Adventure!
 
+Check out the trailer here! https://www.youtube.com/watch?v=34ekzygvuMU
+
 <img width="2560" height="1009" alt="paradise small" src="https://github.com/user-attachments/assets/d766533b-941c-4fdf-a0a3-963d7dbee6a2" />
 
 Better with Aether offers something for everyone.
