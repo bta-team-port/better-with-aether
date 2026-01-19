@@ -25,7 +25,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
 
     @Override
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
-        entity.fallDistance = 0.0F;
+        this.onEntityCollidedWithBlock(world, x, y, z, entity);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
 
     @Override
     public void handleEntityInside(World world, int x, int y, int z, Entity entity, Vec3 entityVelocity) {
-        entity.fallDistance = 0.0F;
+        this.onEntityCollidedWithBlock(world, x, y, z, entity);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BlockLogicCloudBase extends BlockLogicTransparent {
 
     @Override
     public AABB getCollisionBoundingBoxFromPool(WorldSource world, int x, int y, int z) {
-        return AABB.getPermanentBB(x, y, z, x + 1.0, y + 0.00001, z + 1.0);
+        return AABB.getPermanentBB(x, y, z, x + 1.0, y + 0.01, z + 1.0);
     }
 
     @Override
