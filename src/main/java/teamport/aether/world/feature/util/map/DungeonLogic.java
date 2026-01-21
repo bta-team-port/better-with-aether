@@ -257,4 +257,7 @@ public abstract class DungeonLogic {
         this.generated = generated;
     }
 
+    public void tick(World world) {
+
+    }
 }
