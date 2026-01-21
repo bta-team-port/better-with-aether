@@ -8,6 +8,7 @@ import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
+import net.minecraft.server.MinecraftServer;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
 import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
@@ -21,6 +22,7 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
@@ -210,8 +212,17 @@ public class DungeonMap {
     public static void onWorldTick(World world) {
         currGenerateCooldown--;
 
+        List<Player> players;
+        if (EnvironmentHelper.isServerEnvironment()) {
+            // thx java!
+            players = (List<Player>) (Object) MinecraftServer.getInstance().playerList.playerEntities;
+        }
+        else {
+            players = world.players;
+        }
+
         if (currGenerateCooldown <= 0) {
-            for (Player player : world.players) {
+            for (Player player : players) {
                 for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
                     if (
                         dungeonLogic != null
@@ -230,7 +241,8 @@ public class DungeonMap {
         }
 
         for (DungeonLogic logic : DUNGEON_MAP.values()) {
-            if (logic == null || logic.getDimensionID() != world.dimension.id) return;
+            if (logic == null || logic.getDimensionID() != world.dimension.id) continue;
+            logic.tick(world);
         }
     }
 
