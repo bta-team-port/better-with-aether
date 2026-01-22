@@ -206,12 +206,7 @@ public class DungeonMap {
         );
     }
 
-    private static final int ATTEMPT_GENERATE_COOLDOWN = Global.TICKS_PER_SECOND * 2;
-    private static int currGenerateCooldown = 0;
-
     public static void onWorldTick(World world) {
-        currGenerateCooldown--;
-
         List<Player> players;
         if (EnvironmentHelper.isServerEnvironment()) {
             // thx java!
@@ -221,23 +216,21 @@ public class DungeonMap {
             players = world.players;
         }
 
-        if (currGenerateCooldown <= 0) {
-            for (Player player : players) {
-                for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
-                    if (
-                        dungeonLogic != null
-                            && dungeonLogic.getDimensionID() == world.dimension.id
-                            && !dungeonLogic.isGenerated()
-                            && chunkWithinRadius(
-                            player,
-                            Math.floorDiv(dungeonLogic.position.getX(), Chunk.CHUNK_SIZE_X),
-                            Math.floorDiv(dungeonLogic.position.getZ(), Chunk.CHUNK_SIZE_Z)
-                        )
-                    ) { dungeonLogic.generate(world); }
+        for (Player player : players) {
+            for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
+                if (
+                    dungeonLogic != null
+                    && dungeonLogic.getDimensionID() == world.dimension.id
+                    && !dungeonLogic.isGenerated()
+                    && chunkWithinRadius(
+                        player,
+                        Math.floorDiv(dungeonLogic.position.getX(), Chunk.CHUNK_SIZE_X),
+                        Math.floorDiv(dungeonLogic.position.getZ(), Chunk.CHUNK_SIZE_Z)
+                    )
+                ) {
+                    dungeonLogic.generate(world);
                 }
             }
-
-            currGenerateCooldown = ATTEMPT_GENERATE_COOLDOWN;
         }
 
         for (DungeonLogic logic : DUNGEON_MAP.values()) {
