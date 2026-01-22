@@ -15,6 +15,7 @@ import teamport.aether.entity.animal.moa.MobMoaWhite;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 import teamport.aether.entity.animal.sheepuff.MobSheepuff;
+import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 import teamport.aether.entity.boss.sunspirit.MobBossSunspirit;
 import teamport.aether.entity.boss.valkyrie.queen.MobBossValkyrie;
@@ -25,9 +26,8 @@ import teamport.aether.entity.monster.mimic.MobMimic;
 import teamport.aether.entity.monster.sentry.MobSentry;
 import teamport.aether.entity.monster.swet.MobSwet;
 import teamport.aether.entity.monster.swet.MobSwetGold;
-import teamport.aether.entity.monster.valkyrie.MobValkyrie;
-import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.monster.tempest.MobTempest;
+import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.entity.monster.zephyr.MobZephyr;
 import teamport.aether.item.AetherItems;
 

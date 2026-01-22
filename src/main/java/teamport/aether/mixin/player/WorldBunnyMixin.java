@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.PacketAddEntity;
 import net.minecraft.core.net.packet.PacketSetRiding;

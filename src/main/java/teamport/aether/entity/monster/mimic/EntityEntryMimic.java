@@ -6,11 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ButtonElement;
 import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntry;
-import net.minecraft.client.gui.modelviewer.elements.ListenerSliderElement;
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
 import net.minecraft.core.lang.I18n;
 import net.minecraft.core.world.World;
-import teamport.aether.entity.boss.slider.MobBossSlider;
 
 import java.util.ArrayList;
 import java.util.List;

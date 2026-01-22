@@ -10,11 +10,8 @@ import net.minecraft.core.world.World;
 import org.jspecify.annotations.Nullable;
 import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
 import teamport.aether.effect.AetherEffects;
-import teamport.aether.helper.unboxed.PriorityEntry;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
-
-import java.util.PriorityQueue;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;

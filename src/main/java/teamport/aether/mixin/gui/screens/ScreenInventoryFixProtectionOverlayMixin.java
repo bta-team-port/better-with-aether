@@ -10,7 +10,6 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.client.gui.container.ScreenInventory;
 import net.minecraft.client.render.texture.stitcher.IconCoordinate;

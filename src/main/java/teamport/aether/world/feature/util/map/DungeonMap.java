@@ -4,7 +4,6 @@ import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
 import com.mojang.nbt.tags.Tag;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.Global;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
@@ -22,7 +21,6 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static teamport.aether.AetherMod.LOGGER;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfpoint;
