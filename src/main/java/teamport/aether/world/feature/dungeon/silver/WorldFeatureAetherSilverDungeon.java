@@ -181,7 +181,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             Material blockMaterial = world.getBlockMaterial(point.getX(), point.getY(), point.getZ());
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
-            if (blockMaterial != null && blockMaterial != Material.air && (blockMaterial != Material.cloth || blockLogic == null)) {
+            if (blockMaterial != null && blockMaterial != Material.air && blockLogic == null) {
                 AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
                 return false;
             }
