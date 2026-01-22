@@ -5,16 +5,18 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.DamageType;;
+import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.AetherMod;
 import teamport.aether.entity.AetherDeathMessage;
 import teamport.aether.entity.animal.whirly.MobWhirly;
 import teamport.aether.entity.monster.MobMonsterAether;
-import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.entity.player.PlayerUtil;
+import teamport.aether.entity.projectile.ProjectileElementLightning;
 import teamport.aether.helper.ParticleMaker;
+
+;
 
 @SuppressWarnings("java:S110")
 public class MobTempest extends MobMonsterAether implements Enemy, AetherDeathMessage {

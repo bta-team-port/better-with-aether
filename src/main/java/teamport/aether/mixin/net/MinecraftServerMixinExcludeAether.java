@@ -4,6 +4,8 @@ import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.net.PropertyManager;
 import net.minecraft.core.world.Dimension;
 import net.minecraft.core.world.type.WorldType;
@@ -16,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import teamport.aether.world.AetherDimension;
 
+@Environment(EnvType.SERVER)
 @Mixin(value = MinecraftServer.class, remap = false)
 public abstract class MinecraftServerMixinExcludeAether {
     @Shadow

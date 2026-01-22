@@ -5,7 +5,10 @@ import com.mojang.nbt.tags.ListTag;
 import net.minecraft.client.entity.ClientSkinVariantList;
 import net.minecraft.core.Global;
 import net.minecraft.core.WeightedRandomLootObject;
-import net.minecraft.core.block.*;
+import net.minecraft.core.block.Block;
+import net.minecraft.core.block.BlockLogic;
+import net.minecraft.core.block.BlockLogicChest;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.Entity;
@@ -45,12 +48,11 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.*;
 
-import static teamport.aether.entity.monster.mimic.MimicRegistry.DEFAULT;
-
 import static net.minecraft.core.net.command.TextFormatting.RED;
 import static net.minecraft.core.net.command.TextFormatting.RESET;
 import static net.minecraft.core.util.helper.Direction.*;
 import static teamport.aether.AetherMod.TRANSLATOR;
+import static teamport.aether.entity.monster.mimic.MimicRegistry.DEFAULT;
 import static teamport.aether.world.feature.util.WorldFeaturePoint.wfp;
 
 @SuppressWarnings("java:S110")

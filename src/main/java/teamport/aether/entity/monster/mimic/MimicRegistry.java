@@ -5,7 +5,9 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.block.AetherBlocks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static teamport.aether.entity.monster.mimic.MimicEntry.mimicEntry;
 
