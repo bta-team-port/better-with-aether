@@ -18,7 +18,7 @@ import teamport.aether.item.accessory.gloves.ItemGlovesGravitite;
 import teamport.aether.item.accessory.gloves.ItemGlovesNeptune;
 import teamport.aether.item.accessory.gloves.ItemGlovesObsidian;
 import teamport.aether.item.accessory.gloves.ItemGlovesPhoenix;
-import teamport.aether.item.accessory.pendant.ItemChainPendant;
+import teamport.aether.item.accessory.pendant.ItemCombatPendant;
 import teamport.aether.item.accessory.pendant.ItemGravititePendant;
 import teamport.aether.item.accessory.pendant.ItemIcePendant;
 import teamport.aether.item.accessory.pendant.ItemPendant;
@@ -679,7 +679,7 @@ public final class AetherItems {
             .build(new ItemPendant("armor.talisman.leather", itemKey("armor_talisman_leather"), itemID("ARMOR_TALISMAN_LEATHER"), "cloth", ArmorMaterial.LEATHER));
 
         ARMOR_TALISMAN_CHAIN = new ItemBuilder(MOD_ID)
-            .build(new ItemChainPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
+            .build(new ItemCombatPendant("armor.talisman.chain", itemKey("armor_talisman_chainmail"), itemID("ARMOR_TALISMAN_CHAIN"), ArmorMaterial.CHAINMAIL));
 
         ARMOR_TALISMAN_IRON = new ItemBuilder(MOD_ID)
             .build(new ItemPendant("armor.talisman.iron", itemKey("armor_talisman_iron"), itemID("ARMOR_TALISMAN_IRON"), "iron", ArmorMaterial.IRON));
