@@ -8,7 +8,7 @@ import net.minecraft.core.world.World;
 
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 
-public class ItemGravititePendant extends ItemPendant {
+public class ItemGravititePendant extends ItemCombatPendant {
     public ItemGravititePendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
         super(translationKey, namespaceId, id, material);
     }
@@ -28,5 +28,10 @@ public class ItemGravititePendant extends ItemPendant {
             return;
         }
         player.yd += 0.025F;
+    }
+
+    @Override
+    public int armorPieceProtection() {
+        return 0;
     }
 }

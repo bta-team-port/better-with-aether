@@ -7,9 +7,9 @@ import org.jspecify.annotations.Nullable;
 import teamport.aether.item.AetherItemTags;
 import teamport.aether.item.accessory.IAccessory;
 
-public class ItemPendant extends Item implements IAccessory, IArmorItem {
+public class ItemPendant extends Item implements IAccessory{
     private final String name;
-    private final ArmorMaterial material;
+    protected final ArmorMaterial material;
     private boolean canHarvestDamage;
 
     public ItemPendant(String translationKey, String namespaceId, int id, String name, ArmorMaterial material) {
@@ -30,21 +30,6 @@ public class ItemPendant extends Item implements IAccessory, IArmorItem {
     @Override
     public String name() {
         return name;
-    }
-
-    @Override
-    public @Nullable ArmorMaterial getArmorMaterial() {
-        return this.material;
-    }
-
-    @Override
-    public int armorPieceProtection() {
-        return 0;
-    }
-
-    @Override
-    public int getArmorPiece() {
-        return -1;
     }
 
     public ItemPendant setHarvestDamagable(){
