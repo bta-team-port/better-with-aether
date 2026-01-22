@@ -66,7 +66,7 @@ public class ChunkDecoratorAether implements ChunkDecorator {
         int worldZ = chunk.zPosition * 16;
         Random rand = deriveRandomFromWorld(chunk, this.world.getRandomSeed());
 
-        decorateWithClouds(rand, worldX, worldZ);
+        decorateWithClouds(rand, minY, maxY, worldX, worldZ);
 
         if (world.getWorldType() == AetherWorldTypes.AETHER_EXTENDED) {
             decorateWithFlatClouds(chunk);
@@ -316,20 +316,26 @@ public class ChunkDecoratorAether implements ChunkDecorator {
     public static final WorldFeatureAetherClouds AERCLOUD_GOLD = new WorldFeatureAetherClouds(AetherBlocks.AERCLOUD_GOLD.id(), 4);
     public static final WorldFeatureAetherCloudsFlat AERCLOUD_FLAT = new WorldFeatureAetherCloudsFlat(AetherBlocks.AERCLOUD_WHITE.id(), 48);
 
-    public void decorateWithClouds(Random rand, int worldX, int worldZ) {
+    public void decorateWithClouds(Random rand, int minY, int maxY, int worldX, int worldZ) {
+        int rangeY = maxY + 1 - minY;
+        float heightModifier = rangeY / 128.0F;
         int yPosition;
+
         if (rand.nextInt(12) == 0) {
-            yPosition = rand.nextInt(32) + 224;
+            int base = rand.nextInt(16) + 112;
+            yPosition = minY + Math.round(base * heightModifier);
             AERCLOUD_GOLD.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
 
         if (rand.nextInt(12) == 0) {
-            yPosition = rand.nextInt(64) + 128;
+            int base = rand.nextInt(32) + 64;
+            yPosition = minY + Math.round(base * heightModifier);
             AERCLOUD_BLUE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
 
         if (rand.nextInt(6) == 0) {
-            yPosition = rand.nextInt(192) + 32;
+            int base = rand.nextInt(96) + 16;
+            yPosition = minY + Math.round(base * heightModifier);
             AERCLOUD_WHITE.place(this.world, rand, worldX + 8, yPosition, worldZ + 8);
         }
 
