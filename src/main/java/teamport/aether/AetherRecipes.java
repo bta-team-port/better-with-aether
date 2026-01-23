@@ -146,11 +146,10 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("aether:all_sticks").add(AetherItems.STICK_SKYROOT.getDefaultStack());
 
         Registries.ITEM_GROUPS.register("aether:all_pressure_plates", allpressure);
-        Registries.ITEM_GROUPS.register("aether:all_gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
     }
 
     public static void oreGemGroups() {
-        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE));
+        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.STICK_SKYROOT, Items.STICK));
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(AetherBlocks.ORE_ZANITE_HOLYSTONE));
