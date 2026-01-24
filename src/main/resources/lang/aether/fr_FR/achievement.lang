@@ -1,0 +1,43 @@
+stardew.name=Stardew Farming
+achievements.page.stardew.desc=Succès de Stardew Farming.
+
+achievement.stardew.stardew=Stardew Farming
+achievement.stardew.stardew.desc=Le début de votre ferme.
+
+
+achievement.stardew.fruit=Panier à fruit
+achievement.stardew.fruit.desc=Récoltez chaque fruits.
+
+achievement.stardew.vegetable=Corne d'abondance
+achievement.stardew.vegetable.desc=Récoltez chaque récolte de légumes.
+
+achievement.stardew.egg=Collectionneur d’œufs
+achievement.stardew.egg.desc=Récoltez les deux types d’œufs.
+
+
+achievement.stardew.beehive=Qui manie le miel s’en lèche les doigts
+achievement.stardew.beehive.desc=Récolter du miel dans une ruche.
+
+achievement.stardew.candle=Que la lumière soit
+achievement.stardew.candle.desc=Fabriquer une bougie à partir de cire.
+
+
+achievement.stardew.apple=C'est pour ma pomme
+achievement.stardew.apple.desc=Récupérez une pousse de pommier.
+
+achievement.stardew.gapple=L'arbre de vie
+achievement.stardew.gapple.desc=Créer une pousse de pommier d'or.
+
+
+achievement.stardew.amateur.fisher=Pêcheur amateur
+achievement.stardew.amateur.fisher.desc=Pêchez chaques espèces de poissons communes.
+
+achievement.stardew.master.fisher=Pêcheur professionel
+achievement.stardew.master.fisher.desc=Pêchez chaques espèces de poissons légendaires.
+
+
+guidebook.section.mob.duck.name=Canard
+guidebook.section.mob.duck.desc=Les canards sont une bonne source d'œufs, utiles en cuisine. On les trouve assez rarement dans la plupart des biomes.
+
+guidebook.section.mob.goat.name=Chèvre
+guidebook.section.mob.goat.desc=Les chèvres sont un groupe d'animaux bruyants qui se comportent comme des moutons et des vaches.\nOn les trouve assez rarement dans la plupart des biomes.
