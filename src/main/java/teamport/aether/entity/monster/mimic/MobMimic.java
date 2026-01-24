@@ -179,7 +179,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void dropDeathItems() {
-        MimicEntry variant = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
+        MimicEntry variant = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
         this.dropItem(new ItemStack(variant.getChestID(), 1, variant.getChestMetadata()), 0);
         for (WeightedRandomLootObject lootObject : mobDrops) {
             ItemStack stack = lootObject.getDefinedItemStack();
