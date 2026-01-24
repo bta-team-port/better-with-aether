@@ -13,8 +13,6 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
-import teamport.aether.recipe.RecipeEntryAetherMachine;
-import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.recipe.RecipeGroupAetherMachine;
 import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
@@ -44,9 +42,6 @@ public class AetherRecipes implements RecipeEntrypoint {
 
 
     public static void aetherMachinesRecipes() {
-        // registered recipe types
-        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
-        Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
 
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
@@ -54,7 +49,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/workbench.json");
 
         if (INCLUDE_REPAIR_RECIPES) {
-            Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
             DataLoader.loadRecipesFromFile("/assets/aether/recipes/repair.json");
         }
     }
