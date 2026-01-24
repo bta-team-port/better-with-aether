@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.block.BlockLogicNote;
 import net.minecraft.core.block.Blocks;
+import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.entity.EntityPainting;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.item.Items;
@@ -30,6 +31,8 @@ import teamport.aether.lookup.LookupFuelFreezer;
 import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.net.*;
 import teamport.aether.net.message.*;
+import teamport.aether.recipe.RecipeEntryAetherMachine;
+import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.biome.AetherBiomes;
 import teamport.aether.world.feature.AetherWorldFeatures;
@@ -86,6 +89,8 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         NetworkHandler.registerNetworkMessage(AetherDungeonMapUpdateNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(AetherSyncRepulsionNetworkMessage::new);
         NetworkHandler.registerNetworkMessage(EjectRiderNetworkMessage::new);
+
+        registerNewRecipeTypes();
     }
 
     @Override
@@ -134,6 +139,12 @@ public class AetherMod implements GameStartEntrypoint, ModInitializer {
         ArmorMaterial.GOLD.withProtectionPercentage(AetherMod.HOLY, 70.0f).withProtectionPercentage(AetherMod.LIGHTNING, -35.0f);
         ArmorMaterial.DIAMOND.withProtectionPercentage(AetherMod.HOLY, -33.0f).withProtectionPercentage(AetherMod.LIGHTNING, 66.0f);
         ArmorMaterial.STEEL.withProtectionPercentage(AetherMod.HOLY, 55.0f).withProtectionPercentage(AetherMod.LIGHTNING, -28.0f);
+    }
+
+    public static void registerNewRecipeTypes() {
+        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
+        Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
+        Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
     }
 
     public static void registerNewTagForItems() {

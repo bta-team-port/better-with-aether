@@ -13,8 +13,6 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.item.AetherItems;
-import teamport.aether.recipe.RecipeEntryAetherMachine;
-import teamport.aether.recipe.RecipeEntryIncubator;
 import teamport.aether.recipe.RecipeGroupAetherMachine;
 import teamport.aether.recipe.RecipeGroupIncubator;
 import turniplabs.halplibe.helper.RecipeBuilder;
@@ -44,9 +42,6 @@ public class AetherRecipes implements RecipeEntrypoint {
 
 
     public static void aetherMachinesRecipes() {
-        // registered recipe types
-        Registries.RECIPE_TYPES.register("aether:machine", RecipeEntryAetherMachine.class);
-        Registries.RECIPE_TYPES.register("aether:incubator", RecipeEntryIncubator.class);
 
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/freezer.json");
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/incubator.json");
@@ -54,7 +49,6 @@ public class AetherRecipes implements RecipeEntrypoint {
         DataLoader.loadRecipesFromFile("/assets/aether/recipes/workbench.json");
 
         if (INCLUDE_REPAIR_RECIPES) {
-            Registries.RECIPE_TYPES.register("aether:repair", RecipeEntryAetherMachine.class);
             DataLoader.loadRecipesFromFile("/assets/aether/recipes/repair.json");
         }
     }
@@ -146,11 +140,10 @@ public class AetherRecipes implements RecipeEntrypoint {
         Registries.ITEM_GROUPS.getItem("aether:all_sticks").add(AetherItems.STICK_SKYROOT.getDefaultStack());
 
         Registries.ITEM_GROUPS.register("aether:all_pressure_plates", allpressure);
-        Registries.ITEM_GROUPS.register("aether:all_gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
     }
 
     public static void oreGemGroups() {
-        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(AetherBlocks.BLOCK_GRAVITITE));
+        Registries.ITEM_GROUPS.register("aether:gems", Registries.stackListOf(Items.DIAMOND, AetherBlocks.BLOCK_GRAVITITE));
         Registries.ITEM_GROUPS.register("aether:sticks", Registries.stackListOf(AetherItems.STICK_SKYROOT, Items.STICK));
         Registries.ITEM_GROUPS.register("aether:ambrosium_ores", Registries.stackListOf(AetherBlocks.ORE_AMBROSIUM_HOLYSTONE));
         Registries.ITEM_GROUPS.register("aether:zanite_ores", Registries.stackListOf(AetherBlocks.ORE_ZANITE_HOLYSTONE));
