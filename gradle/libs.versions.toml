@@ -26,7 +26,7 @@ halplibe = "5.4.0"
 # Check this on https://github.com/Better-than-Adventure/legacy-lwjgl3/releases/latest/
 legacyLwjgl = "1.0.6"
 # Check this on https://maven.thesignalumproject.net/#/releases/sunsetsatellite/catalyst-core/
-catalyst-core = "2.2.0"
+catalyst-core = "2.3.0"
 # Check this on https://maven.thesignalumproject.net/#/releases/sunsetsatellite/catalyst-effects/
 catalyst-effects = "2.5.3"
 # Check this on https://maven.thesignalumproject.net/#/releases/useless/btwaila/
