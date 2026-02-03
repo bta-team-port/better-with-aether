@@ -74,7 +74,6 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
 
     @Override
     public void spawnInit() {
-//        MimicEntry entry = MimicRegistry.getMimicVariantByID(this.getSkinVariant());
         MimicEntry randomEntry = MimicRegistry.getRandomEntry(this.random);
         this.entityData.set(3, randomEntry.getMimicVariant());
         this.setBlockData(randomEntry.mimicChestID, randomEntry.mimicChestMetadata);
@@ -117,7 +116,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
         SkinVariantList variantList = Global.accessor.getSkinVariantList();
         String basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
-        ClientSkinVariantList.EntityVariants entityVariants = ((SkinVariantAccessor) variantList).invokeGetEntityVariants(basePath + "variants.json");
+        ClientSkinVariantList.EntityVariants entityVariants = ((ClientSkinVariantList)variantList).getEntityVariants(basePath + "variants.json");
         int skinVar = this.getSkinVariant();
         if (((EntityVariantsAccessor) entityVariants).getIndexedSkins().length - 1 == this.getSkinVariant()) {
             int nextPath = MimicRegistry.getNextValue(this.entityData.getInt(3));
@@ -145,6 +144,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         super.addAdditionalSaveData(tag);
         tag.putInt("MimicChestID", mimicChestID);
         tag.putInt("MimicChestMetadata", mimicChestMetadata);
+        tag.putInt("MimicType", this.entityData.getInt(3));
 
         ListTag lootTag = new ListTag();
         for (WeightedRandomLootObject lootObject : this.mobDrops) {
@@ -163,6 +163,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         super.readAdditionalSaveData(tag);
         this.mimicChestID = tag.getInteger("MimicChestID");
         this.mimicChestMetadata = tag.getInteger("MimicChestMetadata");
+        this.entityData.set(3, tag.getInteger("MimicType"));
 
         this.mobDrops.clear();
         ListTag lootTag = tag.getList("MimicLoot");
