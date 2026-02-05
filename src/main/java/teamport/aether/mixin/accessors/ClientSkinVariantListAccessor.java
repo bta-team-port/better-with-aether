@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(value = ClientSkinVariantList.class, remap = false)
-public interface SkinVariantAccessor {
+public interface ClientSkinVariantListAccessor {
 
 	@Invoker(value = "getEntityVariants")
 	ClientSkinVariantList.EntityVariants invokeGetEntityVariants(String jsonPath);
