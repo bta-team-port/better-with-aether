@@ -108,6 +108,8 @@
     "player.PlayerMixinDevDrops"
   ],
   "client": [
+    "accessors.ClientSkinVariantListAccessor",
+    "accessors.EntityVariantsAccessor",
     "accessors.ScreenContainerAbstractAccessor",
     "accessory.MobRendererGLCleanUpMixin",
     "accessory.MobRendererPlayerMixinAccessoryRender",

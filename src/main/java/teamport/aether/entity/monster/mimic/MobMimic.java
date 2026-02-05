@@ -40,8 +40,8 @@ import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.unboxed.IntPair;
 import teamport.aether.item.item_tool.ItemToolAxeAether;
 import teamport.aether.item.item_tool.ItemToolPickaxeAether;
+import teamport.aether.mixin.accessors.ClientSkinVariantListAccessor;
 import teamport.aether.mixin.accessors.EntityVariantsAccessor;
-import teamport.aether.mixin.accessors.SkinVariantAccessor;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
 import teamport.aether.world.feature.util.WorldFeaturePoint;
 import turniplabs.halplibe.helper.EnvironmentHelper;
@@ -116,7 +116,7 @@ public class MobMimic extends MobMonsterAether implements Enemy, AetherDeathMess
         MimicEntry entry = MimicRegistry.getMimicVariantByID(this.entityData.getInt(3));
         SkinVariantList variantList = Global.accessor.getSkinVariantList();
         String basePath = String.format("/assets/%s/textures/entity/%s/%s/", this.textureIdentifier.namespace(), this.textureIdentifier.value(), entry.getPathName());
-        ClientSkinVariantList.EntityVariants entityVariants = ((ClientSkinVariantList)variantList).getEntityVariants(basePath + "variants.json");
+        ClientSkinVariantList.EntityVariants entityVariants = ((ClientSkinVariantListAccessor)variantList).invokeGetEntityVariants(basePath + "variants.json");
         int skinVar = this.getSkinVariant();
         if (((EntityVariantsAccessor) entityVariants).getIndexedSkins().length - 1 == this.getSkinVariant()) {
             int nextPath = MimicRegistry.getNextValue(this.entityData.getInt(3));
