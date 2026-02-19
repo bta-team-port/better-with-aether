@@ -322,7 +322,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
 
             if (item instanceof ItemPendant) {
                 int variant = 0;
-                if (layer == 7 && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
+                if (layer == TRINKET_2_SLOT && itemTrinketSlot1 != null && itemTrinketSlot1.getItem() instanceof ItemPendant) {
                     variant = 1;
                 }
                 String path = String.format("/assets/%s/textures/armor/pendants/%s_pendant_%d.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
@@ -333,12 +333,11 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
             }
 
             if (item instanceof ItemRegenStone) {
-                String path;
-                if (layer == TRINKET_1_SLOT) {
-                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_right.png";
-                } else {
-                    path = "/assets/aether/textures/armor/trinkets/regen_trinket_left.png";
+                String variant = "right";
+                if (layer == TRINKET_2_SLOT) {
+                    variant = "left";
                 }
+                String path = String.format("/assets/%s/textures/armor/trinkets/%s_%s.png", item.namespaceID.namespace(), ((IAccessory) item).name(), variant);
                 modelHeart.head.visible = true;
                 renderDispatcher.textureManager.loadTexture(path).bind();
                 setArmorModel(modelHeart);
