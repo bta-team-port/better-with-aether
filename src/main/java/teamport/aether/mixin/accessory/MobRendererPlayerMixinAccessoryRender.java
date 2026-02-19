@@ -37,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.AetherMod;
 import teamport.aether.entity.animal.aerbunny.MobAerbunny;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.helper.GLManager;
@@ -51,6 +52,7 @@ import teamport.aether.item.accessory.trinket.ItemIronBubble;
 import teamport.aether.item.accessory.trinket.ItemRegenStone;
 import teamport.aether.item.accessory.trinket.ItemRepulsionShield;
 
+import static teamport.aether.AetherMod.MOD_ID;
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Environment(EnvType.CLIENT)
@@ -304,8 +306,7 @@ public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<
                 }
 
                 boolean leftSlot = (layer == TRINKET_1_SLOT);
-
-                String path = "/assets/aether/textures/armor/trinkets/" + textureKey + ".png";
+                String path = String.format("/assets/%s/textures/armor/trinkets/%s.png", AetherMod.MOD_ID, textureKey);
 
                 modelAccessories.head.visible = false;
                 modelAccessories.body.visible = false;
