@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/releases)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/w/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/graphs/code-frequency)
-[![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan)](https://github.com/bta-team-port/better-with-aether/commits/7.3/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/bta-team-port/better-with-aether?color=cyan&cacheSeconds=1)](https://github.com/bta-team-port/better-with-aether/commits/7.3/)
 [![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bta-team-port/better-with-aether/total?color=cyan)](https://tooomm.github.io/github-release-stats/?username=bta-team-port&repository=better-with-aether)
 
 ## Welcome to the Hostile Paradise: The Aether, now Better than ever.
