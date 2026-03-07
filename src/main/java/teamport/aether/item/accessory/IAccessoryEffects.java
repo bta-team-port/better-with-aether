@@ -12,4 +12,13 @@ public interface IAccessoryEffects {
      */
     default void removeEffect(Player player, ItemStack accessory) {
     }
+
+    /**
+     * Called when accessory is equipped, and only should occur once
+     *
+     * @param player    EntityPlayer who removed the accessory
+     * @param accessory accessory which was removed
+     */
+    default void addEffect(Player player, ItemStack accessory){
+    }
 }

@@ -1,6 +1,7 @@
 package teamport.aether.mixin.accessory;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
@@ -76,6 +77,16 @@ public abstract class ContainerInventoryMixinAccessory {
         // this is only called when we SWAP an item
         if (oldItem != null && oldItem.getItem() instanceof IAccessoryEffects) {
             ((IAccessoryEffects) oldItem.getItem()).removeEffect(player, oldItem);
+        }
+    }
+
+    @Inject(method = "readFromNBT", at = @At("TAIL"))
+    public void activateAccessories(ListTag nbttaglist, CallbackInfo ci) {
+        ContainerInventory inv = (ContainerInventory) (Object) this;
+        for (ItemStack item : inv.armorInventory) {
+            if (item != null && item.getItem() instanceof IAccessoryEffects) {
+                ((IAccessoryEffects) item.getItem()).addEffect(inv.player, item);
+            }
         }
     }
 }
