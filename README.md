@@ -30,9 +30,9 @@ We strive to keep this mod fully compatible with as many other mods as possible.
 ### Aether Wiki
 
 [Better with Aether Wiki](https://better-with-aether-wiki.readthedocs.io/en/latest/) official BWA wiki.  
-[The Aether Project Wiki](https://aether.wiki.gg/wiki/Aether_Wiki) usefull for when something is not documented on the
+[The Aether Project Wiki](https://aether.wiki.gg/wiki/Aether_Wiki) useful for when something is not documented on the
 official.  
-[Aether Fandom Wiki](https://aether.fandom.com/wiki/Aether_Wiki) usefull for when something is not documented on the
+[Aether Fandom Wiki](https://aether.fandom.com/wiki/Aether_Wiki) useful for when something is not documented on the
 official.
 
 If you interessted in contributing to the mod head on over
@@ -41,7 +41,7 @@ to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether
 ### REQUIRES:
 
 - BTA == 7.3_04
-- Halplibe >= [5.3.3](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/v5.3.3)
+- Halplibe >= [5.4.0](https://github.com/Turnip-Labs/bta-halplibe/releases/tag/v5.4.0)
 - Catalyst-Core >= [2.2.0](https://github.com/MartinSVK12/catalyst)
 - Catalyst-Effects = [2.5.3](https://github.com/MartinSVK12/catalyst)
 - UselessNumericals >= [1.1.0-7.3_04](https://github.com/gungun974/UselessNumerical/releases/tag/1.1.0-7.3_04)
@@ -54,7 +54,7 @@ to [Better with Aether Repo](https://github.com/bta-team-port/better-with-aether
   <img src="https://github.com/user-attachments/assets/462aadd2-81f0-4e86-9239-5a5f3d9000aa" width="49%">
  <img src="https://github.com/user-attachments/assets/3207da9e-dbc1-476f-865e-092846d0a8cf" width="100%">
  <br>
- <em>New damage types to make the armor and weapons a little bit more interessting. Holysword makes quick work of the undead. The Flamesword clears pesky sentries with ease. And the lighting sword secures the perimeter(I total lived there btw.). 
+ <em>New damage types to make the armor and weapons a little bit more interesting. Holy sword makes quick work of the undead. The Flame sword clears pesky sentries with ease. And the Lighting sword secures the perimeter(I total lived there btw.). 
 </em>
 </p>
 
