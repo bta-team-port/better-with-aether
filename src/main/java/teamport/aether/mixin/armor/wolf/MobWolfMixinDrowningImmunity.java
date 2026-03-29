@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(value = Mob.class)
 public abstract class MobWolfMixinDrowningImmunity {
     @ModifyReturnValue(method = "canBreatheUnderwater", at = @At("RETURN"))
     private boolean canBreatheUnderwater(boolean original) {

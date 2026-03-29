@@ -36,7 +36,7 @@ import java.util.List;
 
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
-@Mixin(value = MenuInventory.class, remap = false)
+@Mixin(value = MenuInventory.class)
 public abstract class MenuInventoryMixinAddSlotAdjSlot {
     @Shadow
     public ContainerInventory inventory;

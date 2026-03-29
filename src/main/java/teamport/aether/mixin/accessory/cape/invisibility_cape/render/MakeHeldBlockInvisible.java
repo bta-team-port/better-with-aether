@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ItemModelBlock.class, remap = false)
+@Mixin(value = ItemModelBlock.class)
 public abstract class MakeHeldBlockInvisible {
     @SuppressWarnings("java:S107")
     @WrapOperation(method = "renderItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/model/BlockModel;renderBlockOnInventory(Lnet/minecraft/client/render/tessellator/Tessellator;IFLjava/lang/Integer;)V"))

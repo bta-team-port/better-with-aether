@@ -8,7 +8,7 @@ import net.minecraft.core.item.material.ArmorMaterial;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(value = Mob.class)
 public abstract class MobWolfMixinFallDamage {
     @WrapMethod(method = "causeFallDamage")
     private void causeFallDamage(float distance, Operation<Void> original) {

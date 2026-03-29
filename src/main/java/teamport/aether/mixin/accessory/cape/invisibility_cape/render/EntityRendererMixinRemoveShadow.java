@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = EntityRenderer.class, remap = false)
+@Mixin(value = EntityRenderer.class)
 public abstract class EntityRendererMixinRemoveShadow<T extends Entity> {
     @SuppressWarnings("java:S107")
     @WrapMethod(method = "renderShadow")

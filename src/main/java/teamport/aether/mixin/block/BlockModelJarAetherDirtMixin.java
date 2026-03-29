@@ -20,7 +20,7 @@ import teamport.aether.block.AetherBlockTags;
 import static net.minecraft.client.render.block.model.BlockModel.renderBlocks;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = BlockModelJar.class, remap = false)
+@Mixin(value = BlockModelJar.class)
 public abstract class BlockModelJarAetherDirtMixin {
     @Unique
     private static final IconCoordinate jarFullAether = TextureRegistry.getTexture("aether:block/jar_aether_dirt");

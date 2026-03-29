@@ -16,7 +16,7 @@ import teamport.aether.gui.machine.freezer.MenuFreezer;
 import teamport.aether.gui.machine.incubator.MenuIncubator;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PlayerServer.class, remap = false)
+@Mixin(value = PlayerServer.class)
 public abstract class PlayerServerMixinAetherScreens implements AetherScreens {
     @Shadow
     private int currentWindowId;

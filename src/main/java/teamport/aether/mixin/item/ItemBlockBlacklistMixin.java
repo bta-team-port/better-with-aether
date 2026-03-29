@@ -29,7 +29,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 
 import java.util.List;
 
-@Mixin(value = ItemBlock.class, remap = false)
+@Mixin(value = ItemBlock.class)
 public abstract class ItemBlockBlacklistMixin {
 
     @Unique

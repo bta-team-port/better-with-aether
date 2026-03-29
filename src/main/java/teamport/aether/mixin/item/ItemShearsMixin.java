@@ -17,7 +17,7 @@ import teamport.aether.entity.animal.sheepuff.MobSheepuff;
 import java.util.List;
 import java.util.Random;
 
-@Mixin(value = ItemToolShears.class, remap = false)
+@Mixin(value = ItemToolShears.class)
 public abstract class ItemShearsMixin {
 
     @WrapOperation(method = "onUseByActivator", at = @At(value = "INVOKE", target = "Ljava/util/List;isEmpty()Z"))

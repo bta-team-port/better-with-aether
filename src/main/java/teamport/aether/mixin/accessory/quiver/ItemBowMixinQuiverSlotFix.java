@@ -9,7 +9,7 @@ import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = ItemBow.class, remap = false)
+@Mixin(value = ItemBow.class)
 public abstract class ItemBowMixinQuiverSlotFix {
     @WrapOperation(method = "onUseItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;armorItemInSlot(I)Lnet/minecraft/core/item/ItemStack;"))
     private ItemStack checkAdditionalSlots(ContainerInventory instance, int slotId, Operation<ItemStack> original) {

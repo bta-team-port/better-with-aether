@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.AetherBlocks;
 
-@Mixin(value = BlockLogicFluid.class, remap = false)
+@Mixin(value = BlockLogicFluid.class)
 public abstract class BlockCreatePortalMixin {
     @WrapOperation(method = "onBlockPlacedByWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogicFluid;checkForHarden(Lnet/minecraft/core/world/World;III)V"))
     private void onBlockAdded(BlockLogicFluid instance, World world, int x, int y, int z, Operation<Void> original) {

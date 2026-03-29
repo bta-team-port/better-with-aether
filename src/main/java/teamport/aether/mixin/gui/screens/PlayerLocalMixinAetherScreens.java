@@ -19,7 +19,7 @@ import teamport.aether.gui.machine.freezer.ScreenFreezer;
 import teamport.aether.gui.machine.incubator.ScreenIncubator;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerLocal.class, remap = false)
+@Mixin(value = PlayerLocal.class)
 public abstract class PlayerLocalMixinAetherScreens extends Player implements AetherScreens {
     protected PlayerLocalMixinAetherScreens(World world) {
         super(world);

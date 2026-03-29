@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.ItemBucketSkyrootEmpty;
 
-@Mixin(value = MobCow.class, remap = false)
+@Mixin(value = MobCow.class)
 public abstract class MobCowMilkMixin {
     @ModifyReturnValue(method = "interact", at = @At(value = "RETURN"))
     private boolean interact(boolean original, Player player) {

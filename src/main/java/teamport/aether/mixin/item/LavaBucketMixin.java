@@ -33,7 +33,7 @@ import teamport.aether.world.AetherDimension;
 
 import java.util.Random;
 
-@Mixin(value = ItemBucket.class, remap = false)
+@Mixin(value = ItemBucket.class)
 public abstract class LavaBucketMixin {
     @Shadow
     @Final

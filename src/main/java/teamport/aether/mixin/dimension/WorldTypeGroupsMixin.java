@@ -11,7 +11,7 @@ import teamport.aether.world.type.AetherWorldTypes;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mixin(value = WorldTypeGroups.class, remap = false)
+@Mixin(value = WorldTypeGroups.class)
 public abstract class WorldTypeGroupsMixin {
     static {
         Map<WorldType, WorldType> overworldToAetherWorldTypeMap = new HashMap<>();

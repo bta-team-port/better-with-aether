@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.achievements.AetherAchievements;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class HostileParadiseMixin extends Mob {
 
     @Shadow

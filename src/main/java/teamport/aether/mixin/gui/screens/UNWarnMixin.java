@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = ScreenSelectWorld.class, remap = false, priority = 0)
+@Mixin(value = ScreenSelectWorld.class, priority = 0)
 public abstract class UNWarnMixin extends Screen {
     @Shadow
     private List<SaveFile> saveList;

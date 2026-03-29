@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = ItemFireStriker.class, remap = false)
+@Mixin(value = ItemFireStriker.class)
 public abstract class ItemFireStrikerMixin extends Item {
     protected ItemFireStrikerMixin(NamespaceID namespaceId, int id) {
         super(namespaceId, id);

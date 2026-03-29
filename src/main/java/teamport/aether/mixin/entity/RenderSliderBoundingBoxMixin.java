@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.entity.boss.slider.MobBossSlider;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderGlobal.class, remap = false)
+@Mixin(value = RenderGlobal.class)
 public abstract class RenderSliderBoundingBoxMixin {
     @WrapOperation(method = "drawInterpolatedEntityBoundingBox", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/util/phys/AABB;grow(DDD)Lnet/minecraft/core/util/phys/AABB;"))
     private AABB undoGrow(AABB instance, double d, double d1, double d2, Operation<AABB> original, Entity entity, ICamera camera, float partialTicks) {

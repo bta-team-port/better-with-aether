@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, remap = false)
+@Mixin(value = MobRendererPlayer.class)
 public abstract class MobRendererPlayerMixinCapeQuiver extends MobRenderer<Player> {
     protected MobRendererPlayerMixinCapeQuiver(ModelBase model, float shadowSize) {
         super(model, shadowSize);

@@ -23,7 +23,7 @@ import teamport.aether.helper.MixinHelper;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = ItemBlockSlab.class, remap = false)
+@Mixin(value = ItemBlockSlab.class)
 public abstract class ItemBlockSlabBlacklistMixin<T extends BlockLogic> extends ItemBlock<T> {
 
     protected ItemBlockSlabBlacklistMixin(@NonNull Block<T> block) {

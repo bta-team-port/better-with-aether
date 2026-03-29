@@ -20,7 +20,7 @@ import turniplabs.halplibe.helper.network.NetworkHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerBossListMixin extends Mob implements AetherBossList {
     protected PlayerBossListMixin(@Nullable World world) {
         super(world);

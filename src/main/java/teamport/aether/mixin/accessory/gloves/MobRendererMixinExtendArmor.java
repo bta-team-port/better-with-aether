@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRenderer.class, remap = false)
+@Mixin(value = MobRenderer.class)
 public abstract class MobRendererMixinExtendArmor {
     @Shadow
     @Final

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.helper.GLManager;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRenderer.class, remap = false)
+@Mixin(value = MobRenderer.class)
 public abstract class MobRendererGLCleanUpMixin<T extends Mob> {
     @Inject(method = "render(Lnet/minecraft/client/render/tessellator/Tessellator;Lnet/minecraft/core/entity/Mob;DDDFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelBase;render(FFFFFF)V", shift = At.Shift.AFTER, ordinal = 2))
     private void restoreGLState2(Tessellator tessellator, T entity, double x, double y, double z, float yaw, float partialTick, CallbackInfo ci) {

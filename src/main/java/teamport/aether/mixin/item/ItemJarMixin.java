@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.AetherMod;
 import teamport.aether.item.AetherItems;
 
-@Mixin(value = ItemJar.class, remap = false)
+@Mixin(value = ItemJar.class)
 public abstract class ItemJarMixin {
     @WrapOperation(method = "onUseItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/item/ItemJar;fillJar(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/item/ItemStack;)Z", ordinal = 3))
     private boolean onGetFireflyColor(Player player, ItemStack itemToGive, Operation<Boolean> original, @Local MobFireflyCluster.FireflyColor colour) {

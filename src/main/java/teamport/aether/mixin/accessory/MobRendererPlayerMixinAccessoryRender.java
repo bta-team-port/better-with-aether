@@ -56,7 +56,7 @@ import static teamport.aether.AetherMod.MOD_ID;
 import static teamport.aether.item.accessory.SlotAccessory.*;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = MobRendererPlayer.class, remap = false)
+@Mixin(value = MobRendererPlayer.class)
 public abstract class MobRendererPlayerMixinAccessoryRender extends MobRenderer<Player> {
     @Shadow
     private ModelBiped modelBipedMain;

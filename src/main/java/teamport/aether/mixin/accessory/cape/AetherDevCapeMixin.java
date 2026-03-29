@@ -14,7 +14,7 @@ import teamport.aether.AetherGlobals;
 @Mixin(MobRendererPlayer.class)
 public abstract class AetherDevCapeMixin {
     @SuppressWarnings("java:S131")
-    @Inject(method = "renderSpecials*", at = @At("HEAD"), remap = false)
+    @Inject(method = "renderSpecials*", at = @At("HEAD"))
     private void injectCapeOverride(Player player, float partialTick, CallbackInfo ci) {
         switch (player.uuid.toString()) {
             case AetherGlobals.UUID_LUKEISSTUFF: // LukeisStuff

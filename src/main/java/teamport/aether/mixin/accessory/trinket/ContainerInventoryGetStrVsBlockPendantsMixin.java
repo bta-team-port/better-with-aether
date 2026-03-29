@@ -14,7 +14,7 @@ import teamport.aether.item.AetherItems;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = ContainerInventory.class, remap = false)
+@Mixin(value = ContainerInventory.class)
 public abstract class ContainerInventoryGetStrVsBlockPendantsMixin {
     @Shadow
     public Player player;

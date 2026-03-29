@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.entity.player.PlayerUtil;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderGlobal.class, remap = false)
+@Mixin(value = RenderGlobal.class)
 public class HideDebugBoxes {
     @WrapMethod(method = "drawInterpolatedEntityBoundingBox")
     private void hideInvisibleBoundingBox(Entity entity, ICamera camera, float partialTicks, Operation<Void> original) {

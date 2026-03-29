@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.option.AetherGameSettingsOptions;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = GameSettings.class, remap = false)
+@Mixin(value = GameSettings.class)
 public abstract class GameSettingsMixin implements AetherGameSettingsOptions {
     @Shadow
     @Final

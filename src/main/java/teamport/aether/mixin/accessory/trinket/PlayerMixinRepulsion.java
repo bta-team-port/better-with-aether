@@ -8,7 +8,7 @@ import teamport.aether.net.message.AetherSyncRepulsionNetworkMessage;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 import turniplabs.halplibe.helper.network.NetworkHandler;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerMixinRepulsion implements AetherRepulsion {
     @Unique
     private boolean repulsion;

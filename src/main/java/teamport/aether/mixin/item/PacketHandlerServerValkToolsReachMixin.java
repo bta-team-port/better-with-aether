@@ -16,7 +16,7 @@ import teamport.aether.item.item_tool.AetherToolMaterial;
 import static teamport.aether.item.item_tool.AetherToolMaterial.VALKYRIE_TOOL_EXTEND_RANGE_BY;
 
 @Environment(EnvType.SERVER)
-@Mixin(value = PacketHandlerServer.class, remap = false)
+@Mixin(value = PacketHandlerServer.class)
 public abstract class PacketHandlerServerValkToolsReachMixin {
     @Shadow
     private PlayerServer playerEntity;

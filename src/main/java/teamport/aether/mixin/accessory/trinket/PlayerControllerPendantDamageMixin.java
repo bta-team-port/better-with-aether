@@ -20,7 +20,7 @@ import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerController.class, remap = false)
+@Mixin(value = PlayerController.class)
 public abstract class PlayerControllerPendantDamageMixin {
     @Shadow
     @Final

@@ -13,7 +13,7 @@ import teamport.aether.item.accessory.ItemGloves;
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
-@Mixin(value = ContainerInventory.class, remap = false)
+@Mixin(value = ContainerInventory.class)
 public abstract class ContainerInventoryMixinGlovesDamage {
     @ModifyExpressionValue(method = "getDamageVsEntity", at = @At(value = "CONSTANT", args = "intValue=1"))
     private int getGloveDamage(int original) {

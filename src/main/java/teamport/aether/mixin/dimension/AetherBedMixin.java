@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = BlockLogicBed.class, remap = false)
+@Mixin(value = BlockLogicBed.class)
 public abstract class AetherBedMixin {
     @WrapOperation(method = "onBlockRightClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/player/Player;addStat(Lnet/minecraft/core/achievement/stat/Stat;I)V"))
     private void onBlockRightClickedOne(Player instance, Stat statbase, int i, Operation<Void> original, World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {

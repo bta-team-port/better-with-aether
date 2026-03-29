@@ -11,7 +11,7 @@ import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = CommandHeal.class, remap = false, priority = 0)
+@Mixin(value = CommandHeal.class, priority = 0)
 public abstract class CommandHealMixin {
     @SuppressWarnings({"java:S3516", "SameReturnValue"})
     @Expression("? instanceof ?")

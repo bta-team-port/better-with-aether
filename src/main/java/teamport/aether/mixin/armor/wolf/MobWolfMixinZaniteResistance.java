@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = MobWolf.class, remap = false)
+@Mixin(value = MobWolf.class)
 public abstract class MobWolfMixinZaniteResistance extends MobAnimal {
     protected MobWolfMixinZaniteResistance(World world) {
         super(world);

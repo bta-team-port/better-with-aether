@@ -17,7 +17,7 @@ import java.util.List;
 
 import static teamport.aether.AetherMod.LOGGER;
 
-@Mixin(value = World.class, remap = false, priority = 0)
+@Mixin(value = World.class, priority = 0)
 public abstract class WorldGetCubesMixin {
     @Shadow
     @Nullable

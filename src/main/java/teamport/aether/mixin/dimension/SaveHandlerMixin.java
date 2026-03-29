@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
-@Mixin(value = SaveHandlerBase.class, remap = false)
+@Mixin(value = SaveHandlerBase.class)
 public abstract class SaveHandlerMixin {
     @Shadow
     @Final

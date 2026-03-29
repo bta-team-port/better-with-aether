@@ -11,7 +11,7 @@ import teamport.aether.entity.animal.moa.MobMoa;
 import teamport.aether.entity.animal.phow.MobPhow;
 import teamport.aether.entity.animal.phyg.MobPhyg;
 
-@Mixin(value = ItemSaddle.class, remap = false)
+@Mixin(value = ItemSaddle.class)
 public abstract class ItemSaddleMixin {
     @ModifyReturnValue(method = "useItemOnEntity", at = @At("TAIL"))
     private boolean callOnItemUse(boolean original, ItemStack itemstack, Mob mob, Player player) {

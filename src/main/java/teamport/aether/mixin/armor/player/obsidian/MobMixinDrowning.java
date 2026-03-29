@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 
-@Mixin(value = Mob.class, remap = false)
+@Mixin(value = Mob.class)
 public abstract class MobMixinDrowning extends Entity {
     protected MobMixinDrowning(@Nullable World world) {
         super(world);

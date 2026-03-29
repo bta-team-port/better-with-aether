@@ -24,7 +24,7 @@ import turniplabs.halplibe.helper.EnvironmentHelper;
 import static teamport.aether.world.AetherDimension.OVERWORLD_RETURN_HEIGHT;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class SPBumpToOverworldMixin extends Mob {
     protected SPBumpToOverworldMixin(@Nullable World world) {
         super(world);

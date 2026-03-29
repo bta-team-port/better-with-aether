@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = RenderGlobal.class, remap = false)
+@Mixin(value = RenderGlobal.class)
 public abstract class RenderGlobalMixin {
     @WrapOperation(method = "playStreamingMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/lang/I18n;translateKey(Ljava/lang/String;)Ljava/lang/String;"))
     private String fixCustomRecordTranslation(I18n instance, String s, Operation<String> original, String soundPath, String author, int x, int y, int z) {

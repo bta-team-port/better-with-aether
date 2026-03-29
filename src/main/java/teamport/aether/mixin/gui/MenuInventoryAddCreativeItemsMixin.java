@@ -18,7 +18,7 @@ import java.util.List;
 import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeItems;
 import static net.minecraft.core.player.inventory.menu.MenuInventoryCreative.creativeItemsCount;
 
-@Mixin(value = MenuInventoryCreative.class, remap = false)
+@Mixin(value = MenuInventoryCreative.class)
 public abstract class MenuInventoryAddCreativeItemsMixin extends MenuInventory {
     protected MenuInventoryAddCreativeItemsMixin(ContainerInventory inventory) {
         super(inventory);

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.helper.MixinHelper;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(value = Entity.class)
 public abstract class EntityMixinIgnitionImmunity {
     @ModifyReturnValue(method = "isInWaterOrRain", at = @At("RETURN"))
     private boolean cantCatchFire(boolean original) {

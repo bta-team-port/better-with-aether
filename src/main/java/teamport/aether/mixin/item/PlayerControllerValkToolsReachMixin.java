@@ -14,7 +14,7 @@ import teamport.aether.item.item_tool.AetherToolMaterial;
 import static teamport.aether.item.item_tool.AetherToolMaterial.VALKYRIE_TOOL_EXTEND_RANGE_BY;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = PlayerController.class, remap = false)
+@Mixin(value = PlayerController.class)
 public abstract class PlayerControllerValkToolsReachMixin {
     @Final
     @Shadow

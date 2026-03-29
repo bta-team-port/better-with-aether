@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import teamport.aether.item.accessory.IAccessoryEffects;
 
-@Mixin(value = ContainerInventory.class, remap = false)
+@Mixin(value = ContainerInventory.class)
 public abstract class ContainerInventoryMixinAccessory {
     @Shadow
     public Player player;

@@ -11,7 +11,7 @@ import net.minecraft.core.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import teamport.aether.world.AetherDimension;
 
-@Mixin(value = BlockLogicFire.class, remap = false)
+@Mixin(value = BlockLogicFire.class)
 public abstract class BlockLogicFireMixin extends BlockLogic {
     protected BlockLogicFireMixin(Block<?> block, Material material) {
         super(block, material);

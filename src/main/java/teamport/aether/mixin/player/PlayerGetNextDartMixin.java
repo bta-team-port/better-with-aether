@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import teamport.aether.item.AetherItems;
 import teamport.aether.item.DartInterface;
 
-@Mixin(value = Player.class, remap = false)
+@Mixin(value = Player.class)
 public abstract class PlayerGetNextDartMixin extends Mob implements DartInterface {
     protected PlayerGetNextDartMixin(@Nullable World world) {
         super(world);

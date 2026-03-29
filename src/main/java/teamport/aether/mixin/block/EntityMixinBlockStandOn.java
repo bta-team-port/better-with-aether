@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import teamport.aether.block.dungeon.AetherBlockTriggerStandOn;
 
-@Mixin(value = Entity.class, remap = false)
+@Mixin(value = Entity.class)
 public abstract class EntityMixinBlockStandOn {
 
 	@Shadow

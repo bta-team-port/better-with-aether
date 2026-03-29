@@ -20,7 +20,7 @@ import teamport.aether.block.skyroot.BlockLogicPaintableSignSkyroot;
 import teamport.aether.block.skyroot.BlockLogicPaintedSignSkyroot;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = TileEntityRendererSign.class, remap = false)
+@Mixin(value = TileEntityRendererSign.class)
 public abstract class TileEntityRendererSignMixin extends TileEntityRenderer<TileEntitySign> {
 
     @Unique

@@ -14,7 +14,7 @@ import teamport.aether.item.AetherItems;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_1_SLOT;
 import static teamport.aether.item.accessory.SlotAccessory.TRINKET_2_SLOT;
 
-@Mixin(value = BlockLogicFarmland.class, remap = false)
+@Mixin(value = BlockLogicFarmland.class)
 public abstract class BlockLogicFarmlandLeatherPendantMixin {
     @Expression("? instanceof ?")
     @ModifyExpressionValue(method = "onEntityWalking", at = @At(value = "MIXINEXTRAS:EXPRESSION"))

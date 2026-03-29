@@ -21,7 +21,7 @@ import teamport.aether.helper.MixinHelper;
 import static teamport.aether.AetherClient.resourceDownloaderThread;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = Minecraft.class, remap = false)
+@Mixin(value = Minecraft.class)
 public abstract class ResourceDownloadToastMixin {
     @Shadow
     public GuiElementToastsHud guiToasts;
