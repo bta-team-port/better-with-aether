@@ -20,17 +20,17 @@ btaChannel = "release"
 # Check this on https://maven.thesignalumproject.net/#/infrastructure/net/fabricmc/fabric-loader/
 loader = "0.18.4-bta.10"
 # Check this on https://github.com/Turnip-Labs/ModMenu/releases/latest/
-modMenu = "4.0.0"
+modMenu = "4.0.1"
 # Check this on https://github.com/Turnip-Labs/bta-halplibe/releases/latest/
-halplibe = "5.4.0"
-# Check this on https://github.com/Better-than-Adventure/legacy-lwjgl3/releases/latest/
+halplibe = "5.4.1"
+# Check this on https://maven.thesignalumproject.net/#/infrastructure/com/github/Better-than-Adventure/legacy-lwjgl3/
 legacyLwjgl = "1.0.6"
 # Check this on https://maven.thesignalumproject.net/#/releases/sunsetsatellite/catalyst-core/
 catalyst-core = "2.3.0"
 # Check this on https://maven.thesignalumproject.net/#/releases/sunsetsatellite/catalyst-effects/
 catalyst-effects = "2.5.3"
 # Check this on https://maven.thesignalumproject.net/#/releases/useless/btwaila/
-btwaila = "1.2.2-7.3_04"
+btwaila = "1.2.3-7.3_04"
 # Check this on https://modrinth.com/mod/bta-uselessnumerical/versions/
 uselessNumerical = "1.1.0"
 # Check this on https://maven.thesignalumproject.net/#/releases/useless/dragonfly/
