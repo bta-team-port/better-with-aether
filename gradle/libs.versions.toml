@@ -30,7 +30,7 @@ catalyst-core = "2.3.0"
 # Check this on https://maven.thesignalumproject.net/#/releases/sunsetsatellite/catalyst-effects/
 catalyst-effects = "2.5.3"
 # Check this on https://maven.thesignalumproject.net/#/releases/useless/btwaila/
-btwaila = "1.2.3-7.3_04"
+btwaila = "1.2.5-7.3_04"
 # Check this on https://modrinth.com/mod/bta-uselessnumerical/versions/
 uselessNumerical = "1.1.0"
 # Check this on https://maven.thesignalumproject.net/#/releases/useless/dragonfly/
