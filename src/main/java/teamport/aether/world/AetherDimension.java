@@ -163,7 +163,7 @@ public class AetherDimension {
 
     public static synchronized void addEntityToFallen(Entity target) {
         if (AetherMod.LOGGER.isInfoEnabled())
-            AetherMod.LOGGER.info("Sending {} to overworld", Entity.getNameFromEntity(target, true));
+            AetherMod.LOGGER.debug("Sending {} to overworld", Entity.getNameFromEntity(target, true));
 
         IntPair chunk = new IntPair(
             ((int) target.x) / 16,

@@ -37,7 +37,7 @@ public abstract class SPBumpToOverworldMixin extends Mob {
             if (EnvironmentHelper.isSinglePlayer()) {
                 Minecraft mc = Minecraft.getMinecraft();
 
-                AetherMod.LOGGER.info("Sending {} to overworld", getDisplayName());
+                AetherMod.LOGGER.debug("Sending {} to overworld", getDisplayName());
 
                 CompoundTag passengerNBT = null;
                 CompoundTag vehicleNBT = null;
