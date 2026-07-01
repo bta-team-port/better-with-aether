@@ -82,6 +82,7 @@
     "entity.MobPigMixin",
     "entity.MobSheepMixin",
     "entity.SpawnMobMixinZephyr",
+    "fix.begoneprickMixin",
     "fix.CommandHealMixin",
     "fix.MapFixMixin",
     "fix.MinecartCarriablesFix",
