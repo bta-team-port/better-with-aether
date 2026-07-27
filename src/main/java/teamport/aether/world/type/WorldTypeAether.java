@@ -3,6 +3,7 @@ package teamport.aether.world.type;
 import net.minecraft.core.Global;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.biome.Biome;
 import net.minecraft.core.world.biome.provider.BiomeProvider;
 import net.minecraft.core.world.config.season.SeasonConfig;
 import net.minecraft.core.world.generate.chunk.ChunkGenerator;
@@ -14,6 +15,7 @@ import teamport.aether.block.AetherBlocks;
 import teamport.aether.world.SunSpiritDeath;
 import teamport.aether.world.chunk.BiomeProviderAether;
 import teamport.aether.world.chunk.ChunkGeneratorAether;
+import teamport.aether.world.biome.AetherBiomes;
 
 public class WorldTypeAether extends WorldType {
     public WorldTypeAether(WorldType.Properties properties) {
@@ -31,7 +33,6 @@ public class WorldTypeAether extends WorldType {
                 .withSeasonInCycle(Seasons.OVERWORLD_WINTER, 14)
                 .build())
             .dayNightCycleTicks(Global.DAY_LENGTH_TICKS)
-            .oceanBlock(null)
             .fillerBlock(AetherBlocks.COBBLE_HOLYSTONE);
     }
 
@@ -57,13 +58,13 @@ public class WorldTypeAether extends WorldType {
     }
 
     @Override
-    public int getOceanBlockId() {
-        return 0;
+    public Biome[] allBiomes() {
+        return new Biome[]{AetherBiomes.AETHER_PLAINS};
     }
 
     @Override
     public BiomeProvider createBiomeProvider(World world) {
-        return new BiomeProviderAether(world.getRandomSeed(), this);
+        return new BiomeProviderAether(world);
     }
 
     @Override
@@ -137,7 +138,7 @@ public class WorldTypeAether extends WorldType {
         float weatherOffset = 0.0F;
         Weather currentWeather = world.getCurrentWeather();
         if (currentWeather != null) {
-            weatherOffset = currentWeather.subtractLightLevel * world.weatherManager.getWeatherIntensity() * world.weatherManager.getWeatherPower();
+            weatherOffset = currentWeather.getLightLevelSubtracted() * world.getWeatherManager().getWeatherIntensity() * world.getWeatherManager().getWeatherPower();
         }
         return (int) (f2 * (11.0F - weatherOffset) + weatherOffset);
     }

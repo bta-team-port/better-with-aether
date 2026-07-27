@@ -5,7 +5,6 @@ import teamport.aether.helper.unboxed.IntPair;
 
 import java.util.Random;
 
-// TODO remove this class
 public class BlockPallet {
     private final WeightedRandomBag<IntPair> pallet = new WeightedRandomBag<>();
 

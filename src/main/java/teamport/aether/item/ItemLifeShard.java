@@ -4,8 +4,11 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import sunsetsatellite.catalyst.effects.helper.HealthHelper;
+import teamport.aether.effect.api.HealthHelper;
 import teamport.aether.achievements.AetherAchievements;
+import teamport.aether.net.message.ExtraHealthSyncNetworkMessage;
+import turniplabs.halplibe.helper.EnvironmentHelper;
+import turniplabs.halplibe.helper.network.NetworkHandler;
 
 import static teamport.aether.AetherConfig.EXTRA_HEALTH;
 
@@ -19,7 +22,8 @@ public class ItemLifeShard extends Item {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+    public ItemStack onUse(ItemStack itemstack, World world, Player player) {
+        if (world.isClientSide) return itemstack;
         int extraHealth = HealthHelper.getExtraHealth(player);
 
         // to save on calculation further down
@@ -41,6 +45,9 @@ public class ItemLifeShard extends Item {
 
         // gives Player extra health
         HealthHelper.addExtraHealth(player, gainHealth);
+        if (EnvironmentHelper.isServerEnvironment()) {
+            NetworkHandler.sendToPlayer(player, new ExtraHealthSyncNetworkMessage(player));
+        }
         // min to make damn sure we don't increase pitch and volume more than expected, because that's a recipe for earsplitting sound
         int extraHealthCapped = Math.min(extraHealth, EXTRA_HEALTH);
 

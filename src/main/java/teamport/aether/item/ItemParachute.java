@@ -20,7 +20,7 @@ public class ItemParachute extends Item {
     }
 
     @Override
-    public ItemStack onUseItem(ItemStack itemstack, World world, Player player) {
+    public ItemStack onUse(ItemStack itemstack, World world, Player player) {
         if (player.fallDistance > 0 && !player.isInWater() && !EnvironmentHelper.isClientWorld()) {
 
             EntityParachute cloud;
@@ -41,7 +41,7 @@ public class ItemParachute extends Item {
                 player.triggerAchievement(AetherAchievements.PARACHUTE);
             }
 
-            if (player.gamemode.toolDurability()) {
+            if (player.gamemode.hasToolDurability()) {
                 if (itemstack.getMaxDamage() == 1) {
                     itemstack.consumeItem(player);
                 } else {

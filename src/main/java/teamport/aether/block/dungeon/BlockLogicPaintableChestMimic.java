@@ -5,6 +5,7 @@ import net.minecraft.core.block.IPaintable;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 public class BlockLogicPaintableChestMimic extends BlockLogicChestMimic implements IPaintable {
     protected final Block<? extends BlockLogicPaintedChestMimic> paintedBlock;
@@ -20,11 +21,10 @@ public class BlockLogicPaintableChestMimic extends BlockLogicChestMimic implemen
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor dyeColor) {
-        int meta = world.getBlockMetadata(x, y, z); // frank
-        world.setBlockAndMetadataRaw(x, y, z, paintedBlock.id(), meta);
-        world.setBlockAndMetadata(x, y, z, paintedBlock.id(), meta);
-        paintedBlock.getLogic().setColor(world, x, y, z, dyeColor); // no frank
-
+    public void setColor(World world, TilePosc pos, DyeColor dyeColor) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeDataRaw(pos, paintedBlock, meta);
+        world.setBlockData(pos, meta);
+        paintedBlock.getLogic().setColor(world, pos, dyeColor);
     }
 }

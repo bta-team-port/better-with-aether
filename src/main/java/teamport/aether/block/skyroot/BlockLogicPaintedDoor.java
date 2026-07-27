@@ -2,12 +2,15 @@ package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicDoorPainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 
 import java.util.function.Supplier;
 
@@ -33,13 +36,15 @@ public class BlockLogicPaintedDoor extends BlockLogicDoorPainted {
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadataWithNotify(x, y, z, this.isTop ? unpaintedDoorBlockTopID : unpaintedDoorBlockBottomID, meta & 15);
+    public void removeDye(World world, TilePosc pos) {
+        int meta = world.getBlockData(pos);
+        TilePos otherPos = this.isTop ? pos.down(new TilePos()) : pos.up(new TilePos());
+        world.setBlockTypeData(pos, Blocks.getBlock(this.isTop ? unpaintedDoorBlockTopID : unpaintedDoorBlockBottomID), meta & 15);
         if (this.isTop) {
-            world.setBlockAndMetadataWithNotify(x, y - 1, z, unpaintedDoorBlockBottomID, meta & 15);
+            world.setBlockTypeDataNotify(otherPos, Blocks.getBlock(unpaintedDoorBlockBottomID), meta & 15);
         } else {
-            world.setBlockAndMetadataWithNotify(x, y + 1, z, unpaintedDoorBlockTopID, meta & 15);
+            world.setBlockTypeDataNotify(otherPos, Blocks.getBlock(unpaintedDoorBlockTopID), meta & 15);
         }
+        world.notifyBlockChange(pos, this.block);
     }
 }

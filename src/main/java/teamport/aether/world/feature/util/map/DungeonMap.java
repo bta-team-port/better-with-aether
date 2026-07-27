@@ -7,10 +7,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
-import net.minecraft.server.MinecraftServer;
 import teamport.aether.AetherMod;
 import teamport.aether.compat.AetherPlugin;
-import teamport.aether.net.message.AetherDungeonMapUpdateNetworkMessage;
+import teamport.aether.net.message.AetherDungeonMapRequestNetworkMessage;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.DungeonLogicBronzeDungeon;
 import teamport.aether.world.feature.dungeon.gold.DungeonLogicGoldDungeon;
@@ -147,7 +146,7 @@ public class DungeonMap {
             long time = System.currentTimeMillis();
             if (time - lastListUpdateStamp >= MP_LIST_UPDATE_COOLDOWN) {
                 lastListUpdateStamp = time;
-                NetworkHandler.sendToServer(new AetherDungeonMapUpdateNetworkMessage());
+                NetworkHandler.sendToServer(new AetherDungeonMapRequestNetworkMessage());
             }
 
             return entryListCache;
@@ -205,23 +204,7 @@ public class DungeonMap {
     }
 
     public static void onWorldTick(World world) {
-
-        // There has to be something better. Oh, well.
-        while (!DEAD_DUNGEONS.empty()) {
-            int id = DEAD_DUNGEONS.pop();
-            DUNGEON_MAP.remove(id);
-        }
-
-        List<Player> players;
-        if (EnvironmentHelper.isServerEnvironment()) {
-            // thx java!
-            players = (List<Player>) (Object) MinecraftServer.getInstance().playerList.playerEntities;
-        }
-        else {
-            players = world.players;
-        }
-
-        for (Player player : players) {
+        for (Player player : world.players) {
             for (DungeonLogic dungeonLogic : DUNGEON_MAP.values()) {
                 if (
                     dungeonLogic != null
@@ -240,7 +223,6 @@ public class DungeonMap {
 
         for (DungeonLogic logic : DUNGEON_MAP.values()) {
             if (logic == null || logic.getDimensionID() != world.dimension.id) continue;
-
             logic.tick(world);
         }
     }
@@ -248,8 +230,6 @@ public class DungeonMap {
     public static boolean isEmpty() {
         return DUNGEON_MAP.isEmpty();
     }
-
-    private static final Stack<Integer> DEAD_DUNGEONS = new Stack<>();
 
     /// Marks dungeon for removal.
     public static void remove(Integer id) {
@@ -261,7 +241,6 @@ public class DungeonMap {
         }
 
         DUNGEON_MAP.get(id).markedRemoved = true;
-        DEAD_DUNGEONS.push(id);
     }
 
     public static <T extends DungeonLogic> T register(Class<T> dungeonClass, World world, long seed, int x, int y, int z) {

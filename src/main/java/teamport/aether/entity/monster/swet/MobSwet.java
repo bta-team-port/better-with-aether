@@ -13,7 +13,7 @@ import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.api.IHasEffects;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.effect.AetherEffects;
@@ -26,7 +26,6 @@ import teamport.aether.item.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("java:S110")
 public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessage {
     private double ydO;
     protected int jumpDelay;
@@ -39,7 +38,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.setSize(1.4F, 1.2F);
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 20;
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "swet");
+        this.setTextureIdentifier("aether", "swet");
         this.moveSpeed = 1.5F;
         this.mobDrops.add(new WeightedRandomLootObject(AetherBlocks.AERCLOUD_BLUE.getDefaultStack(), 0));
     }
@@ -85,7 +84,6 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         return AetherItems.FOOD_GUMMY_BLUE;
     }
 
-    @SuppressWarnings("java:S1192")
     @Override
     public void tick() {
         if (this.world == null) return;
@@ -138,7 +136,7 @@ public class MobSwet extends MobMonsterAether implements Enemy, AetherDeathMessa
         this.tryToDespawn();
         if (this.world == null) return;
         Player entityplayer = PlayerUtil.getClosestPlayerToEntity(this.world, this, 16.0, PlayerUtil::isInvisible, PlayerUtil::isSwetty);
-        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().areMobsHostile() && this.canEntityBeSeen(entityplayer);
+        boolean targetPlayer = entityplayer != null && entityplayer.getGamemode().hasHostileMobs() && this.canEntityBeSeen(entityplayer);
         if (entityplayer != null && targetPlayer && entityplayer != this.passenger) {
             this.lookAt(entityplayer, 10.0F, 20.0F);
         }

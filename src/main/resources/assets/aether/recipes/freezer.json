@@ -17,7 +17,13 @@
     "time": 500,
     "input": {
       "stack": {
-        "id": "minecraft:item/bucket_lava"
+        "id": "minecraft:item/bucket_iron",
+        "tag": {
+          "State": {
+            "type": "TAG_String",
+            "value": "minecraft:lava"
+          }
+        }
       }
     },
     "output": {
@@ -190,12 +196,12 @@
     }
   },
   {
-    "name": "aether:freezer/igneous_netherrack_to_netherrack",
+    "name": "aether:freezer/magma_to_netherrack",
     "type": "aether:machine",
     "time": 500,
     "input": {
       "stack": {
-        "id": "minecraft:block/cobble_netherrack_igneous"
+        "id": "minecraft:block/magma"
       }
     },
     "output": {

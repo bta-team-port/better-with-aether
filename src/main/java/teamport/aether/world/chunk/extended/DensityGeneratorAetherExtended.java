@@ -3,33 +3,34 @@ package teamport.aether.world.chunk.extended;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.perlin.DensityGenerator;
-import net.minecraft.core.world.noise.PerlinNoise;
+import net.minecraft.core.world.noise.FractalNoise3D;
+import net.minecraft.core.world.noise.ImprovedPerlinNoise;
 
 public class DensityGeneratorAetherExtended implements DensityGenerator {
     private final World world;
 
-    private final PerlinNoise minLimitNoise;
-    private final PerlinNoise maxLimitNoise;
-    private final PerlinNoise mainNoise;
+    private final FractalNoise3D<ImprovedPerlinNoise> minLimitNoise;
+    private final FractalNoise3D<ImprovedPerlinNoise> maxLimitNoise;
+    private final FractalNoise3D<ImprovedPerlinNoise> mainNoise;
 
     public DensityGeneratorAetherExtended(World world) {
         this.world = world;
 
-        minLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 0);
-        maxLimitNoise = new PerlinNoise(world.getRandomSeed(), 16, 16);
-        mainNoise = new PerlinNoise(world.getRandomSeed(), 8, 16);
+        minLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 0));
+        maxLimitNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 16, 16));
+        mainNoise = new FractalNoise3D<>(ImprovedPerlinNoise.genOctaves(world.getRandomSeed(), 8, 16));
     }
 
     @Override
     public double[] generateDensityMap(Chunk chunk) {
-        int terrainHeight = (world.getWorldType().getMaxY() + 1) - world.getWorldType().getMinY();
+        int terrainHeight = (world.getWorldType().getMaxY(world) + 1) - world.getWorldType().getMinY(world);
 
         int xSize = 5;
         int ySize = (terrainHeight / 8) + 1;
         int zSize = 5;
-        int x = chunk.xPosition * 4;
+        int x = chunk.pos.x * 4;
         int y = 0;
-        int z = chunk.zPosition * 4;
+        int z = chunk.pos.z * 4;
 
         double[] densityMapArray = new double[xSize * ySize * zSize];
 
@@ -44,15 +45,16 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
         double lowerLimitScale = 128.0;
 
         // Generate noise arrays
-        double[] mainNoiseArray = mainNoise.get(null, x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
-        double[] minLimitArray = minLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
-        double[] maxLimitArray = maxLimitNoise.get(null, x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
+        int noiseSize = xSize * ySize * zSize;
+        double[] mainNoiseArray = mainNoise.getRegion(new double[noiseSize], x, y, z, xSize, ySize, zSize, (coordScale / mainNoiseScaleX), (heightScale / mainNoiseScaleY), (coordScale / mainNoiseScaleZ));
+        double[] minLimitArray = minLimitNoise.getRegion(new double[noiseSize], x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
+        double[] maxLimitArray = maxLimitNoise.getRegion(new double[noiseSize], x, y, z, xSize, ySize, zSize, coordScale * 5, heightScale * 9, coordScale * 5);
 
         int mainIndex = 0;
         for (int dx = 0; dx < xSize; dx++) {
             for (int dz = 0; dz < zSize; dz++) {
                 for (int dy = 0; dy < ySize; dy++) {
-                    int absoluteY = world.getWorldType().getMinY() + (dy * 8);
+                    int absoluteY = world.getWorldType().getMinY(world) + (dy * 8);
 
                     double minDensity = minLimitArray[mainIndex] / upperLimitScale;
                     double maxDensity = maxLimitArray[mainIndex] / lowerLimitScale;
@@ -70,7 +72,7 @@ public class DensityGeneratorAetherExtended implements DensityGenerator {
 
                     // Modulate density based on Y level to make islands smaller and thinner higher up
                     // Higher Y reduces density, making islands sparser and smaller
-                    double yFactor = 1.0 - ((double) (absoluteY - world.getWorldType().getMinY()) / terrainHeight);
+                    double yFactor = 1.0 - ((double) (absoluteY - world.getWorldType().getMinY(world)) / terrainHeight);
                     yFactor = Math.max(0.0, Math.min(1.0, yFactor));
                     density *= yFactor * 0.8 + 0.4; // Scale density: 1.0 at bottom, 0.5 at top
 

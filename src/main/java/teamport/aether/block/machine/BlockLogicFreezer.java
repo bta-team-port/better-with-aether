@@ -5,11 +5,13 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.entity.TileEntityFreezer;
@@ -22,7 +24,7 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
     private static boolean keepFreezerInventory = false;
 
     public BlockLogicFreezer(Block<?> block, boolean active) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
         this.isActive = active;
         block.withEntity(TileEntityFreezer::new);
     }
@@ -55,16 +57,16 @@ public class BlockLogicFreezer extends BlockLogicRotatable {
                 double maxSpeedX = rand.nextGaussian() * 0.05;
                 double maxSpeedZ = rand.nextGaussian() * 0.05;
                 ///  this is not broken, it works, its just that vanilla particles are broken at the time
-                world.spawnParticle("snowshovel", poxX, posY, posZ, maxSpeedX, 0.05, maxSpeedZ, 0);
+                world.spawnParticle("snowshovel", poxX, posY, posZ, maxSpeedX, 0.05, maxSpeedZ, 0, false);
             }
         }
     }
 
 
     @Override
-    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
+    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
         if (!world.isClientSide) {
-            TileEntityFreezer tileEntityFreezer = (TileEntityFreezer) world.getTileEntity(x, y, z);
+            TileEntityFreezer tileEntityFreezer = (TileEntityFreezer) world.getTileEntity(pos);
             ((AetherScreens) player).aether$displayFreezerScreen(tileEntityFreezer);
         }
         return true;

@@ -3,6 +3,7 @@ package teamport.aether.block;
 import net.minecraft.core.Global;
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.item.block.ItemBlockPainted;
@@ -23,13 +24,13 @@ import teamport.aether.entity.monster.valkyrie.MobValkyrie;
 import teamport.aether.item.AetherItems;
 import teamport.aether.world.AetherDimension;
 import turniplabs.halplibe.helper.BlockBuilder;
-import turniplabs.halplibe.util.BlockInitEntrypoint;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
 
 import static teamport.aether.AetherConfig.blockID;
 import static teamport.aether.AetherMod.MOD_ID;
 
-@SuppressWarnings({"java:S6539", "java:S1104", "java:S1444", "java:S3008"})
-public final class AetherBlocks implements BlockInitEntrypoint {
+public final class AetherBlocks {
     public static Block<BlockLogicPortalAether> PORTAL_AETHER;
 
     public static Block<?> GRASS_AETHER;
@@ -208,9 +209,18 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         }
     }
 
+    private static BlockBuilder blockBuilder() {
+        return blockBuilder(CreativeInventoryCategory.MISCELLANEOUS);
+    }
+
+    private static BlockBuilder blockBuilder(CreativeInventoryCategory category) {
+        return new BlockBuilder(MOD_ID)
+            .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(category));
+    }
+
     public static void initializeBlocks() {
 
-        BlockBuilder stone = new BlockBuilder(MOD_ID)
+        BlockBuilder stone = blockBuilder(CreativeInventoryCategory.STONE)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
@@ -219,7 +229,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setHardness(1.5F)
             .setInfiniburn();
 
-        BlockBuilder wood = new BlockBuilder(MOD_ID)
+        BlockBuilder wood = blockBuilder(CreativeInventoryCategory.WOOD)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -227,71 +237,96 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
         BlockBuilder dungeonStoneLocked = stone
-            .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING)
-            .setImmovable()
+            .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING, BlockTags.NOT_IN_CREATIVE_MENU)
             .setUnbreakable()
             .setHardness(-1.0F)
             .setResistance(999999999F);
 
-        BlockBuilder oreBlock = new BlockBuilder(MOD_ID)
+        BlockBuilder oreBlock = blockBuilder(CreativeInventoryCategory.STORAGE)
             .setBlockSound(BlockSounds.METAL)
             .setHardness(3.0f)
             .setResistance(10.0f)
             .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
 
-        BlockBuilder flower = new BlockBuilder(MOD_ID)
+        BlockBuilder flower = blockBuilder(CreativeInventoryCategory.ORGANIC)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, BlockTags.SHEARS_DO_SILK_TOUCH, BlockTags.SHEEPS_FAVOURITE_BLOCK, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
-        BlockBuilder log = new BlockBuilder(MOD_ID)
+        BlockBuilder log = blockBuilder(CreativeInventoryCategory.LOGS)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0F)
             .setResistance(1.0f)
             .setFlammability(5, 5)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
 
-        BlockBuilder leaves = new BlockBuilder(MOD_ID)
+        BlockBuilder leaves = blockBuilder(CreativeInventoryCategory.ORGANIC)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.2F)
             .setResistance(0.2F)
             .setFlammability(30, 60)
             .setLightOpacity(1)
-            .setTickOnLoad()
-            .setVisualUpdateOnMetadata()
             .setTags(BlockTags.MINEABLE_BY_AXE, AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.MINEABLE_BY_HOE, BlockTags.MINEABLE_BY_SWORD, AetherBlockTags.MINEABLE_BY_AETHER_SWORD, BlockTags.MINEABLE_BY_SHEARS, BlockTags.SHEARS_DO_SILK_TOUCH);
 
-        BlockBuilder sapling = new BlockBuilder(MOD_ID)
+        BlockBuilder sapling = blockBuilder(CreativeInventoryCategory.ORGANIC)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setResistance(0.0f)
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.PLANTABLE_IN_JAR, AetherBlockTags.PLANTABLE_IN_AETHER_JAR);
 
-        BlockBuilder clouds = new BlockBuilder(MOD_ID)
+        BlockBuilder clouds = blockBuilder(CreativeInventoryCategory.NATURAL)
             .setBlockSound(new BlockSound("step.cloth", "step.cloth", 1.0f, 1.0f))
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVE_GEN_REPLACES_SURFACE, BlockTags.CAVES_CUT_THROUGH, BlockTags.PREVENT_MOB_SPAWNS)
             .setLightOpacity(1)
             .setHardness(0.2f)
             .setResistance(0.2f);
 
-        BlockBuilder slab = new BlockBuilder(MOD_ID)
-            .setUseInternalLight()
-            .setVisualUpdateOnMetadata();
+        BlockBuilder stoneSlab = blockBuilder(CreativeInventoryCategory.STONE)
+            .setUseInternalLight();
+
+        BlockBuilder woodSlab = blockBuilder(CreativeInventoryCategory.WOOD)
+            .setUseInternalLight();
 
         BlockBuilder ores = stone
+            .setCreativeInventoryPlacement(new CreativeInventoryPlacement.Category(CreativeInventoryCategory.ORE))
             .setHardness(1.5f)
             .setResistance(5.0f);
 
-        BlockBuilder station = new BlockBuilder(MOD_ID)
+        BlockBuilder station = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
             .setBlockSound(new BlockSound("step.wood", "step.wood", 1.0f, 1.0f))
             .setHardness(2.5f)
             .setResistance(10.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.FENCES_CONNECT, BlockTags.CHAINLINK_FENCES_CONNECT);
 
+        BlockBuilder woodStorage = blockBuilder(CreativeInventoryCategory.WOOD)
+            .setBlockSound(BlockSounds.WOOD)
+            .setHardness(2.0f)
+            .setResistance(5.0f)
+            .setFlammability(20, 5)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
+
+        BlockBuilder woodRedstone = blockBuilder(CreativeInventoryCategory.WOOD)
+            .setBlockSound(BlockSounds.WOOD)
+            .setHardness(2.0f)
+            .setResistance(5.0f)
+            .setFlammability(20, 5)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.FENCES_CONNECT);
+
+        BlockBuilder stoneStorage = blockBuilder(CreativeInventoryCategory.STONE)
+            .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
+            .setHardness(1.5F)
+            .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT);
+
+        BlockBuilder zaniteConstruction = blockBuilder(CreativeInventoryCategory.STORAGE)
+            .setBlockSound(BlockSounds.METAL)
+            .setHardness(3.0f)
+            .setResistance(10.0f)
+            .setTags(BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE);
+
         // Blocks
 
-        PORTAL_AETHER = new BlockBuilder(MOD_ID)
+        PORTAL_AETHER = blockBuilder()
             .setBlockSound(BlockSounds.GLASS)
             .setHardness(-1.0f)
             .setResistance(-1.0f)
@@ -300,7 +335,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("portal.aether", "portal_aether", blockID("PORTAL_AETHER"), b -> new BlockLogicPortalAether(b, AetherDimension.getAether(), Blocks.GLOWSTONE, Blocks.FLUID_WATER_FLOWING));
 
         ///  M: GRASS
-        GRASS_AETHER = new BlockBuilder(MOD_ID)
+        GRASS_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
             .setBlockSound(new BlockSound("step.grass", "step.grass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setResistance(0.6f)
@@ -308,7 +343,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("grass.aether", "grass_aether", blockID("GRASS_AETHER"), b -> new BlockLogicGrassAether(b, DIRT_AETHER));
 
         ///  M: DIRT
-        DIRT_AETHER = new BlockBuilder(MOD_ID)
+        DIRT_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
             .setBlockSound(BlockSounds.GRAVEL)
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -316,7 +351,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("dirt.aether", "dirt_aether", blockID("DIRT_AETHER"), BlockLogicDirtAether::new);
 
         ///  M: DIRT
-        PATH_DIRT_AETHER = new BlockBuilder(MOD_ID)
+        PATH_DIRT_AETHER = blockBuilder(CreativeInventoryCategory.NATURAL)
             .setBlockSound(BlockSounds.GRAVEL)
             .setHardness(0.2f)
             .setResistance(0.2f)
@@ -327,7 +362,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         /// M: MARBLE
         HOLYSTONE = stone
-            .build("holystone", "holystone", blockID("HOLYSTONE"), b -> new BlockLogicStone(b, COBBLE_HOLYSTONE, Material.marble));
+            .build("holystone", "holystone", blockID("HOLYSTONE"), b -> new BlockLogicStone(b, COBBLE_HOLYSTONE, Materials.MARBLE));
 
         /// M: MOSS
         HOLYSTONE_MOSSY = stone
@@ -336,14 +371,14 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         /// M: MARBLE
         HOLYSTONE_POLISHED = stone
-            .build("holystone.polished", "holystone_polished", blockID("HOLYSTONE_POLISHED"), b -> new BlockLogic(b, Material.marble));
+            .build("holystone.polished", "holystone_polished", blockID("HOLYSTONE_POLISHED"), b -> new BlockLogic(b, Materials.MARBLE));
 
         /// M: MARBLE
         HOLYSTONE_CARVED = stone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.NOT_IN_CREATIVE_MENU)
-            .build("holystone.carved", "holystone_carved", blockID("HOLYSTONE_CARVED"), b -> new BlockLogic(b, Material.marble)).withDisabledStats();
+            .build("holystone.carved", "holystone_carved", blockID("HOLYSTONE_CARVED"), b -> new BlockLogic(b, Materials.MARBLE)).withDisabledStats();
 
-        SLAB_HOLYSTONE_POLISHED = slab
+        SLAB_HOLYSTONE_POLISHED = stoneSlab
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setResistance(0.8f)
@@ -352,19 +387,19 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         /// M: MARBLE
         COBBLE_HOLYSTONE = stone
-            .build("cobble.holystone", "cobble_holystone", blockID("COBBLE_HOLYSTONE"), b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
+            .build("cobble.holystone", "cobble_holystone", blockID("COBBLE_HOLYSTONE"), b -> new BlockLogicDouble(b, Materials.MARBLE, () -> Blocks.GRAVEL));
 
         COBBLE_HOLYSTONE_MOSSY = stone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT, AetherBlockTags.GROWS_AETHER_FLOWERS)
-            .build("cobble.holystone.mossy", "cobble_holystone_mossy", blockID("COBBLE_HOLYSTONE_MOSSY"), b -> new BlockLogicDouble(b, Material.marble, () -> Blocks.GRAVEL));
+            .build("cobble.holystone.mossy", "cobble_holystone_mossy", blockID("COBBLE_HOLYSTONE_MOSSY"), b -> new BlockLogicDouble(b, Materials.MARBLE, () -> Blocks.GRAVEL));
 
-        STAIRS_COBBLE_HOLYSTONE = slab
+        STAIRS_COBBLE_HOLYSTONE = stoneSlab
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build("stairs.cobble.holystone", "stairs_cobble_holystone", blockID("STAIRS_COBBLE_HOLYSTONE"), b -> new BlockLogicStairs(b, COBBLE_HOLYSTONE));
 
-        SLAB_COBBLE_HOLYSTONE = slab
+        SLAB_COBBLE_HOLYSTONE = stoneSlab
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
@@ -372,15 +407,15 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         BRICK_HOLYSTONE = stone
-            .build("brick.holystone", "brick_holystone", blockID("BRICK_HOLYSTONE"), b -> new BlockLogic(b, Material.marble));
+            .build("brick.holystone", "brick_holystone", blockID("BRICK_HOLYSTONE"), b -> new BlockLogic(b, Materials.MARBLE));
 
-        STAIRS_BRICK_HOLYSTONE = slab
+        STAIRS_BRICK_HOLYSTONE = stoneSlab
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build("stairs.brick.holystone", "stairs_brick_holystone", blockID("STAIRS_BRICK_HOLYSTONE"), b -> new BlockLogicStairs(b, BRICK_HOLYSTONE));
 
-        SLAB_BRICK_HOLYSTONE = slab
+        SLAB_BRICK_HOLYSTONE = stoneSlab
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
@@ -388,15 +423,15 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         /// M: STONE
-        ICESTONE = new BlockBuilder(MOD_ID)
+        ICESTONE = blockBuilder(CreativeInventoryCategory.STONE)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(3.0f)
-            .setTickOnLoad()
+            .setTicking(true)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.SKATEABLE, BlockTags.CHAINLINK_FENCES_CONNECT, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
             .build("icestone", "icestone", blockID("ICESTONE"), BlockLogicIceStone::new);
 
 
-        QUICKSOIL = new BlockBuilder(MOD_ID)
+        QUICKSOIL = blockBuilder(CreativeInventoryCategory.NATURAL)
             .setBlockSound(new BlockSound("step.sand", "step.gravel", 1.0f, 1.0f))
             .setHardness(0.5f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL, BlockTags.CAVES_CUT_THROUGH, BlockTags.CAVE_GEN_REPLACES_SURFACE)
@@ -404,7 +439,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         /// M: DIRT
-        GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
+        GLASS_QUICKSOIL = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
@@ -413,36 +448,33 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("glass.quicksoil", "glass_quicksoil", blockID("GLASS_QUICKSOIL"), BlockLogicGlassQuicksoil::new);
 
 
-        DOOR_GLASS_QUICKSOIL_BOTTOM = new BlockBuilder(MOD_ID)
+        DOOR_GLASS_QUICKSOIL_BOTTOM = blockBuilder()
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
             .setLightOpacity(0)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .<BlockLogicDoorGlassQuicksoil>build("door.glass.quicksoil.bottom", "door_glass_quicksoil_bottom", blockID("DOOR_GLASS_QUICKSOIL_BOTTOM"),
-                block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
+                block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, false, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM);
 
-        DOOR_GLASS_QUICKSOIL_TOP = new BlockBuilder(MOD_ID)
+        DOOR_GLASS_QUICKSOIL_TOP = blockBuilder()
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
             .setLightOpacity(0)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .<BlockLogicDoorGlassQuicksoil>build("door.glass.quicksoil.top", "door_glass_quicksoil_top", blockID("DOOR_GLASS_QUICKSOIL_TOP"),
-                block -> new BlockLogicDoorGlassQuicksoil(block, Material.glass, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
+                block -> new BlockLogicDoorGlassQuicksoil(block, Materials.GLASS, true, false, () -> AetherItems.DOOR_GLASS_AMBROSIUM))
             .setStatParent(() -> AetherItems.DOOR_GLASS_AMBROSIUM);
 
-        TRAPDOOR_GLASS_QUICKSOIL = new BlockBuilder(MOD_ID)
+        TRAPDOOR_GLASS_QUICKSOIL = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
             .setBlockSound(new BlockSound("step.stone", "random.glass", 1.0f, 1.0f))
             .setHardness(0.3f)
             .setLuminance(7)
             .setLightOpacity(0)
-            .setVisualUpdateOnMetadata()
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
-            .build("trapdoor.glass.quicksoil", "trapdoor_glass_quicksoil", blockID("TRAPDOOR_GLASS_QUICKSOIL"), b -> new BlockLogicTrapDoorGlassQuicksoil(b, Material.glass));
+            .build("trapdoor.glass.quicksoil", "trapdoor_glass_quicksoil", blockID("TRAPDOOR_GLASS_QUICKSOIL"), b -> new BlockLogicTrapDoorGlassQuicksoil(b, Materials.GLASS));
 
         ///  M: PLANT
         FLOWER_PURPLE = flower
@@ -462,13 +494,13 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
 
         PLANKS_SKYROOT = wood
-            .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogicPaintableBlock(b, Material.wood, () -> PLANKS_SKYROOT_PAINTED));
+            .build("planks.skyroot", "planks_skyroot", blockID("PLANKS_SKYROOT"), b -> new BlockLogicPaintableBlock(b, Materials.WOOD, () -> PLANKS_SKYROOT_PAINTED));
 
         PLANKS_SKYROOT_PAINTED = wood
             .setBlockItem(b -> new ItemBlockPainted<>(b, false))
             .build("planks.skyroot.painted", "planks_skyroot_painted", blockID("PLANKS_SKYROOT_PAINTED"), b -> new BlockLogicPaintedBlock(b, () -> PLANKS_SKYROOT));
 
-        SLAB_PLANKS_SKYROOT = slab
+        SLAB_PLANKS_SKYROOT = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -478,7 +510,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "slab_planks_skyroot",
                 blockID("SLAB_PLANKS_SKYROOT"),
                 b -> new BlockLogicPaintableSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT_PAINTED));
-        SLAB_PLANKS_SKYROOT_PAINTED = slab
+        SLAB_PLANKS_SKYROOT_PAINTED = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -491,7 +523,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 b -> new BlockLogicPaintedSlab(b, PLANKS_SKYROOT, AetherBlocks.SLAB_PLANKS_SKYROOT.id()));
 
 
-        STAIRS_PLANKS_SKYROOT = slab
+        STAIRS_PLANKS_SKYROOT = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -504,7 +536,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                     block, PLANKS_SKYROOT, AetherBlocks.STAIRS_PLANKS_SKYROOT_PAINTED
                 )
             );
-        STAIRS_PLANKS_SKYROOT_PAINTED = slab
+        STAIRS_PLANKS_SKYROOT_PAINTED = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -520,7 +552,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             );
 
 
-        FENCE_PLANKS_SKYROOT = slab
+        FENCE_PLANKS_SKYROOT = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -535,7 +567,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             );
 
 
-        FENCE_PLANKS_SKYROOT_PAINTED = slab
+        FENCE_PLANKS_SKYROOT_PAINTED = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -546,11 +578,11 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "fence_planks_skyroot_painted",
                 blockID("FENCE_PLANKS_SKYROOT_PAINTED"),
                 block -> new BlockLogicPaintedFence(
-                    block, AetherBlocks.FENCEGATE_PLANKS_SKYROOT.id()
+                    block, AetherBlocks.FENCE_PLANKS_SKYROOT.id()
                 )
             );
 
-        FENCEGATE_PLANKS_SKYROOT = slab
+        FENCEGATE_PLANKS_SKYROOT = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -564,7 +596,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 )
             );
 
-        FENCEGATE_PLANKS_SKYROOT_PAINTED = slab
+        FENCEGATE_PLANKS_SKYROOT_PAINTED = woodSlab
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -581,14 +613,13 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DOOR_PLANKS_SKYROOT_BOTTOM = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .setHardness(3.0f)
             .<BlockLogicDoor>build(
                 "door.planks.skyroot.bottom",
                 "door_planks_skyroot_bottom",
                 blockID("DOOR_PLANKS_SKYROOT_BOTTOM"),
                 block -> new BlockLogicPaintableDoor(
-                    block, Material.clay,
+                    block, Materials.CLAY,
                     false, false,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM,
@@ -598,14 +629,13 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DOOR_PLANKS_SKYROOT_TOP = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .setHardness(3.0f)
             .<BlockLogicDoor>build(
                 "door.planks.skyroot.top",
                 "door_planks_skyroot_top",
                 blockID("DOOR_PLANKS_SKYROOT_TOP"),
                 block -> new BlockLogicPaintableDoor(
-                    block, Material.clay,
+                    block, Materials.CLAY,
                     true, false,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_TOP,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM,
@@ -616,7 +646,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .setHardness(3.0f)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .<BlockLogicPaintedDoor>build(
@@ -625,7 +654,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 blockID("DOOR_PLANKS_SKYROOT_PAINTED_BOTTOM"),
                 block -> new BlockLogicPaintedDoor(
                     block,
-                    Material.wood,
+                    Materials.WOOD,
                     false,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_TOP.id(),
                     AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM.id(),
@@ -636,7 +665,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         DOOR_PLANKS_SKYROOT_PAINTED_TOP = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
-            .setVisualUpdateOnMetadata()
             .setHardness(3.0f)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .<BlockLogicPaintedDoor>build(
@@ -645,7 +673,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 blockID("DOOR_PLANKS_SKYROOT_PAINTED_TOP"),
                 block -> new BlockLogicPaintedDoor(
                     block,
-                    Material.wood,
+                    Materials.WOOD,
                     true,
                     AetherBlocks.DOOR_PLANKS_SKYROOT_TOP.id(),
                     AetherBlocks.DOOR_PLANKS_SKYROOT_BOTTOM.id(),
@@ -657,21 +685,18 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         SIGN_POST_PLANKS_SKYROOT = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .setHardness(1.0f)
-            .setVisualUpdateOnMetadata()
             .build("sign.post.planks.skyroot", "sign_post_planks_skyroot", blockID("SIGN_POST_PLANKS_SKYROOT"), b -> new BlockLogicPaintableSignSkyroot(b, true))
             .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         SIGN_WALL_PLANKS_SKYROOT = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .setHardness(1.0f)
-            .setVisualUpdateOnMetadata()
             .build("sign.wall.planks.skyroot", "sign_wall_planks_skyroot", blockID("SIGN_WALL_PLANKS_SKYROOT"), b -> new BlockLogicPaintableSignSkyroot(b, false))
             .setStatParent(() -> AetherItems.SIGN_SKYROOT);
 
         SIGN_POST_PLANKS_SKYROOT_PAINTED = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .setHardness(1.0f)
-            .setVisualUpdateOnMetadata()
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .<BlockLogicPaintedSignSkyroot>build("sign.post.planks.skyroot.painted", "sign_post_planks_skyroot_painted", blockID("SIGN_POST_PLANKS_SKYROOT_PAINTED"),
                 b -> new BlockLogicPaintedSignSkyroot(b, true))
@@ -680,48 +705,42 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         SIGN_WALL_PLANKS_SKYROOT_PAINTED = wood
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.NOT_IN_CREATIVE_MENU)
             .setHardness(1.0f)
-            .setVisualUpdateOnMetadata()
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .<BlockLogicPaintedSignSkyroot>build("sign.wall.planks.skyroot.painted", "sign_wall_planks_skyroot_painted", blockID("SIGN_WALL_PLANKS_SKYROOT_PAINTED"),
                 b -> new BlockLogicPaintedSignSkyroot(b, false))
             .setStatParent(() -> AetherItems.SIGN_SKYROOT_PAINTED);
 
         TRAPDOOR_PLANKS_SKYROOT = wood
-            .setVisualUpdateOnMetadata()
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
-            .build("trapdoor.planks.skyroot", "trapdoor_planks_skyroot", blockID("TRAPDOOR_PLANKS_SKYROOT"), b -> new BlockLogicPaintableTrapDoor(b, Material.wood, TRAPDOOR_PLANKS_SKYROOT_PAINTED));
+            .build("trapdoor.planks.skyroot", "trapdoor_planks_skyroot", blockID("TRAPDOOR_PLANKS_SKYROOT"), b -> new BlockLogicPaintableTrapDoor(b, Materials.WOOD, TRAPDOOR_PLANKS_SKYROOT_PAINTED));
 
         TRAPDOOR_PLANKS_SKYROOT_PAINTED = wood
-            .setVisualUpdateOnMetadata()
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .build(
                 "trapdoor.planks.skyroot.painted",
                 "trapdoor_planks_skyroot_painted",
                 blockID("TRAPDOOR_PLANKS_SKYROOT_PAINTED"),
-                b -> new BlockLogicPaintedTrapDoor(b, Material.wood, TRAPDOOR_PLANKS_SKYROOT.id()));
+                b -> new BlockLogicPaintedTrapDoor(b, Materials.WOOD, TRAPDOOR_PLANKS_SKYROOT.id()));
 
-        CHEST_PLANKS_SKYROOT = wood
-            .setVisualUpdateOnMetadata()
+        CHEST_PLANKS_SKYROOT = woodStorage
             .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .build(
                 "chest.planks.skyroot",
                 "chest_planks_skyroot",
                 blockID("CHEST_PLANKS_SKYROOT"),
-                b -> new BlockLogicPaintableChest(b, Material.wood, CHEST_PLANKS_SKYROOT_PAINTED));
+                b -> new BlockLogicPaintableChest(b, Materials.WOOD, CHEST_PLANKS_SKYROOT_PAINTED));
 
-        CHEST_PLANKS_SKYROOT_PAINTED = wood
-            .setVisualUpdateOnMetadata()
+        CHEST_PLANKS_SKYROOT_PAINTED = woodStorage
             .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .build("chest.planks.skyroot.painted",
                 "chest_planks_skyroot_painted",
                 blockID("CHEST_PLANKS_SKYROOT_PAINTED"),
-                b -> new BlockLogicPaintedChest(b, Material.wood, CHEST_PLANKS_SKYROOT.id()));
+                b -> new BlockLogicPaintedChest(b, Materials.WOOD, CHEST_PLANKS_SKYROOT.id()));
 
 
-        BUTTON_PLANKS_SKYROOT = wood
-            .setVisualUpdateOnMetadata()
+        BUTTON_PLANKS_SKYROOT = woodRedstone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
             .build(
                 "button.planks.skyroot",
@@ -732,8 +751,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 )
             );
 
-        BUTTON_PLANKS_SKYROOT_PAINTED = wood
-            .setVisualUpdateOnMetadata()
+        BUTTON_PLANKS_SKYROOT_PAINTED = woodRedstone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .build(
@@ -745,22 +763,20 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 )
             );
 
-        PRESSURE_PLATE_PLANKS_SKYROOT = wood
-            .setVisualUpdateOnMetadata()
+        PRESSURE_PLATE_PLANKS_SKYROOT = woodRedstone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
             .build(
                 "pressure.plate.planks.skyroot",
                 "pressure_plate_planks_skyroot",
                 blockID("PRESSURE_PLATE_PLANKS_SKYROOT"),
                 block -> new BlockLogicPaintablePressurePlate<>(
-                    block, Entity.class, Material.wood,
+                    block, Entity.class, Materials.WOOD,
                     PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED
                 )
             );
 
 
-        PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED = wood
-            .setVisualUpdateOnMetadata()
+        PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED = woodRedstone
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE, BlockTags.BROKEN_BY_FLUIDS)
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
             .build(
@@ -768,7 +784,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "pressure_plate_planks_skyroot_painted",
                 blockID("PRESSURE_PLATE_PLANKS_SKYROOT_PAINTED"),
                 block -> new BlockLogicPaintedPressurePlate<>(
-                    block, Entity.class, Material.wood,
+                    block, Entity.class, Materials.WOOD,
                     PRESSURE_PLATE_PLANKS_SKYROOT.id()
                 )
             );
@@ -802,15 +818,15 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         AERCLOUD_GOLD = clouds
             .build("aercloud.gold", "aercloud_gold", blockID("AERCLOUD_GOLD"), BlockLogicCloudBase::new);
 
-        AEROGEL = new BlockBuilder(MOD_ID)
+        AEROGEL = blockBuilder(CreativeInventoryCategory.STONE)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(1.0f)
             .setResistance(2000.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.CHAINLINK_FENCES_CONNECT)
-            .build("aerogel", "aerogel", blockID("AEROGEL"), b -> new BlockLogicTransparent(b, Material.stone));
+            .build("aerogel", "aerogel", blockID("AEROGEL"), b -> new BlockLogicTransparent(b, Materials.STONE));
 
 
-        TORCH_AMBROSIUM = new BlockBuilder(MOD_ID)
+        TORCH_AMBROSIUM = blockBuilder(CreativeInventoryCategory.WORKBENCHES)
             .setBlockSound(new BlockSound("step.stone", "step.stone", 1.0f, 1.0f))
             .setHardness(0.0f)
             .setUseInternalLight()
@@ -849,102 +865,92 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         ///  M:STONE
         ORE_AMBROSIUM_HOLYSTONE = ores
             .setBlockSound(BlockSounds.STONE)
-            .build("ore.ambrosium.holystone", "ore_ambrosium_holystone", blockID("ORE_AMBROSIUM_HOLYSTONE"), b -> new BlockLogicOreAmbrosium(b, COBBLE_HOLYSTONE, Material.stone));
+            .build("ore.ambrosium.holystone", "ore_ambrosium_holystone", blockID("ORE_AMBROSIUM_HOLYSTONE"), b -> new BlockLogicOreAmbrosium(b, COBBLE_HOLYSTONE, Materials.STONE));
         ORE_ZANITE_HOLYSTONE = ores
-            .build("ore.zanite.holystone", "ore_zanite_holystone", blockID("ORE_ZANITE_HOLYSTONE"), b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, Material.stone));
+            .build("ore.zanite.holystone", "ore_zanite_holystone", blockID("ORE_ZANITE_HOLYSTONE"), b -> new BlockLogicOreZanite(b, COBBLE_HOLYSTONE, Materials.STONE));
         ORE_GRAVITITE_HOLYSTONE = ores
             .setTicking(true)
-            .setTickOnLoad()
-            .build("ore.gravitite.holystone", "ore_gravitite_holystone", blockID("ORE_GRAVITITE_HOLYSTONE"), b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Material.stone));
+            .build("ore.gravitite.holystone", "ore_gravitite_holystone", blockID("ORE_GRAVITITE_HOLYSTONE"), b -> new BlockLogicOreGravitite(b, COBBLE_HOLYSTONE, Materials.STONE));
 
         BLOCK_AMBER = oreBlock
             .setBlockSound(BlockSounds.STONE)
-            .build("block.amber", "block_amber", blockID("BLOCK_AMBER"), b -> new BlockLogicTransparent(b, Material.stone));
+            .build("block.amber", "block_amber", blockID("BLOCK_AMBER"), b -> new BlockLogicTransparent(b, Materials.STONE));
         BLOCK_AMBROSIUM = oreBlock
             .setBlockSound(BlockSounds.STONE)
-            .build("block.ambrosium", "block_ambrosium", blockID("BLOCK_AMBROSIUM"), b -> new BlockLogic(b, Material.stone));
+            .build("block.ambrosium", "block_ambrosium", blockID("BLOCK_AMBROSIUM"), b -> new BlockLogic(b, Materials.STONE));
         BLOCK_ZANITE = oreBlock
-            .build("block.zanite", "block_zanite", blockID("BLOCK_ZANITE"), b -> new BlockLogic(b, Material.metal));
+            .build("block.zanite", "block_zanite", blockID("BLOCK_ZANITE"), b -> new BlockLogic(b, Materials.METAL));
         BLOCK_GRAVITITE = oreBlock
-            .build("block.gravitite", "block_gravitite", blockID("BLOCK_GRAVITITE"), b -> new BlockLogicBlockGravitite(b, Material.metal));
+            .build("block.gravitite", "block_gravitite", blockID("BLOCK_GRAVITITE"), b -> new BlockLogicBlockGravitite(b, Materials.METAL));
 
-        BRICK_ZANITE = oreBlock
-            .build("brick.zanite", "brick_zanite", blockID("BRICK_ZANITE"), b -> new BlockLogic(b, Material.metal));
+        BRICK_ZANITE = zaniteConstruction
+            .build("brick.zanite", "brick_zanite", blockID("BRICK_ZANITE"), b -> new BlockLogic(b, Materials.METAL));
 
-        SLAB_BRICK_ZANITE = oreBlock
+        SLAB_BRICK_ZANITE = zaniteConstruction
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("slab.brick.zanite", "slab_brick_zanite", blockID("SLAB_BRICK_ZANITE"), b -> new BlockLogicSlab(b, BRICK_ZANITE));
-        STAIRS_BRICK_ZANITE = oreBlock
+        STAIRS_BRICK_ZANITE = zaniteConstruction
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("stairs.brick.zanite", "stairs_brick_zanite", blockID("STAIRS_BRICK_ZANITE"), b -> new BlockLogicStairs(b, BRICK_ZANITE));
 
         CARVED_STONE = stone
             .setHardness(1.5F)
-            .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogicDungeon(b, Material.stone));
+            .build("carved.stone", "carved_stone", blockID("CARVED_STONE"), b -> new BlockLogicDungeon(b, Materials.STONE));
         SLAB_CARVED_STONE = stone
             .setHardness(1.5F)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("slab.carved.stone", "slab_carved_stone", blockID("SLAB_CARVED_STONE"), b -> new BlockLogicSlab(b, CARVED_STONE));
         STAIRS_CARVED_STONE = stone
             .setHardness(1.5F)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("stairs.carved.stone", "stairs_carved_stone", blockID("STAIRS_CARVED_STONE"), b -> new BlockLogicStairs(b, CARVED_STONE));
         CARVED_STONE_LIGHT = stone
             .setLuminance(10)
-            .build("carved.stone.light", "carved_stone_light", blockID("CARVED_STONE_LIGHT"), b -> new BlockLogic(b, Material.stone));
+            .build("carved.stone.light", "carved_stone_light", blockID("CARVED_STONE_LIGHT"), b -> new BlockLogic(b, Materials.STONE));
 
 
         CARVED_ANGELIC = stone
             .setHardness(1.5F)
-            .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogicDungeon(b, Material.stone));
+            .build("carved.angelic", "carved_angelic", blockID("CARVED_ANGELIC"), b -> new BlockLogicDungeon(b, Materials.STONE));
         SLAB_CARVED_ANGELIC = stone
             .setHardness(1.5F)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("slab.carved.angelic", "slab_carved_angelic", blockID("SLAB_CARVED_ANGELIC"), b -> new BlockLogicSlab(b, CARVED_ANGELIC));
         STAIRS_CARVED_ANGELIC = stone
             .setHardness(1.5F)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("stairs.carved.angelic", "stairs_carved_angelic", blockID("STAIRS_CARVED_ANGELIC"), b -> new BlockLogicStairs(b, CARVED_ANGELIC));
         CARVED_ANGELIC_LIGHT = stone
             .setHardness(1.5F)
             .setLuminance(10)
-            .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
+            .build("carved.angelic.light", "carved_angelic_light", blockID("CARVED_ANGELIC_LIGHT"), b -> new BlockLogicDungeon(b, Materials.STONE));
 
 
         CARVED_HELLFIRE = hellfire
-            .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogicDungeon(b, Material.stone));
+            .build("carved.hellfire", "carved_hellfire", blockID("CARVED_HELLFIRE"), b -> new BlockLogicDungeon(b, Materials.STONE));
         SLAB_CARVED_HELLFIRE = hellfire
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("slab.carved.hellfire", "slab_carved_hellfire", blockID("SLAB_CARVED_HELLFIRE"), b -> new BlockLogicSlab(b, CARVED_HELLFIRE));
         STAIRS_CARVED_HELLFIRE = hellfire
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .build("stairs.carved.hellfire", "stairs_carved_hellfire", blockID("STAIRS_CARVED_HELLFIRE"), b -> new BlockLogicStairs(b, CARVED_HELLFIRE));
         CARVED_HELLFIRE_LIGHT = hellfire
             .setLuminance(10)
-            .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogicDungeon(b, Material.stone));
+            .build("carved.hellfire.light", "carved_hellfire_light", blockID("CARVED_HELLFIRE_LIGHT"), b -> new BlockLogicDungeon(b, Materials.STONE));
 
 
         PILLAR = stone
             .setHardness(1.5F)
-            .build("pillar", "pillar", blockID("PILLAR"), b -> new BlockLogicAxisAligned(b, Material.stone));
+            .build("pillar", "pillar", blockID("PILLAR"), b -> new BlockLogicAxisAligned(b, Materials.STONE));
 
         PILLAR_CAPSTONE = stone
             .setHardness(1.5F)
-            .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Material.stone));
+            .build("pillar.capstone", "pillar_capstone", blockID("PILLAR_CAPSTONE"), b -> new BlockLogicAxisAligned(b, Materials.STONE));
 
 
         DOOR_DUNGEON_BRONZE = dungeonStoneLocked
             .setTags(BlockTags.NOT_IN_CREATIVE_MENU, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .setLuminance(4)
             .build("door.dungeon.bronze", "door_dungeon_bronze", blockID("DOOR_DUNGEON_BRONZE"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_BRONZE))
             .setStatParent(() -> AetherItems.DOOR_DUNGEON_BRONZE);
@@ -952,7 +958,6 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         DOOR_DUNGEON_SILVER = dungeonStoneLocked
             .setTags(BlockTags.NOT_IN_CREATIVE_MENU, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .setLuminance(4)
             .build("door.dungeon.silver", "door_dungeon_silver", blockID("DOOR_DUNGEON_SILVER"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_SILVER))
             .setStatParent(() -> AetherItems.DOOR_DUNGEON_SILVER);
@@ -960,13 +965,12 @@ public final class AetherBlocks implements BlockInitEntrypoint {
         DOOR_DUNGEON_GOLD = dungeonStoneLocked
             .setTags(BlockTags.NOT_IN_CREATIVE_MENU, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, BlockTags.PISTON_CRUSHING)
             .setUseInternalLight()
-            .setVisualUpdateOnMetadata()
             .setLuminance(4)
             .build("door.dungeon.gold", "door_dungeon_gold", blockID("DOOR_DUNGEON_GOLD"), b -> new BlockLogicDungeonDoor(b, () -> AetherItems.DOOR_DUNGEON_GOLD))
             .setStatParent(() -> AetherItems.DOOR_DUNGEON_GOLD);
 
 
-        CHEST_DUNGEON_BRONZE = stone
+        CHEST_DUNGEON_BRONZE = stoneStorage
             .setHardness(1.5F)
             .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .build("chest.dungeon.bronze", "chest_dungeon_bronze", blockID("CHEST_DUNGEON_BRONZE"),
@@ -977,7 +981,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("chest.dungeon.bronze.locked", "chest_dungeon_bronze_locked", blockID("CHEST_DUNGEON_BRONZE_LOCKED"),
                 b -> new BlockLogicChestLocked(b, AetherItems.KEY_BRONZE.getDefaultStack(), true, CHEST_DUNGEON_BRONZE)).withDisabledStats();
 
-        CHEST_DUNGEON_SILVER = stone
+        CHEST_DUNGEON_SILVER = stoneStorage
             .setHardness(1.5F)
             .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .build("chest.dungeon.silver", "chest_dungeon_silver", blockID("CHEST_DUNGEON_SILVER"),
@@ -988,7 +992,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .build("chest.dungeon.silver.locked", "chest_dungeon_silver_locked", blockID("CHEST_DUNGEON_SILVER_LOCKED"),
                 b -> new BlockLogicChestLocked(b, AetherItems.KEY_SILVER.getDefaultStack(), true, CHEST_DUNGEON_SILVER)).withDisabledStats();
 
-        CHEST_DUNGEON_GOLD = stone
+        CHEST_DUNGEON_GOLD = stoneStorage
             .setHardness(1.5F)
             .addTags(AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART)
             .build("chest.dungeon.gold", "chest_dungeon_gold", blockID("CHEST_DUNGEON_GOLD"),
@@ -1002,27 +1006,27 @@ public final class AetherBlocks implements BlockInitEntrypoint {
 
         ///  M: STONE
         CARVED_STONE_LOCKED = dungeonStoneLocked
-            .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE)).withDisabledStats();
+            .build("carved.stone.locked", "carved_stone_locked", blockID("CARVED_STONE_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_STONE)).withDisabledStats();
         CARVED_STONE_LIGHT_LOCKED = dungeonStoneLocked
             .setLuminance(7)
-            .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_STONE_LIGHT)).withDisabledStats();
+            .build("carved.stone.light.locked", "carved_stone_light_locked", blockID("CARVED_STONE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_STONE_LIGHT)).withDisabledStats();
 
 
         CARVED_ANGELIC_LOCKED = dungeonStoneLocked
-            .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC)).withDisabledStats();
+            .build("carved.angelic.locked", "carved_angelic_locked", blockID("CARVED_ANGELIC_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_ANGELIC)).withDisabledStats();
         CARVED_ANGELIC_LIGHT_LOCKED = dungeonStoneLocked
             .setLuminance(7)
-            .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_ANGELIC_LIGHT)).withDisabledStats();
+            .build("carved.angelic.light.locked", "carved_angelic_light_locked", blockID("CARVED_ANGELIC_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_ANGELIC_LIGHT)).withDisabledStats();
 
 
         CARVED_HELLFIRE_LOCKED = dungeonStoneLocked
             .setInfiniburn()
-            .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE)).withDisabledStats();
+            .build("carved.hellfire.locked", "carved_hellfire_locked", blockID("CARVED_HELLFIRE_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_HELLFIRE)).withDisabledStats();
 
         CARVED_HELLFIRE_LIGHT_LOCKED = dungeonStoneLocked
             .setLuminance(7)
             .setInfiniburn()
-            .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Material.stone, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
+            .build("carved.hellfire.light.locked", "carved_hellfire_light_locked", blockID("CARVED_HELLFIRE_LIGHT_LOCKED"), b -> new BlockLogicLocked(b, Materials.STONE, CARVED_HELLFIRE_LIGHT)).withDisabledStats();
 
         CARVED_STONE_TRAPPED = stone
             .setHardness(1.5F)
@@ -1065,7 +1069,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
             .withDisabledStats();
 
 
-        BlockBuilder mimic = new BlockBuilder(MOD_ID)
+        BlockBuilder mimic = blockBuilder(CreativeInventoryCategory.WOOD)
             .setBlockSound(BlockSounds.WOOD)
             .setHardness(2.0f)
             .setResistance(5.0f)
@@ -1079,7 +1083,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.oak",
                 "chest_mimic_oak",
                 blockID("CHEST_MIMIC_OAK"),
-                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK_PAINTED));
+                block -> new BlockLogicPaintableChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_OAK_PAINTED));
 
         CHEST_MIMIC_OAK_PAINTED = mimic
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
@@ -1088,7 +1092,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.oak.painted",
                 "chest_mimic_oak_painted",
                 blockID("CHEST_MIMIC_OAK_PAINTED"),
-                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_OAK.id()));
+                block -> new BlockLogicPaintedChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_OAK.id()));
 
         CHEST_MIMIC_SKYROOT = mimic
             .addTags(AetherBlockTags.MINEABLE_BY_AETHER_AXE)
@@ -1096,7 +1100,7 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.skyroot",
                 "chest_mimic_skyroot",
                 blockID("CHEST_MIMIC_SKYROOT"),
-                block -> new BlockLogicPaintableChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
+                block -> new BlockLogicPaintableChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED));
 
         CHEST_MIMIC_SKYROOT_PAINTED = mimic
             .setBlockItem(b -> new ItemBlockPainted<>(b, true))
@@ -1105,38 +1109,30 @@ public final class AetherBlocks implements BlockInitEntrypoint {
                 "chest.mimic.skyroot.painted",
                 "chest_mimic_skyroot_painted",
                 blockID("CHEST_MIMIC_SKYROOT_PAINTED"),
-                block -> new BlockLogicPaintedChestMimic(block, Material.wood, AetherBlocks.CHEST_MIMIC_SKYROOT.id()));
+                block -> new BlockLogicPaintedChestMimic(block, Materials.WOOD, AetherBlocks.CHEST_MIMIC_SKYROOT.id()));
 
-        BlockBuilder mimicBoss = new BlockBuilder(MOD_ID)
+        BlockBuilder mimicBoss = blockBuilder(CreativeInventoryCategory.STONE)
             .setBlockSound(BlockSounds.STONE)
             .setHardness(4.0f)
             .setResistance(5.0f)
             .setTags(AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE, AetherBlockTags.AETHER_DOES_NOT_FIT_IN_MINECART);
 
 
-        CHEST_MIMIC_BRONZE = mimicBoss.build("chest.mimic.bronze", "chest_mimic_bronze", blockID("CHEST_MIMIC_BRONZE"), block -> new BlockLogicChestMimic(block, Material.marble));
-        CHEST_MIMIC_SILVER = mimicBoss.build("chest.mimic.silver", "chest_mimic_silver", blockID("CHEST_MIMIC_SILVER"), block -> new BlockLogicChestMimic(block, Material.marble));
-        CHEST_MIMIC_GOLD = mimicBoss.build("chest.mimic.gold", "chest_mimic_gold", blockID("CHEST_MIMIC_GOLD"), block -> new BlockLogicChestMimic(block, Material.marble));
+        CHEST_MIMIC_BRONZE = mimicBoss.build("chest.mimic.bronze", "chest_mimic_bronze", blockID("CHEST_MIMIC_BRONZE"), block -> new BlockLogicChestMimic(block, Materials.MARBLE));
+        CHEST_MIMIC_SILVER = mimicBoss.build("chest.mimic.silver", "chest_mimic_silver", blockID("CHEST_MIMIC_SILVER"), block -> new BlockLogicChestMimic(block, Materials.MARBLE));
+        CHEST_MIMIC_GOLD = mimicBoss.build("chest.mimic.gold", "chest_mimic_gold", blockID("CHEST_MIMIC_GOLD"), block -> new BlockLogicChestMimic(block, Materials.MARBLE));
 
 
-        LANTERN_FIREFLY_SILVER = new BlockBuilder(MOD_ID)
+        LANTERN_FIREFLY_SILVER = blockBuilder()
             .setBlockSound(BlockSounds.GLASS)
             .setHardness(0.1f)
             .setResistance(0.1f)
             .setUseInternalLight()
             .setLuminance(14)
-            .setVisualUpdateOnMetadata()
             .setTags(BlockTags.BROKEN_BY_FLUIDS, BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE, AetherBlockTags.MINEABLE_BY_AETHER_PICKAXE)
             .build("lantern.firefly.silver", "lantern_firefly_silver", blockID("LANTERN_FIREFLY_SILVER"),
                 b -> new BlockLogicLanternFirefly(b, AetherMod.SILVER, () -> AetherItems.LANTERN_FIREFLY_SILVER))
             .setStatParent(() -> AetherItems.LANTERN_FIREFLY_SILVER);
-    }
-
-    @Override
-    public void afterBlockInit() {
-        init();
-        AetherDimension.init();
-        PORTAL_AETHER.getLogic().targetDimension = AetherDimension.getAether();
     }
 
 }

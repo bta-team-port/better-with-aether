@@ -12,8 +12,7 @@ public class BlockLogicFlowerAether extends BlockLogicFlowerStackable {
     }
 
     @Override
-    public boolean mayPlaceOn(int blockId) {
-        Block<?> block = Blocks.blocksList[blockId];
+    public boolean mayPlaceOn(Block<?> block) {
         return block != null
             && (block.hasTag(BlockTags.GROWS_FLOWERS)
             || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS));

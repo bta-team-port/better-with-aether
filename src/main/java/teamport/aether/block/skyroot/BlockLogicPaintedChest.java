@@ -2,8 +2,10 @@ package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicChestPainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 public class BlockLogicPaintedChest extends BlockLogicChestPainted {
     protected final int unpaintedBlockID;
@@ -14,8 +16,8 @@ public class BlockLogicPaintedChest extends BlockLogicChestPainted {
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        int meta = this.stripColorFromMetadata(world.getBlockMetadata(x, y, z));
-        world.setBlockAndMetadataWithNotify(x, y, z, unpaintedBlockID, meta);
+    public void removeDye(World world, TilePosc pos) {
+        int meta = this.stripColorFromMetadata(world.getBlockData(pos));
+        world.setBlockTypeDataNotify(pos, Blocks.getBlock(unpaintedBlockID), meta);
     }
 }

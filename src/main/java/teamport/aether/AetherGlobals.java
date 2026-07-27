@@ -10,5 +10,4 @@ public class AetherGlobals {
     public static final String UUID_TOUFOUMASTER = "61ca7ec2-322f-4f95-b0d5-a47d608b4934";
     public static final String UUID_RIN = "337409a3-79c1-442f-913b-7e5b54d1ee9d";
 
-    public static void init(){}
 }

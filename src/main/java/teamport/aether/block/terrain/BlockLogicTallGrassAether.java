@@ -19,9 +19,8 @@ public class BlockLogicTallGrassAether extends BlockLogicFlower {
     }
 
     @Override
-    public boolean mayPlaceOn(int blockId) {
-        Block<?> block = Blocks.blocksList[blockId];
-        return block != null && (block.getLogic() instanceof BlockLogicMoss || block.hasTag(BlockTags.GROWS_FLOWERS) || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || super.mayPlaceOn(blockId));
+    public boolean mayPlaceOn(Block<?> block) {
+        return block != null && (block.getLogic() instanceof BlockLogicMoss || block.hasTag(BlockTags.GROWS_FLOWERS) || block.hasTag(AetherBlockTags.GROWS_AETHER_FLOWERS) || super.mayPlaceOn(block));
     }
 
     @Override

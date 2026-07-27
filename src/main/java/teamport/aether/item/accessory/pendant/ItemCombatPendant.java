@@ -1,10 +1,11 @@
 package teamport.aether.item.accessory.pendant;
 
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.material.ArmorMaterial;
 import org.jspecify.annotations.Nullable;
 
-public class ItemCombatPendant extends ItemPendant implements IArmorItem {
+public class ItemCombatPendant extends ItemPendant implements IArmorItem<HumanArmorShape> {
 
 
     public ItemCombatPendant(String translationKey, String namespaceId, int id, ArmorMaterial material) {
@@ -28,6 +29,7 @@ public class ItemCombatPendant extends ItemPendant implements IArmorItem {
     }
 
     @Override
-    public int getArmorPiece() {
-        return -1;
-    }}
+    public HumanArmorShape getArmorShape() {
+        return HumanArmorShape.BOOTS;
+    }
+}

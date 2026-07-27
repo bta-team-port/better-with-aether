@@ -6,6 +6,7 @@ import net.minecraft.core.entity.animal.Creature;
 import net.minecraft.core.entity.animal.MobAnimal;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.entity.AetherDeathMessage;
@@ -23,8 +24,11 @@ public abstract class MobAetherAnimal extends MobAnimal implements Creature, Aet
     }
 
     @Override
-    public float getBlockPathWeight(int x, int y, int z) {
-        if (this.world == null) return super.getBlockPathWeight(x, y, z);
+    protected float getBlockPathWeight(TilePosc pos) {
+        int x = pos.x();
+        int y = pos.y();
+        int z = pos.z();
+        if (this.world == null) return super.getBlockPathWeight(pos);
         return this.world.getBlockId(x, y - 1, z) == AetherBlocks.GRASS_AETHER.id() ? 10.0F : this.world.getLightBrightness(x, y, z) - 0.5F;
     }
 

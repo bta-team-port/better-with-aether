@@ -2,13 +2,14 @@ package teamport.aether.entity.animal.aerwhale;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.tessellator.Tessellator;
+import net.minecraft.client.render.tessellator.TessellatorGeneral;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
@@ -23,13 +24,9 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
 
         model.resetBones();
 
-        float bodyYaw = this.getBodyYaw(entity, partialTick);
-        float headYaw = this.getHeadYaw(entity, partialTick) - bodyYaw;
-        float headPitch = this.getHeadPitch(entity, partialTick);
-
         BoneTransform head = model.getTransform("head");
-        head.rotY = headYaw;
-        head.rotX = -headPitch;
+        head.rotY = 0.0F;
+        head.rotX = -entity.getRenderPitch(partialTick) * MathHelper.DEG_TO_RAD;
 
         head.scaleX = 5.0f;
         head.scaleY = 5.0f;
@@ -39,11 +36,16 @@ public class MobRendererAerwhale extends MobRenderer<MobAerwhale> {
     }
 
     @Override
-    public void renderPreview(@NonNull Tessellator tessellator, @NonNull MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
-        GL11.glPushMatrix();
-        GL11.glScalef(0.1F, 0.1F, 0.1F);
+    protected float getBodyYaw(MobAerwhale entity, float partialTick) {
+        return entity.getRenderYaw(partialTick) * MathHelper.DEG_TO_RAD;
+    }
+
+    @Override
+    public void renderPreview(@NonNull TessellatorGeneral tessellator, @NonNull MobAerwhale aerwhale, double x, double y, double z, float yaw, float partialTick) {
+        GLRenderer.pushFrame();
+        GLRenderer.modelM4f().scale(0.1F, 0.1F, 0.1F);
         super.renderPreview(tessellator, aerwhale, x - 2, y + 10, z, yaw, partialTick);
-        GL11.glPopMatrix();
+        GLRenderer.popFrame();
     }
 
 }

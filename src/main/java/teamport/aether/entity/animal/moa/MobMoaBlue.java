@@ -22,7 +22,7 @@ public class MobMoaBlue extends MobMoa {
 
     @Override
     protected void setupAppearance() {
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "moa_blue");
+        this.setTextureIdentifier("aether", "moa_blue");
         this.eggColor = AetherItems.EGG_MOA_BLUE;
     }
 

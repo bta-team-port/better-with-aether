@@ -11,30 +11,28 @@ import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.util.helper.Sides;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizontalRotation<T> {
+    private final Map<Side, IconCoordinate> retroTextures = new EnumMap<>(Side.class);
+
     public BlockModelEnchanter(Block<T> block) {
         super(block);
     }
 
     @Override
-    public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-        int data = blockAccess.getBlockMetadata(x, y, z);
-        int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.getId()];
+    public IconCoordinate getBlockTexture(WorldSource blockAccess, TilePosc pos, Side side) {
+        int data = blockAccess.getBlockMetadata(pos.x(), pos.y(), pos.z());
+        int index = Sides.orientationLookUpHorizontal[6 * Math.min(data, 5) + side.id];
         if (index >= Sides.orientationLookUpHorizontal.length) {
-            if (isRetro()) {
-                return this.retroBlockTextures.get(Side.BOTTOM);
-            }
             return this.blockTextures.get(Side.BOTTOM);
-        } else if (index == Side.NORTH.getId()) {
-            IconCoordinate originalFront;
-            if (isRetro()) {
-                originalFront = this.retroBlockTextures.get(Side.NORTH);
-            } else {
-                originalFront = this.blockTextures.get(Side.NORTH);
-            }
-            Container container = (Container) blockAccess.getTileEntity(x, y, z);
+        } else if (index == Side.NORTH.id) {
+            IconCoordinate originalFront = isRetro() ? retroTextures.get(Side.NORTH) : this.blockTextures.get(Side.NORTH);
+            Container container = (Container) blockAccess.getTileEntity(pos.x(), pos.y(), pos.z());
             if (container != null) {
                 boolean hasOutput = container.getItem(2) != null;
                 if (hasOutput && originalFront != null) {
@@ -44,10 +42,15 @@ public class BlockModelEnchanter<T extends BlockLogic> extends BlockModelHorizon
 
             return originalFront;
         } else {
-            if (isRetro()) {
-                return this.retroBlockTextures.get(Side.getSideById(index));
-            }
-            return this.blockTextures.get(Side.getSideById(index));
+            Side effectiveSide = Side.fromId(index);
+            IconCoordinate retroTexture = retroTextures.get(effectiveSide);
+            return isRetro() && retroTexture != null ? retroTexture : this.blockTextures.get(effectiveSide);
         }
+    }
+
+    public BlockModelEnchanter<T> setRetroTex(String texture, Side... sides) {
+        IconCoordinate coordinate = TextureRegistry.getTexture(texture);
+        for (Side side : sides) retroTextures.put(side, coordinate);
+        return this;
     }
 }

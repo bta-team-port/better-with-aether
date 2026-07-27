@@ -50,7 +50,7 @@ public class NetEntryParachute implements IVehicleEntry<EntityParachute>, ITrack
     }
 
     @Override
-    public int getPacketDelay() {
+    public int getMovementPacketDelay() {
         return 1;
     }
 

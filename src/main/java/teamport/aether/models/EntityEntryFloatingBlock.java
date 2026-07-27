@@ -1,6 +1,5 @@
 package teamport.aether.models;
 
-import com.google.common.collect.Lists;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -9,10 +8,12 @@ import net.minecraft.client.gui.Screen;
 import net.minecraft.client.gui.modelviewer.ScreenModelViewer;
 import net.minecraft.client.gui.modelviewer.categories.entries.entity.EntityEntry;
 import net.minecraft.client.gui.modelviewer.elements.TextCycleElement;
+import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -32,8 +33,10 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
             public Integer getElementFromString(String s) {
                 try {
                     int id = Integer.parseInt(s);
-                    if (Blocks.blocksList[id] != null) {
-                        return id;
+                    if (id < 0 || id > Blocks.highestBlockId) return gravitite.getCarriedBlock().blockId;
+                    Block<?> block = Blocks.getBlock(id);
+                    if (block != null) {
+                        return block.id();
                     }
                 } catch (Exception ignored) { /* noop */ }
 
@@ -47,7 +50,9 @@ public class EntityEntryFloatingBlock extends EntityEntry<EntityFloatingBlock> {
         blockIdCycle.textField.setPrefaceText("ID: ");
         blockIdCycle.textField.setPlaceholder("Block ID");
         blockIdCycle.setOnValueChanged(() -> gravitite.getCarriedBlock().blockId = blockIdCycle.getCurrentElement());
-        return Lists.newArrayList(blockIdCycle);
+        List<ButtonElement> list = new ArrayList<>();
+        list.add(blockIdCycle);
+        return list;
     }
 
     public EntityFloatingBlock getEntityInstance(Minecraft mc, World world) {

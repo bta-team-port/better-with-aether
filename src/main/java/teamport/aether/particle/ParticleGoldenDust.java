@@ -2,11 +2,13 @@ package teamport.aether.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.entity.particle.Particle;
+import net.minecraft.client.render.particle.Particle;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicLeavesBase;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import org.joml.primitives.AABBdc;
 
 @Environment(EnvType.CLIENT)
 public class ParticleGoldenDust extends Particle {
@@ -24,15 +26,16 @@ public class ParticleGoldenDust extends Particle {
     }
 
     @Override
-    public boolean collidesWithBlock(Block<?> block, int metadata) {
-        return !Block.hasLogicClass(block, BlockLogicLeavesBase.class);
+    protected AABBdc getCollisionBox(TilePos tilePos) {
+        Block<?> block = this.world.getBlockType(tilePos);
+        return block != null && Block.hasLogicClass(block, BlockLogicLeavesBase.class) ? null : super.getCollisionBox(tilePos);
     }
 
     @Override
     public void tick() {
         if (this.world == null) return;
-        float windDirection = this.world.worldType.getWindManager().getWindDirection(this.world, (float) this.x, (float) this.y, (float) this.z);
-        float windIntensity = this.world.worldType.getWindManager().getWindIntensity(this.world, (float) this.x, (float) this.y, (float) this.z) * 0.01F;
+        float windDirection = this.world.getWorldType().getWindManager().getWindDirection(this.world, (float) this.x, (float) this.y, (float) this.z);
+        float windIntensity = this.world.getWorldType().getWindManager().getWindIntensity(this.world, (float) this.x, (float) this.y, (float) this.z) * 0.01F;
         double dx = Math.cos(windDirection * Math.PI * 2.0) * (windIntensity / 4.0);
         double dz = Math.sin(windDirection * Math.PI * 2.0) * (windIntensity / 4.0);
         this.xd += dx / 2.0;

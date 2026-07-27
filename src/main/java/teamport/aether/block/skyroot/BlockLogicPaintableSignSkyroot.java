@@ -13,6 +13,7 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.gui.AetherScreens;
 import teamport.aether.item.AetherItems;
@@ -29,12 +30,12 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign implements IP
     }
 
     @Override
-    public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xPlaced, double yPlaced) {
-        TileEntitySign signEntity = (TileEntitySign) world.getTileEntity(x, y, z);
+    public boolean onInteracted(World world, TilePosc pos, Player player, Side side, double xPlaced, double yPlaced) {
+        TileEntitySign signEntity = (TileEntitySign) world.getTileEntity(pos);
         if (signEntity != null && player != null) {
             if (player.getHeldItem() != null && player.getHeldItem().itemID == Items.DUST_GLOWSTONE.id && !signEntity.isGlowing()) {
                 signEntity.setGlowing(true);
-                if (player.getGamemode().consumeBlocks()) {
+                if (player.getGamemode().hasBlockConsumption()) {
                     player.getHeldItem().stackSize--;
                 }
                 player.addStat(Achievements.LIGHT_SIGN, 1);
@@ -50,8 +51,9 @@ public class BlockLogicPaintableSignSkyroot extends BlockLogicSign implements IP
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
-        world.setBlockRaw(x, y, z, this.isFreeStanding ? AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED.id() : AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED.id());
-        world.setBlockMetadataWithNotify(x, y, z, color.blockMeta << 4 | world.getBlockMetadata(x, y, z) & 15);
+    public void setColor(World world, TilePosc pos, DyeColor color) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeRaw(pos, this.isFreeStanding ? AetherBlocks.SIGN_POST_PLANKS_SKYROOT_PAINTED : AetherBlocks.SIGN_WALL_PLANKS_SKYROOT_PAINTED);
+        world.setBlockDataNotify(pos, color.blockMeta << 4 | meta & 15);
     }
 }

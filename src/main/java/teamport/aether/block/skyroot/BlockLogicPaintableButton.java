@@ -1,11 +1,12 @@
 package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicButtonPlanks;
+import net.minecraft.core.block.BlockLogicButtonPlanksOak;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
-public class BlockLogicPaintableButton extends BlockLogicButtonPlanks {
+public class BlockLogicPaintableButton extends BlockLogicButtonPlanksOak {
     protected final Block<? extends BlockLogicPaintedButton> paintedBlock;
 
     public BlockLogicPaintableButton(Block<?> block, Block<? extends BlockLogicPaintedButton> paintedBlock) {
@@ -24,14 +25,13 @@ public class BlockLogicPaintableButton extends BlockLogicButtonPlanks {
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
-        int meta = world.getBlockMetadata(x, y, z);
-        world.setBlockAndMetadataRaw(x, y, z, paintedBlock.id(), meta);
-        world.setBlockMetadata(x, y, z, meta);
-        paintedBlock.getLogic().setColor(world, x, y, z, color);
+    public void setColor(World world, TilePosc pos, DyeColor color) {
+        int meta = world.getBlockData(pos);
+        world.setBlockTypeDataRaw(pos, paintedBlock, meta);
+        world.setBlockData(pos, meta);
+        paintedBlock.getLogic().setColor(world, pos, color);
         if ((meta & 8) != 0) {
-            world.scheduleBlockUpdate(x, y, z, paintedBlock.id(), this.tickDelay());
+            world.scheduleBlockUpdate(pos, paintedBlock, this.tickDelay());
         }
-
     }
 }

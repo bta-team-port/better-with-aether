@@ -6,6 +6,8 @@ import net.minecraft.core.block.material.Material;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePos;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -31,18 +33,19 @@ public class BlockLogicPaintableDoor extends BlockLogicDoor {
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
-        int meta = world.getBlockMetadata(x, y, z);
+    public void setColor(World world, TilePosc pos, DyeColor color) {
+        int meta = world.getBlockData(pos);
+        TilePos otherPos = this.isTop ? pos.down(new TilePos()) : pos.up(new TilePos());
         if (this.isTop) {
-            world.setBlockAndMetadataRaw(x, y, z, paintedDoorBlockTop.id(), meta);
-            paintedDoorBlockTop.getLogic().setColor(world, x, y, z, color);
-            world.setBlockAndMetadataRaw(x, y - 1, z, paintedDoorBlockBottom.id(), meta);
-            paintedDoorBlockBottom.getLogic().setColor(world, x, y - 1, z, color);
+            world.setBlockTypeDataRaw(pos, paintedDoorBlockTop, meta);
+            paintedDoorBlockTop.getLogic().setColor(world, pos, color);
+            world.setBlockTypeDataRaw(otherPos, paintedDoorBlockBottom, meta);
+            paintedDoorBlockBottom.getLogic().setColor(world, otherPos, color);
         } else {
-            world.setBlockAndMetadataRaw(x, y, z, paintedDoorBlockBottom.id(), meta);
-            paintedDoorBlockBottom.getLogic().setColor(world, x, y, z, color);
-            world.setBlockAndMetadataRaw(x, y + 1, z, paintedDoorBlockTop.id(), meta);
-            paintedDoorBlockTop.getLogic().setColor(world, x, y + 1, z, color);
+            world.setBlockTypeDataRaw(pos, paintedDoorBlockBottom, meta);
+            paintedDoorBlockBottom.getLogic().setColor(world, pos, color);
+            world.setBlockTypeDataRaw(otherPos, paintedDoorBlockTop, meta);
+            paintedDoorBlockTop.getLogic().setColor(world, otherPos, color);
         }
     }
 }

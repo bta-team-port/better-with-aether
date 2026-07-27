@@ -3,7 +3,7 @@ package teamport.aether.mixin.dimension;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.world.type.WorldTypeGroups;
+import net.minecraft.core.world.settings.WorldConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -13,8 +13,14 @@ import teamport.aether.world.AetherDimension;
 @Environment(EnvType.CLIENT)
 @Mixin(value = Minecraft.class)
 public class ClearLevelDataMixin {
-    @Inject(method = "startWorld(Ljava/lang/String;Ljava/lang/String;JLnet/minecraft/core/world/type/WorldTypeGroups$Group;)V", at = @At("HEAD"))
-    public void clearData(String worldDirName, String worldName, long seed, WorldTypeGroups.Group worldTypeGroup, CallbackInfo ci) {
+    @Inject(method = "startWorld(Ljava/lang/String;)V", at = @At("HEAD"))
+    public void clearDataStartWorld(String worldDirName, CallbackInfo ci) {
+        AetherDimension.setDimensionDataDefaults();
+        AetherDimension.setWorldDataDefaults();
+    }
+
+    @Inject(method = "createAndStartWorld(Lnet/minecraft/core/world/settings/WorldConfiguration;)V", at = @At("HEAD"))
+    public void clearDataCreateAndStartWorld(WorldConfiguration config, CallbackInfo ci) {
         AetherDimension.setDimensionDataDefaults();
         AetherDimension.setWorldDataDefaults();
     }

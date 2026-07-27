@@ -8,14 +8,16 @@ import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import teamport.aether.entity.floating_block.EntityFloatingBlock;
 import teamport.aether.item.AetherItems;
 
 import java.util.Random;
 
 public class BlockLogicOreGravitite extends BlockLogic {
-    public static final WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
+    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
     public BlockLogicOreGravitite(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);
@@ -33,8 +35,8 @@ public class BlockLogicOreGravitite extends BlockLogic {
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
-        this.tryToFall(world, x, y, z);
+    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
+        this.tryToFall(world, pos.x(), pos.y(), pos.z());
     }
 
     public void tryToFall(World world, int x, int y, int z) {

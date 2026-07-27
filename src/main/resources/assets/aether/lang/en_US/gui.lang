@@ -1,0 +1,23 @@
+aether.menu.boss_bar.preview_name=John Doe, The Three-headed Render Preview
+
+aether.gui.incubator.title=Incubator
+aether.gui.enchanter.title=Enchanter
+aether.gui.freezer.title=Freezer
+
+model.category.entity.sheepuff.slider.color=Color: %s
+model.category.entity.sheepuff.slider.wool_state=State: %s
+
+model.category.entity.mimic.placeholder.text=T:
+model.category.entity.mimic.placeholder=Mimic Variant
+
+model.category.entity.sentry.slider.state=State: %s
+
+model.category.entity.slider.slider.state=State: %s
+
+gui.main_menu.label.splash.aether_birthday=Happy birthday, Aether!
+
+aether.gui.un_missing_warn.body=§e'%s'§r Does not have §lUselessNumerical§r data!§r\n\n\n Loading this world will likely result in corruption!\n Please reinstall Better with Aether 0.5.1, then reload the world with §lUselessNumerical§r installed.
+aether.gui.un_missing_warn.proceed_0=Play Selected World
+aether.gui.un_missing_warn.proceed_1=Yes, Play Selected World!
+aether.gui.un_missing_warn.proceed_2=§eI AGREE TO CONTINUE.§r
+aether.gui.un_missing_warn.proceed_3=Continue

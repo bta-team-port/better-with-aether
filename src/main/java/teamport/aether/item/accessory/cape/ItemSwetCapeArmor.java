@@ -4,7 +4,7 @@ import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
+import teamport.aether.effect.api.IHasEffects;
 import teamport.aether.effect.AetherEffects;
 import teamport.aether.item.accessory.IAccessoryEffects;
 import teamport.aether.item.accessory.ItemAccessoryArmor;
@@ -26,9 +26,7 @@ public class ItemSwetCapeArmor extends ItemAccessoryArmor implements IAccessoryE
             && slotId - player.inventory.mainInventory.length == CAPE_SLOT
         ) {
             AetherEffects.add(player, AetherEffects.swetty, 1);
-            return;
         }
-        ((IHasEffects<?>) player).getContainer().remove (AetherEffects.swetty);
     }
 
     @Override

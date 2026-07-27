@@ -14,25 +14,32 @@ public class DungeonLogicGoldDungeon extends DungeonLogic {
         super(dimensionID, id, seed);
     }
 
+    private int horizontalIndex(Direction dir) {
+        for (int i = 0; i < Direction.horizontal.length; i++) {
+            if (Direction.horizontal[i] == dir) return i;
+        }
+        return 0;
+    }
+
     @Override
     protected boolean placeDungeon(World world, Random random) {
-        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).generate(this, world, this.seed, position.getX(), position.getY(), position.getZ());
+        return new WorldFeatureAetherGoldDungeon(horizontalIndex(direction)).generate(this, world, this.seed, position.getX(), position.getY(), position.getZ());
     }
 
     @Override
     protected boolean canPlaceDungeon(World world) {
-        return new WorldFeatureAetherGoldDungeon(direction.getHorizontalIndex()).canPlace(world, position.getX(), position.getY(), position.getZ());
+        return new WorldFeatureAetherGoldDungeon(horizontalIndex(direction)).canPlace(world, position.getX(), position.getY(), position.getZ());
     }
 
     @Override
     public CompoundTag saveStructureData(CompoundTag data) {
-        data.putInt("direction", direction.getId());
+        data.putInt("direction", direction.id);
         return super.saveStructureData(data);
     }
 
     @Override
     public void loadStructureData(CompoundTag data) {
-        direction = Direction.getDirectionById(data.getInteger("direction"));
+        direction = Direction.fromId(data.getInteger("direction"));
         super.loadStructureData(data);
     }
 }

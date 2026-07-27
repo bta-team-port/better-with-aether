@@ -13,7 +13,11 @@
     "/assets/aether/models/entity/whirly/whirly.geo.json",
     "/assets/aether/models/entity/tempest/tempest.geo.json",
     "/assets/aether/models/entity/fire_minion/fire_minion.geo.json",
-    "/assets/aether/models/entity/aechorplant/aechorplant.geo.json"
+    "/assets/aether/models/entity/aechorplant/aechorplant.geo.json",
+    "/assets/aether/models/entity/slider/slider.geo.json",
+    "/assets/aether/models/entity/valkyrie/valkyrie.geo.json",
+    "/assets/aether/models/entity/sunspirit/sunspirit.geo.json",
+    "/assets/aether/models/entity/player/accessory.geo.json"
   ],
   "renderers": {
     "aether:phyg": {
@@ -56,6 +60,12 @@
     "aether:mimic": {
       "main":"geometry.mimic"
     },
+    "aether:swet": {
+      "main":"geometry.slime"
+    },
+    "aether:swet_gold": {
+      "main":"geometry.slime"
+    },
     "aether:sentry": {
       "main":"geometry.sentry"
     },
@@ -68,11 +78,24 @@
       "wind":"geometry.tempest.wind"
     },
     "aether:fire_minion": {
-      "main":"geometry.fire_minion",
-      "fire":"geometry.fire_minion.fire"
+      "main":"geometry.fire_minion"
+    },
+    "aether:boss_slider": {
+      "main":"geometry.slider"
     },
     "aether:aechorplant": {
       "main":"geometry.aechorplant"
+    },
+    "aether:valkyrie": {
+      "main":"geometry.valkyrie",
+      "halo":"geometry.valkyrie"
+    },
+    "aether:boss_valkyrie": {
+      "main":"geometry.valkyrie",
+      "halo":"geometry.valkyrie"
+    },
+    "aether:boss_sunspirit": {
+      "main":"geometry.sunspirit"
     }
   }
 }

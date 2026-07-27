@@ -4,9 +4,11 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.LargeFeature;
 import net.minecraft.core.world.generate.chunk.ChunkGeneratorResult;
 
+import java.util.Random;
+
 public class MapGenCavesAether extends LargeFeature {
     @Override
-    public void generate(World world, int baseChunkX, int baseChunkZ, ChunkGeneratorResult result) {
+    protected void doGeneration(World world, Random random, int chunkX, int chunkZ, int baseChunkX, int baseChunkZ, ChunkGeneratorResult result) {
         // The Aether doesn't have caves.
     }
 }

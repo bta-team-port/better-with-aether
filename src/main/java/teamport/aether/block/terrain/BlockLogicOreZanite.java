@@ -8,10 +8,11 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeatureOre;
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import teamport.aether.item.AetherItems;
 
 public class BlockLogicOreZanite extends BlockLogic {
-    public static final WorldFeatureOre.OreMap variantMap = new WorldFeatureOre.OreMap();
+    public static final Int2IntArrayMap variantMap = new Int2IntArrayMap();
 
     public BlockLogicOreZanite(Block<?> block, Block<?> parentBlock, Material material) {
         super(block, material);

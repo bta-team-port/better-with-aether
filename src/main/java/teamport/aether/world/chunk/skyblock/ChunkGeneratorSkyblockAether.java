@@ -54,7 +54,7 @@ public class ChunkGeneratorSkyblockAether extends ChunkGenerator {
     }
 
     public boolean contains(Chunk chunk, int xBlock, int zBlock) {
-        return chunk.xPosition == xBlock >> 4 && chunk.zPosition == zBlock >> 4;
+        return chunk.pos.x == xBlock >> 4 && chunk.pos.z == zBlock >> 4;
     }
 
     public void tryPlace(Chunk chunk, ChunkGeneratorResult result, int xBlock, int yBlock, int zBlock, int blockId) {

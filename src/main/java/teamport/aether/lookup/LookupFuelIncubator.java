@@ -5,12 +5,9 @@ import teamport.aether.block.AetherBlocks;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("java:S6548")
 public class LookupFuelIncubator {
     public static final LookupFuelIncubator INSTANCE = new LookupFuelIncubator();
     private final Map<Integer, Integer> fuelList = new HashMap<>();
-
-    public static void init(){/* just to load this class*/}
 
     private LookupFuelIncubator() {
         this.register();

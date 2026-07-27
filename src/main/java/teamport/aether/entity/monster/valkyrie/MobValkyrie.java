@@ -5,7 +5,9 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.IItemHolding;
 import net.minecraft.core.entity.MobPathfinder;
 import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
@@ -23,7 +25,7 @@ import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherItems;
 import turniplabs.halplibe.helper.EnvironmentHelper;
 
-public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage {
+public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMessage, IItemHolding {
     private static final int ATTACK_STRENGTH = 7;
     private boolean isSwinging;
     private int teleportTimer;
@@ -33,7 +35,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
 
     public MobValkyrie(World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "valkyrie");
+        this.setTextureIdentifier("aether", "valkyrie");
         this.setSize(0.8F, 1.9F);
         this.mobDrops.add(new WeightedRandomLootObject(AetherItems.MEDAL_VICTORY.getDefaultStack(), 1));
         this.moveSpeed = 0.5F;
@@ -167,7 +169,7 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
         Block<?> block = world.getBlock(x, y, z);
         Block<?> blockTwo = Blocks.blocksList[p];
 
-        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Material.water;
+        return p == 0 || blockTwo == null || blockTwo.getCollisionBoundingBoxFromPool(this.world, x, y, z) == null || block != null && block.getMaterial() == Materials.WATER;
     }
 
     @Override
@@ -355,6 +357,15 @@ public class MobValkyrie extends MobPathfinder implements Enemy, AetherDeathMess
     @Override
     public ItemStack getHeldItem() {
         return new ItemStack(AetherItems.TOOL_SWORD_VALKYRIE, 1);
+    }
+
+    @Override
+    public void setHeldItem(ItemStack itemStack) {
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        return false;
     }
 
 }

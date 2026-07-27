@@ -3,32 +3,16 @@ package teamport.aether.entity.monster.swet;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.MobRenderer;
-import net.minecraft.client.render.model.ModelBase;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.util.helper.MathHelper;
-import org.lwjgl.opengl.GL11;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.useless.dragonfly.models.entity.StaticEntityModel;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererSwet extends MobRenderer<MobSwet> {
-    public final ModelBase scaleAmount;
-
-    public MobRendererSwet(ModelBase modelbase, ModelBase modelbase1, float shadowsize) {
-        super(modelbase, shadowsize);
-        this.scaleAmount = modelbase1;
-    }
-
-    private boolean renderSlimePassModel(int renderPass) {
-        if (renderPass == 0) {
-            this.setArmorModel(this.scaleAmount);
-            GL11.glEnable(GL11.GL_NORMALIZE);
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(770, 771);
-            return true;
-        } else if (renderPass == 1) {
-            GL11.glDisable(GL11.GL_BLEND);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            return false;
-        }
-        return false;
+    public MobRendererSwet(float shadowSize) {
+        super(shadowSize);
     }
 
     public void scaleSlime(MobSwet entityswets, float partialTick) {
@@ -58,16 +42,13 @@ public class MobRendererSwet extends MobRenderer<MobSwet> {
         f2 = MathHelper.clamp(f2, 0.1F, 10.0F);
         f3 = MathHelper.clamp(f3, 0.1F, 10.0F);
 
-        GL11.glScalef(f2 * f3, f1 * f3, f2 * f3);
+        GLRenderer.modelM4f().scale(f2 * f3, f1 * f3, f2 * f3);
     }
 
     @Override
-    public void setupScale(MobSwet entity, float partialTick) {
+    protected @Nullable StaticEntityModel getAndSetupModelForLayer(@NonNull MobSwet entity, float brightness, float partialTick, int layer) {
+        if (layer != 0) return null;
         this.scaleSlime(entity, partialTick);
-    }
-
-    @Override
-    public boolean prepareArmor(MobSwet entity, int renderPass, float partialTick) {
-        return this.renderSlimePassModel(renderPass);
+        return this.getModel("main");
     }
 }

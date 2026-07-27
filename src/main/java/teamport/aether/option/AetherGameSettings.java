@@ -2,7 +2,6 @@ package teamport.aether.option;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.options.components.OptionsCategory;
 import net.minecraft.client.gui.options.components.ToggleableOptionComponent;
 import net.minecraft.client.gui.options.data.OptionsPage;
@@ -25,11 +24,9 @@ public class AetherGameSettings {
     }
 
     public static void registerSettings() {
-        AetherGameSettingsOptions gameSettings = (AetherGameSettingsOptions) Minecraft.getMinecraft().gameSettings;
-
         OptionsPage AETHER = new OptionsPage("gui.options.page.aether.title", new ItemStack(AetherBlocks.CARVED_STONE_LIGHT))
             .withComponent(new OptionsCategory("gui.options.page.aether.category.user_interface")
-                .withComponent(new ToggleableOptionComponent<>(gameSettings.aether$getAccessoryFlickSpeed()))
+                .withComponent(new ToggleableOptionComponent<>(AetherGameSettingsHolder.FLICK_ACCESSORY_SPEED))
             );
         OptionsPages.register(AETHER);
     }

@@ -2,6 +2,7 @@ package teamport.aether.item.accessory;
 
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
@@ -11,7 +12,7 @@ import teamport.aether.item.AetherHasCustomDamageType;
 
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
-public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, AetherHasCustomDamageType {
+public class ItemGloves extends ItemAccessoryArmor implements IArmorItem<HumanArmorShape>, AetherHasCustomDamageType {
     private final ArmorMaterial material;
     private int damage;
     private DamageType damageType;
@@ -19,7 +20,7 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
     public ItemGloves(String translationKey, String namespaceId, int id, ArmorMaterial material, int accessoryPiece) {
         super(translationKey, namespaceId, id, material.identifier.value(), accessoryPiece);
         this.material = material;
-        float maxDurability = IArmorItem.ARMOR_PIECE_DURABILITY_MODIFIERS[3] * material.durability;
+        float maxDurability = HumanArmorShape.BOOTS.getDurabilityModifier() * material.durability;
         this.setMaxDamage((int) Math.ceil(maxDurability));
         this.damageType = DamageType.COMBAT;
     }
@@ -54,8 +55,8 @@ public class ItemGloves extends ItemAccessoryArmor implements IArmorItem, Aether
     }
 
     @Override
-    public int getArmorPiece() {
-        return this.getSlotID();
+    public HumanArmorShape getArmorShape() {
+        return HumanArmorShape.BOOTS;
     }
 
     @Override

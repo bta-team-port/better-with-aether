@@ -34,7 +34,7 @@ public class BlockLogicDouble extends BlockLogicCobble {
     @Override
     public void onBlockDestroyedByPlayer(World world, int x, int y, int z, Side side, int meta, Player player, Item item) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_PICKAXE_SKYROOT) && meta == 0 && player.getGamemode().consumeBlocks()) {
+        if (heldItem != null && heldItem.getItem().equals(AetherItems.TOOL_PICKAXE_SKYROOT) && meta == 0 && player.getGamemode().hasBlockConsumption()) {
             this.harvestBlock(world, player, x, y, z, 1, world.getTileEntity(x, y, z));
         }
     }

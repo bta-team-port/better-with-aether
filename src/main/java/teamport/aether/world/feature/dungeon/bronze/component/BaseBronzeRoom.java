@@ -2,10 +2,12 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.pos.TilePos;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlocks;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
@@ -99,8 +101,8 @@ public abstract class BaseBronzeRoom extends WorldFeature {
 
     public void addDoor(Direction heading, WorldFeaturePoint p1, Direction direction1, int length1, Direction direction2, int length2) {
         WorldFeaturePoint p2 = new WorldFeaturePoint(p1.getX(), p1.getY(), p1.getZ());
-        p2.add(direction1.getOffsetX() * length1, direction1.getOffsetY() * length1, direction1.getOffsetZ() * length1);
-        p2.add(direction2.getOffsetX() * length2, direction2.getOffsetY() * length2, direction2.getOffsetZ() * length2);
+        p2.add(direction1.offsetX() * length1, direction1.offsetY() * length1, direction1.offsetZ() * length1);
+        p2.add(direction2.offsetX() * length2, direction2.offsetY() * length2, direction2.offsetZ() * length2);
         this.addDoor(heading, p1, p2);
     }
 
@@ -135,9 +137,9 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         check = drawPlane(0, 0, SOUTH, this.width, EAST, this.length, this.x, this.y + this.height, this.z, true);
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
-            if (blockMaterial == Material.air) countAir++;
+            if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
         if (check.getBlockList().size() * this.topAirTolerance < countAir || check.getBlockList().size() * this.topLiquidTolerance < countLiquid) {
@@ -148,9 +150,9 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
-            if (blockMaterial == Material.air) countAir++;
+            if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
         if (check.getBlockList().size() * this.bottomAirTolerance < countAir || check.getBlockList().size() * this.bottomLiquidTolerance < countLiquid) {
@@ -162,9 +164,9 @@ public abstract class BaseBronzeRoom extends WorldFeature {
         countAir = countLiquid = 0;
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = this.world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
-            if (blockMaterial == Material.air) countAir++;
+            if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
         return check.getBlockList().size() * this.airTolerance >= countAir && check.getBlockList().size() * this.liquidTolerance >= countLiquid;
@@ -199,7 +201,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             }
         }
         for (WorldFeatureBlock wfblock : this.chest.getBlockList()) {
-            BlockLogicChest.setDefaultDirection(this.world, wfblock.getX(), wfblock.getY(), wfblock.getZ());
+            BlockLogicChest.setDefaultDirection(this.world, new TilePos(wfblock.getX(), wfblock.getY(), wfblock.getZ()));
             populateChest(this.world, this.random, wfblock, WorldFeatureAetherBronzeDungeon::generateLoot);
 
             if (this.world.rand.nextInt(256) == 0 && wfblock.getBlockId() == AetherBlocks.CHEST_MIMIC_SKYROOT.id()) {
@@ -211,7 +213,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     public static boolean roomCanReplace(World world, WorldFeatureBlock wfblock) {
         Block<?> block = world.getBlock(wfblock.getX(), wfblock.getY(), wfblock.getZ());
         int blockID = block == null ? 0 : block.id();
-        Material blockMaterial = blockID == 0 ? Material.air : block.getMaterial();
+        Material blockMaterial = blockID == 0 ? Materials.AIR : block.getMaterial();
         if (block != null) {
             BlockLogic logic = block.getLogic();
             if (
@@ -228,7 +230,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             }
         }
 
-        if (blockMaterial == Material.water || blockMaterial == Material.lava) {
+        if (blockMaterial == Materials.WATER || blockMaterial == Materials.LAVA) {
             return false;
         }
 
@@ -241,10 +243,10 @@ public abstract class BaseBronzeRoom extends WorldFeature {
             return true;
         }
         return BlockTags.CAVES_CUT_THROUGH.appliesTo(block)
-            || blockMaterial == Material.grass
-            || blockMaterial == Material.dirt
-            || blockMaterial == Material.marble
-            || blockMaterial == Material.moss
+            || blockMaterial == Materials.GRASS
+            || blockMaterial == Materials.DIRT
+            || blockMaterial == Materials.MARBLE
+            || blockMaterial == Materials.MOSS
             || blockMaterial.isStone();
     }
 
@@ -266,7 +268,7 @@ public abstract class BaseBronzeRoom extends WorldFeature {
     public List<WorldFeaturePoint> getAnchors(WorldFeaturePoint doorPoint, Direction heading) {
         List<WorldFeaturePoint> list = new ArrayList<>();
         for (Door door : doors) {
-            if (door.heading == heading.getOpposite()) {
+            if (door.heading == heading.opposite()) {
                 list.add(new WorldFeaturePoint(
                     doorPoint.getX() - door.p1.getX(),
                     doorPoint.getY() - door.p1.getY(),

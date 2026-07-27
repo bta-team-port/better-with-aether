@@ -3,12 +3,13 @@ package teamport.aether.entity.monster.tempest;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.lwjgl.opengl.GL11;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import org.useless.dragonfly.renderer.MobRenderer;
+import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererTempest extends MobRenderer<MobTempest> {
@@ -39,13 +40,8 @@ public class MobRendererTempest extends MobRenderer<MobTempest> {
             float wobbleStrength = 0.12F;
             float wobble = MathHelper.sin(time * wobbleSpeed) * wobbleStrength;
 
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPushMatrix();
-            GL11.glLoadIdentity();
-            GL11.glTranslatef(-scroll, 0.0F, 0.0F);
-
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glEnable(GL11.GL_BLEND);
+            GLRenderer.textureM4f().identity().translate(-scroll, 0.0F, 0.0F);
+            GLRenderer.enableState(State.BLEND);
 
             BoneTransform wind = model.getTransform("wind");
             wind.rotY = time * spinSpeed;
@@ -67,12 +63,6 @@ public class MobRendererTempest extends MobRenderer<MobTempest> {
             wind5.rotY = wind3.rotY;
             wind5.rotX = wobble * 0.35F;
 
-        } else if (layer == 2) {
-            GL11.glMatrixMode(GL11.GL_TEXTURE);
-            GL11.glPopMatrix();
-            GL11.glLoadIdentity();
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glDisable(GL11.GL_BLEND);
         } else {
             float bodyYaw = this.getBodyYaw(tempest, partialTick);
             float headYaw = this.getHeadYaw(tempest, partialTick) - bodyYaw;
@@ -87,6 +77,6 @@ public class MobRendererTempest extends MobRenderer<MobTempest> {
 
     @Override
     protected int maxRenderLayer(@NonNull MobTempest entity) {
-        return 2;
+        return 1;
     }
 }

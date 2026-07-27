@@ -3,6 +3,7 @@ package teamport.aether.world.biome;
 import net.minecraft.core.entity.SpawnListEntry;
 import net.minecraft.core.entity.animal.MobFireflyCluster;
 import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.biome.SurfaceProperties;
 import net.minecraft.core.world.generate.feature.WorldFeature;
 import net.minecraft.core.world.weather.Weathers;
 import teamport.aether.block.AetherBlocks;
@@ -29,10 +30,12 @@ import java.util.Random;
 public class BiomeAether extends Biome {
     public BiomeAether(String key) {
         super(key);
-        setColor(0xc0c0ff);
-        setTopBlock(AetherBlocks.GRASS_AETHER.id());
-        setFillerBlock(AetherBlocks.DIRT_AETHER.id());
-        setBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM);
+        withDebugColor(0xc0c0ff);
+        withSurfaceProperties(new SurfaceProperties.Builder()
+            .withTopBlock(AetherBlocks.GRASS_AETHER)
+            .withFillerBlock(AetherBlocks.DIRT_AETHER)
+            .build());
+        withBlockedWeathers(Weathers.OVERWORLD_RAIN, Weathers.OVERWORLD_SNOW, Weathers.OVERWORLD_STORM);
 
         spawnableAmbientCreatureList.clear();
         spawnableCreatureList.clear();
@@ -66,7 +69,7 @@ public class BiomeAether extends Biome {
     }
 
     @Override
-    public WorldFeature getRandomWorldGenForTrees(Random random) {
+    public WorldFeature getTreeFeature(Random random) {
         return random.nextInt(10) == 0 ? new WorldFeatureAetherTree(AetherBlocks.LEAVES_SKYROOT.id(), AetherBlocks.LOG_SKYROOT.id(), 4)
             : new WorldFeatureAetherTreeGoldenOak();
     }

@@ -3,6 +3,7 @@ package teamport.aether.item;
 import net.minecraft.core.item.IDispensable;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import teamport.aether.entity.projectile.ProjectileDart;
 
@@ -17,9 +18,9 @@ public class ItemDart extends Item implements IDispensable {
     }
 
     @Override
-    public void onDispensed(ItemStack itemStack, World world, double x, double y, double z, int xOffset, int yOffset, int zOffset, Random random) {
+    public void onDispensed(ItemStack itemStack, World world, Random random, Direction direction, double x, double y, double z) {
         ProjectileDart dart = new ProjectileDart(world, x, y, z, this.dartType);
-        dart.setHeading(xOffset, yOffset + 0.1, zOffset, 1.1F, 3.0f);
+        dart.setHeading(direction.offsetX(), direction.offsetY() + 0.1, direction.offsetZ(), 1.1F, 3.0f);
         dart.setDoesDartBelongToPlayer(true);
         world.entityJoinedWorld(dart);
     }

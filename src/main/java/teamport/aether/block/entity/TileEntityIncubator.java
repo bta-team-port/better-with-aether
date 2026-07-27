@@ -21,15 +21,6 @@ import teamport.aether.lookup.LookupFuelIncubator;
 import teamport.aether.recipe.RecipeEntryIncubator;
 
 public class TileEntityIncubator extends AetherTileEntityMachine {
-    /// canSmelt                -> canProcess
-    /// smeltItem               -> processItem
-    /// updateFurnace           -> updateContainer
-    /// getBurnTimeFromItem     -> getEnergyTimeFromItem
-    /// getCookProgressScaled   -> getProgressScale
-    /// maxEnergyTime           -> maxBurnTime
-    /// currentEnergyTime       -> currentBurnTime
-    /// maxProcessTime          -> maxCookTime
-    /// currentProcessTime      -> currentCookTime
     public TileEntityIncubator() {
         this.containerItemStacks = new ItemStack[2];
     }
@@ -99,7 +90,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
 
     public boolean eternallyLit(boolean updateMachine) {
         if ((this.worldObj == null
-            || this.worldObj.getBlockId(this.x, this.y, this.z) == AetherBlocks.INCUBATOR_IDLE.id())
+            || this.worldObj.getBlockId(this.tilePos.x, this.tilePos.y, this.tilePos.z) == AetherBlocks.INCUBATOR_IDLE.id())
             && this.getCurrentEnergyTime() == 0 && this.containerItemStacks[0] == null
             && this.containerItemStacks[1] != null
             && this.containerItemStacks[1].itemID == Blocks.WOOL.id()
@@ -122,7 +113,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
                 ItemStack itemstack = this.containerItemStacks[index];
                 this.containerItemStacks[index] = null;
                 if (this.worldObj != null && index == 0) {
-                    this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                    this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
                 }
 
                 return itemstack;
@@ -131,7 +122,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
                 if (this.containerItemStacks[index].stackSize <= 0) {
                     this.containerItemStacks[index] = null;
                     if (this.worldObj != null && index == 0) {
-                        this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+                        this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
                     }
                 }
 
@@ -150,7 +141,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         }
 
         if (this.worldObj != null && index == 0) {
-            this.worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
+            this.worldObj.markBlockNeedsUpdate(this.tilePos.x, this.tilePos.y, this.tilePos.z);
         }
 
     }
@@ -162,7 +153,8 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         }
 
         RecipeEntryIncubator recipe = AetherRecipes.INCUBATOR.findRecipe(containerItemStacks[0]);
-        Class<? extends Entity> entityClazz = EntityDispatcher.classForId(recipe.getOutput().getEntity());
+        EntityDispatcher.EntityDispatcherEntry<?> entry = EntityDispatcher.getInstance().entryForId(recipe.getOutput().getEntity());
+        Class<? extends Entity> entityClazz = entry == null ? null : entry.entityClass;
 
         if (entityClazz == null) {
             return;
@@ -172,7 +164,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
         if (entity == null) {
             return;
         }
-        entity.moveTo(this.x + 0.5, this.y + 1.0, this.z, 0.0F, 0.0F);
+        entity.moveTo(this.tilePos.x + 0.5, this.tilePos.y + 1.0, this.tilePos.z, 0.0F, 0.0F);
         if (this.worldObj != null) this.worldObj.entityJoinedWorld(entity);
 
         containerItemStacks[0].stackSize--;
@@ -189,7 +181,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     }
 
     private Entity createEntity(Class<? extends Entity> entityClazz) {
-        Entity entity = EntityDispatcher.createEntityInWorld(entityClazz, this.worldObj);
+        Entity entity = EntityDispatcher.getInstance().createEntityInWorld(entityClazz, this.worldObj);
         if (entity instanceof MobMoa) {
             ((MobMoa) entity).setTamed(true);
         }
@@ -215,7 +207,7 @@ public class TileEntityIncubator extends AetherTileEntityMachine {
     @Override
     public void updateContainer(boolean forceLit) {
         if (this.worldObj != null) {
-            BlockLogicIncubator.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.x, this.y, this.z);
+            BlockLogicIncubator.updateFurnaceBlockState(forceLit || this.getCurrentEnergyTime() > 0, this.worldObj, this.tilePos.x, this.tilePos.y, this.tilePos.z);
             return;
         }
         if (this.carriedBlock != null) {

@@ -15,10 +15,10 @@ public class MimicRegistry {
     ///  Static values are initialed in the order of declaration, default has to be the first value!
     public static final MimicEntry DEFAULT = mimicEntry(0, "skyroot", AetherBlocks.CHEST_MIMIC_SKYROOT.id(), 0, AetherBlocks.CHEST_PLANKS_SKYROOT.id(), 0);
     public static final MimicRegistry instance = new MimicRegistry();
-    @SuppressWarnings("java:S116")
     protected final List<MimicEntry> MIMIC_ENTRY_LIST = new ArrayList<>();
 
-    public static void init() {/* just to load this class*/}
+    public static void init() {
+    }
 
     protected MimicRegistry() {
         this.register();
@@ -39,10 +39,6 @@ public class MimicRegistry {
             int meta = dye.blockMeta << 4;
             addEntry(variantSkinID++, "skyroot_" + dye.colorID, AetherBlocks.CHEST_MIMIC_SKYROOT_PAINTED.id(), meta, AetherBlocks.CHEST_PLANKS_SKYROOT_PAINTED.id(), meta);
         }
-    }
-
-    protected static void addEntry(String pathName, int mimicChestId, int mimicChestMetadata, int chestID, int chestMetadata) {
-        instance.MIMIC_ENTRY_LIST.add(mimicEntry(instance.MIMIC_ENTRY_LIST.size(), pathName, mimicChestId, mimicChestMetadata, chestID, chestMetadata));
     }
 
     protected void addEntry(MimicEntry entry) {
@@ -104,15 +100,11 @@ public class MimicRegistry {
     }
 
     public static int getPrevValue(int index) {
-        return MimicRegistry.getValue(index - 1);
+        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index - 1, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
     }
 
     public static int getNextValue(int index) {
-        return MimicRegistry.getValue(index + 1);
-    }
-
-    private static int getValue(int index) {
-        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
+        return instance.MIMIC_ENTRY_LIST.get(Math.floorMod(index + 1, instance.MIMIC_ENTRY_LIST.size())).getMimicVariant();
     }
 
 }

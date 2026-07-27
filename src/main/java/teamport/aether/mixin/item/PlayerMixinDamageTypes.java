@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherHasCustomDamageType;
 import teamport.aether.item.accessory.ItemGloves;
 
@@ -35,8 +36,8 @@ public abstract class PlayerMixinDamageTypes {
                     return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) item).getDamageType());
                 }
             }
-            if (itemstack == null && player.inventory.armorInventory[GLOVES_SLOT] != null) {
-                ItemStack maybeGlovesStack = player.inventory.armorInventory[GLOVES_SLOT];
+            ItemStack maybeGlovesStack = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
+            if (itemstack == null && maybeGlovesStack != null) {
                 Item maybeGlovesItem = maybeGlovesStack.getItem();
                 if (maybeGlovesItem instanceof ItemGloves && maybeGlovesItem instanceof AetherHasCustomDamageType) {
                     return original.call(instance, attacker, baseDamage, ((AetherHasCustomDamageType) maybeGlovesItem).getDamageType());
@@ -50,7 +51,7 @@ public abstract class PlayerMixinDamageTypes {
     private void addedEffectsWithGloves(Entity entity, CallbackInfo ci) {
         Player player = (Player) (Object) this;
         ItemStack itemstack = player.getCurrentEquippedItem();
-        ItemStack gloves = player.inventory.armorInventory[GLOVES_SLOT];
+        ItemStack gloves = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
         if (itemstack == null && gloves != null && gloves.getItem() instanceof ItemGloves && entity instanceof Mob) {
             gloves.hitEntity((Mob) entity, player);
         }

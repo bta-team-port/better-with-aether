@@ -10,6 +10,7 @@ import net.minecraft.core.sound.SoundCategory;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import teamport.aether.helper.ParticleMaker;
 import teamport.aether.item.AetherHasCustomDamageType;
 import teamport.aether.world.AetherDimension;
@@ -23,7 +24,7 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
     public boolean hitEntity(ItemStack itemstack, Mob target, Mob attacker) {
         boolean hitEntity = super.hitEntity(itemstack, target, attacker);
         if (target instanceof Mob && target.hurtTime == 10 && hitEntity) {
-            if ((target instanceof Player) && ((Player) target).gamemode.isPlayerInvulnerable()) {
+            if ((target instanceof Player) && ((Player) target).gamemode.hasInvulnerablePlayer()) {
                 return false;
             }
             ParticleMaker.spawnFireSwordParticles(target);
@@ -35,10 +36,13 @@ public class ItemToolSwordFire extends ItemToolSword implements AetherHasCustomD
     }
 
     @Override
-    public boolean onUseItemOnBlock(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        blockX += side.getOffsetX();
-        blockY += side.getOffsetY();
-        blockZ += side.getOffsetZ();
+    public boolean onUseOnBlock(ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+        int blockX = blockPos.x();
+        int blockY = blockPos.y();
+        int blockZ = blockPos.z();
+        blockX += side.offsetX();
+        blockY += side.offsetY();
+        blockZ += side.offsetZ();
         int blockID = world.getBlockId(blockX, blockY, blockZ);
         if (blockID != 0) return false;
         if (world.dimension != AetherDimension.getAether() && player != null && !world.setBlockWithNotify(blockX, blockY, blockZ, Blocks.FIRE.id())) return false;

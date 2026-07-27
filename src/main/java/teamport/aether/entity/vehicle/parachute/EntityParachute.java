@@ -68,7 +68,7 @@ public class EntityParachute extends Mob implements AetherRideable {
             float posX;
             float posY;
             float posZ;
-            Direction dir = Direction.directions[random.nextInt(Direction.directions.length)];
+            Direction dir = Direction.all[random.nextInt(Direction.all.length)];
             switch (dir) {
                 case WEST:
                     posX = (float) (x);

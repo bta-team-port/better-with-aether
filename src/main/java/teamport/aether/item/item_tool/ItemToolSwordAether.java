@@ -16,7 +16,7 @@ public class ItemToolSwordAether extends ItemToolSword {
     }
 
     @Override
-    public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
+    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SWORD) || block.hasTag(BlockTags.MINEABLE_BY_SWORD);
     }
 }

@@ -6,8 +6,10 @@ import net.minecraft.core.entity.projectile.Projectile;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.world.World;
+import org.joml.primitives.AABBd;
 import teamport.aether.item.AetherRepulsion;
 import teamport.aether.item.accessory.IAccessoryEffects;
+import teamport.aether.entity.player.PlayerUtil;
 
 import java.util.List;
 
@@ -28,15 +30,15 @@ public class ItemRepulsionShield extends ItemShield implements IAccessoryEffects
             return;
         }
 
-        ItemStack[] armor = player.inventory.armorInventory;
-        if (armorSlot == TRINKET_2_SLOT && armor[TRINKET_1_SLOT] != null && armor[TRINKET_1_SLOT].getItem() instanceof ItemRepulsionShield) {
+        ItemStack trinketOne = PlayerUtil.getArmorOrAccessoryItem(player, TRINKET_1_SLOT);
+        if (armorSlot == TRINKET_2_SLOT && trinketOne != null && trinketOne.getItem() instanceof ItemRepulsionShield) {
             return;
         }
 
         double velocity = MathHelper.sqrt(player.xd * player.xd + player.zd * player.zd);
         if (player.isSneaking() || (player.onGround && velocity <= 0.075D)) {
             ((AetherRepulsion) player).aether$setRepulsion(true);
-            List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, player.bb.grow(1.25D, 1.25D, 1.25D));
+            List<Projectile> projectiles = world.getEntitiesWithinAABB(Projectile.class, new AABBd(player.bb.minX - 1.25D, player.bb.minY - 1.25D, player.bb.minZ - 1.25D, player.bb.maxX + 1.25D, player.bb.maxY + 1.25D, player.bb.maxZ + 1.25D));
             if (!projectiles.isEmpty()) {
                 for (Projectile projectile : projectiles) {
                     if (projectile.owner != player) {

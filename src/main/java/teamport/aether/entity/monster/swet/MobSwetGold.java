@@ -7,6 +7,7 @@ import net.minecraft.core.entity.monster.Enemy;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
+import net.minecraft.core.util.helper.LightIndexHelper;
 import net.minecraft.core.world.World;
 import org.jspecify.annotations.NonNull;
 import teamport.aether.helper.ParticleMaker;
@@ -15,7 +16,6 @@ import teamport.aether.item.AetherItems;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("java:S110")
 public class MobSwetGold extends MobSwet implements Enemy {
 
     public MobSwetGold(World world) {
@@ -24,7 +24,7 @@ public class MobSwetGold extends MobSwet implements Enemy {
         this.scoreValue = 400;
         this.setPos(this.x, this.y, this.z);
         this.jumpDelay = 15;
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "swet_gold");
+        this.setTextureIdentifier("aether", "swet_gold");
         this.moveSpeed = 3.0F;
         this.mobDrops.add(new WeightedRandomLootObject(Blocks.GLOWSTONE.getDefaultStack(), 0));
     }
@@ -56,8 +56,10 @@ public class MobSwetGold extends MobSwet implements Enemy {
     }
 
     @Override
-    public int getLightmapCoord(float partialTick) {
-        return this.world == null ? super.getLightmapCoord(partialTick) : this.world.getLightmapCoord(15, 15);
+    public byte getLightIndex(float partialTick) {
+        byte light = super.getLightIndex(partialTick);
+        light = LightIndexHelper.setSkyLight(light, 15);
+        return LightIndexHelper.setBlockLight(light, 15);
     }
 
     @Override

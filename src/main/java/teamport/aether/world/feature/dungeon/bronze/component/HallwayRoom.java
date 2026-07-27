@@ -2,6 +2,7 @@ package teamport.aether.world.feature.dungeon.bronze.component;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import teamport.aether.world.AetherDimension;
 import teamport.aether.world.feature.dungeon.bronze.WorldFeatureAetherBronzeDungeon;
 import teamport.aether.world.feature.util.WorldFeatureComponent;
@@ -39,9 +40,9 @@ public class HallwayRoom extends BaseBronzeRoom {
         check.add(drawVolume(0, 0, SOUTH, 4, UP, 7, EAST, length, x, y, z + 4, false));
         for (WorldFeaturePoint point : check.getBlockList()) {
             Block<?> block = world.getBlock(point.getX(), point.getY(), point.getZ());
-            Material blockMaterial = block == null ? Material.air : block.getMaterial();
+            Material blockMaterial = block == null ? Materials.AIR : block.getMaterial();
             if (block != null && block.blockHardness < 0) return false;
-            if (blockMaterial == Material.air) countAir++;
+            if (blockMaterial == Materials.AIR) countAir++;
             if (blockMaterial.isLiquid()) countLiquid++;
         }
         return check.getBlockList().size() * airTolerance >= countAir && check.getBlockList().size() * liquidTolerance >= countLiquid;
@@ -61,7 +62,7 @@ public class HallwayRoom extends BaseBronzeRoom {
     public void markDoor(Door door, ClosingType closingType) {
         super.markDoor(door, closingType);
         if (closingType != ClosingType.PLACED) return;
-        WorldFeaturePoint p2 = wfp().moveInDirection(door.getHeading().getOpposite()).multiply(7).add(door.getP2());
+        WorldFeaturePoint p2 = wfp().moveInDirection(door.getHeading().opposite()).multiply(7).add(door.getP2());
         if (world.dimension.equals(AetherDimension.getAether())) {
             WorldFeaturePoint liningBottomCorner = door.getP1().copy();
             WorldFeaturePoint liningTopCorner = p2.copy();

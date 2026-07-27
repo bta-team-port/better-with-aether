@@ -38,15 +38,15 @@ public class TileEntityMimic extends TileEntityChest implements Container {
 
 
     @Override
-    public void readFromNBT(CompoundTag tag) {
-        super.readFromNBT(tag);
+    public void readAdditionalData(CompoundTag tag) {
+        super.readAdditionalData(tag);
         this.nickname = tag.getString("MimicNickname");
         this.chatColor = tag.getByte("MimicChatColor");
     }
 
     @Override
-    public void writeToNBT(CompoundTag tag) {
-        super.writeToNBT(tag);
+    public void writeAdditionalData(CompoundTag tag) {
+        super.writeAdditionalData(tag);
         tag.putString("MimicNickname", this.nickname);
         tag.putByte("MimicChatColor", this.chatColor);
     }

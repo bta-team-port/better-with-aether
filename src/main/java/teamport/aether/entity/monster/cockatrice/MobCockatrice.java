@@ -25,7 +25,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
 
     public MobCockatrice(@Nullable World world) {
         super(world);
-        this.textureIdentifier = NamespaceID.getPermanent("aether", "cockatrice");
+        this.setTextureIdentifier("aether", "cockatrice");
         this.setSize(1.0F, 2.0F);
         this.mobDrops.add(new WeightedRandomLootObject(Items.FEATHER_CHICKEN.getDefaultStack(), 0, 2));
         this.scoreValue = 500;
@@ -167,7 +167,7 @@ public class MobCockatrice extends MobMonsterAether implements Enemy, AetherDeat
             return false;
         } else {
             int blockLight = this.world.getBlockLightValue(blockX, blockY, blockZ);
-            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().doMobsSpawnInDaylight) {
+            if (this.world.getCurrentWeather() != null && this.world.getCurrentWeather().isMobDaylightSpawnAllowed()) {
                 blockLight /= 2;
             }
 

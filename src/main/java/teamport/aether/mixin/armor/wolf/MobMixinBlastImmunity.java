@@ -22,7 +22,8 @@ public abstract class MobMixinBlastImmunity {
         if (type == null || !type.equals(DamageType.BLAST)) return original;
         Mob mob = (Mob) (Object) this;
         if (!(mob instanceof MobWolf)) return original;
-        ArmorMaterial material = ((MobWolf) mob).getArmorMaterial();
+        net.minecraft.core.item.ItemStack _armor = ((MobWolf) mob).getArmorItem();
+        ArmorMaterial material = (_armor != null && _armor.getItem() instanceof net.minecraft.core.item.IArmorItem) ? ((net.minecraft.core.item.IArmorItem<?>) _armor.getItem()).getArmorMaterial() : null;
         if (material == null || !material.equals(AetherArmorMaterial.OBSIDIAN)) return original;
         return 0;
     }

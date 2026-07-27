@@ -4,9 +4,11 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
@@ -16,7 +18,7 @@ import java.util.Random;
 public class BlockLogicIceStone extends BlockLogic {
 
     public BlockLogicIceStone(Block<?> block) {
-        super(block, Material.stone);
+        super(block, Materials.STONE);
     }
 
     private static final Map<Integer, Integer> freezeResultNatural = new HashMap<>();
@@ -39,9 +41,12 @@ public class BlockLogicIceStone extends BlockLogic {
     }
 
     @Override
-    public void updateTick(World world, int x, int y, int z, Random rand) {
+    public void updateTick(World world, TilePosc pos, Random rand, boolean scheduled) {
+        int x = pos.x();
+        int y = pos.y();
+        int z = pos.z();
         attemptFreeze(false, world, x, y, z);
-        super.updateTick(world, x, y, z, rand);
+        super.updateTick(world, pos, rand, scheduled);
     }
 
     @Override

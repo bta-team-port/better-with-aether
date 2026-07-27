@@ -3,11 +3,11 @@ package teamport.aether.world.feature.chest;
 import net.minecraft.core.WeightedRandomBag;
 import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockLogicChest;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.generate.feature.WorldFeature;
+import net.minecraft.core.world.pos.TilePos;
 import teamport.aether.block.dungeon.BlockLogicChestLocked;
 import teamport.aether.helper.AetherMathHelper;
 
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 import static teamport.aether.world.feature.util.WorldFeatureComponent.LootGenerator;
+import static teamport.aether.world.feature.util.WorldFeatureComponent.getOrCreateChestInventory;
 import static teamport.aether.world.feature.util.WorldFeatureComponent.placeItemInChest;
 
 public class WorldFeatureAetherTreasureChest extends WorldFeature {
@@ -33,8 +34,9 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
 
     @Override
     public boolean place(World world, Random random, int ix, int iy, int iz) {
-        Container inventory = BlockLogicChest.getInventory(world, ix, iy, iz);
+        TilePos pos = new TilePos(ix, iy, iz);
         Block<?> block = world.getBlock(ix, iy, iz);
+        Container inventory = block == null ? null : getOrCreateChestInventory(world, pos);
         if (block != null && inventory != null && block.getLogic() instanceof BlockLogicChestLocked) {
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 inventory.setItem(i, null);
@@ -48,7 +50,7 @@ public class WorldFeatureAetherTreasureChest extends WorldFeature {
     }
 
     public void setTreasure(World world, Random random, int ix, int iy, int iz) {
-        Container inventory = BlockLogicChest.getInventory(world, ix, iy, iz);
+        Container inventory = getOrCreateChestInventory(world, new TilePos(ix, iy, iz));
         if (inventory == null) return;
         int quantity = AetherMathHelper.invertedExponentialCapped(random, 1, 9);
         List<ItemStack> normalLoot = lootGenerator.generate(random);

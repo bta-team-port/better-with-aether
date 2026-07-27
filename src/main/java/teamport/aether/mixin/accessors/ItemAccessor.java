@@ -8,6 +8,8 @@ import java.util.Random;
 
 @Mixin(value = Item.class)
 public interface ItemAccessor {
-    @Accessor
-    Random getItemRand();
+    @Accessor("itemRand")
+    static Random getItemRand() {
+        throw new AssertionError();
+    }
 }

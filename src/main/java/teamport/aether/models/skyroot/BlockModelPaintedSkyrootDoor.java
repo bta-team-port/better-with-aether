@@ -26,7 +26,7 @@ public class BlockModelPaintedSkyrootDoor<T extends BlockLogicPaintedDoor> exten
     @Override
     public IconCoordinate getBlockTextureFromSideAndMetadata(Side side, int data) {
         int color = data >> 4 & 15;
-        if (side.getAxis() == Axis.Y) {
+        if (side.axis() == Axis.Y) {
             return FRAME_TOP_TEXTURES[color];
         } else {
             return this.isTop ? DOOR_TOP_TEXTURES[color] : DOOR_BOTTOM_TEXTURES[color];

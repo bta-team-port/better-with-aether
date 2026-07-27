@@ -2,7 +2,9 @@ package teamport.aether.block.skyroot;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicButtonPainted;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 public class BlockLogicPaintedButton extends BlockLogicButtonPainted {
     protected final int unpaintedBlockID;
@@ -18,7 +20,12 @@ public class BlockLogicPaintedButton extends BlockLogicButtonPainted {
     }
 
     @Override
-    public void removeDye(World world, int x, int y, int z) {
-        world.setBlockWithNotify(x, y, z, unpaintedBlockID);
+    public void removeDye(World world, TilePosc pos) {
+        int meta = stripColorFromMetadata(world.getBlockData(pos));
+        Block<?> unpaintedBlock = Blocks.getBlock(unpaintedBlockID);
+        world.setBlockTypeDataNotify(pos, unpaintedBlock, meta);
+        if ((meta & 8) != 0) {
+            world.scheduleBlockUpdate(pos, unpaintedBlock, tickDelay());
+        }
     }
 }

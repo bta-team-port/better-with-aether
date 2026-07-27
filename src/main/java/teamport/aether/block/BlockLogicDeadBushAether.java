@@ -16,12 +16,14 @@ public class BlockLogicDeadBushAether extends BlockLogicDeadBush {
     }
 
     @Override
-    public boolean mayPlaceOn(int blockId) {
+    public boolean mayPlaceOn(Block<?> block) {
+        if (block == null) return false;
+        int blockId = block.id();
         return blockId == Blocks.SAND.id()
             || blockId == Blocks.DIRT_SCORCHED.id()
             || blockId == AetherBlocks.QUICKSOIL.id()
-            || BlockTags.GROWS_FLOWERS.appliesTo(Blocks.getBlock(blockId))
-            || AetherBlockTags.GROWS_AETHER_FLOWERS.appliesTo(Blocks.getBlock(blockId));
+            || BlockTags.GROWS_FLOWERS.appliesTo(block)
+            || AetherBlockTags.GROWS_AETHER_FLOWERS.appliesTo(block);
     }
 
     @Override

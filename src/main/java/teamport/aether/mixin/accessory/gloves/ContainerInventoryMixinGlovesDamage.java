@@ -1,24 +1,28 @@
 package teamport.aether.mixin.accessory.gloves;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.material.ArmorMaterial;
-import net.minecraft.core.player.inventory.container.ContainerInventory;
 import net.minecraft.core.util.helper.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import teamport.aether.entity.player.PlayerUtil;
 import teamport.aether.item.AetherArmorMaterial;
 import teamport.aether.item.accessory.ItemGloves;
 
 import static teamport.aether.AetherMod.ZANITE_MULTIPLIER;
 import static teamport.aether.item.accessory.SlotAccessory.GLOVES_SLOT;
 
-@Mixin(value = ContainerInventory.class)
+@Mixin(value = Player.class, remap = false)
 public abstract class ContainerInventoryMixinGlovesDamage {
-    @ModifyExpressionValue(method = "getDamageVsEntity", at = @At(value = "CONSTANT", args = "intValue=1"))
+    @ModifyExpressionValue(
+        method = "attackTargetEntityWithCurrentItem(Lnet/minecraft/core/entity/Entity;)V",
+        at = @At(value = "CONSTANT", args = "intValue=1", ordinal = 0)
+    )
     private int getGloveDamage(int original) {
-        ContainerInventory inv = (ContainerInventory) (Object) this;
-        ItemStack stack = inv.armorInventory[GLOVES_SLOT];
+        Player player = (Player) (Object) this;
+        ItemStack stack = PlayerUtil.getArmorOrAccessoryItem(player, GLOVES_SLOT);
         if (stack == null || !(stack.getItem() instanceof ItemGloves)) {
             return original;
         }

@@ -5,6 +5,7 @@ import net.minecraft.core.WeightedRandomLootObject;
 import net.minecraft.core.block.BlockLogicRotatable;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.material.Material;
+import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.MathHelper;
@@ -112,7 +113,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_GLOVES_ZANITE.getDefaultStack())
-            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_CHESTPLATE_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
+            .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_GLOVES_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
 
         ARMOR.addEntry(new WeightedRandomLootObject(AetherItems.ARMOR_TALISMAN_ZANITE.getDefaultStack())
             .setRandomMetadata(MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * minArmorFactor), MathHelper.ceil(AetherItems.ARMOR_TALISMAN_ZANITE.getMaxDamage() * maxArmorFactor)), 1);
@@ -152,7 +153,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
     }
 
     public WorldFeatureAetherSilverDungeon(int direction) {
-        this.direction = Direction.horizontalDirections[direction & 3]; // to prevent overflow
+        this.direction = Direction.horizontal[direction & 3]; // to prevent overflow
     }
 
     public WorldFeatureAetherSilverDungeon(Random random) {
@@ -181,7 +182,7 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
             Material blockMaterial = world.getBlockMaterial(point.getX(), point.getY(), point.getZ());
             BlockLogicCloudBase blockLogic = world.getBlockLogic(point.getX(), point.getY(), point.getZ(), BlockLogicCloudBase.class);
 
-            if (blockMaterial != null && blockMaterial != Material.air && blockLogic == null) {
+            if (blockMaterial != null && blockMaterial != Materials.AIR && blockLogic == null) {
                 AetherMod.LOGGER.info("Could not place a silver dungeon at {},{},{}, with blockMaterial {}", x, y, z, blockMaterial);
                 return false;
             }
@@ -373,8 +374,8 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         WorldFeatureComponent pillar = new WorldFeatureComponent();
         pillar.add(drawPlane(this.random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y, z, false));
         pillar.add(drawPlane(this.random, ANGELIC, Direction.SOUTH, 3, Direction.WEST, 3, x, y + 14, z, false));
-        pillar.add(drawLine(AetherBlocks.PILLAR.id(), 0, Direction.UP, 13, x + Direction.WEST.getOffsetX(), y, z + Direction.SOUTH.getOffsetZ(), false));
-        pillar.add(wfb(x + Direction.WEST.getOffsetX(), y + 13, z + Direction.SOUTH.getOffsetZ(), AetherBlocks.PILLAR_CAPSTONE.id(), 0, false));
+        pillar.add(drawLine(AetherBlocks.PILLAR.id(), 0, Direction.UP, 13, x + Direction.WEST.offsetX(), y, z + Direction.SOUTH.offsetZ(), false));
+        pillar.add(wfb(x + Direction.WEST.offsetX(), y + 13, z + Direction.SOUTH.offsetZ(), AetherBlocks.PILLAR_CAPSTONE.id(), 0, false));
         return pillar;
     }
 
@@ -388,14 +389,14 @@ public class WorldFeatureAetherSilverDungeon extends WorldFeatureMap<DungeonLogi
         WorldFeatureComponent pillars = new WorldFeatureComponent();
         // Pillars
         for (int i = 0; i < 14; i++) {
-            pillars.add(this.createPillar(x, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
-            pillars.add(this.createPillar(x - 27, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
+            pillars.add(this.createPillar(x, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
+            pillars.add(this.createPillar(x - 27, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
             if (i == 0 || i == 13) {
-                pillars.add(this.createPillar(x - 4, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
-                pillars.add(this.createPillar(x - 8, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
+                pillars.add(this.createPillar(x - 4, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
+                pillars.add(this.createPillar(x - 8, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
 
-                pillars.add(this.createPillar(x - 23, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
-                pillars.add(this.createPillar(x - 19, y + 1, z + Direction.SOUTH.getOffsetZ() * i * 4));
+                pillars.add(this.createPillar(x - 23, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
+                pillars.add(this.createPillar(x - 19, y + 1, z + Direction.SOUTH.offsetZ() * i * 4));
             }
         }
 

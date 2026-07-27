@@ -36,7 +36,7 @@ public class StairwellRoom extends BaseBronzeRoom {
 
         decoration.add(drawSquareCylinder(random, ROOM_PALLET, SOUTH, width - 2, EAST, width - 2, UP, height - 16, x + 1, y + 8, z + 1, false));
 
-        Direction dir = horizontalDirections[random.nextInt(4)];
+        Direction dir = horizontal[random.nextInt(4)];
 
         WorldFeatureComponent staircase = new WorldFeatureComponent();
         WorldFeaturePoint offset;
@@ -68,7 +68,7 @@ public class StairwellRoom extends BaseBronzeRoom {
 
         WorldFeaturePoint stepPosition = wfp(x + 2, y + 1, z + 5);
         for (int i = 0; i < (height - 9) << 1; i++) {
-            if ((i % 3) == 0) dir = dir.rotate(1);
+            if ((i % 3) == 0) dir = dir.rotateY(-1);
             stepPosition.moveInDirection(dir);
             staircase.add(wfb(stepPosition.getX(), stepPosition.getY() + MathHelper.floor(i / 2.0f), stepPosition.getZ(), AetherBlocks.SLAB_CARVED_STONE.id(), i & 1));
         }

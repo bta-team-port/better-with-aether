@@ -12,6 +12,7 @@ import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jspecify.annotations.Nullable;
 import teamport.aether.block.AetherBlockTags;
 import teamport.aether.block.AetherBlocks;
@@ -24,13 +25,13 @@ public class ItemToolShovelAether extends ItemTool{
     }
 
     @Override
-    public boolean canHarvestBlock(Mob mob, ItemStack itemStack, Block<?> block) {
+    public boolean canHarvestBlock(ItemStack itemStack, Mob mob, Block<?> block) {
         return block.hasTag(AetherBlockTags.MINEABLE_BY_AETHER_SHOVEL);
     }
 
     @Override
-    public boolean onUseItemOnBlock(ItemStack itemstack, Player player, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
-        return this.shovelBlock(itemstack, player, world, blockX, blockY, blockZ, side);
+    public boolean onUseOnBlock(ItemStack itemstack, World world, Player player, TilePosc blockPos, Side side, double xPlaced, double yPlaced) {
+        return this.shovelBlock(itemstack, player, world, blockPos.x(), blockPos.y(), blockPos.z(), side);
     }
 
     public boolean shovelBlock(ItemStack itemstack, @Nullable Player entityplayer, World world, int blockX, int blockY, int blockZ, Side side) {
@@ -57,7 +58,7 @@ public class ItemToolShovelAether extends ItemTool{
     }
 
     @Override
-    public void onUseByActivator(ItemStack itemStack, TileEntityActivator activatorBlock, World world, Random random, int blockX, int blockY, int blockZ, double offX, double offY, double offZ, Direction direction) {
-        this.shovelBlock(itemStack, null, world, blockX + direction.getOffsetX(), blockY + direction.getOffsetY(), blockZ + direction.getOffsetZ(), direction.getSide());
+    public void onUseByActivator(ItemStack itemStack, World world, TileEntityActivator activatorBlock, Random random, TilePosc blockPos, Direction direction, double offX, double offY, double offZ) {
+        this.shovelBlock(itemStack, null, world, blockPos.x() + direction.offsetX(), blockPos.y() + direction.offsetY(), blockPos.z() + direction.offsetZ(), direction.side());
     }
 }

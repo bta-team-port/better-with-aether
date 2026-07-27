@@ -7,6 +7,7 @@ import net.minecraft.core.block.IPainted;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.util.helper.DyeColor;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 
 import java.util.function.Supplier;
 
@@ -20,9 +21,9 @@ public class BlockLogicPaintableBlock extends BlockLogic implements IPaintable {
     }
 
     @Override
-    public void setColor(World world, int x, int y, int z, DyeColor color) {
+    public void setColor(World world, TilePosc pos, DyeColor color) {
         Block<? extends IPainted> painted = paintedVariant.get();
-        world.setBlock(x, y, z, painted.id());
-        painted.getLogic().setColor(world, x, y, z, color);
+        world.setBlockType(pos, painted);
+        painted.getLogic().setColor(world, pos, color);
     }
 }

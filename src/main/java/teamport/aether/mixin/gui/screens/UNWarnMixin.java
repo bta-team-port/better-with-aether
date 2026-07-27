@@ -14,7 +14,6 @@ import teamport.aether.world.AetherDimension;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -26,17 +25,20 @@ public abstract class UNWarnMixin extends Screen {
     private boolean selected;
     @Shadow
     private int selectedWorld;
+
     @WrapMethod(method = "selectWorld")
-    private void throwWarning(int i, Operation<Void> original) {
-        SaveFile save = this.saveList.get(i);
-        Path savePath = Paths.get(mc.getMinecraftDir().toString(), "saves", save.getFileName());
-        if (Files.notExists(savePath.resolve("uselessNumericalSave.dat"))
-            && Files.exists(savePath.resolve("dimensions/" + AetherDimension.getAether().id + "/"))) {
+    private void aether$warnAboutMissingUselessNumericalData(int index, Operation<Void> original) {
+        SaveFile save = this.saveList.get(index);
+        Path savePath = this.mc.getMinecraftDir().toPath().resolve("saves").resolve(save.getFileName());
+        Path aetherDimension = savePath.resolve("dimensions").resolve(Integer.toString(AetherDimension.getAether().id));
+
+        if (Files.notExists(savePath.resolve("uselessNumericalSave.dat")) && Files.exists(aetherDimension)) {
             this.selected = false;
             this.selectedWorld = -1;
-            mc.displayScreen(new UNDataMissingScreen(this, save));
+            this.mc.displayScreen(new UNDataMissingScreen(this, save));
             return;
         }
-        original.call(i);
+
+        original.call(index);
     }
 }

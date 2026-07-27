@@ -5,10 +5,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.guidebook.GuidebookSection;
 import net.minecraft.client.gui.guidebook.SlotGuidebook;
 import net.minecraft.client.render.TextureManager;
+import net.minecraft.client.render.renderer.GLRenderer;
 import net.minecraft.core.data.registry.recipe.RecipeSymbol;
 import net.minecraft.core.item.ItemStack;
 import org.jspecify.annotations.NonNull;
-import org.lwjgl.opengl.GL11;
 import teamport.aether.gui.guidebook.AetherSlotGuidebook;
 import teamport.aether.gui.guidebook.RecipePageAetherMachines;
 import teamport.aether.recipe.RecipeEntryAetherMachine;
@@ -61,21 +61,21 @@ public class RecipePageEnchanting extends RecipePageAetherMachines {
                     && output.isItemStackDamageable()
                     && output.itemID == input.itemID
             ) {
-                GL11.glPushMatrix();
-                GL11.glTranslatef(posX - 1.0F, posY - 1.0F, 0.0f);
-                GL11.glScalef(0.85f, 0.93f, 1.0f);
+                GLRenderer.pushFrame();
+                GLRenderer.modelM4f().translate(posX - 1.0F, posY - 1.0F, 0.0f);
+                GLRenderer.modelM4f().scale(0.85f, 0.93f, 1.0f);
                 this.drawStringNoShadow(mc.font, "max", 0, 0, -12566464);
-                GL11.glPopMatrix();
+                GLRenderer.popFrame();
                 adjY = 11;
             }
 
-            GL11.glPushMatrix();
-            GL11.glTranslatef((float) posX + alignRight, posY - 1.0F + adjY, 0.0f);
-            GL11.glScalef(0.85f, 0.93f, 1.0f);
+            GLRenderer.pushFrame();
+            GLRenderer.modelM4f().translate((float) posX + alignRight, posY - 1.0F + adjY, 0.0f);
+            GLRenderer.modelM4f().scale(0.85f, 0.93f, 1.0f);
             this.drawStringNoShadow(mc.font, timeString, 0, 0, -12566464);
-            GL11.glPopMatrix();
+            GLRenderer.popFrame();
             re.loadTexture("/assets/minecraft/textures/gui/container/guidebook/guidebook.png").bind();
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            GLRenderer.setColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         }
 
     }

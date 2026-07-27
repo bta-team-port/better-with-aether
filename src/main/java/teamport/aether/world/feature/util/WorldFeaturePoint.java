@@ -123,18 +123,18 @@ public class WorldFeaturePoint {
     }
 
     public WorldFeaturePoint moveInDirection(Direction direction) {
-        Side side = direction.getSide();
-        this.x += side.getOffsetX();
-        this.y += side.getOffsetY();
-        this.z += side.getOffsetZ();
+        Side side = direction.side();
+        this.x += side.offsetX();
+        this.y += side.offsetY();
+        this.z += side.offsetZ();
         return this;
     }
 
     public WorldFeaturePoint moveInDirection(Direction direction, int amount) {
-        Side side = direction.getSide();
-        this.x += side.getOffsetX() * amount;
-        this.y += side.getOffsetY() * amount;
-        this.z += side.getOffsetZ() * amount;
+        Side side = direction.side();
+        this.x += side.offsetX() * amount;
+        this.y += side.offsetY() * amount;
+        this.z += side.offsetZ() * amount;
         return this;
     }
 
