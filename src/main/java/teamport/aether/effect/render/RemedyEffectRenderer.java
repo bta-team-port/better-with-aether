@@ -1,20 +1,18 @@
 package teamport.aether.effect.render;
 
 import net.minecraft.core.entity.player.Player;
-import sunsetsatellite.catalyst.effects.api.effect.Effect;
-import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
-import sunsetsatellite.catalyst.effects.api.effect.render.TintEffectRender;
-import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartContainer;
-import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.HeartContainerSimple;
-import sunsetsatellite.catalyst.effects.api.effect.render.heartContainer.IHasCustomHeartContainer;
+import teamport.aether.effect.api.Effect;
+import teamport.aether.effect.api.EffectStack;
+import teamport.aether.effect.api.HeartContainer;
+import teamport.aether.effect.api.HeartContainerIconProvider;
+import teamport.aether.effect.api.TintEffectRender;
 
-public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> implements IHasCustomHeartContainer {
-    @SuppressWarnings("java:S116")
-    public final String PATH_HEART;
+public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> implements HeartContainerIconProvider {
+    public final String pathHeart;
 
     public RemedyEffectRenderer(T effect, String vignette, int tint, String heartPath) {
         super(effect, vignette, tint);
-        PATH_HEART = heartPath;
+        pathHeart = heartPath;
     }
 
     @Override
@@ -25,6 +23,19 @@ public class RemedyEffectRenderer<T extends Effect> extends TintEffectRender<T> 
 
     @Override
     public HeartContainer getCustomContainer(Player player) {
-        return new HeartContainerSimple(player, this.PATH_HEART);
+        return new HeartContainer(player) {
+            @Override
+            public String getBasePath() {
+                return pathHeart;
+            }
+
+            @Override
+            public String getPathForGlyph(HeartGlyphVariant variant, HeartGlyphType type) {
+                if (variant == HeartGlyphVariant.PREVIEW && type == HeartGlyphType.HALF_RIGHT) {
+                    return pathHeart + "preview_right";
+                }
+                return super.getPathForGlyph(variant, type);
+            }
+        };
     }
 }

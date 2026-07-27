@@ -5,22 +5,17 @@ import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.DamageType;
 import net.minecraft.core.util.helper.Direction;
-import sunsetsatellite.catalyst.effects.api.effect.EffectContainer;
-import sunsetsatellite.catalyst.effects.api.effect.EffectStack;
-import sunsetsatellite.catalyst.effects.api.effect.EffectTimeType;
-import sunsetsatellite.catalyst.effects.api.effect.IHasEffects;
-import sunsetsatellite.catalyst.effects.api.modifier.Modifier;
+import teamport.aether.effect.api.EffectContainer;
+import teamport.aether.effect.api.EffectStack;
+import teamport.aether.effect.api.EffectTimeType;
+import teamport.aether.effect.api.IHasEffects;
+import teamport.aether.effect.api.Modifier;
 import teamport.aether.AetherMod;
 import teamport.aether.helper.ParticleMaker;
 
 import java.util.List;
-import java.util.Random;
 
 public class PoisonEffect extends AetherEffect {
-    public final Random random = new Random();
-    private double rotD;
-    private double motD;
-
     public PoisonEffect(String nameKey, String id, List<Modifier<?>> modifiers, EffectTimeType effectTimeType, int maxStack) {
         super(nameKey, id, modifiers, effectTimeType, maxStack);
     }
@@ -39,13 +34,19 @@ public class PoisonEffect extends AetherEffect {
     @Override
     public <T> void expired(EffectStack effectStack, EffectContainer<T> effectContainer) {
         effectContainer.remove(AetherEffects.poisonEffect);
-        EffectStack newStack = new EffectStack((IHasEffects<?>) effectContainer.getParent(), AetherEffects.poisonEffect, effectStack.getAmount() - 1);
-        newStack.start(effectContainer);
-        effectContainer.add(newStack);
+        if (effectStack.getAmount() > 1) {
+            EffectStack newStack = new EffectStack(
+                (IHasEffects<?>) effectContainer.getParent(),
+                AetherEffects.poisonEffect,
+                effectStack.getDuration(),
+                effectStack.getAmount() - 1
+            );
+            newStack.start(effectContainer);
+            effectContainer.add(newStack);
+        }
         ((Mob) effectContainer.getParent()).hurt(null, 1, DamageType.GENERIC);
     }
 
-    // TODO Maybe apply poison more frequently, also fix the overlay when the duration is very long
     @Override
     public <T> void tick(EffectStack effectStack, EffectContainer<T> effectContainer) {
         if (!(effectContainer.getParent() instanceof Mob)) return;
@@ -56,23 +57,25 @@ public class PoisonEffect extends AetherEffect {
         }
         if (mob.tickCount % 4 == 0) {
             if (mob instanceof Player) {
-                Direction dir = Direction.getDirection(mob).getOpposite();
-                ParticleMaker.spawnPoisonParticles(mob.world, mob.x + dir.getOffsetX(), mob.y - 2, mob.z + dir.getOffsetZ(), mob.bbHeight, mob.bbWidth);
+                Direction dir = Direction.fromYaw(mob.yRot).opposite();
+                ParticleMaker.spawnPoisonParticles(mob.world, mob.x + dir.offsetX(), mob.y - 2, mob.z + dir.offsetZ(), mob.bbHeight, mob.bbWidth);
             } else {
                 ParticleMaker.spawnPoisonParticles(mob.world, mob.x, mob.y, mob.z, mob.bbHeight, mob.bbWidth);
             }
         }
-        slideEntity(mob);
+        slideEntity(mob, effectStack);
     }
 
-    private void slideEntity(Mob mob) {
-        double gauss = this.random.nextGaussian();
+    private void slideEntity(Mob mob, EffectStack effectStack) {
+        double gauss = mob.world.rand.nextGaussian();
         double newMotD = 0.1 * gauss;
-        motD = 0.2 * newMotD + (1.0 - 0.2) * motD;
+        double motD = 0.2 * newMotD + (1.0 - 0.2) * effectStack.getMotionDrift();
+        effectStack.setMotionDrift(motD);
         mob.xd += motD;
         mob.zd += motD;
         double newRotD = 0.7853981633974483 * gauss;
-        rotD = 0.125 * newRotD + (1.0 - 0.125) * rotD;
+        double rotD = 0.125 * newRotD + (1.0 - 0.125) * effectStack.getRotationDrift();
+        effectStack.setRotationDrift(rotD);
         mob.yRot = (float) (mob.yRot + rotD);
         mob.xRot = (float) (mob.xRot + rotD);
     }
