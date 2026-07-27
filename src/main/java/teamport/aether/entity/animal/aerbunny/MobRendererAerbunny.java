@@ -2,19 +2,26 @@ package teamport.aether.entity.animal.aerbunny;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.MobRenderer;
+import net.minecraft.client.render.renderer.BlendFactor;
 import net.minecraft.client.render.renderer.GLRenderer;
+import net.minecraft.client.render.renderer.State;
 import net.minecraft.core.util.helper.MathHelper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.useless.dragonfly.models.entity.BoneTransform;
 import org.useless.dragonfly.models.entity.StaticEntityModel;
-import net.minecraft.client.render.entity.MobRenderer;
 
 @Environment(EnvType.CLIENT)
 public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
 
     public MobRendererAerbunny(float shadowSize) {
         super(shadowSize);
+    }
+
+    @Override
+    protected int maxRenderLayer(@NonNull MobAerbunny entity) {
+        return entity.isDevil() ? 1 : 0;
     }
 
     @Override
@@ -40,13 +47,11 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
         leg1.rotX = (MathHelper.cos(limbSwing * 0.6662F) * 1.0F * limbYaw);
 
         BoneTransform puff = model.getTransform("puff");
-
         float puffiness = 1.0F + entity.getPuffiness() * 0.5F;
         puff.scaleX = puffiness;
         puff.scaleY = puffiness;
         puff.scaleZ = puffiness;
-
-        puff.posY = -5f * (puffiness -1.0F);
+        puff.posY = -5f * (puffiness - 1.0F);
 
         if (!entity.onGround && entity.vehicle == null) {
             if (entity.yd > 0.5) {
@@ -58,7 +63,29 @@ public class MobRendererAerbunny extends MobRenderer<MobAerbunny> {
             }
         }
 
+        BoneTransform eyeGlow = model.getTransform("eye_glow");
+        if (eyeGlow != null) {
+            eyeGlow.rotX = headPitch;
+            eyeGlow.rotY = headYaw;
+        }
+        if (layer == 0) {
+            if (eyeGlow != null) eyeGlow.visible = false;
+        } else {
+            hideAllExceptEyeGlow(model);
+            if (eyeGlow != null) eyeGlow.visible = true;
+            GLRenderer.setLightmapCoord2i(15, 15);
+            GLRenderer.setBlendFunc(BlendFactor.SRC_ALPHA, BlendFactor.ONE_MINUS_SRC_ALPHA);
+            GLRenderer.enableState(State.BLEND);
+        }
+
         return model;
     }
 
+    private static void hideAllExceptEyeGlow(StaticEntityModel model) {
+        String[] bones = {"body", "tail", "puff", "head", "ear", "leg0", "leg1", "leg2", "leg3"};
+        for (String name : bones) {
+            BoneTransform t = model.getTransform(name);
+            if (t != null) t.visible = false;
+        }
+    }
 }

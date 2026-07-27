@@ -40,6 +40,21 @@ public class MobAerbunny extends MobAetherAnimal implements AetherRideable {
     }
 
     @Override
+    public int getSkinVariant() {
+        if ("debnuy".equalsIgnoreCase(this.nickname)) return 3;
+        return super.getSkinVariant();
+    }
+
+    public boolean isDevil() {
+        return getSkinVariant() == 3;
+    }
+
+    @Override
+    public void setSkinVariant(int variant) {
+        super.setSkinVariant(((variant % 3) + 3) % 3);
+    }
+
+    @Override
     public boolean isFavouriteItem(ItemStack itemStack) {
         if (itemStack == null) return false;
         if (itemStack.itemID < Blocks.blocksList.length) {
